@@ -36,11 +36,11 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'F1'
 
-__C declaration:__ @f1@
+    __C declaration:__ @f1@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -124,11 +124,11 @@ instance HasCField.HasCField F1 "unwrapF1" where
 
 {-| Auxiliary type used by 'F2'
 
-__C declaration:__ @f2@
+    __C declaration:__ @f2@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F2_Aux = F2_Aux
   { unwrapF2_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -213,11 +213,11 @@ instance HasCField.HasCField F2 "unwrapF2" where
 
 {-| Auxiliary type used by 'F3'
 
-__C declaration:__ @f3@
+    __C declaration:__ @f3@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F3_Aux = F3_Aux
   { unwrapF3_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -302,11 +302,11 @@ instance HasCField.HasCField F3 "unwrapF3" where
 
 {-| Auxiliary type used by 'F4'
 
-__C declaration:__ @f4@
+    __C declaration:__ @f4@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F4_Aux = F4_Aux
   { unwrapF4_Aux :: IO RIP.CInt
@@ -390,11 +390,11 @@ instance HasCField.HasCField F4 "unwrapF4" where
 
 {-| Auxiliary type used by 'F5'
 
-__C declaration:__ @f5@
+    __C declaration:__ @f5@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F5_Aux = F5_Aux
   { unwrapF5_Aux :: IO ()
@@ -518,11 +518,11 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
 
 {-| Auxiliary type used by 'F6'
 
-__C declaration:__ @f6@
+    __C declaration:__ @f6@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 
-__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F6_Aux = F6_Aux
   { unwrapF6_Aux :: MyInt -> IO ()

@@ -39,13 +39,15 @@ data ParseResult p = ParseResult{
     }
     deriving (Generic)
 
-deriving stock instance IsPass p => Show (ParseResult p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseResult p)
 
 data ParseClassification p =
     ParseResultSuccess      (ParseSuccess p)
   | ParseResultNotAttempted ParseNotAttempted
   | ParseResultFailure      DelayedParseMsg
-  deriving stock (Show, Generic)
+  deriving stock (Generic)
+
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseClassification p)
 
 instance PrettyForTrace (ParseClassification p) where
   prettyForTrace = \case
@@ -58,7 +60,9 @@ data ParseSuccess p = ParseSuccess {
       decl             :: C.Decl p
     , delayedParseMsgs :: [DelayedParseMsg]
     }
-  deriving stock (Show, Generic)
+  deriving stock (Generic)
+
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseSuccess p)
 
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttempted =

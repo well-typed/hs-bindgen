@@ -26,11 +26,11 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'FunPtr'
 
-__C declaration:__ @FunPtr@
+    __C declaration:__ @FunPtr@
 
-__defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
+    __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
 
-__exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+    __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
 -}
 newtype FunPtr_Aux = FunPtr_Aux
   { unwrapFunPtr_Aux :: Foo -> IO ()

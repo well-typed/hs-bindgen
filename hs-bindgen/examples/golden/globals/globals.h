@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/**
+/** @file
  * Global variables
  */
 

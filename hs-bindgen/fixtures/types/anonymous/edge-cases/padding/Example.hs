@@ -208,13 +208,13 @@ deriving via Marshal.EquivStorable SU_y instance RIP.Storable SU_y
 
 {-|
 
-  __See:__ 'set_sU_y_y'
+    __See:__ 'set_sU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_sU_y_y ::
      SU_y
@@ -223,7 +223,7 @@ get_sU_y_y = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_sU_y_y'
+    __See:__ 'get_sU_y_y'
 
 -}
 set_sU_y_y ::
@@ -406,13 +406,13 @@ deriving via Marshal.EquivStorable US instance RIP.Storable US
 
 {-|
 
-  __See:__ 'set_uS_x'
+    __See:__ 'set_uS_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_x ::
      US
@@ -421,7 +421,7 @@ get_uS_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uS_x'
+    __See:__ 'get_uS_x'
 
 -}
 set_uS_x ::
@@ -431,13 +431,13 @@ set_uS_x = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_uS_y'
+    __See:__ 'set_uS_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_y ::
      US
@@ -446,7 +446,7 @@ get_uS_y = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uS_y'
+    __See:__ 'get_uS_y'
 
 -}
 set_uS_y ::
@@ -456,13 +456,13 @@ set_uS_y = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_uS_z'
+    __See:__ 'set_uS_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_z ::
      US
@@ -471,7 +471,7 @@ get_uS_z = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uS_z'
+    __See:__ 'get_uS_z'
 
 -}
 set_uS_z ::
@@ -532,13 +532,13 @@ deriving via Marshal.EquivStorable UU_y instance RIP.Storable UU_y
 
 {-|
 
-  __See:__ 'set_uU_y_y'
+    __See:__ 'set_uU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y_y ::
      UU_y
@@ -547,7 +547,7 @@ get_uU_y_y = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uU_y_y'
+    __See:__ 'get_uU_y_y'
 
 -}
 set_uU_y_y ::
@@ -587,13 +587,13 @@ deriving via Marshal.EquivStorable UU instance RIP.Storable UU
 
 {-|
 
-  __See:__ 'set_uU_x'
+    __See:__ 'set_uU_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_x ::
      UU
@@ -602,7 +602,7 @@ get_uU_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uU_x'
+    __See:__ 'get_uU_x'
 
 -}
 set_uU_x ::
@@ -612,13 +612,13 @@ set_uU_x = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_uU_y'
+    __See:__ 'set_uU_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y ::
      UU
@@ -627,7 +627,7 @@ get_uU_y = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uU_y'
+    __See:__ 'get_uU_y'
 
 -}
 set_uU_y ::
@@ -637,13 +637,13 @@ set_uU_y = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_uU_z'
+    __See:__ 'set_uU_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_z ::
      UU
@@ -652,7 +652,7 @@ get_uU_z = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uU_z'
+    __See:__ 'get_uU_z'
 
 -}
 set_uU_z ::

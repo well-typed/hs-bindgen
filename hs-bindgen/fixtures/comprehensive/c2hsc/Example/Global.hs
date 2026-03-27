@@ -547,13 +547,13 @@ hs_bindgen_fbe24203b7174cce =
 {-# NOINLINE ordinary_float #-}
 {-| Primitive types
 
-  NOTE: Here and elsewhere the original test suite has some references to `long double`, some commented out, and some---confusingly---not, with an expectation of a translation to `CDouble`; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
+    NOTE: Here and elsewhere the original test suite has some references to @long double@ , some commented out, and some confusingly not, with an expectation of a translation to @CDouble@ ; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
 
-__C declaration:__ @ordinary_float@
+    __C declaration:__ @ordinary_float@
 
-__defined at:__ @comprehensive\/c2hsc.h 88:20@
+    __defined at:__ @comprehensive\/c2hsc.h 88:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float :: RIP.Ptr RIP.CFloat
 ordinary_float =
@@ -891,11 +891,11 @@ hs_bindgen_d6cafaa0834895a2 =
 {-# NOINLINE ordinary_void_pointer #-}
 {-| Pointers: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_void_pointer@
+    __C declaration:__ @ordinary_void_pointer@
 
-__defined at:__ @comprehensive\/c2hsc.h 116:21@
+    __defined at:__ @comprehensive\/c2hsc.h 116:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer :: RIP.Ptr (RIP.Ptr RIP.Void)
 ordinary_void_pointer =
@@ -1253,11 +1253,11 @@ hs_bindgen_dbf314f660deda12 =
 {-# NOINLINE ordinary_float_array #-}
 {-| Arrays: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_float_array@
+    __C declaration:__ @ordinary_float_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 146:20@
+    __defined at:__ @comprehensive\/c2hsc.h 146:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float_array :: RIP.Ptr ((CA.ConstantArray 10) RIP.CFloat)
 ordinary_float_array =
@@ -1595,11 +1595,11 @@ hs_bindgen_b0da135021f97e27 =
 {-# NOINLINE ordinary_void_pointer_array #-}
 {-| Arrays of pointers
 
-__C declaration:__ @ordinary_void_pointer_array@
+    __C declaration:__ @ordinary_void_pointer_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 174:21@
+    __defined at:__ @comprehensive\/c2hsc.h 174:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer_array :: RIP.Ptr ((CA.ConstantArray 10) (RIP.Ptr RIP.Void))
 ordinary_void_pointer_array =

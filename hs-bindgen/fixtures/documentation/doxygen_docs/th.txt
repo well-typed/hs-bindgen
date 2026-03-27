@@ -104,6 +104,50 @@
 -- {
 --   return (square)(arg1);
 -- }
+-- signed int hs_bindgen_29749932a4449f10 (
+--   signed int arg1
+-- )
+-- {
+--   return (auto_brief_func)(arg1);
+-- }
+-- void hs_bindgen_03f0269c9296b8c0 (
+--   char *arg1,
+--   size_t arg2
+-- )
+-- {
+--   (multi_paragraph_details)(arg1, arg2);
+-- }
+-- signed int *hs_bindgen_0446a821eb966f46 (
+--   signed int arg1
+-- )
+-- {
+--   return (todo_remark_attention)(arg1);
+-- }
+-- signed int hs_bindgen_25a9ea376bb793e9 (
+--   signed int arg1
+-- )
+-- {
+--   return (html_entities_func)(arg1);
+-- }
+-- void hs_bindgen_6f311771e5e063e6 (
+--   signed int arg1
+-- )
+-- {
+--   (nested_inline_format)(arg1);
+-- }
+-- signed int hs_bindgen_34473a588f1157e4 (
+--   signed int arg1
+-- )
+-- {
+--   return (tagged_code_example)(arg1);
+-- }
+-- signed int hs_bindgen_471f4a3c2db31252 (
+--   char const *arg1,
+--   char *arg2
+-- )
+-- {
+--   return (backslash_syntax)(arg1, arg2);
+-- }
 -- signed int hs_bindgen_e6085a910ba41ecb (
 --   uint8_t const *arg1,
 --   uint8_t *arg2,
@@ -202,6 +246,50 @@
 -- )
 -- {
 --   return (square)(arg1);
+-- }
+-- signed int hs_bindgen_3094fd32a3eedd49 (
+--   signed int arg1
+-- )
+-- {
+--   return (auto_brief_func)(arg1);
+-- }
+-- void hs_bindgen_73270d34a2bf31b5 (
+--   char *arg1,
+--   size_t arg2
+-- )
+-- {
+--   (multi_paragraph_details)(arg1, arg2);
+-- }
+-- signed int *hs_bindgen_836de64a94d7bf03 (
+--   signed int arg1
+-- )
+-- {
+--   return (todo_remark_attention)(arg1);
+-- }
+-- signed int hs_bindgen_aa0467b9d3b1a48d (
+--   signed int arg1
+-- )
+-- {
+--   return (html_entities_func)(arg1);
+-- }
+-- void hs_bindgen_b654d8047edfed77 (
+--   signed int arg1
+-- )
+-- {
+--   (nested_inline_format)(arg1);
+-- }
+-- signed int hs_bindgen_aeb274aded3470e5 (
+--   signed int arg1
+-- )
+-- {
+--   return (tagged_code_example)(arg1);
+-- }
+-- signed int hs_bindgen_907720dffab9442a (
+--   char const *arg1,
+--   char *arg2
+-- )
+-- {
+--   return (backslash_syntax)(arg1, arg2);
 -- }
 -- /* test_documentationdoxygen_docs_Example_get_process_data */
 -- __attribute__ ((const))
@@ -332,6 +420,64 @@
 -- {
 --   return &square;
 -- }
+-- /* test_documentationdoxygen_docs_Example_get_auto_brief_func */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_11a28326d5a28a43 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &auto_brief_func;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_multi_paragraph_details */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_05c7a7832fb84e2e (void)) (
+--   char *arg1,
+--   size_t arg2
+-- )
+-- {
+--   return &multi_paragraph_details;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_todo_remark_attention */
+-- __attribute__ ((const))
+-- signed int *(*hs_bindgen_092b9697f2154ac5 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &todo_remark_attention;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_html_entities_func */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_2e8b5e895e58fc3d (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &html_entities_func;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_nested_inline_format */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_db292926f05c7b36 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &nested_inline_format;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_tagged_code_example */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_492a4fd860afb02a (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &tagged_code_example;
+-- }
+-- /* test_documentationdoxygen_docs_Example_get_backslash_syntax */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_9ef09ad63fac68e2 (void)) (
+--   char const *arg1,
+--   char *arg2
+-- )
+-- {
+--   return &backslash_syntax;
+-- }
 -- /* test_documentationdoxygen_docs_Example_get_global_counter */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_f9dede86496f59c9 (void)
@@ -344,31 +490,33 @@
 -- {
 --   return &version_string;
 -- }
-{-| __C declaration:__ @macro MAX_NAME_LENGTH@
+{-| Maximum length for name strings.
+
+    __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 mAX_NAME_LENGTH :: CInt
-{-| __C declaration:__ @macro MAX_NAME_LENGTH@
+{-| Maximum length for name strings.
+
+    __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 mAX_NAME_LENGTH = 64 :: CInt
-{-| This is the comment __title__
+{-| Size type for this library.
 
-  > size_type
+    This is the comment __title__
 
-  Size type for this library
+    __C declaration:__ @size_type@
 
-__C declaration:__ @size_type@
+    __defined at:__ @documentation\/doxygen_docs.h 56:16@
 
-__defined at:__ @documentation\/doxygen_docs.h 54:16@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type
     = Size_type {unwrapSize_type :: HsBindgen.Runtime.LibC.CSize}
@@ -395,39 +543,27 @@ instance HasCField Size_type "unwrapSize_type"
     where type CFieldType Size_type
                           "unwrapSize_type" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
-{-| This is the comment @title@
+{-| __C declaration:__ @struct forward_declared_struct@
 
-  Forward declaration with documentation
+    __defined at:__ @documentation\/doxygen_docs.h 76:8@
 
-__C declaration:__ @struct forward_declared_struct@
-
-__defined at:__ @documentation\/doxygen_docs.h 72:8@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Forward_declared_struct
-{-|
+{-| __C declaration:__ @union forward_declared_union@
 
-  Forward declaration of union
+    __defined at:__ @documentation\/doxygen_docs.h 81:7@
 
-__C declaration:__ @union forward_declared_union@
-
-__defined at:__ @documentation\/doxygen_docs.h 77:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Forward_declared_union
-{-|
+{-| Color enumeration without typedef.
 
-  > color_enum
+    __C declaration:__ @enum color_enum@
 
-  Color enumeration without typedef
+    __defined at:__ @documentation\/doxygen_docs.h 87:6@
 
-__C declaration:__ @enum color_enum@
-
-__defined at:__ @documentation\/doxygen_docs.h 83:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum
     = Color_enum {unwrapColor_enum :: CUInt}
@@ -472,41 +608,41 @@ instance HasCField Color_enum "unwrapColor_enum"
           offset# = \_ -> \_ -> 0
 {-| Red color
 
-__C declaration:__ @COLOR_RED@
+    __C declaration:__ @COLOR_RED@
 
-__defined at:__ @documentation\/doxygen_docs.h 84:5@
+    __defined at:__ @documentation\/doxygen_docs.h 88:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_RED :: Color_enum
 pattern COLOR_RED = Color_enum 0
 {-| Green color
 
-__C declaration:__ @COLOR_GREEN@
+    __C declaration:__ @COLOR_GREEN@
 
-__defined at:__ @documentation\/doxygen_docs.h 85:5@
+    __defined at:__ @documentation\/doxygen_docs.h 89:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_GREEN :: Color_enum
 pattern COLOR_GREEN = Color_enum 1
 {-| Blue color
 
-__C declaration:__ @COLOR_BLUE@
+    __C declaration:__ @COLOR_BLUE@
 
-__defined at:__ @documentation\/doxygen_docs.h 86:5@
+    __defined at:__ @documentation\/doxygen_docs.h 90:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_BLUE :: Color_enum
 pattern COLOR_BLUE = Color_enum 2
 {-| Auxiliary type used by 'Event_callback_t'
 
-__C declaration:__ @event_callback_t@
+    __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h 225:15@
+    __defined at:__ @documentation\/doxygen_docs.h 231:15@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t_Aux
     = Event_callback_t_Aux {unwrapEvent_callback_t_Aux :: (CInt ->
@@ -545,21 +681,19 @@ instance HasCField Event_callback_t_Aux
     where type CFieldType Event_callback_t_Aux
                           "unwrapEvent_callback_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
-{-|
+{-| Callback function type.
 
-  Callback function type
+    [__@event_type@__]: Type of event
 
-  [__@event_type@ /(input)/__]: Type of event
+    [__@user_data@__]: User-provided data
 
-  [__@user_data@ /(input)/__]: User-provided data
+    __Returns:__ Handling result
 
-  __returns:__ Handling result
+    __C declaration:__ @event_callback_t@
 
-__C declaration:__ @event_callback_t@
+    __defined at:__ @documentation\/doxygen_docs.h 231:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 225:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t
     = Event_callback_t {unwrapEvent_callback_t :: (FunPtr Event_callback_t_Aux)}
@@ -576,75 +710,63 @@ instance HasCField Event_callback_t "unwrapEvent_callback_t"
     where type CFieldType Event_callback_t
                           "unwrapEvent_callback_t" = FunPtr Event_callback_t_Aux
           offset# = \_ -> \_ -> 0
-{-|
+{-| Structure with documented fields.
 
-  Structure with documented fields
+    This structure demonstrates field documentation.
 
-  This structure demonstrates field documentation.
+    __C declaration:__ @struct config_t@
 
-__C declaration:__ @struct config_t@
+    __defined at:__ @documentation\/doxygen_docs.h 238:9@
 
-__defined at:__ @documentation\/doxygen_docs.h 232:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Config_t
     = Config_t {config_t_id :: HsBindgen.Runtime.LibC.Word32
-                {- ^
+                {- ^ Unique identifier.
 
-                   Unique identifier
+                     __C declaration:__ @id@
 
-                __C declaration:__ @id@
+                     __defined at:__ @documentation\/doxygen_docs.h 240:14@
 
-                __defined at:__ @documentation\/doxygen_docs.h 234:14@
-
-                __exported by:__ @documentation\/doxygen_docs.h@
+                     __exported by:__ @documentation\/doxygen_docs.h@
                 -},
                 config_t_name :: (ConstantArray 64 CChar)
-                {- ^
+                {- ^ Human-readable name.
 
-                   Human-readable name
+                     __C declaration:__ @name@
 
-                __C declaration:__ @name@
+                     __defined at:__ @documentation\/doxygen_docs.h 243:10@
 
-                __defined at:__ @documentation\/doxygen_docs.h 237:10@
-
-                __exported by:__ @documentation\/doxygen_docs.h@
+                     __exported by:__ @documentation\/doxygen_docs.h@
                 -},
                 config_t_flags :: HsBindgen.Runtime.LibC.Word32
-                {- ^
+                {- ^ Configuration flags.
 
-                   Configuration flags
+                     __C declaration:__ @flags@
 
-                __C declaration:__ @flags@
+                     __defined at:__ @documentation\/doxygen_docs.h 246:14@
 
-                __defined at:__ @documentation\/doxygen_docs.h 240:14@
-
-                __exported by:__ @documentation\/doxygen_docs.h@
+                     __exported by:__ @documentation\/doxygen_docs.h@
                 -},
                 config_t_callback :: Event_callback_t
-                {- ^
+                {- ^ Optional callback function.
 
-                   Optional callback function
+                     See also: 'Event_callback_t'
 
-                   See also: 'Event_callback_t'
+                     __C declaration:__ @callback@
 
-                __C declaration:__ @callback@
+                     __defined at:__ @documentation\/doxygen_docs.h 253:22@
 
-                __defined at:__ @documentation\/doxygen_docs.h 247:22@
-
-                __exported by:__ @documentation\/doxygen_docs.h@
+                     __exported by:__ @documentation\/doxygen_docs.h@
                 -},
                 config_t_user_data :: (Ptr Void)
-                {- ^
+                {- ^ User data for callback.
 
-                   User data for callback
+                     __C declaration:__ @user_data@
 
-                __C declaration:__ @user_data@
+                     __defined at:__ @documentation\/doxygen_docs.h 256:11@
 
-                __defined at:__ @documentation\/doxygen_docs.h 250:11@
-
-                __exported by:__ @documentation\/doxygen_docs.h@
+                     __exported by:__ @documentation\/doxygen_docs.h@
                 -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Config_t
@@ -694,17 +816,15 @@ instance HasCField Config_t "config_t_user_data"
 instance (~) ty (Ptr Void) =>
          HasField "config_t_user_data" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_user_data")
-{-|
+{-| Enumeration with documented values.
 
-  Enumeration with documented values
+    This enum shows different status codes.
 
-  This enum shows different status codes.
+    __C declaration:__ @enum status_code_t@
 
-__C declaration:__ @enum status_code_t@
+    __defined at:__ @documentation\/doxygen_docs.h 264:9@
 
-__defined at:__ @documentation\/doxygen_docs.h 258:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t
     = Status_code_t {unwrapStatus_code_t :: CInt}
@@ -744,100 +864,80 @@ instance (~) ty CInt =>
 instance HasCField Status_code_t "unwrapStatus_code_t"
     where type CFieldType Status_code_t "unwrapStatus_code_t" = CInt
           offset# = \_ -> \_ -> 0
-{-|
+{-| Operation successful.
 
-  Operation successful
+    __C declaration:__ @STATUS_OK@
 
-__C declaration:__ @STATUS_OK@
+    __defined at:__ @documentation\/doxygen_docs.h 266:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 260:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_OK :: Status_code_t
 pattern STATUS_OK = Status_code_t 0
-{-|
+{-| Invalid parameter provided.
 
-  Invalid parameter provided
+    __C declaration:__ @STATUS_INVALID_PARAM@
 
-__C declaration:__ @STATUS_INVALID_PARAM@
+    __defined at:__ @documentation\/doxygen_docs.h 269:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 263:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_INVALID_PARAM :: Status_code_t
 pattern STATUS_INVALID_PARAM = Status_code_t (-1)
-{-|
+{-| Memory allocation failed.
 
-  Memory allocation failed
+    __C declaration:__ @STATUS_NO_MEMORY@
 
-__C declaration:__ @STATUS_NO_MEMORY@
+    __defined at:__ @documentation\/doxygen_docs.h 272:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 266:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_NO_MEMORY :: Status_code_t
 pattern STATUS_NO_MEMORY = Status_code_t (-2)
-{-|
+{-| Operation timed out.
 
-  Operation timed out
+    __C declaration:__ @STATUS_TIMEOUT@
 
-__C declaration:__ @STATUS_TIMEOUT@
+    __defined at:__ @documentation\/doxygen_docs.h 275:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 269:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_TIMEOUT :: Status_code_t
 pattern STATUS_TIMEOUT = Status_code_t (-3)
-{-|
+{-| Generic error.
 
-  Generic error
+    __C declaration:__ @STATUS_ERROR@
 
-__C declaration:__ @STATUS_ERROR@
+    __defined at:__ @documentation\/doxygen_docs.h 278:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 272:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_ERROR :: Status_code_t
 pattern STATUS_ERROR = Status_code_t (-99)
-{-|
+{-| __C declaration:__ @struct \@data_union_t_as_parts@
 
-  Structured representation
+    __defined at:__ @documentation\/doxygen_docs.h 296:5@
 
-  Allows access to high and low parts separately
-
-__C declaration:__ @struct \@data_union_t_as_parts@
-
-__defined at:__ @documentation\/doxygen_docs.h 290:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Data_union_t_as_parts
     = Data_union_t_as_parts {data_union_t_as_parts_low :: HsBindgen.Runtime.LibC.Word16
-                             {- ^
+                             {- ^ Low 16 bits.
 
-                                Low 16 bits
+                                  __C declaration:__ @low@
 
-                             __C declaration:__ @low@
+                                  __defined at:__ @documentation\/doxygen_docs.h 297:18@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 291:18@
-
-                             __exported by:__ @documentation\/doxygen_docs.h@
+                                  __exported by:__ @documentation\/doxygen_docs.h@
                              -},
                              data_union_t_as_parts_high :: HsBindgen.Runtime.LibC.Word16
-                             {- ^
+                             {- ^ High 16 bits.
 
-                                High 16 bits
+                                  __C declaration:__ @high@
 
-                             __C declaration:__ @high@
+                                  __defined at:__ @documentation\/doxygen_docs.h 298:18@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 292:18@
-
-                             __exported by:__ @documentation\/doxygen_docs.h@
+                                  __exported by:__ @documentation\/doxygen_docs.h@
                              -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Data_union_t_as_parts
@@ -870,19 +970,15 @@ instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
                   (Ptr Data_union_t_as_parts)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"data_union_t_as_parts_high")
-{-|
+{-| Union with documented fields.
 
-  > data_union_t
+    This union demonstrates different data representations.
 
-  Union with documented fields
+    __C declaration:__ @union data_union_t@
 
-  This union demonstrates different data representations.
+    __defined at:__ @documentation\/doxygen_docs.h 287:9@
 
-__C declaration:__ @union data_union_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 281:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t
     = Data_union_t {unwrapData_union_t :: ByteArray}
@@ -891,114 +987,102 @@ deriving via (SizedByteArray 4 4) instance StaticSize Data_union_t
 deriving via (SizedByteArray 4 4) instance ReadRaw Data_union_t
 deriving via (SizedByteArray 4 4) instance WriteRaw Data_union_t
 deriving via (EquivStorable Data_union_t) instance Storable Data_union_t
-{-|
+{-| Integer representation.
 
-  Integer representation
+    __See:__ 'set_data_union_t_as_int'
 
-  __See:__ 'set_data_union_t_as_int'
+    __C declaration:__ @as_int@
 
-__C declaration:__ @as_int@
+    __defined at:__ @documentation\/doxygen_docs.h 288:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 282:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_int :: Data_union_t ->
                            HsBindgen.Runtime.LibC.Int32
-{-|
+{-| Integer representation.
 
-  Integer representation
+    __See:__ 'set_data_union_t_as_int'
 
-  __See:__ 'set_data_union_t_as_int'
+    __C declaration:__ @as_int@
 
-__C declaration:__ @as_int@
+    __defined at:__ @documentation\/doxygen_docs.h 288:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 282:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_int = getUnionPayload
 {-|
 
-  __See:__ 'get_data_union_t_as_int'
+    __See:__ 'get_data_union_t_as_int'
 
 -}
 set_data_union_t_as_int :: HsBindgen.Runtime.LibC.Int32 ->
                            Data_union_t
 {-|
 
-  __See:__ 'get_data_union_t_as_int'
+    __See:__ 'get_data_union_t_as_int'
 
 -}
 set_data_union_t_as_int = setUnionPayload
-{-|
+{-| Float representation.
 
-  Float representation
+    __See:__ 'set_data_union_t_as_float'
 
-  __See:__ 'set_data_union_t_as_float'
+    __C declaration:__ @as_float@
 
-__C declaration:__ @as_float@
+    __defined at:__ @documentation\/doxygen_docs.h 289:11@
 
-__defined at:__ @documentation\/doxygen_docs.h 283:11@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_float :: Data_union_t -> CFloat
-{-|
+{-| Float representation.
 
-  Float representation
+    __See:__ 'set_data_union_t_as_float'
 
-  __See:__ 'set_data_union_t_as_float'
+    __C declaration:__ @as_float@
 
-__C declaration:__ @as_float@
+    __defined at:__ @documentation\/doxygen_docs.h 289:11@
 
-__defined at:__ @documentation\/doxygen_docs.h 283:11@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_float = getUnionPayload
 {-|
 
-  __See:__ 'get_data_union_t_as_float'
+    __See:__ 'get_data_union_t_as_float'
 
 -}
 set_data_union_t_as_float :: CFloat -> Data_union_t
 {-|
 
-  __See:__ 'get_data_union_t_as_float'
+    __See:__ 'get_data_union_t_as_float'
 
 -}
 set_data_union_t_as_float = setUnionPayload
-{-|
+{-| Byte array representation.
 
-  Byte array representation
+    __See:__ 'set_data_union_t_as_bytes'
 
-  __See:__ 'set_data_union_t_as_bytes'
+    __C declaration:__ @as_bytes@
 
-__C declaration:__ @as_bytes@
+    __defined at:__ @documentation\/doxygen_docs.h 290:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 284:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes :: Data_union_t ->
                              ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-{-|
+{-| Byte array representation.
 
-  Byte array representation
+    __See:__ 'set_data_union_t_as_bytes'
 
-  __See:__ 'set_data_union_t_as_bytes'
+    __C declaration:__ @as_bytes@
 
-__C declaration:__ @as_bytes@
+    __defined at:__ @documentation\/doxygen_docs.h 290:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 284:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes = getUnionPayload
 {-|
 
-  __See:__ 'get_data_union_t_as_bytes'
+    __See:__ 'get_data_union_t_as_bytes'
 
 -}
 set_data_union_t_as_bytes :: ConstantArray 4
@@ -1006,41 +1090,45 @@ set_data_union_t_as_bytes :: ConstantArray 4
                              Data_union_t
 {-|
 
-  __See:__ 'get_data_union_t_as_bytes'
+    __See:__ 'get_data_union_t_as_bytes'
 
 -}
 set_data_union_t_as_bytes = setUnionPayload
-{-| As Parts Struct
+{-| Structured representation.
 
-  __See:__ 'set_data_union_t_as_parts'
+    Allows access to high and low parts separately As Parts Struct
 
-__C declaration:__ @as_parts@
+    __See:__ 'set_data_union_t_as_parts'
 
-__defined at:__ @documentation\/doxygen_docs.h 293:30@
+    __C declaration:__ @as_parts@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __defined at:__ @documentation\/doxygen_docs.h 299:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_parts :: Data_union_t -> Data_union_t_as_parts
-{-| As Parts Struct
+{-| Structured representation.
 
-  __See:__ 'set_data_union_t_as_parts'
+    Allows access to high and low parts separately As Parts Struct
 
-__C declaration:__ @as_parts@
+    __See:__ 'set_data_union_t_as_parts'
 
-__defined at:__ @documentation\/doxygen_docs.h 293:30@
+    __C declaration:__ @as_parts@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __defined at:__ @documentation\/doxygen_docs.h 299:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_parts = getUnionPayload
 {-|
 
-  __See:__ 'get_data_union_t_as_parts'
+    __See:__ 'get_data_union_t_as_parts'
 
 -}
 set_data_union_t_as_parts :: Data_union_t_as_parts -> Data_union_t
 {-|
 
-  __See:__ 'get_data_union_t_as_parts'
+    __See:__ 'get_data_union_t_as_parts'
 
 -}
 set_data_union_t_as_parts = setUnionPayload
@@ -1072,64 +1160,52 @@ instance HasCField Data_union_t "data_union_t_as_parts"
 instance (~) ty Data_union_t_as_parts =>
          HasField "data_union_t_as_parts" (Ptr Data_union_t) (Ptr ty)
     where getField = fromPtr (Proxy @"data_union_t_as_parts")
-{-|
+{-| Bit field structure.
 
-  > bitfield_t
+    Demonstrates bit field documentation.
 
-  Bit field structure
+    __C declaration:__ @struct bitfield_t@
 
-  Demonstrates bit field documentation.
+    __defined at:__ @documentation\/doxygen_docs.h 308:9@
 
-__C declaration:__ @struct bitfield_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 302:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Bitfield_t
     = Bitfield_t {bitfield_t_flag1 :: CUInt
-                  {- ^
+                  {- ^ First flag (1 bit).
 
-                     First flag (1 bit)
+                       __C declaration:__ @flag1@
 
-                  __C declaration:__ @flag1@
+                       __defined at:__ @documentation\/doxygen_docs.h 309:14@
 
-                  __defined at:__ @documentation\/doxygen_docs.h 303:14@
-
-                  __exported by:__ @documentation\/doxygen_docs.h@
+                       __exported by:__ @documentation\/doxygen_docs.h@
                   -},
                   bitfield_t_flag2 :: CUInt
-                  {- ^
+                  {- ^ Second flag (1 bit).
 
-                     Second flag (1 bit)
+                       __C declaration:__ @flag2@
 
-                  __C declaration:__ @flag2@
+                       __defined at:__ @documentation\/doxygen_docs.h 310:14@
 
-                  __defined at:__ @documentation\/doxygen_docs.h 304:14@
-
-                  __exported by:__ @documentation\/doxygen_docs.h@
+                       __exported by:__ @documentation\/doxygen_docs.h@
                   -},
                   bitfield_t_counter :: CUInt
-                  {- ^
+                  {- ^ Counter value (6 bits).
 
-                     Counter value (6 bits)
+                       __C declaration:__ @counter@
 
-                  __C declaration:__ @counter@
+                       __defined at:__ @documentation\/doxygen_docs.h 311:14@
 
-                  __defined at:__ @documentation\/doxygen_docs.h 305:14@
-
-                  __exported by:__ @documentation\/doxygen_docs.h@
+                       __exported by:__ @documentation\/doxygen_docs.h@
                   -},
                   bitfield_t_reserved :: CUInt
-                  {- ^
+                  {- ^ Reserved bits (24 bits).
 
-                     Reserved bits (24 bits)
+                       __C declaration:__ @reserved@
 
-                  __C declaration:__ @reserved@
+                       __defined at:__ @documentation\/doxygen_docs.h 312:14@
 
-                  __defined at:__ @documentation\/doxygen_docs.h 306:14@
-
-                  __exported by:__ @documentation\/doxygen_docs.h@
+                       __exported by:__ @documentation\/doxygen_docs.h@
                   -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bitfield_t
@@ -1174,11 +1250,11 @@ instance (~) ty CUInt =>
     where getField = toPtr (Proxy @"bitfield_t_reserved")
 {-| Auxiliary type used by 'Processor_fn_t'
 
-__C declaration:__ @processor_fn_t@
+    __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h 317:15@
+    __defined at:__ @documentation\/doxygen_docs.h 323:15@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t_Aux
     = Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux :: (CInt ->
@@ -1216,23 +1292,19 @@ instance HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux"
     where type CFieldType Processor_fn_t_Aux
                           "unwrapProcessor_fn_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
-{-|
+{-| Function pointer typedef.
 
-  > processor_fn_t
+    [__@input@__]: Input value
 
-  Function pointer typedef
+    [__@context@__]: Context pointer
 
-  [__@input@ /(input)/__]: Input value
+    __Returns:__ Processed value
 
-  [__@context@ /(input)/__]: Context pointer
+    __C declaration:__ @processor_fn_t@
 
-  __returns:__ Processed value
+    __defined at:__ @documentation\/doxygen_docs.h 323:15@
 
-__C declaration:__ @processor_fn_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 317:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t
     = Processor_fn_t {unwrapProcessor_fn_t :: (FunPtr Processor_fn_t_Aux)}
@@ -1249,17 +1321,13 @@ instance HasCField Processor_fn_t "unwrapProcessor_fn_t"
     where type CFieldType Processor_fn_t
                           "unwrapProcessor_fn_t" = FunPtr Processor_fn_t_Aux
           offset# = \_ -> \_ -> 0
-{-|
+{-| Array typedef with size.
 
-  > filename_t
+    __C declaration:__ @filename_t@
 
-  Array typedef with size
+    __defined at:__ @documentation\/doxygen_docs.h 329:14@
 
-__C declaration:__ @filename_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 323:14@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t
     = Filename_t {unwrapFilename_t :: (ConstantArray 256 CChar)}
@@ -1272,31 +1340,25 @@ instance HasCField Filename_t "unwrapFilename_t"
     where type CFieldType Filename_t
                           "unwrapFilename_t" = ConstantArray 256 CChar
           offset# = \_ -> \_ -> 0
-{-|
+{-| Structure with flexible array member.
 
-  Function with flexible array member
+    Used for variable-length data buffers.
 
-  [__@count@ /(input)/__]: Number of elements
+    __C declaration:__ @struct flexible_array@
 
-  __returns:__ Allocated structure
+    __defined at:__ @documentation\/doxygen_docs.h 365:8@
 
-__C declaration:__ @struct flexible_array@
-
-__defined at:__ @documentation\/doxygen_docs.h 360:8@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Flexible_array_Aux
     = Flexible_array {flexible_array_count :: HsBindgen.Runtime.LibC.CSize
-                      {- ^
+                      {- ^ Number of elements.
 
-                         Number of elements
+                           __C declaration:__ @count@
 
-                      __C declaration:__ @count@
+                           __defined at:__ @documentation\/doxygen_docs.h 366:12@
 
-                      __defined at:__ @documentation\/doxygen_docs.h 361:12@
-
-                      __exported by:__ @documentation\/doxygen_docs.h@
+                           __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Flexible_array_Aux
@@ -1318,6 +1380,592 @@ instance (~) ty HsBindgen.Runtime.LibC.CSize =>
 instance Offset CInt Flexible_array_Aux
     where offset = \_ty_0 -> 8
 type Flexible_array = WithFlam CInt Flexible_array_Aux
+{-| Struct with invariant.
+
+    __Invariant:__ capacity >= size at all times
+
+    __C declaration:__ @struct dyn_array_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 492:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Dyn_array_t
+    = Dyn_array_t {dyn_array_t_data :: (Ptr CInt)
+                   {- ^ Pointer to data.
+
+                        __C declaration:__ @data@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 493:10@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -},
+                   dyn_array_t_size :: HsBindgen.Runtime.LibC.CSize
+                   {- ^ Current number of elements.
+
+                        __C declaration:__ @size@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 494:12@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -},
+                   dyn_array_t_capacity :: HsBindgen.Runtime.LibC.CSize
+                   {- ^ Allocated capacity.
+
+                        __C declaration:__ @capacity@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 495:12@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Dyn_array_t
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Dyn_array_t
+    where readRaw = \ptr_0 -> ((pure Dyn_array_t <*> readRaw (Proxy @"dyn_array_t_data") ptr_0) <*> readRaw (Proxy @"dyn_array_t_size") ptr_0) <*> readRaw (Proxy @"dyn_array_t_capacity") ptr_0
+instance WriteRaw Dyn_array_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Dyn_array_t dyn_array_t_data_2
+                                                   dyn_array_t_size_3
+                                                   dyn_array_t_capacity_4 -> writeRaw (Proxy @"dyn_array_t_data") ptr_0 dyn_array_t_data_2 >> (writeRaw (Proxy @"dyn_array_t_size") ptr_0 dyn_array_t_size_3 >> writeRaw (Proxy @"dyn_array_t_capacity") ptr_0 dyn_array_t_capacity_4)
+deriving via (EquivStorable Dyn_array_t) instance Storable Dyn_array_t
+instance HasCField Dyn_array_t "dyn_array_t_data"
+    where type CFieldType Dyn_array_t "dyn_array_t_data" = Ptr CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr CInt) =>
+         HasField "dyn_array_t_data" (Ptr Dyn_array_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"dyn_array_t_data")
+instance HasCField Dyn_array_t "dyn_array_t_size"
+    where type CFieldType Dyn_array_t
+                          "dyn_array_t_size" = HsBindgen.Runtime.LibC.CSize
+          offset# = \_ -> \_ -> 8
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "dyn_array_t_size" (Ptr Dyn_array_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"dyn_array_t_size")
+instance HasCField Dyn_array_t "dyn_array_t_capacity"
+    where type CFieldType Dyn_array_t
+                          "dyn_array_t_capacity" = HsBindgen.Runtime.LibC.CSize
+          offset# = \_ -> \_ -> 16
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "dyn_array_t_capacity" (Ptr Dyn_array_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"dyn_array_t_capacity")
+{-| __C declaration:__ @struct \@multi_anon_t_pos@
+
+    __defined at:__ @documentation\/doxygen_docs.h 555:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t_pos
+    = Multi_anon_t_pos {multi_anon_t_pos_x :: CFloat
+                        {- ^ X coordinate.
+
+                             __C declaration:__ @x@
+
+                             __defined at:__ @documentation\/doxygen_docs.h 556:15@
+
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -},
+                        multi_anon_t_pos_y :: CFloat
+                        {- ^ Y coordinate.
+
+                             __C declaration:__ @y@
+
+                             __defined at:__ @documentation\/doxygen_docs.h 557:15@
+
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Multi_anon_t_pos
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Multi_anon_t_pos
+    where readRaw = \ptr_0 -> (pure Multi_anon_t_pos <*> readRaw (Proxy @"multi_anon_t_pos_x") ptr_0) <*> readRaw (Proxy @"multi_anon_t_pos_y") ptr_0
+instance WriteRaw Multi_anon_t_pos
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Multi_anon_t_pos multi_anon_t_pos_x_2
+                                                        multi_anon_t_pos_y_3 -> writeRaw (Proxy @"multi_anon_t_pos_x") ptr_0 multi_anon_t_pos_x_2 >> writeRaw (Proxy @"multi_anon_t_pos_y") ptr_0 multi_anon_t_pos_y_3
+deriving via (EquivStorable Multi_anon_t_pos) instance Storable Multi_anon_t_pos
+instance HasCField Multi_anon_t_pos "multi_anon_t_pos_x"
+    where type CFieldType Multi_anon_t_pos
+                          "multi_anon_t_pos_x" = CFloat
+          offset# = \_ -> \_ -> 0
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_pos_x" (Ptr Multi_anon_t_pos) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_pos_x")
+instance HasCField Multi_anon_t_pos "multi_anon_t_pos_y"
+    where type CFieldType Multi_anon_t_pos
+                          "multi_anon_t_pos_y" = CFloat
+          offset# = \_ -> \_ -> 4
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_pos_y" (Ptr Multi_anon_t_pos) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_pos_y")
+{-| __C declaration:__ @struct \@multi_anon_t_dim@
+
+    __defined at:__ @documentation\/doxygen_docs.h 563:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t_dim
+    = Multi_anon_t_dim {multi_anon_t_dim_w :: CFloat
+                        {- ^ Width.
+
+                             __C declaration:__ @w@
+
+                             __defined at:__ @documentation\/doxygen_docs.h 564:15@
+
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -},
+                        multi_anon_t_dim_h :: CFloat
+                        {- ^ Height.
+
+                             __C declaration:__ @h@
+
+                             __defined at:__ @documentation\/doxygen_docs.h 565:15@
+
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Multi_anon_t_dim
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Multi_anon_t_dim
+    where readRaw = \ptr_0 -> (pure Multi_anon_t_dim <*> readRaw (Proxy @"multi_anon_t_dim_w") ptr_0) <*> readRaw (Proxy @"multi_anon_t_dim_h") ptr_0
+instance WriteRaw Multi_anon_t_dim
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Multi_anon_t_dim multi_anon_t_dim_w_2
+                                                        multi_anon_t_dim_h_3 -> writeRaw (Proxy @"multi_anon_t_dim_w") ptr_0 multi_anon_t_dim_w_2 >> writeRaw (Proxy @"multi_anon_t_dim_h") ptr_0 multi_anon_t_dim_h_3
+deriving via (EquivStorable Multi_anon_t_dim) instance Storable Multi_anon_t_dim
+instance HasCField Multi_anon_t_dim "multi_anon_t_dim_w"
+    where type CFieldType Multi_anon_t_dim
+                          "multi_anon_t_dim_w" = CFloat
+          offset# = \_ -> \_ -> 0
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_dim_w" (Ptr Multi_anon_t_dim) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_dim_w")
+instance HasCField Multi_anon_t_dim "multi_anon_t_dim_h"
+    where type CFieldType Multi_anon_t_dim
+                          "multi_anon_t_dim_h" = CFloat
+          offset# = \_ -> \_ -> 4
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_dim_h" (Ptr Multi_anon_t_dim) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_dim_h")
+{-| Struct with multiple anonymous inner structs.
+
+    Tests that doxygen comment enrichment correctly associates field comments with anonymous inner structs at multiple nesting levels.
+
+    __C declaration:__ @struct multi_anon_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 551:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t
+    = Multi_anon_t {multi_anon_t_pos :: Multi_anon_t_pos
+                    {- ^ Position in 2D space.
+
+                         Position fields
+
+                         __C declaration:__ @pos@
+
+                         __defined at:__ @documentation\/doxygen_docs.h 558:30@
+
+                         __exported by:__ @documentation\/doxygen_docs.h@
+                    -},
+                    multi_anon_t_dim :: Multi_anon_t_dim
+                    {- ^ Dimensions.
+
+                         Dimension fields
+
+                         __C declaration:__ @dim@
+
+                         __defined at:__ @documentation\/doxygen_docs.h 566:31@
+
+                         __exported by:__ @documentation\/doxygen_docs.h@
+                    -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Multi_anon_t
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Multi_anon_t
+    where readRaw = \ptr_0 -> (pure Multi_anon_t <*> readRaw (Proxy @"multi_anon_t_pos") ptr_0) <*> readRaw (Proxy @"multi_anon_t_dim") ptr_0
+instance WriteRaw Multi_anon_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Multi_anon_t multi_anon_t_pos_2
+                                                    multi_anon_t_dim_3 -> writeRaw (Proxy @"multi_anon_t_pos") ptr_0 multi_anon_t_pos_2 >> writeRaw (Proxy @"multi_anon_t_dim") ptr_0 multi_anon_t_dim_3
+deriving via (EquivStorable Multi_anon_t) instance Storable Multi_anon_t
+instance HasCField Multi_anon_t "multi_anon_t_pos"
+    where type CFieldType Multi_anon_t
+                          "multi_anon_t_pos" = Multi_anon_t_pos
+          offset# = \_ -> \_ -> 0
+instance (~) ty Multi_anon_t_pos =>
+         HasField "multi_anon_t_pos" (Ptr Multi_anon_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_pos")
+instance HasCField Multi_anon_t "multi_anon_t_dim"
+    where type CFieldType Multi_anon_t
+                          "multi_anon_t_dim" = Multi_anon_t_dim
+          offset# = \_ -> \_ -> 8
+instance (~) ty Multi_anon_t_dim =>
+         HasField "multi_anon_t_dim" (Ptr Multi_anon_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_anon_t_dim")
+{-| Named inner struct
+
+    __C declaration:__ @struct named_inner@
+
+    __defined at:__ @documentation\/doxygen_docs.h 577:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Named_inner
+    = Named_inner {named_inner_nx :: CInt
+                   {- ^ Inner field nx
+
+                        __C declaration:__ @nx@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 579:13@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -},
+                   named_inner_ny :: CInt
+                   {- ^ Inner field ny
+
+                        __C declaration:__ @ny@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 581:13@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Named_inner
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Named_inner
+    where readRaw = \ptr_0 -> (pure Named_inner <*> readRaw (Proxy @"named_inner_nx") ptr_0) <*> readRaw (Proxy @"named_inner_ny") ptr_0
+instance WriteRaw Named_inner
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named_inner named_inner_nx_2
+                                                   named_inner_ny_3 -> writeRaw (Proxy @"named_inner_nx") ptr_0 named_inner_nx_2 >> writeRaw (Proxy @"named_inner_ny") ptr_0 named_inner_ny_3
+deriving via (EquivStorable Named_inner) instance Storable Named_inner
+instance HasCField Named_inner "named_inner_nx"
+    where type CFieldType Named_inner "named_inner_nx" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "named_inner_nx" (Ptr Named_inner) (Ptr ty)
+    where getField = fromPtr (Proxy @"named_inner_nx")
+instance HasCField Named_inner "named_inner_ny"
+    where type CFieldType Named_inner "named_inner_ny" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "named_inner_ny" (Ptr Named_inner) (Ptr ty)
+    where getField = fromPtr (Proxy @"named_inner_ny")
+{-| Struct with a named inner struct.
+
+    Tests that doxygen comment enrichment uses the qualified name "named_outer::named_inner" for lookups.
+
+    __C declaration:__ @struct named_outer@
+
+    __defined at:__ @documentation\/doxygen_docs.h 575:8@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Named_outer
+    = Named_outer {named_outer_inner_field :: Named_inner
+                   {- ^ __C declaration:__ @inner_field@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 582:7@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -},
+                   named_outer_nz :: CInt
+                   {- ^ Outer field nz
+
+                        __C declaration:__ @nz@
+
+                        __defined at:__ @documentation\/doxygen_docs.h 584:9@
+
+                        __exported by:__ @documentation\/doxygen_docs.h@
+                   -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Named_outer
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Named_outer
+    where readRaw = \ptr_0 -> (pure Named_outer <*> readRaw (Proxy @"named_outer_inner_field") ptr_0) <*> readRaw (Proxy @"named_outer_nz") ptr_0
+instance WriteRaw Named_outer
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named_outer named_outer_inner_field_2
+                                                   named_outer_nz_3 -> writeRaw (Proxy @"named_outer_inner_field") ptr_0 named_outer_inner_field_2 >> writeRaw (Proxy @"named_outer_nz") ptr_0 named_outer_nz_3
+deriving via (EquivStorable Named_outer) instance Storable Named_outer
+instance HasCField Named_outer "named_outer_inner_field"
+    where type CFieldType Named_outer
+                          "named_outer_inner_field" = Named_inner
+          offset# = \_ -> \_ -> 0
+instance (~) ty Named_inner =>
+         HasField "named_outer_inner_field" (Ptr Named_outer) (Ptr ty)
+    where getField = fromPtr (Proxy @"named_outer_inner_field")
+instance HasCField Named_outer "named_outer_nz"
+    where type CFieldType Named_outer "named_outer_nz" = CInt
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt =>
+         HasField "named_outer_nz" (Ptr Named_outer) (Ptr ty)
+    where getField = fromPtr (Proxy @"named_outer_nz")
+{-| __C declaration:__ @struct \@deep_mid_anon_field@
+
+    __defined at:__ @documentation\/doxygen_docs.h 598:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_mid_anon_field
+    = Deep_mid_anon_field {deep_mid_anon_field_deep_a :: CInt
+                           {- ^ Deep anonymous field
+
+                                __C declaration:__ @deep_a@
+
+                                __defined at:__ @documentation\/doxygen_docs.h 600:17@
+
+                                __exported by:__ @documentation\/doxygen_docs.h@
+                           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Deep_mid_anon_field
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Deep_mid_anon_field
+    where readRaw = \ptr_0 -> pure Deep_mid_anon_field <*> readRaw (Proxy @"deep_mid_anon_field_deep_a") ptr_0
+instance WriteRaw Deep_mid_anon_field
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Deep_mid_anon_field deep_mid_anon_field_deep_a_2 -> writeRaw (Proxy @"deep_mid_anon_field_deep_a") ptr_0 deep_mid_anon_field_deep_a_2
+deriving via (EquivStorable Deep_mid_anon_field) instance Storable Deep_mid_anon_field
+instance HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a"
+    where type CFieldType Deep_mid_anon_field
+                          "deep_mid_anon_field_deep_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "deep_mid_anon_field_deep_a"
+                  (Ptr Deep_mid_anon_field)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_mid_anon_field_deep_a")
+{-| The named mid-level struct
+
+    __C declaration:__ @struct deep_mid@
+
+    __defined at:__ @documentation\/doxygen_docs.h 594:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_mid
+    = Deep_mid {deep_mid_m :: CInt
+                {- ^ Mid-level field
+
+                     __C declaration:__ @m@
+
+                     __defined at:__ @documentation\/doxygen_docs.h 596:13@
+
+                     __exported by:__ @documentation\/doxygen_docs.h@
+                -},
+                deep_mid_anon_field :: Deep_mid_anon_field
+                {- ^ Anonymous struct inside named mid
+
+                     __C declaration:__ @anon_field@
+
+                     __defined at:__ @documentation\/doxygen_docs.h 601:11@
+
+                     __exported by:__ @documentation\/doxygen_docs.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Deep_mid
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Deep_mid
+    where readRaw = \ptr_0 -> (pure Deep_mid <*> readRaw (Proxy @"deep_mid_m") ptr_0) <*> readRaw (Proxy @"deep_mid_anon_field") ptr_0
+instance WriteRaw Deep_mid
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Deep_mid deep_mid_m_2
+                                                deep_mid_anon_field_3 -> writeRaw (Proxy @"deep_mid_m") ptr_0 deep_mid_m_2 >> writeRaw (Proxy @"deep_mid_anon_field") ptr_0 deep_mid_anon_field_3
+deriving via (EquivStorable Deep_mid) instance Storable Deep_mid
+instance HasCField Deep_mid "deep_mid_m"
+    where type CFieldType Deep_mid "deep_mid_m" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "deep_mid_m" (Ptr Deep_mid) (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_mid_m")
+instance HasCField Deep_mid "deep_mid_anon_field"
+    where type CFieldType Deep_mid
+                          "deep_mid_anon_field" = Deep_mid_anon_field
+          offset# = \_ -> \_ -> 4
+instance (~) ty Deep_mid_anon_field =>
+         HasField "deep_mid_anon_field" (Ptr Deep_mid) (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_mid_anon_field")
+{-| Deeply nested mix of named and anonymous structs.
+
+    Tests the full genealogy walk through mixed named/anonymous nesting.
+
+    __C declaration:__ @struct deep_outer@
+
+    __defined at:__ @documentation\/doxygen_docs.h 592:8@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_outer
+    = Deep_outer {deep_outer_mid_field :: Deep_mid
+                  {- ^ __C declaration:__ @mid_field@
+
+                       __defined at:__ @documentation\/doxygen_docs.h 602:7@
+
+                       __exported by:__ @documentation\/doxygen_docs.h@
+                  -},
+                  deep_outer_o :: CInt
+                  {- ^ Outer-only field
+
+                       __C declaration:__ @o@
+
+                       __defined at:__ @documentation\/doxygen_docs.h 604:9@
+
+                       __exported by:__ @documentation\/doxygen_docs.h@
+                  -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Deep_outer
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Deep_outer
+    where readRaw = \ptr_0 -> (pure Deep_outer <*> readRaw (Proxy @"deep_outer_mid_field") ptr_0) <*> readRaw (Proxy @"deep_outer_o") ptr_0
+instance WriteRaw Deep_outer
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Deep_outer deep_outer_mid_field_2
+                                                  deep_outer_o_3 -> writeRaw (Proxy @"deep_outer_mid_field") ptr_0 deep_outer_mid_field_2 >> writeRaw (Proxy @"deep_outer_o") ptr_0 deep_outer_o_3
+deriving via (EquivStorable Deep_outer) instance Storable Deep_outer
+instance HasCField Deep_outer "deep_outer_mid_field"
+    where type CFieldType Deep_outer "deep_outer_mid_field" = Deep_mid
+          offset# = \_ -> \_ -> 0
+instance (~) ty Deep_mid =>
+         HasField "deep_outer_mid_field" (Ptr Deep_outer) (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_outer_mid_field")
+instance HasCField Deep_outer "deep_outer_o"
+    where type CFieldType Deep_outer "deep_outer_o" = CInt
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt =>
+         HasField "deep_outer_o" (Ptr Deep_outer) (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_outer_o")
+{-| __C declaration:__ @struct \@unnamed_field_t_ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 616:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Unnamed_field_t_ua
+    = Unnamed_field_t_ua {unnamed_field_t_ua_ua :: CInt
+                          {- ^ Unnamed inner a
+
+                               __C declaration:__ @ua@
+
+                               __defined at:__ @documentation\/doxygen_docs.h 618:13@
+
+                               __exported by:__ @documentation\/doxygen_docs.h@
+                          -},
+                          unnamed_field_t_ua_ub :: CInt
+                          {- ^ Unnamed inner b
+
+                               __C declaration:__ @ub@
+
+                               __defined at:__ @documentation\/doxygen_docs.h 620:13@
+
+                               __exported by:__ @documentation\/doxygen_docs.h@
+                          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Unnamed_field_t_ua
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Unnamed_field_t_ua
+    where readRaw = \ptr_0 -> (pure Unnamed_field_t_ua <*> readRaw (Proxy @"unnamed_field_t_ua_ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_ua_ub") ptr_0
+instance WriteRaw Unnamed_field_t_ua
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Unnamed_field_t_ua unnamed_field_t_ua_ua_2
+                                                          unnamed_field_t_ua_ub_3 -> writeRaw (Proxy @"unnamed_field_t_ua_ua") ptr_0 unnamed_field_t_ua_ua_2 >> writeRaw (Proxy @"unnamed_field_t_ua_ub") ptr_0 unnamed_field_t_ua_ub_3
+deriving via (EquivStorable Unnamed_field_t_ua) instance Storable Unnamed_field_t_ua
+instance HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ua"
+    where type CFieldType Unnamed_field_t_ua
+                          "unnamed_field_t_ua_ua" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ua_ua" (Ptr Unnamed_field_t_ua) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_ua_ua")
+instance HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ub"
+    where type CFieldType Unnamed_field_t_ua
+                          "unnamed_field_t_ua_ub" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ua_ub" (Ptr Unnamed_field_t_ua) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_ua_ub")
+{-| Struct with unnamed anonymous field.
+
+    Tests the case where the anonymous inner struct has no field name. The inner fields are flattened directly into the parent.
+
+    __C declaration:__ @struct unnamed_field_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 613:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Unnamed_field_t
+    = Unnamed_field_t {unnamed_field_t_before :: CInt
+                       {- ^ Before field
+
+                            __C declaration:__ @before@
+
+                            __defined at:__ @documentation\/doxygen_docs.h 615:9@
+
+                            __exported by:__ @documentation\/doxygen_docs.h@
+                       -},
+                       unnamed_field_t_ua :: Unnamed_field_t_ua
+                       {- ^ Unnamed inner a
+
+                            __C declaration:__ @ua@
+
+                            __defined at:__ @documentation\/doxygen_docs.h 616:5@
+
+                            __exported by:__ @documentation\/doxygen_docs.h@
+                       -},
+                       unnamed_field_t_after :: CInt
+                       {- ^ After field
+
+                            __C declaration:__ @after@
+
+                            __defined at:__ @documentation\/doxygen_docs.h 623:9@
+
+                            __exported by:__ @documentation\/doxygen_docs.h@
+                       -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Unnamed_field_t
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Unnamed_field_t
+    where readRaw = \ptr_0 -> ((pure Unnamed_field_t <*> readRaw (Proxy @"unnamed_field_t_before") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_after") ptr_0
+instance WriteRaw Unnamed_field_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Unnamed_field_t unnamed_field_t_before_2
+                                                       unnamed_field_t_ua_3
+                                                       unnamed_field_t_after_4 -> writeRaw (Proxy @"unnamed_field_t_before") ptr_0 unnamed_field_t_before_2 >> (writeRaw (Proxy @"unnamed_field_t_ua") ptr_0 unnamed_field_t_ua_3 >> writeRaw (Proxy @"unnamed_field_t_after") ptr_0 unnamed_field_t_after_4)
+deriving via (EquivStorable Unnamed_field_t) instance Storable Unnamed_field_t
+instance HasCField Unnamed_field_t "unnamed_field_t_before"
+    where type CFieldType Unnamed_field_t
+                          "unnamed_field_t_before" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_before" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_before")
+instance HasCField Unnamed_field_t "unnamed_field_t_ua"
+    where type CFieldType Unnamed_field_t
+                          "unnamed_field_t_ua" = Unnamed_field_t_ua
+          offset# = \_ -> \_ -> 4
+instance (~) ty Unnamed_field_t_ua =>
+         HasField "unnamed_field_t_ua" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_ua")
+instance HasCField Unnamed_field_t "unnamed_field_t_after"
+    where type CFieldType Unnamed_field_t
+                          "unnamed_field_t_after" = CInt
+          offset# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_after" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_after")
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     Ptr Void
@@ -1330,48 +1978,44 @@ hs_bindgen_7eada9f65d982412 :: PtrConst HsBindgen.Runtime.LibC.Word8 ->
                                Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 = fromFFIType hs_bindgen_7eada9f65d982412_base
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_safe :: PtrConst HsBindgen.Runtime.LibC.Word8 ->
                      Ptr HsBindgen.Runtime.LibC.Word8 ->
                      Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_safe = hs_bindgen_7eada9f65d982412
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
@@ -1382,38 +2026,34 @@ foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da
 hs_bindgen_fb85499c501da1a7 :: PtrConst CChar -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 hs_bindgen_fb85499c501da1a7 = fromFFIType hs_bindgen_fb85499c501da1a7_base
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_safe :: PtrConst CChar -> IO CBool
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_safe = hs_bindgen_fb85499c501da1a7
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
@@ -1425,52 +2065,48 @@ foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035
 hs_bindgen_a73fc7b108035c5c :: CInt -> CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 hs_bindgen_a73fc7b108035c5c = fromFFIType hs_bindgen_a73fc7b108035c5c_base
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_safe :: CInt -> CInt -> IO CInt
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_safe = hs_bindgen_a73fc7b108035c5c
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
@@ -1481,42 +2117,58 @@ foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4
 hs_bindgen_9b7f6745401b4652 :: CInt -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 hs_bindgen_9b7f6745401b4652 = fromFFIType hs_bindgen_9b7f6745401b4652_base
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_safe :: CInt -> IO CBool
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_safe = hs_bindgen_9b7f6745401b4652
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
@@ -1529,99 +2181,87 @@ hs_bindgen_825411dc114e599b :: Ptr (PtrConst CChar) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b = fromFFIType hs_bindgen_825411dc114e599b_base
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_safe :: Ptr (PtrConst CChar) ->
                      HsBindgen.Runtime.LibC.CSize -> IO CBool
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_safe = hs_bindgen_825411dc114e599b
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
@@ -1632,46 +2272,42 @@ foreign import ccall safe "hs_bindgen_17264dcff7e9b698" hs_bindgen_17264dcff7e9b
 hs_bindgen_17264dcff7e9b698 :: Ptr Void -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
 hs_bindgen_17264dcff7e9b698 = fromFFIType hs_bindgen_17264dcff7e9b698_base
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_safe :: Ptr Void -> IO (Ptr Void)
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_safe = hs_bindgen_17264dcff7e9b698
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
@@ -1682,46 +2318,42 @@ foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70
 hs_bindgen_c8ca619ec2e70d8d :: PtrConst CChar -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 hs_bindgen_c8ca619ec2e70d8d = fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_safe :: PtrConst CChar -> IO CInt
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_safe = hs_bindgen_c8ca619ec2e70d8d
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
@@ -1732,38 +2364,34 @@ foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10
 hs_bindgen_25e1070e2ce10048 :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 hs_bindgen_25e1070e2ce10048 = fromFFIType hs_bindgen_25e1070e2ce10048_base
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_safe :: CInt -> IO CInt
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_safe = hs_bindgen_25e1070e2ce10048
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
@@ -1774,38 +2402,38 @@ foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e7
 hs_bindgen_a9eeeb09808e71cc :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 hs_bindgen_a9eeeb09808e71cc = fromFFIType hs_bindgen_a9eeeb09808e71cc_base
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_safe :: CInt -> IO CInt
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_safe = hs_bindgen_a9eeeb09808e71cc
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
@@ -1819,39 +2447,35 @@ hs_bindgen_0c0057f1700372a7 :: Ptr (Elem (ConstantArray 64
                                HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 = fromFFIType hs_bindgen_0c0057f1700372a7_base
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_safe :: Ptr (Elem (ConstantArray 64 CChar)) ->
                        HsBindgen.Runtime.LibC.CSize -> IO CInt
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_safe = hs_bindgen_0c0057f1700372a7
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
@@ -1865,43 +2489,39 @@ hs_bindgen_294db77671f95524 :: Ptr Void ->
                                PtrConst Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 hs_bindgen_294db77671f95524 = fromFFIType hs_bindgen_294db77671f95524_base
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_safe :: Ptr Void ->
                   PtrConst Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_safe = hs_bindgen_294db77671f95524
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
@@ -1912,34 +2532,30 @@ foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2
 hs_bindgen_f5bc63a9952c2618 :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 hs_bindgen_f5bc63a9952c2618 = fromFFIType hs_bindgen_f5bc63a9952c2618_base
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_safe :: CInt -> IO CInt
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_safe = hs_bindgen_f5bc63a9952c2618
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
@@ -1954,150 +2570,146 @@ hs_bindgen_c4e7e99dba20204d :: Ptr Config_t ->
                                HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d = fromFFIType hs_bindgen_c4e7e99dba20204d_base
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_safe :: Ptr Config_t ->
                          PtrConst HsBindgen.Runtime.LibC.Word8 ->
                          HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_safe = hs_bindgen_c4e7e99dba20204d
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
@@ -2110,24 +2722,24 @@ hs_bindgen_935f2aead358d9ef :: Ptr CChar -> IO CInt
 hs_bindgen_935f2aead358d9ef = fromFFIType hs_bindgen_935f2aead358d9ef_base
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash_safe :: Ptr CChar -> IO CInt
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash_safe = hs_bindgen_935f2aead358d9ef
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
@@ -2140,26 +2752,331 @@ hs_bindgen_39fef54c23d4e1ee :: CInt -> CInt
 hs_bindgen_39fef54c23d4e1ee = fromFFIType hs_bindgen_39fef54c23d4e1ee_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_safe :: CInt -> CInt
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_safe = hs_bindgen_39fef54c23d4e1ee
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_auto_brief_func@
+foreign import ccall safe "hs_bindgen_29749932a4449f10" hs_bindgen_29749932a4449f10_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_auto_brief_func@
+hs_bindgen_29749932a4449f10 :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_auto_brief_func@
+hs_bindgen_29749932a4449f10 = fromFFIType hs_bindgen_29749932a4449f10_base
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_safe :: CInt -> IO CInt
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_safe = hs_bindgen_29749932a4449f10
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_multi_paragraph_details@
+foreign import ccall safe "hs_bindgen_03f0269c9296b8c0" hs_bindgen_03f0269c9296b8c0_base ::
+    Ptr Void
+ -> Word64
+ -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_multi_paragraph_details@
+hs_bindgen_03f0269c9296b8c0 :: Ptr CChar ->
+                               HsBindgen.Runtime.LibC.CSize -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_multi_paragraph_details@
+hs_bindgen_03f0269c9296b8c0 = fromFFIType hs_bindgen_03f0269c9296b8c0_base
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_safe :: Ptr CChar ->
+                                HsBindgen.Runtime.LibC.CSize -> IO ()
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_safe = hs_bindgen_03f0269c9296b8c0
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_todo_remark_attention@
+foreign import ccall safe "hs_bindgen_0446a821eb966f46" hs_bindgen_0446a821eb966f46_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_todo_remark_attention@
+hs_bindgen_0446a821eb966f46 :: CInt -> IO (Ptr CInt)
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_todo_remark_attention@
+hs_bindgen_0446a821eb966f46 = fromFFIType hs_bindgen_0446a821eb966f46_base
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_safe :: CInt -> IO (Ptr CInt)
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_safe = hs_bindgen_0446a821eb966f46
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_entities_func@
+foreign import ccall safe "hs_bindgen_25a9ea376bb793e9" hs_bindgen_25a9ea376bb793e9_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_entities_func@
+hs_bindgen_25a9ea376bb793e9 :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_entities_func@
+hs_bindgen_25a9ea376bb793e9 = fromFFIType hs_bindgen_25a9ea376bb793e9_base
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_safe :: CInt -> IO CInt
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_safe = hs_bindgen_25a9ea376bb793e9
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_nested_inline_format@
+foreign import ccall safe "hs_bindgen_6f311771e5e063e6" hs_bindgen_6f311771e5e063e6_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_nested_inline_format@
+hs_bindgen_6f311771e5e063e6 :: CInt -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_nested_inline_format@
+hs_bindgen_6f311771e5e063e6 = fromFFIType hs_bindgen_6f311771e5e063e6_base
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_safe :: CInt -> IO ()
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_safe = hs_bindgen_6f311771e5e063e6
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_tagged_code_example@
+foreign import ccall safe "hs_bindgen_34473a588f1157e4" hs_bindgen_34473a588f1157e4_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_tagged_code_example@
+hs_bindgen_34473a588f1157e4 :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_tagged_code_example@
+hs_bindgen_34473a588f1157e4 = fromFFIType hs_bindgen_34473a588f1157e4_base
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_safe :: CInt -> IO CInt
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_safe = hs_bindgen_34473a588f1157e4
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_backslash_syntax@
+foreign import ccall safe "hs_bindgen_471f4a3c2db31252" hs_bindgen_471f4a3c2db31252_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_backslash_syntax@
+hs_bindgen_471f4a3c2db31252 :: PtrConst CChar ->
+                               Ptr CChar -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_backslash_syntax@
+hs_bindgen_471f4a3c2db31252 = fromFFIType hs_bindgen_471f4a3c2db31252_base
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_safe :: PtrConst CChar -> Ptr CChar -> IO CInt
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_safe = hs_bindgen_471f4a3c2db31252
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
 foreign import ccall unsafe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba41ecb_base ::
     Ptr Void
@@ -2172,48 +3089,44 @@ hs_bindgen_e6085a910ba41ecb :: PtrConst HsBindgen.Runtime.LibC.Word8 ->
                                Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
 hs_bindgen_e6085a910ba41ecb = fromFFIType hs_bindgen_e6085a910ba41ecb_base
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_unsafe :: PtrConst HsBindgen.Runtime.LibC.Word8 ->
                        Ptr HsBindgen.Runtime.LibC.Word8 ->
                        Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_unsafe = hs_bindgen_e6085a910ba41ecb
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
@@ -2224,38 +3137,34 @@ foreign import ccall unsafe "hs_bindgen_c27e893aea0b0a77" hs_bindgen_c27e893aea0
 hs_bindgen_c27e893aea0b0a77 :: PtrConst CChar -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
 hs_bindgen_c27e893aea0b0a77 = fromFFIType hs_bindgen_c27e893aea0b0a77_base
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_unsafe :: PtrConst CChar -> IO CBool
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_unsafe = hs_bindgen_c27e893aea0b0a77
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
@@ -2267,52 +3176,48 @@ foreign import ccall unsafe "hs_bindgen_bc1b0e25a72f4ec0" hs_bindgen_bc1b0e25a72
 hs_bindgen_bc1b0e25a72f4ec0 :: CInt -> CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
 hs_bindgen_bc1b0e25a72f4ec0 = fromFFIType hs_bindgen_bc1b0e25a72f4ec0_base
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_unsafe :: CInt -> CInt -> IO CInt
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_unsafe = hs_bindgen_bc1b0e25a72f4ec0
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
@@ -2323,42 +3228,58 @@ foreign import ccall unsafe "hs_bindgen_09abc3cb74562964" hs_bindgen_09abc3cb745
 hs_bindgen_09abc3cb74562964 :: CInt -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
 hs_bindgen_09abc3cb74562964 = fromFFIType hs_bindgen_09abc3cb74562964_base
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_unsafe :: CInt -> IO CBool
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_unsafe = hs_bindgen_09abc3cb74562964
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
@@ -2371,99 +3292,87 @@ hs_bindgen_47cba1a95d265f84 :: Ptr (PtrConst CChar) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
 hs_bindgen_47cba1a95d265f84 = fromFFIType hs_bindgen_47cba1a95d265f84_base
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_unsafe :: Ptr (PtrConst CChar) ->
                        HsBindgen.Runtime.LibC.CSize -> IO CBool
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_unsafe = hs_bindgen_47cba1a95d265f84
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@
@@ -2474,46 +3383,42 @@ foreign import ccall unsafe "hs_bindgen_e065fc013e4eccd6" hs_bindgen_e065fc013e4
 hs_bindgen_e065fc013e4eccd6 :: Ptr Void -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@
 hs_bindgen_e065fc013e4eccd6 = fromFFIType hs_bindgen_e065fc013e4eccd6_base
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_unsafe :: Ptr Void -> IO (Ptr Void)
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_unsafe = hs_bindgen_e065fc013e4eccd6
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_detailed_return_codes@
@@ -2524,46 +3429,42 @@ foreign import ccall unsafe "hs_bindgen_bc4f7e24b2ad4ace" hs_bindgen_bc4f7e24b2a
 hs_bindgen_bc4f7e24b2ad4ace :: PtrConst CChar -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_detailed_return_codes@
 hs_bindgen_bc4f7e24b2ad4ace = fromFFIType hs_bindgen_bc4f7e24b2ad4ace_base
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_unsafe :: PtrConst CChar -> IO CInt
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_unsafe = hs_bindgen_bc4f7e24b2ad4ace
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_old_function@
@@ -2574,38 +3475,34 @@ foreign import ccall unsafe "hs_bindgen_8deec146389ae8b3" hs_bindgen_8deec146389
 hs_bindgen_8deec146389ae8b3 :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_old_function@
 hs_bindgen_8deec146389ae8b3 = fromFFIType hs_bindgen_8deec146389ae8b3_base
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_unsafe :: CInt -> IO CInt
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_unsafe = hs_bindgen_8deec146389ae8b3
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
@@ -2616,38 +3513,38 @@ foreign import ccall unsafe "hs_bindgen_da2dcc1473935665" hs_bindgen_da2dcc14739
 hs_bindgen_da2dcc1473935665 :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
 hs_bindgen_da2dcc1473935665 = fromFFIType hs_bindgen_da2dcc1473935665_base
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_unsafe :: CInt -> IO CInt
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_unsafe = hs_bindgen_da2dcc1473935665
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
@@ -2661,39 +3558,35 @@ hs_bindgen_97c1191917e6eece :: Ptr (Elem (ConstantArray 64
                                HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece = fromFFIType hs_bindgen_97c1191917e6eece_base
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_unsafe :: Ptr (Elem (ConstantArray 64 CChar)) ->
                          HsBindgen.Runtime.LibC.CSize -> IO CInt
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_unsafe = hs_bindgen_97c1191917e6eece
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
@@ -2707,43 +3600,39 @@ hs_bindgen_58253bb560dc3eb3 :: Ptr Void ->
                                PtrConst Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
 hs_bindgen_58253bb560dc3eb3 = fromFFIType hs_bindgen_58253bb560dc3eb3_base
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_unsafe :: Ptr Void ->
                     PtrConst Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_unsafe = hs_bindgen_58253bb560dc3eb3
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_double_value@
@@ -2754,34 +3643,30 @@ foreign import ccall unsafe "hs_bindgen_44dd19b16ee38e5b" hs_bindgen_44dd19b16ee
 hs_bindgen_44dd19b16ee38e5b :: CInt -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_double_value@
 hs_bindgen_44dd19b16ee38e5b = fromFFIType hs_bindgen_44dd19b16ee38e5b_base
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_unsafe :: CInt -> IO CInt
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_unsafe = hs_bindgen_44dd19b16ee38e5b
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
@@ -2796,150 +3681,146 @@ hs_bindgen_fd6fce7c8d8b2f79 :: Ptr Config_t ->
                                HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 hs_bindgen_fd6fce7c8d8b2f79 = fromFFIType hs_bindgen_fd6fce7c8d8b2f79_base
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_unsafe :: Ptr Config_t ->
                            PtrConst HsBindgen.Runtime.LibC.Word8 ->
                            HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_unsafe = hs_bindgen_fd6fce7c8d8b2f79
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_hash@
@@ -2952,24 +3833,24 @@ hs_bindgen_dd36c8b317ccfcc4 :: Ptr CChar -> IO CInt
 hs_bindgen_dd36c8b317ccfcc4 = fromFFIType hs_bindgen_dd36c8b317ccfcc4_base
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash_unsafe :: Ptr CChar -> IO CInt
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash_unsafe = hs_bindgen_dd36c8b317ccfcc4
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_square@
@@ -2982,26 +3863,331 @@ hs_bindgen_6875e30a7fe8d30a :: CInt -> CInt
 hs_bindgen_6875e30a7fe8d30a = fromFFIType hs_bindgen_6875e30a7fe8d30a_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_unsafe :: CInt -> CInt
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_unsafe = hs_bindgen_6875e30a7fe8d30a
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_auto_brief_func@
+foreign import ccall unsafe "hs_bindgen_3094fd32a3eedd49" hs_bindgen_3094fd32a3eedd49_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_auto_brief_func@
+hs_bindgen_3094fd32a3eedd49 :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_auto_brief_func@
+hs_bindgen_3094fd32a3eedd49 = fromFFIType hs_bindgen_3094fd32a3eedd49_base
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_unsafe :: CInt -> IO CInt
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_unsafe = hs_bindgen_3094fd32a3eedd49
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_multi_paragraph_details@
+foreign import ccall unsafe "hs_bindgen_73270d34a2bf31b5" hs_bindgen_73270d34a2bf31b5_base ::
+    Ptr Void
+ -> Word64
+ -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_multi_paragraph_details@
+hs_bindgen_73270d34a2bf31b5 :: Ptr CChar ->
+                               HsBindgen.Runtime.LibC.CSize -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_multi_paragraph_details@
+hs_bindgen_73270d34a2bf31b5 = fromFFIType hs_bindgen_73270d34a2bf31b5_base
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_unsafe :: Ptr CChar ->
+                                  HsBindgen.Runtime.LibC.CSize -> IO ()
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_unsafe = hs_bindgen_73270d34a2bf31b5
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_todo_remark_attention@
+foreign import ccall unsafe "hs_bindgen_836de64a94d7bf03" hs_bindgen_836de64a94d7bf03_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_todo_remark_attention@
+hs_bindgen_836de64a94d7bf03 :: CInt -> IO (Ptr CInt)
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_todo_remark_attention@
+hs_bindgen_836de64a94d7bf03 = fromFFIType hs_bindgen_836de64a94d7bf03_base
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_unsafe :: CInt -> IO (Ptr CInt)
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_unsafe = hs_bindgen_836de64a94d7bf03
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_entities_func@
+foreign import ccall unsafe "hs_bindgen_aa0467b9d3b1a48d" hs_bindgen_aa0467b9d3b1a48d_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_entities_func@
+hs_bindgen_aa0467b9d3b1a48d :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_entities_func@
+hs_bindgen_aa0467b9d3b1a48d = fromFFIType hs_bindgen_aa0467b9d3b1a48d_base
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_unsafe :: CInt -> IO CInt
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_unsafe = hs_bindgen_aa0467b9d3b1a48d
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_nested_inline_format@
+foreign import ccall unsafe "hs_bindgen_b654d8047edfed77" hs_bindgen_b654d8047edfed77_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_nested_inline_format@
+hs_bindgen_b654d8047edfed77 :: CInt -> IO ()
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_nested_inline_format@
+hs_bindgen_b654d8047edfed77 = fromFFIType hs_bindgen_b654d8047edfed77_base
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_unsafe :: CInt -> IO ()
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_unsafe = hs_bindgen_b654d8047edfed77
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_tagged_code_example@
+foreign import ccall unsafe "hs_bindgen_aeb274aded3470e5" hs_bindgen_aeb274aded3470e5_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_tagged_code_example@
+hs_bindgen_aeb274aded3470e5 :: CInt -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_tagged_code_example@
+hs_bindgen_aeb274aded3470e5 = fromFFIType hs_bindgen_aeb274aded3470e5_base
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_unsafe :: CInt -> IO CInt
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_unsafe = hs_bindgen_aeb274aded3470e5
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_backslash_syntax@
+foreign import ccall unsafe "hs_bindgen_907720dffab9442a" hs_bindgen_907720dffab9442a_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_backslash_syntax@
+hs_bindgen_907720dffab9442a :: PtrConst CChar ->
+                               Ptr CChar -> IO CInt
+-- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_backslash_syntax@
+hs_bindgen_907720dffab9442a = fromFFIType hs_bindgen_907720dffab9442a_base
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_unsafe :: PtrConst CChar -> Ptr CChar -> IO CInt
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_unsafe = hs_bindgen_907720dffab9442a
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
 foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f26f8d5_base ::
     IO (FunPtr Void)
@@ -3012,48 +4198,44 @@ hs_bindgen_4a5cd66a4f26f8d5 :: IO (FunPtr (PtrConst HsBindgen.Runtime.LibC.Word8
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
 hs_bindgen_4a5cd66a4f26f8d5 = fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 {-# NOINLINE process_data_funptr #-}
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_funptr :: FunPtr (PtrConst HsBindgen.Runtime.LibC.Word8 ->
                                Ptr HsBindgen.Runtime.LibC.Word8 ->
                                Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt)
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data_funptr = unsafePerformIO hs_bindgen_4a5cd66a4f26f8d5
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
@@ -3065,38 +4247,34 @@ hs_bindgen_c8a059c65f18fea9 :: IO (FunPtr (PtrConst CChar ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
 hs_bindgen_c8a059c65f18fea9 = fromFFIType hs_bindgen_c8a059c65f18fea9_base
 {-# NOINLINE process_file_funptr #-}
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_funptr :: FunPtr (PtrConst CChar -> IO CBool)
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file_funptr = unsafePerformIO hs_bindgen_c8a059c65f18fea9
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value@
@@ -3108,52 +4286,48 @@ hs_bindgen_5ab7e06724867ab3 :: IO (FunPtr (CInt ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value@
 hs_bindgen_5ab7e06724867ab3 = fromFFIType hs_bindgen_5ab7e06724867ab3_base
 {-# NOINLINE calculate_value_funptr #-}
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_funptr :: FunPtr (CInt -> CInt -> IO CInt)
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value_funptr = unsafePerformIO hs_bindgen_5ab7e06724867ab3
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_html_example@
@@ -3164,42 +4338,58 @@ hs_bindgen_3f74fb834b0cd46b :: IO (FunPtr (CInt -> IO CBool))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_html_example@
 hs_bindgen_3f74fb834b0cd46b = fromFFIType hs_bindgen_3f74fb834b0cd46b_base
 {-# NOINLINE html_example_funptr #-}
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_funptr :: FunPtr (CInt -> IO CBool)
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example_funptr = unsafePerformIO hs_bindgen_3f74fb834b0cd46b
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
@@ -3211,99 +4401,87 @@ hs_bindgen_2175b3c627db39cf :: IO (FunPtr (Ptr (PtrConst CChar) ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
 hs_bindgen_2175b3c627db39cf = fromFFIType hs_bindgen_2175b3c627db39cf_base
 {-# NOINLINE list_example_funptr #-}
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_funptr :: FunPtr (Ptr (PtrConst CChar) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CBool)
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example_funptr = unsafePerformIO hs_bindgen_2175b3c627db39cf
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
@@ -3315,46 +4493,42 @@ hs_bindgen_b7a4debd18827a19 :: IO (FunPtr (Ptr Void ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
 hs_bindgen_b7a4debd18827a19 = fromFFIType hs_bindgen_b7a4debd18827a19_base
 {-# NOINLINE dangerous_function_funptr #-}
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_funptr :: FunPtr (Ptr Void -> IO (Ptr Void))
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function_funptr = unsafePerformIO hs_bindgen_b7a4debd18827a19
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
@@ -3366,46 +4540,42 @@ hs_bindgen_9700b22f82eedafe :: IO (FunPtr (PtrConst CChar ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
 hs_bindgen_9700b22f82eedafe = fromFFIType hs_bindgen_9700b22f82eedafe_base
 {-# NOINLINE detailed_return_codes_funptr #-}
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_funptr :: FunPtr (PtrConst CChar -> IO CInt)
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes_funptr = unsafePerformIO hs_bindgen_9700b22f82eedafe
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_old_function@
@@ -3416,38 +4586,34 @@ hs_bindgen_49e0d34a627c6c19 :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_old_function@
 hs_bindgen_49e0d34a627c6c19 = fromFFIType hs_bindgen_49e0d34a627c6c19_base
 {-# NOINLINE old_function_funptr #-}
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_funptr :: FunPtr (CInt -> IO CInt)
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function_funptr = unsafePerformIO hs_bindgen_49e0d34a627c6c19
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function@
@@ -3458,38 +4624,38 @@ hs_bindgen_180cd7537e40ce99 :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function@
 hs_bindgen_180cd7537e40ce99 = fromFFIType hs_bindgen_180cd7537e40ce99_base
 {-# NOINLINE versioned_function_funptr #-}
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_funptr :: FunPtr (CInt -> IO CInt)
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function_funptr = unsafePerformIO hs_bindgen_180cd7537e40ce99
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
@@ -3502,40 +4668,36 @@ hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (Ptr (Elem (ConstantArray 64
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd = fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 {-# NOINLINE process_buffer_funptr #-}
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_funptr :: FunPtr (Ptr (Elem (ConstantArray 64
                                                           CChar)) ->
                                  HsBindgen.Runtime.LibC.CSize -> IO CInt)
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer_funptr = unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
@@ -3548,43 +4710,39 @@ hs_bindgen_6a74d376c901b531 :: IO (FunPtr (Ptr Void ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
 hs_bindgen_6a74d376c901b531 = fromFFIType hs_bindgen_6a74d376c901b531_base
 {-# NOINLINE my_memcpy_funptr #-}
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_funptr :: FunPtr (Ptr Void ->
                             PtrConst Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void))
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy_funptr = unsafePerformIO hs_bindgen_6a74d376c901b531
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_double_value@
@@ -3595,34 +4753,30 @@ hs_bindgen_156a92f3c5176105 :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_double_value@
 hs_bindgen_156a92f3c5176105 = fromFFIType hs_bindgen_156a92f3c5176105_base
 {-# NOINLINE double_value_funptr #-}
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_funptr :: FunPtr (CInt -> IO CInt)
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value_funptr = unsafePerformIO hs_bindgen_156a92f3c5176105
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
@@ -3635,150 +4789,146 @@ hs_bindgen_dfa39b6be50cb2ca :: IO (FunPtr (Ptr Config_t ->
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
 hs_bindgen_dfa39b6be50cb2ca = fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 {-# NOINLINE complex_function_funptr #-}
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_funptr :: FunPtr (Ptr Config_t ->
                                    PtrConst HsBindgen.Runtime.LibC.Word8 ->
                                    HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function_funptr = unsafePerformIO hs_bindgen_dfa39b6be50cb2ca
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_hash@
@@ -3791,14 +4941,14 @@ hs_bindgen_8ad88b79fd71f9d4 = fromFFIType hs_bindgen_8ad88b79fd71f9d4_base
 {-# NOINLINE hash_funptr #-}
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash_funptr :: FunPtr (Ptr CChar -> IO CInt)
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3813,18 +4963,322 @@ hs_bindgen_7ede0f7ec1b30650 = fromFFIType hs_bindgen_7ede0f7ec1b30650_base
 {-# NOINLINE square_funptr #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_funptr :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square_funptr = unsafePerformIO hs_bindgen_7ede0f7ec1b30650
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
+foreign import ccall unsafe "hs_bindgen_11a28326d5a28a43" hs_bindgen_11a28326d5a28a43_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
+hs_bindgen_11a28326d5a28a43 :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
+hs_bindgen_11a28326d5a28a43 = fromFFIType hs_bindgen_11a28326d5a28a43_base
+{-# NOINLINE auto_brief_func_funptr #-}
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_funptr :: FunPtr (CInt -> IO CInt)
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func_funptr = unsafePerformIO hs_bindgen_11a28326d5a28a43
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
+foreign import ccall unsafe "hs_bindgen_05c7a7832fb84e2e" hs_bindgen_05c7a7832fb84e2e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
+hs_bindgen_05c7a7832fb84e2e :: IO (FunPtr (Ptr CChar ->
+                                           HsBindgen.Runtime.LibC.CSize -> IO ()))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
+hs_bindgen_05c7a7832fb84e2e = fromFFIType hs_bindgen_05c7a7832fb84e2e_base
+{-# NOINLINE multi_paragraph_details_funptr #-}
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_funptr :: FunPtr (Ptr CChar ->
+                                          HsBindgen.Runtime.LibC.CSize -> IO ())
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details_funptr = unsafePerformIO hs_bindgen_05c7a7832fb84e2e
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
+foreign import ccall unsafe "hs_bindgen_092b9697f2154ac5" hs_bindgen_092b9697f2154ac5_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
+hs_bindgen_092b9697f2154ac5 :: IO (FunPtr (CInt -> IO (Ptr CInt)))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
+hs_bindgen_092b9697f2154ac5 = fromFFIType hs_bindgen_092b9697f2154ac5_base
+{-# NOINLINE todo_remark_attention_funptr #-}
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_funptr :: FunPtr (CInt -> IO (Ptr CInt))
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention_funptr = unsafePerformIO hs_bindgen_092b9697f2154ac5
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
+foreign import ccall unsafe "hs_bindgen_2e8b5e895e58fc3d" hs_bindgen_2e8b5e895e58fc3d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
+hs_bindgen_2e8b5e895e58fc3d :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
+hs_bindgen_2e8b5e895e58fc3d = fromFFIType hs_bindgen_2e8b5e895e58fc3d_base
+{-# NOINLINE html_entities_func_funptr #-}
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_funptr :: FunPtr (CInt -> IO CInt)
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func_funptr = unsafePerformIO hs_bindgen_2e8b5e895e58fc3d
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
+foreign import ccall unsafe "hs_bindgen_db292926f05c7b36" hs_bindgen_db292926f05c7b36_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
+hs_bindgen_db292926f05c7b36 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
+hs_bindgen_db292926f05c7b36 = fromFFIType hs_bindgen_db292926f05c7b36_base
+{-# NOINLINE nested_inline_format_funptr #-}
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_funptr :: FunPtr (CInt -> IO ())
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format_funptr = unsafePerformIO hs_bindgen_db292926f05c7b36
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
+foreign import ccall unsafe "hs_bindgen_492a4fd860afb02a" hs_bindgen_492a4fd860afb02a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
+hs_bindgen_492a4fd860afb02a :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
+hs_bindgen_492a4fd860afb02a = fromFFIType hs_bindgen_492a4fd860afb02a_base
+{-# NOINLINE tagged_code_example_funptr #-}
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_funptr :: FunPtr (CInt -> IO CInt)
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example_funptr = unsafePerformIO hs_bindgen_492a4fd860afb02a
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
+foreign import ccall unsafe "hs_bindgen_9ef09ad63fac68e2" hs_bindgen_9ef09ad63fac68e2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
+hs_bindgen_9ef09ad63fac68e2 :: IO (FunPtr (PtrConst CChar ->
+                                           Ptr CChar -> IO CInt))
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
+hs_bindgen_9ef09ad63fac68e2 = fromFFIType hs_bindgen_9ef09ad63fac68e2_base
+{-# NOINLINE backslash_syntax_funptr #-}
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_funptr :: FunPtr (PtrConst CChar ->
+                                   Ptr CChar -> IO CInt)
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax_funptr = unsafePerformIO hs_bindgen_9ef09ad63fac68e2
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
 foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496f59c9_base ::
     IO (Ptr Void)
@@ -3833,34 +5287,26 @@ hs_bindgen_f9dede86496f59c9 :: IO (Ptr CInt)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
 hs_bindgen_f9dede86496f59c9 = fromFFIType hs_bindgen_f9dede86496f59c9_base
 {-# NOINLINE global_counter #-}
-{-|
+{-| Global counter variable.
 
-  > extern int global_counter
+    This variable tracks the number of operations performed.
 
-  Global counter variable
+    __C declaration:__ @global_counter@
 
-  This variable tracks the number of operations performed.
+    __defined at:__ @documentation\/doxygen_docs.h 63:12@
 
-__C declaration:__ @global_counter@
-
-__defined at:__ @documentation\/doxygen_docs.h 61:12@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 global_counter :: Ptr CInt
-{-|
+{-| Global counter variable.
 
-  > extern int global_counter
+    This variable tracks the number of operations performed.
 
-  Global counter variable
+    __C declaration:__ @global_counter@
 
-  This variable tracks the number of operations performed.
+    __defined at:__ @documentation\/doxygen_docs.h 63:12@
 
-__C declaration:__ @global_counter@
-
-__defined at:__ @documentation\/doxygen_docs.h 61:12@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 global_counter = unsafePerformIO hs_bindgen_f9dede86496f59c9
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
@@ -3871,29 +5317,21 @@ hs_bindgen_a294be08386c9257 :: IO (Ptr (PtrConst CChar))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
 hs_bindgen_a294be08386c9257 = fromFFIType hs_bindgen_a294be08386c9257_base
 {-# NOINLINE version_string #-}
-{-|
+{-| Version string constant.
 
-  > extern const char* version_string
+    __C declaration:__ @version_string@
 
-  Version string constant
+    __defined at:__ @documentation\/doxygen_docs.h 69:20@
 
-__C declaration:__ @version_string@
-
-__defined at:__ @documentation\/doxygen_docs.h 67:20@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 version_string :: Ptr (PtrConst CChar)
-{-|
+{-| Version string constant.
 
-  > extern const char* version_string
+    __C declaration:__ @version_string@
 
-  Version string constant
+    __defined at:__ @documentation\/doxygen_docs.h 69:20@
 
-__C declaration:__ @version_string@
-
-__defined at:__ @documentation\/doxygen_docs.h 67:20@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 version_string = unsafePerformIO hs_bindgen_a294be08386c9257

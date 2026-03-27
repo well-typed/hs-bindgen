@@ -215,13 +215,13 @@ hs_bindgen_a836491d63ff3a2c ::
 hs_bindgen_a836491d63ff3a2c =
   RIP.fromFFIType hs_bindgen_a836491d63ff3a2c_base
 
-{-| Array of known size
+{-| Array of known size.
 
-__C declaration:__ @fun_1@
+    __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h 118:5@
+    __defined at:__ @arrays\/array.h 118:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_1 ::
      RIP.CInt
@@ -243,13 +243,13 @@ hs_bindgen_c69f41e5ccc441ab ::
 hs_bindgen_c69f41e5ccc441ab =
   RIP.fromFFIType hs_bindgen_c69f41e5ccc441ab_base
 
-{-| Array of known size, typedef
+{-| Array of known size, typedef.
 
-__C declaration:__ @fun_2@
+    __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h 121:5@
+    __defined at:__ @arrays\/array.h 121:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_2 ::
      RIP.Ptr (IsA.Elem Triplet)
@@ -269,13 +269,13 @@ hs_bindgen_30065ddbffdd7502 ::
 hs_bindgen_30065ddbffdd7502 =
   RIP.fromFFIType hs_bindgen_30065ddbffdd7502_base
 
-{-| Array of unknown size
+{-| Array of unknown size.
 
-__C declaration:__ @fun_3@
+    __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h 124:5@
+    __defined at:__ @arrays\/array.h 124:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_3 ::
      RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
@@ -295,13 +295,13 @@ hs_bindgen_6e8db8abcb5fe22a ::
 hs_bindgen_6e8db8abcb5fe22a =
   RIP.fromFFIType hs_bindgen_6e8db8abcb5fe22a_base
 
-{-| Array of unknown size, typedef
+{-| Array of unknown size, typedef.
 
-__C declaration:__ @fun_4@
+    __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h 127:5@
+    __defined at:__ @arrays\/array.h 127:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_4 ::
      RIP.Ptr (IsA.Elem List)
@@ -321,13 +321,13 @@ hs_bindgen_b2f48c31265a3f47 ::
 hs_bindgen_b2f48c31265a3f47 =
   RIP.fromFFIType hs_bindgen_b2f48c31265a3f47_base
 
-{-| Multi-dimensional array of known size
+{-| Multi-dimensional array of known size.
 
-__C declaration:__ @fun_5@
+    __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h 130:5@
+    __defined at:__ @arrays\/array.h 130:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_5 ::
      RIP.Ptr (IsA.Elem ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)))
@@ -347,13 +347,13 @@ hs_bindgen_343fe8ca0dbb7eb1 ::
 hs_bindgen_343fe8ca0dbb7eb1 =
   RIP.fromFFIType hs_bindgen_343fe8ca0dbb7eb1_base
 
-{-| Multi-dimensional array of known size, typedef
+{-| Multi-dimensional array of known size, typedef.
 
-__C declaration:__ @fun_6@
+    __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h 133:5@
+    __defined at:__ @arrays\/array.h 133:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_6 ::
      RIP.Ptr (IsA.Elem Matrix)
@@ -373,13 +373,13 @@ hs_bindgen_d98a58d39b578fd6 ::
 hs_bindgen_d98a58d39b578fd6 =
   RIP.fromFFIType hs_bindgen_d98a58d39b578fd6_base
 
-{-| Multi-dimensional array of unknown size
+{-| Multi-dimensional array of unknown size.
 
-__C declaration:__ @fun_7@
+    __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h 136:5@
+    __defined at:__ @arrays\/array.h 136:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_7 ::
      RIP.Ptr (IsA.Elem (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)))
@@ -399,13 +399,13 @@ hs_bindgen_4db12be6f46d98f5 ::
 hs_bindgen_4db12be6f46d98f5 =
   RIP.fromFFIType hs_bindgen_4db12be6f46d98f5_base
 
-{-| Multi-dimensional array of unknown size, typedef
+{-| Multi-dimensional array of unknown size, typedef.
 
-__C declaration:__ @fun_8@
+    __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h 139:5@
+    __defined at:__ @arrays\/array.h 139:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_8 ::
      RIP.Ptr (IsA.Elem Tripletlist)
@@ -425,13 +425,13 @@ hs_bindgen_825f9aeca071df21 ::
 hs_bindgen_825f9aeca071df21 =
   RIP.fromFFIType hs_bindgen_825f9aeca071df21_base
 
-{-| Typedef-in-typedef
+{-| Typedef-in-typedef.
 
-__C declaration:__ @isSolved@
+    __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h 142:5@
+    __defined at:__ @arrays\/array.h 142:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 isSolved ::
      RIP.Ptr (IsA.Elem Sudoku)
@@ -455,13 +455,13 @@ hs_bindgen_a2bf6bc667c9e769 ::
 hs_bindgen_a2bf6bc667c9e769 =
   RIP.fromFFIType hs_bindgen_a2bf6bc667c9e769_base
 
-{-| Array of known size
+{-| Array of known size.
 
-__C declaration:__ @fun_1_const@
+    __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h 149:5@
+    __defined at:__ @arrays\/array.h 149:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_1_const ::
      RIP.CInt
@@ -487,13 +487,13 @@ hs_bindgen_ec5a6dd15a457a1d ::
 hs_bindgen_ec5a6dd15a457a1d =
   RIP.fromFFIType hs_bindgen_ec5a6dd15a457a1d_base
 
-{-| Array of known size, typedef
+{-| Array of known size, typedef.
 
-__C declaration:__ @fun_2_const@
+    __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h 152:5@
+    __defined at:__ @arrays\/array.h 152:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_2_const ::
      RIP.Ptr (IsA.Elem Triplet)
@@ -517,13 +517,13 @@ hs_bindgen_84df1030280611db ::
 hs_bindgen_84df1030280611db =
   RIP.fromFFIType hs_bindgen_84df1030280611db_base
 
-{-| Array of unknown size
+{-| Array of unknown size.
 
-__C declaration:__ @fun_3_const@
+    __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h 155:5@
+    __defined at:__ @arrays\/array.h 155:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_3_const ::
      RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
@@ -547,13 +547,13 @@ hs_bindgen_e9dc927aa39d14d3 ::
 hs_bindgen_e9dc927aa39d14d3 =
   RIP.fromFFIType hs_bindgen_e9dc927aa39d14d3_base
 
-{-| Array of unknown size, typedef
+{-| Array of unknown size, typedef.
 
-__C declaration:__ @fun_4_const@
+    __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h 158:5@
+    __defined at:__ @arrays\/array.h 158:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_4_const ::
      RIP.Ptr (IsA.Elem List)
@@ -577,13 +577,13 @@ hs_bindgen_cd0bfb26f385dfaa ::
 hs_bindgen_cd0bfb26f385dfaa =
   RIP.fromFFIType hs_bindgen_cd0bfb26f385dfaa_base
 
-{-| Multi-dimensional array of known size
+{-| Multi-dimensional array of known size.
 
-__C declaration:__ @fun_5_const@
+    __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h 161:5@
+    __defined at:__ @arrays\/array.h 161:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_5_const ::
      RIP.Ptr (IsA.Elem ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)))
@@ -607,13 +607,13 @@ hs_bindgen_1054ce6b48ed0f13 ::
 hs_bindgen_1054ce6b48ed0f13 =
   RIP.fromFFIType hs_bindgen_1054ce6b48ed0f13_base
 
-{-| Multi-dimensional array of known size, typedef
+{-| Multi-dimensional array of known size, typedef.
 
-__C declaration:__ @fun_6_const@
+    __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h 164:5@
+    __defined at:__ @arrays\/array.h 164:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_6_const ::
      RIP.Ptr (IsA.Elem Matrix)
@@ -637,13 +637,13 @@ hs_bindgen_496902d7c6466098 ::
 hs_bindgen_496902d7c6466098 =
   RIP.fromFFIType hs_bindgen_496902d7c6466098_base
 
-{-| Multi-dimensional array of unknown size
+{-| Multi-dimensional array of unknown size.
 
-__C declaration:__ @fun_7_const@
+    __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h 167:5@
+    __defined at:__ @arrays\/array.h 167:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_7_const ::
      RIP.Ptr (IsA.Elem (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)))
@@ -667,13 +667,13 @@ hs_bindgen_eb65cb5074167c48 ::
 hs_bindgen_eb65cb5074167c48 =
   RIP.fromFFIType hs_bindgen_eb65cb5074167c48_base
 
-{-| Multi-dimensional array of unknown size, typedef
+{-| Multi-dimensional array of unknown size, typedef.
 
-__C declaration:__ @fun_8_const@
+    __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h 170:5@
+    __defined at:__ @arrays\/array.h 170:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_8_const ::
      RIP.Ptr (IsA.Elem Tripletlist)
@@ -697,13 +697,13 @@ hs_bindgen_9bb064e9eddf07f7 ::
 hs_bindgen_9bb064e9eddf07f7 =
   RIP.fromFFIType hs_bindgen_9bb064e9eddf07f7_base
 
-{-| Typedef-in-typedef
+{-| Typedef-in-typedef.
 
-__C declaration:__ @isSolved_const@
+    __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h 173:5@
+    __defined at:__ @arrays\/array.h 173:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 isSolved_const ::
      RIP.Ptr (IsA.Elem Sudoku)
@@ -722,13 +722,13 @@ hs_bindgen_0fa0a3e47fa9d95a :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
 hs_bindgen_0fa0a3e47fa9d95a =
   RIP.fromFFIType hs_bindgen_0fa0a3e47fa9d95a_base
 
-{-| Array of known size
+{-| Array of known size.
 
-__C declaration:__ @fun_9@
+    __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h 185:7@
+    __defined at:__ @arrays\/array.h 185:7@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_9 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
 fun_9 = hs_bindgen_0fa0a3e47fa9d95a
@@ -742,13 +742,13 @@ hs_bindgen_e9d3d35727502125 :: IO (RIP.Ptr Triplet)
 hs_bindgen_e9d3d35727502125 =
   RIP.fromFFIType hs_bindgen_e9d3d35727502125_base
 
-{-| Array of known size, typedef
+{-| Array of known size, typedef.
 
-__C declaration:__ @fun_10@
+    __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h 188:10@
+    __defined at:__ @arrays\/array.h 188:10@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_10 :: IO (RIP.Ptr Triplet)
 fun_10 = hs_bindgen_e9d3d35727502125
@@ -762,13 +762,13 @@ hs_bindgen_7f7cea54b33bf176 :: IO (RIP.Ptr (IA.IncompleteArray RIP.CInt))
 hs_bindgen_7f7cea54b33bf176 =
   RIP.fromFFIType hs_bindgen_7f7cea54b33bf176_base
 
-{-| Array of unknown size
+{-| Array of unknown size.
 
-__C declaration:__ @fun_11@
+    __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h 191:7@
+    __defined at:__ @arrays\/array.h 191:7@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_11 :: IO (RIP.Ptr (IA.IncompleteArray RIP.CInt))
 fun_11 = hs_bindgen_7f7cea54b33bf176
@@ -782,13 +782,13 @@ hs_bindgen_3124a96b00bbc082 :: IO (RIP.Ptr List)
 hs_bindgen_3124a96b00bbc082 =
   RIP.fromFFIType hs_bindgen_3124a96b00bbc082_base
 
-{-| Array of unknown size, typedef
+{-| Array of unknown size, typedef.
 
-__C declaration:__ @fun_12@
+    __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h 194:7@
+    __defined at:__ @arrays\/array.h 194:7@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_12 :: IO (RIP.Ptr List)
 fun_12 = hs_bindgen_3124a96b00bbc082
@@ -802,13 +802,13 @@ hs_bindgen_2fdd1bf9ee687f9b :: IO (RIP.Ptr ((CA.ConstantArray 4) ((CA.ConstantAr
 hs_bindgen_2fdd1bf9ee687f9b =
   RIP.fromFFIType hs_bindgen_2fdd1bf9ee687f9b_base
 
-{-| Multi-dimensional array of known size
+{-| Multi-dimensional array of known size.
 
-__C declaration:__ @fun_13@
+    __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h 197:7@
+    __defined at:__ @arrays\/array.h 197:7@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_13 :: IO (RIP.Ptr ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)))
 fun_13 = hs_bindgen_2fdd1bf9ee687f9b
@@ -822,13 +822,13 @@ hs_bindgen_12a242894a3d45cb :: IO (RIP.Ptr Matrix)
 hs_bindgen_12a242894a3d45cb =
   RIP.fromFFIType hs_bindgen_12a242894a3d45cb_base
 
-{-| Multi-dimensional array of known size, typedef
+{-| Multi-dimensional array of known size, typedef.
 
-__C declaration:__ @fun_14@
+    __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h 200:9@
+    __defined at:__ @arrays\/array.h 200:9@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_14 :: IO (RIP.Ptr Matrix)
 fun_14 = hs_bindgen_12a242894a3d45cb
@@ -842,13 +842,13 @@ hs_bindgen_d8e176eb5efefa2c :: IO (RIP.Ptr (IA.IncompleteArray ((CA.ConstantArra
 hs_bindgen_d8e176eb5efefa2c =
   RIP.fromFFIType hs_bindgen_d8e176eb5efefa2c_base
 
-{-| Multi-dimensional array of unknown size
+{-| Multi-dimensional array of unknown size.
 
-__C declaration:__ @fun_15@
+    __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h 203:7@
+    __defined at:__ @arrays\/array.h 203:7@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_15 :: IO (RIP.Ptr (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)))
 fun_15 = hs_bindgen_d8e176eb5efefa2c
@@ -862,13 +862,13 @@ hs_bindgen_dcf234ca786626c7 :: IO (RIP.Ptr Tripletlist)
 hs_bindgen_dcf234ca786626c7 =
   RIP.fromFFIType hs_bindgen_dcf234ca786626c7_base
 
-{-| Multi-dimensional array of unknown size, typedef
+{-| Multi-dimensional array of unknown size, typedef.
 
-__C declaration:__ @fun_16@
+    __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h 206:14@
+    __defined at:__ @arrays\/array.h 206:14@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 fun_16 :: IO (RIP.Ptr Tripletlist)
 fun_16 = hs_bindgen_dcf234ca786626c7
@@ -882,13 +882,13 @@ hs_bindgen_f80a5b6a2770c658 :: IO (RIP.Ptr Sudoku)
 hs_bindgen_f80a5b6a2770c658 =
   RIP.fromFFIType hs_bindgen_f80a5b6a2770c658_base
 
-{-| Typedef-in-typedef
+{-| Typedef-in-typedef.
 
-__C declaration:__ @solve@
+    __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h 209:10@
+    __defined at:__ @arrays\/array.h 209:10@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 solve :: IO (RIP.Ptr Sudoku)
 solve = hs_bindgen_f80a5b6a2770c658

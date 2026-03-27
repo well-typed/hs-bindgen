@@ -58,11 +58,11 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'FileOpenedNotification'
 
-__C declaration:__ @FileOpenedNotification@
+    __C declaration:__ @FileOpenedNotification@
 
-__defined at:__ @functions\/callbacks.h 10:16@
+    __defined at:__ @functions\/callbacks.h 10:16@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype FileOpenedNotification_Aux = FileOpenedNotification_Aux
   { unwrapFileOpenedNotification_Aux :: IO ()
@@ -148,11 +148,11 @@ instance HasCField.HasCField FileOpenedNotification "unwrapFileOpenedNotificatio
 
 {-| Auxiliary type used by 'ProgressUpdate'
 
-__C declaration:__ @ProgressUpdate@
+    __C declaration:__ @ProgressUpdate@
 
-__defined at:__ @functions\/callbacks.h 11:16@
+    __defined at:__ @functions\/callbacks.h 11:16@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProgressUpdate_Aux = ProgressUpdate_Aux
   { unwrapProgressUpdate_Aux :: RIP.CInt -> IO ()
@@ -238,11 +238,11 @@ instance HasCField.HasCField ProgressUpdate "unwrapProgressUpdate" where
 
 {-| Auxiliary type used by 'DataValidator'
 
-__C declaration:__ @DataValidator@
+    __C declaration:__ @DataValidator@
 
-__defined at:__ @functions\/callbacks.h 12:15@
+    __defined at:__ @functions\/callbacks.h 12:15@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype DataValidator_Aux = DataValidator_Aux
   { unwrapDataValidator_Aux :: RIP.CInt -> IO RIP.CInt
@@ -404,11 +404,11 @@ instance ( ((~) ty) RIP.CDouble
 
 {-| Auxiliary type used by 'MeasurementReceived'
 
-__C declaration:__ @MeasurementReceived@
+    __C declaration:__ @MeasurementReceived@
 
-__defined at:__ @functions\/callbacks.h 26:16@
+    __defined at:__ @functions\/callbacks.h 26:16@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived_Aux = MeasurementReceived_Aux
   { unwrapMeasurementReceived_Aux :: (RIP.Ptr Measurement) -> IO ()
@@ -494,11 +494,11 @@ instance HasCField.HasCField MeasurementReceived "unwrapMeasurementReceived" whe
 
 {-| Auxiliary type used by 'MeasurementReceived2'
 
-__C declaration:__ @MeasurementReceived2@
+    __C declaration:__ @MeasurementReceived2@
 
-__defined at:__ @functions\/callbacks.h 29:16@
+    __defined at:__ @functions\/callbacks.h 29:16@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
   { unwrapMeasurementReceived2_Aux :: Measurement -> IO ()
@@ -551,11 +551,11 @@ instance HasCField.HasCField MeasurementReceived2 "unwrapMeasurementReceived2" w
 
 {-| Auxiliary type used by 'SampleBufferFull'
 
-__C declaration:__ @SampleBufferFull@
+    __C declaration:__ @SampleBufferFull@
 
-__defined at:__ @functions\/callbacks.h 32:16@
+    __defined at:__ @functions\/callbacks.h 32:16@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux = SampleBufferFull_Aux
   { unwrapSampleBufferFull_Aux :: (RIP.Ptr (IsA.Elem ((CA.ConstantArray 10) RIP.CInt))) -> IO ()
@@ -862,13 +862,13 @@ deriving via Marshal.EquivStorable ProcessorCallback instance RIP.Storable Proce
 
 {-|
 
-  __See:__ 'set_processorCallback_simple'
+    __See:__ 'set_processorCallback_simple'
 
-__C declaration:__ @simple@
+    __C declaration:__ @simple@
 
-__defined at:__ @functions\/callbacks.h 70:10@
+    __defined at:__ @functions\/callbacks.h 70:10@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 get_processorCallback_simple ::
      ProcessorCallback
@@ -877,7 +877,7 @@ get_processorCallback_simple = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_processorCallback_simple'
+    __See:__ 'get_processorCallback_simple'
 
 -}
 set_processorCallback_simple ::
@@ -887,13 +887,13 @@ set_processorCallback_simple = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_processorCallback_withValidator'
+    __See:__ 'set_processorCallback_withValidator'
 
-__C declaration:__ @withValidator@
+    __C declaration:__ @withValidator@
 
-__defined at:__ @functions\/callbacks.h 71:10@
+    __defined at:__ @functions\/callbacks.h 71:10@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 get_processorCallback_withValidator ::
      ProcessorCallback
@@ -903,7 +903,7 @@ get_processorCallback_withValidator =
 
 {-|
 
-  __See:__ 'get_processorCallback_withValidator'
+    __See:__ 'get_processorCallback_withValidator'
 
 -}
 set_processorCallback_withValidator ::
@@ -914,13 +914,13 @@ set_processorCallback_withValidator =
 
 {-|
 
-  __See:__ 'set_processorCallback_withProgress'
+    __See:__ 'set_processorCallback_withProgress'
 
-__C declaration:__ @withProgress@
+    __C declaration:__ @withProgress@
 
-__defined at:__ @functions\/callbacks.h 72:10@
+    __defined at:__ @functions\/callbacks.h 72:10@
 
-__exported by:__ @functions\/callbacks.h@
+    __exported by:__ @functions\/callbacks.h@
 -}
 get_processorCallback_withProgress ::
      ProcessorCallback
@@ -930,7 +930,7 @@ get_processorCallback_withProgress =
 
 {-|
 
-  __See:__ 'get_processorCallback_withProgress'
+    __See:__ 'get_processorCallback_withProgress'
 
 -}
 set_processorCallback_withProgress ::

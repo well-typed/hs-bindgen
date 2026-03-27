@@ -479,7 +479,7 @@ instance MakeImplicitField C.StructField where
           info = C.FieldInfo {
               loc = loc
             , name = name
-            , comment = Nothing
+            , comment = ()
             }
         , typ = typ
         , offset = off.int
@@ -496,7 +496,7 @@ instance MakeImplicitField C.UnionField where
           info = C.FieldInfo {
               loc = loc
             , name = name
-            , comment = Nothing
+            , comment = ()
             }
         , typ = typ
         , ann = (ReparseNotNeeded, Origin.ImplicitGenerated orig)

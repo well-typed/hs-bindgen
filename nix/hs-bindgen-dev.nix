@@ -24,6 +24,18 @@ let
       llvmPackages.clang
       llvmPackages.libclang
       llvmPackages.llvm
+      # Doxygen (optional, for extracting structured comments from C headers).
+      # Pinned to 1.15.0 — CI workflows install the same version from GitHub
+      # releases (see .github/workflows/).  Different doxygen versions produce
+      # different XML for edge cases (e.g., file-level comment association),
+      # so fixtures must be generated with a consistent version.
+      (pkgsDefault.doxygen.overrideAttrs (old: rec {
+        version = "1.15.0";
+        src = pkgsDefault.fetchurl {
+          url = "https://github.com/doxygen/doxygen/releases/download/Release_${builtins.replaceStrings ["."] ["_"] version}/doxygen-${version}.src.tar.gz";
+          hash = "sha256-qMr+YFhnrUdaryiKOFJ4MHbh34OqvxZIi7+pWAYudEA=";
+        };
+      }))
       # Bindgen hook. NOTE: `hsBindgenHook` collects all library dependencies
       # in the closure and adds their `CFLAGS` and `CCFLAGS` to
       # `BINDGEN_EXTRA_CLANG_ARGS`. Since we have GCC in the closure (and not

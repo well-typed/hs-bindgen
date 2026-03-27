@@ -42,13 +42,11 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
+{-| __C declaration:__ @struct struct1@
 
-__C declaration:__ @struct struct1@
+    __defined at:__ @program-analysis\/typedef_analysis.h 7:8@
 
-__defined at:__ @program-analysis\/typedef_analysis.h 7:8@
-
-__exported by:__ @program-analysis\/typedef_analysis.h@
+    __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct1_t = Struct1_t
   {}

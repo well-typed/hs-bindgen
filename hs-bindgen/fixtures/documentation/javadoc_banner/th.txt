@@ -1,0 +1,186 @@
+-- addDependentFile examples/golden/documentation/javadoc_banner.h
+-- #include <documentation/javadoc_banner.h>
+-- signed int hs_bindgen_7d3fd818d0780e11 (
+--   signed int arg1
+-- )
+-- {
+--   return (banner_double)(arg1);
+-- }
+-- signed int hs_bindgen_3d6508e65f7dad3c (
+--   signed int arg1
+-- )
+-- {
+--   return (banner_double)(arg1);
+-- }
+-- /* test_documentationjavadoc_banner_Example_get_banner_double */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_57ce95431493ea3f (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &banner_double;
+-- }
+{-| A struct documented with a Javadoc banner comment.
+
+    __C declaration:__ @struct banner_point@
+
+    __defined at:__ @documentation\/javadoc_banner.h 19:8@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+data Banner_point
+    = Banner_point {banner_point_x :: CInt
+                    {- ^ X coordinate
+
+                         __C declaration:__ @x@
+
+                         __defined at:__ @documentation\/javadoc_banner.h 23:9@
+
+                         __exported by:__ @documentation\/javadoc_banner.h@
+                    -},
+                    banner_point_y :: CInt
+                    {- ^ Y coordinate
+
+                         __C declaration:__ @y@
+
+                         __defined at:__ @documentation\/javadoc_banner.h 28:9@
+
+                         __exported by:__ @documentation\/javadoc_banner.h@
+                    -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Banner_point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Banner_point
+    where readRaw = \ptr_0 -> (pure Banner_point <*> readRaw (Proxy @"banner_point_x") ptr_0) <*> readRaw (Proxy @"banner_point_y") ptr_0
+instance WriteRaw Banner_point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Banner_point banner_point_x_2
+                                                    banner_point_y_3 -> writeRaw (Proxy @"banner_point_x") ptr_0 banner_point_x_2 >> writeRaw (Proxy @"banner_point_y") ptr_0 banner_point_y_3
+deriving via (EquivStorable Banner_point) instance Storable Banner_point
+instance HasCField Banner_point "banner_point_x"
+    where type CFieldType Banner_point "banner_point_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "banner_point_x" (Ptr Banner_point) (Ptr ty)
+    where getField = fromPtr (Proxy @"banner_point_x")
+instance HasCField Banner_point "banner_point_y"
+    where type CFieldType Banner_point "banner_point_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "banner_point_y" (Ptr Banner_point) (Ptr ty)
+    where getField = fromPtr (Proxy @"banner_point_y")
+-- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
+foreign import ccall safe "hs_bindgen_7d3fd818d0780e11" hs_bindgen_7d3fd818d0780e11_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
+hs_bindgen_7d3fd818d0780e11 :: CInt -> IO CInt
+-- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
+hs_bindgen_7d3fd818d0780e11 = fromFFIType hs_bindgen_7d3fd818d0780e11_base
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_safe :: CInt -> IO CInt
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_safe = hs_bindgen_7d3fd818d0780e11
+-- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
+foreign import ccall unsafe "hs_bindgen_3d6508e65f7dad3c" hs_bindgen_3d6508e65f7dad3c_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
+hs_bindgen_3d6508e65f7dad3c :: CInt -> IO CInt
+-- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
+hs_bindgen_3d6508e65f7dad3c = fromFFIType hs_bindgen_3d6508e65f7dad3c_base
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_unsafe :: CInt -> IO CInt
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_unsafe = hs_bindgen_3d6508e65f7dad3c
+-- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
+foreign import ccall unsafe "hs_bindgen_57ce95431493ea3f" hs_bindgen_57ce95431493ea3f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
+hs_bindgen_57ce95431493ea3f :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
+hs_bindgen_57ce95431493ea3f = fromFFIType hs_bindgen_57ce95431493ea3f_base
+{-# NOINLINE banner_double_funptr #-}
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_funptr :: FunPtr (CInt -> IO CInt)
+{-| A function documented with a Javadoc banner-style comment.
+
+    The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The doubled value
+
+    __C declaration:__ @banner_double@
+
+    __defined at:__ @documentation\/javadoc_banner.h 14:5@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
+banner_double_funptr = unsafePerformIO hs_bindgen_57ce95431493ea3f

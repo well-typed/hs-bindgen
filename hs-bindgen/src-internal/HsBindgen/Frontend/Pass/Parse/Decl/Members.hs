@@ -47,8 +47,8 @@ deriving stock instance Show (field Parse) => Show (ParseMembersResult field)
 
 -- | Parse the members of a struct
 parseStructMembersWith ::
-     -- | Type of the enclosing object
      CXType
+     -- ^ Type of the enclosing object
   -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
@@ -56,12 +56,13 @@ parseStructMembersWith ::
       -- | How to continue with the result of parsing members
   -> (ParseMembersResult C.StructField -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseStructMembersWith ty ctx parseObject = parseMembersWith ty ctx structFieldDecl parseObject
+parseStructMembersWith ty ctx parseObject k =
+    parseMembersWith ty ctx structFieldDecl parseObject k
 
 -- | Parse the members of a union
 parseUnionMembersWith ::
-     -- | Type of the enclosing object
      CXType
+     -- ^ Type of the enclosing object
   -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
@@ -69,7 +70,8 @@ parseUnionMembersWith ::
       -- | How to continue with the result of parsing members
   -> (ParseMembersResult C.UnionField -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseUnionMembersWith ty ctx parseObject = parseMembersWith ty ctx unionFieldDecl parseObject
+parseUnionMembersWith ty ctx parseObject k =
+    parseMembersWith ty ctx unionFieldDecl parseObject k
 
 -- | Parse all members of a struct\/union
 parseMembersWith ::

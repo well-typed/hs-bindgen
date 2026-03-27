@@ -53,13 +53,13 @@ deriving via Marshal.EquivStorable UnionA instance RIP.Storable UnionA
 
 {-|
 
-  __See:__ 'set_unionA_a'
+    __See:__ 'set_unionA_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 3:21@
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_a ::
      UnionA
@@ -68,7 +68,7 @@ get_unionA_a = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_unionA_a'
+    __See:__ 'get_unionA_a'
 
 -}
 set_unionA_a ::
@@ -78,13 +78,13 @@ set_unionA_a = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_unionA_b'
+    __See:__ 'set_unionA_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 4:22@
+    __defined at:__ @types\/unions\/nested_unions.h 4:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_b ::
      UnionA
@@ -93,7 +93,7 @@ get_unionA_b = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_unionA_b'
+    __See:__ 'get_unionA_b'
 
 -}
 set_unionA_b ::
@@ -197,13 +197,13 @@ deriving via Marshal.EquivStorable ExB_fieldB1 instance RIP.Storable ExB_fieldB1
 
 {-|
 
-  __See:__ 'set_exB_fieldB1_a'
+    __See:__ 'set_exB_fieldB1_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 10:21@
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_a ::
      ExB_fieldB1
@@ -212,7 +212,7 @@ get_exB_fieldB1_a = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_exB_fieldB1_a'
+    __See:__ 'get_exB_fieldB1_a'
 
 -}
 set_exB_fieldB1_a ::
@@ -222,13 +222,13 @@ set_exB_fieldB1_a = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_exB_fieldB1_b'
+    __See:__ 'set_exB_fieldB1_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 11:22@
+    __defined at:__ @types\/unions\/nested_unions.h 11:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_b ::
      ExB_fieldB1
@@ -237,7 +237,7 @@ get_exB_fieldB1_b = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_exB_fieldB1_b'
+    __See:__ 'get_exB_fieldB1_b'
 
 -}
 set_exB_fieldB1_b ::

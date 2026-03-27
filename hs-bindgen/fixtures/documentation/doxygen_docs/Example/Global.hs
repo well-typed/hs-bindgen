@@ -38,19 +38,15 @@ hs_bindgen_f9dede86496f59c9 =
   RIP.fromFFIType hs_bindgen_f9dede86496f59c9_base
 
 {-# NOINLINE global_counter #-}
-{-|
+{-| Global counter variable.
 
-  > extern int global_counter
+    This variable tracks the number of operations performed.
 
-  Global counter variable
+    __C declaration:__ @global_counter@
 
-  This variable tracks the number of operations performed.
+    __defined at:__ @documentation\/doxygen_docs.h 63:12@
 
-__C declaration:__ @global_counter@
-
-__defined at:__ @documentation\/doxygen_docs.h 61:12@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 global_counter :: RIP.Ptr RIP.CInt
 global_counter =
@@ -66,17 +62,13 @@ hs_bindgen_a294be08386c9257 =
   RIP.fromFFIType hs_bindgen_a294be08386c9257_base
 
 {-# NOINLINE version_string #-}
-{-|
+{-| Version string constant.
 
-  > extern const char* version_string
+    __C declaration:__ @version_string@
 
-  Version string constant
+    __defined at:__ @documentation\/doxygen_docs.h 69:20@
 
-__C declaration:__ @version_string@
-
-__defined at:__ @documentation\/doxygen_docs.h 67:20@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 version_string :: RIP.Ptr (PtrConst.PtrConst RIP.CChar)
 version_string =

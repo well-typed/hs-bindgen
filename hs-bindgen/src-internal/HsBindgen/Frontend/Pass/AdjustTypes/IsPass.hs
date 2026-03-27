@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
   ) where
 
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
@@ -34,13 +35,14 @@ type family AnnAdjustTypes ix where
   AnnAdjustTypes _                  = NoAnn
 
 instance IsPass AdjustTypes where
-  type Id         AdjustTypes = DeclIdPair
-  type ScopedName AdjustTypes = ScopedNamePair
-  type MacroBody  AdjustTypes = CheckedMacro AdjustTypes
-  type ExtBinding AdjustTypes = ResolvedExtBinding
-  type Ann ix     AdjustTypes = AnnAdjustTypes ix
-  type Msg        AdjustTypes = NoMsg Level
-  type MacroId    AdjustTypes = Id AdjustTypes
+  type Id          AdjustTypes = DeclIdPair
+  type ScopedName  AdjustTypes = ScopedNamePair
+  type MacroBody   AdjustTypes = CheckedMacro AdjustTypes
+  type ExtBinding  AdjustTypes = ResolvedExtBinding
+  type Ann ix      AdjustTypes = AnnAdjustTypes ix
+  type Msg         AdjustTypes = NoMsg Level
+  type MacroId     AdjustTypes = Id AdjustTypes
+  type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)
 
   idNameKind     _ namePair   = namePair.cName.name.kind
   idSourceName   _ namePair   = declIdSourceName namePair.cName
@@ -64,3 +66,6 @@ data AdjustedFrom p =
 
 instance CoercePassId      MangleNames AdjustTypes
 instance CoercePassMacroId MangleNames AdjustTypes
+
+instance CoercePassCommentDecl MangleNames AdjustTypes where
+  coercePassCommentDecl _ = fmap coercePass

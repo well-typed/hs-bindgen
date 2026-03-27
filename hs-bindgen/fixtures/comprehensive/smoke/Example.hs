@@ -38,15 +38,11 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| This is a test case in the c2hsc test suite
+{-| __C declaration:__ @uint@
 
-  https://github.com/jwiegley/c2hsc/blob/master/test/main.hs
+    __defined at:__ @comprehensive\/smoke.h 7:22@
 
-__C declaration:__ @uint@
-
-__defined at:__ @comprehensive\/smoke.h 7:22@
-
-__exported by:__ @comprehensive\/smoke.h@
+    __exported by:__ @comprehensive\/smoke.h@
 -}
 newtype Uint = Uint
   { unwrap :: RIP.CUInt

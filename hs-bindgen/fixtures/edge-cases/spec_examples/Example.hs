@@ -31,13 +31,11 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| Examples from the initial specification
+{-| __C declaration:__ @int16_T@
 
-__C declaration:__ @int16_T@
+    __defined at:__ @edge-cases\/spec_examples.h 10:15@
 
-__defined at:__ @edge-cases\/spec_examples.h 10:15@
-
-__exported by:__ @edge-cases\/spec_examples.h@
+    __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int16_T = Int16_T
   { unwrapInt16_T :: RIP.CShort

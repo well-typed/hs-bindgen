@@ -4,11 +4,10 @@ module HsBindgen.Frontend.AST.Coerce (
   , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
   , CoercePassAnn(..)
+  , CoercePassCommentDecl(..)
   ) where
 
 import Prelude hiding (Enum)
-
-import Clang.HighLevel.Documentation qualified as CDoc
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
@@ -17,6 +16,8 @@ import HsBindgen.Frontend.Pass.Parse.Result (ParseClassification (..),
                                              ParseResult (..),
                                              ParseSuccess (..))
 import HsBindgen.Imports
+
+import Doxygen.Parser.Types qualified as Doxy
 
 {-------------------------------------------------------------------------------
   Type families
@@ -53,6 +54,20 @@ class CoercePassAnn ix p p' where
        (Ann ix p ~ Ann ix p')
     => Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
   coercePassAnn _ = id
+
+-- | Coerce the 'CommentDecl' between passes
+--
+-- Default is identity (for same-'CommentDecl' pairs, e.g., @() -> ()@ or
+-- @Maybe (Comment p) -> Maybe (Comment p)@). Pairs that cross the
+-- 'EnrichComments' boundary (where 'CommentDecl' changes from @()@ to
+-- @Maybe (Comment p)@) must provide an explicit instance.
+class CoercePassCommentDecl (p :: Pass) (p' :: Pass) where
+  coercePassCommentDecl :: Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
+
+  default coercePassCommentDecl ::
+       (CommentDecl p ~ CommentDecl p')
+    => Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
+  coercePassCommentDecl _ = id
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -108,11 +123,11 @@ instance (
 
 instance (
       CoercePassId p p'
-    ) => CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p') where
+    ) => CoercePass Doxy.Comment (C.CommentRef p) (C.CommentRef p') where
   coercePass comment = fmap coercePass comment
 
 instance (
-      CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p')
+      CoercePass Doxy.Comment (C.CommentRef p) (C.CommentRef p')
     ) => CoercePass C.Comment p p' where
   coercePass (C.Comment c) = C.Comment (coercePass c)
 
@@ -129,23 +144,24 @@ instance (
 
 instance (
       CoercePassId p p'
-    , CoercePass C.Comment p p'
+    , CoercePassCommentDecl p p'
     ) => CoercePass C.DeclInfo p p' where
   coercePass info = C.DeclInfo{
-        loc          = info.loc
-      , id           = coercePassId (Proxy @'(p, p')) info.id
-      , seqNr        = info.seqNr
-      , headerInfo   = info.headerInfo
-      , availability = info.availability
-      , comment      = fmap coercePass info.comment
+        loc           = info.loc
+      , id            = coercePassId (Proxy @'(p, p')) info.id
+      , seqNr         = info.seqNr
+      , headerInfo    = info.headerInfo
+      , availability  = info.availability
+      , comment       = coercePassCommentDecl (Proxy @'(p, p')) info.comment
+      , declEnclosing = fmap (coercePassId (Proxy @'(p, p'))) info.declEnclosing
       }
 
 instance (
-      CoercePass C.Comment p p'
+      CoercePassCommentDecl p p'
     , ScopedName p ~ ScopedName p'
     ) => CoercePass C.FieldInfo p p' where
   coercePass info = C.FieldInfo{
-        comment = fmap coercePass info.comment
+        comment = coercePassCommentDecl (Proxy @'(p, p')) info.comment
       , name    = info.name
       , loc     = info.loc
       }
@@ -185,7 +201,7 @@ instance (
 
 instance (
       CoercePass C.Type p p'
-    , CoercePass C.Comment p p'
+    , CoercePassCommentDecl p p'
     , ScopedName p ~ ScopedName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass C.StructField p p' where
@@ -211,7 +227,7 @@ instance (
 instance (
       CoercePass C.Type p p'
     , ScopedName p ~ ScopedName p'
-    , CoercePass C.Comment p p'
+    , CoercePassCommentDecl p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass C.UnionField p p' where
   coercePass field = C.UnionField{
@@ -253,7 +269,7 @@ instance (
 
 instance (
       ScopedName p ~ ScopedName p'
-    , CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p')
+    , CoercePassCommentDecl p p'
     ) => CoercePass C.EnumConstant p p' where
   coercePass constant = C.EnumConstant{
         info  = coercePass constant.info

@@ -144,6 +144,16 @@ class (
   -- | Trace messages possibly emitted by the pass
   type Msg p :: Star
 
+  -- | Type of comments attached to declarations
+  --
+  -- Pre-'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments' passes
+  -- use @()@ to statically encode that comments cannot exist yet. Post-
+  -- @EnrichComments@ passes use @Maybe (Comment p)@.
+  --
+  -- Enforcing this at the type level means the type system guarantees that
+  -- no code can accidentally read a comment before enrichment has run.
+  type CommentDecl p :: Star
+
   -- | Name kind of the C name
   idNameKind :: Proxy p -> Id p -> CNameKind
   default idNameKind :: Id p ~ DeclId => Proxy p -> Id p -> CNameKind

@@ -27,11 +27,11 @@ import qualified M
 
 {-| Auxiliary type used by 'A'
 
-__C declaration:__ @A@
+    __C declaration:__ @A@
 
-__defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 6:15@
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 6:15@
 
-__exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
 -}
 newtype A_Aux = A_Aux
   { unwrapA_Aux :: RIP.CInt -> IO RIP.CInt

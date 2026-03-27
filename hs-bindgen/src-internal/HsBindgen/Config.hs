@@ -24,6 +24,8 @@ import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
+import Doxygen.Parser (defaultConfig)
+
 {-------------------------------------------------------------------------------
   Common
 -------------------------------------------------------------------------------}
@@ -55,7 +57,8 @@ toBindgenConfig ::
   -> BaseModuleName
   -> ByCategory Choice
   -> BindgenConfig
-toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
+toBindgenConfig config uniqueId baseModuleName choice =
+  BindgenConfig{
       boot = BootConfig {
           clangArgs   = config.clang
         , baseModule  = baseModuleName
@@ -65,6 +68,7 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
           selectPredicate     = config.selectPredicate
         , programSlicing      = config.programSlicing
         , fieldNamingStrategy = config.fieldNamingStrategy
+        , doxygenConfig       = defaultConfig
         }
     , backend = BackendConfig {
           uniqueId       = uniqueId

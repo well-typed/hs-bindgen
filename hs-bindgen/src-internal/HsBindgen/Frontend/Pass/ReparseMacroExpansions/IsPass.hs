@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (
   ) where
 
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -22,10 +23,11 @@ type family AnnReparseMacroExpansions (ix :: Symbol) :: Star where
   AnnReparseMacroExpansions _                 = NoAnn
 
 instance IsPass ReparseMacroExpansions where
-  type MacroBody  ReparseMacroExpansions = CheckedMacro ReparseMacroExpansions
-  type Ann ix     ReparseMacroExpansions = AnnReparseMacroExpansions ix
-  type Msg        ReparseMacroExpansions = NoMsg Level
-  type MacroId    ReparseMacroExpansions = Id ReparseMacroExpansions
+  type MacroBody   ReparseMacroExpansions = CheckedMacro ReparseMacroExpansions
+  type Ann ix      ReparseMacroExpansions = AnnReparseMacroExpansions ix
+  type Msg         ReparseMacroExpansions = NoMsg Level
+  type MacroId     ReparseMacroExpansions = Id ReparseMacroExpansions
+  type CommentDecl ReparseMacroExpansions = Maybe (C.Comment ReparseMacroExpansions)
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
@@ -35,3 +37,5 @@ instance IsPass ReparseMacroExpansions where
 instance CoercePassId               TypecheckMacros ReparseMacroExpansions
 instance CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
 instance CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
+instance CoercePassCommentDecl     TypecheckMacros ReparseMacroExpansions where
+  coercePassCommentDecl _ = fmap coercePass

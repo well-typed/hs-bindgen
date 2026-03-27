@@ -12,8 +12,6 @@ import Data.Text qualified as Text
 import Data.Vec.Lazy qualified as Vec
 import DeBruijn (Add (..), Idx (..), pattern I2)
 
-import Clang.HighLevel.Documentation qualified as Clang
-
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -52,6 +50,8 @@ import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
+
+import Doxygen.Parser.Types qualified as Doxy
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -663,24 +663,25 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
 
     auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {
-          loc          = origInfo.loc
-        , id           = auxDeclIdPair
-        , seqNr        = origInfo.seqNr
-        , headerInfo   = origInfo.headerInfo
-        , availability = C.Available
-        , comment      = Just auxComment
+          loc           = origInfo.loc
+        , id            = auxDeclIdPair
+        , seqNr         = origInfo.seqNr
+        , headerInfo    = origInfo.headerInfo
+        , availability  = C.Available
+        , comment       = Just auxComment
+        , declEnclosing = Nothing
         }
 
     auxComment :: C.Comment Final
-    auxComment = C.Comment $ Clang.Comment [
-          Clang.Paragraph [
-              Clang.TextContent "Auxiliary type used by "
-            , Clang.InlineRefCommand $
-                C.CommentRef
-                  origInfo.id.cName.name.text
-                  (Just origInfo.id)
+    auxComment = C.Comment $ Doxy.Comment {
+          brief = [
+              Doxy.Text "Auxiliary type used by"
+            , Doxy.Ref
+                (C.CommentRef origInfo.id.cName.name.text (Just origInfo.id))
+                origInfo.id.cName.name.text
             ]
-        ]
+        , detailed = []
+        }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
     -- This duplicates logic from 'mkNewtypeNames' in the name mangler.

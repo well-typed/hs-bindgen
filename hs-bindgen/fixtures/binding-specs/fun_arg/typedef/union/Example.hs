@@ -49,13 +49,13 @@ deriving via Marshal.EquivStorable MyUnion instance RIP.Storable MyUnion
 
 {-|
 
-  __See:__ 'set_myUnion_x'
+    __See:__ 'set_myUnion_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 4:21@
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 4:21@
 
-__exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
 get_myUnion_x ::
      MyUnion
@@ -64,7 +64,7 @@ get_myUnion_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_myUnion_x'
+    __See:__ 'get_myUnion_x'
 
 -}
 set_myUnion_x ::

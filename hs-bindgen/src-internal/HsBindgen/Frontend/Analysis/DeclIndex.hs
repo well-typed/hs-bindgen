@@ -59,9 +59,9 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -145,7 +145,7 @@ data DeclIndex = DeclIndex {
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable =
-      UsableSuccess (ParseSuccess AssignAnonIds)
+      UsableSuccess (ParseSuccess EnrichComments)
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
       -- This should have a SingleLoc.
     | UsableExternal
@@ -250,10 +250,10 @@ empty = DeclIndex Map.empty
 -- namespaces. This is done here because we need to detect conflicts even with
 -- macros that we cannot typecheck, which are thrown out in the
 -- @TypecheckMacros@ pass.
-fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
+fromParseResults :: [ParseResult EnrichComments] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
-    aux :: ParseResult AssignAnonIds -> State DeclIndex ()
+    aux :: ParseResult EnrichComments -> State DeclIndex ()
     aux new = modify' $ \index -> DeclIndex $
       let mConflict :: Maybe (Either Entry ((DeclId, DeclId), Entry))
           mConflict = Foldable.asum [
@@ -290,7 +290,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
 
     handleConflict ::
          DeclId
-      -> ParseResult AssignAnonIds
+      -> ParseResult EnrichComments
       -> Entry
       -> Map DeclId Entry
       -> Map DeclId Entry
@@ -329,7 +329,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
           panicPure $
             "Unexpected UnusableOmitted: " <> show x
 
-    parseResultToEntry :: ParseResult AssignAnonIds -> Entry
+    parseResultToEntry :: ParseResult EnrichComments -> Entry
     parseResultToEntry result = case result.classification of
       ParseResultSuccess r ->
         UsableE $ UsableSuccess r
@@ -339,8 +339,8 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         UnusableE $ UnusableParseFailure result.loc r
 
     sameDefinition ::
-         C.DeclKind AssignAnonIds
-      -> C.DeclKind AssignAnonIds
+         C.DeclKind EnrichComments
+      -> C.DeclKind EnrichComments
       -> Bool
     sameDefinition a b = case (a, b) of
       (C.DeclMacro macroA, C.DeclMacro macroB) -> sameMacro macroA macroB
@@ -370,14 +370,14 @@ withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: DeclId -> DeclIndex -> Maybe (C.Decl AssignAnonIds)
+lookup :: DeclId -> DeclIndex -> Maybe (C.Decl EnrichComments)
 lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Get all parse successes.
-getDecls :: DeclIndex -> [C.Decl AssignAnonIds]
+getDecls :: DeclIndex -> [C.Decl EnrichComments]
 getDecls index = mapMaybe toDecl $ Map.elems index.map
   where
     toDecl = \case

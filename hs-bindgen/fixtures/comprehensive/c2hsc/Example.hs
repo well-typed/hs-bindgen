@@ -131,7 +131,9 @@ import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
-{-| __C declaration:__ @an_pchar@
+{-| Issues
+
+    __C declaration:__ @an_pchar@
 
     __defined at:__ @comprehensive\/c2hsc.h 12:21@
 
@@ -217,11 +219,11 @@ instance ( ((~) ty) ((CA.ConstantArray 8) ((CA.ConstantArray 255) RIP.CChar))
 
 {-| Auxiliary type used by 'Foo'
 
-__C declaration:__ @foo@
+    __C declaration:__ @foo@
 
-__defined at:__ @comprehensive\/c2hsc.h 20:15@
+    __defined at:__ @comprehensive\/c2hsc.h 20:15@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Foo_Aux = Foo_Aux
   { unwrap :: RIP.CInt -> IO RIP.CInt
@@ -630,13 +632,13 @@ deriving via Marshal.EquivStorable U instance RIP.Storable U
 
 {-|
 
-  __See:__ 'set_u_c'
+    __See:__ 'set_u_c'
 
-__C declaration:__ @c@
+    __C declaration:__ @c@
 
-__defined at:__ @comprehensive\/c2hsc.h 57:8@
+    __defined at:__ @comprehensive\/c2hsc.h 57:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_u_c ::
      U
@@ -645,7 +647,7 @@ get_u_c = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u_c'
+    __See:__ 'get_u_c'
 
 -}
 set_u_c ::
@@ -762,11 +764,11 @@ data MyStructEmptyType
 
 {-| Structs: primitive types
 
-__C declaration:__ @struct ordinary_float_struct@
+    __C declaration:__ @struct ordinary_float_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 204:8@
+    __defined at:__ @comprehensive\/c2hsc.h 204:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_struct = Ordinary_float_struct
   { ordinary_float_member :: RIP.CFloat
@@ -1682,13 +1684,13 @@ instance ( ((~) ty) RIP.CULLong
 
 {-| Structs: pointers
 
-  NOTE: `ordinary_signed_char_pointer_struct` is commented out in the original test suite, unclear why (no reason is given).
+    NOTE: @'Ordinary_signed_char_pointer_struct'@ is commented out in the original test suite, unclear why (no reason is given).
 
-__C declaration:__ @struct ordinary_void_pointer_struct@
+    __C declaration:__ @struct ordinary_void_pointer_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 235:8@
+    __defined at:__ @comprehensive\/c2hsc.h 235:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_struct = Ordinary_void_pointer_struct
   { ordinary_void_pointer_member :: RIP.Ptr RIP.Void
@@ -2660,11 +2662,11 @@ instance ( ((~) ty) (RIP.Ptr RIP.CULLong)
 
 {-| Structs: arrays
 
-__C declaration:__ @struct ordinary_float_array_struct@
+    __C declaration:__ @struct ordinary_float_array_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 265:8@
+    __defined at:__ @comprehensive\/c2hsc.h 265:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_array_struct = Ordinary_float_array_struct
   { ordinary_float_array_member :: (CA.ConstantArray 10) RIP.CFloat
@@ -3582,13 +3584,13 @@ instance ( ((~) ty) ((CA.ConstantArray 10) RIP.CULLong)
 
 {-| Structs: arrays of pointers
 
-  NOTE: Here too `ordinary_signed_char_pointer_array_struct` was commented out in the original test suite, with no reason given.
+    NOTE: Here too @'Ordinary_signed_char_pointer_array_struct'@ was commented out in the original test suite, with no reason given.
 
-__C declaration:__ @struct ordinary_void_pointer_array_struct@
+    __C declaration:__ @struct ordinary_void_pointer_array_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 296:8@
+    __defined at:__ @comprehensive\/c2hsc.h 296:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_array_struct = Ordinary_void_pointer_array_struct
   { ordinary_void_pointer_array_member :: (CA.ConstantArray 10) (RIP.Ptr RIP.Void)
@@ -4569,13 +4571,13 @@ instance ( ((~) ty) ((CA.ConstantArray 10) (RIP.Ptr RIP.CULLong))
 
 {-| Sanity checks
 
-  NOTE: The `smoke.h` test is moved to a separate header.
+    NOTE: The @smoke.h@ test is moved to a separate header.
 
-__C declaration:__ @an_int@
+    __C declaration:__ @an_int@
 
-__defined at:__ @comprehensive\/c2hsc.h 329:13@
+    __defined at:__ @comprehensive\/c2hsc.h 329:13@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype An_int = An_int
   { unwrap :: RIP.CInt
@@ -4682,7 +4684,11 @@ instance ( ((~) ty) RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"val")
 
-{-| __C declaration:__ @struct cal_table@
+{-| Issues without test cases in the original test suite
+
+    These are examples from open issues on the c2hsc repository, that don't (yet) have corresponding test cases in the c2hsc test suite.
+
+    __C declaration:__ @struct cal_table@
 
     __defined at:__ @comprehensive\/c2hsc.h 339:8@
 
@@ -4776,13 +4782,13 @@ deriving via Marshal.EquivStorable Elf32_External_Dyn_d_un instance RIP.Storable
 
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
 
-__C declaration:__ @d_val@
+    __C declaration:__ @d_val@
 
-__defined at:__ @comprehensive\/c2hsc.h 350:19@
+    __defined at:__ @comprehensive\/c2hsc.h 350:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_val ::
      Elf32_External_Dyn_d_un
@@ -4792,7 +4798,7 @@ get_elf32_External_Dyn_d_un_d_val =
 
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
 
 -}
 set_elf32_External_Dyn_d_un_d_val ::
@@ -4803,13 +4809,13 @@ set_elf32_External_Dyn_d_un_d_val =
 
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
 
-__C declaration:__ @d_ptr@
+    __C declaration:__ @d_ptr@
 
-__defined at:__ @comprehensive\/c2hsc.h 351:19@
+    __defined at:__ @comprehensive\/c2hsc.h 351:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_ptr ::
      Elf32_External_Dyn_d_un
@@ -4819,7 +4825,7 @@ get_elf32_External_Dyn_d_un_d_ptr =
 
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
 
 -}
 set_elf32_External_Dyn_d_un_d_ptr ::

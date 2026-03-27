@@ -28,11 +28,11 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'RunDriver'
 
-__C declaration:__ @RunDriver@
+    __C declaration:__ @RunDriver@
 
-__defined at:__ @functions\/typedef_funptr.h 12:15@
+    __defined at:__ @functions\/typedef_funptr.h 12:15@
 
-__exported by:__ @functions\/typedef_funptr.h@
+    __exported by:__ @functions\/typedef_funptr.h@
 -}
 newtype RunDriver_Aux = RunDriver_Aux
   { unwrapRunDriver_Aux :: (RIP.Ptr Driver) -> IO RIP.CInt

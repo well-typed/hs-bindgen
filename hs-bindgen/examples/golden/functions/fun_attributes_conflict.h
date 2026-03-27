@@ -1,4 +1,4 @@
-/**
+/** @file
  * Conflicting attributes on functions for llvm/clang versions 18 and up
  *
  * Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html

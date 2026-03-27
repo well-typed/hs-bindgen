@@ -27,11 +27,11 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'Fun_ptr'
 
-__C declaration:__ @fun_ptr@
+    __C declaration:__ @fun_ptr@
 
-__defined at:__ @functions\/circular_dependency_fun.h 3:16@
+    __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
-__exported by:__ @functions\/circular_dependency_fun.h@
+    __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr_Aux = Fun_ptr_Aux
   { unwrapFun_ptr_Aux :: (RIP.Ptr Forward_declaration) -> IO ()

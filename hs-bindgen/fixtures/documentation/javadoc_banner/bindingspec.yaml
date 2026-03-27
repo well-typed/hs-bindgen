@@ -1,0 +1,26 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: documentation/javadoc_banner.h
+  cname: struct banner_point
+  hsname: Banner_point
+hstypes:
+- hsname: Banner_point
+  representation:
+    record:
+      constructor: Banner_point
+      fields:
+      - banner_point_x
+      - banner_point_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

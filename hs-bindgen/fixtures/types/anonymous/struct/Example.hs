@@ -205,13 +205,13 @@ deriving via Marshal.EquivStorable Has_implicit_fields_x5_1 instance RIP.Storabl
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5_1_x5_1'
+    __See:__ 'set_has_implicit_fields_x5_1_x5_1'
 
-__C declaration:__ @x5_1@
+    __C declaration:__ @x5_1@
 
-__defined at:__ @types\/anonymous\/struct.h 17:9@
+    __defined at:__ @types\/anonymous\/struct.h 17:9@
 
-__exported by:__ @types\/anonymous\/struct.h@
+    __exported by:__ @types\/anonymous\/struct.h@
 -}
 get_has_implicit_fields_x5_1_x5_1 ::
      Has_implicit_fields_x5_1
@@ -221,7 +221,7 @@ get_has_implicit_fields_x5_1_x5_1 =
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5_1_x5_1'
+    __See:__ 'get_has_implicit_fields_x5_1_x5_1'
 
 -}
 set_has_implicit_fields_x5_1_x5_1 ::
@@ -232,13 +232,13 @@ set_has_implicit_fields_x5_1_x5_1 =
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5_1_x5_2'
+    __See:__ 'set_has_implicit_fields_x5_1_x5_2'
 
-__C declaration:__ @x5_2@
+    __C declaration:__ @x5_2@
 
-__defined at:__ @types\/anonymous\/struct.h 18:9@
+    __defined at:__ @types\/anonymous\/struct.h 18:9@
 
-__exported by:__ @types\/anonymous\/struct.h@
+    __exported by:__ @types\/anonymous\/struct.h@
 -}
 get_has_implicit_fields_x5_1_x5_2 ::
      Has_implicit_fields_x5_1
@@ -248,7 +248,7 @@ get_has_implicit_fields_x5_1_x5_2 =
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5_1_x5_2'
+    __See:__ 'get_has_implicit_fields_x5_1_x5_2'
 
 -}
 set_has_implicit_fields_x5_1_x5_2 ::

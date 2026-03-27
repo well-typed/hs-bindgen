@@ -142,13 +142,13 @@ deriving via Marshal.EquivStorable Y instance RIP.Storable Y
 
 {-|
 
-  __See:__ 'set_y_m'
+    __See:__ 'set_y_m'
 
-__C declaration:__ @m@
+    __C declaration:__ @m@
 
-__defined at:__ @declarations\/redeclaration.h 30:15@
+    __defined at:__ @declarations\/redeclaration.h 30:15@
 
-__exported by:__ @declarations\/redeclaration.h@
+    __exported by:__ @declarations\/redeclaration.h@
 -}
 get_y_m ::
      Y
@@ -157,7 +157,7 @@ get_y_m = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_y_m'
+    __See:__ 'get_y_m'
 
 -}
 set_y_m ::
@@ -167,13 +167,13 @@ set_y_m = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_y_o'
+    __See:__ 'set_y_o'
 
-__C declaration:__ @o@
+    __C declaration:__ @o@
 
-__defined at:__ @declarations\/redeclaration.h 30:22@
+    __defined at:__ @declarations\/redeclaration.h 30:22@
 
-__exported by:__ @declarations\/redeclaration.h@
+    __exported by:__ @declarations\/redeclaration.h@
 -}
 get_y_o ::
      Y
@@ -182,7 +182,7 @@ get_y_o = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_y_o'
+    __See:__ 'get_y_o'
 
 -}
 set_y_o ::

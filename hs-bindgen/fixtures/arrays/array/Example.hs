@@ -218,13 +218,13 @@ instance ( ((~) ty) ((CA.ConstantArray 3) ((CA.ConstantArray 3) RIP.CInt))
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_sudoku")
 
-{-| Typedef-in-typedef
+{-| Typedef-in-typedef.
 
-__C declaration:__ @sudoku@
+    __C declaration:__ @sudoku@
 
-__defined at:__ @arrays\/array.h 55:17@
+    __defined at:__ @arrays\/array.h 55:17@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 newtype Sudoku = Sudoku
   { unwrapSudoku :: (CA.ConstantArray 3) Triplet

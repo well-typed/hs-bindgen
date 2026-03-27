@@ -514,7 +514,9 @@
 -- {
 --   return &unsigned_long_long_pointer_array;
 -- }
-{-| __C declaration:__ @an_pchar@
+{-| Issues
+
+    __C declaration:__ @an_pchar@
 
     __defined at:__ @comprehensive\/c2hsc.h 12:21@
 
@@ -568,11 +570,11 @@ instance (~) ty (ConstantArray 8 (ConstantArray 255 CChar)) =>
     where getField = fromPtr (Proxy @"listOfNames")
 {-| Auxiliary type used by 'Foo'
 
-__C declaration:__ @foo@
+    __C declaration:__ @foo@
 
-__defined at:__ @comprehensive\/c2hsc.h 20:15@
+    __defined at:__ @comprehensive\/c2hsc.h 20:15@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Foo_Aux
     = Foo_Aux {unwrap :: (CInt -> IO CInt)}
@@ -806,35 +808,35 @@ deriving via (SizedByteArray 1 1) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
 {-|
 
-  __See:__ 'set_u_c'
+    __See:__ 'set_u_c'
 
-__C declaration:__ @c@
+    __C declaration:__ @c@
 
-__defined at:__ @comprehensive\/c2hsc.h 57:8@
+    __defined at:__ @comprehensive\/c2hsc.h 57:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_u_c :: U -> CChar
 {-|
 
-  __See:__ 'set_u_c'
+    __See:__ 'set_u_c'
 
-__C declaration:__ @c@
+    __C declaration:__ @c@
 
-__defined at:__ @comprehensive\/c2hsc.h 57:8@
+    __defined at:__ @comprehensive\/c2hsc.h 57:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_u_c = getUnionPayload
 {-|
 
-  __See:__ 'get_u_c'
+    __See:__ 'get_u_c'
 
 -}
 set_u_c :: CChar -> U
 {-|
 
-  __See:__ 'get_u_c'
+    __See:__ 'get_u_c'
 
 -}
 set_u_c = setUnionPayload
@@ -908,11 +910,11 @@ instance (~) ty CInt => HasField "x" (Ptr MyStructType) (Ptr ty)
 data MyStructEmptyType
 {-| Structs: primitive types
 
-__C declaration:__ @struct ordinary_float_struct@
+    __C declaration:__ @struct ordinary_float_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 204:8@
+    __defined at:__ @comprehensive\/c2hsc.h 204:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_struct
     = Ordinary_float_struct {ordinary_float_member :: CFloat
@@ -1476,13 +1478,13 @@ instance (~) ty CULLong =>
     where getField = fromPtr (Proxy @"unsigned_long_long_member")
 {-| Structs: pointers
 
-  NOTE: `ordinary_signed_char_pointer_struct` is commented out in the original test suite, unclear why (no reason is given).
+    NOTE: @'Ordinary_signed_char_pointer_struct'@ is commented out in the original test suite, unclear why (no reason is given).
 
-__C declaration:__ @struct ordinary_void_pointer_struct@
+    __C declaration:__ @struct ordinary_void_pointer_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 235:8@
+    __defined at:__ @comprehensive\/c2hsc.h 235:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_struct
     = Ordinary_void_pointer_struct {ordinary_void_pointer_member :: (Ptr Void)
@@ -2092,11 +2094,11 @@ instance (~) ty (Ptr CULLong) =>
     where getField = fromPtr (Proxy @"unsigned_long_long_pointer_member")
 {-| Structs: arrays
 
-__C declaration:__ @struct ordinary_float_array_struct@
+    __C declaration:__ @struct ordinary_float_array_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 265:8@
+    __defined at:__ @comprehensive\/c2hsc.h 265:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_array_struct
     = Ordinary_float_array_struct {ordinary_float_array_member :: (ConstantArray 10
@@ -2689,13 +2691,13 @@ instance (~) ty (ConstantArray 10 CULLong) =>
     where getField = fromPtr (Proxy @"unsigned_long_long_array_member")
 {-| Structs: arrays of pointers
 
-  NOTE: Here too `ordinary_signed_char_pointer_array_struct` was commented out in the original test suite, with no reason given.
+    NOTE: Here too @'Ordinary_signed_char_pointer_array_struct'@ was commented out in the original test suite, with no reason given.
 
-__C declaration:__ @struct ordinary_void_pointer_array_struct@
+    __C declaration:__ @struct ordinary_void_pointer_array_struct@
 
-__defined at:__ @comprehensive\/c2hsc.h 296:8@
+    __defined at:__ @comprehensive\/c2hsc.h 296:8@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_array_struct
     = Ordinary_void_pointer_array_struct {ordinary_void_pointer_array_member :: (ConstantArray 10
@@ -3339,13 +3341,13 @@ instance (~) ty (ConstantArray 10 (Ptr CULLong)) =>
     where getField = fromPtr (Proxy @"unsigned_long_long_pointer_array_member")
 {-| Sanity checks
 
-  NOTE: The `smoke.h` test is moved to a separate header.
+    NOTE: The @smoke.h@ test is moved to a separate header.
 
-__C declaration:__ @an_int@
+    __C declaration:__ @an_int@
 
-__defined at:__ @comprehensive\/c2hsc.h 329:13@
+    __defined at:__ @comprehensive\/c2hsc.h 329:13@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype An_int
     = An_int {unwrap :: CInt}
@@ -3414,7 +3416,11 @@ instance HasCField Cal_table_table "val"
 instance (~) ty CInt =>
          HasField "val" (Ptr Cal_table_table) (Ptr ty)
     where getField = fromPtr (Proxy @"val")
-{-| __C declaration:__ @struct cal_table@
+{-| Issues without test cases in the original test suite
+
+    These are examples from open issues on the c2hsc repository, that don't (yet) have corresponding test cases in the c2hsc test suite.
+
+    __C declaration:__ @struct cal_table@
 
     __defined at:__ @comprehensive\/c2hsc.h 339:8@
 
@@ -3476,73 +3482,73 @@ deriving via (SizedByteArray 4
 deriving via (EquivStorable Elf32_External_Dyn_d_un) instance Storable Elf32_External_Dyn_d_un
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
 
-__C declaration:__ @d_val@
+    __C declaration:__ @d_val@
 
-__defined at:__ @comprehensive\/c2hsc.h 350:19@
+    __defined at:__ @comprehensive\/c2hsc.h 350:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_val :: Elf32_External_Dyn_d_un ->
                                      ConstantArray 4 CUChar
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
 
-__C declaration:__ @d_val@
+    __C declaration:__ @d_val@
 
-__defined at:__ @comprehensive\/c2hsc.h 350:19@
+    __defined at:__ @comprehensive\/c2hsc.h 350:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_val = getUnionPayload
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
 
 -}
 set_elf32_External_Dyn_d_un_d_val :: ConstantArray 4 CUChar ->
                                      Elf32_External_Dyn_d_un
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_val'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
 
 -}
 set_elf32_External_Dyn_d_un_d_val = setUnionPayload
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
 
-__C declaration:__ @d_ptr@
+    __C declaration:__ @d_ptr@
 
-__defined at:__ @comprehensive\/c2hsc.h 351:19@
+    __defined at:__ @comprehensive\/c2hsc.h 351:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_ptr :: Elf32_External_Dyn_d_un ->
                                      ConstantArray 4 CUChar
 {-|
 
-  __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
 
-__C declaration:__ @d_ptr@
+    __C declaration:__ @d_ptr@
 
-__defined at:__ @comprehensive\/c2hsc.h 351:19@
+    __defined at:__ @comprehensive\/c2hsc.h 351:19@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 get_elf32_External_Dyn_d_un_d_ptr = getUnionPayload
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
 
 -}
 set_elf32_External_Dyn_d_un_d_ptr :: ConstantArray 4 CUChar ->
                                      Elf32_External_Dyn_d_un
 {-|
 
-  __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
+    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
 
 -}
 set_elf32_External_Dyn_d_un_d_ptr = setUnionPayload
@@ -3991,24 +3997,24 @@ hs_bindgen_fbe24203b7174cce = fromFFIType hs_bindgen_fbe24203b7174cce_base
 {-# NOINLINE ordinary_float #-}
 {-| Primitive types
 
-  NOTE: Here and elsewhere the original test suite has some references to `long double`, some commented out, and some---confusingly---not, with an expectation of a translation to `CDouble`; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
+    NOTE: Here and elsewhere the original test suite has some references to @long double@ , some commented out, and some confusingly not, with an expectation of a translation to @CDouble@ ; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
 
-__C declaration:__ @ordinary_float@
+    __C declaration:__ @ordinary_float@
 
-__defined at:__ @comprehensive\/c2hsc.h 88:20@
+    __defined at:__ @comprehensive\/c2hsc.h 88:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float :: Ptr CFloat
 {-| Primitive types
 
-  NOTE: Here and elsewhere the original test suite has some references to `long double`, some commented out, and some---confusingly---not, with an expectation of a translation to `CDouble`; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
+    NOTE: Here and elsewhere the original test suite has some references to @long double@ , some commented out, and some confusingly not, with an expectation of a translation to @CDouble@ ; the latter I think is a bug in the original test suite. Here we leave all of these test cases in; we emit an "unsupported" message for these and omit the declaration in the generated bindings.
 
-__C declaration:__ @ordinary_float@
+    __C declaration:__ @ordinary_float@
 
-__defined at:__ @comprehensive\/c2hsc.h 88:20@
+    __defined at:__ @comprehensive\/c2hsc.h 88:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float = unsafePerformIO hs_bindgen_fbe24203b7174cce
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double@
@@ -4373,20 +4379,20 @@ hs_bindgen_d6cafaa0834895a2 = fromFFIType hs_bindgen_d6cafaa0834895a2_base
 {-# NOINLINE ordinary_void_pointer #-}
 {-| Pointers: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_void_pointer@
+    __C declaration:__ @ordinary_void_pointer@
 
-__defined at:__ @comprehensive\/c2hsc.h 116:21@
+    __defined at:__ @comprehensive\/c2hsc.h 116:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer :: Ptr (Ptr Void)
 {-| Pointers: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_void_pointer@
+    __C declaration:__ @ordinary_void_pointer@
 
-__defined at:__ @comprehensive\/c2hsc.h 116:21@
+    __defined at:__ @comprehensive\/c2hsc.h 116:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer = unsafePerformIO hs_bindgen_d6cafaa0834895a2
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_pointer@
@@ -4773,20 +4779,20 @@ hs_bindgen_dbf314f660deda12 = fromFFIType hs_bindgen_dbf314f660deda12_base
 {-# NOINLINE ordinary_float_array #-}
 {-| Arrays: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_float_array@
+    __C declaration:__ @ordinary_float_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 146:20@
+    __defined at:__ @comprehensive\/c2hsc.h 146:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float_array :: Ptr (ConstantArray 10 CFloat)
 {-| Arrays: primitive types which cannot be signed
 
-__C declaration:__ @ordinary_float_array@
+    __C declaration:__ @ordinary_float_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 146:20@
+    __defined at:__ @comprehensive\/c2hsc.h 146:20@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_float_array = unsafePerformIO hs_bindgen_dbf314f660deda12
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_array@
@@ -5152,20 +5158,20 @@ hs_bindgen_b0da135021f97e27 = fromFFIType hs_bindgen_b0da135021f97e27_base
 {-# NOINLINE ordinary_void_pointer_array #-}
 {-| Arrays of pointers
 
-__C declaration:__ @ordinary_void_pointer_array@
+    __C declaration:__ @ordinary_void_pointer_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 174:21@
+    __defined at:__ @comprehensive\/c2hsc.h 174:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer_array :: Ptr (ConstantArray 10 (Ptr Void))
 {-| Arrays of pointers
 
-__C declaration:__ @ordinary_void_pointer_array@
+    __C declaration:__ @ordinary_void_pointer_array@
 
-__defined at:__ @comprehensive\/c2hsc.h 174:21@
+    __defined at:__ @comprehensive\/c2hsc.h 174:21@
 
-__exported by:__ @comprehensive\/c2hsc.h@
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
 ordinary_void_pointer_array = unsafePerformIO hs_bindgen_b0da135021f97e27
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_pointer_array@

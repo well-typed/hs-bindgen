@@ -1112,11 +1112,11 @@ hs_bindgen_ba0c80bfdbc677bd =
 {-# NOINLINE args_char1 #-}
 {-| Function declarations
 
-__C declaration:__ @args_char1@
+    __C declaration:__ @args_char1@
 
-__defined at:__ @macros\/reparse.h 17:6@
+    __defined at:__ @macros\/reparse.h 17:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 args_char1 :: RIP.FunPtr (A -> RIP.CChar -> IO ())
 args_char1 =
@@ -2174,11 +2174,11 @@ hs_bindgen_b38b526cf0817bf0 =
 {-# NOINLINE arr_args1 #-}
 {-| Arrays
 
-__C declaration:__ @arr_args1@
+    __C declaration:__ @arr_args1@
 
-__defined at:__ @macros\/reparse.h 104:6@
+    __defined at:__ @macros\/reparse.h 104:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 arr_args1 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray A))) -> IO ())
 arr_args1 =
@@ -2256,11 +2256,11 @@ hs_bindgen_3fd6d1fbd060ffcf =
 {-# NOINLINE funptr_args1 #-}
 {-| Function pointers
 
-__C declaration:__ @funptr_args1@
+    __C declaration:__ @funptr_args1@
 
-__defined at:__ @macros\/reparse.h 126:6@
+    __defined at:__ @macros\/reparse.h 126:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 funptr_args1 :: RIP.FunPtr (A -> (RIP.FunPtr (IO ())) -> IO ())
 funptr_args1 =
@@ -2358,13 +2358,13 @@ hs_bindgen_7f647ffb81758d69 =
 {-# NOINLINE comments1 #-}
 {-| Comments in awkward places
 
-  (Prior to language-c we failed to parse there.)
+    (Prior to language-c we failed to parse there.)
 
-__C declaration:__ @comments1@
+    __C declaration:__ @comments1@
 
-__defined at:__ @macros\/reparse.h 144:25@
+    __defined at:__ @macros\/reparse.h 144:25@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 comments1 :: RIP.FunPtr (A -> IO ())
 comments1 =
@@ -2380,15 +2380,15 @@ hs_bindgen_ecf341da5dabe306 =
   RIP.fromFFIType hs_bindgen_ecf341da5dabe306_base
 
 {-# NOINLINE const_prim_before1 #-}
-{-| `const` qualifier
+{-| @const@ qualifier
 
-  NOTE: These were not parsed correctly prior to the switch to language-c.
+    NOTE: These were not parsed correctly prior to the switch to language-c.
 
-__C declaration:__ @const_prim_before1@
+    __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 177:6@
+    __defined at:__ @macros\/reparse.h 177:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before1 :: RIP.FunPtr (A -> RIP.CChar -> IO ())
 const_prim_before1 =
@@ -3086,11 +3086,11 @@ hs_bindgen_cd9806a214acd0fa =
 {-# NOINLINE noParams1 #-}
 {-| Other examples we reparsed /incorrectly/ before language-c
 
-__C declaration:__ @noParams1@
+    __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 254:3@
+    __defined at:__ @macros\/reparse.h 254:3@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 noParams1 :: RIP.FunPtr (IO A)
 noParams1 =

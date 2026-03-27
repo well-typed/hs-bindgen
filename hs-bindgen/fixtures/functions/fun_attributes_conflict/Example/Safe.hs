@@ -53,17 +53,15 @@ hs_bindgen_5d7162df3a16d8d5 ::
 hs_bindgen_5d7162df3a16d8d5 =
   RIP.fromFFIType hs_bindgen_5d7162df3a16d8d5_base
 
-{-| Conflicting attributes on functions for llvm/clang versions 18 and up
+{-|
 
-  Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+    Marked @__attribute((const))__@
 
-  Marked @__attribute((const))__@
+    __C declaration:__ @square_cp@
 
-__C declaration:__ @square_cp@
+    __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
-__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
-
-__exported by:__ @functions\/fun_attributes_conflict.h@
+    __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp ::
      RIP.CInt
@@ -85,13 +83,13 @@ hs_bindgen_7f240b4e0c2eea24 =
 
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square_pc@
+    __C declaration:__ @square_pc@
 
-__defined at:__ @functions\/fun_attributes_conflict.h 11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
-__exported by:__ @functions\/fun_attributes_conflict.h@
+    __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc ::
      RIP.CInt
@@ -113,13 +111,13 @@ hs_bindgen_d32b50f04af10764 =
 
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square_cc@
+    __C declaration:__ @square_cc@
 
-__defined at:__ @functions\/fun_attributes_conflict.h 13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
-__exported by:__ @functions\/fun_attributes_conflict.h@
+    __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc ::
      RIP.CInt
@@ -141,13 +139,13 @@ hs_bindgen_fab6c9860ff1400b =
 
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @square_pp@
+    __C declaration:__ @square_pp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h 15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
-__exported by:__ @functions\/fun_attributes_conflict.h@
+    __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp ::
      RIP.CInt

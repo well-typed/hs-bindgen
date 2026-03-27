@@ -27,7 +27,7 @@ import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Type (ValOrRef (..))
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ fromDecls includeGraph declIndex =
     -- We cannot use plain 'depsOfDecl' here because we have not typechecked
     -- macros yet. Instead, we must provide a "resolver" for bare names (see
     -- below).
-    insertDepsOfDeclParsedMacro :: C.Decl AssignAnonIds -> UseDeclGraph -> UseDeclGraph
+    insertDepsOfDeclParsedMacro :: C.Decl EnrichComments -> UseDeclGraph -> UseDeclGraph
     insertDepsOfDeclParsedMacro d =
       insertDeps d.info.id (depsOfDeclParsedMacro resolver d.kind)
 
@@ -67,7 +67,7 @@ fromDecls includeGraph declIndex =
         foldl' insertVertex DynGraph.empty $
           map (.info.id) sortedSuccessfulDecls ++ failedDeclIds
 
-    successfulDecls :: [C.Decl AssignAnonIds]
+    successfulDecls :: [C.Decl EnrichComments]
     successfulDecls = DeclIndex.getDecls declIndex
 
     successfulDeclIds :: Set DeclId
@@ -79,7 +79,7 @@ fromDecls includeGraph declIndex =
     failedDeclIds :: [DeclId]
     failedDeclIds = Set.toList $ allDeclIds Set.\\ successfulDeclIds
 
-    sortedSuccessfulDecls :: [C.Decl AssignAnonIds]
+    sortedSuccessfulDecls :: [C.Decl EnrichComments]
     sortedSuccessfulDecls = List.sortOn (annSortKey orderMap) successfulDecls
 
     orderMap :: Map SourcePath Int

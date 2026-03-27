@@ -193,6 +193,9 @@ jobs:
         with:
           ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
 
+      - name: "[setup] Install doxygen"
+        uses: ./.github/actions/setup-doxygen
+
       - name: "[setup] Debug LLVM/Clang"
         run: |
           echo '== which clang ================================================================='

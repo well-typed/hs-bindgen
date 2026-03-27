@@ -11,6 +11,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -41,13 +42,14 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = DeclIdPair
-  type ScopedName MangleNames = ScopedNamePair
-  type MacroBody  MangleNames = CheckedMacro MangleNames
-  type ExtBinding MangleNames = ResolvedExtBinding
-  type Ann ix     MangleNames = AnnMangleNames ix
-  type Msg        MangleNames = WithCallStack (WithLocationInfo MangleNamesMsg)
-  type MacroId    MangleNames = Id MangleNames
+  type Id          MangleNames = DeclIdPair
+  type ScopedName  MangleNames = ScopedNamePair
+  type MacroBody   MangleNames = CheckedMacro MangleNames
+  type ExtBinding  MangleNames = ResolvedExtBinding
+  type Ann ix      MangleNames = AnnMangleNames ix
+  type Msg         MangleNames = WithCallStack (WithLocationInfo MangleNamesMsg)
+  type MacroId     MangleNames = Id MangleNames
+  type CommentDecl MangleNames = Maybe (C.Comment MangleNames)
 
   idNameKind     _ namePair   = namePair.cName.name.kind
   idSourceName   _ namePair   = declIdSourceName namePair.cName

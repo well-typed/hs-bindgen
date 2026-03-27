@@ -70,7 +70,7 @@ instance Pretty CommentKind where
             TopLevelComment c          -> ("{-|", "-}", c)
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
-        indentation = length commentStart - 1
+        indentation = length commentStart + 1
         -- Separate user-facing metadata (for documentation) from internal metadata.
         -- Only user-facing metadata should trigger Haddock comment syntax.
         userFacingMetadata = catMaybes [
@@ -127,13 +127,13 @@ instance Pretty CommentKind where
              , not (null allMetadata) ->
                 PP.string commentStart
             <+> firstContent
-            $+$ PP.vsep allMetadata
+            $+$ PP.nest indentation (PP.vsep allMetadata)
              $$ PP.string commentEnd
              | otherwise -> PP.empty
 
           _ -> PP.vsep (PP.string commentStart <+> firstContent
                      : map (PP.nest indentation . pretty) comment.children)
-            $+$ PP.vcat [ PP.vsep allMetadata
+            $+$ PP.vcat [ PP.nest indentation (PP.vsep allMetadata)
                      , PP.string commentEnd
                      ]
 
@@ -208,7 +208,7 @@ instance Pretty HsDoc.CommentInlineContent where
     HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
 
 instance Pretty HsDoc.CommentMeta where
-  pretty HsDoc.Since{..} = "@since:" <+> PP.text sinceContent
+  pretty HsDoc.Since{..} = "@since" <+> PP.text sinceContent
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

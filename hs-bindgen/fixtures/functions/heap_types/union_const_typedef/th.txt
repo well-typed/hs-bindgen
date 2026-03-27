@@ -35,35 +35,35 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
 {-|
 
-  __See:__ 'set_u_x'
+    __See:__ 'set_u_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
 
-__exported by:__ @functions\/heap_types\/union_const_typedef.h@
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 get_u_x :: U -> CInt
 {-|
 
-  __See:__ 'set_u_x'
+    __See:__ 'set_u_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
 
-__exported by:__ @functions\/heap_types\/union_const_typedef.h@
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 get_u_x = getUnionPayload
 {-|
 
-  __See:__ 'get_u_x'
+    __See:__ 'get_u_x'
 
 -}
 set_u_x :: CInt -> U
 {-|
 
-  __See:__ 'get_u_x'
+    __See:__ 'get_u_x'
 
 -}
 set_u_x = setUnionPayload

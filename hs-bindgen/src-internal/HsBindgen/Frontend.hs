@@ -6,6 +6,9 @@ module HsBindgen.Frontend (
   ) where
 
 
+import Control.Exception (catch)
+import Data.List.NonEmpty qualified as NE
+
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
@@ -15,6 +18,7 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
+import HsBindgen.Doxygen (DoxygenMsg (DoxygenUnsupported, DoxygenWarning))
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -26,6 +30,8 @@ import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.EnrichComments (enrichComments)
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -49,6 +55,9 @@ import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+
+import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
+                       emptyDoxygen, parse)
 
 -- | Frontend
 --
@@ -95,7 +104,18 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
 --
--- == 4. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
+-- == 4. "HsBindgen.Frontend.Pass.EnrichComments"
+--
+-- "HsBindgen.Frontend.Pass.EnrichComments" enriches parsed declarations with
+-- doxygen comments by looking up each declaration in the 'Doxygen' state.
+--
+-- Constraints:
+--
+-- * Must be after "HsBindgen.Frontend.Pass.AssignAnonIds" so that
+--   'HsBindgen.Frontend.Naming.DeclId' is available for the 'DeclIndex' and
+--   for building doxygen-qualified names
+--
+-- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
 -- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
 -- sorted declarations as well as 'DeclIndex.DeclIndex',
@@ -106,7 +126,7 @@ import HsBindgen.Util.Tracer
 -- * Must be before the rest of the passes because they use these structures and
 --   depend on the ordering of declarations
 --
--- == 5. "HsBindgen.Frontend.Pass.TypecheckMacros"
+-- == 6. "HsBindgen.Frontend.Pass.TypecheckMacros"
 --
 -- "HsBindgen.Frontend.Pass.TypecheckMacros" collects known types and typechecks
 -- all macros. Note that macros may neither refer to nor introduce new anonymous
@@ -117,7 +137,7 @@ import HsBindgen.Util.Tracer
 --   "HsBindgen.Frontend.Pass.TypecheckMacros" typechecks macro-defined types
 --   that are required to parse declarations with macro expansions.
 --
--- == 6. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
+-- == 7. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
 --
 -- "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations that
 -- contain macro expansions.
@@ -128,7 +148,7 @@ import HsBindgen.Util.Tracer
 --   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
 --   referencing macro-defined types that may have to be adjusted.
 --
--- == 7. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 8. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -149,19 +169,19 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 8. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 9. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 9. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 10. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 10. "HsBindgen.Frontend.Pass.Select"
+-- == 11. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -186,8 +206,27 @@ runFrontend tracer config boot = do
       setup      <- getSetup
       cStd       <- boot.cStandard
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
-        (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
+        (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
+        -- Run doxygen on the resolved main header paths to extract
+        -- structured comments.  The paths come from clang's own include
+        -- resolution (via processIncludes), so no separate path search
+        -- is needed.
+        let resolvedPaths = map getSourcePath mainHeaderPaths
+            emptyResult   = Result {
+                doxygen = emptyDoxygen, warnings = [], doxygenVersion = "unknown"
+              }
+        doxyResult <- case NE.nonEmpty resolvedPaths of
+          Nothing -> pure emptyResult
+          Just paths -> parse config.doxygenConfig paths
+            `catch` \(e :: DoxygenException) -> do
+              traceWith tracer $ withCallStack $ FrontendDoxygen $ DoxygenWarning e
+              pure emptyResult
+
+        -- Emit structured warnings for unsupported content
+        forM_ doxyResult.warnings $ \w ->
+          traceWith tracer $ withCallStack $ FrontendDoxygen $ DoxygenUnsupported w
+
         let parseEnv :: ParseDecl.Env
             parseEnv = ParseDecl.Env{
                 unit                     = unit
@@ -203,6 +242,7 @@ runFrontend tracer config boot = do
 
         pure $ ParsePassResult {
             results           = parseResults
+          , doxygen           = doxyResult.doxygen
           , includeGraph      = includeGraph
           , isMainHeader      = isMainHeader
           , isInMainHeaderDir = isInMainHeaderDir
@@ -232,11 +272,18 @@ runFrontend tracer config boot = do
       forM_ msgsAssignAnonIds $ traceWith tracer . extendCallStackMsg FrontendAssignAnonIds
       pure afterAssignAnonIds
 
-    constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
+    enrichCommentsPass <- cache "enrichComments" $ do
       afterParse <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
+      pure $ enrichComments afterParse.doxygen afterAssignAnonIds
+
+    constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
+      afterParse <- parsePass
+      afterEnrichComments <- enrichCommentsPass
       let afterConstructTranslationUnit =
-            constructTranslationUnit afterAssignAnonIds afterParse.includeGraph
+            constructTranslationUnit
+              afterEnrichComments
+              afterParse.includeGraph
       pure afterConstructTranslationUnit
 
     typecheckMacrosPass <- cache "typecheckMacros" $ do
@@ -289,8 +336,10 @@ runFrontend tracer config boot = do
     pure FrontendArtefact{
         parseMeta                = parseMeta
       , parse                    = (.results) <$> parsePass
+      , doxygen                  = (.doxygen) <$> parsePass
       , simplifyAST              = simplifyASTPass
       , assignAnonIds            = assignAnonIdsPass
+      , enrichComments           = enrichCommentsPass
       , constructTranslationUnit = constructTranslationUnitPass
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
       , reparseMacroExpansions   = reparseMacroExpansionsPass
@@ -337,8 +386,10 @@ data FrontendArtefact = FrontendArtefact {
       parseMeta                :: Cached ParseInfo
 
     , parse                    :: Cached [ParseResult Parse]
+    , doxygen                  :: Cached Doxygen
     , simplifyAST              :: Cached [ParseResult SimplifyAST]
     , assignAnonIds            :: Cached [ParseResult AssignAnonIds]
+    , enrichComments           :: Cached [ParseResult EnrichComments]
     , constructTranslationUnit :: Cached (C.TranslationUnit ConstructTranslationUnit)
     , typecheckMacros          :: Cached (C.TranslationUnit TypecheckMacros)
     , reparseMacroExpansions   :: Cached (C.TranslationUnit ReparseMacroExpansions)
@@ -365,6 +416,7 @@ data FrontendMsg =
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
   | FrontendCache                    (SafeTrace CacheMsg)
+  | FrontendDoxygen                   DoxygenMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
@@ -386,6 +438,7 @@ data ParseInfo = ParseInfo {
 
 data ParsePassResult = ParsePassResult {
       results           :: [ParseResult Parse]
+    , doxygen           :: Doxygen
     , includeGraph      :: IncludeGraph
     , isMainHeader      :: IsMainHeader
     , isInMainHeaderDir :: IsInMainHeaderDir

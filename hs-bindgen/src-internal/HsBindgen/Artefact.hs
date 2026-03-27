@@ -26,6 +26,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
 import HsBindgen.Frontend.Pass.Final (Final)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
@@ -38,6 +39,8 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+
+import Doxygen.Parser (Doxygen)
 
 {-------------------------------------------------------------------------------
   Frontend passes
@@ -54,6 +57,8 @@ data FrontendPass (result :: Star) where
     :: FrontendPass [ParseResult SimplifyAST]
   AssignAnonIdsPass
     :: FrontendPass [ParseResult AssignAnonIds]
+  EnrichCommentsPass
+    :: FrontendPass [ParseResult EnrichComments]
   ConstructTranslationUnitPass
     :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
   TypecheckMacrosPass
@@ -82,6 +87,7 @@ data Artefact (a :: Star) where
   ModuleBaseName  :: Artefact BaseModuleName
   -- * Frontend
   ParseInfoA      :: Artefact ParseInfo
+  DoxygenA        :: Artefact Doxygen
   FrontendPassA   :: FrontendPass result -> Artefact result
   -- * Backend
   HsDecls         :: Artefact (ByCategory_ [Hs.Decl])
@@ -132,6 +138,7 @@ runArtefacts tracer config boot frontend backend artefact =
         ModuleBaseName  -> pure boot.baseModule
         -- Frontend.
         ParseInfoA      -> runCached frontend.parseMeta
+        DoxygenA        -> runCached frontend.doxygen
         FrontendPassA p -> runFrontendPass p
         -- Backend.
         HsDecls         -> runCached backend.hsDecls
@@ -146,6 +153,7 @@ runArtefacts tracer config boot frontend backend artefact =
         ParsePass                    -> runCached frontend.parse
         SimplifyASTPass              -> runCached frontend.simplifyAST
         AssignAnonIdsPass            -> runCached frontend.assignAnonIds
+        EnrichCommentsPass           -> runCached frontend.enrichComments
         ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
         TypecheckMacrosPass          -> runCached frontend.typecheckMacros
         ReparseMacroExpansionsPass   -> runCached frontend.reparseMacroExpansions

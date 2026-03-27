@@ -13,7 +13,6 @@ module HsBindgen.Cli.Internal.Frontend (
   , exec
   ) where
 
-import Data.Default (Default (..))
 import Data.List (intercalate)
 import Options.Applicative hiding (info)
 
@@ -22,8 +21,9 @@ import HsBindgen.App
 import HsBindgen.Artefact
 import HsBindgen.ArtefactM
 import HsBindgen.Config
-import HsBindgen.Config.Internal (BindgenConfig)
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Existential wrapper
@@ -48,6 +48,7 @@ parseFrontendPassName s = case lookup s knownPasses of
           mk ParsePass
         , mk SimplifyASTPass
         , mk AssignAnonIdsPass
+        , mk EnrichCommentsPass
         , mk ConstructTranslationUnitPass
         , mk TypecheckMacrosPass
         , mk ReparseMacroExpansionsPass
@@ -67,6 +68,7 @@ frontendPassName = \case
   ParsePass                    -> "parse"
   SimplifyASTPass              -> "simplify-ast"
   AssignAnonIdsPass            -> "assign-anon-ids"
+  EnrichCommentsPass           -> "enrich-comments"
   ConstructTranslationUnitPass -> "construct-translation-unit"
   TypecheckMacrosPass          -> "typecheck-macros"
   ReparseMacroExpansionsPass   -> "reparse-macro-expansions"
@@ -92,6 +94,7 @@ data Opts = Opts {
     , config         :: Config
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
+    , dirPolicy      :: DirPolicy
     , inputs         :: [UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
     }
@@ -103,6 +106,7 @@ parseOpts =
       <*> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
+      <*> parseDirPolicy
       <*> parseInputs
       <*> parseFilePolicy
 
@@ -120,24 +124,25 @@ parseDump = option (eitherReader parseFrontendPassName) $ mconcat [
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts = case opts.dump of
-    SomeFrontendPass pass ->
-      hsBindgen
-        global.unsafe
-        global.safe
-        bindgenConfig
-        opts.inputs
-        artefact
-      where
-        artefact :: Artefact ()
-        artefact = do
-            result <- FrontendPassA pass
-            Lift $ delay . WriteToStdOut . StringContent $ show result
+exec global opts = do
+    case opts.dump of
+      SomeFrontendPass pass ->
+        hsBindgen
+          global.unsafe
+          global.safe
+          bindgenConfig
+          opts.inputs
+          (artefact pass)
+  where
+    artefact :: Show result => FrontendPass result -> Artefact ()
+    artefact pass = do
+        result <- FrontendPassA pass
+        Lift $ delay . WriteToStdOut . StringContent $ show result
 
-        bindgenConfig :: BindgenConfig
-        bindgenConfig =
-            toBindgenConfig
-              opts.config
-              opts.uniqueId
-              opts.baseModuleName
-              def
+    bindgenConfig :: BindgenConfig
+    bindgenConfig =
+        toBindgenConfig
+          opts.config
+          opts.uniqueId
+          opts.baseModuleName
+          def

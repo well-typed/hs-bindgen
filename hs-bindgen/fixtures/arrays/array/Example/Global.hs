@@ -203,13 +203,13 @@ hs_bindgen_21338ece6a009179 =
   RIP.fromFFIType hs_bindgen_21338ece6a009179_base
 
 {-# NOINLINE arr0 #-}
-{-| Global, complete, not initialised
+{-| Global, complete, not initialised.
 
-__C declaration:__ @arr0@
+    __C declaration:__ @arr0@
 
-__defined at:__ @arrays\/array.h 11:5@
+    __defined at:__ @arrays\/array.h 11:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr0 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr0 =
@@ -225,13 +225,13 @@ hs_bindgen_a058c9f90a6e675c =
   RIP.fromFFIType hs_bindgen_a058c9f90a6e675c_base
 
 {-# NOINLINE arr1 #-}
-{-| Global, complete, initialised
+{-| Global, complete, initialised.
 
-__C declaration:__ @arr1@
+    __C declaration:__ @arr1@
 
-__defined at:__ @arrays\/array.h 14:5@
+    __defined at:__ @arrays\/array.h 14:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr1 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr1 =
@@ -247,13 +247,13 @@ hs_bindgen_c57aab7f71d2cb0b =
   RIP.fromFFIType hs_bindgen_c57aab7f71d2cb0b_base
 
 {-# NOINLINE arr2 #-}
-{-| Global, extern, complete, not initialised
+{-| Global, extern, complete, not initialised.
 
-__C declaration:__ @arr2@
+    __C declaration:__ @arr2@
 
-__defined at:__ @arrays\/array.h 17:12@
+    __defined at:__ @arrays\/array.h 17:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr2 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr2 =
@@ -269,13 +269,13 @@ hs_bindgen_e2b7478ee9c12746 =
   RIP.fromFFIType hs_bindgen_e2b7478ee9c12746_base
 
 {-# NOINLINE arr3 #-}
-{-| Global, extern, complete, initialised
+{-| Global, extern, complete, initialised.
 
-__C declaration:__ @arr3@
+    __C declaration:__ @arr3@
 
-__defined at:__ @arrays\/array.h 20:12@
+    __defined at:__ @arrays\/array.h 20:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr3 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr3 =
@@ -291,13 +291,13 @@ hs_bindgen_5d33e8cdfb8c9242 =
   RIP.fromFFIType hs_bindgen_5d33e8cdfb8c9242_base
 
 {-# NOINLINE arr4 #-}
-{-| Global, static, complete, not initialised
+{-| Global, static, complete, not initialised.
 
-__C declaration:__ @arr4@
+    __C declaration:__ @arr4@
 
-__defined at:__ @arrays\/array.h 23:12@
+    __defined at:__ @arrays\/array.h 23:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr4 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr4 =
@@ -313,13 +313,13 @@ hs_bindgen_ef557ae1941f9959 =
   RIP.fromFFIType hs_bindgen_ef557ae1941f9959_base
 
 {-# NOINLINE arr5 #-}
-{-| Global, static, complete, initialised
+{-| Global, static, complete, initialised.
 
-__C declaration:__ @arr5@
+    __C declaration:__ @arr5@
 
-__defined at:__ @arrays\/array.h 26:12@
+    __defined at:__ @arrays\/array.h 26:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr5 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr5 =
@@ -335,13 +335,13 @@ hs_bindgen_5f4d28170d6fa0d1 =
   RIP.fromFFIType hs_bindgen_5f4d28170d6fa0d1_base
 
 {-# NOINLINE arr6 #-}
-{-| Global, incomplete
+{-| Global, incomplete.
 
-__C declaration:__ @arr6@
+    __C declaration:__ @arr6@
 
-__defined at:__ @arrays\/array.h 29:5@
+    __defined at:__ @arrays\/array.h 29:5@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr6 :: RIP.Ptr ((CA.ConstantArray 1) RIP.CInt)
 arr6 =
@@ -357,13 +357,13 @@ hs_bindgen_3b952c95c3eb17f2 =
   RIP.fromFFIType hs_bindgen_3b952c95c3eb17f2_base
 
 {-# NOINLINE arr7 #-}
-{-| Global, extern, incomplete
+{-| Global, extern, incomplete.
 
-__C declaration:__ @arr7@
+    __C declaration:__ @arr7@
 
-__defined at:__ @arrays\/array.h 32:12@
+    __defined at:__ @arrays\/array.h 32:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr7 :: RIP.Ptr (IA.IncompleteArray RIP.CInt)
 arr7 =
@@ -379,13 +379,13 @@ hs_bindgen_fe12bb34a92772f4 =
   RIP.fromFFIType hs_bindgen_fe12bb34a92772f4_base
 
 {-# NOINLINE arr8 #-}
-{-| Global, static, incomplete
+{-| Global, static, incomplete.
 
-__C declaration:__ @arr8@
+    __C declaration:__ @arr8@
 
-__defined at:__ @arrays\/array.h 35:12@
+    __defined at:__ @arrays\/array.h 35:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr8 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr8 =
@@ -401,13 +401,13 @@ hs_bindgen_2d21b7cb9ac33ea8 =
   RIP.fromFFIType hs_bindgen_2d21b7cb9ac33ea8_base
 
 {-# NOINLINE arr_1 #-}
-{-| Array of known size
+{-| Array of known size.
 
-__C declaration:__ @arr_1@
+    __C declaration:__ @arr_1@
 
-__defined at:__ @arrays\/array.h 62:12@
+    __defined at:__ @arrays\/array.h 62:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_1 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
 arr_1 =
@@ -423,13 +423,13 @@ hs_bindgen_df706ce2499e5073 =
   RIP.fromFFIType hs_bindgen_df706ce2499e5073_base
 
 {-# NOINLINE arr_2 #-}
-{-| Array of known size, typedef
+{-| Array of known size, typedef.
 
-__C declaration:__ @arr_2@
+    __C declaration:__ @arr_2@
 
-__defined at:__ @arrays\/array.h 65:16@
+    __defined at:__ @arrays\/array.h 65:16@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_2 :: RIP.Ptr Triplet
 arr_2 =
@@ -445,13 +445,13 @@ hs_bindgen_26bcbe886b94adfb =
   RIP.fromFFIType hs_bindgen_26bcbe886b94adfb_base
 
 {-# NOINLINE arr_3 #-}
-{-| Array of unknown size
+{-| Array of unknown size.
 
-__C declaration:__ @arr_3@
+    __C declaration:__ @arr_3@
 
-__defined at:__ @arrays\/array.h 68:12@
+    __defined at:__ @arrays\/array.h 68:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_3 :: RIP.Ptr (IA.IncompleteArray RIP.CInt)
 arr_3 =
@@ -467,13 +467,13 @@ hs_bindgen_e4cef264a5cc1887 =
   RIP.fromFFIType hs_bindgen_e4cef264a5cc1887_base
 
 {-# NOINLINE arr_4 #-}
-{-| Array of unknown size, typedef
+{-| Array of unknown size, typedef.
 
-__C declaration:__ @arr_4@
+    __C declaration:__ @arr_4@
 
-__defined at:__ @arrays\/array.h 71:13@
+    __defined at:__ @arrays\/array.h 71:13@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_4 :: RIP.Ptr List
 arr_4 =
@@ -489,13 +489,13 @@ hs_bindgen_a733c5b896a8ae4e =
   RIP.fromFFIType hs_bindgen_a733c5b896a8ae4e_base
 
 {-# NOINLINE arr_5 #-}
-{-| Multi-dimensional array of known size
+{-| Multi-dimensional array of known size.
 
-__C declaration:__ @arr_5@
+    __C declaration:__ @arr_5@
 
-__defined at:__ @arrays\/array.h 74:12@
+    __defined at:__ @arrays\/array.h 74:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_5 :: RIP.Ptr ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
 arr_5 =
@@ -511,13 +511,13 @@ hs_bindgen_525a326f0badae7c =
   RIP.fromFFIType hs_bindgen_525a326f0badae7c_base
 
 {-# NOINLINE arr_6 #-}
-{-| Multi-dimensional array of known size, typedef
+{-| Multi-dimensional array of known size, typedef.
 
-__C declaration:__ @arr_6@
+    __C declaration:__ @arr_6@
 
-__defined at:__ @arrays\/array.h 77:15@
+    __defined at:__ @arrays\/array.h 77:15@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_6 :: RIP.Ptr Matrix
 arr_6 =
@@ -533,13 +533,13 @@ hs_bindgen_b5e93d2d90ffc861 =
   RIP.fromFFIType hs_bindgen_b5e93d2d90ffc861_base
 
 {-# NOINLINE arr_7 #-}
-{-| Multi-dimensional array of unknown size
+{-| Multi-dimensional array of unknown size.
 
-__C declaration:__ @arr_7@
+    __C declaration:__ @arr_7@
 
-__defined at:__ @arrays\/array.h 80:12@
+    __defined at:__ @arrays\/array.h 80:12@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_7 :: RIP.Ptr (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
 arr_7 =
@@ -555,13 +555,13 @@ hs_bindgen_eb98aff4ee1d31d0 =
   RIP.fromFFIType hs_bindgen_eb98aff4ee1d31d0_base
 
 {-# NOINLINE arr_8 #-}
-{-| Multi-dimensional array of unknown size, typedef
+{-| Multi-dimensional array of unknown size, typedef.
 
-__C declaration:__ @arr_8@
+    __C declaration:__ @arr_8@
 
-__defined at:__ @arrays\/array.h 83:20@
+    __defined at:__ @arrays\/array.h 83:20@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_8 :: RIP.Ptr Tripletlist
 arr_8 =
@@ -577,15 +577,15 @@ hs_bindgen_25089a5dd72254bc =
   RIP.fromFFIType hs_bindgen_25089a5dd72254bc_base
 
 {-# NOINLINE hs_bindgen_a182a929fe06593d #-}
-{-| Array of known size
+{-| Array of known size.
 
-__C declaration:__ @arr_1_const@
+    __C declaration:__ @arr_1_const@
 
-__defined at:__ @arrays\/array.h 90:18@
+    __defined at:__ @arrays\/array.h 90:18@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 
-__unique:__ @test_arraysarray_Example_arr_1_const@
+    __unique:__ @test_arraysarray_Example_arr_1_const@
 -}
 hs_bindgen_a182a929fe06593d :: PtrConst.PtrConst ((CA.ConstantArray 3) RIP.CInt)
 hs_bindgen_a182a929fe06593d =
@@ -606,15 +606,15 @@ hs_bindgen_a55a5562a096ae11 =
   RIP.fromFFIType hs_bindgen_a55a5562a096ae11_base
 
 {-# NOINLINE hs_bindgen_40c72338f5e41246 #-}
-{-| Array of known size, typedef
+{-| Array of known size, typedef.
 
-__C declaration:__ @arr_2_const@
+    __C declaration:__ @arr_2_const@
 
-__defined at:__ @arrays\/array.h 93:22@
+    __defined at:__ @arrays\/array.h 93:22@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 
-__unique:__ @test_arraysarray_Example_arr_2_const@
+    __unique:__ @test_arraysarray_Example_arr_2_const@
 -}
 hs_bindgen_40c72338f5e41246 :: PtrConst.PtrConst Triplet
 hs_bindgen_40c72338f5e41246 =
@@ -635,13 +635,13 @@ hs_bindgen_fad31baeec544a6d =
   RIP.fromFFIType hs_bindgen_fad31baeec544a6d_base
 
 {-# NOINLINE arr_3_const #-}
-{-| Array of unknown size
+{-| Array of unknown size.
 
-__C declaration:__ @arr_3_const@
+    __C declaration:__ @arr_3_const@
 
-__defined at:__ @arrays\/array.h 96:18@
+    __defined at:__ @arrays\/array.h 96:18@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_3_const :: PtrConst.PtrConst (IA.IncompleteArray RIP.CInt)
 arr_3_const =
@@ -657,13 +657,13 @@ hs_bindgen_890c46fc872e1d7d =
   RIP.fromFFIType hs_bindgen_890c46fc872e1d7d_base
 
 {-# NOINLINE arr_4_const #-}
-{-| Array of unknown size, typedef
+{-| Array of unknown size, typedef.
 
-__C declaration:__ @arr_4_const@
+    __C declaration:__ @arr_4_const@
 
-__defined at:__ @arrays\/array.h 99:19@
+    __defined at:__ @arrays\/array.h 99:19@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_4_const :: PtrConst.PtrConst List
 arr_4_const =
@@ -679,15 +679,15 @@ hs_bindgen_088c9ea4e73d1cfe =
   RIP.fromFFIType hs_bindgen_088c9ea4e73d1cfe_base
 
 {-# NOINLINE hs_bindgen_be82907b3025ae62 #-}
-{-| Multi-dimensional array of known size
+{-| Multi-dimensional array of known size.
 
-__C declaration:__ @arr_5_const@
+    __C declaration:__ @arr_5_const@
 
-__defined at:__ @arrays\/array.h 102:18@
+    __defined at:__ @arrays\/array.h 102:18@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 
-__unique:__ @test_arraysarray_Example_arr_5_const@
+    __unique:__ @test_arraysarray_Example_arr_5_const@
 -}
 hs_bindgen_be82907b3025ae62 :: PtrConst.PtrConst ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
 hs_bindgen_be82907b3025ae62 =
@@ -708,15 +708,15 @@ hs_bindgen_bf69f287b3bf9fa4 =
   RIP.fromFFIType hs_bindgen_bf69f287b3bf9fa4_base
 
 {-# NOINLINE hs_bindgen_50556ee70fdb04aa #-}
-{-| Multi-dimensional array of known size, typedef
+{-| Multi-dimensional array of known size, typedef.
 
-__C declaration:__ @arr_6_const@
+    __C declaration:__ @arr_6_const@
 
-__defined at:__ @arrays\/array.h 105:21@
+    __defined at:__ @arrays\/array.h 105:21@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 
-__unique:__ @test_arraysarray_Example_arr_6_const@
+    __unique:__ @test_arraysarray_Example_arr_6_const@
 -}
 hs_bindgen_50556ee70fdb04aa :: PtrConst.PtrConst Matrix
 hs_bindgen_50556ee70fdb04aa =
@@ -737,13 +737,13 @@ hs_bindgen_2ca44942791eacc4 =
   RIP.fromFFIType hs_bindgen_2ca44942791eacc4_base
 
 {-# NOINLINE arr_7_const #-}
-{-| Multi-dimensional array of unknown size
+{-| Multi-dimensional array of unknown size.
 
-__C declaration:__ @arr_7_const@
+    __C declaration:__ @arr_7_const@
 
-__defined at:__ @arrays\/array.h 108:18@
+    __defined at:__ @arrays\/array.h 108:18@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_7_const :: PtrConst.PtrConst (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
 arr_7_const =
@@ -759,13 +759,13 @@ hs_bindgen_3e95fdf3b641c349 =
   RIP.fromFFIType hs_bindgen_3e95fdf3b641c349_base
 
 {-# NOINLINE arr_8_const #-}
-{-| Multi-dimensional array of unknown size, typedef
+{-| Multi-dimensional array of unknown size, typedef.
 
-__C declaration:__ @arr_8_const@
+    __C declaration:__ @arr_8_const@
 
-__defined at:__ @arrays\/array.h 111:26@
+    __defined at:__ @arrays\/array.h 111:26@
 
-__exported by:__ @arrays\/array.h@
+    __exported by:__ @arrays\/array.h@
 -}
 arr_8_const :: PtrConst.PtrConst Tripletlist
 arr_8_const =

@@ -68,7 +68,8 @@ simplifyAST usage parseResults = (results, msgs)
                  , let CScopedName nameText = constant.info.name
                        newId = Named (CDeclName nameText CNameKindOrdinary)
                        newInfo :: C.DeclInfo SimplifyAST
-                       newInfo = (coercePass info) { C.id = newId }
+                       newInfo = (coercePass info :: C.DeclInfo SimplifyAST)
+                                   { C.id = newId }
                  ]
                 , [withCallStack (SimplifyASTAnonymousEnum anonId)]
                 )

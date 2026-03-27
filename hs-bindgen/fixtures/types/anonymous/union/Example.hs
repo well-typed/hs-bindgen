@@ -217,13 +217,13 @@ deriving via Marshal.EquivStorable Has_implicit_fields_x5_1 instance RIP.Storabl
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5_1_x5_1'
+    __See:__ 'set_has_implicit_fields_x5_1_x5_1'
 
-__C declaration:__ @x5_1@
+    __C declaration:__ @x5_1@
 
-__defined at:__ @types\/anonymous\/union.h 15:9@
+    __defined at:__ @types\/anonymous\/union.h 15:9@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x5_1_x5_1 ::
      Has_implicit_fields_x5_1
@@ -233,7 +233,7 @@ get_has_implicit_fields_x5_1_x5_1 =
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5_1_x5_1'
+    __See:__ 'get_has_implicit_fields_x5_1_x5_1'
 
 -}
 set_has_implicit_fields_x5_1_x5_1 ::
@@ -244,13 +244,13 @@ set_has_implicit_fields_x5_1_x5_1 =
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5_1_x5_2'
+    __See:__ 'set_has_implicit_fields_x5_1_x5_2'
 
-__C declaration:__ @x5_2@
+    __C declaration:__ @x5_2@
 
-__defined at:__ @types\/anonymous\/union.h 16:9@
+    __defined at:__ @types\/anonymous\/union.h 16:9@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x5_1_x5_2 ::
      Has_implicit_fields_x5_1
@@ -260,7 +260,7 @@ get_has_implicit_fields_x5_1_x5_2 =
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5_1_x5_2'
+    __See:__ 'get_has_implicit_fields_x5_1_x5_2'
 
 -}
 set_has_implicit_fields_x5_1_x5_2 ::
@@ -316,13 +316,13 @@ deriving via Marshal.EquivStorable Has_implicit_fields instance RIP.Storable Has
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x1'
+    __See:__ 'set_has_implicit_fields_x1'
 
-__C declaration:__ @x1@
+    __C declaration:__ @x1@
 
-__defined at:__ @types\/anonymous\/union.h 4:7@
+    __defined at:__ @types\/anonymous\/union.h 4:7@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x1 ::
      Has_implicit_fields
@@ -331,7 +331,7 @@ get_has_implicit_fields_x1 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x1'
+    __See:__ 'get_has_implicit_fields_x1'
 
 -}
 set_has_implicit_fields_x1 ::
@@ -341,13 +341,13 @@ set_has_implicit_fields_x1 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x2_1'
+    __See:__ 'set_has_implicit_fields_x2_1'
 
-__C declaration:__ @x2_1@
+    __C declaration:__ @x2_1@
 
-__defined at:__ @types\/anonymous\/union.h 5:3@
+    __defined at:__ @types\/anonymous\/union.h 5:3@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x2_1 ::
      Has_implicit_fields
@@ -356,7 +356,7 @@ get_has_implicit_fields_x2_1 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x2_1'
+    __See:__ 'get_has_implicit_fields_x2_1'
 
 -}
 set_has_implicit_fields_x2_1 ::
@@ -366,13 +366,13 @@ set_has_implicit_fields_x2_1 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x3'
+    __See:__ 'set_has_implicit_fields_x3'
 
-__C declaration:__ @x3@
+    __C declaration:__ @x3@
 
-__defined at:__ @types\/anonymous\/union.h 9:7@
+    __defined at:__ @types\/anonymous\/union.h 9:7@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x3 ::
      Has_implicit_fields
@@ -381,7 +381,7 @@ get_has_implicit_fields_x3 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x3'
+    __See:__ 'get_has_implicit_fields_x3'
 
 -}
 set_has_implicit_fields_x3 ::
@@ -391,13 +391,13 @@ set_has_implicit_fields_x3 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x4_1'
+    __See:__ 'set_has_implicit_fields_x4_1'
 
-__C declaration:__ @x4_1@
+    __C declaration:__ @x4_1@
 
-__defined at:__ @types\/anonymous\/union.h 10:3@
+    __defined at:__ @types\/anonymous\/union.h 10:3@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x4_1 ::
      Has_implicit_fields
@@ -406,7 +406,7 @@ get_has_implicit_fields_x4_1 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x4_1'
+    __See:__ 'get_has_implicit_fields_x4_1'
 
 -}
 set_has_implicit_fields_x4_1 ::
@@ -416,13 +416,13 @@ set_has_implicit_fields_x4_1 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5_1'
+    __See:__ 'set_has_implicit_fields_x5_1'
 
-__C declaration:__ @x5_1@
+    __C declaration:__ @x5_1@
 
-__defined at:__ @types\/anonymous\/union.h 14:3@
+    __defined at:__ @types\/anonymous\/union.h 14:3@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x5_1 ::
      Has_implicit_fields
@@ -431,7 +431,7 @@ get_has_implicit_fields_x5_1 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5_1'
+    __See:__ 'get_has_implicit_fields_x5_1'
 
 -}
 set_has_implicit_fields_x5_1 ::
@@ -441,13 +441,13 @@ set_has_implicit_fields_x5_1 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_has_implicit_fields_x5'
+    __See:__ 'set_has_implicit_fields_x5'
 
-__C declaration:__ @x5@
+    __C declaration:__ @x5@
 
-__defined at:__ @types\/anonymous\/union.h 18:7@
+    __defined at:__ @types\/anonymous\/union.h 18:7@
 
-__exported by:__ @types\/anonymous\/union.h@
+    __exported by:__ @types\/anonymous\/union.h@
 -}
 get_has_implicit_fields_x5 ::
      Has_implicit_fields
@@ -456,7 +456,7 @@ get_has_implicit_fields_x5 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_has_implicit_fields_x5'
+    __See:__ 'get_has_implicit_fields_x5'
 
 -}
 set_has_implicit_fields_x5 ::

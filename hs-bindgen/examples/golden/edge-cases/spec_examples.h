@@ -1,4 +1,4 @@
-/**
+/** @file
  * Examples from the initial specification
  */
 

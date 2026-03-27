@@ -13,6 +13,7 @@ import C.Expr.Typecheck.Interface.Value qualified as V
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -42,10 +43,11 @@ type family AnnTypecheckMacros (ix :: Symbol) :: Star where
   AnnTypecheckMacros _                 = NoAnn
 
 instance IsPass TypecheckMacros where
-  type MacroBody  TypecheckMacros = CheckedMacro TypecheckMacros
-  type Ann ix     TypecheckMacros = AnnTypecheckMacros ix
-  type Msg        TypecheckMacros = NoMsg Level
-  type MacroId    TypecheckMacros = Id TypecheckMacros
+  type MacroBody   TypecheckMacros = CheckedMacro TypecheckMacros
+  type Ann ix      TypecheckMacros = AnnTypecheckMacros ix
+  type Msg         TypecheckMacros = NoMsg Level
+  type MacroId     TypecheckMacros = Id TypecheckMacros
+  type CommentDecl TypecheckMacros = Maybe (C.Comment TypecheckMacros)
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
@@ -126,3 +128,5 @@ instance CoercePassAnn "UnionField"  ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Typedef"     ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Function"    ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Global"      ConstructTranslationUnit TypecheckMacros
+instance CoercePassCommentDecl       ConstructTranslationUnit TypecheckMacros where
+  coercePassCommentDecl _ = fmap coercePass

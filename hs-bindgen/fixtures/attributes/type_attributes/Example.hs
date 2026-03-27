@@ -379,13 +379,13 @@ deriving via Marshal.EquivStorable Wait_status_ptr_t instance RIP.Storable Wait_
 
 {-|
 
-  __See:__ 'set_wait_status_ptr_t___ip'
+    __See:__ 'set_wait_status_ptr_t___ip'
 
-__C declaration:__ @__ip@
+    __C declaration:__ @__ip@
 
-__defined at:__ @attributes\/type_attributes.h 28:8@
+    __defined at:__ @attributes\/type_attributes.h 28:8@
 
-__exported by:__ @attributes\/type_attributes.h@
+    __exported by:__ @attributes\/type_attributes.h@
 -}
 get_wait_status_ptr_t___ip ::
      Wait_status_ptr_t
@@ -394,7 +394,7 @@ get_wait_status_ptr_t___ip = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_wait_status_ptr_t___ip'
+    __See:__ 'get_wait_status_ptr_t___ip'
 
 -}
 set_wait_status_ptr_t___ip ::
@@ -404,13 +404,13 @@ set_wait_status_ptr_t___ip = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_wait_status_ptr_t___up'
+    __See:__ 'set_wait_status_ptr_t___up'
 
-__C declaration:__ @__up@
+    __C declaration:__ @__up@
 
-__defined at:__ @attributes\/type_attributes.h 29:15@
+    __defined at:__ @attributes\/type_attributes.h 29:15@
 
-__exported by:__ @attributes\/type_attributes.h@
+    __exported by:__ @attributes\/type_attributes.h@
 -}
 get_wait_status_ptr_t___up ::
      Wait_status_ptr_t
@@ -419,7 +419,7 @@ get_wait_status_ptr_t___up = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_wait_status_ptr_t___up'
+    __See:__ 'get_wait_status_ptr_t___up'
 
 -}
 set_wait_status_ptr_t___up ::

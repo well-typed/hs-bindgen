@@ -1,4 +1,4 @@
-/**
+/** @file
  * This is a test case in the c2hsc test suite
  *
  * https://github.com/jwiegley/c2hsc/blob/master/test/main.hs

@@ -14,69 +14,69 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Outer1_fieldX
 deriving via (EquivStorable Outer1_fieldX) instance Storable Outer1_fieldX
 {-|
 
-  __See:__ 'set_outer1_fieldX_fieldX'
+    __See:__ 'set_outer1_fieldX_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 9:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 9:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX_fieldX :: Outer1_fieldX -> CInt
 {-|
 
-  __See:__ 'set_outer1_fieldX_fieldX'
+    __See:__ 'set_outer1_fieldX_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 9:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 9:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX_fieldX = getUnionPayload
 {-|
 
-  __See:__ 'get_outer1_fieldX_fieldX'
+    __See:__ 'get_outer1_fieldX_fieldX'
 
 -}
 set_outer1_fieldX_fieldX :: CInt -> Outer1_fieldX
 {-|
 
-  __See:__ 'get_outer1_fieldX_fieldX'
+    __See:__ 'get_outer1_fieldX_fieldX'
 
 -}
 set_outer1_fieldX_fieldX = setUnionPayload
 {-|
 
-  __See:__ 'set_outer1_fieldX_fieldY'
+    __See:__ 'set_outer1_fieldX_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 10:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 10:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX_fieldY :: Outer1_fieldX -> CInt
 {-|
 
-  __See:__ 'set_outer1_fieldX_fieldY'
+    __See:__ 'set_outer1_fieldX_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 10:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 10:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX_fieldY = getUnionPayload
 {-|
 
-  __See:__ 'get_outer1_fieldX_fieldY'
+    __See:__ 'get_outer1_fieldX_fieldY'
 
 -}
 set_outer1_fieldX_fieldY :: CInt -> Outer1_fieldX
 {-|
 
-  __See:__ 'get_outer1_fieldX_fieldY'
+    __See:__ 'get_outer1_fieldX_fieldY'
 
 -}
 set_outer1_fieldX_fieldY = setUnionPayload
@@ -107,103 +107,103 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Outer1
 deriving via (EquivStorable Outer1) instance Storable Outer1
 {-|
 
-  __See:__ 'set_outer1_fieldA'
+    __See:__ 'set_outer1_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 7:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 7:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldA :: Outer1 -> CChar
 {-|
 
-  __See:__ 'set_outer1_fieldA'
+    __See:__ 'set_outer1_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 7:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 7:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldA = getUnionPayload
 {-|
 
-  __See:__ 'get_outer1_fieldA'
+    __See:__ 'get_outer1_fieldA'
 
 -}
 set_outer1_fieldA :: CChar -> Outer1
 {-|
 
-  __See:__ 'get_outer1_fieldA'
+    __See:__ 'get_outer1_fieldA'
 
 -}
 set_outer1_fieldA = setUnionPayload
 {-|
 
-  __See:__ 'set_outer1_fieldX'
+    __See:__ 'set_outer1_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 8:3@
+    __defined at:__ @types\/anonymous\/union_in_union.h 8:3@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX :: Outer1 -> Outer1_fieldX
 {-|
 
-  __See:__ 'set_outer1_fieldX'
+    __See:__ 'set_outer1_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 8:3@
+    __defined at:__ @types\/anonymous\/union_in_union.h 8:3@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldX = getUnionPayload
 {-|
 
-  __See:__ 'get_outer1_fieldX'
+    __See:__ 'get_outer1_fieldX'
 
 -}
 set_outer1_fieldX :: Outer1_fieldX -> Outer1
 {-|
 
-  __See:__ 'get_outer1_fieldX'
+    __See:__ 'get_outer1_fieldX'
 
 -}
 set_outer1_fieldX = setUnionPayload
 {-|
 
-  __See:__ 'set_outer1_fieldC'
+    __See:__ 'set_outer1_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 12:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 12:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldC :: Outer1 -> CInt
 {-|
 
-  __See:__ 'set_outer1_fieldC'
+    __See:__ 'set_outer1_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 12:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 12:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer1_fieldC = getUnionPayload
 {-|
 
-  __See:__ 'get_outer1_fieldC'
+    __See:__ 'get_outer1_fieldC'
 
 -}
 set_outer1_fieldC :: CInt -> Outer1
 {-|
 
-  __See:__ 'get_outer1_fieldC'
+    __See:__ 'get_outer1_fieldC'
 
 -}
 set_outer1_fieldC = setUnionPayload
@@ -240,69 +240,69 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Outer2_fieldB
 deriving via (EquivStorable Outer2_fieldB) instance Storable Outer2_fieldB
 {-|
 
-  __See:__ 'set_outer2_fieldB_fieldX'
+    __See:__ 'set_outer2_fieldB_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 18:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 18:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB_fieldX :: Outer2_fieldB -> CInt
 {-|
 
-  __See:__ 'set_outer2_fieldB_fieldX'
+    __See:__ 'set_outer2_fieldB_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 18:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 18:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB_fieldX = getUnionPayload
 {-|
 
-  __See:__ 'get_outer2_fieldB_fieldX'
+    __See:__ 'get_outer2_fieldB_fieldX'
 
 -}
 set_outer2_fieldB_fieldX :: CInt -> Outer2_fieldB
 {-|
 
-  __See:__ 'get_outer2_fieldB_fieldX'
+    __See:__ 'get_outer2_fieldB_fieldX'
 
 -}
 set_outer2_fieldB_fieldX = setUnionPayload
 {-|
 
-  __See:__ 'set_outer2_fieldB_fieldY'
+    __See:__ 'set_outer2_fieldB_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 19:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 19:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB_fieldY :: Outer2_fieldB -> CInt
 {-|
 
-  __See:__ 'set_outer2_fieldB_fieldY'
+    __See:__ 'set_outer2_fieldB_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 19:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 19:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB_fieldY = getUnionPayload
 {-|
 
-  __See:__ 'get_outer2_fieldB_fieldY'
+    __See:__ 'get_outer2_fieldB_fieldY'
 
 -}
 set_outer2_fieldB_fieldY :: CInt -> Outer2_fieldB
 {-|
 
-  __See:__ 'get_outer2_fieldB_fieldY'
+    __See:__ 'get_outer2_fieldB_fieldY'
 
 -}
 set_outer2_fieldB_fieldY = setUnionPayload
@@ -333,103 +333,103 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Outer2
 deriving via (EquivStorable Outer2) instance Storable Outer2
 {-|
 
-  __See:__ 'set_outer2_fieldA'
+    __See:__ 'set_outer2_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 16:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 16:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldA :: Outer2 -> CChar
 {-|
 
-  __See:__ 'set_outer2_fieldA'
+    __See:__ 'set_outer2_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 16:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 16:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldA = getUnionPayload
 {-|
 
-  __See:__ 'get_outer2_fieldA'
+    __See:__ 'get_outer2_fieldA'
 
 -}
 set_outer2_fieldA :: CChar -> Outer2
 {-|
 
-  __See:__ 'get_outer2_fieldA'
+    __See:__ 'get_outer2_fieldA'
 
 -}
 set_outer2_fieldA = setUnionPayload
 {-|
 
-  __See:__ 'set_outer2_fieldB'
+    __See:__ 'set_outer2_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 20:5@
+    __defined at:__ @types\/anonymous\/union_in_union.h 20:5@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB :: Outer2 -> Outer2_fieldB
 {-|
 
-  __See:__ 'set_outer2_fieldB'
+    __See:__ 'set_outer2_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 20:5@
+    __defined at:__ @types\/anonymous\/union_in_union.h 20:5@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldB = getUnionPayload
 {-|
 
-  __See:__ 'get_outer2_fieldB'
+    __See:__ 'get_outer2_fieldB'
 
 -}
 set_outer2_fieldB :: Outer2_fieldB -> Outer2
 {-|
 
-  __See:__ 'get_outer2_fieldB'
+    __See:__ 'get_outer2_fieldB'
 
 -}
 set_outer2_fieldB = setUnionPayload
 {-|
 
-  __See:__ 'set_outer2_fieldC'
+    __See:__ 'set_outer2_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 21:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 21:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldC :: Outer2 -> CInt
 {-|
 
-  __See:__ 'set_outer2_fieldC'
+    __See:__ 'set_outer2_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 21:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 21:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer2_fieldC = getUnionPayload
 {-|
 
-  __See:__ 'get_outer2_fieldC'
+    __See:__ 'get_outer2_fieldC'
 
 -}
 set_outer2_fieldC :: CInt -> Outer2
 {-|
 
-  __See:__ 'get_outer2_fieldC'
+    __See:__ 'get_outer2_fieldC'
 
 -}
 set_outer2_fieldC = setUnionPayload
@@ -466,69 +466,69 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Inner3
 deriving via (EquivStorable Inner3) instance Storable Inner3
 {-|
 
-  __See:__ 'set_inner3_fieldX'
+    __See:__ 'set_inner3_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 27:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 27:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_inner3_fieldX :: Inner3 -> CInt
 {-|
 
-  __See:__ 'set_inner3_fieldX'
+    __See:__ 'set_inner3_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 27:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 27:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_inner3_fieldX = getUnionPayload
 {-|
 
-  __See:__ 'get_inner3_fieldX'
+    __See:__ 'get_inner3_fieldX'
 
 -}
 set_inner3_fieldX :: CInt -> Inner3
 {-|
 
-  __See:__ 'get_inner3_fieldX'
+    __See:__ 'get_inner3_fieldX'
 
 -}
 set_inner3_fieldX = setUnionPayload
 {-|
 
-  __See:__ 'set_inner3_fieldY'
+    __See:__ 'set_inner3_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 28:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 28:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_inner3_fieldY :: Inner3 -> CInt
 {-|
 
-  __See:__ 'set_inner3_fieldY'
+    __See:__ 'set_inner3_fieldY'
 
-__C declaration:__ @fieldY@
+    __C declaration:__ @fieldY@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 28:9@
+    __defined at:__ @types\/anonymous\/union_in_union.h 28:9@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_inner3_fieldY = getUnionPayload
 {-|
 
-  __See:__ 'get_inner3_fieldY'
+    __See:__ 'get_inner3_fieldY'
 
 -}
 set_inner3_fieldY :: CInt -> Inner3
 {-|
 
-  __See:__ 'get_inner3_fieldY'
+    __See:__ 'get_inner3_fieldY'
 
 -}
 set_inner3_fieldY = setUnionPayload
@@ -559,103 +559,103 @@ deriving via (SizedByteArray 4 4) instance WriteRaw Outer3
 deriving via (EquivStorable Outer3) instance Storable Outer3
 {-|
 
-  __See:__ 'set_outer3_fieldA'
+    __See:__ 'set_outer3_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 25:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 25:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldA :: Outer3 -> CChar
 {-|
 
-  __See:__ 'set_outer3_fieldA'
+    __See:__ 'set_outer3_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 25:8@
+    __defined at:__ @types\/anonymous\/union_in_union.h 25:8@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldA = getUnionPayload
 {-|
 
-  __See:__ 'get_outer3_fieldA'
+    __See:__ 'get_outer3_fieldA'
 
 -}
 set_outer3_fieldA :: CChar -> Outer3
 {-|
 
-  __See:__ 'get_outer3_fieldA'
+    __See:__ 'get_outer3_fieldA'
 
 -}
 set_outer3_fieldA = setUnionPayload
 {-|
 
-  __See:__ 'set_outer3_fieldB'
+    __See:__ 'set_outer3_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 29:5@
+    __defined at:__ @types\/anonymous\/union_in_union.h 29:5@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldB :: Outer3 -> Inner3
 {-|
 
-  __See:__ 'set_outer3_fieldB'
+    __See:__ 'set_outer3_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 29:5@
+    __defined at:__ @types\/anonymous\/union_in_union.h 29:5@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldB = getUnionPayload
 {-|
 
-  __See:__ 'get_outer3_fieldB'
+    __See:__ 'get_outer3_fieldB'
 
 -}
 set_outer3_fieldB :: Inner3 -> Outer3
 {-|
 
-  __See:__ 'get_outer3_fieldB'
+    __See:__ 'get_outer3_fieldB'
 
 -}
 set_outer3_fieldB = setUnionPayload
 {-|
 
-  __See:__ 'set_outer3_fieldC'
+    __See:__ 'set_outer3_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 30:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 30:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldC :: Outer3 -> CInt
 {-|
 
-  __See:__ 'set_outer3_fieldC'
+    __See:__ 'set_outer3_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/union_in_union.h 30:7@
+    __defined at:__ @types\/anonymous\/union_in_union.h 30:7@
 
-__exported by:__ @types\/anonymous\/union_in_union.h@
+    __exported by:__ @types\/anonymous\/union_in_union.h@
 -}
 get_outer3_fieldC = getUnionPayload
 {-|
 
-  __See:__ 'get_outer3_fieldC'
+    __See:__ 'get_outer3_fieldC'
 
 -}
 set_outer3_fieldC :: CInt -> Outer3
 {-|
 
-  __See:__ 'get_outer3_fieldC'
+    __See:__ 'get_outer3_fieldC'
 
 -}
 set_outer3_fieldC = setUnionPayload

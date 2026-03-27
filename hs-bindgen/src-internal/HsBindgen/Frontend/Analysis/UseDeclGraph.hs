@@ -25,4 +25,3 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
 import HsBindgen.Frontend.Analysis.UseDeclGraph.Construction
 import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
 import HsBindgen.Frontend.Analysis.UseDeclGraph.Query
-

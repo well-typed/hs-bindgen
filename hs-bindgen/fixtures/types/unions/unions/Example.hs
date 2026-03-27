@@ -226,13 +226,13 @@ deriving via Marshal.EquivStorable DimPayload instance RIP.Storable DimPayload
 
 {-|
 
-  __See:__ 'set_dimPayload_dim2'
+    __See:__ 'set_dimPayload_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 13:17@
+    __defined at:__ @types\/unions\/unions.h 13:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim2 ::
      DimPayload
@@ -241,7 +241,7 @@ get_dimPayload_dim2 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_dimPayload_dim2'
+    __See:__ 'get_dimPayload_dim2'
 
 -}
 set_dimPayload_dim2 ::
@@ -251,13 +251,13 @@ set_dimPayload_dim2 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_dimPayload_dim3'
+    __See:__ 'set_dimPayload_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 14:17@
+    __defined at:__ @types\/unions\/unions.h 14:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim3 ::
      DimPayload
@@ -266,7 +266,7 @@ get_dimPayload_dim3 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_dimPayload_dim3'
+    __See:__ 'get_dimPayload_dim3'
 
 -}
 set_dimPayload_dim3 ::
@@ -392,13 +392,13 @@ deriving via Marshal.EquivStorable DimPayloadB instance RIP.Storable DimPayloadB
 
 {-|
 
-  __See:__ 'set_dimPayloadB_dim2'
+    __See:__ 'set_dimPayloadB_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 24:17@
+    __defined at:__ @types\/unions\/unions.h 24:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim2 ::
      DimPayloadB
@@ -407,7 +407,7 @@ get_dimPayloadB_dim2 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_dimPayloadB_dim2'
+    __See:__ 'get_dimPayloadB_dim2'
 
 -}
 set_dimPayloadB_dim2 ::
@@ -417,13 +417,13 @@ set_dimPayloadB_dim2 = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_dimPayloadB_dim3'
+    __See:__ 'set_dimPayloadB_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 25:17@
+    __defined at:__ @types\/unions\/unions.h 25:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim3 ::
      DimPayloadB
@@ -432,7 +432,7 @@ get_dimPayloadB_dim3 = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_dimPayloadB_dim3'
+    __See:__ 'get_dimPayloadB_dim3'
 
 -}
 set_dimPayloadB_dim3 ::
@@ -708,13 +708,13 @@ deriving via Marshal.EquivStorable AnonA instance RIP.Storable AnonA
 
 {-|
 
-  __See:__ 'set_anonA_xy'
+    __See:__ 'set_anonA_xy'
 
-__C declaration:__ @xy@
+    __C declaration:__ @xy@
 
-__defined at:__ @types\/unions\/unions.h 35:36@
+    __defined at:__ @types\/unions\/unions.h 35:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_xy ::
      AnonA
@@ -723,7 +723,7 @@ get_anonA_xy = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_anonA_xy'
+    __See:__ 'get_anonA_xy'
 
 -}
 set_anonA_xy ::
@@ -733,13 +733,13 @@ set_anonA_xy = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_anonA_polar'
+    __See:__ 'set_anonA_polar'
 
-__C declaration:__ @polar@
+    __C declaration:__ @polar@
 
-__defined at:__ @types\/unions\/unions.h 36:36@
+    __defined at:__ @types\/unions\/unions.h 36:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_polar ::
      AnonA
@@ -748,7 +748,7 @@ get_anonA_polar = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_anonA_polar'
+    __See:__ 'get_anonA_polar'
 
 -}
 set_anonA_polar ::

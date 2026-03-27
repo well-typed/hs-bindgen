@@ -135,35 +135,35 @@ deriving via (SizedByteArray 4 4) instance WriteRaw MyUnion
 deriving via (EquivStorable MyUnion) instance Storable MyUnion
 {-|
 
-  __See:__ 'set_myUnion_x'
+    __See:__ 'set_myUnion_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
 
-__exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 get_myUnion_x :: MyUnion -> CInt
 {-|
 
-  __See:__ 'set_myUnion_x'
+    __See:__ 'set_myUnion_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
 
-__exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 get_myUnion_x = getUnionPayload
 {-|
 
-  __See:__ 'get_myUnion_x'
+    __See:__ 'get_myUnion_x'
 
 -}
 set_myUnion_x :: CInt -> MyUnion
 {-|
 
-  __See:__ 'get_myUnion_x'
+    __See:__ 'get_myUnion_x'
 
 -}
 set_myUnion_x = setUnionPayload

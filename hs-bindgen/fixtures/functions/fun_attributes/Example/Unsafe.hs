@@ -338,13 +338,13 @@ hs_bindgen_dbe49279b6585cea =
 
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @functions\/fun_attributes.h 39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 square ::
      RIP.CInt
@@ -505,13 +505,13 @@ hs_bindgen_394fd662d5fb7aa6 =
 
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h 110:5@
+    __defined at:__ @functions\/fun_attributes.h 110:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 hash ::
      RIP.Ptr RIP.CChar

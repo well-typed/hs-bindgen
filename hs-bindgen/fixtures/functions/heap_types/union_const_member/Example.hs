@@ -44,13 +44,13 @@ deriving via Marshal.EquivStorable T instance RIP.Storable T
 
 {-|
 
-  __See:__ 'set_t_x'
+    __See:__ 'set_t_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union_const_member.h 4:13@
+    __defined at:__ @functions\/heap_types\/union_const_member.h 4:13@
 
-__exported by:__ @functions\/heap_types\/union_const_member.h@
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
 -}
 get_t_x ::
      T
@@ -59,7 +59,7 @@ get_t_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_t_x'
+    __See:__ 'get_t_x'
 
 -}
 set_t_x ::
