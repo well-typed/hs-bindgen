@@ -110,4 +110,4 @@
 
 ## 0.1.0-alpha -- 2026-02-06
 
-* First public pre-release. 
+* First public pre-release.
