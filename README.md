@@ -33,6 +33,8 @@ will be made available from the first official release.
 
 ### Blog posts
 
+* [Second pre-release of `hs-bindgen`](https://well-typed.com/blog/2026/03/hs-bindgen-alpha2/)
+  by Edsko de Vries (27 March 2026)
 * [`hs-bindgen 0.1-alpha` release](https://well-typed.com/blog/2026/02/hs-bindgen-alpha/)
   by Edsko de Vries (10 February 2026)
 * [Wait, this isn't Haskell...](https://crtschin.com/posts/wait-this-isnt-haskell)
