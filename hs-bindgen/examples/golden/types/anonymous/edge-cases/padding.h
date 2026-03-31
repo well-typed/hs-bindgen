@@ -1,7 +1,7 @@
 #pragma once
 
 // We can compute offsets for implicit fields even if the anonymous struct or
-// union starts with padding (specified by an unnamed bit-field declaration).
+// union starts with padding (specified by an unnamed bit-field).
 //
 // This edge case was not properly handled by implicit field detection in the
 // past, so we include this as an edge case regression test.

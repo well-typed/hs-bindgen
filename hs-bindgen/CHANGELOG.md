@@ -48,7 +48,7 @@
   after the global variable. Extern anonymous declarations
   (e.g., `extern struct { .. } config;`) are rejected as unusable.
 * Generate an `IsArray` instance for each newtype of a type with an `IsArray`
-* Support unnamed bit-field declarations, used for padding.
+* Support unnamed bit-fields, used for padding.
 * Generate bindings for nested struct and union declarations even if we failed
   to generate bindings for the enclosing struct or union. See [PR
   #1849][pr-1849].

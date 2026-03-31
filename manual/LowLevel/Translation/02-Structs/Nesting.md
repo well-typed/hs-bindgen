@@ -199,8 +199,8 @@ If these generated names are too unwieldy, they can always be customised using
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous structs that
-have at least one field. Empty anonymous structs and anonymous structs with only
-padding (specified using unnamed bit-field declarations) are not supported.  A
+have at least one named field. Empty anonymous structs and anonymous structs
+with only padding (specified using unnamed bit-fields) are not supported. A
 warning-level trace message will be emitted in this case.
 
 

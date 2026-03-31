@@ -228,8 +228,8 @@ If these generated names are too unwieldy, they can always be customised using
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous unions that
-have at least one field. Empty anonymous unions and anonymous unions with only
-padding (specified using unnamed bit-field declarations) are not supported. A
+have at least one named field. Empty anonymous unions and anonymous unions with
+only padding (specified using unnamed bit-fields) are not supported. A
 warning-level trace message will be emitted in this case.
 
 

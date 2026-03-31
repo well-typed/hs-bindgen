@@ -85,8 +85,7 @@ data Outputs field =
 -- declarations that are present in the C source. If any failed to parse and are
 -- not included, then it is unsafe to use 'withImplicitFields'.
 --
--- Unnamed bit-field declarations, used to specify padding, are already filtered
--- out.
+-- Unnamed bit-fields, used to specify padding, are already filtered out.
 --
 -- === Algorithm description
 --
@@ -99,7 +98,7 @@ data Outputs field =
 -- that implicit field is equal to the offset to any of $A$'s fields (let's say
 -- $F$), subtracted by the offset to $F$ with respect to $A$.
 --
--- Let's walk through an example to make this more concrete. We asssume that
+-- Let's walk through an example to make this more concrete. We assume that
 -- @int@s are 4 bytes.
 --
 -- > struct E {
@@ -142,9 +141,9 @@ data Outputs field =
 -- The implicit field detection algorithm does rely on one condition: the
 -- anonymous nested struct or union should have at least one named field. In
 -- other words, the anonymous nested struct\/union should be "non-empty". A
--- struct\/union with only unnamed bit-field declarations, used to specify
--- padding, is also considered empty. A warning-level trace message will be
--- emitted if these conditions are not met.
+-- struct\/union with only unnamed bit-fields, used to specify padding, is also
+-- considered empty. A warning-level trace message will be emitted if these
+-- conditions are not met.
 --
 -- Anonymous nested structs/unions have no name, but they need one for our Haskell
 -- bindings, so they are named after their first field. Informally, the former will

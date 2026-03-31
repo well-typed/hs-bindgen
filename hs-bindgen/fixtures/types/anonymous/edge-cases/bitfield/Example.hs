@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@S1_y@
 
-    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
@@ -36,7 +36,7 @@ data S1_y = S1_y
   { s1_y_y :: RIP.CChar
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 15:10@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:10@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
@@ -82,7 +82,7 @@ instance ( ((~) ty) RIP.CChar
 
 {-| __C declaration:__ @struct S1@
 
-    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 12:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
@@ -90,14 +90,14 @@ data S1 = S1
   { s1_y :: S1_y
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:3@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:3@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
   , s1_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 17:7@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 16:7@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
@@ -153,7 +153,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct \@S2_y_y@
 
-    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:5@
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
@@ -161,7 +161,7 @@ data S2_y_y = S2_y_y
   { s2_y_y_y :: RIP.CChar
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 23:12@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
@@ -207,7 +207,7 @@ instance ( ((~) ty) RIP.CChar
 
 {-| __C declaration:__ @struct \@S2_y@
 
-    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
@@ -215,14 +215,14 @@ data S2_y = S2_y
   { s2_y_y :: S2_y_y
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:5@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
   , s2_y_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 25:9@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
@@ -279,7 +279,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 19:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
@@ -287,7 +287,7 @@ data S2 = S2
   { s2_y :: S2_y
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:3@
+         __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}

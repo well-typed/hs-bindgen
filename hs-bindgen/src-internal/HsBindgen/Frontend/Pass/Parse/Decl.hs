@@ -264,11 +264,10 @@ structDecl ctx info = \curr -> do
                           _otherwise->
                             go (f:acc) fs
 
-    -- An unnamed bit-field declaration is used to specify padding, using a
-    -- specified padding width or zero to instruct the compiler to not pack
-    -- any more fields into the current storage unit.  This is used to conform
-    -- to externally imposed layouts.  This predicate is used to filter out such
-    -- declarations, which do not create fields.
+    -- An unnamed bit-field is used to specify padding, using a specified
+    -- padding width or zero to instruct the compiler to not pack any more
+    -- fields into the current storage unit.  This predicate is used to filter
+    -- out such bit-fields.
     isField :: C.StructField Parse -> Bool
     isField field = not $ Text.null field.info.name.text && isJust field.width
 
@@ -322,11 +321,10 @@ unionDecl ctx info = \curr -> do
       DefinitionElsewhere _ ->
         foldContinue
   where
-    -- An unnamed bit-field declaration is used to specify padding, using a
-    -- specified padding width or zero to instruct the compiler to not pack
-    -- any more fields into the current storage unit.  This is used to conform
-    -- to externally imposed layouts.  This predicate is used to filter out such
-    -- declarations, which do not create fields.
+    -- An unnamed bit-field is used to specify padding, using a specified
+    -- padding width or zero to instruct the compiler to not pack any more
+    -- fields into the current storage unit.  This predicate is used to filter
+    -- out such bit-fields.
     isField :: C.UnionField Parse -> Bool
     isField field = not $ Text.null field.info.name.text
 

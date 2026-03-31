@@ -1,8 +1,7 @@
 #pragma once
 
 // Implicit field detection works the same if any of the indirect fields are
-// bit-fields.  Note that unnamed bit-field declarations, which specify padding,
-// are not fields.
+// bit-fields.
 //
 // Note: implicit field detection works the same for both unions and structs in
 // any order of nesting, so testing the struct-only case should be sufficient to
