@@ -6,6 +6,7 @@
 ## Generating low-level bindings
 
 * [Introduction](LowLevel/Introduction.md)
+* [Terminology](LowLevel/Terminology.md)
 
 ### Usage
 
