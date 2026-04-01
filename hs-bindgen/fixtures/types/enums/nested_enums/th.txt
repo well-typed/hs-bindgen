@@ -22,7 +22,7 @@ deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
           toCEnum = EnumA
-          fromCEnum = unwrapEnumA
+          fromCEnum = getField @"unwrapEnumA"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "VALA_1"),
                                                          (1, singleton "VALA_2")]
@@ -113,7 +113,7 @@ deriving via CUInt instance Prim ExB_fieldB1
 instance CEnum ExB_fieldB1
     where type CEnumZ ExB_fieldB1 = CUInt
           toCEnum = ExB_fieldB1
-          fromCEnum = unwrapExB_fieldB1
+          fromCEnum = getField @"unwrapExB_fieldB1"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "VALB_1"),
                                                          (1, singleton "VALB_2")]

@@ -70,7 +70,7 @@ instance CEnum.CEnum Test where
 
   toCEnum = Test
 
-  fromCEnum = unwrapTest
+  fromCEnum = RIP.getField @"unwrapTest"
 
   declaredValues =
     \_ ->

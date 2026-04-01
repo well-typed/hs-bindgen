@@ -25,7 +25,7 @@ deriving via HsBindgen.Runtime.LibC.Word8 instance Prim Uint8_enum
 instance CEnum Uint8_enum
     where type CEnumZ Uint8_enum = HsBindgen.Runtime.LibC.Word8
           toCEnum = Uint8_enum
-          fromCEnum = unwrapUint8_enum
+          fromCEnum = getField @"unwrapUint8_enum"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "U8_ZERO"),
                                                          (127, singleton "U8_127"),

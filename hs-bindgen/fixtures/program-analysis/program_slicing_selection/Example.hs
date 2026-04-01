@@ -76,7 +76,7 @@ instance CEnum.CEnum FileOperationStatus where
 
   toCEnum = FileOperationStatus
 
-  fromCEnum = unwrapFileOperationStatus
+  fromCEnum = RIP.getField @"unwrapFileOperationStatus"
 
   declaredValues =
     \_ ->

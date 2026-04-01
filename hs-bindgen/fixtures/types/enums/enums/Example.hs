@@ -97,7 +97,7 @@ instance CEnum.CEnum First where
 
   toCEnum = First
 
-  fromCEnum = unwrapFirst
+  fromCEnum = RIP.getField @"unwrapFirst"
 
   declaredValues =
     \_ ->
@@ -205,7 +205,7 @@ instance CEnum.CEnum Second where
 
   toCEnum = Second
 
-  fromCEnum = unwrapSecond
+  fromCEnum = RIP.getField @"unwrapSecond"
 
   declaredValues =
     \_ ->
@@ -325,7 +325,7 @@ instance CEnum.CEnum Same where
 
   toCEnum = Same
 
-  fromCEnum = unwrapSame
+  fromCEnum = RIP.getField @"unwrapSame"
 
   declaredValues =
     \_ ->
@@ -432,7 +432,7 @@ instance CEnum.CEnum Nonseq where
 
   toCEnum = Nonseq
 
-  fromCEnum = unwrapNonseq
+  fromCEnum = RIP.getField @"unwrapNonseq"
 
   declaredValues =
     \_ ->
@@ -542,7 +542,7 @@ instance CEnum.CEnum Packed where
 
   toCEnum = Packed
 
-  fromCEnum = unwrapPacked
+  fromCEnum = RIP.getField @"unwrapPacked"
 
   declaredValues =
     \_ ->
@@ -662,7 +662,7 @@ instance CEnum.CEnum EnumA where
 
   toCEnum = EnumA
 
-  fromCEnum = unwrapEnumA
+  fromCEnum = RIP.getField @"unwrapEnumA"
 
   declaredValues =
     \_ ->
@@ -770,7 +770,7 @@ instance CEnum.CEnum EnumB where
 
   toCEnum = EnumB
 
-  fromCEnum = unwrapEnumB
+  fromCEnum = RIP.getField @"unwrapEnumB"
 
   declaredValues =
     \_ ->
@@ -878,7 +878,7 @@ instance CEnum.CEnum EnumC where
 
   toCEnum = EnumC
 
-  fromCEnum = unwrapEnumC
+  fromCEnum = RIP.getField @"unwrapEnumC"
 
   declaredValues =
     \_ ->
@@ -986,7 +986,7 @@ instance CEnum.CEnum EnumD_t where
 
   toCEnum = EnumD_t
 
-  fromCEnum = unwrapEnumD_t
+  fromCEnum = RIP.getField @"unwrapEnumD_t"
 
   declaredValues =
     \_ ->

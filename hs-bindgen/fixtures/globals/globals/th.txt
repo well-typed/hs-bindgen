@@ -496,7 +496,7 @@ deriving via CUInt instance Prim AnonEnum
 instance CEnum AnonEnum
     where type CEnumZ AnonEnum = CUInt
           toCEnum = AnonEnum
-          fromCEnum = unwrapAnonEnum
+          fromCEnum = getField @"unwrapAnonEnum"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "VAL_A"),
                                                          (1, singleton "VAL_B")]
@@ -558,7 +558,7 @@ deriving via CUInt instance Prim AnonEnumCoords
 instance CEnum AnonEnumCoords
     where type CEnumZ AnonEnumCoords = CUInt
           toCEnum = AnonEnumCoords
-          fromCEnum = unwrapAnonEnumCoords
+          fromCEnum = getField @"unwrapAnonEnumCoords"
           declaredValues = \_ -> declaredValuesFromList [(10, singleton "X"),
                                                          (20, singleton "Y"),
                                                          (30, singleton "Z")]

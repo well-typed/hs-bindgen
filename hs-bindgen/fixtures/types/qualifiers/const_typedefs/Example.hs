@@ -168,7 +168,7 @@ instance CEnum.CEnum E where
 
   toCEnum = E
 
-  fromCEnum = unwrapE
+  fromCEnum = RIP.getField @"unwrapE"
 
   declaredValues =
     \_ ->

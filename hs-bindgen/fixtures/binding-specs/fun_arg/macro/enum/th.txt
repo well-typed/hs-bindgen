@@ -143,7 +143,7 @@ deriving via CUInt instance Prim MyEnum
 instance CEnum MyEnum
     where type CEnumZ MyEnum = CUInt
           toCEnum = MyEnum
-          fromCEnum = unwrapMyEnum
+          fromCEnum = getField @"unwrapMyEnum"
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "X")]
           showsUndeclared = showsWrappedUndeclared "MyEnum"
           readPrecUndeclared = readPrecWrappedUndeclared "MyEnum"

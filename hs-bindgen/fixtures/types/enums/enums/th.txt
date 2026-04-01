@@ -22,7 +22,7 @@ deriving via CUInt instance Prim First
 instance CEnum First
     where type CEnumZ First = CUInt
           toCEnum = First
-          fromCEnum = unwrapFirst
+          fromCEnum = getField @"unwrapFirst"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "FIRST1"),
                                                          (1, singleton "FIRST2")]
@@ -84,7 +84,7 @@ deriving via CInt instance Prim Second
 instance CEnum Second
     where type CEnumZ Second = CInt
           toCEnum = Second
-          fromCEnum = unwrapSecond
+          fromCEnum = getField @"unwrapSecond"
           declaredValues = \_ -> declaredValuesFromList [(-1,
                                                           singleton "SECOND_A"),
                                                          (0, singleton "SECOND_B"),
@@ -155,7 +155,7 @@ deriving via CUInt instance Prim Same
 instance CEnum Same
     where type CEnumZ Same = CUInt
           toCEnum = Same
-          fromCEnum = unwrapSame
+          fromCEnum = getField @"unwrapSame"
           declaredValues = \_ -> declaredValuesFromList [(1,
                                                           "SAME_A" :| ["SAME_B"])]
           showsUndeclared = showsWrappedUndeclared "Same"
@@ -215,7 +215,7 @@ deriving via CUInt instance Prim Nonseq
 instance CEnum Nonseq
     where type CEnumZ Nonseq = CUInt
           toCEnum = Nonseq
-          fromCEnum = unwrapNonseq
+          fromCEnum = getField @"unwrapNonseq"
           declaredValues = \_ -> declaredValuesFromList [(200,
                                                           singleton "NONSEQ_A"),
                                                          (301, singleton "NONSEQ_B"),
@@ -281,7 +281,7 @@ deriving via CUChar instance Prim Packed
 instance CEnum Packed
     where type CEnumZ Packed = CUChar
           toCEnum = Packed
-          fromCEnum = unwrapPacked
+          fromCEnum = getField @"unwrapPacked"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "PACKED_A"),
                                                          (1, singleton "PACKED_B"),
@@ -352,7 +352,7 @@ deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
           toCEnum = EnumA
-          fromCEnum = unwrapEnumA
+          fromCEnum = getField @"unwrapEnumA"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "A_FOO"),
                                                          (1, singleton "A_BAR")]
@@ -414,7 +414,7 @@ deriving via CUInt instance Prim EnumB
 instance CEnum EnumB
     where type CEnumZ EnumB = CUInt
           toCEnum = EnumB
-          fromCEnum = unwrapEnumB
+          fromCEnum = getField @"unwrapEnumB"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "B_FOO"),
                                                          (1, singleton "B_BAR")]
@@ -476,7 +476,7 @@ deriving via CUInt instance Prim EnumC
 instance CEnum EnumC
     where type CEnumZ EnumC = CUInt
           toCEnum = EnumC
-          fromCEnum = unwrapEnumC
+          fromCEnum = getField @"unwrapEnumC"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "C_FOO"),
                                                          (1, singleton "C_BAR")]
@@ -538,7 +538,7 @@ deriving via CUInt instance Prim EnumD_t
 instance CEnum EnumD_t
     where type CEnumZ EnumD_t = CUInt
           toCEnum = EnumD_t
-          fromCEnum = unwrapEnumD_t
+          fromCEnum = getField @"unwrapEnumD_t"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "D_FOO"),
                                                          (1, singleton "D_BAR")]

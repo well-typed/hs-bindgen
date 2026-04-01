@@ -446,7 +446,7 @@ deriving via CUInt instance Prim Color_enum
 instance CEnum Color_enum
     where type CEnumZ Color_enum = CUInt
           toCEnum = Color_enum
-          fromCEnum = unwrapColor_enum
+          fromCEnum = getField @"unwrapColor_enum"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "COLOR_RED"),
                                                          (1, singleton "COLOR_GREEN"),
@@ -723,7 +723,7 @@ deriving via CInt instance Prim Status_code_t
 instance CEnum Status_code_t
     where type CEnumZ Status_code_t = CInt
           toCEnum = Status_code_t
-          fromCEnum = unwrapStatus_code_t
+          fromCEnum = getField @"unwrapStatus_code_t"
           declaredValues = \_ -> declaredValuesFromList [(-99,
                                                           singleton "STATUS_ERROR"),
                                                          (-3, singleton "STATUS_TIMEOUT"),

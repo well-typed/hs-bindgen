@@ -72,7 +72,7 @@ instance CEnum.CEnum Foo_enum where
 
   toCEnum = Foo_enum
 
-  fromCEnum = unwrapFoo_enum
+  fromCEnum = RIP.getField @"unwrapFoo_enum"
 
   declaredValues =
     \_ ->

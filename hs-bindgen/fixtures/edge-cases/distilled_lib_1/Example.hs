@@ -170,7 +170,8 @@ instance CEnum.CEnum Another_typedef_enum_e where
 
   toCEnum = Another_typedef_enum_e
 
-  fromCEnum = unwrapAnother_typedef_enum_e
+  fromCEnum =
+    RIP.getField @"unwrapAnother_typedef_enum_e"
 
   declaredValues =
     \_ ->
@@ -707,7 +708,7 @@ instance CEnum.CEnum A_typedef_enum_e where
 
   toCEnum = A_typedef_enum_e
 
-  fromCEnum = unwrapA_typedef_enum_e
+  fromCEnum = RIP.getField @"unwrapA_typedef_enum_e"
 
   declaredValues =
     \_ ->

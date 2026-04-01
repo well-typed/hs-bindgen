@@ -111,7 +111,7 @@ deriving via CUInt instance Prim Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where type CEnumZ Another_typedef_enum_e = CUInt
           toCEnum = Another_typedef_enum_e
-          fromCEnum = unwrapAnother_typedef_enum_e
+          fromCEnum = getField @"unwrapAnother_typedef_enum_e"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "FOO"),
                                                          (1, singleton "BAR")]
@@ -546,7 +546,7 @@ deriving via CUChar instance Prim A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where type CEnumZ A_typedef_enum_e = CUChar
           toCEnum = A_typedef_enum_e
-          fromCEnum = unwrapA_typedef_enum_e
+          fromCEnum = getField @"unwrapA_typedef_enum_e"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "ENUM_CASE_0"),
                                                          (1, singleton "ENUM_CASE_1"),

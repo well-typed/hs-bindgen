@@ -73,7 +73,7 @@ instance CEnum.CEnum Uint8_enum where
 
   toCEnum = Uint8_enum
 
-  fromCEnum = unwrapUint8_enum
+  fromCEnum = RIP.getField @"unwrapUint8_enum"
 
   declaredValues =
     \_ ->

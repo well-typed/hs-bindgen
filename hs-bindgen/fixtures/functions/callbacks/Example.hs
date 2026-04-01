@@ -1021,7 +1021,7 @@ instance CEnum.CEnum Processor_mode where
 
   toCEnum = Processor_mode
 
-  fromCEnum = unwrapProcessor_mode
+  fromCEnum = RIP.getField @"unwrapProcessor_mode"
 
   declaredValues =
     \_ ->
