@@ -74,6 +74,7 @@ cxtype ty = do
       CXType_Record          -> fromDecl
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
+      CXType_Unexposed       -> failure ParseUnexposedType
 
       kind -> failure $ ParseUnexpectedTypeKind (Right kind)
 

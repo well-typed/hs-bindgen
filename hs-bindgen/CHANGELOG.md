@@ -1,5 +1,18 @@
 # Revision history for hs-bindgen
 
+## ?.?.? -- YYYY-mm-dd
+
+### Breaking changes
+
+### New features
+
+### Minor changes
+
+* Skip over declarations with unexposed types (such as `malloc`), primarily in
+  support of LLVM/Clang 22.
+
+### Bug fixes
+
 ## 0.1.0-alpha2 -- 2026-03-27
 
 ### Breaking changes
