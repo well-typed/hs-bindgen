@@ -156,6 +156,14 @@ data DelayedParseMsg =
     -- | Variable declaration
   | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
 
+    -- | Unexposed type
+    --
+    -- In some cases, @libclang@ does not expose information about a type.  For
+    -- example, this happens with the standard library declaration of @malloc@
+    -- and other memory allocation functions, as LLVM/Clang handles them
+    -- specially in order to optimize memory allocation.
+  | ParseUnexposedType
+
     -- | Unsupported anonymous declaration inside @extern@
     --
     -- Something like
@@ -313,6 +321,8 @@ instance PrettyForTrace DelayedParseMsg where
           "Unsupported storage class"
         , PP.show storage
         ]
+      ParseUnexposedType ->
+        "Unexposed type"
       ParseUnsupportedAnonInExtern ->
         "Unexpected anonymous declaration in global variable"
       ParseUnsupportedAnonInSignature ->
@@ -394,6 +404,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseNonPublicVisibility{}        -> Warning
       ParseUnknownCursorAvailability{}  -> Warning
       ParseUnknownStorageClass{}        -> Warning
+      ParseUnexposedType                -> Warning
       ParseUnsupportedAnonInExtern{}    -> Warning
       ParseUnsupportedAnonInSignature{} -> Warning
       ParseUnsupportedBuiltin{}         -> Warning

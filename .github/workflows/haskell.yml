@@ -43,7 +43,7 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          # Vary LLVM version from 14 to 20.
+          # Vary LLVM version from 14 to 21.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "16"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "18"},'
