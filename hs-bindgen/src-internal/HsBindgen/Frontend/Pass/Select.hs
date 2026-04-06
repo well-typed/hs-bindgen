@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
+import Data.Function (on)
 import Data.List (sortBy)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
@@ -89,11 +90,12 @@ data TransitiveSelectability =
 -------------------------------------------------------------------------------}
 
 selectDecls ::
-     IsMainHeader
+     HasCallStack
+  => IsMainHeader
   -> IsInMainHeaderDir
   -> SelectConfig
   -> C.TranslationUnit AdjustTypes
-  -> (C.TranslationUnit Select, [Msg Select])
+  -> (C.TranslationUnit Select, [MsgWithCallStack (Msg Select)])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
@@ -185,7 +187,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectedUnitDecls  :: [Decl]
         selectedUnitDecls = mapMaybe selectDecl unitDecls
 
-        selectMsgs :: [Msg Select]
+        selectMsgs :: [MsgWithCallStack (Msg Select)]
         selectMsgs =
           getSelectMsgs
             rootIds
@@ -201,16 +203,16 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               }
 
         -- If there were no predicate matches we issue a warning to the user.
-        noDeclarationsMatchedMsg :: [Msg Select]
+        noDeclarationsMatchedMsg :: [MsgWithCallStack (Msg Select)]
         noDeclarationsMatchedMsg = [
-            WithLocationInfo{
+            withCallStack WithLocationInfo{
                 loc = LocationUnavailable
               , msg = SelectNoDeclarationsMatched
               }
           | Set.null rootIds
           ]
 
-        msgs :: [Msg Select]
+        msgs :: [MsgWithCallStack (Msg Select)]
         msgs =
           concat [
               selectMsgs
@@ -273,13 +275,14 @@ selectDeclWith
 
 getSelectMsgs ::
   -- | Selection roots.
-     Set DeclId
+     HasCallStack
+  => Set DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   -> Set DeclId
   ->(DeclId -> TransitiveSelectability)
   -> DeclIndex
-  -> [Msg Select]
+  -> [MsgWithCallStack (Msg Select)]
 getSelectMsgs
   rootIds
   additionalSelectedTransDepIds
@@ -287,7 +290,7 @@ getSelectMsgs
   declIndex
   = concatMap (uncurry aux) $ DeclIndex.toList declIndex
   where
-    aux :: DeclId -> Entry -> [Msg Select]
+    aux :: HasCallStack => DeclId -> Entry -> [MsgWithCallStack (Msg Select)]
     aux =
       getSelectMsgsDeclId
         getTransitiveSelectability
@@ -296,7 +299,8 @@ getSelectMsgs
         additionalSelectedTransDepIds
 
 getSelectMsgsDeclId ::
-    (DeclId -> TransitiveSelectability)
+    HasCallStack
+  => (DeclId -> TransitiveSelectability)
   -> DeclIndex
   -- | Selection roots.
   -> Set DeclId
@@ -305,7 +309,7 @@ getSelectMsgsDeclId ::
   -> Set DeclId
   -> DeclId
   -> Entry
-  -> [Msg Select]
+  -> [MsgWithCallStack (Msg Select)]
 getSelectMsgsDeclId
   getTransitiveSelectability
   declIndex
@@ -343,7 +347,7 @@ getSelectMsgsDeclId
       Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
-    getMsgsFor :: SelectReason -> [Msg Select]
+    getMsgsFor :: HasCallStack => SelectReason -> [MsgWithCallStack (Msg Select)]
     getMsgsFor selectReason = concat [
           [ withLoc $ SelectStatusInfo (Selected selectReason) ]
         , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
@@ -352,13 +356,13 @@ getSelectMsgsDeclId
     loc :: [SingleLoc]
     loc = DeclIndex.entryToLoc entry
 
-    withLoc :: a -> WithLocationInfo a
-    withLoc x = WithLocationInfo{
+    withLoc :: HasCallStack => a -> MsgWithCallStack (WithLocationInfo a)
+    withLoc x = withCallStack WithLocationInfo{
                   loc = declIdLocationInfo declId loc
                 , msg = x
                 }
 
-    getUnavailMsg :: SelectReason -> Map DeclId Unselectable -> Maybe (Msg Select)
+    getUnavailMsg :: HasCallStack => SelectReason -> Map DeclId Unselectable -> Maybe (MsgWithCallStack (Msg Select))
     getUnavailMsg selectReason unavailReasons =
         if null msgs then
           Nothing
@@ -386,14 +390,14 @@ getSelectMsgsDeclId
   Delayed traces
 -------------------------------------------------------------------------------}
 
-getDelayedMsgsSelectionRoots :: DeclIndex -> [Msg Select]
+getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex -> [MsgWithCallStack (Msg Select)]
 getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: DeclId -> Entry -> [Msg Select]
+    aux :: HasCallStack => DeclId -> Entry -> [MsgWithCallStack (Msg Select)]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [success.decl.info.loc]
               , msg = SelectDelayedParseMsg x
               }
@@ -403,46 +407,46 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [x.typedefLoc]
               , msg = SelectMangleNamesSquashed x
               }
           ]
       UnusableE e -> case e of
         UnusableParseNotAttempted loc xs ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [loc]
               , msg = SelectParseNotAttempted x
               }
           | x <- NonEmpty.toList xs
           ]
-        UnusableParseFailure loc x -> List.singleton WithLocationInfo{
+        UnusableParseFailure loc x -> List.singleton $ withCallStack WithLocationInfo{
             loc = declIdLocationInfo declId [loc]
           , msg = SelectParseFailure x
           }
-        UnusableConflict x -> List.singleton WithLocationInfo{
+        UnusableConflict x -> List.singleton $ withCallStack WithLocationInfo{
             loc = declIdLocationInfo declId (Conflict.toList x)
           , msg = SelectConflict
           }
-        UnusableMangleNamesFailure loc x -> List.singleton WithLocationInfo{
+        UnusableMangleNamesFailure loc x -> List.singleton $ withCallStack WithLocationInfo{
             loc = declIdLocationInfo declId [loc]
           , msg = SelectMangleNamesFailure x
           }
-        UnusableFailedMacro x -> List.singleton WithLocationInfo{
+        UnusableFailedMacro x -> List.singleton $ withCallStack WithLocationInfo{
             loc = declIdLocationInfo x.name [x.loc]
           , msg = SelectMacroFailure x.macroError
           }
         UnusableOmitted{} ->
           []
 
-getDelayedMsgsAdditionalSelectedTransDeps :: DeclIndex -> [Msg Select]
+getDelayedMsgsAdditionalSelectedTransDeps :: HasCallStack => DeclIndex -> [MsgWithCallStack (Msg Select)]
 getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: DeclId -> Entry -> [Msg Select]
+    aux :: HasCallStack => DeclId -> Entry -> [MsgWithCallStack (Msg Select)]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [success.decl.info.loc]
               , msg = SelectDelayedParseMsg x
               }
@@ -452,7 +456,7 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [x.typedefLoc]
               , msg = SelectMangleNamesSquashed x
               }
@@ -464,14 +468,14 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
 -- parse messages are emitted for all declarations also in the future.
-getDelayedMsgsNotSelected :: DeclIndex -> [Msg Select]
+getDelayedMsgsNotSelected :: HasCallStack => DeclIndex -> [MsgWithCallStack (Msg Select)]
 getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: DeclId -> Entry -> [Msg Select]
+    aux :: HasCallStack => DeclId -> Entry -> [MsgWithCallStack (Msg Select)]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
-          [ WithLocationInfo{
+          [ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [success.decl.info.loc]
               , msg = SelectDelayedParseMsg x
               }
@@ -484,7 +488,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
         UnusableParseNotAttempted{} -> []
         UnusableParseFailure loc x -> case getDefaultLogLevel x of
           Bug ->
-            List.singleton WithLocationInfo{
+            List.singleton $ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [loc]
               , msg = SelectDelayedParseMsg x
               }
@@ -493,7 +497,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
         UnusableMangleNamesFailure{} -> []
         UnusableFailedMacro x -> case getDefaultLogLevel x.macroError of
           Bug ->
-            List.singleton WithLocationInfo{
+            List.singleton $ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo x.name [x.loc]
               , msg = SelectMacroFailure x.macroError
               }
@@ -532,8 +536,8 @@ compareMsgs orderMap x y =
     ([] , _ ) -> GT
     (_  , []) -> LT
 
-sortSelectMsgs :: IncludeGraph -> [Msg Select] -> [Msg Select]
-sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
+sortSelectMsgs :: IncludeGraph -> [MsgWithCallStack (Msg Select)] -> [MsgWithCallStack (Msg Select)]
+sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap `on` (.traceMsg))
   where
     -- Compute the order map once.
     orderMap :: Map SourcePath Int

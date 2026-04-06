@@ -33,23 +33,25 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
+import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 resolveBindingSpecs ::
-     Hs.ModuleName
+     HasCallStack
+  => Hs.ModuleName
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit HandleMacros
-  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
+  -> (C.TranslationUnit ResolveBindingSpecs, [MsgWithCallStack (Msg ResolveBindingSpecs)])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
           | pSpecModule == hsModuleName = ([], pSpec)
           | otherwise =
-              ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
+              ( [withCallStack (ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule)]
               , BindingSpec.empty hsModuleName
               )
         (decls, state) =
@@ -63,7 +65,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             UseDeclGraph.deleteRevDeps (Map.keys state.extTypes)
           . UseDeclGraph.deleteDeps (Set.toList state.opqTypes)
           $ unit.ann.useDeclGraph
-        notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys state.noPTypes
+        notUsedErrs = map withCallStack $ ResolveBindingSpecsTypeNotUsed <$> Map.keys state.noPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
@@ -138,7 +140,7 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      traces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
+      traces    :: [MsgWithCallStack (Msg ResolveBindingSpecs)] -- ^ reverse order
     , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map DeclId [Set SourcePath]
     , omitTypes :: Map DeclId SingleLoc
@@ -155,8 +157,8 @@ initMState pSpec = MState {
     , opqTypes  = Set.empty
     }
 
-insertTrace :: Msg ResolveBindingSpecs -> MState -> MState
-insertTrace msg = #traces %~ (msg :)
+insertTrace :: HasCallStack => Msg ResolveBindingSpecs -> MState -> MState
+insertTrace msg = #traces %~ (withCallStack msg :)
 
 insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
@@ -185,7 +187,7 @@ insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 -------------------------------------------------------------------------------}
 
 -- Resolve declarations, in two passes
-resolveDecls :: [C.Decl HandleMacros] -> M [C.Decl ResolveBindingSpecs]
+resolveDecls :: HasCallStack => [C.Decl HandleMacros] -> M [C.Decl ResolveBindingSpecs]
 resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 
 -- Pass one: top-level
@@ -199,7 +201,8 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- Otherwise, the declaration is kept and is associated with a type
 -- specification when applicable.
 resolveTop ::
-     C.Decl HandleMacros
+     HasCallStack
+  => C.Decl HandleMacros
   -> M
        ( Maybe
            ( C.Decl HandleMacros
@@ -239,7 +242,8 @@ resolveTop decl = Reader.ask >>= \env -> do
 --
 -- Type specifications that do not match declarations may themselves be mutated.
 applyPrescriptive ::
-     C.Decl HandleMacros
+     HasCallStack
+  => C.Decl HandleMacros
   -> BindingSpec.CTypeSpec
   -> Maybe BindingSpec.HsTypeSpec
   -> M
@@ -321,7 +325,8 @@ applyPrescriptive decl cTypeSpec = \case
 -- Types within the declaration are resolved, and it is reconstructed for the
 -- current pass.
 resolveDeep ::
-     C.Decl HandleMacros
+     HasCallStack
+  => C.Decl HandleMacros
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
@@ -338,7 +343,8 @@ resolveDeep decl (cSpec, hsSpec) = do
 
 class Resolve a where
   resolve ::
-       DeclId -- context declaration
+       HasCallStack
+    => DeclId -- context declaration
     -> a HandleMacros
     -> M (a ResolveBindingSpecs)
 
@@ -528,7 +534,7 @@ instance Resolve C.Type where
       C.TypeVoid           -> return (C.TypeVoid)
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
-      aux :: DeclId -> M (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
+      aux :: HasCallStack => DeclId -> M (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
       aux cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
         -- Check for selected external binding
         case Map.lookup cDeclId state.extTypes of
@@ -569,7 +575,8 @@ instance Resolve C.TypeFunArg where
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
-     DeclId
+     HasCallStack
+  => DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe ResolveBindingSpecsMsg

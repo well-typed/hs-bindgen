@@ -16,7 +16,8 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass (CheckedMacro (MacroExpr, Mac
                                                     CheckedMacroExpr,
                                                     CheckedMacroType (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
-import HsBindgen.Imports (Identity (Identity))
+import HsBindgen.Imports (HasCallStack, Identity (Identity))
+import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
 
 -- | Adjust function argument types
 --
@@ -38,7 +39,7 @@ import HsBindgen.Imports (Identity (Identity))
 --
 adjustTypes ::
      C.TranslationUnit MangleNames
-  -> (C.TranslationUnit AdjustTypes, [Msg AdjustTypes])
+  -> (C.TranslationUnit AdjustTypes, [MsgWithCallStack (Msg AdjustTypes)])
 adjustTypes unit =
       let
         (decls', msgs) = runM $ mapM processDecl unit.decls
@@ -54,19 +55,19 @@ adjustTypes unit =
   Monad
 -------------------------------------------------------------------------------}
 
-newtype M a = M (State [Msg AdjustTypes] a)
+newtype M a = M (State [MsgWithCallStack (Msg AdjustTypes)] a)
   deriving newtype (Functor, Applicative, Monad)
 
-deriving newtype instance msg ~ Msg AdjustTypes
+deriving newtype instance msg ~ MsgWithCallStack (Msg AdjustTypes)
                        => MonadState [msg] M
 
-runM :: M a -> (a, [Msg AdjustTypes])
+runM :: M a -> (a, [MsgWithCallStack (Msg AdjustTypes)])
 runM (M f) =
     let (x, msgs) = runState f []
     in  (x, reverse msgs)
 
-_emitMsg :: Msg AdjustTypes -> M ()
-_emitMsg msg = modify' (msg :)
+_emitMsg :: HasCallStack => Msg AdjustTypes -> M ()
+_emitMsg msg = modify' (withCallStack msg :)
 
 {-------------------------------------------------------------------------------
   Decls

@@ -5,6 +5,9 @@ module HsBindgen.Util.Tracer (
     -- * Tracer definition and main API
     Tracer -- opaque
   , traceWith
+  , traceDelayedWith
+  , MsgWithCallStack(..)
+  , withCallStack
   , simpleTracer
   , nullTracer
     -- * Data types and typeclasses useful for tracing
@@ -51,7 +54,7 @@ import Data.Kind (Type)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Generics as GHC
-import GHC.Stack (CallStack, callStack, prettyCallStack)
+import GHC.Stack (CallStack, prettyCallStack)
 import Language.Haskell.TH (reportError, reportWarning, runQ)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
@@ -77,8 +80,6 @@ unwrap :: Tracer e -> ContraTracer.Tracer IO (MsgWithCallStack e)
 unwrap (Wrap tracer) = tracer
 
 -- | We pair every trace message with a callstack for easier debugging
---
--- This is an internal type.
 data MsgWithCallStack e = MsgWithCallStack {
       callStack :: CallStack
     , traceMsg  :: e
@@ -93,6 +94,21 @@ traceWith tracer =
       liftIO
     . ContraTracer.traceWith (unwrap tracer)
     . MsgWithCallStack callStack
+
+-- | Like 'traceWith', but for messages that already have a 'CallStack'
+--
+-- Useful when trace messages are collected in pure code and emitted later.
+traceDelayedWith :: MonadIO m => Tracer e -> MsgWithCallStack e -> m ()
+traceDelayedWith tracer =
+      liftIO
+    . ContraTracer.traceWith (unwrap tracer)
+
+-- | Capture current callstack and pair with a value
+--
+-- Useful when collecting trace messages in pure code for later emission
+-- via 'traceDelayedWith'.
+withCallStack :: HasCallStack => a -> MsgWithCallStack a
+withCallStack = MsgWithCallStack callStack
 
 -- | Simple tracer that 'ContraTracer.emit's every message
 simpleTracer :: (e -> IO ()) -> Tracer e

@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.SimplifyAST (
   ) where
 
 import Data.Map.Strict qualified as Map
+import GHC.Stack (HasCallStack)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
@@ -19,6 +20,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -30,16 +32,17 @@ import HsBindgen.Language.C qualified as C
 -- separate pattern synonym declarations (e.g., @pattern fOO :: CUInt@, @pattern bAR :: CUInt@).
 -- Anonymous enums that ARE used in type signatures are kept as-is.
 simplifyAST ::
-     AnonUsageAnalysis
+     HasCallStack
+  => AnonUsageAnalysis
   -> [ParseResult Parse]
-  -> ([ParseResult SimplifyAST], [SimplifyASTMsg])
+  -> ([ParseResult SimplifyAST], [MsgWithCallStack SimplifyASTMsg])
 simplifyAST usage parseResults = (results, msgs)
   where
     processedResults = map processResult parseResults
     results = concatMap fst processedResults
     msgs = concatMap snd processedResults
 
-    processResult :: ParseResult Parse -> ([ParseResult SimplifyAST], [SimplifyASTMsg])
+    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [MsgWithCallStack SimplifyASTMsg])
     processResult result =
       case result.classification of
         ParseResultSuccess success ->
@@ -67,7 +70,7 @@ simplifyAST usage parseResults = (results, msgs)
                        newInfo :: C.DeclInfo SimplifyAST
                        newInfo = (coercePass info) { C.id = newId }
                  ]
-                , [SimplifyASTAnonymousEnum anonId]
+                , [withCallStack (SimplifyASTAnonymousEnum anonId)]
                 )
             decl -> ( [ParseResult {
                       id = result.id

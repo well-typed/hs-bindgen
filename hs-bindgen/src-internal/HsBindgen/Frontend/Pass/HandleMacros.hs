@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (PrimType (PrimBool))
+import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -37,16 +38,17 @@ import HsBindgen.Language.C (PrimType (PrimBool))
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      ClangCStandard
+      HasCallStack
+  =>  ClangCStandard
   ->  C.TranslationUnit ConstructTranslationUnit
-  -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
+  -> (C.TranslationUnit HandleMacros, [MsgWithCallStack (Msg HandleMacros)])
 handleMacros standard unit =
     reconstruct $ runM standard .
       fmap partitionEithers $ mapM processDecl unit.decls
   where
     reconstruct ::
-         (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
-      -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
+         (([FailedMacro] , [C.Decl HandleMacros]) , [MsgWithCallStack (Msg HandleMacros)])
+      -> (C.TranslationUnit HandleMacros, [MsgWithCallStack (Msg HandleMacros)])
     reconstruct ((failedMacros, decls'), msgs) =
         let unit' = C.TranslationUnit{
                 decls        = decls'
@@ -60,7 +62,8 @@ handleMacros standard unit =
         in (unit', msgs)
 
 processDecl ::
-     C.Decl ConstructTranslationUnit
+     HasCallStack
+  => C.Decl ConstructTranslationUnit
   -> M (Either FailedMacro (C.Decl HandleMacros))
 processDecl decl =
     case decl.kind of
@@ -82,7 +85,8 @@ processDecl decl =
 -------------------------------------------------------------------------------}
 
 processStruct ::
-     C.DeclInfo HandleMacros
+     HasCallStack
+  => C.DeclInfo HandleMacros
   -> C.Struct ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processStruct info struct =
@@ -107,7 +111,8 @@ processStruct info struct =
         }
 
 processStructField ::
-     C.StructField ConstructTranslationUnit
+     HasCallStack
+  => C.StructField ConstructTranslationUnit
   -> M (C.StructField HandleMacros)
 processStructField field =
     case field.ann of
@@ -145,7 +150,8 @@ processStructField field =
         }
 
 processUnion ::
-     C.DeclInfo HandleMacros
+     HasCallStack
+  => C.DeclInfo HandleMacros
   -> C.Union ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processUnion info union =
@@ -164,7 +170,8 @@ processUnion info union =
         }
 
 processUnionField ::
-     C.UnionField ConstructTranslationUnit
+     HasCallStack
+  => C.UnionField ConstructTranslationUnit
   -> M (C.UnionField HandleMacros)
 processUnionField field =
     case field.ann of
@@ -264,7 +271,8 @@ processEnumConstant constant = return C.EnumConstant {
     }
 
 processTypedef ::
-     C.DeclInfo HandleMacros
+     HasCallStack
+  => C.DeclInfo HandleMacros
   -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processTypedef info typedef = do
@@ -329,7 +337,8 @@ processMacro info (UnparsedMacro tokens) = do
         }
 
 processFunction ::
-     C.DeclInfo HandleMacros
+     HasCallStack
+  => C.DeclInfo HandleMacros
   -> C.Function ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processFunction info function =
@@ -401,7 +410,7 @@ newtype M a = WrapM (
     )
 
 data MacroState = MacroState {
-      errors :: [HandleMacrosReparseMsg]  -- ^ Stored in reverse order
+      errors :: [MsgWithCallStack HandleMacrosReparseMsg]  -- ^ Stored in reverse order
 
       -- | Types of macro expressions
     , macroEnv :: CExpr.DSL.TypeEnv
@@ -418,7 +427,7 @@ initMacroState standard = MacroState{
     , reparseEnv = LanC.initReparseEnv standard
     }
 
-runM :: ClangCStandard -> M a -> (a, [Msg HandleMacros])
+runM :: ClangCStandard -> M a -> (a, [MsgWithCallStack (Msg HandleMacros)])
 runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 
 {-------------------------------------------------------------------------------
@@ -492,7 +501,8 @@ parseMacro name tokens  = state     $ \st ->
 -- Failing to parse macros results in warnings, but never irrecoverable errors;
 -- we therefore always want a fallback.
 reparseWith ::
-     LanC.Parser a          -- ^ Parser
+     HasCallStack
+  => LanC.Parser a          -- ^ Parser
   -> [Token TokenSpelling]  -- ^ Raw tokens
   -> M r                    -- ^ If parsing fails
   -> (a -> M r)             -- ^ If parsing succeeds
@@ -500,7 +510,7 @@ reparseWith ::
 reparseWith p tokens onFailure onSuccess = state $ \st ->
     case p st.reparseEnv tokens of
       Right a -> runState (unwrapM $ onSuccess a) st
-      Left  e -> let st' = st & #errors %~ (HandleMacrosErrorReparse e :)
+      Left  e -> let st' = st & #errors %~ (withCallStack (HandleMacrosErrorReparse e) :)
                  in runState (unwrapM $ onFailure  ) st'
   where
     unwrapM :: M a -> (State MacroState a)
