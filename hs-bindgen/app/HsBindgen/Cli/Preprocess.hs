@@ -68,7 +68,7 @@ parseConfigCLI :: Parser ConfigCLI
 parseConfigCLI =
     ConfigCLI
       <$> parseUniqueId
-      <*> parseBaseModuleName
+      <*> parseBaseModuleName def
       <*> parseQualifiedStyle
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir

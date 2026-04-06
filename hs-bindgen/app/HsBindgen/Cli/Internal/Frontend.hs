@@ -100,7 +100,7 @@ parseOpts =
       <$> parseDump
       <*> parseConfig
       <*> parseUniqueId
-      <*> parseBaseModuleName
+      <*> parseBaseModuleName def
       <*> parseInputs
       <*> parseFilePolicy
 

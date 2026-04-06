@@ -46,7 +46,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseBaseModuleName
+      <*> parseBaseModuleName def
       <*> parseGenTestsOutput
       <*> parseInputs
 

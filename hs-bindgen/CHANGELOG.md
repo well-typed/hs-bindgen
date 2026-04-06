@@ -6,6 +6,11 @@
 
 ### New features
 
+* In literate mode, the `--module` argument is now optional.  When omitted, the
+  module name is derived from the input file path using the standard Haskell
+  convention (e.g., `Test/Literate/Test01.lhs` becomes `Test.Literate.Test01`).
+  The `--module` flag still works as an explicit override.
+
 ### Minor changes
 
 * Skip over declarations with unexposed types (such as `malloc`), primarily in

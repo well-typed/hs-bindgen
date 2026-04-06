@@ -16,10 +16,14 @@ module HsBindgen.Cli.ToolSupport.Literate (
   ) where
 
 import Control.Exception (throwIO)
+import Data.Char (isUpper)
+import Data.List (intercalate)
 import Data.List.NonEmpty (NonEmpty (..))
+import Data.Text qualified as Text
 import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import Options.Applicative qualified as O
+import System.FilePath (dropExtension, splitDirectories)
 import Text.Read (readMaybe)
 
 import HsBindgen
@@ -90,15 +94,45 @@ data Lit = Lit {
     , inputs         :: [UncheckedHashIncludeArg]
     }
 
-parseLit :: Parser Lit
-parseLit = Lit
+parseLit :: BaseModuleName -> Parser Lit
+parseLit defaultModule = Lit
   <$> parseGlobalOpts
   <*> parseConfig
   <*> parseUniqueId
-  <*> parseBaseModuleName
+  <*> parseBaseModuleName defaultModule
   <*> parseQualifiedStyle
   <*> parseOutputOptions (SingleFile (SingleFileSafe "" :| []))
   <*> parseInputs
+
+{-------------------------------------------------------------------------------
+  Deriving module name from file path
+-------------------------------------------------------------------------------}
+
+-- | Derive module name from file path using the standard Haskell convention:
+-- take path components starting from the first that begins with an uppercase
+-- letter, and join them with dots.
+--
+-- For example:
+--
+-- > baseModuleNameFromFilePath "test/literate/Test/Literate/Test01.lhs"
+-- >   == BaseModuleName "Test.Literate.Test01"
+-- > baseModuleNameFromFilePath "app/SimpleBindings.lhs"
+-- >   == BaseModuleName "SimpleBindings"
+baseModuleNameFromFilePath :: FilePath -> BaseModuleName
+baseModuleNameFromFilePath path =
+    case moduleComponents of
+      [] -> BaseModuleName "Generated"
+      _  -> BaseModuleName . Text.pack $ intercalate "." moduleComponents
+  where
+    components :: [String]
+    components = splitDirectories (dropExtension path)
+
+    moduleComponents :: [String]
+    moduleComponents = dropWhile (not . startsWithUpper) components
+
+    startsWithUpper :: String -> Bool
+    startsWithUpper []    = False
+    startsWithUpper (c:_) = isUpper c
 
 {-------------------------------------------------------------------------------
   Execution
@@ -106,9 +140,10 @@ parseLit = Lit
 
 exec :: Opts -> IO ()
 exec opts = do
+    let defaultModule = baseModuleNameFromFilePath opts.input
     args <- maybe (throwIO' "cannot parse literate file") return . readMaybe
       =<< readFile opts.input
-    lit <- handleParseResult $ pureParseLit args
+    lit <- handleParseResult $ pureParseLit defaultModule args
 
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
@@ -141,9 +176,10 @@ exec opts = do
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException opts.input
 
-    pureParseLit :: [String] -> ParserResult Lit
-    pureParseLit =
-        execParserPure (prefs subparserInline) (O.info parseLit mempty)
+    pureParseLit :: BaseModuleName -> [String] -> ParserResult Lit
+    pureParseLit defaultModule =
+        execParserPure (prefs subparserInline)
+          (O.info (parseLit defaultModule) mempty)
 
 {-------------------------------------------------------------------------------
   Exception

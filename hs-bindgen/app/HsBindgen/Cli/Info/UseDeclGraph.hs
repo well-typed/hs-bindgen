@@ -49,7 +49,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseBaseModuleName
+      <*> parseBaseModuleName def
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy

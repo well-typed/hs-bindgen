@@ -418,12 +418,12 @@ parseQualifiedStyle =
           ]
       ]
 
-parseBaseModuleName :: Parser BaseModuleName
-parseBaseModuleName = strOption $ mconcat [
+parseBaseModuleName :: BaseModuleName -> Parser BaseModuleName
+parseBaseModuleName defaultModule = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value def
+    , value defaultModule
     , help "Base name of the generated Haskell modules"
     ]
 
