@@ -53,9 +53,9 @@ instance IsTrace Level ExtraClangArgsMsg where
 -- Values are split into command-line arguments, respecting shell escapes.
 getExtraClangArgs :: Tracer ExtraClangArgsMsg -> IO [String]
 getExtraClangArgs tracer = fmap splitArguments <$> lookupEnv envName >>= \case
-    Nothing   -> []   <$ traceWith tracer ExtraClangArgsNotSet
-    Just []   -> []   <$ traceWith tracer ExtraClangArgsEmpty
-    Just args -> args <$ traceWith tracer (ExtraClangArgsParsed args)
+    Nothing   -> []   <$ traceWith tracer (withCallStack ExtraClangArgsNotSet)
+    Just []   -> []   <$ traceWith tracer (withCallStack ExtraClangArgsEmpty)
+    Just args -> args <$ traceWith tracer (withCallStack $ ExtraClangArgsParsed args)
 
 -- | Apply extra Clang arguments to 'ClangArgsConfig'
 --

@@ -53,46 +53,46 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
               let tracerConf = quietTracerConfig {
                       verbosity = Verbosity Debug
                     }
-              res <- withTracer tracerConf $ \tracer -> do traceWith tracer er
+              res <- withTracer tracerConf $ \tracer -> do traceWith tracer $ withCallStack er
               isLeft res @? "isLeft"
         ]
     , testGroup "withTracePredicate" [
           testCase "ok-debug" $
               withPred defaultTracePredicate $ \tracer ->
-                traceWith tracer db
+                traceWith tracer $ withCallStack db
         , testCase "ok-info" $
               withPred defaultTracePredicate $ \tracer ->
-                traceWith tracer info
+                traceWith tracer $ withCallStack info
         , testCase "!ok-notice" $
               withPred defaultTracePredicate $ \tracer ->
-                traceWith tracer notice
+                traceWith tracer $ withCallStack notice
         , testCase "!ok-warning" $
             assertException "Expected TraceExpectationException" proxy $
               withPred defaultTracePredicate $ \tracer ->
-                traceWith tracer wn
+                traceWith tracer $ withCallStack wn
         , testCase "!ok-error" $
             assertException "Expected TraceExpectationException" proxy $
               withPred defaultTracePredicate $ \tracer ->
-                traceWith tracer er
+                traceWith tracer $ withCallStack er
         , testCase "ok-custom-warning" $
             withPred expectWar $
               \tracer -> do
-                traceWith tracer wn
+                traceWith tracer $ withCallStack wn
         , testCase "ok-custom-error" $
             withPred expectErr $
               \tracer -> do
-                traceWith tracer er
+                traceWith tracer $ withCallStack er
         , testCase "!ok-custom-too-many" $
             assertException "Expected TraceExpectationException" proxy $
               withPred expectWar $
                 \tracer -> do
-                  traceWith tracer wn
-                  traceWith tracer wn
+                  traceWith tracer $ withCallStack wn
+                  traceWith tracer $ withCallStack wn
         , testCase "!ok-custom-too-few" $
             assertException "Expected TraceExpectationException" proxy $
               withPred expectWar $
                 \tracer -> do
-                  traceWith tracer db
+                  traceWith tracer $ withCallStack db
         ]
     ]
   where
@@ -173,7 +173,7 @@ testTracerIO customLogLevel traces = do
   -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
   -- and not by the tests (e.g., 'withTracePredicate').
   (TracerState maxLogLevel) <- withTracerUnsafe tracerConfig $ \tracer ref -> do
-    mapM_ (traceWith tracer) traces
+    mapM_ (traceWith tracer . withCallStack) traces
     readIORef ref
   pure maxLogLevel
 

@@ -58,7 +58,7 @@ instance IsPass Select where
   type MacroBody  Select = CheckedMacro Select
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix
-  type Msg        Select = WithLocationInfo SelectMsg
+  type Msg        Select = WithCallStack (WithLocationInfo SelectMsg)
   type MacroId    Select = Id Select
 
   idNameKind     _ namePair   = namePair.cName.name.kind

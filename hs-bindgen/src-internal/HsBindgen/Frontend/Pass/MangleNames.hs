@@ -35,7 +35,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
+import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -51,7 +51,7 @@ mangleNames ::
      HasCallStack
   => FieldNamingStrategy
   -> C.TranslationUnit ResolveBindingSpecs
-  -> (C.TranslationUnit MangleNames, [MsgWithCallStack (Msg MangleNames)])
+  -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames fieldNaming unit = (
          C.TranslationUnit{
            decls        = catMaybes decls2
@@ -88,7 +88,7 @@ mangleNames fieldNaming unit = (
     fs :: [Failure]
     fs = r1.failures ++ r2.failures
 
-    msgs :: [MsgWithCallStack (Msg MangleNames)]
+    msgs :: [Msg MangleNames]
     msgs = r1.messages ++ r2.messages
 
 updateDeclMeta :: TypedefAnalysis -> NameMap -> [Failure] -> DeclMeta -> DeclMeta
@@ -244,7 +244,7 @@ nameForDecl td fc specifiedNames decl =
     toFs :: [MangleNamesFailure] -> [Failure]
     toFs = map (\f -> (decl.info.id, (loc, f)))
 
-    toMs :: HasCallStack => [a] -> [MsgWithCallStack (WithLocationInfo a)]
+    toMs :: HasCallStack => [a] -> [WithCallStack (WithLocationInfo a)]
     toMs = map (withCallStack . withDeclLoc decl.info)
 
 {-------------------------------------------------------------------------------
@@ -290,7 +290,7 @@ type Failure = (DeclId, (SingleLoc, MangleNamesFailure))
 
 data Report = Report{
       failures :: [Failure]
-    , messages :: [MsgWithCallStack (Msg MangleNames)]
+    , messages :: [Msg MangleNames]
     }
     deriving stock (Show, Generic)
 

@@ -98,7 +98,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     tracerBootStatus = contramap BootStatus tracer
 
     traceStatus :: MonadIO m => BootStatusMsg -> m ()
-    traceStatus = traceWith tracerBootStatus
+    traceStatus = traceWith tracerBootStatus . withCallStack
 
     withTrace :: MonadIO m => (a -> BootStatusMsg) -> m a -> m a
     withTrace c a = do
@@ -157,10 +157,10 @@ getClangCStandard' :: Tracer BootMsg -> ClangArgs -> IO ClangCStandard
 getClangCStandard' tracer clangArgs =
     getClangCStandard clangArgs >>= \case
       Just clangCStandard -> do
-        traceWith tracerCStandard $ BootCStandardClang clangCStandard
+        traceWith tracerCStandard $ withCallStack $ BootCStandardClang clangCStandard
         return clangCStandard
       Nothing -> do
-        traceWith tracerCStandard BootCStandardFail
+        traceWith tracerCStandard $ withCallStack $ BootCStandardFail
         throwIO UnableToDetermineCStandardException
   where
     tracerCStandard :: Tracer BootCStandardMsg

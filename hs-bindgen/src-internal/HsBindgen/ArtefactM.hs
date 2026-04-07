@@ -135,7 +135,7 @@ unsafeIO = WrapArtefactM . liftIO
 
 -- | Emit a trace while running artefacts.
 emitTrace :: Tracer a -> a -> ArtefactM ()
-emitTrace t = unsafeIO . traceWith t
+emitTrace t = unsafeIO . traceWith t . withCallStack
 
 runCached :: Cached a -> ArtefactM a
 runCached = unsafeIO . getCached
@@ -163,7 +163,7 @@ executeDelayedIOActions tracer as =
       ByteStringContent bs -> BSS.putStr bs
     WriteToFile  fd -> do
       let path = fileLocationToPath fd.location
-      traceWith tracer $ DelayedIOWriteToFile path fd.description
+      traceWith tracer $ withCallStack $ DelayedIOWriteToFile path fd.description
       -- Creating the directory is justified by checking the policy first.
       Dir.createDirectoryIfMissing True (takeDirectory path)
       case fd.content of

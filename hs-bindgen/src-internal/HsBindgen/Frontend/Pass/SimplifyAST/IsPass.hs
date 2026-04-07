@@ -36,7 +36,7 @@ instance IsPass SimplifyAST where
   type MacroBody  SimplifyAST = UnparsedMacro
   type ExtBinding SimplifyAST = Void
   type Ann ix     SimplifyAST = AnnSimplifyAST ix
-  type Msg        SimplifyAST = SimplifyASTMsg
+  type Msg        SimplifyAST = WithCallStack SimplifyASTMsg
 
   idNameKind     _ = PrelimDeclId.nameKind
   idSourceName   _ = PrelimDeclId.sourceName

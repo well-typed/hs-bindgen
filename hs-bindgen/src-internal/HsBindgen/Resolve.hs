@@ -96,7 +96,7 @@ resolveHeaders tracer args headers =
         (notFounds, successes) <-
           bimap Set.fromList Map.fromList . partitionEithers
             <$> HighLevel.clang_visitChildren root visit
-        forM_ headerList $ \header -> traceWith tracer $
+        forM_ headerList $ \header -> traceWith tracer $ withCallStack $
           case Map.lookup header successes of
             Just path -> ResolveHeaderFound header path
             Nothing

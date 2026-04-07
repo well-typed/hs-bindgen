@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
+import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -35,14 +35,14 @@ simplifyAST ::
      HasCallStack
   => AnonUsageAnalysis
   -> [ParseResult Parse]
-  -> ([ParseResult SimplifyAST], [MsgWithCallStack SimplifyASTMsg])
+  -> ([ParseResult SimplifyAST], [Msg SimplifyAST])
 simplifyAST usage parseResults = (results, msgs)
   where
     processedResults = map processResult parseResults
     results = concatMap fst processedResults
     msgs = concatMap snd processedResults
 
-    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [MsgWithCallStack SimplifyASTMsg])
+    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [Msg SimplifyAST])
     processResult result =
       case result.classification of
         ParseResultSuccess success ->

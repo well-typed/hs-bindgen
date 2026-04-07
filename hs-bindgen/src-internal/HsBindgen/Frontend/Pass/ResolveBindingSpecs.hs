@@ -33,7 +33,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
-import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
+import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -45,7 +45,7 @@ resolveBindingSpecs ::
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit HandleMacros
-  -> (C.TranslationUnit ResolveBindingSpecs, [MsgWithCallStack (Msg ResolveBindingSpecs)])
+  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
@@ -65,7 +65,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             UseDeclGraph.deleteRevDeps (Map.keys state.extTypes)
           . UseDeclGraph.deleteDeps (Set.toList state.opqTypes)
           $ unit.ann.useDeclGraph
-        notUsedErrs = map withCallStack $ ResolveBindingSpecsTypeNotUsed <$> Map.keys state.noPTypes
+        notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
@@ -140,7 +140,7 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      traces    :: [MsgWithCallStack (Msg ResolveBindingSpecs)] -- ^ reverse order
+      traces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map DeclId [Set SourcePath]
     , omitTypes :: Map DeclId SingleLoc
@@ -157,8 +157,8 @@ initMState pSpec = MState {
     , opqTypes  = Set.empty
     }
 
-insertTrace :: HasCallStack => Msg ResolveBindingSpecs -> MState -> MState
-insertTrace msg = #traces %~ (withCallStack msg :)
+insertTrace :: Msg ResolveBindingSpecs -> MState -> MState
+insertTrace msg = #traces %~ (msg :)
 
 insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
@@ -212,16 +212,16 @@ resolveTop ::
 resolveTop decl = Reader.ask >>= \env -> do
     let sourcePath = singleLocPath decl.info.loc
         declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
-        mMsg       = Just $ ResolveBindingSpecsOmittedType decl.info.id
+        mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
     if isExt
       then do
-        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl decl.info.id)
+        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.info.id)
         return Nothing
       else case BindingSpec.lookupCTypeSpec decl.info.id declPaths env.pSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPreRequire decl.info.id)
+              insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.info.id)
             . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsIdent
@@ -229,7 +229,7 @@ resolveTop decl = Reader.ask >>= \env -> do
           applyPrescriptive decl cTypeSpec mHsTypeSpec
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPreOmit decl.info.id)
+              insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.info.id)
             . deleteNoPType decl.info.id sourcePath
             . insertOmittedType decl.info.id decl.info.loc
           return Nothing
@@ -299,7 +299,7 @@ applyPrescriptive decl cTypeSpec = \case
       if isValid
         then do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPreEmptyData decl.info.id)
+              insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyData decl.info.id)
             . insertOpaquedType decl.info.id
           -- Cannot use record update because 'C.kind' is ambiguous
           let decl' = C.Decl{
@@ -310,7 +310,7 @@ applyPrescriptive decl cTypeSpec = \case
           return (decl', Just BindingSpec.HsTypeRepEmptyData)
         else do
           State.modify' $
-            insertTrace (ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
+            insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
           return (decl, Nothing)
 
     auxTypeAlias :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
@@ -539,7 +539,7 @@ instance Resolve C.Type where
         -- Check for selected external binding
         case Map.lookup cDeclId state.extTypes of
           Just ty -> do
-            State.modify' $ insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
+            State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
             pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
           Nothing -> do
             -- In the first pass we have looked at all "usable" declarations.
@@ -556,7 +556,7 @@ instance Resolve C.Type where
                 case mTy of
                   Just ty -> do
                     State.modify' $
-                        insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
+                        insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
                       . insertExtType cDeclId ty
                     pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
                   Nothing -> return Nothing
@@ -579,7 +579,7 @@ resolveExtBinding ::
   => DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
-  -> Maybe ResolveBindingSpecsMsg
+  -> Maybe (Msg ResolveBindingSpecs)
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
@@ -597,11 +597,11 @@ resolveExtBinding cDeclId declPaths mMsg = do
             return (Just resolved)
           (Nothing, _) -> do
             State.modify' $
-              insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cDeclId)
+              insertTrace (withCallStack $ ResolveBindingSpecsExtHsRefNoIdentifier cDeclId)
             return Nothing
           (_, Nothing) -> do
             State.modify' $
-              insertTrace (ResolveBindingSpecsNoHsTypeSpec cDeclId)
+              insertTrace (withCallStack $ ResolveBindingSpecsNoHsTypeSpec cDeclId)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
         forM_ mMsg $ \msg -> State.modify' $ insertTrace msg

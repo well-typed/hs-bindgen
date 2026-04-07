@@ -112,7 +112,7 @@ hashIncludeArgWithTrace ::
   -> IO HashIncludeArg
 hashIncludeArgWithTrace tracer fp = do
     let (msgs, arg) = hashIncludeArg fp
-    mapM_ (traceWith tracer) msgs
+    mapM_ (traceWith tracer . withCallStack) msgs
     return arg
 
 {-------------------------------------------------------------------------------

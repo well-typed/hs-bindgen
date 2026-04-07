@@ -30,7 +30,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C (PrimType (PrimBool))
-import HsBindgen.Util.Tracer (MsgWithCallStack, withCallStack)
+import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -41,14 +41,14 @@ handleMacros ::
       HasCallStack
   =>  ClangCStandard
   ->  C.TranslationUnit ConstructTranslationUnit
-  -> (C.TranslationUnit HandleMacros, [MsgWithCallStack (Msg HandleMacros)])
+  -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard unit =
     reconstruct $ runM standard .
       fmap partitionEithers $ mapM processDecl unit.decls
   where
     reconstruct ::
-         (([FailedMacro] , [C.Decl HandleMacros]) , [MsgWithCallStack (Msg HandleMacros)])
-      -> (C.TranslationUnit HandleMacros, [MsgWithCallStack (Msg HandleMacros)])
+         (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
+      -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
     reconstruct ((failedMacros, decls'), msgs) =
         let unit' = C.TranslationUnit{
                 decls        = decls'
@@ -410,7 +410,7 @@ newtype M a = WrapM (
     )
 
 data MacroState = MacroState {
-      errors :: [MsgWithCallStack HandleMacrosReparseMsg]  -- ^ Stored in reverse order
+      errors :: [Msg HandleMacros]  -- ^ Stored in reverse order
 
       -- | Types of macro expressions
     , macroEnv :: CExpr.DSL.TypeEnv
@@ -427,7 +427,7 @@ initMacroState standard = MacroState{
     , reparseEnv = LanC.initReparseEnv standard
     }
 
-runM :: ClangCStandard -> M a -> (a, [MsgWithCallStack (Msg HandleMacros)])
+runM :: ClangCStandard -> M a -> (a, [Msg HandleMacros])
 runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 
 {-------------------------------------------------------------------------------

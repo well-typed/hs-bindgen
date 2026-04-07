@@ -161,7 +161,7 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
     uspecs <- withStdlib <$> mapMaybeM read' paths
     rspecs <- mapM resolve' uspecs
     let (msgs, mspec) = BindingSpec.merge rspecs
-    mapM_ (traceWith tracerMerge) msgs
+    mapM_ (traceWith tracerMerge . withCallStack) msgs
     return mspec
   where
     withStdlib ::

@@ -213,7 +213,7 @@ runFrontend tracer config boot = do
       afterParse <- parsePass
       let (afterSimplifyAST, msgsSimplifyAST) =
             simplifyAST afterParse.usageAnalysis afterParse.results
-      forM_ msgsSimplifyAST $ traceDelayedWith tracer . fmap FrontendSimplifyAST
+      forM_ msgsSimplifyAST $ traceWith tracer . extendCallStackMsg FrontendSimplifyAST
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
@@ -221,7 +221,7 @@ runFrontend tracer config boot = do
       afterSimplifyAST <- simplifyASTPass
       let (afterAssignAnonIds, msgsAssignAnonIds) =
             assignAnonIds afterParse.usageAnalysis afterSimplifyAST
-      forM_ msgsAssignAnonIds $ traceDelayedWith tracer . fmap FrontendAssignAnonIds
+      forM_ msgsAssignAnonIds $ traceWith tracer . extendCallStackMsg FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
@@ -236,7 +236,7 @@ runFrontend tracer config boot = do
       std <- boot.cStandard
       let (afterHandleMacros, msgsHandleMacros) =
             handleMacros std afterConstructTranslationUnit
-      forM_ msgsHandleMacros $ traceDelayedWith tracer . fmap FrontendHandleMacros
+      forM_ msgsHandleMacros $ traceWith tracer . extendCallStackMsg FrontendHandleMacros
       pure afterHandleMacros
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
@@ -249,21 +249,21 @@ runFrontend tracer config boot = do
               extSpecs
               pSpec
               afterHandleMacros
-      forM_ msgsResolveBindingSpecs $ traceDelayedWith tracer . fmap FrontendResolveBindingSpecs
+      forM_ msgsResolveBindingSpecs $ traceWith tracer . extendCallStackMsg FrontendResolveBindingSpecs
       pure afterResolveBindingSpecs
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
             mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
-      forM_ msgsMangleNames $ traceDelayedWith tracer . fmap FrontendMangleNames
+      forM_ msgsMangleNames $ traceWith tracer . extendCallStackMsg FrontendMangleNames
       pure afterMangleNames
 
     adjustTypesPass <- cache "AdjustTypes" $ do
       afterMangleNamesPass <- mangleNamesPass
       let (afterAdjustTypes, msgsAdjustTypes) =
             adjustTypes afterMangleNamesPass
-      forM_ msgsAdjustTypes $ traceDelayedWith tracer . fmap FrontendAdjustTypes
+      forM_ msgsAdjustTypes $ traceWith tracer . extendCallStackMsg FrontendAdjustTypes
       pure afterAdjustTypes
 
     selectPass <- cache "select" $ do
@@ -275,7 +275,7 @@ runFrontend tracer config boot = do
               afterParse.isInMainHeaderDir
               selectConfig
               afterAdjustTypesPass
-      forM_ msgsSelect $ traceDelayedWith tracer . fmap FrontendSelect
+      forM_ msgsSelect $ traceWith tracer . extendCallStackMsg FrontendSelect
       pure afterSelect
 
     finalPass <- cache "Final" $ selectPass

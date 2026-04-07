@@ -153,4 +153,4 @@ instance IsTrace Level UniqueIdMsg where
 checkUniqueId :: Tracer UniqueIdMsg -> UniqueId -> IO ()
 checkUniqueId tracer (UniqueId val) = do
   when (null val) $
-    traceWith tracer UniqueIdEmpty
+    traceWith tracer $ withCallStack UniqueIdEmpty
