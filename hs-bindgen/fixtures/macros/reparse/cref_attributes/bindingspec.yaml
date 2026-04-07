@@ -1,0 +1,38 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/cref_attributes.h
+  cname: macro BOOL
+  hsname: BOOL
+hstypes:
+- hsname: BOOL
+  representation:
+    newtype:
+      constructor: BOOL
+      fields:
+      - unwrapBOOL
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
