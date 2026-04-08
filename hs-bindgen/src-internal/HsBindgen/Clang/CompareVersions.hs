@@ -48,5 +48,5 @@ compareClangVersions tracer = do
   let compileTimeVersion = clangVersionCompileTime
   runtimeVersion <- liftIO clang_getClangVersion
   when (compileTimeVersion /= runtimeVersion) $
-    traceWith tracer (CompileTimeAndRuntimeVersionMismatch compileTimeVersion runtimeVersion)
+    traceWith tracer $ withCallStack $ CompileTimeAndRuntimeVersionMismatch compileTimeVersion runtimeVersion
 

@@ -19,6 +19,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (WithCallStack)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -39,7 +40,7 @@ instance IsPass Parse where
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
-  type Msg        Parse = WithLocationInfo ImmediateParseMsg
+  type Msg        Parse = WithCallStack (WithLocationInfo ImmediateParseMsg)
 
   idNameKind     _ = PrelimDeclId.nameKind
   idSourceName   _ = PrelimDeclId.sourceName

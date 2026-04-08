@@ -394,7 +394,7 @@ readVersionJson :: ReadVersionFunction
 readVersionJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
     Right value -> getAVersionM tracer path value
     Left err -> do
-      traceWith tracer $ BindingSpecReadAesonError path err
+      traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
       return Nothing
 
 -- | Read a binding specification YAML file, returning the 'BindingSpecVersion'
@@ -405,11 +405,11 @@ readVersionYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
       forM_ warnings $ \case
         Data.Yaml.Internal.DuplicateKey jsonPath -> do
           let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
-          traceWith tracer $ BindingSpecReadYamlWarning path msg
+          traceWith tracer $ withCallStack $ BindingSpecReadYamlWarning path msg
       getAVersionM tracer path value
     Left err -> do
       let msg = Yaml.prettyPrintParseException err
-      traceWith tracer $ BindingSpecReadYamlError path msg
+      traceWith tracer $ withCallStack $ BindingSpecReadYamlError path msg
       return Nothing
 
 getAVersionM ::
@@ -421,7 +421,7 @@ getAVersionM ::
 getAVersionM tracer path value = case getAVersion value of
     Right aVersion -> return $ Just (aVersion, value)
     Left err -> do
-      traceWith tracer $ BindingSpecReadAesonError path err
+      traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
       return Nothing
 
 {-------------------------------------------------------------------------------

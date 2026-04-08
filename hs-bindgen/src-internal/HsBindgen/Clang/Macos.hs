@@ -101,12 +101,12 @@ envName = "SDKROOT"
 getEnv :: Tracer MacosMsg -> IO (Maybe SdkPath)
 getEnv tracer = do
     mx <- Env.lookupEnv envName
-    traceWith tracer $ maybe MacosEnvNotSet MacosEnvAlreadySet mx
+    traceWith tracer $ withCallStack $ maybe MacosEnvNotSet MacosEnvAlreadySet mx
     return mx
 
 setEnv :: Tracer MacosMsg -> SdkPath -> IO ()
 setEnv tracer path = do
-    traceWith tracer (MacosEnvSet path)
+    traceWith tracer (withCallStack $ MacosEnvSet path)
     Env.setEnv envName path
 
 --------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ xcrunCmd = Proc.RawCommand "xcrun" ["--sdk", "macosx", "--show-sdk-path"]
 
 getXcrunSdkPath :: Tracer MacosMsg -> IO (Maybe SdkPath)
 getXcrunSdkPath tracer = do
-    traceWith tracer MacosXcrunRun
+    traceWith tracer (withCallStack MacosXcrunRun)
     checkOutput
       tracer
       MacosXcrunUnexpected

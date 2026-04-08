@@ -124,12 +124,12 @@ fromSetting = \case
 
     enableMacroWarnings :: CustomLogLevel Level TraceMsg
     enableMacroWarnings = CustomLogLevel $ \case
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
+        TraceFrontend (FrontendHandleMacros WithCallStack{traceMsg = HandleMacrosErrorReparse{}})
           -> const Warning
         -- Macros parsing requires declarations required for scoping.
-        TraceFrontend (FrontendParse WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
+        TraceFrontend (FrontendParse WithCallStack{traceMsg = WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}}})
           -> const Warning
-        TraceFrontend (FrontendSelect WithLocationInfo{msg = SelectMacroFailure{}})
+        TraceFrontend (FrontendSelect WithCallStack{traceMsg = WithLocationInfo{msg = SelectMacroFailure{}}})
           -> const Warning
         _otherTrace
           -> id

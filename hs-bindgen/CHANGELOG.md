@@ -78,6 +78,10 @@
   `primitive` are not required by `hs-bindgen` generated code anymore.
 * Improve and disambiguate delayed parse trace messages.
 * Improve error handling in `hs-bindgen` frontend, see [issue #1009][is-1009]
+* Trace messages from frontend passes now capture callstacks at the point where
+  messages are created (in pure code), rather than at the IO emission site.
+  This makes `--log-show-call-stack` output useful for debugging which pass and
+  function produced a given message.
 
 ### Bug fixes
 

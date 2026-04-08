@@ -155,10 +155,11 @@ recordImmediateTrace ::
   -> ImmediateParseMsg
   -> ParseDecl ()
 recordImmediateTrace declId declLoc msg = wrapEff $ \support ->
-    traceWith support.env.tracer WithLocationInfo{
+    traceWith (contramap withCallStack support.env.tracer) $
+      (withCallStack $ WithLocationInfo{
         loc = prelimDeclIdLocationInfo declId [declLoc]
       , msg = msg
-      }
+      })
 
 {-------------------------------------------------------------------------------
   Errors

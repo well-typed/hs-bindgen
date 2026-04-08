@@ -66,8 +66,8 @@ exec global opts = do
       -- Emit informational message if no user options provided
       when (   hasNoUserOptions
             && global.unsafe.verbosity.level >= Info) $ do
-        traceWith (contramap (TraceFrontend . FrontendClang) tracer)
-                  ClangInvokedWithoutOptions
+        traceWith (contramap (TraceFrontend . FrontendClang) tracer) $
+                  withCallStack ClangInvokedWithoutOptions
 
       withClang
         (contramap (TraceFrontend . FrontendClang) tracer)

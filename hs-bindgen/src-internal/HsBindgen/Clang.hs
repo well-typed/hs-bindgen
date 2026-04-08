@@ -86,7 +86,7 @@ withClang tracer setup k = do
         go :: Bool -> [Diagnostic] -> IO Bool
         go !anyIsError []     = pure anyIsError
         go !anyIsError (d:ds) = do
-            traceWith (contramap ClangDiagnostic tracer) d
+            traceWith (contramap ClangDiagnostic tracer) (withCallStack d)
             go (anyIsError || diagnosticIsError d) ds
 
 data LibclangException = LibclangException String
@@ -107,7 +107,7 @@ withClang' :: forall a.
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
 withClang' tracer setup k = do
-    traceWith tracer $ ClangSetupMsg setup
+    traceWith tracer $ withCallStack $ ClangSetupMsg setup
     HighLevel.withIndex setup.diagnostics $ \index -> do
       let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
           withUnit path unsaved =
@@ -128,7 +128,7 @@ withClang' tracer setup k = do
   where
     onErrorCode :: SimpleEnum CXErrorCode -> IO (Maybe a)
     onErrorCode err = do
-        traceWith tracer $ ClangErrorCode err
+        traceWith tracer $ withCallStack $ ClangErrorCode err
         return Nothing
 
 {-------------------------------------------------------------------------------

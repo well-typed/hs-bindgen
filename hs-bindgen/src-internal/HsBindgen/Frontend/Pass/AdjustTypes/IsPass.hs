@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
     AdjustTypes
   , AdjustedFrom (..)
+  , AdjustTypesMsg
   ) where
 
 import HsBindgen.Frontend.AST.Coerce
@@ -39,7 +40,7 @@ instance IsPass AdjustTypes where
   type MacroBody  AdjustTypes = CheckedMacro AdjustTypes
   type ExtBinding AdjustTypes = ResolvedExtBinding
   type Ann ix     AdjustTypes = AnnAdjustTypes ix
-  type Msg        AdjustTypes = WithLocationInfo AdjustTypesMsg
+  type Msg        AdjustTypes = WithCallStack (WithLocationInfo AdjustTypesMsg)
   type MacroId    AdjustTypes = Id AdjustTypes
 
   idNameKind     _ namePair   = namePair.cName.name.kind

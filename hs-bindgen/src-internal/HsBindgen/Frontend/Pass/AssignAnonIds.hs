@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -28,9 +29,10 @@ import HsBindgen.Imports
 
 -- | Assign name to all anonymous declarations
 assignAnonIds ::
-     AnonUsageAnalysis
+     HasCallStack
+  => AnonUsageAnalysis
   -> [ParseResult SimplifyAST]
-  -> ([ParseResult AssignAnonIds], [ImmediateAssignAnonIdsMsg])
+  -> ([ParseResult AssignAnonIds], [Msg AssignAnonIds])
 assignAnonIds usage parseResults =
     swap . partitionEithers $
       map (updateParseResult chosenNames) parseResults
@@ -43,9 +45,10 @@ assignAnonIds usage parseResults =
 -------------------------------------------------------------------------------}
 
 updateParseResult ::
-     ChosenNames
+     HasCallStack
+  => ChosenNames
   -> ParseResult SimplifyAST
-  -> Either ImmediateAssignAnonIdsMsg (ParseResult AssignAnonIds)
+  -> Either (Msg AssignAnonIds) (ParseResult AssignAnonIds)
 updateParseResult chosenNames result =
     case result.classification of
       ParseResultSuccess success -> do
@@ -110,11 +113,12 @@ updateParseResult chosenNames result =
 -------------------------------------------------------------------------------}
 
 updateDefSite ::
-     ChosenNames
+     HasCallStack
+  => ChosenNames
   -> Id SimplifyAST
-  -> Either ImmediateAssignAnonIdsMsg (Id AssignAnonIds)
+  -> Either (Msg AssignAnonIds) (Id AssignAnonIds)
 updateDefSite chosenNames =
-    first AssignAnonIdsSkippedDecl . fromPrelimDeclId chosenNames
+    first (withCallStack . AssignAnonIdsSkippedDecl) . fromPrelimDeclId chosenNames
 
 updateDeclInfo ::
      DeclId

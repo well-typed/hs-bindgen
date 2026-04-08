@@ -15,7 +15,7 @@ module HsBindgen.Errors (
 
 import Control.Exception (Exception (..), SomeException (..), throw)
 import Data.Typeable (cast)
-import GHC.Stack (CallStack, callStack, prettyCallStack)
+import GHC.Stack (CallStack, prettyCallStack)
 import Language.Haskell.TH.Syntax qualified as THS
 
 import HsBindgen.Imports

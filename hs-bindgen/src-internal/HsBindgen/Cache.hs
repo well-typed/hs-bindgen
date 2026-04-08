@@ -36,11 +36,11 @@ getWithCache ::
 getWithCache tracerCache name cacheVar action = Cached $
     modifyMVar cacheVar $ \case
       Nothing -> do
-        traceWith tracerCache $ CacheMiss name
+        traceWith tracerCache $ withCallStack $ CacheMiss name
         !newRes <- getCached action
         pure (Just newRes, newRes)
       Just cachedRes -> do
-        traceWith tracerCache $ CacheHit name
+        traceWith tracerCache $ withCallStack $ CacheHit name
         pure (Just cachedRes, cachedRes)
 
 {-------------------------------------------------------------------------------

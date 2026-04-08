@@ -241,13 +241,13 @@ envName = "BINDGEN_BUILTIN_INCLUDE_DIR"
 -- | Load configuration from system environment, when available
 getEnvConfig :: Tracer BuiltinIncDirMsg -> IO (Maybe BuiltinIncDirConfig)
 getEnvConfig tracer = Env.lookupEnv envName >>= \case
-    Nothing        -> Nothing <$ traceWith tracer BuiltinIncDirEnvNone
+    Nothing        -> Nothing <$ traceWith tracer (withCallStack BuiltinIncDirEnvNone)
     Just "disable" -> aux BuiltinIncDirDisable
     Just "clang"   -> aux BuiltinIncDirClang
-    Just s         -> Nothing <$ traceWith tracer (BuiltinIncDirEnvInvalid s)
+    Just s         -> Nothing <$ traceWith tracer (withCallStack $ BuiltinIncDirEnvInvalid s)
   where
     aux :: BuiltinIncDirConfig -> IO (Maybe BuiltinIncDirConfig)
-    aux config = Just config <$ traceWith tracer (BuiltinIncDirEnvSet config)
+    aux config = Just config <$ traceWith tracer (withCallStack $ BuiltinIncDirEnvSet config)
 
 -- | Get the builtin include directory using @clang@
 --
@@ -256,12 +256,13 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
 getBuiltinIncDirWithClang :: Tracer BuiltinIncDirMsg -> MaybeT IO BuiltinIncDir
 getBuiltinIncDirWithClang tracer = do
     exe <- findClangExe tracer <|> do
-      traceWith tracer BuiltinIncDirClangNotFound
+      traceWith tracer (withCallStack BuiltinIncDirClangNotFound)
       MaybeT $ return Nothing
     clangVer <- getClangVersion tracer exe
     libclangVer <- lift clang_getClangVersion
     unless (clangVer == libclangVer) $ do
       traceWith tracer $
+        withCallStack  $
         BuiltinIncDirClangVersionMismatch libclangVer clangVer
       MaybeT $ return Nothing
     resourceDir <- getClangResourceDir tracer exe
@@ -305,7 +306,7 @@ findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
     auxPath :: MaybeT IO FilePath
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable clangExe
-      traceWith tracer (BuiltinIncDirClangPathFound exe)
+      traceWith tracer (withCallStack $ BuiltinIncDirClangPathFound exe)
       return exe
 
 -- | @clang@ executable name for the current platform
@@ -324,7 +325,7 @@ lookupLlvmPath tracer = do
     MaybeT $ Dir.doesDirectoryExist prefix >>= \case
       True  -> return (Just prefix)
       False -> do
-        traceWith tracer (BuiltinIncDirLlvmPathNotFound prefix)
+        traceWith tracer (withCallStack $ BuiltinIncDirLlvmPathNotFound prefix)
         return Nothing
 
 -- | Find the @llvm-config@ executable
@@ -347,7 +348,7 @@ findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
     auxPath :: MaybeT IO FilePath
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable llvmConfigExe
-      traceWith tracer (BuiltinIncDirLlvmConfigPathFound exe)
+      traceWith tracer (withCallStack $ BuiltinIncDirLlvmConfigPathFound exe)
       return exe
 
 -- | @llvm-config@ executable name for the current platform
@@ -440,5 +441,5 @@ ifM ::
   -> FilePath                        -- ^ path
   -> MaybeT IO FilePath
 ifM tracer mkNotFound mkFound p path = MaybeT $ p path >>= \case
-    True  -> Just path <$ traceWith tracer (mkFound    path)
-    False -> Nothing   <$ traceWith tracer (mkNotFound path)
+    True  -> Just path <$ traceWith tracer (withCallStack $ mkFound    path)
+    False -> Nothing   <$ traceWith tracer (withCallStack $ mkNotFound path)

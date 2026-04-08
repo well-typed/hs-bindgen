@@ -30,7 +30,7 @@ instance IsPass AssignAnonIds where
   type MacroBody  AssignAnonIds = UnparsedMacro
   type ExtBinding AssignAnonIds = Void
   type Ann ix     AssignAnonIds = AnnAssignAnonIds ix
-  type Msg        AssignAnonIds = ImmediateAssignAnonIdsMsg
+  type Msg        AssignAnonIds = WithCallStack ImmediateAssignAnonIdsMsg
 
 {-------------------------------------------------------------------------------
   Trace messages

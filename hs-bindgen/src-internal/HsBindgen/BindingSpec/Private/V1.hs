@@ -304,21 +304,21 @@ readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
           cmpt
           aVersion.bindingSpec
           currentBindingSpecVersion -> do
-            traceWith tracer $ BindingSpecReadParseVersion path aVersion
+            traceWith tracer $ withCallStack $ BindingSpecReadParseVersion path aVersion
             case Aeson.fromJSON value of
               Aeson.Success arep ->
                 case fromABindingSpec mHsModuleName path arep of
                   Right (errs, spec) -> do
-                    mapM_ (traceWith tracer) errs
+                    mapM_ (traceWith tracer . withCallStack) errs
                     return (Just spec)
                   Left err -> do
-                    traceWith tracer err
+                    traceWith tracer (withCallStack err)
                     return Nothing
               Aeson.Error err -> do
-                traceWith tracer $ BindingSpecReadAesonError path err
+                traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
                 return Nothing
       | otherwise -> do
-          traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
+          traceWith tracer $ withCallStack $ BindingSpecReadIncompatibleVersion path aVersion
           return Nothing
 
 -- | Encode a binding specification
@@ -418,7 +418,7 @@ resolve tracer injResolveHeader args uSpec = do
         resolveType cDeclId (uHeaders, x) = case resolveSet uHeaders of
           Just rHeaders -> return $ Just (rHeaders, x)
           Nothing       -> do
-            traceWith tracer $ BindingSpecResolveTypeDropped cDeclId
+            traceWith tracer $ withCallStack $ BindingSpecResolveTypeDropped cDeclId
             return Nothing
 
         resolveTypes ::

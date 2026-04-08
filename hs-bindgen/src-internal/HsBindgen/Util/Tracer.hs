@@ -5,8 +5,11 @@ module HsBindgen.Util.Tracer (
     -- * Tracer definition and main API
     Tracer -- opaque
   , traceWith
+  , WithCallStack(..)
+  , withCallStack
   , simpleTracer
   , nullTracer
+  , extendCallStackMsg
     -- * Data types and typeclasses useful for tracing
   , PrettyForTrace (..)
   , Level (..)
@@ -51,7 +54,7 @@ import Data.Kind (Type)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Generics as GHC
-import GHC.Stack (CallStack, callStack, prettyCallStack)
+import GHC.Stack (CallStack, prettyCallStack)
 import Language.Haskell.TH (reportError, reportWarning, runQ)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
@@ -71,28 +74,40 @@ import HsBindgen.Imports
   The definition of 'Tracer' is opaque.
 -------------------------------------------------------------------------------}
 
-newtype Tracer e = Wrap (ContraTracer.Tracer IO (MsgWithCallStack e))
+newtype Tracer e = Wrap (ContraTracer.Tracer IO (WithCallStack e))
 
-unwrap :: Tracer e -> ContraTracer.Tracer IO (MsgWithCallStack e)
+unwrap :: Tracer e -> ContraTracer.Tracer IO (WithCallStack e)
 unwrap (Wrap tracer) = tracer
 
 -- | We pair every trace message with a callstack for easier debugging
---
--- This is an internal type.
-data MsgWithCallStack e = MsgWithCallStack {
+data WithCallStack e = WithCallStack {
       callStack :: CallStack
     , traceMsg  :: e
     }
   deriving stock (Show, Functor)
 
+instance PrettyForTrace e => PrettyForTrace (WithCallStack e) where
+  prettyForTrace = prettyForTrace . (.traceMsg)
+
+instance IsTrace l e => IsTrace l (WithCallStack e) where
+  getDefaultLogLevel = getDefaultLogLevel . (.traceMsg)
+  getSource          = getSource          . (.traceMsg)
+  getTraceId         = getTraceId         . (.traceMsg)
+
 instance Contravariant Tracer where
   contramap f = Wrap . contramap (fmap f) . unwrap
 
-traceWith :: (MonadIO m, HasCallStack) => Tracer e -> e -> m ()
+traceWith :: MonadIO m => Tracer a -> WithCallStack a -> m ()
 traceWith tracer =
       liftIO
     . ContraTracer.traceWith (unwrap tracer)
-    . MsgWithCallStack callStack
+
+-- | Capture current callstack and pair with a value
+--
+-- Useful when collecting trace messages in pure code for later emission
+-- via 'traceWith'.
+withCallStack :: HasCallStack => a -> WithCallStack a
+withCallStack = WithCallStack callStack
 
 -- | Simple tracer that 'ContraTracer.emit's every message
 simpleTracer :: (e -> IO ()) -> Tracer e
@@ -101,7 +116,7 @@ simpleTracer f = simpleWithCallStack (f . (.traceMsg))
 -- | Generalization of 'simpleWithCallStack'
 --
 -- This is internal API.
-simpleWithCallStack :: (MsgWithCallStack e -> IO ()) -> Tracer e
+simpleWithCallStack :: (WithCallStack e -> IO ()) -> Tracer e
 simpleWithCallStack =
       Wrap
     . ContraTracer.Tracer
@@ -113,6 +128,19 @@ squelchUnless p =
       Wrap
     . ContraTracer.squelchUnless (p . (.traceMsg))
     . unwrap
+
+-- | Apply a function that consumes a 'WithCallStack' value, preserving the
+-- original callstack in the result.
+--
+-- This is the comonadic extend for 'WithCallStack': the function sees the
+-- full wrapped value (including the callstack), but the output is re-wrapped
+-- with the original callstack.
+--
+-- Useful when wrapping pass-specific messages in a sum type constructor
+-- (e.g. @FrontendSimplifyAST@) that takes @'WithCallStack' a@, while
+-- preserving the creation-site callstack for tracing.
+extendCallStackMsg :: (WithCallStack a -> b) -> WithCallStack a -> WithCallStack b
+extendCallStackMsg f wcs@(WithCallStack cs _) = WithCallStack cs (f wcs)
 
 nullTracer :: Tracer e
 nullTracer = Wrap ContraTracer.nullTracer
@@ -595,7 +623,7 @@ mkTracer
     isLogLevelHighEnough :: e -> Bool
     isLogLevelHighEnough trace = getLogLevel trace >= verbosity.level
 
-    traceAction :: MsgWithCallStack e -> IO ()
+    traceAction :: WithCallStack e -> IO ()
     traceAction msg = do
       liftIO $ modifyIORef' tracerStateRef $ updateTracerState level
       msgTrace <- formatTrace ansiColor showTimeStamp level msg.traceMsg

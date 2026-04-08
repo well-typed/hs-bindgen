@@ -43,8 +43,8 @@ checkOutput tracer mkUnexpected mkError parse action =
     tryIOError action >>= \case
       Right s -> case parse s of
         x@Just{} -> return x
-        Nothing  -> Nothing <$ traceWith tracer (mkUnexpected (abbr s))
-      Left  e -> Nothing <$ traceWith tracer (mkError e)
+        Nothing  -> Nothing <$ traceWith tracer (withCallStack $ mkUnexpected (abbr s))
+      Left  e -> Nothing <$ traceWith tracer (withCallStack $ mkError e)
   where
     -- Abbreviate arbitrarily long strings in trace messages
     abbr :: String -> String

@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (WithCallStack)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -38,7 +39,7 @@ instance IsPass HandleMacros where
   type MacroBody  HandleMacros = CheckedMacro HandleMacros
   type ExtBinding HandleMacros = Void
   type Ann ix     HandleMacros = AnnHandleMacros ix
-  type Msg        HandleMacros = HandleMacrosReparseMsg
+  type Msg        HandleMacros = WithCallStack HandleMacrosReparseMsg
   type MacroId    HandleMacros = Id HandleMacros
   macroIdId _ = id
 

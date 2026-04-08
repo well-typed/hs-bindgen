@@ -42,7 +42,7 @@ module HsBindgen.Frontend.Naming (
 
 import Data.Text qualified as Text
 import GHC.Records (HasField (..))
-import GHC.Stack (CallStack, callStack, prettyCallStack)
+import GHC.Stack (CallStack, prettyCallStack)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors (panicPure)

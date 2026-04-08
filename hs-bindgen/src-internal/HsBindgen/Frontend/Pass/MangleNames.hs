@@ -35,6 +35,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -47,7 +48,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     FieldNamingStrategy
+     HasCallStack
+  => FieldNamingStrategy
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames fieldNaming unit = (
@@ -119,7 +121,8 @@ updateDeclMeta td nm fs declMeta = declMeta{
 type NameMap = Map DeclId Hs.Identifier
 
 chooseNames ::
-     TypedefAnalysis
+     HasCallStack
+  => TypedefAnalysis
   -> FixCandidate Maybe
   -> [C.Decl ResolveBindingSpecs]
   -> ([C.Decl ResolveBindingSpecs], NameMap, Report)
@@ -178,7 +181,8 @@ data NameInfo = NameInfo {
   deriving stock (Eq, Show)
 
 nameForDecl ::
-     TypedefAnalysis
+     HasCallStack
+  => TypedefAnalysis
   -> FixCandidate Maybe
   -> NameMap
   -> C.Decl ResolveBindingSpecs
@@ -240,8 +244,8 @@ nameForDecl td fc specifiedNames decl =
     toFs :: [MangleNamesFailure] -> [Failure]
     toFs = map (\f -> (decl.info.id, (loc, f)))
 
-    toMs :: [a] -> [WithLocationInfo a]
-    toMs = map (withDeclLoc decl.info)
+    toMs :: HasCallStack => [a] -> [WithCallStack (WithLocationInfo a)]
+    toMs = map (withCallStack . withDeclLoc decl.info)
 
 {-------------------------------------------------------------------------------
   Internal: working with 'FixCandidate'
