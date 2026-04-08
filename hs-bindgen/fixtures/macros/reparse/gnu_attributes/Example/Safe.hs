@@ -24,25 +24,25 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  (foo)(arg1);"
   , "}"
   , "void hs_bindgen_432c6480e8c1355b ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  (bar)(arg1);"
   , "}"
   , "void hs_bindgen_b7cd534964204668 ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  (dash)(arg1);"
   , "}"
   , "void hs_bindgen_24c242811e7f290b ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  (quux)(arg1);"
   , "}"
   , "void hs_bindgen_9bea1bb33c269bc2 ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  (heq)(arg1);"
@@ -79,7 +79,7 @@ foreign import ccall safe "hs_bindgen_432c6480e8c1355b" hs_bindgen_432c6480e8c13
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_bar@
 hs_bindgen_432c6480e8c1355b ::
-     RIP.CInt
+     BOOL
   -> IO ()
 hs_bindgen_432c6480e8c1355b =
   RIP.fromFFIType hs_bindgen_432c6480e8c1355b_base
@@ -91,7 +91,7 @@ hs_bindgen_432c6480e8c1355b =
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
 bar ::
-     RIP.CInt
+     BOOL
   -> IO ()
 bar = hs_bindgen_432c6480e8c1355b
 
@@ -102,7 +102,7 @@ foreign import ccall safe "hs_bindgen_b7cd534964204668" hs_bindgen_b7cd534964204
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_dash@
 hs_bindgen_b7cd534964204668 ::
-     RIP.CInt
+     BOOL
   -> IO ()
 hs_bindgen_b7cd534964204668 =
   RIP.fromFFIType hs_bindgen_b7cd534964204668_base
@@ -114,7 +114,7 @@ hs_bindgen_b7cd534964204668 =
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
 dash ::
-     RIP.CInt
+     BOOL
   -> IO ()
 dash = hs_bindgen_b7cd534964204668
 
@@ -125,7 +125,7 @@ foreign import ccall safe "hs_bindgen_24c242811e7f290b" hs_bindgen_24c242811e7f2
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_quux@
 hs_bindgen_24c242811e7f290b ::
-     RIP.CInt
+     BOOL
   -> IO ()
 hs_bindgen_24c242811e7f290b =
   RIP.fromFFIType hs_bindgen_24c242811e7f290b_base
@@ -137,7 +137,7 @@ hs_bindgen_24c242811e7f290b =
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
 quux ::
-     RIP.CInt
+     BOOL
   -> IO ()
 quux = hs_bindgen_24c242811e7f290b
 
@@ -148,7 +148,7 @@ foreign import ccall safe "hs_bindgen_9bea1bb33c269bc2" hs_bindgen_9bea1bb33c269
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_heq@
 hs_bindgen_9bea1bb33c269bc2 ::
-     RIP.CInt
+     BOOL
   -> IO ()
 hs_bindgen_9bea1bb33c269bc2 =
   RIP.fromFFIType hs_bindgen_9bea1bb33c269bc2_base
@@ -160,6 +160,6 @@ hs_bindgen_9bea1bb33c269bc2 =
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
 heq ::
-     RIP.CInt
+     BOOL
   -> IO ()
 heq = hs_bindgen_9bea1bb33c269bc2

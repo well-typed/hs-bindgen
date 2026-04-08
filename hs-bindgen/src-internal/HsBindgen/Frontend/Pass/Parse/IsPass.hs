@@ -54,7 +54,20 @@ instance IsPass Parse where
   Macros
 -------------------------------------------------------------------------------}
 
+-- | A (yet) unparsed macro definition
 data UnparsedMacro = UnparsedMacro {
+      -- | Raw tokens for the macro definition
+      --
+      -- These tokens do not include the @#define@ directive. For example, the
+      -- following C macro definition:
+      --
+      -- > #define A(x,y) x * y
+      --
+      -- For simplicity we only show the spelling of each token. The macro
+      -- definition would result in the following tokens:
+      --
+      -- > ["A", "(", "x", ",", ")", "x", "*", "y"]
+      --
       tokens :: [Token TokenSpelling]
     }
   deriving stock (Show, Eq, Ord)

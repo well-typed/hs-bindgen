@@ -23,6 +23,7 @@ import Control.Monad
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
 import Data.Map qualified as Map
+import Data.Maybe (mapMaybe)
 import Data.Text qualified as Text
 import Data.Tuple (swap)
 import Language.C qualified as LanC
@@ -34,6 +35,7 @@ import Clang.LowLevel.Core qualified as Clang
 import Clang.Paths qualified as Clang
 
 import HsBindgen.Clang.CStandard
+import HsBindgen.CPP.Clang qualified as CPP
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
@@ -65,22 +67,22 @@ reparseFunDecl ::
          )
        , CName
        )
-reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
+reparseFunDecl = parseWith flattenFunDecl True (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
 reparseTypedef :: Parser (C.Type HandleMacros)
-reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
+reparseTypedef = parseWith defaultFlatten True (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
 reparseField :: Parser (C.Type HandleMacros, CName)
-reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
+reparseField = parseWith defaultFlatten True (fmap swap .  fromNamedDecl)
 
 -- | Parse macro-defined type
 --
 -- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
 -- for the first time.
 parseMacroType :: Parser (C.Type HandleMacros)
-parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
+parseMacroType = parseWith flattenMacroTypeDef False (fromDecl >=> checkNotVoid)
   where
     -- @void@ does not make sense as a top-level type
     checkNotVoid ::
@@ -98,14 +100,27 @@ parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
 parseWith ::
      ([Clang.Token Clang.TokenSpelling] -> String)
      -- ^ Flatten tokens into raw string we can feed to language-c
+  -> Bool
+     -- ^ Perform macro expansion on the raw tokens
   -> (PartialDecl -> FromLanC a)
      -- ^ Construct our AST from the partial declaration
   -> Parser a
-parseWith flatten fromPartial env tokens =
+parseWith flatten doExpand fromPartial env tokens =
     runFromLanC env $ do
-      partial <- parseUsingLanC (getLocation tokens) raw
+      partial <- parseUsingLanC (getLocation tokens) rawExpanded
       fromPartial partial
   where
+    -- TODO: debug trace for raw, flattend, and expanded tokens
+    rawExpanded :: String
+    rawExpanded
+      | doExpand
+      = case CPP.preprocessWith env.definitions raw of
+          Left _err -> raw -- TODO: trace a warning.
+          Right raw' -> raw' -- TODO: is this a safe fallback?
+      | otherwise
+      = raw
+
+    -- TODO: debug trace for raw, flattened tokens
     raw :: String
     raw = flatten tokens
 
@@ -119,7 +134,7 @@ parseUsingLanC mloc raw = do
     let predefinedTypes' :: [LanC.Ident]
         uniqNameSupply   :: [LanC.Name]
         (predefinedTypes', uniqNameSupply) = runWithNewNameSupply $ do
-            mapM declarePredefined $ Map.keys reparseEnv
+            mapM declarePredefined $ (Map.keys reparseEnv.types)
 
     case LanC.execParser
            LanC.extDeclP
@@ -166,41 +181,17 @@ multiLocToLanC mloc =
 
 flattenTokens :: String -> [Clang.Token Clang.TokenSpelling] -> String
 flattenTokens trailer allTokens =
-    go allTokens
-  where
-    -- Skip over comments
-    go :: [Clang.Token Clang.TokenSpelling] -> String
-    go []     = trailer
-    go (t:ts) =
-        case Clang.fromSimpleEnum $ Clang.tokenKind t of
-          Right Clang.CXToken_Comment -> go ts
-          _otherwise -> prependToken t $ go ts
+    CPP.prettyTokens (skipComments allTokens) (' ' : trailer)
 
 defaultFlatten :: [Clang.Token Clang.TokenSpelling] -> String
 defaultFlatten = flattenTokens ";"
 
 flattenFunDecl :: [Clang.Token Clang.TokenSpelling] -> String
-flattenFunDecl allTokens =
-    go allTokens
-  where
-    go :: [Clang.Token Clang.TokenSpelling] -> String
-    go []     = ";"
-    go (t:ts) =
-        case ( Clang.fromSimpleEnum $ Clang.tokenKind       t
-             , Clang.fromSimpleEnum $ Clang.tokenCursorKind t
-             ) of
-
-          -- Skip over comments
-          (Right Clang.CXToken_Comment, _) -> go ts
-
-          -- Ignore function body, if present
-          (_, Right Clang.CXCursor_CompoundStmt) -> ";"
-
-          -- Everything else we just add to the raw string
-          _otherwise -> prependToken t $ go ts
+flattenFunDecl allTokens = defaultFlatten (skipFunctionBody allTokens)
 
 flattenMacroTypeDef :: [Clang.Token Clang.TokenSpelling] -> String
-flattenMacroTypeDef []         = panicPure "Unexpected empty list of tokens"
+flattenMacroTypeDef []
+  = panicPure "Unexpected empty list of tokens"
 #if MIN_VERSION_language_c(0,10,2)
 -- language-c 0.10.2 lexes @bool@ as a keyword, so it cannot be used as a
 -- typedef name. We substitute a placeholder identifier instead.
@@ -209,18 +200,23 @@ flattenMacroTypeDef []         = panicPure "Unexpected empty list of tokens"
 flattenMacroTypeDef (name:def)
   | Clang.getTokenSpelling (Clang.tokenSpelling name) == "bool"
   = "typedef " ++ flattenTokens "_hsbg_bool ;" def
-  | otherwise
-  = "typedef " ++ defaultFlatten (def ++ [name])
-#else
-flattenMacroTypeDef (name:def) = "typedef " ++ defaultFlatten (def ++ [name])
 #endif
+flattenMacroTypeDef (name:def)
+  = "typedef " ++ flattenTokens (CPP.prettyToken name " ;") def
 
-prependToken :: Clang.Token Clang.TokenSpelling -> String -> String
-prependToken token rest = concat [
-      Text.unpack (Clang.getTokenSpelling $ Clang.tokenSpelling token)
-    , " "
-    , rest
-    ]
+skipComments :: [Clang.Token Clang.TokenSpelling] -> [Clang.Token Clang.TokenSpelling]
+skipComments = mapMaybe $ \t -> case Clang.fromSimpleEnum $ Clang.tokenKind t of
+      Right Clang.CXToken_Comment -> Nothing
+      _otherwise -> Just t
+
+skipFunctionBody :: [Clang.Token Clang.TokenSpelling] -> [Clang.Token Clang.TokenSpelling]
+skipFunctionBody toks = go toks
+  where
+    go :: [Clang.Token Clang.TokenSpelling] -> [Clang.Token Clang.TokenSpelling]
+    go []     = []
+    go (t:ts) = case Clang.fromSimpleEnum $ Clang.tokenCursorKind t of
+        Right Clang.CXCursor_CompoundStmt -> []
+        _otherwise -> t : go ts
 
 {-------------------------------------------------------------------------------
   Construct type environment
@@ -230,7 +226,10 @@ prependToken token rest = concat [
 --
 -- This is not quite empty: it contains some "built in" types.
 initReparseEnv :: ClangCStandard -> ReparseEnv
-initReparseEnv standard = Map.fromList (bespokeTypes standard)
+initReparseEnv standard = ReparseEnv {
+      types = Map.fromList (bespokeTypes standard)
+    , definitions = CPP.emptyMacroDefinitions
+    }
 
 -- | \"Primitive\" we expect the reparser to recognize
 --
