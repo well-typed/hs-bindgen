@@ -25,7 +25,9 @@ data SimplifyAST a
 
 -- Preserve annotations from @Parse@ pass
 type family AnnSimplifyAST (ix :: Symbol) where
+  AnnSimplifyAST "Struct"      = IsAnon
   AnnSimplifyAST "StructField" = (ReparseInfo, FieldOrigin)
+  AnnSimplifyAST "Union"       = IsAnon
   AnnSimplifyAST "UnionField"  = (ReparseInfo, FieldOrigin)
   AnnSimplifyAST "Typedef"     = ReparseInfo
   AnnSimplifyAST "Function"    = ReparseInfo

@@ -7,6 +7,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , FieldOrigin(..)
   , ExplicitFieldOrigin(..)
   , ImplicitFieldOrigin(..)
+    -- * IsAnon
+  , IsAnon(..)
   ) where
 
 import Clang.HighLevel.Types
@@ -29,7 +31,9 @@ type Parse :: Pass
 data Parse a
 
 type family AnnParse (ix :: Symbol) :: Star where
+  AnnParse "Struct"      = IsAnon
   AnnParse "StructField" = (ReparseInfo, FieldOrigin)
+  AnnParse "Union"       = IsAnon
   AnnParse "UnionField"  = (ReparseInfo, FieldOrigin)
   AnnParse "Typedef"     = ReparseInfo
   AnnParse "Function"    = ReparseInfo
@@ -99,4 +103,13 @@ data ImplicitFieldOrigin = ImplicitFieldOrigin {
     -- if there are multiple levels of nested anonymous structs/unions.
   , field :: CScopedName
   }
+  deriving stock (Show, Eq, Ord)
+
+{-------------------------------------------------------------------------------
+  IsAnon
+-------------------------------------------------------------------------------}
+
+-- | A struct or union is anonymous if it is untagged and if it is referenced by
+-- a single unnamed field.
+newtype IsAnon = IsAnon { isAnon :: Bool }
   deriving stock (Show, Eq, Ord)

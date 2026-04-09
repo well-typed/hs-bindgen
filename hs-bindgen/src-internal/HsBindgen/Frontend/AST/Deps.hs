@@ -1,5 +1,7 @@
 module HsBindgen.Frontend.AST.Deps (
     depsOfDecl
+  , depsOfStruct
+  , depsOfUnion
   , depsOfField
   ) where
 
@@ -15,12 +17,8 @@ import HsBindgen.Frontend.Pass
 -------------------------------------------------------------------------------}
 
 depsOfDecl :: IsPass p => C.DeclKind p -> [(ValOrRef, Id p)]
-depsOfDecl (C.DeclStruct struct) = concat [
-      concatMap depsOfField struct.fields
-    , concatMap depsOfField struct.flam
-    ]
-depsOfDecl (C.DeclUnion union) =
-    concatMap depsOfField union.fields
+depsOfDecl (C.DeclStruct struct) = depsOfStruct struct
+depsOfDecl (C.DeclUnion union) = depsOfUnion union
 depsOfDecl (C.DeclEnum _) =
     []
 depsOfDecl (C.DeclAnonEnumConstant _) =
@@ -39,6 +37,15 @@ depsOfDecl (C.DeclFunction function) =
     depsOfType function.res ++ concatMap (\arg -> depsOfTypeFunArg arg.argTyp) function.args
 depsOfDecl (C.DeclGlobal ty) =
     depsOfType ty
+
+depsOfStruct :: IsPass p => C.Struct p -> [(ValOrRef, Id p)]
+depsOfStruct struct = concat [
+      concatMap depsOfField struct.fields
+    , concatMap depsOfField struct.flam
+    ]
+
+depsOfUnion :: IsPass p => C.Union p -> [(ValOrRef, Id p)]
+depsOfUnion union = concatMap depsOfField union.fields
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.

@@ -201,6 +201,7 @@ structDecl ctx info = \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
             mkStruct allFields = C.Decl {
@@ -211,7 +212,7 @@ structDecl ctx info = \curr -> do
                     , alignment = fromIntegral alignment
                     , fields    = filter isField regularFields
                     , flam      = mFlam
-                    , ann       = NoAnn
+                    , ann       = IsAnon isAnon
                     }
                 }
               where
@@ -279,6 +280,7 @@ unionDecl ctx info = \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
         let mkUnion :: [C.UnionField Parse] -> C.Decl Parse
             mkUnion fields = C.Decl{
@@ -288,7 +290,7 @@ unionDecl ctx info = \curr -> do
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
                            , fields    = filter isField fields
-                           , ann       = NoAnn
+                           , ann       = IsAnon isAnon
                            }
                 }
 
