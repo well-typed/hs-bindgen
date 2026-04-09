@@ -67,7 +67,7 @@ TODO: we currently use `clang` for parsing in `hs-bindgen` without an
 linked using `-fvisibility=hidden`, but we use clang in `hs-bindgen` with
 `-fvisibility=default`? It sounds like that would be wrong.
 
-[visibility]: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-visibility-function-attribute
+[visibility]: https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-visibility
 [gcc-options]: https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#index-fvisibility
 [clang-options]: https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fvisibility
 

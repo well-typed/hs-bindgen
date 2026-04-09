@@ -17,7 +17,7 @@ nix develop
 
 ## Prerequisites
 
-- [Nix](https://nixos.org/download.html) with flakes enabled
+- [Nix](https://nixos.org/download/) with flakes enabled
 
 Enable flakes by adding to `~/.config/nix/nix.conf`:
 

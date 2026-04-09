@@ -1,0 +1,61 @@
+name: Check links
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+  repository_dispatch:
+  workflow_dispatch:
+  # Run daily on the default branch to catch links that break unexpectedly, for
+  # example because they link to web pages that do not exist anymore.
+  schedule:
+    - cron: "00 18 * * *"
+
+jobs:
+  # Checks links in Markdown, HTML and text files using lychee.
+  #
+  # We are mostly interested in checking links in our manual, which consists of
+  # Markdown files.
+  #
+  # <https://github.com/marketplace/actions/lychee-broken-link-checker>
+  check-links:
+    name: Check links with lychee
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      # Initialise git submodules so that links into submodules can be checked.
+      # Because we are only interested in checking links defined in our own
+      # documentation, we use the exclude_path key in the lychee.toml file to
+      # make sure that we do not check links defined *inside* the submodules,
+      - name: Initialise git submodules
+        run: |
+          git submodule init
+          git submodule update
+
+      # NOTE: if lychee-action runs too slowly in the future, then we can use
+      # caching to improve performance. A tutorial for configuring the cache can
+      # be found in the lychee-action README:
+      #
+      # <https://github.com/lycheeverse/lychee-action/blob/master/README.md>
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        env:
+          # Default arguments taken directly from:
+          # <github.com/lycheeverse/lychee-action/blob/master/action.yml>
+          default-args: "--verbose --no-progress './**/*.md' './**/*.html' './**/*.rst'"
+          # With --include-fragments we also enable anchor link checking.
+          #
+          # Unfortunately, broken reference links are not checked because it is
+          # not (yet) implemented:
+          # <https://github.com/lycheeverse/lychee/issues/456>
+          custom-args: "--include-fragments"
+
+        with:
+          args: "${{ env.default-args }} ${{ env.custom-args }}"
+          fail: true
+          failIfEmpty: true

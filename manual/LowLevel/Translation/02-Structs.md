@@ -3,7 +3,7 @@
 In this section we will consider the details of translating [C
 structures](https://en.wikipedia.org/wiki/Struct_(C_programming_language))
 (`struct`s). The examples are available in the [C header file
-`structs.h`](/manual/c/structs.h).
+`structs.h`](../../c/structs.h).
 
 In the [Introduction](../Introduction.md), we have seen bindings
 created for a named C `struct` (structure) storing a triple of integers:
@@ -55,7 +55,7 @@ See the [Structs/Nesting](./02-Structs/Nesting.md) manual section.
 
 ## Bitfields
 
-[_Bitfields_](https://www.geeksforgeeks.org/bit-fields-c/) are structures or
+[_Bitfields_](https://www.geeksforgeeks.org/c/bit-fields-c/) are structures or
 unions with elements of individual size. For example,
 
 ```c

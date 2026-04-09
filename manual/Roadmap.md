@@ -6,7 +6,7 @@ their own right and can be released as version
 [0.2](https://github.com/well-typed/hs-bindgen/issues/30) and
 [0.3](https://github.com/well-typed/hs-bindgen/issues/31).
 
-## [Milestone 1: `Storable` instances](https://github.com/well-typed/hs-bindgen/milestone/2)
+## Milestone 1: `Storable` instances
 
 The object here is to be able to generate Haskell types with `Storable`
 instances for "all"
@@ -40,7 +40,7 @@ We should also [generate a
 test-suite](https://github.com/well-typed/hs-bindgen/issues/22) to check that
 the `Storable` instances we generate are correct.
 
-## [Milestone 2: Low-level API](https://github.com/well-typed/hs-bindgen/milestone/3)
+## Milestone 2: Low-level API
 
 The goal of this milestone is to [generate low-level `foreign import`
 declarations](https://github.com/well-typed/hs-bindgen/issues/25) for all
@@ -73,7 +73,7 @@ supported by tooling such as HLS.
 
 We might want to release this together with milestone 2.5, see below.
 
-## [Milestone 2.5: Library support for hand-written high-level bindings](https://github.com/well-typed/hs-bindgen/milestone/6)
+## Milestone 2.5: Library support for hand-written high-level bindings
 
 This milestone sits in between milestones 2 and 3 because it is useful for both.
 When hand-writing high-level bindings, there are undoubtedly a lot of patterns
@@ -117,7 +117,7 @@ decisions](https://github.com/well-typed/hs-bindgen/issues/23). In other words,
 the generated code should provide sufficient information to the user to allow
 them to change the way that the code is generated.
 
-## [Milestone 4: Additional features](https://github.com/well-typed/hs-bindgen/milestone/5)
+## Milestone 4: Additional features
 
 This milestone is currently just a collection of additional features that we
 might consider, such as

@@ -18,7 +18,7 @@ struct/union][t:nested] is called an *anonymous struct/union*.
 > consistently apply the *anonymous* terminology correctly. See [issue
 > #1893][issue-1893].
 
-[issue-1893]: https://github.com/well-typed/hs-bindgen/pull/1893
+[issue-1893]: https://github.com/well-typed/hs-bindgen/issues/1893
 
 </details>
 
@@ -90,7 +90,7 @@ A [field][t:field] with a name is called a *named field*. All fields should be
 named, with some exceptions: see [unnamed field][t:unnamed_field].
 
 ### Nested struct/union
-[t:nested]: #nested
+[t:nested]: #nested-structunion
 
 A [field][t:field] can declare a new struct or union type, in which case it is
 called a *nested struct/union*. The nested struct/union can be
@@ -120,7 +120,7 @@ to this name as a *tag*.
 
 ### Tagged struct/union/enum
 
-A struct or union or enum with a [tag][t:tag] is called *tagged*.
+A struct or union or enum with a [tag][t:stag] is called *tagged*.
 
 ### Unnamed field
 [t:unnamed_field]: #unnamed-field

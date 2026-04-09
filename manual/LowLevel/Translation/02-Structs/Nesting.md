@@ -209,4 +209,4 @@ warning-level trace message will be emitted in this case.
 
 [c-reference:struct]: https://en.cppreference.com/w/c/language/struct.html
 [manual:usage/binding-specs]: ../../Usage/06-BindingSpecifications.md
-[manual:unions/nesting]: ./04-Unions/Nesting.md
+[manual:unions/nesting]: ../04-Unions/Nesting.md
