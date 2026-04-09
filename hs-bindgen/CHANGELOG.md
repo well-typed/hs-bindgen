@@ -13,6 +13,8 @@
 
 ### Bug fixes
 
+* Fix reversed order of Haddock documentation in TH mode
+
 ## 0.1.0-alpha2 -- 2026-03-27
 
 ### Breaking changes

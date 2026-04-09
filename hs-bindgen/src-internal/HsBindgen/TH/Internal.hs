@@ -105,7 +105,10 @@ withHsBindgen config configTH hashIncludes = do
     let fns  = bindgenConfig.frontend.fieldNamingStrategy
         exts = uncurry (getExtensions fns) decls
     checkLanguageExtensions exts
-    uncurry (getThDecls fns deps) decls
+    -- Reverse SDecl order to counteract GHC reversing TH type/class
+    -- declarations during dependency analysis, which causes Haddock to show
+    -- declarations in reverse order.
+    uncurry (getThDecls fns deps) (second reverse decls)
 
 -- | @#include@ (i.e., generate bindings for) a C header
 --
