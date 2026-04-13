@@ -77,8 +77,10 @@ library internal
 
   -- Internal modules.
   exposed-modules:
+    Data.Digraph
     Data.DynGraph
     Data.DynGraph.Labelled
+    Data.ExtOrdIdxSet
     HsBindgen
     HsBindgen.Artefact
     HsBindgen.ArtefactM
@@ -451,6 +453,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
 
