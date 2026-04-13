@@ -55,7 +55,7 @@ import HsBindgen.Language.C qualified as C
 type Parser a =
      ReparseEnv
   -> [Clang.Token Clang.TokenSpelling]
-  -> Either Error a
+  -> IO (Either Error a)
 
 -- | Reparse function declaration
 --
@@ -105,20 +105,21 @@ parseWith ::
   -> (PartialDecl -> FromLanC a)
      -- ^ Construct our AST from the partial declaration
   -> Parser a
-parseWith flatten doExpand fromPartial env tokens =
-    runFromLanC env $ do
+parseWith flatten doExpand fromPartial env tokens = do
+    rawExpanded <- getRawExpanded
+    pure $ runFromLanC env $ do
       partial <- parseUsingLanC (getLocation tokens) rawExpanded
       fromPartial partial
   where
     -- TODO: debug trace for raw, flattend, and expanded tokens
-    rawExpanded :: String
-    rawExpanded
+    getRawExpanded :: IO String
+    getRawExpanded
       | doExpand
-      = case CPP.preprocessWith env.definitions raw of
-          Left _err -> raw -- TODO: trace a warning.
-          Right raw' -> raw' -- TODO: is this a safe fallback?
+      = CPP.preprocessWith env.definitions raw >>= \case
+          Left _err -> pure raw -- TODO: trace a warning.
+          Right raw' -> pure raw' -- TODO: is this a safe fallback?
       | otherwise
-      = raw
+      = pure raw
 
     -- TODO: debug trace for raw, flattened tokens
     raw :: String

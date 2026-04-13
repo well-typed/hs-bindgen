@@ -16,7 +16,6 @@ module HsBindgen.CPP.Clang (
   ) where
 
 import Data.Text qualified as Text
-import GHC.IO.Unsafe (unsafePerformIO)
 import System.Exit
 import System.FilePath
 import System.IO.Temp
@@ -34,12 +33,11 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 data PreprocessorError = PreprocessorError Int String
   deriving stock Show
 
-preprocess :: String -> Either PreprocessorError String
-preprocess source = unsafePerformIO $ runPreprocess source
+preprocess :: String -> IO (Either PreprocessorError String)
+preprocess source = runPreprocess source
 
-{-# NOINLINE preprocessWith #-}
-preprocessWith :: MacroDefinitions -> String -> Either PreprocessorError String
-preprocessWith defs source = unsafePerformIO $ runPreprocess source'
+preprocessWith :: MacroDefinitions -> String -> IO (Either PreprocessorError String)
+preprocessWith defs source = runPreprocess source'
   where
     source' = defs.unwrap source
 
