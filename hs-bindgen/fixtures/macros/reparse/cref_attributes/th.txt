@@ -1,0 +1,289 @@
+-- addDependentFile examples/golden/macros/reparse/cref_attributes.h
+-- #include <macros/reparse/cref_attributes.h>
+-- void hs_bindgen_9f4b1c3748016429 (
+--   BOOL arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_183028e559c4eff2 (
+--   BOOL arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_e02b651508844cbb (
+--   BOOL arg1
+-- )
+-- {
+--   (quux)(arg1);
+-- }
+-- void hs_bindgen_bc0a3a9b7f66fcad (
+--   BOOL arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_3e07344f1445a945 (
+--   BOOL arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_d67e55f386a01958 (
+--   BOOL arg1
+-- )
+-- {
+--   (quux)(arg1);
+-- }
+-- /* test_macrosreparsecref_attributes_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_dfdc3c5362469496 (void)) (
+--   BOOL arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosreparsecref_attributes_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_b44be06e46c9f5f3 (void)) (
+--   BOOL arg1
+-- )
+-- {
+--   return &bar;
+-- }
+-- /* test_macrosreparsecref_attributes_Example_get_quux */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_f923b761933d67da (void)) (
+--   BOOL arg1
+-- )
+-- {
+--   return &quux;
+-- }
+{-| __C declaration:__ @macro BOOL@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 2:9@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+newtype BOOL
+    = BOOL {unwrapBOOL :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBOOL")
+instance HasCField BOOL "unwrapBOOL"
+    where type CFieldType BOOL "unwrapBOOL" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
+hs_bindgen_9f4b1c3748016429 :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
+hs_bindgen_9f4b1c3748016429 = fromFFIType hs_bindgen_9f4b1c3748016429_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_safe :: BOOL -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_safe = hs_bindgen_9f4b1c3748016429
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_183028e559c4eff2" hs_bindgen_183028e559c4eff2_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
+hs_bindgen_183028e559c4eff2 :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
+hs_bindgen_183028e559c4eff2 = fromFFIType hs_bindgen_183028e559c4eff2_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_safe :: BOOL -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_safe = hs_bindgen_183028e559c4eff2
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
+foreign import ccall safe "hs_bindgen_e02b651508844cbb" hs_bindgen_e02b651508844cbb_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
+hs_bindgen_e02b651508844cbb :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
+hs_bindgen_e02b651508844cbb = fromFFIType hs_bindgen_e02b651508844cbb_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_safe :: BOOL -> IO ()
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_safe = hs_bindgen_e02b651508844cbb
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_bc0a3a9b7f66fcad" hs_bindgen_bc0a3a9b7f66fcad_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_foo@
+hs_bindgen_bc0a3a9b7f66fcad :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_foo@
+hs_bindgen_bc0a3a9b7f66fcad = fromFFIType hs_bindgen_bc0a3a9b7f66fcad_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_unsafe :: BOOL -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_unsafe = hs_bindgen_bc0a3a9b7f66fcad
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_3e07344f1445a945" hs_bindgen_3e07344f1445a945_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_bar@
+hs_bindgen_3e07344f1445a945 :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_bar@
+hs_bindgen_3e07344f1445a945 = fromFFIType hs_bindgen_3e07344f1445a945_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_unsafe :: BOOL -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_unsafe = hs_bindgen_3e07344f1445a945
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_quux@
+foreign import ccall unsafe "hs_bindgen_d67e55f386a01958" hs_bindgen_d67e55f386a01958_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_quux@
+hs_bindgen_d67e55f386a01958 :: BOOL -> IO ()
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_quux@
+hs_bindgen_d67e55f386a01958 = fromFFIType hs_bindgen_d67e55f386a01958_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_unsafe :: BOOL -> IO ()
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_unsafe = hs_bindgen_d67e55f386a01958
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_dfdc3c5362469496" hs_bindgen_dfdc3c5362469496_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_foo@
+hs_bindgen_dfdc3c5362469496 :: IO (FunPtr (BOOL -> IO ()))
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_foo@
+hs_bindgen_dfdc3c5362469496 = fromFFIType hs_bindgen_dfdc3c5362469496_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_funptr :: FunPtr (BOOL -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_dfdc3c5362469496
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_b44be06e46c9f5f3" hs_bindgen_b44be06e46c9f5f3_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_bar@
+hs_bindgen_b44be06e46c9f5f3 :: IO (FunPtr (BOOL -> IO ()))
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_bar@
+hs_bindgen_b44be06e46c9f5f3 = fromFFIType hs_bindgen_b44be06e46c9f5f3_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_funptr :: FunPtr (BOOL -> IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_b44be06e46c9f5f3
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_quux@
+foreign import ccall unsafe "hs_bindgen_f923b761933d67da" hs_bindgen_f923b761933d67da_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_quux@
+hs_bindgen_f923b761933d67da :: IO (FunPtr (BOOL -> IO ()))
+-- __unique:__ @test_macrosreparsecref_attributes_Example_get_quux@
+hs_bindgen_f923b761933d67da = fromFFIType hs_bindgen_f923b761933d67da_base
+{-# NOINLINE quux_funptr #-}
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_funptr :: FunPtr (BOOL -> IO ())
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux_funptr = unsafePerformIO hs_bindgen_f923b761933d67da

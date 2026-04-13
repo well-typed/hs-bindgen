@@ -1,11 +1,15 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 -- | Monad we use when translating the language-c AST to our AST
 --
 -- Intended for unqualified import.
 module HsBindgen.Frontend.LanguageC.Monad (
     FromLanC(..)
-  , ReparseEnv
   , runFromLanC
   , getReparseEnv
+    -- * Reparse environment
+  , ReparseEnv (..)
+  , recordParsedType
     -- * Throwing errors
   , unexpected
   , unsupported
@@ -21,13 +25,14 @@ import Control.Monad.Except qualified as Except
 import Control.Monad.Reader (Reader)
 import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
+import Data.Map.Lazy qualified as Map
 import GHC.Stack
 
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Imports
+import HsBindgen.Imports hiding (Default (..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -48,9 +53,6 @@ newtype FromLanC a = WrapFromLanC (
     , MonadError Error
     )
 
--- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (C.Type HandleMacros)
-
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv (WrapFromLanC ma) =
       flip Reader.runReader typeEnv $
@@ -58,6 +60,22 @@ runFromLanC typeEnv (WrapFromLanC ma) =
 
 getReparseEnv :: FromLanC ReparseEnv
 getReparseEnv = WrapFromLanC Reader.ask
+
+{-------------------------------------------------------------------------------
+  Reparse environment
+-------------------------------------------------------------------------------}
+
+-- | Environment of macro definitions and their parse results
+data ReparseEnv = ReparseEnv {
+    -- | Macro definitions that were successfully parsed as types.
+    --
+    -- These types are in scope when reparsing a particular declaration
+    types  :: Map CName (C.Type HandleMacros)
+  }
+  deriving stock Generic
+
+recordParsedType :: CName -> C.Type HandleMacros -> ReparseEnv -> ReparseEnv
+recordParsedType name typ env = env & #types %~ Map.insert name typ
 
 {-------------------------------------------------------------------------------
   Throwing errors

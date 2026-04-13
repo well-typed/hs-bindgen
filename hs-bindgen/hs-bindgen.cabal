@@ -144,6 +144,7 @@ library internal
     HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
     HsBindgen.Config.Prelims
+    HsBindgen.CPP.Clang
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
@@ -264,6 +265,7 @@ library internal
     , regex-pcre-builtin  >=0.95       && <0.96
     , some                >=1.0.6      && <1.1
     , template-haskell    >=2.18       && <2.25
+    , temporary
     , text                >=1.2        && <2.2
     , time                >=1.11       && <1.16
     , transformers        >=0.5        && <0.7

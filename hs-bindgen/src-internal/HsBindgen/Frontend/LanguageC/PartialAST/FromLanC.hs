@@ -167,8 +167,8 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- away by 'updateReparseEnv' in the HandleMacros pass, so the
       -- lookup returns @TypePrim PrimBool@ in that case.
       LanC.CBoolType   _a -> \partial -> do
-        typeEnv <- getReparseEnv
-        case Map.lookup "bool" typeEnv of
+        env <- getReparseEnv
+        case Map.lookup "bool" env.types of
           Just typ -> notFun typ partial
           Nothing  -> notFun (C.TypePrim C.PrimBool) partial
 #else
@@ -210,14 +210,14 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
         name <- checkNotAnon mTag CTagKindEnum
         checkNoDef "enum definition" mDef
-        typeEnv <- getReparseEnv
-        case Map.lookup name.text typeEnv of
+        env <- getReparseEnv
+        case Map.lookup name.text env.types of
           Nothing  -> unexpected $ "enum reference " ++ show name
           Just typ -> notFun typ partial
       LanC.CTypeDef name _a -> \partial -> do
         let name' = mkCName name
-        typeEnv <- getReparseEnv
-        case Map.lookup name' typeEnv of
+        env <- getReparseEnv
+        case Map.lookup name' env.types of
           Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where
@@ -260,6 +260,7 @@ instance Apply (LanC.CTypeQualifier a) UnknownType where
   apply = \case
       LanC.CConstQual _a ->
         return . Optics.set #isConst True
+      LanC.CAttrQual  _ -> return
       other -> \_ ->
         unexpectedF other
 
@@ -291,6 +292,7 @@ instance Apply (LanC.CTypeQualifier a) (C.Type HandleMacros) where
   apply = \case
       LanC.CConstQual _ -> return . C.TypeQual C.QualConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
+      LanC.CAttrQual _  -> return
       other             -> \_ -> unexpectedF other
 
 instance Apply (LanC.CDerivedDeclarator a) (C.Type HandleMacros) where

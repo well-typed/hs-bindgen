@@ -16,12 +16,14 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Clang.CStandard (ClangCStandard)
+import HsBindgen.CPP.Clang qualified as CPP
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
+import HsBindgen.Frontend.LanguageC.Monad (recordParsedType)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -41,9 +43,9 @@ handleMacros ::
       HasCallStack
   =>  ClangCStandard
   ->  C.TranslationUnit ConstructTranslationUnit
-  -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
+  -> IO (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard unit =
-    reconstruct $ runM standard .
+    fmap reconstruct $ runM standard .
       fmap partitionEithers $ mapM processDecl unit.decls
   where
     reconstruct ::
@@ -238,7 +240,7 @@ processEnum info enum = do
 
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
-        Map.insert name $
+        recordParsedType name $
           C.TypeEnum $ C.Ref info.id (coercePass enum.typ)
 
 processAnonEnumConstant ::
@@ -293,7 +295,7 @@ processTypedef info typedef = do
   where
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
-        Map.insert name $
+        recordParsedType name $
           C.TypeTypedef $ C.Ref info.id (coercePass typedef.typ)
 
     withoutReparse :: M (C.Decl HandleMacros)
@@ -319,8 +321,8 @@ processTypedef info typedef = do
 processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
-processMacro info (UnparsedMacro tokens) = do
-    bimap addInfo toDecl <$> parseMacro info.id.name tokens
+processMacro info mac = do
+    bimap addInfo toDecl <$> parseMacro info.id.name mac
   where
     addInfo :: HandleMacrosError -> FailedMacro
     addInfo err = FailedMacro{
@@ -400,13 +402,14 @@ processGlobal info f ty =
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM (
-      State MacroState a
+      StateT MacroState IO a
     )
   deriving newtype (
       Functor
     , Applicative
     , Monad
     , MonadState MacroState
+    , MonadIO
     )
 
 data MacroState = MacroState {
@@ -417,18 +420,23 @@ data MacroState = MacroState {
 
       -- | Newtypes and macro-defined types in scope
     , reparseEnv :: LanC.ReparseEnv
+
+    , preprocessorCtx :: CPP.PreprocessorContext
     }
   deriving stock (Generic)
 
-initMacroState :: ClangCStandard -> MacroState
-initMacroState standard = MacroState{
+initMacroState :: ClangCStandard -> CPP.PreprocessorContext -> MacroState
+initMacroState standard prepCtx = MacroState{
       errors     = []
     , macroEnv   = Map.empty
     , reparseEnv = LanC.initReparseEnv standard
+    , preprocessorCtx = prepCtx
     }
 
-runM :: ClangCStandard -> M a -> (a, [Msg HandleMacros])
-runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
+runM :: ClangCStandard -> M a -> IO (a, [Msg HandleMacros])
+runM standard (WrapM ma) =
+    CPP.withPreprocessorContext $ \prepCtx ->
+      fmap (.errors) <$> runStateT ma (initMacroState standard prepCtx)
 
 {-------------------------------------------------------------------------------
   Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)
@@ -439,38 +447,45 @@ runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 -- We also return the new macro type environment
 parseMacro ::
      CDeclName
-  -> [Token TokenSpelling]
+  -> UnparsedMacro
   -> M (Either HandleMacrosError (CheckedMacro HandleMacros))
-parseMacro name []      = panicPure $ "Macro " <> show name <> ": unexpected empty list of tokens"
-parseMacro name [_]     = pure      $ Left $ HandleMacrosErrorEmpty name
-parseMacro name tokens  = state     $ \st ->
-    -- In the case that the same macro could be interpreted both as a type or
-    -- as an expression, we choose to interpret it as a type.
-    case LanC.parseMacroType st.reparseEnv tokens of
-      Right typ -> (
-          Right $ MacroType $ CheckedMacroType typ NoAnn
-        , st & #reparseEnv %~ updateReparseEnv typ
-        )
-      Left errType ->
-        case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
-          Right CExpr.DSL.Macro{
-                    macroName = name'
-                  , macroArgs = args
-                  , macroBody = body
-                  } ->
-            Vec.reifyList args $ \args' -> do
-              case CExpr.DSL.tcMacro st.macroEnv name' args' body of
-                Right inf -> (
-                    Right $ MacroExpr $ CheckedMacroExpr{
-                        args = args
-                      , body = macroEmbedPass body
-                      , typ  = dropEval inf
-                      }
-                  , st & #macroEnv %~ Map.insert name' inf
-                  )
-                Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
-          Left errExpr ->
-              (Left $ HandleMacrosErrorParse errType errExpr, st)
+parseMacro name mac = case mac.tokens of
+    []  -> panicPure $ "Macro " <> show name <> ": unexpected empty list of tokens"
+    [_] -> do
+      gets (.preprocessorCtx) >>= liftIO . CPP.addMacroDefinition mac
+      pure $ Left $ HandleMacrosErrorEmpty name
+    tokens -> do
+      st0 <- get
+      -- In the case that the same macro could be interpreted both as a type or
+      -- as an expression, we choose to interpret it as a type.
+      liftIO (LanC.parseMacroType st0.preprocessorCtx st0.reparseEnv tokens) >>= \case
+        Right typ -> state $ \st -> (
+            Right $ MacroType $ CheckedMacroType typ NoAnn
+          , st & #reparseEnv %~ updateReparseEnv typ
+          )
+        Left errType -> do
+          gets (.preprocessorCtx) >>= liftIO . CPP.addMacroDefinition mac
+          case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
+            Right CExpr.DSL.Macro{
+                      macroName = name'
+                    , macroArgs = args
+                    , macroBody = body
+                    } ->
+              Vec.reifyList args $ \args' -> do
+                case CExpr.DSL.tcMacro st0.macroEnv name' args' body of
+                  Right inf -> state $ \st -> (
+                      Right $ MacroExpr $ CheckedMacroExpr{
+                          args = args
+                        , body = macroEmbedPass body
+                        , typ  = dropEval inf
+                        }
+                    , st & #macroEnv %~ Map.insert name' inf
+                    )
+                  Left errTc -> state $ \st -> (Left $ HandleMacrosErrorTc errTc, st)
+            Left errExpr -> state $ \st ->
+                ( Left $ HandleMacrosErrorParse errType errExpr
+                , st
+                )
   where
     updateReparseEnv :: C.Type HandleMacros -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateReparseEnv typ
@@ -483,9 +498,9 @@ parseMacro name tokens  = state     $ \st ->
       -- because their underlying type is not @PrimBool@.
       | name.text == "bool"
       , C.TypePrim PrimBool <- typ
-      = Map.insert name.text typ
+      = recordParsedType name.text typ
       | otherwise
-      = Map.insert name.text $
+      = recordParsedType name.text $
           C.TypeMacro $ C.Ref {
               name = DeclId{name = name, isAnon = False}
             , underlying = typ
@@ -507,11 +522,11 @@ reparseWith ::
   -> M r                    -- ^ If parsing fails
   -> (a -> M r)             -- ^ If parsing succeeds
   -> M r
-reparseWith p tokens onFailure onSuccess = state $ \st ->
-    case p st.reparseEnv tokens of
-      Right a -> runState (unwrapM $ onSuccess a) st
-      Left  e -> let st' = st & #errors %~ (withCallStack (HandleMacrosErrorReparse e) :)
-                 in runState (unwrapM $ onFailure  ) st'
-  where
-    unwrapM :: M a -> (State MacroState a)
-    unwrapM (WrapM ma) = ma
+reparseWith p tokens onFailure onSuccess = do
+    st <- get
+    liftIO (p st.preprocessorCtx st.reparseEnv tokens) >>= \case
+      Right a -> onSuccess a
+      Left e  -> do
+        modify $ \st' ->
+          st' & #errors %~ (withCallStack (HandleMacrosErrorReparse e) :)
+        onFailure

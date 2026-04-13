@@ -31,7 +31,9 @@ testCases = [
     , test_macros_macro_in_fundecl_vs_typedef
     , test_macros_macro_redefines_global
     , test_macros_macros
-    , test_macros_reparse
+    , test_macros_reparse_cref_attributes
+    , test_macros_reparse_gnu_attributes
+    , test_macros_reparse_reparse
     ]
 
 {-------------------------------------------------------------------------------
@@ -83,9 +85,19 @@ test_macros_macros =
     defaultTest "macros/macros"
       & #cStandard .~ c23
 
-test_macros_reparse :: TestCase
-test_macros_reparse =
-    defaultTest "macros/reparse"
+test_macros_reparse_gnu_attributes :: TestCase
+test_macros_reparse_gnu_attributes =
+    defaultTest "macros/reparse/gnu_attributes"
+      & #cStandard      .~ c23
+
+test_macros_reparse_cref_attributes :: TestCase
+test_macros_reparse_cref_attributes =
+    defaultTest "macros/reparse/cref_attributes"
+      & #cStandard      .~ c23
+
+test_macros_reparse_reparse :: TestCase
+test_macros_reparse_reparse =
+    defaultTest "macros/reparse/reparse"
       & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
       & #cStandard      .~ c23
       & #tracePredicate .~ tolerateAll

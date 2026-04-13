@@ -3,115 +3,115 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: macro A
   hsname: A
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: struct some_struct
   hsname: Some_struct
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: union some_union
   hsname: Some_union
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: enum some_enum
   hsname: Some_enum
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: arr_typedef1
   hsname: Arr_typedef1
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: arr_typedef2
   hsname: Arr_typedef2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: arr_typedef3
   hsname: Arr_typedef3
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: arr_typedef4
   hsname: Arr_typedef4
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: typedef1
   hsname: Typedef1
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: typedef2
   hsname: Typedef2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: typedef3
   hsname: Typedef3
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: funptr_typedef1
   hsname: Funptr_typedef1
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: funptr_typedef2
   hsname: Funptr_typedef2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: funptr_typedef3
   hsname: Funptr_typedef3
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: funptr_typedef4
   hsname: Funptr_typedef4
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: funptr_typedef5
   hsname: Funptr_typedef5
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: comments2
   hsname: Comments2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: struct example_struct
   hsname: Example_struct
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef1
   hsname: Const_typedef1
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef2
   hsname: Const_typedef2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef3
   hsname: Const_typedef3
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef4
   hsname: Const_typedef4
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef5
   hsname: Const_typedef5
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef6
   hsname: Const_typedef6
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_typedef7
   hsname: Const_typedef7
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: struct example_struct_with_const
   hsname: Example_struct_with_const
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr1
   hsname: Const_funptr1
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr2
   hsname: Const_funptr2
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr3
   hsname: Const_funptr3
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr4
   hsname: Const_funptr4
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr5
   hsname: Const_funptr5
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr6
   hsname: Const_funptr6
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: const_funptr7
   hsname: Const_funptr7
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: macro BOOL
   hsname: BOOL
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: macro INT
   hsname: INT
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: macro INTP
   hsname: INTP
-- headers: macros/reparse.h
+- headers: macros/reparse/reparse.h
   cname: macro INTCP
   hsname: INTCP
 hstypes:
