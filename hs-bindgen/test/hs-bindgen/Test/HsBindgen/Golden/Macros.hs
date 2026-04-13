@@ -25,6 +25,7 @@ testCases = [
     , defaultTest "macros/macro_typedef_scope"
     , defaultTest "macros/macro_typedef_struct"
     , defaultTest "macros/macro_types"
+    , defaultTest "macros/object_like_as_function_like"
       -- Bespoke tests
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
