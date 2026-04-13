@@ -197,7 +197,7 @@ instance UpdateUseSites C.Struct where
           , flam      = structFlam'
           , sizeof    = struct.sizeof
           , alignment = struct.alignment
-          , ann       = struct.ann
+          , ann       = NoAnn
           }
 
 instance UpdateUseSites C.StructField where
@@ -227,7 +227,7 @@ instance UpdateUseSites C.Union where
             fields    = unionFields'
           , sizeof    = union.sizeof
           , alignment = union.alignment
-          , ann       = union.ann
+          , ann       = NoAnn
           }
 
 instance UpdateUseSites C.UnionField where
