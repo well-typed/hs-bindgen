@@ -53,7 +53,8 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 type Parser a =
-     ReparseEnv
+     CPP.PreprocessorContext
+  -> ReparseEnv
   -> [Clang.Token Clang.TokenSpelling]
   -> IO (Either Error a)
 
@@ -105,7 +106,7 @@ parseWith ::
   -> (PartialDecl -> FromLanC a)
      -- ^ Construct our AST from the partial declaration
   -> Parser a
-parseWith flatten doExpand fromPartial env tokens = do
+parseWith flatten doExpand fromPartial prepCtx env tokens = do
     rawExpanded <- getRawExpanded
     pure $ runFromLanC env $ do
       partial <- parseUsingLanC (getLocation tokens) rawExpanded
@@ -115,7 +116,7 @@ parseWith flatten doExpand fromPartial env tokens = do
     getRawExpanded :: IO String
     getRawExpanded
       | doExpand
-      = CPP.preprocessWith env.definitions raw >>= \case
+      = CPP.preprocess prepCtx raw >>= \case
           Left _err -> pure raw -- TODO: trace a warning.
           Right raw' -> pure raw' -- TODO: is this a safe fallback?
       | otherwise
@@ -229,7 +230,6 @@ skipFunctionBody toks = go toks
 initReparseEnv :: ClangCStandard -> ReparseEnv
 initReparseEnv standard = ReparseEnv {
       types = Map.fromList (bespokeTypes standard)
-    , definitions = CPP.emptyMacroDefinitions
     }
 
 -- | \"Primitive\" we expect the reparser to recognize

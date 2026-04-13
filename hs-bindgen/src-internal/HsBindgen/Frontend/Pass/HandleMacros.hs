@@ -16,14 +16,14 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Clang.CStandard (ClangCStandard)
+import HsBindgen.CPP.Clang qualified as CPP
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.LanguageC.Monad (recordMacroDefinition,
-                                           recordParsedType)
+import HsBindgen.Frontend.LanguageC.Monad (recordParsedType)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -420,18 +420,23 @@ data MacroState = MacroState {
 
       -- | Newtypes and macro-defined types in scope
     , reparseEnv :: LanC.ReparseEnv
+
+    , preprocessorCtx :: CPP.PreprocessorContext
     }
   deriving stock (Generic)
 
-initMacroState :: ClangCStandard -> MacroState
-initMacroState standard = MacroState{
+initMacroState :: ClangCStandard -> CPP.PreprocessorContext -> MacroState
+initMacroState standard prepCtx = MacroState{
       errors     = []
     , macroEnv   = Map.empty
     , reparseEnv = LanC.initReparseEnv standard
+    , preprocessorCtx = prepCtx
     }
 
 runM :: ClangCStandard -> M a -> IO (a, [Msg HandleMacros])
-runM standard (WrapM ma) = fmap (.errors) <$> runStateT ma (initMacroState standard)
+runM standard (WrapM ma) =
+    CPP.withPreprocessorContext $ \prepCtx ->
+      fmap (.errors) <$> runStateT ma (initMacroState standard prepCtx)
 
 {-------------------------------------------------------------------------------
   Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)
@@ -446,20 +451,20 @@ parseMacro ::
   -> M (Either HandleMacrosError (CheckedMacro HandleMacros))
 parseMacro name mac = case mac.tokens of
     []  -> panicPure $ "Macro " <> show name <> ": unexpected empty list of tokens"
-    [_] -> state $ \st ->
-      ( Left $ HandleMacrosErrorEmpty name
-      , st & #reparseEnv %~ recordMacroDefinition mac
-      )
+    [_] -> do
+      gets (.preprocessorCtx) >>= liftIO . CPP.addMacroDefinition mac
+      pure $ Left $ HandleMacrosErrorEmpty name
     tokens -> do
       st0 <- get
       -- In the case that the same macro could be interpreted both as a type or
       -- as an expression, we choose to interpret it as a type.
-      liftIO (LanC.parseMacroType st0.reparseEnv tokens) >>= \case
+      liftIO (LanC.parseMacroType st0.preprocessorCtx st0.reparseEnv tokens) >>= \case
         Right typ -> state $ \st -> (
             Right $ MacroType $ CheckedMacroType typ NoAnn
           , st & #reparseEnv %~ updateReparseEnv typ
           )
-        Left errType ->
+        Left errType -> do
+          gets (.preprocessorCtx) >>= liftIO . CPP.addMacroDefinition mac
           case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
             Right CExpr.DSL.Macro{
                       macroName = name'
@@ -475,12 +480,11 @@ parseMacro name mac = case mac.tokens of
                         , typ  = dropEval inf
                         }
                     , st & #macroEnv %~ Map.insert name' inf
-                         & #reparseEnv %~ recordMacroDefinition mac
                     )
                   Left errTc -> state $ \st -> (Left $ HandleMacrosErrorTc errTc, st)
             Left errExpr -> state $ \st ->
                 ( Left $ HandleMacrosErrorParse errType errExpr
-                , st & #reparseEnv %~ recordMacroDefinition mac
+                , st
                 )
   where
     updateReparseEnv :: C.Type HandleMacros -> LanC.ReparseEnv -> LanC.ReparseEnv
@@ -520,7 +524,7 @@ reparseWith ::
   -> M r
 reparseWith p tokens onFailure onSuccess = do
     st <- get
-    liftIO (p st.reparseEnv tokens) >>= \case
+    liftIO (p st.preprocessorCtx st.reparseEnv tokens) >>= \case
       Right a -> onSuccess a
       Left e  -> do
         modify $ \st' ->

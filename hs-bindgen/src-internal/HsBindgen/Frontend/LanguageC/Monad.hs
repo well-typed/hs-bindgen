@@ -10,7 +10,6 @@ module HsBindgen.Frontend.LanguageC.Monad (
     -- * Reparse environment
   , ReparseEnv (..)
   , recordParsedType
-  , recordMacroDefinition
     -- * Throwing errors
   , unexpected
   , unsupported
@@ -29,12 +28,10 @@ import Data.Foldable qualified as Foldable
 import Data.Map.Lazy qualified as Map
 import GHC.Stack
 
-import HsBindgen.CPP.Clang qualified as CPP
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (UnparsedMacro)
 import HsBindgen.Imports hiding (Default (..))
 
 {-------------------------------------------------------------------------------
@@ -74,18 +71,11 @@ data ReparseEnv = ReparseEnv {
     --
     -- These types are in scope when reparsing a particular declaration
     types  :: Map CName (C.Type HandleMacros)
-    -- | Macro definitions that failed to parse as types.
-    --
-    -- These definitions are expanded before reparsing.
-  , definitions :: CPP.MacroDefinitions
   }
   deriving stock Generic
 
 recordParsedType :: CName -> C.Type HandleMacros -> ReparseEnv -> ReparseEnv
 recordParsedType name typ env = env & #types %~ Map.insert name typ
-
-recordMacroDefinition :: UnparsedMacro -> ReparseEnv -> ReparseEnv
-recordMacroDefinition def env = env & #definitions %~ CPP.addMacroDefinition def
 
 {-------------------------------------------------------------------------------
   Throwing errors
