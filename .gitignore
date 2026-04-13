@@ -10,11 +10,8 @@
 
 cabal.project.local
 dist-newstyle/
+.ghc.environment.*
 unversioned
 
 *.dll
 *.log
-
-# Shared build directories for fixture compilation
-dist-newstyle-fixture-check/
-dist-newstyle-th-fixtures/

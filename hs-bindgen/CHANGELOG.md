@@ -38,6 +38,11 @@
   name.
 * Fix `UseDeclGraph` construction to avoid inserting edges for non-existing
   vertices, and fix `topSort'` order for include siblings.
+* Generated modules now emit `{-# LANGUAGE FlexibleInstances #-}` when any
+  instance head contains a non-variable argument (e.g. a type-level string
+  literal from a `HasField` instance, or a function-typed argument).  This was
+  previously covered implicitly by `GHC2021`, but broke downstream consumers
+  using `Haskell2010` as the default language.
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

@@ -503,15 +503,13 @@ jobs:
 
       - name: 🛠️ Configure
         run: |
-          cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+          cabal configure --disable-benchmark --disable-documentation --ghc-options="-Werror"
 
-      - name: 🛠️ Build Cabal dependencies
-        run: cabal build all --only-dependencies
+      - name: 🛠️ Build
+        run: cabal build all
 
       - name: 🧪 Compile and generate Haddocks for fixtures
-        run: |
-          chmod +x scripts/ci/compile-and-generate-haddocks-fixtures.sh
-          scripts/ci/compile-and-generate-haddocks-fixtures.sh --haddock
+        run: cabal test test-hs-bindgen --test-show-details=direct --test-options="--haddock"
 
   # ============================================================================
   # Job 7: Cross-compilation
