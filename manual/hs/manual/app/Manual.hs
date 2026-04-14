@@ -24,7 +24,7 @@ into separate modules corresponding to the manual's structure:
 * 'Manual.BindingSpecifications' - Examples for external binding specifications
 * 'Manual.Globals' - Examples for global variables and constants
 * 'Manual.OmitFieldPrefixes' - Examples for unprefixed field names
-* 'Manual.ZeroCopy' - Examples for zero-copy bindings
+* 'Manual.PointerManipulation' - Examples for the pointer manipulation API
 -}
 module Manual (main) where
 
@@ -40,13 +40,13 @@ import Manual.GeneratedNames qualified
 import Manual.Globals qualified
 import Manual.Macros qualified
 import Manual.OmitFieldPrefixes qualified
+import Manual.PointerManipulation qualified
 import Manual.Types.Arrays qualified
 import Manual.Types.Complex qualified
 import Manual.Types.Enums qualified
 import Manual.Types.Structs qualified
 import Manual.Types.Typedefs qualified
 import Manual.Types.Unions qualified
-import Manual.ZeroCopy qualified
 
 {-------------------------------------------------------------------------------
   Main
@@ -71,7 +71,7 @@ main = do
     Manual.Types.Complex.examples
     Manual.Functions.HigherOrder.examples
     Manual.OmitFieldPrefixes.examples
-    Manual.ZeroCopy.examples
+    Manual.PointerManipulation.examples
 
 {-------------------------------------------------------------------------------
   Helper - shared across modules

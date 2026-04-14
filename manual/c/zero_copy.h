@@ -1,1 +1,0 @@
-../../hs-bindgen/examples/golden/manual/zero_copy.h

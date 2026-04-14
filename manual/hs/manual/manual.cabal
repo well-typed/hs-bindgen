@@ -29,6 +29,7 @@ executable run-manual
     Manual.Globals
     Manual.Macros
     Manual.OmitFieldPrefixes
+    Manual.PointerManipulation
     Manual.Tools
     Manual.Types.Arrays
     Manual.Types.Complex
@@ -36,7 +37,6 @@ executable run-manual
     Manual.Types.Structs
     Manual.Types.Typedefs
     Manual.Types.Unions
-    Manual.ZeroCopy
 
   ghc-options:     -main-is Manual
   hs-source-dirs:  app generated
@@ -48,7 +48,7 @@ executable run-manual
     functionpointers
     hsb_complex_test
     callbacks
-    zerocopy
+    pointermanipulation
 
   -- Internal.
   build-depends:
@@ -56,6 +56,7 @@ executable run-manual
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
+    , optics
 
   -- External.
   build-depends:   vector
@@ -84,14 +85,11 @@ executable run-manual
     Globals.Global
     Manual.Tools
     OmitFieldPrefixes
+    PointerManipulation
     Structs
     Structs.Nesting
     Structs.Safe
     Unions.Nesting
-    ZeroCopy
-    ZeroCopy.FunPtr
-    ZeroCopy.Safe
-    ZeroCopy.Unsafe
 
   -- Avoid gcc warnings about non-NFC characters
   -- See <https://github.com/well-typed/hs-bindgen/issues/918>
