@@ -80,6 +80,28 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Generated.Callbacks.Unions \
     callbacks/unions.h
 
+echo "## Pointer manipulation"
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.PointerManipulation \
+    pointer_manipulation.h
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.PointerManipulation.Structs \
+    pointer-manipulation/structs.h
+
 echo "## Types"
 
 echo "### Anonymous"
