@@ -6,6 +6,9 @@
 
 ### New features
 
+* When using the Template Haskell backend, external types referenced via
+  external binding specifications that are not in scope now produce a helpful
+  compile error suggesting the missing import.
 * Macro handling has been overhauled. Macros are now parsed during the `Parse`
   pass and typechecked in a dedicated `TypecheckMacros` pass (replacing the old
   `HandleMacros` pass). A new `ReparseMacroExpansions` pass handles declarations

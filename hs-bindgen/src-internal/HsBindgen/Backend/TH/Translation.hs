@@ -6,6 +6,7 @@ module HsBindgen.Backend.TH.Translation (
 ) where
 
 import Control.Monad (liftM2)
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import Foreign.C.Types qualified
@@ -47,7 +48,7 @@ mkGlobalExpr g = case g.cat of
   GVar -> TH.varE g.name
   GCon -> TH.conE g.name
 
-mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
+mkExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env expr = case asNaryEApp expr of
     (EBoxedTup n, args) ->
       prettyTupleExpr Boxed env n args
@@ -60,12 +61,12 @@ mkExpr env expr = case asNaryEApp expr of
     _otherwise -> mkRolledExpr env expr
 
 -- See 'mkExpr' but do not unroll/recognize function applications.
-mkRolledExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
+mkRolledExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkRolledExpr env expr = case expr of
     EGlobal n     -> mkGlobalExpr n
-    EFree n       -> hsVarE n
+    EFree n       -> TH.varE $ mkHsName n
     EBound x      -> TH.varE (lookupEnv x env)
-    ECon n        -> hsConE n
+    ECon n        -> TH.conE $ mkHsName n
     EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
     EIntegral i Nothing -> TH.litE (TH.IntegerL i)
     EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv t)
@@ -116,7 +117,7 @@ mkRolledExpr env expr = case expr of
                            SAlt c add hints b -> do
                              (xs, env') <- newNames env add hints
                              TH.match
-                                (hsConP c $ map TH.varP xs)
+                                (TH.conP (mkHsName c) (map TH.varP xs))
                                 (TH.normalB $ mkExpr env' b)
                                 []
                            SAltNoConstr hints b -> do
@@ -157,10 +158,10 @@ mkRolledExpr env expr = case expr of
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
-    PEApps n xs -> hsConP n (map mkPat xs)
+    PEApps n xs -> TH.conP (mkHsName n) (map mkPat xs)
     PELit i -> TH.litP (TH.IntegerL i)
 
-mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
+mkType :: Guasi q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkType env ty = case asNaryTApp ty of
     (TBoxedTup n, args) ->
       prettyTupleType env n args
@@ -172,13 +173,13 @@ mkType env ty = case asNaryTApp ty of
       mkRolledType env ty
 
 -- See 'mkType' but do not unroll/recognize type applications.
-mkRolledType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
+mkRolledType :: Guasi q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkRolledType env ty = case ty of
     TGlobal n  -> TH.conT n.name
     TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
     TBound x   -> TH.varT (lookupEnv x env)
-    TCon n     -> hsConT n
-    TFree n    -> hsVarT n
+    TCon n     -> TH.conT $ mkHsName n
+    TFree n    -> TH.varT $ mkHsName n
     TLit n     -> TH.litT (TH.numTyLit (toInteger n))
     TStrLit s  -> TH.litT (TH.strTyLit s)
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
@@ -198,17 +199,13 @@ mkRolledType env ty = case ty of
             (traverse (mkType env') ctxt)
             (mkType env' body)
     TExt extRef _cTypeSpec _hsTypeSpec ->
-        TH.conT . TH.mkName $ concat [
-              Hs.moduleNameToString extRef.moduleName
-            , "."
-            , Text.unpack extRef.ident.text
-            ]
+        lookupExtType extRef
 
 mkDecl :: forall q. Guasi q => FieldNamingStrategy -> SDecl -> q [TH.Dec]
 mkDecl fns = \case
       DTypSyn typSyn -> do
         targetType <- mkType EmptyEnv typSyn.typ
-        pure [TH.TySynD (hsNameToTH typSyn.name) [] targetType]
+        pure [TH.TySynD (mkHsName typSyn.name) [] targetType]
       DInst inst -> do
         instanceDec <-
           TH.instanceD
@@ -235,7 +232,7 @@ mkDecl fns = \case
         let fields :: [q TH.VarBangType]
             docs   :: [(Hs.Name Hs.NsVar, Maybe HsDoc.Comment)]
             (fields, docs) = unzip
-              [ ( TH.varBangType (hsNameToTH field.name) $
+              [ ( TH.varBangType (mkHsName field.name) $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                       (mkType EmptyEnv field.typ)
@@ -248,23 +245,23 @@ mkDecl fns = \case
         decl <-
           TH.dataD
             (TH.cxt [])
-            (hsNameToTH record.typ)
+            (mkHsName record.typ)
             []
             Nothing
-            [TH.recC (hsNameToTH record.con) fields]
+            [TH.recC (mkHsName record.con) fields]
             (nestedDeriving record.deriv)
         putLocalDocM record.typ record.comment
 
         pure [decl]
 
       DEmptyData empty -> do
-        decl <- TH.dataD (TH.cxt []) (hsNameToTH empty.name) [] Nothing [] []
+        decl <- TH.dataD (TH.cxt []) (mkHsName empty.name) [] Nothing [] []
         putLocalDocM empty.name empty.comment
         pure [decl]
 
       DNewtype newtyp -> do
         let field :: q TH.VarBangType
-            field = TH.varBangType (hsNameToTH newtyp.field.name) $
+            field = TH.varBangType (mkHsName newtyp.field.name) $
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
@@ -274,10 +271,10 @@ mkDecl fns = \case
         decl <-
           TH.newtypeD
             (TH.cxt [])
-            (hsNameToTH newtyp.name)
+            (mkHsName newtyp.name)
             []
             Nothing
-            (TH.recC (hsNameToTH newtyp.con) [field])
+            (TH.recC (mkHsName newtyp.con) [field])
             (nestedDeriving newtyp.deriv)
         putLocalDocM (newtyp.name) (newtyp.comment)
         pure [decl]
@@ -324,14 +321,14 @@ mkDecl fns = \case
               <$> pure callconv
               <*> pure safety
               <*> pure impent
-              <*> pure (hsNameToTH foreignImport.name)
+              <*> pure (mkHsName foreignImport.name)
               <*> mkType EmptyEnv importType
         putLocalDocM foreignImport.name foreignImport.comment
         pure [decl]
 
       DBinding binding -> do
         let bindingName :: TH.Name
-            bindingName = hsNameToTH binding.name
+            bindingName = mkHsName binding.name
             bindingType :: SType EmptyCtx
             bindingType = foldr (TFun . (.typ)) binding.result.typ binding.parameters
 
@@ -346,7 +343,7 @@ mkDecl fns = \case
         pure decls
 
       DPatternSynonym patSyn -> do
-        let thPatSynName = hsNameToTH patSyn.name
+        let thPatSynName = mkHsName patSyn.name
 
         decls <- sequence
           [ TH.patSynSigD
@@ -375,11 +372,11 @@ mkDecl fns = \case
       pragma :: Hs.Name Hs.NsVar -> Pragma -> q TH.Dec
       pragma n = \case
         NOINLINE ->
-            TH.pragInlD (hsNameToTH n) TH.NoInline TH.FunLike TH.AllPhases
+            TH.pragInlD (mkHsName n) TH.NoInline TH.FunLike TH.AllPhases
 
 -- | Nested deriving clauses (part of a datatype declaration)
 nestedDeriving :: forall q.
-     Quote q
+     Guasi q
   => [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> [q TH.DerivClause]
 nestedDeriving = map aux
   where
@@ -388,7 +385,7 @@ nestedDeriving = map aux
         s' <- strategy s
         TH.derivClause (Just s') (map (TH.conT . (.name) . typeClassGlobal) clss)
 
-strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
+strategy :: Guasi q => Hs.Strategy ClosedType -> q TH.DerivStrategy
 strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy
 strategy Hs.DeriveStock    = return TH.StockStrategy
 strategy (Hs.DeriveVia ty) = TH.ViaStrategy <$> mkType EmptyEnv ty
@@ -400,25 +397,21 @@ strategy (Hs.DeriveVia ty) = TH.ViaStrategy <$> mkType EmptyEnv ty
 appsT :: Quote q => q TH.Type -> [q TH.Type] -> q TH.Type
 appsT = foldl' TH.appT
 
-hsConE :: Quote m => Hs.Name Hs.NsConstr -> m TH.Exp
-hsConE = TH.conE . hsNameToTH
+-- | Create a 'TH.name' from an 'Hs.Name'
+--
+-- Be careful! This function uses 'TH.mkName'. Names created with 'TH.mkName'
+-- are resolved in the context of the use site of the splice. That is, used
+-- symbols /must be in scope/, and users must import the probably only
+-- indirectly-used modules.
+mkHsName :: Hs.Name ns -> TH.Name
+mkHsName = TH.mkName . Text.unpack . Hs.getName
 
-hsConP :: Quote m => Hs.Name Hs.NsConstr -> [m TH.Pat] -> m TH.Pat
-hsConP = TH.conP . hsNameToTH
-
-hsConT :: Quote m => Hs.Name Hs.NsTypeConstr -> m TH.Type
-hsConT = TH.conT . hsNameToTH
-
-hsVarT :: Quote m => Hs.Name Hs.NsVar -> m TH.Type
-hsVarT = TH.varT . hsNameToTH
-
-hsVarE :: Quote m => Hs.Name Hs.NsVar -> m TH.Exp
-hsVarE = TH.varE . hsNameToTH
-
-hsNameToTH :: Hs.Name ns -> TH.Name
-hsNameToTH = TH.mkName . Text.unpack  . Hs.getName
-
-newNames :: Quote q => Env ctx TH.Name -> Add n ctx ctx' -> Vec n NameHint -> q ([TH.Name], Env ctx' TH.Name)
+newNames ::
+     Quote q
+  => Env ctx TH.Name
+  -> Add n ctx ctx'
+  -> Vec n NameHint
+  -> q ([TH.Name], Env ctx' TH.Name)
 newNames env AZ _ = return ([], env)
 newNames env (AS n) (NameHint hint ::: hints) = do
     (xs, env') <- newNames env n hints
@@ -444,7 +437,13 @@ putLocalFieldDocM fns parent field = traverse_ (putLocalFieldDoc fns parent fiel
 
 data TupleType = Boxed | Unboxed
 
-prettyTupleExpr :: Quote q => TupleType -> Env ctx TH.Name -> Plus2 -> [SExpr ctx] -> q TH.Exp
+prettyTupleExpr ::
+     Guasi q
+  => TupleType
+  -> Env ctx TH.Name
+  -> Plus2
+  -> [SExpr ctx]
+  -> q TH.Exp
 prettyTupleExpr ty env n decls = case compare arity nDecls of
   LT ->
     panicPure $ mconcat [
@@ -471,7 +470,7 @@ prettyTupleExpr ty env n decls = case compare arity nDecls of
       Boxed   -> TH.TupE
       Unboxed -> TH.UnboxedTupE
 
-prettyTupleType :: Quote q => Env ctx TH.Name -> Plus2 -> [SType ctx] -> q TH.Type
+prettyTupleType :: Guasi q => Env ctx TH.Name -> Plus2 -> [SType ctx] -> q TH.Type
 prettyTupleType env n decls = case compare arity nDecls of
   LT ->
     panicPure $ mconcat [
@@ -492,3 +491,30 @@ prettyTupleType env n decls = case compare arity nDecls of
 
 panicWith :: Show a => String -> a -> b
 panicWith msg x = panicPure $ msg ++ ": " ++ show x
+
+-- | Look up a type name from an external binding spec.
+--
+-- If the name is not in scope, report a helpful error message telling the user
+-- which module they need to import, then falls back to 'TH.mkName' to avoid
+-- cascading type errors.
+--
+-- See https://github.com/well-typed/hs-bindgen/issues/1622.
+lookupExtType :: Guasi q => Hs.ExtRef -> q TH.Type
+lookupExtType extRef = do
+    mName <- lookupTypeName qualName
+    case mName of
+      Just n  -> TH.conT n
+      Nothing -> do
+          modifyGuasi (putMissingModule extRef.moduleName)
+          TH.conT (TH.mkName qualName)
+  where
+    qualName :: String
+    qualName = concat [
+          Hs.moduleNameToString extRef.moduleName
+        , "."
+        , Text.unpack extRef.ident.text
+        ]
+
+    putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
+    putMissingModule m s = s & #missingModules %~ Set.insert m
+

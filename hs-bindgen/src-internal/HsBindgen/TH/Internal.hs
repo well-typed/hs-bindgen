@@ -30,6 +30,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
@@ -156,10 +157,27 @@ getThDecls fns deps wrappers decls = do
     addCSource wrapperSrc
 
     -- Generate TH declarations.
-    fmap concat $ traverse (mkDecl fns) decls
+    xs <- fmap concat $ traverse (mkDecl fns) decls
+
+    -- Report warnings/errors.
+    reportMissingModules
+
+    pure xs
   where
     wrapperSrc :: String
     wrapperSrc = getCWrappersSource wrappers
+
+    reportMissingModules :: Guasi q => q ()
+    reportMissingModules = do
+      missingModules <- (.missingModules) <$> getGuasi
+      unless (Set.null missingModules) $ do
+        reportError $ concat $
+          "External types not in scope. Add the following import(s):\n"
+          : map getImportStatement (Set.elems missingModules)
+
+    getImportStatement :: Hs.ModuleName -> String
+    getImportStatement m =
+      "    import " <> Hs.moduleNameToString m <> " qualified"
 
 {-------------------------------------------------------------------------------
   Helpers

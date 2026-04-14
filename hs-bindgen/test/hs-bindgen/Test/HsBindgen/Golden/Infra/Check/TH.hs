@@ -4,6 +4,7 @@
 -- | Golden test: TH output
 module Test.HsBindgen.Golden.Infra.Check.TH (check) where
 
+import Control.Monad.State (MonadState)
 import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Foldable qualified as Foldable
 import Data.Generics qualified as SYB
@@ -129,7 +130,7 @@ convertWindows = map f where
 
 -- | Deterministic monad with TH.Quote instance
 newtype Qu a = Qu (State QuState a)
-  deriving newtype (Functor, Applicative, Monad)
+  deriving newtype (Functor, Applicative, Monad, MonadState QuState)
 
 data QuDecLoc = QuDecLoc {
     ns :: Hs.Namespace
@@ -153,34 +154,46 @@ data QuState = QuState{
     , uniquenessNumber :: !Integer
     , cSources         :: [String]
     , docMap           :: QuDocMap
+    , guasiState       :: GuasiState
     }
+  deriving stock (Show, Generic)
 
 emptyQuState :: QuState
-emptyQuState = QuState [] 0 [] Map.empty
+emptyQuState = QuState [] 0 [] Map.empty emptyGuasiState
 
 instance TH.Quote Qu where
-    newName n = Qu $ do
+    newName n = do
         q@QuState{ uniquenessNumber = u } <- get
         put $! q { uniquenessNumber = u + 1 }
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
 instance Guasi Qu where
-    addDependentFile fp = Qu $ do
-        q@QuState{ dependencyFiles = depfiles } <- get
-        put $! q { dependencyFiles = depfiles ++ [fp] }
+    getGuasi = (.guasiState) <$> get
+    putGuasi x = do
+        st <- get
+        put $! st & #guasiState .~ x
 
-    addCSource src = Qu $ do
+    addCSource src = do
         q@QuState{ cSources = csources } <- get
         put $! q { cSources = csources ++ [src] }
+
+    addDependentFile fp = do
+        q@QuState{ dependencyFiles = depfiles } <- get
+        put $! q { dependencyFiles = depfiles ++ [fp] }
 
     -- Note: we could mock these better, if we want to test error reporting
     -- Currently (2025-04-15) we only report missing extensions,
     -- so there isn't much to test.
     extsEnabled = return []
+
+    -- In the test mock, we treat all external names as in scope (resolving to
+    -- an unqualified 'mkName') to avoid triggering error-reporting paths.
+    lookupTypeName str = return $ Just $ TH.mkName str
+
     reportError _ = return ()
 
     putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> Qu ()
-    putLocalDoc nm s = Qu $ do
+    putLocalDoc nm s = do
         q@QuState{ docMap = docMap } <- get
         let ns = Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns)
             loc = QuDecLoc ns (Text.unpack $ Hs.getName nm)
@@ -189,14 +202,13 @@ instance Guasi Qu where
                 Map.insert (QuD loc) s docMap
             }
 
-    putLocalFieldDoc _fns parent field s =
-        Qu $ do
-          q@QuState{ docMap = docMap } <- get
-          let loc = QuFldLoc parentStr fieldStr
-          put $!
-            q { docMap =
-                  Map.insert (QuF loc) s docMap
-              }
+    putLocalFieldDoc _fns parent field s = do
+        q@QuState{ docMap = docMap } <- get
+        let loc = QuFldLoc parentStr fieldStr
+        put $!
+          q { docMap =
+                Map.insert (QuF loc) s docMap
+            }
       where
         parentStr, fieldStr :: String
         parentStr = Text.unpack $ Hs.getName parent

@@ -2,8 +2,12 @@
 
 module HsBindgen.Guasi (
     Guasi (..)
+    -- * State
+  , GuasiState(..)
+  , emptyGuasiState
   ) where
 
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
@@ -13,16 +17,29 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Pretty.Comment (CommentKind (..))
 import HsBindgen.Config (FieldNamingStrategy (..))
+import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
 -- which doesn't provide reification functionality of 'TH.Quasi',
 -- but has a bit more than 'TH.Quote'.
 class TH.Quote g => Guasi g where
-    addDependentFile :: FilePath -> g ()
-    extsEnabled :: g [TH.Extension]
-    reportError :: String -> g ()
+    getGuasi :: g GuasiState
+    putGuasi :: GuasiState -> g ()
+    modifyGuasi :: (GuasiState -> GuasiState) -> g ()
+    modifyGuasi f = getGuasi >>= putGuasi . f
+
     addCSource :: String -> g ()
+    addDependentFile :: FilePath -> g ()
+
+    extsEnabled :: g [TH.Extension]
+
+    -- | Look up a name in the type namespace of the environment.
+    --
+    -- Returns 'Nothing' if the name is not in scope.
+    lookupTypeName :: String -> g (Maybe TH.Name)
+
+    reportError :: String -> g ()
 
     -- | Attach a documentation to a declaration with provided name /in the
     --   current module/.
@@ -39,12 +56,26 @@ class TH.Quote g => Guasi g where
     putLocalFieldDoc ::
       FieldNamingStrategy -> Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> HsDoc.Comment -> g ()
 
+data GuasiState = GuasiState {
+      missingModules :: Set Hs.ModuleName
+    }
+    deriving (Eq, Show, Generic)
+
+emptyGuasiState :: GuasiState
+emptyGuasiState = GuasiState { missingModules = Set.empty }
+
 instance Guasi TH.Q where
-    addDependentFile = TH.addDependentFile
-    extsEnabled = TH.extsEnabled
-    reportError = TH.reportError
+    getGuasi = fromMaybe emptyGuasiState <$> TH.getQ
+    putGuasi = TH.putQ
 
     addCSource = TH.addForeignSource TH.LangC
+    addDependentFile = TH.addDependentFile
+
+    extsEnabled = TH.extsEnabled
+
+    lookupTypeName = TH.lookupTypeName
+
+    reportError = TH.reportError
 
     putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> TH.Q ()
     putLocalDoc nm comment = do
