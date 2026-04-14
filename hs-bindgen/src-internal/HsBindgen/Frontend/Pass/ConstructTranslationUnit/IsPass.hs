@@ -4,8 +4,8 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition (UseDeclGraph)
+import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph)
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass

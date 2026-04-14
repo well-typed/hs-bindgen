@@ -17,10 +17,10 @@ import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -64,21 +64,21 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             unit.includeGraph
             unit.ann.declIndex
             (resolveDecls unit.decls)
-        useDeclGraph =
-            UseDeclGraph.deleteRevDeps (Map.keys state.extTypes)
-          . UseDeclGraph.deleteDeps (Set.toList state.opqTypes)
-          $ unit.ann.useDeclGraph
+        declUseGraph =
+            DeclUseGraph.deleteRevDeps (Map.keysSet state.extTypes)
+          . DeclUseGraph.deleteDeps state.opqTypes
+          $ unit.ann.declUseGraph
         notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
-    in  ( reconstruct decls useDeclGraph state
+    in  ( reconstruct decls declUseGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
     reconstruct ::
          [C.Decl ResolveBindingSpecs]
-      -> UseDeclGraph
+      -> DeclUseGraph
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reconstruct decls' useDeclGraph state =
+    reconstruct decls' declUseGraph state =
       let externalIds :: Set DeclId
           externalIds = Map.keysSet state.extTypes
 
@@ -91,8 +91,8 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
           unitAnn' :: DeclMeta
           unitAnn' = DeclMeta {
                 declIndex    = index'
-              , useDeclGraph = useDeclGraph
-              , declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
+              , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
+              , declUseGraph = declUseGraph
               }
 
       in C.TranslationUnit{

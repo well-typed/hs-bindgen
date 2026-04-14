@@ -194,7 +194,7 @@ writeIncludeGraph regex showPaths filePolicy dirPolicy mPath = do
 writeUseDeclGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
 writeUseDeclGraph filePolicy dirPolicy mPath = do
     useDeclGraph <- getUseDeclGraph
-    let rendered = UseDeclGraph.dumpMermaid useDeclGraph
+    let rendered = UseDeclGraph.renderMermaid useDeclGraph
     case mPath of
       Nothing   ->
         Lift $ delay $ WriteToStdOut $ StringContent rendered

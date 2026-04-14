@@ -152,12 +152,12 @@ library internal
     HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclUseGraph
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Query
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UseDeclGraph
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Construction
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Query
     HsBindgen.Frontend.AST.Coerce
     HsBindgen.Frontend.AST.Decl
     HsBindgen.Frontend.AST.Deps

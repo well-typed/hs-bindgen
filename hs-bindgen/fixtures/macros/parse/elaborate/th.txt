@@ -1,5 +1,19 @@
 -- addDependentFile examples/golden/macros/parse/elaborate_inner.h
 -- addDependentFile examples/golden/macros/parse/elaborate.h
+{-| __C declaration:__ @macro INNER_B@
+
+    __defined at:__ @elaborate_inner.h 2:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_B :: CInt
+{-| __C declaration:__ @macro INNER_B@
+
+    __defined at:__ @elaborate_inner.h 2:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_B = 2 :: CInt
 {-| __C declaration:__ @macro OUTER_A@
 
     __defined at:__ @macros\/parse\/elaborate.h 7:9@
@@ -28,20 +42,6 @@ iNNER_A :: CInt
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
 iNNER_A = oUTER_A
-{-| __C declaration:__ @macro INNER_B@
-
-    __defined at:__ @elaborate_inner.h 2:9@
-
-    __exported by:__ @macros\/parse\/elaborate.h@
--}
-iNNER_B :: CInt
-{-| __C declaration:__ @macro INNER_B@
-
-    __defined at:__ @elaborate_inner.h 2:9@
-
-    __exported by:__ @macros\/parse\/elaborate.h@
--}
-iNNER_B = 2 :: CInt
 {-| __C declaration:__ @outer_int@
 
     __defined at:__ @macros\/parse\/elaborate.h 8:13@
