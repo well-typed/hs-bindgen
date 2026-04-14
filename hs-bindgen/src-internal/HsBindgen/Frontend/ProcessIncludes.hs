@@ -8,7 +8,7 @@ module HsBindgen.Frontend.ProcessIncludes (
   ) where
 
 import Control.Applicative (asum)
-import Data.DynGraph.Labelled qualified as DynGraph
+import Data.Digraph qualified as Digraph
 import Data.List qualified as List
 import Data.List.Compat (unsnoc)
 import Data.List.NonEmpty qualified as NonEmpty
@@ -154,12 +154,12 @@ processIncludes unit = do
                 "getMainHeadersAndInclude failed for " ++ show path ++ ": "
                   ++ msg
           in  case IncludeGraph.getIncludes includeGraph path of
-                DynGraph.FindEdgesFound startIncludes termIncludes -> Right $
+                Digraph.FindEdgesFound startIncludes termIncludes -> Right $
                   ( IncludeGraph.getIncludeArg <$> termIncludes
                   , NonEmpty.head startIncludes
                   )
-                DynGraph.FindEdgesNone    -> error' "none"
-                DynGraph.FindEdgesInvalid -> error' "invalid"
+                Digraph.FindEdgesNone    -> error' "none"
+                Digraph.FindEdgesInvalid -> error' "invalid"
 
     return (
         includeGraph
