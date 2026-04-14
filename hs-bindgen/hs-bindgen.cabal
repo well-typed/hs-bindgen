@@ -82,8 +82,6 @@ library internal
   -- Internal modules.
   exposed-modules:
     Data.Digraph
-    Data.DynGraph
-    Data.DynGraph.Labelled
     HsBindgen
     HsBindgen.Artefact
     HsBindgen.ArtefactM
