@@ -20,7 +20,6 @@ testCases = [
     , defaultTest "manual/function_pointers"
     , defaultTest "manual/omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
-    , defaultTest "manual/zero_copy"
     , test_manual_globals
     ]
 

@@ -143,15 +143,19 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Callbacks \
     callbacks.h
 
+echo "# "
+echo "# Pointer manipulation API"
+echo "# "
+
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c/ \
     --create-output-dirs \
     --overwrite-files \
-    --unique-id com.hs-bindgen.manual.zerocopy \
+    --unique-id com.hs-bindgen.manual.pointermanipulation \
     --hs-output-dir hs/manual/generated \
-    --module ZeroCopy \
-    zero_copy.h
+    --module PointerManipulation \
+    pointer_manipulation.h
 
 echo "# "
 echo "# Structs"
