@@ -357,9 +357,11 @@ reaches fromVs graph =
 
 -- | Get the topological sort of a graph using vertex insertion order
 --
--- There is no topological sort of a graph that contains cycles.  In this
--- case, the set of vertices that contains cycles is returned.
-topSort :: Ord v => Digraph e v -> Either (Set v) [v]
+-- There is no topological sort of a graph that contains cycles.  This function
+-- returns the set of vertices that contain cycles as well as the topological
+-- sort of the rest of the graph, which allows the caller decide how to handle
+-- this case.
+topSort :: Ord v => Digraph e v -> (Set v, [v])
 topSort graph =
     let fEdgeMap  = getFEdgeMap graph.edgeMap
         rEdgeMap  = getREdgeMap graph.edgeMap
@@ -370,12 +372,7 @@ topSort graph =
           (map (graph.idxMap IntMap.!))
           (auxF [] startIdxs fEdgeMap rEdgeMap)
   where
-    auxF ::
-         [Idx]
-      -> IntSet
-      -> IntMap IntSet
-      -> IntMap IntSet
-      -> Either IntSet [Idx]
+    auxF :: [Idx] -> IntSet -> IntMap IntSet -> IntMap IntSet -> (IntSet, [Idx])
     auxF acc startIdxs fEdgeMap rEdgeMap = case IntSet.minView startIdxs of
       Just (fromIdx, startIdxs') ->
         let (mToIdxs, fEdgeMap') =
@@ -383,9 +380,7 @@ topSort graph =
             toIdxs = maybe [] IntSet.elems mToIdxs
             (startIdxs'', rEdgeMap') = auxR startIdxs' rEdgeMap fromIdx toIdxs
         in  auxF (fromIdx : acc) startIdxs'' fEdgeMap' rEdgeMap'
-      Nothing
-        | IntMap.null fEdgeMap -> Right (List.reverse acc)
-        | otherwise            -> Left (IntMap.keysSet fEdgeMap)
+      Nothing -> (IntMap.keysSet fEdgeMap, List.reverse acc)
 
     auxR :: IntSet -> IntMap IntSet -> Idx -> [Idx] -> (IntSet, IntMap IntSet)
     auxR startIdxs rEdgeMap fromIdx = \case
@@ -403,13 +398,15 @@ topSort graph =
 
 -- | Get the topological sort of a graph using the specified order
 --
--- There is no topological sort of a graph that contains cycles.  In this
--- case, the set of vertices that contains cycles is returned.
+-- There is no topological sort of a graph that contains cycles.  This function
+-- returns the set of vertices that contain cycles as well as the topological
+-- sort of the rest of the graph, which allows the caller decide how to handle
+-- this case.
 topSortBy :: forall e v.
      Ord v
   => (v -> v -> Ordering)
   -> Digraph e v
-  -> Either (Set v) [v]
+  -> (Set v, [v])
 topSortBy cmp graph =
     let fEdgeMap  = getFEdgeMap graph.edgeMap
         rEdgeMap  = getREdgeMap graph.edgeMap
@@ -426,7 +423,7 @@ topSortBy cmp graph =
       -> ExtOrdIdxSet v
       -> IntMap IntSet
       -> IntMap IntSet
-      -> Either IntSet [Idx]
+      -> (IntSet, [Idx])
     auxF acc startIdxs fEdgeMap rEdgeMap =
       case ExtOrdIdxSet.minView startIdxs of
         Just (fromIdx, startIdxs') ->
@@ -435,9 +432,7 @@ topSortBy cmp graph =
               toIdxs = maybe [] IntSet.elems mToIdxs
               (startIdxs'', rEdgeMap') = auxR startIdxs' rEdgeMap fromIdx toIdxs
           in  auxF (fromIdx : acc) startIdxs'' fEdgeMap' rEdgeMap'
-        Nothing
-          | IntMap.null fEdgeMap -> Right (List.reverse acc)
-          | otherwise            -> Left (IntMap.keysSet fEdgeMap)
+        Nothing -> (IntMap.keysSet fEdgeMap, List.reverse acc)
 
     auxR ::
          ExtOrdIdxSet v

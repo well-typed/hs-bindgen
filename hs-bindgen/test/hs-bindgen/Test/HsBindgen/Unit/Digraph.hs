@@ -320,13 +320,13 @@ testReaches = testGroup "reaches" [
 testTopSort :: TestTree
 testTopSort = testGroup "topSort" [
       testCase "empty" $
-        Right [] @=? Digraph.topSort graph0
+        (Set.empty, []) @=? Digraph.topSort graph0
     , testCase "no edges" $
-        Right graph1Vs @=? Digraph.topSort graph1V
+        (Set.empty, graph1Vs) @=? Digraph.topSort graph1V
     , testCase "with edges" $ do
         let expected =
               mkVs [16, 15, 2, 6, 10, 14, 12, 3, 8, 5, 4, 1, 11, 7, 13, 9]
-        Right expected @=? Digraph.topSort graph1E
+        (Set.empty, expected) @=? Digraph.topSort graph1E
         assertTopSortDeps expected graph1Es
     ]
 
@@ -340,14 +340,14 @@ assertTopSortDeps vs es = forM_ es $ \ (_edge, (fromV, toV)) -> do
 testTopSortBy :: TestTree
 testTopSortBy = testGroup "topSortBy" [
       testCase "empty" $
-        Right [] @=? Digraph.topSortBy cmp graph0
+        (Set.empty, []) @=? Digraph.topSortBy cmp graph0
     , testCase "no edges" $ do
         let expected = List.sortBy cmp graph1Vs
-        Right expected @=? Digraph.topSortBy cmp graph1V
+        (Set.empty, expected) @=? Digraph.topSortBy cmp graph1V
     , testCase "with edges" $ do
         let expected =
               mkVs [1, 4, 6, 7, 8, 5, 9, 10, 11, 13, 16, 2, 14, 3, 12, 15]
-        Right expected @=? Digraph.topSortBy cmp graph1E
+        (Set.empty, expected) @=? Digraph.topSortBy cmp graph1E
         assertTopSortDeps expected graph1Es
     ]
   where
