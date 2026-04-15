@@ -10,7 +10,8 @@ libfeature-tests.so: \
 		basic.o \
 		structs.o \
 		unions.o \
-		types/anonymous.o
+		types/anonymous.o \
+		types/bitfields.o
 
 	gcc -Wall -shared -o libfeature-tests.so \
 		callbacks/arrays/known_size.o \
@@ -18,7 +19,8 @@ libfeature-tests.so: \
 		callbacks/basic.o \
 		callbacks/structs.o \
 		callbacks/unions.o \
-		types/anonymous.o
+		types/anonymous.o \
+		types/bitfields.o
 
 # callbacks
 
@@ -43,3 +45,8 @@ unions.o: callbacks/unions.h callbacks/unions.c
 
 types/anonymous.o: types/anonymous.h types/anonymous.c
 	gcc -Wall -o types/anonymous.o -c -fPIC types/anonymous.c
+
+## bitfields
+
+types/bitfields.o: types/bitfields.h types/bitfields.c
+	gcc -Wall -o types/bitfields.o -c -fPIC types/bitfields.c

@@ -488,8 +488,6 @@ test-suite test-th
     -Wno-unticked-promoted-constructors
 
   other-modules:
-    Test.Bitfields
-    Test.TH.Bitfields
     Test.TH.RecordDot
     Test.TH.StaticCounterA
     Test.TH.StaticCounterB
@@ -508,12 +506,9 @@ test-suite test-th
     , optics
     , tasty
     , tasty-hunit
-    , tasty-quickcheck
 
   -- External dependencies
-  build-depends:
-    , QuickCheck  >=2.14.3    && <2.18
-    , vector      ^>=0.13.2.0
+  build-depends:    vector ^>=0.13.2.0
 
 test-suite test-literate
   type:               exitcode-stdio-1.0

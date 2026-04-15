@@ -1,872 +1,50 @@
--- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/types/structs/bitfields.h
--- #include <types/structs/bitfields.h>
--- void hs_bindgen_d709d3e43745d9d1 (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   (set_foo_8)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- _Bool hs_bindgen_333df3a6717d2344 (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   return (eq_foo_8)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- void hs_bindgen_a32d14ecd4c88208 (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   (set_foo_16)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- _Bool hs_bindgen_393f8ab8499de0df (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   return (eq_foo_16)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- void hs_bindgen_768898a3ea8b0e71 (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   (set_foo_32)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
--- }
--- _Bool hs_bindgen_c6b8a2d7947cba29 (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   return (eq_foo_32)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
--- }
--- void hs_bindgen_ccda87b4c75b7ba8 (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   (set_foo_64)(arg1, arg2, arg3, arg4, arg5);
--- }
--- _Bool hs_bindgen_c5e31dc7361d2c10 (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   return (eq_foo_64)(arg1, arg2, arg3, arg4, arg5);
--- }
--- void hs_bindgen_943f154c90bf60d8 (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_8)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_8f2f180df0461ff8 (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_8)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_952bcdd2fd03a086 (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_16)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_79e9ce863f424e9c (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_16)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_c7e2e66c8931a7e2 (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_035bd9a2a7abb9a7 (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_af2a92736ba39bab (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_809190212faa1188 (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_3162f51ed8ec59f1 (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_16)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_de2f1050d9dc0e8c (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_16)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_aa1139534c1f4753 (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_d219fbfa3b87c798 (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_4cc149f0a4f291df (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_061b326047171bd9 (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_a69c80f1cee32ea0 (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   (set_bar_32_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_9350827bfd7d54ad (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   return (eq_bar_32_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_bf91cf0bd9c30b10 (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   (set_bar_32_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_ba686f3e80ed74f3 (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   return (eq_bar_32_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_7088877daad5c4d7 (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   (set_bar_64_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_933ce24b55469f6c (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   return (eq_bar_64_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_a8ac7a1b0514167d (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   (set_foo_8)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- _Bool hs_bindgen_532217451d82e4f2 (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   return (eq_foo_8)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- void hs_bindgen_cf7e49b6c0d45892 (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   (set_foo_16)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- _Bool hs_bindgen_c9ce653a93e32939 (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   return (eq_foo_16)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
--- }
--- void hs_bindgen_ac4a3be0b97ff87c (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   (set_foo_32)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
--- }
--- _Bool hs_bindgen_516f69d150e332cd (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   return (eq_foo_32)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
--- }
--- void hs_bindgen_6949b993d0bbcef8 (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   (set_foo_64)(arg1, arg2, arg3, arg4, arg5);
--- }
--- _Bool hs_bindgen_caeeb54830aeac7c (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   return (eq_foo_64)(arg1, arg2, arg3, arg4, arg5);
--- }
--- void hs_bindgen_d70f29d570a66d4d (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_8)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_49666188cc53a844 (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_8)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_4402e495ed80145b (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_16)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_21018e5939f04a18 (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_16)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_b6b609ae99686c1a (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_57a297fb054d1b61 (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_5624ee6706340c28 (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_8_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_57a006547646b355 (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_8_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_908406015b2ae986 (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_16)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_83f25fcbc4919d87 (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_16)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_2fc932c4505d95bc (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_d07b7c7434009536 (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_aa9694a81fe70333 (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   (set_bar_16_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_775b431e7994bbb4 (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return (eq_bar_16_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_c554619ce78113ba (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   (set_bar_32_32)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_1821b4c2024c6db0 (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   return (eq_bar_32_32)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_adf958d470681c09 (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   (set_bar_32_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_6f9d2a4c9efe9bd1 (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   return (eq_bar_32_64)(arg1, arg2, arg3);
--- }
--- void hs_bindgen_d33dcf0f97e09802 (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   (set_bar_64_64)(arg1, arg2, arg3);
--- }
--- _Bool hs_bindgen_49948f3caf9be86d (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   return (eq_bar_64_64)(arg1, arg2, arg3);
--- }
--- /* test_typesstructsbitfields_Example_get_set_foo_8 */
--- __attribute__ ((const))
--- void (*hs_bindgen_fe08388e1e6a6060 (void)) (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   return &set_foo_8;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_foo_8 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_04b0e4ecb5c875a0 (void)) (
---   struct foo_8 *arg1,
---   signed char arg2,
---   signed char arg3,
---   signed char arg4,
---   signed char arg5,
---   signed char arg6,
---   signed char arg7
--- )
--- {
---   return &eq_foo_8;
--- }
--- /* test_typesstructsbitfields_Example_get_set_foo_16 */
--- __attribute__ ((const))
--- void (*hs_bindgen_1e3f334f1aeeab11 (void)) (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   return &set_foo_16;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_foo_16 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_d8b22963aebe92ee (void)) (
---   struct foo_16 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed int arg6,
---   signed int arg7
--- )
--- {
---   return &eq_foo_16;
--- }
--- /* test_typesstructsbitfields_Example_get_set_foo_32 */
--- __attribute__ ((const))
--- void (*hs_bindgen_c5328b8746148226 (void)) (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   return &set_foo_32;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_foo_32 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_bad5efd3edec907f (void)) (
---   struct foo_32 *arg1,
---   signed char arg2,
---   signed int arg3,
---   signed int arg4,
---   signed int arg5,
---   signed long arg6,
---   signed int arg7,
---   signed long arg8
--- )
--- {
---   return &eq_foo_32;
--- }
--- /* test_typesstructsbitfields_Example_get_set_foo_64 */
--- __attribute__ ((const))
--- void (*hs_bindgen_c5e0cb2fae30f205 (void)) (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   return &set_foo_64;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_foo_64 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_bf4e4696a76108d2 (void)) (
---   struct foo_64 *arg1,
---   signed long arg2,
---   signed long long arg3,
---   signed long long arg4,
---   signed long long arg5
--- )
--- {
---   return &eq_foo_64;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_8_8 */
--- __attribute__ ((const))
--- void (*hs_bindgen_4a8efa809aae097a (void)) (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_8_8;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_8_8 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_313c51982bd09adf (void)) (
---   struct bar_8_8 *arg1,
---   signed char arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_8_8;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_8_16 */
--- __attribute__ ((const))
--- void (*hs_bindgen_d1b8e074d464e182 (void)) (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_8_16;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_8_16 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_21cee5868ce4a4fb (void)) (
---   struct bar_8_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_8_16;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_8_32 */
--- __attribute__ ((const))
--- void (*hs_bindgen_02ba995a762444e4 (void)) (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_8_32;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_8_32 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_1cd770b7232b8faa (void)) (
---   struct bar_8_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_8_32;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_8_64 */
--- __attribute__ ((const))
--- void (*hs_bindgen_a6f6a7482aead8e6 (void)) (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_8_64;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_8_64 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_f7c3866b01ace476 (void)) (
---   struct bar_8_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_8_64;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_16_16 */
--- __attribute__ ((const))
--- void (*hs_bindgen_fa72ee2afb190952 (void)) (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_16_16;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_16_16 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_e4686d88a051cf3d (void)) (
---   struct bar_16_16 *arg1,
---   signed int arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_16_16;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_16_32 */
--- __attribute__ ((const))
--- void (*hs_bindgen_cf87e9ae69537049 (void)) (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_16_32;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_16_32 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_73c7f2a41933abf6 (void)) (
---   struct bar_16_32 *arg1,
---   signed long arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_16_32;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_16_64 */
--- __attribute__ ((const))
--- void (*hs_bindgen_8900d8bcf4c33175 (void)) (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return &set_bar_16_64;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_16_64 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_a03f3fa06237c9cf (void)) (
---   struct bar_16_64 *arg1,
---   signed long long arg2,
---   signed int arg3
--- )
--- {
---   return &eq_bar_16_64;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_32_32 */
--- __attribute__ ((const))
--- void (*hs_bindgen_a7d8c6f4e3b7edab (void)) (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   return &set_bar_32_32;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_32_32 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_519f008ef22c79b0 (void)) (
---   struct bar_32_32 *arg1,
---   signed long arg2,
---   signed long arg3
--- )
--- {
---   return &eq_bar_32_32;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_32_64 */
--- __attribute__ ((const))
--- void (*hs_bindgen_c8d0a404bdb3c4fe (void)) (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   return &set_bar_32_64;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_32_64 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_5547e5356fb5659e (void)) (
---   struct bar_32_64 *arg1,
---   signed long long arg2,
---   signed long arg3
--- )
--- {
---   return &eq_bar_32_64;
--- }
--- /* test_typesstructsbitfields_Example_get_set_bar_64_64 */
--- __attribute__ ((const))
--- void (*hs_bindgen_6519f4fe17fd7395 (void)) (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   return &set_bar_64_64;
--- }
--- /* test_typesstructsbitfields_Example_get_eq_bar_64_64 */
--- __attribute__ ((const))
--- _Bool (*hs_bindgen_9b1def459fcd8bd9 (void)) (
---   struct bar_64_64 *arg1,
---   signed long long arg2,
---   signed long long arg3
--- )
--- {
---   return &eq_bar_64_64;
--- }
-{-| ***************************************************************************** not packed, < =8-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_8@
 
-__C declaration:__ @struct foo_8@
+    __defined at:__ @types\/structs\/bitfields.h 5:8@
 
-__defined at:__ @types\/structs\/bitfields.h 25:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_8
     = Foo_8 {foo_8_a :: CSChar
              {- ^ __C declaration:__ @a@
 
-                  __defined at:__ @types\/structs\/bitfields.h 26:15@
+                  __defined at:__ @types\/structs\/bitfields.h 6:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -},
              foo_8_b :: CSChar
              {- ^ __C declaration:__ @b@
 
-                  __defined at:__ @types\/structs\/bitfields.h 27:15@
+                  __defined at:__ @types\/structs\/bitfields.h 7:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -},
              foo_8_c :: CSChar
              {- ^ __C declaration:__ @c@
 
-                  __defined at:__ @types\/structs\/bitfields.h 28:15@
+                  __defined at:__ @types\/structs\/bitfields.h 8:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -},
              foo_8_d :: CSChar
              {- ^ __C declaration:__ @d@
 
-                  __defined at:__ @types\/structs\/bitfields.h 29:15@
+                  __defined at:__ @types\/structs\/bitfields.h 9:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -},
              foo_8_e :: CSChar
              {- ^ __C declaration:__ @e@
 
-                  __defined at:__ @types\/structs\/bitfields.h 30:15@
+                  __defined at:__ @types\/structs\/bitfields.h 10:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -},
              foo_8_f :: CSChar
              {- ^ __C declaration:__ @f@
 
-                  __defined at:__ @types\/structs\/bitfields.h 31:15@
+                  __defined at:__ @types\/structs\/bitfields.h 11:15@
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -}}
@@ -927,54 +105,52 @@ instance HasCBitfield Foo_8 "foo_8_f"
 instance (~) ty CSChar =>
          HasField "foo_8_f" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_f")
-{-| ***************************************************************************** not packed, < =16-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_16@
 
-__C declaration:__ @struct foo_16@
+    __defined at:__ @types\/structs\/bitfields.h 15:8@
 
-__defined at:__ @types\/structs\/bitfields.h 70:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_16
     = Foo_16 {foo_16_a :: CSChar
               {- ^ __C declaration:__ @a@
 
-                   __defined at:__ @types\/structs\/bitfields.h 71:15@
+                   __defined at:__ @types\/structs\/bitfields.h 16:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_16_b :: CInt
               {- ^ __C declaration:__ @b@
 
-                   __defined at:__ @types\/structs\/bitfields.h 72:15@
+                   __defined at:__ @types\/structs\/bitfields.h 17:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_16_c :: CInt
               {- ^ __C declaration:__ @c@
 
-                   __defined at:__ @types\/structs\/bitfields.h 73:15@
+                   __defined at:__ @types\/structs\/bitfields.h 18:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_16_d :: CInt
               {- ^ __C declaration:__ @d@
 
-                   __defined at:__ @types\/structs\/bitfields.h 74:15@
+                   __defined at:__ @types\/structs\/bitfields.h 19:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_16_e :: CInt
               {- ^ __C declaration:__ @e@
 
-                   __defined at:__ @types\/structs\/bitfields.h 75:15@
+                   __defined at:__ @types\/structs\/bitfields.h 20:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_16_f :: CInt
               {- ^ __C declaration:__ @f@
 
-                   __defined at:__ @types\/structs\/bitfields.h 76:15@
+                   __defined at:__ @types\/structs\/bitfields.h 21:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
@@ -1035,61 +211,59 @@ instance HasCBitfield Foo_16 "foo_16_f"
 instance (~) ty CInt =>
          HasField "foo_16_f" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_f")
-{-| ***************************************************************************** not packed, < =32-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_32@
 
-__C declaration:__ @struct foo_32@
+    __defined at:__ @types\/structs\/bitfields.h 25:8@
 
-__defined at:__ @types\/structs\/bitfields.h 115:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_32
     = Foo_32 {foo_32_a :: CSChar
               {- ^ __C declaration:__ @a@
 
-                   __defined at:__ @types\/structs\/bitfields.h 116:15@
+                   __defined at:__ @types\/structs\/bitfields.h 26:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_b :: CInt
               {- ^ __C declaration:__ @b@
 
-                   __defined at:__ @types\/structs\/bitfields.h 117:15@
+                   __defined at:__ @types\/structs\/bitfields.h 27:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_c :: CInt
               {- ^ __C declaration:__ @c@
 
-                   __defined at:__ @types\/structs\/bitfields.h 118:15@
+                   __defined at:__ @types\/structs\/bitfields.h 28:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_d :: CInt
               {- ^ __C declaration:__ @d@
 
-                   __defined at:__ @types\/structs\/bitfields.h 119:15@
+                   __defined at:__ @types\/structs\/bitfields.h 29:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_e :: CLong
               {- ^ __C declaration:__ @e@
 
-                   __defined at:__ @types\/structs\/bitfields.h 120:15@
+                   __defined at:__ @types\/structs\/bitfields.h 30:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_f :: CInt
               {- ^ __C declaration:__ @f@
 
-                   __defined at:__ @types\/structs\/bitfields.h 121:15@
+                   __defined at:__ @types\/structs\/bitfields.h 31:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_32_g :: CLong
               {- ^ __C declaration:__ @g@
 
-                   __defined at:__ @types\/structs\/bitfields.h 122:15@
+                   __defined at:__ @types\/structs\/bitfields.h 32:15@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
@@ -1158,40 +332,38 @@ instance HasCBitfield Foo_32 "foo_32_g"
 instance (~) ty CLong =>
          HasField "foo_32_g" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_g")
-{-| ***************************************************************************** not packed, < =64-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_64@
 
-__C declaration:__ @struct foo_64@
+    __defined at:__ @types\/structs\/bitfields.h 36:8@
 
-__defined at:__ @types\/structs\/bitfields.h 165:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_64
     = Foo_64 {foo_64_a :: CLong
               {- ^ __C declaration:__ @a@
 
-                   __defined at:__ @types\/structs\/bitfields.h 166:20@
+                   __defined at:__ @types\/structs\/bitfields.h 37:20@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_64_b :: CLLong
               {- ^ __C declaration:__ @b@
 
-                   __defined at:__ @types\/structs\/bitfields.h 167:20@
+                   __defined at:__ @types\/structs\/bitfields.h 38:20@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_64_c :: CLLong
               {- ^ __C declaration:__ @c@
 
-                   __defined at:__ @types\/structs\/bitfields.h 168:20@
+                   __defined at:__ @types\/structs\/bitfields.h 39:20@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -},
               foo_64_d :: CLLong
               {- ^ __C declaration:__ @d@
 
-                   __defined at:__ @types\/structs\/bitfields.h 169:20@
+                   __defined at:__ @types\/structs\/bitfields.h 40:20@
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
@@ -1236,26 +408,24 @@ instance HasCBitfield Foo_64 "foo_64_d"
 instance (~) ty CLLong =>
          HasField "foo_64_d" (Ptr Foo_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_64_d")
-{-| ***************************************************************************** packed, < =8-bit field crosses 8-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_8@
 
-__C declaration:__ @struct bar_8_8@
+    __defined at:__ @types\/structs\/bitfields.h 44:32@
 
-__defined at:__ @types\/structs\/bitfields.h 200:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_8
     = Bar_8_8 {bar_8_8_a :: CSChar
                {- ^ __C declaration:__ @a@
 
-                    __defined at:__ @types\/structs\/bitfields.h 201:15@
+                    __defined at:__ @types\/structs\/bitfields.h 45:15@
 
                     __exported by:__ @types\/structs\/bitfields.h@
                -},
                bar_8_8_b :: CInt
                {- ^ __C declaration:__ @b@
 
-                    __defined at:__ @types\/structs\/bitfields.h 202:15@
+                    __defined at:__ @types\/structs\/bitfields.h 46:15@
 
                     __exported by:__ @types\/structs\/bitfields.h@
                -}}
@@ -1284,26 +454,24 @@ instance HasCBitfield Bar_8_8 "bar_8_8_b"
 instance (~) ty CInt =>
          HasField "bar_8_8_b" (Ptr Bar_8_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_8_b")
-{-| ***************************************************************************** packed, < =8-bit field crosses 16-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_16@
 
-__C declaration:__ @struct bar_8_16@
+    __defined at:__ @types\/structs\/bitfields.h 50:32@
 
-__defined at:__ @types\/structs\/bitfields.h 225:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_16
     = Bar_8_16 {bar_8_16_a :: CInt
                 {- ^ __C declaration:__ @a@
 
-                     __defined at:__ @types\/structs\/bitfields.h 226:14@
+                     __defined at:__ @types\/structs\/bitfields.h 51:14@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -},
                 bar_8_16_b :: CInt
                 {- ^ __C declaration:__ @b@
 
-                     __defined at:__ @types\/structs\/bitfields.h 227:14@
+                     __defined at:__ @types\/structs\/bitfields.h 52:14@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -}}
@@ -1332,26 +500,24 @@ instance HasCBitfield Bar_8_16 "bar_8_16_b"
 instance (~) ty CInt =>
          HasField "bar_8_16_b" (Ptr Bar_8_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_16_b")
-{-| ***************************************************************************** packed, < =8-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_32@
 
-__C declaration:__ @struct bar_8_32@
+    __defined at:__ @types\/structs\/bitfields.h 56:32@
 
-__defined at:__ @types\/structs\/bitfields.h 250:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_32
     = Bar_8_32 {bar_8_32_a :: CLong
                 {- ^ __C declaration:__ @a@
 
-                     __defined at:__ @types\/structs\/bitfields.h 251:15@
+                     __defined at:__ @types\/structs\/bitfields.h 57:15@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -},
                 bar_8_32_b :: CInt
                 {- ^ __C declaration:__ @b@
 
-                     __defined at:__ @types\/structs\/bitfields.h 252:15@
+                     __defined at:__ @types\/structs\/bitfields.h 58:15@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -}}
@@ -1380,26 +546,24 @@ instance HasCBitfield Bar_8_32 "bar_8_32_b"
 instance (~) ty CInt =>
          HasField "bar_8_32_b" (Ptr Bar_8_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_32_b")
-{-| ***************************************************************************** packed, < =8-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_64@
 
-__C declaration:__ @struct bar_8_64@
+    __defined at:__ @types\/structs\/bitfields.h 62:32@
 
-__defined at:__ @types\/structs\/bitfields.h 275:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_64
     = Bar_8_64 {bar_8_64_a :: CLLong
                 {- ^ __C declaration:__ @a@
 
-                     __defined at:__ @types\/structs\/bitfields.h 276:20@
+                     __defined at:__ @types\/structs\/bitfields.h 63:20@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -},
                 bar_8_64_b :: CInt
                 {- ^ __C declaration:__ @b@
 
-                     __defined at:__ @types\/structs\/bitfields.h 277:20@
+                     __defined at:__ @types\/structs\/bitfields.h 64:20@
 
                      __exported by:__ @types\/structs\/bitfields.h@
                 -}}
@@ -1428,26 +592,24 @@ instance HasCBitfield Bar_8_64 "bar_8_64_b"
 instance (~) ty CInt =>
          HasField "bar_8_64_b" (Ptr Bar_8_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_64_b")
-{-| ***************************************************************************** packed, < =16-bit field crosses 16-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_16@
 
-__C declaration:__ @struct bar_16_16@
+    __defined at:__ @types\/structs\/bitfields.h 68:32@
 
-__defined at:__ @types\/structs\/bitfields.h 300:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_16
     = Bar_16_16 {bar_16_16_a :: CInt
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 301:14@
+                      __defined at:__ @types\/structs\/bitfields.h 69:14@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_16_16_b :: CInt
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 302:14@
+                      __defined at:__ @types\/structs\/bitfields.h 70:14@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1476,26 +638,24 @@ instance HasCBitfield Bar_16_16 "bar_16_16_b"
 instance (~) ty CInt =>
          HasField "bar_16_16_b" (Ptr Bar_16_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_16_b")
-{-| ***************************************************************************** packed, < =16-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_32@
 
-__C declaration:__ @struct bar_16_32@
+    __defined at:__ @types\/structs\/bitfields.h 74:32@
 
-__defined at:__ @types\/structs\/bitfields.h 325:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_32
     = Bar_16_32 {bar_16_32_a :: CLong
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 326:15@
+                      __defined at:__ @types\/structs\/bitfields.h 75:15@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_16_32_b :: CInt
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 327:15@
+                      __defined at:__ @types\/structs\/bitfields.h 76:15@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1524,26 +684,24 @@ instance HasCBitfield Bar_16_32 "bar_16_32_b"
 instance (~) ty CInt =>
          HasField "bar_16_32_b" (Ptr Bar_16_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_32_b")
-{-| ***************************************************************************** packed, < =16-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_64@
 
-__C declaration:__ @struct bar_16_64@
+    __defined at:__ @types\/structs\/bitfields.h 80:32@
 
-__defined at:__ @types\/structs\/bitfields.h 350:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_64
     = Bar_16_64 {bar_16_64_a :: CLLong
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 351:20@
+                      __defined at:__ @types\/structs\/bitfields.h 81:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_16_64_b :: CInt
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 352:20@
+                      __defined at:__ @types\/structs\/bitfields.h 82:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1572,26 +730,24 @@ instance HasCBitfield Bar_16_64 "bar_16_64_b"
 instance (~) ty CInt =>
          HasField "bar_16_64_b" (Ptr Bar_16_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_64_b")
-{-| ***************************************************************************** packed, < =32-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_32_32@
 
-__C declaration:__ @struct bar_32_32@
+    __defined at:__ @types\/structs\/bitfields.h 86:32@
 
-__defined at:__ @types\/structs\/bitfields.h 375:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_32_32
     = Bar_32_32 {bar_32_32_a :: CLong
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 376:15@
+                      __defined at:__ @types\/structs\/bitfields.h 87:15@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_32_32_b :: CLong
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 377:15@
+                      __defined at:__ @types\/structs\/bitfields.h 88:15@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1620,26 +776,24 @@ instance HasCBitfield Bar_32_32 "bar_32_32_b"
 instance (~) ty CLong =>
          HasField "bar_32_32_b" (Ptr Bar_32_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_32_b")
-{-| ***************************************************************************** packed, < =32-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_32_64@
 
-__C declaration:__ @struct bar_32_64@
+    __defined at:__ @types\/structs\/bitfields.h 92:32@
 
-__defined at:__ @types\/structs\/bitfields.h 400:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_32_64
     = Bar_32_64 {bar_32_64_a :: CLLong
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 401:20@
+                      __defined at:__ @types\/structs\/bitfields.h 93:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_32_64_b :: CLong
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 402:20@
+                      __defined at:__ @types\/structs\/bitfields.h 94:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1668,26 +822,24 @@ instance HasCBitfield Bar_32_64 "bar_32_64_b"
 instance (~) ty CLong =>
          HasField "bar_32_64_b" (Ptr Bar_32_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_64_b")
-{-| ***************************************************************************** packed, < =64-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_64_64@
 
-__C declaration:__ @struct bar_64_64@
+    __defined at:__ @types\/structs\/bitfields.h 98:32@
 
-__defined at:__ @types\/structs\/bitfields.h 425:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_64_64
     = Bar_64_64 {bar_64_64_a :: CLLong
                  {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/bitfields.h 426:20@
+                      __defined at:__ @types\/structs\/bitfields.h 99:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -},
                  bar_64_64_b :: CLLong
                  {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/bitfields.h 427:20@
+                      __defined at:__ @types\/structs\/bitfields.h 100:20@
 
                       __exported by:__ @types\/structs\/bitfields.h@
                  -}}
@@ -1716,2169 +868,3 @@ instance HasCBitfield Bar_64_64 "bar_64_64_b"
 instance (~) ty CLLong =>
          HasField "bar_64_64_b" (Ptr Bar_64_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_64_64_b")
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_8@
-foreign import ccall safe "hs_bindgen_d709d3e43745d9d1" hs_bindgen_d709d3e43745d9d1_base ::
-    Ptr Void
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_8@
-hs_bindgen_d709d3e43745d9d1 :: Ptr Foo_8 ->
-                               CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_8@
-hs_bindgen_d709d3e43745d9d1 = fromFFIType hs_bindgen_d709d3e43745d9d1_base
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_safe :: Ptr Foo_8 ->
-                  CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ()
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_safe = hs_bindgen_d709d3e43745d9d1
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_8@
-foreign import ccall safe "hs_bindgen_333df3a6717d2344" hs_bindgen_333df3a6717d2344_base ::
-    Ptr Void
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_8@
-hs_bindgen_333df3a6717d2344 :: Ptr Foo_8 ->
-                               CSChar ->
-                               CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_8@
-hs_bindgen_333df3a6717d2344 = fromFFIType hs_bindgen_333df3a6717d2344_base
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_safe :: Ptr Foo_8 ->
-                 CSChar ->
-                 CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO CBool
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_safe = hs_bindgen_333df3a6717d2344
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_16@
-foreign import ccall safe "hs_bindgen_a32d14ecd4c88208" hs_bindgen_a32d14ecd4c88208_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_16@
-hs_bindgen_a32d14ecd4c88208 :: Ptr Foo_16 ->
-                               CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_16@
-hs_bindgen_a32d14ecd4c88208 = fromFFIType hs_bindgen_a32d14ecd4c88208_base
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_safe :: Ptr Foo_16 ->
-                   CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_safe = hs_bindgen_a32d14ecd4c88208
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_16@
-foreign import ccall safe "hs_bindgen_393f8ab8499de0df" hs_bindgen_393f8ab8499de0df_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_16@
-hs_bindgen_393f8ab8499de0df :: Ptr Foo_16 ->
-                               CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_16@
-hs_bindgen_393f8ab8499de0df = fromFFIType hs_bindgen_393f8ab8499de0df_base
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_safe :: Ptr Foo_16 ->
-                  CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_safe = hs_bindgen_393f8ab8499de0df
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_32@
-foreign import ccall safe "hs_bindgen_768898a3ea8b0e71" hs_bindgen_768898a3ea8b0e71_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int64
- -> Int32
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_32@
-hs_bindgen_768898a3ea8b0e71 :: Ptr Foo_32 ->
-                               CSChar -> CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_32@
-hs_bindgen_768898a3ea8b0e71 = fromFFIType hs_bindgen_768898a3ea8b0e71_base
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_safe :: Ptr Foo_32 ->
-                   CSChar -> CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ()
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_safe = hs_bindgen_768898a3ea8b0e71
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_32@
-foreign import ccall safe "hs_bindgen_c6b8a2d7947cba29" hs_bindgen_c6b8a2d7947cba29_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int64
- -> Int32
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_32@
-hs_bindgen_c6b8a2d7947cba29 :: Ptr Foo_32 ->
-                               CSChar ->
-                               CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_32@
-hs_bindgen_c6b8a2d7947cba29 = fromFFIType hs_bindgen_c6b8a2d7947cba29_base
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_safe :: Ptr Foo_32 ->
-                  CSChar ->
-                  CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_safe = hs_bindgen_c6b8a2d7947cba29
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_64@
-foreign import ccall safe "hs_bindgen_ccda87b4c75b7ba8" hs_bindgen_ccda87b4c75b7ba8_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_64@
-hs_bindgen_ccda87b4c75b7ba8 :: Ptr Foo_64 ->
-                               CLong -> CLLong -> CLLong -> CLLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_foo_64@
-hs_bindgen_ccda87b4c75b7ba8 = fromFFIType hs_bindgen_ccda87b4c75b7ba8_base
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_safe :: Ptr Foo_64 ->
-                   CLong -> CLLong -> CLLong -> CLLong -> IO ()
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_safe = hs_bindgen_ccda87b4c75b7ba8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_64@
-foreign import ccall safe "hs_bindgen_c5e31dc7361d2c10" hs_bindgen_c5e31dc7361d2c10_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_64@
-hs_bindgen_c5e31dc7361d2c10 :: Ptr Foo_64 ->
-                               CLong -> CLLong -> CLLong -> CLLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_foo_64@
-hs_bindgen_c5e31dc7361d2c10 = fromFFIType hs_bindgen_c5e31dc7361d2c10_base
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_safe :: Ptr Foo_64 ->
-                  CLong -> CLLong -> CLLong -> CLLong -> IO CBool
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_safe = hs_bindgen_c5e31dc7361d2c10
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_8@
-foreign import ccall safe "hs_bindgen_943f154c90bf60d8" hs_bindgen_943f154c90bf60d8_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_8@
-hs_bindgen_943f154c90bf60d8 :: Ptr Bar_8_8 ->
-                               CSChar -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_8@
-hs_bindgen_943f154c90bf60d8 = fromFFIType hs_bindgen_943f154c90bf60d8_base
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_safe :: Ptr Bar_8_8 -> CSChar -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_safe = hs_bindgen_943f154c90bf60d8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_8@
-foreign import ccall safe "hs_bindgen_8f2f180df0461ff8" hs_bindgen_8f2f180df0461ff8_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_8@
-hs_bindgen_8f2f180df0461ff8 :: Ptr Bar_8_8 ->
-                               CSChar -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_8@
-hs_bindgen_8f2f180df0461ff8 = fromFFIType hs_bindgen_8f2f180df0461ff8_base
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_safe :: Ptr Bar_8_8 -> CSChar -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_safe = hs_bindgen_8f2f180df0461ff8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_16@
-foreign import ccall safe "hs_bindgen_952bcdd2fd03a086" hs_bindgen_952bcdd2fd03a086_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_16@
-hs_bindgen_952bcdd2fd03a086 :: Ptr Bar_8_16 ->
-                               CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_16@
-hs_bindgen_952bcdd2fd03a086 = fromFFIType hs_bindgen_952bcdd2fd03a086_base
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_safe :: Ptr Bar_8_16 -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_safe = hs_bindgen_952bcdd2fd03a086
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_16@
-foreign import ccall safe "hs_bindgen_79e9ce863f424e9c" hs_bindgen_79e9ce863f424e9c_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_16@
-hs_bindgen_79e9ce863f424e9c :: Ptr Bar_8_16 ->
-                               CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_16@
-hs_bindgen_79e9ce863f424e9c = fromFFIType hs_bindgen_79e9ce863f424e9c_base
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_safe :: Ptr Bar_8_16 -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_safe = hs_bindgen_79e9ce863f424e9c
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_32@
-foreign import ccall safe "hs_bindgen_c7e2e66c8931a7e2" hs_bindgen_c7e2e66c8931a7e2_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_32@
-hs_bindgen_c7e2e66c8931a7e2 :: Ptr Bar_8_32 ->
-                               CLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_32@
-hs_bindgen_c7e2e66c8931a7e2 = fromFFIType hs_bindgen_c7e2e66c8931a7e2_base
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_safe :: Ptr Bar_8_32 -> CLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_safe = hs_bindgen_c7e2e66c8931a7e2
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_32@
-foreign import ccall safe "hs_bindgen_035bd9a2a7abb9a7" hs_bindgen_035bd9a2a7abb9a7_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_32@
-hs_bindgen_035bd9a2a7abb9a7 :: Ptr Bar_8_32 ->
-                               CLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_32@
-hs_bindgen_035bd9a2a7abb9a7 = fromFFIType hs_bindgen_035bd9a2a7abb9a7_base
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_safe :: Ptr Bar_8_32 -> CLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_safe = hs_bindgen_035bd9a2a7abb9a7
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_64@
-foreign import ccall safe "hs_bindgen_af2a92736ba39bab" hs_bindgen_af2a92736ba39bab_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_64@
-hs_bindgen_af2a92736ba39bab :: Ptr Bar_8_64 ->
-                               CLLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_8_64@
-hs_bindgen_af2a92736ba39bab = fromFFIType hs_bindgen_af2a92736ba39bab_base
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_safe :: Ptr Bar_8_64 -> CLLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_safe = hs_bindgen_af2a92736ba39bab
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_64@
-foreign import ccall safe "hs_bindgen_809190212faa1188" hs_bindgen_809190212faa1188_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_64@
-hs_bindgen_809190212faa1188 :: Ptr Bar_8_64 ->
-                               CLLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_8_64@
-hs_bindgen_809190212faa1188 = fromFFIType hs_bindgen_809190212faa1188_base
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_safe :: Ptr Bar_8_64 -> CLLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_safe = hs_bindgen_809190212faa1188
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_16@
-foreign import ccall safe "hs_bindgen_3162f51ed8ec59f1" hs_bindgen_3162f51ed8ec59f1_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_16@
-hs_bindgen_3162f51ed8ec59f1 :: Ptr Bar_16_16 ->
-                               CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_16@
-hs_bindgen_3162f51ed8ec59f1 = fromFFIType hs_bindgen_3162f51ed8ec59f1_base
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_safe :: Ptr Bar_16_16 -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_safe = hs_bindgen_3162f51ed8ec59f1
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_16@
-foreign import ccall safe "hs_bindgen_de2f1050d9dc0e8c" hs_bindgen_de2f1050d9dc0e8c_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_16@
-hs_bindgen_de2f1050d9dc0e8c :: Ptr Bar_16_16 ->
-                               CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_16@
-hs_bindgen_de2f1050d9dc0e8c = fromFFIType hs_bindgen_de2f1050d9dc0e8c_base
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_safe :: Ptr Bar_16_16 -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_safe = hs_bindgen_de2f1050d9dc0e8c
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_32@
-foreign import ccall safe "hs_bindgen_aa1139534c1f4753" hs_bindgen_aa1139534c1f4753_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_32@
-hs_bindgen_aa1139534c1f4753 :: Ptr Bar_16_32 ->
-                               CLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_32@
-hs_bindgen_aa1139534c1f4753 = fromFFIType hs_bindgen_aa1139534c1f4753_base
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_safe :: Ptr Bar_16_32 -> CLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_safe = hs_bindgen_aa1139534c1f4753
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_32@
-foreign import ccall safe "hs_bindgen_d219fbfa3b87c798" hs_bindgen_d219fbfa3b87c798_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_32@
-hs_bindgen_d219fbfa3b87c798 :: Ptr Bar_16_32 ->
-                               CLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_32@
-hs_bindgen_d219fbfa3b87c798 = fromFFIType hs_bindgen_d219fbfa3b87c798_base
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_safe :: Ptr Bar_16_32 -> CLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_safe = hs_bindgen_d219fbfa3b87c798
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_64@
-foreign import ccall safe "hs_bindgen_4cc149f0a4f291df" hs_bindgen_4cc149f0a4f291df_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_64@
-hs_bindgen_4cc149f0a4f291df :: Ptr Bar_16_64 ->
-                               CLLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_16_64@
-hs_bindgen_4cc149f0a4f291df = fromFFIType hs_bindgen_4cc149f0a4f291df_base
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_safe :: Ptr Bar_16_64 -> CLLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_safe = hs_bindgen_4cc149f0a4f291df
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_64@
-foreign import ccall safe "hs_bindgen_061b326047171bd9" hs_bindgen_061b326047171bd9_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_64@
-hs_bindgen_061b326047171bd9 :: Ptr Bar_16_64 ->
-                               CLLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_16_64@
-hs_bindgen_061b326047171bd9 = fromFFIType hs_bindgen_061b326047171bd9_base
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_safe :: Ptr Bar_16_64 -> CLLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_safe = hs_bindgen_061b326047171bd9
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_32@
-foreign import ccall safe "hs_bindgen_a69c80f1cee32ea0" hs_bindgen_a69c80f1cee32ea0_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_32@
-hs_bindgen_a69c80f1cee32ea0 :: Ptr Bar_32_32 ->
-                               CLong -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_32@
-hs_bindgen_a69c80f1cee32ea0 = fromFFIType hs_bindgen_a69c80f1cee32ea0_base
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_safe :: Ptr Bar_32_32 -> CLong -> CLong -> IO ()
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_safe = hs_bindgen_a69c80f1cee32ea0
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_32@
-foreign import ccall safe "hs_bindgen_9350827bfd7d54ad" hs_bindgen_9350827bfd7d54ad_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_32@
-hs_bindgen_9350827bfd7d54ad :: Ptr Bar_32_32 ->
-                               CLong -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_32@
-hs_bindgen_9350827bfd7d54ad = fromFFIType hs_bindgen_9350827bfd7d54ad_base
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_safe :: Ptr Bar_32_32 -> CLong -> CLong -> IO CBool
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_safe = hs_bindgen_9350827bfd7d54ad
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_64@
-foreign import ccall safe "hs_bindgen_bf91cf0bd9c30b10" hs_bindgen_bf91cf0bd9c30b10_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_64@
-hs_bindgen_bf91cf0bd9c30b10 :: Ptr Bar_32_64 ->
-                               CLLong -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_32_64@
-hs_bindgen_bf91cf0bd9c30b10 = fromFFIType hs_bindgen_bf91cf0bd9c30b10_base
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_safe :: Ptr Bar_32_64 -> CLLong -> CLong -> IO ()
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_safe = hs_bindgen_bf91cf0bd9c30b10
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_64@
-foreign import ccall safe "hs_bindgen_ba686f3e80ed74f3" hs_bindgen_ba686f3e80ed74f3_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_64@
-hs_bindgen_ba686f3e80ed74f3 :: Ptr Bar_32_64 ->
-                               CLLong -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_32_64@
-hs_bindgen_ba686f3e80ed74f3 = fromFFIType hs_bindgen_ba686f3e80ed74f3_base
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_safe :: Ptr Bar_32_64 -> CLLong -> CLong -> IO CBool
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_safe = hs_bindgen_ba686f3e80ed74f3
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_64_64@
-foreign import ccall safe "hs_bindgen_7088877daad5c4d7" hs_bindgen_7088877daad5c4d7_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_64_64@
-hs_bindgen_7088877daad5c4d7 :: Ptr Bar_64_64 ->
-                               CLLong -> CLLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Safe_set_bar_64_64@
-hs_bindgen_7088877daad5c4d7 = fromFFIType hs_bindgen_7088877daad5c4d7_base
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_safe :: Ptr Bar_64_64 -> CLLong -> CLLong -> IO ()
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_safe = hs_bindgen_7088877daad5c4d7
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_64_64@
-foreign import ccall safe "hs_bindgen_933ce24b55469f6c" hs_bindgen_933ce24b55469f6c_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_64_64@
-hs_bindgen_933ce24b55469f6c :: Ptr Bar_64_64 ->
-                               CLLong -> CLLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Safe_eq_bar_64_64@
-hs_bindgen_933ce24b55469f6c = fromFFIType hs_bindgen_933ce24b55469f6c_base
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_safe :: Ptr Bar_64_64 -> CLLong -> CLLong -> IO CBool
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_safe = hs_bindgen_933ce24b55469f6c
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_8@
-foreign import ccall unsafe "hs_bindgen_a8ac7a1b0514167d" hs_bindgen_a8ac7a1b0514167d_base ::
-    Ptr Void
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_8@
-hs_bindgen_a8ac7a1b0514167d :: Ptr Foo_8 ->
-                               CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_8@
-hs_bindgen_a8ac7a1b0514167d = fromFFIType hs_bindgen_a8ac7a1b0514167d_base
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_unsafe :: Ptr Foo_8 ->
-                    CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ()
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_unsafe = hs_bindgen_a8ac7a1b0514167d
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_8@
-foreign import ccall unsafe "hs_bindgen_532217451d82e4f2" hs_bindgen_532217451d82e4f2_base ::
-    Ptr Void
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> Int8
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_8@
-hs_bindgen_532217451d82e4f2 :: Ptr Foo_8 ->
-                               CSChar ->
-                               CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_8@
-hs_bindgen_532217451d82e4f2 = fromFFIType hs_bindgen_532217451d82e4f2_base
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_unsafe :: Ptr Foo_8 ->
-                   CSChar ->
-                   CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO CBool
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_unsafe = hs_bindgen_532217451d82e4f2
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_16@
-foreign import ccall unsafe "hs_bindgen_cf7e49b6c0d45892" hs_bindgen_cf7e49b6c0d45892_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_16@
-hs_bindgen_cf7e49b6c0d45892 :: Ptr Foo_16 ->
-                               CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_16@
-hs_bindgen_cf7e49b6c0d45892 = fromFFIType hs_bindgen_cf7e49b6c0d45892_base
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_unsafe :: Ptr Foo_16 ->
-                     CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_unsafe = hs_bindgen_cf7e49b6c0d45892
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_16@
-foreign import ccall unsafe "hs_bindgen_c9ce653a93e32939" hs_bindgen_c9ce653a93e32939_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_16@
-hs_bindgen_c9ce653a93e32939 :: Ptr Foo_16 ->
-                               CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_16@
-hs_bindgen_c9ce653a93e32939 = fromFFIType hs_bindgen_c9ce653a93e32939_base
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_unsafe :: Ptr Foo_16 ->
-                    CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_unsafe = hs_bindgen_c9ce653a93e32939
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_32@
-foreign import ccall unsafe "hs_bindgen_ac4a3be0b97ff87c" hs_bindgen_ac4a3be0b97ff87c_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int64
- -> Int32
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_32@
-hs_bindgen_ac4a3be0b97ff87c :: Ptr Foo_32 ->
-                               CSChar -> CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_32@
-hs_bindgen_ac4a3be0b97ff87c = fromFFIType hs_bindgen_ac4a3be0b97ff87c_base
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_unsafe :: Ptr Foo_32 ->
-                     CSChar -> CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ()
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_unsafe = hs_bindgen_ac4a3be0b97ff87c
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_32@
-foreign import ccall unsafe "hs_bindgen_516f69d150e332cd" hs_bindgen_516f69d150e332cd_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> Int32
- -> Int32
- -> Int64
- -> Int32
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_32@
-hs_bindgen_516f69d150e332cd :: Ptr Foo_32 ->
-                               CSChar ->
-                               CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_32@
-hs_bindgen_516f69d150e332cd = fromFFIType hs_bindgen_516f69d150e332cd_base
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_unsafe :: Ptr Foo_32 ->
-                    CSChar ->
-                    CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_unsafe = hs_bindgen_516f69d150e332cd
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_64@
-foreign import ccall unsafe "hs_bindgen_6949b993d0bbcef8" hs_bindgen_6949b993d0bbcef8_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_64@
-hs_bindgen_6949b993d0bbcef8 :: Ptr Foo_64 ->
-                               CLong -> CLLong -> CLLong -> CLLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_foo_64@
-hs_bindgen_6949b993d0bbcef8 = fromFFIType hs_bindgen_6949b993d0bbcef8_base
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_unsafe :: Ptr Foo_64 ->
-                     CLong -> CLLong -> CLLong -> CLLong -> IO ()
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_unsafe = hs_bindgen_6949b993d0bbcef8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_64@
-foreign import ccall unsafe "hs_bindgen_caeeb54830aeac7c" hs_bindgen_caeeb54830aeac7c_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_64@
-hs_bindgen_caeeb54830aeac7c :: Ptr Foo_64 ->
-                               CLong -> CLLong -> CLLong -> CLLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_foo_64@
-hs_bindgen_caeeb54830aeac7c = fromFFIType hs_bindgen_caeeb54830aeac7c_base
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_unsafe :: Ptr Foo_64 ->
-                    CLong -> CLLong -> CLLong -> CLLong -> IO CBool
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_unsafe = hs_bindgen_caeeb54830aeac7c
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_8@
-foreign import ccall unsafe "hs_bindgen_d70f29d570a66d4d" hs_bindgen_d70f29d570a66d4d_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_8@
-hs_bindgen_d70f29d570a66d4d :: Ptr Bar_8_8 ->
-                               CSChar -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_8@
-hs_bindgen_d70f29d570a66d4d = fromFFIType hs_bindgen_d70f29d570a66d4d_base
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_unsafe :: Ptr Bar_8_8 -> CSChar -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_unsafe = hs_bindgen_d70f29d570a66d4d
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_8@
-foreign import ccall unsafe "hs_bindgen_49666188cc53a844" hs_bindgen_49666188cc53a844_base ::
-    Ptr Void
- -> Int8
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_8@
-hs_bindgen_49666188cc53a844 :: Ptr Bar_8_8 ->
-                               CSChar -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_8@
-hs_bindgen_49666188cc53a844 = fromFFIType hs_bindgen_49666188cc53a844_base
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_unsafe :: Ptr Bar_8_8 -> CSChar -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_unsafe = hs_bindgen_49666188cc53a844
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_16@
-foreign import ccall unsafe "hs_bindgen_4402e495ed80145b" hs_bindgen_4402e495ed80145b_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_16@
-hs_bindgen_4402e495ed80145b :: Ptr Bar_8_16 ->
-                               CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_16@
-hs_bindgen_4402e495ed80145b = fromFFIType hs_bindgen_4402e495ed80145b_base
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_unsafe :: Ptr Bar_8_16 -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_unsafe = hs_bindgen_4402e495ed80145b
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_16@
-foreign import ccall unsafe "hs_bindgen_21018e5939f04a18" hs_bindgen_21018e5939f04a18_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_16@
-hs_bindgen_21018e5939f04a18 :: Ptr Bar_8_16 ->
-                               CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_16@
-hs_bindgen_21018e5939f04a18 = fromFFIType hs_bindgen_21018e5939f04a18_base
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_unsafe :: Ptr Bar_8_16 -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_unsafe = hs_bindgen_21018e5939f04a18
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_32@
-foreign import ccall unsafe "hs_bindgen_b6b609ae99686c1a" hs_bindgen_b6b609ae99686c1a_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_32@
-hs_bindgen_b6b609ae99686c1a :: Ptr Bar_8_32 ->
-                               CLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_32@
-hs_bindgen_b6b609ae99686c1a = fromFFIType hs_bindgen_b6b609ae99686c1a_base
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_unsafe :: Ptr Bar_8_32 -> CLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_unsafe = hs_bindgen_b6b609ae99686c1a
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_32@
-foreign import ccall unsafe "hs_bindgen_57a297fb054d1b61" hs_bindgen_57a297fb054d1b61_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_32@
-hs_bindgen_57a297fb054d1b61 :: Ptr Bar_8_32 ->
-                               CLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_32@
-hs_bindgen_57a297fb054d1b61 = fromFFIType hs_bindgen_57a297fb054d1b61_base
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_unsafe :: Ptr Bar_8_32 -> CLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_unsafe = hs_bindgen_57a297fb054d1b61
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_64@
-foreign import ccall unsafe "hs_bindgen_5624ee6706340c28" hs_bindgen_5624ee6706340c28_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_64@
-hs_bindgen_5624ee6706340c28 :: Ptr Bar_8_64 ->
-                               CLLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_8_64@
-hs_bindgen_5624ee6706340c28 = fromFFIType hs_bindgen_5624ee6706340c28_base
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_unsafe :: Ptr Bar_8_64 -> CLLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_unsafe = hs_bindgen_5624ee6706340c28
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_64@
-foreign import ccall unsafe "hs_bindgen_57a006547646b355" hs_bindgen_57a006547646b355_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_64@
-hs_bindgen_57a006547646b355 :: Ptr Bar_8_64 ->
-                               CLLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_8_64@
-hs_bindgen_57a006547646b355 = fromFFIType hs_bindgen_57a006547646b355_base
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_unsafe :: Ptr Bar_8_64 -> CLLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_unsafe = hs_bindgen_57a006547646b355
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_16@
-foreign import ccall unsafe "hs_bindgen_908406015b2ae986" hs_bindgen_908406015b2ae986_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_16@
-hs_bindgen_908406015b2ae986 :: Ptr Bar_16_16 ->
-                               CInt -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_16@
-hs_bindgen_908406015b2ae986 = fromFFIType hs_bindgen_908406015b2ae986_base
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_unsafe :: Ptr Bar_16_16 -> CInt -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_unsafe = hs_bindgen_908406015b2ae986
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_16@
-foreign import ccall unsafe "hs_bindgen_83f25fcbc4919d87" hs_bindgen_83f25fcbc4919d87_base ::
-    Ptr Void
- -> Int32
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_16@
-hs_bindgen_83f25fcbc4919d87 :: Ptr Bar_16_16 ->
-                               CInt -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_16@
-hs_bindgen_83f25fcbc4919d87 = fromFFIType hs_bindgen_83f25fcbc4919d87_base
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_unsafe :: Ptr Bar_16_16 -> CInt -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_unsafe = hs_bindgen_83f25fcbc4919d87
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_32@
-foreign import ccall unsafe "hs_bindgen_2fc932c4505d95bc" hs_bindgen_2fc932c4505d95bc_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_32@
-hs_bindgen_2fc932c4505d95bc :: Ptr Bar_16_32 ->
-                               CLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_32@
-hs_bindgen_2fc932c4505d95bc = fromFFIType hs_bindgen_2fc932c4505d95bc_base
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_unsafe :: Ptr Bar_16_32 -> CLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_unsafe = hs_bindgen_2fc932c4505d95bc
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_32@
-foreign import ccall unsafe "hs_bindgen_d07b7c7434009536" hs_bindgen_d07b7c7434009536_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_32@
-hs_bindgen_d07b7c7434009536 :: Ptr Bar_16_32 ->
-                               CLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_32@
-hs_bindgen_d07b7c7434009536 = fromFFIType hs_bindgen_d07b7c7434009536_base
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_unsafe :: Ptr Bar_16_32 -> CLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_unsafe = hs_bindgen_d07b7c7434009536
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_64@
-foreign import ccall unsafe "hs_bindgen_aa9694a81fe70333" hs_bindgen_aa9694a81fe70333_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_64@
-hs_bindgen_aa9694a81fe70333 :: Ptr Bar_16_64 ->
-                               CLLong -> CInt -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_16_64@
-hs_bindgen_aa9694a81fe70333 = fromFFIType hs_bindgen_aa9694a81fe70333_base
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_unsafe :: Ptr Bar_16_64 -> CLLong -> CInt -> IO ()
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_unsafe = hs_bindgen_aa9694a81fe70333
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_64@
-foreign import ccall unsafe "hs_bindgen_775b431e7994bbb4" hs_bindgen_775b431e7994bbb4_base ::
-    Ptr Void
- -> Int64
- -> Int32
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_64@
-hs_bindgen_775b431e7994bbb4 :: Ptr Bar_16_64 ->
-                               CLLong -> CInt -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_16_64@
-hs_bindgen_775b431e7994bbb4 = fromFFIType hs_bindgen_775b431e7994bbb4_base
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_unsafe :: Ptr Bar_16_64 -> CLLong -> CInt -> IO CBool
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_unsafe = hs_bindgen_775b431e7994bbb4
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_32@
-foreign import ccall unsafe "hs_bindgen_c554619ce78113ba" hs_bindgen_c554619ce78113ba_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_32@
-hs_bindgen_c554619ce78113ba :: Ptr Bar_32_32 ->
-                               CLong -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_32@
-hs_bindgen_c554619ce78113ba = fromFFIType hs_bindgen_c554619ce78113ba_base
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_unsafe :: Ptr Bar_32_32 -> CLong -> CLong -> IO ()
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_unsafe = hs_bindgen_c554619ce78113ba
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_32@
-foreign import ccall unsafe "hs_bindgen_1821b4c2024c6db0" hs_bindgen_1821b4c2024c6db0_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_32@
-hs_bindgen_1821b4c2024c6db0 :: Ptr Bar_32_32 ->
-                               CLong -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_32@
-hs_bindgen_1821b4c2024c6db0 = fromFFIType hs_bindgen_1821b4c2024c6db0_base
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_unsafe :: Ptr Bar_32_32 -> CLong -> CLong -> IO CBool
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_unsafe = hs_bindgen_1821b4c2024c6db0
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_64@
-foreign import ccall unsafe "hs_bindgen_adf958d470681c09" hs_bindgen_adf958d470681c09_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_64@
-hs_bindgen_adf958d470681c09 :: Ptr Bar_32_64 ->
-                               CLLong -> CLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_32_64@
-hs_bindgen_adf958d470681c09 = fromFFIType hs_bindgen_adf958d470681c09_base
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_unsafe :: Ptr Bar_32_64 -> CLLong -> CLong -> IO ()
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_unsafe = hs_bindgen_adf958d470681c09
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_64@
-foreign import ccall unsafe "hs_bindgen_6f9d2a4c9efe9bd1" hs_bindgen_6f9d2a4c9efe9bd1_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_64@
-hs_bindgen_6f9d2a4c9efe9bd1 :: Ptr Bar_32_64 ->
-                               CLLong -> CLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_32_64@
-hs_bindgen_6f9d2a4c9efe9bd1 = fromFFIType hs_bindgen_6f9d2a4c9efe9bd1_base
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_unsafe :: Ptr Bar_32_64 -> CLLong -> CLong -> IO CBool
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_unsafe = hs_bindgen_6f9d2a4c9efe9bd1
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_64_64@
-foreign import ccall unsafe "hs_bindgen_d33dcf0f97e09802" hs_bindgen_d33dcf0f97e09802_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_64_64@
-hs_bindgen_d33dcf0f97e09802 :: Ptr Bar_64_64 ->
-                               CLLong -> CLLong -> IO ()
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_set_bar_64_64@
-hs_bindgen_d33dcf0f97e09802 = fromFFIType hs_bindgen_d33dcf0f97e09802_base
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_unsafe :: Ptr Bar_64_64 -> CLLong -> CLLong -> IO ()
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_unsafe = hs_bindgen_d33dcf0f97e09802
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_64_64@
-foreign import ccall unsafe "hs_bindgen_49948f3caf9be86d" hs_bindgen_49948f3caf9be86d_base ::
-    Ptr Void
- -> Int64
- -> Int64
- -> IO Word8
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_64_64@
-hs_bindgen_49948f3caf9be86d :: Ptr Bar_64_64 ->
-                               CLLong -> CLLong -> IO CBool
--- __unique:__ @test_typesstructsbitfields_Example_Unsafe_eq_bar_64_64@
-hs_bindgen_49948f3caf9be86d = fromFFIType hs_bindgen_49948f3caf9be86d_base
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_unsafe :: Ptr Bar_64_64 ->
-                       CLLong -> CLLong -> IO CBool
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_unsafe = hs_bindgen_49948f3caf9be86d
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_8@
-foreign import ccall unsafe "hs_bindgen_fe08388e1e6a6060" hs_bindgen_fe08388e1e6a6060_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_8@
-hs_bindgen_fe08388e1e6a6060 :: IO (FunPtr (Ptr Foo_8 ->
-                                           CSChar ->
-                                           CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_8@
-hs_bindgen_fe08388e1e6a6060 = fromFFIType hs_bindgen_fe08388e1e6a6060_base
-{-# NOINLINE set_foo_8_funptr #-}
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_funptr :: FunPtr (Ptr Foo_8 ->
-                            CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO ())
-{-| __C declaration:__ @set_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 34:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_8_funptr = unsafePerformIO hs_bindgen_fe08388e1e6a6060
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_8@
-foreign import ccall unsafe "hs_bindgen_04b0e4ecb5c875a0" hs_bindgen_04b0e4ecb5c875a0_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_8@
-hs_bindgen_04b0e4ecb5c875a0 :: IO (FunPtr (Ptr Foo_8 ->
-                                           CSChar ->
-                                           CSChar ->
-                                           CSChar -> CSChar -> CSChar -> CSChar -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_8@
-hs_bindgen_04b0e4ecb5c875a0 = fromFFIType hs_bindgen_04b0e4ecb5c875a0_base
-{-# NOINLINE eq_foo_8_funptr #-}
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_funptr :: FunPtr (Ptr Foo_8 ->
-                           CSChar ->
-                           CSChar -> CSChar -> CSChar -> CSChar -> CSChar -> IO CBool)
-{-| __C declaration:__ @eq_foo_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 50:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_8_funptr = unsafePerformIO hs_bindgen_04b0e4ecb5c875a0
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_16@
-foreign import ccall unsafe "hs_bindgen_1e3f334f1aeeab11" hs_bindgen_1e3f334f1aeeab11_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_16@
-hs_bindgen_1e3f334f1aeeab11 :: IO (FunPtr (Ptr Foo_16 ->
-                                           CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_16@
-hs_bindgen_1e3f334f1aeeab11 = fromFFIType hs_bindgen_1e3f334f1aeeab11_base
-{-# NOINLINE set_foo_16_funptr #-}
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_funptr :: FunPtr (Ptr Foo_16 ->
-                             CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO ())
-{-| __C declaration:__ @set_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 79:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_16_funptr = unsafePerformIO hs_bindgen_1e3f334f1aeeab11
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_16@
-foreign import ccall unsafe "hs_bindgen_d8b22963aebe92ee" hs_bindgen_d8b22963aebe92ee_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_16@
-hs_bindgen_d8b22963aebe92ee :: IO (FunPtr (Ptr Foo_16 ->
-                                           CSChar ->
-                                           CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_16@
-hs_bindgen_d8b22963aebe92ee = fromFFIType hs_bindgen_d8b22963aebe92ee_base
-{-# NOINLINE eq_foo_16_funptr #-}
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_funptr :: FunPtr (Ptr Foo_16 ->
-                            CSChar -> CInt -> CInt -> CInt -> CInt -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_foo_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 95:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_16_funptr = unsafePerformIO hs_bindgen_d8b22963aebe92ee
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_32@
-foreign import ccall unsafe "hs_bindgen_c5328b8746148226" hs_bindgen_c5328b8746148226_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_32@
-hs_bindgen_c5328b8746148226 :: IO (FunPtr (Ptr Foo_32 ->
-                                           CSChar ->
-                                           CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_32@
-hs_bindgen_c5328b8746148226 = fromFFIType hs_bindgen_c5328b8746148226_base
-{-# NOINLINE set_foo_32_funptr #-}
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_funptr :: FunPtr (Ptr Foo_32 ->
-                             CSChar -> CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO ())
-{-| __C declaration:__ @set_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 125:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_32_funptr = unsafePerformIO hs_bindgen_c5328b8746148226
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_32@
-foreign import ccall unsafe "hs_bindgen_bad5efd3edec907f" hs_bindgen_bad5efd3edec907f_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_32@
-hs_bindgen_bad5efd3edec907f :: IO (FunPtr (Ptr Foo_32 ->
-                                           CSChar ->
-                                           CInt ->
-                                           CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_32@
-hs_bindgen_bad5efd3edec907f = fromFFIType hs_bindgen_bad5efd3edec907f_base
-{-# NOINLINE eq_foo_32_funptr #-}
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_funptr :: FunPtr (Ptr Foo_32 ->
-                            CSChar ->
-                            CInt -> CInt -> CInt -> CLong -> CInt -> CLong -> IO CBool)
-{-| __C declaration:__ @eq_foo_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 143:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_32_funptr = unsafePerformIO hs_bindgen_bad5efd3edec907f
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_64@
-foreign import ccall unsafe "hs_bindgen_c5e0cb2fae30f205" hs_bindgen_c5e0cb2fae30f205_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_64@
-hs_bindgen_c5e0cb2fae30f205 :: IO (FunPtr (Ptr Foo_64 ->
-                                           CLong -> CLLong -> CLLong -> CLLong -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_foo_64@
-hs_bindgen_c5e0cb2fae30f205 = fromFFIType hs_bindgen_c5e0cb2fae30f205_base
-{-# NOINLINE set_foo_64_funptr #-}
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_funptr :: FunPtr (Ptr Foo_64 ->
-                             CLong -> CLLong -> CLLong -> CLLong -> IO ())
-{-| __C declaration:__ @set_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 172:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_foo_64_funptr = unsafePerformIO hs_bindgen_c5e0cb2fae30f205
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_64@
-foreign import ccall unsafe "hs_bindgen_bf4e4696a76108d2" hs_bindgen_bf4e4696a76108d2_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_64@
-hs_bindgen_bf4e4696a76108d2 :: IO (FunPtr (Ptr Foo_64 ->
-                                           CLong -> CLLong -> CLLong -> CLLong -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_foo_64@
-hs_bindgen_bf4e4696a76108d2 = fromFFIType hs_bindgen_bf4e4696a76108d2_base
-{-# NOINLINE eq_foo_64_funptr #-}
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_funptr :: FunPtr (Ptr Foo_64 ->
-                            CLong -> CLLong -> CLLong -> CLLong -> IO CBool)
-{-| __C declaration:__ @eq_foo_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 184:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_foo_64_funptr = unsafePerformIO hs_bindgen_bf4e4696a76108d2
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_8@
-foreign import ccall unsafe "hs_bindgen_4a8efa809aae097a" hs_bindgen_4a8efa809aae097a_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_8@
-hs_bindgen_4a8efa809aae097a :: IO (FunPtr (Ptr Bar_8_8 ->
-                                           CSChar -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_8@
-hs_bindgen_4a8efa809aae097a = fromFFIType hs_bindgen_4a8efa809aae097a_base
-{-# NOINLINE set_bar_8_8_funptr #-}
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_funptr :: FunPtr (Ptr Bar_8_8 ->
-                              CSChar -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 205:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_8_funptr = unsafePerformIO hs_bindgen_4a8efa809aae097a
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_8@
-foreign import ccall unsafe "hs_bindgen_313c51982bd09adf" hs_bindgen_313c51982bd09adf_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_8@
-hs_bindgen_313c51982bd09adf :: IO (FunPtr (Ptr Bar_8_8 ->
-                                           CSChar -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_8@
-hs_bindgen_313c51982bd09adf = fromFFIType hs_bindgen_313c51982bd09adf_base
-{-# NOINLINE eq_bar_8_8_funptr #-}
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_funptr :: FunPtr (Ptr Bar_8_8 ->
-                             CSChar -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_8_8@
-
-    __defined at:__ @types\/structs\/bitfields.h 213:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_8_funptr = unsafePerformIO hs_bindgen_313c51982bd09adf
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_16@
-foreign import ccall unsafe "hs_bindgen_d1b8e074d464e182" hs_bindgen_d1b8e074d464e182_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_16@
-hs_bindgen_d1b8e074d464e182 :: IO (FunPtr (Ptr Bar_8_16 ->
-                                           CInt -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_16@
-hs_bindgen_d1b8e074d464e182 = fromFFIType hs_bindgen_d1b8e074d464e182_base
-{-# NOINLINE set_bar_8_16_funptr #-}
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_funptr :: FunPtr (Ptr Bar_8_16 ->
-                               CInt -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 230:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_16_funptr = unsafePerformIO hs_bindgen_d1b8e074d464e182
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_16@
-foreign import ccall unsafe "hs_bindgen_21cee5868ce4a4fb" hs_bindgen_21cee5868ce4a4fb_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_16@
-hs_bindgen_21cee5868ce4a4fb :: IO (FunPtr (Ptr Bar_8_16 ->
-                                           CInt -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_16@
-hs_bindgen_21cee5868ce4a4fb = fromFFIType hs_bindgen_21cee5868ce4a4fb_base
-{-# NOINLINE eq_bar_8_16_funptr #-}
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_funptr :: FunPtr (Ptr Bar_8_16 ->
-                              CInt -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_8_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 238:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_16_funptr = unsafePerformIO hs_bindgen_21cee5868ce4a4fb
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_32@
-foreign import ccall unsafe "hs_bindgen_02ba995a762444e4" hs_bindgen_02ba995a762444e4_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_32@
-hs_bindgen_02ba995a762444e4 :: IO (FunPtr (Ptr Bar_8_32 ->
-                                           CLong -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_32@
-hs_bindgen_02ba995a762444e4 = fromFFIType hs_bindgen_02ba995a762444e4_base
-{-# NOINLINE set_bar_8_32_funptr #-}
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_funptr :: FunPtr (Ptr Bar_8_32 ->
-                               CLong -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 255:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_32_funptr = unsafePerformIO hs_bindgen_02ba995a762444e4
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_32@
-foreign import ccall unsafe "hs_bindgen_1cd770b7232b8faa" hs_bindgen_1cd770b7232b8faa_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_32@
-hs_bindgen_1cd770b7232b8faa :: IO (FunPtr (Ptr Bar_8_32 ->
-                                           CLong -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_32@
-hs_bindgen_1cd770b7232b8faa = fromFFIType hs_bindgen_1cd770b7232b8faa_base
-{-# NOINLINE eq_bar_8_32_funptr #-}
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_funptr :: FunPtr (Ptr Bar_8_32 ->
-                              CLong -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_8_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 263:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_32_funptr = unsafePerformIO hs_bindgen_1cd770b7232b8faa
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_64@
-foreign import ccall unsafe "hs_bindgen_a6f6a7482aead8e6" hs_bindgen_a6f6a7482aead8e6_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_64@
-hs_bindgen_a6f6a7482aead8e6 :: IO (FunPtr (Ptr Bar_8_64 ->
-                                           CLLong -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_8_64@
-hs_bindgen_a6f6a7482aead8e6 = fromFFIType hs_bindgen_a6f6a7482aead8e6_base
-{-# NOINLINE set_bar_8_64_funptr #-}
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_funptr :: FunPtr (Ptr Bar_8_64 ->
-                               CLLong -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 280:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_8_64_funptr = unsafePerformIO hs_bindgen_a6f6a7482aead8e6
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_64@
-foreign import ccall unsafe "hs_bindgen_f7c3866b01ace476" hs_bindgen_f7c3866b01ace476_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_64@
-hs_bindgen_f7c3866b01ace476 :: IO (FunPtr (Ptr Bar_8_64 ->
-                                           CLLong -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_8_64@
-hs_bindgen_f7c3866b01ace476 = fromFFIType hs_bindgen_f7c3866b01ace476_base
-{-# NOINLINE eq_bar_8_64_funptr #-}
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_funptr :: FunPtr (Ptr Bar_8_64 ->
-                              CLLong -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_8_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 288:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_8_64_funptr = unsafePerformIO hs_bindgen_f7c3866b01ace476
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_16@
-foreign import ccall unsafe "hs_bindgen_fa72ee2afb190952" hs_bindgen_fa72ee2afb190952_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_16@
-hs_bindgen_fa72ee2afb190952 :: IO (FunPtr (Ptr Bar_16_16 ->
-                                           CInt -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_16@
-hs_bindgen_fa72ee2afb190952 = fromFFIType hs_bindgen_fa72ee2afb190952_base
-{-# NOINLINE set_bar_16_16_funptr #-}
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_funptr :: FunPtr (Ptr Bar_16_16 ->
-                                CInt -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 305:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_16_funptr = unsafePerformIO hs_bindgen_fa72ee2afb190952
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_16@
-foreign import ccall unsafe "hs_bindgen_e4686d88a051cf3d" hs_bindgen_e4686d88a051cf3d_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_16@
-hs_bindgen_e4686d88a051cf3d :: IO (FunPtr (Ptr Bar_16_16 ->
-                                           CInt -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_16@
-hs_bindgen_e4686d88a051cf3d = fromFFIType hs_bindgen_e4686d88a051cf3d_base
-{-# NOINLINE eq_bar_16_16_funptr #-}
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_funptr :: FunPtr (Ptr Bar_16_16 ->
-                               CInt -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_16_16@
-
-    __defined at:__ @types\/structs\/bitfields.h 313:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_16_funptr = unsafePerformIO hs_bindgen_e4686d88a051cf3d
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_32@
-foreign import ccall unsafe "hs_bindgen_cf87e9ae69537049" hs_bindgen_cf87e9ae69537049_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_32@
-hs_bindgen_cf87e9ae69537049 :: IO (FunPtr (Ptr Bar_16_32 ->
-                                           CLong -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_32@
-hs_bindgen_cf87e9ae69537049 = fromFFIType hs_bindgen_cf87e9ae69537049_base
-{-# NOINLINE set_bar_16_32_funptr #-}
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_funptr :: FunPtr (Ptr Bar_16_32 ->
-                                CLong -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 330:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_32_funptr = unsafePerformIO hs_bindgen_cf87e9ae69537049
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_32@
-foreign import ccall unsafe "hs_bindgen_73c7f2a41933abf6" hs_bindgen_73c7f2a41933abf6_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_32@
-hs_bindgen_73c7f2a41933abf6 :: IO (FunPtr (Ptr Bar_16_32 ->
-                                           CLong -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_32@
-hs_bindgen_73c7f2a41933abf6 = fromFFIType hs_bindgen_73c7f2a41933abf6_base
-{-# NOINLINE eq_bar_16_32_funptr #-}
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_funptr :: FunPtr (Ptr Bar_16_32 ->
-                               CLong -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_16_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 338:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_32_funptr = unsafePerformIO hs_bindgen_73c7f2a41933abf6
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_64@
-foreign import ccall unsafe "hs_bindgen_8900d8bcf4c33175" hs_bindgen_8900d8bcf4c33175_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_64@
-hs_bindgen_8900d8bcf4c33175 :: IO (FunPtr (Ptr Bar_16_64 ->
-                                           CLLong -> CInt -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_16_64@
-hs_bindgen_8900d8bcf4c33175 = fromFFIType hs_bindgen_8900d8bcf4c33175_base
-{-# NOINLINE set_bar_16_64_funptr #-}
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_funptr :: FunPtr (Ptr Bar_16_64 ->
-                                CLLong -> CInt -> IO ())
-{-| __C declaration:__ @set_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 355:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_16_64_funptr = unsafePerformIO hs_bindgen_8900d8bcf4c33175
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_64@
-foreign import ccall unsafe "hs_bindgen_a03f3fa06237c9cf" hs_bindgen_a03f3fa06237c9cf_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_64@
-hs_bindgen_a03f3fa06237c9cf :: IO (FunPtr (Ptr Bar_16_64 ->
-                                           CLLong -> CInt -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_16_64@
-hs_bindgen_a03f3fa06237c9cf = fromFFIType hs_bindgen_a03f3fa06237c9cf_base
-{-# NOINLINE eq_bar_16_64_funptr #-}
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_funptr :: FunPtr (Ptr Bar_16_64 ->
-                               CLLong -> CInt -> IO CBool)
-{-| __C declaration:__ @eq_bar_16_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 363:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_16_64_funptr = unsafePerformIO hs_bindgen_a03f3fa06237c9cf
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_32@
-foreign import ccall unsafe "hs_bindgen_a7d8c6f4e3b7edab" hs_bindgen_a7d8c6f4e3b7edab_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_32@
-hs_bindgen_a7d8c6f4e3b7edab :: IO (FunPtr (Ptr Bar_32_32 ->
-                                           CLong -> CLong -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_32@
-hs_bindgen_a7d8c6f4e3b7edab = fromFFIType hs_bindgen_a7d8c6f4e3b7edab_base
-{-# NOINLINE set_bar_32_32_funptr #-}
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_funptr :: FunPtr (Ptr Bar_32_32 ->
-                                CLong -> CLong -> IO ())
-{-| __C declaration:__ @set_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 380:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_32_funptr = unsafePerformIO hs_bindgen_a7d8c6f4e3b7edab
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_32@
-foreign import ccall unsafe "hs_bindgen_519f008ef22c79b0" hs_bindgen_519f008ef22c79b0_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_32@
-hs_bindgen_519f008ef22c79b0 :: IO (FunPtr (Ptr Bar_32_32 ->
-                                           CLong -> CLong -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_32@
-hs_bindgen_519f008ef22c79b0 = fromFFIType hs_bindgen_519f008ef22c79b0_base
-{-# NOINLINE eq_bar_32_32_funptr #-}
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_funptr :: FunPtr (Ptr Bar_32_32 ->
-                               CLong -> CLong -> IO CBool)
-{-| __C declaration:__ @eq_bar_32_32@
-
-    __defined at:__ @types\/structs\/bitfields.h 388:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_32_funptr = unsafePerformIO hs_bindgen_519f008ef22c79b0
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_64@
-foreign import ccall unsafe "hs_bindgen_c8d0a404bdb3c4fe" hs_bindgen_c8d0a404bdb3c4fe_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_64@
-hs_bindgen_c8d0a404bdb3c4fe :: IO (FunPtr (Ptr Bar_32_64 ->
-                                           CLLong -> CLong -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_32_64@
-hs_bindgen_c8d0a404bdb3c4fe = fromFFIType hs_bindgen_c8d0a404bdb3c4fe_base
-{-# NOINLINE set_bar_32_64_funptr #-}
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_funptr :: FunPtr (Ptr Bar_32_64 ->
-                                CLLong -> CLong -> IO ())
-{-| __C declaration:__ @set_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 405:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_32_64_funptr = unsafePerformIO hs_bindgen_c8d0a404bdb3c4fe
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_64@
-foreign import ccall unsafe "hs_bindgen_5547e5356fb5659e" hs_bindgen_5547e5356fb5659e_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_64@
-hs_bindgen_5547e5356fb5659e :: IO (FunPtr (Ptr Bar_32_64 ->
-                                           CLLong -> CLong -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_32_64@
-hs_bindgen_5547e5356fb5659e = fromFFIType hs_bindgen_5547e5356fb5659e_base
-{-# NOINLINE eq_bar_32_64_funptr #-}
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_funptr :: FunPtr (Ptr Bar_32_64 ->
-                               CLLong -> CLong -> IO CBool)
-{-| __C declaration:__ @eq_bar_32_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 413:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_32_64_funptr = unsafePerformIO hs_bindgen_5547e5356fb5659e
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_64_64@
-foreign import ccall unsafe "hs_bindgen_6519f4fe17fd7395" hs_bindgen_6519f4fe17fd7395_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_64_64@
-hs_bindgen_6519f4fe17fd7395 :: IO (FunPtr (Ptr Bar_64_64 ->
-                                           CLLong -> CLLong -> IO ()))
--- __unique:__ @test_typesstructsbitfields_Example_get_set_bar_64_64@
-hs_bindgen_6519f4fe17fd7395 = fromFFIType hs_bindgen_6519f4fe17fd7395_base
-{-# NOINLINE set_bar_64_64_funptr #-}
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_funptr :: FunPtr (Ptr Bar_64_64 ->
-                                CLLong -> CLLong -> IO ())
-{-| __C declaration:__ @set_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 430:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-set_bar_64_64_funptr = unsafePerformIO hs_bindgen_6519f4fe17fd7395
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_64_64@
-foreign import ccall unsafe "hs_bindgen_9b1def459fcd8bd9" hs_bindgen_9b1def459fcd8bd9_base ::
-    IO (FunPtr Void)
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_64_64@
-hs_bindgen_9b1def459fcd8bd9 :: IO (FunPtr (Ptr Bar_64_64 ->
-                                           CLLong -> CLLong -> IO CBool))
--- __unique:__ @test_typesstructsbitfields_Example_get_eq_bar_64_64@
-hs_bindgen_9b1def459fcd8bd9 = fromFFIType hs_bindgen_9b1def459fcd8bd9_base
-{-# NOINLINE eq_bar_64_64_funptr #-}
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_funptr :: FunPtr (Ptr Bar_64_64 ->
-                               CLLong -> CLLong -> IO CBool)
-{-| __C declaration:__ @eq_bar_64_64@
-
-    __defined at:__ @types\/structs\/bitfields.h 438:20@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-eq_bar_64_64_funptr = unsafePerformIO hs_bindgen_9b1def459fcd8bd9
