@@ -79,6 +79,9 @@ data CustomLogLevelSetting =
     -- | Modify traces with log level 'Warning' to be fatal 'Error's.
   | MakeWarningsErrors
 
+    -- | Modify traces with log level Bug' to be fatal 'Error's.
+  | MakeBugsErrors
+
     -- * Specific setters
     -- | Set the log level of macro-related parsing traces to 'Warning'.
     --
@@ -112,7 +115,9 @@ fromSetting = \case
     -- Generic setters.
     MakeTrace level traceId -> makeTrace level traceId
     -- Generic modifiers.
-    MakeWarningsErrors      -> makeWarningsErrors
+    MakeWarningsErrors      -> makeLevelErrors Warning
+    -- Generic modifiers.
+    MakeBugsErrors          -> makeLevelErrors Bug
     -- Specific setters.
     EnableMacroWarnings     -> enableMacroWarnings
   where
@@ -135,8 +140,8 @@ fromSetting = \case
         _otherTrace
           -> id
 
-    makeWarningsErrors :: CustomLogLevel Level TraceMsg
-    makeWarningsErrors = CustomLogLevel $ \_ lvl ->
-      if lvl == Warning
+    makeLevelErrors :: Level -> CustomLogLevel Level TraceMsg
+    makeLevelErrors lvlError = CustomLogLevel $ \_ lvl ->
+      if lvl >= lvlError
       then Error
       else lvl
