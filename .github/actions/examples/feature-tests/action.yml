@@ -4,7 +4,13 @@ description: Build and run the feature-tests example
 runs:
   using: composite
   steps:
-    - name: Run generation and build script
+    - name: Run generation and build script (Clang)
       shell: bash
       working-directory: ./examples/feature-tests
+      run: ./generate-and-run.sh
+    - name: Run generation and build script (GCC)
+      shell: bash
+      working-directory: ./examples/feature-tests
+      env:
+        CC: gcc
       run: ./generate-and-run.sh

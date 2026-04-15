@@ -13,7 +13,7 @@ export PROJECT_ROOT
     echo "# "
 
     cd "$SCRIPT_DIR/c"
-    make
+    make CC="${CC:-clang}"
 )
 
 C_DIR=$(realpath c)
