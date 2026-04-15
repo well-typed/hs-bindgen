@@ -25,6 +25,8 @@ tests :: TestTree
 tests = testGroup "Test.HsBindgen.Unit.Digraph" [
       -- Construction
       testTranspose
+      -- Insertion
+    , testInsertEdgeIfVerticesExist
       -- Deletion/Update
     , testDeleteEdgesFrom
     , testDeleteEdgesTo
@@ -32,6 +34,7 @@ tests = testGroup "Test.HsBindgen.Unit.Digraph" [
     , testFilterEdges
     , testFilterVerticesCombineEdges
       -- Query
+    , testHasVertex
     , testVertices
     , testNeighbors
     , testReaches
@@ -128,6 +131,24 @@ testTranspose = testGroup "transpose" [
         graph1V @=? Digraph.transpose (Digraph.transpose graph1V)
     , testCase "with edges" $
         graph1E @=? Digraph.transpose (Digraph.transpose graph1E)
+    ]
+
+testInsertEdgeIfVerticesExist :: TestTree
+testInsertEdgeIfVerticesExist = testGroup "insertEdgeIfVerticesExist" [
+      testCase "both exist" $ do
+        let graphVs  = mkVs [1, 2]
+            graph    = mkGraph graphVs []
+            expected = mkGraph graphVs [("new", ("v1", "v2"))]
+        Digraph.InsertEdgeSuccess expected
+          @=? Digraph.insertEdgeIfVerticesExist "v1" "new" "v2" graph
+    , testCase "no source" $ do
+        let graph = mkGraph (mkVs [2]) []
+        Digraph.InsertEdgeSourceVertexNotFound "v1"
+          @=? Digraph.insertEdgeIfVerticesExist "v1" "new" "v2" graph
+    , testCase "no target" $ do
+        let graph = mkGraph (mkVs [1]) []
+        Digraph.InsertEdgeTargetVertexNotFound "v2"
+          @=? Digraph.insertEdgeIfVerticesExist "v1" "new" "v2" graph
     ]
 
 testDeleteEdgesFrom :: TestTree
@@ -272,6 +293,13 @@ testFilterVerticesCombineEdges = testGroup "filterVerticesCombineEdges" [
 
     expect :: Map V (Set E) -> [(Int, [E])] -> Assertion
     expect ns = (@=? ns) . Map.fromList . map (bimap mkV Set.fromList)
+
+testHasVertex :: TestTree
+testHasVertex = testGroup "hasVertex" [
+      testCase "empty"   $ False @=? Digraph.hasVertex "v42" graph0
+    , testCase "unknown" $ False @=? Digraph.hasVertex "v42" graph1E
+    , testCase "exists"  $ True  @=? Digraph.hasVertex "v6"  graph1E
+    ]
 
 testVertices :: TestTree
 testVertices = testGroup "vertices" [

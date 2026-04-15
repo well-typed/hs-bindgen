@@ -13,6 +13,8 @@ module Data.Digraph (
     -- * Insertion
   , insertVertex
   , insertEdge
+  , insertEdgeIfVerticesExist
+  , InsertEdgeIfVerticesExistResult(..)
     -- * Deletion/Update
   , deleteEdgesFrom
   , deleteEdgesTo
@@ -20,6 +22,7 @@ module Data.Digraph (
   , filterEdges
   , filterVerticesCombineEdges
     -- * Query
+  , hasVertex
   , vertices
   , neighbors
   , reaches
@@ -198,6 +201,38 @@ insertEdge fromV edge toV graph =
         (toIdx,   graph2) = insertVertex' toV   graph1
     in  graph2{ edgeMap = insertEdge' fromIdx edge toIdx graph2.edgeMap }
 
+-- | Insert an edge when both vertices are already in the graph
+--
+-- Property: This function is idempotent.  The graph is not changed if the edge
+-- already exists.  For any graph @g@ that has edges @v1@ and @v2@:
+--
+-- @
+-- let result@(InsertEdgeSuccess g') =
+--       Dyngraph.insertEdgeIfVerticesExist v1 e v2 g
+-- in  Dyngraph.insertEdgeIfVerticesExist v1 e v2 g' == result
+-- @
+insertEdgeIfVerticesExist ::
+     (Ord e, Ord v)
+  => v
+  -> e
+  -> v
+  -> Digraph e v
+  -> InsertEdgeIfVerticesExistResult e v
+insertEdgeIfVerticesExist fromV edge toV graph =
+    either id InsertEdgeSuccess $ do
+      fromIdx <- maybe (Left (InsertEdgeSourceVertexNotFound fromV)) Right $
+        Map.lookup fromV graph.vMap
+      toIdx   <- maybe (Left (InsertEdgeTargetVertexNotFound toV))   Right $
+        Map.lookup toV   graph.vMap
+      return $ graph{ edgeMap = insertEdge' fromIdx edge toIdx graph.edgeMap }
+
+-- | 'insertEdgeIfVerticesExist' result
+data InsertEdgeIfVerticesExistResult e v =
+    InsertEdgeSuccess (Digraph e v)
+  | InsertEdgeSourceVertexNotFound v
+  | InsertEdgeTargetVertexNotFound v
+  deriving stock (Eq, Show)
+
 {-------------------------------------------------------------------------------
   Deletion/Update
 -------------------------------------------------------------------------------}
@@ -329,6 +364,10 @@ filterVerticesCombineEdges p combine graph =
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+-- | Check whether a vertex exists in the graph
+hasVertex :: Ord v => v -> Digraph e v -> Bool
+hasVertex v graph = Map.member v graph.vMap
 
 -- | Get the vertices of the graph
 --
