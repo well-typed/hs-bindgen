@@ -121,6 +121,10 @@ jobs:
       # new cache for.
       cache-reset-number: 0
 
+      # Manual directories relative to the repository root
+      manual-dir: "./manual"
+      manual-hs-dir: "./manual/hs"
+
     defaults:
       run:
         shell: bash
@@ -222,13 +226,9 @@ jobs:
         # Prevent MSYS/Git Bash from converting /th-fixtures/ to a Windows path
         MSYS_NO_PATHCONV: 1
 
-    - name: 🧪 Build manual (macOS)
-      if: runner.os == 'macOS'
-      uses: ./.github/actions/build-manual-macos
-
-    - name: 🧪 Build manual (Ubuntu)
-      if: runner.os == 'Linux'
-      uses: ./.github/actions/build-manual-ubuntu
+    - name: 🧪 Run manual
+      working-directory: ${{ env.manual-dir }}
+      run: ./generate-and-run.sh
 
     # Save the cache after building the project AND the manual.
     - name: 💾 Save cache

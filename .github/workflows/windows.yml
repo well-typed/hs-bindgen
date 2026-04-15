@@ -125,6 +125,10 @@ jobs:
       # store that we will then save a new cache for.
       cache-reset-number: 0
 
+      # Manual directories relative to the repository root
+      manual-dir: "./manual"
+      manual-hs-dir: "./manual/hs"
+
     defaults:
       run:
         shell: bash
@@ -324,7 +328,7 @@ jobs:
           EOF
 
       - name: "[manual] Generate bindings, build and run the manual"
-        working-directory: ./manual
+        working-directory: ${{ env.manual-dir }}
         run: ./generate-and-run.sh
 
       - name: "[manual] Debug manual"
