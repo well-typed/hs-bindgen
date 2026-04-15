@@ -6,70 +6,18 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# There's a quirk with Apple and Windows assembler and LLVM IR that do not
-# accept Unicode characters. There's SUPPORTS_UNICODE flag that allows Unicode
-# characters and we only enable that for non-MacOS and non-LLVM backend
-# compilation
-#
-# Check inside manual_examples.{c,h} for where this macro flag is used.
-#
-if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
-    echo "Setting SUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS"
-    export BINDGEN_EXTRA_CLANG_ARGS="-DSUPPORTS_UNICODE ${BINDGEN_EXTRA_CLANG_ARGS:-}"
-else
-    echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
-fi
+echo "# "
+echo "# Configuring"
+echo "# "
+
+# shellcheck disable=SC1091
+source ./configure.sh
 
 echo "# "
 echo "# Building C libraries"
 echo "# "
 
 make -C "$SCRIPT_DIR/c"
-
-export LD_LIBRARY_PATH="$SCRIPT_DIR/c:${LD_LIBRARY_PATH:-}"
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    export DYLD_LIBRARY_PATH="$SCRIPT_DIR/c:${DYLD_LIBRARY_PATH:-}"
-fi
-
-if [[ -f "$SCRIPT_DIR/hs/cabal.project.local" ]]; then
-    echo "# "
-    echo "# Using existing cabal.project.local"
-    echo "# "
-else
-    echo "# "
-    echo "# Generating cabal.project.local"
-    echo "# "
-
-    SUPPORTS_UNICODE_STANZA=""
-    if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
-        SUPPORTS_UNICODE_STANZA="package manual
-  ghc-options:
-    -optc-DSUPPORTS_UNICODE
-    -DSUPPORTS_UNICODE
-
-"
-    fi
-
-    cat >"$SCRIPT_DIR/hs/cabal.project.local" <<EOF
-${SUPPORTS_UNICODE_STANZA}package manual
-  extra-include-dirs:
-      $SCRIPT_DIR/c
-  extra-lib-dirs:
-      $SCRIPT_DIR/c
-
-package hs-game
-  extra-include-dirs:
-      $SCRIPT_DIR/c
-  extra-lib-dirs:
-      $SCRIPT_DIR/c
-
-package hs-vector
-  extra-include-dirs:
-      $SCRIPT_DIR/c
-  extra-lib-dirs:
-      $SCRIPT_DIR/c
-EOF
-fi
 
 echo "# "
 echo "# Generating Haskell bindings"

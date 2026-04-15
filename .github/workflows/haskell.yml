@@ -186,7 +186,9 @@ jobs:
 
     - name: 🛠️ Configure (manual)
       working-directory: ${{ env.manual-dir }}
-      run: cat hs/cabal.project.ci | tee hs/cabal.project
+      run: |
+        cat hs/cabal.project.ci | tee hs/cabal.project
+        ./configure.sh
 
     - name: 💾 Generate Cabal plan (manual)
       working-directory: ${{ env.manual-hs-dir }}

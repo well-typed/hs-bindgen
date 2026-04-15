@@ -235,40 +235,11 @@ jobs:
       - name: "[setup] Generate Cabal plan"
         run: cabal build all --dry-run
 
-      - name: "[manual] Configure manual (1)"
+      - name: "[manual] Configure manual"
         working-directory: ${{ env.manual-dir }}
-        run: cat hs/cabal.project.ci | tee hs/cabal.project
-
-      - name: "[manual] Configure manual (2)"
-        # Add manual library directory to PATH so that the DLLs are found.
-        # Do not set SUPPORTS_UNICODE because the Windows assembler has an
-        # issue with Unicode characters.
-        working-directory: ${{ env.manual-hs-dir }}
         run: |
-          echo '== Adding to PATH =============================================================='
-          echo "${{github.workspace}}\\manual\\c" | tee -a "${GITHUB_PATH}"
-          echo '== Configuring cabal.project ==================================================='
-          cat cabal.project.ci | tee cabal.project
-          echo '== Creating cabal.project.local ================================================'
-          tee cabal.project.local <<EOF
-          package manual
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-
-          package hs-game
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-
-          package hs-vector
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-          EOF
+          cat hs/cabal.project.ci | tee hs/cabal.project
+          ./configure.sh
 
       - name: "[manual] Generate Cabal plan"
         working-directory: ${{ env.manual-hs-dir }}
