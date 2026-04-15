@@ -119,7 +119,7 @@ jobs:
       # is incremented, then the "Restor cache" step fails to restore a cache,
       # meaning we will start with an empty cabal store that we will then save a
       # new cache for.
-      cache-reset-number: 0
+      cache-reset-number: 2
 
       # Manual directories relative to the repository root
       manual-dir: "./manual"
