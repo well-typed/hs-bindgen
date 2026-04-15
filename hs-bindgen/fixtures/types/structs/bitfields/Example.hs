@@ -34,54 +34,52 @@ import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| ***************************************************************************** not packed, < =8-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_8@
 
-__C declaration:__ @struct foo_8@
+    __defined at:__ @types\/structs\/bitfields.h 5:8@
 
-__defined at:__ @types\/structs\/bitfields.h 25:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_8 = Foo_8
   { foo_8_a :: RIP.CSChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 26:15@
+         __defined at:__ @types\/structs\/bitfields.h 6:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_8_b :: RIP.CSChar
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 27:15@
+         __defined at:__ @types\/structs\/bitfields.h 7:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_8_c :: RIP.CSChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/bitfields.h 28:15@
+         __defined at:__ @types\/structs\/bitfields.h 8:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_8_d :: RIP.CSChar
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/bitfields.h 29:15@
+         __defined at:__ @types\/structs\/bitfields.h 9:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_8_e :: RIP.CSChar
     {- ^ __C declaration:__ @e@
 
-         __defined at:__ @types\/structs\/bitfields.h 30:15@
+         __defined at:__ @types\/structs\/bitfields.h 10:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_8_f :: RIP.CSChar
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @types\/structs\/bitfields.h 31:15@
+         __defined at:__ @types\/structs\/bitfields.h 11:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -200,54 +198,52 @@ instance ( ((~) ty) RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_f")
 
-{-| ***************************************************************************** not packed, < =16-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_16@
 
-__C declaration:__ @struct foo_16@
+    __defined at:__ @types\/structs\/bitfields.h 15:8@
 
-__defined at:__ @types\/structs\/bitfields.h 70:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_16 = Foo_16
   { foo_16_a :: RIP.CSChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 71:15@
+         __defined at:__ @types\/structs\/bitfields.h 16:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_16_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 72:15@
+         __defined at:__ @types\/structs\/bitfields.h 17:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_16_c :: RIP.CInt
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/bitfields.h 73:15@
+         __defined at:__ @types\/structs\/bitfields.h 18:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_16_d :: RIP.CInt
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/bitfields.h 74:15@
+         __defined at:__ @types\/structs\/bitfields.h 19:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_16_e :: RIP.CInt
     {- ^ __C declaration:__ @e@
 
-         __defined at:__ @types\/structs\/bitfields.h 75:15@
+         __defined at:__ @types\/structs\/bitfields.h 20:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_16_f :: RIP.CInt
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @types\/structs\/bitfields.h 76:15@
+         __defined at:__ @types\/structs\/bitfields.h 21:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -366,61 +362,59 @@ instance ( ((~) ty) RIP.CInt
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_f")
 
-{-| ***************************************************************************** not packed, < =32-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_32@
 
-__C declaration:__ @struct foo_32@
+    __defined at:__ @types\/structs\/bitfields.h 25:8@
 
-__defined at:__ @types\/structs\/bitfields.h 115:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_32 = Foo_32
   { foo_32_a :: RIP.CSChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 116:15@
+         __defined at:__ @types\/structs\/bitfields.h 26:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 117:15@
+         __defined at:__ @types\/structs\/bitfields.h 27:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_c :: RIP.CInt
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/bitfields.h 118:15@
+         __defined at:__ @types\/structs\/bitfields.h 28:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_d :: RIP.CInt
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/bitfields.h 119:15@
+         __defined at:__ @types\/structs\/bitfields.h 29:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_e :: RIP.CLong
     {- ^ __C declaration:__ @e@
 
-         __defined at:__ @types\/structs\/bitfields.h 120:15@
+         __defined at:__ @types\/structs\/bitfields.h 30:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_f :: RIP.CInt
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @types\/structs\/bitfields.h 121:15@
+         __defined at:__ @types\/structs\/bitfields.h 31:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_32_g :: RIP.CLong
     {- ^ __C declaration:__ @g@
 
-         __defined at:__ @types\/structs\/bitfields.h 122:15@
+         __defined at:__ @types\/structs\/bitfields.h 32:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -554,40 +548,38 @@ instance ( ((~) ty) RIP.CLong
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_g")
 
-{-| ***************************************************************************** not packed, < =64-bit fields ****************************************************************************
+{-| __C declaration:__ @struct foo_64@
 
-__C declaration:__ @struct foo_64@
+    __defined at:__ @types\/structs\/bitfields.h 36:8@
 
-__defined at:__ @types\/structs\/bitfields.h 165:8@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Foo_64 = Foo_64
   { foo_64_a :: RIP.CLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 166:20@
+         __defined at:__ @types\/structs\/bitfields.h 37:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_64_b :: RIP.CLLong
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 167:20@
+         __defined at:__ @types\/structs\/bitfields.h 38:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_64_c :: RIP.CLLong
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/bitfields.h 168:20@
+         __defined at:__ @types\/structs\/bitfields.h 39:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , foo_64_d :: RIP.CLLong
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/bitfields.h 169:20@
+         __defined at:__ @types\/structs\/bitfields.h 40:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -676,26 +668,24 @@ instance ( ((~) ty) RIP.CLLong
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_d")
 
-{-| ***************************************************************************** packed, < =8-bit field crosses 8-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_8@
 
-__C declaration:__ @struct bar_8_8@
+    __defined at:__ @types\/structs\/bitfields.h 44:32@
 
-__defined at:__ @types\/structs\/bitfields.h 200:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_8 = Bar_8_8
   { bar_8_8_a :: RIP.CSChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 201:15@
+         __defined at:__ @types\/structs\/bitfields.h 45:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_8_8_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 202:15@
+         __defined at:__ @types\/structs\/bitfields.h 46:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -756,26 +746,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_b")
 
-{-| ***************************************************************************** packed, < =8-bit field crosses 16-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_16@
 
-__C declaration:__ @struct bar_8_16@
+    __defined at:__ @types\/structs\/bitfields.h 50:32@
 
-__defined at:__ @types\/structs\/bitfields.h 225:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_16 = Bar_8_16
   { bar_8_16_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 226:14@
+         __defined at:__ @types\/structs\/bitfields.h 51:14@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_8_16_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 227:14@
+         __defined at:__ @types\/structs\/bitfields.h 52:14@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -836,26 +824,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_b")
 
-{-| ***************************************************************************** packed, < =8-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_32@
 
-__C declaration:__ @struct bar_8_32@
+    __defined at:__ @types\/structs\/bitfields.h 56:32@
 
-__defined at:__ @types\/structs\/bitfields.h 250:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_32 = Bar_8_32
   { bar_8_32_a :: RIP.CLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 251:15@
+         __defined at:__ @types\/structs\/bitfields.h 57:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_8_32_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 252:15@
+         __defined at:__ @types\/structs\/bitfields.h 58:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -916,26 +902,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_b")
 
-{-| ***************************************************************************** packed, < =8-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_8_64@
 
-__C declaration:__ @struct bar_8_64@
+    __defined at:__ @types\/structs\/bitfields.h 62:32@
 
-__defined at:__ @types\/structs\/bitfields.h 275:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_8_64 = Bar_8_64
   { bar_8_64_a :: RIP.CLLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 276:20@
+         __defined at:__ @types\/structs\/bitfields.h 63:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_8_64_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 277:20@
+         __defined at:__ @types\/structs\/bitfields.h 64:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -996,26 +980,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_b")
 
-{-| ***************************************************************************** packed, < =16-bit field crosses 16-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_16@
 
-__C declaration:__ @struct bar_16_16@
+    __defined at:__ @types\/structs\/bitfields.h 68:32@
 
-__defined at:__ @types\/structs\/bitfields.h 300:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_16 = Bar_16_16
   { bar_16_16_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 301:14@
+         __defined at:__ @types\/structs\/bitfields.h 69:14@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_16_16_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 302:14@
+         __defined at:__ @types\/structs\/bitfields.h 70:14@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1076,26 +1058,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_b")
 
-{-| ***************************************************************************** packed, < =16-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_32@
 
-__C declaration:__ @struct bar_16_32@
+    __defined at:__ @types\/structs\/bitfields.h 74:32@
 
-__defined at:__ @types\/structs\/bitfields.h 325:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_32 = Bar_16_32
   { bar_16_32_a :: RIP.CLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 326:15@
+         __defined at:__ @types\/structs\/bitfields.h 75:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_16_32_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 327:15@
+         __defined at:__ @types\/structs\/bitfields.h 76:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1157,26 +1137,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_b")
 
-{-| ***************************************************************************** packed, < =16-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_16_64@
 
-__C declaration:__ @struct bar_16_64@
+    __defined at:__ @types\/structs\/bitfields.h 80:32@
 
-__defined at:__ @types\/structs\/bitfields.h 350:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_16_64 = Bar_16_64
   { bar_16_64_a :: RIP.CLLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 351:20@
+         __defined at:__ @types\/structs\/bitfields.h 81:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_16_64_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 352:20@
+         __defined at:__ @types\/structs\/bitfields.h 82:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1238,26 +1216,24 @@ instance ( ((~) ty) RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_b")
 
-{-| ***************************************************************************** packed, < =32-bit field crosses 32-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_32_32@
 
-__C declaration:__ @struct bar_32_32@
+    __defined at:__ @types\/structs\/bitfields.h 86:32@
 
-__defined at:__ @types\/structs\/bitfields.h 375:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_32_32 = Bar_32_32
   { bar_32_32_a :: RIP.CLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 376:15@
+         __defined at:__ @types\/structs\/bitfields.h 87:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_32_32_b :: RIP.CLong
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 377:15@
+         __defined at:__ @types\/structs\/bitfields.h 88:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1320,26 +1296,24 @@ instance ( ((~) ty) RIP.CLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_b")
 
-{-| ***************************************************************************** packed, < =32-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_32_64@
 
-__C declaration:__ @struct bar_32_64@
+    __defined at:__ @types\/structs\/bitfields.h 92:32@
 
-__defined at:__ @types\/structs\/bitfields.h 400:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_32_64 = Bar_32_64
   { bar_32_64_a :: RIP.CLLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 401:20@
+         __defined at:__ @types\/structs\/bitfields.h 93:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_32_64_b :: RIP.CLong
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 402:20@
+         __defined at:__ @types\/structs\/bitfields.h 94:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1402,26 +1376,24 @@ instance ( ((~) ty) RIP.CLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_b")
 
-{-| ***************************************************************************** packed, < =64-bit field crosses 64-bit word boundary ****************************************************************************
+{-| __C declaration:__ @struct bar_64_64@
 
-__C declaration:__ @struct bar_64_64@
+    __defined at:__ @types\/structs\/bitfields.h 98:32@
 
-__defined at:__ @types\/structs\/bitfields.h 425:32@
-
-__exported by:__ @types\/structs\/bitfields.h@
+    __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Bar_64_64 = Bar_64_64
   { bar_64_64_a :: RIP.CLLong
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 426:20@
+         __defined at:__ @types\/structs\/bitfields.h 99:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , bar_64_64_b :: RIP.CLLong
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 427:20@
+         __defined at:__ @types\/structs\/bitfields.h 100:20@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}

@@ -7,18 +7,13 @@
 -- * Poke tests poke the @struct@ and then use a C function to check that the
 --   fields are as expected.
 --
--- By implementing this as a TH test, the C is compiled by the C compiler that
--- GHC is configured to use.  This is often GCC, not Clang, and this test may
--- therefore help us discover discrepancies between Clang and GCC.  (We have not
--- discovered any such discrepancies yet.)
---
 -- Much of the code in this module follows the same pattern.  This has not been
 -- abstracted, using TH for example, because this whole module will eventually
 -- be replaced with generated tests.
 
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Test.Bitfields (tests) where
+module Test.Types.Bitfields (tests) where
 
 import Data.Bits ((.&.))
 import Data.Bits qualified as Bits
@@ -36,7 +31,8 @@ import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
 import HsBindgen.Runtime.Internal.Bitfield qualified as Bitfield
 import HsBindgen.Runtime.Marshal qualified as Marshal
 
-import Test.TH.Bitfields qualified as Bitfields
+import Generated.Types.Bitfields qualified as Bitfields
+import Generated.Types.Bitfields.Unsafe qualified as Bitfields
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -818,7 +814,7 @@ test_bar_64_64 = testGroup "<=64-bit field crosses 64-bit word boundary" [
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "test_bitfields" [
+tests = testGroup "Test.Types.Bitfields" [
       testGroup "non-packed" [
           test_foo_8
         , test_foo_16

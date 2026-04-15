@@ -8,6 +8,7 @@ import Test.Callbacks.Basic qualified
 import Test.Callbacks.Structs qualified
 import Test.Callbacks.Unions qualified
 import Test.Types.Anonymous qualified
+import Test.Types.Bitfields qualified
 
 main :: IO ()
 main = defaultMain $ testGroup "feature-tests" [
@@ -17,4 +18,5 @@ main = defaultMain $ testGroup "feature-tests" [
     , Test.Callbacks.Structs.tests
     , Test.Callbacks.Unions.tests
     , Test.Types.Anonymous.tests
+    , Test.Types.Bitfields.tests
     ]
