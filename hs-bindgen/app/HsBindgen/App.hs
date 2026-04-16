@@ -112,11 +112,13 @@ parseCustomLogLevel = do
     makeTraceWarnings <- many $ parseMakeTrace Warning
     makeTraceErrors   <- many $ parseMakeTrace Error
     -- Generic modifiers
+    makeBugsErrors     <- optional parseMakeBugsErrors
     makeWarningsErrors <- optional parseMakeWarningsErrors
     -- Specific setters
     enableMacroWarnings <- optional parseEnableMacroWarnings
     pure $ getCustomLogLevel $ catMaybes [
         enableMacroWarnings
+      , makeBugsErrors
       , makeWarningsErrors
       ]
       ++ makeTraceInfos
@@ -132,10 +134,16 @@ parseCustomLogLevel = do
             , help $ "Set log level of traces with TRACE_ID to " <> levelStr
             ]
 
+    parseMakeBugsErrors :: Parser CustomLogLevelSetting
+    parseMakeBugsErrors = flag' MakeBugsErrors $ mconcat [
+        long "log-as-error-bugs"
+      , help "Set log level of bugs to error"
+      ]
+
     parseMakeWarningsErrors :: Parser CustomLogLevelSetting
     parseMakeWarningsErrors = flag' MakeWarningsErrors $ mconcat [
         long "log-as-error-warnings"
-      , help "Set log level of warnings to error"
+      , help "Set log level of warnings and bugs to error"
       ]
 
     parseEnableMacroWarnings :: Parser CustomLogLevelSetting

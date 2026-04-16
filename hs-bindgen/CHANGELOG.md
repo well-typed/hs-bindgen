@@ -108,6 +108,8 @@
   messages are created (in pure code), rather than at the IO emission site.
   This makes `--log-show-call-stack` output useful for debugging which pass and
   function produced a given message.
+* A new CLI option `--log-as-error-bugs` changes bug-level trace message to be
+  errors. This is useful when `hs-bindgen` is used in a CI pipeline.
 
 ### Bug fixes
 
