@@ -85,7 +85,16 @@ parseClangType cxTy = do
     Right ki -> do
       case ki of
         Clang.CXType_Invalid             -> return Nothing
-        Clang.CXType_Unexposed           -> return Nothing
+        Clang.CXType_Unexposed
+          -- Work around https://github.com/llvm/llvm-project/issues/XXXXX
+          -- LLVM/Clang 22 wraps __ptrdiff_t, __size_t, and __signed_size_t
+          -- in PredefinedSugarType, which libclang reports as CXType_Unexposed.
+          -- Resolve these to their canonical types.
+          | ty `elem` ["__ptrdiff_t", "__size_t", "__signed_size_t"]
+          -> do { canTy <- Clang.clang_getCanonicalType cxTy
+                ; parseClangType canTy }
+          | otherwise
+          -> return Nothing
         Clang.CXType_Void                -> return $ Just $ CType Void
         Clang.CXType_Bool                -> return $ Just $ CType $ Arithmetic $ Integral $ Bool
         Clang.CXType_Char_U              -> return $ Just $ CType $ Arithmetic $ Integral $ CharLike UChar
