@@ -303,7 +303,7 @@ getImplicitField encObj decl = do
         offset' = offset - target.fieldOffset
     makeImplicitFieldM
       decl.info.loc
-      (mkName target)
+      (mkScopedName target)
       (C.TypeRef decl.info.id)
       offset'
       (mkOrigin target)
@@ -329,8 +329,8 @@ getImplicitField encObj decl = do
       -> Origin.ImplicitFieldOrigin
     mkOrigin target = Origin.ImplicitFieldOrigin encObj.typ (CScopedName target.originName.text)
 
-    mkName :: Target -> ScopedName Parse
-    mkName target = CScopedName target.fieldName.text
+    mkScopedName :: Target -> ScopedName Parse
+    mkScopedName target = CScopedName target.fieldName.text
 
 -- | When the field is implicit and we want to ask for its offset using its
 -- name, then we should ask for the offset to an explicit field of the
