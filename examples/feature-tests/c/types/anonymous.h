@@ -62,7 +62,6 @@ static const size_t offset_SS2_fieldB = offsetof(SS2, fieldB);
 /* -------------------------------------------------------------------------- */
 /* union in struct */
 
-
 OuterType(struct, SU1, union, ,       ); // anonymous nested object
 OuterType(struct, SU2, union, , fieldB); // non-anonymous nested object
 
