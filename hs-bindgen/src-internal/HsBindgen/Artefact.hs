@@ -27,13 +27,14 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Final (Final)
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -55,8 +56,10 @@ data FrontendPass (result :: Star) where
     :: FrontendPass [ParseResult AssignAnonIds]
   ConstructTranslationUnitPass
     :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
-  HandleMacrosPass
-    :: FrontendPass (C.TranslationUnit HandleMacros)
+  TypecheckMacrosPass
+    :: FrontendPass (C.TranslationUnit TypecheckMacros)
+  ReparseMacroExpansionsPass
+    :: FrontendPass (C.TranslationUnit ReparseMacroExpansions)
   ResolveBindingSpecsPass
     :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
   MangleNamesPass
@@ -144,7 +147,8 @@ runArtefacts tracer config boot frontend backend artefact =
         SimplifyASTPass              -> runCached frontend.simplifyAST
         AssignAnonIdsPass            -> runCached frontend.assignAnonIds
         ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
-        HandleMacrosPass             -> runCached frontend.handleMacros
+        TypecheckMacrosPass          -> runCached frontend.typecheckMacros
+        ReparseMacroExpansionsPass   -> runCached frontend.reparseMacroExpansions
         ResolveBindingSpecsPass      -> runCached frontend.resolveBindingSpecs
         MangleNamesPass              -> runCached frontend.mangleNames
         AdjustTypesPass              -> runCached frontend.adjustTypes

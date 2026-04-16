@@ -35,7 +35,7 @@ default: \
 	libfunctionpointers${TARGET_EXT} \
 	libhsb_complex_test${TARGET_EXT} \
 	libcallbacks${TARGET_EXT} \
-	libzerocopy${TARGET_EXT} \
+	libpointermanipulation${TARGET_EXT} \
 	libstructs${TARGET_EXT} \
 	libunions${TARGET_EXT}
 
@@ -82,11 +82,13 @@ libcallbacks${TARGET_EXT}: callbacks.o
 callbacks.o: callbacks.c callbacks.h
 	clang ${EXTRAFLAGS} -Wall -o callbacks.o -c -fPIC callbacks.c
 
-libzerocopy${TARGET_EXT}: zero_copy.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libzerocopy${TARGET_EXT} zero_copy.o
+## Pointer manipulation API
 
-zero_copy.o: zero_copy.c zero_copy.h
-	clang ${EXTRAFLAGS} -Wall -o zero_copy.o -c -fPIC zero_copy.c
+libpointermanipulation${TARGET_EXT}: pointer_manipulation.o
+	clang ${EXTRAFLAGS} -Wall -shared -o libpointermanipulation${TARGET_EXT} pointer_manipulation.o
+
+pointer_manipulation.o: pointer_manipulation.c pointer_manipulation.h
+	clang ${EXTRAFLAGS} -Wall -o pointer_manipulation.o -c -fPIC pointer_manipulation.c
 
 ## Structs
 

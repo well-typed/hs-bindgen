@@ -49,6 +49,8 @@ KNOWN_FAILURES=(
     binding-specs/fun_arg/macro/function_pointer      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/macro/struct                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/macro/union                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/trans_dep/macro_trans_dep_missing   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/trans_dep/typedef_trans_dep_missing # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     edge-cases/iterator                               # Makes use of Apple block extension which would require clang (see #913)
     functions/decls_in_signature                      # Unusable struct (see #1128)
     functions/heap_types/struct_const_member          # Issue #1490
@@ -57,15 +59,13 @@ KNOWN_FAILURES=(
     functions/heap_types/union_const_member           # Issue #1490
     functions/heap_types/union_const_typedef          # Issue #1490
     functions/heap_types/union_const                  # Issue #1490
-    program-analysis/program-slicing/macro_selected   # TODO: see issue #1679
-    program-analysis/program-slicing/macro_unselected # TODO: see issue #1679
+    types/primitives/bool_macro_override              # typedef int bool is invalid in C23
     types/primitives/bool_typedef_override            # typedef int bool is invalid in C23
 )
 
 # Known fixtures without code - these will be skipped
 # NOTE: Mirrored in Test.HsBindgen.THFixtures.TestCases.emptyOutputFixtures
 KNOWN_EMPTY=(
-    binding-specs/macro_trans_dep_missing # TODO: issue #1513.
     declarations/declaration_unselected_b
     declarations/name_collision
     declarations/redeclaration_different
@@ -102,7 +102,7 @@ KNOWN_WERROR_UNCLEAN=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=185
+KNOWN_FIXTURES_COUNT=196
 
 # Default options
 JOBS=4

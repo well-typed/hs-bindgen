@@ -45,7 +45,7 @@ determineTHStatus tc
   | not (isSuccess tc.outcome)
       = THSkip "Expected failure test"
   -- Tests with external binding specs not yet supported in TH
-  | "binding-specs/fun_arg/" `isPrefixOf` tc.name
+  | "binding-specs/" `isPrefixOf` tc.name
       = THSkip "External binding specs not yet supported (issue #1495)"
   -- Apple block extension requires clang
   | tc.name == "edge-cases/iterator"
@@ -56,9 +56,6 @@ determineTHStatus tc
   -- Issue #1490
   | tc.name `elem` issue1490
       = THSkip "Issue #1490"
-  -- Issue #1679
-  | tc.name `elem` issue1679
-      = THSkip "Issue #1679"
   -- Complex configuration (program slicing, disabled stdlib)
   | tc.name `elem` complexConfig
       = THSkip "Complex configuration (program slicing, disabled stdlib)"
@@ -74,7 +71,8 @@ determineTHStatus tc
   -- @typedef int bool@ is invalid in C23 (@bool@ is a keyword).  The golden
   -- test (PP mode) passes because clang parses the header with @-std=c89@
   -- where @bool@ is not a keyword.
-  | tc.name == "types/primitives/bool_typedef_override"
+  |    tc.name == "types/primitives/bool_typedef_override"
+    || tc.name == "types/primitives/bool_macro_override"
       = THSkip "typedef int bool is invalid in C23"
   -- Variant tests (name contains a period followed by a number)
   | isVariantTest tc.name
@@ -102,12 +100,6 @@ determineTHStatus tc
       , "functions/heap_types/union_const"
       ]
 
-    issue1679 :: [String]
-    issue1679 = [
-        "program-analysis/program-slicing/macro_selected"
-      , "program-analysis/program-slicing/macro_unselected"
-      ]
-
     -- NOTE: These are /not/ mirrored in @scripts/ci/compile-fixtures.sh@
     -- KNOWN_FAILURES because that script uses @--category@ flags which
     -- avoids the multi-module / complex configuration issues.
@@ -121,8 +113,7 @@ determineTHStatus tc
 
     emptyOutputFixtures :: [String]
     emptyOutputFixtures = [
-        "binding-specs/macro_trans_dep_missing"
-      , "declarations/declaration_unselected_b"
+        "declarations/declaration_unselected_b"
       , "declarations/name_collision"
       , "declarations/redeclaration_different"
       , "edge-cases/clang_generated_collision"

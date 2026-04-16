@@ -4,10 +4,10 @@ version:
 hsmodule: M
 ctypes:
 - headers: binding-specs/fun_arg/macro/function_pointer.h
-  cname: C
+  cname: macro C
   hsname: C
 - headers: binding-specs/fun_arg/macro/function_pointer.h
-  cname: D
+  cname: macro D
   hsname: D
 hstypes:
 - hsname: C

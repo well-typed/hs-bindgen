@@ -3,8 +3,7 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr
-    ( Example.FunPtr.foo
-    , Example.FunPtr.bar
+    ( Example.FunPtr.bar
     )
   where
 
@@ -14,14 +13,6 @@ import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program-slicing/macro_unselected.h>"
-  , "/* test_programanalysisprogramslici_Example_get_foo */"
-  , "__attribute__ ((const))"
-  , "void (*hs_bindgen_7fa7d51da57eb497 (void)) ("
-  , "  T arg1"
-  , ")"
-  , "{"
-  , "  return &foo;"
-  , "}"
   , "/* test_programanalysisprogramslici_Example_get_bar */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_e57577b970e09cca (void)) ("
@@ -31,25 +22,6 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return &bar;"
   , "}"
   ]))
-
--- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
-foreign import ccall unsafe "hs_bindgen_7fa7d51da57eb497" hs_bindgen_7fa7d51da57eb497_base ::
-     IO (RIP.FunPtr RIP.Void)
-
--- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
-hs_bindgen_7fa7d51da57eb497 :: IO (RIP.FunPtr (T -> IO ()))
-hs_bindgen_7fa7d51da57eb497 =
-  RIP.fromFFIType hs_bindgen_7fa7d51da57eb497_base
-
-{-# NOINLINE foo #-}
-{-| __C declaration:__ @foo@
-
-    __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 8:6@
-
-    __exported by:__ @program-analysis\/program-slicing\/macro_unselected.h@
--}
-foo :: RIP.FunPtr (T -> IO ())
-foo = RIP.unsafePerformIO hs_bindgen_7fa7d51da57eb497
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e09cca_base ::

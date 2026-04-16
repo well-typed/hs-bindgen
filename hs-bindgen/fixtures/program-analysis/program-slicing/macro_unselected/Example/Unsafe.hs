@@ -3,8 +3,7 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe
-    ( Example.Unsafe.foo
-    , Example.Unsafe.bar
+    ( Example.Unsafe.bar
     )
   where
 
@@ -14,12 +13,6 @@ import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program-slicing/macro_unselected.h>"
-  , "void hs_bindgen_72197c1a408e40ac ("
-  , "  T arg1"
-  , ")"
-  , "{"
-  , "  (foo)(arg1);"
-  , "}"
   , "void hs_bindgen_401f15168ffec8ae ("
   , "  U arg1"
   , ")"
@@ -27,30 +20,6 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  (bar)(arg1);"
   , "}"
   ]))
-
--- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
-foreign import ccall unsafe "hs_bindgen_72197c1a408e40ac" hs_bindgen_72197c1a408e40ac_base ::
-     RIP.Int32
-  -> IO ()
-
--- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
-hs_bindgen_72197c1a408e40ac ::
-     T
-  -> IO ()
-hs_bindgen_72197c1a408e40ac =
-  RIP.fromFFIType hs_bindgen_72197c1a408e40ac_base
-
-{-| __C declaration:__ @foo@
-
-    __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 8:6@
-
-    __exported by:__ @program-analysis\/program-slicing\/macro_unselected.h@
--}
-foo ::
-     T
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-foo = hs_bindgen_72197c1a408e40ac
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::

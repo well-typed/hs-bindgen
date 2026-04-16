@@ -13,7 +13,7 @@ export PROJECT_ROOT
     echo "# "
 
     cd "$SCRIPT_DIR/c"
-    make
+    make CC="${CC:-clang}"
 )
 
 C_DIR=$(realpath c)
@@ -93,6 +93,18 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --module Generated.Types.Anonymous \
     types/anonymous.h
+
+echo "### Bit-fields"
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Types.Bitfields \
+    types/bitfields.h
 
 echo "# "
 echo "# Updating cabal.project.local"

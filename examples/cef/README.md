@@ -117,7 +117,7 @@ type from the file-scope `struct _cef_command_line_t` defined in
 
 ```
 PANIC!: the impossible happened
-A haskell identifier is not available: The C name of the declaration was not
+A Haskell identifier is not available: The C name of the declaration was not
 mangled because it only appears in an underlying type.
 ```
 

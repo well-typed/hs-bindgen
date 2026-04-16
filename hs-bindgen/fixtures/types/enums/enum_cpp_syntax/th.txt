@@ -1,5 +1,5 @@
--- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/types/enums/enum_cpp_syntax.h
 {-| __C declaration:__ @enum foo_enum@

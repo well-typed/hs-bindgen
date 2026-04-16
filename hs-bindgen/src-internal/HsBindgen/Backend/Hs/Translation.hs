@@ -44,9 +44,9 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
@@ -206,10 +206,10 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
           pure (safes ++ unsafes ++ funPtrs)
       C.DeclMacro macro -> withCategoryM CType $
         State.immediateM $ macroDecs supInsts.typedef haddockConfig info macro spec
-      C.DeclGlobal ty -> do
+      C.DeclGlobal g -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
-          State.immediate $ global uniqueId haddockConfig moduleName transState sizeofs info ty spec
+          State.immediate $ global uniqueId haddockConfig moduleName transState sizeofs info g.typ spec
   where
     withCategory ::
          Category
@@ -666,10 +666,11 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
     auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {
           loc          = origInfo.loc
-        , headerInfo   = origInfo.headerInfo
-        , comment      = Just auxComment
-        , availability = C.Available
         , id           = auxDeclIdPair
+        , seqNr        = origInfo.seqNr
+        , headerInfo   = origInfo.headerInfo
+        , availability = C.Available
+        , comment      = Just auxComment
         }
 
     auxComment :: C.Comment Final

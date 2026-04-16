@@ -29,17 +29,16 @@ import Clang.HighLevel.Types (SingleLoc)
 import Clang.LowLevel.Core (CXType, CallFailed, clang_Type_getOffsetOf)
 
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Deps (depsOfDecl, depsOfField)
-import HsBindgen.Frontend.AST.Type (ValOrRef (..))
+import HsBindgen.Frontend.AST.Deps (depsOfField, depsOfStruct, depsOfUnion)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming (CScopedName (CScopedName, text))
 import HsBindgen.Frontend.Pass (IsPass (ScopedName))
-import HsBindgen.Frontend.Pass.Parse.IsPass (Parse, ReparseInfo (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (..), Parse,
+                                             ReparseInfo (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOrigin (..),
                                                                  FieldOrigin (..),
                                                                  ImplicitFieldOrigin (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Named))
 import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
 
 {-------------------------------------------------------------------------------
@@ -229,14 +228,16 @@ classifyInputs inputs = Classification {
     (nestedDecls, explicitFields) = partitionEithers $ fmap numberedIn membersNumbered
 
     -- | A struct\/union declaration requires an implicit field if the
-    -- declaration is anonymous
+    -- declaration is anonymous, and if we have not already created an implicit
+    -- field for that declaration
     candidates :: [Numbered (C.Decl Parse)]
     candidates = [
           decl
         | let decls = fmap (.numberee) nestedDecls
               fields = fmap (.numberee) explicitFields
         , decl <- nestedDecls
-        , isAnonymous decl.numberee fields decls
+        , isAnonymous decl.numberee
+        , not (isReferenced decl.numberee fields decls)
         ]
 
 numberedIn :: Numbered (Either a b) -> Either (Numbered a) (Numbered b)
@@ -244,32 +245,33 @@ numberedIn x = bimap (Numbered x.number) (Numbered x.number) x.numberee
 
 -- | Check if a target declaration is anonymous with respect to an enclosing
 -- object.
+isAnonymous :: C.Decl Parse -> Bool
+isAnonymous decl = case decl.kind of
+    C.DeclStruct struct -> struct.ann.isAnon
+    C.DeclUnion  union  -> union.ann.isAnon
+    _                   -> False
+
+-- | Check if a target declaration is referenced by any fields, nested structs,
+-- or nested unions.
 --
--- We achieve this by checking whether the target declaration is referenced by
--- any of the directly declared fields of the enclosing object, or is referenced
--- by fields of any recursively nested struct and union declarations including
--- implicit fields that we generated previously.
-isAnonymous ::
+-- Note: the nested structs and unions should include implicit fields.
+isReferenced ::
      HasField "typ" (field Parse) (C.Type Parse)
-     -- | Target declaration
   => C.Decl Parse
      -- | Fields that are declared directly in the enclosing object
   -> [field Parse]
      -- | Struct and union declarations (recursively) nested in the enclosing
      -- object
-  -> [C.Decl Parse] -> Bool
-isAnonymous decl fields decls
-  | Named{} <- decl.info.id
-  = False
-  | (ByValue, decl.info.id) `elem` deps
-  = False
-  | (ByRef, decl.info.id) `elem` deps
-  = False
-  | otherwise
-  = True
+  -> [C.Decl Parse]
+  -> Bool
+isReferenced decl fields decls =
+       decl.info.id `elem` map snd (concatMap depsOfField fields)
+    || decl.info.id `elem` map snd (concatMap depsOfStructOrUnion decls)
   where
-    deps = concatMap (\d -> depsOfDecl d.kind) decls ++
-           concatMap depsOfField fields
+    depsOfStructOrUnion d = case d.kind of
+        C.DeclStruct struct -> depsOfStruct struct
+        C.DeclUnion  union  -> depsOfUnion  union
+        _ -> []
 
 {-------------------------------------------------------------------------------
   Implicit field

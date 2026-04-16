@@ -47,6 +47,7 @@ class (
       , Show (Ann "Decl"             p)
       , Show (Ann "Enum"             p)
       , Show (Ann "Function"         p)
+      , Show (Ann "Global"           p)
       , Show (Ann "Struct"           p)
       , Show (Ann "StructField"      p)
       , Show (Ann "TranslationUnit"  p)
@@ -82,6 +83,7 @@ class (
       , Eq (Ann "CheckedMacroType" p)
       , Eq (Ann "Enum"             p)
       , Eq (Ann "Function"         p)
+      , Eq (Ann "Global"           p)
       , Eq (Ann "Struct"           p)
       , Eq (Ann "StructField"      p)
       , Eq (Ann "Typedef"          p)
@@ -113,10 +115,10 @@ class (
 
   -- | Macro body
   --
-  -- Parsing macros is non-trivial, and requires knowledge of other macros in
-  -- scope. Therefore we don't parse macros during parsing of the clang AST, but
-  -- instead simply record them a list of tokens. 'HandleMacros' then does the
-  -- actual parsing, instantiating this to 'CheckedMacro'
+  -- Typechecking macros is non-trivial, and requires knowledge of other types
+  -- and macros in scope. Therefore we only parse macros with @c-expr-dsl@
+  -- during parsing of the clang AST. 'TypecheckMacros' then does the actual
+  -- typechecking, instantiating this to 'CheckedMacro'.
   type MacroBody p :: Star
 
   -- | Representation of external bindings
@@ -127,8 +129,8 @@ class (
 
   -- | Declaration identifier for macro types
   --
-  -- This is initialized in @HandleMacros@ to @Id p@. Before the @HandleMacros@
-  -- pass, macro types do not exist yet.
+  -- This is initialized in @TypecheckMacros@ to @Id p@. Before the
+  -- @TypecheckMacros@ pass, macro types do not exist yet.
   type MacroId p :: Star
   type MacroId p = Void
 

@@ -8,6 +8,9 @@ import Data.List qualified as List
 import Data.Text qualified as Text
 import Foreign.C (CInt)
 
+import C.Expr.Parse qualified as CExpr.DSL
+
+import Clang.CStandard
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Documentation qualified as CDoc
@@ -47,16 +50,17 @@ import HsBindgen.Language.C qualified as C
 -- We only attach an exception handler for top-level declarations: if something
 -- goes wrong with a nested declaration, we want to skip the entire outer
 -- declaration.
-topLevelDecl :: Fold ParseDecl [ParseResult Parse]
+topLevelDecl :: Fold ParseDecl (CXSourceLocation, [ParseResult Parse])
 topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
   where
     handleParseExceptions ::
          CXCursor
       -> SomeException
-      -> ParseDecl (Maybe [ParseResult Parse])
+      -> ParseDecl (Maybe (CXSourceLocation, [ParseResult Parse]))
     handleParseExceptions curr err
       | Just e <- fromException @(ExceptionInCtx DelayedParseMsg) err = do
-          Just <$> parseFailNoInfo e.ctx e.exception curr
+          loc <- clang_getCursorLocation curr
+          Just . (loc,) <$> parseFailNoInfo e.ctx e.exception curr
       | otherwise = liftIO $ throwIO err
 
 {-------------------------------------------------------------------------------
@@ -70,8 +74,26 @@ parseDeclNested :: ParseCtx -> Parser
 parseDeclNested = parseDecl' . Just
 
 -- | Parse a top level declaration (parse context not yet available)
-parseDeclTopLevel :: Parser
-parseDeclTopLevel = parseDecl' Nothing
+parseDeclTopLevel :: CXCursor -> ParseDecl (Next ParseDecl (CXSourceLocation, [ParseResult Parse]))
+parseDeclTopLevel curr = do
+    -- By getting and attaching the location to all parse results, we
+    -- potentially get the location twice. We could store the 'CXSourceLocation'
+    -- next to all parse results and use it to retrieve the single location
+    -- stored in the 'DeclInfo'.
+    loc       <- clang_getCursorLocation curr
+    nextDecls <- parseDecl' Nothing curr
+    -- We cannot directly thread in macros here because the 'Functor' instance
+    -- of 'Next' drops them when we have `Continue Nothing`. That is, there is a
+    -- subtle difference between `foldContinue`, and `foldContinueWith []`. This
+    -- also leads to the following edge case:
+    --
+    -- Forward declarations ('DefinitionElsewhere') produce 'Continue Nothing',
+    -- so macros before a forward declaration end up being threaded after the
+    -- forward declaration, and before the next, actual declaration instead.
+    -- This is sub-optimal, but does not lead to incorrect behavior. Should the
+    -- next declaration be the definition of the forward declaration the macro
+    -- still appears before the definition.
+    pure $ (loc,) <$> nextDecls
 
 -- | Auxiliary function; use 'parseDecl' or 'parseDeclTopLevel'
 parseDecl' :: HasCallStack => Maybe ParseCtx -> Parser
@@ -171,27 +193,37 @@ parseDeclWith ctx parser curr = do
              parser ctx info curr
 
 -- | Macros
---
--- In this phase, we return macro declarations simply as a list of tokens. We
--- will parse them later (after sorting all declarations in the file).
 macroDefinition :: HasCallStack => ParseCtx -> C.DeclInfo Parse -> Parser
 macroDefinition _ctx info = \curr -> do
-    decl <- mkDecl <$> getUnparsedMacro curr
-    foldContinueWith [parseSucceed decl]
+    cxLoc  <- clang_getCursorLocation curr
+    tokens <- getMacroTokens curr
+    cStd   <- getCStandard
+    let result = mkResult cStd tokens
+    -- We only store the macro location and definition in the parser state. We
+    -- consolidate macros and non-macros at top-level because newer versions of
+    -- Clang allow us to determine the sequence number.
+    recordMacroDefinitionAt cxLoc result
+    foldContinue
   where
-    mkDecl :: UnparsedMacro -> C.Decl Parse
-    mkDecl body = C.Decl{
-          info = info
-        , kind = C.DeclMacro body
-        , ann  = NoAnn
-        }
+    mkResult :: ClangCStandard -> [Token TokenSpelling] -> ParseResult Parse
+    mkResult cStd tokens =
+        case parseMacroTokens cStd info.id tokens of
+          Right parsed -> parseSucceed C.Decl{
+              info = info
+            , kind = C.DeclMacro parsed
+            , ann  = NoAnn
+            }
+          Left msg -> ParseResult{
+              id             = info.id
+            , loc            = info.loc
+            , classification = ParseResultFailure msg
+            }
 
-    getUnparsedMacro :: CXCursor -> ParseDecl UnparsedMacro
-    getUnparsedMacro curr = do
-        unit <- getTranslationUnit
-        range  <- HighLevel.clang_getCursorExtent curr
-        tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
-        return $ UnparsedMacro tokens
+    getMacroTokens :: CXCursor -> ParseDecl [Token TokenSpelling]
+    getMacroTokens curr' = do
+        unit'  <- getTranslationUnit
+        range  <- HighLevel.clang_getCursorExtent curr'
+        HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
 structDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 structDecl ctx info = \curr -> do
@@ -201,6 +233,7 @@ structDecl ctx info = \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
             mkStruct allFields = C.Decl {
@@ -211,7 +244,7 @@ structDecl ctx info = \curr -> do
                     , alignment = fromIntegral alignment
                     , fields    = filter isField regularFields
                     , flam      = mFlam
-                    , ann       = NoAnn
+                    , ann       = IsAnon isAnon
                     }
                 }
               where
@@ -279,6 +312,7 @@ unionDecl ctx info = \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
+        isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
         let mkUnion :: [C.UnionField Parse] -> C.Decl Parse
             mkUnion fields = C.Decl{
@@ -288,7 +322,7 @@ unionDecl ctx info = \curr -> do
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
                            , fields    = filter isField fields
-                           , ann       = NoAnn
+                           , ann       = IsAnon isAnon
                            }
                 }
 
@@ -359,9 +393,42 @@ typedefDecl ctx info = \curr -> do
 
 macroExpansion :: Parser
 macroExpansion = \curr -> do
-    loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
-    recordMacroExpansionAt loc
+    range <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
+    let loc = range.rangeStart
+    unit <- getTranslationUnit
+    tokens <- HighLevel.clang_tokenize unit range
+    case getMacroName tokens of
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1554>
+      --
+      -- Attach failed macroName message to declaration.
+      Nothing -> traceImmediateGlobal ParseMacroExpansionNoMacroName
+      Just macroName -> recordMacroExpansionAt loc macroName
     foldContinue
+  where
+    getMacroName :: [Token TokenSpelling] -> Maybe Text
+    getMacroName []    = Nothing
+    -- The spelling of function macros includes the function parameters. For
+    -- example, when expanding
+    --
+    -- #define ID(X) (X)
+    -- void foo(int ID(z));
+    --
+    -- the pretty printed tokens at expansion location are "ID ( z )" instead of
+    -- just the macro name "ID". We believe that in `hs-bindgen` it is enough to
+    -- identify macros by their first token only, because the name of macro
+    -- functions in `hs-bindgen` also corresponds to this first token. That is,
+    -- in `hs-bindgen`,
+    --
+    -- #define ID
+    -- #define ID(X) (X)
+    --
+    -- are conflicting (macro) declarations.
+    getMacroName (x:_) =
+      let macroName = getTokenSpelling $ tokenSpelling x
+      in  if Text.null macroName; then
+            Nothing
+          else
+            Just macroName
 
 enumDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 enumDecl ctx info = \curr -> do
@@ -597,9 +664,6 @@ varDecl ctx info = do
             , ann  = NoAnn
             }
 
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/831>
-      -- We should support macro types in globals.
-
       case declCls of
         -- The header contains a definition elsewhere, but it is not the
         -- declaration that the cursor is currently pointing to. Skip this
@@ -633,9 +697,14 @@ varDecl ctx info = do
                   VarGlobal IsExtern
                     | not (null anonDecls) -> do
                       parseFail ctx info.id info.loc ParseUnsupportedAnonInExtern
-                  VarGlobal _ ->
+                  VarGlobal _ -> do
+                    globalAnn <- getReparseInfo curr
                     pure $ (map parseSucceed (anonDecls ++ otherDecls) ++) $
-                      singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+                      singleton $ parseSucceedWith msgs $
+                        mkDecl $ C.DeclGlobal C.Global{
+                            typ = typ
+                          , ann = globalAnn
+                          }
                   VarThreadLocal ->
                     parseFail ctx info.id info.loc ParseUnsupportedTLS
                   VarUnsupported storage ->
@@ -753,8 +822,12 @@ withDeclInfo ctx k = \curr -> do
         declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
         let info :: C.DeclInfo Parse
             info = C.DeclInfo{
-                  id           = declId
-                , loc          = declLoc
+                  loc          = declLoc
+                , id           = declId
+                  -- We initialize the sequence number to 'Nothing', and
+                  -- populate it when consolidating macros with non-macros in
+                  -- "HsBindgen.Frontend.Pass.Parse".
+                , seqNr        = Nothing
                 , headerInfo   = headerInfo
                 , availability = availability
                 , comment      = declComment
@@ -911,6 +984,26 @@ partitionAnonDecls =
     declIdIsAnon :: PrelimDeclId -> Bool
     declIdIsAnon PrelimDeclId.Anon{} = True
     declIdIsAnon _otherwise          = False
+
+-- | Parse macro tokens
+--
+-- We use @c-expr-dsl@ to parse the macro tokens into a 'CExpr.DSL.Macro'.
+-- No type environment is needed for this step; type resolution and
+-- expression typechecking happen later in 'TypecheckMacros'.
+parseMacroTokens ::
+     ClangCStandard
+  -> PrelimDeclId
+  -> [Token TokenSpelling]
+  -> Either DelayedParseMsg ParsedMacro
+parseMacroTokens cStd name = \case
+    []      -> Left $ ParseMacroEmpty name []
+    [token] -> Left $ ParseMacroEmpty name [token]
+    tokens  ->
+      case CExpr.DSL.runParser (CExpr.DSL.parseMacro cStd) tokens of
+        Right macro ->
+          Right $ ParsedMacro macro
+        Left errParse ->
+          Left $ ParseMacroErrorParse errParse
 
 -- | Whether a global variable has @extern@ storage class
 --

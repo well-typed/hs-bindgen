@@ -6,8 +6,7 @@ module HsBindgen.Frontend.Pass.SimplifyAST.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Coerce (CoercePassAnn, CoercePassId,
-                                      CoercePassMacroBody, CoercePassMacroId)
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.LocationInfo (prelimDeclIdLocationInfo)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -25,15 +24,18 @@ data SimplifyAST a
 
 -- Preserve annotations from @Parse@ pass
 type family AnnSimplifyAST (ix :: Symbol) where
+  AnnSimplifyAST "Struct"      = IsAnon
   AnnSimplifyAST "StructField" = (ReparseInfo, FieldOrigin)
+  AnnSimplifyAST "Union"       = IsAnon
   AnnSimplifyAST "UnionField"  = (ReparseInfo, FieldOrigin)
   AnnSimplifyAST "Typedef"     = ReparseInfo
   AnnSimplifyAST "Function"    = ReparseInfo
+  AnnSimplifyAST "Global"      = ReparseInfo
   AnnSimplifyAST _             = NoAnn
 
 instance IsPass SimplifyAST where
   type Id         SimplifyAST = PrelimDeclId
-  type MacroBody  SimplifyAST = UnparsedMacro
+  type MacroBody  SimplifyAST = ParsedMacro
   type ExtBinding SimplifyAST = Void
   type Ann ix     SimplifyAST = AnnSimplifyAST ix
   type Msg        SimplifyAST = WithCallStack SimplifyASTMsg
@@ -42,10 +44,12 @@ instance IsPass SimplifyAST where
   idSourceName   _ = PrelimDeclId.sourceName
   idLocationInfo _ = prelimDeclIdLocationInfo
 
-instance CoercePassId Parse SimplifyAST where
-instance CoercePassMacroBody Parse SimplifyAST where
-instance CoercePassMacroId Parse SimplifyAST where
+instance CoercePassId               Parse SimplifyAST
+instance CoercePassMacroBody        Parse SimplifyAST
+instance CoercePassMacroId          Parse SimplifyAST
+
 instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
+instance CoercePassAnn "Global"     Parse SimplifyAST
 
 {-------------------------------------------------------------------------------
   Trace messages

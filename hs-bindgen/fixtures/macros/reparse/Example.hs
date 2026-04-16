@@ -1076,7 +1076,7 @@ instance ( ((~) ty) (RIP.Ptr (RIP.Ptr A))
 
 {-| __C declaration:__ @const_typedef1@
 
-    __defined at:__ @macros\/reparse.h 220:25@
+    __defined at:__ @macros\/reparse.h 218:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1117,7 +1117,7 @@ instance HasCField.HasCField Const_typedef1 "unwrapConst_typedef1" where
 
 {-| __C declaration:__ @const_typedef2@
 
-    __defined at:__ @macros\/reparse.h 221:25@
+    __defined at:__ @macros\/reparse.h 219:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1158,7 +1158,7 @@ instance HasCField.HasCField Const_typedef2 "unwrapConst_typedef2" where
 
 {-| __C declaration:__ @const_typedef3@
 
-    __defined at:__ @macros\/reparse.h 222:25@
+    __defined at:__ @macros\/reparse.h 220:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1189,7 +1189,7 @@ instance HasCField.HasCField Const_typedef3 "unwrapConst_typedef3" where
 
 {-| __C declaration:__ @const_typedef4@
 
-    __defined at:__ @macros\/reparse.h 223:25@
+    __defined at:__ @macros\/reparse.h 221:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1220,7 +1220,7 @@ instance HasCField.HasCField Const_typedef4 "unwrapConst_typedef4" where
 
 {-| __C declaration:__ @const_typedef5@
 
-    __defined at:__ @macros\/reparse.h 224:25@
+    __defined at:__ @macros\/reparse.h 222:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1251,7 +1251,7 @@ instance HasCField.HasCField Const_typedef5 "unwrapConst_typedef5" where
 
 {-| __C declaration:__ @const_typedef6@
 
-    __defined at:__ @macros\/reparse.h 225:25@
+    __defined at:__ @macros\/reparse.h 223:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1282,7 +1282,7 @@ instance HasCField.HasCField Const_typedef6 "unwrapConst_typedef6" where
 
 {-| __C declaration:__ @const_typedef7@
 
-    __defined at:__ @macros\/reparse.h 226:25@
+    __defined at:__ @macros\/reparse.h 224:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1313,7 +1313,7 @@ instance HasCField.HasCField Const_typedef7 "unwrapConst_typedef7" where
 
 {-| __C declaration:__ @struct example_struct_with_const@
 
-    __defined at:__ @macros\/reparse.h 228:8@
+    __defined at:__ @macros\/reparse.h 226:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1321,49 +1321,49 @@ data Example_struct_with_const = Example_struct_with_const
   { example_struct_with_const_const_field1 :: A
     {- ^ __C declaration:__ @const_field1@
 
-         __defined at:__ @macros\/reparse.h 229:19@
+         __defined at:__ @macros\/reparse.h 227:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field2 :: A
     {- ^ __C declaration:__ @const_field2@
 
-         __defined at:__ @macros\/reparse.h 230:19@
+         __defined at:__ @macros\/reparse.h 228:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field3 :: PtrConst.PtrConst A
     {- ^ __C declaration:__ @const_field3@
 
-         __defined at:__ @macros\/reparse.h 231:19@
+         __defined at:__ @macros\/reparse.h 229:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field4 :: PtrConst.PtrConst A
     {- ^ __C declaration:__ @const_field4@
 
-         __defined at:__ @macros\/reparse.h 232:19@
+         __defined at:__ @macros\/reparse.h 230:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field5 :: RIP.Ptr A
     {- ^ __C declaration:__ @const_field5@
 
-         __defined at:__ @macros\/reparse.h 233:19@
+         __defined at:__ @macros\/reparse.h 231:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field6 :: PtrConst.PtrConst A
     {- ^ __C declaration:__ @const_field6@
 
-         __defined at:__ @macros\/reparse.h 234:19@
+         __defined at:__ @macros\/reparse.h 232:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field7 :: PtrConst.PtrConst A
     {- ^ __C declaration:__ @const_field7@
 
-         __defined at:__ @macros\/reparse.h 235:19@
+         __defined at:__ @macros\/reparse.h 233:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
@@ -1508,7 +1508,7 @@ instance ( ((~) ty) (PtrConst.PtrConst A)
 
 __C declaration:__ @const_funptr1@
 
-__defined at:__ @macros\/reparse.h 238:27@
+__defined at:__ @macros\/reparse.h 236:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1565,7 +1565,7 @@ instance HasCField.HasCField Const_funptr1_Aux "unwrapConst_funptr1_Aux" where
 
 {-| __C declaration:__ @const_funptr1@
 
-    __defined at:__ @macros\/reparse.h 238:27@
+    __defined at:__ @macros\/reparse.h 236:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1598,7 +1598,7 @@ instance HasCField.HasCField Const_funptr1 "unwrapConst_funptr1" where
 
 __C declaration:__ @const_funptr2@
 
-__defined at:__ @macros\/reparse.h 239:27@
+__defined at:__ @macros\/reparse.h 237:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1655,7 +1655,7 @@ instance HasCField.HasCField Const_funptr2_Aux "unwrapConst_funptr2_Aux" where
 
 {-| __C declaration:__ @const_funptr2@
 
-    __defined at:__ @macros\/reparse.h 239:27@
+    __defined at:__ @macros\/reparse.h 237:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1688,7 +1688,7 @@ instance HasCField.HasCField Const_funptr2 "unwrapConst_funptr2" where
 
 __C declaration:__ @const_funptr3@
 
-__defined at:__ @macros\/reparse.h 240:27@
+__defined at:__ @macros\/reparse.h 238:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1745,7 +1745,7 @@ instance HasCField.HasCField Const_funptr3_Aux "unwrapConst_funptr3_Aux" where
 
 {-| __C declaration:__ @const_funptr3@
 
-    __defined at:__ @macros\/reparse.h 240:27@
+    __defined at:__ @macros\/reparse.h 238:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1778,7 +1778,7 @@ instance HasCField.HasCField Const_funptr3 "unwrapConst_funptr3" where
 
 __C declaration:__ @const_funptr4@
 
-__defined at:__ @macros\/reparse.h 241:27@
+__defined at:__ @macros\/reparse.h 239:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1835,7 +1835,7 @@ instance HasCField.HasCField Const_funptr4_Aux "unwrapConst_funptr4_Aux" where
 
 {-| __C declaration:__ @const_funptr4@
 
-    __defined at:__ @macros\/reparse.h 241:27@
+    __defined at:__ @macros\/reparse.h 239:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1868,7 +1868,7 @@ instance HasCField.HasCField Const_funptr4 "unwrapConst_funptr4" where
 
 __C declaration:__ @const_funptr5@
 
-__defined at:__ @macros\/reparse.h 242:27@
+__defined at:__ @macros\/reparse.h 240:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1925,7 +1925,7 @@ instance HasCField.HasCField Const_funptr5_Aux "unwrapConst_funptr5_Aux" where
 
 {-| __C declaration:__ @const_funptr5@
 
-    __defined at:__ @macros\/reparse.h 242:27@
+    __defined at:__ @macros\/reparse.h 240:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1958,7 +1958,7 @@ instance HasCField.HasCField Const_funptr5 "unwrapConst_funptr5" where
 
 __C declaration:__ @const_funptr6@
 
-__defined at:__ @macros\/reparse.h 243:27@
+__defined at:__ @macros\/reparse.h 241:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -2015,7 +2015,7 @@ instance HasCField.HasCField Const_funptr6_Aux "unwrapConst_funptr6_Aux" where
 
 {-| __C declaration:__ @const_funptr6@
 
-    __defined at:__ @macros\/reparse.h 243:27@
+    __defined at:__ @macros\/reparse.h 241:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2048,7 +2048,7 @@ instance HasCField.HasCField Const_funptr6 "unwrapConst_funptr6" where
 
 __C declaration:__ @const_funptr7@
 
-__defined at:__ @macros\/reparse.h 244:27@
+__defined at:__ @macros\/reparse.h 242:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -2105,7 +2105,7 @@ instance HasCField.HasCField Const_funptr7_Aux "unwrapConst_funptr7_Aux" where
 
 {-| __C declaration:__ @const_funptr7@
 
-    __defined at:__ @macros\/reparse.h 244:27@
+    __defined at:__ @macros\/reparse.h 242:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2136,7 +2136,7 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
 
 {-| __C declaration:__ @macro BOOL@
 
-    __defined at:__ @macros\/reparse.h 280:9@
+    __defined at:__ @macros\/reparse.h 278:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2176,7 +2176,7 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
 
 {-| __C declaration:__ @macro INT@
 
-    __defined at:__ @macros\/reparse.h 281:9@
+    __defined at:__ @macros\/reparse.h 279:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2215,7 +2215,7 @@ instance HasCField.HasCField INT "unwrapINT" where
 
 {-| __C declaration:__ @macro INTP@
 
-    __defined at:__ @macros\/reparse.h 282:9@
+    __defined at:__ @macros\/reparse.h 280:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2245,7 +2245,7 @@ instance HasCField.HasCField INTP "unwrapINTP" where
 
 {-| __C declaration:__ @macro INTCP@
 
-    __defined at:__ @macros\/reparse.h 283:9@
+    __defined at:__ @macros\/reparse.h 281:9@
 
     __exported by:__ @macros\/reparse.h@
 -}

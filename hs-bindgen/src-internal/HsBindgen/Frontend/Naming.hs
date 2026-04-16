@@ -323,7 +323,7 @@ data Reason =
 
 -- | See 'Reason' for more information about the reasons.
 prettyReason :: Reason -> String
-prettyReason reason = "A haskell identifier is not available: " <> case reason of
+prettyReason reason = "A Haskell identifier is not available: " <> case reason of
     UnderlyingTypeNotMangled ->
       "The C name of the declaration was not mangled because it only appears \
       \in an underlying type."

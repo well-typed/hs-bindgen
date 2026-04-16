@@ -1,0 +1,234 @@
+-- addDependentFile examples/golden/macros/parse/intermittent_include_inner.h
+-- addDependentFile examples/golden/macros/parse/intermittent_include.h
+{-| __C declaration:__ @Ta@
+
+    __defined at:__ @intermittent_include_inner.h 3:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype Ta
+    = Ta {unwrapTa :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapTa" (Ptr Ta) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTa")
+instance HasCField Ta "unwrapTa"
+    where type CFieldType Ta "unwrapTa" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro Ma@
+
+    __defined at:__ @intermittent_include_inner.h 1:9@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype Ma
+    = Ma {unwrapMa :: Ta}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty Ta => HasField "unwrapMa" (Ptr Ma) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMa")
+instance HasCField Ma "unwrapMa"
+    where type CFieldType Ma "unwrapMa" = Ta
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 9:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype T1
+    = T1 {unwrapT1 :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT1")
+instance HasCField T1 "unwrapT1"
+    where type CFieldType T1 "unwrapT1" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro M1@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 7:9@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype M1
+    = M1 {unwrapM1 :: T1}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T1 => HasField "unwrapM1" (Ptr M1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM1")
+instance HasCField M1 "unwrapM1"
+    where type CFieldType M1 "unwrapM1" = T1
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro M2@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 11:9@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype M2
+    = M2 {unwrapM2 :: T1}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T1 => HasField "unwrapM2" (Ptr M2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM2")
+instance HasCField M2 "unwrapM2"
+    where type CFieldType M2 "unwrapM2" = T1
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T2@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 17:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype T2
+    = T2 {unwrapT2 :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT2" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT2")
+instance HasCField T2 "unwrapT2"
+    where type CFieldType T2 "unwrapT2" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro M3@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 15:9@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype M3
+    = M3 {unwrapM3 :: T2}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T2 => HasField "unwrapM3" (Ptr M3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM3")
+instance HasCField M3 "unwrapM3"
+    where type CFieldType M3 "unwrapM3" = T2
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro M4@
+
+    __defined at:__ @macros\/parse\/intermittent_include.h 19:9@
+
+    __exported by:__ @macros\/parse\/intermittent_include.h@
+-}
+newtype M4
+    = M4 {unwrapM4 :: T2}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T2 => HasField "unwrapM4" (Ptr M4) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM4")
+instance HasCField M4 "unwrapM4"
+    where type CFieldType M4 "unwrapM4" = T2
+          offset# = \_ -> \_ -> 0

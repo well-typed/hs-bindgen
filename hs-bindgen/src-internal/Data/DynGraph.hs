@@ -53,10 +53,12 @@ insertVertex = Labelled.insertVertex
 
 -- | Insert an edge
 --
--- This function inserts vertices automatically.
+-- Assume that vertices are in the graph.
+--
+-- Panic if vertices are not in the graph.
 --
 -- The graph is not changed if the edge already exists.
-insertEdge :: forall a. Ord a => a -> a -> DynGraph a -> DynGraph a
+insertEdge :: forall a. (Ord a, Show a) => a -> a -> DynGraph a -> DynGraph a
 insertEdge = flip Labelled.insertEdge ()
 
 {-------------------------------------------------------------------------------

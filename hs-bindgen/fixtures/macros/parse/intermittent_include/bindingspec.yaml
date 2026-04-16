@@ -1,0 +1,262 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/parse/intermittent_include.h
+  cname: macro Ma
+  hsname: Ma
+- headers: macros/parse/intermittent_include.h
+  cname: Ta
+  hsname: Ta
+- headers: macros/parse/intermittent_include.h
+  cname: macro M1
+  hsname: M1
+- headers: macros/parse/intermittent_include.h
+  cname: T1
+  hsname: T1
+- headers: macros/parse/intermittent_include.h
+  cname: macro M2
+  hsname: M2
+- headers: macros/parse/intermittent_include.h
+  cname: macro M3
+  hsname: M3
+- headers: macros/parse/intermittent_include.h
+  cname: T2
+  hsname: T2
+- headers: macros/parse/intermittent_include.h
+  cname: macro M4
+  hsname: M4
+hstypes:
+- hsname: M1
+  representation:
+    newtype:
+      constructor: M1
+      fields:
+      - unwrapM1
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: M2
+  representation:
+    newtype:
+      constructor: M2
+      fields:
+      - unwrapM2
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: M3
+  representation:
+    newtype:
+      constructor: M3
+      fields:
+      - unwrapM3
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: M4
+  representation:
+    newtype:
+      constructor: M4
+      fields:
+      - unwrapM4
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ma
+  representation:
+    newtype:
+      constructor: Ma
+      fields:
+      - unwrapMa
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - unwrapT1
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    newtype:
+      constructor: T2
+      fields:
+      - unwrapT2
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ta
+  representation:
+    newtype:
+      constructor: Ta
+      fields:
+      - unwrapTa
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -10,9 +10,9 @@ module HsBindgen.Frontend.Pass.Final (
 import GHC.Records
 
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -28,7 +28,7 @@ type Final = Select
   Annotations
 
   These virtual fields help protect the backend against changes in the frontend:
-  if we change add further annotations, these virtual fields can continue to
+  if we add further annotations, these virtual fields can continue to
   exist.
 -------------------------------------------------------------------------------}
 

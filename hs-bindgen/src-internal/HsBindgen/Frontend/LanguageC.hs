@@ -2,7 +2,8 @@
 
 -- | Main entry point to the @language-c@ infrastructure
 --
--- It should not be necessary to import any other module in @LanguageC.*@.
+-- It should not be necessary to import any other module in @LanguageC.*@ (but
+-- to avoid circular module imports).
 --
 -- Intended for qualified import.
 --
@@ -13,13 +14,12 @@ module HsBindgen.Frontend.LanguageC (
   , reparseFunDecl
   , reparseTypedef
   , reparseField
-  , parseMacroType
+  , reparseGlobal
     -- * Scoping
   , ReparseEnv
   , initReparseEnv
   ) where
 
-import Control.Monad
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
 import Data.Map qualified as Map
@@ -41,7 +41,7 @@ import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 #if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
 #endif
@@ -60,36 +60,24 @@ type Parser a =
 -- Returns the function parameters, function result, and function name.
 reparseFunDecl ::
      Parser (
-         ( [(Maybe CName, C.Type HandleMacros)]
-         , C.Type HandleMacros
+         ( [(Maybe CName, C.Type ReparseMacroExpansions)]
+         , C.Type ReparseMacroExpansions
          )
        , CName
        )
 reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
-reparseTypedef :: Parser (C.Type HandleMacros)
+reparseTypedef :: Parser (C.Type ReparseMacroExpansions)
 reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
-reparseField :: Parser (C.Type HandleMacros, CName)
+reparseField :: Parser (C.Type ReparseMacroExpansions, CName)
 reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 
--- | Parse macro-defined type
---
--- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
--- for the first time.
-parseMacroType :: Parser (C.Type HandleMacros)
-parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
-  where
-    -- @void@ does not make sense as a top-level type
-    checkNotVoid ::
-         (Maybe CName, C.Type HandleMacros)
-      -> FromLanC (C.Type HandleMacros)
-    checkNotVoid (_name, typ) =
-        case typ of
-          C.TypeVoid -> unsupported "type 'void'"
-          _otherwise -> return typ
+-- | Reparse global variable declaration
+reparseGlobal :: Parser (C.Type ReparseMacroExpansions)
+reparseGlobal = parseWith defaultFlatten (fmap snd . fromDecl)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: run the language-c parser
@@ -199,22 +187,6 @@ flattenFunDecl allTokens =
           -- Everything else we just add to the raw string
           _otherwise -> prependToken t $ go ts
 
-flattenMacroTypeDef :: [Clang.Token Clang.TokenSpelling] -> String
-flattenMacroTypeDef []         = panicPure "Unexpected empty list of tokens"
-#if MIN_VERSION_language_c(0,10,2)
--- language-c 0.10.2 lexes @bool@ as a keyword, so it cannot be used as a
--- typedef name. We substitute a placeholder identifier instead.
--- 'parseMacroType' only uses the type from the parsed declaration, not the
--- name, so the placeholder has no effect on the result.
-flattenMacroTypeDef (name:def)
-  | Clang.getTokenSpelling (Clang.tokenSpelling name) == "bool"
-  = "typedef " ++ flattenTokens "_hsbg_bool ;" def
-  | otherwise
-  = "typedef " ++ defaultFlatten (def ++ [name])
-#else
-flattenMacroTypeDef (name:def) = "typedef " ++ defaultFlatten (def ++ [name])
-#endif
-
 prependToken :: Clang.Token Clang.TokenSpelling -> String -> String
 prependToken token rest = concat [
       Text.unpack (Clang.getTokenSpelling $ Clang.tokenSpelling token)
@@ -226,7 +198,7 @@ prependToken token rest = concat [
   Construct type environment
 -------------------------------------------------------------------------------}
 
--- | Initial 'ReparseTypeEnv'
+-- | Initial 'ReparseEnv'
 --
 -- This is not quite empty: it contains some "built in" types.
 initReparseEnv :: ClangCStandard -> ReparseEnv
@@ -235,7 +207,7 @@ initReparseEnv standard = Map.fromList (bespokeTypes standard)
 -- | \"Primitive\" we expect the reparser to recognize
 --
 -- The language-c parser does not support these explicitly.
-bespokeTypes :: ClangCStandard -> [(CName, C.Type HandleMacros)]
+bespokeTypes :: ClangCStandard -> [(CName, C.Type p)]
 bespokeTypes = \case
 #if !MIN_VERSION_language_c(0,10,2)
     -- Make sure that we really only replace keywords lacking definitions.

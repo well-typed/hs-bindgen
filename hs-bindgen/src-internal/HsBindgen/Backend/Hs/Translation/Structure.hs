@@ -107,7 +107,7 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
           }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
-    -- We generate zero-copy bindings for the FLAM field.
+    -- We generate pointer manipulation bindings for the FLAM field.
     flamDecl :: Hs.Decl
     flamDecl =
       Hs.DeclTypSyn

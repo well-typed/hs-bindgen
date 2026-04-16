@@ -24,10 +24,11 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds "UnionField"  = ReparseInfo
   AnnAssignAnonIds "Typedef"     = ReparseInfo
   AnnAssignAnonIds "Function"    = ReparseInfo
+  AnnAssignAnonIds "Global"      = ReparseInfo
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
-  type MacroBody  AssignAnonIds = UnparsedMacro
+  type MacroBody  AssignAnonIds = ParsedMacro
   type ExtBinding AssignAnonIds = Void
   type Ann ix     AssignAnonIds = AnnAssignAnonIds ix
   type Msg        AssignAnonIds = WithCallStack ImmediateAssignAnonIdsMsg

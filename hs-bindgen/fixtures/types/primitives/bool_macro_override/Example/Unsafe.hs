@@ -46,7 +46,7 @@ hs_bindgen_c170f90cc5412c59 =
 
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -74,7 +74,7 @@ hs_bindgen_18fbcf94c0b76854 =
 
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}

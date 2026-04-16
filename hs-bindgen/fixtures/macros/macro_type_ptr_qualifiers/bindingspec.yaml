@@ -1,0 +1,132 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro PtrToVoid
+  hsname: PtrToVoid
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro PtrToConstVoidL
+  hsname: PtrToConstVoidL
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro PtrToConstVoidR
+  hsname: PtrToConstVoidR
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro PtrToConstIntL
+  hsname: PtrToConstIntL
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro PtrToConstIntR
+  hsname: PtrToConstIntR
+- headers: macros/macro_type_ptr_qualifiers.h
+  cname: macro ConstPtrToInt
+  hsname: ConstPtrToInt
+hstypes:
+- hsname: ConstPtrToInt
+  representation:
+    newtype:
+      constructor: ConstPtrToInt
+      fields:
+      - unwrapConstPtrToInt
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: PtrToConstIntL
+  representation:
+    newtype:
+      constructor: PtrToConstIntL
+      fields:
+      - unwrapPtrToConstIntL
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: PtrToConstIntR
+  representation:
+    newtype:
+      constructor: PtrToConstIntR
+      fields:
+      - unwrapPtrToConstIntR
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: PtrToConstVoidL
+  representation:
+    newtype:
+      constructor: PtrToConstVoidL
+      fields:
+      - unwrapPtrToConstVoidL
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: PtrToConstVoidR
+  representation:
+    newtype:
+      constructor: PtrToConstVoidR
+      fields:
+      - unwrapPtrToConstVoidR
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: PtrToVoid
+  representation:
+    newtype:
+      constructor: PtrToVoid
+      fields:
+      - unwrapPtrToVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -12,6 +12,7 @@ module Test.Common.HsBindgen.Trace.Predicate (
   , tolerateAll
   , singleTracePredicate
   , multiTracePredicate
+  , multiTracePredicateCustomLogLevel
   , TraceExpectationException
     -- * Tracer
   , quietTracerConfig
@@ -49,31 +50,33 @@ import Test.Common.HsBindgen.Trace
 data TraceExpectation b = Expected b | Tolerated | Unexpected
   deriving stock (Show, Eq, Ord, Functor)
 
-newtype TracePredicate a = TracePredicate {
-    _tracePredicate :: [a] -> Except (TraceExpectationException a) ()
+data TracePredicate l a = TracePredicate {
+    _customLogLevel :: CustomLogLevel l a
+  , _tracePredicate :: [a] -> Except (TraceExpectationException a) ()
   }
 
 -- | By default, we do not expect any warnings, nor errors ('Unexpected'). Info
 -- and debug messages are 'Tolerate'd.
-defaultTracePredicate :: IsTrace Level a => TracePredicate a
+defaultTracePredicate :: IsTrace Level a => TracePredicate Level a
 defaultTracePredicate =
-    customTracePredicateAux @GotExpectedTrace [] (const Nothing)
+    customTracePredicateAux @GotExpectedTrace mempty [] (const Nothing)
 
 -- | Tolerate /all/ traces
 --
 -- Useful for tests where we don't care about the trace messages, and want to
 -- look at test output only.
-tolerateAll :: IsTrace Level a => TracePredicate a
+tolerateAll :: IsTrace Level a => TracePredicate Level a
 tolerateAll =
-    customTracePredicateAux @GotExpectedTrace [] (const $ Just Tolerated)
+    customTracePredicateAux @GotExpectedTrace mempty [] (const $ Just Tolerated)
 
 -- | 'Expect' a trace with given name exactly one time.
 singleTracePredicate ::
      IsTrace Level a
   => (a -> Maybe (TraceExpectation ()))
-  -> TracePredicate a
+  -> TracePredicate Level a
 singleTracePredicate predicate =
     customTracePredicateAux
+      mempty
       [GotExpectedTrace]
       (fmap (fmap (\() -> GotExpectedTrace)) . predicate)
 
@@ -84,51 +87,69 @@ multiTracePredicate :: forall b a.
   -- the name/identifier N times to the list.
   -> (a -> Maybe (TraceExpectation b))
   -- ^ 'Nothing' defaults to 'defaultTracePredicate'.
-  -> TracePredicate a
+  -> TracePredicate Level a
 multiTracePredicate expected predicate =
     customTracePredicateAux
+       mempty
+       (map GotTraceLabelled expected)
+       (fmap (fmap GotTraceLabelled) . predicate)
+
+-- | Like 'multiTracePredicate' but allows for a custom log level.
+multiTracePredicateCustomLogLevel :: forall b a.
+     (IsTrace Level a, Show a, Ord b, RenderLabel b)
+  => CustomLogLevel Level a
+  -> [b]
+  -> (a -> Maybe (TraceExpectation b))
+  -> TracePredicate Level a
+multiTracePredicateCustomLogLevel customLogLevel expected predicate =
+    customTracePredicateAux
+       customLogLevel
        (map GotTraceLabelled expected)
        (fmap (fmap GotTraceLabelled) . predicate)
 
 -- | Internal generalization
 customTracePredicateAux :: forall b a.
      (IsTrace Level a, Ord b, WrongCountMsg a b)
-  => [b]
+  => CustomLogLevel Level a
+  -> [b]
   -> (a -> Maybe (TraceExpectation b))
-  -> TracePredicate a
-customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
-  let (unexpected, actualCounts) =
-        Foldable.foldl' checkTrace ([], Map.empty) traces
-      checkTrace (ts, counts) trace = case predicate trace of
-        Expected name -> (ts        , Map.insertWith (<>) name [trace] counts)
-        Tolerated     -> (ts        , counts            )
-        Unexpected    -> (trace : ts, counts            )
-  if null unexpected && expectedCounts == Map.map length actualCounts
-    then pure ()
-    else
-      let additionalCounts = actualCounts `Map.difference` expectedCounts
-          additionalWrongCounts = [ wrongCount name 0 (length actual) actual
-                                  | (name, actual) <- Map.toList additionalCounts
-                                  ]
-          wrongCounts = [ wrongCount name expected (length actual) actual
-                        | (name, expected) <- Map.toList expectedCounts
-                        , let actual = fromMaybe [] (name `Map.lookup` actualCounts)
-                        , length actual /= expected
-                        ]
-       in throwError $ TraceExpectationException {
-              unexpectedTraces = unexpected
-            , wrongCounts      = wrongCounts ++ additionalWrongCounts
-            }
+  -> TracePredicate Level a
+customTracePredicateAux customLogLevel names mpredicate =
+    TracePredicate customLogLevel $ \traces -> do
+      let (unexpected, actualCounts) =
+            Foldable.foldl' checkTrace ([], Map.empty) traces
+          checkTrace (ts, counts) trace = case predicate trace of
+            Expected name -> (ts        , Map.insertWith (<>) name [trace] counts)
+            Tolerated     -> (ts        , counts            )
+            Unexpected    -> (trace : ts, counts            )
+      if null unexpected && expectedCounts == Map.map length actualCounts
+        then pure ()
+        else
+          let additionalCounts = actualCounts `Map.difference` expectedCounts
+              additionalWrongCounts = [ wrongCount name 0 (length actual) actual
+                                      | (name, actual) <- Map.toList additionalCounts
+                                      ]
+              wrongCounts = [ wrongCount name expected (length actual) actual
+                            | (name, expected) <- Map.toList expectedCounts
+                            , let actual = fromMaybe [] (name `Map.lookup` actualCounts)
+                            , length actual /= expected
+                            ]
+           in throwError $ TraceExpectationException {
+                  unexpectedTraces = unexpected
+                , wrongCounts      = wrongCounts ++ additionalWrongCounts
+                }
   where
+    getLogLevel :: a -> Level
+    getLogLevel x = applyCustomLogLevel customLogLevel x (getDefaultLogLevel x)
+
     defaultTracePredicateSimple :: a -> TraceExpectation b
-    defaultTracePredicateSimple = \case
+    defaultTracePredicateSimple x = case getLogLevel x of
         Error        -> Unexpected
         Bug          -> Unexpected
         Warning      -> Unexpected
         Notice       -> Tolerated
         Info         -> Tolerated
         Debug        -> Tolerated
-        . getDefaultLogLevel
 
     predicate :: a -> TraceExpectation b
     predicate trace = fromMaybe (defaultTracePredicateSimple $ trace) (mpredicate trace)
@@ -156,7 +177,7 @@ quietTracerConfig = def {
 withTracePredicate ::
      (Typeable a, IsTrace Level a, Show a)
   => (String -> IO ())
-  -> TracePredicate a
+  -> TracePredicate Level a
   -> (Tracer a -> IO b)
   -> IO b
 withTracePredicate report predicate action =
@@ -169,10 +190,10 @@ withTracePredicate report predicate action =
 withTraceConfigPredicate ::
      forall a b l. (Typeable a, IsTrace l a, Show a)
   => (String -> IO ())
-  -> TracePredicate a
+  -> TracePredicate l a
   -> (TracerConfig l a -> IO b)
   -> IO b
-withTraceConfigPredicate report (TracePredicate predicate) action = do
+withTraceConfigPredicate report (TracePredicate customLogLevel predicate) action = do
     tracesRef <- newIORef []
 
     let writer :: Report a
@@ -180,8 +201,9 @@ withTraceConfigPredicate report (TracePredicate predicate) action = do
 
         tracerConfig :: TracerConfig l a
         tracerConfig = def {
-            verbosity    = Verbosity Info
-          , outputConfig = OutputConfigCustom OutputCustom{
+            customLogLevel = customLogLevel
+          , verbosity      = Verbosity Info
+          , outputConfig   = OutputConfigCustom OutputCustom{
                 report    = writer
               , ansiColor = DisableAnsiColor
               }

@@ -15,15 +15,17 @@ module Example
     ( Example.MyFunction(..)
     , Example.A(..)
     , Example.B(..)
+    , Example.E(..)
     )
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified M
 
 {-| __C declaration:__ @MyFunction@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 4:13@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 5:13@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
@@ -80,7 +82,7 @@ instance HasCField.HasCField MyFunction "unwrapMyFunction" where
 
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 7:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 9:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
@@ -103,7 +105,7 @@ instance HasCField.HasCField A "unwrapA" where
 
 {-| __C declaration:__ @macro B@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 8:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 10:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
@@ -120,5 +122,26 @@ instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @macro E@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 31:9@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
+-}
+newtype E = E
+  { unwrapE :: M.C
+  }
+  deriving stock (RIP.Generic)
+
+instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
+
+instance HasCField.HasCField E "unwrapE" where
+
+  type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0

@@ -11,6 +11,7 @@ module HsBindgen.Frontend.LocationInfo (
   , locationInfoLocs
   ) where
 
+import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
@@ -98,7 +99,7 @@ instance PrettyForTrace a => PrettyForTrace (WithLocationInfo a) where
         LocationUnavailable ->
           prettyForTrace x.msg
         _otherwise ->
-          PP.hang (prettyForTrace x.loc) 2 $
+          PP.hang (prettyForTrace x.loc >< ":") 2 $
             prettyForTrace x.msg
 
 instance PrettyForTrace LocationInfo where

@@ -1,7 +1,7 @@
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/edge-cases/distilled_lib_1.h
 -- #include <edge-cases/distilled_lib_1.h>
 -- int32_t hs_bindgen_57cb99ed92c001ad (

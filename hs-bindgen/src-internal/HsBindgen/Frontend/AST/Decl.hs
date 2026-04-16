@@ -25,6 +25,7 @@ module HsBindgen.Frontend.AST.Decl (
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
+  , Global(..)
     -- ** Comments
   , Comment(..)
   , CommentRef(..)
@@ -106,6 +107,12 @@ data Availability =
 data DeclInfo p = DeclInfo{
       loc          :: SingleLoc
     , id           :: Id p
+    -- | Sequence number
+    --
+    -- Declarations with lower sequence numbers come before declarations with
+    -- higher sequence numbers in the translation unit. We can populate sequence
+    -- numbers only with Clang version 20.1 or newer.
+    , seqNr        :: Maybe Natural
     , headerInfo   :: HeaderInfo
     , availability :: Availability
     , comment      :: Maybe (Comment p)
@@ -154,7 +161,7 @@ data DeclKind p =
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
-  | DeclGlobal (C.Type p)
+  | DeclGlobal (Global p)
 
 data Struct p = Struct {
       sizeof    :: Int
@@ -234,6 +241,12 @@ data FunctionArg p = FunctionArg {
     , argTyp :: C.TypeFunArg p
     }
     deriving stock (Generic)
+
+data Global p = Global {
+      typ :: C.Type p
+    , ann :: Ann "Global" p
+    }
+  deriving stock (Generic)
 
 -- | Function attributes specify properties for C functions.
 --
@@ -362,6 +375,7 @@ deriving stock instance IsPass p => Show (Enum             p)
 deriving stock instance IsPass p => Show (EnumConstant     p)
 deriving stock instance IsPass p => Show (Function         p)
 deriving stock instance IsPass p => Show (FunctionArg      p)
+deriving stock instance IsPass p => Show (Global           p)
 deriving stock instance IsPass p => Show (Struct           p)
 deriving stock instance IsPass p => Show (StructField      p)
 deriving stock instance IsPass p => Show (TranslationUnit  p)
@@ -377,6 +391,7 @@ deriving stock instance IsPass p => Eq (EnumConstant     p)
 deriving stock instance IsPass p => Eq (FieldInfo        p)
 deriving stock instance IsPass p => Eq (Function         p)
 deriving stock instance IsPass p => Eq (FunctionArg      p)
+deriving stock instance IsPass p => Eq (Global           p)
 deriving stock instance IsPass p => Eq (Struct           p)
 deriving stock instance IsPass p => Eq (StructField      p)
 deriving stock instance IsPass p => Eq (Typedef          p)

@@ -180,7 +180,7 @@ analyseDecl decl =
       C.DeclOpaque             -> []
       C.DeclMacro            _ -> []
       C.DeclFunction         _ -> []
-      C.DeclGlobal           x -> analyseGlobal  decl.info x
+      C.DeclGlobal           x -> analyseGlobal  decl.info x.typ
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct info struct = concat [
@@ -202,7 +202,7 @@ analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
 
 analyseGlobal :: C.DeclInfo Parse -> C.Type Parse -> [(AnonId, Context)]
-analyseGlobal info typ = analyseType (GlobalVar info) typ
+analyseGlobal info = analyseType (GlobalVar info)
 
 {-------------------------------------------------------------------------------
   Types

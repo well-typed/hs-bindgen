@@ -54,6 +54,10 @@ library generated
     Generated.Callbacks.Unions.Unsafe
     Generated.Types.Anonymous
     Generated.Types.Anonymous.Global
+    Generated.Types.Bitfields
+    Generated.Types.Bitfields.FunPtr
+    Generated.Types.Bitfields.Safe
+    Generated.Types.Bitfields.Unsafe
 
   build-depends:
     , base
@@ -74,6 +78,7 @@ test-suite feature-tests
     Test.Callbacks.Structs
     Test.Callbacks.Unions
     Test.Types.Anonymous
+    Test.Types.Bitfields
     Test.Util
     Test.Util.Orphans
 
@@ -81,6 +86,7 @@ test-suite feature-tests
     , base
     , feature-tests:generated
     , hs-bindgen-runtime
+    , QuickCheck
     , tasty
     , tasty-quickcheck
     , vector

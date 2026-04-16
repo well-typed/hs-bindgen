@@ -4,10 +4,19 @@
 module C.Expr.Syntax (
     -- * Definition
     Macro(..)
+    -- ** Type syntax
+  , TypeLit(..)
+  , TagKind(..)
+  , Sign(..)
+  , IntSize(..)
+  , FloatSize(..)
     -- ** Expressions
-  , MExpr(..)
-  , MFun(..)
-  , MTerm(..)
+  , Expr(..)
+  , TyFun(..)
+  , VaFun(..)
+  , ValueLit(..)
+  , Literal(..)
+  , Term(..)
   , Name(..)
     -- ** Literals
   , IntegerLiteral(..)
@@ -20,9 +29,6 @@ module C.Expr.Syntax (
   , Ps
   , XVar(..)
   , XApp(..)
-    -- ** Combinators
-  , mapMExpr
-  , mapMExprF
   ) where
 
 import Data.Kind qualified as Hs
@@ -33,20 +39,15 @@ import C.Expr.Syntax.Literals
 import C.Expr.Syntax.Name
 import C.Expr.Syntax.TTG
 import C.Expr.Syntax.TTG.Parse
+import C.Expr.Syntax.Type
 
 import Clang.HighLevel.Types
 
-{-------------------------------------------------------------------------------
-  Top-level
--------------------------------------------------------------------------------}
-
-type Macro :: Pass -> Hs.Type
-data Macro p = Macro {
+type Macro :: Hs.Type
+data Macro = Macro {
       macroLoc  :: MultiLoc
     , macroName :: Name
     , macroArgs :: [Name]
-    , macroBody :: MExpr p
+    , macroExpr :: Expr Ps
     }
-  deriving stock Generic
-deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Macro p )
-deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Macro p )
+  deriving stock (Eq, Show, Generic)

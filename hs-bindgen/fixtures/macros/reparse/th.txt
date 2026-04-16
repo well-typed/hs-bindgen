@@ -2473,6 +2473,42 @@
 -- {
 --   return &funptr_ret10;
 -- }
+-- /* test_macrosreparse_Example_get_global1 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_feda7c77651645fe (void)
+-- {
+--   return &global1;
+-- }
+-- /* test_macrosreparse_Example_get_global2 */
+-- __attribute__ ((const))
+-- signed int **hs_bindgen_61b4abc5e1afa043 (void)
+-- {
+--   return &global2;
+-- }
+-- /* test_macrosreparse_Example_get_global3 */
+-- __attribute__ ((const))
+-- signed int ***hs_bindgen_f9bcb9580741dbc1 (void)
+-- {
+--   return &global3;
+-- }
+-- /* test_macrosreparse_Example_get_const1 */
+-- __attribute__ ((const))
+-- signed int const *hs_bindgen_044004234e2019f6 (void)
+-- {
+--   return &const1;
+-- }
+-- /* test_macrosreparse_Example_get_const2 */
+-- __attribute__ ((const))
+-- signed int *const *hs_bindgen_6c69b6e35fe122c5 (void)
+-- {
+--   return &const2;
+-- }
+-- /* test_macrosreparse_Example_get_const3 */
+-- __attribute__ ((const))
+-- signed int **const *hs_bindgen_da21ad94b09d46ae (void)
+-- {
+--   return &const3;
+-- }
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse.h 3:9@
@@ -3136,7 +3172,7 @@ instance (~) ty (Ptr (Ptr A)) =>
     where getField = fromPtr (Proxy @"example_struct_field3")
 {-| __C declaration:__ @const_typedef1@
 
-    __defined at:__ @macros\/reparse.h 220:25@
+    __defined at:__ @macros\/reparse.h 218:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3166,7 +3202,7 @@ instance HasCField Const_typedef1 "unwrapConst_typedef1"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef2@
 
-    __defined at:__ @macros\/reparse.h 221:25@
+    __defined at:__ @macros\/reparse.h 219:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3196,7 +3232,7 @@ instance HasCField Const_typedef2 "unwrapConst_typedef2"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef3@
 
-    __defined at:__ @macros\/reparse.h 222:25@
+    __defined at:__ @macros\/reparse.h 220:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3217,7 +3253,7 @@ instance HasCField Const_typedef3 "unwrapConst_typedef3"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef4@
 
-    __defined at:__ @macros\/reparse.h 223:25@
+    __defined at:__ @macros\/reparse.h 221:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3238,7 +3274,7 @@ instance HasCField Const_typedef4 "unwrapConst_typedef4"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef5@
 
-    __defined at:__ @macros\/reparse.h 224:25@
+    __defined at:__ @macros\/reparse.h 222:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3258,7 +3294,7 @@ instance HasCField Const_typedef5 "unwrapConst_typedef5"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef6@
 
-    __defined at:__ @macros\/reparse.h 225:25@
+    __defined at:__ @macros\/reparse.h 223:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3279,7 +3315,7 @@ instance HasCField Const_typedef6 "unwrapConst_typedef6"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef7@
 
-    __defined at:__ @macros\/reparse.h 226:25@
+    __defined at:__ @macros\/reparse.h 224:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3300,7 +3336,7 @@ instance HasCField Const_typedef7 "unwrapConst_typedef7"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct example_struct_with_const@
 
-    __defined at:__ @macros\/reparse.h 228:8@
+    __defined at:__ @macros\/reparse.h 226:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3308,49 +3344,49 @@ data Example_struct_with_const
     = Example_struct_with_const {example_struct_with_const_const_field1 :: A
                                  {- ^ __C declaration:__ @const_field1@
 
-                                      __defined at:__ @macros\/reparse.h 229:19@
+                                      __defined at:__ @macros\/reparse.h 227:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field2 :: A
                                  {- ^ __C declaration:__ @const_field2@
 
-                                      __defined at:__ @macros\/reparse.h 230:19@
+                                      __defined at:__ @macros\/reparse.h 228:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field3 :: (PtrConst A)
                                  {- ^ __C declaration:__ @const_field3@
 
-                                      __defined at:__ @macros\/reparse.h 231:19@
+                                      __defined at:__ @macros\/reparse.h 229:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field4 :: (PtrConst A)
                                  {- ^ __C declaration:__ @const_field4@
 
-                                      __defined at:__ @macros\/reparse.h 232:19@
+                                      __defined at:__ @macros\/reparse.h 230:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field5 :: (Ptr A)
                                  {- ^ __C declaration:__ @const_field5@
 
-                                      __defined at:__ @macros\/reparse.h 233:19@
+                                      __defined at:__ @macros\/reparse.h 231:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field6 :: (PtrConst A)
                                  {- ^ __C declaration:__ @const_field6@
 
-                                      __defined at:__ @macros\/reparse.h 234:19@
+                                      __defined at:__ @macros\/reparse.h 232:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
                                  example_struct_with_const_const_field7 :: (PtrConst A)
                                  {- ^ __C declaration:__ @const_field7@
 
-                                      __defined at:__ @macros\/reparse.h 235:19@
+                                      __defined at:__ @macros\/reparse.h 233:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -}}
@@ -3444,7 +3480,7 @@ instance (~) ty (PtrConst A) =>
 
 __C declaration:__ @const_funptr1@
 
-__defined at:__ @macros\/reparse.h 238:27@
+__defined at:__ @macros\/reparse.h 236:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3484,7 +3520,7 @@ instance HasCField Const_funptr1_Aux "unwrapConst_funptr1_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr1@
 
-    __defined at:__ @macros\/reparse.h 238:27@
+    __defined at:__ @macros\/reparse.h 236:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3507,7 +3543,7 @@ instance HasCField Const_funptr1 "unwrapConst_funptr1"
 
 __C declaration:__ @const_funptr2@
 
-__defined at:__ @macros\/reparse.h 239:27@
+__defined at:__ @macros\/reparse.h 237:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3547,7 +3583,7 @@ instance HasCField Const_funptr2_Aux "unwrapConst_funptr2_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr2@
 
-    __defined at:__ @macros\/reparse.h 239:27@
+    __defined at:__ @macros\/reparse.h 237:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3570,7 +3606,7 @@ instance HasCField Const_funptr2 "unwrapConst_funptr2"
 
 __C declaration:__ @const_funptr3@
 
-__defined at:__ @macros\/reparse.h 240:27@
+__defined at:__ @macros\/reparse.h 238:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3610,7 +3646,7 @@ instance HasCField Const_funptr3_Aux "unwrapConst_funptr3_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr3@
 
-    __defined at:__ @macros\/reparse.h 240:27@
+    __defined at:__ @macros\/reparse.h 238:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3633,7 +3669,7 @@ instance HasCField Const_funptr3 "unwrapConst_funptr3"
 
 __C declaration:__ @const_funptr4@
 
-__defined at:__ @macros\/reparse.h 241:27@
+__defined at:__ @macros\/reparse.h 239:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3673,7 +3709,7 @@ instance HasCField Const_funptr4_Aux "unwrapConst_funptr4_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr4@
 
-    __defined at:__ @macros\/reparse.h 241:27@
+    __defined at:__ @macros\/reparse.h 239:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3696,7 +3732,7 @@ instance HasCField Const_funptr4 "unwrapConst_funptr4"
 
 __C declaration:__ @const_funptr5@
 
-__defined at:__ @macros\/reparse.h 242:27@
+__defined at:__ @macros\/reparse.h 240:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3736,7 +3772,7 @@ instance HasCField Const_funptr5_Aux "unwrapConst_funptr5_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr5@
 
-    __defined at:__ @macros\/reparse.h 242:27@
+    __defined at:__ @macros\/reparse.h 240:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3759,7 +3795,7 @@ instance HasCField Const_funptr5 "unwrapConst_funptr5"
 
 __C declaration:__ @const_funptr6@
 
-__defined at:__ @macros\/reparse.h 243:27@
+__defined at:__ @macros\/reparse.h 241:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3799,7 +3835,7 @@ instance HasCField Const_funptr6_Aux "unwrapConst_funptr6_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr6@
 
-    __defined at:__ @macros\/reparse.h 243:27@
+    __defined at:__ @macros\/reparse.h 241:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3822,7 +3858,7 @@ instance HasCField Const_funptr6 "unwrapConst_funptr6"
 
 __C declaration:__ @const_funptr7@
 
-__defined at:__ @macros\/reparse.h 244:27@
+__defined at:__ @macros\/reparse.h 242:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3862,7 +3898,7 @@ instance HasCField Const_funptr7_Aux "unwrapConst_funptr7_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr7@
 
-    __defined at:__ @macros\/reparse.h 244:27@
+    __defined at:__ @macros\/reparse.h 242:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3883,7 +3919,7 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro BOOL@
 
-    __defined at:__ @macros\/reparse.h 280:9@
+    __defined at:__ @macros\/reparse.h 278:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3912,7 +3948,7 @@ instance HasCField BOOL "unwrapBOOL"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro INT@
 
-    __defined at:__ @macros\/reparse.h 281:9@
+    __defined at:__ @macros\/reparse.h 279:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3941,7 +3977,7 @@ instance HasCField INT "unwrapINT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro INTP@
 
-    __defined at:__ @macros\/reparse.h 282:9@
+    __defined at:__ @macros\/reparse.h 280:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3961,7 +3997,7 @@ instance HasCField INTP "unwrapINTP"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro INTCP@
 
-    __defined at:__ @macros\/reparse.h 283:9@
+    __defined at:__ @macros\/reparse.h 281:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5442,7 +5478,7 @@ hs_bindgen_278568d7a2a3a4b6 = fromFFIType hs_bindgen_278568d7a2a3a4b6_base
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -5453,7 +5489,7 @@ const_prim_before1_safe :: A -> CChar -> IO ()
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -5469,14 +5505,14 @@ hs_bindgen_87ee56525e5ea20c :: A -> CSChar -> IO ()
 hs_bindgen_87ee56525e5ea20c = fromFFIType hs_bindgen_87ee56525e5ea20c_base
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before2_safe :: A -> CSChar -> IO ()
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5492,14 +5528,14 @@ hs_bindgen_c0b99594235bd99e :: A -> CUChar -> IO ()
 hs_bindgen_c0b99594235bd99e = fromFFIType hs_bindgen_c0b99594235bd99e_base
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before3_safe :: A -> CUChar -> IO ()
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5515,14 +5551,14 @@ hs_bindgen_d718b682f157fc18 :: A -> CChar -> IO ()
 hs_bindgen_d718b682f157fc18 = fromFFIType hs_bindgen_d718b682f157fc18_base
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after1_safe :: A -> CChar -> IO ()
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5538,14 +5574,14 @@ hs_bindgen_f2c5b3d5eca68433 :: A -> CSChar -> IO ()
 hs_bindgen_f2c5b3d5eca68433 = fromFFIType hs_bindgen_f2c5b3d5eca68433_base
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after2_safe :: A -> CSChar -> IO ()
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5561,14 +5597,14 @@ hs_bindgen_ae2d994e06667b23 :: A -> CUChar -> IO ()
 hs_bindgen_ae2d994e06667b23 = fromFFIType hs_bindgen_ae2d994e06667b23_base
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after3_safe :: A -> CUChar -> IO ()
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5584,14 +5620,14 @@ hs_bindgen_6940b58e7f4397a7 :: A -> CFloat -> IO ()
 hs_bindgen_6940b58e7f4397a7 = fromFFIType hs_bindgen_6940b58e7f4397a7_base
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before1_safe :: A -> CFloat -> IO ()
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5607,14 +5643,14 @@ hs_bindgen_00b6fe2282e779b1 :: A -> CDouble -> IO ()
 hs_bindgen_00b6fe2282e779b1 = fromFFIType hs_bindgen_00b6fe2282e779b1_base
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before2_safe :: A -> CDouble -> IO ()
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5630,14 +5666,14 @@ hs_bindgen_6517cc8d39aead93 :: A -> CBool -> IO ()
 hs_bindgen_6517cc8d39aead93 = fromFFIType hs_bindgen_6517cc8d39aead93_base
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before3_safe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5653,14 +5689,14 @@ hs_bindgen_68c7661e95060488 :: A -> PtrConst Some_struct -> IO ()
 hs_bindgen_68c7661e95060488 = fromFFIType hs_bindgen_68c7661e95060488_base
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before4_safe :: A -> Some_struct -> IO ()
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5676,14 +5712,14 @@ hs_bindgen_42b3b0bf73a7a51a :: A -> PtrConst Some_union -> IO ()
 hs_bindgen_42b3b0bf73a7a51a = fromFFIType hs_bindgen_42b3b0bf73a7a51a_base
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before5_safe :: A -> Some_union -> IO ()
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5699,14 +5735,14 @@ hs_bindgen_c4aabe9834aac12f :: A -> Some_enum -> IO ()
 hs_bindgen_c4aabe9834aac12f = fromFFIType hs_bindgen_c4aabe9834aac12f_base
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before6_safe :: A -> Some_enum -> IO ()
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5722,14 +5758,14 @@ hs_bindgen_486090a7fb4e34d4 :: A -> CBool -> IO ()
 hs_bindgen_486090a7fb4e34d4 = fromFFIType hs_bindgen_486090a7fb4e34d4_base
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before7_safe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5746,7 +5782,7 @@ hs_bindgen_23fa742b614176dd :: A ->
 hs_bindgen_23fa742b614176dd = fromFFIType hs_bindgen_23fa742b614176dd_base
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5754,7 +5790,7 @@ const_withoutSign_before8_safe :: A ->
                                   HsBindgen.Runtime.LibC.CSize -> IO ()
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5770,14 +5806,14 @@ hs_bindgen_0aacd8a5d48f296d :: A -> CFloat -> IO ()
 hs_bindgen_0aacd8a5d48f296d = fromFFIType hs_bindgen_0aacd8a5d48f296d_base
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after1_safe :: A -> CFloat -> IO ()
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5793,14 +5829,14 @@ hs_bindgen_16ec2102221485b7 :: A -> CDouble -> IO ()
 hs_bindgen_16ec2102221485b7 = fromFFIType hs_bindgen_16ec2102221485b7_base
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after2_safe :: A -> CDouble -> IO ()
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5816,14 +5852,14 @@ hs_bindgen_9aa934d44ec3790c :: A -> CBool -> IO ()
 hs_bindgen_9aa934d44ec3790c = fromFFIType hs_bindgen_9aa934d44ec3790c_base
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after3_safe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5839,14 +5875,14 @@ hs_bindgen_043d2869e29bedcf :: A -> PtrConst Some_struct -> IO ()
 hs_bindgen_043d2869e29bedcf = fromFFIType hs_bindgen_043d2869e29bedcf_base
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after4_safe :: A -> Some_struct -> IO ()
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5862,14 +5898,14 @@ hs_bindgen_b5f9bca1de9d69de :: A -> PtrConst Some_union -> IO ()
 hs_bindgen_b5f9bca1de9d69de = fromFFIType hs_bindgen_b5f9bca1de9d69de_base
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after5_safe :: A -> Some_union -> IO ()
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5885,14 +5921,14 @@ hs_bindgen_77d641d518b2504f :: A -> Some_enum -> IO ()
 hs_bindgen_77d641d518b2504f = fromFFIType hs_bindgen_77d641d518b2504f_base
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after6_safe :: A -> Some_enum -> IO ()
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5908,14 +5944,14 @@ hs_bindgen_691b4f2909140b49 :: A -> CBool -> IO ()
 hs_bindgen_691b4f2909140b49 = fromFFIType hs_bindgen_691b4f2909140b49_base
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after7_safe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5932,7 +5968,7 @@ hs_bindgen_ae74c8dcdc2ec9eb :: A ->
 hs_bindgen_ae74c8dcdc2ec9eb = fromFFIType hs_bindgen_ae74c8dcdc2ec9eb_base
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5940,7 +5976,7 @@ const_withoutSign_after8_safe :: A ->
                                  HsBindgen.Runtime.LibC.CSize -> IO ()
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5956,14 +5992,14 @@ hs_bindgen_07606c41eadf9146 :: A -> PtrConst CInt -> IO ()
 hs_bindgen_07606c41eadf9146 = fromFFIType hs_bindgen_07606c41eadf9146_base
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args1_safe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -5979,14 +6015,14 @@ hs_bindgen_3836769f3a3416ac :: A -> PtrConst CInt -> IO ()
 hs_bindgen_3836769f3a3416ac = fromFFIType hs_bindgen_3836769f3a3416ac_base
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args2_safe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6002,14 +6038,14 @@ hs_bindgen_12f19ea593aefd3f :: A -> Ptr CInt -> IO ()
 hs_bindgen_12f19ea593aefd3f = fromFFIType hs_bindgen_12f19ea593aefd3f_base
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args3_safe :: A -> Ptr CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6025,14 +6061,14 @@ hs_bindgen_5a50e98897696d57 :: A -> PtrConst CInt -> IO ()
 hs_bindgen_5a50e98897696d57 = fromFFIType hs_bindgen_5a50e98897696d57_base
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args4_safe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6048,14 +6084,14 @@ hs_bindgen_666701f7cb61bd15 :: A -> PtrConst CInt -> IO ()
 hs_bindgen_666701f7cb61bd15 = fromFFIType hs_bindgen_666701f7cb61bd15_base
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args5_safe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6070,14 +6106,14 @@ hs_bindgen_b94fbc3dfd285563 :: A -> IO (PtrConst CInt)
 hs_bindgen_b94fbc3dfd285563 = fromFFIType hs_bindgen_b94fbc3dfd285563_base
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret1_safe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6092,14 +6128,14 @@ hs_bindgen_33e2960e26b79450 :: A -> IO (PtrConst CInt)
 hs_bindgen_33e2960e26b79450 = fromFFIType hs_bindgen_33e2960e26b79450_base
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret2_safe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6114,14 +6150,14 @@ hs_bindgen_50c6e2fe4f3fb777 :: A -> IO (Ptr CInt)
 hs_bindgen_50c6e2fe4f3fb777 = fromFFIType hs_bindgen_50c6e2fe4f3fb777_base
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret3_safe :: A -> IO (Ptr CInt)
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6136,14 +6172,14 @@ hs_bindgen_edc014695d896c8d :: A -> IO (PtrConst CInt)
 hs_bindgen_edc014695d896c8d = fromFFIType hs_bindgen_edc014695d896c8d_base
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret4_safe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6158,14 +6194,14 @@ hs_bindgen_6d3308cc5847f033 :: A -> IO (PtrConst CInt)
 hs_bindgen_6d3308cc5847f033 = fromFFIType hs_bindgen_6d3308cc5847f033_base
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret5_safe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6181,7 +6217,7 @@ hs_bindgen_678576320923a4d1 :: PtrConst (Elem (IncompleteArray A)) ->
 hs_bindgen_678576320923a4d1 = fromFFIType hs_bindgen_678576320923a4d1_base
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6189,7 +6225,7 @@ const_array_elem1_safe :: PtrConst (Elem (IncompleteArray A)) ->
                           IO ()
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6205,7 +6241,7 @@ hs_bindgen_b317941dde4eeff2 :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
 hs_bindgen_b317941dde4eeff2 = fromFFIType hs_bindgen_b317941dde4eeff2_base
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6213,7 +6249,7 @@ const_array_elem2_safe :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
                           IO ()
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6229,7 +6265,7 @@ hs_bindgen_707e602e6beb1bb6 :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
 hs_bindgen_707e602e6beb1bb6 = fromFFIType hs_bindgen_707e602e6beb1bb6_base
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6237,7 +6273,7 @@ const_array_elem3_safe :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
                           IO ()
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6253,7 +6289,7 @@ hs_bindgen_93fecb4eb766c262 = fromFFIType hs_bindgen_93fecb4eb766c262_base
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -6262,7 +6298,7 @@ noParams1_safe :: IO A
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -6276,14 +6312,14 @@ hs_bindgen_4350965157c891f5 :: IO A
 hs_bindgen_4350965157c891f5 = fromFFIType hs_bindgen_4350965157c891f5_base
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams2_safe :: IO A
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6299,14 +6335,14 @@ hs_bindgen_c4f59272a2b1c3b5 :: A -> FunPtr (IO CInt) -> IO ()
 hs_bindgen_c4f59272a2b1c3b5 = fromFFIType hs_bindgen_c4f59272a2b1c3b5_base
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams3_safe :: A -> FunPtr (IO CInt) -> IO ()
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6321,14 +6357,14 @@ hs_bindgen_387a04c01e23c320 :: A -> IO (FunPtr (IO ()))
 hs_bindgen_387a04c01e23c320 = fromFFIType hs_bindgen_387a04c01e23c320_base
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret1_safe :: A -> IO (FunPtr (IO ()))
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6343,14 +6379,14 @@ hs_bindgen_6f0c14cd3478dc19 :: A -> IO (FunPtr (IO CInt))
 hs_bindgen_6f0c14cd3478dc19 = fromFFIType hs_bindgen_6f0c14cd3478dc19_base
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret2_safe :: A -> IO (FunPtr (IO CInt))
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6365,14 +6401,14 @@ hs_bindgen_08e8661d277cf7be :: A -> IO (FunPtr (CInt -> IO ()))
 hs_bindgen_08e8661d277cf7be = fromFFIType hs_bindgen_08e8661d277cf7be_base
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret3_safe :: A -> IO (FunPtr (CInt -> IO ()))
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6388,14 +6424,14 @@ hs_bindgen_609b5d953b68da92 :: A ->
 hs_bindgen_609b5d953b68da92 = fromFFIType hs_bindgen_609b5d953b68da92_base
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret4_safe :: A -> IO (FunPtr (CInt -> CDouble -> IO CChar))
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6411,7 +6447,7 @@ hs_bindgen_13e6ae43abf40aee :: A ->
 hs_bindgen_13e6ae43abf40aee = fromFFIType hs_bindgen_13e6ae43abf40aee_base
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6419,7 +6455,7 @@ funptr_ret5_safe :: A ->
                     IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt)))
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6435,7 +6471,7 @@ hs_bindgen_a4a3a86f28ca6299 :: A ->
 hs_bindgen_a4a3a86f28ca6299 = fromFFIType hs_bindgen_a4a3a86f28ca6299_base
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6443,7 +6479,7 @@ funptr_ret6_safe :: A ->
                     IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6459,7 +6495,7 @@ hs_bindgen_eae9dff04c88d00b :: A ->
 hs_bindgen_eae9dff04c88d00b = fromFFIType hs_bindgen_eae9dff04c88d00b_base
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6467,7 +6503,7 @@ funptr_ret7_safe :: A ->
                     IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6483,7 +6519,7 @@ hs_bindgen_894457d90a2fc8db :: A ->
 hs_bindgen_894457d90a2fc8db = fromFFIType hs_bindgen_894457d90a2fc8db_base
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6491,7 +6527,7 @@ funptr_ret8_safe :: A ->
                     IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt)))
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6507,7 +6543,7 @@ hs_bindgen_c893eb15ad9bc68c :: A ->
 hs_bindgen_c893eb15ad9bc68c = fromFFIType hs_bindgen_c893eb15ad9bc68c_base
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6515,7 +6551,7 @@ funptr_ret9_safe :: A ->
                     IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6531,7 +6567,7 @@ hs_bindgen_d96c258298a44b28 :: A ->
 hs_bindgen_d96c258298a44b28 = fromFFIType hs_bindgen_d96c258298a44b28_base
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -6539,7 +6575,7 @@ funptr_ret10_safe :: A ->
                      IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8007,7 +8043,7 @@ hs_bindgen_8cc833db463cc95c = fromFFIType hs_bindgen_8cc833db463cc95c_base
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -8018,7 +8054,7 @@ const_prim_before1_unsafe :: A -> CChar -> IO ()
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -8034,14 +8070,14 @@ hs_bindgen_d767bbef00031d57 :: A -> CSChar -> IO ()
 hs_bindgen_d767bbef00031d57 = fromFFIType hs_bindgen_d767bbef00031d57_base
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before2_unsafe :: A -> CSChar -> IO ()
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8057,14 +8093,14 @@ hs_bindgen_a36dfeb811993297 :: A -> CUChar -> IO ()
 hs_bindgen_a36dfeb811993297 = fromFFIType hs_bindgen_a36dfeb811993297_base
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before3_unsafe :: A -> CUChar -> IO ()
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8080,14 +8116,14 @@ hs_bindgen_d7fa2440be24e954 :: A -> CChar -> IO ()
 hs_bindgen_d7fa2440be24e954 = fromFFIType hs_bindgen_d7fa2440be24e954_base
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after1_unsafe :: A -> CChar -> IO ()
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8103,14 +8139,14 @@ hs_bindgen_c169229f24baf752 :: A -> CSChar -> IO ()
 hs_bindgen_c169229f24baf752 = fromFFIType hs_bindgen_c169229f24baf752_base
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after2_unsafe :: A -> CSChar -> IO ()
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8126,14 +8162,14 @@ hs_bindgen_c0780f7624ed1d3e :: A -> CUChar -> IO ()
 hs_bindgen_c0780f7624ed1d3e = fromFFIType hs_bindgen_c0780f7624ed1d3e_base
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after3_unsafe :: A -> CUChar -> IO ()
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8149,14 +8185,14 @@ hs_bindgen_fda903bc1139b1d6 :: A -> CFloat -> IO ()
 hs_bindgen_fda903bc1139b1d6 = fromFFIType hs_bindgen_fda903bc1139b1d6_base
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before1_unsafe :: A -> CFloat -> IO ()
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8172,14 +8208,14 @@ hs_bindgen_a5a70f3be654ea00 :: A -> CDouble -> IO ()
 hs_bindgen_a5a70f3be654ea00 = fromFFIType hs_bindgen_a5a70f3be654ea00_base
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before2_unsafe :: A -> CDouble -> IO ()
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8195,14 +8231,14 @@ hs_bindgen_b813910f6a632ce2 :: A -> CBool -> IO ()
 hs_bindgen_b813910f6a632ce2 = fromFFIType hs_bindgen_b813910f6a632ce2_base
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before3_unsafe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8218,14 +8254,14 @@ hs_bindgen_dc22b02b2f53aa5b :: A -> PtrConst Some_struct -> IO ()
 hs_bindgen_dc22b02b2f53aa5b = fromFFIType hs_bindgen_dc22b02b2f53aa5b_base
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before4_unsafe :: A -> Some_struct -> IO ()
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8241,14 +8277,14 @@ hs_bindgen_503736261279760d :: A -> PtrConst Some_union -> IO ()
 hs_bindgen_503736261279760d = fromFFIType hs_bindgen_503736261279760d_base
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before5_unsafe :: A -> Some_union -> IO ()
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8264,14 +8300,14 @@ hs_bindgen_ed0a8c0e15f5d2ce :: A -> Some_enum -> IO ()
 hs_bindgen_ed0a8c0e15f5d2ce = fromFFIType hs_bindgen_ed0a8c0e15f5d2ce_base
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before6_unsafe :: A -> Some_enum -> IO ()
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8287,14 +8323,14 @@ hs_bindgen_4659c22d39cc1bb3 :: A -> CBool -> IO ()
 hs_bindgen_4659c22d39cc1bb3 = fromFFIType hs_bindgen_4659c22d39cc1bb3_base
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before7_unsafe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8311,7 +8347,7 @@ hs_bindgen_530245b77093b08c :: A ->
 hs_bindgen_530245b77093b08c = fromFFIType hs_bindgen_530245b77093b08c_base
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8319,7 +8355,7 @@ const_withoutSign_before8_unsafe :: A ->
                                     HsBindgen.Runtime.LibC.CSize -> IO ()
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8335,14 +8371,14 @@ hs_bindgen_c31a804bd742193e :: A -> CFloat -> IO ()
 hs_bindgen_c31a804bd742193e = fromFFIType hs_bindgen_c31a804bd742193e_base
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after1_unsafe :: A -> CFloat -> IO ()
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8358,14 +8394,14 @@ hs_bindgen_53756fa3a68ab067 :: A -> CDouble -> IO ()
 hs_bindgen_53756fa3a68ab067 = fromFFIType hs_bindgen_53756fa3a68ab067_base
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after2_unsafe :: A -> CDouble -> IO ()
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8381,14 +8417,14 @@ hs_bindgen_4134ad71149d6139 :: A -> CBool -> IO ()
 hs_bindgen_4134ad71149d6139 = fromFFIType hs_bindgen_4134ad71149d6139_base
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after3_unsafe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8404,14 +8440,14 @@ hs_bindgen_3de6157427334101 :: A -> PtrConst Some_struct -> IO ()
 hs_bindgen_3de6157427334101 = fromFFIType hs_bindgen_3de6157427334101_base
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after4_unsafe :: A -> Some_struct -> IO ()
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8427,14 +8463,14 @@ hs_bindgen_fc4ef8c9107c1ae6 :: A -> PtrConst Some_union -> IO ()
 hs_bindgen_fc4ef8c9107c1ae6 = fromFFIType hs_bindgen_fc4ef8c9107c1ae6_base
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after5_unsafe :: A -> Some_union -> IO ()
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8450,14 +8486,14 @@ hs_bindgen_5e20c60b725ae606 :: A -> Some_enum -> IO ()
 hs_bindgen_5e20c60b725ae606 = fromFFIType hs_bindgen_5e20c60b725ae606_base
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after6_unsafe :: A -> Some_enum -> IO ()
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8473,14 +8509,14 @@ hs_bindgen_a0f20d4b9a07ff5b :: A -> CBool -> IO ()
 hs_bindgen_a0f20d4b9a07ff5b = fromFFIType hs_bindgen_a0f20d4b9a07ff5b_base
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after7_unsafe :: A -> CBool -> IO ()
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8497,7 +8533,7 @@ hs_bindgen_3a020035eb2fe7f8 :: A ->
 hs_bindgen_3a020035eb2fe7f8 = fromFFIType hs_bindgen_3a020035eb2fe7f8_base
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8505,7 +8541,7 @@ const_withoutSign_after8_unsafe :: A ->
                                    HsBindgen.Runtime.LibC.CSize -> IO ()
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8521,14 +8557,14 @@ hs_bindgen_17623ba5065bf95d :: A -> PtrConst CInt -> IO ()
 hs_bindgen_17623ba5065bf95d = fromFFIType hs_bindgen_17623ba5065bf95d_base
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args1_unsafe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8544,14 +8580,14 @@ hs_bindgen_02d08ccd5df88a98 :: A -> PtrConst CInt -> IO ()
 hs_bindgen_02d08ccd5df88a98 = fromFFIType hs_bindgen_02d08ccd5df88a98_base
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args2_unsafe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8567,14 +8603,14 @@ hs_bindgen_50c423f2237cb6b5 :: A -> Ptr CInt -> IO ()
 hs_bindgen_50c423f2237cb6b5 = fromFFIType hs_bindgen_50c423f2237cb6b5_base
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args3_unsafe :: A -> Ptr CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8590,14 +8626,14 @@ hs_bindgen_99c29c45d78348e9 :: A -> PtrConst CInt -> IO ()
 hs_bindgen_99c29c45d78348e9 = fromFFIType hs_bindgen_99c29c45d78348e9_base
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args4_unsafe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8613,14 +8649,14 @@ hs_bindgen_6a92dbfae24b1bcd :: A -> PtrConst CInt -> IO ()
 hs_bindgen_6a92dbfae24b1bcd = fromFFIType hs_bindgen_6a92dbfae24b1bcd_base
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args5_unsafe :: A -> PtrConst CInt -> IO ()
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8635,14 +8671,14 @@ hs_bindgen_0c07f1e0256fd705 :: A -> IO (PtrConst CInt)
 hs_bindgen_0c07f1e0256fd705 = fromFFIType hs_bindgen_0c07f1e0256fd705_base
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret1_unsafe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8657,14 +8693,14 @@ hs_bindgen_d12c8210ff3c3711 :: A -> IO (PtrConst CInt)
 hs_bindgen_d12c8210ff3c3711 = fromFFIType hs_bindgen_d12c8210ff3c3711_base
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret2_unsafe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8679,14 +8715,14 @@ hs_bindgen_a58bc0be6f564801 :: A -> IO (Ptr CInt)
 hs_bindgen_a58bc0be6f564801 = fromFFIType hs_bindgen_a58bc0be6f564801_base
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret3_unsafe :: A -> IO (Ptr CInt)
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8701,14 +8737,14 @@ hs_bindgen_622bb8150470138b :: A -> IO (PtrConst CInt)
 hs_bindgen_622bb8150470138b = fromFFIType hs_bindgen_622bb8150470138b_base
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret4_unsafe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8723,14 +8759,14 @@ hs_bindgen_d49bd331ad2077e5 :: A -> IO (PtrConst CInt)
 hs_bindgen_d49bd331ad2077e5 = fromFFIType hs_bindgen_d49bd331ad2077e5_base
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret5_unsafe :: A -> IO (PtrConst CInt)
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8746,7 +8782,7 @@ hs_bindgen_224608f780bff5bd :: PtrConst (Elem (IncompleteArray A)) ->
 hs_bindgen_224608f780bff5bd = fromFFIType hs_bindgen_224608f780bff5bd_base
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8754,7 +8790,7 @@ const_array_elem1_unsafe :: PtrConst (Elem (IncompleteArray A)) ->
                             IO ()
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8770,7 +8806,7 @@ hs_bindgen_9aa74ad89f2c1fba :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
 hs_bindgen_9aa74ad89f2c1fba = fromFFIType hs_bindgen_9aa74ad89f2c1fba_base
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8778,7 +8814,7 @@ const_array_elem2_unsafe :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
                             IO ()
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8794,7 +8830,7 @@ hs_bindgen_6a328300c5ef0c9e :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
 hs_bindgen_6a328300c5ef0c9e = fromFFIType hs_bindgen_6a328300c5ef0c9e_base
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8802,7 +8838,7 @@ const_array_elem3_unsafe :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
                             IO ()
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8818,7 +8854,7 @@ hs_bindgen_13a7d78e11555d58 = fromFFIType hs_bindgen_13a7d78e11555d58_base
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -8827,7 +8863,7 @@ noParams1_unsafe :: IO A
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -8841,14 +8877,14 @@ hs_bindgen_672f4691ee7a367c :: IO A
 hs_bindgen_672f4691ee7a367c = fromFFIType hs_bindgen_672f4691ee7a367c_base
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams2_unsafe :: IO A
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8864,14 +8900,14 @@ hs_bindgen_591f84e2163a5d18 :: A -> FunPtr (IO CInt) -> IO ()
 hs_bindgen_591f84e2163a5d18 = fromFFIType hs_bindgen_591f84e2163a5d18_base
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams3_unsafe :: A -> FunPtr (IO CInt) -> IO ()
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8886,14 +8922,14 @@ hs_bindgen_8cdf7774adb0f0b4 :: A -> IO (FunPtr (IO ()))
 hs_bindgen_8cdf7774adb0f0b4 = fromFFIType hs_bindgen_8cdf7774adb0f0b4_base
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret1_unsafe :: A -> IO (FunPtr (IO ()))
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8908,14 +8944,14 @@ hs_bindgen_a4e08267a9070ede :: A -> IO (FunPtr (IO CInt))
 hs_bindgen_a4e08267a9070ede = fromFFIType hs_bindgen_a4e08267a9070ede_base
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret2_unsafe :: A -> IO (FunPtr (IO CInt))
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8930,14 +8966,14 @@ hs_bindgen_65fa30510d244cbf :: A -> IO (FunPtr (CInt -> IO ()))
 hs_bindgen_65fa30510d244cbf = fromFFIType hs_bindgen_65fa30510d244cbf_base
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret3_unsafe :: A -> IO (FunPtr (CInt -> IO ()))
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8953,7 +8989,7 @@ hs_bindgen_da12eaec295883aa :: A ->
 hs_bindgen_da12eaec295883aa = fromFFIType hs_bindgen_da12eaec295883aa_base
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8961,7 +8997,7 @@ funptr_ret4_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO CChar))
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8977,7 +9013,7 @@ hs_bindgen_281c53214b1cdcb4 :: A ->
 hs_bindgen_281c53214b1cdcb4 = fromFFIType hs_bindgen_281c53214b1cdcb4_base
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -8985,7 +9021,7 @@ funptr_ret5_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt)))
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9001,7 +9037,7 @@ hs_bindgen_16628c257aa64a76 :: A ->
 hs_bindgen_16628c257aa64a76 = fromFFIType hs_bindgen_16628c257aa64a76_base
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9009,7 +9045,7 @@ funptr_ret6_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9025,7 +9061,7 @@ hs_bindgen_79fb0c30f546a547 :: A ->
 hs_bindgen_79fb0c30f546a547 = fromFFIType hs_bindgen_79fb0c30f546a547_base
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9033,7 +9069,7 @@ funptr_ret7_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9049,7 +9085,7 @@ hs_bindgen_4668d2ff9d5bfc40 :: A ->
 hs_bindgen_4668d2ff9d5bfc40 = fromFFIType hs_bindgen_4668d2ff9d5bfc40_base
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9057,7 +9093,7 @@ funptr_ret8_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt)))
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9073,7 +9109,7 @@ hs_bindgen_c044d7074789febc :: A ->
 hs_bindgen_c044d7074789febc = fromFFIType hs_bindgen_c044d7074789febc_base
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9081,7 +9117,7 @@ funptr_ret9_unsafe :: A ->
                       IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9097,7 +9133,7 @@ hs_bindgen_628ced6eccc7783a :: A ->
 hs_bindgen_628ced6eccc7783a = fromFFIType hs_bindgen_628ced6eccc7783a_base
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -9105,7 +9141,7 @@ funptr_ret10_unsafe :: A ->
                        IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt)))
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10562,7 +10598,7 @@ hs_bindgen_ecf341da5dabe306 = fromFFIType hs_bindgen_ecf341da5dabe306_base
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -10573,7 +10609,7 @@ const_prim_before1_funptr :: FunPtr (A -> CChar -> IO ())
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -10588,14 +10624,14 @@ hs_bindgen_a0276bc4dac995c4 = fromFFIType hs_bindgen_a0276bc4dac995c4_base
 {-# NOINLINE const_prim_before2_funptr #-}
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before2_funptr :: FunPtr (A -> CSChar -> IO ())
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10610,14 +10646,14 @@ hs_bindgen_1555fc380f4c34ba = fromFFIType hs_bindgen_1555fc380f4c34ba_base
 {-# NOINLINE const_prim_before3_funptr #-}
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before3_funptr :: FunPtr (A -> CUChar -> IO ())
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10632,14 +10668,14 @@ hs_bindgen_e88405f039754f3c = fromFFIType hs_bindgen_e88405f039754f3c_base
 {-# NOINLINE const_prim_after1_funptr #-}
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after1_funptr :: FunPtr (A -> CChar -> IO ())
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10654,14 +10690,14 @@ hs_bindgen_d267bc5333a36861 = fromFFIType hs_bindgen_d267bc5333a36861_base
 {-# NOINLINE const_prim_after2_funptr #-}
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after2_funptr :: FunPtr (A -> CSChar -> IO ())
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10676,14 +10712,14 @@ hs_bindgen_0e08cac4148d54cd = fromFFIType hs_bindgen_0e08cac4148d54cd_base
 {-# NOINLINE const_prim_after3_funptr #-}
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_prim_after3_funptr :: FunPtr (A -> CUChar -> IO ())
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10698,14 +10734,14 @@ hs_bindgen_d7140c03594ba60a = fromFFIType hs_bindgen_d7140c03594ba60a_base
 {-# NOINLINE const_withoutSign_before1_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before1_funptr :: FunPtr (A -> CFloat -> IO ())
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10720,14 +10756,14 @@ hs_bindgen_92134abe381cef04 = fromFFIType hs_bindgen_92134abe381cef04_base
 {-# NOINLINE const_withoutSign_before2_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before2_funptr :: FunPtr (A -> CDouble -> IO ())
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10742,14 +10778,14 @@ hs_bindgen_b80a2c12f1bdb050 = fromFFIType hs_bindgen_b80a2c12f1bdb050_base
 {-# NOINLINE const_withoutSign_before3_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before3_funptr :: FunPtr (A -> CBool -> IO ())
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10765,7 +10801,7 @@ hs_bindgen_aa0ffa330554de35 = fromFFIType hs_bindgen_aa0ffa330554de35_base
 {-# NOINLINE const_withoutSign_before4_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10773,7 +10809,7 @@ const_withoutSign_before4_funptr :: FunPtr (A ->
                                             Some_struct -> IO ())
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10789,7 +10825,7 @@ hs_bindgen_f59abb8a7dffe11f = fromFFIType hs_bindgen_f59abb8a7dffe11f_base
 {-# NOINLINE const_withoutSign_before5_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10797,7 +10833,7 @@ const_withoutSign_before5_funptr :: FunPtr (A ->
                                             Some_union -> IO ())
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10813,7 +10849,7 @@ hs_bindgen_0df28ff2ac7fa1e0 = fromFFIType hs_bindgen_0df28ff2ac7fa1e0_base
 {-# NOINLINE const_withoutSign_before6_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10821,7 +10857,7 @@ const_withoutSign_before6_funptr :: FunPtr (A ->
                                             Some_enum -> IO ())
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10836,14 +10872,14 @@ hs_bindgen_fa8c89b169233a6a = fromFFIType hs_bindgen_fa8c89b169233a6a_base
 {-# NOINLINE const_withoutSign_before7_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before7_funptr :: FunPtr (A -> CBool -> IO ())
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10859,7 +10895,7 @@ hs_bindgen_e707228d3913a299 = fromFFIType hs_bindgen_e707228d3913a299_base
 {-# NOINLINE const_withoutSign_before8_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10867,7 +10903,7 @@ const_withoutSign_before8_funptr :: FunPtr (A ->
                                             HsBindgen.Runtime.LibC.CSize -> IO ())
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10882,14 +10918,14 @@ hs_bindgen_7e7703a610cd6783 = fromFFIType hs_bindgen_7e7703a610cd6783_base
 {-# NOINLINE const_withoutSign_after1_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after1_funptr :: FunPtr (A -> CFloat -> IO ())
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10904,14 +10940,14 @@ hs_bindgen_988863a241cb28f2 = fromFFIType hs_bindgen_988863a241cb28f2_base
 {-# NOINLINE const_withoutSign_after2_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after2_funptr :: FunPtr (A -> CDouble -> IO ())
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10926,14 +10962,14 @@ hs_bindgen_c8182ee9a3467005 = fromFFIType hs_bindgen_c8182ee9a3467005_base
 {-# NOINLINE const_withoutSign_after3_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after3_funptr :: FunPtr (A -> CBool -> IO ())
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10949,7 +10985,7 @@ hs_bindgen_de1e4bbac808bcbc = fromFFIType hs_bindgen_de1e4bbac808bcbc_base
 {-# NOINLINE const_withoutSign_after4_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10957,7 +10993,7 @@ const_withoutSign_after4_funptr :: FunPtr (A ->
                                            Some_struct -> IO ())
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10973,7 +11009,7 @@ hs_bindgen_746fb03c27f16031 = fromFFIType hs_bindgen_746fb03c27f16031_base
 {-# NOINLINE const_withoutSign_after5_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10981,7 +11017,7 @@ const_withoutSign_after5_funptr :: FunPtr (A ->
                                            Some_union -> IO ())
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -10997,14 +11033,14 @@ hs_bindgen_dc174ac598e92a95 = fromFFIType hs_bindgen_dc174ac598e92a95_base
 {-# NOINLINE const_withoutSign_after6_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after6_funptr :: FunPtr (A -> Some_enum -> IO ())
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11019,14 +11055,14 @@ hs_bindgen_2c8ddc46cb100dd9 = fromFFIType hs_bindgen_2c8ddc46cb100dd9_base
 {-# NOINLINE const_withoutSign_after7_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after7_funptr :: FunPtr (A -> CBool -> IO ())
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11042,7 +11078,7 @@ hs_bindgen_fdf87fbad31246de = fromFFIType hs_bindgen_fdf87fbad31246de_base
 {-# NOINLINE const_withoutSign_after8_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11050,7 +11086,7 @@ const_withoutSign_after8_funptr :: FunPtr (A ->
                                            HsBindgen.Runtime.LibC.CSize -> IO ())
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11066,14 +11102,14 @@ hs_bindgen_38808e8aa92d3bcb = fromFFIType hs_bindgen_38808e8aa92d3bcb_base
 {-# NOINLINE const_pointers_args1_funptr #-}
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args1_funptr :: FunPtr (A -> PtrConst CInt -> IO ())
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11089,14 +11125,14 @@ hs_bindgen_4d37887fd82ab559 = fromFFIType hs_bindgen_4d37887fd82ab559_base
 {-# NOINLINE const_pointers_args2_funptr #-}
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args2_funptr :: FunPtr (A -> PtrConst CInt -> IO ())
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11111,14 +11147,14 @@ hs_bindgen_fd675a45f1682dd5 = fromFFIType hs_bindgen_fd675a45f1682dd5_base
 {-# NOINLINE const_pointers_args3_funptr #-}
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args3_funptr :: FunPtr (A -> Ptr CInt -> IO ())
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11134,14 +11170,14 @@ hs_bindgen_824cb2084c63b803 = fromFFIType hs_bindgen_824cb2084c63b803_base
 {-# NOINLINE const_pointers_args4_funptr #-}
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args4_funptr :: FunPtr (A -> PtrConst CInt -> IO ())
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11157,14 +11193,14 @@ hs_bindgen_25bdd13aed8f26c4 = fromFFIType hs_bindgen_25bdd13aed8f26c4_base
 {-# NOINLINE const_pointers_args5_funptr #-}
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_args5_funptr :: FunPtr (A -> PtrConst CInt -> IO ())
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11180,14 +11216,14 @@ hs_bindgen_f494124b53592961 = fromFFIType hs_bindgen_f494124b53592961_base
 {-# NOINLINE const_pointers_ret1_funptr #-}
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret1_funptr :: FunPtr (A -> IO (PtrConst CInt))
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11203,14 +11239,14 @@ hs_bindgen_32c4b858ef4f3bb8 = fromFFIType hs_bindgen_32c4b858ef4f3bb8_base
 {-# NOINLINE const_pointers_ret2_funptr #-}
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret2_funptr :: FunPtr (A -> IO (PtrConst CInt))
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11225,14 +11261,14 @@ hs_bindgen_110afe05c6d47b7c = fromFFIType hs_bindgen_110afe05c6d47b7c_base
 {-# NOINLINE const_pointers_ret3_funptr #-}
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret3_funptr :: FunPtr (A -> IO (Ptr CInt))
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11248,14 +11284,14 @@ hs_bindgen_042a426acfeaa051 = fromFFIType hs_bindgen_042a426acfeaa051_base
 {-# NOINLINE const_pointers_ret4_funptr #-}
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret4_funptr :: FunPtr (A -> IO (PtrConst CInt))
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11271,14 +11307,14 @@ hs_bindgen_bc3cdc03ae3274bd = fromFFIType hs_bindgen_bc3cdc03ae3274bd_base
 {-# NOINLINE const_pointers_ret5_funptr #-}
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
 const_pointers_ret5_funptr :: FunPtr (A -> IO (PtrConst CInt))
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11294,7 +11330,7 @@ hs_bindgen_ae95c15a81eacd52 = fromFFIType hs_bindgen_ae95c15a81eacd52_base
 {-# NOINLINE const_array_elem1_funptr #-}
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11302,7 +11338,7 @@ const_array_elem1_funptr :: FunPtr (PtrConst (Elem (IncompleteArray A)) ->
                                     IO ())
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11318,7 +11354,7 @@ hs_bindgen_9dbbae3758752935 = fromFFIType hs_bindgen_9dbbae3758752935_base
 {-# NOINLINE const_array_elem2_funptr #-}
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11326,7 +11362,7 @@ const_array_elem2_funptr :: FunPtr (Ptr (Elem (IncompleteArray (PtrConst A))) ->
                                     IO ())
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11342,7 +11378,7 @@ hs_bindgen_9fdb904f0c0776ed = fromFFIType hs_bindgen_9fdb904f0c0776ed_base
 {-# NOINLINE const_array_elem3_funptr #-}
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11350,7 +11386,7 @@ const_array_elem3_funptr :: FunPtr (PtrConst (Elem (IncompleteArray (Ptr A))) ->
                                     IO ())
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11367,7 +11403,7 @@ hs_bindgen_cd9806a214acd0fa = fromFFIType hs_bindgen_cd9806a214acd0fa_base
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -11376,7 +11412,7 @@ noParams1_funptr :: FunPtr (IO A)
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -11391,14 +11427,14 @@ hs_bindgen_7c7bf9b5a41ea4a9 = fromFFIType hs_bindgen_7c7bf9b5a41ea4a9_base
 {-# NOINLINE noParams2_funptr #-}
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams2_funptr :: FunPtr (IO A)
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11414,14 +11450,14 @@ hs_bindgen_7f154653725d104d = fromFFIType hs_bindgen_7f154653725d104d_base
 {-# NOINLINE noParams3_funptr #-}
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
 noParams3_funptr :: FunPtr (A -> FunPtr (IO CInt) -> IO ())
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11437,14 +11473,14 @@ hs_bindgen_4460dd1d93c2df6f = fromFFIType hs_bindgen_4460dd1d93c2df6f_base
 {-# NOINLINE funptr_ret1_funptr #-}
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret1_funptr :: FunPtr (A -> IO (FunPtr (IO ())))
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11460,14 +11496,14 @@ hs_bindgen_2b8d04e0fe71178b = fromFFIType hs_bindgen_2b8d04e0fe71178b_base
 {-# NOINLINE funptr_ret2_funptr #-}
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret2_funptr :: FunPtr (A -> IO (FunPtr (IO CInt)))
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11483,14 +11519,14 @@ hs_bindgen_27d05f98fe1e869b = fromFFIType hs_bindgen_27d05f98fe1e869b_base
 {-# NOINLINE funptr_ret3_funptr #-}
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret3_funptr :: FunPtr (A -> IO (FunPtr (CInt -> IO ())))
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11506,7 +11542,7 @@ hs_bindgen_f55fb889881240c6 = fromFFIType hs_bindgen_f55fb889881240c6_base
 {-# NOINLINE funptr_ret4_funptr #-}
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11514,7 +11550,7 @@ funptr_ret4_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO CChar)))
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11530,7 +11566,7 @@ hs_bindgen_e59cbfc52cec7177 = fromFFIType hs_bindgen_e59cbfc52cec7177_base
 {-# NOINLINE funptr_ret5_funptr #-}
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11538,7 +11574,7 @@ funptr_ret5_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11554,7 +11590,7 @@ hs_bindgen_f94486b884c7cd44 = fromFFIType hs_bindgen_f94486b884c7cd44_base
 {-# NOINLINE funptr_ret6_funptr #-}
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11562,7 +11598,7 @@ funptr_ret6_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt))))
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11578,7 +11614,7 @@ hs_bindgen_7810d75b42b3bed8 = fromFFIType hs_bindgen_7810d75b42b3bed8_base
 {-# NOINLINE funptr_ret7_funptr #-}
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11586,7 +11622,7 @@ funptr_ret7_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt))))
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11602,7 +11638,7 @@ hs_bindgen_fc12014317abd6b4 = fromFFIType hs_bindgen_fc12014317abd6b4_base
 {-# NOINLINE funptr_ret8_funptr #-}
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11610,7 +11646,7 @@ funptr_ret8_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11626,7 +11662,7 @@ hs_bindgen_cf3bf1d8470acad4 = fromFFIType hs_bindgen_cf3bf1d8470acad4_base
 {-# NOINLINE funptr_ret9_funptr #-}
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11634,7 +11670,7 @@ funptr_ret9_funptr :: FunPtr (A ->
                               IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt))))
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11650,7 +11686,7 @@ hs_bindgen_44a7eb47cf87f092 = fromFFIType hs_bindgen_44a7eb47cf87f092_base
 {-# NOINLINE funptr_ret10_funptr #-}
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -11658,8 +11694,165 @@ funptr_ret10_funptr :: FunPtr (A ->
                                IO (FunPtr (CInt -> CDouble -> IO (PtrConst CInt))))
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret10_funptr = unsafePerformIO hs_bindgen_44a7eb47cf87f092
+-- __unique:__ @test_macrosreparse_Example_get_global1@
+foreign import ccall unsafe "hs_bindgen_feda7c77651645fe" hs_bindgen_feda7c77651645fe_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_global1@
+hs_bindgen_feda7c77651645fe :: IO (Ptr CInt)
+-- __unique:__ @test_macrosreparse_Example_get_global1@
+hs_bindgen_feda7c77651645fe = fromFFIType hs_bindgen_feda7c77651645fe_base
+{-# NOINLINE global1 #-}
+{-| Globals and constants
+
+__C declaration:__ @global1@
+
+__defined at:__ @macros\/reparse.h 161:13@
+
+__exported by:__ @macros\/reparse.h@
+-}
+global1 :: Ptr CInt
+{-| Globals and constants
+
+__C declaration:__ @global1@
+
+__defined at:__ @macros\/reparse.h 161:13@
+
+__exported by:__ @macros\/reparse.h@
+-}
+global1 = unsafePerformIO hs_bindgen_feda7c77651645fe
+-- __unique:__ @test_macrosreparse_Example_get_global2@
+foreign import ccall unsafe "hs_bindgen_61b4abc5e1afa043" hs_bindgen_61b4abc5e1afa043_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_global2@
+hs_bindgen_61b4abc5e1afa043 :: IO (Ptr (Ptr CInt))
+-- __unique:__ @test_macrosreparse_Example_get_global2@
+hs_bindgen_61b4abc5e1afa043 = fromFFIType hs_bindgen_61b4abc5e1afa043_base
+{-# NOINLINE global2 #-}
+{-| __C declaration:__ @global2@
+
+    __defined at:__ @macros\/reparse.h 162:13@
+
+    __exported by:__ @macros\/reparse.h@
+-}
+global2 :: Ptr (Ptr CInt)
+{-| __C declaration:__ @global2@
+
+    __defined at:__ @macros\/reparse.h 162:13@
+
+    __exported by:__ @macros\/reparse.h@
+-}
+global2 = unsafePerformIO hs_bindgen_61b4abc5e1afa043
+-- __unique:__ @test_macrosreparse_Example_get_global3@
+foreign import ccall unsafe "hs_bindgen_f9bcb9580741dbc1" hs_bindgen_f9bcb9580741dbc1_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_global3@
+hs_bindgen_f9bcb9580741dbc1 :: IO (Ptr (Ptr (Ptr CInt)))
+-- __unique:__ @test_macrosreparse_Example_get_global3@
+hs_bindgen_f9bcb9580741dbc1 = fromFFIType hs_bindgen_f9bcb9580741dbc1_base
+{-# NOINLINE global3 #-}
+{-| __C declaration:__ @global3@
+
+    __defined at:__ @macros\/reparse.h 163:13@
+
+    __exported by:__ @macros\/reparse.h@
+-}
+global3 :: Ptr (Ptr (Ptr CInt))
+{-| __C declaration:__ @global3@
+
+    __defined at:__ @macros\/reparse.h 163:13@
+
+    __exported by:__ @macros\/reparse.h@
+-}
+global3 = unsafePerformIO hs_bindgen_f9bcb9580741dbc1
+-- __unique:__ @test_macrosreparse_Example_get_const1@
+foreign import ccall unsafe "hs_bindgen_044004234e2019f6" hs_bindgen_044004234e2019f6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_const1@
+hs_bindgen_044004234e2019f6 :: IO (PtrConst CInt)
+-- __unique:__ @test_macrosreparse_Example_get_const1@
+hs_bindgen_044004234e2019f6 = fromFFIType hs_bindgen_044004234e2019f6_base
+{-# NOINLINE hs_bindgen_f883e611325aa029 #-}
+{-| __C declaration:__ @const1@
+
+    __defined at:__ @macros\/reparse.h 165:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const1@
+-}
+hs_bindgen_f883e611325aa029 :: PtrConst CInt
+{-| __C declaration:__ @const1@
+
+    __defined at:__ @macros\/reparse.h 165:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const1@
+-}
+hs_bindgen_f883e611325aa029 = unsafePerformIO hs_bindgen_044004234e2019f6
+{-# NOINLINE const1 #-}
+const1 :: CInt
+const1 = unsafePerformIO (peek hs_bindgen_f883e611325aa029)
+-- __unique:__ @test_macrosreparse_Example_get_const2@
+foreign import ccall unsafe "hs_bindgen_6c69b6e35fe122c5" hs_bindgen_6c69b6e35fe122c5_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_const2@
+hs_bindgen_6c69b6e35fe122c5 :: IO (PtrConst (Ptr CInt))
+-- __unique:__ @test_macrosreparse_Example_get_const2@
+hs_bindgen_6c69b6e35fe122c5 = fromFFIType hs_bindgen_6c69b6e35fe122c5_base
+{-# NOINLINE hs_bindgen_4a0e98a60a6414ee #-}
+{-| __C declaration:__ @const2@
+
+    __defined at:__ @macros\/reparse.h 166:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const2@
+-}
+hs_bindgen_4a0e98a60a6414ee :: PtrConst (Ptr CInt)
+{-| __C declaration:__ @const2@
+
+    __defined at:__ @macros\/reparse.h 166:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const2@
+-}
+hs_bindgen_4a0e98a60a6414ee = unsafePerformIO hs_bindgen_6c69b6e35fe122c5
+{-# NOINLINE const2 #-}
+const2 :: Ptr CInt
+const2 = unsafePerformIO (peek hs_bindgen_4a0e98a60a6414ee)
+-- __unique:__ @test_macrosreparse_Example_get_const3@
+foreign import ccall unsafe "hs_bindgen_da21ad94b09d46ae" hs_bindgen_da21ad94b09d46ae_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparse_Example_get_const3@
+hs_bindgen_da21ad94b09d46ae :: IO (PtrConst (Ptr (Ptr CInt)))
+-- __unique:__ @test_macrosreparse_Example_get_const3@
+hs_bindgen_da21ad94b09d46ae = fromFFIType hs_bindgen_da21ad94b09d46ae_base
+{-# NOINLINE hs_bindgen_0d6ba48ba79ada14 #-}
+{-| __C declaration:__ @const3@
+
+    __defined at:__ @macros\/reparse.h 167:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const3@
+-}
+hs_bindgen_0d6ba48ba79ada14 :: PtrConst (Ptr (Ptr CInt))
+{-| __C declaration:__ @const3@
+
+    __defined at:__ @macros\/reparse.h 167:19@
+
+    __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @test_macrosreparse_Example_const3@
+-}
+hs_bindgen_0d6ba48ba79ada14 = unsafePerformIO hs_bindgen_da21ad94b09d46ae
+{-# NOINLINE const3 #-}
+const3 :: Ptr (Ptr CInt)
+const3 = unsafePerformIO (peek hs_bindgen_0d6ba48ba79ada14)

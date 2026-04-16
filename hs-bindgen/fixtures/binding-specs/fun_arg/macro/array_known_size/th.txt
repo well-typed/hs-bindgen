@@ -18,6 +18,24 @@
 -- {
 --   (fooB)(arg1);
 -- }
+-- void hs_bindgen_adeb3a183d6676ee (
+--   signed int *arg1
+-- )
+-- {
+--   (fooC)(arg1);
+-- }
+-- void hs_bindgen_e9321a5f27f4381e (
+--   signed int *arg1
+-- )
+-- {
+--   (fooD)(arg1);
+-- }
+-- void hs_bindgen_257d56ad8cb31970 (
+--   signed int *arg1
+-- )
+-- {
+--   (fooE)(arg1);
+-- }
 -- void hs_bindgen_969f916bf9590709 (
 --   signed int *arg1
 -- )
@@ -35,6 +53,24 @@
 -- )
 -- {
 --   (fooB)(arg1);
+-- }
+-- void hs_bindgen_97086d4192532ee4 (
+--   signed int *arg1
+-- )
+-- {
+--   (fooC)(arg1);
+-- }
+-- void hs_bindgen_ca769b1357fca61c (
+--   signed int *arg1
+-- )
+-- {
+--   (fooD)(arg1);
+-- }
+-- void hs_bindgen_eea5d25f5323ea60 (
+--   signed int *arg1
+-- )
+-- {
+--   (fooE)(arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroar_Example_get_foo */
 -- __attribute__ ((const))
@@ -60,9 +96,33 @@
 -- {
 --   return &fooB;
 -- }
+-- /* test_bindingspecsfun_argmacroar_Example_get_fooC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_82d6fdd972810bf4 (void)) (
+--   signed int *arg1
+-- )
+-- {
+--   return &fooC;
+-- }
+-- /* test_bindingspecsfun_argmacroar_Example_get_fooD */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_398c495511ffe384 (void)) (
+--   signed int *arg1
+-- )
+-- {
+--   return &fooD;
+-- }
+-- /* test_bindingspecsfun_argmacroar_Example_get_fooE */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_b74f6af23eb996c3 (void)) (
+--   signed int *arg1
+-- )
+-- {
+--   return &fooE;
+-- }
 {-| __C declaration:__ @MyArray@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 4:13@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:13@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -79,7 +139,7 @@ instance HasCField MyArray "unwrapMyArray"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 7:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 9:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -94,7 +154,7 @@ instance HasCField A "unwrapA"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro B@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 8:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -107,6 +167,18 @@ instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro E@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 31:9@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+newtype E = E {unwrapE :: M.C} deriving stock Generic
+instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = M.C
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232132_base ::
     Ptr Void
@@ -117,14 +189,14 @@ hs_bindgen_2a6ef3a515232132 :: Ptr (Elem MyArray) -> IO ()
 hs_bindgen_2a6ef3a515232132 = fromFFIType hs_bindgen_2a6ef3a515232132_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 foo_safe :: Ptr (Elem MyArray) -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -139,14 +211,14 @@ hs_bindgen_4449a68917cbc499 :: Ptr (Elem A) -> IO ()
 hs_bindgen_4449a68917cbc499 = fromFFIType hs_bindgen_4449a68917cbc499_base
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooA_safe :: Ptr (Elem A) -> IO ()
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -161,18 +233,84 @@ hs_bindgen_05766199d1b077bb :: Ptr (Elem B) -> IO ()
 hs_bindgen_05766199d1b077bb = fromFFIType hs_bindgen_05766199d1b077bb_base
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_safe :: Ptr (Elem B) -> IO ()
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_safe = hs_bindgen_05766199d1b077bb
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_adeb3a183d6676ee" hs_bindgen_adeb3a183d6676ee_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooC@
+hs_bindgen_adeb3a183d6676ee :: Ptr (Elem M.C) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooC@
+hs_bindgen_adeb3a183d6676ee = fromFFIType hs_bindgen_adeb3a183d6676ee_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_safe :: Ptr (Elem M.C) -> IO ()
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_safe = hs_bindgen_adeb3a183d6676ee
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooD@
+foreign import ccall safe "hs_bindgen_e9321a5f27f4381e" hs_bindgen_e9321a5f27f4381e_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooD@
+hs_bindgen_e9321a5f27f4381e :: Ptr (Elem M.D) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooD@
+hs_bindgen_e9321a5f27f4381e = fromFFIType hs_bindgen_e9321a5f27f4381e_base
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_safe :: Ptr (Elem M.D) -> IO ()
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_safe = hs_bindgen_e9321a5f27f4381e
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooE@
+foreign import ccall safe "hs_bindgen_257d56ad8cb31970" hs_bindgen_257d56ad8cb31970_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooE@
+hs_bindgen_257d56ad8cb31970 :: Ptr (Elem E) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooE@
+hs_bindgen_257d56ad8cb31970 = fromFFIType hs_bindgen_257d56ad8cb31970_base
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_safe :: Ptr (Elem E) -> IO ()
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_safe = hs_bindgen_257d56ad8cb31970
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_969f916bf9590709" hs_bindgen_969f916bf9590709_base ::
     Ptr Void
@@ -183,14 +321,14 @@ hs_bindgen_969f916bf9590709 :: Ptr (Elem MyArray) -> IO ()
 hs_bindgen_969f916bf9590709 = fromFFIType hs_bindgen_969f916bf9590709_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 foo_unsafe :: Ptr (Elem MyArray) -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -205,14 +343,14 @@ hs_bindgen_fb89f30695d9a112 :: Ptr (Elem A) -> IO ()
 hs_bindgen_fb89f30695d9a112 = fromFFIType hs_bindgen_fb89f30695d9a112_base
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooA_unsafe :: Ptr (Elem A) -> IO ()
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -227,18 +365,84 @@ hs_bindgen_6882cd6e82766148 :: Ptr (Elem B) -> IO ()
 hs_bindgen_6882cd6e82766148 = fromFFIType hs_bindgen_6882cd6e82766148_base
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_unsafe :: Ptr (Elem B) -> IO ()
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_unsafe = hs_bindgen_6882cd6e82766148
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooC@
+foreign import ccall unsafe "hs_bindgen_97086d4192532ee4" hs_bindgen_97086d4192532ee4_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooC@
+hs_bindgen_97086d4192532ee4 :: Ptr (Elem M.C) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooC@
+hs_bindgen_97086d4192532ee4 = fromFFIType hs_bindgen_97086d4192532ee4_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_unsafe :: Ptr (Elem M.C) -> IO ()
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_unsafe = hs_bindgen_97086d4192532ee4
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooD@
+foreign import ccall unsafe "hs_bindgen_ca769b1357fca61c" hs_bindgen_ca769b1357fca61c_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooD@
+hs_bindgen_ca769b1357fca61c :: Ptr (Elem M.D) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooD@
+hs_bindgen_ca769b1357fca61c = fromFFIType hs_bindgen_ca769b1357fca61c_base
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_unsafe :: Ptr (Elem M.D) -> IO ()
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_unsafe = hs_bindgen_ca769b1357fca61c
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooE@
+foreign import ccall unsafe "hs_bindgen_eea5d25f5323ea60" hs_bindgen_eea5d25f5323ea60_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooE@
+hs_bindgen_eea5d25f5323ea60 :: Ptr (Elem E) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooE@
+hs_bindgen_eea5d25f5323ea60 = fromFFIType hs_bindgen_eea5d25f5323ea60_base
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_unsafe :: Ptr (Elem E) -> IO ()
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_unsafe = hs_bindgen_eea5d25f5323ea60
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4127e4_base ::
     IO (FunPtr Void)
@@ -250,14 +454,14 @@ hs_bindgen_fc9d87cbca4127e4 = fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 foo_funptr :: FunPtr (Ptr (Elem MyArray) -> IO ())
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -272,14 +476,14 @@ hs_bindgen_0dbc306c53c94679 = fromFFIType hs_bindgen_0dbc306c53c94679_base
 {-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooA_funptr :: FunPtr (Ptr (Elem A) -> IO ())
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
@@ -294,15 +498,83 @@ hs_bindgen_db0d885ae35d447f = fromFFIType hs_bindgen_db0d885ae35d447f_base
 {-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_funptr :: FunPtr (Ptr (Elem B) -> IO ())
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB_funptr = unsafePerformIO hs_bindgen_db0d885ae35d447f
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooC@
+foreign import ccall unsafe "hs_bindgen_82d6fdd972810bf4" hs_bindgen_82d6fdd972810bf4_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooC@
+hs_bindgen_82d6fdd972810bf4 :: IO (FunPtr (Ptr (Elem M.C) ->
+                                           IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooC@
+hs_bindgen_82d6fdd972810bf4 = fromFFIType hs_bindgen_82d6fdd972810bf4_base
+{-# NOINLINE fooC_funptr #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_funptr :: FunPtr (Ptr (Elem M.C) -> IO ())
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooC_funptr = unsafePerformIO hs_bindgen_82d6fdd972810bf4
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooD@
+foreign import ccall unsafe "hs_bindgen_398c495511ffe384" hs_bindgen_398c495511ffe384_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooD@
+hs_bindgen_398c495511ffe384 :: IO (FunPtr (Ptr (Elem M.D) ->
+                                           IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooD@
+hs_bindgen_398c495511ffe384 = fromFFIType hs_bindgen_398c495511ffe384_base
+{-# NOINLINE fooD_funptr #-}
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_funptr :: FunPtr (Ptr (Elem M.D) -> IO ())
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooD_funptr = unsafePerformIO hs_bindgen_398c495511ffe384
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooE@
+foreign import ccall unsafe "hs_bindgen_b74f6af23eb996c3" hs_bindgen_b74f6af23eb996c3_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooE@
+hs_bindgen_b74f6af23eb996c3 :: IO (FunPtr (Ptr (Elem E) -> IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooE@
+hs_bindgen_b74f6af23eb996c3 = fromFFIType hs_bindgen_b74f6af23eb996c3_base
+{-# NOINLINE fooE_funptr #-}
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_funptr :: FunPtr (Ptr (Elem E) -> IO ())
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
+-}
+fooE_funptr = unsafePerformIO hs_bindgen_b74f6af23eb996c3

@@ -27,20 +27,22 @@ import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.HandleMacros
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -68,14 +70,15 @@ import HsBindgen.Util.Tracer
 -- == 2. "HsBindgen.Frontend.Pass.SimplifyAST"
 --
 -- "HsBindgen.Frontend.Pass.SimplifyAST" simplifies the AST by converting
--- anonymous enums into pattern synonym declarations. For example, @enum { FOO, BAR }@
--- is converted into separate pattern synonym declarations that will later be rendered as
--- Haskell pattern synonyms.
+-- anonymous enums without use sites into pattern synonym declarations. For
+-- example, @enum { FOO, BAR }@ is converted into separate pattern synonym
+-- declarations that will later be rendered as Haskell pattern synonyms.
 --
 -- Constraints:
 --
--- * Must be before "HsBindgen.Frontend.Pass.AssignAnonIds" so that
---   unused anonymous declarations are not filtered
+-- * Must run before "HsBindgen.Frontend.Pass.AssignAnonIds" because
+--   AssignAnonIds will delete anonymous declarations without use sites (it
+--   needs a use site to determine a name)."
 --
 -- == 3. "HsBindgen.Frontend.Pass.AssignAnonIds"
 --
@@ -103,16 +106,29 @@ import HsBindgen.Util.Tracer
 -- * Must be before the rest of the passes because they use these structures and
 --   depend on the ordering of declarations
 --
--- == 5. "HsBindgen.Frontend.Pass.HandleMacros"
+-- == 5. "HsBindgen.Frontend.Pass.TypecheckMacros"
 --
--- "HsBindgen.Frontend.Pass.HandleMacros" typechecks macros and reparses
--- declarations with macros.  In order to construct the correct scope at any
--- point, ordering is critical.  Note that macros may neither refer to nor
--- introduce new anonymous declarations, so running
--- "HsBindgen.Frontend.Pass.AssignAnonIds" before
--- "HsBindgen.Frontend.Pass.HandleMacros" is fine.
+-- "HsBindgen.Frontend.Pass.TypecheckMacros" collects known types and typechecks
+-- all macros. Note that macros may neither refer to nor introduce new anonymous
+-- declarations, so running "HsBindgen.Frontend.Pass.AssignAnonIds" before
+-- "HsBindgen.Frontend.Pass.TypecheckMacros" is fine.
 --
--- == 6. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- * Must be before "HsBindgen.Frontend.Pass.ReparseMacroExpansions", because
+--   "HsBindgen.Frontend.Pass.TypecheckMacros" typechecks macro-defined types
+--   that are required to parse declarations with macro expansions.
+--
+-- == 6. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
+--
+-- "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations that
+-- contain macro expansions.
+--
+-- Constraints:
+--
+-- * Must be before "HsBindgen.Frontend.Pass.AdjustTypes", because
+--   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
+--   referencing macro-defined types that may have to be adjusted.
+--
+-- == 7. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -133,25 +149,19 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 7. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 8. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 8. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 9. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- Constraints:
---
--- * Must be after "HsBindgen.Frontend.Pass.HandleMacros", because
---   "HsBindgen.Frontend.Pass.HandleMacros" parses and inserts macro-defined
---   types that may have to be adjusted.
---
--- == 9. "HsBindgen.Frontend.Pass.Select"
+-- == 10. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -173,21 +183,19 @@ runFrontend ::
   -> IO FrontendArtefact
 runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
-      setup <- getSetup
-      rootHeader <- getRootHeader
+      setup      <- getSetup
+      cStd       <- boot.cStandard
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
         let parseEnv :: ParseDecl.Env
             parseEnv = ParseDecl.Env{
                 unit                     = unit
-              , rootHeader               = rootHeader
-              , isMainHeader             = isMainHeader
-              , isInMainHeaderDir        = isInMainHeaderDir
+              , cStandard                = cStd
               , getMainHeadersAndInclude = getMainHeadersAndInclude
               , tracer                   = contramap FrontendParse tracer
               }
-        parseResults <- parseDecls parseEnv unit
+        parseResults <- parseDecls parseEnv
 
         let decls :: [C.Decl Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
@@ -231,16 +239,17 @@ runFrontend tracer config boot = do
             constructTranslationUnit afterAssignAnonIds afterParse.includeGraph
       pure afterConstructTranslationUnit
 
-    handleMacrosPass <- cache "handleMacros" $ do
+    typecheckMacrosPass <- cache "typecheckMacros" $ do
       afterConstructTranslationUnit <- constructTranslationUnitPass
-      std <- boot.cStandard
-      let (afterHandleMacros, msgsHandleMacros) =
-            handleMacros std afterConstructTranslationUnit
-      forM_ msgsHandleMacros $ traceWith tracer . extendCallStackMsg FrontendHandleMacros
-      pure afterHandleMacros
+      pure $ typecheckMacros afterConstructTranslationUnit
+
+    reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
+      (afterTypecheckMacros, knownTypes, knownMacroTypes) <- typecheckMacrosPass
+      cStd <- boot.cStandard
+      pure $ reparseMacroExpansions cStd knownTypes knownMacroTypes afterTypecheckMacros
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterHandleMacros <- handleMacrosPass
+      afterReparseMacroExpansions <- reparseMacroExpansionsPass
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- boot.prescriptiveBindingSpec
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
@@ -248,7 +257,7 @@ runFrontend tracer config boot = do
               (fromBaseModuleName boot.baseModule (Just CType))
               extSpecs
               pSpec
-              afterHandleMacros
+              afterReparseMacroExpansions
       forM_ msgsResolveBindingSpecs $ traceWith tracer . extendCallStackMsg FrontendResolveBindingSpecs
       pure afterResolveBindingSpecs
 
@@ -261,10 +270,7 @@ runFrontend tracer config boot = do
 
     adjustTypesPass <- cache "AdjustTypes" $ do
       afterMangleNamesPass <- mangleNamesPass
-      let (afterAdjustTypes, msgsAdjustTypes) =
-            adjustTypes afterMangleNamesPass
-      forM_ msgsAdjustTypes $ traceWith tracer . extendCallStackMsg FrontendAdjustTypes
-      pure afterAdjustTypes
+      pure $ adjustTypes afterMangleNamesPass
 
     selectPass <- cache "select" $ do
       afterParse <- parsePass
@@ -286,7 +292,8 @@ runFrontend tracer config boot = do
       , simplifyAST              = simplifyASTPass
       , assignAnonIds            = assignAnonIdsPass
       , constructTranslationUnit = constructTranslationUnitPass
-      , handleMacros             = handleMacrosPass
+      , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
+      , reparseMacroExpansions   = reparseMacroExpansionsPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
@@ -333,7 +340,8 @@ data FrontendArtefact = FrontendArtefact {
     , simplifyAST              :: Cached [ParseResult SimplifyAST]
     , assignAnonIds            :: Cached [ParseResult AssignAnonIds]
     , constructTranslationUnit :: Cached (C.TranslationUnit ConstructTranslationUnit)
-    , handleMacros             :: Cached (C.TranslationUnit HandleMacros)
+    , typecheckMacros          :: Cached (C.TranslationUnit TypecheckMacros)
+    , reparseMacroExpansions   :: Cached (C.TranslationUnit ReparseMacroExpansions)
     , resolveBindingSpecs      :: Cached (C.TranslationUnit ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit MangleNames)
     , adjustTypes              :: Cached (C.TranslationUnit AdjustTypes)
@@ -353,12 +361,9 @@ data FrontendMsg =
   | FrontendParse                    (Msg Parse)
   | FrontendSimplifyAST              (Msg SimplifyAST)
   | FrontendAssignAnonIds            (Msg AssignAnonIds)
-  | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
-  | FrontendHandleMacros             (Msg HandleMacros)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
-  | FrontendAdjustTypes              (Msg AdjustTypes)
   | FrontendCache                    (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

@@ -6,6 +6,7 @@
 ## Generating low-level bindings
 
 * [Introduction](LowLevel/Introduction.md)
+* [Terminology](LowLevel/Terminology.md)
 
 ### Usage
 
@@ -24,7 +25,7 @@
 * [Structs](LowLevel/Translation/02-Structs.md)
 * [Enums](LowLevel/Translation/03-Enums.md)
 * [Unions](LowLevel/Translation/04-Unions.md)
-* [Zero-Copy](LowLevel/Translation/05-ZeroCopy.md)
+* [Pointer manipulation API](LowLevel/Translation/05-PointerManipulation.md)
 * [Functions](LowLevel/Translation/06-Functions.md)
 * [Global variables and constants](LowLevel/Translation/07-Globals.md)
 * [Macros](LowLevel/Translation/08-Macros.md)

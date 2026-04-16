@@ -1,15 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module C.Expr.Parse.Expr (parseExpr) where
+module C.Expr.Parse.Expr (parseMacro, parseMacroType) where
 
 import Control.Monad
 import Data.Functor.Identity
 import Data.Text (Text)
 import Data.Type.Nat
-import Data.Vec.Lazy
-import Text.Parsec
+import Data.Vec.Lazy hiding ((++), length)
+import Text.Parsec hiding (token, parseTest)
 import Text.Parsec.Expr
 
+import Clang.CStandard
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -26,31 +27,37 @@ import C.Expr.Syntax
 
   - Section 6.10 "Preprocessing directives" of the C standard
     <https://fog.misty.com/perry/osp/standard/preproc.pdf>
-  - Section 3 "Macros" of the @cpp@ documtation
+  - Section 3 "Macros" of the @cpp@ documentation
     <https://gcc.gnu.org/onlinedocs/cpp/Macros.html>
   - "C operator precedence"
     <https://en.cppreference.com/w/c/language/operator_precedence>
 -------------------------------------------------------------------------------}
 
-parseExpr :: Parser (Macro Ps)
-parseExpr = do
+-- | Parse a macro definition (type or value expression)
+--
+-- Tries to parse the body as a type expression first. A valid type token
+-- sequence always produces @'Term' ('Type' …)@; everything else parses as an
+-- expression. Only when typechecking macros, we can fully discriminate type and
+-- value expressions.
+parseMacro :: ClangCStandard -> Parser Macro
+parseMacro cStd = do
     (macroLoc, macroName) <- parseLocName
-    (args, res) <-
-      choice [
-          -- When we see an opening bracket it might be the start of an argument
-          -- list, or it might be the start of the body, wrapped in parentheses.
-          try $ functionLike
-        , objectLike
-        ]
+    (macroArgs, macroExpr) <- choice [try functionLike, objectLike]
     eof
-    return $ Macro macroLoc macroName args res
+    return $ Macro macroLoc macroName macroArgs macroExpr
   where
-    body :: Parser (MExpr Ps)
-    body = mExprTuple
+    functionLike :: Parser ([Name], Expr Ps)
+    functionLike = (,) <$> formalArgs <*> exprTuple cStd
 
-    functionLike, objectLike :: Parser ([Name], MExpr Ps)
-    functionLike = (,) <$> formalArgs <*> body
-    objectLike   = ([], ) <$> body
+    objectLike :: Parser ([Name], Expr Ps)
+    objectLike = ([], ) <$> bodyExpr
+
+    -- Try the body as a type expression first. The @'eof'@ inside the @'try'@
+    -- is essential: if @'parseMacroType'@ succeeds on a prefix (e.g. the bare
+    -- identifier in @size_t + 1@) but leaves tokens unconsumed, the whole
+    -- attempt is abandoned and we fall back to the expression parser.
+    bodyExpr :: Parser (Expr Ps)
+    bodyExpr = try (parseMacroType cStd <* eof) <|> exprTuple cStd
 
 formalArgs :: Parser [Name]
 formalArgs = parens $ formalArg `sepBy` comma
@@ -59,23 +66,250 @@ formalArg :: Parser Name
 formalArg = parseName
 
 {-------------------------------------------------------------------------------
+  Types
+
+-------------------------------------------------------------------------------}
+
+-- | Parse a macro body as a C type expression
+--
+-- Recognizes the following grammar (informally):
+--
+-- @
+--   type           ::= const? type_base const? pointer_layers?
+--
+--   type_base      ::= sign_specifier? int_size_keyword? 'int'?
+--                    | sign_specifier? 'char'
+--                    | 'float' | 'double'
+--                    | 'void'
+--                    | '_Bool' | 'bool'
+--                    | ('struct' | 'union' | 'enum') identifier
+--                    | identifier
+--
+--   pointer_layers ::= ('*' const?)+
+-- @
+--
+-- Returns an 'Expr Ps' where:
+--
+-- * A keyword or tagged base type becomes @'Term' ('Type' literal)@.
+-- * A bare identifier becomes @'Term' ('Var' …)@; the typechecker decides
+--   whether it names a type or a value.
+-- * Each @const@ qualifier wraps the expression in @'TyApp' 'Const'@.
+-- * Each @*@ pointer layer wraps the expression in @'TyApp' 'Pointer'@.
+parseMacroType :: ClangCStandard -> Parser (Expr Ps)
+parseMacroType cStd = do
+    constBefore <- option False (True <$ keyword "const")
+    base        <- typeBase cStd
+    constAfter  <- option False (True <$ keyword "const")
+    ptrs        <- pointerLayers
+    -- In C, @const@ is idempotent: @const int const@ is valid but equivalent
+    -- to @const int@. We therefore wrap with at most one 'Const' layer,
+    -- regardless of whether the qualifier appeared before or after the base.
+    let withConst
+          | constBefore || constAfter = TyApp Const (base ::: VNil)
+          | otherwise                 = base
+    return (foldl apPtr withConst ptrs)
+  where
+    apPtr acc ptrConst =
+      let withPtr = TyApp Pointer (acc ::: VNil)
+      in if ptrConst then TyApp Const (withPtr ::: VNil) else withPtr
+
+-- | Base of a type expression (without const/pointer layers)
+--
+-- Returns:
+--
+-- * @'Term' ('Type' literal)@ for keyword or elaborated base types.
+-- * @'Term' ('Var' …)@ for a bare identifier; the caller / typechecker
+--   decides whether it names a type or a value.
+typeBase :: ClangCStandard -> Parser (Expr Ps)
+typeBase cStd =
+    choice [
+        -- Type literal.
+        Term . Literal . TypeLit <$> tyLit cStd
+        -- The bare identifier (typedef name, type macro, or expression
+        -- variable) is needed to parse pointer-qualified typedef references
+        -- such as @size_t *@: without it, @parseMacroType@ would reject the
+        -- identifier base and the expression parser would then fail on @*@ (a
+        -- binary operator without a right-hand side). Attempting to detangle
+        -- the two by restricting @parseMacroType@ to keyword\/tagged bases only
+        -- does not help (both paths produce the same @'Var'@ node) while
+        -- adding backtracking overhead.
+      , (\n -> Term (Var NoXVar n [])) <$> parseName
+      ]
+
+tyLit :: ClangCStandard -> Parser TypeLit
+tyLit cStd =
+    choice [
+        -- Keyword type (e.g. @int@, @unsigned long@)
+        pritypeLiteral cStd
+        -- Elaborated type literal: @struct/union/enum Name@
+      , taggedTypeLit
+      ]
+
+-- | Parse a sequence of type-literal keywords and combine them
+--
+-- C type literal keywords can appear in various orders:
+--
+-- @
+--   unsigned long int
+--   long unsigned int
+--   int long unsigned
+-- @
+--
+-- are all the same type.
+pritypeLiteral :: ClangCStandard -> Parser TypeLit
+pritypeLiteral cStd = do
+    kws <- many1 (typeKeyword cStd)
+    case interpretKeywords kws of
+      Just lit -> return lit
+      Nothing  -> fail "unrecognised type literal"
+
+-- | Parse an elaborated type literal
+--
+-- @
+--   struct tag
+--   union  tag
+--   enum   tag
+-- @
+taggedTypeLit :: Parser TypeLit
+taggedTypeLit = do
+    tag <- choice [
+        TagStruct <$ keyword "struct"
+      , TagUnion  <$ keyword "union"
+      , TagEnum   <$ keyword "enum"
+      ]
+    name <- identifier
+    return $ TypeTagged tag name
+
+data TypeKeyword =
+    KwSigned | KwUnsigned
+  | KwShort | KwInt | KwLong | KwChar
+  | KwFloat | KwDouble
+  | KwVoid | KwBool
+  deriving stock (Eq)
+
+typeKeyword :: ClangCStandard -> Parser TypeKeyword
+typeKeyword cStd = choice $
+      [ KwSigned   <$ keyword "signed"
+      , KwUnsigned <$ keyword "unsigned"
+      , KwShort    <$ keyword "short"
+      , KwInt      <$ keyword "int"
+      , KwLong     <$ keyword "long"
+      , KwChar     <$ keyword "char"
+      , KwFloat    <$ keyword "float"
+      , KwDouble   <$ keyword "double"
+      , KwVoid     <$ keyword "void"
+      , KwBool     <$ keyword "_Bool"
+      ]
+      ++
+      -- @bool@ is a keyword in C23 and later.
+      case cStd of
+        ClangCStandard std _ | std >= C23 -> [bool]
+        _                                 -> []
+  where
+    bool = KwBool <$ keyword "bool"
+
+-- | Combine a list of type keywords into a type literal
+--
+-- Returns 'Nothing' if the combination is invalid.
+--
+-- Duplicate keywords (e.g. @signed signed int@) are accepted, since input
+-- tokens come from libclang-validated C source and such constructs are
+-- rejected by the C compiler long before we see them.
+interpretKeywords :: [TypeKeyword] -> Maybe TypeLit
+interpretKeywords kws
+  -- void
+  | kws == [KwVoid]
+  = Just TypeVoid
+
+  -- _Bool / bool
+  | kws == [KwBool]
+  = Just TypeBool
+
+  -- float
+  | kws == [KwFloat]
+  = Just $ TypeFloat SizeFloat
+
+  -- double
+  | kws == [KwDouble]
+  = Just $ TypeFloat SizeDouble
+
+  -- char with optional sign
+  | KwChar `elem` kws
+  , let sign = extractSign kws
+  , all (\k -> k `elem` [KwChar, KwSigned, KwUnsigned]) kws
+  = Just $ TypeChar sign
+
+  -- integral types: combinations of sign, size, and int
+  | all (\k -> k `elem` [KwSigned, KwUnsigned, KwShort, KwInt, KwLong]) kws
+  = Just $ TypeInt (extractSign kws) (extractIntSize kws)
+
+  | otherwise
+  = Nothing
+
+extractSign :: [TypeKeyword] -> Maybe Sign
+extractSign kws
+  | KwSigned   `elem` kws = Just Signed
+  | KwUnsigned `elem` kws = Just Unsigned
+  | otherwise              = Nothing
+
+extractIntSize :: [TypeKeyword] -> Maybe IntSize
+extractIntSize kws
+  | KwShort `elem` kws                   = Just SizeShort
+  | length (filter (== KwLong) kws) >= 2 = Just SizeLongLong
+  | KwLong `elem` kws                    = Just SizeLong
+  | KwInt `elem` kws                     = Just SizeInt
+  | otherwise                            = Nothing
+  -- NB: @signed@ alone (no size keyword, no @int@) means @signed int@.
+  -- We return Nothing here; the caller interprets (Just sign, Nothing) as int.
+
+-- | Parse zero or more pointer indirections, optionally followed by @const@
+pointerLayers :: Parser [Bool]
+pointerLayers = many pointerLayer
+
+-- | Parse a pointer indirection, optionally followed by @const@
+pointerLayer :: Parser Bool
+pointerLayer = do
+    punctuation "*"
+    option False (True <$ keyword "const")
+
+-- | Match a keyword token with the given spelling
+keyword :: Text -> Parser ()
+keyword expected = token $ \t ->
+    if fromSimpleEnum (tokenKind t) == Right CXToken_Keyword
+       && getTokenSpelling (tokenSpelling t) == expected
+      then Just ()
+      else Nothing
+
+-- | Match an identifier token, returning its spelling
+identifier :: Parser Text
+identifier = token $ \t ->
+    if fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
+      then Just $ getTokenSpelling (tokenSpelling t)
+      else Nothing
+
+{-------------------------------------------------------------------------------
   Simple expressions
 -------------------------------------------------------------------------------}
 
-mTerm :: Parser (MTerm Ps)
-mTerm =
-    buildExpressionParser ops term <?> "simple expression"
+term :: ClangCStandard -> Parser (Term Ps)
+term cStd =
+    buildExpressionParser ops trm <?> "simple expression"
   where
-    term :: Parser (MTerm Ps)
-    term = choice [
-        MInt        <$> literalInteger
-      , MFloat      <$> literalFloat
-      , MChar       <$> literalChar
-      , MString     <$> literalString
-      , MVar NoXVar <$> var <*> option [] actualArgs
+    trm :: Parser (Term Ps)
+    trm = choice [
+        Literal <$> lit
+      , Var NoXVar <$> var <*> option [] (actualArgs cStd)
       ]
 
-    ops :: OperatorTable [Token TokenSpelling] () Identity (MTerm Ps)
+    lit :: Parser Literal
+    lit = ValueLit <$> choice [
+        ValueInt    <$> literalInteger
+      , ValueFloat  <$> literalFloat
+      , ValueChar   <$> literalChar
+      , ValueString <$> literalString
+      ]
+
+    ops :: OperatorTable [Token TokenSpelling] () Identity (Term Ps)
     ops = []
 
 var :: Parser Name
@@ -128,8 +362,8 @@ literalString = do
       , stringLiteralValue = val
       }
 
-actualArgs :: Parser [MExpr Ps]
-actualArgs = parens $ mExpr `sepBy` comma
+actualArgs :: ClangCStandard -> Parser [Expr Ps]
+actualArgs cStd = parens $ expr cStd `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -139,27 +373,27 @@ actualArgs = parens $ mExpr `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-mExprTuple :: Parser (MExpr Ps)
-mExprTuple = try tuple <|> mExpr
+exprTuple :: ClangCStandard -> Parser (Expr Ps)
+exprTuple cStd = try tuple <|> expr cStd
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("
-      (e1, e2, es) <- mExpr `sepBy2` comma
+      (e1, e2, es) <- expr cStd `sepBy2` comma
       case openParen of
         Nothing -> return ()
         Just {} -> punctuation ")"
       return $
         reifyList es $ \es' ->
-           MApp NoXApp MTuple ( e1 ::: e2 ::: es' )
+           VaApp NoXApp MTuple ( e1 ::: e2 ::: es' )
 
-mExpr :: Parser (MExpr Ps)
-mExpr = buildExpressionParser ops term <?> "expression"
+expr :: ClangCStandard -> Parser (Expr Ps)
+expr cStd = buildExpressionParser ops trm <?> "expression"
   where
 
-    term :: Parser (MExpr Ps)
-    term = choice [
-          parens mExpr
-        , MTerm <$> mTerm
+    trm :: Parser (Expr Ps)
+    trm = choice [
+          parens (expr cStd)
+        , Term <$> term cStd
         ]
 
     -- 'OperatorTable' expects the list in descending precedence
@@ -210,11 +444,11 @@ mExpr = buildExpressionParser ops term <?> "expression"
       , [ Infix (ap2 MLogicalOr  <$ punctuation "||") AssocLeft ]
       ]
 
-    ap1 :: MFun (S Z) -> MExpr Ps -> MExpr Ps
-    ap1 op arg = MApp NoXApp op ( arg ::: VNil )
+    ap1 :: VaFun (S Z) -> Expr Ps -> Expr Ps
+    ap1 op arg = VaApp NoXApp op ( arg ::: VNil )
 
-    ap2 :: MFun (S (S Z)) -> MExpr Ps -> MExpr Ps -> MExpr Ps
-    ap2 op arg1 arg2 = MApp NoXApp op ( arg1 ::: arg2 ::: VNil )
+    ap2 :: VaFun (S (S Z)) -> Expr Ps -> Expr Ps -> Expr Ps
+    ap2 op arg1 arg2 = VaApp NoXApp op ( arg1 ::: arg2 ::: VNil )
 
 sepBy2 :: ParsecT s u m a -> ParsecT s u m sep -> ParsecT s u m (a, a, [a])
 {-# INLINEABLE sepBy2 #-}
@@ -224,41 +458,3 @@ sepBy2 p sep = do
   x2 <- p
   xs <- many $ sep >> p
   return (x1, x2, xs)
-
-{-------------------------------------------------------------------------------
-  Debugging
--------------------------------------------------------------------------------}
-
--- | Debug parser
---
--- Example:
---
--- > _parseTestWith parseExpr [(CXToken_Identifier, "M"), (CXToken_Literal, "1")]
--- > _parseTestWith literalInteger [(CXToken_Literal, "1")]
-_parseTestWith ::
-     Show a
-  => Parser a
-  -> [(CXTokenKind, Text)]
-  -> IO ()
-_parseTestWith p = parseTest p . Prelude.map mkToken
-  where
-    mkToken :: (CXTokenKind, Text) -> Token TokenSpelling
-    mkToken (kind, spelling) = Token{
-          tokenKind       = simpleEnum kind
-        , tokenSpelling   = TokenSpelling spelling
-        , tokenExtent     = Range nullLoc nullLoc
-        , tokenCursorKind = simpleEnum CXCursor_UnexposedDecl -- irrelevant
-        }
-
-    nullLoc :: MultiLoc
-    nullLoc = MultiLoc{
-          multiLocExpansion = SingleLoc{
-              singleLocPath   = "<test>"
-            , singleLocLine   = 1
-            , singleLocColumn = 1
-            , singleLocOffset = 1
-            }
-        , multiLocPresumed  = Nothing
-        , multiLocSpelling  = Nothing
-        , multiLocFile      = Nothing
-        }

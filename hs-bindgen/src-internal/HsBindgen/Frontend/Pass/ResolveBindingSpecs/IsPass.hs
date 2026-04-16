@@ -13,7 +13,8 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -54,7 +55,7 @@ instance IsPass ResolveBindingSpecs where
 --
 -- Although we have interpreted /part/ of this binding specification during
 -- name mangling, we leave the /full/ binding specification in the AST, because
--- we need it when we  /generate/ the output binding specification.
+-- we need it when we /generate/ the output binding specification.
 --
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1770>
 -- If we have binding specs for different kinds of things (types, functions, ..)
@@ -166,4 +167,4 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId HandleMacros ResolveBindingSpecs
+instance CoercePassId ReparseMacroExpansions ResolveBindingSpecs
