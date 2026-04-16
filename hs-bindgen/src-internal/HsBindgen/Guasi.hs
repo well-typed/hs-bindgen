@@ -86,6 +86,9 @@ instance Guasi TH.Q where
             globalName = TH.Name
               (TH.OccName nmStr)
               (TH.NameG thNs pkg mdl)
+        -- NOTE: Finalizers run in LIFO order, which contributes to Haddock
+        -- showing TH-generated declarations in reverse. If this finalizer usage
+        -- is ever removed, revisit the reversal workaround in TH.Internal.
         TH.addModFinalizer $
           TH.putDoc (TH.DeclDoc globalName) (show $ pretty $ THComment comment)
       where
@@ -111,6 +114,7 @@ instance Guasi TH.Q where
             globalName = TH.Name
               (TH.OccName fieldStr)
               (TH.NameG thNs pkg mdl)
+        -- NOTE: See comment in 'putLocalDoc' about finalizer ordering.
         TH.addModFinalizer $
           TH.putDoc (TH.DeclDoc globalName) (show $ pretty $ THComment comment)
       where

@@ -33,6 +33,7 @@
 
 ### Bug fixes
 
+* Fix reversed order of Haddock documentation in TH mode
 * Fix `DeclIndex` construction when macros and ordinary declarations share a
   name.
 * Fix `UseDeclGraph` construction to avoid inserting edges for non-existing
