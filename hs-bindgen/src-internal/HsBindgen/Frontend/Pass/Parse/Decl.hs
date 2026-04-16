@@ -118,6 +118,9 @@ parseDecl' mCtx = withCursorKindNoCtx $ \case
       Right CXCursor_PackedAttr         -> \_curr -> foldContinue
       Right CXCursor_UnexposedAttr      -> \_curr -> foldContinue
       Right CXCursor_UnexposedDecl      -> \_curr -> foldContinue
+      -- @visibility@ attributes. The visibility itself the value could be
+      -- obtained using 'getCursorVisibility'.
+      Right CXCursor_VisibilityAttr     -> \_curr -> foldContinue
 
       -- Report error for declarations we don't recognize
       eKind -> case mCtx of
@@ -225,6 +228,10 @@ macroDefinition _ctx info = \curr -> do
         range  <- HighLevel.clang_getCursorExtent curr'
         HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
+-- | Parse an struct declaration
+--
+-- Visibility attributes are ignored on structs, since as far as we can tell
+-- they do not affect the Haskell bindings.
 structDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 structDecl ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
@@ -304,6 +311,10 @@ structDecl ctx info = \curr -> do
     isField :: C.StructField Parse -> Bool
     isField field = not $ Text.null field.info.name.text && isJust field.width
 
+-- | Parse a union declaration
+--
+-- Visibility attributes are ignored on unions, since as far as we can tell they
+-- do not affect the Haskell bindings.
 unionDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 unionDecl ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
@@ -430,6 +441,10 @@ macroExpansion = \curr -> do
           else
             Just macroName
 
+-- | Parse an enum declaration
+--
+-- Visibility attributes are ignored on enums, since as far as we can tell they
+-- do not affect the Haskell bindings.
 enumDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 enumDecl ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
@@ -461,6 +476,9 @@ enumDecl ctx info = \curr -> do
                     fmap Right <$> enumConstantDecl enumSign curr'
                   Right CXCursor_PackedAttr ->
                     foldContinue
+                  -- @visibility@ attributes. The visibility itself the value can be
+                  -- obtained using 'getCursorVisibility'.
+                  Right CXCursor_VisibilityAttr -> foldContinue
                   unexpectedKind -> foldContinueWith
                     (Left $ ParseUnexpectedCursorKind unexpectedKind)
 

@@ -19,10 +19,14 @@ import Test.HsBindgen.Resources
 
 testCases :: [TestCase]
 testCases = [
-      test_attributes_asm
+      defaultTest "attributes/visibility/edge-cases/nested_types"
+    , defaultTest "attributes/visibility/types"
+    , test_attributes_asm
     , test_attributes_attributes
+    , test_attributes_deprecated
     , test_attributes_type_attributes
-    , test_attributes_visibility_attributes
+    , test_attributes_visibility_functions
+    , test_attributes_visibility_variables
     ]
 
 {-------------------------------------------------------------------------------
@@ -40,6 +44,21 @@ test_attributes_attributes =
     testDiagnostic "attributes/attributes" $ \diag ->
       diagnosticCategoryText diag == "Nullability Issue"
 
+test_attributes_deprecated :: TestCase
+test_attributes_deprecated =
+  defaultTest "attributes/deprecated"
+    & #onFrontend .~ ( #selectPredicate .~
+          BAnd
+            (BIf (SelectHeader FromMainHeaders))
+            (BNot (BIf (SelectDecl DeclDeprecated)))
+        )
+    & #tracePredicate .~ singleTracePredicate (\case
+            MatchNoDeclarations ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
+
 test_attributes_type_attributes :: TestCase
 test_attributes_type_attributes =
     testTraceSimple "attributes/type_attributes" $ \case
@@ -48,14 +67,9 @@ test_attributes_type_attributes =
       _otherwise ->
         Nothing
 
-test_attributes_visibility_attributes :: TestCase
-test_attributes_visibility_attributes =
-    defaultTest "attributes/visibility_attributes"
-      & #onFrontend .~ ( #selectPredicate .~
-            BAnd
-              (BIf (SelectHeader FromMainHeaders))
-              (BNot (BIf (SelectDecl DeclDeprecated)))
-          )
+test_attributes_visibility_functions :: TestCase
+test_attributes_visibility_functions =
+    defaultTest "attributes/visibility/functions"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
@@ -69,7 +83,6 @@ test_attributes_visibility_attributes =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
-          -- *** Functions ***
           -- Problematic non-public visibility
           "f2" , "f3" , "f4"
         , "f12", "f13", "f14"
@@ -77,10 +90,26 @@ test_attributes_visibility_attributes =
           -- Duplicate symbols
         , "f5" , "f6" , "f7" , "f8" , "f9"
         , "f15", "f16", "f17", "f18", "f19"
+        ]
 
-          -- *** Global variables ***
+test_attributes_visibility_variables :: TestCase
+test_attributes_visibility_variables =
+    defaultTest "attributes/visibility/variables"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+              Just $ Expected name
+            MatchDelayed name ParseNonPublicVisibility{} ->
+              Just $ Expected name
+            MatchDiagnosticOption "-Wno-extern-initializer" ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = [
           -- Problematic non-public visibility
-        , "i12", "i13", "i14"
+          "i12", "i13", "i14"
           -- Duplicate symbols
         , "i0" , "i1" , "i2" , "i3" , "i4"
         , "i5" , "i6" , "i7" , "i8" , "i9"
