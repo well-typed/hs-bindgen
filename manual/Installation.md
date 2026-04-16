@@ -247,5 +247,5 @@ $env:Path = "C:\path\to\your\c\libs;" + $env:Path
 
 ## Nix
 
-We provide and maintain a [Nix Flake](../../../flake.nix), and a [Nix-focused
+We provide and maintain a [Nix Flake](../flake.nix), and a [Nix-focused
 tutorial](https://github.com/well-typed/hs-bindgen-tutorial-nix).

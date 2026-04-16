@@ -21,9 +21,8 @@ Cabal compiles `rect.c` and links it into the executable automatically.
 on Linux), while `hs-bindgen` uses `libclang` to parse headers and derive type
 layouts. For simple types this is unlikely to cause problems, but GCC and Clang
 can disagree on memory layout for more exotic constructs (bitfields, packed
-structs, platform-specific alignment). See the [Compiler choice (GCC
-vs. Clang)](../../../manual/LowLevel/Usage/01-Invocation.md#compiler-choice-gcc-vs-clang)
-section in the manual for details.
+structs, platform-specific alignment). See the [Compiler choice (GCC vs.
+Clang)](../../manual/LowLevel/Usage/01-Invocation.md#compiler-choice-gcc-vs-clang)
 
 ## Prerequisites
 
@@ -44,7 +43,7 @@ bindings, then builds and runs the executable.
 
 This example also demonstrates the non-portability problem described in
 [issue #893](https://github.com/well-typed/hs-bindgen/issues/893) and the
-[Non-portability](../../../manual/LowLevel/Usage/06-BindingSpecifications.md#non-portability)
+[Non-portability](../../manual/LowLevel/Usage/06-BindingSpecifications.md#non-portability)
 section of the manual.
 
 ### Setup
