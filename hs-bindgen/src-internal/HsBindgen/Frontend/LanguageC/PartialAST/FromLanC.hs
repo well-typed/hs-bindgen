@@ -20,7 +20,7 @@ import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -40,7 +40,7 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, C.Type HandleMacros)
+mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, C.Type ReparseMacroExpansions)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ withSign f = \case
     other ->
       unexpected $ show other
 
-notFun :: Update (C.Type HandleMacros) PartialType
+notFun :: Update (C.Type ReparseMacroExpansions) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
       case unknown.sign of
@@ -164,7 +164,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- If @bool@ has been redefined (via @#define@ or @typedef@), the
       -- reparse env will contain that definition and we use it here.
       -- The standard stdbool.h alias @#define bool _Bool@ is normalised
-      -- away by 'updateReparseEnv' in the HandleMacros pass, so the
+      -- away by 'addKnownType' in the ReparseMacroExpansions pass, so the
       -- lookup returns @TypePrim PrimBool@ in that case.
       LanC.CBoolType   _a -> \partial -> do
         typeEnv <- getReparseEnv
@@ -211,7 +211,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
         name <- checkNotAnon mTag CTagKindEnum
         checkNoDef "enum definition" mDef
         typeEnv <- getReparseEnv
-        case Map.lookup name.text typeEnv of
+        case Map.lookup (renderCDeclNameC name) typeEnv of
           Nothing  -> unexpected $ "enum reference " ++ show name
           Just typ -> notFun typ partial
       LanC.CTypeDef name _a -> \partial -> do
@@ -225,7 +225,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       charSign Nothing     = C.PrimSignImplicit Nothing
       charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: CDeclName -> C.Type HandleMacros
+      typeRef :: CDeclName -> C.Type ReparseMacroExpansions
       typeRef name = C.TypeRef $ DeclId{name = name, isAnon = False}
 
       checkNotAnon :: Maybe LanC.Ident -> CTagKind -> FromLanC CDeclName
@@ -267,7 +267,7 @@ instance Apply (LanC.CTypeQualifier a) UnknownType where
   'KnownType'
 -------------------------------------------------------------------------------}
 
-defaultApplyKnownType :: Apply a (C.Type HandleMacros) => Update a KnownType
+defaultApplyKnownType :: Apply a (C.Type ReparseMacroExpansions) => Update a KnownType
 defaultApplyKnownType x = fmap KnownType . apply x . fromKnownType
 
 instance Apply (LanC.CTypeQualifier a) KnownType where
@@ -287,13 +287,13 @@ instance Apply (LanC.CDerivedDeclarator a) KnownType where
   'Type' 'p'
 -------------------------------------------------------------------------------}
 
-instance Apply (LanC.CTypeQualifier a) (C.Type HandleMacros) where
+instance Apply (LanC.CTypeQualifier a) (C.Type ReparseMacroExpansions) where
   apply = \case
       LanC.CConstQual _ -> return . C.TypeQual C.QualConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
       other             -> \_ -> unexpectedF other
 
-instance Apply (LanC.CDerivedDeclarator a) (C.Type HandleMacros) where
+instance Apply (LanC.CDerivedDeclarator a) (C.Type ReparseMacroExpansions) where
   apply = \case
       LanC.CPtrDeclr quals _a ->
         repeatedly apply quals . C.TypePointers 1

@@ -32,7 +32,8 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , getSquashed
   , getUnusables
     -- * Support for macro failures
-  , registerMacroFailures
+  , registerMacroTypecheckFailure
+  , registerDelayedParseMsg
     -- * Support for binding specifications
   , registerOmittedDeclarations
   , registerExternalDeclarations
@@ -45,11 +46,12 @@ import Prelude hiding (filter, lookup)
 
 import Control.Monad.State
 import Data.Foldable qualified as Foldable
-import Data.Function
 import Data.List.NonEmpty ((<|))
 import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
+
+import C.Expr.Syntax
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -60,11 +62,11 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
-import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -129,8 +131,8 @@ data DeclIndex = DeclIndex {
 -- - other 'Usable' declarations such as external declarations
 --   ("ResolveBindingSpecs") or squashed declarations (in "MangleNames"); or
 --
--- - 'Unusable' declarations, for example when macro parsing fails
---   ("HandleMacros") or name mangling fails ("MangleNames").
+-- - 'Unusable' declarations, for example when macro typechecking fails
+--   ("TypecheckMacros") or name mangling fails ("MangleNames").
 --
 -- At the end of the `hs-bindgen` pipeline, we can generate bindings for
 -- 'Usable' declarations.
@@ -168,11 +170,14 @@ usableToLoc = \case
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      UnusableParseNotAttempted  SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure       SingleLoc DelayedParseMsg
-    | UnusableConflict           Conflict
-    | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
-    | UnusableFailedMacro        FailedMacro
+      -- Historically, there were more reasons for not attempting a parse,
+      -- that's why we store a non-empty list of reasons. We could remove this
+      -- indirection.
+      UnusableParseNotAttempted   SingleLoc (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure        SingleLoc DelayedParseMsg
+    | UnusableConflict            Conflict
+    | UnusableMangleNamesFailure  SingleLoc MangleNamesFailure
+    | UnusableMacroTypecheckError SingleLoc MacroTypecheckError
 
       -- | Omitted by prescriptive binding specifications
     | UnusableOmitted            SingleLoc
@@ -188,19 +193,19 @@ instance PrettyForTrace Unusable where
       "Conflicting declarations"
     UnusableMangleNamesFailure{} ->
       "Name mangler failure"
-    UnusableFailedMacro{} ->
-      "Macro parsing or type-checking failed"
+    UnusableMacroTypecheckError{} ->
+      "Macro type-checking failed"
     UnusableOmitted{} ->
       "Omitted by prescriptive binding specification"
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
-    UnusableParseNotAttempted loc _       -> [loc]
-    UnusableParseFailure loc _            -> [loc]
-    UnusableConflict conflict             -> Conflict.toList conflict
-    UnusableMangleNamesFailure loc _      -> [loc]
-    UnusableFailedMacro failedMacro       -> [failedMacro.loc]
-    UnusableOmitted loc                   -> [loc]
+    UnusableParseNotAttempted loc _   -> [loc]
+    UnusableParseFailure loc _        -> [loc]
+    UnusableConflict conflict         -> Conflict.toList conflict
+    UnusableMangleNamesFailure loc _  -> [loc]
+    UnusableMacroTypecheckError loc _ -> [loc]
+    UnusableOmitted loc               -> [loc]
 
 data Squashed = Squashed {
     -- | The location of the squashed typedef (i.e., _not_ the target)
@@ -242,8 +247,9 @@ empty = DeclIndex Map.empty
 
 -- This function checks for conflicts between ordinary declarations and macro
 -- declarations, which must be done specially because they are in separate
--- namespaces.  This is done here because we need to detect conflicts even with
--- macros that we cannot parse, which are thrown out in the @HandleMacros@ pass.
+-- namespaces. This is done here because we need to detect conflicts even with
+-- macros that we cannot typecheck, which are thrown out in the
+-- @TypecheckMacros@ pass.
 fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
@@ -276,8 +282,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
               handleConflict new.id new entry index.map
             -- Conflict between ordinary and macro
             Just (Right ((ordinaryDeclId, macroDeclId), entry)) ->
-              handleConflict ordinaryDeclId new entry $
-                Map.delete macroDeclId index.map
+              -- Store the conflict for both declaration IDs, the ordinary kind,
+              -- and the macro kind.
+              handleConflict ordinaryDeclId  new entry $
+              handleConflict macroDeclId     new entry $
+              index.map
 
     handleConflict ::
          DeclId
@@ -293,12 +302,14 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             -- structs, for example.  We stick with the first declaration.
             | sameDefinition oldSuccess.decl.kind newSuccess.decl.kind -> id
             -- Redeclaration of macros cannot be supported.
-            | otherwise -> Map.insert declId . UnusableE . UnusableConflict $
-                Conflict.between oldSuccess.decl.info.loc new.loc
+            | otherwise ->
+                let conflict = UnusableE $ UnusableConflict $
+                      Conflict.between oldSuccess.decl.info.loc new.loc
+                in  Map.insert declId conflict
           ParseResultNotAttempted{} -> id
           ParseResultFailure{} -> Map.insert declId (parseResultToEntry new)
         UsableExternal   -> panicPure "Unexpected UsableExternal"
-        UsableSquashed{} -> panicPure "Unexpected Squashed"
+        UsableSquashed s -> panicPure $ "Unexpected Squashed: " <> show s
       UnusableE oldUnusable -> case oldUnusable of
         UnusableParseNotAttempted loc nasOld
           | ParseResultNotAttempted naNew <- new.classification ->
@@ -309,11 +320,14 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         UnusableConflict c -> Map.insert declId . UnusableE . UnusableConflict $
           Conflict.insert c new.loc
         UnusableMangleNamesFailure _ x ->
-          panicPure $ "Unexpected UnusableMangleNamesFailure " <> show x
-        UnusableFailedMacro x ->
-          panicPure $ "Unexpected UnusableFailedMacro " <> show x
+          panicPure $
+            "Unexpected UnusableMangleNamesFailure: " <> show x
+        UnusableMacroTypecheckError loc err ->
+          panicPure $
+            "Unexpected UnusableMacroTypecheckError: " <> show loc <> " " <> show err
         UnusableOmitted x ->
-          panicPure $ "Unexpected UnusableOmitted" <> show x
+          panicPure $
+            "Unexpected UnusableOmitted: " <> show x
 
     parseResultToEntry :: ParseResult AssignAnonIds -> Entry
     parseResultToEntry result = case result.classification of
@@ -332,8 +346,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
       (C.DeclMacro macroA, C.DeclMacro macroB) -> sameMacro macroA macroB
       _otherwise                               -> a == b
 
-    sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
-    sameMacro = (==) `on` (map tokenSpelling . (.tokens))
+    sameMacro :: ParsedMacro -> ParsedMacro -> Bool
+    sameMacro a b =
+        -- The location does not need to match. Everything else must be equal.
+        a.parsedMacro.macroName == b.parsedMacro.macroName &&
+        a.parsedMacro.macroExpr == b.parsedMacro.macroExpr
 
 {-------------------------------------------------------------------------------
   Filter
@@ -432,18 +449,32 @@ getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
       UnusableE e -> Just e
 
 {-------------------------------------------------------------------------------
+  Support for delayed parse messages
+-------------------------------------------------------------------------------}
+
+-- | Append a delayed parse message to an existing 'UsableSuccess' entry.
+--
+-- Has no effect if the declaration is not a parse success (e.g., if it is a
+-- parse failure or a macro failure).
+registerDelayedParseMsg :: (DeclId, DelayedParseMsg) -> DeclIndex -> DeclIndex
+registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
+    Map.adjust addMsg declId i
+  where
+    addMsg :: Entry -> Entry
+    addMsg (UsableE (UsableSuccess ps)) =
+      UsableE $ UsableSuccess ps{
+          delayedParseMsgs = ps.delayedParseMsgs ++ [msg]
+        }
+    addMsg entry = entry
+
+{-------------------------------------------------------------------------------
   Support for macro failures
 -------------------------------------------------------------------------------}
 
-registerMacroFailures :: [FailedMacro] -> DeclIndex -> DeclIndex
-registerMacroFailures xs index = Foldable.foldl' insert index xs
-  where
-    insert :: DeclIndex -> FailedMacro -> DeclIndex
-    insert (DeclIndex i) failedMacro = DeclIndex $
-        Map.insert
-          failedMacro.name
-          (UnusableE $ UnusableFailedMacro failedMacro)
-          i
+registerMacroTypecheckFailure
+  :: (DeclId, SingleLoc, MacroTypecheckError) -> DeclIndex -> DeclIndex
+registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
+    Map.insert declId (UnusableE $ UnusableMacroTypecheckError loc err) i
 
 {-------------------------------------------------------------------------------
   Support for binding specifications
@@ -464,10 +495,7 @@ registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   Support for mangle names
 -------------------------------------------------------------------------------}
 
-registerSquashedDeclarations ::
-     Map DeclId Squashed
-  -> DeclIndex
-  -> DeclIndex
+registerSquashedDeclarations :: Map DeclId Squashed -> DeclIndex -> DeclIndex
 registerSquashedDeclarations xs index = DeclIndex $
     Map.union (UsableE . UsableSquashed <$> xs) index.map
 

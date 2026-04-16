@@ -49,7 +49,8 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk SimplifyASTPass
         , mk AssignAnonIdsPass
         , mk ConstructTranslationUnitPass
-        , mk HandleMacrosPass
+        , mk TypecheckMacrosPass
+        , mk ReparseMacroExpansionsPass
         , mk ResolveBindingSpecsPass
         , mk MangleNamesPass
         , mk AdjustTypesPass
@@ -67,7 +68,8 @@ frontendPassName = \case
   SimplifyASTPass              -> "simplify-ast"
   AssignAnonIdsPass            -> "assign-anon-ids"
   ConstructTranslationUnitPass -> "construct-translation-unit"
-  HandleMacrosPass             -> "handle-macros"
+  TypecheckMacrosPass          -> "typecheck-macros"
+  ReparseMacroExpansionsPass   -> "reparse-macro-expansions"
   ResolveBindingSpecsPass      -> "resolve-binding-specs"
   MangleNamesPass              -> "mangle-names"
   AdjustTypesPass              -> "adjust-types"

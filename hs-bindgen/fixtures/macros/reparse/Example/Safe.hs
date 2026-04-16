@@ -2568,7 +2568,7 @@ hs_bindgen_278568d7a2a3a4b6 =
 
 __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 179:6@
+__defined at:__ @macros\/reparse.h 177:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -2596,7 +2596,7 @@ hs_bindgen_87ee56525e5ea20c =
 
 {-| __C declaration:__ @const_prim_before2@
 
-    __defined at:__ @macros\/reparse.h 180:6@
+    __defined at:__ @macros\/reparse.h 178:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2624,7 +2624,7 @@ hs_bindgen_c0b99594235bd99e =
 
 {-| __C declaration:__ @const_prim_before3@
 
-    __defined at:__ @macros\/reparse.h 181:6@
+    __defined at:__ @macros\/reparse.h 179:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2652,7 +2652,7 @@ hs_bindgen_d718b682f157fc18 =
 
 {-| __C declaration:__ @const_prim_after1@
 
-    __defined at:__ @macros\/reparse.h 182:6@
+    __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2680,7 +2680,7 @@ hs_bindgen_f2c5b3d5eca68433 =
 
 {-| __C declaration:__ @const_prim_after2@
 
-    __defined at:__ @macros\/reparse.h 183:6@
+    __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2708,7 +2708,7 @@ hs_bindgen_ae2d994e06667b23 =
 
 {-| __C declaration:__ @const_prim_after3@
 
-    __defined at:__ @macros\/reparse.h 184:6@
+    __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2736,7 +2736,7 @@ hs_bindgen_6940b58e7f4397a7 =
 
 {-| __C declaration:__ @const_withoutSign_before1@
 
-    __defined at:__ @macros\/reparse.h 188:6@
+    __defined at:__ @macros\/reparse.h 186:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2765,7 +2765,7 @@ hs_bindgen_00b6fe2282e779b1 =
 
 {-| __C declaration:__ @const_withoutSign_before2@
 
-    __defined at:__ @macros\/reparse.h 189:6@
+    __defined at:__ @macros\/reparse.h 187:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2794,7 +2794,7 @@ hs_bindgen_6517cc8d39aead93 =
 
 {-| __C declaration:__ @const_withoutSign_before3@
 
-    __defined at:__ @macros\/reparse.h 190:6@
+    __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2823,7 +2823,7 @@ hs_bindgen_68c7661e95060488 =
 
 {-| __C declaration:__ @const_withoutSign_before4@
 
-    __defined at:__ @macros\/reparse.h 191:6@
+    __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2855,7 +2855,7 @@ hs_bindgen_42b3b0bf73a7a51a =
 
 {-| __C declaration:__ @const_withoutSign_before5@
 
-    __defined at:__ @macros\/reparse.h 192:6@
+    __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2887,7 +2887,7 @@ hs_bindgen_c4aabe9834aac12f =
 
 {-| __C declaration:__ @const_withoutSign_before6@
 
-    __defined at:__ @macros\/reparse.h 193:6@
+    __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2916,7 +2916,7 @@ hs_bindgen_486090a7fb4e34d4 =
 
 {-| __C declaration:__ @const_withoutSign_before7@
 
-    __defined at:__ @macros\/reparse.h 194:6@
+    __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2945,7 +2945,7 @@ hs_bindgen_23fa742b614176dd =
 
 {-| __C declaration:__ @const_withoutSign_before8@
 
-    __defined at:__ @macros\/reparse.h 195:6@
+    __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -2974,7 +2974,7 @@ hs_bindgen_0aacd8a5d48f296d =
 
 {-| __C declaration:__ @const_withoutSign_after1@
 
-    __defined at:__ @macros\/reparse.h 197:6@
+    __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3003,7 +3003,7 @@ hs_bindgen_16ec2102221485b7 =
 
 {-| __C declaration:__ @const_withoutSign_after2@
 
-    __defined at:__ @macros\/reparse.h 198:6@
+    __defined at:__ @macros\/reparse.h 196:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3032,7 +3032,7 @@ hs_bindgen_9aa934d44ec3790c =
 
 {-| __C declaration:__ @const_withoutSign_after3@
 
-    __defined at:__ @macros\/reparse.h 199:6@
+    __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3061,7 +3061,7 @@ hs_bindgen_043d2869e29bedcf =
 
 {-| __C declaration:__ @const_withoutSign_after4@
 
-    __defined at:__ @macros\/reparse.h 200:6@
+    __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3093,7 +3093,7 @@ hs_bindgen_b5f9bca1de9d69de =
 
 {-| __C declaration:__ @const_withoutSign_after5@
 
-    __defined at:__ @macros\/reparse.h 201:6@
+    __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3125,7 +3125,7 @@ hs_bindgen_77d641d518b2504f =
 
 {-| __C declaration:__ @const_withoutSign_after6@
 
-    __defined at:__ @macros\/reparse.h 202:6@
+    __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3154,7 +3154,7 @@ hs_bindgen_691b4f2909140b49 =
 
 {-| __C declaration:__ @const_withoutSign_after7@
 
-    __defined at:__ @macros\/reparse.h 203:6@
+    __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3183,7 +3183,7 @@ hs_bindgen_ae74c8dcdc2ec9eb =
 
 {-| __C declaration:__ @const_withoutSign_after8@
 
-    __defined at:__ @macros\/reparse.h 204:6@
+    __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3212,7 +3212,7 @@ hs_bindgen_07606c41eadf9146 =
 
 {-| __C declaration:__ @const_pointers_args1@
 
-    __defined at:__ @macros\/reparse.h 208:6@
+    __defined at:__ @macros\/reparse.h 206:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3240,7 +3240,7 @@ hs_bindgen_3836769f3a3416ac =
 
 {-| __C declaration:__ @const_pointers_args2@
 
-    __defined at:__ @macros\/reparse.h 209:6@
+    __defined at:__ @macros\/reparse.h 207:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3268,7 +3268,7 @@ hs_bindgen_12f19ea593aefd3f =
 
 {-| __C declaration:__ @const_pointers_args3@
 
-    __defined at:__ @macros\/reparse.h 210:6@
+    __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3296,7 +3296,7 @@ hs_bindgen_5a50e98897696d57 =
 
 {-| __C declaration:__ @const_pointers_args4@
 
-    __defined at:__ @macros\/reparse.h 211:6@
+    __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3324,7 +3324,7 @@ hs_bindgen_666701f7cb61bd15 =
 
 {-| __C declaration:__ @const_pointers_args5@
 
-    __defined at:__ @macros\/reparse.h 212:6@
+    __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3350,7 +3350,7 @@ hs_bindgen_b94fbc3dfd285563 =
 
 {-| __C declaration:__ @const_pointers_ret1@
 
-    __defined at:__ @macros\/reparse.h 214:19@
+    __defined at:__ @macros\/reparse.h 212:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3374,7 +3374,7 @@ hs_bindgen_33e2960e26b79450 =
 
 {-| __C declaration:__ @const_pointers_ret2@
 
-    __defined at:__ @macros\/reparse.h 215:19@
+    __defined at:__ @macros\/reparse.h 213:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3398,7 +3398,7 @@ hs_bindgen_50c6e2fe4f3fb777 =
 
 {-| __C declaration:__ @const_pointers_ret3@
 
-    __defined at:__ @macros\/reparse.h 216:19@
+    __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3422,7 +3422,7 @@ hs_bindgen_edc014695d896c8d =
 
 {-| __C declaration:__ @const_pointers_ret4@
 
-    __defined at:__ @macros\/reparse.h 217:19@
+    __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3446,7 +3446,7 @@ hs_bindgen_6d3308cc5847f033 =
 
 {-| __C declaration:__ @const_pointers_ret5@
 
-    __defined at:__ @macros\/reparse.h 218:19@
+    __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3470,7 +3470,7 @@ hs_bindgen_678576320923a4d1 =
 
 {-| __C declaration:__ @const_array_elem1@
 
-    __defined at:__ @macros\/reparse.h 246:6@
+    __defined at:__ @macros\/reparse.h 244:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3494,7 +3494,7 @@ hs_bindgen_b317941dde4eeff2 =
 
 {-| __C declaration:__ @const_array_elem2@
 
-    __defined at:__ @macros\/reparse.h 247:6@
+    __defined at:__ @macros\/reparse.h 245:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3518,7 +3518,7 @@ hs_bindgen_707e602e6beb1bb6 =
 
 {-| __C declaration:__ @const_array_elem3@
 
-    __defined at:__ @macros\/reparse.h 248:6@
+    __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3541,7 +3541,7 @@ hs_bindgen_93fecb4eb766c262 =
 
 __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 256:3@
+__defined at:__ @macros\/reparse.h 254:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -3559,7 +3559,7 @@ hs_bindgen_4350965157c891f5 =
 
 {-| __C declaration:__ @noParams2@
 
-    __defined at:__ @macros\/reparse.h 257:3@
+    __defined at:__ @macros\/reparse.h 255:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3582,7 +3582,7 @@ hs_bindgen_c4f59272a2b1c3b5 =
 
 {-| __C declaration:__ @noParams3@
 
-    __defined at:__ @macros\/reparse.h 258:6@
+    __defined at:__ @macros\/reparse.h 256:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3608,7 +3608,7 @@ hs_bindgen_387a04c01e23c320 =
 
 {-| __C declaration:__ @funptr_ret1@
 
-    __defined at:__ @macros\/reparse.h 262:8@
+    __defined at:__ @macros\/reparse.h 260:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3632,7 +3632,7 @@ hs_bindgen_6f0c14cd3478dc19 =
 
 {-| __C declaration:__ @funptr_ret2@
 
-    __defined at:__ @macros\/reparse.h 263:8@
+    __defined at:__ @macros\/reparse.h 261:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3656,7 +3656,7 @@ hs_bindgen_08e8661d277cf7be =
 
 {-| __C declaration:__ @funptr_ret3@
 
-    __defined at:__ @macros\/reparse.h 264:8@
+    __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3680,7 +3680,7 @@ hs_bindgen_609b5d953b68da92 =
 
 {-| __C declaration:__ @funptr_ret4@
 
-    __defined at:__ @macros\/reparse.h 265:8@
+    __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3704,7 +3704,7 @@ hs_bindgen_13e6ae43abf40aee =
 
 {-| __C declaration:__ @funptr_ret5@
 
-    __defined at:__ @macros\/reparse.h 269:20@
+    __defined at:__ @macros\/reparse.h 267:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3728,7 +3728,7 @@ hs_bindgen_a4a3a86f28ca6299 =
 
 {-| __C declaration:__ @funptr_ret6@
 
-    __defined at:__ @macros\/reparse.h 270:20@
+    __defined at:__ @macros\/reparse.h 268:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3752,7 +3752,7 @@ hs_bindgen_eae9dff04c88d00b =
 
 {-| __C declaration:__ @funptr_ret7@
 
-    __defined at:__ @macros\/reparse.h 271:20@
+    __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3776,7 +3776,7 @@ hs_bindgen_894457d90a2fc8db =
 
 {-| __C declaration:__ @funptr_ret8@
 
-    __defined at:__ @macros\/reparse.h 272:20@
+    __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3800,7 +3800,7 @@ hs_bindgen_c893eb15ad9bc68c =
 
 {-| __C declaration:__ @funptr_ret9@
 
-    __defined at:__ @macros\/reparse.h 273:20@
+    __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -3824,7 +3824,7 @@ hs_bindgen_d96c258298a44b28 =
 
 {-| __C declaration:__ @funptr_ret10@
 
-    __defined at:__ @macros\/reparse.h 274:20@
+    __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}

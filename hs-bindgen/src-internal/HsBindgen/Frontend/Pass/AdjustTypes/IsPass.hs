@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
     AdjustTypes
   , AdjustedFrom (..)
-  , AdjustTypesMsg
   ) where
 
 import HsBindgen.Frontend.AST.Coerce
@@ -10,9 +9,9 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -40,7 +39,7 @@ instance IsPass AdjustTypes where
   type MacroBody  AdjustTypes = CheckedMacro AdjustTypes
   type ExtBinding AdjustTypes = ResolvedExtBinding
   type Ann ix     AdjustTypes = AnnAdjustTypes ix
-  type Msg        AdjustTypes = WithCallStack (WithLocationInfo AdjustTypesMsg)
+  type Msg        AdjustTypes = NoMsg Level
   type MacroId    AdjustTypes = Id AdjustTypes
 
   idNameKind     _ namePair   = namePair.cName.name.kind
@@ -60,23 +59,8 @@ data AdjustedFrom p =
   deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
-  Trace messages
--------------------------------------------------------------------------------}
-
-data AdjustTypesMsg
-  deriving stock Show
-
-instance PrettyForTrace AdjustTypesMsg where
-  prettyForTrace = \case
-
-instance IsTrace Level AdjustTypesMsg where
-  getDefaultLogLevel = \case
-  getSource  = const HsBindgen
-  getTraceId = \case
-
-{-------------------------------------------------------------------------------
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId MangleNames AdjustTypes
+instance CoercePassId      MangleNames AdjustTypes
 instance CoercePassMacroId MangleNames AdjustTypes

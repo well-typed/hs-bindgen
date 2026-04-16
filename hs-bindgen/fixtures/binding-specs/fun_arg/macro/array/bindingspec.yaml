@@ -12,6 +12,9 @@ ctypes:
 - headers: binding-specs/fun_arg/macro/array.h
   cname: macro B
   hsname: B
+- headers: binding-specs/fun_arg/macro/array.h
+  cname: macro E
+  hsname: E
 hstypes:
 - hsname: A
   representation:
@@ -39,6 +42,16 @@ hstypes:
   - HasField
   - IsArray
   - Show
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrapE
+  instances:
+  - Generic
+  - HasCField
+  - HasField
 - hsname: MyArray
   representation:
     newtype:

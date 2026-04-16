@@ -6,11 +6,15 @@ module Example.FunPtr
     ( Example.FunPtr.foo
     , Example.FunPtr.fooA
     , Example.FunPtr.fooB
+    , Example.FunPtr.fooC
+    , Example.FunPtr.fooD
+    , Example.FunPtr.fooE
     )
   where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified M
 import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -39,6 +43,30 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &fooB;"
   , "}"
+  , "/* test_bindingspecsfun_argmacrofu_Example_get_fooC */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_566c44a793d222a9 (void)) ("
+  , "  C arg1"
+  , ")"
+  , "{"
+  , "  return &fooC;"
+  , "}"
+  , "/* test_bindingspecsfun_argmacrofu_Example_get_fooD */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_9214c66c2650a721 (void)) ("
+  , "  D arg1"
+  , ")"
+  , "{"
+  , "  return &fooD;"
+  , "}"
+  , "/* test_bindingspecsfun_argmacrofu_Example_get_fooE */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_08a6ea4ce7e2c244 (void)) ("
+  , "  E arg1"
+  , ")"
+  , "{"
+  , "  return &fooE;"
+  , "}"
   ]))
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_foo@
@@ -53,7 +81,7 @@ hs_bindgen_e113ab1229902001 =
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -72,7 +100,7 @@ hs_bindgen_5e83648377d8afc6 =
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -92,10 +120,70 @@ hs_bindgen_d6d79c737e65f7e7 =
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 fooB :: RIP.FunPtr (B -> IO ())
 fooB =
   RIP.unsafePerformIO hs_bindgen_d6d79c737e65f7e7
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooC@
+foreign import ccall unsafe "hs_bindgen_566c44a793d222a9" hs_bindgen_566c44a793d222a9_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooC@
+hs_bindgen_566c44a793d222a9 :: IO (RIP.FunPtr (M.C -> IO ()))
+hs_bindgen_566c44a793d222a9 =
+  RIP.fromFFIType hs_bindgen_566c44a793d222a9_base
+
+{-# NOINLINE fooC #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
+-}
+fooC :: RIP.FunPtr (M.C -> IO ())
+fooC =
+  RIP.unsafePerformIO hs_bindgen_566c44a793d222a9
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooD@
+foreign import ccall unsafe "hs_bindgen_9214c66c2650a721" hs_bindgen_9214c66c2650a721_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooD@
+hs_bindgen_9214c66c2650a721 :: IO (RIP.FunPtr (M.D -> IO ()))
+hs_bindgen_9214c66c2650a721 =
+  RIP.fromFFIType hs_bindgen_9214c66c2650a721_base
+
+{-# NOINLINE fooD #-}
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
+-}
+fooD :: RIP.FunPtr (M.D -> IO ())
+fooD =
+  RIP.unsafePerformIO hs_bindgen_9214c66c2650a721
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooE@
+foreign import ccall unsafe "hs_bindgen_08a6ea4ce7e2c244" hs_bindgen_08a6ea4ce7e2c244_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooE@
+hs_bindgen_08a6ea4ce7e2c244 :: IO (RIP.FunPtr (E -> IO ()))
+hs_bindgen_08a6ea4ce7e2c244 =
+  RIP.fromFFIType hs_bindgen_08a6ea4ce7e2c244_base
+
+{-# NOINLINE fooE #-}
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
+-}
+fooE :: RIP.FunPtr (E -> IO ())
+fooE =
+  RIP.unsafePerformIO hs_bindgen_08a6ea4ce7e2c244

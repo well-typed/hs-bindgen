@@ -1,12 +1,12 @@
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdint.h
--- addDependentFile musl-include/x86_64/stddef.h
--- addDependentFile musl-include/x86_64/bits/errno.h
 -- addDependentFile musl-include/x86_64/features.h
--- addDependentFile musl-include/x86_64/time.h
--- addDependentFile musl-include/x86_64/stdio.h
+-- addDependentFile musl-include/x86_64/bits/errno.h
 -- addDependentFile musl-include/x86_64/errno.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stdio.h
+-- addDependentFile musl-include/x86_64/time.h
 -- addDependentFile examples/golden/program-analysis/program_slicing_selection.h
 -- #include <program-analysis/program_slicing_selection.h>
 -- enum FileOperationStatus hs_bindgen_b2a91b3b7edf2ad3 (

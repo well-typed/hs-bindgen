@@ -6,12 +6,34 @@
 
 ### New features
 
+* Macro handling has been overhauled. Macros are now parsed during the `Parse`
+  pass and typechecked in a dedicated `TypecheckMacros` pass (replacing the old
+  `HandleMacros` pass). A new `ReparseMacroExpansions` pass handles declarations
+  whose bodies contain macro expansions. See [PR #1862][pr-1862].
+* Type-like macro expressions (e.g. `#define A int`) are now parsed and
+  typechecked together with value-like macro expressions (e.q., `#define FOO 1`)
+  using `c-expr-dsl` rather than `language-c`.
+* Scoped reparse: when reparsing a declaration that uses macro expansions, only
+  macros actually expanded by Clang *in that declaration* are substituted,
+  avoiding spurious substitutions.
+* Support macro expansions in global variable declarations
+  ([#831](https://github.com/well-typed/hs-bindgen/issues/831)).
+* `DeclInfo` now carries a sequence number (`seqNr`) when using Clang ≥ 20.1,
+  recording the order in which declarations appear in the translation unit.
+* New `DepsOfDecl` typeclass for precise dependency tracking; dependencies of
+  macros are now included in the `UseDeclGraph`.
+
 ### Minor changes
 
 * Skip over declarations with unexposed types (such as `malloc`), primarily in
   support of LLVM/Clang 22.
 
 ### Bug fixes
+
+* Fix `DeclIndex` construction when macros and ordinary declarations share a
+  name.
+* Fix `UseDeclGraph` construction to avoid inserting edges for non-existing
+  vertices, and fix `topSort'` order for include siblings.
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -123,6 +145,7 @@
 [issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
+[pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
 
 ## 0.1.0-alpha -- 2026-02-06

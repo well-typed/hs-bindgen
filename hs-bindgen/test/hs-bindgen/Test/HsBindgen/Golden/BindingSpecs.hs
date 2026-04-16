@@ -4,13 +4,11 @@ module Test.HsBindgen.Golden.BindingSpecs (testCases) where
 import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 
-import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
@@ -23,7 +21,8 @@ testCases :: [TestCase]
 testCases = [
       test_bindingSpecs_omit_type
       -- * Bugs / regression tests
-    , test_bindingSpecs_macro_trans_dep_missing
+    , test_bindingSpecs_trans_dep_macro_trans_dep_missing
+    , test_bindingSpecs_trans_dep_typedef_trans_dep_missing
       -- * Naming types
     , test_bindingSpecs_name_squash_both
     , test_bindingSpecs_name_squash_struct
@@ -73,30 +72,31 @@ test_bindingSpecs_omit_type =
   Bugs / regression tests
 -------------------------------------------------------------------------------}
 
--- | External binding specifications for macro types cause incorrect
--- TransitiveDependenciesMissing warnings
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1513>
--- We currently report the wrong declaration as missing.
-test_bindingSpecs_macro_trans_dep_missing :: TestCase
-test_bindingSpecs_macro_trans_dep_missing =
-    defaultTest "binding-specs/macro_trans_dep_missing"
+-- | External binding specifications for non-selected macro types should not
+--   lead to warnings/errors
+test_bindingSpecs_trans_dep_macro_trans_dep_missing :: TestCase
+test_bindingSpecs_trans_dep_macro_trans_dep_missing =
+    defaultTest "binding-specs/trans_dep/macro_trans_dep_missing"
       & #specExternal .~
-          [ "examples/golden/binding-specs/macro_trans_dep_missing.yaml"
+          [ "examples/golden/binding-specs/trans_dep/macro_trans_dep_missing.yaml"
           ]
       & #onFrontend .~
           #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
-      & #tracePredicate .~ multiTracePredicate ["foo" :: CDeclName] (\case
-            -- no macros should fail to parse
-            MatchHandleMacros _ ->
-              Just Unexpected
-            -- TODO <https://github.com/well-typed/hs-bindgen/issues/1513>
-            -- Once the warning is fixed, this case can be removed.
-            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
-              Just (Expected name)
-            _otherwise ->
-              Nothing
-          )
+      -- Macros should not fail to parse.
+      & #tracePredicate .~
+          multiTracePredicateCustomLogLevel @()
+            (getCustomLogLevel [EnableMacroWarnings]) [] (const Nothing)
+
+-- | External binding specifications for non-selected typedef types should not
+--   lead to warnings/errors
+test_bindingSpecs_trans_dep_typedef_trans_dep_missing :: TestCase
+test_bindingSpecs_trans_dep_typedef_trans_dep_missing =
+    defaultTest "binding-specs/trans_dep/typedef_trans_dep_missing"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/trans_dep/typedef_trans_dep_missing.yaml"
+          ]
+      & #onFrontend .~
+          #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
 
 {-------------------------------------------------------------------------------
   Naming types
@@ -356,27 +356,16 @@ test_bindingSpecs_fun_arg_macro path =
           ]
       & #onFrontend .~
           #selectPredicate .~ test_bindingSpecs_fun_arg_macro_selectPredicate
-      & #tracePredicate .~ test_bindingSpecs_fun_arg_macro_tracePredicate
+      -- Macros should not fail to parse.
+      & #tracePredicate .~
+          multiTracePredicateCustomLogLevel @()
+            (getCustomLogLevel [EnableMacroWarnings]) [] (const Nothing)
 
 -- | Select predicate for 'test_bindingSpecs_fun_arg_macro' tests
 test_bindingSpecs_fun_arg_macro_selectPredicate :: Boolean SelectPredicate
 test_bindingSpecs_fun_arg_macro_selectPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
-
--- | Trace predicate for 'test_bindingSpecs_fun_arg_macro' tests
-test_bindingSpecs_fun_arg_macro_tracePredicate :: TracePredicate TraceMsg
-test_bindingSpecs_fun_arg_macro_tracePredicate =
-    noHandleMacrosTraces
-
-noHandleMacrosTraces :: TracePredicate TraceMsg
-noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
-    -- no macros should fail to parse
-    MatchHandleMacros _ ->
-      Just Unexpected
-    _otherwise ->
-      Nothing
-  )
 
 {-------------------------------------------------------------------------------
   Standard library

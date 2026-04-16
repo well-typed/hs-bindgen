@@ -4,9 +4,41 @@ version:
 hsmodule: Example
 ctypes:
 - headers: program-analysis/program-slicing/macro_selected.h
+  cname: macro T
+  hsname: T
+- headers: program-analysis/program-slicing/macro_selected.h
   cname: macro U
   hsname: U
 hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: U
   representation:
     newtype:

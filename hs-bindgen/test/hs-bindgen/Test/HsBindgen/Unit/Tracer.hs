@@ -110,12 +110,11 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
       _otherTrace   -> Nothing
 
     withPred :: (IsTrace Level a, Typeable a, Show a) =>
-      TracePredicate a -> (Tracer a -> IO b) -> IO b
+      TracePredicate Level a -> (Tracer a -> IO b) -> IO b
     withPred = withTracePredicate noReport
 
     noReport :: a -> IO ()
     noReport = const $ pure ()
-
 
 {-------------------------------------------------------------------------------
   Internal: infrastructure for generating test traces

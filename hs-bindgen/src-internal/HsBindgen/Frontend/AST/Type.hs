@@ -2,6 +2,7 @@
 --
 -- Intended for qualified import.
 --
+-- > import HsBindgen.Frontend.AST.Type (ValOrRef (..))
 -- > import HsBindgen.Frontend.AST.Type qualified as C
 module HsBindgen.Frontend.AST.Type (
     -- * Types
@@ -321,11 +322,11 @@ class ( IsPass p
       , Eq   (Ann "TypeFunArg" p)
       , Ord  (Ann "TypeFunArg" p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
-  type family TypedefRefF     tag p :: Star
-  type family TypeQualifierF  tag p :: Star
+  type family TypedefRefF        tag p :: Star
+  type family TypeQualifierF     tag p :: Star
   type family TypeExtBindingRefF tag p :: Star
-  type family TypeMacroRefF tag p :: Star
-  type family TypeEnumRefF tag p :: Star
+  type family TypeMacroRefF      tag p :: Star
+  type family TypeEnumRefF       tag p :: Star
 
 instance IsPass p => ValidTypeTag Full p where
   type instance TypedefRefF        Full p = TypedefRef p

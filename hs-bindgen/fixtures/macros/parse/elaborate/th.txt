@@ -1,0 +1,132 @@
+-- addDependentFile examples/golden/macros/parse/elaborate_inner.h
+-- addDependentFile examples/golden/macros/parse/elaborate.h
+{-| __C declaration:__ @macro OUTER_A@
+
+    __defined at:__ @macros\/parse\/elaborate.h 7:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_A :: CInt
+{-| __C declaration:__ @macro OUTER_A@
+
+    __defined at:__ @macros\/parse\/elaborate.h 7:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_A = 1 :: CInt
+{-| __C declaration:__ @macro INNER_A@
+
+    __defined at:__ @elaborate_inner.h 1:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_A :: CInt
+{-| __C declaration:__ @macro INNER_A@
+
+    __defined at:__ @elaborate_inner.h 1:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_A = oUTER_A
+{-| __C declaration:__ @macro INNER_B@
+
+    __defined at:__ @elaborate_inner.h 2:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_B :: CInt
+{-| __C declaration:__ @macro INNER_B@
+
+    __defined at:__ @elaborate_inner.h 2:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_B = 2 :: CInt
+{-| __C declaration:__ @outer_int@
+
+    __defined at:__ @macros\/parse\/elaborate.h 8:13@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+newtype Outer_int
+    = Outer_int {unwrapOuter_int :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
+         HasField "unwrapOuter_int" (Ptr Outer_int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapOuter_int")
+instance HasCField Outer_int "unwrapOuter_int"
+    where type CFieldType Outer_int "unwrapOuter_int" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @inner_int@
+
+    __defined at:__ @elaborate_inner.h 3:19@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+newtype Inner_int
+    = Inner_int {unwrapInner_int :: Outer_int}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty Outer_int =>
+         HasField "unwrapInner_int" (Ptr Inner_int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInner_int")
+instance HasCField Inner_int "unwrapInner_int"
+    where type CFieldType Inner_int "unwrapInner_int" = Outer_int
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro OUTER_B@
+
+    __defined at:__ @macros\/parse\/elaborate.h 12:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_B :: CInt
+{-| __C declaration:__ @macro OUTER_B@
+
+    __defined at:__ @macros\/parse\/elaborate.h 12:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_B = iNNER_A
+{-| __C declaration:__ @macro OUTER_C@
+
+    __defined at:__ @macros\/parse\/elaborate.h 13:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_C :: CInt
+{-| __C declaration:__ @macro OUTER_C@
+
+    __defined at:__ @macros\/parse\/elaborate.h 13:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+oUTER_C = iNNER_B

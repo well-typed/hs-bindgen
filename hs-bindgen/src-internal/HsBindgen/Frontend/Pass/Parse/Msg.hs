@@ -13,12 +13,16 @@ import Foreign.C (CInt)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
+import C.Expr.Parse qualified as CExpr.DSL
+
 import Clang.Enum.Simple
+import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming (CTagKind, cTagKindPrefix)
+import HsBindgen.Frontend.LanguageC.Error qualified as LanC
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -35,32 +39,73 @@ import HsBindgen.Util.Tracer
 --
 -- - The declaration we fail to parse may affect other declarations
 data ImmediateParseMsg =
+    -- | We do not support getting macro expansions for declarations spanning
+    --   multiple files.
+    ParseGetMacroExpansionsMultipleFiles (Range SingleLoc)
+
+    -- | At a macro expansion site, we failed to get the name of the expanded
+    --   macro.
+  | ParseMacroExpansionNoMacroName
+
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>
     -- | We failed to parse a declaration that is required for scoping.
-    ParseOfDeclarationRequiredForScopingFailed
+  | ParseOfDeclarationRequiredForScopingFailed
+
+    -- | Sequence numbers were populated, using 'clang_isBeforeInTranslationUnit'
+    --
+    -- Sequence numbers record the order in which declarations appear in the
+    -- translation unit.  Populating them requires Clang >= 20.1.
+  | ParseSeqNrPopulated
+
+    -- | Sequence numbers could not be populated
+    --
+    -- 'clang_isBeforeInTranslationUnit' is not available; this requires
+    -- Clang >= 20.1.
+  | ParseSeqNrUnavailable
 
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
+      ParseGetMacroExpansionsMultipleFiles range -> PP.hsep [
+          "Could not get macro expansions"
+        , "(declaration spans multiple files):"
+        , PP.show range
+        ]
+      ParseMacroExpansionNoMacroName ->
+        "Could not obtain macro name at macro expansion location"
       ParseOfDeclarationRequiredForScopingFailed -> PP.hsep [
           "Parse of declaration required for scoping failed;"
         , "the failed declaration may be required when parsing"
         , "other declarations containing macro replacements"
         ]
+      ParseSeqNrPopulated -> PP.hsep [
+          "Sequence order of declarations populated"
+        , "(requires Clang >= 20.1)"
+        ]
+      ParseSeqNrUnavailable -> PP.hsep [
+          "Sequence order of declarations unavailable:"
+        , "clang_isBeforeInTranslationUnit requires Clang >= 20.1"
+        ]
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
+      ParseGetMacroExpansionsMultipleFiles{}       -> Warning
+      ParseMacroExpansionNoMacroName{}             -> Bug
       ParseOfDeclarationRequiredForScopingFailed{} -> Info
+      ParseSeqNrPopulated{}                        -> Info
+      ParseSeqNrUnavailable{}                      -> Info
   getSource  = const HsBindgen
-  getTraceId = const "parse-immediate"
+  getTraceId = \case
+    ParseMacroExpansionNoMacroName -> "parse-immediate-macro"
+    _otherwise                     -> "parse-immediate"
 
 {-------------------------------------------------------------------------------
   Delayed parse messages
 -------------------------------------------------------------------------------}
 
 -- Note to developers: We order delayed parse message constructors by
--- 1. Recursive constructors come first
+-- 1. Recursive/nested constructors come first
 -- 2. Severity; debug messages come first
 -- 3. Constructor name
 
@@ -76,6 +121,22 @@ data DelayedParseMsg =
     -- | Recursive case; we failed to parse the target of a @typedef@ with a
     --   delayed parse message.
     ParseUnderlyingTypeFailed PrelimDeclId DelayedParseMsg
+
+    -- | We tried to parse an implicit field for a struct or union object, but
+    -- it was unsuccessful
+  | ParseImplicitFieldFailed ParseImplicitFieldsMsg
+
+  | ParseMacroEmpty PrelimDeclId [Token TokenSpelling]
+
+    -- | We could not parse the macro (macro def sites)
+  | ParseMacroErrorParse CExpr.DSL.MacroParseError
+
+    -- | We could not reparse a fragment of C (to recover macro use sites)
+  | ParseMacroErrorReparse LanC.Error
+
+    -- | While reparsing a declaration with a macro expansion, we do not know
+    --   the type of an expanded macro.
+  | ParseMacroReparseUnknownType Text
 
     -- | Fully defined global variables and functions with external linkage.
     --
@@ -248,10 +309,6 @@ data DelayedParseMsg =
 
   | ParseExpectedFunctionType String
 
-    -- | We tried to parse an implicit field for a struct or union object, but
-    -- it was unsuccesful
-  | ParseImplicitFieldFailed ParseImplicitFieldsMsg
-
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
@@ -275,7 +332,7 @@ data DelayedParseMsg =
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
 
   | ParseNoMainHeadersException String SourcePath
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Generic)
 
 instance Exception DelayedParseMsg where
   displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
@@ -287,6 +344,29 @@ instance PrettyForTrace DelayedParseMsg where
         , prettyForTrace name
         , ": "
         , prettyForTrace err
+        ]
+      ParseImplicitFieldFailed reason -> PP.hsep [
+          "Failed to parse an implicit struct or union field"
+        , "referencing an anonymous object. Reason: "
+        , prettyForTrace reason
+        ]
+      ParseMacroEmpty name tokens -> PP.hsep [
+          "Ignoring empty macro"
+        , prettyForTrace name >< ":"
+        , PP.show tokens
+        ]
+      ParseMacroErrorParse err -> PP.vcat [
+          "Could not parse macro:"
+        , PP.nest 2 $ prettyMacroParseError err
+        ]
+      ParseMacroErrorReparse x -> PP.hsep [
+          "Failed to reparse: "
+        , prettyForTrace x
+        ]
+      ParseMacroReparseUnknownType x -> PP.hsep [
+          "During reparse:"
+        , "Unknown type of expanded macro"
+        , PP.text x
         ]
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
             "Bindings may result in duplicate symbols; "
@@ -359,11 +439,6 @@ instance PrettyForTrace DelayedParseMsg where
           "Expected function type, but got"
         , PP.string ty
         ]
-      ParseImplicitFieldFailed reason -> PP.hsep [
-          "Failed to parse an implicit struct or union field"
-        , "referencing an anonymous object. Reason: "
-        , prettyForTrace reason
-        ]
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
       ParseUnexpectedCursorKind x ->
@@ -391,10 +466,18 @@ instance PrettyForTrace DelayedParseMsg where
           , PP.string pleaseReport
           ]
 
+      prettyMacroParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
+      prettyMacroParseError err = PP.renderedLines $ \_maxWidth -> lines err.reparseError
+
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
-      ParseUnderlyingTypeFailed _ err   -> getDefaultLogLevel err
+      ParseUnderlyingTypeFailed _ x     -> getDefaultLogLevel x
+      ParseImplicitFieldFailed    x     -> getDefaultLogLevel x
+      ParseMacroEmpty{}                 -> Info
+      ParseMacroErrorParse{}            -> Info
+      ParseMacroErrorReparse{}          -> Info
+      ParseMacroReparseUnknownType{}    -> Info
       ParsePotentialDuplicateSymbol{}   -> Notice
       ParseDeclarationNotVisible{}      -> Warning
       ParseFunctionOfTypeTypedef{}      -> Warning
@@ -415,7 +498,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
-      ParseImplicitFieldFailed{}        -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug
@@ -423,7 +505,13 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnexpectedVisibility{}       -> Bug
       ParseNoMainHeadersException{}     -> Error
   getSource  = const HsBindgen
-  getTraceId = const "parse"
+  getTraceId = \case
+      ParseImplicitFieldFailed x     -> "parse-" <> getTraceId x
+      ParseMacroEmpty{}              -> "parse-macro"
+      ParseMacroErrorParse{}         -> "parse-macro"
+      ParseMacroErrorReparse{}       -> "parse-macro"
+      ParseMacroReparseUnknownType{} -> "parse-macro"
+      _ -> "parse"
 
 {-------------------------------------------------------------------------------
   Delayed parse messages: implicit fields
@@ -450,7 +538,7 @@ data ParseImplicitFieldsMsg =
 instance PrettyForTrace ParseImplicitFieldsMsg where
   prettyForTrace = \case
       UnsupportedEmptyAnon -> PP.hsep [
-          "Usupported empty nested anonymous union or struct:"
+          "Unsupported empty nested anonymous union or struct:"
         , "it should have at least one named field"
         ]
       UnexpectedClangOffsetOfException field exc -> PP.hsep [
@@ -469,4 +557,4 @@ instance IsTrace Level ParseImplicitFieldsMsg where
       UnexpectedNonZeroFieldOffset{}      -> Bug
       UnexpectedClangOffsetOfException{}  -> Bug
   getSource  = const HsBindgen
-  getTraceId = const "parse"
+  getTraceId = const "implicit-fields"

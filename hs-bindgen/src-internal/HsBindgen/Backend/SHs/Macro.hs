@@ -13,6 +13,7 @@ import C.Type (Sign (Signed, Unsigned))
 import C.Type qualified as Runtime
 
 import C.Expr.Syntax qualified as DSL
+import C.Expr.Typecheck.Interface.Value qualified as V
 import C.Expr.Typecheck.Type (Kind (Ct, Ty))
 import C.Expr.Typecheck.Type qualified as DSL
 
@@ -22,8 +23,9 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -120,47 +122,47 @@ simpleTyConApp _ _ =
 -------------------------------------------------------------------------------}
 
 translateBody ::
-     [DSL.Name]
-  -> DSL.MExpr (MacroEmbedPass Final)
+     [Id Final]
+  -> V.Expr (Id Final)
   -> SExpr EmptyCtx
 translateBody macroArgs expr =
-    topLevelLambdaN cnameToHint macroArgs (flip mexpr expr)
+    topLevelLambdaN idNameHint macroArgs (flip mexpr expr)
 
 mexpr :: forall ctx.
-     Map DSL.Name (Idx ctx)
-  -> DSL.MExpr (MacroEmbedPass Final)
+     Map (Id Final) (Idx ctx)
+  -> V.Expr (Id Final)
   -> SExpr ctx
 mexpr env =
     goExpr
   where
-    goExpr :: DSL.MExpr (MacroEmbedPass Final) -> SExpr ctx
+    goExpr :: V.Expr (Id Final) -> SExpr ctx
     goExpr = \case
-        DSL.MTerm t     -> goTerm t
-        DSL.MApp _ f xs -> eAppN (mfun f) (goExpr <$> xs)
+      V.Literal lit ->
+        goLiteral lit
+      V.Var xId args ->
+        case Map.lookup xId env of
+          Just i  -> EBound i
+          Nothing -> eAppN (EFree (macroIdToHsName xId)) (goExpr <$> args)
+      V.App fun xs ->
+        eAppN (mfun fun) (goExpr <$> xs)
 
-    goTerm :: DSL.MTerm (MacroEmbedPass Final) -> SExpr ctx
-    goTerm = \case
-        -- Literals
-        DSL.MInt    x -> integerLiteral  x
-        DSL.MFloat  x -> floatingLiteral x
-        DSL.MChar   x -> charLiteral     x
-        DSL.MString x -> stringLiteral   x
-
-        -- Variables
-        DSL.MVar xVar cname args ->
-          case Map.lookup cname env of
-            Just i  -> EBound i
-            Nothing -> eAppN (EFree $ macroName xVar) (goExpr <$> args)
+    goLiteral :: DSL.ValueLit -> SExpr ctx
+    goLiteral = \case
+      -- Literals
+      DSL.ValueInt    x -> integerLiteral  x
+      DSL.ValueFloat  x -> floatingLiteral x
+      DSL.ValueChar   x -> charLiteral     x
+      DSL.ValueString x -> stringLiteral   x
 
 {-------------------------------------------------------------------------------
   Names
 -------------------------------------------------------------------------------}
 
-cnameToHint :: DSL.Name -> NameHint
-cnameToHint (DSL.Name t) = fromString (T.unpack t)
+idNameHint :: Id Final -> NameHint
+idNameHint xId = fromString (T.unpack xId.cName.name.text)
 
-macroName :: DSL.XVar (MacroEmbedPass Final) -> Hs.Name Hs.NsVar
-macroName (MacroXVar namePair) = Hs.unsafeHsIdHsName $ unsafeHsName namePair
+macroIdToHsName :: Id Final -> Hs.Name Hs.NsVar
+macroIdToHsName namePair = Hs.unsafeHsIdHsName $ unsafeHsName namePair
 
 {-------------------------------------------------------------------------------
   Literals
@@ -248,6 +250,11 @@ dataTyCon = \case
     DSL.IntLikeTyCon   -> panicPure "Should have been handled by simpleTyConApp: IntLikeTyCon"
     DSL.FloatLikeTyCon -> panicPure "Should have been handled by simpleTyConApp: FloatLikeTyCon"
 
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1900>
+    --
+    -- Split the type language into types of types, and types of values.
+    DSL.MacroTypeTyCon -> panicPure "Unexpected type (kind): type"
+
 classTyCon :: DSL.ClassTyCon args -> CExprGlobalType
 classTyCon = \case
     DSL.NotTyCon        -> Not_class
@@ -278,7 +285,7 @@ familyTyCon = \case
     DSL.BitsResTyCon       -> Bitwise_resTyCon
     DSL.ShiftResTyCon      -> Shift_resTyCon
 
-mfun :: DSL.MFun arity -> SExpr ctx
+mfun :: DSL.VaFun arity -> SExpr ctx
 mfun = \case
     DSL.MUnaryPlus  -> cExpr Plus_plus
     DSL.MUnaryMinus -> cExpr Minus_negate

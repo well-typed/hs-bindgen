@@ -19,8 +19,10 @@ import HsBindgen.Frontend.Pass.Parse.Result
   Construction
 -------------------------------------------------------------------------------}
 
+type PreviousPass = AssignAnonIds
+
 constructTranslationUnit ::
-     [ParseResult AssignAnonIds]
+     [ParseResult PreviousPass]
   -> IncludeGraph
   -> C.TranslationUnit ConstructTranslationUnit
 constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
@@ -36,7 +38,7 @@ constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
     declMeta = mkDeclMeta parseResults includeGraph
 
 mkDeclMeta ::
-     [ParseResult AssignAnonIds]
+     [ParseResult PreviousPass]
   -> IncludeGraph
   -> DeclMeta
 mkDeclMeta parseResults includeGraph = DeclMeta{
@@ -49,8 +51,7 @@ mkDeclMeta parseResults includeGraph = DeclMeta{
     declIndex = DeclIndex.fromParseResults parseResults
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph =
-      UseDeclGraph.fromDecls includeGraph $ DeclIndex.getDecls declIndex
+    useDeclGraph = UseDeclGraph.fromDecls includeGraph declIndex
 
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph

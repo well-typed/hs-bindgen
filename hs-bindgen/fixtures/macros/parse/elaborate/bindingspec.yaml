@@ -1,0 +1,70 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/parse/elaborate.h
+  cname: inner_int
+  hsname: Inner_int
+- headers: macros/parse/elaborate.h
+  cname: outer_int
+  hsname: Outer_int
+hstypes:
+- hsname: Inner_int
+  representation:
+    newtype:
+      constructor: Inner_int
+      fields:
+      - unwrapInner_int
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer_int
+  representation:
+    newtype:
+      constructor: Outer_int
+      fields:
+      - unwrapOuter_int
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -16,18 +16,20 @@ module Example
     , Example.MyFunctionPointer(..)
     , Example.A(..)
     , Example.B(..)
+    , Example.E(..)
     )
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified M
 
 {-| Auxiliary type used by 'MyFunctionPointer'
 
 __C declaration:__ @MyFunctionPointer@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
+__defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
 
 __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -84,7 +86,7 @@ instance HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux"
 
 {-| __C declaration:__ @MyFunctionPointer@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -115,7 +117,7 @@ instance HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
 
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 7:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 9:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -144,7 +146,7 @@ instance HasCField.HasCField A "unwrapA" where
 
 {-| __C declaration:__ @macro B@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 8:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 10:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
@@ -167,5 +169,26 @@ instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @macro E@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 31:9@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
+-}
+newtype E = E
+  { unwrapE :: M.C
+  }
+  deriving stock (RIP.Generic)
+
+instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
+
+instance HasCField.HasCField E "unwrapE" where
+
+  type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0

@@ -23,7 +23,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 5:9@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:9@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -62,7 +62,7 @@ instance HasCField.HasCField A "unwrapA" where
 
 {-| __C declaration:__ @macro bool@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 8:9@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 12:9@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}

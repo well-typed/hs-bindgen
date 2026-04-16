@@ -48,7 +48,7 @@
 -- }
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 5:9@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:9@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -77,7 +77,7 @@ instance HasCField A "unwrapA"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro bool@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 8:9@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 12:9@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -115,14 +115,14 @@ hs_bindgen_fc2c0275afbb3c2e :: A -> CBool -> IO ()
 hs_bindgen_fc2c0275afbb3c2e = fromFFIType hs_bindgen_fc2c0275afbb3c2e_base
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 f_safe :: A -> CBool -> IO ()
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -138,14 +138,14 @@ hs_bindgen_d07d93e6b7330d03 :: A -> Bool' -> IO ()
 hs_bindgen_d07d93e6b7330d03 = fromFFIType hs_bindgen_d07d93e6b7330d03_base
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 g_safe :: A -> Bool' -> IO ()
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -161,14 +161,14 @@ hs_bindgen_c170f90cc5412c59 :: A -> CBool -> IO ()
 hs_bindgen_c170f90cc5412c59 = fromFFIType hs_bindgen_c170f90cc5412c59_base
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 f_unsafe :: A -> CBool -> IO ()
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -184,14 +184,14 @@ hs_bindgen_18fbcf94c0b76854 :: A -> Bool' -> IO ()
 hs_bindgen_18fbcf94c0b76854 = fromFFIType hs_bindgen_18fbcf94c0b76854_base
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 g_unsafe :: A -> Bool' -> IO ()
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -206,14 +206,14 @@ hs_bindgen_aa1f6a0351ab44da = fromFFIType hs_bindgen_aa1f6a0351ab44da_base
 {-# NOINLINE f_funptr #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 f_funptr :: FunPtr (A -> CBool -> IO ())
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
@@ -228,14 +228,14 @@ hs_bindgen_c0944c7d91c77d18 = fromFFIType hs_bindgen_c0944c7d91c77d18_base
 {-# NOINLINE g_funptr #-}
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 g_funptr :: FunPtr (A -> Bool' -> IO ())
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+    __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
 
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}

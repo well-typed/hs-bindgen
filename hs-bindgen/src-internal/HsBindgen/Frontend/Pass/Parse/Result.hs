@@ -37,6 +37,7 @@ data ParseResult p = ParseResult{
     , loc            :: SingleLoc
     , classification :: ParseClassification p
     }
+    deriving (Generic)
 
 deriving stock instance IsPass p => Show (ParseResult p)
 

@@ -2,21 +2,18 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
     adjustTypes
   ) where
 
-import Control.Monad.State (MonadState, State, StateT (StateT), modify',
-                            runState)
 import Numeric.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass (IsPass (MacroBody, Msg))
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes,
                                                    AdjustedFrom (..))
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
-                                                    CheckedMacroExpr,
-                                                    CheckedMacroType (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
-import HsBindgen.Imports (Identity (Identity))
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
+                                                       CheckedMacroExpr,
+                                                       CheckedMacroType (..))
 
 -- | Adjust function argument types
 --
@@ -38,214 +35,154 @@ import HsBindgen.Imports (Identity (Identity))
 --
 adjustTypes ::
      C.TranslationUnit MangleNames
-  -> (C.TranslationUnit AdjustTypes, [Msg AdjustTypes])
+  -> C.TranslationUnit AdjustTypes
 adjustTypes unit =
       let
-        (decls', msgs) = runM $ mapM processDecl unit.decls
+        decls' = map processDecl unit.decls
         unit' =  C.TranslationUnit {
               decls        = decls'
             , includeGraph = unit.includeGraph
             , ann          = unit.ann
             }
       in
-        (unit', msgs)
-
-{-------------------------------------------------------------------------------
-  Monad
--------------------------------------------------------------------------------}
-
-newtype M a = M (State [Msg AdjustTypes] a)
-  deriving newtype (Functor, Applicative, Monad)
-
-deriving newtype instance msg ~ Msg AdjustTypes
-                       => MonadState [msg] M
-
-runM :: M a -> (a, [Msg AdjustTypes])
-runM (M f) =
-    let (x, msgs) = runState f []
-    in  (x, reverse msgs)
-
-_emitMsg :: Msg AdjustTypes -> M ()
-_emitMsg msg = modify' (msg :)
+        unit'
 
 {-------------------------------------------------------------------------------
   Decls
 -------------------------------------------------------------------------------}
 
-processDecl ::
-     C.Decl MangleNames
-  -> M (C.Decl AdjustTypes)
-processDecl decl = do
-    kind' <- processDeclKind decl.kind
-    pure C.Decl {
+processDecl :: C.Decl MangleNames -> C.Decl AdjustTypes
+processDecl decl =
+    C.Decl {
         info = coercePass decl.info
-      , ann = decl.ann
-      , kind = kind'
+      , ann  = decl.ann
+      , kind = processDeclKind decl.kind
       }
 
-processDeclKind ::
-     C.DeclKind MangleNames
-  -> M (C.DeclKind AdjustTypes)
+processDeclKind :: C.DeclKind MangleNames -> C.DeclKind AdjustTypes
 processDeclKind kind =
     case kind of
-      C.DeclStruct struct                  -> C.DeclStruct <$> processStruct struct
-      C.DeclUnion union                    -> C.DeclUnion <$> processUnion union
-      C.DeclTypedef typedef                -> C.DeclTypedef <$> processTypedef typedef
-      C.DeclEnum enum                      -> C.DeclEnum <$> processEnum enum
-      C.DeclAnonEnumConstant anonEnumConst -> C.DeclAnonEnumConstant <$> processAnonEnumConstant anonEnumConst
-      C.DeclOpaque                         -> pure C.DeclOpaque
-      C.DeclMacro macro                    -> C.DeclMacro <$> processMacro macro
-      C.DeclFunction function              -> C.DeclFunction <$> processFunction function
-      C.DeclGlobal global                  -> C.DeclGlobal   <$> processGlobal global
+      C.DeclStruct struct                  -> C.DeclStruct           $ processStruct struct
+      C.DeclUnion union                    -> C.DeclUnion            $ processUnion union
+      C.DeclTypedef typedef                -> C.DeclTypedef          $ processTypedef typedef
+      C.DeclEnum enum                      -> C.DeclEnum             $ processEnum enum
+      C.DeclAnonEnumConstant anonEnumConst -> C.DeclAnonEnumConstant $ processAnonEnumConstant anonEnumConst
+      C.DeclOpaque                         -> C.DeclOpaque
+      C.DeclMacro macro                    -> C.DeclMacro            $ processMacro macro
+      C.DeclFunction function              -> C.DeclFunction         $ processFunction function
+      C.DeclGlobal global                  -> C.DeclGlobal           $ processGlobal global
 
-processStruct ::
-     C.Struct MangleNames
-  -> M (C.Struct AdjustTypes)
-processStruct struct = do
-    fields' <- mapM processStructField struct.fields
-    flam' <- mapM processStructField struct.flam
-    pure C.Struct {
-        fields    = fields'
-      , flam      = flam'
+processStruct :: C.Struct MangleNames -> C.Struct AdjustTypes
+processStruct struct =
+    C.Struct {
+        fields    = map processStructField struct.fields
+      , flam      = processStructField <$> struct.flam
       , sizeof    = struct.sizeof
       , alignment = struct.alignment
       , ann       = struct.ann
       }
 
-processStructField ::
-     C.StructField MangleNames
-  -> M (C.StructField AdjustTypes)
-processStructField field = do
-    typ' <- processType field.typ
-    pure C.StructField {
-        info = coercePass field.info
-      , typ  = typ'
+processStructField :: C.StructField MangleNames -> C.StructField AdjustTypes
+processStructField field =
+    C.StructField {
+        info   = coercePass field.info
+      , typ    = processType field.typ
       , offset = field.offset
-      , width = field.width
-      , ann = field.ann
+      , width  = field.width
+      , ann    = field.ann
       }
 
-processUnion ::
-     C.Union MangleNames
-  -> M (C.Union AdjustTypes)
-processUnion union = do
-    fields' <- mapM processUnionField union.fields
-    pure C.Union {
-        sizeof = union.sizeof
+processUnion :: C.Union MangleNames -> C.Union AdjustTypes
+processUnion union =
+    C.Union {
+        sizeof    = union.sizeof
       , alignment = union.alignment
-      , fields = fields'
-      , ann = union.ann
+      , fields    = map processUnionField union.fields
+      , ann       = union.ann
       }
 
-processUnionField ::
-     C.UnionField MangleNames
-  -> M (C.UnionField AdjustTypes)
-processUnionField field = do
-    typ' <- processType field.typ
-    pure C.UnionField {
+processUnionField :: C.UnionField MangleNames -> C.UnionField AdjustTypes
+processUnionField field =
+    C.UnionField {
         info = coercePass field.info
-      , typ  = typ'
-      , ann = field.ann
+      , typ  = processType field.typ
+      , ann  = field.ann
       }
 
-processTypedef ::
-     C.Typedef MangleNames
-  -> M (C.Typedef AdjustTypes)
-processTypedef typedef = do
-    typ' <- processType typedef.typ
-    pure C.Typedef {
-        typ = typ'
+processTypedef :: C.Typedef MangleNames -> C.Typedef AdjustTypes
+processTypedef typedef =
+    C.Typedef {
+        typ = processType typedef.typ
       , ann = typedef.ann
       }
 
-processEnum ::
-     C.Enum MangleNames
-  -> M (C.Enum AdjustTypes)
-processEnum enum = do
-    typ' <- processType enum.typ
-    constants' <- mapM processEnumConstant enum.constants
-    pure C.Enum {
-        typ = typ'
-      , sizeof = enum.sizeof
+processEnum :: C.Enum MangleNames -> C.Enum AdjustTypes
+processEnum enum =
+    C.Enum {
+        typ       = processType enum.typ
+      , sizeof    = enum.sizeof
       , alignment = enum.alignment
-      , constants = constants'
-      , ann = enum.ann
+      , constants = map processEnumConstant enum.constants
+      , ann       = enum.ann
       }
 
-processEnumConstant ::
-     C.EnumConstant MangleNames
-  -> M (C.EnumConstant AdjustTypes)
-processEnumConstant enumConstant = do
-    pure C.EnumConstant {
-        info = coercePass enumConstant.info
+processEnumConstant :: C.EnumConstant MangleNames -> C.EnumConstant AdjustTypes
+processEnumConstant enumConstant =
+    C.EnumConstant {
+        info  = coercePass enumConstant.info
       , value = enumConstant.value
       }
 
 processAnonEnumConstant ::
      C.AnonEnumConstant MangleNames
-  -> M (C.AnonEnumConstant AdjustTypes)
-processAnonEnumConstant anonEnumConstant = do
-    constant' <- processEnumConstant anonEnumConstant.constant
-    pure C.AnonEnumConstant {
+  -> C.AnonEnumConstant AdjustTypes
+processAnonEnumConstant anonEnumConstant =
+    C.AnonEnumConstant {
         typ = anonEnumConstant.typ
-      , constant = constant'
+      , constant = processEnumConstant anonEnumConstant.constant
       }
 
-processMacro ::
-     MacroBody MangleNames
-  -> M (MacroBody AdjustTypes)
-processMacro macro = do
+processMacro :: MacroBody MangleNames -> MacroBody AdjustTypes
+processMacro macro =
     case macro of
-      MacroType typ -> MacroType <$> processMacroType typ
-      MacroExpr expr -> MacroExpr <$> processMacroExpr expr
+      MacroType typ -> MacroType $ processMacroType typ
+      MacroExpr expr -> MacroExpr $ processMacroExpr expr
 
-processMacroType ::
-     CheckedMacroType MangleNames
-  -> M (CheckedMacroType AdjustTypes)
-processMacroType macroType = do
-    typ' <- processType macroType.typ
-    pure CheckedMacroType {
-        typ = typ'
+processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
+processMacroType macroType =
+    CheckedMacroType {
+        typ = processType macroType.typ
       , ann = macroType.ann
       }
 
-processMacroExpr ::
-     CheckedMacroExpr MangleNames
-  -> M (CheckedMacroExpr AdjustTypes)
-processMacroExpr macroExpr = do
+processMacroExpr :: CheckedMacroExpr MangleNames -> CheckedMacroExpr AdjustTypes
+processMacroExpr macroExpr =
     -- NOTE: currently macro expressions don't support function/array type
     -- parameters, if they do in the future, then we might have to recurse into
     -- the type of the macro expression?
-    pure $ coercePass macroExpr
+    coercePass macroExpr
 
-processFunction ::
-     C.Function MangleNames
-  -> M (C.Function AdjustTypes)
-processFunction function = do
-    args' <- mapM processFunctionArg function.args
-    res' <- processType function.res
-    pure C.Function {
-        args = args'
-      , res = res'
+processFunction :: C.Function MangleNames -> C.Function AdjustTypes
+processFunction function =
+    C.Function {
+        args  = map processFunctionArg function.args
+      , res   = processType function.res
       , attrs = function.attrs
-      , ann = function.ann
+      , ann   = function.ann
       }
 
-processFunctionArg ::
-     C.FunctionArg MangleNames
-  -> M (C.FunctionArg AdjustTypes)
-processFunctionArg functionArg = do
-    argTyp' <- processTypeFunArg functionArg.argTyp
-    pure C.FunctionArg {
+processFunctionArg :: C.FunctionArg MangleNames -> C.FunctionArg AdjustTypes
+processFunctionArg functionArg =
+    C.FunctionArg {
         name = functionArg.name
-      , argTyp = argTyp'
+      , argTyp = processTypeFunArg functionArg.argTyp
       }
 
-processGlobal ::
-     C.Type MangleNames
-  -> M (C.Type AdjustTypes)
-processGlobal global = do
-    processType global
+processGlobal :: C.Global MangleNames -> C.Global AdjustTypes
+processGlobal global = C.Global{
+      typ = processType global.typ
+    , ann = global.ann
+    }
 
 {-------------------------------------------------------------------------------
   Types
@@ -253,54 +190,57 @@ processGlobal global = do
 
 processType ::
      C.Type MangleNames
-  -> M (C.Type AdjustTypes)
+  -> C.Type AdjustTypes
 processType = \case
-    C.TypePrim primTy        -> pure $ C.TypePrim primTy
-    C.TypeComplex primTy     -> pure $ C.TypeComplex primTy
-    C.TypeRef name           -> pure $ C.TypeRef name
-    C.TypeEnum ref           -> C.TypeEnum <$> do
-        underlying' <- processType ref.underlying
-        pure C.Ref {
-            name = ref.name
-          , underlying = underlying'
-          }
-    C.TypeMacro ref          -> C.TypeMacro <$> do
-        underlying' <- processType ref.underlying
-        pure C.Ref {
-            name = ref.name
-          , underlying = underlying'
-          }
-    C.TypeTypedef ref        -> C.TypeTypedef <$> do
-        underlying' <- processType ref.underlying
-        pure C.Ref {
-            name = ref.name
-          , underlying = underlying'
-          }
-    C.TypePointers n ty      -> C.TypePointers n <$> processType ty
-    C.TypeConstArray n ty    -> C.TypeConstArray n <$> processType ty
-    C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> processType ty
-    C.TypeFun args res       -> do
-        args' <- mapM processTypeFunArg args
-        res' <- processType res
-        pure $ C.TypeFun args' res'
-    C.TypeVoid               -> pure C.TypeVoid
-    C.TypeBlock ty           -> C.TypeBlock <$> processType ty
-    C.TypeQual qual ty       -> C.TypeQual qual <$> processType ty
-    C.TypeExtBinding ref     -> C.TypeExtBinding <$> do
-        underlying' <- processType ref.underlying
-        pure C.Ref {
-            name = ref.name
-          , underlying = underlying'
-          }
+    C.TypePrim primTy ->
+      C.TypePrim primTy
+    C.TypeComplex primTy ->
+      C.TypeComplex primTy
+    C.TypeRef name ->
+      C.TypeRef name
+    C.TypeEnum ref ->
+      C.TypeEnum $ C.Ref {
+          name       = ref.name
+        , underlying = processType ref.underlying
+        }
+    C.TypeMacro ref ->
+      C.TypeMacro $ C.Ref {
+          name       = ref.name
+        , underlying = processType ref.underlying
+        }
+    C.TypeTypedef ref ->
+      C.TypeTypedef $ C.Ref {
+          name       = ref.name
+        , underlying = processType ref.underlying
+        }
+    C.TypePointers n ty ->
+      C.TypePointers n      $ processType ty
+    C.TypeConstArray n ty ->
+      C.TypeConstArray n    $ processType ty
+    C.TypeIncompleteArray ty ->
+      C.TypeIncompleteArray $ processType ty
+    C.TypeFun args res ->
+      C.TypeFun (map processTypeFunArg args) (processType res)
+    C.TypeVoid ->
+      C.TypeVoid
+    C.TypeBlock ty ->
+      C.TypeBlock $ processType ty
+    C.TypeQual qual ty ->
+      C.TypeQual qual $ processType ty
+    C.TypeExtBinding ref ->
+      C.TypeExtBinding $ C.Ref {
+          name       = ref.name
+        , underlying = processType ref.underlying
+        }
 
-processTypeFunArg :: C.TypeFunArg MangleNames -> M (C.TypeFunArg AdjustTypes)
-processTypeFunArg arg = do
-    typ' <- processType arg.typ
-    (typ'', ann') <- adjustFunArg typ'
-    pure C.TypeFunArgF {
-        typ = typ''
+processTypeFunArg :: C.TypeFunArg MangleNames -> C.TypeFunArg AdjustTypes
+processTypeFunArg arg =
+    C.TypeFunArgF {
+        typ = typ'
       , ann = ann'
       }
+  where
+    (typ', ann') = adjustFunArg $ processType arg.typ
 
 -- | This is where the actual adjustments take place.
 --
@@ -318,7 +258,7 @@ processTypeFunArg arg = do
 --
 -- The original type before adjustment is recorded in an an 'Ann'otation.
 --
-adjustFunArg :: C.Type AdjustTypes -> M (C.Type AdjustTypes, AdjustedFrom AdjustTypes)
+adjustFunArg :: C.Type AdjustTypes -> (C.Type AdjustTypes, AdjustedFrom AdjustTypes)
 adjustFunArg ty
   | Just cls <- classifyCanonicalTypeArray ty
   , let elemTy = getArrayElementType cls
@@ -328,11 +268,11 @@ adjustFunArg ty
           = C.TypeQual C.QualConst
           | otherwise
           = id
-  = pure (C.TypePointers 1 $ constQual elemTy, AdjustedFromArray ty)
+  = (C.TypePointers 1 $ constQual elemTy, AdjustedFromArray ty)
   | C.isCanonicalTypeFunction ty
-  = pure (C.TypePointers 1 ty, AdjustedFromFunction ty)
+  = (C.TypePointers 1 ty, AdjustedFromFunction ty)
   | otherwise
-  = pure (ty, NotAdjusted)
+  = (ty, NotAdjusted)
 
 -- | An array of known size or unknown size
 data ArrayClassification p =

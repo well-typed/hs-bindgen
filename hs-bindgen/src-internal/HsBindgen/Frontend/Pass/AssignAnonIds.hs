@@ -129,11 +129,12 @@ updateDeclInfo declId' info =
   where
     reconstruct :: Maybe (C.Comment AssignAnonIds) -> C.DeclInfo AssignAnonIds
     reconstruct declComment' = C.DeclInfo{
-          id           = declId'
-        , comment      = declComment'
-        , loc          = info.loc
+          loc          = info.loc
+        , id           = declId'
+        , seqNr        = info.seqNr
         , headerInfo   = info.headerInfo
         , availability = info.availability
+        , comment      = declComment'
         }
 
 {-------------------------------------------------------------------------------
@@ -254,6 +255,16 @@ instance UpdateUseSites C.Typedef where
       reconstruct typedefType' = C.Typedef {
           typ = typedefType'
         , ann = typedef.ann
+        }
+
+instance UpdateUseSites C.Global where
+  updateUseSites global =
+      reconstruct <$> updateUseSites global.typ
+    where
+      reconstruct :: C.Type AssignAnonIds -> C.Global AssignAnonIds
+      reconstruct globalType' = C.Global {
+          typ = globalType'
+        , ann = global.ann
         }
 
 instance UpdateUseSites C.Enum where

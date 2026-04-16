@@ -1,5 +1,5 @@
--- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/program-analysis/program_slicing_simple.h
 -- #include <program-analysis/program_slicing_simple.h>

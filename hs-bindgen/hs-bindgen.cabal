@@ -153,6 +153,9 @@ library internal
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UseDeclGraph
+    HsBindgen.Frontend.Analysis.UseDeclGraph.Construction
+    HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
+    HsBindgen.Frontend.Analysis.UseDeclGraph.Query
     HsBindgen.Frontend.AST.Coerce
     HsBindgen.Frontend.AST.Decl
     HsBindgen.Frontend.AST.Deps
@@ -176,9 +179,6 @@ library internal
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.Final
-    HsBindgen.Frontend.Pass.HandleMacros
-    HsBindgen.Frontend.Pass.HandleMacros.Error
-    HsBindgen.Frontend.Pass.HandleMacros.IsPass
     HsBindgen.Frontend.Pass.MangleNames
     HsBindgen.Frontend.Pass.MangleNames.Error
     HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -197,12 +197,17 @@ library internal
     HsBindgen.Frontend.Pass.Parse.PrelimDeclId
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
     HsBindgen.Frontend.Pass.Select
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
     HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+    HsBindgen.Frontend.Pass.TypecheckMacros
+    HsBindgen.Frontend.Pass.TypecheckMacros.Error
+    HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
     HsBindgen.Frontend.Predicate
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader

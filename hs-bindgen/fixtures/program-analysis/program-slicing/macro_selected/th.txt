@@ -41,6 +41,35 @@
 -- {
 --   return &bar;
 -- }
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macro_selected_t.h 3:9@
+
+    __exported by:__ @program-analysis\/program-slicing\/macro_selected.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 9:9@

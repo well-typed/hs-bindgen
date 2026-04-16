@@ -77,7 +77,7 @@ data TestCase = TestCase {
     , outputDir :: FilePath
 
       -- | Predicate for evaluating the trace messages
-    , tracePredicate :: TracePredicate TraceMsg
+    , tracePredicate :: TracePredicate Level TraceMsg
 
       -- | Does this test have output, or does it fail?
     , outcome :: Outcome
@@ -166,7 +166,7 @@ testVariant filename suffix =
       & #name      %~ (++ ("." ++ suffix))
       & #outputDir %~ (++ ("." ++ suffix))
 
-testTrace :: String -> TracePredicate TraceMsg -> TestCase
+testTrace :: String -> TracePredicate Level TraceMsg -> TestCase
 testTrace filename trace = defaultTest filename & #tracePredicate .~ trace
 
 testTraceSimple ::
@@ -205,7 +205,7 @@ defaultFailingTest filename =
       & #outcome  .~ FailureBindgen
       & #inputDir .~ "examples/golden"
 
-failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
+failingTestTrace :: String -> TracePredicate Level TraceMsg -> TestCase
 failingTestTrace filename trace =
     defaultFailingTest filename
       & #tracePredicate .~ trace
@@ -232,7 +232,7 @@ defaultFailingTestLibclang filename =
       & #outcome  .~ FailureLibclang
       & #inputDir .~ "examples/golden"
 
-failingTestLibclangTrace :: String -> TracePredicate TraceMsg -> TestCase
+failingTestLibclangTrace :: String -> TracePredicate Level TraceMsg -> TestCase
 failingTestLibclangTrace filename trace =
     defaultFailingTestLibclang filename
       & #tracePredicate .~ trace
@@ -284,8 +284,10 @@ withTestTraceConfig ::
   -> TestCase
   -> (TracerConfig Level TraceMsg -> IO a)
   -> IO a
-withTestTraceConfig report test =
-    withTraceConfigPredicate report test.tracePredicate
+withTestTraceConfig report test action =
+    withTraceConfigPredicate report test.tracePredicate $ \traceConfig ->
+      let traceConfig' = traceConfig
+      in  action traceConfig'
 
 -- | Run 'hsBindgen'.
 runTestHsBindgen ::

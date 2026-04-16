@@ -155,10 +155,10 @@ primTypeSign = \case
 --
 -- One might ask: could we not annotate types with their size in the @Parse@
 -- frontend pass instead? Unfortunately, that would not be sufficient. The
--- @HandleMacros@ pass outputs expressions and types involving basic arithmetic
--- types using @language-c@, but @language-c@ does not give us any size
--- information. So, instead we pre-determine the sizes of arithmetic types in
--- the @Boot@ phase, and pass along that information where it is needed: the
+-- @ReparseMacroExpansions@ pass outputs expressions and types involving basic
+-- arithmetic types using @language-c@, but @language-c@ does not give us any
+-- size information. So, instead we pre-determine the sizes of arithmetic types
+-- in the @Boot@ phase, and pass along that information where it is needed: the
 -- backend.
 data Sizeofs = Sizeofs {
       -- * Character types

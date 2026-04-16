@@ -9,24 +9,25 @@ module HsBindgen.TraceMsg (
   , ClangMsg(..)
   , Diagnostic(..)
   , FrontendMsg(..)
-  , HandleMacrosReparseMsg(..)
   , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
   , ImmediateAssignAnonIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
   , CExpr.DSL.MacroParseError(..)
+  , CExpr.DSL.MacroTcError(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
   , SelectMsg(..)
-  , CExpr.DSL.MacroTcError(..)
   -- * Log level customization
   , CustomLogLevelSetting (..)
   , getCustomLogLevel
   ) where
 
-import C.Expr.Parse.Infra qualified as CExpr.DSL
-import C.Expr.Typecheck.Expr qualified as CExpr.DSL
+import Data.List qualified as List
+
+import C.Expr.Parse qualified as CExpr.DSL
+import C.Expr.Typecheck qualified as CExpr.DSL
 
 import Clang.HighLevel.Types (Diagnostic (..))
 
@@ -37,7 +38,6 @@ import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
                                           ImmediateParseMsg (..))
@@ -124,12 +124,13 @@ fromSetting = \case
 
     enableMacroWarnings :: CustomLogLevel Level TraceMsg
     enableMacroWarnings = CustomLogLevel $ \case
-        TraceFrontend (FrontendHandleMacros WithCallStack{traceMsg = HandleMacrosErrorReparse{}})
+        -- Numerous locations may emit macro-related trace messages (e.g.,
+        -- 'Parse', 'TypecheckMacros', 'ReparseMacroExpansions', or 'Select'
+        -- passes), so we fall back to string search.
+        t | "macro" `List.isInfixOf` (getTraceId t).id
           -> const Warning
-        -- Macros parsing requires declarations required for scoping.
+        -- Macro parsing requires declarations required for scoping.
         TraceFrontend (FrontendParse WithCallStack{traceMsg = WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}}})
-          -> const Warning
-        TraceFrontend (FrontendSelect WithCallStack{traceMsg = WithLocationInfo{msg = SelectMacroFailure{}}})
           -> const Warning
         _otherTrace
           -> id

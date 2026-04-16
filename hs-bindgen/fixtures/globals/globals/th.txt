@@ -1,8 +1,8 @@
--- addDependentFile musl-include/x86_64/stdbool.h
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile musl-include/x86_64/complex.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/globals/globals.h
 -- #include <globals/globals.h>
 -- /* test_globalsglobals_Example_get_simpleGlobal */

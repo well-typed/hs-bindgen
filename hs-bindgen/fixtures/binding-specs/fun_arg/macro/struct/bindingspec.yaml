@@ -12,6 +12,9 @@ ctypes:
 - headers: binding-specs/fun_arg/macro/struct.h
   cname: macro B
   hsname: B
+- headers: binding-specs/fun_arg/macro/struct.h
+  cname: macro E
+  hsname: E
 hstypes:
 - hsname: A
   representation:
@@ -45,6 +48,16 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrapE
+  instances:
+  - Generic
+  - HasCField
+  - HasField
 - hsname: MyStruct
   representation:
     record:

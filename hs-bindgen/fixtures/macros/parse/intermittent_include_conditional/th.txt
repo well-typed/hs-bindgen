@@ -1,0 +1,143 @@
+-- addDependentFile examples/golden/macros/parse/intermittent_include_conditional_inner.h
+-- addDependentFile examples/golden/macros/parse/intermittent_include_conditional.h
+{-| __C declaration:__ @T2@
+
+    __defined at:__ @intermittent_include_conditional_inner.h 2:15@
+
+    __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
+-}
+newtype T2
+    = T2 {unwrapT2 :: CFloat}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
+                      Floating,
+                      Fractional,
+                      HasFFIType,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      RealFloat,
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CFloat => HasField "unwrapT2" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT2")
+instance HasCField T2 "unwrapT2"
+    where type CFieldType T2 "unwrapT2" = CFloat
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T4@
+
+    __defined at:__ @intermittent_include_conditional_inner.h 6:16@
+
+    __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
+-}
+newtype T4
+    = T4 {unwrapT4 :: CDouble}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
+                      Floating,
+                      Fractional,
+                      HasFFIType,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      RealFloat,
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CDouble => HasField "unwrapT4" (Ptr T4) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT4")
+instance HasCField T4 "unwrapT4"
+    where type CFieldType T4 "unwrapT4" = CDouble
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @macros\/parse\/intermittent_include_conditional.h 1:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
+-}
+newtype T1
+    = T1 {unwrapT1 :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT1")
+instance HasCField T1 "unwrapT1"
+    where type CFieldType T1 "unwrapT1" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T3@
+
+    __defined at:__ @macros\/parse\/intermittent_include_conditional.h 6:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
+-}
+newtype T3
+    = T3 {unwrapT3 :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT3" (Ptr T3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT3")
+instance HasCField T3 "unwrapT3"
+    where type CFieldType T3 "unwrapT3" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T5@
+
+    __defined at:__ @macros\/parse\/intermittent_include_conditional.h 11:13@
+
+    __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
+-}
+newtype T5
+    = T5 {unwrapT5 :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT5" (Ptr T5) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT5")
+instance HasCField T5 "unwrapT5"
+    where type CFieldType T5 "unwrapT5" = CInt
+          offset# = \_ -> \_ -> 0

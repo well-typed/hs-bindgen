@@ -6,12 +6,12 @@
 
 module C.Expr.Syntax.Expr (
     -- * Expressions
-    MExpr(..)
-  , MFun(..)
-  , MTerm(..)
-    -- * Combinators
-  , mapMExpr
-  , mapMExprF
+    Expr(..)
+  , TyFun(..)
+  , VaFun(..)
+  , ValueLit(..)
+  , Literal(..)
+  , Term(..)
   ) where
 
 import Data.GADT.Compare (GEq (geq))
@@ -28,101 +28,143 @@ import GHC.Generics (Generic)
 import C.Expr.Syntax.Literals
 import C.Expr.Syntax.Name
 import C.Expr.Syntax.TTG
+import C.Expr.Syntax.Type
 import C.Expr.Util.TestEquality
-import Data.Functor.Identity
 
 {-------------------------------------------------------------------------------
   Expressions
 -------------------------------------------------------------------------------}
 
 -- | Macro expression
-type MExpr :: Pass -> Type
-data MExpr p
+--
+-- For examples, see the extensive test suite "Test.CExpr.Parse".
+type Expr :: Pass -> Type
+data Expr p
   -- | A term that is not a function application.
-  = MTerm ( MTerm p )
+  = Term ( Term p )
+  -- | Exactly saturated non-nullary type-level function application.
+  --
+  -- We don't need an extension point here, because we do not need to evaluate
+  -- type functions in Haskell. 'XApp' may be unnecessary if we can remove
+  -- 'FunValue'.
+  | forall n. TyApp             ( TyFun ( S n ) ) ( Vec ( S n ) ( Expr p ) )
   -- | Exactly saturated non-nullary function application.
-  | forall n. MApp !( XApp p ) ( MFun ( S n ) ) ( Vec ( S n ) ( MExpr p ) )
-deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( MExpr p )
+  | forall n. VaApp !( XApp p ) ( VaFun ( S n ) ) ( Vec ( S n ) ( Expr p ) )
+deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( Expr p )
 
-instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MExpr p ) where
-  MTerm m1 == MTerm m2 = m1 == m2
-  MApp x1 f1 args1 == MApp x2 f2 args2
+instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Expr p ) where
+  Term m1 == Term m2 = m1 == m2
+  TyApp f1 args1 == TyApp f2 args2
+    | Just Refl <- f1 `equals1` f2
+    = args1 == args2
+    | otherwise
+    = False
+  VaApp x1 f1 args1 == VaApp x2 f2 args2
     | Just Refl <- f1 `equals1` f2
     = x1 == x2 && args1 == args2
     | otherwise
     = False
   _ == _ = False
-instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MExpr p ) where
-  compare ( MTerm m1 ) ( MTerm m2 ) = compare m1 m2
-  compare ( MApp @_ @n1 x1 f1 args1 ) ( MApp @_ @n2 x2 f2 args2 ) =
+
+instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( Expr p ) where
+  compare ( Term m1 ) ( Term m2 ) = compare m1 m2
+  compare ( TyApp @_ @n1 f1 args1 ) ( TyApp @_ @n2 f2 args2 ) =
+    Vec.withDict args1 $ Vec.withDict args2 $
+    case Nat.eqNat @( S n1 ) @( S n2 ) of
+      Just Refl -> compare f1 f2 <> compare args1 args2
+      Nothing ->
+        compare ( Nat.reflect @( S n1 ) Proxy ) ( Nat.reflect @( S n2 ) Proxy )
+  compare ( VaApp @_ @n1 x1 f1 args1 ) ( VaApp @_ @n2 x2 f2 args2 ) =
     Vec.withDict args1 $ Vec.withDict args2 $
     case Nat.eqNat @( S n1 ) @( S n2 ) of
       Just Refl -> compare f1 f2 <> compare x1 x2 <> compare args1 args2
       Nothing ->
         compare ( Nat.reflect @( S n1 ) Proxy ) ( Nat.reflect @( S n2 ) Proxy )
-  compare (MTerm {}) (MApp {}) = LT
-  compare (MApp {}) (MTerm {}) = GT
+  compare (Term {}) (TyApp {}) = LT
+  compare (Term {}) (VaApp {}) = LT
+  compare (TyApp {}) (Term {}) = GT
+  compare (VaApp {}) (Term {}) = GT
+  compare (TyApp {}) (VaApp {}) = LT
+  compare (VaApp {}) (TyApp {}) = GT
 
 {-------------------------------------------------------------------------------
   Functions
 -------------------------------------------------------------------------------}
 
-data MFun arity where
-  -- | @+@
-  MUnaryPlus  :: MFun ( S Z )
-  -- | @-@
-  MUnaryMinus :: MFun ( S Z )
-  -- | @!@
-  MLogicalNot :: MFun ( S Z )
-  -- | @~@
-  MBitwiseNot :: MFun ( S Z )
-  -- | @*@
-  MMult       :: MFun ( S ( S Z ) )
-  -- | @/@
-  MDiv        :: MFun ( S ( S Z ) )
-  -- | @%@
-  MRem        :: MFun ( S ( S Z ) )
-  -- | @+@
-  MAdd        :: MFun ( S ( S Z ) )
-  -- | @-@
-  MSub        :: MFun ( S ( S Z ) )
-  -- | @<<@
-  MShiftLeft  :: MFun ( S ( S Z ) )
-  -- | @>>@
-  MShiftRight :: MFun ( S ( S Z ) )
-  -- | @<@
-  MRelLT      :: MFun ( S ( S Z ) )
-  -- | @<=@
-  MRelLE      :: MFun ( S ( S Z ) )
-  -- | @>@
-  MRelGT      :: MFun ( S ( S Z ) )
-  -- | @>=@
-  MRelGE      :: MFun ( S ( S Z ) )
-  -- | @==@
-  MRelEQ      :: MFun ( S ( S Z ) )
-  -- | @!=@
-  MRelNE      :: MFun ( S ( S Z ) )
-  -- | @&@
-  MBitwiseAnd :: MFun ( S ( S Z ) )
-  -- | @^@
-  MBitwiseXor :: MFun ( S ( S Z ) )
-  -- | @|@
-  MBitwiseOr  :: MFun ( S ( S Z ) )
-  -- | @&&@
-  MLogicalAnd :: MFun ( S ( S Z ) )
-  -- | @||@
-  MLogicalOr  :: MFun ( S ( S Z ) )
-  -- | Tuples
-  MTuple      :: SNatI n => MFun ( S ( S n ) )
+data TyFun arity where
+  -- | Pointer
+  Pointer :: TyFun ( S Z )
+  -- | Const
+  Const   :: TyFun ( S Z )
 
-  -- NB: make sure to update 'instance GEq MFun'
+  -- NB: make sure to update 'instance GEq TyFun'
   -- when adding a new constructor.
 
-deriving stock instance Show ( MFun arity )
-deriving stock instance Eq   ( MFun arity )
-deriving stock instance Ord  ( MFun arity )
+deriving stock instance Show ( TyFun arity )
+deriving stock instance Eq   ( TyFun arity )
+deriving stock instance Ord  ( TyFun arity )
 
-instance GEq MFun where
+instance GEq TyFun where
+  geq Pointer Pointer = Just Refl
+  geq Const   Const   = Just Refl
+  geq _        _        = Nothing
+
+data VaFun arity where
+  -- | @+@
+  MUnaryPlus  :: VaFun ( S Z )
+  -- | @-@
+  MUnaryMinus :: VaFun ( S Z )
+  -- | @!@
+  MLogicalNot :: VaFun ( S Z )
+  -- | @~@
+  MBitwiseNot :: VaFun ( S Z )
+  -- | @*@
+  MMult       :: VaFun ( S ( S Z ) )
+  -- | @/@
+  MDiv        :: VaFun ( S ( S Z ) )
+  -- | @%@
+  MRem        :: VaFun ( S ( S Z ) )
+  -- | @+@
+  MAdd        :: VaFun ( S ( S Z ) )
+  -- | @-@
+  MSub        :: VaFun ( S ( S Z ) )
+  -- | @<<@
+  MShiftLeft  :: VaFun ( S ( S Z ) )
+  -- | @>>@
+  MShiftRight :: VaFun ( S ( S Z ) )
+  -- | @<@
+  MRelLT      :: VaFun ( S ( S Z ) )
+  -- | @<=@
+  MRelLE      :: VaFun ( S ( S Z ) )
+  -- | @>@
+  MRelGT      :: VaFun ( S ( S Z ) )
+  -- | @>=@
+  MRelGE      :: VaFun ( S ( S Z ) )
+  -- | @==@
+  MRelEQ      :: VaFun ( S ( S Z ) )
+  -- | @!=@
+  MRelNE      :: VaFun ( S ( S Z ) )
+  -- | @&@
+  MBitwiseAnd :: VaFun ( S ( S Z ) )
+  -- | @^@
+  MBitwiseXor :: VaFun ( S ( S Z ) )
+  -- | @|@
+  MBitwiseOr  :: VaFun ( S ( S Z ) )
+  -- | @&&@
+  MLogicalAnd :: VaFun ( S ( S Z ) )
+  -- | @||@
+  MLogicalOr  :: VaFun ( S ( S Z ) )
+  -- | Tuples
+  MTuple      :: SNatI n => VaFun ( S ( S n ) )
+
+  -- NB: make sure to update 'instance GEq TyFun'
+  -- when adding a new constructor.
+
+deriving stock instance Show ( VaFun arity )
+deriving stock instance Eq   ( VaFun arity )
+deriving stock instance Ord  ( VaFun arity )
+
+instance GEq VaFun where
   geq MUnaryPlus  MUnaryPlus  = Just Refl
   geq MUnaryMinus MUnaryMinus = Just Refl
   geq MLogicalNot MLogicalNot = Just Refl
@@ -154,72 +196,34 @@ instance GEq MFun where
   Terms
 -------------------------------------------------------------------------------}
 
-type MTerm :: Pass -> Type
-data MTerm p =
-
+-- | Value literal
+data ValueLit =
     -- | Integer literal
-    MInt IntegerLiteral
-
+    ValueInt IntegerLiteral
     -- | Floating-point literal
-  | MFloat FloatingLiteral
-
+  | ValueFloat FloatingLiteral
     -- | Character literal
-  | MChar CharLiteral
-
+  | ValueChar CharLiteral
     -- | String literal
-  | MString StringLiteral
+  | ValueString StringLiteral
+  deriving stock (Eq, Ord, Show)
+
+type Literal :: Type
+data Literal =
+    TypeLit TypeLit
+  | ValueLit ValueLit
+  deriving stock (Eq, Ord, Show)
+
+type Term :: Pass -> Type
+data Term p =
+    -- | Literal (i.e., constant) type or value
+    Literal Literal
 
     -- | Variable or function/macro call
     --
     -- This might be a macro argument, or another macro.
-  | MVar ( XVar p ) Name [MExpr p]
+  | Var ( XVar p ) Name [Expr p]
   deriving stock Generic
-deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MTerm p )
-deriving stock instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MTerm p )
-deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( MTerm p )
-
-{-------------------------------------------------------------------------------
-  Mapping
--------------------------------------------------------------------------------}
-
-mapMExpr :: forall p p'.
-     (XApp p -> XApp p')
-  -> (XVar p -> Name -> XVar p')
-  -> MExpr p -> MExpr p'
-mapMExpr fApp fVar =
-      runIdentity
-    . mapMExprF
-        (\xApp      -> Identity $ fApp xApp)
-        (\xVar name -> Identity $ fVar xVar name)
-
-mapMExprF :: forall f p p'.
-     Applicative f
-  => (XApp p -> f (XApp p'))
-  -> (XVar p -> Name -> f (XVar p'))
-  -> MExpr p -> f (MExpr p')
-mapMExprF fApp fVar =
-    goExpr
-  where
-    goExpr :: MExpr p -> f (MExpr p')
-    goExpr = \case
-        MTerm term ->
-          MTerm <$> goTerm term
-        MApp xApp fun args ->
-          MApp <$> fApp xApp <*> pure fun <*> traverse goExpr args
-
-    goTerm ::
-         MTerm p
-      -> f (MTerm p')
-    goTerm = \case
-        -- Only interesting case: variables
-        MVar xVar name args ->
-          pure MVar
-            <*> fVar xVar name
-            <*> pure name
-            <*> traverse goExpr args
-
-        -- Trivial cases: literals
-        MInt    x -> pure $ MInt    x
-        MFloat  x -> pure $ MFloat  x
-        MChar   x -> pure $ MChar   x
-        MString x -> pure $ MString x
+deriving stock instance ( Eq   ( XApp p ), Eq   ( XVar p ) ) => Eq   ( Term p )
+deriving stock instance ( Ord  ( XApp p ), Ord  ( XVar p ) ) => Ord  ( Term p )
+deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Term p )

@@ -9,6 +9,7 @@ module Data.DynGraph.Labelled (
   , insertEdge
     -- * Query
   , vertices
+  , hasVertex
   , reaches
   , neighbors
   , topSort
@@ -59,6 +60,9 @@ import Data.Set qualified as Set
 import Data.Tree (Tree)
 import Data.Tree qualified as Tree
 import GHC.Generics (Generic)
+
+import HsBindgen.Errors
+import HsBindgen.Imports (HasCallStack)
 
 {-------------------------------------------------------------------------------
   Type
@@ -120,18 +124,29 @@ insertVertex v = snd . insertVertex' v
 
 -- | Insert an edge
 --
--- This function inserts vertices automatically.
+-- Assume that vertices are in the graph.
+--
+-- Panic if vertices are not in the graph.
 --
 -- The graph is not changed if the edge already exists.
-insertEdge :: (Ord a, Ord l) => a -> l -> a -> DynGraph l a -> DynGraph l a
-insertEdge vFrom l vTo graph0 =
-    let (vFromIdx, graph1) = insertVertex' vFrom graph0
-        (vToIdx,   graph2) = insertVertex' vTo   graph1
-    in  graph2 {
-            edges =
-              IntMap.insertWith (<>) vFromIdx (Set.singleton (vToIdx, l)) $
-                graph2.edges
-          }
+insertEdge ::
+     (Ord a, Ord l, Show a, HasCallStack)
+  => a -> l -> a -> DynGraph l a -> DynGraph l a
+insertEdge vFrom l vTo graph =
+    graph {
+        edges =
+          IntMap.insertWith (<>) vFromIdx (Set.singleton (vToIdx, l)) $
+            graph.edges
+      }
+  where
+    vFromIdx, vToIdx :: Int
+    vFromIdx = fromMaybe (panicWith "Source" vFrom) $ lookupVertex vFrom graph
+    vToIdx   = fromMaybe (panicWith "Target" vTo  ) $ lookupVertex vTo   graph
+
+    panicWith :: Show a => String -> a -> b
+    panicWith which vertex =
+      panicPure $ which <> " vertex " <> show vertex <> " not in the graph"
+
 
 {-------------------------------------------------------------------------------
   Query
@@ -140,6 +155,14 @@ insertEdge vFrom l vTo graph0 =
 -- | Gets the vertices in the graph
 vertices :: DynGraph l a -> [a]
 vertices graph = Map.keys graph.vtxMap
+
+-- | Check whether a vertex exists in the graph
+hasVertex :: Ord a => a -> DynGraph l a -> Bool
+hasVertex v graph = Map.member v graph.vtxMap
+
+-- | Get the index of a vertex, if any
+lookupVertex :: Ord a => a -> DynGraph l a -> Maybe Int
+lookupVertex v graph = Map.lookup v graph.vtxMap
 
 -- | Gets the set of vertices that are reachable from any of the specified
 -- vertices
@@ -515,8 +538,18 @@ reaches' edgeMap = aux Map.empty
           maybe [] (map fst . Set.toList) (IntMap.lookup idx edgeMap) ++ idxs
 
 -- | Gets a topological sort of the graph
+--
+-- Among vertices with no dependency between them, the sort preserves insertion
+-- order (earlier-inserted vertices appear first).
 topSort' :: DynGraph l a -> [Int]
-topSort' = List.reverse . postorderForest . dff'
+topSort' graph =
+    List.reverse . postorderForest $
+      dfs' graph $
+        -- To preserve insertion order we iterate vertices in reverse insertion
+        -- order during the DFS. Earlier inserted vertices are visited later,
+        -- receive higher postorder numbers, and therefore appear earlier after
+        -- the final reversal.
+        List.reverse $ IntMap.keys graph.idxMap
 
 -- | Gets the spanning forest of the graph obtained from a depth-first search of
 -- the graph starting from each vertex index in insertion order

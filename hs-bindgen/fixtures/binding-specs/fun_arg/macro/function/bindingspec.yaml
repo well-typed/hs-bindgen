@@ -12,6 +12,9 @@ ctypes:
 - headers: binding-specs/fun_arg/macro/function.h
   cname: macro B
   hsname: B
+- headers: binding-specs/fun_arg/macro/function.h
+  cname: macro E
+  hsname: E
 hstypes:
 - hsname: A
   representation:
@@ -34,6 +37,16 @@ hstypes:
   - Generic
   - HasCField
   - HasFFIType
+  - HasField
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrapE
+  instances:
+  - Generic
+  - HasCField
   - HasField
 - hsname: MyFunction
   representation:
