@@ -48,5 +48,7 @@ determinePPStatus tc
         "arrays/array"
       , "edge-cases/adios"
       , "attributes/visibility_attributes"
+      , "attributes/visibility/functions"
+      , "attributes/visibility/variables"
       , "declarations/tentative_definitions"
       ]

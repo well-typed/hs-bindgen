@@ -280,11 +280,11 @@ jobs:
       - name: "[test] Test all"
         run: cabal test -j1 all --test-show-details=direct
         env:
-          # Skip TH fixture tests: the musl x86_64 headers shipped in
-          # musl-include/ are Linux-specific, so GHC's C compiler cannot
-          # use them on Windows.
-          TASTY_PATTERN: "!/th-fixtures/"
-          # Prevent MSYS/Git Bash from converting /th-fixtures/ to a
+          # Skip TH and PP fixture tests: the musl x86_64 headers
+          # shipped in musl-include/ are Linux-specific, so GHC's C
+          # compiler cannot use them on Windows.
+          TASTY_PATTERN: "!/th-fixtures/ && !/pp-fixtures/"
+          # Prevent MSYS/Git Bash from converting the pattern to a
           # Windows path.
           MSYS_NO_PATHCONV: 1
 

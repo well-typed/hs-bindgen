@@ -21,7 +21,7 @@ requiredExtensions fieldNaming = \case
       ]
     DInst inst -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length inst.args >= 2]
-      , [ext TH.FlexibleInstances     | any (not . isFlatInstanceArg) inst.args]
+      , [ext TH.FlexibleInstances     | not (all isFlatInstanceArg inst.args)]
       , [ext TH.TypeFamilies          | not (null inst.types)]
       , [typeClassExtensions inst.clss]
       , map typeExtensions inst.args

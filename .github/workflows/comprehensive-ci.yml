@@ -69,12 +69,15 @@ jobs:
       run: cabal build all
 
     - name: 🧪 Test
-      run: cabal test all --test-show-details=direct
-      env:
-        # On non-Linux, skip TH fixture tests: the musl x86_64 headers
-        # shipped in musl-include/ are Linux-specific, so GHC's C compiler
-        # cannot use them on macOS or Windows.
-        TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
+      # On non-Linux, skip fixture compilation tests: the musl x86_64
+      # headers shipped in musl-include/ are Linux-specific, so GHC's
+      # C compiler cannot use them on macOS or Windows.
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          export TASTY_PATTERN='!/th-fixtures/ && !/pp-fixtures/'
+        fi
+        cabal test all --test-show-details=direct
 
     - name: 🧪 Build manual (macOS)
       if: runner.os == 'macOS'
@@ -132,15 +135,17 @@ jobs:
       run: cabal build all
 
     - name: 🧪 Test
-      run: cabal test -j1 all --test-show-details=direct
+      # Skip fixture compilation tests: the musl x86_64 headers shipped
+      # in musl-include/ are Linux-specific, so GHC's C compiler cannot
+      # use them on Windows.
+      shell: bash
       env:
-        # Skip TH fixture tests: the musl x86_64 headers shipped in
-        # musl-include/ are Linux-specific, so GHC's C compiler cannot
-        # use them on Windows.
-        TASTY_PATTERN: "!/th-fixtures/"
         # Prevent MSYS/Git Bash from converting /th-fixtures/ to a
         # Windows path.
         MSYS_NO_PATHCONV: 1
+      run: |
+        export TASTY_PATTERN='!/th-fixtures/ && !/pp-fixtures/'
+        cabal test -j1 all --test-show-details=direct
 
     - name: 🧪 Configure manual
       # Add manual library directory to PATH so that the DLLs are found.
