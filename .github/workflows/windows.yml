@@ -235,13 +235,13 @@ jobs:
       - name: "[setup] Generate Cabal plan"
         run: cabal build all --dry-run
 
-      - name: "[manual] Configure manual"
+      - name: "[setup] Configure manual"
         working-directory: ${{ env.manual-dir }}
         run: |
           cat hs/cabal.project.ci | tee hs/cabal.project
           ./configure.sh
 
-      - name: "[manual] Generate Cabal plan"
+      - name: "[setup] Generate manual Cabal plan"
         working-directory: ${{ env.manual-hs-dir }}
         run: cabal build all --dry-run
 
@@ -266,11 +266,11 @@ jobs:
       - name: "[build] Build dependencies"
         run: cabal build all --only-dependencies
 
-      - name: "[manual] Build dependencies"
+      - name: "[build] Build dependencies"
         working-directory: ${{ env.manual-hs-dir }}
         run: cabal build all --only-dependencies
 
-      - name: "[setup] Save cache"
+      - name: "[build] Save cache"
         if: ${{ (github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true') && (steps.restore-cache.outputs.cache-hit != 'true') }}
         uses: actions/cache/save@v5
         with:
