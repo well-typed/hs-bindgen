@@ -627,7 +627,7 @@ instance CEnum.CEnum AnonEnum where
 
   toCEnum = AnonEnum
 
-  fromCEnum = unwrapAnonEnum
+  fromCEnum = RIP.getField @"unwrapAnonEnum"
 
   declaredValues =
     \_ ->
@@ -735,7 +735,7 @@ instance CEnum.CEnum AnonEnumCoords where
 
   toCEnum = AnonEnumCoords
 
-  fromCEnum = unwrapAnonEnumCoords
+  fromCEnum = RIP.getField @"unwrapAnonEnumCoords"
 
   declaredValues =
     \_ ->

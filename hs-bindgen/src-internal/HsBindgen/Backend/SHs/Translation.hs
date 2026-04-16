@@ -23,7 +23,6 @@ import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
-import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
@@ -108,8 +107,8 @@ translateDefineInstanceDecl defInst =
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
-      Hs.InstanceCEnum struct fTyp vMap isSequential fieldNamingStrategy ->
-        DInst $ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy defInst.comment
+      Hs.InstanceCEnum struct fTyp vMap isSequential ->
+        DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
       Hs.InstanceSequentialCEnum struct nameMin nameMax ->
         DInst $ translateSequentialCEnum struct nameMin nameMax defInst.comment
       Hs.InstanceCEnumShow struct ->
@@ -620,10 +619,9 @@ translateCEnumInstance ::
   -> HsType
   -> Map Integer (NonEmpty String)
   -> Bool
-  -> FieldNamingStrategy
   -> Maybe HsDoc.Comment
   -> Instance
-translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComment = Instance {
+translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
       clss    = Inst.CEnum
     , args    = [tcon]
     , super   = []
@@ -647,17 +645,11 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
     fname :: Hs.Name Hs.NsVar
     fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
 
-    -- When using OmitFieldPrefixes, many newtypes will have fields named "unwrap",
-    -- which makes the bare identifier "unwrap" ambiguous. We use getField with
-    -- type application only in that case. Otherwise, we use the bare field name
-    -- directly since it's unique (e.g., unwrapE, unwrapValue).
+    fnameStr :: String
+    fnameStr = T.unpack $ Hs.getName fname
+
     fromCEnumE :: ClosedExpr
-    fromCEnumE =
-      case fieldNamingStrategy of
-        OmitFieldPrefixes ->
-          eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit "unwrap")
-        AddFieldPrefixes ->
-          EFree fname
+    fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit fnameStr)
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [

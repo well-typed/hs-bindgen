@@ -1157,7 +1157,7 @@ deriving via CUInt instance Prim Processor_mode
 instance CEnum Processor_mode
     where type CEnumZ Processor_mode = CUInt
           toCEnum = Processor_mode
-          fromCEnum = unwrapProcessor_mode
+          fromCEnum = getField @"unwrapProcessor_mode"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "MODE_SIMPLE"),
                                                          (1, singleton "MODE_VALIDATED"),

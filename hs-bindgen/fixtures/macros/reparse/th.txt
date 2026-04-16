@@ -2592,7 +2592,7 @@ deriving via CUInt instance Prim Some_enum
 instance CEnum Some_enum
     where type CEnumZ Some_enum = CUInt
           toCEnum = Some_enum
-          fromCEnum = unwrapSome_enum
+          fromCEnum = getField @"unwrapSome_enum"
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "ENUM_A")]
           showsUndeclared = showsWrappedUndeclared "Some_enum"

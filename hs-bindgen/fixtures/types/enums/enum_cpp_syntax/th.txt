@@ -25,7 +25,7 @@ deriving via HsBindgen.Runtime.LibC.Word32 instance Prim Foo_enum
 instance CEnum Foo_enum
     where type CEnumZ Foo_enum = HsBindgen.Runtime.LibC.Word32
           toCEnum = Foo_enum
-          fromCEnum = unwrapFoo_enum
+          fromCEnum = getField @"unwrapFoo_enum"
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
                                                          (1, singleton "B"),
                                                          (2, singleton "C")]

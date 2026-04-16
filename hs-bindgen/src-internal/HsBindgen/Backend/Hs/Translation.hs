@@ -180,7 +180,7 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclUnion union -> withCategoryM CType $
         State.immediateM $ unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        State.immediateM $ enumDecs supInsts.enum fns haddockConfig info enum spec
+        State.immediateM $ enumDecs supInsts.enum haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
@@ -260,13 +260,12 @@ opaqueDecs haddockConfig info spec = do
 
 enumDecs ::
      Map Inst.TypeClass Inst.SupportedStrategies
-  -> FieldNamingStrategy
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
+enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
   where
     valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
     valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
@@ -420,7 +419,6 @@ enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
                       nt.field.typ
                       valueNames
                       (isJust mSeqBounds)
-                      fns
                 }
               cEnumShowDecl = Hs.DeclDefineInstance Hs.DefineInstance{
                   comment      = Nothing

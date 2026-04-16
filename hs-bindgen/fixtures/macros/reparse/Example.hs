@@ -210,7 +210,7 @@ instance CEnum.CEnum Some_enum where
 
   toCEnum = Some_enum
 
-  fromCEnum = unwrapSome_enum
+  fromCEnum = RIP.getField @"unwrapSome_enum"
 
   declaredValues =
     \_ ->

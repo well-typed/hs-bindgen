@@ -195,7 +195,7 @@ instance CEnum.CEnum Color_enum where
 
   toCEnum = Color_enum
 
-  fromCEnum = unwrapColor_enum
+  fromCEnum = RIP.getField @"unwrapColor_enum"
 
   declaredValues =
     \_ ->
@@ -603,7 +603,7 @@ instance CEnum.CEnum Status_code_t where
 
   toCEnum = Status_code_t
 
-  fromCEnum = unwrapStatus_code_t
+  fromCEnum = RIP.getField @"unwrapStatus_code_t"
 
   declaredValues =
     \_ ->
