@@ -81,6 +81,11 @@ commonFixtureStatus tc
   -- Tests with external binding specs not yet supported
   | "binding-specs/fun_arg/" `isPrefixOf` tc.name
       = Just $ FixtureSkip "External binding specs not yet supported (issue #1495)"
+  -- Trans-dep fixtures deliberately reference a missing module to
+  -- exercise the helpful compile-error path; they are not meant to
+  -- compile.
+  | "binding-specs/trans_dep/" `isPrefixOf` tc.name
+      = Just $ FixtureSkip "Generated bindings reference intentionally-missing module"
   -- Apple block extension requires clang
   | tc.name == "edge-cases/iterator"
       = Just $ FixtureSkip "Apple block extension requires clang (issue #913)"
@@ -127,8 +132,7 @@ commonFixtureStatus tc
 --
 commonKnownEmpty :: [String]
 commonKnownEmpty = [
-    "binding-specs/macro_trans_dep_missing"
-  , "declarations/declaration_unselected_b"
+    "declarations/declaration_unselected_b"
   , "declarations/name_collision"
   , "declarations/redeclaration_different"
   , "edge-cases/clang_generated_collision"
