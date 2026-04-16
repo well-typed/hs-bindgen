@@ -436,7 +436,6 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.Check.TH
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Macros
-    Test.HsBindgen.Golden.Manual
     Test.HsBindgen.Golden.ProgramAnalysis
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
