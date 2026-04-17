@@ -82,7 +82,7 @@ newtype Size_t = Size_t
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unwrapSize_t" (RIP.Ptr Size_t) (RIP.Ptr ty) where
 
   getField =

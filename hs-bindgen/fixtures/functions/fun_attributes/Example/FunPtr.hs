@@ -296,7 +296,7 @@ foreign import ccall unsafe "hs_bindgen_4021d3c6eae30c8c" hs_bindgen_4021d3c6eae
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_realloc@
-hs_bindgen_4021d3c6eae30c8c :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_4021d3c6eae30c8c :: IO (RIP.FunPtr (RIP.Ptr RIP.Void -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_4021d3c6eae30c8c =
   RIP.fromFFIType hs_bindgen_4021d3c6eae30c8c_base
 
@@ -307,7 +307,7 @@ hs_bindgen_4021d3c6eae30c8c =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_realloc :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void))
+my_realloc :: RIP.FunPtr (RIP.Ptr RIP.Void -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_realloc =
   RIP.unsafePerformIO hs_bindgen_4021d3c6eae30c8c
 
@@ -396,7 +396,7 @@ foreign import ccall unsafe "hs_bindgen_f95f43d50ed8f2b4" hs_bindgen_f95f43d50ed
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext@
-hs_bindgen_f95f43d50ed8f2b4 :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_f95f43d50ed8f2b4 :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> PtrConst.PtrConst RIP.CChar -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_f95f43d50ed8f2b4 =
   RIP.fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
 
@@ -407,7 +407,7 @@ hs_bindgen_f95f43d50ed8f2b4 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_dgettext :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr RIP.CChar))
+my_dgettext :: RIP.FunPtr (RIP.Ptr RIP.CChar -> PtrConst.PtrConst RIP.CChar -> IO (RIP.Ptr RIP.CChar))
 my_dgettext =
   RIP.unsafePerformIO hs_bindgen_f95f43d50ed8f2b4
 
@@ -416,7 +416,7 @@ foreign import ccall unsafe "hs_bindgen_986260288574592d" hs_bindgen_98626028857
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fdopen@
-hs_bindgen_986260288574592d :: IO (RIP.FunPtr (RIP.CInt -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr FILE)))
+hs_bindgen_986260288574592d :: IO (RIP.FunPtr (RIP.CInt -> PtrConst.PtrConst RIP.CChar -> IO (RIP.Ptr FILE)))
 hs_bindgen_986260288574592d =
   RIP.fromFFIType hs_bindgen_986260288574592d_base
 
@@ -427,7 +427,7 @@ hs_bindgen_986260288574592d =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen :: RIP.FunPtr (RIP.CInt -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr FILE))
+fdopen :: RIP.FunPtr (RIP.CInt -> PtrConst.PtrConst RIP.CChar -> IO (RIP.Ptr FILE))
 fdopen =
   RIP.unsafePerformIO hs_bindgen_986260288574592d
 
@@ -455,7 +455,7 @@ foreign import ccall unsafe "hs_bindgen_481e3a75205c85f2" hs_bindgen_481e3a75205
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy@
-hs_bindgen_481e3a75205c85f2 :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_481e3a75205c85f2 :: IO (RIP.FunPtr (RIP.Ptr RIP.Void -> PtrConst.PtrConst RIP.Void -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_481e3a75205c85f2 =
   RIP.fromFFIType hs_bindgen_481e3a75205c85f2_base
 
@@ -466,7 +466,7 @@ hs_bindgen_481e3a75205c85f2 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memcpy :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void))
+my_memcpy :: RIP.FunPtr (RIP.Ptr RIP.Void -> PtrConst.PtrConst RIP.Void -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_memcpy =
   RIP.unsafePerformIO hs_bindgen_481e3a75205c85f2
 
@@ -495,7 +495,7 @@ foreign import ccall unsafe "hs_bindgen_196cbfce2a9df94f" hs_bindgen_196cbfce2a9
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_hash@
-hs_bindgen_196cbfce2a9df94f :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt))
+hs_bindgen_196cbfce2a9df94f :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> IO RIP.CInt))
 hs_bindgen_196cbfce2a9df94f =
   RIP.fromFFIType hs_bindgen_196cbfce2a9df94f_base
 
@@ -506,7 +506,7 @@ hs_bindgen_196cbfce2a9df94f =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-hash :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt)
+hash :: RIP.FunPtr (RIP.Ptr RIP.CChar -> IO RIP.CInt)
 hash =
   RIP.unsafePerformIO hs_bindgen_196cbfce2a9df94f
 

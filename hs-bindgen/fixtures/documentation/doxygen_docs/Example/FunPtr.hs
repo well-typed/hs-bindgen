@@ -233,7 +233,7 @@ foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f2
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
-hs_bindgen_4a5cd66a4f26f8d5 :: IO (RIP.FunPtr ((PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.CSize) -> IO RIP.CInt))
+hs_bindgen_4a5cd66a4f26f8d5 :: IO (RIP.FunPtr (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> RIP.Ptr HsBindgen.Runtime.LibC.Word8 -> RIP.Ptr HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt))
 hs_bindgen_4a5cd66a4f26f8d5 =
   RIP.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 
@@ -256,7 +256,7 @@ hs_bindgen_4a5cd66a4f26f8d5 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: RIP.FunPtr ((PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.CSize) -> IO RIP.CInt)
+process_data :: RIP.FunPtr (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> RIP.Ptr HsBindgen.Runtime.LibC.Word8 -> RIP.Ptr HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
 process_data =
   RIP.unsafePerformIO hs_bindgen_4a5cd66a4f26f8d5
 
@@ -265,7 +265,7 @@ foreign import ccall unsafe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f1
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
-hs_bindgen_c8a059c65f18fea9 :: IO (RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CBool))
+hs_bindgen_c8a059c65f18fea9 :: IO (RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> IO RIP.CBool))
 hs_bindgen_c8a059c65f18fea9 =
   RIP.fromFFIType hs_bindgen_c8a059c65f18fea9_base
 
@@ -284,7 +284,7 @@ hs_bindgen_c8a059c65f18fea9 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_file :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CBool)
+process_file :: RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> IO RIP.CBool)
 process_file =
   RIP.unsafePerformIO hs_bindgen_c8a059c65f18fea9
 
@@ -368,7 +368,7 @@ foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627d
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
-hs_bindgen_2175b3c627db39cf :: IO (RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool))
+hs_bindgen_2175b3c627db39cf :: IO (RIP.FunPtr (RIP.Ptr (PtrConst.PtrConst RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool))
 hs_bindgen_2175b3c627db39cf =
   RIP.fromFFIType hs_bindgen_2175b3c627db39cf_base
 
@@ -413,7 +413,7 @@ hs_bindgen_2175b3c627db39cf =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-list_example :: RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool)
+list_example :: RIP.FunPtr (RIP.Ptr (PtrConst.PtrConst RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool)
 list_example =
   RIP.unsafePerformIO hs_bindgen_2175b3c627db39cf
 
@@ -422,7 +422,7 @@ foreign import ccall unsafe "hs_bindgen_b7a4debd18827a19" hs_bindgen_b7a4debd188
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
-hs_bindgen_b7a4debd18827a19 :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_b7a4debd18827a19 :: IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_b7a4debd18827a19 =
   RIP.fromFFIType hs_bindgen_b7a4debd18827a19_base
 
@@ -445,7 +445,7 @@ hs_bindgen_b7a4debd18827a19 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-dangerous_function :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO (RIP.Ptr RIP.Void))
+dangerous_function :: RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.Void))
 dangerous_function =
   RIP.unsafePerformIO hs_bindgen_b7a4debd18827a19
 
@@ -454,7 +454,7 @@ foreign import ccall unsafe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82e
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
-hs_bindgen_9700b22f82eedafe :: IO (RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CInt))
+hs_bindgen_9700b22f82eedafe :: IO (RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> IO RIP.CInt))
 hs_bindgen_9700b22f82eedafe =
   RIP.fromFFIType hs_bindgen_9700b22f82eedafe_base
 
@@ -477,7 +477,7 @@ hs_bindgen_9700b22f82eedafe =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-detailed_return_codes :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CInt)
+detailed_return_codes :: RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> IO RIP.CInt)
 detailed_return_codes =
   RIP.unsafePerformIO hs_bindgen_9700b22f82eedafe
 
@@ -544,7 +544,7 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
-hs_bindgen_f4ccc6d90e8d3ebd :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt))
+hs_bindgen_f4ccc6d90e8d3ebd :: IO (RIP.FunPtr (RIP.Ptr (IsA.Elem (CA.ConstantArray 64 RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt))
 hs_bindgen_f4ccc6d90e8d3ebd =
   RIP.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
@@ -563,7 +563,7 @@ hs_bindgen_f4ccc6d90e8d3ebd =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
+process_buffer :: RIP.FunPtr (RIP.Ptr (IsA.Elem (CA.ConstantArray 64 RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
 process_buffer =
   RIP.unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 
@@ -572,7 +572,7 @@ foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c90
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
-hs_bindgen_6a74d376c901b531 :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_6a74d376c901b531 :: IO (RIP.FunPtr (RIP.Ptr RIP.Void -> PtrConst.PtrConst RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_6a74d376c901b531 =
   RIP.fromFFIType hs_bindgen_6a74d376c901b531_base
 
@@ -593,7 +593,7 @@ hs_bindgen_6a74d376c901b531 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-my_memcpy :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO (RIP.Ptr RIP.Void))
+my_memcpy :: RIP.FunPtr (RIP.Ptr RIP.Void -> PtrConst.PtrConst RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO (RIP.Ptr RIP.Void))
 my_memcpy =
   RIP.unsafePerformIO hs_bindgen_6a74d376c901b531
 
@@ -628,7 +628,7 @@ foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
-hs_bindgen_dfa39b6be50cb2ca :: IO (RIP.FunPtr ((RIP.Ptr Config_t) -> (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t))
+hs_bindgen_dfa39b6be50cb2ca :: IO (RIP.FunPtr (RIP.Ptr Config_t -> PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t))
 hs_bindgen_dfa39b6be50cb2ca =
   RIP.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 
@@ -702,7 +702,7 @@ hs_bindgen_dfa39b6be50cb2ca =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-complex_function :: RIP.FunPtr ((RIP.Ptr Config_t) -> (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
+complex_function :: RIP.FunPtr (RIP.Ptr Config_t -> PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
 complex_function =
   RIP.unsafePerformIO hs_bindgen_dfa39b6be50cb2ca
 
@@ -711,7 +711,7 @@ foreign import ccall unsafe "hs_bindgen_8ad88b79fd71f9d4" hs_bindgen_8ad88b79fd7
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_hash@
-hs_bindgen_8ad88b79fd71f9d4 :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt))
+hs_bindgen_8ad88b79fd71f9d4 :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> IO RIP.CInt))
 hs_bindgen_8ad88b79fd71f9d4 =
   RIP.fromFFIType hs_bindgen_8ad88b79fd71f9d4_base
 
@@ -722,7 +722,7 @@ hs_bindgen_8ad88b79fd71f9d4 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-hash :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt)
+hash :: RIP.FunPtr (RIP.Ptr RIP.CChar -> IO RIP.CInt)
 hash =
   RIP.unsafePerformIO hs_bindgen_8ad88b79fd71f9d4
 
@@ -779,7 +779,7 @@ foreign import ccall unsafe "hs_bindgen_05c7a7832fb84e2e" hs_bindgen_05c7a7832fb
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
-hs_bindgen_05c7a7832fb84e2e :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO ()))
+hs_bindgen_05c7a7832fb84e2e :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> HsBindgen.Runtime.LibC.CSize -> IO ()))
 hs_bindgen_05c7a7832fb84e2e =
   RIP.fromFFIType hs_bindgen_05c7a7832fb84e2e_base
 
@@ -802,7 +802,7 @@ hs_bindgen_05c7a7832fb84e2e =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-multi_paragraph_details :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO ())
+multi_paragraph_details :: RIP.FunPtr (RIP.Ptr RIP.CChar -> HsBindgen.Runtime.LibC.CSize -> IO ())
 multi_paragraph_details =
   RIP.unsafePerformIO hs_bindgen_05c7a7832fb84e2e
 
@@ -930,7 +930,7 @@ foreign import ccall unsafe "hs_bindgen_9ef09ad63fac68e2" hs_bindgen_9ef09ad63fa
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
-hs_bindgen_9ef09ad63fac68e2 :: IO (RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> (RIP.Ptr RIP.CChar) -> IO RIP.CInt))
+hs_bindgen_9ef09ad63fac68e2 :: IO (RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> RIP.Ptr RIP.CChar -> IO RIP.CInt))
 hs_bindgen_9ef09ad63fac68e2 =
   RIP.fromFFIType hs_bindgen_9ef09ad63fac68e2_base
 
@@ -955,6 +955,6 @@ hs_bindgen_9ef09ad63fac68e2 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-backslash_syntax :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> (RIP.Ptr RIP.CChar) -> IO RIP.CInt)
+backslash_syntax :: RIP.FunPtr (PtrConst.PtrConst RIP.CChar -> RIP.Ptr RIP.CChar -> IO RIP.CInt)
 backslash_syntax =
   RIP.unsafePerformIO hs_bindgen_9ef09ad63fac68e2

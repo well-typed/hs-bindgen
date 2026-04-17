@@ -84,7 +84,7 @@ instance HasCField.HasCField Banner_point "banner_point_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "banner_point_x" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
 
   getField =
@@ -97,7 +97,7 @@ instance HasCField.HasCField Banner_point "banner_point_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "banner_point_y" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
 
   getField =

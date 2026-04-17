@@ -77,7 +77,7 @@ instance HasCField.HasCField Piyo "piyo_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "piyo_x" (RIP.Ptr Piyo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"piyo_x")
@@ -88,7 +88,7 @@ instance HasCField.HasCField Piyo "piyo_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "piyo_y" (RIP.Ptr Piyo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"piyo_y")

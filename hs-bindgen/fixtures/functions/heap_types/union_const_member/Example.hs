@@ -34,11 +34,11 @@ newtype T = T
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize T
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize T
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw T
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw T
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw T
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T
 
 deriving via Marshal.EquivStorable T instance RIP.Storable T
 
@@ -73,7 +73,6 @@ instance HasCField.HasCField T "t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
+instance ((~) ty RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t_x")

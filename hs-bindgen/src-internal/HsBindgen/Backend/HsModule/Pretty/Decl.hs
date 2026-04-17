@@ -7,7 +7,6 @@ module HsBindgen.Backend.HsModule.Pretty.Decl (
   ) where
 
 import Data.Text qualified as Text
-import DeBruijn (Env (..))
 import Text.SimplePrettyPrint (CtxDoc, Pretty (..), ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -37,7 +36,7 @@ instance Pretty SDecl where
       let constraints = map pretty inst.super
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
           clsContext flist = flist "(" ")" constraints
-          clsHead = PP.hsep (pretty (resolveTypeClass inst.clss) : map (prettyPrec 1) inst.args)
+          clsHead = PP.hsep (pretty (resolveTypeClass inst.clss) : map (prettyPrec appPrec1) inst.args)
           cls flist =
                 "instance"
             <+> (if null inst.super
@@ -48,7 +47,7 @@ instance Pretty SDecl where
 
           instanceHead = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
           typs = flip map inst.types $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
-            [ "type" <+> prettyUnqualResolvedName (resolveGlobal g) <+> PP.hsep (map (prettyPrec 1) typArgs)
+            [ "type" <+> prettyUnqualResolvedName (resolveGlobal g) <+> PP.hsep (map (prettyPrec appPrec1) typArgs)
                 <+> PP.char '='
             , PP.nest 2 (pretty typSyn)
             ]
@@ -213,13 +212,11 @@ prettyBindingType params result =
     _  -> prettyParams params
   where
     prettyParam p =
-      case p.typ of
-        TFun {} -> prettyType EmptyEnv 1 p.typ
-        _       -> prettyType EmptyEnv 0 p.typ
+         prettyPrec funPrec1 p.typ
       $$ maybe PP.empty (pretty . PartOfDeclarationComment) p.comment
 
 
-    prettyResultType t = prettyType EmptyEnv 0 t
+    prettyResultType t = prettyPrec funPrec t
 
     prettyParams []     = prettyResultType result.typ
     prettyParams (p:ps) =

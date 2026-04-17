@@ -35,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
-hs_bindgen_2b8fc800dad87ec8 :: IO (RIP.FunPtr ((RIP.Ptr Int32_T) -> (RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))) -> Int64_T -> Int64_T -> (RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))) -> IO ()))
+hs_bindgen_2b8fc800dad87ec8 :: IO (RIP.FunPtr (RIP.Ptr Int32_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ()))
 hs_bindgen_2b8fc800dad87ec8 =
   RIP.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
 
@@ -46,6 +46,6 @@ hs_bindgen_2b8fc800dad87ec8 =
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-resample :: RIP.FunPtr ((RIP.Ptr Int32_T) -> (RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))) -> Int64_T -> Int64_T -> (RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))) -> IO ())
+resample :: RIP.FunPtr (RIP.Ptr Int32_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ())
 resample =
   RIP.unsafePerformIO hs_bindgen_2b8fc800dad87ec8

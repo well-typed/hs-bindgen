@@ -37,7 +37,7 @@ newtype FunPtr_Aux = FunPtr_Aux
   }
   deriving stock (RIP.Generic)
 
-instance ( ((~) ty) (Foo -> IO ())
+instance ( (~) ty (Foo -> IO ())
          ) => RIP.HasField "unwrapFunPtr_Aux" (RIP.Ptr FunPtr_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -68,7 +68,7 @@ newtype FunPtr = FunPtr
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr FunPtr_Aux)
+instance ( (~) ty (RIP.FunPtr FunPtr_Aux)
          ) => RIP.HasField "unwrapFunPtr" (RIP.Ptr FunPtr) (RIP.Ptr ty) where
 
   getField =
@@ -137,7 +137,7 @@ instance HasCField.HasCField Foo "foo_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "foo_x" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_x")
@@ -148,7 +148,7 @@ instance HasCField.HasCField Foo "foo_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "foo_y" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_y")

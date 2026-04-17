@@ -71,7 +71,7 @@ newtype TypeA = TypeA
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unwrapTypeA" (RIP.Ptr TypeA) (RIP.Ptr ty) where
 
   getField =
@@ -111,7 +111,7 @@ newtype TypeB = TypeB
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) TypeA
+instance ( (~) ty TypeA
          ) => RIP.HasField "unwrapTypeB" (RIP.Ptr TypeB) (RIP.Ptr ty) where
 
   getField =

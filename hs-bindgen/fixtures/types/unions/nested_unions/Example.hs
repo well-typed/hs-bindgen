@@ -43,11 +43,11 @@ newtype UnionA = UnionA
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize UnionA
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UnionA
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw UnionA
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UnionA
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw UnionA
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UnionA
 
 deriving via Marshal.EquivStorable UnionA instance RIP.Storable UnionA
 
@@ -107,7 +107,7 @@ instance HasCField.HasCField UnionA "unionA_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
@@ -118,7 +118,7 @@ instance HasCField.HasCField UnionA "unionA_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CChar
+instance ( (~) ty RIP.CChar
          ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
@@ -170,7 +170,7 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) UnionA
+instance ( (~) ty UnionA
          ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
 
   getField =
@@ -187,11 +187,11 @@ newtype ExB_fieldB1 = ExB_fieldB1
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize ExB_fieldB1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize ExB_fieldB1
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw ExB_fieldB1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw ExB_fieldB1
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw ExB_fieldB1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw ExB_fieldB1
 
 deriving via Marshal.EquivStorable ExB_fieldB1 instance RIP.Storable ExB_fieldB1
 
@@ -252,7 +252,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -265,7 +265,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CChar
+instance ( (~) ty RIP.CChar
          ) => RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -318,7 +318,7 @@ instance HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) ExB_fieldB1
+instance ( (~) ty ExB_fieldB1
          ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
 
   getField =

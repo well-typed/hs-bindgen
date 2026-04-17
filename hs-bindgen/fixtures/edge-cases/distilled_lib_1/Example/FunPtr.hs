@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-hs_bindgen_1ade3cfc18679577 :: IO (RIP.FunPtr ((RIP.Ptr A_type_t) -> HsBindgen.Runtime.LibC.Word32 -> (RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))) -> IO HsBindgen.Runtime.LibC.Int32))
+hs_bindgen_1ade3cfc18679577 :: IO (RIP.FunPtr (RIP.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32))
 hs_bindgen_1ade3cfc18679577 =
   RIP.fromFFIType hs_bindgen_1ade3cfc18679577_base
 
@@ -44,6 +44,6 @@ hs_bindgen_1ade3cfc18679577 =
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun :: RIP.FunPtr ((RIP.Ptr A_type_t) -> HsBindgen.Runtime.LibC.Word32 -> (RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))) -> IO HsBindgen.Runtime.LibC.Int32)
+some_fun :: RIP.FunPtr (RIP.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32)
 some_fun =
   RIP.unsafePerformIO hs_bindgen_1ade3cfc18679577

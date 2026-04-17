@@ -40,10 +40,10 @@ foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705da
 -- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
 hs_bindgen_8a72aafc705daf44 ::
      RIP.Ptr Int32_T
-  -> RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))
+  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T))
   -> Int64_T
   -> Int64_T
-  -> RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))
+  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T))
   -> IO ()
 hs_bindgen_8a72aafc705daf44 =
   RIP.fromFFIType hs_bindgen_8a72aafc705daf44_base
@@ -57,13 +57,13 @@ hs_bindgen_8a72aafc705daf44 =
 resample ::
      RIP.Ptr Int32_T
      -- ^ __C declaration:__ @res_m_num_valid_samples@
-  -> RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))
+  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T))
      -- ^ __C declaration:__ @res_m_iq_int@
   -> Int64_T
      -- ^ __C declaration:__ @res_m_old_rate@
   -> Int64_T
      -- ^ __C declaration:__ @res_m_new_rate@
-  -> RIP.Ptr (IsA.Elem ((CA.ConstantArray 30720000) Cint16_T))
+  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T))
      -- ^ __C declaration:__ @res_m_iq_resampled_int@
   -> IO ()
 resample = hs_bindgen_8a72aafc705daf44

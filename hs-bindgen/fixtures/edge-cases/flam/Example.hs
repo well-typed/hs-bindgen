@@ -78,7 +78,7 @@ instance HasCField.HasCField Pascal_Aux "pascal_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "pascal_len" (RIP.Ptr Pascal_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -94,7 +94,7 @@ instance FLAM.Offset RIP.CChar Pascal_Aux where
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-type Pascal = (FLAM.WithFlam RIP.CChar) Pascal_Aux
+type Pascal = FLAM.WithFlam RIP.CChar Pascal_Aux
 
 {-| __C declaration:__ @struct \@foo_bar@
 
@@ -152,7 +152,7 @@ instance HasCField.HasCField Foo_bar "foo_bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "foo_bar_x" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_x")
@@ -163,7 +163,7 @@ instance HasCField.HasCField Foo_bar "foo_bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "foo_bar_y" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_y")
@@ -215,7 +215,7 @@ instance HasCField.HasCField Foo_Aux "foo_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "foo_len" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_len")
@@ -230,7 +230,7 @@ instance FLAM.Offset Foo_bar Foo_Aux where
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-type Foo = (FLAM.WithFlam Foo_bar) Foo_Aux
+type Foo = FLAM.WithFlam Foo_bar Foo_Aux
 
 {-| __C declaration:__ @struct diff@
 
@@ -288,7 +288,7 @@ instance HasCField.HasCField Diff_Aux "diff_first" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CLong
+instance ( (~) ty RIP.CLong
          ) => RIP.HasField "diff_first" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -300,7 +300,7 @@ instance HasCField.HasCField Diff_Aux "diff_second" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) RIP.CChar
+instance ( (~) ty RIP.CChar
          ) => RIP.HasField "diff_second" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -316,7 +316,7 @@ instance FLAM.Offset RIP.CChar Diff_Aux where
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-type Diff = (FLAM.WithFlam RIP.CChar) Diff_Aux
+type Diff = FLAM.WithFlam RIP.CChar Diff_Aux
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
@@ -368,13 +368,13 @@ instance HasCField.HasCField Triplets_Aux "triplets_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "triplets_len" (RIP.Ptr Triplets_Aux) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"triplets_len")
 
-instance FLAM.Offset ((CA.ConstantArray 3) RIP.CInt) Triplets_Aux where
+instance FLAM.Offset (CA.ConstantArray 3 RIP.CInt) Triplets_Aux where
 
   offset = \_ty0 -> 4
 
@@ -387,4 +387,4 @@ instance FLAM.Offset ((CA.ConstantArray 3) RIP.CInt) Triplets_Aux where
     __exported by:__ @edge-cases\/flam.h@
 -}
 type Triplets =
-  (FLAM.WithFlam ((CA.ConstantArray 3) RIP.CInt)) Triplets_Aux
+  FLAM.WithFlam (CA.ConstantArray 3 RIP.CInt) Triplets_Aux

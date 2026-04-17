@@ -99,7 +99,7 @@ instance HasCField.HasCField Has_implicit_fields_x2_1 "has_implicit_fields_x2_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x2_1_x2_1" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr ty) where
 
   getField =
@@ -112,7 +112,7 @@ instance HasCField.HasCField Has_implicit_fields_x2_1 "has_implicit_fields_x2_1_
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x2_1_x2_2" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr ty) where
 
   getField =
@@ -177,7 +177,7 @@ instance HasCField.HasCField Has_implicit_fields_x4_1 "has_implicit_fields_x4_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x4_1_x4_1" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr ty) where
 
   getField =
@@ -190,7 +190,7 @@ instance HasCField.HasCField Has_implicit_fields_x4_1 "has_implicit_fields_x4_1_
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x4_1_x4_2" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr ty) where
 
   getField =
@@ -207,11 +207,11 @@ newtype Has_implicit_fields_x5_1 = Has_implicit_fields_x5_1
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize Has_implicit_fields_x5_1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize Has_implicit_fields_x5_1
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw Has_implicit_fields_x5_1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw Has_implicit_fields_x5_1
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw Has_implicit_fields_x5_1
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Has_implicit_fields_x5_1
 
 deriving via Marshal.EquivStorable Has_implicit_fields_x5_1 instance RIP.Storable Has_implicit_fields_x5_1
 
@@ -276,7 +276,7 @@ instance HasCField.HasCField Has_implicit_fields_x5_1 "has_implicit_fields_x5_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x5_1_x5_1" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr ty) where
 
   getField =
@@ -289,7 +289,7 @@ instance HasCField.HasCField Has_implicit_fields_x5_1 "has_implicit_fields_x5_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x5_1_x5_2" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr ty) where
 
   getField =
@@ -306,11 +306,11 @@ newtype Has_implicit_fields = Has_implicit_fields
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 8) 4 instance Marshal.StaticSize Has_implicit_fields
+deriving via RIP.SizedByteArray 8 4 instance Marshal.StaticSize Has_implicit_fields
 
-deriving via (RIP.SizedByteArray 8) 4 instance Marshal.ReadRaw Has_implicit_fields
+deriving via RIP.SizedByteArray 8 4 instance Marshal.ReadRaw Has_implicit_fields
 
-deriving via (RIP.SizedByteArray 8) 4 instance Marshal.WriteRaw Has_implicit_fields
+deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw Has_implicit_fields
 
 deriving via Marshal.EquivStorable Has_implicit_fields instance RIP.Storable Has_implicit_fields
 
@@ -471,7 +471,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =
@@ -484,7 +484,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x2_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Has_implicit_fields_x2_1
+instance ( (~) ty Has_implicit_fields_x2_1
          ) => RIP.HasField "has_implicit_fields_x2_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =
@@ -497,7 +497,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x3" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x3" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =
@@ -510,7 +510,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x4_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Has_implicit_fields_x4_1
+instance ( (~) ty Has_implicit_fields_x4_1
          ) => RIP.HasField "has_implicit_fields_x4_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =
@@ -523,7 +523,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Has_implicit_fields_x5_1
+instance ( (~) ty Has_implicit_fields_x5_1
          ) => RIP.HasField "has_implicit_fields_x5_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =
@@ -536,7 +536,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x5" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
   getField =

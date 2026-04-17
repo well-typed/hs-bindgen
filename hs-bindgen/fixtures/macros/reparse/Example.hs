@@ -107,7 +107,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -159,11 +159,11 @@ newtype Some_union = Some_union
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 0) 1 instance Marshal.StaticSize Some_union
+deriving via RIP.SizedByteArray 0 1 instance Marshal.StaticSize Some_union
 
-deriving via (RIP.SizedByteArray 0) 1 instance Marshal.ReadRaw Some_union
+deriving via RIP.SizedByteArray 0 1 instance Marshal.ReadRaw Some_union
 
-deriving via (RIP.SizedByteArray 0) 1 instance Marshal.WriteRaw Some_union
+deriving via RIP.SizedByteArray 0 1 instance Marshal.WriteRaw Some_union
 
 deriving via Marshal.EquivStorable Some_union instance RIP.Storable Some_union
 
@@ -245,7 +245,7 @@ instance Read Some_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( (~) ty RIP.CUInt
          ) => RIP.HasField "unwrapSome_enum" (RIP.Ptr Some_enum) (RIP.Ptr ty) where
 
   getField =
@@ -279,7 +279,7 @@ newtype Arr_typedef1 = Arr_typedef1
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray A)
+instance ( (~) ty (IA.IncompleteArray A)
          ) => RIP.HasField "unwrapArr_typedef1" (RIP.Ptr Arr_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -304,7 +304,7 @@ newtype Arr_typedef2 = Arr_typedef2
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray (RIP.Ptr A))
+instance ( (~) ty (IA.IncompleteArray (RIP.Ptr A))
          ) => RIP.HasField "unwrapArr_typedef2" (RIP.Ptr Arr_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -324,7 +324,7 @@ instance HasCField.HasCField Arr_typedef2 "unwrapArr_typedef2" where
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef3 = Arr_typedef3
-  { unwrapArr_typedef3 :: (CA.ConstantArray 5) A
+  { unwrapArr_typedef3 :: CA.ConstantArray 5 A
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -335,7 +335,7 @@ newtype Arr_typedef3 = Arr_typedef3
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 5) A)
+instance ( (~) ty (CA.ConstantArray 5 A)
          ) => RIP.HasField "unwrapArr_typedef3" (RIP.Ptr Arr_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -344,7 +344,7 @@ instance ( ((~) ty) ((CA.ConstantArray 5) A)
 instance HasCField.HasCField Arr_typedef3 "unwrapArr_typedef3" where
 
   type CFieldType Arr_typedef3 "unwrapArr_typedef3" =
-    (CA.ConstantArray 5) A
+    CA.ConstantArray 5 A
 
   offset# = \_ -> \_ -> 0
 
@@ -355,7 +355,7 @@ instance HasCField.HasCField Arr_typedef3 "unwrapArr_typedef3" where
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef4 = Arr_typedef4
-  { unwrapArr_typedef4 :: (CA.ConstantArray 5) (RIP.Ptr A)
+  { unwrapArr_typedef4 :: CA.ConstantArray 5 (RIP.Ptr A)
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -366,7 +366,7 @@ newtype Arr_typedef4 = Arr_typedef4
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 5) (RIP.Ptr A))
+instance ( (~) ty (CA.ConstantArray 5 (RIP.Ptr A))
          ) => RIP.HasField "unwrapArr_typedef4" (RIP.Ptr Arr_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -375,7 +375,7 @@ instance ( ((~) ty) ((CA.ConstantArray 5) (RIP.Ptr A))
 instance HasCField.HasCField Arr_typedef4 "unwrapArr_typedef4" where
 
   type CFieldType Arr_typedef4 "unwrapArr_typedef4" =
-    (CA.ConstantArray 5) (RIP.Ptr A)
+    CA.ConstantArray 5 (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -409,7 +409,7 @@ newtype Typedef1 = Typedef1
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "unwrapTypedef1" (RIP.Ptr Typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -439,7 +439,7 @@ newtype Typedef2 = Typedef2
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.Ptr A)
+instance ( (~) ty (RIP.Ptr A)
          ) => RIP.HasField "unwrapTypedef2" (RIP.Ptr Typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -469,7 +469,7 @@ newtype Typedef3 = Typedef3
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.Ptr (RIP.Ptr A))
+instance ( (~) ty (RIP.Ptr (RIP.Ptr A))
          ) => RIP.HasField "unwrapTypedef3" (RIP.Ptr Typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -528,7 +528,7 @@ instance RIP.FromFunPtr Funptr_typedef1_Aux where
 
   fromFunPtr = hs_bindgen_806a46dc418a062c
 
-instance ( ((~) ty) (IO A)
+instance ( (~) ty (IO A)
          ) => RIP.HasField "unwrapFunptr_typedef1_Aux" (RIP.Ptr Funptr_typedef1_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -559,7 +559,7 @@ newtype Funptr_typedef1 = Funptr_typedef1
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Funptr_typedef1_Aux)
+instance ( (~) ty (RIP.FunPtr Funptr_typedef1_Aux)
          ) => RIP.HasField "unwrapFunptr_typedef1" (RIP.Ptr Funptr_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -618,7 +618,7 @@ instance RIP.FromFunPtr Funptr_typedef2_Aux where
 
   fromFunPtr = hs_bindgen_323d07dff85b802c
 
-instance ( ((~) ty) (IO (RIP.Ptr A))
+instance ( (~) ty (IO (RIP.Ptr A))
          ) => RIP.HasField "unwrapFunptr_typedef2_Aux" (RIP.Ptr Funptr_typedef2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -649,7 +649,7 @@ newtype Funptr_typedef2 = Funptr_typedef2
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Funptr_typedef2_Aux)
+instance ( (~) ty (RIP.FunPtr Funptr_typedef2_Aux)
          ) => RIP.HasField "unwrapFunptr_typedef2" (RIP.Ptr Funptr_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -708,7 +708,7 @@ instance RIP.FromFunPtr Funptr_typedef3_Aux where
 
   fromFunPtr = hs_bindgen_82dc7b932974117e
 
-instance ( ((~) ty) (IO (RIP.Ptr (RIP.Ptr A)))
+instance ( (~) ty (IO (RIP.Ptr (RIP.Ptr A)))
          ) => RIP.HasField "unwrapFunptr_typedef3_Aux" (RIP.Ptr Funptr_typedef3_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -739,7 +739,7 @@ newtype Funptr_typedef3 = Funptr_typedef3
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Funptr_typedef3_Aux)
+instance ( (~) ty (RIP.FunPtr Funptr_typedef3_Aux)
          ) => RIP.HasField "unwrapFunptr_typedef3" (RIP.Ptr Funptr_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -798,7 +798,7 @@ instance RIP.FromFunPtr Funptr_typedef4_Aux where
 
   fromFunPtr = hs_bindgen_d4a97954476da161
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO A)
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapFunptr_typedef4_Aux" (RIP.Ptr Funptr_typedef4_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -829,7 +829,7 @@ newtype Funptr_typedef4 = Funptr_typedef4
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Funptr_typedef4_Aux)
+instance ( (~) ty (RIP.FunPtr Funptr_typedef4_Aux)
          ) => RIP.HasField "unwrapFunptr_typedef4" (RIP.Ptr Funptr_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -888,7 +888,7 @@ instance RIP.FromFunPtr Funptr_typedef5_Aux where
 
   fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
          ) => RIP.HasField "unwrapFunptr_typedef5_Aux" (RIP.Ptr Funptr_typedef5_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -919,7 +919,7 @@ newtype Funptr_typedef5 = Funptr_typedef5
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Funptr_typedef5_Aux)
+instance ( (~) ty (RIP.FunPtr Funptr_typedef5_Aux)
          ) => RIP.HasField "unwrapFunptr_typedef5" (RIP.Ptr Funptr_typedef5) (RIP.Ptr ty) where
 
   getField =
@@ -960,7 +960,7 @@ newtype Comments2 = Comments2
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "unwrapComments2" (RIP.Ptr Comments2) (RIP.Ptr ty) where
 
   getField =
@@ -1043,7 +1043,7 @@ instance HasCField.HasCField Example_struct "example_struct_field1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "example_struct_field1" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
 
   getField =
@@ -1056,7 +1056,7 @@ instance HasCField.HasCField Example_struct "example_struct_field2" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) (RIP.Ptr A)
+instance ( (~) ty (RIP.Ptr A)
          ) => RIP.HasField "example_struct_field2" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
 
   getField =
@@ -1069,7 +1069,7 @@ instance HasCField.HasCField Example_struct "example_struct_field3" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) (RIP.Ptr (RIP.Ptr A))
+instance ( (~) ty (RIP.Ptr (RIP.Ptr A))
          ) => RIP.HasField "example_struct_field3" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
 
   getField =
@@ -1103,7 +1103,7 @@ newtype Const_typedef1 = Const_typedef1
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "unwrapConst_typedef1" (RIP.Ptr Const_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -1144,7 +1144,7 @@ newtype Const_typedef2 = Const_typedef2
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "unwrapConst_typedef2" (RIP.Ptr Const_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -1175,7 +1175,7 @@ newtype Const_typedef3 = Const_typedef3
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "unwrapConst_typedef3" (RIP.Ptr Const_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -1206,7 +1206,7 @@ newtype Const_typedef4 = Const_typedef4
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "unwrapConst_typedef4" (RIP.Ptr Const_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -1237,7 +1237,7 @@ newtype Const_typedef5 = Const_typedef5
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.Ptr A)
+instance ( (~) ty (RIP.Ptr A)
          ) => RIP.HasField "unwrapConst_typedef5" (RIP.Ptr Const_typedef5) (RIP.Ptr ty) where
 
   getField =
@@ -1268,7 +1268,7 @@ newtype Const_typedef6 = Const_typedef6
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "unwrapConst_typedef6" (RIP.Ptr Const_typedef6) (RIP.Ptr ty) where
 
   getField =
@@ -1299,7 +1299,7 @@ newtype Const_typedef7 = Const_typedef7
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "unwrapConst_typedef7" (RIP.Ptr Const_typedef7) (RIP.Ptr ty) where
 
   getField =
@@ -1421,7 +1421,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "example_struct_with_const_const_field1" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1434,7 +1434,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) A
+instance ( (~) ty A
          ) => RIP.HasField "example_struct_with_const_const_field2" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1447,7 +1447,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "example_struct_with_const_const_field3" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1460,7 +1460,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "example_struct_with_const_const_field4" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1473,7 +1473,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 24
 
-instance ( ((~) ty) (RIP.Ptr A)
+instance ( (~) ty (RIP.Ptr A)
          ) => RIP.HasField "example_struct_with_const_const_field5" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1486,7 +1486,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 32
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "example_struct_with_const_const_field6" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1499,7 +1499,7 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 40
 
-instance ( ((~) ty) (PtrConst.PtrConst A)
+instance ( (~) ty (PtrConst.PtrConst A)
          ) => RIP.HasField "example_struct_with_const_const_field7" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
@@ -1551,7 +1551,7 @@ instance RIP.FromFunPtr Const_funptr1_Aux where
 
   fromFunPtr = hs_bindgen_ac4bd8d789bba94b
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO A)
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapConst_funptr1_Aux" (RIP.Ptr Const_funptr1_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1582,7 +1582,7 @@ newtype Const_funptr1 = Const_funptr1
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr1_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr1_Aux)
          ) => RIP.HasField "unwrapConst_funptr1" (RIP.Ptr Const_funptr1) (RIP.Ptr ty) where
 
   getField =
@@ -1641,7 +1641,7 @@ instance RIP.FromFunPtr Const_funptr2_Aux where
 
   fromFunPtr = hs_bindgen_352cebf463125ca9
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO A)
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapConst_funptr2_Aux" (RIP.Ptr Const_funptr2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1672,7 +1672,7 @@ newtype Const_funptr2 = Const_funptr2
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr2_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr2_Aux)
          ) => RIP.HasField "unwrapConst_funptr2" (RIP.Ptr Const_funptr2) (RIP.Ptr ty) where
 
   getField =
@@ -1731,7 +1731,7 @@ instance RIP.FromFunPtr Const_funptr3_Aux where
 
   fromFunPtr = hs_bindgen_86738dcfd7c9d33c
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr3_Aux" (RIP.Ptr Const_funptr3_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1762,7 +1762,7 @@ newtype Const_funptr3 = Const_funptr3
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr3_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr3_Aux)
          ) => RIP.HasField "unwrapConst_funptr3" (RIP.Ptr Const_funptr3) (RIP.Ptr ty) where
 
   getField =
@@ -1821,7 +1821,7 @@ instance RIP.FromFunPtr Const_funptr4_Aux where
 
   fromFunPtr = hs_bindgen_de7846fca3bfd1b6
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr4_Aux" (RIP.Ptr Const_funptr4_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1852,7 +1852,7 @@ newtype Const_funptr4 = Const_funptr4
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr4_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr4_Aux)
          ) => RIP.HasField "unwrapConst_funptr4" (RIP.Ptr Const_funptr4) (RIP.Ptr ty) where
 
   getField =
@@ -1911,7 +1911,7 @@ instance RIP.FromFunPtr Const_funptr5_Aux where
 
   fromFunPtr = hs_bindgen_38a21d84bb7115b5
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
          ) => RIP.HasField "unwrapConst_funptr5_Aux" (RIP.Ptr Const_funptr5_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1942,7 +1942,7 @@ newtype Const_funptr5 = Const_funptr5
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr5_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr5_Aux)
          ) => RIP.HasField "unwrapConst_funptr5" (RIP.Ptr Const_funptr5) (RIP.Ptr ty) where
 
   getField =
@@ -2001,7 +2001,7 @@ instance RIP.FromFunPtr Const_funptr6_Aux where
 
   fromFunPtr = hs_bindgen_45251216b04aa8b5
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr6_Aux" (RIP.Ptr Const_funptr6_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2032,7 +2032,7 @@ newtype Const_funptr6 = Const_funptr6
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr6_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr6_Aux)
          ) => RIP.HasField "unwrapConst_funptr6" (RIP.Ptr Const_funptr6) (RIP.Ptr ty) where
 
   getField =
@@ -2091,7 +2091,7 @@ instance RIP.FromFunPtr Const_funptr7_Aux where
 
   fromFunPtr = hs_bindgen_42fbcebf75a973ba
 
-instance ( ((~) ty) (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+instance ( (~) ty (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr7_Aux" (RIP.Ptr Const_funptr7_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2122,7 +2122,7 @@ newtype Const_funptr7 = Const_funptr7
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Const_funptr7_Aux)
+instance ( (~) ty (RIP.FunPtr Const_funptr7_Aux)
          ) => RIP.HasField "unwrapConst_funptr7" (RIP.Ptr Const_funptr7) (RIP.Ptr ty) where
 
   getField =
@@ -2165,7 +2165,7 @@ newtype BOOL = BOOL
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -2205,7 +2205,7 @@ newtype INT = INT
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unwrapINT" (RIP.Ptr INT) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapINT")
@@ -2234,7 +2234,7 @@ newtype INTP = INTP
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.Ptr RIP.CInt)
+instance ( (~) ty (RIP.Ptr RIP.CInt)
          ) => RIP.HasField "unwrapINTP" (RIP.Ptr INTP) (RIP.Ptr ty) where
 
   getField =
@@ -2264,7 +2264,7 @@ newtype INTCP = INTCP
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (PtrConst.PtrConst RIP.CInt)
+instance ( (~) ty (PtrConst.PtrConst RIP.CInt)
          ) => RIP.HasField "unwrapINTCP" (RIP.Ptr INTCP) (RIP.Ptr ty) where
 
   getField =

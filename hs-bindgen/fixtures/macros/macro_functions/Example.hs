@@ -26,7 +26,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-iNCR :: forall a0. (C.Expr.HostPlatform.Add a0) RIP.CInt => a0 -> (C.Expr.HostPlatform.AddRes a0) RIP.CInt
+iNCR :: forall a0. C.Expr.HostPlatform.Add a0 RIP.CInt => a0 -> C.Expr.HostPlatform.AddRes a0 RIP.CInt
 iNCR =
   \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
 
@@ -36,7 +36,7 @@ iNCR =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aDD :: forall a0 b1. (C.Expr.HostPlatform.Add a0) b1 => a0 -> b1 -> (C.Expr.HostPlatform.AddRes a0) b1
+aDD :: forall a0 b1. C.Expr.HostPlatform.Add a0 b1 => a0 -> b1 -> C.Expr.HostPlatform.AddRes a0 b1
 aDD = \x0 -> \y1 -> (C.Expr.HostPlatform.+) x0 y1
 
 {-| __C declaration:__ @macro ID@
@@ -63,7 +63,7 @@ cONST = \x0 -> \y1 -> x0
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cMP :: forall a0 b1. (C.Expr.HostPlatform.RelOrd a0) b1 => a0 -> b1 -> RIP.CInt
+cMP :: forall a0 b1. C.Expr.HostPlatform.RelOrd a0 b1 => a0 -> b1 -> RIP.CInt
 cMP = \x0 -> \y1 -> (C.Expr.HostPlatform.<) x0 y1
 
 {-| __C declaration:__ @macro FUN1@
@@ -72,7 +72,7 @@ cMP = \x0 -> \y1 -> (C.Expr.HostPlatform.<) x0 y1
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN1 :: forall a0 b1. (C.Expr.HostPlatform.Add a0) ((C.Expr.HostPlatform.MultRes RIP.CULLong) b1) => (C.Expr.HostPlatform.Mult RIP.CULLong) b1 => a0 -> b1 -> (C.Expr.HostPlatform.AddRes a0) ((C.Expr.HostPlatform.MultRes RIP.CULLong) b1)
+fUN1 :: forall a0 b1. C.Expr.HostPlatform.Add a0 (C.Expr.HostPlatform.MultRes RIP.CULLong b1) => C.Expr.HostPlatform.Mult RIP.CULLong b1 => a0 -> b1 -> C.Expr.HostPlatform.AddRes a0 (C.Expr.HostPlatform.MultRes RIP.CULLong b1)
 fUN1 =
   \x0 ->
     \y1 ->
@@ -84,7 +84,7 @@ fUN1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN2 :: forall a0 b1. (C.Expr.HostPlatform.Mult RIP.CULLong) b1 => (C.Expr.HostPlatform.Shift a0) ((C.Expr.HostPlatform.MultRes RIP.CULLong) b1) => a0 -> b1 -> C.Expr.HostPlatform.ShiftRes a0
+fUN2 :: forall a0 b1. C.Expr.HostPlatform.Mult RIP.CULLong b1 => C.Expr.HostPlatform.Shift a0 (C.Expr.HostPlatform.MultRes RIP.CULLong b1) => a0 -> b1 -> C.Expr.HostPlatform.ShiftRes a0
 fUN2 =
   \x0 ->
     \y1 ->
@@ -96,7 +96,7 @@ fUN2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g :: forall a0 b1. (C.Expr.HostPlatform.Add a0) RIP.CInt => b1 -> a0 -> (C.Expr.HostPlatform.AddRes a0) RIP.CInt
+g :: forall a0 b1. C.Expr.HostPlatform.Add a0 RIP.CInt => b1 -> a0 -> C.Expr.HostPlatform.AddRes a0 RIP.CInt
 g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
 
 {-| __C declaration:__ @macro DIV1@
@@ -105,7 +105,7 @@ g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV1 :: forall a0 b1. (C.Expr.HostPlatform.Add b1) RIP.CUInt => (C.Expr.HostPlatform.Div a0) ((C.Expr.HostPlatform.AddRes b1) RIP.CUInt) => a0 -> b1 -> (C.Expr.HostPlatform.DivRes a0) ((C.Expr.HostPlatform.AddRes b1) RIP.CUInt)
+dIV1 :: forall a0 b1. C.Expr.HostPlatform.Add b1 RIP.CUInt => C.Expr.HostPlatform.Div a0 (C.Expr.HostPlatform.AddRes b1 RIP.CUInt) => a0 -> b1 -> C.Expr.HostPlatform.DivRes a0 (C.Expr.HostPlatform.AddRes b1 RIP.CUInt)
 dIV1 =
   \x0 ->
     \y1 ->
@@ -117,7 +117,7 @@ dIV1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV2 :: forall a0 b1. (C.Expr.HostPlatform.Mult RIP.CFloat) a0 => (C.Expr.HostPlatform.Div ((C.Expr.HostPlatform.MultRes RIP.CFloat) a0)) b1 => a0 -> b1 -> (C.Expr.HostPlatform.DivRes ((C.Expr.HostPlatform.MultRes RIP.CFloat) a0)) b1
+dIV2 :: forall a0 b1. C.Expr.HostPlatform.Mult RIP.CFloat a0 => C.Expr.HostPlatform.Div (C.Expr.HostPlatform.MultRes RIP.CFloat a0) b1 => a0 -> b1 -> C.Expr.HostPlatform.DivRes (C.Expr.HostPlatform.MultRes RIP.CFloat a0) b1
 dIV2 =
   \x0 ->
     \y1 ->
@@ -129,7 +129,7 @@ dIV2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-sWAP32 :: forall a0. (C.Expr.HostPlatform.Bitwise ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) RIP.CInt)) ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) RIP.CInt) => (C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.ShiftRes a0)) RIP.CInt => (C.Expr.HostPlatform.Shift a0) RIP.CInt => a0 -> (C.Expr.HostPlatform.BitsRes ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) RIP.CInt)) ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) RIP.CInt)
+sWAP32 :: forall a0. C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) RIP.CInt) (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) RIP.CInt) => C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.ShiftRes a0) RIP.CInt => C.Expr.HostPlatform.Shift a0 RIP.CInt => a0 -> C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) RIP.CInt) (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) RIP.CInt)
 sWAP32 =
   \w0 ->
     (C.Expr.HostPlatform..|.) ((C.Expr.HostPlatform..&.) ((C.Expr.HostPlatform.>>) w0 (24 :: RIP.CInt)) (255 :: RIP.CInt)) ((C.Expr.HostPlatform..&.) ((C.Expr.HostPlatform.<<) w0 (8 :: RIP.CInt)) (16711680 :: RIP.CInt))
@@ -140,7 +140,7 @@ sWAP32 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aV_VERSION_INT :: forall a0 b1 c2. (C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.ShiftRes a0)) (C.Expr.HostPlatform.ShiftRes b1) => (C.Expr.HostPlatform.Bitwise ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) (C.Expr.HostPlatform.ShiftRes b1))) c2 => (C.Expr.HostPlatform.Shift b1) RIP.CInt => (C.Expr.HostPlatform.Shift a0) RIP.CInt => a0 -> b1 -> c2 -> (C.Expr.HostPlatform.BitsRes ((C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0)) (C.Expr.HostPlatform.ShiftRes b1))) c2
+aV_VERSION_INT :: forall a0 b1 c2. C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.ShiftRes a0) (C.Expr.HostPlatform.ShiftRes b1) => C.Expr.HostPlatform.Bitwise (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) (C.Expr.HostPlatform.ShiftRes b1)) c2 => C.Expr.HostPlatform.Shift b1 RIP.CInt => C.Expr.HostPlatform.Shift a0 RIP.CInt => a0 -> b1 -> c2 -> C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.BitsRes (C.Expr.HostPlatform.ShiftRes a0) (C.Expr.HostPlatform.ShiftRes b1)) c2
 aV_VERSION_INT =
   \a0 ->
     \b1 ->

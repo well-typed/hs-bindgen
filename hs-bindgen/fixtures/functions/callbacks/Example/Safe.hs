@@ -373,7 +373,7 @@ foreign import ccall safe "hs_bindgen_16c298a15b737eb2" hs_bindgen_16c298a15b737
 -- __unique:__ @test_functionscallbacks_Example_Safe_transformMeasurement@
 hs_bindgen_16c298a15b737eb2 ::
      RIP.Ptr Measurement
-  -> RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble)) -> RIP.CInt -> IO ())
+  -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ())
   -> IO ()
 hs_bindgen_16c298a15b737eb2 =
   RIP.fromFFIType hs_bindgen_16c298a15b737eb2_base
@@ -387,7 +387,7 @@ hs_bindgen_16c298a15b737eb2 =
 transformMeasurement ::
      RIP.Ptr Measurement
      -- ^ __C declaration:__ @data@
-  -> RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble)) -> RIP.CInt -> IO ())
+  -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ())
      -- ^ __C declaration:__ @transformer@
   -> IO ()
 transformMeasurement = hs_bindgen_16c298a15b737eb2
@@ -399,7 +399,7 @@ foreign import ccall safe "hs_bindgen_e6a073138e56764f" hs_bindgen_e6a073138e567
 
 -- __unique:__ @test_functionscallbacks_Example_Safe_processWithCallbacks@
 hs_bindgen_e6a073138e56764f ::
-     RIP.FunPtr ((RIP.Ptr Measurement) -> FileOpenedNotification -> RIP.CInt -> IO ())
+     RIP.FunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ())
   -> IO ()
 hs_bindgen_e6a073138e56764f =
   RIP.fromFFIType hs_bindgen_e6a073138e56764f_base
@@ -411,7 +411,7 @@ hs_bindgen_e6a073138e56764f =
     __exported by:__ @functions\/callbacks.h@
 -}
 processWithCallbacks ::
-     RIP.FunPtr ((RIP.Ptr Measurement) -> FileOpenedNotification -> RIP.CInt -> IO ())
+     RIP.FunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ())
      -- ^ __C declaration:__ @handler@
   -> IO ()
 processWithCallbacks = hs_bindgen_e6a073138e56764f
@@ -505,7 +505,7 @@ foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" hs_bindgen_1e432e1595a1e
 -- __unique:__ @test_functionscallbacks_Example_Safe_processMeasurementWithValidation@
 hs_bindgen_1e432e1595a1ef55 ::
      RIP.Ptr Measurement
-  -> RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> DataValidator -> RIP.CInt -> IO ())) -> DataValidator -> IO ())
+  -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ())
   -> IO ()
 hs_bindgen_1e432e1595a1ef55 =
   RIP.fromFFIType hs_bindgen_1e432e1595a1ef55_base
@@ -519,7 +519,7 @@ hs_bindgen_1e432e1595a1ef55 =
 processMeasurementWithValidation ::
      RIP.Ptr Measurement
      -- ^ __C declaration:__ @data@
-  -> RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> DataValidator -> RIP.CInt -> IO ())) -> DataValidator -> IO ())
+  -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ())
      -- ^ __C declaration:__ @processor@
   -> IO ()
 processMeasurementWithValidation =

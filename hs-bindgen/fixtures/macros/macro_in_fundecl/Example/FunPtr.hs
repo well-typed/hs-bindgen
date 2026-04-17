@@ -175,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_31f433dd4aceda85" hs_bindgen_31f433dd4ac
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam@
-hs_bindgen_31f433dd4aceda85 :: IO (RIP.FunPtr (RIP.CFloat -> (RIP.Ptr C) -> IO (RIP.Ptr C)))
+hs_bindgen_31f433dd4aceda85 :: IO (RIP.FunPtr (RIP.CFloat -> RIP.Ptr C -> IO (RIP.Ptr C)))
 hs_bindgen_31f433dd4aceda85 =
   RIP.fromFFIType hs_bindgen_31f433dd4aceda85_base
 
@@ -186,7 +186,7 @@ hs_bindgen_31f433dd4aceda85 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-wam :: RIP.FunPtr (RIP.CFloat -> (RIP.Ptr C) -> IO (RIP.Ptr C))
+wam :: RIP.FunPtr (RIP.CFloat -> RIP.Ptr C -> IO (RIP.Ptr C))
 wam = RIP.unsafePerformIO hs_bindgen_31f433dd4aceda85
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1@
@@ -194,7 +194,7 @@ foreign import ccall unsafe "hs_bindgen_8d7a85b3867041bf" hs_bindgen_8d7a85b3867
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1@
-hs_bindgen_8d7a85b3867041bf :: IO (RIP.FunPtr (RIP.CFloat -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_8d7a85b3867041bf :: IO (RIP.FunPtr (RIP.CFloat -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_8d7a85b3867041bf =
   RIP.fromFFIType hs_bindgen_8d7a85b3867041bf_base
 
@@ -205,7 +205,7 @@ hs_bindgen_8d7a85b3867041bf =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo1 :: RIP.FunPtr (RIP.CFloat -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr RIP.CChar))
+foo1 :: RIP.FunPtr (RIP.CFloat -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr RIP.CChar))
 foo1 =
   RIP.unsafePerformIO hs_bindgen_8d7a85b3867041bf
 
@@ -214,7 +214,7 @@ foreign import ccall unsafe "hs_bindgen_c9dcd020e5be4af9" hs_bindgen_c9dcd020e5b
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2@
-hs_bindgen_c9dcd020e5be4af9 :: IO (RIP.FunPtr (F -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_c9dcd020e5be4af9 :: IO (RIP.FunPtr (F -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_c9dcd020e5be4af9 =
   RIP.fromFFIType hs_bindgen_c9dcd020e5be4af9_base
 
@@ -225,7 +225,7 @@ hs_bindgen_c9dcd020e5be4af9 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo2 :: RIP.FunPtr (F -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr RIP.CChar))
+foo2 :: RIP.FunPtr (F -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr RIP.CChar))
 foo2 =
   RIP.unsafePerformIO hs_bindgen_c9dcd020e5be4af9
 
@@ -234,7 +234,7 @@ foreign import ccall unsafe "hs_bindgen_c2295c3f61edf4e7" hs_bindgen_c2295c3f61e
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3@
-hs_bindgen_c2295c3f61edf4e7 :: IO (RIP.FunPtr (RIP.CFloat -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr C)))
+hs_bindgen_c2295c3f61edf4e7 :: IO (RIP.FunPtr (RIP.CFloat -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr C)))
 hs_bindgen_c2295c3f61edf4e7 =
   RIP.fromFFIType hs_bindgen_c2295c3f61edf4e7_base
 
@@ -245,7 +245,7 @@ hs_bindgen_c2295c3f61edf4e7 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo3 :: RIP.FunPtr (RIP.CFloat -> (RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO (RIP.Ptr C))
+foo3 :: RIP.FunPtr (RIP.CFloat -> RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO (RIP.Ptr C))
 foo3 =
   RIP.unsafePerformIO hs_bindgen_c2295c3f61edf4e7
 
@@ -334,7 +334,7 @@ foreign import ccall unsafe "hs_bindgen_86b147342f608069" hs_bindgen_86b147342f6
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
-hs_bindgen_86b147342f608069 :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))))
+hs_bindgen_86b147342f608069 :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))))
 hs_bindgen_86b147342f608069 =
   RIP.fromFFIType hs_bindgen_86b147342f608069_base
 
@@ -345,7 +345,7 @@ hs_bindgen_86b147342f608069 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz1 :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt))))
+baz1 :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt))))
 baz1 =
   RIP.unsafePerformIO hs_bindgen_86b147342f608069
 
@@ -354,7 +354,7 @@ foreign import ccall unsafe "hs_bindgen_a7194966e4f375df" hs_bindgen_a7194966e4f
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
-hs_bindgen_a7194966e4f375df :: IO (RIP.FunPtr (I -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))))
+hs_bindgen_a7194966e4f375df :: IO (RIP.FunPtr (I -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))))
 hs_bindgen_a7194966e4f375df =
   RIP.fromFFIType hs_bindgen_a7194966e4f375df_base
 
@@ -365,7 +365,7 @@ hs_bindgen_a7194966e4f375df =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz2 :: RIP.FunPtr (I -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt))))
+baz2 :: RIP.FunPtr (I -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt))))
 baz2 =
   RIP.unsafePerformIO hs_bindgen_a7194966e4f375df
 
@@ -374,7 +374,7 @@ foreign import ccall unsafe "hs_bindgen_cd69bb91c3e6d7ea" hs_bindgen_cd69bb91c3e
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
-hs_bindgen_cd69bb91c3e6d7ea :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) I)))))
+hs_bindgen_cd69bb91c3e6d7ea :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I)))))
 hs_bindgen_cd69bb91c3e6d7ea =
   RIP.fromFFIType hs_bindgen_cd69bb91c3e6d7ea_base
 
@@ -385,7 +385,7 @@ hs_bindgen_cd69bb91c3e6d7ea =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz3 :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) I))))
+baz3 :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I))))
 baz3 =
   RIP.unsafePerformIO hs_bindgen_cd69bb91c3e6d7ea
 

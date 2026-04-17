@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @arrays\/multi_dim.h@
 -}
 newtype Matrix = Matrix
-  { unwrapMatrix :: (CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)
+  { unwrapMatrix :: CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -42,7 +42,7 @@ newtype Matrix = Matrix
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
+instance ( (~) ty (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))
          ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
 
   getField =
@@ -51,7 +51,7 @@ instance ( ((~) ty) ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
 instance HasCField.HasCField Matrix "unwrapMatrix" where
 
   type CFieldType Matrix "unwrapMatrix" =
-    (CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)
+    CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -62,12 +62,12 @@ instance HasCField.HasCField Matrix "unwrapMatrix" where
     __exported by:__ @arrays\/multi_dim.h@
 -}
 newtype Triplets = Triplets
-  { unwrapTriplets :: IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)
+  { unwrapTriplets :: IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
+instance ( (~) ty (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))
          ) => RIP.HasField "unwrapTriplets" (RIP.Ptr Triplets) (RIP.Ptr ty) where
 
   getField =
@@ -76,6 +76,6 @@ instance ( ((~) ty) (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
 instance HasCField.HasCField Triplets "unwrapTriplets" where
 
   type CFieldType Triplets "unwrapTriplets" =
-    IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)
+    IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0

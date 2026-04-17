@@ -569,7 +569,7 @@ foreign import ccall unsafe "hs_bindgen_0ea84b195eb56e51" hs_bindgen_0ea84b195eb
 
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo15@
 hs_bindgen_0ea84b195eb56e51 ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 RIP.CChar))
   -> IO (RIP.Ptr RIP.CChar)
 hs_bindgen_0ea84b195eb56e51 =
   RIP.fromFFIType hs_bindgen_0ea84b195eb56e51_base
@@ -581,7 +581,7 @@ hs_bindgen_0ea84b195eb56e51 =
     __exported by:__ @comprehensive\/smoke.h@
 -}
 foo15 ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 RIP.CChar))
      -- ^ __C declaration:__ @b@
   -> IO (RIP.Ptr RIP.CChar)
 foo15 = hs_bindgen_0ea84b195eb56e51

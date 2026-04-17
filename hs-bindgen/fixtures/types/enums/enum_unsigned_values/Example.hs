@@ -102,7 +102,7 @@ instance Read Uint8_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.Word8
+instance ( (~) ty HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapUint8_enum" (RIP.Ptr Uint8_enum) (RIP.Ptr ty) where
 
   getField =

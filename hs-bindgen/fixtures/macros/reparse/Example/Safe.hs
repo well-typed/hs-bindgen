@@ -2337,7 +2337,7 @@ foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa435
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 hs_bindgen_a3d1560aaa4352df ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) A))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 A))
   -> IO ()
 hs_bindgen_a3d1560aaa4352df =
   RIP.fromFFIType hs_bindgen_a3d1560aaa4352df_base
@@ -2349,7 +2349,7 @@ hs_bindgen_a3d1560aaa4352df =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args3 ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) A))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args3 = hs_bindgen_a3d1560aaa4352df
@@ -2361,7 +2361,7 @@ foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 hs_bindgen_88659ccccc6c1f5f ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) (RIP.Ptr A)))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 (RIP.Ptr A)))
   -> IO ()
 hs_bindgen_88659ccccc6c1f5f =
   RIP.fromFFIType hs_bindgen_88659ccccc6c1f5f_base
@@ -2373,7 +2373,7 @@ hs_bindgen_88659ccccc6c1f5f =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args4 ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) (RIP.Ptr A)))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 (RIP.Ptr A)))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args4 = hs_bindgen_88659ccccc6c1f5f

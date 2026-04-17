@@ -68,7 +68,7 @@ instance HasCField.HasCField Thing "thing_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "thing_x" (RIP.Ptr Thing) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"thing_x")

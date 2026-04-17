@@ -108,7 +108,7 @@ instance Read MyEnum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( (~) ty RIP.CUInt
          ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
 
   getField =
@@ -148,7 +148,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) MyEnum
+instance ( (~) ty MyEnum
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -178,7 +178,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance ((~) ty A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -199,7 +199,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance ((~) ty M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

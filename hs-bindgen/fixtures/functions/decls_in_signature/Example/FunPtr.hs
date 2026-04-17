@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_f3036965ea57b87f" hs_bindgen_f3036965ea5
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_normal@
-hs_bindgen_f3036965ea57b87f :: IO (RIP.FunPtr ((RIP.Ptr Opaque) -> (RIP.Ptr Outside) -> Outside -> IO ()))
+hs_bindgen_f3036965ea57b87f :: IO (RIP.FunPtr (RIP.Ptr Opaque -> RIP.Ptr Outside -> Outside -> IO ()))
 hs_bindgen_f3036965ea57b87f =
   RIP.fromFFIType hs_bindgen_f3036965ea57b87f_base
 
@@ -41,6 +41,6 @@ hs_bindgen_f3036965ea57b87f =
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-normal :: RIP.FunPtr ((RIP.Ptr Opaque) -> (RIP.Ptr Outside) -> Outside -> IO ())
+normal :: RIP.FunPtr (RIP.Ptr Opaque -> RIP.Ptr Outside -> Outside -> IO ())
 normal =
   RIP.unsafePerformIO hs_bindgen_f3036965ea57b87f

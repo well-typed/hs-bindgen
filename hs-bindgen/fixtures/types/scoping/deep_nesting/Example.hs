@@ -68,7 +68,7 @@ instance HasCField.HasCField Baz "baz_x1_2_1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "baz_x1_2_1" (RIP.Ptr Baz) (RIP.Ptr ty) where
 
   getField =

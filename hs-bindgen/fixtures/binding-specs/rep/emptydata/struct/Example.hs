@@ -106,7 +106,7 @@ instance HasCField.HasCField Named "named_e" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "named_e" (RIP.Ptr Named) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"named_e")
@@ -117,7 +117,7 @@ instance HasCField.HasCField Named "named_f" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "named_f" (RIP.Ptr Named) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"named_f")

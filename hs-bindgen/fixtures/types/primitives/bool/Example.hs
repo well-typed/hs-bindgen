@@ -82,7 +82,7 @@ instance HasCField.HasCField Bools1 "bools1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "bools1_x" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
@@ -93,7 +93,7 @@ instance HasCField.HasCField Bools1 "bools1_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
@@ -154,7 +154,7 @@ instance HasCField.HasCField Bools2 "bools2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
@@ -165,7 +165,7 @@ instance HasCField.HasCField Bools2 "bools2_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
@@ -198,7 +198,7 @@ newtype BOOL = BOOL
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CBool
+instance ( (~) ty RIP.CBool
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -266,7 +266,7 @@ instance HasCField.HasCField Bools3 "bools3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) BOOL
+instance ( (~) ty BOOL
          ) => RIP.HasField "bools3_x" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
@@ -277,7 +277,7 @@ instance HasCField.HasCField Bools3 "bools3_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( ((~) ty) BOOL
+instance ( (~) ty BOOL
          ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")

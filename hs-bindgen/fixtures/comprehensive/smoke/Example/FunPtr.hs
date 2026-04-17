@@ -421,7 +421,7 @@ foreign import ccall unsafe "hs_bindgen_2804b55bcc6495bd" hs_bindgen_2804b55bcc6
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo7@
-hs_bindgen_2804b55bcc6495bd :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_2804b55bcc6495bd :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_2804b55bcc6495bd =
   RIP.fromFFIType hs_bindgen_2804b55bcc6495bd_base
 
@@ -432,7 +432,7 @@ hs_bindgen_2804b55bcc6495bd =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo7 :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO (RIP.Ptr RIP.CChar))
+foo7 :: RIP.FunPtr (RIP.Ptr RIP.CChar -> IO (RIP.Ptr RIP.CChar))
 foo7 =
   RIP.unsafePerformIO hs_bindgen_2804b55bcc6495bd
 
@@ -441,7 +441,7 @@ foreign import ccall unsafe "hs_bindgen_dc0ab953845109e0" hs_bindgen_dc0ab953845
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo8@
-hs_bindgen_dc0ab953845109e0 :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_dc0ab953845109e0 :: IO (RIP.FunPtr (RIP.Ptr RIP.CChar -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_dc0ab953845109e0 =
   RIP.fromFFIType hs_bindgen_dc0ab953845109e0_base
 
@@ -452,7 +452,7 @@ hs_bindgen_dc0ab953845109e0 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo8 :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO (RIP.Ptr RIP.CChar))
+foo8 :: RIP.FunPtr (RIP.Ptr RIP.CChar -> IO (RIP.Ptr RIP.CChar))
 foo8 =
   RIP.unsafePerformIO hs_bindgen_dc0ab953845109e0
 
@@ -461,7 +461,7 @@ foreign import ccall unsafe "hs_bindgen_6c6b48e80df5d80b" hs_bindgen_6c6b48e80df
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo9@
-hs_bindgen_6c6b48e80df5d80b :: IO (RIP.FunPtr ((RIP.FunPtr (IO (RIP.Ptr RIP.CChar))) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_6c6b48e80df5d80b :: IO (RIP.FunPtr (RIP.FunPtr (IO (RIP.Ptr RIP.CChar)) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_6c6b48e80df5d80b =
   RIP.fromFFIType hs_bindgen_6c6b48e80df5d80b_base
 
@@ -472,7 +472,7 @@ hs_bindgen_6c6b48e80df5d80b =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo9 :: RIP.FunPtr ((RIP.FunPtr (IO (RIP.Ptr RIP.CChar))) -> IO (RIP.Ptr RIP.CChar))
+foo9 :: RIP.FunPtr (RIP.FunPtr (IO (RIP.Ptr RIP.CChar)) -> IO (RIP.Ptr RIP.CChar))
 foo9 =
   RIP.unsafePerformIO hs_bindgen_6c6b48e80df5d80b
 
@@ -481,7 +481,7 @@ foreign import ccall unsafe "hs_bindgen_fc0a56da1aa3e234" hs_bindgen_fc0a56da1aa
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo10@
-hs_bindgen_fc0a56da1aa3e234 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CChar))) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_fc0a56da1aa3e234 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CChar)) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_fc0a56da1aa3e234 =
   RIP.fromFFIType hs_bindgen_fc0a56da1aa3e234_base
 
@@ -492,7 +492,7 @@ hs_bindgen_fc0a56da1aa3e234 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo10 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CChar))) -> IO (RIP.Ptr RIP.CChar))
+foo10 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CChar)) -> IO (RIP.Ptr RIP.CChar))
 foo10 =
   RIP.unsafePerformIO hs_bindgen_fc0a56da1aa3e234
 
@@ -501,7 +501,7 @@ foreign import ccall unsafe "hs_bindgen_b882a6f77db6bd0e" hs_bindgen_b882a6f77db
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo11@
-hs_bindgen_b882a6f77db6bd0e :: IO (RIP.FunPtr ((RIP.FunPtr (IO (RIP.Ptr RIP.Void))) -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_b882a6f77db6bd0e :: IO (RIP.FunPtr (RIP.FunPtr (IO (RIP.Ptr RIP.Void)) -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_b882a6f77db6bd0e =
   RIP.fromFFIType hs_bindgen_b882a6f77db6bd0e_base
 
@@ -512,7 +512,7 @@ hs_bindgen_b882a6f77db6bd0e =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo11 :: RIP.FunPtr ((RIP.FunPtr (IO (RIP.Ptr RIP.Void))) -> IO (RIP.Ptr RIP.Void))
+foo11 :: RIP.FunPtr (RIP.FunPtr (IO (RIP.Ptr RIP.Void)) -> IO (RIP.Ptr RIP.Void))
 foo11 =
   RIP.unsafePerformIO hs_bindgen_b882a6f77db6bd0e
 
@@ -521,7 +521,7 @@ foreign import ccall unsafe "hs_bindgen_c219c7d6d459a7e0" hs_bindgen_c219c7d6d45
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo12@
-hs_bindgen_c219c7d6d459a7e0 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.Void))) -> IO (RIP.Ptr RIP.Void)))
+hs_bindgen_c219c7d6d459a7e0 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.Void)) -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_c219c7d6d459a7e0 =
   RIP.fromFFIType hs_bindgen_c219c7d6d459a7e0_base
 
@@ -532,7 +532,7 @@ hs_bindgen_c219c7d6d459a7e0 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo12 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.Void))) -> IO (RIP.Ptr RIP.Void))
+foo12 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.Void)) -> IO (RIP.Ptr RIP.Void))
 foo12 =
   RIP.unsafePerformIO hs_bindgen_c219c7d6d459a7e0
 
@@ -541,7 +541,7 @@ foreign import ccall unsafe "hs_bindgen_caa14e75b1229a54" hs_bindgen_caa14e75b12
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo13@
-hs_bindgen_caa14e75b1229a54 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_caa14e75b1229a54 :: IO (RIP.FunPtr (RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar)) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_caa14e75b1229a54 =
   RIP.fromFFIType hs_bindgen_caa14e75b1229a54_base
 
@@ -552,7 +552,7 @@ hs_bindgen_caa14e75b1229a54 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo13 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))) -> IO (RIP.Ptr RIP.CChar))
+foo13 :: RIP.FunPtr (RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar)) -> IO (RIP.Ptr RIP.CChar))
 foo13 =
   RIP.unsafePerformIO hs_bindgen_caa14e75b1229a54
 
@@ -561,7 +561,7 @@ foreign import ccall unsafe "hs_bindgen_3cb093b66f7944d4" hs_bindgen_3cb093b66f7
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo14@
-hs_bindgen_3cb093b66f7944d4 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_3cb093b66f7944d4 :: IO (RIP.FunPtr (RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar)) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_3cb093b66f7944d4 =
   RIP.fromFFIType hs_bindgen_3cb093b66f7944d4_base
 
@@ -572,7 +572,7 @@ hs_bindgen_3cb093b66f7944d4 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo14 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))) -> IO (RIP.Ptr RIP.CChar))
+foo14 :: RIP.FunPtr (RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar)) -> IO (RIP.Ptr RIP.CChar))
 foo14 =
   RIP.unsafePerformIO hs_bindgen_3cb093b66f7944d4
 
@@ -581,7 +581,7 @@ foreign import ccall unsafe "hs_bindgen_fe12aea8f26fdc44" hs_bindgen_fe12aea8f26
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo15@
-hs_bindgen_fe12aea8f26fdc44 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))) -> IO (RIP.Ptr RIP.CChar)))
+hs_bindgen_fe12aea8f26fdc44 :: IO (RIP.FunPtr (RIP.Ptr (IsA.Elem (CA.ConstantArray 5 RIP.CChar)) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_fe12aea8f26fdc44 =
   RIP.fromFFIType hs_bindgen_fe12aea8f26fdc44_base
 
@@ -592,7 +592,7 @@ hs_bindgen_fe12aea8f26fdc44 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo15 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))) -> IO (RIP.Ptr RIP.CChar))
+foo15 :: RIP.FunPtr (RIP.Ptr (IsA.Elem (CA.ConstantArray 5 RIP.CChar)) -> IO (RIP.Ptr RIP.CChar))
 foo15 =
   RIP.unsafePerformIO hs_bindgen_fe12aea8f26fdc44
 
@@ -621,7 +621,7 @@ foreign import ccall unsafe "hs_bindgen_a8ad868a6dc425f9" hs_bindgen_a8ad868a6dc
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo17@
-hs_bindgen_a8ad868a6dc425f9 :: IO (RIP.FunPtr ((RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CChar))) -> IO RIP.CInt))
+hs_bindgen_a8ad868a6dc425f9 :: IO (RIP.FunPtr (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CChar)) -> IO RIP.CInt))
 hs_bindgen_a8ad868a6dc425f9 =
   RIP.fromFFIType hs_bindgen_a8ad868a6dc425f9_base
 
@@ -632,7 +632,7 @@ hs_bindgen_a8ad868a6dc425f9 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo17 :: RIP.FunPtr ((RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CChar))) -> IO RIP.CInt)
+foo17 :: RIP.FunPtr (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CChar)) -> IO RIP.CInt)
 foo17 =
   RIP.unsafePerformIO hs_bindgen_a8ad868a6dc425f9
 
@@ -701,7 +701,7 @@ foreign import ccall unsafe "hs_bindgen_a3c85769041747ba" hs_bindgen_a3c85769041
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo21@
-hs_bindgen_a3c85769041747ba :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO RIP.CInt))
+hs_bindgen_a3c85769041747ba :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO RIP.CInt))
 hs_bindgen_a3c85769041747ba =
   RIP.fromFFIType hs_bindgen_a3c85769041747ba_base
 
@@ -712,7 +712,7 @@ hs_bindgen_a3c85769041747ba =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo21 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO RIP.CInt)
+foo21 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO RIP.CInt)
 foo21 =
   RIP.unsafePerformIO hs_bindgen_a3c85769041747ba
 
@@ -721,7 +721,7 @@ foreign import ccall unsafe "hs_bindgen_5fc122411b8a03ea" hs_bindgen_5fc122411b8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo22@
-hs_bindgen_5fc122411b8a03ea :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt))) -> IO RIP.CInt))
+hs_bindgen_5fc122411b8a03ea :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt)) -> IO RIP.CInt))
 hs_bindgen_5fc122411b8a03ea =
   RIP.fromFFIType hs_bindgen_5fc122411b8a03ea_base
 
@@ -732,7 +732,7 @@ hs_bindgen_5fc122411b8a03ea =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo22 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt))) -> IO RIP.CInt)
+foo22 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt)) -> IO RIP.CInt)
 foo22 =
   RIP.unsafePerformIO hs_bindgen_5fc122411b8a03ea
 
@@ -741,7 +741,7 @@ foreign import ccall unsafe "hs_bindgen_a7fcbb7f1b7f29cb" hs_bindgen_a7fcbb7f1b7
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo23@
-hs_bindgen_a7fcbb7f1b7f29cb :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))) -> IO RIP.CInt))
+hs_bindgen_a7fcbb7f1b7f29cb :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr RIP.CInt))) -> IO RIP.CInt))
 hs_bindgen_a7fcbb7f1b7f29cb =
   RIP.fromFFIType hs_bindgen_a7fcbb7f1b7f29cb_base
 
@@ -752,7 +752,7 @@ hs_bindgen_a7fcbb7f1b7f29cb =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo23 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))) -> IO RIP.CInt)
+foo23 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr RIP.CInt))) -> IO RIP.CInt)
 foo23 =
   RIP.unsafePerformIO hs_bindgen_a7fcbb7f1b7f29cb
 
@@ -761,7 +761,7 @@ foreign import ccall unsafe "hs_bindgen_9c5a2b0e6d53b7c9" hs_bindgen_9c5a2b0e6d5
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo24@
-hs_bindgen_9c5a2b0e6d53b7c9 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))) -> IO RIP.CInt))
+hs_bindgen_9c5a2b0e6d53b7c9 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt)))) -> IO RIP.CInt))
 hs_bindgen_9c5a2b0e6d53b7c9 =
   RIP.fromFFIType hs_bindgen_9c5a2b0e6d53b7c9_base
 
@@ -772,7 +772,7 @@ hs_bindgen_9c5a2b0e6d53b7c9 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo24 :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))) -> IO RIP.CInt)
+foo24 :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt)))) -> IO RIP.CInt)
 foo24 =
   RIP.unsafePerformIO hs_bindgen_9c5a2b0e6d53b7c9
 
@@ -861,7 +861,7 @@ foreign import ccall unsafe "hs_bindgen_3e48bdcc0c25203c" hs_bindgen_3e48bdcc0c2
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_inline_foo@
-hs_bindgen_3e48bdcc0c25203c :: IO (RIP.FunPtr (RIP.CInt -> (RIP.Ptr RIP.CInt) -> RIP.CInt -> (PtrConst.PtrConst RIP.CInt) -> (RIP.Ptr (PtrConst.PtrConst RIP.CInt)) -> (PtrConst.PtrConst (PtrConst.PtrConst RIP.CInt)) -> Size_t -> IO RIP.CInt))
+hs_bindgen_3e48bdcc0c25203c :: IO (RIP.FunPtr (RIP.CInt -> RIP.Ptr RIP.CInt -> RIP.CInt -> PtrConst.PtrConst RIP.CInt -> RIP.Ptr (PtrConst.PtrConst RIP.CInt) -> PtrConst.PtrConst (PtrConst.PtrConst RIP.CInt) -> Size_t -> IO RIP.CInt))
 hs_bindgen_3e48bdcc0c25203c =
   RIP.fromFFIType hs_bindgen_3e48bdcc0c25203c_base
 
@@ -872,6 +872,6 @@ hs_bindgen_3e48bdcc0c25203c =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-inline_foo :: RIP.FunPtr (RIP.CInt -> (RIP.Ptr RIP.CInt) -> RIP.CInt -> (PtrConst.PtrConst RIP.CInt) -> (RIP.Ptr (PtrConst.PtrConst RIP.CInt)) -> (PtrConst.PtrConst (PtrConst.PtrConst RIP.CInt)) -> Size_t -> IO RIP.CInt)
+inline_foo :: RIP.FunPtr (RIP.CInt -> RIP.Ptr RIP.CInt -> RIP.CInt -> PtrConst.PtrConst RIP.CInt -> RIP.Ptr (PtrConst.PtrConst RIP.CInt) -> PtrConst.PtrConst (PtrConst.PtrConst RIP.CInt) -> Size_t -> IO RIP.CInt)
 inline_foo =
   RIP.unsafePerformIO hs_bindgen_3e48bdcc0c25203c

@@ -2,6 +2,12 @@
 
 module HsBindgen.Backend.HsModule.Pretty.Type (
     prettyType
+    -- * Precedences
+  , funPrec
+  , funPrec1
+  , appPrec
+  , appPrec1
+  , maxPrec
   ) where
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
@@ -32,10 +38,10 @@ prettyType env prec ty = case ty of
       TApps (TBoxedTup n) args ->
         let decls = prettyType env 0 <$> args
         in  prettyBoxedTuple n decls
-      TApp c x -> PP.parensWhen (prec > 0) $
-        prettyType env 1 c <+> prettyType env 1 x
-      TFun a b -> PP.parensWhen (prec > 0) $
-        prettyType env 1 a <+> "->" <+> prettyType env 0 b
+      TApp c x -> PP.parensWhen (prec > appPrec) $
+        prettyType env appPrec c <+> prettyType env appPrec1 x
+      TFun a b -> PP.parensWhen (prec > funPrec) $
+        prettyType env funPrec1 a <+> "->" <+> prettyType env funPrec b
       TBound x -> lookupEnv x env
       TUnit -> PP.string "()"
       -- Handled in 'prettyType'.
@@ -48,3 +54,18 @@ prettyType env prec ty = case ty of
           _  -> withFreshNames env add hints $ \env' params ->
             "forall" <+> PP.hsep params >< "." <+>
             PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
+
+{-------------------------------------------------------------------------------
+  Precedences
+-------------------------------------------------------------------------------}
+
+funPrec, funPrec1 :: Int
+funPrec = 5
+funPrec1 = funPrec + 1
+
+appPrec, appPrec1:: Int
+appPrec = 10
+appPrec1 = appPrec + 1
+
+maxPrec :: Int
+maxPrec = 20

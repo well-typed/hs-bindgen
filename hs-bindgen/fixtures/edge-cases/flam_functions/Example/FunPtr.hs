@@ -66,7 +66,7 @@ foreign import ccall unsafe "hs_bindgen_1d7c878fb2029890" hs_bindgen_1d7c878fb20
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
-hs_bindgen_1d7c878fb2029890 :: IO (RIP.FunPtr ((RIP.Ptr Vector) -> IO ()))
+hs_bindgen_1d7c878fb2029890 :: IO (RIP.FunPtr (RIP.Ptr Vector -> IO ()))
 hs_bindgen_1d7c878fb2029890 =
   RIP.fromFFIType hs_bindgen_1d7c878fb2029890_base
 
@@ -77,7 +77,7 @@ hs_bindgen_1d7c878fb2029890 =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_free :: RIP.FunPtr ((RIP.Ptr Vector) -> IO ())
+vector_free :: RIP.FunPtr (RIP.Ptr Vector -> IO ())
 vector_free =
   RIP.unsafePerformIO hs_bindgen_1d7c878fb2029890
 
@@ -86,7 +86,7 @@ foreign import ccall unsafe "hs_bindgen_630caac5f56516fe" hs_bindgen_630caac5f56
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
-hs_bindgen_630caac5f56516fe :: IO (RIP.FunPtr ((RIP.Ptr Vector) -> IO ()))
+hs_bindgen_630caac5f56516fe :: IO (RIP.FunPtr (RIP.Ptr Vector -> IO ()))
 hs_bindgen_630caac5f56516fe =
   RIP.fromFFIType hs_bindgen_630caac5f56516fe_base
 
@@ -97,6 +97,6 @@ hs_bindgen_630caac5f56516fe =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_reverse :: RIP.FunPtr ((RIP.Ptr Vector) -> IO ())
+vector_reverse :: RIP.FunPtr (RIP.Ptr Vector -> IO ())
 vector_reverse =
   RIP.unsafePerformIO hs_bindgen_630caac5f56516fe

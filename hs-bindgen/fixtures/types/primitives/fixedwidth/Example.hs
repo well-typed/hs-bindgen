@@ -79,7 +79,7 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.Word64
+instance ( (~) ty HsBindgen.Runtime.LibC.Word64
          ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
@@ -92,7 +92,7 @@ instance HasCField.HasCField Foo "foo_thirty_two" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.Word32
+instance ( (~) ty HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =

@@ -368,7 +368,7 @@ foreign import ccall unsafe "hs_bindgen_f378b374e8c8c095" hs_bindgen_f378b374e8c
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz1@
 hs_bindgen_f378b374e8c8c095 ::
      RIP.CInt
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_f378b374e8c8c095 =
   RIP.fromFFIType hs_bindgen_f378b374e8c8c095_base
 
@@ -381,7 +381,7 @@ hs_bindgen_f378b374e8c8c095 =
 baz1 ::
      RIP.CInt
      -- ^ __C declaration:__ @i@
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))
 baz1 = hs_bindgen_f378b374e8c8c095
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz2@
@@ -392,7 +392,7 @@ foreign import ccall unsafe "hs_bindgen_27cf571d08ac8c04" hs_bindgen_27cf571d08a
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz2@
 hs_bindgen_27cf571d08ac8c04 ::
      I
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_27cf571d08ac8c04 =
   RIP.fromFFIType hs_bindgen_27cf571d08ac8c04_base
 
@@ -405,7 +405,7 @@ hs_bindgen_27cf571d08ac8c04 =
 baz2 ::
      I
      -- ^ __C declaration:__ @i@
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) RIP.CInt)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 RIP.CInt)))
 baz2 = hs_bindgen_27cf571d08ac8c04
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz3@
@@ -416,7 +416,7 @@ foreign import ccall unsafe "hs_bindgen_c4035ef23b908e27" hs_bindgen_c4035ef23b9
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz3@
 hs_bindgen_c4035ef23b908e27 ::
      RIP.CInt
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) I)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I)))
 hs_bindgen_c4035ef23b908e27 =
   RIP.fromFFIType hs_bindgen_c4035ef23b908e27_base
 
@@ -429,7 +429,7 @@ hs_bindgen_c4035ef23b908e27 =
 baz3 ::
      RIP.CInt
      -- ^ __C declaration:__ @i@
-  -> IO (RIP.Ptr ((CA.ConstantArray 2) ((CA.ConstantArray 3) I)))
+  -> IO (RIP.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I)))
 baz3 = hs_bindgen_c4035ef23b908e27
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_no_args_no_void@

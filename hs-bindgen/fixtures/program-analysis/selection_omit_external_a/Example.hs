@@ -69,7 +69,7 @@ instance HasCField.HasCField UnrelatedDeclaration "unrelatedDeclaration_m" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "unrelatedDeclaration_m" (RIP.Ptr UnrelatedDeclaration) (RIP.Ptr ty) where
 
   getField =

@@ -90,7 +90,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) (RIP.Complex RIP.CFloat)
+instance ( (~) ty (RIP.Complex RIP.CFloat)
          ) => RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
 
   getField =
@@ -103,7 +103,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) (RIP.Complex RIP.CDouble)
+instance ( (~) ty (RIP.Complex RIP.CDouble)
          ) => RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
 
   getField =
@@ -116,7 +116,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( ((~) ty) RIP.CInt
+instance ( (~) ty RIP.CInt
          ) => RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
 
   getField =

@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_e5f763922a0a17ca" hs_bindgen_e5f763922a0
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
-hs_bindgen_e5f763922a0a17ca :: IO (RIP.FunPtr ((RIP.Ptr M.B) -> IO ()))
+hs_bindgen_e5f763922a0a17ca :: IO (RIP.FunPtr (RIP.Ptr M.B -> IO ()))
 hs_bindgen_e5f763922a0a17ca =
   RIP.fromFFIType hs_bindgen_e5f763922a0a17ca_base
 
@@ -39,5 +39,5 @@ hs_bindgen_e5f763922a0a17ca =
 
     __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
 -}
-foo :: RIP.FunPtr ((RIP.Ptr M.B) -> IO ())
+foo :: RIP.FunPtr (RIP.Ptr M.B -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_e5f763922a0a17ca
