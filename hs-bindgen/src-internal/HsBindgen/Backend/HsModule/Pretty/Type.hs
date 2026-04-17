@@ -11,8 +11,7 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Pretty.Common
-import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.SHs.Translation.Common
+import HsBindgen.Backend.SHs.AST.Type
 
 {-------------------------------------------------------------------------------
   Type pretty-printing
@@ -22,20 +21,7 @@ instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
-prettyType env prec ty = case asNaryTApp ty of
-    (TBoxedTup n, args) ->
-      let decls = prettyType env 0 <$> args
-      in  prettyBoxedTuple n decls
-    (TApp{}, _) ->
-      panicWith
-        "Unexpected type application after unrolling type applications"
-        ty
-    _otherwise ->
-      prettyRolledType env prec ty
-
--- See 'prettyType' but do not unroll/recognize type application.
-prettyRolledType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
-prettyRolledType env prec ty = case ty of
+prettyType env prec ty = case ty of
       TGlobal g -> pretty $ resolveGlobal g
       TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
       TCon n -> pretty n
@@ -43,6 +29,9 @@ prettyRolledType env prec ty = case ty of
       TLit n -> PP.show n
       TStrLit s -> PP.string (show s)
       TExt i _cTypeSpec _hsTypeSpec -> pretty i
+      TApps (TBoxedTup n) args ->
+        let decls = prettyType env 0 <$> args
+        in  prettyBoxedTuple n decls
       TApp c x -> PP.parensWhen (prec > 0) $
         prettyType env 1 c <+> prettyType env 1 x
       TFun a b -> PP.parensWhen (prec > 0) $
@@ -50,10 +39,7 @@ prettyRolledType env prec ty = case ty of
       TBound x -> lookupEnv x env
       TUnit -> PP.string "()"
       -- Handled in 'prettyType'.
-      TBoxedTup{} ->
-        panicWith
-        "Unexpected unsaturated tuple after unrolling type application"
-        ty
+      TBoxedTup n -> prettyBoxedTuple n []
       -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
       TEq -> PP.string "(~)"
       TForall hints add ctxt body ->

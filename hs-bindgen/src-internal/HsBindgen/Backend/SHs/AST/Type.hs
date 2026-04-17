@@ -7,7 +7,7 @@
 -- unnecessarily prefixes.
 module HsBindgen.Backend.SHs.AST.Type (
     ClosedType
-  , SType (..)
+  , SType (.., TApps)
     -- * Plus2
   , Plus2 (..)
   , applyPlus2
@@ -51,6 +51,38 @@ data SType ctx =
 infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
+
+{-# COMPLETE
+    TGlobal
+  , TClass
+  , TCon
+  , TFun
+  , TLit
+  , TStrLit
+  , TExt
+  , TBound
+  , TFree
+  , TApps
+  , TUnit
+  , TBoxedTup
+  , TEq
+  , TForall
+  #-}
+
+pattern TApps :: SType ctx -> [SType ctx] -> SType ctx
+pattern TApps f xs <- (unwrapTApps -> Just (f, xs))
+  where TApps f xs = wrapTApps f xs
+
+wrapTApps :: SType ctx -> [SType ctx] -> SType ctx
+wrapTApps f xs = foldl TApp f xs
+
+unwrapTApps :: SType ctx -> Maybe (SType ctx, [SType ctx])
+unwrapTApps = \case
+    TApp f x -> Just $ go [x] f
+    _        -> Nothing
+  where
+    go acc (TApp f x) = go (x : acc) f
+    go acc t          = (t, acc)
 
 {-------------------------------------------------------------------------------
   Plus2
