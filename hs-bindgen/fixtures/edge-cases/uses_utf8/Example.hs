@@ -105,7 +105,7 @@ instance Read MyEnum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
 
   getField =

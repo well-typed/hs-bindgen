@@ -69,7 +69,7 @@ instance HasCField.HasCField OkBefore "okBefore_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
 
   getField =
@@ -122,7 +122,7 @@ instance HasCField.HasCField OkAfter "okAfter_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"okAfter_x")

@@ -81,7 +81,7 @@ instance HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_c")
@@ -92,7 +92,7 @@ instance HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_i" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_i")
@@ -153,7 +153,7 @@ instance HasCField.HasCField Bar "bar_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "bar_c" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_c")
@@ -164,7 +164,7 @@ instance HasCField.HasCField Bar "bar_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "bar_i" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_i")
@@ -225,7 +225,7 @@ instance HasCField.HasCField Baz "baz_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "baz_c" (RIP.Ptr Baz) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"baz_c")
@@ -236,7 +236,7 @@ instance HasCField.HasCField Baz "baz_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "baz_i" (RIP.Ptr Baz) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"baz_i")
@@ -297,7 +297,7 @@ instance HasCField.HasCField Qux "qux_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "qux_c" (RIP.Ptr Qux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"qux_c")
@@ -308,7 +308,7 @@ instance HasCField.HasCField Qux "qux_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "qux_i" (RIP.Ptr Qux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"qux_i")
@@ -378,7 +378,7 @@ instance HasCField.HasCField FILE "fILE__r" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "fILE__r" (RIP.Ptr FILE) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"fILE__r")
@@ -389,7 +389,7 @@ instance HasCField.HasCField FILE "fILE__w" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "fILE__w" (RIP.Ptr FILE) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"fILE__w")
@@ -401,7 +401,7 @@ instance HasCField.HasCField FILE "fILE__close" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.CInt))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.CInt)
          ) => RIP.HasField "fILE__close" (RIP.Ptr FILE) (RIP.Ptr ty) where
 
   getField =

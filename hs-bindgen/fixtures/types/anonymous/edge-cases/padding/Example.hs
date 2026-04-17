@@ -91,7 +91,7 @@ instance HasCField.HasCField SS_y "sS_y_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "sS_y_y" (RIP.Ptr SS_y) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_y_y")
@@ -161,8 +161,7 @@ instance HasCField.HasCField SS "sS_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
-         ) => RIP.HasField "sS_x" (RIP.Ptr SS) (RIP.Ptr ty) where
+instance (ty ~ RIP.CChar) => RIP.HasField "sS_x" (RIP.Ptr SS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_x")
 
@@ -172,7 +171,7 @@ instance HasCField.HasCField SS "sS_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ((~) ty SS_y) => RIP.HasField "sS_y" (RIP.Ptr SS) (RIP.Ptr ty) where
+instance (ty ~ SS_y) => RIP.HasField "sS_y" (RIP.Ptr SS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_y")
 
@@ -182,8 +181,7 @@ instance HasCField.HasCField SS "sS_z" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "sS_z" (RIP.Ptr SS) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "sS_z" (RIP.Ptr SS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_z")
 
@@ -237,7 +235,7 @@ instance HasCField.HasCField SU_y "sU_y_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "sU_y_y" (RIP.Ptr SU_y) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_y_y")
@@ -307,8 +305,7 @@ instance HasCField.HasCField SU "sU_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
-         ) => RIP.HasField "sU_x" (RIP.Ptr SU) (RIP.Ptr ty) where
+instance (ty ~ RIP.CChar) => RIP.HasField "sU_x" (RIP.Ptr SU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_x")
 
@@ -318,7 +315,7 @@ instance HasCField.HasCField SU "sU_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ((~) ty SU_y) => RIP.HasField "sU_y" (RIP.Ptr SU) (RIP.Ptr ty) where
+instance (ty ~ SU_y) => RIP.HasField "sU_y" (RIP.Ptr SU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_y")
 
@@ -328,8 +325,7 @@ instance HasCField.HasCField SU "sU_z" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "sU_z" (RIP.Ptr SU) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "sU_z" (RIP.Ptr SU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_z")
 
@@ -380,7 +376,7 @@ instance HasCField.HasCField US_y "uS_y_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "uS_y_y" (RIP.Ptr US_y) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_y_y")
@@ -485,8 +481,7 @@ instance HasCField.HasCField US "uS_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
-         ) => RIP.HasField "uS_x" (RIP.Ptr US) (RIP.Ptr ty) where
+instance (ty ~ RIP.CChar) => RIP.HasField "uS_x" (RIP.Ptr US) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_x")
 
@@ -496,7 +491,7 @@ instance HasCField.HasCField US "uS_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty US_y) => RIP.HasField "uS_y" (RIP.Ptr US) (RIP.Ptr ty) where
+instance (ty ~ US_y) => RIP.HasField "uS_y" (RIP.Ptr US) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_y")
 
@@ -506,8 +501,7 @@ instance HasCField.HasCField US "uS_z" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "uS_z" (RIP.Ptr US) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "uS_z" (RIP.Ptr US) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_z")
 
@@ -561,7 +555,7 @@ instance HasCField.HasCField UU_y "uU_y_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "uU_y_y" (RIP.Ptr UU_y) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_y_y")
@@ -666,8 +660,7 @@ instance HasCField.HasCField UU "uU_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
-         ) => RIP.HasField "uU_x" (RIP.Ptr UU) (RIP.Ptr ty) where
+instance (ty ~ RIP.CChar) => RIP.HasField "uU_x" (RIP.Ptr UU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_x")
 
@@ -677,7 +670,7 @@ instance HasCField.HasCField UU "uU_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty UU_y) => RIP.HasField "uU_y" (RIP.Ptr UU) (RIP.Ptr ty) where
+instance (ty ~ UU_y) => RIP.HasField "uU_y" (RIP.Ptr UU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_y")
 
@@ -687,7 +680,6 @@ instance HasCField.HasCField UU "uU_z" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "uU_z" (RIP.Ptr UU) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "uU_z" (RIP.Ptr UU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_z")

@@ -48,7 +48,7 @@ newtype PtrInt = PtrInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr RIP.CInt)
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "unwrapPtrInt" (RIP.Ptr PtrInt) (RIP.Ptr ty) where
 
   getField =
@@ -89,7 +89,7 @@ newtype ShortInt = ShortInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapShortInt" (RIP.Ptr ShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -130,7 +130,7 @@ newtype SignedShortInt = SignedShortInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapSignedShortInt" (RIP.Ptr SignedShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -171,7 +171,7 @@ newtype UnsignedShortInt = UnsignedShortInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CUShort
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "unwrapUnsignedShortInt" (RIP.Ptr UnsignedShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -202,7 +202,7 @@ newtype PtrPtrChar = PtrPtrChar
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr (RIP.Ptr RIP.CChar))
+instance ( ty ~ RIP.Ptr (RIP.Ptr RIP.CChar)
          ) => RIP.HasField "unwrapPtrPtrChar" (RIP.Ptr PtrPtrChar) (RIP.Ptr ty) where
 
   getField =
@@ -241,7 +241,7 @@ newtype MTy = MTy
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "unwrapMTy" (RIP.Ptr MTy) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapMTy")
@@ -278,8 +278,7 @@ newtype Tty = Tty
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty MTy
-         ) => RIP.HasField "unwrapTty" (RIP.Ptr Tty) (RIP.Ptr ty) where
+instance (ty ~ MTy) => RIP.HasField "unwrapTty" (RIP.Ptr Tty) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTty")
 
@@ -317,7 +316,7 @@ newtype UINT8_T = UINT8_T
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CUChar
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapUINT8_T" (RIP.Ptr UINT8_T) (RIP.Ptr ty) where
 
   getField =
@@ -357,7 +356,7 @@ newtype BOOLEAN_T = BOOLEAN_T
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty UINT8_T
+instance ( ty ~ UINT8_T
          ) => RIP.HasField "unwrapBOOLEAN_T" (RIP.Ptr BOOLEAN_T) (RIP.Ptr ty) where
 
   getField =
@@ -397,7 +396,7 @@ newtype Boolean_T = Boolean_T
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty BOOLEAN_T
+instance ( ty ~ BOOLEAN_T
          ) => RIP.HasField "unwrapBoolean_T" (RIP.Ptr Boolean_T) (RIP.Ptr ty) where
 
   getField =

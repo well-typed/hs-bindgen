@@ -95,7 +95,7 @@ instance HasCField.HasCField Config "config_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_x")
@@ -106,7 +106,7 @@ instance HasCField.HasCField Config "config_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_y")
@@ -168,7 +168,7 @@ instance HasCField.HasCField Inline_struct "inline_struct_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
 
   getField =
@@ -181,7 +181,7 @@ instance HasCField.HasCField Inline_struct "inline_struct_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
 
   getField =
@@ -253,7 +253,7 @@ instance HasCField.HasCField Version_t "version_t_major" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word8
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
@@ -266,7 +266,7 @@ instance HasCField.HasCField Version_t "version_t_minor" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
@@ -279,7 +279,7 @@ instance HasCField.HasCField Version_t "version_t_patch" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word8
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
@@ -351,7 +351,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
@@ -363,7 +363,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( (~) ty RIP.CBool
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
@@ -376,7 +376,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_version" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty Version_t
+instance ( ty ~ Version_t
          ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
@@ -430,7 +430,7 @@ instance HasCField.HasCField Struct2_t "struct2_t_field1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Struct1_t
+instance ( ty ~ Struct1_t
          ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
 
   getField =
@@ -492,7 +492,7 @@ instance HasCField.HasCField AnonPoint "anonPoint_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
 
   getField =
@@ -504,7 +504,7 @@ instance HasCField.HasCField AnonPoint "anonPoint_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
 
   getField =
@@ -566,7 +566,7 @@ instance HasCField.HasCField AnonPair "anonPair_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
 
   getField =
@@ -578,7 +578,7 @@ instance HasCField.HasCField AnonPair "anonPair_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
 
   getField =
@@ -662,7 +662,7 @@ instance Read AnonEnum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapAnonEnum" (RIP.Ptr AnonEnum) (RIP.Ptr ty) where
 
   getField =
@@ -760,7 +760,7 @@ instance Read AnonEnumCoords where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapAnonEnumCoords" (RIP.Ptr AnonEnumCoords) (RIP.Ptr ty) where
 
   getField =

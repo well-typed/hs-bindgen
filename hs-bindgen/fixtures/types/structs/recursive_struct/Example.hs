@@ -79,7 +79,7 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
 
   getField =
@@ -92,7 +92,7 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.Ptr Linked_list_A_t)
+instance ( ty ~ RIP.Ptr Linked_list_A_t
          ) => RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
 
   getField =
@@ -155,7 +155,7 @@ instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
 
   getField =
@@ -168,7 +168,7 @@ instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.Ptr Linked_list_B_t)
+instance ( ty ~ RIP.Ptr Linked_list_B_t
          ) => RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
 
   getField =

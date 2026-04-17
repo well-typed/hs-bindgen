@@ -49,7 +49,7 @@ newtype MySym = MySym
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapMySym" (RIP.Ptr MySym) (RIP.Ptr ty) where
 
   getField =

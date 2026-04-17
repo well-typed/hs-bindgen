@@ -85,7 +85,7 @@ instance HasCField.HasCField S "s_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (CA.ConstantArray 3 RIP.CShort)
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
          ) => RIP.HasField "s_f" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_f")
@@ -118,7 +118,7 @@ newtype More_aligned_int = More_aligned_int
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMore_aligned_int" (RIP.Ptr More_aligned_int) (RIP.Ptr ty) where
 
   getField =
@@ -179,7 +179,7 @@ instance HasCField.HasCField S2 "s2_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (CA.ConstantArray 3 RIP.CShort)
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
          ) => RIP.HasField "s2_f" (RIP.Ptr S2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_f")
@@ -241,7 +241,7 @@ instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "my_unpacked_struct_c" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
 
   getField =
@@ -254,7 +254,7 @@ instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_i" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "my_unpacked_struct_i" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
 
   getField =
@@ -326,7 +326,7 @@ instance HasCField.HasCField My_packed_struct "my_packed_struct_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "my_packed_struct_c" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
 
   getField =
@@ -339,7 +339,7 @@ instance HasCField.HasCField My_packed_struct "my_packed_struct_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "my_packed_struct_i" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
 
   getField =
@@ -352,7 +352,7 @@ instance HasCField.HasCField My_packed_struct "my_packed_struct_s" where
 
   offset# = \_ -> \_ -> 5
 
-instance ( (~) ty My_unpacked_struct
+instance ( ty ~ My_unpacked_struct
          ) => RIP.HasField "my_packed_struct_s" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
 
   getField =
@@ -434,7 +434,7 @@ instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.Ptr RIP.CInt)
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "wait_status_ptr_t___ip" (RIP.Ptr Wait_status_ptr_t) (RIP.Ptr ty) where
 
   getField =
@@ -447,7 +447,7 @@ instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___up" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.Ptr Wait)
+instance ( ty ~ RIP.Ptr Wait
          ) => RIP.HasField "wait_status_ptr_t___up" (RIP.Ptr Wait_status_ptr_t) (RIP.Ptr ty) where
 
   getField =
@@ -489,7 +489,7 @@ newtype T1 = T1
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
@@ -528,7 +528,7 @@ newtype Short_a = Short_a
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapShort_a" (RIP.Ptr Short_a) (RIP.Ptr ty) where
 
   getField =

@@ -72,7 +72,7 @@ instance RIP.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( (~) ty (RIP.Ptr Driver -> IO RIP.CInt)
+instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
          ) => RIP.HasField "unwrapRunDriver_Aux" (RIP.Ptr RunDriver_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -103,7 +103,7 @@ newtype RunDriver = RunDriver
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr RunDriver_Aux)
+instance ( ty ~ RIP.FunPtr RunDriver_Aux
          ) => RIP.HasField "unwrapRunDriver" (RIP.Ptr RunDriver) (RIP.Ptr ty) where
 
   getField =
@@ -163,7 +163,7 @@ instance HasCField.HasCField Driver "driver_run" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RunDriver
+instance ( ty ~ RunDriver
          ) => RIP.HasField "driver_run" (RIP.Ptr Driver) (RIP.Ptr ty) where
 
   getField =
@@ -217,7 +217,7 @@ instance HasCField.HasCField Bare "bare_callback" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.CInt -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
          ) => RIP.HasField "bare_callback" (RIP.Ptr Bare) (RIP.Ptr ty) where
 
   getField =

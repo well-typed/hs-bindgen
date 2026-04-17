@@ -132,7 +132,7 @@ instance HasCField.HasCField Outer1_fieldX "outer1_fieldX_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer1_fieldX_fieldX" (RIP.Ptr Outer1_fieldX) (RIP.Ptr ty) where
 
   getField =
@@ -145,7 +145,7 @@ instance HasCField.HasCField Outer1_fieldX "outer1_fieldX_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer1_fieldX_fieldY" (RIP.Ptr Outer1_fieldX) (RIP.Ptr ty) where
 
   getField =
@@ -251,7 +251,7 @@ instance HasCField.HasCField Outer1 "outer1_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "outer1_fieldA" (RIP.Ptr Outer1) (RIP.Ptr ty) where
 
   getField =
@@ -264,7 +264,7 @@ instance HasCField.HasCField Outer1 "outer1_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Outer1_fieldX
+instance ( ty ~ Outer1_fieldX
          ) => RIP.HasField "outer1_fieldX" (RIP.Ptr Outer1) (RIP.Ptr ty) where
 
   getField =
@@ -276,7 +276,7 @@ instance HasCField.HasCField Outer1 "outer1_fieldC" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer1_fieldC" (RIP.Ptr Outer1) (RIP.Ptr ty) where
 
   getField =
@@ -358,7 +358,7 @@ instance HasCField.HasCField Outer2_fieldB "outer2_fieldB_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer2_fieldB_fieldX" (RIP.Ptr Outer2_fieldB) (RIP.Ptr ty) where
 
   getField =
@@ -371,7 +371,7 @@ instance HasCField.HasCField Outer2_fieldB "outer2_fieldB_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer2_fieldB_fieldY" (RIP.Ptr Outer2_fieldB) (RIP.Ptr ty) where
 
   getField =
@@ -477,7 +477,7 @@ instance HasCField.HasCField Outer2 "outer2_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "outer2_fieldA" (RIP.Ptr Outer2) (RIP.Ptr ty) where
 
   getField =
@@ -490,7 +490,7 @@ instance HasCField.HasCField Outer2 "outer2_fieldB" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Outer2_fieldB
+instance ( ty ~ Outer2_fieldB
          ) => RIP.HasField "outer2_fieldB" (RIP.Ptr Outer2) (RIP.Ptr ty) where
 
   getField =
@@ -502,7 +502,7 @@ instance HasCField.HasCField Outer2 "outer2_fieldC" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer2_fieldC" (RIP.Ptr Outer2) (RIP.Ptr ty) where
 
   getField =
@@ -583,7 +583,7 @@ instance HasCField.HasCField Inner3 "inner3_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inner3_fieldX" (RIP.Ptr Inner3) (RIP.Ptr ty) where
 
   getField =
@@ -595,7 +595,7 @@ instance HasCField.HasCField Inner3 "inner3_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inner3_fieldY" (RIP.Ptr Inner3) (RIP.Ptr ty) where
 
   getField =
@@ -701,7 +701,7 @@ instance HasCField.HasCField Outer3 "outer3_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "outer3_fieldA" (RIP.Ptr Outer3) (RIP.Ptr ty) where
 
   getField =
@@ -713,7 +713,7 @@ instance HasCField.HasCField Outer3 "outer3_fieldB" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Inner3
+instance ( ty ~ Inner3
          ) => RIP.HasField "outer3_fieldB" (RIP.Ptr Outer3) (RIP.Ptr ty) where
 
   getField =
@@ -725,7 +725,7 @@ instance HasCField.HasCField Outer3 "outer3_fieldC" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer3_fieldC" (RIP.Ptr Outer3) (RIP.Ptr ty) where
 
   getField =

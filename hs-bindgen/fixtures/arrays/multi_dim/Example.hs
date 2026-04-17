@@ -42,7 +42,7 @@ newtype Matrix = Matrix
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
          ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
 
   getField =
@@ -67,7 +67,7 @@ newtype Triplets = Triplets
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( (~) ty (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
          ) => RIP.HasField "unwrapTriplets" (RIP.Ptr Triplets) (RIP.Ptr ty) where
 
   getField =

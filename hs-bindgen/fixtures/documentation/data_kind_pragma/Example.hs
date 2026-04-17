@@ -40,7 +40,7 @@ newtype Triplet = Triplet
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (CA.ConstantArray 3 RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
 
   getField =

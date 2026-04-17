@@ -69,7 +69,7 @@ instance HasCField.HasCField S1_t "s1_t_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s1_t_a" (RIP.Ptr S1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_t_a")
@@ -121,7 +121,6 @@ instance HasCField.HasCField S2 "s2_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_a")

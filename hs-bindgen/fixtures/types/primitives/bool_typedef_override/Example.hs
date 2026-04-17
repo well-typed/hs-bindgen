@@ -50,7 +50,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -89,7 +89,7 @@ newtype Bool' = Bool'
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapBool'" (RIP.Ptr Bool') (RIP.Ptr ty) where
 
   getField =

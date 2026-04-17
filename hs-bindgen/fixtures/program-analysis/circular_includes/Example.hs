@@ -50,7 +50,7 @@ newtype OUTER_BEFORE_CIRCULAR_INCLUDE = OUTER_BEFORE_CIRCULAR_INCLUDE
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_BEFORE_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
 
   getField =
@@ -91,7 +91,7 @@ newtype OUTER_AFTER_CIRCULAR_INCLUDE = OUTER_AFTER_CIRCULAR_INCLUDE
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_AFTER_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
 
   getField =

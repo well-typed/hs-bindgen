@@ -102,7 +102,7 @@ instance RIP.FromFunPtr FileOpenedNotification_Aux where
 
   fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 
-instance ( (~) ty (IO ())
+instance ( ty ~ IO ()
          ) => RIP.HasField "unwrapFileOpenedNotification_Aux" (RIP.Ptr FileOpenedNotification_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -133,7 +133,7 @@ newtype FileOpenedNotification = FileOpenedNotification
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr FileOpenedNotification_Aux)
+instance ( ty ~ RIP.FunPtr FileOpenedNotification_Aux
          ) => RIP.HasField "unwrapFileOpenedNotification" (RIP.Ptr FileOpenedNotification) (RIP.Ptr ty) where
 
   getField =
@@ -192,7 +192,7 @@ instance RIP.FromFunPtr ProgressUpdate_Aux where
 
   fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 
-instance ( (~) ty (RIP.CInt -> IO ())
+instance ( ty ~ (RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapProgressUpdate_Aux" (RIP.Ptr ProgressUpdate_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -223,7 +223,7 @@ newtype ProgressUpdate = ProgressUpdate
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr ProgressUpdate_Aux)
+instance ( ty ~ RIP.FunPtr ProgressUpdate_Aux
          ) => RIP.HasField "unwrapProgressUpdate" (RIP.Ptr ProgressUpdate) (RIP.Ptr ty) where
 
   getField =
@@ -282,7 +282,7 @@ instance RIP.FromFunPtr DataValidator_Aux where
 
   fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 
-instance ( (~) ty (RIP.CInt -> IO RIP.CInt)
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapDataValidator_Aux" (RIP.Ptr DataValidator_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -313,7 +313,7 @@ newtype DataValidator = DataValidator
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr DataValidator_Aux)
+instance ( ty ~ RIP.FunPtr DataValidator_Aux
          ) => RIP.HasField "unwrapDataValidator" (RIP.Ptr DataValidator) (RIP.Ptr ty) where
 
   getField =
@@ -383,7 +383,7 @@ instance HasCField.HasCField Measurement "measurement_value" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "measurement_value" (RIP.Ptr Measurement) (RIP.Ptr ty) where
 
   getField =
@@ -396,7 +396,7 @@ instance HasCField.HasCField Measurement "measurement_timestamp" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "measurement_timestamp" (RIP.Ptr Measurement) (RIP.Ptr ty) where
 
   getField =
@@ -448,7 +448,7 @@ instance RIP.FromFunPtr MeasurementReceived_Aux where
 
   fromFunPtr = hs_bindgen_383c36bb22947621
 
-instance ( (~) ty (RIP.Ptr Measurement -> IO ())
+instance ( ty ~ (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "unwrapMeasurementReceived_Aux" (RIP.Ptr MeasurementReceived_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -479,7 +479,7 @@ newtype MeasurementReceived = MeasurementReceived
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr MeasurementReceived_Aux)
+instance ( ty ~ RIP.FunPtr MeasurementReceived_Aux
          ) => RIP.HasField "unwrapMeasurementReceived" (RIP.Ptr MeasurementReceived) (RIP.Ptr ty) where
 
   getField =
@@ -505,7 +505,7 @@ newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
   }
   deriving stock (RIP.Generic)
 
-instance ( (~) ty (Measurement -> IO ())
+instance ( ty ~ (Measurement -> IO ())
          ) => RIP.HasField "unwrapMeasurementReceived2_Aux" (RIP.Ptr MeasurementReceived2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -536,7 +536,7 @@ newtype MeasurementReceived2 = MeasurementReceived2
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr MeasurementReceived2_Aux)
+instance ( ty ~ RIP.FunPtr MeasurementReceived2_Aux
          ) => RIP.HasField "unwrapMeasurementReceived2" (RIP.Ptr MeasurementReceived2) (RIP.Ptr ty) where
 
   getField =
@@ -595,7 +595,7 @@ instance RIP.FromFunPtr SampleBufferFull_Aux where
 
   fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
 
-instance ( (~) ty (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
+instance ( ty ~ (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
          ) => RIP.HasField "unwrapSampleBufferFull_Aux" (RIP.Ptr SampleBufferFull_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -626,7 +626,7 @@ newtype SampleBufferFull = SampleBufferFull
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr SampleBufferFull_Aux)
+instance ( ty ~ RIP.FunPtr SampleBufferFull_Aux
          ) => RIP.HasField "unwrapSampleBufferFull" (RIP.Ptr SampleBufferFull) (RIP.Ptr ty) where
 
   getField =
@@ -708,7 +708,7 @@ instance HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" 
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "measurementHandler_onReceived" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
 
   getField =
@@ -721,7 +721,7 @@ instance HasCField.HasCField MeasurementHandler "measurementHandler_validate" wh
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
          ) => RIP.HasField "measurementHandler_validate" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
 
   getField =
@@ -734,7 +734,7 @@ instance HasCField.HasCField MeasurementHandler "measurementHandler_onError" whe
 
   offset# = \_ -> \_ -> 16
 
-instance ( (~) ty (RIP.FunPtr (RIP.CInt -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
          ) => RIP.HasField "measurementHandler_onError" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
 
   getField =
@@ -809,7 +809,7 @@ instance HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
          ) => RIP.HasField "dataPipeline_preProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
 
   getField =
@@ -822,7 +822,7 @@ instance HasCField.HasCField DataPipeline "dataPipeline_process" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "dataPipeline_process" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
 
   getField =
@@ -835,7 +835,7 @@ instance HasCField.HasCField DataPipeline "dataPipeline_postProcess" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => RIP.HasField "dataPipeline_postProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
 
   getField =
@@ -946,7 +946,7 @@ instance HasCField.HasCField ProcessorCallback "processorCallback_simple" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "processorCallback_simple" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
 
   getField =
@@ -959,7 +959,7 @@ instance HasCField.HasCField ProcessorCallback "processorCallback_withValidator"
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
          ) => RIP.HasField "processorCallback_withValidator" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
 
   getField =
@@ -972,7 +972,7 @@ instance HasCField.HasCField ProcessorCallback "processorCallback_withProgress" 
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => RIP.HasField "processorCallback_withProgress" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
 
   getField =
@@ -1059,7 +1059,7 @@ instance Read Processor_mode where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapProcessor_mode" (RIP.Ptr Processor_mode) (RIP.Ptr ty) where
 
   getField =
@@ -1156,7 +1156,7 @@ instance HasCField.HasCField Processor "processor_mode" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Processor_mode
+instance ( ty ~ Processor_mode
          ) => RIP.HasField "processor_mode" (RIP.Ptr Processor) (RIP.Ptr ty) where
 
   getField =
@@ -1169,7 +1169,7 @@ instance HasCField.HasCField Processor "processor_callback" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty ProcessorCallback
+instance ( ty ~ ProcessorCallback
          ) => RIP.HasField "processor_callback" (RIP.Ptr Processor) (RIP.Ptr ty) where
 
   getField =
@@ -1203,7 +1203,7 @@ newtype Foo = Foo
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapFoo")
@@ -1242,7 +1242,7 @@ newtype Foo2 = Foo2
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFoo2" (RIP.Ptr Foo2) (RIP.Ptr ty) where
 
   getField =

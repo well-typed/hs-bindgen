@@ -69,8 +69,7 @@ instance HasCField.HasCField B "b_toA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.Ptr A)
-         ) => RIP.HasField "b_toA" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ RIP.Ptr A) => RIP.HasField "b_toA" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b_toA")
 
@@ -121,6 +120,6 @@ instance HasCField.HasCField A "a_toB" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty B) => RIP.HasField "a_toB" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ B) => RIP.HasField "a_toB" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_toB")

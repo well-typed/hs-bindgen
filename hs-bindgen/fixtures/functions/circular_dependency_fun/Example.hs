@@ -71,7 +71,7 @@ instance RIP.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( (~) ty (RIP.Ptr Forward_declaration -> IO ())
+instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
          ) => RIP.HasField "unwrapFun_ptr_Aux" (RIP.Ptr Fun_ptr_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -102,7 +102,7 @@ newtype Fun_ptr = Fun_ptr
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr Fun_ptr_Aux)
+instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
          ) => RIP.HasField "unwrapFun_ptr" (RIP.Ptr Fun_ptr) (RIP.Ptr ty) where
 
   getField =
@@ -163,7 +163,7 @@ instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Fun_ptr
+instance ( ty ~ Fun_ptr
          ) => RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr ty) where
 
   getField =

@@ -52,7 +52,7 @@ newtype M1 = M1
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapM1" (RIP.Ptr M1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM1")
@@ -91,7 +91,7 @@ newtype T2 = T2
     , Marshal.WriteRaw
     )
 
-instance ((~) ty M1) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance (ty ~ M1) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
 
@@ -129,7 +129,7 @@ newtype M3 = M3
     , Marshal.WriteRaw
     )
 
-instance ((~) ty T2) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
+instance (ty ~ T2) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM3")
 
@@ -167,7 +167,7 @@ newtype T4 = T4
     , Marshal.WriteRaw
     )
 
-instance ((~) ty M3) => RIP.HasField "unwrapT4" (RIP.Ptr T4) (RIP.Ptr ty) where
+instance (ty ~ M3) => RIP.HasField "unwrapT4" (RIP.Ptr T4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT4")
 

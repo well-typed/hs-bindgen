@@ -166,7 +166,7 @@ newtype Struct5_t = Struct5_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr Struct5)
+instance ( ty ~ RIP.Ptr Struct5
          ) => RIP.HasField "unwrapStruct5_t" (RIP.Ptr Struct5_t) (RIP.Ptr ty) where
 
   getField =
@@ -227,7 +227,7 @@ newtype Struct6 = Struct6
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr Struct6_Aux)
+instance ( ty ~ RIP.Ptr Struct6_Aux
          ) => RIP.HasField "unwrapStruct6" (RIP.Ptr Struct6) (RIP.Ptr ty) where
 
   getField =
@@ -287,7 +287,7 @@ newtype Struct7a = Struct7a
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Struct7
+instance ( ty ~ Struct7
          ) => RIP.HasField "unwrapStruct7a" (RIP.Ptr Struct7a) (RIP.Ptr ty) where
 
   getField =
@@ -316,7 +316,7 @@ newtype Struct7b = Struct7b
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Struct7
+instance ( ty ~ Struct7
          ) => RIP.HasField "unwrapStruct7b" (RIP.Ptr Struct7b) (RIP.Ptr ty) where
 
   getField =
@@ -375,7 +375,7 @@ newtype Struct8b = Struct8b
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Struct8
+instance ( ty ~ Struct8
          ) => RIP.HasField "unwrapStruct8b" (RIP.Ptr Struct8b) (RIP.Ptr ty) where
 
   getField =
@@ -434,7 +434,7 @@ newtype Struct9_t = Struct9_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Struct9
+instance ( ty ~ Struct9
          ) => RIP.HasField "unwrapStruct9_t" (RIP.Ptr Struct9_t) (RIP.Ptr ty) where
 
   getField =
@@ -493,7 +493,7 @@ newtype Struct10_t_t = Struct10_t_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Struct10_t
+instance ( ty ~ Struct10_t
          ) => RIP.HasField "unwrapStruct10_t_t" (RIP.Ptr Struct10_t_t) (RIP.Ptr ty) where
 
   getField =
@@ -562,7 +562,7 @@ instance HasCField.HasCField Struct11_t "struct11_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "struct11_t_x" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
 
   getField =
@@ -575,7 +575,7 @@ instance HasCField.HasCField Struct11_t "struct11_t_self" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.Ptr Struct11_t)
+instance ( ty ~ RIP.Ptr Struct11_t
          ) => RIP.HasField "struct11_t_self" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
 
   getField =
@@ -637,7 +637,7 @@ instance HasCField.HasCField Struct12_t "struct12_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "struct12_t_x" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
 
   getField =
@@ -650,7 +650,7 @@ instance HasCField.HasCField Struct12_t "struct12_t_self" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.Ptr Struct12_t)
+instance ( ty ~ RIP.Ptr Struct12_t
          ) => RIP.HasField "struct12_t_self" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
 
   getField =
@@ -875,7 +875,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Struct1_t
+instance ( ty ~ Struct1_t
          ) => RIP.HasField "use_sites_useTypedef_struct1_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -888,7 +888,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Struct2_t
+instance ( ty ~ Struct2_t
          ) => RIP.HasField "use_sites_useTypedef_struct2_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -901,7 +901,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.Ptr Struct3_t)
+instance ( ty ~ RIP.Ptr Struct3_t
          ) => RIP.HasField "use_sites_useTypedef_struct3_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -914,7 +914,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty (RIP.Ptr Struct4_t)
+instance ( ty ~ RIP.Ptr Struct4_t
          ) => RIP.HasField "use_sites_useTypedef_struct4_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -927,7 +927,7 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( (~) ty Struct5
+instance ( ty ~ Struct5
          ) => RIP.HasField "use_sites_useStruct_struct5" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -940,7 +940,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( (~) ty Struct5_t
+instance ( ty ~ Struct5_t
          ) => RIP.HasField "use_sites_useTypedef_struct5_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -953,7 +953,7 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( (~) ty Struct6_Aux
+instance ( ty ~ Struct6_Aux
          ) => RIP.HasField "use_sites_useStruct_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -966,7 +966,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( (~) ty Struct6
+instance ( ty ~ Struct6
          ) => RIP.HasField "use_sites_useTypedef_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -979,7 +979,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct7a
+instance ( ty ~ Struct7a
          ) => RIP.HasField "use_sites_useTypedef_struct7a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -992,7 +992,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct7b
+instance ( ty ~ Struct7b
          ) => RIP.HasField "use_sites_useTypedef_struct7b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1005,7 +1005,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct8
+instance ( ty ~ Struct8
          ) => RIP.HasField "use_sites_useTypedef_struct8" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1018,7 +1018,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct8b
+instance ( ty ~ Struct8b
          ) => RIP.HasField "use_sites_useTypedef_struct8b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1031,7 +1031,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct9
+instance ( ty ~ Struct9
          ) => RIP.HasField "use_sites_useTypedef_struct9" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1044,7 +1044,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct9_t
+instance ( ty ~ Struct9_t
          ) => RIP.HasField "use_sites_useTypedef_struct9_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1057,7 +1057,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct10_t
+instance ( ty ~ Struct10_t
          ) => RIP.HasField "use_sites_useTypedef_struct10_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1070,7 +1070,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct10_t_t
+instance ( ty ~ Struct10_t_t
          ) => RIP.HasField "use_sites_useTypedef_struct10_t_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1083,7 +1083,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( (~) ty Struct11_t
+instance ( ty ~ Struct11_t
          ) => RIP.HasField "use_sites_useTypedef_struct11_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
@@ -1096,7 +1096,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
 
   offset# = \_ -> \_ -> 48
 
-instance ( (~) ty Struct12_t
+instance ( ty ~ Struct12_t
          ) => RIP.HasField "use_sites_useTypedef_struct12_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =

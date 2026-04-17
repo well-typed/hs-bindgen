@@ -52,7 +52,7 @@ newtype MY_TYPE = MY_TYPE
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMY_TYPE" (RIP.Ptr MY_TYPE) (RIP.Ptr ty) where
 
   getField =
@@ -120,7 +120,7 @@ instance HasCField.HasCField Bar "bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_x")
@@ -131,7 +131,6 @@ instance HasCField.HasCField Bar "bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty MY_TYPE
-         ) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance (ty ~ MY_TYPE) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_y")

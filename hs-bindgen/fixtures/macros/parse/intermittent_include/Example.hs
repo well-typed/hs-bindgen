@@ -56,7 +56,7 @@ newtype Ta = Ta
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapTa" (RIP.Ptr Ta) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTa")
@@ -95,7 +95,7 @@ newtype Ma = Ma
     , Marshal.WriteRaw
     )
 
-instance ((~) ty Ta) => RIP.HasField "unwrapMa" (RIP.Ptr Ma) (RIP.Ptr ty) where
+instance (ty ~ Ta) => RIP.HasField "unwrapMa" (RIP.Ptr Ma) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapMa")
 
@@ -133,7 +133,7 @@ newtype T1 = T1
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
@@ -172,7 +172,7 @@ newtype M1 = M1
     , Marshal.WriteRaw
     )
 
-instance ((~) ty T1) => RIP.HasField "unwrapM1" (RIP.Ptr M1) (RIP.Ptr ty) where
+instance (ty ~ T1) => RIP.HasField "unwrapM1" (RIP.Ptr M1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM1")
 
@@ -210,7 +210,7 @@ newtype M2 = M2
     , Marshal.WriteRaw
     )
 
-instance ((~) ty T1) => RIP.HasField "unwrapM2" (RIP.Ptr M2) (RIP.Ptr ty) where
+instance (ty ~ T1) => RIP.HasField "unwrapM2" (RIP.Ptr M2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM2")
 
@@ -248,7 +248,7 @@ newtype T2 = T2
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
@@ -287,7 +287,7 @@ newtype M3 = M3
     , Marshal.WriteRaw
     )
 
-instance ((~) ty T2) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
+instance (ty ~ T2) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM3")
 
@@ -325,7 +325,7 @@ newtype M4 = M4
     , Marshal.WriteRaw
     )
 
-instance ((~) ty T2) => RIP.HasField "unwrapM4" (RIP.Ptr M4) (RIP.Ptr ty) where
+instance (ty ~ T2) => RIP.HasField "unwrapM4" (RIP.Ptr M4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapM4")
 

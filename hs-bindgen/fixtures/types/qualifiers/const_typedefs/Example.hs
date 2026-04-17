@@ -65,7 +65,7 @@ newtype I = I
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapI" (RIP.Ptr I) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapI")
@@ -202,7 +202,7 @@ instance Read E where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
@@ -250,7 +250,7 @@ newtype TI = TI
     , Marshal.WriteRaw
     )
 
-instance ((~) ty I) => RIP.HasField "unwrapTI" (RIP.Ptr TI) (RIP.Ptr ty) where
+instance (ty ~ I) => RIP.HasField "unwrapTI" (RIP.Ptr TI) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTI")
 
@@ -277,7 +277,7 @@ newtype TS = TS
     , Marshal.WriteRaw
     )
 
-instance ((~) ty S) => RIP.HasField "unwrapTS" (RIP.Ptr TS) (RIP.Ptr ty) where
+instance (ty ~ S) => RIP.HasField "unwrapTS" (RIP.Ptr TS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTS")
 
@@ -304,7 +304,7 @@ newtype TU = TU
     , Marshal.WriteRaw
     )
 
-instance ((~) ty U) => RIP.HasField "unwrapTU" (RIP.Ptr TU) (RIP.Ptr ty) where
+instance (ty ~ U) => RIP.HasField "unwrapTU" (RIP.Ptr TU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTU")
 
@@ -333,7 +333,7 @@ newtype TE = TE
     , Marshal.WriteRaw
     )
 
-instance ((~) ty E) => RIP.HasField "unwrapTE" (RIP.Ptr TE) (RIP.Ptr ty) where
+instance (ty ~ E) => RIP.HasField "unwrapTE" (RIP.Ptr TE) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTE")
 
@@ -371,8 +371,7 @@ newtype TTI = TTI
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty TI
-         ) => RIP.HasField "unwrapTTI" (RIP.Ptr TTI) (RIP.Ptr ty) where
+instance (ty ~ TI) => RIP.HasField "unwrapTTI" (RIP.Ptr TTI) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTTI")
 
@@ -399,8 +398,7 @@ newtype TTS = TTS
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty TS
-         ) => RIP.HasField "unwrapTTS" (RIP.Ptr TTS) (RIP.Ptr ty) where
+instance (ty ~ TS) => RIP.HasField "unwrapTTS" (RIP.Ptr TTS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTTS")
 
@@ -427,8 +425,7 @@ newtype TTU = TTU
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty TU
-         ) => RIP.HasField "unwrapTTU" (RIP.Ptr TTU) (RIP.Ptr ty) where
+instance (ty ~ TU) => RIP.HasField "unwrapTTU" (RIP.Ptr TTU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTTU")
 
@@ -457,8 +454,7 @@ newtype TTE = TTE
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty TE
-         ) => RIP.HasField "unwrapTTE" (RIP.Ptr TTE) (RIP.Ptr ty) where
+instance (ty ~ TE) => RIP.HasField "unwrapTTE" (RIP.Ptr TTE) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTTE")
 

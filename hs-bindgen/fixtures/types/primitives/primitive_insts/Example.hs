@@ -72,7 +72,7 @@ newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.CPtrdiff
+instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
          ) => RIP.HasField "unwrapPrim_HsPrimCPtrdiff" (RIP.Ptr Prim_HsPrimCPtrdiff) (RIP.Ptr ty) where
 
   getField =
@@ -113,7 +113,7 @@ newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int8
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
          ) => RIP.HasField "unwrapPrim_HsPrimInt8" (RIP.Ptr Prim_HsPrimInt8) (RIP.Ptr ty) where
 
   getField =
@@ -154,7 +154,7 @@ newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int16
+instance ( ty ~ HsBindgen.Runtime.LibC.Int16
          ) => RIP.HasField "unwrapPrim_HsPrimInt16" (RIP.Ptr Prim_HsPrimInt16) (RIP.Ptr ty) where
 
   getField =
@@ -195,7 +195,7 @@ newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int32
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "unwrapPrim_HsPrimInt32" (RIP.Ptr Prim_HsPrimInt32) (RIP.Ptr ty) where
 
   getField =
@@ -236,7 +236,7 @@ newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int64
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
          ) => RIP.HasField "unwrapPrim_HsPrimInt64" (RIP.Ptr Prim_HsPrimInt64) (RIP.Ptr ty) where
 
   getField =
@@ -277,7 +277,7 @@ newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word8
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapPrim_HsPrimWord8" (RIP.Ptr Prim_HsPrimWord8) (RIP.Ptr ty) where
 
   getField =
@@ -318,7 +318,7 @@ newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "unwrapPrim_HsPrimWord16" (RIP.Ptr Prim_HsPrimWord16) (RIP.Ptr ty) where
 
   getField =
@@ -359,7 +359,7 @@ newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapPrim_HsPrimWord32" (RIP.Ptr Prim_HsPrimWord32) (RIP.Ptr ty) where
 
   getField =
@@ -400,7 +400,7 @@ newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word64
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => RIP.HasField "unwrapPrim_HsPrimWord64" (RIP.Ptr Prim_HsPrimWord64) (RIP.Ptr ty) where
 
   getField =
@@ -441,7 +441,7 @@ newtype Prim_HsPrimCChar = Prim_HsPrimCChar
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapPrim_HsPrimCChar" (RIP.Ptr Prim_HsPrimCChar) (RIP.Ptr ty) where
 
   getField =
@@ -482,7 +482,7 @@ newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CSChar
+instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "unwrapPrim_HsPrimCSChar" (RIP.Ptr Prim_HsPrimCSChar) (RIP.Ptr ty) where
 
   getField =
@@ -523,7 +523,7 @@ newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CUChar
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapPrim_HsPrimCUChar" (RIP.Ptr Prim_HsPrimCUChar) (RIP.Ptr ty) where
 
   getField =
@@ -564,7 +564,7 @@ newtype Prim_HsPrimCShort = Prim_HsPrimCShort
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapPrim_HsPrimCShort" (RIP.Ptr Prim_HsPrimCShort) (RIP.Ptr ty) where
 
   getField =
@@ -605,7 +605,7 @@ newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CUShort
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "unwrapPrim_HsPrimCUShort" (RIP.Ptr Prim_HsPrimCUShort) (RIP.Ptr ty) where
 
   getField =
@@ -646,7 +646,7 @@ newtype Prim_HsPrimCInt = Prim_HsPrimCInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapPrim_HsPrimCInt" (RIP.Ptr Prim_HsPrimCInt) (RIP.Ptr ty) where
 
   getField =
@@ -687,7 +687,7 @@ newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapPrim_HsPrimCUInt" (RIP.Ptr Prim_HsPrimCUInt) (RIP.Ptr ty) where
 
   getField =
@@ -728,7 +728,7 @@ newtype Prim_HsPrimCLong = Prim_HsPrimCLong
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "unwrapPrim_HsPrimCLong" (RIP.Ptr Prim_HsPrimCLong) (RIP.Ptr ty) where
 
   getField =
@@ -769,7 +769,7 @@ newtype Prim_HsPrimCULong = Prim_HsPrimCULong
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CULong
+instance ( ty ~ RIP.CULong
          ) => RIP.HasField "unwrapPrim_HsPrimCULong" (RIP.Ptr Prim_HsPrimCULong) (RIP.Ptr ty) where
 
   getField =
@@ -810,7 +810,7 @@ newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "unwrapPrim_HsPrimCLLong" (RIP.Ptr Prim_HsPrimCLLong) (RIP.Ptr ty) where
 
   getField =
@@ -851,7 +851,7 @@ newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CULLong
+instance ( ty ~ RIP.CULLong
          ) => RIP.HasField "unwrapPrim_HsPrimCULLong" (RIP.Ptr Prim_HsPrimCULLong) (RIP.Ptr ty) where
 
   getField =
@@ -892,7 +892,7 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CBool
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapPrim_HsPrimCBool" (RIP.Ptr Prim_HsPrimCBool) (RIP.Ptr ty) where
 
   getField =
@@ -931,7 +931,7 @@ newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "unwrapPrim_HsPrimCFloat" (RIP.Ptr Prim_HsPrimCFloat) (RIP.Ptr ty) where
 
   getField =
@@ -970,7 +970,7 @@ newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "unwrapPrim_HsPrimCDouble" (RIP.Ptr Prim_HsPrimCDouble) (RIP.Ptr ty) where
 
   getField =

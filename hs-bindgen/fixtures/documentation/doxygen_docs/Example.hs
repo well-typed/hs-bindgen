@@ -120,7 +120,7 @@ newtype Size_type = Size_type
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "unwrapSize_type" (RIP.Ptr Size_type) (RIP.Ptr ty) where
 
   getField =
@@ -232,7 +232,7 @@ instance Read Color_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapColor_enum" (RIP.Ptr Color_enum) (RIP.Ptr ty) where
 
   getField =
@@ -324,7 +324,7 @@ instance RIP.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
-instance ( (~) ty (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
          ) => RIP.HasField "unwrapEvent_callback_t_Aux" (RIP.Ptr Event_callback_t_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -363,7 +363,7 @@ newtype Event_callback_t = Event_callback_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr Event_callback_t_Aux)
+instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
          ) => RIP.HasField "unwrapEvent_callback_t" (RIP.Ptr Event_callback_t) (RIP.Ptr ty) where
 
   getField =
@@ -481,7 +481,7 @@ instance HasCField.HasCField Config_t "config_t_id" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "config_t_id" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
@@ -494,7 +494,7 @@ instance HasCField.HasCField Config_t "config_t_name" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty (CA.ConstantArray 64 RIP.CChar)
+instance ( ty ~ CA.ConstantArray 64 RIP.CChar
          ) => RIP.HasField "config_t_name" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
@@ -507,7 +507,7 @@ instance HasCField.HasCField Config_t "config_t_flags" where
 
   offset# = \_ -> \_ -> 68
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "config_t_flags" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
@@ -520,7 +520,7 @@ instance HasCField.HasCField Config_t "config_t_callback" where
 
   offset# = \_ -> \_ -> 72
 
-instance ( (~) ty Event_callback_t
+instance ( ty ~ Event_callback_t
          ) => RIP.HasField "config_t_callback" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
@@ -533,7 +533,7 @@ instance HasCField.HasCField Config_t "config_t_user_data" where
 
   offset# = \_ -> \_ -> 80
 
-instance ( (~) ty (RIP.Ptr RIP.Void)
+instance ( ty ~ RIP.Ptr RIP.Void
          ) => RIP.HasField "config_t_user_data" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
@@ -616,7 +616,7 @@ instance Read Status_code_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapStatus_code_t" (RIP.Ptr Status_code_t) (RIP.Ptr ty) where
 
   getField =
@@ -745,7 +745,7 @@ instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" w
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "data_union_t_as_parts_low" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
 
   getField =
@@ -758,7 +758,7 @@ instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" 
 
   offset# = \_ -> \_ -> 2
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "data_union_t_as_parts_high" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
 
   getField =
@@ -896,7 +896,7 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int32
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "data_union_t_as_int" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
   getField =
@@ -909,7 +909,7 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "data_union_t_as_float" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
   getField =
@@ -922,7 +922,7 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8)
+instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "data_union_t_as_bytes" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
   getField =
@@ -935,7 +935,7 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_parts" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Data_union_t_as_parts
+instance ( ty ~ Data_union_t_as_parts
          ) => RIP.HasField "data_union_t_as_parts" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
   getField =
@@ -1034,7 +1034,7 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag1" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "bitfield_t_flag1" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -1049,7 +1049,7 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag2" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "bitfield_t_flag2" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -1064,7 +1064,7 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_counter" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "bitfield_t_counter" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -1079,7 +1079,7 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_reserved" where
 
   bitfieldWidth# = \_ -> \_ -> 24
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "bitfield_t_reserved" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -1131,7 +1131,7 @@ instance RIP.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
-instance ( (~) ty (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
          ) => RIP.HasField "unwrapProcessor_fn_t_Aux" (RIP.Ptr Processor_fn_t_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1170,7 +1170,7 @@ newtype Processor_fn_t = Processor_fn_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.FunPtr Processor_fn_t_Aux)
+instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
          ) => RIP.HasField "unwrapProcessor_fn_t" (RIP.Ptr Processor_fn_t) (RIP.Ptr ty) where
 
   getField =
@@ -1203,7 +1203,7 @@ newtype Filename_t = Filename_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (CA.ConstantArray 256 RIP.CChar)
+instance ( ty ~ CA.ConstantArray 256 RIP.CChar
          ) => RIP.HasField "unwrapFilename_t" (RIP.Ptr Filename_t) (RIP.Ptr ty) where
 
   getField =
@@ -1270,7 +1270,7 @@ instance HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "flexible_array_count" (RIP.Ptr Flexible_array_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1369,7 +1369,7 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty (RIP.Ptr RIP.CInt)
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "dyn_array_t_data" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
 
   getField =
@@ -1382,7 +1382,7 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "dyn_array_t_size" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
 
   getField =
@@ -1395,7 +1395,7 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( (~) ty HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "dyn_array_t_capacity" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
 
   getField =
@@ -1462,7 +1462,7 @@ instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "multi_anon_t_pos_x" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
 
   getField =
@@ -1475,7 +1475,7 @@ instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "multi_anon_t_pos_y" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
 
   getField =
@@ -1542,7 +1542,7 @@ instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "multi_anon_t_dim_w" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
 
   getField =
@@ -1555,7 +1555,7 @@ instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_h" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "multi_anon_t_dim_h" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
 
   getField =
@@ -1630,7 +1630,7 @@ instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Multi_anon_t_pos
+instance ( ty ~ Multi_anon_t_pos
          ) => RIP.HasField "multi_anon_t_pos" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
 
   getField =
@@ -1643,7 +1643,7 @@ instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty Multi_anon_t_dim
+instance ( ty ~ Multi_anon_t_dim
          ) => RIP.HasField "multi_anon_t_dim" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
 
   getField =
@@ -1712,7 +1712,7 @@ instance HasCField.HasCField Named_inner "named_inner_nx" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "named_inner_nx" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
 
   getField =
@@ -1725,7 +1725,7 @@ instance HasCField.HasCField Named_inner "named_inner_ny" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "named_inner_ny" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
 
   getField =
@@ -1794,7 +1794,7 @@ instance HasCField.HasCField Named_outer "named_outer_inner_field" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Named_inner
+instance ( ty ~ Named_inner
          ) => RIP.HasField "named_outer_inner_field" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
 
   getField =
@@ -1807,7 +1807,7 @@ instance HasCField.HasCField Named_outer "named_outer_nz" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "named_outer_nz" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
 
   getField =
@@ -1863,7 +1863,7 @@ instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" wh
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "deep_mid_anon_field_deep_a" (RIP.Ptr Deep_mid_anon_field) (RIP.Ptr ty) where
 
   getField =
@@ -1931,7 +1931,7 @@ instance HasCField.HasCField Deep_mid "deep_mid_m" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "deep_mid_m" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
 
   getField =
@@ -1944,7 +1944,7 @@ instance HasCField.HasCField Deep_mid "deep_mid_anon_field" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty Deep_mid_anon_field
+instance ( ty ~ Deep_mid_anon_field
          ) => RIP.HasField "deep_mid_anon_field" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
 
   getField =
@@ -2013,7 +2013,7 @@ instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty Deep_mid
+instance ( ty ~ Deep_mid
          ) => RIP.HasField "deep_outer_mid_field" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
 
   getField =
@@ -2025,7 +2025,7 @@ instance HasCField.HasCField Deep_outer "deep_outer_o" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "deep_outer_o" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
 
   getField =
@@ -2092,7 +2092,7 @@ instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ua" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unnamed_field_t_ua_ua" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
 
   getField =
@@ -2105,7 +2105,7 @@ instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ub" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unnamed_field_t_ua_ub" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
 
   getField =
@@ -2190,7 +2190,7 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unnamed_field_t_before" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =
@@ -2203,7 +2203,7 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_ua" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty Unnamed_field_t_ua
+instance ( ty ~ Unnamed_field_t_ua
          ) => RIP.HasField "unnamed_field_t_ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =
@@ -2216,7 +2216,7 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unnamed_field_t_after" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =

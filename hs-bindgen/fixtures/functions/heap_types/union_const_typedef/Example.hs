@@ -75,7 +75,7 @@ instance HasCField.HasCField U "u_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u_x")
 
@@ -96,7 +96,7 @@ newtype T = T
     , Marshal.WriteRaw
     )
 
-instance ((~) ty U) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+instance (ty ~ U) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
 

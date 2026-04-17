@@ -77,7 +77,7 @@ instance HasCField.HasCField Vector "vector_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
@@ -88,7 +88,7 @@ instance HasCField.HasCField Vector "vector_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( (~) ty RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_y")

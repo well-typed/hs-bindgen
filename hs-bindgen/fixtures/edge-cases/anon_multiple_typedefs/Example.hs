@@ -84,7 +84,7 @@ instance HasCField.HasCField Point1a "point1a_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point1a_x" (RIP.Ptr Point1a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point1a_x")
@@ -95,7 +95,7 @@ instance HasCField.HasCField Point1a "point1a_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point1a_y" (RIP.Ptr Point1a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point1a_y")
@@ -117,7 +117,7 @@ newtype Point1b = Point1b
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Point1a
+instance ( ty ~ Point1a
          ) => RIP.HasField "unwrapPoint1b" (RIP.Ptr Point1b) (RIP.Ptr ty) where
 
   getField =
@@ -185,7 +185,7 @@ instance HasCField.HasCField Point2a "point2a_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point2a_x" (RIP.Ptr Point2a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point2a_x")
@@ -196,7 +196,7 @@ instance HasCField.HasCField Point2a "point2a_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point2a_y" (RIP.Ptr Point2a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point2a_y")
@@ -219,7 +219,7 @@ newtype Point2b = Point2b
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr Point2a)
+instance ( ty ~ RIP.Ptr Point2a
          ) => RIP.HasField "unwrapPoint2b" (RIP.Ptr Point2b) (RIP.Ptr ty) where
 
   getField =
@@ -289,7 +289,7 @@ instance HasCField.HasCField Point3a_Aux "point3a_Aux_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point3a_Aux_x" (RIP.Ptr Point3a_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -302,7 +302,7 @@ instance HasCField.HasCField Point3a_Aux "point3a_Aux_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point3a_Aux_y" (RIP.Ptr Point3a_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -326,7 +326,7 @@ newtype Point3a = Point3a
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr Point3a_Aux)
+instance ( ty ~ RIP.Ptr Point3a_Aux
          ) => RIP.HasField "unwrapPoint3a" (RIP.Ptr Point3a) (RIP.Ptr ty) where
 
   getField =
@@ -357,7 +357,7 @@ newtype Point3b = Point3b
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty (RIP.Ptr Point3a_Aux)
+instance ( ty ~ RIP.Ptr Point3a_Aux
          ) => RIP.HasField "unwrapPoint3b" (RIP.Ptr Point3b) (RIP.Ptr ty) where
 
   getField =

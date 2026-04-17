@@ -104,7 +104,7 @@ instance Read Test where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapTest" (RIP.Ptr Test) (RIP.Ptr ty) where
 
   getField =

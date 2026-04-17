@@ -107,7 +107,7 @@ instance HasCField.HasCField UnionA "unionA_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
@@ -118,7 +118,7 @@ instance HasCField.HasCField UnionA "unionA_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
@@ -170,7 +170,7 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty UnionA
+instance ( ty ~ UnionA
          ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
 
   getField =
@@ -252,7 +252,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -265,7 +265,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -318,7 +318,7 @@ instance HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty ExB_fieldB1
+instance ( ty ~ ExB_fieldB1
          ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
 
   getField =

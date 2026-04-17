@@ -49,7 +49,7 @@ newtype FILE = FILE
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFILE" (RIP.Ptr FILE) (RIP.Ptr ty) where
 
   getField =

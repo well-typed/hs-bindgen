@@ -107,7 +107,7 @@ instance Read Foo_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr ty) where
 
   getField =

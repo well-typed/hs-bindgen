@@ -70,7 +70,7 @@ instance HasCField.HasCField A "dup" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty RIP.CInt) => RIP.HasField "dup" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")
 
@@ -121,6 +121,6 @@ instance HasCField.HasCField B "dup" where
 
   offset# = \_ -> \_ -> 0
 
-instance ((~) ty RIP.CInt) => RIP.HasField "dup" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")

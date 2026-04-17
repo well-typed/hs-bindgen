@@ -65,7 +65,7 @@ newtype Int_fast16_t = Int_fast16_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int32
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "unwrapInt_fast16_t" (RIP.Ptr Int_fast16_t) (RIP.Ptr ty) where
 
   getField =
@@ -106,7 +106,7 @@ newtype Int_fast32_t = Int_fast32_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int32
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "unwrapInt_fast32_t" (RIP.Ptr Int_fast32_t) (RIP.Ptr ty) where
 
   getField =
@@ -147,7 +147,7 @@ newtype Uint_fast16_t = Uint_fast16_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapUint_fast16_t" (RIP.Ptr Uint_fast16_t) (RIP.Ptr ty) where
 
   getField =
@@ -188,7 +188,7 @@ newtype Uint_fast32_t = Uint_fast32_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapUint_fast32_t" (RIP.Ptr Uint_fast32_t) (RIP.Ptr ty) where
 
   getField =
@@ -229,7 +229,7 @@ newtype Int_fast8_t = Int_fast8_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int8
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
          ) => RIP.HasField "unwrapInt_fast8_t" (RIP.Ptr Int_fast8_t) (RIP.Ptr ty) where
 
   getField =
@@ -270,7 +270,7 @@ newtype Int_fast64_t = Int_fast64_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int64
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
          ) => RIP.HasField "unwrapInt_fast64_t" (RIP.Ptr Int_fast64_t) (RIP.Ptr ty) where
 
   getField =
@@ -311,7 +311,7 @@ newtype Int_least8_t = Int_least8_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int8
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
          ) => RIP.HasField "unwrapInt_least8_t" (RIP.Ptr Int_least8_t) (RIP.Ptr ty) where
 
   getField =
@@ -352,7 +352,7 @@ newtype Int_least16_t = Int_least16_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int16
+instance ( ty ~ HsBindgen.Runtime.LibC.Int16
          ) => RIP.HasField "unwrapInt_least16_t" (RIP.Ptr Int_least16_t) (RIP.Ptr ty) where
 
   getField =
@@ -393,7 +393,7 @@ newtype Int_least32_t = Int_least32_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int32
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "unwrapInt_least32_t" (RIP.Ptr Int_least32_t) (RIP.Ptr ty) where
 
   getField =
@@ -434,7 +434,7 @@ newtype Int_least64_t = Int_least64_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Int64
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
          ) => RIP.HasField "unwrapInt_least64_t" (RIP.Ptr Int_least64_t) (RIP.Ptr ty) where
 
   getField =
@@ -475,7 +475,7 @@ newtype Uint_fast8_t = Uint_fast8_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word8
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapUint_fast8_t" (RIP.Ptr Uint_fast8_t) (RIP.Ptr ty) where
 
   getField =
@@ -516,7 +516,7 @@ newtype Uint_fast64_t = Uint_fast64_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word64
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => RIP.HasField "unwrapUint_fast64_t" (RIP.Ptr Uint_fast64_t) (RIP.Ptr ty) where
 
   getField =
@@ -557,7 +557,7 @@ newtype Uint_least8_t = Uint_least8_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word8
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapUint_least8_t" (RIP.Ptr Uint_least8_t) (RIP.Ptr ty) where
 
   getField =
@@ -598,7 +598,7 @@ newtype Uint_least16_t = Uint_least16_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word16
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "unwrapUint_least16_t" (RIP.Ptr Uint_least16_t) (RIP.Ptr ty) where
 
   getField =
@@ -639,7 +639,7 @@ newtype Uint_least32_t = Uint_least32_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word32
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapUint_least32_t" (RIP.Ptr Uint_least32_t) (RIP.Ptr ty) where
 
   getField =
@@ -680,7 +680,7 @@ newtype Uint_least64_t = Uint_least64_t
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty HsBindgen.Runtime.LibC.Word64
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => RIP.HasField "unwrapUint_least64_t" (RIP.Ptr Uint_least64_t) (RIP.Ptr ty) where
 
   getField =

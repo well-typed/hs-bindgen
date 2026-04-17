@@ -78,7 +78,7 @@ instance HasCField.HasCField MyUnion "myUnion_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "myUnion_x" (RIP.Ptr MyUnion) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"myUnion_x")
@@ -100,8 +100,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty MyUnion
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ MyUnion) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -128,7 +127,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance ((~) ty A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -149,7 +148,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance ((~) ty M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

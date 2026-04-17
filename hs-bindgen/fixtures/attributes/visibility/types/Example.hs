@@ -217,8 +217,7 @@ instance HasCField.HasCField S5 "s5_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s5_x" (RIP.Ptr S5) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s5_x" (RIP.Ptr S5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s5_x")
 
@@ -269,8 +268,7 @@ instance HasCField.HasCField S6 "s6_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s6_x" (RIP.Ptr S6) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s6_x" (RIP.Ptr S6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s6_x")
 
@@ -321,8 +319,7 @@ instance HasCField.HasCField S7 "s7_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s7_x" (RIP.Ptr S7) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s7_x" (RIP.Ptr S7) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7_x")
 
@@ -373,8 +370,7 @@ instance HasCField.HasCField S8 "s8_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s8_x" (RIP.Ptr S8) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s8_x" (RIP.Ptr S8) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s8_x")
 
@@ -425,8 +421,7 @@ instance HasCField.HasCField S9 "s9_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "s9_x" (RIP.Ptr S9) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "s9_x" (RIP.Ptr S9) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s9_x")
 
@@ -477,7 +472,7 @@ instance HasCField.HasCField S10 "s10_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s10_x" (RIP.Ptr S10) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s10_x")
@@ -529,7 +524,7 @@ instance HasCField.HasCField S11 "s11_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s11_x" (RIP.Ptr S11) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s11_x")
@@ -581,7 +576,7 @@ instance HasCField.HasCField S12 "s12_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s12_x" (RIP.Ptr S12) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s12_x")
@@ -633,7 +628,7 @@ instance HasCField.HasCField S13 "s13_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s13_x" (RIP.Ptr S13) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s13_x")
@@ -685,7 +680,7 @@ instance HasCField.HasCField S14 "s14_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s14_x" (RIP.Ptr S14) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s14_x")
@@ -737,7 +732,7 @@ instance HasCField.HasCField S15 "s15_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s15_x" (RIP.Ptr S15) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s15_x")
@@ -789,7 +784,7 @@ instance HasCField.HasCField S16 "s16_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s16_x" (RIP.Ptr S16) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s16_x")
@@ -841,7 +836,7 @@ instance HasCField.HasCField S17 "s17_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s17_x" (RIP.Ptr S17) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s17_x")
@@ -893,7 +888,7 @@ instance HasCField.HasCField S18 "s18_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s18_x" (RIP.Ptr S18) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s18_x")
@@ -945,7 +940,7 @@ instance HasCField.HasCField S19 "s19_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s19_x" (RIP.Ptr S19) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s19_x")
@@ -1040,8 +1035,7 @@ instance HasCField.HasCField U5 "u5_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "u5_x" (RIP.Ptr U5) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u5_x" (RIP.Ptr U5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u5_x")
 
@@ -1095,8 +1089,7 @@ instance HasCField.HasCField U6 "u6_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "u6_x" (RIP.Ptr U6) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u6_x" (RIP.Ptr U6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u6_x")
 
@@ -1150,8 +1143,7 @@ instance HasCField.HasCField U7 "u7_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "u7_x" (RIP.Ptr U7) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u7_x" (RIP.Ptr U7) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u7_x")
 
@@ -1205,8 +1197,7 @@ instance HasCField.HasCField U8 "u8_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "u8_x" (RIP.Ptr U8) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u8_x" (RIP.Ptr U8) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u8_x")
 
@@ -1260,8 +1251,7 @@ instance HasCField.HasCField U9 "u9_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
-         ) => RIP.HasField "u9_x" (RIP.Ptr U9) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u9_x" (RIP.Ptr U9) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u9_x")
 
@@ -1315,7 +1305,7 @@ instance HasCField.HasCField U10 "u10_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u10_x" (RIP.Ptr U10) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u10_x")
@@ -1370,7 +1360,7 @@ instance HasCField.HasCField U11 "u11_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u11_x" (RIP.Ptr U11) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u11_x")
@@ -1425,7 +1415,7 @@ instance HasCField.HasCField U12 "u12_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u12_x" (RIP.Ptr U12) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u12_x")
@@ -1480,7 +1470,7 @@ instance HasCField.HasCField U13 "u13_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u13_x" (RIP.Ptr U13) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u13_x")
@@ -1535,7 +1525,7 @@ instance HasCField.HasCField U14 "u14_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u14_x" (RIP.Ptr U14) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u14_x")
@@ -1590,7 +1580,7 @@ instance HasCField.HasCField U15 "u15_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u15_x" (RIP.Ptr U15) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u15_x")
@@ -1645,7 +1635,7 @@ instance HasCField.HasCField U16 "u16_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u16_x" (RIP.Ptr U16) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u16_x")
@@ -1700,7 +1690,7 @@ instance HasCField.HasCField U17 "u17_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u17_x" (RIP.Ptr U17) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u17_x")
@@ -1755,7 +1745,7 @@ instance HasCField.HasCField U18 "u18_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u18_x" (RIP.Ptr U18) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u18_x")
@@ -1810,7 +1800,7 @@ instance HasCField.HasCField U19 "u19_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u19_x" (RIP.Ptr U19) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u19_x")
@@ -1932,7 +1922,7 @@ instance Read E5 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE5" (RIP.Ptr E5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE5")
@@ -2029,7 +2019,7 @@ instance Read E6 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE6" (RIP.Ptr E6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE6")
@@ -2126,7 +2116,7 @@ instance Read E7 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE7" (RIP.Ptr E7) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE7")
@@ -2223,7 +2213,7 @@ instance Read E8 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE8" (RIP.Ptr E8) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE8")
@@ -2320,7 +2310,7 @@ instance Read E9 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE9" (RIP.Ptr E9) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE9")
@@ -2417,7 +2407,7 @@ instance Read E10 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE10" (RIP.Ptr E10) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE10")
@@ -2514,7 +2504,7 @@ instance Read E11 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE11" (RIP.Ptr E11) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE11")
@@ -2611,7 +2601,7 @@ instance Read E12 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE12" (RIP.Ptr E12) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE12")
@@ -2708,7 +2698,7 @@ instance Read E13 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE13" (RIP.Ptr E13) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE13")
@@ -2805,7 +2795,7 @@ instance Read E14 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE14" (RIP.Ptr E14) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE14")
@@ -2902,7 +2892,7 @@ instance Read E15 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE15" (RIP.Ptr E15) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE15")
@@ -2999,7 +2989,7 @@ instance Read E16 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE16" (RIP.Ptr E16) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE16")
@@ -3096,7 +3086,7 @@ instance Read E17 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE17" (RIP.Ptr E17) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE17")
@@ -3193,7 +3183,7 @@ instance Read E18 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE18" (RIP.Ptr E18) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE18")
@@ -3290,7 +3280,7 @@ instance Read E19 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( (~) ty RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapE19" (RIP.Ptr E19) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE19")

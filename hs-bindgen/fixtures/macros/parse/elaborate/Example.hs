@@ -83,7 +83,7 @@ newtype Outer_int = Outer_int
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOuter_int" (RIP.Ptr Outer_int) (RIP.Ptr ty) where
 
   getField =
@@ -124,7 +124,7 @@ newtype Inner_int = Inner_int
     , Marshal.WriteRaw
     )
 
-instance ( (~) ty Outer_int
+instance ( ty ~ Outer_int
          ) => RIP.HasField "unwrapInner_int" (RIP.Ptr Inner_int) (RIP.Ptr ty) where
 
   getField =
