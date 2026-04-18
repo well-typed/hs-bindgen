@@ -16,7 +16,6 @@ module HsBindgen.Cli.Info.Libclang (
 import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
 import System.Exit (exitFailure)
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple (SimpleEnum (..), simpleFromC)
 import Clang.LowLevel.Core (CXErrorCode (..))
@@ -75,7 +74,7 @@ exec global opts = do
         (const (pure ()))
     case eRes of
       Left e  -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
+        print $ prettyForTrace e
         exitFailure
       Right _ -> pure ()
   where

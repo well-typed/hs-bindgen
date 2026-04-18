@@ -141,9 +141,9 @@ library internal
     HsBindgen.Clang.Macos
     HsBindgen.Clang.Sizeof
     HsBindgen.Config.ClangArgs
-    HsBindgen.Config.FixCandidate
-    HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
+    HsBindgen.Config.MangleCandidate
+    HsBindgen.Config.MangleCandidate.ReservedNames
     HsBindgen.Config.Prelims
     HsBindgen.Doxygen
     HsBindgen.Eff

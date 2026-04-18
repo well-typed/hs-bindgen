@@ -17,7 +17,6 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Options.Applicative hiding (info)
 import System.Exit (ExitCode (ExitFailure))
-import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.App
 import HsBindgen.Boot
@@ -84,7 +83,7 @@ exec global opts = do
       Right False -> return ()
       Right True  -> throwIO (ExitFailure 1)
       Left e      -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
+        print $ prettyForTrace e
   where
     tracerConfig' :: TracerConfig Level TraceMsg
     tracerConfig' = global.unsafe{

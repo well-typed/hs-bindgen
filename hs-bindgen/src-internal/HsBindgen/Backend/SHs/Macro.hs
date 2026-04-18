@@ -36,7 +36,7 @@ import HsBindgen.NameHint
 
 translateMacroExpr :: Hs.MacroExpr -> SDecl
 translateMacroExpr macro = DBinding Binding{
-      name       = macro.name
+      name       = Hs.ExportedName macro.name
     , parameters = []
     , result     = Result (translateType macro.expr.typ) Nothing
     , body       = translateBody macro.expr.args macro.expr.body
@@ -161,8 +161,9 @@ mexpr env =
 idNameHint :: Id Final -> NameHint
 idNameHint xId = fromString (T.unpack xId.cName.name.text)
 
-macroIdToHsName :: Id Final -> Hs.Name Hs.NsVar
-macroIdToHsName namePair = Hs.unsafeHsIdHsName $ unsafeHsName namePair
+macroIdToHsName :: Id Final -> Hs.TermName
+macroIdToHsName namePair =
+    Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName
 
 {-------------------------------------------------------------------------------
   Literals

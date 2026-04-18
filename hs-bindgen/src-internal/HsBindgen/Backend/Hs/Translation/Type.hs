@@ -9,16 +9,18 @@ module HsBindgen.Backend.Hs.Translation.Type (
   , InContext(..)
   ) where
 
+import Data.Proxy (Proxy (..))
 import GHC.Stack
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Main API
@@ -42,13 +44,21 @@ instance InContext (C.Type Final) where
     where
       go :: TypeContext -> C.Type Final -> Hs.HsType
       go c (C.TypeMacro ref) =
-          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+          Hs.HsTypRef
+            (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+            (Just $ go c ref.underlying)
       go c (C.TypeTypedef ref) =
-          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+          Hs.HsTypRef
+            (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+            (Just $ go c ref.underlying)
       go _ (C.TypeRef ref) =
-          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName) Nothing
+          Hs.HsTypRef
+            (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName)
+            Nothing
       go c (C.TypeEnum ref) =
-          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+          Hs.HsTypRef
+            (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+            (Just $ go c ref.underlying)
       go c C.TypeVoid =
           Hs.HsPrimType (void c)
       go _ (C.TypePrim p) =

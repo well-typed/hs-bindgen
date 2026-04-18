@@ -1,15 +1,18 @@
-module HsBindgen.Config.FixCandidate (
+module HsBindgen.Config.MangleCandidate (
     -- * Definition
-    FixCandidate(..)
-  , fixCandidate
+    MangleCandidate(..)
+  , mangleCandidate
+    -- * Parse
+  , ParseCandidateError(..)
+  , parseCandidate
     -- * Standard instances
-  , fixCandidateDefault
-  , fixCandidateHaskell
+  , mangleCandidateDefault
+  , mangleCandidateHaskell
     -- * Constructing new instances
     -- ** Dealing with invalid characters
   , dropInvalidChar
   , escapeInvalidChar
-    -- ** ExportedName rule sets
+    -- ** Name rule sets
   , NameRuleSet(..)
   , NamespaceRuleSet
   , SNameRuleSet(..)
@@ -26,11 +29,12 @@ import Data.Char qualified as Char
 import Data.Proxy
 import Data.Set qualified as Set
 import Data.Text qualified as Text
+import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Config.FixCandidate.ReservedNames (allReservedNames)
+import HsBindgen.Config.MangleCandidate.ReservedNames (allReservedNames)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Util.Tracer
 
 import Numeric (showHex)
 
@@ -38,12 +42,12 @@ import Numeric (showHex)
   Definition
 -------------------------------------------------------------------------------}
 
--- | Fix candidate name to conform to Haskell's naming rules
+-- | Mangle candidate name to conform to Haskell's naming rules
 --
--- ExportedName generation is allowed to fail (depending on the policy, there are
+-- Name generation is allowed to fail (depending on the policy, there are
 -- circumstances in which we cannot generate a name). When this happens, we
 -- require a name override.
-data FixCandidate m = FixCandidate {
+data MangleCandidate m = MangleCandidate {
       -- | Process invalid characters
       --
       -- Called on characters that are invalid anywhere in a Haskell identifier.
@@ -68,22 +72,22 @@ data FixCandidate m = FixCandidate {
     }
 
 newtype ApplyRuleset m = ApplyRuleset(
-      forall ns. Hs.SingNamespace ns => Text -> m (Hs.ExportedName ns)
+      forall ns. Hs.SingNamespace ns => Text -> m (Hs.Name ns)
     )
 
 applyRuleset ::
      Hs.SingNamespace ns
-  => ApplyRuleset m -> Text -> m (Hs.ExportedName ns)
+  => ApplyRuleset m -> Text -> m (Hs.Name ns)
 applyRuleset (ApplyRuleset f) = f
 
-deriving stock instance Generic (FixCandidate m)
+deriving stock instance Generic (MangleCandidate m)
 
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
-fixCandidateDefault :: FixCandidate Maybe
-fixCandidateDefault = FixCandidate {
+mangleCandidateDefault :: MangleCandidate Maybe
+mangleCandidateDefault = MangleCandidate {
       onInvalidChar  = return . escapeInvalidChar
     , apply          = ApplyRuleset $
                          modifyFirstLetter (Just . prefixInvalidFirst "C" "c")
@@ -91,8 +95,8 @@ fixCandidateDefault = FixCandidate {
     , onReservedName = appendSingleQuote
     }
 
-fixCandidateHaskell :: FixCandidate Maybe
-fixCandidateHaskell = fixCandidateDefault {
+mangleCandidateHaskell :: MangleCandidate Maybe
+mangleCandidateHaskell = mangleCandidateDefault {
       onInvalidChar = return . dropInvalidChar
     , apply         = ApplyRuleset $ modifyFirstLetter dropInvalidFirst
     }
@@ -101,12 +105,17 @@ fixCandidateHaskell = fixCandidateDefault {
   Execution
 -------------------------------------------------------------------------------}
 
-fixCandidate :: forall ns m.
+-- | Translate C name to Haskell name, observing Haskell naming conventions
+--
+-- If the C name is already a valid Haskell name for its namespace, it must be
+-- preserved, provided it is not a reserved name (idempotent modulo reserved
+-- names).
+mangleCandidate :: forall ns m.
      (Monad m, Hs.SingNamespace ns)
-  => FixCandidate m -> Text -> m (Hs.ExportedName ns)
-fixCandidate fc =
+  => MangleCandidate m -> Text -> m (Hs.Name ns)
+mangleCandidate mc =
         pure . handleReservedNames
-    <=< applyRuleset fc.apply
+    <=< applyRuleset mc.apply
     <=< processInvalidChars
   where
     processInvalidChars :: Text -> m Text
@@ -115,7 +124,7 @@ fixCandidate fc =
         go :: [String] -> String -> m String
         go acc (c:cs)
           | isValidChar c = go ([c] : acc) cs
-          | otherwise     = fc.onInvalidChar c >>= \c' -> go (c':acc) cs
+          | otherwise     = mc.onInvalidChar c >>= \c' -> go (c':acc) cs
         go acc []         = return $ concat (reverse acc)
 
         -- NOTE: @isAlphaNum@ is @True@ for non-ASCII characters too (e.g. '你')
@@ -125,12 +134,48 @@ fixCandidate fc =
         isValidChar :: Char -> Bool
         isValidChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
-    handleReservedNames :: Hs.ExportedName ns -> Hs.ExportedName ns
+    handleReservedNames :: Hs.Name ns -> Hs.Name ns
     handleReservedNames name
-      | name.text `Set.member` fc.reservedNames
-      = Hs.UnsafeExportedName $ fc.onReservedName name.text
+      | name.text `Set.member` mc.reservedNames
+      = Hs.UnsafeName $ mc.onReservedName name.text
       | otherwise
       = name
+
+{-------------------------------------------------------------------------------
+  Parse
+-------------------------------------------------------------------------------}
+
+data ParseCandidateError =
+  ParseNameMismatch Text Hs.SomeName
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace ParseCandidateError where
+  prettyForTrace = \case
+    ParseNameMismatch candidate name -> PP.hcat [
+        "Mismatch of candidate ("
+      , PP.text candidate
+      , ") and name ("
+      , PP.text name.text
+      , "; namespace "
+      , prettyForTrace name.ns
+      , ")"
+      ]
+
+-- | Parse a candidate and check if it adheres to the naming rules.
+parseCandidate :: forall ns m.
+     (Monad m, Hs.SingNamespace ns)
+  => MangleCandidate m
+  -> Text
+  -> m (Either ParseCandidateError (Hs.Name ns))
+parseCandidate mc candidate = do
+    -- 'mangleCandidate' is idempotent, so applying the transformation again
+    -- must yield the same identifier.
+    name <- mangleCandidate @ns mc candidate
+    pure $
+      if candidate == name.text; then
+        Right name
+      else
+        Left $ ParseNameMismatch candidate (Hs.demoteNs name)
 
 {-------------------------------------------------------------------------------
   Dealing with invalid characters
@@ -150,7 +195,7 @@ escapeInvalidChar c =
     in  '\'' : replicate (max 0 (4 - length hex)) '0' ++ hex
 
 {-------------------------------------------------------------------------------
-  ExportedName rule sets
+  Name rule sets
 -------------------------------------------------------------------------------}
 
 data NameRuleSet =
@@ -228,20 +273,20 @@ data CannotApplyRuleset ns = CannotApplyRuleset{
 --    and the remainder of the identifier.
 modifyFirstLetter :: forall ns.
      Hs.SingNamespace ns
-  => (CannotApplyRuleset ns -> Maybe (Hs.ExportedName ns))
+  => (CannotApplyRuleset ns -> Maybe (Hs.Name ns))
      -- ^ @onInvalidFirst@ (see 'prefixInvalidFirst' and 'dropInvalidFirst')
-  -> Text -> Maybe (Hs.ExportedName ns)
+  -> Text -> Maybe (Hs.Name ns)
 modifyFirstLetter onInvalidFirst =
     aux (singNameRuleSet (Proxy @ns))
   where
-    aux :: SNameRuleSet (NamespaceRuleSet ns) -> Text -> Maybe (Hs.ExportedName ns)
+    aux :: SNameRuleSet (NamespaceRuleSet ns) -> Text -> Maybe (Hs.Name ns)
     aux ruleset = \t -> do
         (firstChar, rest) <- Text.uncons t
         if | matchesRule firstChar ->
-               Just . Hs.UnsafeExportedName $
+               Just . Hs.UnsafeName $
                  Text.cons firstChar rest
            | matchesRule (adjustForRule firstChar) ->
-               Just . Hs.UnsafeExportedName $
+               Just . Hs.UnsafeName $
                  Text.cons (adjustForRule firstChar) rest
            | otherwise -> do
                let unhandled, afterUnhandled :: Text
@@ -278,13 +323,13 @@ modifyFirstLetter onInvalidFirst =
 prefixInvalidFirst ::
      Text  -- ^ Prefix for 'SNameRuleSetOther'
   -> Text  -- ^ Prefix for 'SNameRuleSetVar' (rarely needed)
-  -> CannotApplyRuleset ns -> Hs.ExportedName ns
+  -> CannotApplyRuleset ns -> Hs.Name ns
 prefixInvalidFirst prefixOther prefixVar cannotApply =
      let prefix :: Text
          prefix = case cannotApply.ruleset of
                SNameRuleSetOther -> prefixOther
                SNameRuleSetVar   -> prefixVar
-     in Hs.UnsafeExportedName $ mconcat [
+     in Hs.UnsafeName $ mconcat [
             prefix
           , cannotApply.unhandledPrefix
           , aux cannotApply.usableSuffix
@@ -294,12 +339,12 @@ prefixInvalidFirst prefixOther prefixVar cannotApply =
     aux Nothing           = ""
     aux (Just (_, c, cs)) = Text.cons c cs
 
-dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (Hs.ExportedName ns)
+dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (Hs.Name ns)
 dropInvalidFirst cannotApply =
     aux <$> cannotApply.usableSuffix
   where
-    aux :: (Char, Char, Text) -> Hs.ExportedName ns
-    aux (_, c, cs) = Hs.UnsafeExportedName $ Text.cons c cs
+    aux :: (Char, Char, Text) -> Hs.Name ns
+    aux (_, c, cs) = Hs.UnsafeName $ Text.cons c cs
 
 {-------------------------------------------------------------------------------
   Reserved names

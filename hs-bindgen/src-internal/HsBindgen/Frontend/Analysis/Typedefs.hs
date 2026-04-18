@@ -23,7 +23,6 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Definition
@@ -118,10 +117,7 @@ data Conclusion =
     -- in this case, because @struct foo@ and (the typedef) @foo@ are
     -- /different/ types. We must therefore instruct the name mangler to use
     -- a different name for one of these two types; we add a suffix.
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1432>
-    -- These suffixes could result in name clashes.
-  | AddSuffix Hs.Identifier
+  | AddSuffix Text
 
     -- | Instruct the name mangler to use the name of another C declaration
     --

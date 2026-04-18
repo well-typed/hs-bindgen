@@ -31,6 +31,10 @@
 
 ### Minor changes
 
+* Overhaul internal identifier and name representation: `Name ns` and `SomeName`
+  replace `Identifier` and `ExportedName ns` across the pipeline
+* The `enclosing` field in `DeclInfo` is now `[EnclosingRef p]` (a flat nesting
+  chain rather than a single `Maybe (Id p)`)
 * Skip over declarations with unexposed types (such as `malloc`), primarily in
   support of LLVM/Clang 22.
 * Extract Haddock documentation from C headers using doxygen. When the `doxygen`

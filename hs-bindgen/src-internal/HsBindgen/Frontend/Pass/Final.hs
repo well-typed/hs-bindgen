@@ -32,7 +32,7 @@ type Final = Select
   exist.
 -------------------------------------------------------------------------------}
 
-instance HasField "names" (C.Struct Final) MangleNames.RecordNames where
+instance HasField "names" (C.Struct Final) MangleNames.StructNames where
   getField struct = struct.ann
 
 instance HasField "names" (C.Union Final) MangleNames.NewtypeNames where
@@ -44,7 +44,7 @@ instance HasField "names" (C.UnionField Final) MangleNames.UnionFieldNames where
 instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
   getField enum = enum.ann
 
-instance HasField "names" (C.Typedef Final) MangleNames.NewtypeNames where
+instance HasField "names" (C.Typedef Final) MangleNames.TypedefNames where
   getField typedef = typedef.ann
 
 instance HasField "names" (CheckedMacroType Final) MangleNames.NewtypeNames where

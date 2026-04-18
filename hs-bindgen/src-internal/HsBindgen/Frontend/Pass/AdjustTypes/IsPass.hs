@@ -25,11 +25,11 @@ data AdjustTypes a
 type family AnnAdjustTypes ix where
   AnnAdjustTypes "TranslationUnit"  = DeclMeta
   AnnAdjustTypes "Decl"             = PrescriptiveDeclSpec
-  AnnAdjustTypes "Struct"           = RecordNames
+  AnnAdjustTypes "Struct"           = StructNames
   AnnAdjustTypes "Union"            = NewtypeNames
   AnnAdjustTypes "UnionField"       = UnionFieldNames
   AnnAdjustTypes "Enum"             = NewtypeNames
-  AnnAdjustTypes "Typedef"          = NewtypeNames
+  AnnAdjustTypes "Typedef"          = TypedefNames
   AnnAdjustTypes "CheckedMacroType" = NewtypeNames
   AnnAdjustTypes "TypeFunArg"       = AdjustedFrom AdjustTypes
   AnnAdjustTypes _                  = NoAnn
@@ -44,9 +44,9 @@ instance IsPass AdjustTypes where
   type MacroId     AdjustTypes = Id AdjustTypes
   type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)
 
-  idNameKind     _ namePair   = namePair.cName.name.kind
-  idSourceName   _ namePair   = declIdSourceName namePair.cName
-  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
+  idNameKind     _ namePair = namePair.cName.name.kind
+  idSourceName   _ namePair = declIdSourceName namePair.cName
+  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
   extBindingId _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
 

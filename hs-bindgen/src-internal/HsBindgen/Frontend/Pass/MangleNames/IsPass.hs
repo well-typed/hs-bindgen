@@ -1,16 +1,16 @@
 module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     MangleNames
     -- * Additional names
-  , RecordNames(..)
+  , StructNames(..)
   , NewtypeNames(..)
   , UnionFieldNames(..)
+  , TypedefNames(..)
     -- * Trace messages
   , MangleNamesMsg(..)
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
@@ -33,11 +33,11 @@ data MangleNames a
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = DeclMeta
   AnnMangleNames "Decl"             = PrescriptiveDeclSpec
-  AnnMangleNames "Struct"           = RecordNames
+  AnnMangleNames "Struct"           = StructNames
   AnnMangleNames "Union"            = NewtypeNames
   AnnMangleNames "UnionField"       = UnionFieldNames
   AnnMangleNames "Enum"             = NewtypeNames
-  AnnMangleNames "Typedef"          = NewtypeNames
+  AnnMangleNames "Typedef"          = TypedefNames
   AnnMangleNames "CheckedMacroType" = NewtypeNames
   AnnMangleNames _                  = NoAnn
 
@@ -61,29 +61,39 @@ instance IsPass MangleNames where
   Additional names required for Haskell code generation
 -------------------------------------------------------------------------------}
 
--- | Names for a Haskell record type
---
--- This is used in addition to a 'NamePair'.
-data RecordNames = RecordNames {
-      constr :: Hs.Name Hs.NsConstr
+data StructNames = StructNames {
+      constr  :: Hs.Name Hs.NsConstr
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1925
+      --
+      -- Tie generation of names to the generation of the associated code.
+      --
+      -- | Name of the auxiliary @typedef@ we generate for @struct@s with
+      --   flexible array members (FLAMs).
+    , flamAux :: Maybe (Hs.Name Hs.NsTypeConstr)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
--- | Names for a Haskell newtype
---
--- This is used in addition to a 'NamePair'.
 data NewtypeNames = NewtypeNames {
-      constr :: Hs.Name Hs.NsConstr
-    , field  :: Hs.Name Hs.NsVar
+      dataConstr :: Hs.Name Hs.NsConstr
+    , field      :: Hs.Name Hs.NsVar
     }
   deriving stock (Show, Eq, Ord, Generic)
 
--- | Names for a C union
---
--- This is used in addition to a 'NamePair'.
 data UnionFieldNames = UnionFieldNames {
       getter  :: Hs.Name Hs.NsVar
     , setter  :: Hs.Name Hs.NsVar
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+data TypedefNames = TypedefNames {
+      orig :: NewtypeNames
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1925
+      --
+      -- Tie generation of names to the generation of the associated code.
+      --
+      -- | Names of the auxiliary type definition that we generate for function
+      --   pointers.
+    , aux  :: Maybe (Hs.Name Hs.NsTypeConstr, NewtypeNames)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -92,7 +102,7 @@ data UnionFieldNames = UnionFieldNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesAssignedName Hs.Identifier
+    MangleNamesAssignedName Hs.SomeName
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where

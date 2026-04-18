@@ -580,6 +580,7 @@ newtype Foo_Aux
     = Foo_Aux {unwrap :: (CInt -> IO CInt)}
     deriving stock Generic
     deriving newtype HasFFIType
+-- __unique:__ @toFoo_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
     Int32 -> IO Int32
  -> IO (FunPtr (Int32 -> IO Int32))
@@ -587,6 +588,7 @@ foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
 hs_bindgen_b5a7b5e83ffee6b4 :: Foo_Aux -> IO (FunPtr Foo_Aux)
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b5a7b5e83ffee6b4_base (toFFIType fun_0))
+-- __unique:__ @fromFoo_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
     FunPtr (Int32 -> IO Int32)
  -> Int32

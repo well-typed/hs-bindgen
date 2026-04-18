@@ -8,12 +8,10 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
   , forNewtype
   ) where
 
-import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
@@ -24,6 +22,7 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Main API
@@ -81,7 +80,7 @@ forNewtype sizeofs newtyp (args, res) =
     funHs = HsTypRef newtyp.name (Just newtyp.field.typ)
 
     nameWith :: String -> UniqueSymbol
-    nameWith s = locallyUnique $ s <> Text.unpack (Hs.getName newtyp.name)
+    nameWith s = locallyUnique $ s <> Hs.nameToStr newtyp.name
 
     nameTo, nameFrom :: UniqueSymbol
     nameTo   = nameWith "to"
@@ -135,7 +134,4 @@ instancesFor sizeofs nameTo nameFrom funC funHs = concat [
     ]
 
 prettyHsType :: HsType -> String
-prettyHsType =
-      PP.renderCtxDoc PP.defaultContext
-    . PP.pretty
-    . SHs.translateType
+prettyHsType = show . PP.pretty . SHs.translateType

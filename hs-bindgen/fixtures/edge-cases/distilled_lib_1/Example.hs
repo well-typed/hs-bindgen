@@ -810,6 +810,7 @@ newtype Callback_t_Aux = Callback_t_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
      (RIP.Ptr RIP.Void -> RIP.Word32 -> IO RIP.Word32)
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.Word32 -> IO RIP.Word32))
@@ -822,6 +823,7 @@ hs_bindgen_b6b6922e35047658 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.Word32 -> IO RIP.Word32)
   -> RIP.Ptr RIP.Void -> RIP.Word32 -> IO RIP.Word32

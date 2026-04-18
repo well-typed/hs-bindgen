@@ -95,18 +95,18 @@ hsBindgen ::
 hsBindgen tu ts b i a = do
     eRes <- hsBindgenE tu ts b i a `catch` \e -> case fromException e of
       Just (LibclangException msg) -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext (PP.string msg)
+        print $ PP.string msg
         -- We specifically use exit code 2 here; it means that the call to
         -- `libclang` has failed.
         exitWith (ExitFailure 2)
       _ -> throwIO e
     case eRes of
       Left err -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
+        print $ prettyForTrace err
         -- We specifically use exit code 3 here; it means that `hs-bindgen` ran
         -- to completion, but an error has occurred.
         exitWith (ExitFailure 3)
-      Right r  -> pure r
+      Right r -> pure r
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
 hsBindgenE ::
@@ -373,7 +373,7 @@ getReifiedC = (.decls) <$> FrontendPassA FinalPass
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
-getSquashedTypes :: Artefact [(DeclId, (SourcePath, Hs.Identifier))]
+getSquashedTypes :: Artefact [(DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
 getSquashedTypes = do
   decls <- getReifiedC
   let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls

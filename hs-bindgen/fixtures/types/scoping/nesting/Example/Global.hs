@@ -33,7 +33,7 @@ hs_bindgen_7640032abd722ca9 =
 {-# NOINLINE x #-}
 {-| __C declaration:__ @X@
 
-    __defined at:__ @types\/scoping\/nesting.h 20:19@
+    __defined at:__ @types\/scoping\/nesting.h 26:19@
 
     __exported by:__ @types\/scoping\/nesting.h@
 -}

@@ -16,16 +16,16 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Translation
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (HsM)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -49,7 +49,7 @@ structDecs supInsts hCfg info struct spec =
     reifyStructFields k = Vec.reifyList struct.fields k
 
 getDeclsFieldVec :: forall n.
-     SNatI n
+     (HasCallStack, SNatI n)
   => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
@@ -67,10 +67,10 @@ getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.unsafeHsIdHsName info.id.unsafeHsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
 getDeclsFieldVecFlam :: forall n.
-     SNatI n
+     (HasCallStack, SNatI n)
   => C.StructField Final
   -> Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
@@ -89,10 +89,12 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.unsafeHsIdHsName info.id.unsafeHsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
     auxName :: Hs.Name Hs.NsTypeConstr
-    auxName = Hs.unsafeHsIdHsName $ info.id.unsafeHsName <> "_Aux"
+    auxName = case struct.names.flamAux of
+        Just n -> n
+        Nothing -> panicPure "name of auxiliary declaration unavailable"
 
     getHasFlamInstanceDecl :: Hs.Struct n -> Hs.Decl
     getHasFlamInstanceDecl hsStruct =
@@ -100,10 +102,10 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
         Hs.DefineInstance{
             comment      = Nothing
           , instanceDecl =
-              Hs.InstanceHasFlam
-                hsStruct
-                (Type.topLevel flam.typ)
-                (flam.offset `div` 8)
+              Hs.InstanceHasFlam hsStruct $
+                Hs.HasFlamInstance
+                  (Type.topLevel flam.typ)
+                  (flam.offset `div` 8)
           }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
@@ -122,7 +124,7 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
             , kind = Origin.Opaque info.id.cName.name.kind
             , spec = spec
             }
-          , comment = mkHaddocks hCfg info name
+          , comment = mkHaddocks hCfg info
           }
 
 getInstances ::
@@ -162,7 +164,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     getHsField :: C.StructField Final -> Hs.Field
     getHsField field =
         Hs.Field {
-            name    = Hs.unsafeHsIdHsName field.info.name.hsName
+            name    = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
           , typ     = Type.topLevel field.typ
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo hCfg info field.info
@@ -174,7 +176,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
         , constr    = struct.names.constr
         , fields    = Vec.map getHsField fieldsVec
         , instances = insts <> knownInsts
-        , comment   = mkHaddocks hCfg info structName
+        , comment   = mkHaddocks hCfg info
         , origin    = Just Origin.Decl{
               info
             , kind = Origin.Struct struct
@@ -321,7 +323,7 @@ getFieldDecls structName field = [
     parentType = Hs.HsTypRef structName Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName field.info.name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel field.typ
