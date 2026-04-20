@@ -31,6 +31,12 @@ setupBatchCompile repoRoot mHaddockDir cases =
       -- so each needs a separate directory for GHC's -i search path)
       mapM_ (writeTestModule tmpDir) cases
 
+      -- On template-haskell < 2.19 (GHC < 9.4), `getPackageRoot` is provided by
+      -- `th-compat` and locates the package by walking up from the module
+      -- source looking for a `.cabal` file.  Drop a dummy one here so the
+      -- lookup succeeds for fixtures living under this temp directory.
+      writeFile (tmpDir </> "fixtures.cabal") ""
+
       (includeDirs, envFile) <- setupFixtureEnv repoRoot
 
       let ghcOpts = sharedGhcOptions ++ ["-Wno-unused-imports"]
