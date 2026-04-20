@@ -52,7 +52,7 @@ data PrimIntType
 
     -- | @[signed | unsigned] long long [int]@
   | PrimLongLong
-  deriving stock (Show, Eq, Ord, Enum, Generic)
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 -- | Primitive floating point types
 --
@@ -64,11 +64,11 @@ data PrimFloatType
 
     -- | @double@
   | PrimDouble
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 -- | Sign of a primitive type
 data PrimSign = Signed | Unsigned
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
 
 -- | Sign for @char@
 --
