@@ -1,0 +1,2439 @@
+-- addDependentFile examples/golden/macros/reparse_arithmetic_types.h
+-- #include <macros/reparse_arithmetic_types.h>
+-- A hs_bindgen_bb1c033ecf7e801a (
+--   char arg1
+-- )
+-- {
+--   return (f1)(arg1);
+-- }
+-- A hs_bindgen_04ac3e6dd480d7ca (
+--   signed char arg1
+-- )
+-- {
+--   return (f2)(arg1);
+-- }
+-- A hs_bindgen_a32ce76876bccf1f (
+--   unsigned char arg1
+-- )
+-- {
+--   return (f3)(arg1);
+-- }
+-- A hs_bindgen_ddbdd3d6c060be86 (
+--   signed short arg1
+-- )
+-- {
+--   return (f4)(arg1);
+-- }
+-- A hs_bindgen_174ecb48bf4b226b (
+--   signed short arg1
+-- )
+-- {
+--   return (f5)(arg1);
+-- }
+-- A hs_bindgen_ef2d717da4930246 (
+--   signed short arg1
+-- )
+-- {
+--   return (f6)(arg1);
+-- }
+-- A hs_bindgen_2ce0b625c0b2b5fa (
+--   signed short arg1
+-- )
+-- {
+--   return (f7)(arg1);
+-- }
+-- A hs_bindgen_95f594fd4196ff46 (
+--   unsigned short arg1
+-- )
+-- {
+--   return (f8)(arg1);
+-- }
+-- A hs_bindgen_751cf60b47f9ce5c (
+--   unsigned short arg1
+-- )
+-- {
+--   return (f9)(arg1);
+-- }
+-- A hs_bindgen_498b1def6a2e15e2 (
+--   signed int arg1
+-- )
+-- {
+--   return (f10)(arg1);
+-- }
+-- signed int hs_bindgen_e50d150910f93eb9 (
+--   signed int arg1
+-- )
+-- {
+--   return (f11)(arg1);
+-- }
+-- A hs_bindgen_f83b05b1dc756ae7 (
+--   signed int arg1
+-- )
+-- {
+--   return (f12)(arg1);
+-- }
+-- signed int hs_bindgen_d4447da824d823cd (
+--   unsigned int arg1
+-- )
+-- {
+--   return (f13)(arg1);
+-- }
+-- A hs_bindgen_864f9afbd3d58e03 (
+--   unsigned int arg1
+-- )
+-- {
+--   return (f14)(arg1);
+-- }
+-- A hs_bindgen_aed8721b6600d538 (
+--   signed long arg1
+-- )
+-- {
+--   return (f15)(arg1);
+-- }
+-- A hs_bindgen_6eea0d932c341e57 (
+--   signed long arg1
+-- )
+-- {
+--   return (f16)(arg1);
+-- }
+-- A hs_bindgen_1f866dd647156868 (
+--   signed long arg1
+-- )
+-- {
+--   return (f17)(arg1);
+-- }
+-- A hs_bindgen_b8ed3db53b7c66ef (
+--   signed long arg1
+-- )
+-- {
+--   return (f18)(arg1);
+-- }
+-- A hs_bindgen_1f0dd18c87711f07 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f19)(arg1);
+-- }
+-- A hs_bindgen_f4c9a10bd525c7b9 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f20)(arg1);
+-- }
+-- A hs_bindgen_ea52f54ff3581034 (
+--   signed long arg1
+-- )
+-- {
+--   return (f21)(arg1);
+-- }
+-- A hs_bindgen_9b3ae7f60620689e (
+--   signed long arg1
+-- )
+-- {
+--   return (f22)(arg1);
+-- }
+-- A hs_bindgen_c3bf58dd95aae652 (
+--   signed long arg1
+-- )
+-- {
+--   return (f23)(arg1);
+-- }
+-- A hs_bindgen_3a0c938781f29a95 (
+--   signed long arg1
+-- )
+-- {
+--   return (f24)(arg1);
+-- }
+-- A hs_bindgen_c9394fe9466e9254 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f25)(arg1);
+-- }
+-- A hs_bindgen_c4f865bdc9e7fb5d (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f26)(arg1);
+-- }
+-- A hs_bindgen_065625ed2b866193 (
+--   float arg1
+-- )
+-- {
+--   return (f27)(arg1);
+-- }
+-- A hs_bindgen_2c6578d90eb6bd5c (
+--   double arg1
+-- )
+-- {
+--   return (f28)(arg1);
+-- }
+-- A hs_bindgen_93e621670601d0cd (
+--   char arg1
+-- )
+-- {
+--   return (f1)(arg1);
+-- }
+-- A hs_bindgen_8d292a46f5a8dd8d (
+--   signed char arg1
+-- )
+-- {
+--   return (f2)(arg1);
+-- }
+-- A hs_bindgen_74261cdb0fbe635f (
+--   unsigned char arg1
+-- )
+-- {
+--   return (f3)(arg1);
+-- }
+-- A hs_bindgen_c95f9efe0dd50c93 (
+--   signed short arg1
+-- )
+-- {
+--   return (f4)(arg1);
+-- }
+-- A hs_bindgen_d10b31bf8d27f6fc (
+--   signed short arg1
+-- )
+-- {
+--   return (f5)(arg1);
+-- }
+-- A hs_bindgen_3fa9709f337eab12 (
+--   signed short arg1
+-- )
+-- {
+--   return (f6)(arg1);
+-- }
+-- A hs_bindgen_1b4d3b85e2effa7e (
+--   signed short arg1
+-- )
+-- {
+--   return (f7)(arg1);
+-- }
+-- A hs_bindgen_9815c4f12a17191b (
+--   unsigned short arg1
+-- )
+-- {
+--   return (f8)(arg1);
+-- }
+-- A hs_bindgen_8870a1617c594e81 (
+--   unsigned short arg1
+-- )
+-- {
+--   return (f9)(arg1);
+-- }
+-- A hs_bindgen_d8cf76545d90f6f5 (
+--   signed int arg1
+-- )
+-- {
+--   return (f10)(arg1);
+-- }
+-- signed int hs_bindgen_21c3896990e488d7 (
+--   signed int arg1
+-- )
+-- {
+--   return (f11)(arg1);
+-- }
+-- A hs_bindgen_bb7965299e2ae640 (
+--   signed int arg1
+-- )
+-- {
+--   return (f12)(arg1);
+-- }
+-- signed int hs_bindgen_18851b26abc94040 (
+--   unsigned int arg1
+-- )
+-- {
+--   return (f13)(arg1);
+-- }
+-- A hs_bindgen_19cda67a187de450 (
+--   unsigned int arg1
+-- )
+-- {
+--   return (f14)(arg1);
+-- }
+-- A hs_bindgen_3b4e19e9d32bd171 (
+--   signed long arg1
+-- )
+-- {
+--   return (f15)(arg1);
+-- }
+-- A hs_bindgen_982bfd8318c0ffec (
+--   signed long arg1
+-- )
+-- {
+--   return (f16)(arg1);
+-- }
+-- A hs_bindgen_f67f503878415036 (
+--   signed long arg1
+-- )
+-- {
+--   return (f17)(arg1);
+-- }
+-- A hs_bindgen_30405c9ae068d28b (
+--   signed long arg1
+-- )
+-- {
+--   return (f18)(arg1);
+-- }
+-- A hs_bindgen_ee05369d2355e5f1 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f19)(arg1);
+-- }
+-- A hs_bindgen_afa5f3bae03f34e0 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f20)(arg1);
+-- }
+-- A hs_bindgen_488efc7f974c971b (
+--   signed long arg1
+-- )
+-- {
+--   return (f21)(arg1);
+-- }
+-- A hs_bindgen_d6563ce8f86f1541 (
+--   signed long arg1
+-- )
+-- {
+--   return (f22)(arg1);
+-- }
+-- A hs_bindgen_0ecb5a60c4365a73 (
+--   signed long arg1
+-- )
+-- {
+--   return (f23)(arg1);
+-- }
+-- A hs_bindgen_0d5e24fc786feaec (
+--   signed long arg1
+-- )
+-- {
+--   return (f24)(arg1);
+-- }
+-- A hs_bindgen_d6b4f74553c4e27b (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f25)(arg1);
+-- }
+-- A hs_bindgen_da234f84dc67b630 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (f26)(arg1);
+-- }
+-- A hs_bindgen_26b01e993c12e2f6 (
+--   float arg1
+-- )
+-- {
+--   return (f27)(arg1);
+-- }
+-- A hs_bindgen_18913631127a2f42 (
+--   double arg1
+-- )
+-- {
+--   return (f28)(arg1);
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f1 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_ebb99cc5ca909dbf (void)) (
+--   char arg1
+-- )
+-- {
+--   return &f1;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f2 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_3351ff3f4d8a5abd (void)) (
+--   signed char arg1
+-- )
+-- {
+--   return &f2;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f3 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_67c839668253cfe9 (void)) (
+--   unsigned char arg1
+-- )
+-- {
+--   return &f3;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f4 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_c828b90e5d5f18a1 (void)) (
+--   signed short arg1
+-- )
+-- {
+--   return &f4;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f5 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_fd907368e0e31d4b (void)) (
+--   signed short arg1
+-- )
+-- {
+--   return &f5;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f6 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_b4b66b392a99377b (void)) (
+--   signed short arg1
+-- )
+-- {
+--   return &f6;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f7 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_ec3cd03026a1633f (void)) (
+--   signed short arg1
+-- )
+-- {
+--   return &f7;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f8 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_e7b1c3a1c4f5b84a (void)) (
+--   unsigned short arg1
+-- )
+-- {
+--   return &f8;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f9 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_7accbeb833f46e12 (void)) (
+--   unsigned short arg1
+-- )
+-- {
+--   return &f9;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f10 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_aac0dc02a765d1b8 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &f10;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f11 */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_2517979024c47c45 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &f11;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f12 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_3933d1f631ec58b0 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &f12;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f13 */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_b68c62cf00f60189 (void)) (
+--   unsigned int arg1
+-- )
+-- {
+--   return &f13;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f14 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_9b183f23a12ebff6 (void)) (
+--   unsigned int arg1
+-- )
+-- {
+--   return &f14;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f15 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_c51083814d8ae2da (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f15;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f16 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_3db87e4d245da0b9 (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f16;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f17 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_c67c791eaecdf3e4 (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f17;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f18 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_b6aebb69d914fafc (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f18;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f19 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_b0fc0b5f9d3655f0 (void)) (
+--   unsigned long arg1
+-- )
+-- {
+--   return &f19;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f20 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_52e415e600e55d2d (void)) (
+--   unsigned long arg1
+-- )
+-- {
+--   return &f20;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f21 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_2190f01b986beb9b (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f21;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f22 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_8889f9f47fc90b7c (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f22;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f23 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_028951472795c23d (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f23;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f24 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_81579afc5577422e (void)) (
+--   signed long arg1
+-- )
+-- {
+--   return &f24;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f25 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_81230c41df4ab36f (void)) (
+--   unsigned long arg1
+-- )
+-- {
+--   return &f25;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f26 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_750219148022d1bd (void)) (
+--   unsigned long arg1
+-- )
+-- {
+--   return &f26;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f27 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_76572bbe936a0500 (void)) (
+--   float arg1
+-- )
+-- {
+--   return &f27;
+-- }
+-- /* test_macrosreparse_arithmetic_type_Example_get_f28 */
+-- __attribute__ ((const))
+-- A (*hs_bindgen_3fd53b4ec725518a (void)) (
+--   double arg1
+-- )
+-- {
+--   return &f28;
+-- }
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 16:9@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+newtype A
+    = A {unwrapA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f1@
+foreign import ccall safe "hs_bindgen_bb1c033ecf7e801a" hs_bindgen_bb1c033ecf7e801a_base ::
+    Int8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f1@
+hs_bindgen_bb1c033ecf7e801a :: CChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f1@
+hs_bindgen_bb1c033ecf7e801a = fromFFIType hs_bindgen_bb1c033ecf7e801a_base
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_safe :: CChar -> IO A
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_safe = hs_bindgen_bb1c033ecf7e801a
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f2@
+foreign import ccall safe "hs_bindgen_04ac3e6dd480d7ca" hs_bindgen_04ac3e6dd480d7ca_base ::
+    Int8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f2@
+hs_bindgen_04ac3e6dd480d7ca :: CSChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f2@
+hs_bindgen_04ac3e6dd480d7ca = fromFFIType hs_bindgen_04ac3e6dd480d7ca_base
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_safe :: CSChar -> IO A
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_safe = hs_bindgen_04ac3e6dd480d7ca
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f3@
+foreign import ccall safe "hs_bindgen_a32ce76876bccf1f" hs_bindgen_a32ce76876bccf1f_base ::
+    Word8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f3@
+hs_bindgen_a32ce76876bccf1f :: CUChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f3@
+hs_bindgen_a32ce76876bccf1f = fromFFIType hs_bindgen_a32ce76876bccf1f_base
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_safe :: CUChar -> IO A
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_safe = hs_bindgen_a32ce76876bccf1f
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f4@
+foreign import ccall safe "hs_bindgen_ddbdd3d6c060be86" hs_bindgen_ddbdd3d6c060be86_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f4@
+hs_bindgen_ddbdd3d6c060be86 :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f4@
+hs_bindgen_ddbdd3d6c060be86 = fromFFIType hs_bindgen_ddbdd3d6c060be86_base
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_safe :: CShort -> IO A
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_safe = hs_bindgen_ddbdd3d6c060be86
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f5@
+foreign import ccall safe "hs_bindgen_174ecb48bf4b226b" hs_bindgen_174ecb48bf4b226b_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f5@
+hs_bindgen_174ecb48bf4b226b :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f5@
+hs_bindgen_174ecb48bf4b226b = fromFFIType hs_bindgen_174ecb48bf4b226b_base
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_safe :: CShort -> IO A
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_safe = hs_bindgen_174ecb48bf4b226b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f6@
+foreign import ccall safe "hs_bindgen_ef2d717da4930246" hs_bindgen_ef2d717da4930246_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f6@
+hs_bindgen_ef2d717da4930246 :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f6@
+hs_bindgen_ef2d717da4930246 = fromFFIType hs_bindgen_ef2d717da4930246_base
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_safe :: CShort -> IO A
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_safe = hs_bindgen_ef2d717da4930246
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f7@
+foreign import ccall safe "hs_bindgen_2ce0b625c0b2b5fa" hs_bindgen_2ce0b625c0b2b5fa_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f7@
+hs_bindgen_2ce0b625c0b2b5fa :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f7@
+hs_bindgen_2ce0b625c0b2b5fa = fromFFIType hs_bindgen_2ce0b625c0b2b5fa_base
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_safe :: CShort -> IO A
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_safe = hs_bindgen_2ce0b625c0b2b5fa
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f8@
+foreign import ccall safe "hs_bindgen_95f594fd4196ff46" hs_bindgen_95f594fd4196ff46_base ::
+    Word16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f8@
+hs_bindgen_95f594fd4196ff46 :: CUShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f8@
+hs_bindgen_95f594fd4196ff46 = fromFFIType hs_bindgen_95f594fd4196ff46_base
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_safe :: CUShort -> IO A
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_safe = hs_bindgen_95f594fd4196ff46
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f9@
+foreign import ccall safe "hs_bindgen_751cf60b47f9ce5c" hs_bindgen_751cf60b47f9ce5c_base ::
+    Word16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f9@
+hs_bindgen_751cf60b47f9ce5c :: CUShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f9@
+hs_bindgen_751cf60b47f9ce5c = fromFFIType hs_bindgen_751cf60b47f9ce5c_base
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_safe :: CUShort -> IO A
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_safe = hs_bindgen_751cf60b47f9ce5c
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f10@
+foreign import ccall safe "hs_bindgen_498b1def6a2e15e2" hs_bindgen_498b1def6a2e15e2_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f10@
+hs_bindgen_498b1def6a2e15e2 :: CInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f10@
+hs_bindgen_498b1def6a2e15e2 = fromFFIType hs_bindgen_498b1def6a2e15e2_base
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_safe :: CInt -> IO A
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_safe = hs_bindgen_498b1def6a2e15e2
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f11@
+foreign import ccall safe "hs_bindgen_e50d150910f93eb9" hs_bindgen_e50d150910f93eb9_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f11@
+hs_bindgen_e50d150910f93eb9 :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f11@
+hs_bindgen_e50d150910f93eb9 = fromFFIType hs_bindgen_e50d150910f93eb9_base
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_safe :: CInt -> IO CInt
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_safe = hs_bindgen_e50d150910f93eb9
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f12@
+foreign import ccall safe "hs_bindgen_f83b05b1dc756ae7" hs_bindgen_f83b05b1dc756ae7_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f12@
+hs_bindgen_f83b05b1dc756ae7 :: CInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f12@
+hs_bindgen_f83b05b1dc756ae7 = fromFFIType hs_bindgen_f83b05b1dc756ae7_base
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_safe :: CInt -> IO A
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_safe = hs_bindgen_f83b05b1dc756ae7
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f13@
+foreign import ccall safe "hs_bindgen_d4447da824d823cd" hs_bindgen_d4447da824d823cd_base ::
+    Word32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f13@
+hs_bindgen_d4447da824d823cd :: CUInt -> IO CInt
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f13@
+hs_bindgen_d4447da824d823cd = fromFFIType hs_bindgen_d4447da824d823cd_base
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_safe :: CUInt -> IO CInt
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_safe = hs_bindgen_d4447da824d823cd
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f14@
+foreign import ccall safe "hs_bindgen_864f9afbd3d58e03" hs_bindgen_864f9afbd3d58e03_base ::
+    Word32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f14@
+hs_bindgen_864f9afbd3d58e03 :: CUInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f14@
+hs_bindgen_864f9afbd3d58e03 = fromFFIType hs_bindgen_864f9afbd3d58e03_base
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_safe :: CUInt -> IO A
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_safe = hs_bindgen_864f9afbd3d58e03
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f15@
+foreign import ccall safe "hs_bindgen_aed8721b6600d538" hs_bindgen_aed8721b6600d538_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f15@
+hs_bindgen_aed8721b6600d538 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f15@
+hs_bindgen_aed8721b6600d538 = fromFFIType hs_bindgen_aed8721b6600d538_base
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_safe :: CLong -> IO A
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_safe = hs_bindgen_aed8721b6600d538
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f16@
+foreign import ccall safe "hs_bindgen_6eea0d932c341e57" hs_bindgen_6eea0d932c341e57_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f16@
+hs_bindgen_6eea0d932c341e57 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f16@
+hs_bindgen_6eea0d932c341e57 = fromFFIType hs_bindgen_6eea0d932c341e57_base
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_safe :: CLong -> IO A
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_safe = hs_bindgen_6eea0d932c341e57
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f17@
+foreign import ccall safe "hs_bindgen_1f866dd647156868" hs_bindgen_1f866dd647156868_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f17@
+hs_bindgen_1f866dd647156868 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f17@
+hs_bindgen_1f866dd647156868 = fromFFIType hs_bindgen_1f866dd647156868_base
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_safe :: CLong -> IO A
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_safe = hs_bindgen_1f866dd647156868
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f18@
+foreign import ccall safe "hs_bindgen_b8ed3db53b7c66ef" hs_bindgen_b8ed3db53b7c66ef_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f18@
+hs_bindgen_b8ed3db53b7c66ef :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f18@
+hs_bindgen_b8ed3db53b7c66ef = fromFFIType hs_bindgen_b8ed3db53b7c66ef_base
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_safe :: CLong -> IO A
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_safe = hs_bindgen_b8ed3db53b7c66ef
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f19@
+foreign import ccall safe "hs_bindgen_1f0dd18c87711f07" hs_bindgen_1f0dd18c87711f07_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f19@
+hs_bindgen_1f0dd18c87711f07 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f19@
+hs_bindgen_1f0dd18c87711f07 = fromFFIType hs_bindgen_1f0dd18c87711f07_base
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_safe :: CULong -> IO A
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_safe = hs_bindgen_1f0dd18c87711f07
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f20@
+foreign import ccall safe "hs_bindgen_f4c9a10bd525c7b9" hs_bindgen_f4c9a10bd525c7b9_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f20@
+hs_bindgen_f4c9a10bd525c7b9 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f20@
+hs_bindgen_f4c9a10bd525c7b9 = fromFFIType hs_bindgen_f4c9a10bd525c7b9_base
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_safe :: CULong -> IO A
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_safe = hs_bindgen_f4c9a10bd525c7b9
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f21@
+foreign import ccall safe "hs_bindgen_ea52f54ff3581034" hs_bindgen_ea52f54ff3581034_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f21@
+hs_bindgen_ea52f54ff3581034 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f21@
+hs_bindgen_ea52f54ff3581034 = fromFFIType hs_bindgen_ea52f54ff3581034_base
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_safe :: CLong -> IO A
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_safe = hs_bindgen_ea52f54ff3581034
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f22@
+foreign import ccall safe "hs_bindgen_9b3ae7f60620689e" hs_bindgen_9b3ae7f60620689e_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f22@
+hs_bindgen_9b3ae7f60620689e :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f22@
+hs_bindgen_9b3ae7f60620689e = fromFFIType hs_bindgen_9b3ae7f60620689e_base
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_safe :: CLong -> IO A
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_safe = hs_bindgen_9b3ae7f60620689e
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f23@
+foreign import ccall safe "hs_bindgen_c3bf58dd95aae652" hs_bindgen_c3bf58dd95aae652_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f23@
+hs_bindgen_c3bf58dd95aae652 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f23@
+hs_bindgen_c3bf58dd95aae652 = fromFFIType hs_bindgen_c3bf58dd95aae652_base
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_safe :: CLong -> IO A
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_safe = hs_bindgen_c3bf58dd95aae652
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f24@
+foreign import ccall safe "hs_bindgen_3a0c938781f29a95" hs_bindgen_3a0c938781f29a95_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f24@
+hs_bindgen_3a0c938781f29a95 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f24@
+hs_bindgen_3a0c938781f29a95 = fromFFIType hs_bindgen_3a0c938781f29a95_base
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_safe :: CLong -> IO A
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_safe = hs_bindgen_3a0c938781f29a95
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f25@
+foreign import ccall safe "hs_bindgen_c9394fe9466e9254" hs_bindgen_c9394fe9466e9254_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f25@
+hs_bindgen_c9394fe9466e9254 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f25@
+hs_bindgen_c9394fe9466e9254 = fromFFIType hs_bindgen_c9394fe9466e9254_base
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_safe :: CULong -> IO A
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_safe = hs_bindgen_c9394fe9466e9254
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f26@
+foreign import ccall safe "hs_bindgen_c4f865bdc9e7fb5d" hs_bindgen_c4f865bdc9e7fb5d_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f26@
+hs_bindgen_c4f865bdc9e7fb5d :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f26@
+hs_bindgen_c4f865bdc9e7fb5d = fromFFIType hs_bindgen_c4f865bdc9e7fb5d_base
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_safe :: CULong -> IO A
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_safe = hs_bindgen_c4f865bdc9e7fb5d
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f27@
+foreign import ccall safe "hs_bindgen_065625ed2b866193" hs_bindgen_065625ed2b866193_base ::
+    Float
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f27@
+hs_bindgen_065625ed2b866193 :: CFloat -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f27@
+hs_bindgen_065625ed2b866193 = fromFFIType hs_bindgen_065625ed2b866193_base
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_safe :: CFloat -> IO A
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_safe = hs_bindgen_065625ed2b866193
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f28@
+foreign import ccall safe "hs_bindgen_2c6578d90eb6bd5c" hs_bindgen_2c6578d90eb6bd5c_base ::
+    Double
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f28@
+hs_bindgen_2c6578d90eb6bd5c :: CDouble -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Safe_f28@
+hs_bindgen_2c6578d90eb6bd5c = fromFFIType hs_bindgen_2c6578d90eb6bd5c_base
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_safe :: CDouble -> IO A
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_safe = hs_bindgen_2c6578d90eb6bd5c
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f1@
+foreign import ccall unsafe "hs_bindgen_93e621670601d0cd" hs_bindgen_93e621670601d0cd_base ::
+    Int8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f1@
+hs_bindgen_93e621670601d0cd :: CChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f1@
+hs_bindgen_93e621670601d0cd = fromFFIType hs_bindgen_93e621670601d0cd_base
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_unsafe :: CChar -> IO A
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_unsafe = hs_bindgen_93e621670601d0cd
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f2@
+foreign import ccall unsafe "hs_bindgen_8d292a46f5a8dd8d" hs_bindgen_8d292a46f5a8dd8d_base ::
+    Int8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f2@
+hs_bindgen_8d292a46f5a8dd8d :: CSChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f2@
+hs_bindgen_8d292a46f5a8dd8d = fromFFIType hs_bindgen_8d292a46f5a8dd8d_base
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_unsafe :: CSChar -> IO A
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_unsafe = hs_bindgen_8d292a46f5a8dd8d
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f3@
+foreign import ccall unsafe "hs_bindgen_74261cdb0fbe635f" hs_bindgen_74261cdb0fbe635f_base ::
+    Word8
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f3@
+hs_bindgen_74261cdb0fbe635f :: CUChar -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f3@
+hs_bindgen_74261cdb0fbe635f = fromFFIType hs_bindgen_74261cdb0fbe635f_base
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_unsafe :: CUChar -> IO A
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_unsafe = hs_bindgen_74261cdb0fbe635f
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f4@
+foreign import ccall unsafe "hs_bindgen_c95f9efe0dd50c93" hs_bindgen_c95f9efe0dd50c93_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f4@
+hs_bindgen_c95f9efe0dd50c93 :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f4@
+hs_bindgen_c95f9efe0dd50c93 = fromFFIType hs_bindgen_c95f9efe0dd50c93_base
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_unsafe :: CShort -> IO A
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_unsafe = hs_bindgen_c95f9efe0dd50c93
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f5@
+foreign import ccall unsafe "hs_bindgen_d10b31bf8d27f6fc" hs_bindgen_d10b31bf8d27f6fc_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f5@
+hs_bindgen_d10b31bf8d27f6fc :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f5@
+hs_bindgen_d10b31bf8d27f6fc = fromFFIType hs_bindgen_d10b31bf8d27f6fc_base
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_unsafe :: CShort -> IO A
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_unsafe = hs_bindgen_d10b31bf8d27f6fc
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f6@
+foreign import ccall unsafe "hs_bindgen_3fa9709f337eab12" hs_bindgen_3fa9709f337eab12_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f6@
+hs_bindgen_3fa9709f337eab12 :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f6@
+hs_bindgen_3fa9709f337eab12 = fromFFIType hs_bindgen_3fa9709f337eab12_base
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_unsafe :: CShort -> IO A
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_unsafe = hs_bindgen_3fa9709f337eab12
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f7@
+foreign import ccall unsafe "hs_bindgen_1b4d3b85e2effa7e" hs_bindgen_1b4d3b85e2effa7e_base ::
+    Int16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f7@
+hs_bindgen_1b4d3b85e2effa7e :: CShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f7@
+hs_bindgen_1b4d3b85e2effa7e = fromFFIType hs_bindgen_1b4d3b85e2effa7e_base
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_unsafe :: CShort -> IO A
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_unsafe = hs_bindgen_1b4d3b85e2effa7e
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f8@
+foreign import ccall unsafe "hs_bindgen_9815c4f12a17191b" hs_bindgen_9815c4f12a17191b_base ::
+    Word16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f8@
+hs_bindgen_9815c4f12a17191b :: CUShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f8@
+hs_bindgen_9815c4f12a17191b = fromFFIType hs_bindgen_9815c4f12a17191b_base
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_unsafe :: CUShort -> IO A
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_unsafe = hs_bindgen_9815c4f12a17191b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f9@
+foreign import ccall unsafe "hs_bindgen_8870a1617c594e81" hs_bindgen_8870a1617c594e81_base ::
+    Word16
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f9@
+hs_bindgen_8870a1617c594e81 :: CUShort -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f9@
+hs_bindgen_8870a1617c594e81 = fromFFIType hs_bindgen_8870a1617c594e81_base
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_unsafe :: CUShort -> IO A
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_unsafe = hs_bindgen_8870a1617c594e81
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f10@
+foreign import ccall unsafe "hs_bindgen_d8cf76545d90f6f5" hs_bindgen_d8cf76545d90f6f5_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f10@
+hs_bindgen_d8cf76545d90f6f5 :: CInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f10@
+hs_bindgen_d8cf76545d90f6f5 = fromFFIType hs_bindgen_d8cf76545d90f6f5_base
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_unsafe :: CInt -> IO A
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_unsafe = hs_bindgen_d8cf76545d90f6f5
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f11@
+foreign import ccall unsafe "hs_bindgen_21c3896990e488d7" hs_bindgen_21c3896990e488d7_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f11@
+hs_bindgen_21c3896990e488d7 :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f11@
+hs_bindgen_21c3896990e488d7 = fromFFIType hs_bindgen_21c3896990e488d7_base
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_unsafe = hs_bindgen_21c3896990e488d7
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f12@
+foreign import ccall unsafe "hs_bindgen_bb7965299e2ae640" hs_bindgen_bb7965299e2ae640_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f12@
+hs_bindgen_bb7965299e2ae640 :: CInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f12@
+hs_bindgen_bb7965299e2ae640 = fromFFIType hs_bindgen_bb7965299e2ae640_base
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_unsafe :: CInt -> IO A
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_unsafe = hs_bindgen_bb7965299e2ae640
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f13@
+foreign import ccall unsafe "hs_bindgen_18851b26abc94040" hs_bindgen_18851b26abc94040_base ::
+    Word32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f13@
+hs_bindgen_18851b26abc94040 :: CUInt -> IO CInt
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f13@
+hs_bindgen_18851b26abc94040 = fromFFIType hs_bindgen_18851b26abc94040_base
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_unsafe :: CUInt -> IO CInt
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_unsafe = hs_bindgen_18851b26abc94040
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f14@
+foreign import ccall unsafe "hs_bindgen_19cda67a187de450" hs_bindgen_19cda67a187de450_base ::
+    Word32
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f14@
+hs_bindgen_19cda67a187de450 :: CUInt -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f14@
+hs_bindgen_19cda67a187de450 = fromFFIType hs_bindgen_19cda67a187de450_base
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_unsafe :: CUInt -> IO A
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_unsafe = hs_bindgen_19cda67a187de450
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f15@
+foreign import ccall unsafe "hs_bindgen_3b4e19e9d32bd171" hs_bindgen_3b4e19e9d32bd171_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f15@
+hs_bindgen_3b4e19e9d32bd171 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f15@
+hs_bindgen_3b4e19e9d32bd171 = fromFFIType hs_bindgen_3b4e19e9d32bd171_base
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_unsafe = hs_bindgen_3b4e19e9d32bd171
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f16@
+foreign import ccall unsafe "hs_bindgen_982bfd8318c0ffec" hs_bindgen_982bfd8318c0ffec_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f16@
+hs_bindgen_982bfd8318c0ffec :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f16@
+hs_bindgen_982bfd8318c0ffec = fromFFIType hs_bindgen_982bfd8318c0ffec_base
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_unsafe = hs_bindgen_982bfd8318c0ffec
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f17@
+foreign import ccall unsafe "hs_bindgen_f67f503878415036" hs_bindgen_f67f503878415036_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f17@
+hs_bindgen_f67f503878415036 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f17@
+hs_bindgen_f67f503878415036 = fromFFIType hs_bindgen_f67f503878415036_base
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_unsafe = hs_bindgen_f67f503878415036
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f18@
+foreign import ccall unsafe "hs_bindgen_30405c9ae068d28b" hs_bindgen_30405c9ae068d28b_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f18@
+hs_bindgen_30405c9ae068d28b :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f18@
+hs_bindgen_30405c9ae068d28b = fromFFIType hs_bindgen_30405c9ae068d28b_base
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_unsafe = hs_bindgen_30405c9ae068d28b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f19@
+foreign import ccall unsafe "hs_bindgen_ee05369d2355e5f1" hs_bindgen_ee05369d2355e5f1_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f19@
+hs_bindgen_ee05369d2355e5f1 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f19@
+hs_bindgen_ee05369d2355e5f1 = fromFFIType hs_bindgen_ee05369d2355e5f1_base
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_unsafe :: CULong -> IO A
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_unsafe = hs_bindgen_ee05369d2355e5f1
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f20@
+foreign import ccall unsafe "hs_bindgen_afa5f3bae03f34e0" hs_bindgen_afa5f3bae03f34e0_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f20@
+hs_bindgen_afa5f3bae03f34e0 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f20@
+hs_bindgen_afa5f3bae03f34e0 = fromFFIType hs_bindgen_afa5f3bae03f34e0_base
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_unsafe :: CULong -> IO A
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_unsafe = hs_bindgen_afa5f3bae03f34e0
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f21@
+foreign import ccall unsafe "hs_bindgen_488efc7f974c971b" hs_bindgen_488efc7f974c971b_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f21@
+hs_bindgen_488efc7f974c971b :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f21@
+hs_bindgen_488efc7f974c971b = fromFFIType hs_bindgen_488efc7f974c971b_base
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_unsafe = hs_bindgen_488efc7f974c971b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f22@
+foreign import ccall unsafe "hs_bindgen_d6563ce8f86f1541" hs_bindgen_d6563ce8f86f1541_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f22@
+hs_bindgen_d6563ce8f86f1541 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f22@
+hs_bindgen_d6563ce8f86f1541 = fromFFIType hs_bindgen_d6563ce8f86f1541_base
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_unsafe = hs_bindgen_d6563ce8f86f1541
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f23@
+foreign import ccall unsafe "hs_bindgen_0ecb5a60c4365a73" hs_bindgen_0ecb5a60c4365a73_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f23@
+hs_bindgen_0ecb5a60c4365a73 :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f23@
+hs_bindgen_0ecb5a60c4365a73 = fromFFIType hs_bindgen_0ecb5a60c4365a73_base
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_unsafe = hs_bindgen_0ecb5a60c4365a73
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f24@
+foreign import ccall unsafe "hs_bindgen_0d5e24fc786feaec" hs_bindgen_0d5e24fc786feaec_base ::
+    Int64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f24@
+hs_bindgen_0d5e24fc786feaec :: CLong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f24@
+hs_bindgen_0d5e24fc786feaec = fromFFIType hs_bindgen_0d5e24fc786feaec_base
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_unsafe :: CLong -> IO A
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_unsafe = hs_bindgen_0d5e24fc786feaec
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f25@
+foreign import ccall unsafe "hs_bindgen_d6b4f74553c4e27b" hs_bindgen_d6b4f74553c4e27b_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f25@
+hs_bindgen_d6b4f74553c4e27b :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f25@
+hs_bindgen_d6b4f74553c4e27b = fromFFIType hs_bindgen_d6b4f74553c4e27b_base
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_unsafe :: CULong -> IO A
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_unsafe = hs_bindgen_d6b4f74553c4e27b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f26@
+foreign import ccall unsafe "hs_bindgen_da234f84dc67b630" hs_bindgen_da234f84dc67b630_base ::
+    Word64
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f26@
+hs_bindgen_da234f84dc67b630 :: CULong -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f26@
+hs_bindgen_da234f84dc67b630 = fromFFIType hs_bindgen_da234f84dc67b630_base
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_unsafe :: CULong -> IO A
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_unsafe = hs_bindgen_da234f84dc67b630
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f27@
+foreign import ccall unsafe "hs_bindgen_26b01e993c12e2f6" hs_bindgen_26b01e993c12e2f6_base ::
+    Float
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f27@
+hs_bindgen_26b01e993c12e2f6 :: CFloat -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f27@
+hs_bindgen_26b01e993c12e2f6 = fromFFIType hs_bindgen_26b01e993c12e2f6_base
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_unsafe :: CFloat -> IO A
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_unsafe = hs_bindgen_26b01e993c12e2f6
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f28@
+foreign import ccall unsafe "hs_bindgen_18913631127a2f42" hs_bindgen_18913631127a2f42_base ::
+    Double
+ -> IO Int32
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f28@
+hs_bindgen_18913631127a2f42 :: CDouble -> IO A
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f28@
+hs_bindgen_18913631127a2f42 = fromFFIType hs_bindgen_18913631127a2f42_base
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_unsafe :: CDouble -> IO A
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_unsafe = hs_bindgen_18913631127a2f42
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f1@
+foreign import ccall unsafe "hs_bindgen_ebb99cc5ca909dbf" hs_bindgen_ebb99cc5ca909dbf_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f1@
+hs_bindgen_ebb99cc5ca909dbf :: IO (FunPtr (CChar -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f1@
+hs_bindgen_ebb99cc5ca909dbf = fromFFIType hs_bindgen_ebb99cc5ca909dbf_base
+{-# NOINLINE f1_funptr #-}
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_funptr :: FunPtr (CChar -> IO A)
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 21:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f1_funptr = unsafePerformIO hs_bindgen_ebb99cc5ca909dbf
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f2@
+foreign import ccall unsafe "hs_bindgen_3351ff3f4d8a5abd" hs_bindgen_3351ff3f4d8a5abd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f2@
+hs_bindgen_3351ff3f4d8a5abd :: IO (FunPtr (CSChar -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f2@
+hs_bindgen_3351ff3f4d8a5abd = fromFFIType hs_bindgen_3351ff3f4d8a5abd_base
+{-# NOINLINE f2_funptr #-}
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_funptr :: FunPtr (CSChar -> IO A)
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 22:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f2_funptr = unsafePerformIO hs_bindgen_3351ff3f4d8a5abd
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f3@
+foreign import ccall unsafe "hs_bindgen_67c839668253cfe9" hs_bindgen_67c839668253cfe9_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f3@
+hs_bindgen_67c839668253cfe9 :: IO (FunPtr (CUChar -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f3@
+hs_bindgen_67c839668253cfe9 = fromFFIType hs_bindgen_67c839668253cfe9_base
+{-# NOINLINE f3_funptr #-}
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_funptr :: FunPtr (CUChar -> IO A)
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 23:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f3_funptr = unsafePerformIO hs_bindgen_67c839668253cfe9
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f4@
+foreign import ccall unsafe "hs_bindgen_c828b90e5d5f18a1" hs_bindgen_c828b90e5d5f18a1_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f4@
+hs_bindgen_c828b90e5d5f18a1 :: IO (FunPtr (CShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f4@
+hs_bindgen_c828b90e5d5f18a1 = fromFFIType hs_bindgen_c828b90e5d5f18a1_base
+{-# NOINLINE f4_funptr #-}
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_funptr :: FunPtr (CShort -> IO A)
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 28:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f4_funptr = unsafePerformIO hs_bindgen_c828b90e5d5f18a1
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f5@
+foreign import ccall unsafe "hs_bindgen_fd907368e0e31d4b" hs_bindgen_fd907368e0e31d4b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f5@
+hs_bindgen_fd907368e0e31d4b :: IO (FunPtr (CShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f5@
+hs_bindgen_fd907368e0e31d4b = fromFFIType hs_bindgen_fd907368e0e31d4b_base
+{-# NOINLINE f5_funptr #-}
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_funptr :: FunPtr (CShort -> IO A)
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 29:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f5_funptr = unsafePerformIO hs_bindgen_fd907368e0e31d4b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f6@
+foreign import ccall unsafe "hs_bindgen_b4b66b392a99377b" hs_bindgen_b4b66b392a99377b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f6@
+hs_bindgen_b4b66b392a99377b :: IO (FunPtr (CShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f6@
+hs_bindgen_b4b66b392a99377b = fromFFIType hs_bindgen_b4b66b392a99377b_base
+{-# NOINLINE f6_funptr #-}
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_funptr :: FunPtr (CShort -> IO A)
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 30:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f6_funptr = unsafePerformIO hs_bindgen_b4b66b392a99377b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f7@
+foreign import ccall unsafe "hs_bindgen_ec3cd03026a1633f" hs_bindgen_ec3cd03026a1633f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f7@
+hs_bindgen_ec3cd03026a1633f :: IO (FunPtr (CShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f7@
+hs_bindgen_ec3cd03026a1633f = fromFFIType hs_bindgen_ec3cd03026a1633f_base
+{-# NOINLINE f7_funptr #-}
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_funptr :: FunPtr (CShort -> IO A)
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 31:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f7_funptr = unsafePerformIO hs_bindgen_ec3cd03026a1633f
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f8@
+foreign import ccall unsafe "hs_bindgen_e7b1c3a1c4f5b84a" hs_bindgen_e7b1c3a1c4f5b84a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f8@
+hs_bindgen_e7b1c3a1c4f5b84a :: IO (FunPtr (CUShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f8@
+hs_bindgen_e7b1c3a1c4f5b84a = fromFFIType hs_bindgen_e7b1c3a1c4f5b84a_base
+{-# NOINLINE f8_funptr #-}
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_funptr :: FunPtr (CUShort -> IO A)
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 32:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f8_funptr = unsafePerformIO hs_bindgen_e7b1c3a1c4f5b84a
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f9@
+foreign import ccall unsafe "hs_bindgen_7accbeb833f46e12" hs_bindgen_7accbeb833f46e12_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f9@
+hs_bindgen_7accbeb833f46e12 :: IO (FunPtr (CUShort -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f9@
+hs_bindgen_7accbeb833f46e12 = fromFFIType hs_bindgen_7accbeb833f46e12_base
+{-# NOINLINE f9_funptr #-}
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_funptr :: FunPtr (CUShort -> IO A)
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 33:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f9_funptr = unsafePerformIO hs_bindgen_7accbeb833f46e12
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f10@
+foreign import ccall unsafe "hs_bindgen_aac0dc02a765d1b8" hs_bindgen_aac0dc02a765d1b8_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f10@
+hs_bindgen_aac0dc02a765d1b8 :: IO (FunPtr (CInt -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f10@
+hs_bindgen_aac0dc02a765d1b8 = fromFFIType hs_bindgen_aac0dc02a765d1b8_base
+{-# NOINLINE f10_funptr #-}
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_funptr :: FunPtr (CInt -> IO A)
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 35:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f10_funptr = unsafePerformIO hs_bindgen_aac0dc02a765d1b8
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f11@
+foreign import ccall unsafe "hs_bindgen_2517979024c47c45" hs_bindgen_2517979024c47c45_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f11@
+hs_bindgen_2517979024c47c45 :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f11@
+hs_bindgen_2517979024c47c45 = fromFFIType hs_bindgen_2517979024c47c45_base
+{-# NOINLINE f11_funptr #-}
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 36:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f11_funptr = unsafePerformIO hs_bindgen_2517979024c47c45
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f12@
+foreign import ccall unsafe "hs_bindgen_3933d1f631ec58b0" hs_bindgen_3933d1f631ec58b0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f12@
+hs_bindgen_3933d1f631ec58b0 :: IO (FunPtr (CInt -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f12@
+hs_bindgen_3933d1f631ec58b0 = fromFFIType hs_bindgen_3933d1f631ec58b0_base
+{-# NOINLINE f12_funptr #-}
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_funptr :: FunPtr (CInt -> IO A)
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 37:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f12_funptr = unsafePerformIO hs_bindgen_3933d1f631ec58b0
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f13@
+foreign import ccall unsafe "hs_bindgen_b68c62cf00f60189" hs_bindgen_b68c62cf00f60189_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f13@
+hs_bindgen_b68c62cf00f60189 :: IO (FunPtr (CUInt -> IO CInt))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f13@
+hs_bindgen_b68c62cf00f60189 = fromFFIType hs_bindgen_b68c62cf00f60189_base
+{-# NOINLINE f13_funptr #-}
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_funptr :: FunPtr (CUInt -> IO CInt)
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 38:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f13_funptr = unsafePerformIO hs_bindgen_b68c62cf00f60189
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f14@
+foreign import ccall unsafe "hs_bindgen_9b183f23a12ebff6" hs_bindgen_9b183f23a12ebff6_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f14@
+hs_bindgen_9b183f23a12ebff6 :: IO (FunPtr (CUInt -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f14@
+hs_bindgen_9b183f23a12ebff6 = fromFFIType hs_bindgen_9b183f23a12ebff6_base
+{-# NOINLINE f14_funptr #-}
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_funptr :: FunPtr (CUInt -> IO A)
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 39:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f14_funptr = unsafePerformIO hs_bindgen_9b183f23a12ebff6
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f15@
+foreign import ccall unsafe "hs_bindgen_c51083814d8ae2da" hs_bindgen_c51083814d8ae2da_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f15@
+hs_bindgen_c51083814d8ae2da :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f15@
+hs_bindgen_c51083814d8ae2da = fromFFIType hs_bindgen_c51083814d8ae2da_base
+{-# NOINLINE f15_funptr #-}
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 41:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f15_funptr = unsafePerformIO hs_bindgen_c51083814d8ae2da
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f16@
+foreign import ccall unsafe "hs_bindgen_3db87e4d245da0b9" hs_bindgen_3db87e4d245da0b9_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f16@
+hs_bindgen_3db87e4d245da0b9 :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f16@
+hs_bindgen_3db87e4d245da0b9 = fromFFIType hs_bindgen_3db87e4d245da0b9_base
+{-# NOINLINE f16_funptr #-}
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 42:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f16_funptr = unsafePerformIO hs_bindgen_3db87e4d245da0b9
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f17@
+foreign import ccall unsafe "hs_bindgen_c67c791eaecdf3e4" hs_bindgen_c67c791eaecdf3e4_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f17@
+hs_bindgen_c67c791eaecdf3e4 :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f17@
+hs_bindgen_c67c791eaecdf3e4 = fromFFIType hs_bindgen_c67c791eaecdf3e4_base
+{-# NOINLINE f17_funptr #-}
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 43:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f17_funptr = unsafePerformIO hs_bindgen_c67c791eaecdf3e4
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f18@
+foreign import ccall unsafe "hs_bindgen_b6aebb69d914fafc" hs_bindgen_b6aebb69d914fafc_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f18@
+hs_bindgen_b6aebb69d914fafc :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f18@
+hs_bindgen_b6aebb69d914fafc = fromFFIType hs_bindgen_b6aebb69d914fafc_base
+{-# NOINLINE f18_funptr #-}
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 44:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f18_funptr = unsafePerformIO hs_bindgen_b6aebb69d914fafc
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f19@
+foreign import ccall unsafe "hs_bindgen_b0fc0b5f9d3655f0" hs_bindgen_b0fc0b5f9d3655f0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f19@
+hs_bindgen_b0fc0b5f9d3655f0 :: IO (FunPtr (CULong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f19@
+hs_bindgen_b0fc0b5f9d3655f0 = fromFFIType hs_bindgen_b0fc0b5f9d3655f0_base
+{-# NOINLINE f19_funptr #-}
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_funptr :: FunPtr (CULong -> IO A)
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 45:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f19_funptr = unsafePerformIO hs_bindgen_b0fc0b5f9d3655f0
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f20@
+foreign import ccall unsafe "hs_bindgen_52e415e600e55d2d" hs_bindgen_52e415e600e55d2d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f20@
+hs_bindgen_52e415e600e55d2d :: IO (FunPtr (CULong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f20@
+hs_bindgen_52e415e600e55d2d = fromFFIType hs_bindgen_52e415e600e55d2d_base
+{-# NOINLINE f20_funptr #-}
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_funptr :: FunPtr (CULong -> IO A)
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 46:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f20_funptr = unsafePerformIO hs_bindgen_52e415e600e55d2d
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f21@
+foreign import ccall unsafe "hs_bindgen_2190f01b986beb9b" hs_bindgen_2190f01b986beb9b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f21@
+hs_bindgen_2190f01b986beb9b :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f21@
+hs_bindgen_2190f01b986beb9b = fromFFIType hs_bindgen_2190f01b986beb9b_base
+{-# NOINLINE f21_funptr #-}
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 48:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f21_funptr = unsafePerformIO hs_bindgen_2190f01b986beb9b
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f22@
+foreign import ccall unsafe "hs_bindgen_8889f9f47fc90b7c" hs_bindgen_8889f9f47fc90b7c_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f22@
+hs_bindgen_8889f9f47fc90b7c :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f22@
+hs_bindgen_8889f9f47fc90b7c = fromFFIType hs_bindgen_8889f9f47fc90b7c_base
+{-# NOINLINE f22_funptr #-}
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 49:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f22_funptr = unsafePerformIO hs_bindgen_8889f9f47fc90b7c
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f23@
+foreign import ccall unsafe "hs_bindgen_028951472795c23d" hs_bindgen_028951472795c23d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f23@
+hs_bindgen_028951472795c23d :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f23@
+hs_bindgen_028951472795c23d = fromFFIType hs_bindgen_028951472795c23d_base
+{-# NOINLINE f23_funptr #-}
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 50:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f23_funptr = unsafePerformIO hs_bindgen_028951472795c23d
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f24@
+foreign import ccall unsafe "hs_bindgen_81579afc5577422e" hs_bindgen_81579afc5577422e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f24@
+hs_bindgen_81579afc5577422e :: IO (FunPtr (CLong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f24@
+hs_bindgen_81579afc5577422e = fromFFIType hs_bindgen_81579afc5577422e_base
+{-# NOINLINE f24_funptr #-}
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_funptr :: FunPtr (CLong -> IO A)
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 51:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f24_funptr = unsafePerformIO hs_bindgen_81579afc5577422e
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f25@
+foreign import ccall unsafe "hs_bindgen_81230c41df4ab36f" hs_bindgen_81230c41df4ab36f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f25@
+hs_bindgen_81230c41df4ab36f :: IO (FunPtr (CULong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f25@
+hs_bindgen_81230c41df4ab36f = fromFFIType hs_bindgen_81230c41df4ab36f_base
+{-# NOINLINE f25_funptr #-}
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_funptr :: FunPtr (CULong -> IO A)
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 52:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f25_funptr = unsafePerformIO hs_bindgen_81230c41df4ab36f
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f26@
+foreign import ccall unsafe "hs_bindgen_750219148022d1bd" hs_bindgen_750219148022d1bd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f26@
+hs_bindgen_750219148022d1bd :: IO (FunPtr (CULong -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f26@
+hs_bindgen_750219148022d1bd = fromFFIType hs_bindgen_750219148022d1bd_base
+{-# NOINLINE f26_funptr #-}
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_funptr :: FunPtr (CULong -> IO A)
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 53:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f26_funptr = unsafePerformIO hs_bindgen_750219148022d1bd
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f27@
+foreign import ccall unsafe "hs_bindgen_76572bbe936a0500" hs_bindgen_76572bbe936a0500_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f27@
+hs_bindgen_76572bbe936a0500 :: IO (FunPtr (CFloat -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f27@
+hs_bindgen_76572bbe936a0500 = fromFFIType hs_bindgen_76572bbe936a0500_base
+{-# NOINLINE f27_funptr #-}
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_funptr :: FunPtr (CFloat -> IO A)
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 58:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f27_funptr = unsafePerformIO hs_bindgen_76572bbe936a0500
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f28@
+foreign import ccall unsafe "hs_bindgen_3fd53b4ec725518a" hs_bindgen_3fd53b4ec725518a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f28@
+hs_bindgen_3fd53b4ec725518a :: IO (FunPtr (CDouble -> IO A))
+-- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f28@
+hs_bindgen_3fd53b4ec725518a = fromFFIType hs_bindgen_3fd53b4ec725518a_base
+{-# NOINLINE f28_funptr #-}
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_funptr :: FunPtr (CDouble -> IO A)
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @macros\/reparse_arithmetic_types.h 59:3@
+
+    __exported by:__ @macros\/reparse_arithmetic_types.h@
+-}
+f28_funptr = unsafePerformIO hs_bindgen_3fd53b4ec725518a
