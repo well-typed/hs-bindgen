@@ -123,7 +123,11 @@ jobs:
       # the cache key, and if it is incremented, then the "Restore cache" step
       # fails to restore a cache, meaning we will start with an empty cabal
       # store that we will then save a new cache for.
-      cache-reset-number: 0
+      cache-reset-number: 2
+
+      # Manual directories relative to the repository root
+      manual-dir: "./manual"
+      manual-hs-dir: "./manual/hs"
 
     defaults:
       run:
@@ -231,6 +235,16 @@ jobs:
       - name: "[setup] Generate Cabal plan"
         run: cabal build all --dry-run
 
+      - name: "[setup] Configure manual"
+        working-directory: ${{ env.manual-dir }}
+        run: |
+          cat hs/cabal.project.ci | tee hs/cabal.project
+          ./configure.sh
+
+      - name: "[setup] Generate manual Cabal plan"
+        working-directory: ${{ env.manual-hs-dir }}
+        run: cabal build all --dry-run
+
       - name: "[setup] Restore cache"
         # Do not restore the cache if it is disabled in a manual dispatch.
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true' }}
@@ -238,9 +252,11 @@ jobs:
         uses: actions/cache/restore@v5
         env:
           key: build-and-test-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
+          plan-file-hs-bindgen: './dist-newstyle/cache/plan.json'
+          plan-file-manual: '${{env.manual-hs-dir }}/dist-newstyle/cache/plan.json'
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+          key: ${{ env.key }}-plan-${{ hashFiles(env.plan-file-hs-bindgen, env.plan-file-manual) }}
           restore-keys: ${{ env.key }}-
 
       - name: "[setup] Create tmate session"
@@ -249,6 +265,17 @@ jobs:
 
       - name: "[build] Build dependencies"
         run: cabal build all --only-dependencies
+
+      - name: "[build] Build dependencies"
+        working-directory: ${{ env.manual-hs-dir }}
+        run: cabal build all --only-dependencies
+
+      - name: "[build] Save cache"
+        if: ${{ (github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true') && (steps.restore-cache.outputs.cache-hit != 'true') }}
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
 
       - name: "[build] Build all"
         run: cabal build all
@@ -292,43 +319,12 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'test' }}
         uses: mxschmitt/action-tmate@v3
 
-      - name: "[manual] Configure manual"
-        # Add manual library directory to PATH so that the DLLs are found.
-        # Do not set SUPPORTS_UNICODE because the Windows assembler has an
-        # issue with Unicode characters.
-        working-directory: ./manual/hs
-        run: |
-          echo '== Adding to PATH =============================================================='
-          echo "${{github.workspace}}\\manual\\c" | tee -a "${GITHUB_PATH}"
-          echo '== Configuring cabal.project ==================================================='
-          cat cabal.project.ci | tee cabal.project
-          echo '== Creating cabal.project.local ================================================'
-          tee cabal.project.local <<EOF
-          package manual
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-
-          package hs-game
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-
-          package hs-vector
-            extra-include-dirs:
-              ${{ github.workspace }}\\manual\\c
-            extra-lib-dirs:
-              ${{ github.workspace }}\\manual\\c
-          EOF
-
       - name: "[manual] Generate bindings, build and run the manual"
-        working-directory: ./manual
+        working-directory: ${{ env.manual-dir }}
         run: ./generate-and-run.sh
 
       - name: "[manual] Debug manual"
-        working-directory: ./manual/hs
+        working-directory: ${{ env.manual-hs-dir }}
         run: |
           echo '== ldd run-manual.exe =========================================================='
           find dist-newstyle -type f -name run-manual.exe | xargs ldd
@@ -336,12 +332,3 @@ jobs:
       - name: "[manual] Create tmate session"
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'manual' }}
         uses: mxschmitt/action-tmate@v3
-
-      - name: "[fin] Save cache"
-        # Do not save the cache if it is disabled in a manual dispatch or it
-        # already exists.
-        if: ${{ (github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true') && (steps.restore-cache.outputs.cache-hit != 'true') }}
-        uses: actions/cache/save@v5
-        with:
-          path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{steps.restore-cache.outputs.cache-primary-key }}

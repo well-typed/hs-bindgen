@@ -119,7 +119,11 @@ jobs:
       # is incremented, then the "Restor cache" step fails to restore a cache,
       # meaning we will start with an empty cabal store that we will then save a
       # new cache for.
-      cache-reset-number: 0
+      cache-reset-number: 2
+
+      # Manual directories relative to the repository root
+      manual-dir: "./manual"
+      manual-hs-dir: "./manual/hs"
 
     defaults:
       run:
@@ -174,10 +178,20 @@ jobs:
         echo "--- Home directory size ---"
         du -sh $HOME
 
-    - name: 🛠️ cabal.project
-      run: cp cabal.project.ci cabal.project
+    - name: 🛠️ Configure (hs-bindgen)
+      run: cat cabal.project.ci | tee cabal.project
 
-    - name: 💾 Generate Cabal plan
+    - name: 💾 Generate Cabal plan (hs-bindgen)
+      run: cabal build all --dry-run
+
+    - name: 🛠️ Configure (manual)
+      working-directory: ${{ env.manual-dir }}
+      run: |
+        cat hs/cabal.project.ci | tee hs/cabal.project
+        ./configure.sh
+
+    - name: 💾 Generate Cabal plan (manual)
+      working-directory: ${{ env.manual-hs-dir }}
       run: cabal build all --dry-run
 
     - name: 💾 Restore cache
@@ -185,13 +199,26 @@ jobs:
       uses: actions/cache/restore@v5
       env:
         key: build-and-test-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
+        plan-file-hs-bindgen: './dist-newstyle/cache/plan.json'
+        plan-file-manual: '${{env.manual-hs-dir }}/dist-newstyle/cache/plan.json'
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+        key: ${{ env.key }}-plan-${{ hashFiles(env.plan-file-hs-bindgen, env.plan-file-manual) }}
         restore-keys: ${{ env.key }}-
 
-    - name: 🛠️ Build Cabal dependencies
+    - name: 🛠️ Build Cabal dependencies (hs-bindgen)
       run: cabal build all --only-dependencies
+
+    - name: 🛠️ Build Cabal dependencies (manual)
+      working-directory: ${{ env.manual-hs-dir }}
+      run: cabal build all --only-dependencies
+
+    - name: 💾 Save cache
+      uses: actions/cache/save@v5
+      if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
     - name: 🏗️ Build
       run: cabal build all
@@ -222,20 +249,6 @@ jobs:
         # Prevent MSYS/Git Bash from converting /th-fixtures/ to a Windows path
         MSYS_NO_PATHCONV: 1
 
-    - name: 🧪 Build manual (macOS)
-      if: runner.os == 'macOS'
-      uses: ./.github/actions/build-manual-macos
-
-    - name: 🧪 Build manual (Ubuntu)
-      if: runner.os == 'Linux'
-      uses: ./.github/actions/build-manual-ubuntu
-
-    # Save the cache after building the project AND the manual.
-    - name: 💾 Save cache
-      uses: actions/cache/save@v5
-      # Even save the cache, even when a previous job failed. Do not save the
-      # cache when the job gets canceled.
-      if: ${{ !cancelled() }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+    - name: 🧪 Run manual
+      working-directory: ${{ env.manual-dir }}
+      run: ./generate-and-run.sh
