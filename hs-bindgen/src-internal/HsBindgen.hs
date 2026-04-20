@@ -179,11 +179,11 @@ writeIncludeGraph regex showPaths filePolicy dirPolicy mPath = do
     let predicateUser, predicateRoot :: SourcePath -> Bool
         predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
         predicateRoot                = (/= RootHeader.name)
-        opts = IncludeGraph.DumpOpts{
+        opts = IncludeGraph.VisOpts{
             predicate = \p -> predicateUser p && predicateRoot p
           , showPaths = showPaths
           }
-        rendered = IncludeGraph.dumpMermaid opts includeGraph
+        rendered = IncludeGraph.renderMermaid opts includeGraph
     case mPath of
       Nothing   ->
         Lift $ delay $ WriteToStdOut $ StringContent rendered
@@ -194,7 +194,7 @@ writeIncludeGraph regex showPaths filePolicy dirPolicy mPath = do
 writeUseDeclGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
 writeUseDeclGraph filePolicy dirPolicy mPath = do
     useDeclGraph <- getUseDeclGraph
-    let rendered = UseDeclGraph.dumpMermaid useDeclGraph
+    let rendered = UseDeclGraph.renderMermaid useDeclGraph
     case mPath of
       Nothing   ->
         Lift $ delay $ WriteToStdOut $ StringContent rendered

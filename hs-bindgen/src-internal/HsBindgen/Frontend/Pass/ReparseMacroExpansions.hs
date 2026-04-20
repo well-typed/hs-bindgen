@@ -13,8 +13,8 @@ import Clang.CStandard (ClangCStandard)
 
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -69,8 +69,8 @@ reconstructAfterReparse unit reparseState decls =
       , includeGraph = unit.includeGraph
       , ann          = unit.ann{
             declIndex    = updatedDeclIndex
-          , useDeclGraph = updatedUseDeclGraph
-          , declUseGraph = DeclUseGraph.fromUseDecl updatedUseDeclGraph
+          , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
+          , declUseGraph = updatedDeclUseGraph
           }
       }
   where
@@ -89,11 +89,11 @@ reconstructAfterReparse unit reparseState decls =
         unit.ann.declIndex
         reparseState.reparseWarnings
 
-    updatedUseDeclGraph :: UseDeclGraph
-    updatedUseDeclGraph =
+    updatedDeclUseGraph :: DeclUseGraph
+    updatedDeclUseGraph =
       Foldable.foldl'
         (flip updateDeps)
-        unit.ann.useDeclGraph
+        unit.ann.declUseGraph
         successfulReparses
 
 {-------------------------------------------------------------------------------
@@ -505,7 +505,7 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
 -- Before reparse, @foo@ directly depends on @A@. After reparse, we know
 -- that @foo@ depends on @B@. We have to cut the dependency to @A@ and
 -- replace it with the dependency to @B@.
-updateDeps :: C.Decl ReparseMacroExpansions -> UseDeclGraph -> UseDeclGraph
+updateDeps :: C.Decl ReparseMacroExpansions -> DeclUseGraph -> DeclUseGraph
 updateDeps decl graph =
-    UseDeclGraph.insertDepsOfDecl decl $
-      UseDeclGraph.deleteDeps [decl.info.id] graph
+    DeclUseGraph.insertDepsOfDecl decl $
+      DeclUseGraph.deleteDeps (Set.singleton decl.info.id) graph

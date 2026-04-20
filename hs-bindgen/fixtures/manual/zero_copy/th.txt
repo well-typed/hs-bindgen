@@ -1,0 +1,711 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/golden/manual/zero_copy.h
+-- #include <manual/zero_copy.h>
+-- signed int hs_bindgen_350cceac1101d344 (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return (reverse)(arg1, arg2);
+-- }
+-- void hs_bindgen_2ff371c815d92b04 (
+--   triplet const *arg1,
+--   triplet *arg2
+-- )
+-- {
+--   (transpose)(arg1, arg2);
+-- }
+-- signed int hs_bindgen_f9655173d51bbaac (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return (reverse)(arg1, arg2);
+-- }
+-- void hs_bindgen_ea25667627dd5ed2 (
+--   triplet const *arg1,
+--   triplet *arg2
+-- )
+-- {
+--   (transpose)(arg1, arg2);
+-- }
+-- /* test_manualzero_copy_Example_get_reverse */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_44cb8687c63f0086 (void)) (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return &reverse;
+-- }
+-- /* test_manualzero_copy_Example_get_transpose */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_1bf30b28aefee5bf (void)) (
+--   triplet const *arg1,
+--   triplet *arg2
+-- )
+-- {
+--   return &transpose;
+-- }
+{-| __C declaration:__ @struct point@
+
+    __defined at:__ @manual\/zero_copy.h 12:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Point
+    = Point {point_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @manual\/zero_copy.h 13:7@
+
+                  __exported by:__ @manual\/zero_copy.h@
+             -},
+             point_y :: CInt
+             {- ^ __C declaration:__ @y@
+
+                  __defined at:__ @manual\/zero_copy.h 14:7@
+
+                  __exported by:__ @manual\/zero_copy.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> (pure Point <*> readRaw (Proxy @"point_x") ptr_0) <*> readRaw (Proxy @"point_y") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point point_x_2
+                                             point_y_3 -> writeRaw (Proxy @"point_x") ptr_0 point_x_2 >> writeRaw (Proxy @"point_y") ptr_0 point_y_3
+deriving via (EquivStorable Point) instance Storable Point
+instance HasCField Point "point_x"
+    where type CFieldType Point "point_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "point_x" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"point_x")
+instance HasCField Point "point_y"
+    where type CFieldType Point "point_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "point_y" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"point_y")
+{-| __C declaration:__ @struct rectangle@
+
+    __defined at:__ @manual\/zero_copy.h 17:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Rectangle
+    = Rectangle {rectangle_topleft :: Point
+                 {- ^ __C declaration:__ @topleft@
+
+                      __defined at:__ @manual\/zero_copy.h 18:16@
+
+                      __exported by:__ @manual\/zero_copy.h@
+                 -},
+                 rectangle_bottomright :: Point
+                 {- ^ __C declaration:__ @bottomright@
+
+                      __defined at:__ @manual\/zero_copy.h 19:16@
+
+                      __exported by:__ @manual\/zero_copy.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Rectangle
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle
+    where readRaw = \ptr_0 -> (pure Rectangle <*> readRaw (Proxy @"rectangle_topleft") ptr_0) <*> readRaw (Proxy @"rectangle_bottomright") ptr_0
+instance WriteRaw Rectangle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle rectangle_topleft_2
+                                                 rectangle_bottomright_3 -> writeRaw (Proxy @"rectangle_topleft") ptr_0 rectangle_topleft_2 >> writeRaw (Proxy @"rectangle_bottomright") ptr_0 rectangle_bottomright_3
+deriving via (EquivStorable Rectangle) instance Storable Rectangle
+instance HasCField Rectangle "rectangle_topleft"
+    where type CFieldType Rectangle "rectangle_topleft" = Point
+          offset# = \_ -> \_ -> 0
+instance (~) ty Point =>
+         HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_topleft")
+instance HasCField Rectangle "rectangle_bottomright"
+    where type CFieldType Rectangle "rectangle_bottomright" = Point
+          offset# = \_ -> \_ -> 8
+instance (~) ty Point =>
+         HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_bottomright")
+{-| __C declaration:__ @struct circle@
+
+    __defined at:__ @manual\/zero_copy.h 22:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Circle
+    = Circle {circle_midpoint :: Point
+              {- ^ __C declaration:__ @midpoint@
+
+                   __defined at:__ @manual\/zero_copy.h 23:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              circle_radius :: CInt
+              {- ^ __C declaration:__ @radius@
+
+                   __defined at:__ @manual\/zero_copy.h 24:7@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Circle
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Circle
+    where readRaw = \ptr_0 -> (pure Circle <*> readRaw (Proxy @"circle_midpoint") ptr_0) <*> readRaw (Proxy @"circle_radius") ptr_0
+instance WriteRaw Circle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Circle circle_midpoint_2
+                                              circle_radius_3 -> writeRaw (Proxy @"circle_midpoint") ptr_0 circle_midpoint_2 >> writeRaw (Proxy @"circle_radius") ptr_0 circle_radius_3
+deriving via (EquivStorable Circle) instance Storable Circle
+instance HasCField Circle "circle_midpoint"
+    where type CFieldType Circle "circle_midpoint" = Point
+          offset# = \_ -> \_ -> 0
+instance (~) ty Point =>
+         HasField "circle_midpoint" (Ptr Circle) (Ptr ty)
+    where getField = fromPtr (Proxy @"circle_midpoint")
+instance HasCField Circle "circle_radius"
+    where type CFieldType Circle "circle_radius" = CInt
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt =>
+         HasField "circle_radius" (Ptr Circle) (Ptr ty)
+    where getField = fromPtr (Proxy @"circle_radius")
+{-| __C declaration:__ @union shape@
+
+    __defined at:__ @manual\/zero_copy.h 30:7@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Shape
+    = Shape {unwrapShape :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 16 4) instance StaticSize Shape
+deriving via (SizedByteArray 16 4) instance ReadRaw Shape
+deriving via (SizedByteArray 16 4) instance WriteRaw Shape
+deriving via (EquivStorable Shape) instance Storable Shape
+{-|
+
+  __See:__ 'set_shape_rectangle'
+
+__C declaration:__ @rectangle@
+
+__defined at:__ @manual\/zero_copy.h 31:20@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_rectangle :: Shape -> Rectangle
+{-|
+
+  __See:__ 'set_shape_rectangle'
+
+__C declaration:__ @rectangle@
+
+__defined at:__ @manual\/zero_copy.h 31:20@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_rectangle = getUnionPayload
+{-|
+
+  __See:__ 'get_shape_rectangle'
+
+-}
+set_shape_rectangle :: Rectangle -> Shape
+{-|
+
+  __See:__ 'get_shape_rectangle'
+
+-}
+set_shape_rectangle = setUnionPayload
+{-|
+
+  __See:__ 'set_shape_circle'
+
+__C declaration:__ @circle@
+
+__defined at:__ @manual\/zero_copy.h 32:17@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_circle :: Shape -> Circle
+{-|
+
+  __See:__ 'set_shape_circle'
+
+__C declaration:__ @circle@
+
+__defined at:__ @manual\/zero_copy.h 32:17@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_circle = getUnionPayload
+{-|
+
+  __See:__ 'get_shape_circle'
+
+-}
+set_shape_circle :: Circle -> Shape
+{-|
+
+  __See:__ 'get_shape_circle'
+
+-}
+set_shape_circle = setUnionPayload
+instance HasCField Shape "shape_rectangle"
+    where type CFieldType Shape "shape_rectangle" = Rectangle
+          offset# = \_ -> \_ -> 0
+instance (~) ty Rectangle =>
+         HasField "shape_rectangle" (Ptr Shape) (Ptr ty)
+    where getField = fromPtr (Proxy @"shape_rectangle")
+instance HasCField Shape "shape_circle"
+    where type CFieldType Shape "shape_circle" = Circle
+          offset# = \_ -> \_ -> 0
+instance (~) ty Circle =>
+         HasField "shape_circle" (Ptr Shape) (Ptr ty)
+    where getField = fromPtr (Proxy @"shape_circle")
+{-| __C declaration:__ @struct colour@
+
+    __defined at:__ @manual\/zero_copy.h 39:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Colour
+    = Colour {colour_opacity :: CUInt
+              {- ^ __C declaration:__ @opacity@
+
+                   __defined at:__ @manual\/zero_copy.h 40:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_brightness :: CUInt
+              {- ^ __C declaration:__ @brightness@
+
+                   __defined at:__ @manual\/zero_copy.h 41:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_red :: CUInt
+              {- ^ __C declaration:__ @red@
+
+                   __defined at:__ @manual\/zero_copy.h 42:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_green :: CUInt
+              {- ^ __C declaration:__ @green@
+
+                   __defined at:__ @manual\/zero_copy.h 43:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_blue :: CUInt
+              {- ^ __C declaration:__ @blue@
+
+                   __defined at:__ @manual\/zero_copy.h 44:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Colour
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Colour
+    where readRaw = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
+instance WriteRaw Colour
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Colour colour_opacity_2
+                                              colour_brightness_3
+                                              colour_red_4
+                                              colour_green_5
+                                              colour_blue_6 -> poke (Proxy @"colour_opacity") ptr_0 colour_opacity_2 >> (poke (Proxy @"colour_brightness") ptr_0 colour_brightness_3 >> (poke (Proxy @"colour_red") ptr_0 colour_red_4 >> (poke (Proxy @"colour_green") ptr_0 colour_green_5 >> poke (Proxy @"colour_blue") ptr_0 colour_blue_6)))
+deriving via (EquivStorable Colour) instance Storable Colour
+instance HasCBitfield Colour "colour_opacity"
+    where type CBitfieldType Colour "colour_opacity" = CUInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2
+instance (~) ty CUInt =>
+         HasField "colour_opacity" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_opacity")
+instance HasCBitfield Colour "colour_brightness"
+    where type CBitfieldType Colour "colour_brightness" = CUInt
+          bitfieldOffset# = \_ -> \_ -> 2
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CUInt =>
+         HasField "colour_brightness" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_brightness")
+instance HasCBitfield Colour "colour_red"
+    where type CBitfieldType Colour "colour_red" = CUInt
+          bitfieldOffset# = \_ -> \_ -> 5
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CUInt =>
+         HasField "colour_red" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_red")
+instance HasCBitfield Colour "colour_green"
+    where type CBitfieldType Colour "colour_green" = CUInt
+          bitfieldOffset# = \_ -> \_ -> 13
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CUInt =>
+         HasField "colour_green" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_green")
+instance HasCBitfield Colour "colour_blue"
+    where type CBitfieldType Colour "colour_blue" = CUInt
+          bitfieldOffset# = \_ -> \_ -> 21
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CUInt =>
+         HasField "colour_blue" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_blue")
+{-| __C declaration:__ @myInt@
+
+    __defined at:__ @manual\/zero_copy.h 50:13@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype MyInt
+    = MyInt {unwrapMyInt :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyInt")
+instance HasCField MyInt "unwrapMyInt"
+    where type CFieldType MyInt "unwrapMyInt" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct drawing@
+
+    __defined at:__ @manual\/zero_copy.h 55:16@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Drawing
+    = Drawing {drawing_shape :: (Ptr Shape)
+               {- ^ __C declaration:__ @shape@
+
+                    __defined at:__ @manual\/zero_copy.h 56:16@
+
+                    __exported by:__ @manual\/zero_copy.h@
+               -},
+               drawing_colour :: (Ptr Colour)
+               {- ^ __C declaration:__ @colour@
+
+                    __defined at:__ @manual\/zero_copy.h 57:18@
+
+                    __exported by:__ @manual\/zero_copy.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Drawing
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Drawing
+    where readRaw = \ptr_0 -> (pure Drawing <*> readRaw (Proxy @"drawing_shape") ptr_0) <*> readRaw (Proxy @"drawing_colour") ptr_0
+instance WriteRaw Drawing
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Drawing drawing_shape_2
+                                               drawing_colour_3 -> writeRaw (Proxy @"drawing_shape") ptr_0 drawing_shape_2 >> writeRaw (Proxy @"drawing_colour") ptr_0 drawing_colour_3
+deriving via (EquivStorable Drawing) instance Storable Drawing
+instance HasCField Drawing "drawing_shape"
+    where type CFieldType Drawing "drawing_shape" = Ptr Shape
+          offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Shape) =>
+         HasField "drawing_shape" (Ptr Drawing) (Ptr ty)
+    where getField = fromPtr (Proxy @"drawing_shape")
+instance HasCField Drawing "drawing_colour"
+    where type CFieldType Drawing "drawing_colour" = Ptr Colour
+          offset# = \_ -> \_ -> 8
+instance (~) ty (Ptr Colour) =>
+         HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
+    where getField = fromPtr (Proxy @"drawing_colour")
+{-| __C declaration:__ @struct tic_tac_toe@
+
+    __defined at:__ @manual\/zero_copy.h 63:16@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Tic_tac_toe
+    = Tic_tac_toe {tic_tac_toe_row1 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row1@
+
+                        __defined at:__ @manual\/zero_copy.h 64:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -},
+                   tic_tac_toe_row2 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row2@
+
+                        __defined at:__ @manual\/zero_copy.h 65:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -},
+                   tic_tac_toe_row3 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row3@
+
+                        __defined at:__ @manual\/zero_copy.h 66:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Tic_tac_toe
+    where staticSizeOf = \_ -> 36 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Tic_tac_toe
+    where readRaw = \ptr_0 -> ((pure Tic_tac_toe <*> readRaw (Proxy @"tic_tac_toe_row1") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row2") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row3") ptr_0
+instance WriteRaw Tic_tac_toe
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Tic_tac_toe tic_tac_toe_row1_2
+                                                   tic_tac_toe_row2_3
+                                                   tic_tac_toe_row3_4 -> writeRaw (Proxy @"tic_tac_toe_row1") ptr_0 tic_tac_toe_row1_2 >> (writeRaw (Proxy @"tic_tac_toe_row2") ptr_0 tic_tac_toe_row2_3 >> writeRaw (Proxy @"tic_tac_toe_row3") ptr_0 tic_tac_toe_row3_4)
+deriving via (EquivStorable Tic_tac_toe) instance Storable Tic_tac_toe
+instance HasCField Tic_tac_toe "tic_tac_toe_row1"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row1" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "tic_tac_toe_row1" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = fromPtr (Proxy @"tic_tac_toe_row1")
+instance HasCField Tic_tac_toe "tic_tac_toe_row2"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row2" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 12
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "tic_tac_toe_row2" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = fromPtr (Proxy @"tic_tac_toe_row2")
+instance HasCField Tic_tac_toe "tic_tac_toe_row3"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row3" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 24
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = fromPtr (Proxy @"tic_tac_toe_row3")
+{-| __C declaration:__ @struct vector@
+
+    __defined at:__ @manual\/zero_copy.h 72:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Vector_Aux
+    = Vector {vector_len :: CInt
+              {- ^ __C declaration:__ @len@
+
+                   __defined at:__ @manual\/zero_copy.h 73:7@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Vector_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Vector_Aux
+    where readRaw = \ptr_0 -> pure Vector <*> readRaw (Proxy @"vector_len") ptr_0
+instance WriteRaw Vector_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Vector vector_len_2 -> writeRaw (Proxy @"vector_len") ptr_0 vector_len_2
+deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
+instance HasCField Vector_Aux "vector_len"
+    where type CFieldType Vector_Aux "vector_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"vector_len")
+instance Offset CChar Vector_Aux
+    where offset = \_ty_0 -> 4
+type Vector = WithFlam CChar Vector_Aux
+{-| __C declaration:__ @triplet@
+
+    __defined at:__ @manual\/zero_copy.h 82:13@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Triplet
+    = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet")
+instance HasCField Triplet "unwrapTriplet"
+    where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
+                                                                  CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @matrix@
+
+    __defined at:__ @manual\/zero_copy.h 83:17@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Matrix
+    = Matrix {unwrapMatrix :: (ConstantArray 3 Triplet)}
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 Triplet) =>
+         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMatrix")
+instance HasCField Matrix "unwrapMatrix"
+    where type CFieldType Matrix "unwrapMatrix" = ConstantArray 3
+                                                                Triplet
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+hs_bindgen_350cceac1101d344 :: PtrConst Vector ->
+                               Ptr Vector -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+hs_bindgen_350cceac1101d344 = fromFFIType hs_bindgen_350cceac1101d344_base
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_safe :: PtrConst Vector -> Ptr Vector -> IO CInt
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_safe = hs_bindgen_350cceac1101d344
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+hs_bindgen_2ff371c815d92b04 :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO ()
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_safe :: PtrConst (Elem Matrix) ->
+                  Ptr (Elem Matrix) -> IO ()
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_safe = hs_bindgen_2ff371c815d92b04
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+hs_bindgen_f9655173d51bbaac :: PtrConst Vector ->
+                               Ptr Vector -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+hs_bindgen_f9655173d51bbaac = fromFFIType hs_bindgen_f9655173d51bbaac_base
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_unsafe :: PtrConst Vector -> Ptr Vector -> IO CInt
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_unsafe = hs_bindgen_f9655173d51bbaac
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+hs_bindgen_ea25667627dd5ed2 :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO ()
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_unsafe :: PtrConst (Elem Matrix) ->
+                    Ptr (Elem Matrix) -> IO ()
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_unsafe = hs_bindgen_ea25667627dd5ed2
+-- __unique:__ @test_manualzero_copy_Example_get_reverse@
+foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_manualzero_copy_Example_get_reverse@
+hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (PtrConst Vector ->
+                                           Ptr Vector -> IO CInt))
+-- __unique:__ @test_manualzero_copy_Example_get_reverse@
+hs_bindgen_44cb8687c63f0086 = fromFFIType hs_bindgen_44cb8687c63f0086_base
+{-# NOINLINE reverse_funptr #-}
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_funptr :: FunPtr (PtrConst Vector -> Ptr Vector -> IO CInt)
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h 77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_funptr = unsafePerformIO hs_bindgen_44cb8687c63f0086
+-- __unique:__ @test_manualzero_copy_Example_get_transpose@
+foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_manualzero_copy_Example_get_transpose@
+hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (PtrConst (Elem Matrix) ->
+                                           Ptr (Elem Matrix) -> IO ()))
+-- __unique:__ @test_manualzero_copy_Example_get_transpose@
+hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
+{-# NOINLINE transpose_funptr #-}
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_funptr :: FunPtr (PtrConst (Elem Matrix) ->
+                            Ptr (Elem Matrix) -> IO ())
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h 85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_funptr = unsafePerformIO hs_bindgen_1bf30b28aefee5bf

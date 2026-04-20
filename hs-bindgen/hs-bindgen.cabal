@@ -77,8 +77,8 @@ library internal
 
   -- Internal modules.
   exposed-modules:
-    Data.DynGraph
-    Data.DynGraph.Labelled
+    Data.Digraph
+    Data.ExtOrdIdxSet
     HsBindgen
     HsBindgen.Artefact
     HsBindgen.ArtefactM
@@ -150,12 +150,12 @@ library internal
     HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclUseGraph
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Query
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UseDeclGraph
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Construction
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Query
     HsBindgen.Frontend.AST.Coerce
     HsBindgen.Frontend.AST.Decl
     HsBindgen.Frontend.AST.Deps
@@ -451,6 +451,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
 

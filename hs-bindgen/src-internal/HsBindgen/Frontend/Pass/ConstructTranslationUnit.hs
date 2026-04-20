@@ -27,9 +27,9 @@ constructTranslationUnit ::
   -> C.TranslationUnit ConstructTranslationUnit
 constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
       decls        = map coercePass $
-                           UseDeclGraph.toDecls
+                           DeclUseGraph.toDecls
                              declMeta.declIndex
-                             declMeta.useDeclGraph
+                             declMeta.declUseGraph
     , includeGraph = includeGraph
     , ann          = declMeta
     }
@@ -50,8 +50,8 @@ mkDeclMeta parseResults includeGraph = DeclMeta{
     declIndex :: DeclIndex
     declIndex = DeclIndex.fromParseResults parseResults
 
-    useDeclGraph :: UseDeclGraph
-    useDeclGraph = UseDeclGraph.fromDecls includeGraph declIndex
-
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
+    declUseGraph = DeclUseGraph.fromDecls includeGraph declIndex
+
+    useDeclGraph :: UseDeclGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

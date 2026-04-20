@@ -19,16 +19,17 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , toSortedList
   , toOrderMap
   , getIncludes
-    -- * Debugging
+    -- * Visualization
   , Predicate
-  , DumpOpts(..)
-  , dumpMermaid
+  , VisOpts(..)
+  , renderMermaid
   ) where
 
-import Data.DynGraph.Labelled (DynGraph, MermaidOptions (reverseEdges))
-import Data.DynGraph.Labelled qualified as Graph
+import Data.Digraph (Digraph)
+import Data.Digraph qualified as Digraph
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import Clang.Paths
 
@@ -40,14 +41,12 @@ import HsBindgen.Imports
   Definition
 -------------------------------------------------------------------------------}
 
-type Graph = DynGraph
-
 -- | Include graph
 --
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
 data IncludeGraph = IncludeGraph{
-      graph :: Graph Include SourcePath
+      graph :: Digraph Include SourcePath
     }
   deriving stock (Show, Eq)
 
@@ -103,7 +102,7 @@ getIncludeMacroArg = \case
 -------------------------------------------------------------------------------}
 
 empty :: IncludeGraph
-empty = IncludeGraph Graph.empty
+empty = IncludeGraph Digraph.empty
 
 register ::
      SourcePath -- ^ Path of header that includes the following header
@@ -111,11 +110,8 @@ register ::
   -> SourcePath -- ^ Path of the included header
   -> IncludeGraph
   -> IncludeGraph
-register header include incHeader includeGraph =
-    IncludeGraph $
-      Graph.insertEdge incHeader include header $
-        Graph.insertVertex incHeader $ Graph.insertVertex header $
-          includeGraph.graph
+register header include incHeader includeGraph = IncludeGraph $
+    Digraph.insertEdge incHeader include header includeGraph.graph
 
 fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges
@@ -128,11 +124,13 @@ fromList edges = List.foldl' add empty edges
 -------------------------------------------------------------------------------}
 
 reaches :: IncludeGraph -> SourcePath -> Set SourcePath
-reaches includeGraph = Graph.reaches includeGraph.graph . List.singleton
+reaches includeGraph path =
+    Digraph.reaches (Set.singleton path) includeGraph.graph
 
 toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList includeGraph =
-    List.delete RootHeader.name $ Graph.topSort includeGraph.graph
+    let (cycles, paths) = Digraph.topSort includeGraph.graph
+    in  List.delete RootHeader.name paths ++ Set.elems cycles
 
 toOrderMap :: IncludeGraph -> Map SourcePath Int
 toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
@@ -140,95 +138,99 @@ toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
 getIncludes ::
      IncludeGraph
   -> SourcePath
-  -> Graph.FindEdgesResult Include
-getIncludes includeGraph = Graph.findEdges includeGraph.graph
+  -> Digraph.FindEdgesResult Include
+getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
 
 {-------------------------------------------------------------------------------
-  Debugging
+  Visualization
 -------------------------------------------------------------------------------}
 
 -- | Include graph predicate
 type Predicate = SourcePath -> Bool
 
-data DumpOpts = DumpOpts {
-      -- | Only show vertices satisfying the predicate.
+data VisOpts = VisOpts {
+      -- | Only show vertices satisfying the predicate
       --
-      --   Combine dangling (i.e., transient) edges at removed vertices.
+      -- Edges that traverse removed vertices are combined.
       --
-      --   For example,
+      -- Example:
       --
-      --     A-D->B-->C
-      --         |
-      --         +-->D
+      -- @
+      --   A-->B-->C
+      --       |
+      --       +-->D
+      -- @
       --
-      --   Removal of node 'B' creates
+      -- Removal of vertex 'B' results in the following graph:
       --
-      --     A-->C
-      --     |
-      --     --->D
+      -- @
+      --   A-->C
+      --   |
+      --   +-->D
+      -- @
+      --
+      -- Combined edges are rendered using dotted lines instead of solid lines.
       predicate :: Predicate
+
       -- | How should we show the include header?
       --
       -- - If 'True': Show paths of include header files
       --
-      -- - If 'False':  Show the @#include@ argument, which usually shorter
+      -- - If 'False': Show the @#include@ argument, which usually shorter
     , showPaths :: Bool
     }
 
--- | Dump include graph
+-- | Render a Mermaid diagram
 --
--- See 'DumpOpts'.
---
--- Render direct (transient) dependencies using straight (dotted) arrows,
--- respectively.
-dumpMermaid :: DumpOpts -> IncludeGraph -> String
-dumpMermaid o g =
-    Graph.dumpMermaid opts $
-      Graph.combineParallelEdges combineParallel $
-        Graph.filterVerticesCombineEdges predicate combineSequential $
-          Graph.mapEdges (const Direct) $
-            Graph.mapVerticesOutgoingEdges Vertex g.graph
+-- See 'VisOpts'.
+renderMermaid :: VisOpts -> IncludeGraph -> String
+renderMermaid o g =
+      Digraph.renderMermaid opts
+    . Digraph.combineParallelEdges combineParallel
+    . Digraph.filterVerticesCombineEdges predicate combineSequential
+    . Digraph.mapEdges (const Direct)
+    $ Digraph.mapVerticesOutgoingEdges Vertex g.graph
   where
+    opts :: Digraph.VisOptions Edge Vertex
+    opts = Digraph.VisOptions{
+        visVertex = \v -> Digraph.VisVertex{
+            label =
+              if o.showPaths
+                then Just (getSourcePath v.path)
+                else Just (getIncludePath v)
+          }
+      , visEdge = \e -> Digraph.VisEdge{
+            label = Nothing
+          , style = case e of
+              Direct    -> Digraph.Solid
+              Transient -> Digraph.Dotted
+          }
+      , reverseEdges = True
+      }
+
     predicate :: Vertex -> Bool
     predicate v = o.predicate v.path
 
-    renderVertex :: Vertex -> FilePath
-    renderVertex v =
-      if o.showPaths then
-        getSourcePath v.path
-      else
-        getIncludePath v
-
-    renderEdge :: Edge -> Graph.EdgeSpec
-    renderEdge = \case
-      Direct    -> Graph.EdgeSpec Graph.Straight Nothing
-      Transient -> Graph.EdgeSpec Graph.Dotted   Nothing
-
-    opts :: Graph.MermaidOptions Edge Vertex
-    opts = Graph.MermaidOptions{
-        reverseEdges = True
-      , renderVertex = Just . renderVertex
-      , renderEdge   = renderEdge
-      }
-
-    toPath :: Include -> FilePath
-    toPath = (.path) . getIncludeArg
-
-    getIncludePath :: Vertex -> FilePath
-    getIncludePath v = safeHead $ List.sortOn length $  map toPath $ v.includes
-
-    safeHead :: [String] -> String
-    safeHead []    = getSourcePath $ RootHeader.name
-    safeHead (x:_) = x
+data Vertex = Vertex {
+      path     :: SourcePath
+    , includes :: Set Include
+    }
+  deriving stock (Show, Eq, Ord)
 
 data Edge = Direct | Transient
- deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq, Ord)
 
-data Vertex = Vertex {
-      includes :: [Include]
-    , path     :: SourcePath
-   }
- deriving stock (Show, Eq, Ord)
+getIncludePath :: Vertex -> FilePath
+getIncludePath =
+      safeHead
+    . List.sortOn length
+    . map ((.path) . getIncludeArg)
+    . Set.elems
+    . (.includes)
+  where
+    safeHead :: [FilePath] -> FilePath
+    safeHead []    = getSourcePath $ RootHeader.name
+    safeHead (x:_) = x
 
 -- | Sequential combination of simple include edges.
 --

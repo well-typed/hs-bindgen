@@ -1,10 +1,10 @@
--- addDependentFile examples/golden/program-analysis/circular_includes_inner.h
 -- addDependentFile examples/golden/program-analysis/circular_includes.h
+-- addDependentFile examples/golden/program-analysis/circular_includes_inner.h
 {-| __C declaration:__ @OUTER_BEFORE_CIRCULAR_INCLUDE@
 
     __defined at:__ @program-analysis\/circular_includes.h 2:13@
 
-    __exported by:__ @program-analysis\/circular_includes.h@, @program-analysis\/circular_includes.h@
+    __exported by:__ @program-analysis\/circular_includes.h@
 -}
 newtype OUTER_BEFORE_CIRCULAR_INCLUDE
     = OUTER_BEFORE_CIRCULAR_INCLUDE {unwrapOUTER_BEFORE_CIRCULAR_INCLUDE :: CInt}
@@ -38,7 +38,7 @@ instance HasCField OUTER_BEFORE_CIRCULAR_INCLUDE
 
     __defined at:__ @program-analysis\/circular_includes.h 4:13@
 
-    __exported by:__ @program-analysis\/circular_includes.h@, @program-analysis\/circular_includes.h@
+    __exported by:__ @program-analysis\/circular_includes.h@
 -}
 newtype OUTER_AFTER_CIRCULAR_INCLUDE
     = OUTER_AFTER_CIRCULAR_INCLUDE {unwrapOUTER_AFTER_CIRCULAR_INCLUDE :: CInt}

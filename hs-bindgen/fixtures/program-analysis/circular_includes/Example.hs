@@ -26,7 +26,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
     __defined at:__ @program-analysis\/circular_includes.h 2:13@
 
-    __exported by:__ @program-analysis\/circular_includes.h@, @program-analysis\/circular_includes.h@
+    __exported by:__ @program-analysis\/circular_includes.h@
 -}
 newtype OUTER_BEFORE_CIRCULAR_INCLUDE = OUTER_BEFORE_CIRCULAR_INCLUDE
   { unwrapOUTER_BEFORE_CIRCULAR_INCLUDE :: RIP.CInt
@@ -67,7 +67,7 @@ instance HasCField.HasCField OUTER_BEFORE_CIRCULAR_INCLUDE "unwrapOUTER_BEFORE_C
 
     __defined at:__ @program-analysis\/circular_includes.h 4:13@
 
-    __exported by:__ @program-analysis\/circular_includes.h@, @program-analysis\/circular_includes.h@
+    __exported by:__ @program-analysis\/circular_includes.h@
 -}
 newtype OUTER_AFTER_CIRCULAR_INCLUDE = OUTER_AFTER_CIRCULAR_INCLUDE
   { unwrapOUTER_AFTER_CIRCULAR_INCLUDE :: RIP.CInt
