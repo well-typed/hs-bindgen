@@ -33,18 +33,29 @@ generateModule testResources tc = unlines $ List.intercalate [""] [
     bootConfig :: BootConfig
     bootConfig = getTestBootConfig tc testResources
 
+-- The generator compiles under Haskell2010; every non-Haskell2010 feature
+-- the TH splice may expand to must be listed here.
 languagePragmas :: [String]
 languagePragmas = [
       "{-# LANGUAGE CApiFFI #-}"
     , "{-# LANGUAGE DataKinds #-}"
+    , "{-# LANGUAGE DeriveGeneric #-}"
     , "{-# LANGUAGE DerivingStrategies #-}"
     , "{-# LANGUAGE DerivingVia #-}"
+    , "{-# LANGUAGE ExplicitForAll #-}"
+    , "{-# LANGUAGE FlexibleContexts #-}"
+    , "{-# LANGUAGE FlexibleInstances #-}"
+    , "{-# LANGUAGE GeneralizedNewtypeDeriving #-}"
     , "{-# LANGUAGE MagicHash #-}"
+    , "{-# LANGUAGE MultiParamTypeClasses #-}"
     , "{-# LANGUAGE OverloadedLabels #-}"
     , "{-# LANGUAGE OverloadedStrings #-}"
     , "{-# LANGUAGE PatternSynonyms #-}"
+    , "{-# LANGUAGE StandaloneDeriving #-}"
     , "{-# LANGUAGE TemplateHaskell #-}"
+    , "{-# LANGUAGE TypeApplications #-}"
     , "{-# LANGUAGE TypeFamilies #-}"
+    , "{-# LANGUAGE TypeOperators #-}"
     , "{-# LANGUAGE UnboxedTuples #-}"
     , "{-# LANGUAGE UndecidableInstances #-}"
     ]
@@ -59,8 +70,8 @@ moduleHeader bootConfig = List.singleton $ unwords [
 imports :: [String]
 imports = [
       "import Foreign.C.Types"
-    , "import HsBindgen.Runtime.LibC qualified"
-    , "import HsBindgen.Runtime.Prelude qualified"
+    , "import qualified HsBindgen.Runtime.LibC"
+    , "import qualified HsBindgen.Runtime.Prelude"
     , "import HsBindgen.TH"
     , "import Optics ((%), (&), (.~))"
     ]

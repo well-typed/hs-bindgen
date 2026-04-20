@@ -7,3 +7,7 @@ packages:
   hs-bindgen
   hs-bindgen-runtime
   hs-bindgen-test-runtime
+
+-- Needed by test-hs-bindgen: fixture compilation uses direct ghc invocation
+-- and reads this file to discover package databases and visible packages.
+write-ghc-environment-files: always

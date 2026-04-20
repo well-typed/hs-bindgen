@@ -21,6 +21,7 @@ requiredExtensions fieldNaming = \case
       ]
     DInst inst -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length inst.args >= 2]
+      , [ext TH.FlexibleInstances     | not (all isFlatInstanceArg inst.args)]
       , [ext TH.TypeFamilies          | not (null inst.types)]
       , [typeClassExtensions inst.clss]
       , map typeExtensions inst.args
@@ -69,6 +70,21 @@ requiredExtensions fieldNaming = \case
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton
+
+-- | Check whether an instance argument has the shape @T a1 ... an@ (type
+-- constructor applied to type variables) — anything else requires
+-- @FlexibleInstances@.
+--
+-- We don't check that the type variables are distinct: @FlexibleInstances@
+-- removes that restriction too, so over-emitting on non-distinct-vars
+-- instances is harmless.
+isFlatInstanceArg :: SType ctx -> Bool
+isFlatInstanceArg = \case
+    TCon _            -> True
+    TGlobal _         -> True
+    TApp f (TBound _) -> isFlatInstanceArg f
+    TApp f (TFree _)  -> isFlatInstanceArg f
+    _                 -> False
 
 -- | Extensions for deriving clauses that are part of the datatype declaration
 nestedDeriving :: [(Strategy ClosedType, [Inst.TypeClass])] -> Set TH.Extension

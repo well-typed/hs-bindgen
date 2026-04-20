@@ -6,6 +6,7 @@ import Test.Tasty
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
+import Test.HsBindgen.PPFixtures qualified as PPFixtures
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.THFixtures qualified as THFixtures
@@ -38,4 +39,5 @@ main = defaultMain $
           ]
         -- Path from root to here, for @-p@ pattern filtering.
       , THFixtures.tests (Seq.fromList ["test-hs-bindgen"]) testResources
+      , PPFixtures.tests (Seq.fromList ["test-hs-bindgen"]) testResources
       ]

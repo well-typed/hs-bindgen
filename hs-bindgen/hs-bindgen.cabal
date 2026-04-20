@@ -410,10 +410,15 @@ test-suite test-hs-bindgen
   main-is:            test-hs-bindgen.hs
   hs-source-dirs:     test/hs-bindgen
 
+  -- -threaded is needed for parallel fixture compilation via direct GHC
+  -- invocations.
   -- Suppress warning about hs-bindgen being unused in test code
   -- (it's only used when compiling generated TH modules)
-  ghc-options:        -Wno-unused-packages
+  ghc-options:        -threaded -Wno-unused-packages
   other-modules:
+    Test.HsBindgen.Fixtures.Haddock
+    Test.HsBindgen.Fixtures.TestCases
+    Test.HsBindgen.Fixtures.Utils
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Arrays
     Test.HsBindgen.Golden.Attributes
@@ -436,6 +441,9 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Integration.OverwritePolicy
+    Test.HsBindgen.PPFixtures
+    Test.HsBindgen.PPFixtures.Compile
+    Test.HsBindgen.PPFixtures.TestCases
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
     Test.HsBindgen.THFixtures
@@ -469,6 +477,7 @@ test-suite test-hs-bindgen
 
   -- External dependencies
   build-depends:
+    , async             >=2.2     && <2.3
     , syb               >=0.7.2.4 && <0.8
     , tasty-quickcheck  >=0.11    && <0.12
     , temporary         >=1.3     && <1.4

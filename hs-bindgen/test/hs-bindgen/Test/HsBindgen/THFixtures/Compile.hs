@@ -1,86 +1,55 @@
--- | Batch compilation of TH fixture modules via @cabal build@
+-- | Compilation of TH fixture modules via direct @ghc@ or @haddock@ invocation
 --
 module Test.HsBindgen.THFixtures.Compile (
     setupBatchCompile
-  , sanitizeLibName
   ) where
 
-import Control.Monad (guard)
-import Data.Char (isAlphaNum, isDigit)
-import Data.List (isInfixOf, stripPrefix)
 import Data.Map.Strict (Map)
-import Data.Map.Strict qualified as Map
-import Data.Set (Set)
-import Data.Set qualified as Set
 import System.Directory (createDirectoryIfMissing)
-import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
-import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
+
+import Test.HsBindgen.Fixtures.Utils
 
 {-------------------------------------------------------------------------------
   Setup
 -------------------------------------------------------------------------------}
 
--- | Set up batch compilation
+-- | Set up compilation (or haddock generation) of TH fixtures
 --
--- 1. Create temp dir
--- 2. Write all TH modules to subdirectories
--- 3. Generate hs-bindgen-th-fixtures.cabal with one internal library per test
--- 4. Generate self-contained cabal.project
--- 5. Run @cabal build --keep-going@
--- 6. Parse "Failed to build" lines to determine per-library success/failure
+-- Uses direct GHC compilation. When @haddockDir@ is @'Just' dir@, generates
+-- browsable Haddock documentation via @haddock --ghc --html@.
 --
 setupBatchCompile
   :: FilePath            -- ^ Repo root (parent of hs-bindgen/)
+  -> Maybe FilePath      -- ^ Haddock output directory, or 'Nothing' for compile-only
   -> [(String, String)]  -- ^ (test name, module content)
   -> IO (Map String (Either String ()))
-setupBatchCompile repoRoot cases =
+setupBatchCompile repoRoot mHaddockDir cases =
     withSystemTempDirectory "hs-bindgen-th-fixtures" $ \tmpDir -> do
-      -- Write each module into its own subdirectory
+      -- Write each module into its own subdirectory (all named Example,
+      -- so each needs a separate directory for GHC's -i search path)
       mapM_ (writeTestModule tmpDir) cases
 
-      -- Generate cabal file and project
-      let libNames = map (\(name, _) -> sanitizeLibName name) cases
-          cabalContent = generateCabalFile repoRoot libNames
-      writeFile (tmpDir </> "hs-bindgen-th-fixtures.cabal") cabalContent
+      -- On template-haskell < 2.19 (GHC < 9.4), `getPackageRoot` is provided by
+      -- `th-compat` and locates the package by walking up from the module
+      -- source looking for a `.cabal` file.  Drop a dummy one here so the
+      -- lookup succeeds for fixtures living under this temp directory.
+      writeFile (tmpDir </> "fixtures.cabal") ""
 
-      let projectContent = generateCabalProject repoRoot
-      writeFile (tmpDir </> "cabal.project") projectContent
+      (includeDirs, envFile) <- setupFixtureEnv repoRoot
 
-      -- Run cabal build --keep-going
-      let cabalArgs =
-            [ "build"
-            , "hs-bindgen-th-fixtures"
-            , "--keep-going"
-            -- Attempt to avoid nondeterministic failures; see
-            -- <https://github.com/well-typed/hs-bindgen/issues/1813>
-            , "-j1"
-            , "--builddir=" ++ repoRoot </> "dist-newstyle-th-fixtures"
-            ]
-          createProc = (proc "cabal" cabalArgs) { cwd = Just tmpDir }
-
-      (exitCode, _stdout, stderr) <-
-        readCreateProcessWithExitCode createProc ""
-
-      -- Determine per-library results
-      let failedLibs = parseFailedLibs stderr
-          libSections = parseLibSections stderr
-          allLibNames =
-            [ "th-fixture-" ++ sanitizeLibName name
+      let ghcOpts = sharedGhcOptions ++ ["-Wno-unused-imports"]
+          jobs =
+            [ ( "th-fixture-" ++ sanitizeLibName name
+              , tmpDir </> sanitizeLibName name
+              , ["Example"]
+              , []
+              )
             | (name, _) <- cases
             ]
-          result libName
-            | ExitSuccess <- exitCode       = Right ()
-            | Set.null failedLibs           = Left stderr
-            | Set.member libName failedLibs =
-                Left $ Map.findWithDefault stderr libName libSections
-            | otherwise                     = Right ()
 
-      return $ Map.fromList
-        [ (libName, result libName)
-        | libName <- allLibNames
-        ]
+      runDirectGhcBuild tmpDir envFile ghcOpts includeDirs mHaddockDir jobs
 
 {-------------------------------------------------------------------------------
   Module writing
@@ -90,240 +59,5 @@ setupBatchCompile repoRoot cases =
 writeTestModule :: FilePath -> (String, String) -> IO ()
 writeTestModule tmpDir (name, content) = do
     let subDir = tmpDir </> sanitizeLibName name
-        modulePath = subDir </> "Example.hs"
     createDirectoryIfMissing True subDir
-    writeFile modulePath content
-
-{-------------------------------------------------------------------------------
-  Cabal file generation
--------------------------------------------------------------------------------}
-
--- | Generate the .cabal file content
-generateCabalFile :: FilePath -> [String] -> String
-generateCabalFile repoRoot libNames = unlines $ concat
-    [ header
-    , commonStanza
-    , concatMap libraryStanza libNames
-    ]
-  where
-    hsBindgenDir = repoRoot </> "hs-bindgen"
-
-    header :: [String]
-    header =
-      [ "cabal-version: 3.0"
-      , "name:          hs-bindgen-th-fixtures"
-      , "version:       0.0.0"
-      , "build-type:    Simple"
-      , ""
-      , "-- This file is generated by Test.HsBindgen.THFixtures.Compile"
-      , "-- Do not edit manually."
-      ]
-
-    commonStanza :: [String]
-    commonStanza =
-      [ ""
-      , "common th-fixture-common"
-      , "  default-language: GHC2021"
-      , "  ghc-options:"
-      , "    -Wall"
-      , "    -Wincomplete-uni-patterns"
-      , "    -Wincomplete-record-updates"
-      , "    -Wmissing-exported-signatures"
-      , "    -Widentities"
-      , "    -Wredundant-constraints"
-      , "    -Wpartial-fields"
-      , "    -Wcpp-undef"
-      , "    -Wno-unused-matches"
-      , "    -Wno-unused-imports"
-      , "    -optc-std=gnu2x"
-      , "    -optc-Wno-deprecated-declarations"
-      , "    -optc-Wno-attributes"
-      , "  build-depends:"
-      , "    , base"
-      , "    , hs-bindgen"
-      , "    , hs-bindgen-runtime"
-      , "    , c-expr-runtime"
-      , "    , optics"
-      , "  include-dirs:"
-      , "    " ++ hsBindgenDir </> "examples"
-      , "    " ++ hsBindgenDir </> "examples" </> "golden"
-      , "    " ++ hsBindgenDir </> "musl-include" </> "x86_64"
-      ]
-
-    libraryStanza :: String -> [String]
-    libraryStanza libName =
-      [ ""
-      , "library th-fixture-" ++ libName
-      , "  import: th-fixture-common"
-      , "  hs-source-dirs: " ++ libName
-      , "  exposed-modules: Example"
-      ]
-
-{-------------------------------------------------------------------------------
-  Cabal project generation
--------------------------------------------------------------------------------}
-
--- | Generate cabal.project content
---
--- Imports @cabal.project.base@ to pick up @index-state@,
--- @source-repository-package@ stanzas, and @allow-newer@ entries.
---
--- Uses @shared: False@ so cabal builds static libraries (archives of .o
--- files) instead of shared libraries.  This avoids linker failures from
--- unresolved C symbols in CAPI FFI stubs — we only need to verify that
--- compilation succeeds, not that linking against the actual C libraries works.
-generateCabalProject :: FilePath -> String
-generateCabalProject repoRoot = unlines
-    [ "import: " ++ repoRoot </> "cabal.project.base"
-    , "packages:"
-    , "  ."
-    , "  " ++ repoRoot </> "hs-bindgen"
-    , "  " ++ repoRoot </> "hs-bindgen-runtime"
-    , "  " ++ repoRoot </> "c-expr-runtime"
-    , "  " ++ repoRoot </> "c-expr-dsl"
-    , "allow-newer: all"
-    , "package hs-bindgen-th-fixtures"
-    , "  shared: False"
-    ]
-
-{-------------------------------------------------------------------------------
-  Result parsing
--------------------------------------------------------------------------------}
-
--- | Split cabal build stderr into per-library sections
---
--- With @-j1@, libraries compile sequentially so their errors appear in order
--- in stderr.  We recognise two kinds of anchor lines:
---
--- 1. GHC error: @\<dirname\>\/Example.hs:line:col: error:@
--- 2. C compiler error: @...\/examples\/golden\/\<test-path\>.h:line:col: error:@
---
--- Each section is: anchor + continuation lines (blank, indented, or
--- digit-prefixed).  Non-anchor lines (TH warnings, cabal footer, etc.) are
--- dropped so that only the relevant errors appear in each library's section.
---
-parseLibSections :: String -> Map String String
-parseLibSections stderr =
-    Map.fromListWith (\later earlier -> earlier ++ later)
-      [ ("th-fixture-" ++ name, unlines sectionLines)
-      | (name, sectionLines) <- extractSections (lines stderr)
-      ]
-
--- | Break stderr lines into named sections, one per library.
---
--- Non-anchor lines (e.g. TH warnings from other libraries) are dropped.
--- Each section consists of the anchor line and its continuation lines.
---
--- We recognise two kinds of anchors:
---
--- 1. GHC error anchors: @\<dirname\>/Example.hs:line:col:@
--- 2. C compiler error anchors: @.../examples/golden/\<test-path\>.h:line:col:@
---
--- The second kind is needed because C compiler failures (e.g. from CAPI FFI
--- stubs) do not produce GHC error anchors.
---
-extractSections :: [String] -> [(String, [String])]
-extractSections = collect
-  where
-    collect :: [String] -> [(String, [String])]
-    collect [] = []
-    collect (l : ls) = case findAnchor l of
-        Just name ->
-          let (cont, rest) = span isContinuation ls
-          in  (name, l : cont) : collect rest
-        Nothing ->
-          collect ls
-
-    findAnchor :: String -> Maybe String
-    findAnchor l = case anchorLibName l of
-        Just name -> Just name
-        Nothing   -> cErrorAnchorLibName l
-
--- | Try to extract a library dirname from a GHC error anchor line.
---
--- Matches lines like @types-enums-foo\/Example.hs:1:1: error: ...@
--- and returns @\"types-enums-foo\"@.
-anchorLibName :: String -> Maybe String
-anchorLibName line = do
-    let (dirname, rest) = break (== '/') line
-    guard $ not (null dirname)
-    guard $ all isDirNameChar dirname
-    _ <- stripPrefix "/Example.hs:" rest
-    pure dirname
-
--- | Try to extract a library dirname from a C compiler error line.
---
--- Matches lines containing @examples\/golden\/\<test-path\>.h:@
--- and returns the sanitized dirname (e.g. @\"types-primitives-bool\"@).
-cErrorAnchorLibName :: String -> Maybe String
-cErrorAnchorLibName line = do
-    rest <- findAfter "examples/golden/" line
-    let (testPath, suffix) = break (== '.') rest
-    _ <- stripPrefix ".h:" suffix
-    guard $ not (null testPath)
-    pure (sanitizeLibName testPath)
-
--- | Find the first occurrence of a substring and return what follows it.
-findAfter :: String -> String -> Maybe String
-findAfter _   [] = Nothing
-findAfter sub str@(_:rest) = case stripPrefix sub str of
-    Just after -> Just after
-    Nothing    -> findAfter sub rest
-
--- | Characters allowed in a cabal library directory name.
-isDirNameChar :: Char -> Bool
-isDirNameChar c = isAlphaNum c || c == '-' || c == '_'
-
--- | Does this line continue a GHC error block?
---
--- Blank lines, indented lines, and line-number references
--- (e.g. @1 | {-# LANGUAGE ... #-}@) are continuations.
-isContinuation :: String -> Bool
-isContinuation []    = True
-isContinuation (c:_) = c == ' ' || isDigit c
-
--- | Parse failed library names from cabal build stderr
---
--- Scans for lines containing "Failed to build" and extracts @lib:NAME@ from
--- each.
-parseFailedLibs :: String -> Set String
-parseFailedLibs = Set.fromList . concatMap extractLib . lines
-  where
-    extractLib :: String -> [String]
-    extractLib line
-      | "Failed to build" `isInfixOf` line
-      , Just name <- findLibName line = [name]
-      | otherwise = []
-
-    findLibName :: String -> Maybe String
-    findLibName [] = Nothing
-    findLibName ('l':'i':'b':':':rest) = Just (takeWhile isLibNameChar rest)
-    findLibName (_:rest) = findLibName rest
-
-    isLibNameChar :: Char -> Bool
-    isLibNameChar c = isAlphaNum c || c == '-' || c == '_'
-
-{-------------------------------------------------------------------------------
-  Name sanitization
--------------------------------------------------------------------------------}
-
--- | Sanitize test name for use as a cabal library name
---
--- Ports the @compile-fixtures.sh@ sanitize logic:
---
--- * @.DIGIT@ -> @vDIGIT@  (avoids version-like segments)
--- * @_DIGIT@ -> @nDIGIT@  (avoids version-like segments)
--- * Remaining @/@, @_@, @.@ -> @-@
---
-sanitizeLibName :: String -> String
-sanitizeLibName = go
-  where
-    go [] = []
-    go ('.':c:rest)
-      | c `elem` ['0'..'9'] = 'v' : c : go rest
-    go ('_':c:rest)
-      | c `elem` ['0'..'9'] = 'n' : c : go rest
-    go ('/':rest) = '-' : go rest
-    go ('_':rest) = '-' : go rest
-    go ('.':rest) = '-' : go rest
-    go (c:rest) = c : go rest
+    writeFile (subDir </> "Example.hs") content
