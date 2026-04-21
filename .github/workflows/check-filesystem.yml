@@ -1,0 +1,26 @@
+name: "Check filesystem"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-filesystem:
+    name: "Check filesystem"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout repository"
+      uses: actions/checkout@v6
+
+    - name: "Check EOF newlines"
+      run: ./scripts/ci/check-eof-newline.sh
+
+    - name: "Check for symbolic links"
+      run: ./scripts/ci/check-symlinks.sh

@@ -26,7 +26,6 @@ import Test.HsBindgen.Golden.Infra.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Infra.Check.TH qualified as TH
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Golden.Macros qualified as Macros
-import Test.HsBindgen.Golden.Manual qualified as Manual
 import Test.HsBindgen.Golden.ProgramAnalysis qualified as ProgramAnalysis
 import Test.HsBindgen.Golden.Types qualified as Types
 import Test.HsBindgen.Resources
@@ -48,7 +47,6 @@ tests getTestResources = testTreeFor getTestResources $
       , TestCases "functions"       Functions.testCases
       , TestCases "globals"         Globals.testCases
       , TestCases "macros"          Macros.testCases
-      , TestCases "manual"          Manual.testCases
       , TestCases "programAnalysis" ProgramAnalysis.testCases
       , TestCases "types"           Types.testCases
       ]
@@ -66,7 +64,6 @@ allTestCases = concat [
     , Functions.testCases
     , Globals.testCases
     , Macros.testCases
-    , Manual.testCases
     , ProgramAnalysis.testCases
     , Types.testCases
     ]
