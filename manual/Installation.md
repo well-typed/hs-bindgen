@@ -111,6 +111,84 @@ should be set in the `.cabal` file.
   This is only needed when you want to use a version of LLVM/Clang that is
   not in your current `PATH`.
 
+### Cabal store maintenance
+
+The `libclang` bindings used by `hs-bindgen` are implemented in package
+`libclang-bindings`.  When built, it is linked to the `libclang` and `libLLVM`
+shared objects for the version of LLVM/Clang that you are using, and the built
+`libclang-bindings` library is cached in the Cabal store.  Cabal does not
+consider such system dependencies to determine when a package needs to be
+rebuilt, however, so you might continue to use a library built with an older
+version of LLVM/Clang even after a system upgrade installs a newer version.
+
+Links to LLVM/Clang shared objects generally specify the minor version.  If an
+upgrade replaces an older version of LLVM/Clang with a newer version that has
+the same minor version (and a newer patch version), then the link in the
+cached `libclang-bindings` build is not broken.  The newer version *should*
+still work, though we recommend rebuilding `hs-bindgen`/`libclang-bindings`
+using the newer version.  In this case, `hs-bindgen` displays a warning like
+the following, where the "compile time version" is the version of LLVM/Clang
+used to to build the cached `libclang-bindings` library, and the "runtime
+version" is the version for the shared object that is dynamically linked at
+runtime.
+
+```
+[Warning] [HsBindgen] [boot] clang version mismatch:
+  clang compile time version: 22.1.2
+  clang runtime version:      22.1.3
+```
+
+If an upgrade installs a new major version and removes the older version, then
+the link in the cached `libclang-bindings` build is broken.  In this case, the
+dynamic library loader fails with an error like the following, preventing
+`hs-bindgen` from running at all.
+
+```
+libclang.so.20.1: cannot open shared object file: No such file or directory
+```
+
+Cabal does not provide an easy way to resolve this issue.  Note that this is an
+issue for any Haskell package that links to system libraries that do not have
+`pkg-config` support (in which case Cabal can track the dependency versions).
+It is particularly problematic with LLVM/Clang, however, because LLVM/Clang has
+frequent releases.  Currently, we suggest two ways to work around the issue.
+
+The easiest way to force Cabal to rebuild out-of-date/broken packages is to
+clear the cache.  You can determine your Cabal store directory by running
+`cabal path --store-dir`.  The Cabal store has separate caches for each version
+of GHC.  Recursively remove a GHC directory to clear the cache for that version.
+Note that deleting just a package directory is not advised because it can break
+the package database.  The downside to clearing your cache is that doing so may
+result in time-consuming recompilation of many other packages.
+
+Since we understand that clearing the cache might not be desirable, `hs-bindgen`
+offers a bespoke workaround, in the form of a compile-time setting specifying
+the LLVM/Clang version.  This forces Cabal to distinguish `libclang-bindings`
+builds that link to different versions, forcing a new build if one for the
+specified version is not already in the Cabal store.  Do this by adding the
+following to a `cabal.project.local` file for your project, with the desired
+version.
+
+```
+package libclang-bindings
+  ghc-options: -optc=-DCLANG_VERSION=22.1.3
+```
+
+When configured like this, `libclang-bindings` confirms that the version matches
+the version of LLVM/Clang used at compile time.  The following checks are
+supported:
+
+* `MAJOR` to just check the major version (example: `22`)
+* `MAJOR.MINOR` to check the major and minor versions (example: `22.1`)
+* `MAJOR.MINOR.PATCH` to check the major, minor, and patch versions
+  (example: `22.1.3`)
+
+Note that `ghc-options` specifying an `-optc` option must be used, as
+`cc-options` is *not* sufficient.
+
+This issue affects any project that uses `hs-bindgen`, even if it is used as a
+transitive dependency.
+
 ### Common errors and solutions
 
 * Missing headers (`stddef.h`, etc.): If you encounter errors about missing
