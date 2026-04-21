@@ -195,13 +195,11 @@ hs_bindgen_4f8e7b3d91414aa8 =
   RIP.fromFFIType hs_bindgen_4f8e7b3d91414aa8_base
 
 {-# NOINLINE simpleGlobal #-}
-{-| Global variables
+{-| __C declaration:__ @simpleGlobal@
 
-__C declaration:__ @simpleGlobal@
+    __defined at:__ @globals\/globals.h 10:12@
 
-__defined at:__ @globals\/globals.h 10:12@
-
-__exported by:__ @globals\/globals.h@
+    __exported by:__ @globals\/globals.h@
 -}
 simpleGlobal :: RIP.Ptr RIP.CInt
 simpleGlobal =
@@ -259,17 +257,15 @@ hs_bindgen_0be07820afb78239 =
 {-# NOINLINE nesInteger #-}
 {-| Non-extern non-static global variables
 
-  These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
+    These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
 
-  We test with various kinds of initializers as we must explicitly ignore them in our parser. The list here roughly follows the definition of `CXCursor` [1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl' in `HsBindgen.Frontend.Pass.Parse.Decl`.
+    We test with various kinds of initializers as we must explicitly ignore them in our parser. The list here roughly follows the definition of @CXCursor@ [1](https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013) , starting at @CXCursor_IntegerLiteral@ ; see also definition of 'varDecl' in @HsBindgen.Frontend.Pass.Parse.Decl@ .
 
-  [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+    __C declaration:__ @nesInteger@
 
-__C declaration:__ @nesInteger@
+    __defined at:__ @globals\/globals.h 36:16@
 
-__defined at:__ @globals\/globals.h 36:16@
-
-__exported by:__ @globals\/globals.h@
+    __exported by:__ @globals\/globals.h@
 -}
 nesInteger :: RIP.Ptr RIP.CInt
 nesInteger =
@@ -547,15 +543,13 @@ hs_bindgen_b243f9b292f8b883 =
 {-# NOINLINE streamBinary #-}
 {-| Additional examples of global variables, abstracted from real examples
 
-  The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
+    The @'streamBinary'@ / @'streamBinary_len'@ example comes from [1](https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325) , and is an example of a non-extern non-static global (indeed, the header does not even use @pragma once@ or similar).
 
-  [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
+    __C declaration:__ @streamBinary@
 
-__C declaration:__ @streamBinary@
+    __defined at:__ @globals\/globals.h 61:9@
 
-__defined at:__ @globals\/globals.h 61:9@
-
-__exported by:__ @globals\/globals.h@
+    __exported by:__ @globals\/globals.h@
 -}
 streamBinary :: RIP.Ptr ((CA.ConstantArray 4096) HsBindgen.Runtime.LibC.Word8)
 streamBinary =

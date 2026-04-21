@@ -1,5 +1,5 @@
 
-/**
+/** @file
  * Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
  */
 

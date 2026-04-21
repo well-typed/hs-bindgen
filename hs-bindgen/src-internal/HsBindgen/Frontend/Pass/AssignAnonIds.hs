@@ -124,17 +124,16 @@ updateDeclInfo ::
      DeclId
   -> C.DeclInfo SimplifyAST
   -> M (C.DeclInfo AssignAnonIds)
-updateDeclInfo declId' info =
-    reconstruct <$> mapM updateUseSites info.comment
-  where
-    reconstruct :: Maybe (C.Comment AssignAnonIds) -> C.DeclInfo AssignAnonIds
-    reconstruct declComment' = C.DeclInfo{
-          loc          = info.loc
-        , id           = declId'
-        , seqNr        = info.seqNr
-        , headerInfo   = info.headerInfo
-        , availability = info.availability
-        , comment      = declComment'
+updateDeclInfo declId' info = do
+    declEnclosing' <- mapM updateDeclId info.declEnclosing
+    pure C.DeclInfo{
+          loc           = info.loc
+        , id            = declId'
+        , seqNr         = info.seqNr
+        , headerInfo    = info.headerInfo
+        , availability  = info.availability
+        , comment       = ()
+        , declEnclosing = declEnclosing'
         }
 
 {-------------------------------------------------------------------------------
@@ -366,17 +365,11 @@ updateDeclId prelimDeclId = WrapM $ do
 -------------------------------------------------------------------------------}
 
 instance UpdateUseSites C.FieldInfo where
-  updateUseSites info =
-      reconstruct <$> mapM updateUseSites info.comment
-    where
-      reconstruct ::
-           Maybe (C.Comment AssignAnonIds)
-        -> C.FieldInfo AssignAnonIds
-      reconstruct fieldComment' = C.FieldInfo{
-            comment = fieldComment'
-          , name    = info.name
-          , loc     = info.loc
-          }
+  updateUseSites info = pure C.FieldInfo{
+        comment = ()
+      , name    = info.name
+      , loc     = info.loc
+      }
 
 instance UpdateUseSites C.EnumConstant where
   updateUseSites constant =
@@ -397,14 +390,6 @@ instance UpdateUseSites C.AnonEnumConstant where
             typ      = anonEnumConstant.typ  -- PrimType has no use sites to update
           , constant = constant'
           }
-
-instance UpdateUseSites C.Comment where
-  updateUseSites (C.Comment comment) =
-      C.Comment <$> mapM updateUseSites comment
-
-instance UpdateUseSites C.CommentRef where
-  updateUseSites (C.CommentRef name mId) =
-      C.CommentRef name <$> mapM updateDeclId mId
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

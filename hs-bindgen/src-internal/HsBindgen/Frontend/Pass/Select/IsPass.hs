@@ -18,6 +18,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -53,13 +54,14 @@ type family AnnSelect ix where
   AnnSelect _                  = NoAnn
 
 instance IsPass Select where
-  type Id         Select = DeclIdPair
-  type ScopedName Select = ScopedNamePair
-  type MacroBody  Select = CheckedMacro Select
-  type ExtBinding Select = ResolvedExtBinding
-  type Ann ix     Select = AnnSelect ix
-  type Msg        Select = WithCallStack (WithLocationInfo SelectMsg)
-  type MacroId    Select = Id Select
+  type Id          Select = DeclIdPair
+  type ScopedName  Select = ScopedNamePair
+  type MacroBody   Select = CheckedMacro Select
+  type ExtBinding  Select = ResolvedExtBinding
+  type Ann ix      Select = AnnSelect ix
+  type Msg         Select = WithCallStack (WithLocationInfo SelectMsg)
+  type MacroId     Select = Id Select
+  type CommentDecl Select = Maybe (C.Comment Select)
 
   idNameKind     _ namePair   = namePair.cName.name.kind
   idSourceName   _ namePair   = declIdSourceName namePair.cName
@@ -249,3 +251,6 @@ instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
       AdjustedFromArray ty -> AdjustedFromArray (coercePass ty)
       AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
       NotAdjusted -> NotAdjusted
+
+instance CoercePassCommentDecl AdjustTypes Select where
+  coercePassCommentDecl _ = fmap coercePass

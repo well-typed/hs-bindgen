@@ -7,8 +7,9 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition (UseDeclGraph)
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -32,10 +33,11 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type MacroBody  ConstructTranslationUnit = ParsedMacro
-  type ExtBinding ConstructTranslationUnit = Void
-  type Ann ix     ConstructTranslationUnit = AnnConstructTranslationUnit ix
-  type Msg        ConstructTranslationUnit = NoMsg Level
+  type MacroBody   ConstructTranslationUnit = ParsedMacro
+  type ExtBinding  ConstructTranslationUnit = Void
+  type Ann ix      ConstructTranslationUnit = AnnConstructTranslationUnit ix
+  type Msg         ConstructTranslationUnit = NoMsg Level
+  type CommentDecl ConstructTranslationUnit = Maybe (C.Comment ConstructTranslationUnit)
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -52,13 +54,15 @@ data DeclMeta = DeclMeta {
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassMacroBody         AssignAnonIds ConstructTranslationUnit
-instance CoercePassId                AssignAnonIds ConstructTranslationUnit
-instance CoercePassMacroId           AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroBody          EnrichComments ConstructTranslationUnit
+instance CoercePassId                 EnrichComments ConstructTranslationUnit
+instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 
-instance CoercePassAnn "TypeFunArg"  AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "StructField" AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "UnionField"  AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "Typedef"     AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "Function"    AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "Global"      AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "TypeFunArg"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "StructField"  EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "UnionField"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Typedef"      EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Function"     EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Global"       EnrichComments ConstructTranslationUnit
+instance CoercePassCommentDecl        EnrichComments ConstructTranslationUnit where
+  coercePassCommentDecl _ = fmap coercePass

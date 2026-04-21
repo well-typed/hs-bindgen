@@ -10,6 +10,7 @@ import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
@@ -42,11 +43,12 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type MacroBody  ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
-  type ExtBinding ResolveBindingSpecs = ResolvedExtBinding
-  type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
-  type Msg        ResolveBindingSpecs = WithCallStack ResolveBindingSpecsMsg
-  type MacroId    ResolveBindingSpecs = Id ResolveBindingSpecs
+  type MacroBody   ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
+  type ExtBinding  ResolveBindingSpecs = ResolvedExtBinding
+  type Ann ix      ResolveBindingSpecs = AnnResolveBindingSpecs ix
+  type Msg         ResolveBindingSpecs = WithCallStack ResolveBindingSpecsMsg
+  type MacroId     ResolveBindingSpecs = Id ResolveBindingSpecs
+  type CommentDecl ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
 
   extBindingId _ = (.cName)
   macroIdId _ = id
@@ -168,3 +170,6 @@ instance IsTrace Level ResolveBindingSpecsMsg where
 -------------------------------------------------------------------------------}
 
 instance CoercePassId ReparseMacroExpansions ResolveBindingSpecs
+
+instance CoercePassCommentDecl ReparseMacroExpansions ResolveBindingSpecs where
+  coercePassCommentDecl _ = fmap coercePass

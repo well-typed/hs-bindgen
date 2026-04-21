@@ -52,6 +52,17 @@ module Example
     , Example.Filename_t(..)
     , Example.Flexible_array_Aux(..)
     , Example.Flexible_array
+    , Example.Dyn_array_t(..)
+    , Example.Multi_anon_t_pos(..)
+    , Example.Multi_anon_t_dim(..)
+    , Example.Multi_anon_t(..)
+    , Example.Named_inner(..)
+    , Example.Named_outer(..)
+    , Example.Deep_mid_anon_field(..)
+    , Example.Deep_mid(..)
+    , Example.Deep_outer(..)
+    , Example.Unnamed_field_t_ua(..)
+    , Example.Unnamed_field_t(..)
     )
   where
 
@@ -66,7 +77,9 @@ import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @macro MAX_NAME_LENGTH@
+{-| Maximum length for name strings.
+
+    __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
@@ -75,17 +88,15 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 mAX_NAME_LENGTH :: RIP.CInt
 mAX_NAME_LENGTH = (64 :: RIP.CInt)
 
-{-| This is the comment __title__
+{-| Size type for this library.
 
-  > size_type
+    This is the comment __title__
 
-  Size type for this library
+    __C declaration:__ @size_type@
 
-__C declaration:__ @size_type@
+    __defined at:__ @documentation\/doxygen_docs.h 56:16@
 
-__defined at:__ @documentation\/doxygen_docs.h 54:16@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
@@ -122,41 +133,29 @@ instance HasCField.HasCField Size_type "unwrapSize_type" where
 
   offset# = \_ -> \_ -> 0
 
-{-| This is the comment @title@
+{-| __C declaration:__ @struct forward_declared_struct@
 
-  Forward declaration with documentation
+    __defined at:__ @documentation\/doxygen_docs.h 76:8@
 
-__C declaration:__ @struct forward_declared_struct@
-
-__defined at:__ @documentation\/doxygen_docs.h 72:8@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Forward_declared_struct
 
-{-|
+{-| __C declaration:__ @union forward_declared_union@
 
-  Forward declaration of union
+    __defined at:__ @documentation\/doxygen_docs.h 81:7@
 
-__C declaration:__ @union forward_declared_union@
-
-__defined at:__ @documentation\/doxygen_docs.h 77:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Forward_declared_union
 
-{-|
+{-| Color enumeration without typedef.
 
-  > color_enum
+    __C declaration:__ @enum color_enum@
 
-  Color enumeration without typedef
+    __defined at:__ @documentation\/doxygen_docs.h 87:6@
 
-__C declaration:__ @enum color_enum@
-
-__defined at:__ @documentation\/doxygen_docs.h 83:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum = Color_enum
   { unwrapColor_enum :: RIP.CUInt
@@ -248,44 +247,44 @@ instance HasCField.HasCField Color_enum "unwrapColor_enum" where
 
 {-| Red color
 
-__C declaration:__ @COLOR_RED@
+    __C declaration:__ @COLOR_RED@
 
-__defined at:__ @documentation\/doxygen_docs.h 84:5@
+    __defined at:__ @documentation\/doxygen_docs.h 88:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_RED :: Color_enum
 pattern COLOR_RED = Color_enum 0
 
 {-| Green color
 
-__C declaration:__ @COLOR_GREEN@
+    __C declaration:__ @COLOR_GREEN@
 
-__defined at:__ @documentation\/doxygen_docs.h 85:5@
+    __defined at:__ @documentation\/doxygen_docs.h 89:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_GREEN :: Color_enum
 pattern COLOR_GREEN = Color_enum 1
 
 {-| Blue color
 
-__C declaration:__ @COLOR_BLUE@
+    __C declaration:__ @COLOR_BLUE@
 
-__defined at:__ @documentation\/doxygen_docs.h 86:5@
+    __defined at:__ @documentation\/doxygen_docs.h 90:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_BLUE :: Color_enum
 pattern COLOR_BLUE = Color_enum 2
 
 {-| Auxiliary type used by 'Event_callback_t'
 
-__C declaration:__ @event_callback_t@
+    __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h 225:15@
+    __defined at:__ @documentation\/doxygen_docs.h 231:15@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t_Aux = Event_callback_t_Aux
   { unwrapEvent_callback_t_Aux :: RIP.CInt -> (RIP.Ptr RIP.Void) -> IO RIP.CInt
@@ -338,21 +337,19 @@ instance HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" w
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Callback function type.
 
-  Callback function type
+    [__@event_type@__]: Type of event
 
-  [__@event_type@ /(input)/__]: Type of event
+    [__@user_data@__]: User-provided data
 
-  [__@user_data@ /(input)/__]: User-provided data
+    __Returns:__ Handling result
 
-  __returns:__ Handling result
+    __C declaration:__ @event_callback_t@
 
-__C declaration:__ @event_callback_t@
+    __defined at:__ @documentation\/doxygen_docs.h 231:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 225:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: RIP.FunPtr Event_callback_t_Aux
@@ -379,75 +376,63 @@ instance HasCField.HasCField Event_callback_t "unwrapEvent_callback_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Structure with documented fields.
 
-  Structure with documented fields
+    This structure demonstrates field documentation.
 
-  This structure demonstrates field documentation.
+    __C declaration:__ @struct config_t@
 
-__C declaration:__ @struct config_t@
+    __defined at:__ @documentation\/doxygen_docs.h 238:9@
 
-__defined at:__ @documentation\/doxygen_docs.h 232:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Config_t = Config_t
   { config_t_id :: HsBindgen.Runtime.LibC.Word32
-    {- ^
+    {- ^ Unique identifier.
 
-       Unique identifier
+         __C declaration:__ @id@
 
-    __C declaration:__ @id@
+         __defined at:__ @documentation\/doxygen_docs.h 240:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 234:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , config_t_name :: (CA.ConstantArray 64) RIP.CChar
-    {- ^
+    {- ^ Human-readable name.
 
-       Human-readable name
+         __C declaration:__ @name@
 
-    __C declaration:__ @name@
+         __defined at:__ @documentation\/doxygen_docs.h 243:10@
 
-    __defined at:__ @documentation\/doxygen_docs.h 237:10@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , config_t_flags :: HsBindgen.Runtime.LibC.Word32
-    {- ^
+    {- ^ Configuration flags.
 
-       Configuration flags
+         __C declaration:__ @flags@
 
-    __C declaration:__ @flags@
+         __defined at:__ @documentation\/doxygen_docs.h 246:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 240:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , config_t_callback :: Event_callback_t
-    {- ^
+    {- ^ Optional callback function.
 
-       Optional callback function
+         See also: 'Event_callback_t'
 
-       See also: 'Event_callback_t'
+         __C declaration:__ @callback@
 
-    __C declaration:__ @callback@
+         __defined at:__ @documentation\/doxygen_docs.h 253:22@
 
-    __defined at:__ @documentation\/doxygen_docs.h 247:22@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , config_t_user_data :: RIP.Ptr RIP.Void
-    {- ^
+    {- ^ User data for callback.
 
-       User data for callback
+         __C declaration:__ @user_data@
 
-    __C declaration:__ @user_data@
+         __defined at:__ @documentation\/doxygen_docs.h 256:11@
 
-    __defined at:__ @documentation\/doxygen_docs.h 250:11@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -554,17 +539,15 @@ instance ( ((~) ty) (RIP.Ptr RIP.Void)
   getField =
     HasCField.fromPtr (RIP.Proxy @"config_t_user_data")
 
-{-|
+{-| Enumeration with documented values.
 
-  Enumeration with documented values
+    This enum shows different status codes.
 
-  This enum shows different status codes.
+    __C declaration:__ @enum status_code_t@
 
-__C declaration:__ @enum status_code_t@
+    __defined at:__ @documentation\/doxygen_docs.h 264:9@
 
-__defined at:__ @documentation\/doxygen_docs.h 258:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: RIP.CInt
@@ -646,105 +629,85 @@ instance HasCField.HasCField Status_code_t "unwrapStatus_code_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Operation successful.
 
-  Operation successful
+    __C declaration:__ @STATUS_OK@
 
-__C declaration:__ @STATUS_OK@
+    __defined at:__ @documentation\/doxygen_docs.h 266:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 260:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_OK :: Status_code_t
 pattern STATUS_OK = Status_code_t 0
 
-{-|
+{-| Invalid parameter provided.
 
-  Invalid parameter provided
+    __C declaration:__ @STATUS_INVALID_PARAM@
 
-__C declaration:__ @STATUS_INVALID_PARAM@
+    __defined at:__ @documentation\/doxygen_docs.h 269:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 263:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_INVALID_PARAM :: Status_code_t
 pattern STATUS_INVALID_PARAM = Status_code_t (-1)
 
-{-|
+{-| Memory allocation failed.
 
-  Memory allocation failed
+    __C declaration:__ @STATUS_NO_MEMORY@
 
-__C declaration:__ @STATUS_NO_MEMORY@
+    __defined at:__ @documentation\/doxygen_docs.h 272:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 266:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_NO_MEMORY :: Status_code_t
 pattern STATUS_NO_MEMORY = Status_code_t (-2)
 
-{-|
+{-| Operation timed out.
 
-  Operation timed out
+    __C declaration:__ @STATUS_TIMEOUT@
 
-__C declaration:__ @STATUS_TIMEOUT@
+    __defined at:__ @documentation\/doxygen_docs.h 275:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 269:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_TIMEOUT :: Status_code_t
 pattern STATUS_TIMEOUT = Status_code_t (-3)
 
-{-|
+{-| Generic error.
 
-  Generic error
+    __C declaration:__ @STATUS_ERROR@
 
-__C declaration:__ @STATUS_ERROR@
+    __defined at:__ @documentation\/doxygen_docs.h 278:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 272:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_ERROR :: Status_code_t
 pattern STATUS_ERROR = Status_code_t (-99)
 
-{-|
+{-| __C declaration:__ @struct \@data_union_t_as_parts@
 
-  Structured representation
+    __defined at:__ @documentation\/doxygen_docs.h 296:5@
 
-  Allows access to high and low parts separately
-
-__C declaration:__ @struct \@data_union_t_as_parts@
-
-__defined at:__ @documentation\/doxygen_docs.h 290:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Data_union_t_as_parts = Data_union_t_as_parts
   { data_union_t_as_parts_low :: HsBindgen.Runtime.LibC.Word16
-    {- ^
+    {- ^ Low 16 bits.
 
-       Low 16 bits
+         __C declaration:__ @low@
 
-    __C declaration:__ @low@
+         __defined at:__ @documentation\/doxygen_docs.h 297:18@
 
-    __defined at:__ @documentation\/doxygen_docs.h 291:18@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , data_union_t_as_parts_high :: HsBindgen.Runtime.LibC.Word16
-    {- ^
+    {- ^ High 16 bits.
 
-       High 16 bits
+         __C declaration:__ @high@
 
-    __C declaration:__ @high@
+         __defined at:__ @documentation\/doxygen_docs.h 298:18@
 
-    __defined at:__ @documentation\/doxygen_docs.h 292:18@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -801,19 +764,15 @@ instance ( ((~) ty) HsBindgen.Runtime.LibC.Word16
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_high")
 
-{-|
+{-| Union with documented fields.
 
-  > data_union_t
+    This union demonstrates different data representations.
 
-  Union with documented fields
+    __C declaration:__ @union data_union_t@
 
-  This union demonstrates different data representations.
+    __defined at:__ @documentation\/doxygen_docs.h 287:9@
 
-__C declaration:__ @union data_union_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 281:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t = Data_union_t
   { unwrapData_union_t :: RIP.ByteArray
@@ -828,17 +787,15 @@ deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw Data_union_t
 
 deriving via Marshal.EquivStorable Data_union_t instance RIP.Storable Data_union_t
 
-{-|
+{-| Integer representation.
 
-  Integer representation
+    __See:__ 'set_data_union_t_as_int'
 
-  __See:__ 'set_data_union_t_as_int'
+    __C declaration:__ @as_int@
 
-__C declaration:__ @as_int@
+    __defined at:__ @documentation\/doxygen_docs.h 288:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 282:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_int ::
      Data_union_t
@@ -847,7 +804,7 @@ get_data_union_t_as_int = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_data_union_t_as_int'
+    __See:__ 'get_data_union_t_as_int'
 
 -}
 set_data_union_t_as_int ::
@@ -855,17 +812,15 @@ set_data_union_t_as_int ::
   -> Data_union_t
 set_data_union_t_as_int = RIP.setUnionPayload
 
-{-|
+{-| Float representation.
 
-  Float representation
+    __See:__ 'set_data_union_t_as_float'
 
-  __See:__ 'set_data_union_t_as_float'
+    __C declaration:__ @as_float@
 
-__C declaration:__ @as_float@
+    __defined at:__ @documentation\/doxygen_docs.h 289:11@
 
-__defined at:__ @documentation\/doxygen_docs.h 283:11@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_float ::
      Data_union_t
@@ -874,7 +829,7 @@ get_data_union_t_as_float = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_data_union_t_as_float'
+    __See:__ 'get_data_union_t_as_float'
 
 -}
 set_data_union_t_as_float ::
@@ -882,17 +837,15 @@ set_data_union_t_as_float ::
   -> Data_union_t
 set_data_union_t_as_float = RIP.setUnionPayload
 
-{-|
+{-| Byte array representation.
 
-  Byte array representation
+    __See:__ 'set_data_union_t_as_bytes'
 
-  __See:__ 'set_data_union_t_as_bytes'
+    __C declaration:__ @as_bytes@
 
-__C declaration:__ @as_bytes@
+    __defined at:__ @documentation\/doxygen_docs.h 290:13@
 
-__defined at:__ @documentation\/doxygen_docs.h 284:13@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes ::
      Data_union_t
@@ -901,7 +854,7 @@ get_data_union_t_as_bytes = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_data_union_t_as_bytes'
+    __See:__ 'get_data_union_t_as_bytes'
 
 -}
 set_data_union_t_as_bytes ::
@@ -909,15 +862,17 @@ set_data_union_t_as_bytes ::
   -> Data_union_t
 set_data_union_t_as_bytes = RIP.setUnionPayload
 
-{-| As Parts Struct
+{-| Structured representation.
 
-  __See:__ 'set_data_union_t_as_parts'
+    Allows access to high and low parts separately As Parts Struct
 
-__C declaration:__ @as_parts@
+    __See:__ 'set_data_union_t_as_parts'
 
-__defined at:__ @documentation\/doxygen_docs.h 293:30@
+    __C declaration:__ @as_parts@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __defined at:__ @documentation\/doxygen_docs.h 299:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_parts ::
      Data_union_t
@@ -926,7 +881,7 @@ get_data_union_t_as_parts = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_data_union_t_as_parts'
+    __See:__ 'get_data_union_t_as_parts'
 
 -}
 set_data_union_t_as_parts ::
@@ -986,64 +941,52 @@ instance ( ((~) ty) Data_union_t_as_parts
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts")
 
-{-|
+{-| Bit field structure.
 
-  > bitfield_t
+    Demonstrates bit field documentation.
 
-  Bit field structure
+    __C declaration:__ @struct bitfield_t@
 
-  Demonstrates bit field documentation.
+    __defined at:__ @documentation\/doxygen_docs.h 308:9@
 
-__C declaration:__ @struct bitfield_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 302:9@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Bitfield_t = Bitfield_t
   { bitfield_t_flag1 :: RIP.CUInt
-    {- ^
+    {- ^ First flag (1 bit).
 
-       First flag (1 bit)
+         __C declaration:__ @flag1@
 
-    __C declaration:__ @flag1@
+         __defined at:__ @documentation\/doxygen_docs.h 309:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 303:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , bitfield_t_flag2 :: RIP.CUInt
-    {- ^
+    {- ^ Second flag (1 bit).
 
-       Second flag (1 bit)
+         __C declaration:__ @flag2@
 
-    __C declaration:__ @flag2@
+         __defined at:__ @documentation\/doxygen_docs.h 310:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 304:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , bitfield_t_counter :: RIP.CUInt
-    {- ^
+    {- ^ Counter value (6 bits).
 
-       Counter value (6 bits)
+         __C declaration:__ @counter@
 
-    __C declaration:__ @counter@
+         __defined at:__ @documentation\/doxygen_docs.h 311:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 305:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   , bitfield_t_reserved :: RIP.CUInt
-    {- ^
+    {- ^ Reserved bits (24 bits).
 
-       Reserved bits (24 bits)
+         __C declaration:__ @reserved@
 
-    __C declaration:__ @reserved@
+         __defined at:__ @documentation\/doxygen_docs.h 312:14@
 
-    __defined at:__ @documentation\/doxygen_docs.h 306:14@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -1144,11 +1087,11 @@ instance ( ((~) ty) RIP.CUInt
 
 {-| Auxiliary type used by 'Processor_fn_t'
 
-__C declaration:__ @processor_fn_t@
+    __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h 317:15@
+    __defined at:__ @documentation\/doxygen_docs.h 323:15@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   { unwrapProcessor_fn_t_Aux :: RIP.CInt -> (RIP.Ptr RIP.Void) -> IO RIP.CInt
@@ -1201,23 +1144,19 @@ instance HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Function pointer typedef.
 
-  > processor_fn_t
+    [__@input@__]: Input value
 
-  Function pointer typedef
+    [__@context@__]: Context pointer
 
-  [__@input@ /(input)/__]: Input value
+    __Returns:__ Processed value
 
-  [__@context@ /(input)/__]: Context pointer
+    __C declaration:__ @processor_fn_t@
 
-  __returns:__ Processed value
+    __defined at:__ @documentation\/doxygen_docs.h 323:15@
 
-__C declaration:__ @processor_fn_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 317:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: RIP.FunPtr Processor_fn_t_Aux
@@ -1244,17 +1183,13 @@ instance HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Array typedef with size.
 
-  > filename_t
+    __C declaration:__ @filename_t@
 
-  Array typedef with size
+    __defined at:__ @documentation\/doxygen_docs.h 329:14@
 
-__C declaration:__ @filename_t@
-
-__defined at:__ @documentation\/doxygen_docs.h 323:14@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t = Filename_t
   { unwrapFilename_t :: (CA.ConstantArray 256) RIP.CChar
@@ -1281,31 +1216,25 @@ instance HasCField.HasCField Filename_t "unwrapFilename_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-|
+{-| Structure with flexible array member.
 
-  Function with flexible array member
+    Used for variable-length data buffers.
 
-  [__@count@ /(input)/__]: Number of elements
+    __C declaration:__ @struct flexible_array@
 
-  __returns:__ Allocated structure
+    __defined at:__ @documentation\/doxygen_docs.h 365:8@
 
-__C declaration:__ @struct flexible_array@
-
-__defined at:__ @documentation\/doxygen_docs.h 360:8@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Flexible_array_Aux = Flexible_array
   { flexible_array_count :: HsBindgen.Runtime.LibC.CSize
-    {- ^
+    {- ^ Number of elements.
 
-       Number of elements
+         __C declaration:__ @count@
 
-    __C declaration:__ @count@
+         __defined at:__ @documentation\/doxygen_docs.h 366:12@
 
-    __defined at:__ @documentation\/doxygen_docs.h 361:12@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
+         __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -1351,19 +1280,944 @@ instance FLAM.Offset RIP.CInt Flexible_array_Aux where
 
   offset = \_ty0 -> 8
 
-{-|
+{-| Structure with flexible array member.
 
-  Function with flexible array member
+    Used for variable-length data buffers.
 
-  [__@count@ /(input)/__]: Number of elements
+    __C declaration:__ @struct flexible_array@
 
-  __returns:__ Allocated structure
+    __defined at:__ @documentation\/doxygen_docs.h 365:8@
 
-__C declaration:__ @struct flexible_array@
-
-__defined at:__ @documentation\/doxygen_docs.h 360:8@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 type Flexible_array =
   (FLAM.WithFlam RIP.CInt) Flexible_array_Aux
+
+{-| Struct with invariant.
+
+    __Invariant:__ capacity >= size at all times
+
+    __C declaration:__ @struct dyn_array_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 492:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Dyn_array_t = Dyn_array_t
+  { dyn_array_t_data :: RIP.Ptr RIP.CInt
+    {- ^ Pointer to data.
+
+         __C declaration:__ @data@
+
+         __defined at:__ @documentation\/doxygen_docs.h 493:10@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , dyn_array_t_size :: HsBindgen.Runtime.LibC.CSize
+    {- ^ Current number of elements.
+
+         __C declaration:__ @size@
+
+         __defined at:__ @documentation\/doxygen_docs.h 494:12@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , dyn_array_t_capacity :: HsBindgen.Runtime.LibC.CSize
+    {- ^ Allocated capacity.
+
+         __C declaration:__ @capacity@
+
+         __defined at:__ @documentation\/doxygen_docs.h 495:12@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Dyn_array_t where
+
+  staticSizeOf = \_ -> (24 :: Int)
+
+  staticAlignment = \_ -> (8 :: Int)
+
+instance Marshal.ReadRaw Dyn_array_t where
+
+  readRaw =
+    \ptr0 ->
+          pure Dyn_array_t
+      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_data") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_size") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_capacity") ptr0
+
+instance Marshal.WriteRaw Dyn_array_t where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Dyn_array_t dyn_array_t_data2 dyn_array_t_size3 dyn_array_t_capacity4 ->
+               HasCField.writeRaw (RIP.Proxy @"dyn_array_t_data") ptr0 dyn_array_t_data2
+            >> HasCField.writeRaw (RIP.Proxy @"dyn_array_t_size") ptr0 dyn_array_t_size3
+            >> HasCField.writeRaw (RIP.Proxy @"dyn_array_t_capacity") ptr0 dyn_array_t_capacity4
+
+deriving via Marshal.EquivStorable Dyn_array_t instance RIP.Storable Dyn_array_t
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_data" =
+    RIP.Ptr RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) (RIP.Ptr RIP.CInt)
+         ) => RIP.HasField "dyn_array_t_data" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_data")
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_size" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 8
+
+instance ( ((~) ty) HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "dyn_array_t_size" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_size")
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_capacity" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 16
+
+instance ( ((~) ty) HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "dyn_array_t_capacity" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_capacity")
+
+{-| __C declaration:__ @struct \@multi_anon_t_pos@
+
+    __defined at:__ @documentation\/doxygen_docs.h 555:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t_pos = Multi_anon_t_pos
+  { multi_anon_t_pos_x :: RIP.CFloat
+    {- ^ X coordinate.
+
+         __C declaration:__ @x@
+
+         __defined at:__ @documentation\/doxygen_docs.h 556:15@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , multi_anon_t_pos_y :: RIP.CFloat
+    {- ^ Y coordinate.
+
+         __C declaration:__ @y@
+
+         __defined at:__ @documentation\/doxygen_docs.h 557:15@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Multi_anon_t_pos where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Multi_anon_t_pos where
+
+  readRaw =
+    \ptr0 ->
+          pure Multi_anon_t_pos
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos_y") ptr0
+
+instance Marshal.WriteRaw Multi_anon_t_pos where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Multi_anon_t_pos multi_anon_t_pos_x2 multi_anon_t_pos_y3 ->
+               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos_x") ptr0 multi_anon_t_pos_x2
+            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos_y") ptr0 multi_anon_t_pos_y3
+
+deriving via Marshal.EquivStorable Multi_anon_t_pos instance RIP.Storable Multi_anon_t_pos
+
+instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
+
+  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_x" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_pos_x" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_x")
+
+instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
+
+  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_y" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_pos_y" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_y")
+
+{-| __C declaration:__ @struct \@multi_anon_t_dim@
+
+    __defined at:__ @documentation\/doxygen_docs.h 563:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t_dim = Multi_anon_t_dim
+  { multi_anon_t_dim_w :: RIP.CFloat
+    {- ^ Width.
+
+         __C declaration:__ @w@
+
+         __defined at:__ @documentation\/doxygen_docs.h 564:15@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , multi_anon_t_dim_h :: RIP.CFloat
+    {- ^ Height.
+
+         __C declaration:__ @h@
+
+         __defined at:__ @documentation\/doxygen_docs.h 565:15@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Multi_anon_t_dim where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Multi_anon_t_dim where
+
+  readRaw =
+    \ptr0 ->
+          pure Multi_anon_t_dim
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim_w") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim_h") ptr0
+
+instance Marshal.WriteRaw Multi_anon_t_dim where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Multi_anon_t_dim multi_anon_t_dim_w2 multi_anon_t_dim_h3 ->
+               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim_w") ptr0 multi_anon_t_dim_w2
+            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim_h") ptr0 multi_anon_t_dim_h3
+
+deriving via Marshal.EquivStorable Multi_anon_t_dim instance RIP.Storable Multi_anon_t_dim
+
+instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
+
+  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_w" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_dim_w" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_w")
+
+instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_h" where
+
+  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_h" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_dim_h" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_h")
+
+{-| Struct with multiple anonymous inner structs.
+
+    Tests that doxygen comment enrichment correctly associates field comments with anonymous inner structs at multiple nesting levels.
+
+    __C declaration:__ @struct multi_anon_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 551:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Multi_anon_t = Multi_anon_t
+  { multi_anon_t_pos :: Multi_anon_t_pos
+    {- ^ Position in 2D space.
+
+         Position fields
+
+         __C declaration:__ @pos@
+
+         __defined at:__ @documentation\/doxygen_docs.h 558:30@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , multi_anon_t_dim :: Multi_anon_t_dim
+    {- ^ Dimensions.
+
+         Dimension fields
+
+         __C declaration:__ @dim@
+
+         __defined at:__ @documentation\/doxygen_docs.h 566:31@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Multi_anon_t where
+
+  staticSizeOf = \_ -> (16 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Multi_anon_t where
+
+  readRaw =
+    \ptr0 ->
+          pure Multi_anon_t
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim") ptr0
+
+instance Marshal.WriteRaw Multi_anon_t where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Multi_anon_t multi_anon_t_pos2 multi_anon_t_dim3 ->
+               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos") ptr0 multi_anon_t_pos2
+            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim") ptr0 multi_anon_t_dim3
+
+deriving via Marshal.EquivStorable Multi_anon_t instance RIP.Storable Multi_anon_t
+
+instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
+
+  type CFieldType Multi_anon_t "multi_anon_t_pos" =
+    Multi_anon_t_pos
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) Multi_anon_t_pos
+         ) => RIP.HasField "multi_anon_t_pos" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos")
+
+instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
+
+  type CFieldType Multi_anon_t "multi_anon_t_dim" =
+    Multi_anon_t_dim
+
+  offset# = \_ -> \_ -> 8
+
+instance ( ((~) ty) Multi_anon_t_dim
+         ) => RIP.HasField "multi_anon_t_dim" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim")
+
+{-| Named inner struct
+
+    __C declaration:__ @struct named_inner@
+
+    __defined at:__ @documentation\/doxygen_docs.h 577:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Named_inner = Named_inner
+  { named_inner_nx :: RIP.CInt
+    {- ^ Inner field nx
+
+         __C declaration:__ @nx@
+
+         __defined at:__ @documentation\/doxygen_docs.h 579:13@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , named_inner_ny :: RIP.CInt
+    {- ^ Inner field ny
+
+         __C declaration:__ @ny@
+
+         __defined at:__ @documentation\/doxygen_docs.h 581:13@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Named_inner where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Named_inner where
+
+  readRaw =
+    \ptr0 ->
+          pure Named_inner
+      <*> HasCField.readRaw (RIP.Proxy @"named_inner_nx") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"named_inner_ny") ptr0
+
+instance Marshal.WriteRaw Named_inner where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Named_inner named_inner_nx2 named_inner_ny3 ->
+               HasCField.writeRaw (RIP.Proxy @"named_inner_nx") ptr0 named_inner_nx2
+            >> HasCField.writeRaw (RIP.Proxy @"named_inner_ny") ptr0 named_inner_ny3
+
+deriving via Marshal.EquivStorable Named_inner instance RIP.Storable Named_inner
+
+instance HasCField.HasCField Named_inner "named_inner_nx" where
+
+  type CFieldType Named_inner "named_inner_nx" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_inner_nx" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_inner_nx")
+
+instance HasCField.HasCField Named_inner "named_inner_ny" where
+
+  type CFieldType Named_inner "named_inner_ny" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_inner_ny" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_inner_ny")
+
+{-| Struct with a named inner struct.
+
+    Tests that doxygen comment enrichment uses the qualified name "named_outer::named_inner" for lookups.
+
+    __C declaration:__ @struct named_outer@
+
+    __defined at:__ @documentation\/doxygen_docs.h 575:8@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Named_outer = Named_outer
+  { named_outer_inner_field :: Named_inner
+    {- ^ __C declaration:__ @inner_field@
+
+         __defined at:__ @documentation\/doxygen_docs.h 582:7@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , named_outer_nz :: RIP.CInt
+    {- ^ Outer field nz
+
+         __C declaration:__ @nz@
+
+         __defined at:__ @documentation\/doxygen_docs.h 584:9@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Named_outer where
+
+  staticSizeOf = \_ -> (12 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Named_outer where
+
+  readRaw =
+    \ptr0 ->
+          pure Named_outer
+      <*> HasCField.readRaw (RIP.Proxy @"named_outer_inner_field") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"named_outer_nz") ptr0
+
+instance Marshal.WriteRaw Named_outer where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Named_outer named_outer_inner_field2 named_outer_nz3 ->
+               HasCField.writeRaw (RIP.Proxy @"named_outer_inner_field") ptr0 named_outer_inner_field2
+            >> HasCField.writeRaw (RIP.Proxy @"named_outer_nz") ptr0 named_outer_nz3
+
+deriving via Marshal.EquivStorable Named_outer instance RIP.Storable Named_outer
+
+instance HasCField.HasCField Named_outer "named_outer_inner_field" where
+
+  type CFieldType Named_outer "named_outer_inner_field" =
+    Named_inner
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) Named_inner
+         ) => RIP.HasField "named_outer_inner_field" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_outer_inner_field")
+
+instance HasCField.HasCField Named_outer "named_outer_nz" where
+
+  type CFieldType Named_outer "named_outer_nz" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 8
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_outer_nz" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_outer_nz")
+
+{-| __C declaration:__ @struct \@deep_mid_anon_field@
+
+    __defined at:__ @documentation\/doxygen_docs.h 598:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_mid_anon_field = Deep_mid_anon_field
+  { deep_mid_anon_field_deep_a :: RIP.CInt
+    {- ^ Deep anonymous field
+
+         __C declaration:__ @deep_a@
+
+         __defined at:__ @documentation\/doxygen_docs.h 600:17@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Deep_mid_anon_field where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Deep_mid_anon_field where
+
+  readRaw =
+    \ptr0 ->
+          pure Deep_mid_anon_field
+      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_anon_field_deep_a") ptr0
+
+instance Marshal.WriteRaw Deep_mid_anon_field where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Deep_mid_anon_field deep_mid_anon_field_deep_a2 ->
+            HasCField.writeRaw (RIP.Proxy @"deep_mid_anon_field_deep_a") ptr0 deep_mid_anon_field_deep_a2
+
+deriving via Marshal.EquivStorable Deep_mid_anon_field instance RIP.Storable Deep_mid_anon_field
+
+instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" where
+
+  type CFieldType Deep_mid_anon_field "deep_mid_anon_field_deep_a" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "deep_mid_anon_field_deep_a" (RIP.Ptr Deep_mid_anon_field) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field_deep_a")
+
+{-| The named mid-level struct
+
+    __C declaration:__ @struct deep_mid@
+
+    __defined at:__ @documentation\/doxygen_docs.h 594:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_mid = Deep_mid
+  { deep_mid_m :: RIP.CInt
+    {- ^ Mid-level field
+
+         __C declaration:__ @m@
+
+         __defined at:__ @documentation\/doxygen_docs.h 596:13@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , deep_mid_anon_field :: Deep_mid_anon_field
+    {- ^ Anonymous struct inside named mid
+
+         __C declaration:__ @anon_field@
+
+         __defined at:__ @documentation\/doxygen_docs.h 601:11@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Deep_mid where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Deep_mid where
+
+  readRaw =
+    \ptr0 ->
+          pure Deep_mid
+      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_m") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_anon_field") ptr0
+
+instance Marshal.WriteRaw Deep_mid where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Deep_mid deep_mid_m2 deep_mid_anon_field3 ->
+               HasCField.writeRaw (RIP.Proxy @"deep_mid_m") ptr0 deep_mid_m2
+            >> HasCField.writeRaw (RIP.Proxy @"deep_mid_anon_field") ptr0 deep_mid_anon_field3
+
+deriving via Marshal.EquivStorable Deep_mid instance RIP.Storable Deep_mid
+
+instance HasCField.HasCField Deep_mid "deep_mid_m" where
+
+  type CFieldType Deep_mid "deep_mid_m" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "deep_mid_m" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_m")
+
+instance HasCField.HasCField Deep_mid "deep_mid_anon_field" where
+
+  type CFieldType Deep_mid "deep_mid_anon_field" =
+    Deep_mid_anon_field
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) Deep_mid_anon_field
+         ) => RIP.HasField "deep_mid_anon_field" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field")
+
+{-| Deeply nested mix of named and anonymous structs.
+
+    Tests the full genealogy walk through mixed named/anonymous nesting.
+
+    __C declaration:__ @struct deep_outer@
+
+    __defined at:__ @documentation\/doxygen_docs.h 592:8@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Deep_outer = Deep_outer
+  { deep_outer_mid_field :: Deep_mid
+    {- ^ __C declaration:__ @mid_field@
+
+         __defined at:__ @documentation\/doxygen_docs.h 602:7@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , deep_outer_o :: RIP.CInt
+    {- ^ Outer-only field
+
+         __C declaration:__ @o@
+
+         __defined at:__ @documentation\/doxygen_docs.h 604:9@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Deep_outer where
+
+  staticSizeOf = \_ -> (12 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Deep_outer where
+
+  readRaw =
+    \ptr0 ->
+          pure Deep_outer
+      <*> HasCField.readRaw (RIP.Proxy @"deep_outer_mid_field") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"deep_outer_o") ptr0
+
+instance Marshal.WriteRaw Deep_outer where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Deep_outer deep_outer_mid_field2 deep_outer_o3 ->
+               HasCField.writeRaw (RIP.Proxy @"deep_outer_mid_field") ptr0 deep_outer_mid_field2
+            >> HasCField.writeRaw (RIP.Proxy @"deep_outer_o") ptr0 deep_outer_o3
+
+deriving via Marshal.EquivStorable Deep_outer instance RIP.Storable Deep_outer
+
+instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
+
+  type CFieldType Deep_outer "deep_outer_mid_field" =
+    Deep_mid
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) Deep_mid
+         ) => RIP.HasField "deep_outer_mid_field" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_outer_mid_field")
+
+instance HasCField.HasCField Deep_outer "deep_outer_o" where
+
+  type CFieldType Deep_outer "deep_outer_o" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "deep_outer_o" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_outer_o")
+
+{-| __C declaration:__ @struct \@unnamed_field_t_ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 616:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Unnamed_field_t_ua = Unnamed_field_t_ua
+  { unnamed_field_t_ua_ua :: RIP.CInt
+    {- ^ Unnamed inner a
+
+         __C declaration:__ @ua@
+
+         __defined at:__ @documentation\/doxygen_docs.h 618:13@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , unnamed_field_t_ua_ub :: RIP.CInt
+    {- ^ Unnamed inner b
+
+         __C declaration:__ @ub@
+
+         __defined at:__ @documentation\/doxygen_docs.h 620:13@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Unnamed_field_t_ua where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Unnamed_field_t_ua where
+
+  readRaw =
+    \ptr0 ->
+          pure Unnamed_field_t_ua
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua_ua") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua_ub") ptr0
+
+instance Marshal.WriteRaw Unnamed_field_t_ua where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Unnamed_field_t_ua unnamed_field_t_ua_ua2 unnamed_field_t_ua_ub3 ->
+               HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua_ua") ptr0 unnamed_field_t_ua_ua2
+            >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua_ub") ptr0 unnamed_field_t_ua_ub3
+
+deriving via Marshal.EquivStorable Unnamed_field_t_ua instance RIP.Storable Unnamed_field_t_ua
+
+instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ua" where
+
+  type CFieldType Unnamed_field_t_ua "unnamed_field_t_ua_ua" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_ua_ua" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua_ua")
+
+instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ub" where
+
+  type CFieldType Unnamed_field_t_ua "unnamed_field_t_ua_ub" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_ua_ub" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua_ub")
+
+{-| Struct with unnamed anonymous field.
+
+    Tests the case where the anonymous inner struct has no field name. The inner fields are flattened directly into the parent.
+
+    __C declaration:__ @struct unnamed_field_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 613:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+data Unnamed_field_t = Unnamed_field_t
+  { unnamed_field_t_before :: RIP.CInt
+    {- ^ Before field
+
+         __C declaration:__ @before@
+
+         __defined at:__ @documentation\/doxygen_docs.h 615:9@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , unnamed_field_t_ua :: Unnamed_field_t_ua
+    {- ^ Unnamed inner a
+
+         __C declaration:__ @ua@
+
+         __defined at:__ @documentation\/doxygen_docs.h 616:5@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  , unnamed_field_t_after :: RIP.CInt
+    {- ^ After field
+
+         __C declaration:__ @after@
+
+         __defined at:__ @documentation\/doxygen_docs.h 623:9@
+
+         __exported by:__ @documentation\/doxygen_docs.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Unnamed_field_t where
+
+  staticSizeOf = \_ -> (16 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Unnamed_field_t where
+
+  readRaw =
+    \ptr0 ->
+          pure Unnamed_field_t
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_before") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_after") ptr0
+
+instance Marshal.WriteRaw Unnamed_field_t where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Unnamed_field_t
+            unnamed_field_t_before2
+            unnamed_field_t_ua3
+            unnamed_field_t_after4 ->
+                 HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_before") ptr0 unnamed_field_t_before2
+              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua") ptr0 unnamed_field_t_ua3
+              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_after") ptr0 unnamed_field_t_after4
+
+deriving via Marshal.EquivStorable Unnamed_field_t instance RIP.Storable Unnamed_field_t
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_before" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_before" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_before")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_ua" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_ua" =
+    Unnamed_field_t_ua
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) Unnamed_field_t_ua
+         ) => RIP.HasField "unnamed_field_t_ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_after" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 12
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_after" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")

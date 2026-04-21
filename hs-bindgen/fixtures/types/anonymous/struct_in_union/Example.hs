@@ -141,13 +141,13 @@ deriving via Marshal.EquivStorable Outer1 instance RIP.Storable Outer1
 
 {-|
 
-  __See:__ 'set_outer1_fieldA'
+    __See:__ 'set_outer1_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 7:8@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 7:8@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer1_fieldA ::
      Outer1
@@ -156,7 +156,7 @@ get_outer1_fieldA = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer1_fieldA'
+    __See:__ 'get_outer1_fieldA'
 
 -}
 set_outer1_fieldA ::
@@ -166,13 +166,13 @@ set_outer1_fieldA = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer1_fieldX'
+    __See:__ 'set_outer1_fieldX'
 
-__C declaration:__ @fieldX@
+    __C declaration:__ @fieldX@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 8:3@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 8:3@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer1_fieldX ::
      Outer1
@@ -181,7 +181,7 @@ get_outer1_fieldX = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer1_fieldX'
+    __See:__ 'get_outer1_fieldX'
 
 -}
 set_outer1_fieldX ::
@@ -191,13 +191,13 @@ set_outer1_fieldX = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer1_fieldC'
+    __See:__ 'set_outer1_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 12:7@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 12:7@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer1_fieldC ::
      Outer1
@@ -206,7 +206,7 @@ get_outer1_fieldC = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer1_fieldC'
+    __See:__ 'get_outer1_fieldC'
 
 -}
 set_outer1_fieldC ::
@@ -348,13 +348,13 @@ deriving via Marshal.EquivStorable Outer2 instance RIP.Storable Outer2
 
 {-|
 
-  __See:__ 'set_outer2_fieldA'
+    __See:__ 'set_outer2_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 16:8@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 16:8@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer2_fieldA ::
      Outer2
@@ -363,7 +363,7 @@ get_outer2_fieldA = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer2_fieldA'
+    __See:__ 'get_outer2_fieldA'
 
 -}
 set_outer2_fieldA ::
@@ -373,13 +373,13 @@ set_outer2_fieldA = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer2_fieldB'
+    __See:__ 'set_outer2_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 20:5@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 20:5@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer2_fieldB ::
      Outer2
@@ -388,7 +388,7 @@ get_outer2_fieldB = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer2_fieldB'
+    __See:__ 'get_outer2_fieldB'
 
 -}
 set_outer2_fieldB ::
@@ -398,13 +398,13 @@ set_outer2_fieldB = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer2_fieldC'
+    __See:__ 'set_outer2_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 21:7@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 21:7@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer2_fieldC ::
      Outer2
@@ -413,7 +413,7 @@ get_outer2_fieldC = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer2_fieldC'
+    __See:__ 'get_outer2_fieldC'
 
 -}
 set_outer2_fieldC ::
@@ -553,13 +553,13 @@ deriving via Marshal.EquivStorable Outer3 instance RIP.Storable Outer3
 
 {-|
 
-  __See:__ 'set_outer3_fieldA'
+    __See:__ 'set_outer3_fieldA'
 
-__C declaration:__ @fieldA@
+    __C declaration:__ @fieldA@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 25:8@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 25:8@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer3_fieldA ::
      Outer3
@@ -568,7 +568,7 @@ get_outer3_fieldA = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer3_fieldA'
+    __See:__ 'get_outer3_fieldA'
 
 -}
 set_outer3_fieldA ::
@@ -578,13 +578,13 @@ set_outer3_fieldA = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer3_fieldB'
+    __See:__ 'set_outer3_fieldB'
 
-__C declaration:__ @fieldB@
+    __C declaration:__ @fieldB@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 29:5@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 29:5@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer3_fieldB ::
      Outer3
@@ -593,7 +593,7 @@ get_outer3_fieldB = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer3_fieldB'
+    __See:__ 'get_outer3_fieldB'
 
 -}
 set_outer3_fieldB ::
@@ -603,13 +603,13 @@ set_outer3_fieldB = RIP.setUnionPayload
 
 {-|
 
-  __See:__ 'set_outer3_fieldC'
+    __See:__ 'set_outer3_fieldC'
 
-__C declaration:__ @fieldC@
+    __C declaration:__ @fieldC@
 
-__defined at:__ @types\/anonymous\/struct_in_union.h 30:7@
+    __defined at:__ @types\/anonymous\/struct_in_union.h 30:7@
 
-__exported by:__ @types\/anonymous\/struct_in_union.h@
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
 -}
 get_outer3_fieldC ::
      Outer3
@@ -618,7 +618,7 @@ get_outer3_fieldC = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_outer3_fieldC'
+    __See:__ 'get_outer3_fieldC'
 
 -}
 set_outer3_fieldC ::

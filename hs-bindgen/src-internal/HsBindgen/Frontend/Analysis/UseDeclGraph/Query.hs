@@ -14,7 +14,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type (ValOrRef (..))
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ import HsBindgen.Imports
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: DeclIndex -> UseDeclGraph -> [C.Decl AssignAnonIds]
+toDecls :: DeclIndex -> UseDeclGraph -> [C.Decl EnrichComments]
 toDecls index useDeclGraph =
     -- NOTE: There might be dependencies in 'UseDeclGraph' on declarations
     -- without a corresponding entry in 'DeclIndex': for example, this can

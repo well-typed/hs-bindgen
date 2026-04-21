@@ -1,4 +1,4 @@
-/**
+/** @file
  * Distillation of some test cases from a proprietary C library
  */
 

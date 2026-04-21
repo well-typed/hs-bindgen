@@ -59,15 +59,11 @@ hs_bindgen_9445b7269de35e9e =
   RIP.fromFFIType hs_bindgen_9445b7269de35e9e_base
 
 {-# NOINLINE square_cp #-}
-{-| Conflicting attributes on functions for llvm/clang versions 18 and up
+{-| __C declaration:__ @square_cp@
 
-  Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+    __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
-__C declaration:__ @square_cp@
-
-__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
-
-__exported by:__ @functions\/fun_attributes_conflict.h@
+    __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 square_cp =

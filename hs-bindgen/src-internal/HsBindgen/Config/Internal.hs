@@ -23,6 +23,8 @@ import HsBindgen.Frontend.Predicate (Boolean, SelectPredicate)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
+import Doxygen.Parser qualified as Doxygen
+
 -- | Configuration of @hs-bindgen@.
 --
 -- 'BindgenConfig' combines all configurable settings of @hs-bindgen@ that are
@@ -79,9 +81,17 @@ data FrontendConfig = FrontendConfig {
       selectPredicate     :: Boolean SelectPredicate
     , programSlicing      :: ProgramSlicing
     , fieldNamingStrategy :: FieldNamingStrategy
+    , doxygenConfig       :: Doxygen.Config
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+
+instance Default FrontendConfig where
+  def = FrontendConfig {
+      selectPredicate     = def
+    , programSlicing      = def
+    , fieldNamingStrategy = def
+    , doxygenConfig       = Doxygen.defaultConfig
+    }
 
 {-------------------------------------------------------------------------------
   Backend configuration

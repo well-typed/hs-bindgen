@@ -9,6 +9,7 @@
 module Test.HsBindgen.Golden.Comprehensive (testCases) where
 
 import HsBindgen.Config.Internal
+import HsBindgen.Doxygen (DoxygenMsg (..))
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -57,6 +58,8 @@ test_comprehensive_c2hsc =
     trace = \case
       MatchDelayed name ParseUnsupportedLongDouble ->
         Just $ Expected name
+      MatchDoxygen (DoxygenUnsupported _) ->
+        Just Tolerated
       _otherwise ->
         Nothing
 

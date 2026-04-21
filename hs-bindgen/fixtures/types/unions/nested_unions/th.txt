@@ -14,69 +14,69 @@ deriving via (SizedByteArray 4 4) instance WriteRaw UnionA
 deriving via (EquivStorable UnionA) instance Storable UnionA
 {-|
 
-  __See:__ 'set_unionA_a'
+    __See:__ 'set_unionA_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 3:21@
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_a :: UnionA -> CInt
 {-|
 
-  __See:__ 'set_unionA_a'
+    __See:__ 'set_unionA_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 3:21@
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_a = getUnionPayload
 {-|
 
-  __See:__ 'get_unionA_a'
+    __See:__ 'get_unionA_a'
 
 -}
 set_unionA_a :: CInt -> UnionA
 {-|
 
-  __See:__ 'get_unionA_a'
+    __See:__ 'get_unionA_a'
 
 -}
 set_unionA_a = setUnionPayload
 {-|
 
-  __See:__ 'set_unionA_b'
+    __See:__ 'set_unionA_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 4:22@
+    __defined at:__ @types\/unions\/nested_unions.h 4:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_b :: UnionA -> CChar
 {-|
 
-  __See:__ 'set_unionA_b'
+    __See:__ 'set_unionA_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 4:22@
+    __defined at:__ @types\/unions\/nested_unions.h 4:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_b = getUnionPayload
 {-|
 
-  __See:__ 'get_unionA_b'
+    __See:__ 'get_unionA_b'
 
 -}
 set_unionA_b :: CChar -> UnionA
 {-|
 
-  __See:__ 'get_unionA_b'
+    __See:__ 'get_unionA_b'
 
 -}
 set_unionA_b = setUnionPayload
@@ -134,69 +134,69 @@ deriving via (SizedByteArray 4 4) instance WriteRaw ExB_fieldB1
 deriving via (EquivStorable ExB_fieldB1) instance Storable ExB_fieldB1
 {-|
 
-  __See:__ 'set_exB_fieldB1_a'
+    __See:__ 'set_exB_fieldB1_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 10:21@
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_a :: ExB_fieldB1 -> CInt
 {-|
 
-  __See:__ 'set_exB_fieldB1_a'
+    __See:__ 'set_exB_fieldB1_a'
 
-__C declaration:__ @a@
+    __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h 10:21@
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_a = getUnionPayload
 {-|
 
-  __See:__ 'get_exB_fieldB1_a'
+    __See:__ 'get_exB_fieldB1_a'
 
 -}
 set_exB_fieldB1_a :: CInt -> ExB_fieldB1
 {-|
 
-  __See:__ 'get_exB_fieldB1_a'
+    __See:__ 'get_exB_fieldB1_a'
 
 -}
 set_exB_fieldB1_a = setUnionPayload
 {-|
 
-  __See:__ 'set_exB_fieldB1_b'
+    __See:__ 'set_exB_fieldB1_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 11:22@
+    __defined at:__ @types\/unions\/nested_unions.h 11:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_b :: ExB_fieldB1 -> CChar
 {-|
 
-  __See:__ 'set_exB_fieldB1_b'
+    __See:__ 'set_exB_fieldB1_b'
 
-__C declaration:__ @b@
+    __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h 11:22@
+    __defined at:__ @types\/unions\/nested_unions.h 11:22@
 
-__exported by:__ @types\/unions\/nested_unions.h@
+    __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_b = getUnionPayload
 {-|
 
-  __See:__ 'get_exB_fieldB1_b'
+    __See:__ 'get_exB_fieldB1_b'
 
 -}
 set_exB_fieldB1_b :: CChar -> ExB_fieldB1
 {-|
 
-  __See:__ 'get_exB_fieldB1_b'
+    __See:__ 'get_exB_fieldB1_b'
 
 -}
 set_exB_fieldB1_b = setUnionPayload

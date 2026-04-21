@@ -107,24 +107,24 @@ hs_bindgen_1c811bfb80de8f77 :: CDouble -> CDouble
 hs_bindgen_1c811bfb80de8f77 = fromFFIType hs_bindgen_1c811bfb80de8f77_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @erf@
+    __C declaration:__ @erf@
 
-__defined at:__ @functions\/simple_func.h 1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
-__exported by:__ @functions\/simple_func.h@
+    __exported by:__ @functions\/simple_func.h@
 -}
 erf_safe :: CDouble -> CDouble
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @erf@
+    __C declaration:__ @erf@
 
-__defined at:__ @functions\/simple_func.h 1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
-__exported by:__ @functions\/simple_func.h@
+    __exported by:__ @functions\/simple_func.h@
 -}
 erf_safe = hs_bindgen_1c811bfb80de8f77
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
@@ -227,24 +227,24 @@ hs_bindgen_da5d889180d72efd :: CDouble -> CDouble
 hs_bindgen_da5d889180d72efd = fromFFIType hs_bindgen_da5d889180d72efd_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @erf@
+    __C declaration:__ @erf@
 
-__defined at:__ @functions\/simple_func.h 1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
-__exported by:__ @functions\/simple_func.h@
+    __exported by:__ @functions\/simple_func.h@
 -}
 erf_unsafe :: CDouble -> CDouble
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @erf@
+    __C declaration:__ @erf@
 
-__defined at:__ @functions\/simple_func.h 1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
-__exported by:__ @functions\/simple_func.h@
+    __exported by:__ @functions\/simple_func.h@
 -}
 erf_unsafe = hs_bindgen_da5d889180d72efd
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@

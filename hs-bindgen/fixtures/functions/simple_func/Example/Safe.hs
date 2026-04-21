@@ -61,13 +61,13 @@ hs_bindgen_1c811bfb80de8f77 =
 
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @erf@
+    __C declaration:__ @erf@
 
-__defined at:__ @functions\/simple_func.h 1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
-__exported by:__ @functions\/simple_func.h@
+    __exported by:__ @functions\/simple_func.h@
 -}
 erf ::
      RIP.CDouble

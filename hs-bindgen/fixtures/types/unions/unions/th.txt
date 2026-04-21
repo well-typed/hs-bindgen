@@ -111,69 +111,69 @@ deriving via (SizedByteArray 8 4) instance WriteRaw DimPayload
 deriving via (EquivStorable DimPayload) instance Storable DimPayload
 {-|
 
-  __See:__ 'set_dimPayload_dim2'
+    __See:__ 'set_dimPayload_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 13:17@
+    __defined at:__ @types\/unions\/unions.h 13:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim2 :: DimPayload -> Dim2
 {-|
 
-  __See:__ 'set_dimPayload_dim2'
+    __See:__ 'set_dimPayload_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 13:17@
+    __defined at:__ @types\/unions\/unions.h 13:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim2 = getUnionPayload
 {-|
 
-  __See:__ 'get_dimPayload_dim2'
+    __See:__ 'get_dimPayload_dim2'
 
 -}
 set_dimPayload_dim2 :: Dim2 -> DimPayload
 {-|
 
-  __See:__ 'get_dimPayload_dim2'
+    __See:__ 'get_dimPayload_dim2'
 
 -}
 set_dimPayload_dim2 = setUnionPayload
 {-|
 
-  __See:__ 'set_dimPayload_dim3'
+    __See:__ 'set_dimPayload_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 14:17@
+    __defined at:__ @types\/unions\/unions.h 14:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim3 :: DimPayload -> Dim2
 {-|
 
-  __See:__ 'set_dimPayload_dim3'
+    __See:__ 'set_dimPayload_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 14:17@
+    __defined at:__ @types\/unions\/unions.h 14:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayload_dim3 = getUnionPayload
 {-|
 
-  __See:__ 'get_dimPayload_dim3'
+    __See:__ 'get_dimPayload_dim3'
 
 -}
 set_dimPayload_dim3 :: Dim2 -> DimPayload
 {-|
 
-  __See:__ 'get_dimPayload_dim3'
+    __See:__ 'get_dimPayload_dim3'
 
 -}
 set_dimPayload_dim3 = setUnionPayload
@@ -247,69 +247,69 @@ deriving via (SizedByteArray 8 4) instance WriteRaw DimPayloadB
 deriving via (EquivStorable DimPayloadB) instance Storable DimPayloadB
 {-|
 
-  __See:__ 'set_dimPayloadB_dim2'
+    __See:__ 'set_dimPayloadB_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 24:17@
+    __defined at:__ @types\/unions\/unions.h 24:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
 {-|
 
-  __See:__ 'set_dimPayloadB_dim2'
+    __See:__ 'set_dimPayloadB_dim2'
 
-__C declaration:__ @dim2@
+    __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h 24:17@
+    __defined at:__ @types\/unions\/unions.h 24:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim2 = getUnionPayload
 {-|
 
-  __See:__ 'get_dimPayloadB_dim2'
+    __See:__ 'get_dimPayloadB_dim2'
 
 -}
 set_dimPayloadB_dim2 :: Dim2 -> DimPayloadB
 {-|
 
-  __See:__ 'get_dimPayloadB_dim2'
+    __See:__ 'get_dimPayloadB_dim2'
 
 -}
 set_dimPayloadB_dim2 = setUnionPayload
 {-|
 
-  __See:__ 'set_dimPayloadB_dim3'
+    __See:__ 'set_dimPayloadB_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 25:17@
+    __defined at:__ @types\/unions\/unions.h 25:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
 {-|
 
-  __See:__ 'set_dimPayloadB_dim3'
+    __See:__ 'set_dimPayloadB_dim3'
 
-__C declaration:__ @dim3@
+    __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h 25:17@
+    __defined at:__ @types\/unions\/unions.h 25:17@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_dimPayloadB_dim3 = getUnionPayload
 {-|
 
-  __See:__ 'get_dimPayloadB_dim3'
+    __See:__ 'get_dimPayloadB_dim3'
 
 -}
 set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 {-|
 
-  __See:__ 'get_dimPayloadB_dim3'
+    __See:__ 'get_dimPayloadB_dim3'
 
 -}
 set_dimPayloadB_dim3 = setUnionPayload
@@ -471,69 +471,69 @@ deriving via (SizedByteArray 16 8) instance WriteRaw AnonA
 deriving via (EquivStorable AnonA) instance Storable AnonA
 {-|
 
-  __See:__ 'set_anonA_xy'
+    __See:__ 'set_anonA_xy'
 
-__C declaration:__ @xy@
+    __C declaration:__ @xy@
 
-__defined at:__ @types\/unions\/unions.h 35:36@
+    __defined at:__ @types\/unions\/unions.h 35:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_xy :: AnonA -> AnonA_xy
 {-|
 
-  __See:__ 'set_anonA_xy'
+    __See:__ 'set_anonA_xy'
 
-__C declaration:__ @xy@
+    __C declaration:__ @xy@
 
-__defined at:__ @types\/unions\/unions.h 35:36@
+    __defined at:__ @types\/unions\/unions.h 35:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_xy = getUnionPayload
 {-|
 
-  __See:__ 'get_anonA_xy'
+    __See:__ 'get_anonA_xy'
 
 -}
 set_anonA_xy :: AnonA_xy -> AnonA
 {-|
 
-  __See:__ 'get_anonA_xy'
+    __See:__ 'get_anonA_xy'
 
 -}
 set_anonA_xy = setUnionPayload
 {-|
 
-  __See:__ 'set_anonA_polar'
+    __See:__ 'set_anonA_polar'
 
-__C declaration:__ @polar@
+    __C declaration:__ @polar@
 
-__defined at:__ @types\/unions\/unions.h 36:36@
+    __defined at:__ @types\/unions\/unions.h 36:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_polar :: AnonA -> AnonA_polar
 {-|
 
-  __See:__ 'set_anonA_polar'
+    __See:__ 'set_anonA_polar'
 
-__C declaration:__ @polar@
+    __C declaration:__ @polar@
 
-__defined at:__ @types\/unions\/unions.h 36:36@
+    __defined at:__ @types\/unions\/unions.h 36:36@
 
-__exported by:__ @types\/unions\/unions.h@
+    __exported by:__ @types\/unions\/unions.h@
 -}
 get_anonA_polar = getUnionPayload
 {-|
 
-  __See:__ 'get_anonA_polar'
+    __See:__ 'get_anonA_polar'
 
 -}
 set_anonA_polar :: AnonA_polar -> AnonA
 {-|
 
-  __See:__ 'get_anonA_polar'
+    __See:__ 'get_anonA_polar'
 
 -}
 set_anonA_polar = setUnionPayload

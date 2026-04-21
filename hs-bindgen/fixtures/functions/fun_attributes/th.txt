@@ -429,15 +429,11 @@
 -- {
 --   return &i;
 -- }
-{-| Attributes on functions
+{-| __C declaration:__ @struct FILE@
 
-  Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+    __defined at:__ @functions\/fun_attributes.h 7:9@
 
-__C declaration:__ @struct FILE@
-
-__defined at:__ @functions\/fun_attributes.h 7:9@
-
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 data FILE = FILE {} deriving stock (Eq, Generic, Show)
 instance StaticSize FILE
@@ -644,24 +640,24 @@ hs_bindgen_3f72dedf649beccd :: CInt -> CInt
 hs_bindgen_3f72dedf649beccd = fromFFIType hs_bindgen_3f72dedf649beccd_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @functions\/fun_attributes.h 39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 square_safe :: CInt -> CInt
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @functions\/fun_attributes.h 39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 square_safe = hs_bindgen_3f72dedf649beccd
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
@@ -811,24 +807,24 @@ hs_bindgen_948fc14ee9d5d56f :: Ptr CChar -> IO CInt
 hs_bindgen_948fc14ee9d5d56f = fromFFIType hs_bindgen_948fc14ee9d5d56f_base
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h 110:5@
+    __defined at:__ @functions\/fun_attributes.h 110:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 hash_safe :: Ptr CChar -> IO CInt
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h 110:5@
+    __defined at:__ @functions\/fun_attributes.h 110:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 hash_safe = hs_bindgen_948fc14ee9d5d56f
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
@@ -1186,24 +1182,24 @@ hs_bindgen_dbe49279b6585cea :: CInt -> CInt
 hs_bindgen_dbe49279b6585cea = fromFFIType hs_bindgen_dbe49279b6585cea_base
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @functions\/fun_attributes.h 39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 square_unsafe :: CInt -> CInt
 {-|
 
-  Marked @__attribute((const))__@
+    Marked @__attribute((const))__@
 
-__C declaration:__ @square@
+    __C declaration:__ @square@
 
-__defined at:__ @functions\/fun_attributes.h 39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 square_unsafe = hs_bindgen_dbe49279b6585cea
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_old_fn_deprecated@
@@ -1353,24 +1349,24 @@ hs_bindgen_394fd662d5fb7aa6 :: Ptr CChar -> IO CInt
 hs_bindgen_394fd662d5fb7aa6 = fromFFIType hs_bindgen_394fd662d5fb7aa6_base
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h 110:5@
+    __defined at:__ @functions\/fun_attributes.h 110:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 hash_unsafe :: Ptr CChar -> IO CInt
 {-|
 
-  Marked @__attribute((pure))__@
+    Marked @__attribute((pure))__@
 
-__C declaration:__ @hash@
+    __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h 110:5@
+    __defined at:__ @functions\/fun_attributes.h 110:5@
 
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 hash_unsafe = hs_bindgen_394fd662d5fb7aa6
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_mymalloc@

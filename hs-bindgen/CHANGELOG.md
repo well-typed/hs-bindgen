@@ -25,11 +25,21 @@
   recording the order in which declarations appear in the translation unit.
 * New `DepsOfDecl` typeclass for precise dependency tracking; dependencies of
   macros are now included in the `UseDeclGraph`.
+* The `hs-bindgen-cli info doxygen` subcommand dumps the parsed doxygen
+  state (the map of `DoxygenKey` to structured comments), alongside the
+  other `info` dump subcommands.
 
 ### Minor changes
 
 * Skip over declarations with unexposed types (such as `malloc`), primarily in
   support of LLVM/Clang 22.
+* Extract Haddock documentation from C headers using doxygen. When the `doxygen`
+  binary is available on `PATH`, `hs-bindgen` invokes it to parse structured
+  documentation comments (Javadoc/Doxygen-style `/** ... */`) and translates
+  them into Haddock comments on the generated Haskell bindings. If `doxygen`
+  is not installed, `hs-bindgen` silently falls back to generating
+  metadata-only comments (source location and C name) with no documentation
+  content.
 
 ### Bug fixes
 

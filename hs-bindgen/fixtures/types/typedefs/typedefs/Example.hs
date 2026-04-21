@@ -164,11 +164,11 @@ instance HasCField.HasCField Int2int "unwrapInt2int" where
 
 {-| Auxiliary type used by 'FunctionPointer_Function'
 
-__C declaration:__ @FunctionPointer_Function@
+    __C declaration:__ @FunctionPointer_Function@
 
-__defined at:__ @types\/typedefs\/typedefs.h 8:16@
+    __defined at:__ @types\/typedefs\/typedefs.h 8:16@
 
-__exported by:__ @types\/typedefs\/typedefs.h@
+    __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function_Aux = FunctionPointer_Function_Aux
   { unwrapFunctionPointer_Function_Aux :: IO ()
@@ -311,11 +311,11 @@ instance HasCField.HasCField NonFunctionPointer_Function "unwrapNonFunctionPoint
 
 {-| Auxiliary type used by 'F1'
 
-__C declaration:__ @f1@
+    __C declaration:__ @f1@
 
-__defined at:__ @types\/typedefs\/typedefs.h 11:16@
+    __defined at:__ @types\/typedefs\/typedefs.h 11:16@
 
-__exported by:__ @types\/typedefs\/typedefs.h@
+    __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: IO ()

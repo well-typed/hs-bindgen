@@ -69,6 +69,9 @@ jobs:
       with:
         version: ${{ matrix.llvm-version }}
 
+    - name: 🛠️ Install doxygen
+      uses: ./.github/actions/setup-doxygen
+
     # The hs-bindgen-cli executable and the example executable are built using
     # different environments. The former using the top-level project file, the
     # latter using its own local project file. For this reason, we generate two

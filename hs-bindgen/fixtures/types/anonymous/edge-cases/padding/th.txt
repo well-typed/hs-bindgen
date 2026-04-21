@@ -98,35 +98,35 @@ deriving via (SizedByteArray 4 4) instance WriteRaw SU_y
 deriving via (EquivStorable SU_y) instance Storable SU_y
 {-|
 
-  __See:__ 'set_sU_y_y'
+    __See:__ 'set_sU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_sU_y_y :: SU_y -> CInt
 {-|
 
-  __See:__ 'set_sU_y_y'
+    __See:__ 'set_sU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_sU_y_y = getUnionPayload
 {-|
 
-  __See:__ 'get_sU_y_y'
+    __See:__ 'get_sU_y_y'
 
 -}
 set_sU_y_y :: CInt -> SU_y
 {-|
 
-  __See:__ 'get_sU_y_y'
+    __See:__ 'get_sU_y_y'
 
 -}
 set_sU_y_y = setUnionPayload
@@ -232,103 +232,103 @@ deriving via (SizedByteArray 8 4) instance WriteRaw US
 deriving via (EquivStorable US) instance Storable US
 {-|
 
-  __See:__ 'set_uS_x'
+    __See:__ 'set_uS_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_x :: US -> CChar
 {-|
 
-  __See:__ 'set_uS_x'
+    __See:__ 'set_uS_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_x = getUnionPayload
 {-|
 
-  __See:__ 'get_uS_x'
+    __See:__ 'get_uS_x'
 
 -}
 set_uS_x :: CChar -> US
 {-|
 
-  __See:__ 'get_uS_x'
+    __See:__ 'get_uS_x'
 
 -}
 set_uS_x = setUnionPayload
 {-|
 
-  __See:__ 'set_uS_y'
+    __See:__ 'set_uS_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_y :: US -> US_y
 {-|
 
-  __See:__ 'set_uS_y'
+    __See:__ 'set_uS_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_y = getUnionPayload
 {-|
 
-  __See:__ 'get_uS_y'
+    __See:__ 'get_uS_y'
 
 -}
 set_uS_y :: US_y -> US
 {-|
 
-  __See:__ 'get_uS_y'
+    __See:__ 'get_uS_y'
 
 -}
 set_uS_y = setUnionPayload
 {-|
 
-  __See:__ 'set_uS_z'
+    __See:__ 'set_uS_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_z :: US -> CInt
 {-|
 
-  __See:__ 'set_uS_z'
+    __See:__ 'set_uS_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uS_z = getUnionPayload
 {-|
 
-  __See:__ 'get_uS_z'
+    __See:__ 'get_uS_z'
 
 -}
 set_uS_z :: CInt -> US
 {-|
 
-  __See:__ 'get_uS_z'
+    __See:__ 'get_uS_z'
 
 -}
 set_uS_z = setUnionPayload
@@ -362,35 +362,35 @@ deriving via (SizedByteArray 4 4) instance WriteRaw UU_y
 deriving via (EquivStorable UU_y) instance Storable UU_y
 {-|
 
-  __See:__ 'set_uU_y_y'
+    __See:__ 'set_uU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y_y :: UU_y -> CInt
 {-|
 
-  __See:__ 'set_uU_y_y'
+    __See:__ 'set_uU_y_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y_y = getUnionPayload
 {-|
 
-  __See:__ 'get_uU_y_y'
+    __See:__ 'get_uU_y_y'
 
 -}
 set_uU_y_y :: CInt -> UU_y
 {-|
 
-  __See:__ 'get_uU_y_y'
+    __See:__ 'get_uU_y_y'
 
 -}
 set_uU_y_y = setUnionPayload
@@ -412,103 +412,103 @@ deriving via (SizedByteArray 4 4) instance WriteRaw UU
 deriving via (EquivStorable UU) instance Storable UU
 {-|
 
-  __See:__ 'set_uU_x'
+    __See:__ 'set_uU_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_x :: UU -> CChar
 {-|
 
-  __See:__ 'set_uU_x'
+    __See:__ 'set_uU_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_x = getUnionPayload
 {-|
 
-  __See:__ 'get_uU_x'
+    __See:__ 'get_uU_x'
 
 -}
 set_uU_x :: CChar -> UU
 {-|
 
-  __See:__ 'get_uU_x'
+    __See:__ 'get_uU_x'
 
 -}
 set_uU_x = setUnionPayload
 {-|
 
-  __See:__ 'set_uU_y'
+    __See:__ 'set_uU_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y :: UU -> UU_y
 {-|
 
-  __See:__ 'set_uU_y'
+    __See:__ 'set_uU_y'
 
-__C declaration:__ @y@
+    __C declaration:__ @y@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_y = getUnionPayload
 {-|
 
-  __See:__ 'get_uU_y'
+    __See:__ 'get_uU_y'
 
 -}
 set_uU_y :: UU_y -> UU
 {-|
 
-  __See:__ 'get_uU_y'
+    __See:__ 'get_uU_y'
 
 -}
 set_uU_y = setUnionPayload
 {-|
 
-  __See:__ 'set_uU_z'
+    __See:__ 'set_uU_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_z :: UU -> CInt
 {-|
 
-  __See:__ 'set_uU_z'
+    __See:__ 'set_uU_z'
 
-__C declaration:__ @z@
+    __C declaration:__ @z@
 
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
 
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 get_uU_z = getUnionPayload
 {-|
 
-  __See:__ 'get_uU_z'
+    __See:__ 'get_uU_z'
 
 -}
 set_uU_z :: CInt -> UU
 {-|
 
-  __See:__ 'get_uU_z'
+    __See:__ 'get_uU_z'
 
 -}
 set_uU_z = setUnionPayload

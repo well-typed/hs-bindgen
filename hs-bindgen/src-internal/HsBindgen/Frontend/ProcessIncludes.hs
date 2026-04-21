@@ -113,7 +113,15 @@ type GetMainHeadersAndInclude =
 -- cheap, as we can reuse the same 'CXTranslationUnit'.
 processIncludes ::
      CXTranslationUnit
-  -> IO (IncludeGraph, IsMainHeader, IsInMainHeaderDir, GetMainHeadersAndInclude)
+  -> IO ( IncludeGraph
+        , IsMainHeader
+        , IsInMainHeaderDir
+        , GetMainHeadersAndInclude
+        , [SourcePath]
+          -- ^ Resolved paths of the main headers (from the root header).
+          -- These are the actual filesystem paths that clang resolved from
+          -- the user's @#include@ arguments.
+        )
 processIncludes unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
@@ -166,6 +174,7 @@ processIncludes unit = do
       , isMainHeader
       , isInMainHeaderDir
       , getMainHeadersAndInclude
+      , map fst mainPathPairs
       )
 
 -- | Function to get the main headers that (transitively) include a source path

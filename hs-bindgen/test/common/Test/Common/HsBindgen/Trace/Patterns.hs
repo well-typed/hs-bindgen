@@ -19,10 +19,13 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchTransUnusable
     -- * MangleNames
   , pattern MatchMangle
+    -- * Doxygen
+  , pattern MatchDoxygen
   ) where
 
 import Data.Text qualified as Text
 
+import HsBindgen.Doxygen (DoxygenMsg)
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
@@ -137,6 +140,13 @@ pattern MatchMangle name x <- TraceFrontend (
          , msg = x
         }}
     )
+
+{-------------------------------------------------------------------------------
+  Doxygen
+-------------------------------------------------------------------------------}
+
+pattern MatchDoxygen :: DoxygenMsg -> TraceMsg
+pattern MatchDoxygen x <- TraceFrontend (FrontendDoxygen x)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

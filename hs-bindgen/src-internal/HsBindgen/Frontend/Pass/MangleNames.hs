@@ -367,17 +367,19 @@ mangleDecl decl = do
         -- `Select` pass.
         return Nothing
       _otherwise -> do
-        declId'      <- mangleDeclId decl.info.id
-        declComment' <- mapM mangle decl.info.comment
+        declId'        <- mangleDeclId decl.info.id
+        declComment'   <- mapM mangle decl.info.comment
+        declEnclosing' <- mapM mangleDeclId decl.info.declEnclosing
 
         let info :: C.DeclInfo MangleNames
             info = C.DeclInfo{
-                 loc          = decl.info.loc
-               , id           = declId'
-               , seqNr        = decl.info.seqNr
-               , headerInfo   = decl.info.headerInfo
-               , availability = decl.info.availability
-               , comment      = declComment'
+                 loc           = decl.info.loc
+               , id            = declId'
+               , seqNr         = decl.info.seqNr
+               , headerInfo    = decl.info.headerInfo
+               , availability  = decl.info.availability
+               , comment       = declComment'
+               , declEnclosing = declEnclosing'
                }
 
             reconstruct :: C.DeclKind MangleNames -> C.Decl MangleNames

@@ -1,4 +1,4 @@
-/**
+/** @file
  * Attributes on functions
  *
  * Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html

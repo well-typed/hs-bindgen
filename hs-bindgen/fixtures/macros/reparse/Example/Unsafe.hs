@@ -898,11 +898,11 @@ hs_bindgen_c1716e300ba327c7 =
 
 {-| Function declarations
 
-__C declaration:__ @args_char1@
+    __C declaration:__ @args_char1@
 
-__defined at:__ @macros\/reparse.h 17:6@
+    __defined at:__ @macros\/reparse.h 17:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 args_char1 ::
      A
@@ -2294,11 +2294,11 @@ hs_bindgen_4956a52bf5073b9f =
 
 {-| Arrays
 
-__C declaration:__ @arr_args1@
+    __C declaration:__ @arr_args1@
 
-__defined at:__ @macros\/reparse.h 104:6@
+    __defined at:__ @macros\/reparse.h 104:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 arr_args1 ::
      RIP.Ptr (IsA.Elem (IA.IncompleteArray A))
@@ -2394,11 +2394,11 @@ hs_bindgen_8e63f57f1f5d662e =
 
 {-| Function pointers
 
-__C declaration:__ @funptr_args1@
+    __C declaration:__ @funptr_args1@
 
-__defined at:__ @macros\/reparse.h 126:6@
+    __defined at:__ @macros\/reparse.h 126:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 funptr_args1 ::
      A
@@ -2534,13 +2534,13 @@ hs_bindgen_153515e0ff74574f =
 
 {-| Comments in awkward places
 
-  (Prior to language-c we failed to parse there.)
+    (Prior to language-c we failed to parse there.)
 
-__C declaration:__ @comments1@
+    __C declaration:__ @comments1@
 
-__defined at:__ @macros\/reparse.h 144:25@
+    __defined at:__ @macros\/reparse.h 144:25@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 comments1 ::
      A
@@ -2562,15 +2562,15 @@ hs_bindgen_8cc833db463cc95c ::
 hs_bindgen_8cc833db463cc95c =
   RIP.fromFFIType hs_bindgen_8cc833db463cc95c_base
 
-{-| `const` qualifier
+{-| @const@ qualifier
 
-  NOTE: These were not parsed correctly prior to the switch to language-c.
+    NOTE: These were not parsed correctly prior to the switch to language-c.
 
-__C declaration:__ @const_prim_before1@
+    __C declaration:__ @const_prim_before1@
 
-__defined at:__ @macros\/reparse.h 177:6@
+    __defined at:__ @macros\/reparse.h 177:6@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 const_prim_before1 ::
      A
@@ -3539,11 +3539,11 @@ hs_bindgen_13a7d78e11555d58 =
 
 {-| Other examples we reparsed /incorrectly/ before language-c
 
-__C declaration:__ @noParams1@
+    __C declaration:__ @noParams1@
 
-__defined at:__ @macros\/reparse.h 254:3@
+    __defined at:__ @macros\/reparse.h 254:3@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 noParams1 :: IO A
 noParams1 = hs_bindgen_13a7d78e11555d58

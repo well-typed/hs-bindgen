@@ -57,6 +57,48 @@ ctypes:
 - headers: documentation/doxygen_docs.h
   cname: struct flexible_array
   hsname: Flexible_array
+- headers: documentation/doxygen_docs.h
+  cname: struct dyn_array_t
+  hsname: Dyn_array_t
+- headers: documentation/doxygen_docs.h
+  cname: dyn_array_t
+  hsname: Dyn_array_t
+- headers: documentation/doxygen_docs.h
+  cname: struct multi_anon_t
+  hsname: Multi_anon_t
+- headers: documentation/doxygen_docs.h
+  cname: struct @multi_anon_t_pos
+  hsname: Multi_anon_t_pos
+- headers: documentation/doxygen_docs.h
+  cname: struct @multi_anon_t_dim
+  hsname: Multi_anon_t_dim
+- headers: documentation/doxygen_docs.h
+  cname: multi_anon_t
+  hsname: Multi_anon_t
+- headers: documentation/doxygen_docs.h
+  cname: struct named_outer
+  hsname: Named_outer
+- headers: documentation/doxygen_docs.h
+  cname: struct named_inner
+  hsname: Named_inner
+- headers: documentation/doxygen_docs.h
+  cname: struct deep_outer
+  hsname: Deep_outer
+- headers: documentation/doxygen_docs.h
+  cname: struct deep_mid
+  hsname: Deep_mid
+- headers: documentation/doxygen_docs.h
+  cname: struct @deep_mid_anon_field
+  hsname: Deep_mid_anon_field
+- headers: documentation/doxygen_docs.h
+  cname: struct unnamed_field_t
+  hsname: Unnamed_field_t
+- headers: documentation/doxygen_docs.h
+  cname: struct @unnamed_field_t_ua
+  hsname: Unnamed_field_t_ua
+- headers: documentation/doxygen_docs.h
+  cname: unnamed_field_t
+  hsname: Unnamed_field_t
 hstypes:
 - hsname: Bitfield_t
   representation:
@@ -150,6 +192,74 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: Deep_mid
+  representation:
+    record:
+      constructor: Deep_mid
+      fields:
+      - deep_mid_m
+      - deep_mid_anon_field
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Deep_mid_anon_field
+  representation:
+    record:
+      constructor: Deep_mid_anon_field
+      fields:
+      - deep_mid_anon_field_deep_a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Deep_outer
+  representation:
+    record:
+      constructor: Deep_outer
+      fields:
+      - deep_outer_mid_field
+      - deep_outer_o
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Dyn_array_t
+  representation:
+    record:
+      constructor: Dyn_array_t
+      fields:
+      - dyn_array_t_data
+      - dyn_array_t_size
+      - dyn_array_t_capacity
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Event_callback_t
   representation:
     newtype:
@@ -208,6 +318,91 @@ hstypes:
   representation: emptydata
 - hsname: Forward_declared_union
   representation: emptydata
+- hsname: Multi_anon_t
+  representation:
+    record:
+      constructor: Multi_anon_t
+      fields:
+      - multi_anon_t_pos
+      - multi_anon_t_dim
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Multi_anon_t_dim
+  representation:
+    record:
+      constructor: Multi_anon_t_dim
+      fields:
+      - multi_anon_t_dim_w
+      - multi_anon_t_dim_h
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Multi_anon_t_pos
+  representation:
+    record:
+      constructor: Multi_anon_t_pos
+      fields:
+      - multi_anon_t_pos_x
+      - multi_anon_t_pos_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Named_inner
+  representation:
+    record:
+      constructor: Named_inner
+      fields:
+      - named_inner_nx
+      - named_inner_ny
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Named_outer
+  representation:
+    record:
+      constructor: Named_outer
+      fields:
+      - named_outer_inner_field
+      - named_outer_nz
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Processor_fn_t
   representation:
     newtype:
@@ -271,6 +466,41 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unnamed_field_t
+  representation:
+    record:
+      constructor: Unnamed_field_t
+      fields:
+      - unnamed_field_t_before
+      - unnamed_field_t_ua
+      - unnamed_field_t_after
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unnamed_field_t_ua
+  representation:
+    record:
+      constructor: Unnamed_field_t_ua
+      fields:
+      - unnamed_field_t_ua_ua
+      - unnamed_field_t_ua_ub
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
   - ReadRaw
   - Show
   - StaticSize

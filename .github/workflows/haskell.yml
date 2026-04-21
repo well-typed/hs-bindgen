@@ -171,6 +171,9 @@ jobs:
       with:
         version: ${{ matrix.llvm }}
 
+    - name: 🛠️ Install doxygen
+      uses: ./.github/actions/setup-doxygen
+
     - name: (Debug) Check disk usage (after GHC and LLVM install)
       run: |
         echo "--- Disk usage ---"

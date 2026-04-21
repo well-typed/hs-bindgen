@@ -24,15 +24,11 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| Attributes on functions
+{-| __C declaration:__ @struct FILE@
 
-  Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+    __defined at:__ @functions\/fun_attributes.h 7:9@
 
-__C declaration:__ @struct FILE@
-
-__defined at:__ @functions\/fun_attributes.h 7:9@
-
-__exported by:__ @functions\/fun_attributes.h@
+    __exported by:__ @functions\/fun_attributes.h@
 -}
 data FILE = FILE
   {}

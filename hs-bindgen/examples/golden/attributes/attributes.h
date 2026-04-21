@@ -1,4 +1,4 @@
-/**
+/** @file
  * Attributes
  *
  * See https://clang.llvm.org/docs/AttributeReference.html

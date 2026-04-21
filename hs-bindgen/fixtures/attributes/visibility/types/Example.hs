@@ -1011,13 +1011,13 @@ deriving via Marshal.EquivStorable U5 instance RIP.Storable U5
 
 {-|
 
-  __See:__ 'set_u5_x'
+    __See:__ 'set_u5_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 60:59@
+    __defined at:__ @attributes\/visibility\/types.h 60:59@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u5_x ::
      U5
@@ -1026,7 +1026,7 @@ get_u5_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u5_x'
+    __See:__ 'get_u5_x'
 
 -}
 set_u5_x ::
@@ -1066,13 +1066,13 @@ deriving via Marshal.EquivStorable U6 instance RIP.Storable U6
 
 {-|
 
-  __See:__ 'set_u6_x'
+    __See:__ 'set_u6_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 61:59@
+    __defined at:__ @attributes\/visibility\/types.h 61:59@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u6_x ::
      U6
@@ -1081,7 +1081,7 @@ get_u6_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u6_x'
+    __See:__ 'get_u6_x'
 
 -}
 set_u6_x ::
@@ -1121,13 +1121,13 @@ deriving via Marshal.EquivStorable U7 instance RIP.Storable U7
 
 {-|
 
-  __See:__ 'set_u7_x'
+    __See:__ 'set_u7_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 62:59@
+    __defined at:__ @attributes\/visibility\/types.h 62:59@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u7_x ::
      U7
@@ -1136,7 +1136,7 @@ get_u7_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u7_x'
+    __See:__ 'get_u7_x'
 
 -}
 set_u7_x ::
@@ -1176,13 +1176,13 @@ deriving via Marshal.EquivStorable U8 instance RIP.Storable U8
 
 {-|
 
-  __See:__ 'set_u8_x'
+    __See:__ 'set_u8_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 63:59@
+    __defined at:__ @attributes\/visibility\/types.h 63:59@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u8_x ::
      U8
@@ -1191,7 +1191,7 @@ get_u8_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u8_x'
+    __See:__ 'get_u8_x'
 
 -}
 set_u8_x ::
@@ -1231,13 +1231,13 @@ deriving via Marshal.EquivStorable U9 instance RIP.Storable U9
 
 {-|
 
-  __See:__ 'set_u9_x'
+    __See:__ 'set_u9_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 64:59@
+    __defined at:__ @attributes\/visibility\/types.h 64:59@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u9_x ::
      U9
@@ -1246,7 +1246,7 @@ get_u9_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u9_x'
+    __See:__ 'get_u9_x'
 
 -}
 set_u9_x ::
@@ -1286,13 +1286,13 @@ deriving via Marshal.EquivStorable U10 instance RIP.Storable U10
 
 {-|
 
-  __See:__ 'set_u10_x'
+    __See:__ 'set_u10_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 73:60@
+    __defined at:__ @attributes\/visibility\/types.h 73:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u10_x ::
      U10
@@ -1301,7 +1301,7 @@ get_u10_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u10_x'
+    __See:__ 'get_u10_x'
 
 -}
 set_u10_x ::
@@ -1341,13 +1341,13 @@ deriving via Marshal.EquivStorable U11 instance RIP.Storable U11
 
 {-|
 
-  __See:__ 'set_u11_x'
+    __See:__ 'set_u11_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 74:60@
+    __defined at:__ @attributes\/visibility\/types.h 74:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u11_x ::
      U11
@@ -1356,7 +1356,7 @@ get_u11_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u11_x'
+    __See:__ 'get_u11_x'
 
 -}
 set_u11_x ::
@@ -1396,13 +1396,13 @@ deriving via Marshal.EquivStorable U12 instance RIP.Storable U12
 
 {-|
 
-  __See:__ 'set_u12_x'
+    __See:__ 'set_u12_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 75:60@
+    __defined at:__ @attributes\/visibility\/types.h 75:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u12_x ::
      U12
@@ -1411,7 +1411,7 @@ get_u12_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u12_x'
+    __See:__ 'get_u12_x'
 
 -}
 set_u12_x ::
@@ -1451,13 +1451,13 @@ deriving via Marshal.EquivStorable U13 instance RIP.Storable U13
 
 {-|
 
-  __See:__ 'set_u13_x'
+    __See:__ 'set_u13_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 76:60@
+    __defined at:__ @attributes\/visibility\/types.h 76:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u13_x ::
      U13
@@ -1466,7 +1466,7 @@ get_u13_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u13_x'
+    __See:__ 'get_u13_x'
 
 -}
 set_u13_x ::
@@ -1506,13 +1506,13 @@ deriving via Marshal.EquivStorable U14 instance RIP.Storable U14
 
 {-|
 
-  __See:__ 'set_u14_x'
+    __See:__ 'set_u14_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 77:60@
+    __defined at:__ @attributes\/visibility\/types.h 77:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u14_x ::
      U14
@@ -1521,7 +1521,7 @@ get_u14_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u14_x'
+    __See:__ 'get_u14_x'
 
 -}
 set_u14_x ::
@@ -1561,13 +1561,13 @@ deriving via Marshal.EquivStorable U15 instance RIP.Storable U15
 
 {-|
 
-  __See:__ 'set_u15_x'
+    __See:__ 'set_u15_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 86:60@
+    __defined at:__ @attributes\/visibility\/types.h 86:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u15_x ::
      U15
@@ -1576,7 +1576,7 @@ get_u15_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u15_x'
+    __See:__ 'get_u15_x'
 
 -}
 set_u15_x ::
@@ -1616,13 +1616,13 @@ deriving via Marshal.EquivStorable U16 instance RIP.Storable U16
 
 {-|
 
-  __See:__ 'set_u16_x'
+    __See:__ 'set_u16_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 87:60@
+    __defined at:__ @attributes\/visibility\/types.h 87:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u16_x ::
      U16
@@ -1631,7 +1631,7 @@ get_u16_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u16_x'
+    __See:__ 'get_u16_x'
 
 -}
 set_u16_x ::
@@ -1671,13 +1671,13 @@ deriving via Marshal.EquivStorable U17 instance RIP.Storable U17
 
 {-|
 
-  __See:__ 'set_u17_x'
+    __See:__ 'set_u17_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 88:60@
+    __defined at:__ @attributes\/visibility\/types.h 88:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u17_x ::
      U17
@@ -1686,7 +1686,7 @@ get_u17_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u17_x'
+    __See:__ 'get_u17_x'
 
 -}
 set_u17_x ::
@@ -1726,13 +1726,13 @@ deriving via Marshal.EquivStorable U18 instance RIP.Storable U18
 
 {-|
 
-  __See:__ 'set_u18_x'
+    __See:__ 'set_u18_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 89:60@
+    __defined at:__ @attributes\/visibility\/types.h 89:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u18_x ::
      U18
@@ -1741,7 +1741,7 @@ get_u18_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u18_x'
+    __See:__ 'get_u18_x'
 
 -}
 set_u18_x ::
@@ -1781,13 +1781,13 @@ deriving via Marshal.EquivStorable U19 instance RIP.Storable U19
 
 {-|
 
-  __See:__ 'set_u19_x'
+    __See:__ 'set_u19_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/types.h 90:60@
+    __defined at:__ @attributes\/visibility\/types.h 90:60@
 
-__exported by:__ @attributes\/visibility\/types.h@
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
 get_u19_x ::
      U19
@@ -1796,7 +1796,7 @@ get_u19_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u19_x'
+    __See:__ 'get_u19_x'
 
 -}
 set_u19_x ::

@@ -320,11 +320,11 @@ type Diff = (FLAM.WithFlam RIP.CChar) Diff_Aux
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
-__C declaration:__ @struct triplets@
+    __C declaration:__ @struct triplets@
 
-__defined at:__ @edge-cases\/flam.h 26:8@
+    __defined at:__ @edge-cases\/flam.h 26:8@
 
-__exported by:__ @edge-cases\/flam.h@
+    __exported by:__ @edge-cases\/flam.h@
 -}
 data Triplets_Aux = Triplets
   { triplets_len :: RIP.CInt
@@ -380,11 +380,11 @@ instance FLAM.Offset ((CA.ConstantArray 3) RIP.CInt) Triplets_Aux where
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
-__C declaration:__ @struct triplets@
+    __C declaration:__ @struct triplets@
 
-__defined at:__ @edge-cases\/flam.h 26:8@
+    __defined at:__ @edge-cases\/flam.h 26:8@
 
-__exported by:__ @edge-cases\/flam.h@
+    __exported by:__ @edge-cases\/flam.h@
 -}
 type Triplets =
   (FLAM.WithFlam ((CA.ConstantArray 3) RIP.CInt)) Triplets_Aux

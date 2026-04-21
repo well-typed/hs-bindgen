@@ -349,13 +349,13 @@ deriving via Marshal.EquivStorable USS instance RIP.Storable USS
 
 {-|
 
-  __See:__ 'set_uSS_x'
+    __See:__ 'set_uSS_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uSS_x ::
      USS
@@ -364,7 +364,7 @@ get_uSS_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uSS_x'
+    __See:__ 'get_uSS_x'
 
 -}
 set_uSS_x ::
@@ -456,13 +456,13 @@ deriving via Marshal.EquivStorable SUS_x instance RIP.Storable SUS_x
 
 {-|
 
-  __See:__ 'set_sUS_x_x'
+    __See:__ 'set_sUS_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_sUS_x_x ::
      SUS_x
@@ -471,7 +471,7 @@ get_sUS_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_sUS_x_x'
+    __See:__ 'get_sUS_x_x'
 
 -}
 set_sUS_x_x ::
@@ -615,13 +615,13 @@ deriving via Marshal.EquivStorable UUS_x instance RIP.Storable UUS_x
 
 {-|
 
-  __See:__ 'set_uUS_x_x'
+    __See:__ 'set_uUS_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uUS_x_x ::
      UUS_x
@@ -630,7 +630,7 @@ get_uUS_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uUS_x_x'
+    __See:__ 'get_uUS_x_x'
 
 -}
 set_uUS_x_x ::
@@ -670,13 +670,13 @@ deriving via Marshal.EquivStorable UUS instance RIP.Storable UUS
 
 {-|
 
-  __See:__ 'set_uUS_x'
+    __See:__ 'set_uUS_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uUS_x ::
      UUS
@@ -685,7 +685,7 @@ get_uUS_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uUS_x'
+    __See:__ 'get_uUS_x'
 
 -}
 set_uUS_x ::
@@ -725,13 +725,13 @@ deriving via Marshal.EquivStorable SSU_x_x instance RIP.Storable SSU_x_x
 
 {-|
 
-  __See:__ 'set_sSU_x_x_x'
+    __See:__ 'set_sSU_x_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_sSU_x_x_x ::
      SSU_x_x
@@ -740,7 +740,7 @@ get_sSU_x_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_sSU_x_x_x'
+    __See:__ 'get_sSU_x_x_x'
 
 -}
 set_sSU_x_x_x ::
@@ -884,13 +884,13 @@ deriving via Marshal.EquivStorable USU_x_x instance RIP.Storable USU_x_x
 
 {-|
 
-  __See:__ 'set_uSU_x_x_x'
+    __See:__ 'set_uSU_x_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uSU_x_x_x ::
      USU_x_x
@@ -899,7 +899,7 @@ get_uSU_x_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uSU_x_x_x'
+    __See:__ 'get_uSU_x_x_x'
 
 -}
 set_uSU_x_x_x ::
@@ -991,13 +991,13 @@ deriving via Marshal.EquivStorable USU instance RIP.Storable USU
 
 {-|
 
-  __See:__ 'set_uSU_x'
+    __See:__ 'set_uSU_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uSU_x ::
      USU
@@ -1006,7 +1006,7 @@ get_uSU_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uSU_x'
+    __See:__ 'get_uSU_x'
 
 -}
 set_uSU_x ::
@@ -1046,13 +1046,13 @@ deriving via Marshal.EquivStorable SUU_x_x instance RIP.Storable SUU_x_x
 
 {-|
 
-  __See:__ 'set_sUU_x_x_x'
+    __See:__ 'set_sUU_x_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_sUU_x_x_x ::
      SUU_x_x
@@ -1061,7 +1061,7 @@ get_sUU_x_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_sUU_x_x_x'
+    __See:__ 'get_sUU_x_x_x'
 
 -}
 set_sUU_x_x_x ::
@@ -1101,13 +1101,13 @@ deriving via Marshal.EquivStorable SUU_x instance RIP.Storable SUU_x
 
 {-|
 
-  __See:__ 'set_sUU_x_x'
+    __See:__ 'set_sUU_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_sUU_x_x ::
      SUU_x
@@ -1116,7 +1116,7 @@ get_sUU_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_sUU_x_x'
+    __See:__ 'get_sUU_x_x'
 
 -}
 set_sUU_x_x ::
@@ -1208,13 +1208,13 @@ deriving via Marshal.EquivStorable UUU_x_x instance RIP.Storable UUU_x_x
 
 {-|
 
-  __See:__ 'set_uUU_x_x_x'
+    __See:__ 'set_uUU_x_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uUU_x_x_x ::
      UUU_x_x
@@ -1223,7 +1223,7 @@ get_uUU_x_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uUU_x_x_x'
+    __See:__ 'get_uUU_x_x_x'
 
 -}
 set_uUU_x_x_x ::
@@ -1263,13 +1263,13 @@ deriving via Marshal.EquivStorable UUU_x instance RIP.Storable UUU_x
 
 {-|
 
-  __See:__ 'set_uUU_x_x'
+    __See:__ 'set_uUU_x_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uUU_x_x ::
      UUU_x
@@ -1278,7 +1278,7 @@ get_uUU_x_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uUU_x_x'
+    __See:__ 'get_uUU_x_x'
 
 -}
 set_uUU_x_x ::
@@ -1318,13 +1318,13 @@ deriving via Marshal.EquivStorable UUU instance RIP.Storable UUU
 
 {-|
 
-  __See:__ 'set_uUU_x'
+    __See:__ 'set_uUU_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
 
-__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 get_uUU_x ::
      UUU
@@ -1333,7 +1333,7 @@ get_uUU_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_uUU_x'
+    __See:__ 'get_uUU_x'
 
 -}
 set_uUU_x ::

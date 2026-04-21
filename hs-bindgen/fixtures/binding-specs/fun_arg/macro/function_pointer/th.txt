@@ -122,11 +122,11 @@
 -- }
 {-| Auxiliary type used by 'MyFunctionPointer'
 
-__C declaration:__ @MyFunctionPointer@
+    __C declaration:__ @MyFunctionPointer@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
 
-__exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
+    __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer_Aux
     = MyFunctionPointer_Aux {unwrapMyFunctionPointer_Aux :: (CInt ->

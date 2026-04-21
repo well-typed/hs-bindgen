@@ -1,0 +1,51 @@
+name: Setup Doxygen
+description: Install a pinned version of doxygen
+
+# Pin doxygen version to match the Nix dev shell (see nix/hs-bindgen-dev.nix).
+# Different doxygen versions produce different XML output for edge cases
+# (e.g., file-level comment association), so fixtures must be generated
+# with a consistent version.
+
+runs:
+  using: composite
+  steps:
+  - name: Install doxygen (Linux)
+    shell: bash
+    if: ${{ runner.os == 'Linux' }}
+    env:
+      DOXYGEN_VERSION: "1.15.0"
+      DOXYGEN_SHA256: "0ec2e5b2c3cd82b7106d19cb42d8466450730b8cb7a9e85af712be38bf4523a1"
+    run: |
+      curl -fsSL -o /tmp/doxygen.tar.gz "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz"
+      echo "${DOXYGEN_SHA256}  /tmp/doxygen.tar.gz" | sha256sum --check
+      tar xz -C /tmp -f /tmp/doxygen.tar.gz
+      sudo cp /tmp/doxygen-${DOXYGEN_VERSION}/bin/doxygen /usr/local/bin/
+
+  - name: Install doxygen (macOS)
+    shell: bash
+    if: ${{ runner.os == 'macOS' }}
+    env:
+      DOXYGEN_VERSION: "1.15.0"
+      DOXYGEN_SHA256: "b7630eaa0d97bb50b0333929ef5dc1c18f9e38faf1e22dca3166189a9718faf0"
+    run: |
+      curl -fsSL -o /tmp/doxygen.dmg "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/Doxygen-${DOXYGEN_VERSION}.dmg"
+      echo "${DOXYGEN_SHA256}  /tmp/doxygen.dmg" | shasum -a 256 --check
+      hdiutil attach /tmp/doxygen.dmg -mountpoint /tmp/doxygen-mount
+      sudo cp /tmp/doxygen-mount/Doxygen.app/Contents/Resources/doxygen /usr/local/bin/
+      hdiutil detach /tmp/doxygen-mount
+
+  - name: Install doxygen (Windows)
+    shell: bash
+    if: ${{ runner.os == 'Windows' }}
+    env:
+      DOXYGEN_VERSION: "1.15.0"
+      DOXYGEN_SHA256: "44658b9cc5c91749e6e3cc426ba63e2550b4a4a7619065acd77029aa234719c6"
+    run: |
+      curl -fsSL -o /tmp/doxygen.zip "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.windows.x64.bin.zip"
+      echo "${DOXYGEN_SHA256}  /tmp/doxygen.zip" | sha256sum --check
+      unzip -q /tmp/doxygen.zip -d /tmp/doxygen
+      cp /tmp/doxygen/doxygen.exe /usr/local/bin/ || cp /tmp/doxygen/doxygen.exe /usr/bin/
+
+  - name: Verify doxygen
+    shell: bash
+    run: doxygen --version

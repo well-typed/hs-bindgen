@@ -28,10 +28,11 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
-  type MacroBody  AssignAnonIds = ParsedMacro
-  type ExtBinding AssignAnonIds = Void
-  type Ann ix     AssignAnonIds = AnnAssignAnonIds ix
-  type Msg        AssignAnonIds = WithCallStack ImmediateAssignAnonIdsMsg
+  type MacroBody   AssignAnonIds = ParsedMacro
+  type ExtBinding  AssignAnonIds = Void
+  type Ann ix      AssignAnonIds = AnnAssignAnonIds ix
+  type Msg         AssignAnonIds = WithCallStack ImmediateAssignAnonIdsMsg
+  type CommentDecl AssignAnonIds = ()
 
 {-------------------------------------------------------------------------------
   Trace messages

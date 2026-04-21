@@ -798,11 +798,11 @@ pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
 {-| Auxiliary type used by 'Callback_t'
 
-__C declaration:__ @callback_t@
+    __C declaration:__ @callback_t@
 
-__defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 
-__exported by:__ @edge-cases\/distilled_lib_1.h@
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t_Aux = Callback_t_Aux
   { unwrapCallback_t_Aux :: (RIP.Ptr RIP.Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32

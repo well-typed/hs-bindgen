@@ -3,6 +3,7 @@ import: ./cabal.project.base.ci
 packages:
   c-expr-runtime
   c-expr-dsl
+  doxygen-parser
   hs-bindgen
   hs-bindgen-runtime
   hs-bindgen-test-runtime

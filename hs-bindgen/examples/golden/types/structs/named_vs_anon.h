@@ -1,4 +1,4 @@
-/**
+/** @file
  * Test that we correctly distinguish between named and anonymous declarations
  *
  * For some reason clang gives us different results for short names (3

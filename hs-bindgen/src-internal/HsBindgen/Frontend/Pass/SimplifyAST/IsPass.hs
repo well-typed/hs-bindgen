@@ -34,11 +34,12 @@ type family AnnSimplifyAST (ix :: Symbol) where
   AnnSimplifyAST _             = NoAnn
 
 instance IsPass SimplifyAST where
-  type Id         SimplifyAST = PrelimDeclId
-  type MacroBody  SimplifyAST = ParsedMacro
-  type ExtBinding SimplifyAST = Void
-  type Ann ix     SimplifyAST = AnnSimplifyAST ix
-  type Msg        SimplifyAST = WithCallStack SimplifyASTMsg
+  type Id          SimplifyAST = PrelimDeclId
+  type MacroBody   SimplifyAST = ParsedMacro
+  type ExtBinding  SimplifyAST = Void
+  type Ann ix      SimplifyAST = AnnSimplifyAST ix
+  type Msg         SimplifyAST = WithCallStack SimplifyASTMsg
+  type CommentDecl SimplifyAST = ()
 
   idNameKind     _ = PrelimDeclId.nameKind
   idSourceName   _ = PrelimDeclId.sourceName
@@ -50,6 +51,7 @@ instance CoercePassMacroId          Parse SimplifyAST
 
 instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
 instance CoercePassAnn "Global"     Parse SimplifyAST
+instance CoercePassCommentDecl      Parse SimplifyAST
 
 {-------------------------------------------------------------------------------
   Trace messages

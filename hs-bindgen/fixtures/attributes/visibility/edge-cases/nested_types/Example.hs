@@ -45,13 +45,13 @@ deriving via Marshal.EquivStorable U instance RIP.Storable U
 
 {-|
 
-  __See:__ 'set_u_x'
+    __See:__ 'set_u_x'
 
-__C declaration:__ @x@
+    __C declaration:__ @x@
 
-__defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
+    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
 
-__exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
 -}
 get_u_x ::
      U
@@ -60,7 +60,7 @@ get_u_x = RIP.getUnionPayload
 
 {-|
 
-  __See:__ 'get_u_x'
+    __See:__ 'get_u_x'
 
 -}
 set_u_x ::

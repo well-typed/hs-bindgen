@@ -1,5 +1,5 @@
 /**
- * @file doxygen_test.h
+ * @file doxygen_docs.h
  * @brief Comprehensive test file for Doxygen documentation features
  * @author Test Author
  * @version 1.0
@@ -24,8 +24,8 @@
  * @{
  */
 
-#ifndef DOXYGEN_TEST_H
-#define DOXYGEN_TEST_H
+#ifndef DOXYGEN_DOCS_H
+#define DOXYGEN_DOCS_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -47,9 +47,11 @@
  */
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-/** This is the comment @b title
+/**
  * @typedef size_type
  * @brief Size type for this library
+ *
+ * This is the comment @b title
  */
 typedef size_t size_type;
 
@@ -66,8 +68,10 @@ extern int global_counter;
  */
 extern const char* version_string;
 
-/** This is the comment @c title
+/**
  * @brief Forward declaration with documentation
+ *
+ * This is the comment @c title
  */
 struct forward_declared_struct;
 
@@ -85,6 +89,8 @@ enum color_enum {
     COLOR_GREEN, /**< Green color */
     COLOR_BLUE   /**< Blue color */
 };
+
+/** @} */ /* end core_types */
 
 /**
  * @defgroup functions Function Definitions
@@ -121,7 +127,7 @@ bool process_file(const char* filename);
  * Example usage:
  * @code
  * int result = calculate_value(10, 20);
- * printf("Result: %d@n", result);
+ * printf("Result: %d\n", result);
  * @endcode
  *
  * @param base Base value
@@ -352,10 +358,9 @@ static inline int double_value(int x) {
 }
 
 /**
- * @brief Function with flexible array member
+ * @brief Structure with flexible array member
  *
- * @param count Number of elements
- * @return Allocated structure
+ * Used for variable-length data buffers.
  */
 struct flexible_array {
     size_t count;      /**< @brief Number of elements */
@@ -432,4 +437,192 @@ int square (int x) __attribute__ ((const));
  * @}
  */
 
-#endif /* DOXYGEN_TEST_H */
+/**
+ * @defgroup extra_coverage Extra Doxygen Coverage
+ * @brief Additional Doxygen features for test coverage
+ * @{
+ */
+
+/**
+ * Auto-brief function without explicit @@brief tag.
+ *
+ * This tests that the first sentence is used as the brief description
+ * when no explicit @@brief is present.
+ *
+ * @param x The input value
+ * @return The negated value
+ */
+int auto_brief_func(int x);
+
+/**
+ * @brief Multi-paragraph details
+ *
+ * First paragraph of the detailed description. This explains the basic
+ * purpose of the function.
+ *
+ * Second paragraph with more context. This includes information about
+ * the algorithm and its complexity, which is O(n) in the input size.
+ *
+ * Third paragraph with usage notes. Callers should ensure that the
+ * buffer is large enough before calling this function.
+ *
+ * @param buf Output buffer
+ * @param len Buffer length
+ */
+void multi_paragraph_details(char* buf, size_t len);
+
+/**
+ * @brief Function with @@todo and @@remark
+ *
+ * @todo Optimize this function for large inputs
+ * @todo Add support for negative values
+ * @remark This function is thread-safe
+ * @attention The caller must free the returned pointer
+ *
+ * @param n Input count
+ * @return Allocated array
+ */
+int* todo_remark_attention(int n);
+
+/**
+ * @brief Struct with invariant
+ *
+ * @invariant capacity >= size at all times
+ */
+typedef struct {
+    int* data;           /**< @brief Pointer to data */
+    size_t size;         /**< @brief Current number of elements */
+    size_t capacity;     /**< @brief Allocated capacity */
+} dyn_array_t;
+
+/**
+ * @brief HTML entities: &amp; means AND, &lt;tag&gt; is a tag
+ *
+ * Handles values &lt; 0 and values &gt; 100 differently.
+ * Copyright &copy; 2025.
+ *
+ * @param x Input (&gt; 0 required)
+ * @return Result code
+ */
+int html_entities_func(int x);
+
+/**
+ * @brief Nested inline: @b bold, @c code, @b @c bold_code, @e @b emph_bold
+ *
+ * @param x Input value
+ */
+void nested_inline_format(int x);
+
+/**
+ * @brief Language-tagged code block
+ *
+ * Example usage:
+ * @code{.c}
+ * int result = tagged_code_example(42);
+ * printf("Result: %d\n", result);
+ * @endcode
+ *
+ * @param x Input value
+ * @return Processed value
+ */
+int tagged_code_example(int x);
+
+/**
+ * \brief Function documented with backslash syntax
+ *
+ * \details This function uses backslash commands instead of @@ commands
+ * to verify both syntaxes are handled equivalently.
+ *
+ * \param input The input string
+ * \param output The output buffer
+ * \return Number of bytes written
+ *
+ * \see auto_brief_func
+ * \since 2.0
+ */
+int backslash_syntax(const char* input, char* output);
+
+/**
+ * @brief Struct with multiple anonymous inner structs
+ *
+ * Tests that doxygen comment enrichment correctly associates field comments
+ * with anonymous inner structs at multiple nesting levels.
+ */
+typedef struct {
+    /**
+     * @brief Position in 2D space
+     */
+    struct {
+        float x;  /**< @brief X coordinate */
+        float y;  /**< @brief Y coordinate */
+    } /** Position fields */ pos;
+
+    /**
+     * @brief Dimensions
+     */
+    struct {
+        float w;  /**< @brief Width */
+        float h;  /**< @brief Height */
+    } /** Dimension fields */ dim;
+} multi_anon_t;
+
+/**
+ * @brief Struct with a named inner struct
+ *
+ * Tests that doxygen comment enrichment uses the qualified name
+ * "named_outer::named_inner" for lookups.
+ */
+struct named_outer {
+    /** Named inner struct */
+    struct named_inner {
+        /** Inner field nx */
+        int nx;
+        /** Inner field ny */
+        int ny;
+    } inner_field;
+    /** Outer field nz */
+    int nz;
+};
+
+/**
+ * @brief Deeply nested mix of named and anonymous structs
+ *
+ * Tests the full genealogy walk through mixed named/anonymous nesting.
+ */
+struct deep_outer {
+    /** The named mid-level struct */
+    struct deep_mid {
+        /** Mid-level field */
+        int m;
+        /** Anonymous struct inside named mid */
+        struct {
+            /** Deep anonymous field */
+            int deep_a;
+        } anon_field;
+    } mid_field;
+    /** Outer-only field */
+    int o;
+};
+
+/**
+ * @brief Struct with unnamed anonymous field
+ *
+ * Tests the case where the anonymous inner struct has no field name.
+ * The inner fields are flattened directly into the parent.
+ */
+typedef struct {
+    /** Before field */
+    int before;
+    struct {
+        /** Unnamed inner a */
+        int ua;
+        /** Unnamed inner b */
+        int ub;
+    };
+    /** After field */
+    int after;
+} unnamed_field_t;
+
+/** @} */ /* end extra_coverage */
+
+#endif /* DOXYGEN_DOCS_H */

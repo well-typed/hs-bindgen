@@ -4,6 +4,9 @@ import: ./cabal.project.base.dev
 package c-expr-dsl
   ghc-options: -Werror
 
+package doxygen-parser
+  ghc-options: -Werror
+
 package hs-bindgen
   ghc-options: -Werror
 

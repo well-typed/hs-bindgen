@@ -6,12 +6,9 @@ module HsBindgen.Backend.Hs.Haddock.Translation (
   , mkHaddocksDecorateParams
   ) where
 
-import Data.Char (isDigit)
 import Data.Text qualified as Text
 import System.FilePath (takeFileName)
-import Text.Read (readMaybe)
 
-import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as C
 
@@ -26,11 +23,15 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
+import Doxygen.Parser.Types (ParamDirection (..), ParamListKind (..),
+                             SimpleSectKind (..))
+import Doxygen.Parser.Types qualified as Doxy
+
 {-------------------------------------------------------------------------------
   Main API
 -------------------------------------------------------------------------------}
 
--- | Convert a Clang comment to a Haddock comment
+-- | Convert a Doxygen comment to a Haddock comment
 --
 mkHaddocks :: HaddockConfig -> C.DeclInfo Final -> Hs.Name ns -> Maybe HsDoc.Comment
 mkHaddocks config info name =
@@ -82,7 +83,6 @@ mkHaddocksDecorateParams config info name params =
   Internal
 -------------------------------------------------------------------------------}
 
--- | Internal
 data Args = Args{
       isField     :: Bool
     , loc         :: C.SingleLoc
@@ -92,19 +92,11 @@ data Args = Args{
     , params      :: [(Maybe Text, Hs.FunctionParameter)]
     }
 
--- | Convert a Clang comment to a Haddock comment, updating function parameters
---
--- This function processes 'C.ParamCommand' blocks:
--- - If a parameter name matches one in the provided list, attach the comment to it
--- - If no match is found, include the 'ParamCommand' in the resulting comment
---
--- Returns the processed comment and the updated parameters list
+-- | Convert a Doxygen comment to a Haddock comment, updating function
+-- parameters with their documentation.
 --
 mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
-      -- If there's no C.Comment to associate with any function parameter we make
-      -- sure to at least add a comment that will show the function parameter name
-      -- if it exists.
       ( Just $
           mempty
             & #origin     .~ Just nameC
@@ -112,53 +104,39 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
             & #headerInfo .~ Just info.headerInfo
       , map (uncurry addFunctionParameterComment) params
       )
-mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
-  let commentCName = nameC
+mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
+  let commentCName    = nameC
       commentLocation = updateSingleLoc pathStyle loc
-      (commentTitle, commentChildren') =
-        case commentChildren of
-          (CDoc.Paragraph [CDoc.TextContent ""]:rest) -> (Nothing, rest)
-          (CDoc.Paragraph ci:rest)                    -> ( Just $ concatMap convertInlineContent
-                                                                $ filter (\case
-                                                                            CDoc.TextContent "" -> False
-                                                                            _                   -> True
-                                                                         )
-                                                                $ ci
-                                                         , rest
-                                                         )
-          _                                           -> (Nothing, commentChildren)
 
-      -- Separate 'ParamCommands' that match with provided parameters from
-      -- other block content
-      --
-      paramCommands = filterParamCommands commentChildren'
+      -- The brief description becomes the Haddock title
+      commentTitle = case brief of
+        []      -> Nothing
+        inlines -> Just $ concatMap convertInline inlines
 
-      -- Process parameter commands and update parameters
-      --
-      -- If there's no C.Comment to associate with any function parameter we make
-      -- sure to at least add a comment that will show the function parameter name
-      --
+      -- Extract param docs from detailed blocks for attaching to
+      -- function parameters
+      paramDocs = extractMatchedParams detailed
+
+      -- Match param docs to function parameters
       updatedParams = map (uncurry addFunctionParameterComment)
-                    . processParamCommands
-                    $ paramCommands
+                    . processParamDocs paramDocs
+                    $ params
 
-      -- Convert remaining content (including unmatched param commands)
-      finalChildren = concatMap ( convertBlockContent
-                                . (\case
-                                      CDoc.Paragraph ci -> CDoc.Paragraph
-                                                         $ filter (\case
-                                                                     CDoc.TextContent "" -> False
-                                                                     _                   -> True
-                                                                  )
-                                                         $ ci
-                                      cb                -> cb
-                                  )
-                                )
-                    $ commentChildren'
+      -- Convert detailed blocks to Haddock content.
+      -- Matched params are kept so they appear in both the function-level
+      -- comment and in individual parameter comments.
+      commentChildren = concatMap convertBlock detailed
 
-   in ( Just $
+      -- When doxygen puts all text in detailed (e.g. inline enum comments
+      -- like /**< Red color */), promote the first simple paragraph to title.
+      (finalTitle, finalChildren) = case (commentTitle, commentChildren) of
+        (Nothing, HsDoc.Paragraph inlines : rest)
+          | all isSimpleInline inlines -> (Just inlines, rest)
+        _ -> (commentTitle, commentChildren)
+
+  in  ( Just $
           mempty
-            & #title      .~ commentTitle
+            & #title      .~ finalTitle
             & #origin     .~ Just commentCName
             & #location   .~ Just commentLocation
             & #headerInfo .~ Just info.headerInfo
@@ -166,47 +144,32 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
       , updatedParams
       )
   where
-    filterParamCommands ::
-         [CDoc.CommentBlockContent (C.CommentRef Final)]
-      -> [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-    filterParamCommands = \case
-      [] -> []
-      (blockContent@CDoc.ParamCommand{..}:cmds)
-        | any ((== Just paramCommandName) . fst) params ->
-          let comment =
-                mempty
-                  & #origin   .~ ( if Text.null paramCommandName
-                                     then Nothing
-                                     else Just (Text.strip paramCommandName)
-                                 )
-                  & #children .~ convertBlockContent blockContent
-           in (comment, paramCommandDirection):filterParamCommands cmds
-        | otherwise -> filterParamCommands cmds
-      (_:cmds) -> filterParamCommands cmds
-
-    -- Process 'C.ParamCommand and update matching parameter
-    --
-    processParamCommands :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-                         -> [(Maybe Text, Hs.FunctionParameter)]
-    processParamCommands paramCmds =
-      go paramCmds params
+    -- Extract @param entries from detailed blocks that match provided parameters
+    extractMatchedParams :: [Doxy.Block (C.CommentRef Final)]
+                         -> [Doxy.Param (C.CommentRef Final)]
+    extractMatchedParams [] = []
+    extractMatchedParams (Doxy.ParamList ParamListParam ps : rest) =
+        filter isMatch ps ++ extractMatchedParams rest
       where
-        go :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-           -> [(Maybe Text, Hs.FunctionParameter)]
-           -> [(Maybe Text, Hs.FunctionParameter)]
-        go [] currentParams = currentParams
-        go ((hsComment, _mbDirection):rest) currentParams =
-            go rest $ map updateParam currentParams
-          where
-            updateParam :: (Maybe Text, Hs.FunctionParameter) -> (Maybe Text, Hs.FunctionParameter)
-            updateParam (mbName, fp) =
-                if mbName == hsComment.origin
-                  then (mbName, fp & #comment .~ Just hsComment)
-                  else (mbName, fp)
+        isMatch p = any ((== Just p.paramName) . fst) params
+    extractMatchedParams (_ : rest) = extractMatchedParams rest
 
--- | If the function parameter doesn't have any comments then add a simple
--- comment with just its name (if exists).
---
+    processParamDocs :: [Doxy.Param (C.CommentRef Final)]
+                     -> [(Maybe Text, Hs.FunctionParameter)]
+                     -> [(Maybe Text, Hs.FunctionParameter)]
+    processParamDocs [] currentParams = currentParams
+    processParamDocs (dp : rest) currentParams =
+        processParamDocs rest $ map (updateParam dp) currentParams
+      where
+        updateParam dp' (mbName, fp)
+          | mbName == Just (Text.strip dp'.paramName)
+          = let paramComment :: HsDoc.Comment
+                paramComment = mempty
+                  & #origin   .~ mbName
+                  & #children .~ [convertParam ParamListParam dp']
+            in  (mbName, fp & #comment .~ Just paramComment)
+          | otherwise = (mbName, fp)
+
 addFunctionParameterComment :: Maybe Text -> Hs.FunctionParameter -> Hs.FunctionParameter
 addFunctionParameterComment mbName fp =
   case mbName of
@@ -220,302 +183,150 @@ addFunctionParameterComment mbName fp =
               mempty & #origin .~ mbName
             )
 
--- | Convert Clang block content to Haddock block content
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/947>
--- We should make a bigger effort to detect references to identifiers,
--- URLs, paths, so that we can return valid Haddock syntax for those:
---
--- - 'identifier' syntax
--- - "Module" syntax
--- - <URL> syntax
---
--- For now only \dir, \link and \see  are naively supported.
---
-convertBlockContent ::
-     CDoc.CommentBlockContent (C.CommentRef Final)
-  -> [HsDoc.CommentBlockContent]
-convertBlockContent = \case
-  CDoc.Paragraph{..} ->
-    formatParagraphContent paragraphContent
+{-------------------------------------------------------------------------------
+  Block content conversion
 
-  CDoc.BlockCommand{..} ->
-    let args        = map (HsDoc.TextContent . Text.strip) blockCommandArgs
-        textArgs    = extractTextLines args
-        unwordsArgs = Text.unwords textArgs
+  Doxy.Block maps directly to HsDoc.CommentBlockContent.  No string matching
+  on command names — the Doxygen XML has already classified everything.
+-------------------------------------------------------------------------------}
 
-        inlineComment        = concatMap convertInlineContent blockCommandParagraph
-        textInlineComment    = extractTextLines inlineComment
-        unwordsInlineComment = Text.unwords textInlineComment
+-- | Convert a 'Doxy.Block' to Haddock block content
+convertBlock :: Doxy.Block (C.CommentRef Final) -> [HsDoc.CommentBlockContent]
+convertBlock = \case
+  Doxy.Paragraph inlines ->
+    [HsDoc.Paragraph $ concatMap convertInline inlines]
 
-        inlineCommentWithArgs        = args ++ inlineComment
-        textInlineCommentWithArgs    = textArgs ++ textInlineComment
-        unwordsInlineCommentWithArgs = unwordsArgs <> " " <> unwordsInlineComment
-     in -- Only commands that can be associated with declarations are supported.
-        -- Other commands are ignored.
-        case Text.toLower (Text.strip blockCommandName) of
-          -- Headers
-          "section"       -> [HsDoc.Header HsDoc.Level1 inlineCommentWithArgs]
-          "subsection"    -> [HsDoc.Header HsDoc.Level2 inlineCommentWithArgs]
-          "subsubsection" -> [HsDoc.Header HsDoc.Level3 inlineCommentWithArgs]
+  Doxy.ParamList kind ps ->
+    case kind of
+      ParamListParam  -> map (convertParam kind) ps
+      ParamListRetVal -> concatMap convertRetval ps
 
-          -- Code blocks
-          "code"     -> [HsDoc.CodeBlock textInlineCommentWithArgs]
-          "verbatim" -> [HsDoc.CodeBlock textInlineCommentWithArgs]
+  Doxy.SimpleSect kind blocks ->
+    convertSimpleSect kind blocks
 
-          -- Properties
-          "property" -> [HsDoc.Property unwordsInlineCommentWithArgs]
+  Doxy.CodeBlock codeLines ->
+    [HsDoc.CodeBlock codeLines]
 
-          -- Example
-          "example" -> [HsDoc.Example unwordsInlineCommentWithArgs]
+  Doxy.ItemizedList items ->
+    map (\item -> HsDoc.ListItem HsDoc.BulletList (concatMap convertBlock item)) items
 
-          -- inline commands
-          "anchor"     -> [HsDoc.Paragraph [HsDoc.Anchor unwordsInlineCommentWithArgs]]
-          "ref"        -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
+  Doxy.OrderedList items ->
+    zipWith (\i item -> HsDoc.ListItem (HsDoc.NumberedList i)
+                                       (concatMap convertBlock item))
+            [1..] items
 
-          -- Supported References
-          "sa"         -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "see:"] : inlineCommentWithArgs)]
-          "see"        -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "see:"] : inlineCommentWithArgs)]
-          "link"       -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
+  Doxy.XRefSect title blocks ->
+    prefixed (title <> ":") (concatMap convertBlock blocks)
 
-          -- Not yet fully supported references
-          "dir"        -> [HsDoc.Paragraph [HsDoc.Link inlineCommentWithArgs unwordsInlineCommentWithArgs]]
-          "headerfile" -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
-          "image"      -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
-          "include"    -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
-          "refitem"    -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
-          "snippet"    -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
-          "xrefitem"   -> [HsDoc.Paragraph [HsDoc.Link args unwordsInlineComment]]
+  Doxy.Tag _tag children -> concatMap convertBlock children
 
-          -- List item
-          "li" -> [HsDoc.ListItem HsDoc.BulletList [HsDoc.Paragraph inlineCommentWithArgs]]
-
-          -- Metadata
-          "since" -> [HsDoc.Paragraph [HsDoc.Metadata (HsDoc.Since unwordsInlineCommentWithArgs)]]
-
-          -- Common documentation commands that become regular text
-          "attention"       -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.Emph [HsDoc.TextContent "ATTENTION:"]] : inlineCommentWithArgs)]
-          "brief"           -> [HsDoc.Paragraph inlineCommentWithArgs]
-          "deprecated"      -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "deprecated:"] : inlineCommentWithArgs)]
-          "details"         -> [HsDoc.Paragraph inlineCommentWithArgs]
-          "exception"       -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "exception:"] : inlineCommentWithArgs)]
-          "important"       -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "important:"] : inlineCommentWithArgs)]
-          "invariant"       -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "invariant:"] : inlineCommentWithArgs)]
-          "note"            -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "Note:"] : inlineCommentWithArgs)]
-          "paragraph"       -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent unwordsArgs]]
-                             : formatParagraphContent blockCommandParagraph
-          "par"             -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent unwordsArgs]]
-                             : formatParagraphContent blockCommandParagraph
-          "post"            -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "post condition:"] : inlineComment)]
-          "pre"             -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "pre condition:"] : inlineComment)]
-          "raisewarning"    -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.Emph [HsDoc.TextContent "WARNING:"]] : inlineCommentWithArgs)]
-          "remark"          -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "remark:"] : inlineCommentWithArgs)]
-          "remarks"         -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "remark:"] : inlineCommentWithArgs)]
-          "result"          -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "returns:"] : inlineCommentWithArgs)]
-          "return"          -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "returns:"] : inlineCommentWithArgs)]
-          "returns"         -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "returns:"] : inlineCommentWithArgs)]
-          "retval"          -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "returns:"] : inlineCommentWithArgs)]
-          "short"           -> [HsDoc.Paragraph inlineCommentWithArgs]
-          "subparagraph"    -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent unwordsArgs]]
-                             : formatParagraphContent blockCommandParagraph
-          "subsubparagraph" -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent unwordsArgs]]
-                             : formatParagraphContent blockCommandParagraph
-          "throw"           -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "exception:"] : inlineCommentWithArgs)]
-          "throws"          -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent "exception:"] : inlineCommentWithArgs)]
-          "todo"            -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent "TODO:"]]
-                             : formatParagraphContent blockCommandParagraph
-          "warning"         -> [HsDoc.Paragraph (HsDoc.Bold [HsDoc.Emph [HsDoc.TextContent "WARNING:"]] : inlineCommentWithArgs)]
-
-          -- Everything else becomes an empty paragraph
-          _ -> []
-
-  -- Here we have access to param information which can be useful to create
-  -- high level bindings.
-  --
-  -- TODO <https://github.com/well-typed/hs-bindgen/issues/113>
-  -- We should take advantage of these annotations to create high-level
-  -- bindings.
-  CDoc.ParamCommand{..} ->
-    let direction = case paramCommandDirection of
-          Nothing                                     -> HsDoc.TextContent ""
-          Just CDoc.CXCommentParamPassDirection_In    -> HsDoc.Emph [HsDoc.TextContent "(input)"]
-          Just CDoc.CXCommentParamPassDirection_Out   -> HsDoc.Emph [HsDoc.TextContent "(output)"]
-          Just CDoc.CXCommentParamPassDirection_InOut -> HsDoc.Emph [HsDoc.TextContent "(input,output)"]
-        paramNameAndDirection =
-          HsDoc.Bold [ HsDoc.Monospace [HsDoc.TextContent (Text.strip paramCommandName)]
-                     , direction
-                     ]
-    in pure
-     $ HsDoc.DefinitionList paramNameAndDirection
-                            (concatMap convertBlockContent paramCommandContent)
-
-  CDoc.TParamCommand{..} ->
-    -- Template parameters, similar to regular parameters
-    let tparamName = HsDoc.Bold [HsDoc.Monospace [HsDoc.TextContent (Text.strip tParamCommandName)]]
-    in pure
-     $ HsDoc.DefinitionList tparamName
-                            (concatMap convertBlockContent tParamCommandContent)
-
-  CDoc.VerbatimBlockCommand{..} ->
-    pure $
-    HsDoc.CodeBlock (map Text.strip verbatimBlockLines)
-
-  CDoc.VerbatimLine{..} ->
-    pure $
-    HsDoc.Verbatim (Text.strip verbatimLine)
-
--- | Convert inline content
---
-convertInlineContent ::
-     CDoc.CommentInlineContent (C.CommentRef Final)
-  -> [HsDoc.CommentInlineContent]
-convertInlineContent = \case
-  CDoc.TextContent{..}
-    | Text.null textContent -> []
-    | otherwise             -> [HsDoc.TextContent (Text.strip textContent)]
-
-  CDoc.InlineCommand{..} ->
-    let args     = map (HsDoc.TextContent . Text.strip) inlineCommandArgs
-        argsText = Text.unwords (map Text.strip inlineCommandArgs)
-    in pure
-     $ case inlineCommandRenderKind of
-        CDoc.CXCommentInlineCommandRenderKind_Normal     -> HsDoc.TextContent argsText
-        CDoc.CXCommentInlineCommandRenderKind_Bold       -> HsDoc.Bold args
-        CDoc.CXCommentInlineCommandRenderKind_Monospaced -> HsDoc.Monospace args
-        CDoc.CXCommentInlineCommandRenderKind_Emphasized -> HsDoc.Emph args
-        CDoc.CXCommentInlineCommandRenderKind_Anchor     -> HsDoc.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
-
-  CDoc.InlineRefCommand (C.CommentRef c mHsIdent) -> [
-      case mHsIdent of
-        Just namePair -> HsDoc.Identifier namePair.unsafeHsName.text
-        Nothing       -> HsDoc.Monospace [HsDoc.TextContent c]
-    ]
-
-  -- HTML is not currently supported
-  --
-  -- TODO <https://github.com/well-typed/hs-bindgen/issues/948>
-  CDoc.HtmlStartTag{} -> []
-  CDoc.HtmlEndTag{}   -> []
-
--- | Extract text lines from inline content
---
-extractTextLines :: [HsDoc.CommentInlineContent] -> [Text]
-extractTextLines = filter (not . Text.null)
-                 . map extractText
+-- | Convert a @\<simplesect\>@ to Haddock content
+convertSimpleSect :: SimpleSectKind -> [Doxy.Block (C.CommentRef Final)] -> [HsDoc.CommentBlockContent]
+convertSimpleSect kind blocks =
+    let content = concatMap convertBlock blocks
+    in  case kind of
+          SSReturn     -> prefixed "Returns:" content
+          SSWarning    -> prefixed "WARNING:" content
+          SSNote       -> prefixed "Note:" content
+          SSSee        -> prefixed "See:" content
+          SSSince      -> [HsDoc.Paragraph [HsDoc.Metadata (HsDoc.Since (extractText blocks))]]
+          SSVersion    -> prefixed "Version:" content
+          SSPre        -> prefixed "Precondition:" content
+          SSPost       -> prefixed "Postcondition:" content
+          SSPar title  -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent title]] : content
+          SSDeprecated -> prefixed "Deprecated:" content
+          SSRemark     -> prefixed "Remark:" content
+          SSAttention  -> prefixed "ATTENTION:" content
+          SSTodo       -> prefixed "TODO:" content
+          SSInvariant  -> prefixed "Invariant:" content
+          SSAuthor     -> prefixed "Author:" content
+          SSDate       -> prefixed "Date:" content
   where
-    extractText (HsDoc.TextContent t) = Text.strip t
-    extractText _                     = ""
+    extractText :: [Doxy.Block (C.CommentRef Final)] -> Text
+    extractText = Text.strip . Text.unwords . concatMap go
+      where
+        go (Doxy.Paragraph inlines) = map inlineText inlines
+        go _                       = []
 
--- | There might be list items that we want to pretty print. To find them we
--- will group all list paragraphs, if any, and collect all their contents
--- until the next list item marker.
---
--- When formatting the list items, we just have to address that numbered lists
--- can be created by using a '-#'.
---
--- Known Limitations:
---
--- If a list item contains a list marker inside it, e.g.:
---
--- 1. Item A with a - list marker
--- 2. Item B without a list marker
---
--- Then, this function is going to create 3 list items:
---
--- 1. Item A with a
--- - list marker
--- 2. Item B without a list marker
---
--- This limitation is due to the how clang parses the comments so we can only
--- do a best effort in trying to detect these lists.
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/949>
--- Another known limitation is nested lists, which in principle we can detect
--- since we have information about whitespaces and indentation.
---
-formatParagraphContent ::
-     [CDoc.CommentInlineContent (C.CommentRef Final)]
-  -> [HsDoc.CommentBlockContent]
-formatParagraphContent = processGroups 1 []
-                       . groupListParagraphs
-                       -- Filter unnecessary spaces that will lead to excess
-                       -- of new lines
-                       . filter (\case
-                                    CDoc.TextContent "" -> False
-                                    _                   -> True
-                                )
-  where
-    -- | Group inline content by list items
-    --
-    -- If the paragraphs contains list items, each list item and its content
-    -- will be in a separate group. Otherwise, returns a singleton list.
-    --
-    groupListParagraphs ::
-         [CDoc.CommentInlineContent (C.CommentRef Final)]
-      -> [[CDoc.CommentInlineContent (C.CommentRef Final)]]
-    groupListParagraphs [] = []
-    -- Check if first item is a list marker
-    groupListParagraphs (h : rest)
-      | isListMarker h =
-        let (itemContent, remaining) = break isListMarker rest
-         in (h : itemContent) : groupListParagraphs remaining
-    -- Not a list item, check if there are any list items later
-    groupListParagraphs contents =
-      let (nonItemContent, remaining) = break isListMarker contents
-       in case remaining of
-            [] -> [nonItemContent]
-            _  -> nonItemContent : groupListParagraphs remaining
+        inlineText (Doxy.Text t) = t
+        inlineText _            = ""
 
-    processGroups ::
-         Natural
-      -> [HsDoc.CommentBlockContent]
-      -> [[CDoc.CommentInlineContent (C.CommentRef Final)]]
-      -> [HsDoc.CommentBlockContent]
-    processGroups _ acc [] = reverse acc
-    processGroups n acc (group:rest) =
-      case group of
-        [] -> processGroups n acc rest
-        (CDoc.TextContent t : restContent)
-          | Just (listType, afterMarker, nextInt) <- detectListMarker n t ->
-              let nextN =
-                    case nextInt of
-                      Nothing -> n
-                      Just n' -> n'
-                  listItem =
-                    HsDoc.ListItem listType
-                                [ HsDoc.Paragraph
-                                    ( HsDoc.TextContent (Text.strip afterMarker)
-                                    : concatMap convertInlineContent restContent
-                                    )
-                                ]
-               in processGroups nextN (listItem : acc) rest
-          | otherwise -> processGroups n (HsDoc.Paragraph (concatMap convertInlineContent group) : acc) rest
-        _ -> processGroups n (HsDoc.Paragraph (concatMap convertInlineContent group) : acc) rest
+-- | Check if an inline content element is simple enough to promote to a title
+isSimpleInline :: HsDoc.CommentInlineContent -> Bool
+isSimpleInline = \case
+  HsDoc.TextContent{} -> True
+  HsDoc.Monospace{}   -> True
+  HsDoc.Emph{}        -> True
+  HsDoc.Bold{}        -> True
+  _                   -> False
 
-    -- | Check if text starts with a list marker
-    isListMarker :: CDoc.CommentInlineContent (C.CommentRef Final) -> Bool
-    isListMarker (CDoc.TextContent t) = isJust $ detectListMarker 0 t
-    isListMarker _                 = False
+-- | Inline a bold label into the first paragraph of some content
+prefixed :: Text -> [HsDoc.CommentBlockContent] -> [HsDoc.CommentBlockContent]
+prefixed label cs = case cs of
+  (HsDoc.Paragraph inlines : rest) ->
+    HsDoc.Paragraph (HsDoc.Bold [HsDoc.TextContent label] : inlines) : rest
+  _ -> HsDoc.Paragraph [HsDoc.Bold [HsDoc.TextContent label]] : cs
 
-    -- | Parse a list marker.
-    --
-    -- Returns its list type, the item text content and the next number on the
-    -- numbered list order if the found marker is -#.
-    --
-    detectListMarker :: Natural -> Text
-                     -> Maybe (HsDoc.ListType, Text, Maybe Natural)
-    detectListMarker i text =
-      case Text.unpack text of
-        ('-':'#':' ':rest) ->
-          Just (HsDoc.NumberedList i, Text.pack rest, Just (i + 1))
-        ('-':' ':rest) -> Just (HsDoc.BulletList, Text.pack rest, Nothing)
-        ('*':' ':rest) -> Just (HsDoc.BulletList, Text.pack rest, Nothing)
-        ('+':' ':rest) -> Just (HsDoc.BulletList, Text.pack rest, Nothing)
-        _ -> case span Data.Char.isDigit (Text.unpack text) of
-          (digits@(_:_), '.':' ':rest) -> do
-            digits' <- readMaybe digits
-            return (HsDoc.NumberedList digits', Text.pack rest, Nothing)
-          _ -> Nothing
+-- | Convert a documented parameter to a Haddock definition list entry
+convertParam :: ParamListKind -> Doxy.Param (C.CommentRef Final) -> HsDoc.CommentBlockContent
+convertParam _kind p =
+    let paramNameContent = HsDoc.Monospace [HsDoc.TextContent (Text.strip p.paramName)]
+        paramNameAndDir  = HsDoc.Bold (paramNameContent : dirInline p.paramDirection)
+    in  HsDoc.DefinitionList paramNameAndDir (concatMap convertBlock p.paramDesc)
+
+-- | Convert a @\@retval@ entry to a definition list item:
+--   @[__@value@__]: description@
+convertRetval :: Doxy.Param (C.CommentRef Final) -> [HsDoc.CommentBlockContent]
+convertRetval p =
+    let code = HsDoc.Monospace [HsDoc.TextContent (Text.strip p.paramName)]
+        desc = concatMap convertBlock p.paramDesc
+    in  [HsDoc.DefinitionList (HsDoc.Bold [code]) desc]
+
+-- | Direction annotation for a parameter (empty list when unspecified)
+dirInline :: Maybe ParamDirection -> [HsDoc.CommentInlineContent]
+dirInline (Just DirIn)    = [HsDoc.Emph [HsDoc.TextContent "(input)"]]
+dirInline (Just DirOut)   = [HsDoc.Emph [HsDoc.TextContent "(output)"]]
+dirInline (Just DirInOut) = [HsDoc.Emph [HsDoc.TextContent "(input,output)"]]
+dirInline Nothing         = []
+
+{-------------------------------------------------------------------------------
+  Inline content conversion
+
+  Doxy.Inline maps directly to HsDoc.CommentInlineContent.
+  Cross-references (Doxy.Ref) are resolved via the CommentRef that was
+  threaded through the pipeline and resolved by MangleNames.
+-------------------------------------------------------------------------------}
+
+-- | Convert a 'Doxy.Inline' to Haddock inline content
+--
+-- Text content is stripped because the Haddock pretty-printer uses 'hsep'
+-- to join inline elements (adding its own inter-element spacing).
+-- The Doxygen parser preserves XML whitespace in text nodes, so we strip
+-- it here at the translation boundary.
+--
+convertInline :: Doxy.Inline (C.CommentRef Final) -> [HsDoc.CommentInlineContent]
+convertInline = \case
+  Doxy.Text t
+    | Text.null stripped -> []
+    | otherwise          -> [HsDoc.TextContent stripped]
+    where stripped = Text.strip t
+
+  Doxy.Bold inlines  -> [HsDoc.Bold $ concatMap convertInline inlines]
+  Doxy.Emph inlines  -> [HsDoc.Emph $ concatMap convertInline inlines]
+  Doxy.Mono inlines  -> [HsDoc.Monospace $ concatMap convertInline inlines]
+
+  Doxy.Ref (C.CommentRef c mHsIdent) _displayText ->
+    case mHsIdent of
+      Just namePair -> [HsDoc.Identifier namePair.unsafeHsName.text]
+      Nothing       -> [HsDoc.Monospace [HsDoc.TextContent c]]
+
+  Doxy.Anchor idText -> [HsDoc.Anchor idText]
+
+  Doxy.Link label url -> [HsDoc.Link (concatMap convertInline label) url]
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
 
 -- | Depending on the configured 'PathStyle', update 'SingleLoc'
 -- to either have a short or full path name.

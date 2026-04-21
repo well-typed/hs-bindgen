@@ -381,11 +381,11 @@ instance HasCField.HasCField Arr_typedef4 "unwrapArr_typedef4" where
 
 {-| Typedefs
 
-__C declaration:__ @typedef1@
+    __C declaration:__ @typedef1@
 
-__defined at:__ @macros\/reparse.h 118:14@
+    __defined at:__ @macros\/reparse.h 118:14@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Typedef1 = Typedef1
   { unwrapTypedef1 :: A
@@ -484,11 +484,11 @@ instance HasCField.HasCField Typedef3 "unwrapTypedef3" where
 
 {-| Auxiliary type used by 'Funptr_typedef1'
 
-__C declaration:__ @funptr_typedef1@
+    __C declaration:__ @funptr_typedef1@
 
-__defined at:__ @macros\/reparse.h 132:16@
+    __defined at:__ @macros\/reparse.h 132:16@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
   { unwrapFunptr_typedef1_Aux :: IO A
@@ -574,11 +574,11 @@ instance HasCField.HasCField Funptr_typedef1 "unwrapFunptr_typedef1" where
 
 {-| Auxiliary type used by 'Funptr_typedef2'
 
-__C declaration:__ @funptr_typedef2@
+    __C declaration:__ @funptr_typedef2@
 
-__defined at:__ @macros\/reparse.h 133:16@
+    __defined at:__ @macros\/reparse.h 133:16@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
   { unwrapFunptr_typedef2_Aux :: IO (RIP.Ptr A)
@@ -664,11 +664,11 @@ instance HasCField.HasCField Funptr_typedef2 "unwrapFunptr_typedef2" where
 
 {-| Auxiliary type used by 'Funptr_typedef3'
 
-__C declaration:__ @funptr_typedef3@
+    __C declaration:__ @funptr_typedef3@
 
-__defined at:__ @macros\/reparse.h 134:16@
+    __defined at:__ @macros\/reparse.h 134:16@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
   { unwrapFunptr_typedef3_Aux :: IO (RIP.Ptr (RIP.Ptr A))
@@ -754,11 +754,11 @@ instance HasCField.HasCField Funptr_typedef3 "unwrapFunptr_typedef3" where
 
 {-| Auxiliary type used by 'Funptr_typedef4'
 
-__C declaration:__ @funptr_typedef4@
+    __C declaration:__ @funptr_typedef4@
 
-__defined at:__ @macros\/reparse.h 135:16@
+    __defined at:__ @macros\/reparse.h 135:16@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
   { unwrapFunptr_typedef4_Aux :: RIP.CInt -> RIP.CDouble -> IO A
@@ -844,11 +844,11 @@ instance HasCField.HasCField Funptr_typedef4 "unwrapFunptr_typedef4" where
 
 {-| Auxiliary type used by 'Funptr_typedef5'
 
-__C declaration:__ @funptr_typedef5@
+    __C declaration:__ @funptr_typedef5@
 
-__defined at:__ @macros\/reparse.h 136:16@
+    __defined at:__ @macros\/reparse.h 136:16@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
   { unwrapFunptr_typedef5_Aux :: RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A)
@@ -974,11 +974,11 @@ instance HasCField.HasCField Comments2 "unwrapComments2" where
 
 {-| Struct fields
 
-__C declaration:__ @struct example_struct@
+    __C declaration:__ @struct example_struct@
 
-__defined at:__ @macros\/reparse.h 151:8@
+    __defined at:__ @macros\/reparse.h 151:8@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 data Example_struct = Example_struct
   { example_struct_field1 :: A
@@ -1507,11 +1507,11 @@ instance ( ((~) ty) (PtrConst.PtrConst A)
 
 {-| Auxiliary type used by 'Const_funptr1'
 
-__C declaration:__ @const_funptr1@
+    __C declaration:__ @const_funptr1@
 
-__defined at:__ @macros\/reparse.h 236:27@
+    __defined at:__ @macros\/reparse.h 236:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr1_Aux = Const_funptr1_Aux
   { unwrapConst_funptr1_Aux :: RIP.CInt -> RIP.CDouble -> IO A
@@ -1597,11 +1597,11 @@ instance HasCField.HasCField Const_funptr1 "unwrapConst_funptr1" where
 
 {-| Auxiliary type used by 'Const_funptr2'
 
-__C declaration:__ @const_funptr2@
+    __C declaration:__ @const_funptr2@
 
-__defined at:__ @macros\/reparse.h 237:27@
+    __defined at:__ @macros\/reparse.h 237:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr2_Aux = Const_funptr2_Aux
   { unwrapConst_funptr2_Aux :: RIP.CInt -> RIP.CDouble -> IO A
@@ -1687,11 +1687,11 @@ instance HasCField.HasCField Const_funptr2 "unwrapConst_funptr2" where
 
 {-| Auxiliary type used by 'Const_funptr3'
 
-__C declaration:__ @const_funptr3@
+    __C declaration:__ @const_funptr3@
 
-__defined at:__ @macros\/reparse.h 238:27@
+    __defined at:__ @macros\/reparse.h 238:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr3_Aux = Const_funptr3_Aux
   { unwrapConst_funptr3_Aux :: RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
@@ -1777,11 +1777,11 @@ instance HasCField.HasCField Const_funptr3 "unwrapConst_funptr3" where
 
 {-| Auxiliary type used by 'Const_funptr4'
 
-__C declaration:__ @const_funptr4@
+    __C declaration:__ @const_funptr4@
 
-__defined at:__ @macros\/reparse.h 239:27@
+    __defined at:__ @macros\/reparse.h 239:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr4_Aux = Const_funptr4_Aux
   { unwrapConst_funptr4_Aux :: RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
@@ -1867,11 +1867,11 @@ instance HasCField.HasCField Const_funptr4 "unwrapConst_funptr4" where
 
 {-| Auxiliary type used by 'Const_funptr5'
 
-__C declaration:__ @const_funptr5@
+    __C declaration:__ @const_funptr5@
 
-__defined at:__ @macros\/reparse.h 240:27@
+    __defined at:__ @macros\/reparse.h 240:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr5_Aux = Const_funptr5_Aux
   { unwrapConst_funptr5_Aux :: RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A)
@@ -1957,11 +1957,11 @@ instance HasCField.HasCField Const_funptr5 "unwrapConst_funptr5" where
 
 {-| Auxiliary type used by 'Const_funptr6'
 
-__C declaration:__ @const_funptr6@
+    __C declaration:__ @const_funptr6@
 
-__defined at:__ @macros\/reparse.h 241:27@
+    __defined at:__ @macros\/reparse.h 241:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr6_Aux = Const_funptr6_Aux
   { unwrapConst_funptr6_Aux :: RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
@@ -2047,11 +2047,11 @@ instance HasCField.HasCField Const_funptr6 "unwrapConst_funptr6" where
 
 {-| Auxiliary type used by 'Const_funptr7'
 
-__C declaration:__ @const_funptr7@
+    __C declaration:__ @const_funptr7@
 
-__defined at:__ @macros\/reparse.h 242:27@
+    __defined at:__ @macros\/reparse.h 242:27@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr7_Aux = Const_funptr7_Aux
   { unwrapConst_funptr7_Aux :: RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
@@ -2135,7 +2135,9 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @macro BOOL@
+{-| Macro-defined types
+
+    __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse.h 278:9@
 

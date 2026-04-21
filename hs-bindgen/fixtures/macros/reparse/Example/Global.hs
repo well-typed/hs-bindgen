@@ -68,11 +68,11 @@ hs_bindgen_feda7c77651645fe =
 {-# NOINLINE global1 #-}
 {-| Globals and constants
 
-__C declaration:__ @global1@
+    __C declaration:__ @global1@
 
-__defined at:__ @macros\/reparse.h 161:13@
+    __defined at:__ @macros\/reparse.h 161:13@
 
-__exported by:__ @macros\/reparse.h@
+    __exported by:__ @macros\/reparse.h@
 -}
 global1 :: RIP.Ptr RIP.CInt
 global1 =

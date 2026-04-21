@@ -19,6 +19,13 @@ module Example.FunPtr
     , Example.FunPtr.complex_function
     , Example.FunPtr.hash
     , Example.FunPtr.square
+    , Example.FunPtr.auto_brief_func
+    , Example.FunPtr.multi_paragraph_details
+    , Example.FunPtr.todo_remark_attention
+    , Example.FunPtr.html_entities_func
+    , Example.FunPtr.nested_inline_format
+    , Example.FunPtr.tagged_code_example
+    , Example.FunPtr.backslash_syntax
     )
   where
 
@@ -161,6 +168,64 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &square;"
   , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_auto_brief_func */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_11a28326d5a28a43 (void)) ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return &auto_brief_func;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_multi_paragraph_details */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_05c7a7832fb84e2e (void)) ("
+  , "  char *arg1,"
+  , "  size_t arg2"
+  , ")"
+  , "{"
+  , "  return &multi_paragraph_details;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_todo_remark_attention */"
+  , "__attribute__ ((const))"
+  , "signed int *(*hs_bindgen_092b9697f2154ac5 (void)) ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return &todo_remark_attention;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_html_entities_func */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_2e8b5e895e58fc3d (void)) ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return &html_entities_func;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_nested_inline_format */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_db292926f05c7b36 (void)) ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return &nested_inline_format;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_tagged_code_example */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_492a4fd860afb02a (void)) ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return &tagged_code_example;"
+  , "}"
+  , "/* test_documentationdoxygen_docs_Example_get_backslash_syntax */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_9ef09ad63fac68e2 (void)) ("
+  , "  char const *arg1,"
+  , "  char *arg2"
+  , ")"
+  , "{"
+  , "  return &backslash_syntax;"
+  , "}"
   ]))
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
@@ -173,25 +238,23 @@ hs_bindgen_4a5cd66a4f26f8d5 =
   RIP.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 
 {-# NOINLINE process_data #-}
-{-|
+{-| Function with detailed parameter documentation.
 
-  Function with detailed parameter documentation
+    This function shows different parameter directions and types.
 
-  This function shows different parameter directions and types.
+    [__@input_data@ /(input)/__]: Input data buffer
 
-  [__@input_data@ /(input)/__]: Input data buffer
+    [__@output_data@ /(output)/__]: Output data buffer
 
-  [__@output_data@ /(output)/__]: Output data buffer
+    [__@size@ /(input,output)/__]: Size of data, updated on return
 
-  [__@size@ /(input,output)/__]: Size of data, updated on return
+    __Returns:__ Status code (0 = success, -1 = error)
 
-  __returns:__ Status code (0 = success, -1 = error)
+    __C declaration:__ @process_data@
 
-__C declaration:__ @process_data@
+    __defined at:__ @documentation\/doxygen_docs.h 111:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data :: RIP.FunPtr ((PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.Word8) -> (RIP.Ptr HsBindgen.Runtime.LibC.CSize) -> IO RIP.CInt)
 process_data =
@@ -207,21 +270,19 @@ hs_bindgen_c8a059c65f18fea9 =
   RIP.fromFFIType hs_bindgen_c8a059c65f18fea9_base
 
 {-# NOINLINE process_file #-}
-{-|
+{-| Function with inline commands and formatting.
 
-  Function with inline commands and formatting
+    This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+    [__@filename@__]: The @char*@ filename to process
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+    __Returns:__ @true@ if successful, @false@ otherwise
 
-  __returns:__ @true@ if successful, @false@ otherwise
+    __C declaration:__ @process_file@
 
-__C declaration:__ @process_file@
+    __defined at:__ @documentation\/doxygen_docs.h 122:6@
 
-__defined at:__ @documentation\/doxygen_docs.h 116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CBool)
 process_file =
@@ -237,28 +298,26 @@ hs_bindgen_5ab7e06724867ab3 =
   RIP.fromFFIType hs_bindgen_5ab7e06724867ab3_base
 
 {-# NOINLINE calculate_value #-}
-{-|
+{-| Function with verbatim code blocks.
 
-  Function with verbatim code blocks
+    Example usage:
 
-  Example usage:
+    @
+    int result = calculate_value(10, 20);
+    printf("Result: %d\n", result);
+    @
 
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
+    [__@base@__]: Base value
 
-  [__@base@ /(input)/__]: Base value
+    [__@multiplier@__]: Multiplier value
 
-  [__@multiplier@ /(input)/__]: Multiplier value
+    __Returns:__ Calculated result
 
-  __returns:__ Calculated result
+    __C declaration:__ @calculate_value@
 
-__C declaration:__ @calculate_value@
+    __defined at:__ @documentation\/doxygen_docs.h 137:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value :: RIP.FunPtr (RIP.CInt -> RIP.CInt -> IO RIP.CInt)
 calculate_value =
@@ -274,23 +333,31 @@ hs_bindgen_3f74fb834b0cd46b =
   RIP.fromFFIType hs_bindgen_3f74fb834b0cd46b_base
 
 {-# NOINLINE html_example #-}
-{-|
+{-| Function with HTML formatting.
 
-  Function with HTML formatting
+    This function demonstrates __HTML bold__ and /italic/ text. It also shows @HTML code@ formatting.
 
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+    Input
 
-  Input Output 0 false 1 true
+    Output
 
-  [__@value@ /(input)/__]: Input value
+    0
 
-  __returns:__ Boolean result
+    false
 
-__C declaration:__ @html_example@
+    1
 
-__defined at:__ @documentation\/doxygen_docs.h 148:6@
+    true
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    [__@value@__]: Input value
+
+    __Returns:__ Boolean result
+
+    __C declaration:__ @html_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 154:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example :: RIP.FunPtr (RIP.CInt -> IO RIP.CBool)
 html_example =
@@ -306,51 +373,45 @@ hs_bindgen_2175b3c627db39cf =
   RIP.fromFFIType hs_bindgen_2175b3c627db39cf_base
 
 {-# NOINLINE list_example #-}
-{-|
+{-| Function with lists and special formatting.
 
-  Function with lists and special formatting
+    This function demonstrates:
 
-  This function demonstrates:
+    * Bullet point lists
+      * Nested list item 1
+      * Nested list item 2
 
-  * Bullet point lists
+    * Multiple items
 
-  * Nested list item 1
+    * Nested formatting
 
-  * Nested list item 2
+    Numbered list:
 
-  * Multiple items
+    1. First @item@ 1. item
 
-  * Nested formatting
+    2. Second __item__
 
-  Numbered list:
+    3. Third item
 
-  1. First @item@
+    Other numbered list:
 
-  1. item
+    1. A
 
-  2. Second __item__
+    2. B
 
-  3. Third item
+    3. C
 
-  Other numbered list:
+    [__@items@__]: Array of items
 
-  1. A
+    [__@count@__]: Number of items
 
-  2. B
+    __Returns:__ Success status
 
-  3. C
+    __C declaration:__ @list_example@
 
-  [__@items@ /(input)/__]: Array of items
+    __defined at:__ @documentation\/doxygen_docs.h 180:6@
 
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h 174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example :: RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool)
 list_example =
@@ -366,25 +427,23 @@ hs_bindgen_b7a4debd18827a19 =
   RIP.fromFFIType hs_bindgen_b7a4debd18827a19_base
 
 {-# NOINLINE dangerous_function #-}
-{-|
+{-| Function with warnings and notes.
 
-  Function with warnings and notes
+    __WARNING:__ This function may cause side effects
 
-  __/WARNING:/__ This function may cause side effects
+    __Note:__ Use with caution in multithreaded environments
 
-  __Note:__ Use with caution in multithreaded environments
+    __See:__ related_function() for similar functionality
 
-  __see:__ related_function() for similar functionality
+    [__@ptr@__]: Pointer to data
 
-  [__@ptr@ /(input)/__]: Pointer to data
+    __Returns:__ Modified pointer
 
-  __returns:__ Modified pointer
+    __C declaration:__ @dangerous_function@
 
-__C declaration:__ @dangerous_function@
+    __defined at:__ @documentation\/doxygen_docs.h 192:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO (RIP.Ptr RIP.Void))
 dangerous_function =
@@ -400,25 +459,23 @@ hs_bindgen_9700b22f82eedafe =
   RIP.fromFFIType hs_bindgen_9700b22f82eedafe_base
 
 {-# NOINLINE detailed_return_codes #-}
-{-|
+{-| Function with return value details.
 
-  Function with return value details
+    [__@input@__]: Input string
 
-  [__@input@ /(input)/__]: Input string
+    [__@0@__]: Success
 
-  __returns:__ 0 Success
+    [__@-1@__]: Invalid input
 
-  __returns:__ -1 Invalid input
+    [__@-2@__]: Memory allocation failed
 
-  __returns:__ -2 Memory allocation failed
+    [__@-3@__]: Processing error
 
-  __returns:__ -3 Processing error
+    __C declaration:__ @detailed_return_codes@
 
-__C declaration:__ @detailed_return_codes@
+    __defined at:__ @documentation\/doxygen_docs.h 203:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> IO RIP.CInt)
 detailed_return_codes =
@@ -434,21 +491,19 @@ hs_bindgen_49e0d34a627c6c19 =
   RIP.fromFFIType hs_bindgen_49e0d34a627c6c19_base
 
 {-# NOINLINE old_function #-}
-{-|
+{-| Function with deprecated annotation.
 
-  Function with deprecated annotation
+    __Deprecated:__ Use new_function() instead
 
-  __deprecated:__ Use new_function() instead
+    [__@old_param@__]: Legacy parameter
 
-  [__@old_param@ /(input)/__]: Legacy parameter
+    __Returns:__ Legacy result
 
-  __returns:__ Legacy result
+    __C declaration:__ @old_function@
 
-__C declaration:__ @old_function@
+    __defined at:__ @documentation\/doxygen_docs.h 212:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 old_function =
@@ -464,21 +519,21 @@ hs_bindgen_180cd7537e40ce99 =
   RIP.fromFFIType hs_bindgen_180cd7537e40ce99_base
 
 {-# NOINLINE versioned_function #-}
-{-|
+{-| Function with version information.
 
-  Function with version information
+    @since 1.0
 
-  @since:  1.0
+    __Version:__ 1.2
 
-  [__@data@ /(input)/__]: Input data
+    [__@data@__]: Input data
 
-  __returns:__ Processed data
+    __Returns:__ Processed data
 
-__C declaration:__ @versioned_function@
+    __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h 216:5@
+    __defined at:__ @documentation\/doxygen_docs.h 222:5@
 
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 versioned_function =
@@ -494,21 +549,19 @@ hs_bindgen_f4ccc6d90e8d3ebd =
   RIP.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
 {-# NOINLINE process_buffer #-}
-{-|
+{-| Static array parameter.
 
-  Static array parameter
+    [__@buffer@__]: Buffer with minimum size
 
-  [__@buffer@ /(input)/__]: Buffer with minimum size
+    [__@size@__]: Actual buffer size
 
-  [__@size@ /(input)/__]: Actual buffer size
+    __Returns:__ Number of bytes written
 
-  __returns:__ Number of bytes written
+    __C declaration:__ @process_buffer@
 
-__C declaration:__ @process_buffer@
+    __defined at:__ @documentation\/doxygen_docs.h 338:5@
 
-__defined at:__ @documentation\/doxygen_docs.h 332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
 process_buffer =
@@ -524,23 +577,21 @@ hs_bindgen_6a74d376c901b531 =
   RIP.fromFFIType hs_bindgen_6a74d376c901b531_base
 
 {-# NOINLINE my_memcpy #-}
-{-|
+{-| Function with restrict pointers.
 
-  Function with restrict pointers
+    [__@dest@__]: Destination buffer (restrict)
 
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
+    [__@src@__]: Source buffer (restrict)
 
-  [__@src@ /(input)/__]: Source buffer (restrict)
+    [__@n@__]: Number of bytes
 
-  [__@n@ /(input)/__]: Number of bytes
+    __Returns:__ Destination pointer
 
-  __returns:__ Destination pointer
+    __C declaration:__ @my_memcpy@
 
-__C declaration:__ @my_memcpy@
+    __defined at:__ @documentation\/doxygen_docs.h 348:7@
 
-__defined at:__ @documentation\/doxygen_docs.h 342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO (RIP.Ptr RIP.Void))
 my_memcpy =
@@ -556,19 +607,17 @@ hs_bindgen_156a92f3c5176105 =
   RIP.fromFFIType hs_bindgen_156a92f3c5176105_base
 
 {-# NOINLINE double_value #-}
-{-|
+{-| Inline function.
 
-  Inline function
+    [__@x@__]: Input value
 
-  [__@x@ /(input)/__]: Input value
+    __Returns:__ Doubled value
 
-  __returns:__ Doubled value
+    __C declaration:__ @double_value@
 
-__C declaration:__ @double_value@
+    __defined at:__ @documentation\/doxygen_docs.h 356:19@
 
-__defined at:__ @documentation\/doxygen_docs.h 350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 double_value =
@@ -584,76 +633,74 @@ hs_bindgen_dfa39b6be50cb2ca =
   RIP.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 
 {-# NOINLINE complex_function #-}
-{-|
+{-| Function with complex documentation.
 
-  Function with complex documentation
+    This function demonstrates multiple documentation features:
 
-  This function demonstrates multiple documentation features:
+    __Description:__
 
-  __Description:__
+    Performs complex data processing with multiple steps.
 
-  Performs complex data processing with multiple steps.
+    __Algorithm:__
 
-  __Algorithm:__
+    1. Validate input parameters
 
-  10. Validate input parameters
+    2. Allocate temporary buffers
 
-  200. Allocate temporary buffers
+    3. Process data in chunks
 
-  3000. Process data in chunks
+    4. Clean up resources
 
-  41235. Clean up resources
+    __Algorithm2:__
 
-  __Algorithm2:__
+    * Validate input parameters
 
-  * Validate input parameters
+    * Allocate temporary buffers
 
-  * Allocate temporary buffers
+    * Process data in chunks
 
-  * Process data in chunks
+    * Clean up resources
 
-  * Clean up resources
+    __Example:__
 
-  __Example:__
+    @
+    config_t cfg = {
+        .id = 1,
+        .name = "test",
+        .flags = 0,
+        .callback = my_callback,
+        .user_data = NULL
+    };
 
-  @
-  config_t cfg = {
-  .id = 1,
-  .name = "test",
-  .flags = 0,
-  .callback = my_callback,
-  .user_data = NULL
-  };
+    status_code_t result = complex_function(&cfg, data, size);
+    if (result != STATUS_OK) {
+        handle_error(result);
+    }
+    @
 
-  status_code_t result = complex_function(&cfg, data, size);
-  if (result != STATUS_OK) {
-  handle_error(result);
-  }
-  @
+    [__@config@__]: Configuration structure (see 'Config_t' )
 
-  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+    [__@data@__]: Input data buffer
 
-  [__@data@ /(input)/__]: Input data buffer
+    [__@size@__]: Size of input data
 
-  [__@size@ /(input)/__]: Size of input data
+    __Returns:__ Status code indicating success or failure
 
-  __returns:__ Status code indicating success or failure
+    __Precondition:__ config must not be NULL
 
-  __pre condition:__ config must not be NULL
+    __Precondition:__ data must not be NULL if size > 0
 
-  __pre condition:__ data must not be NULL if size > 0
+    __Postcondition:__ Output data is written to config->user_data
 
-  __post condition:__ Output data is written to config->user_data
+    __WARNING:__ May return NULL if memory allocation fails
 
-  __/WARNING:/__ May return NULL if memory allocation fails
+    __WARNING:__ Sets errno to EINVAL if parameters are invalid
 
-  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+    __C declaration:__ @complex_function@
 
-__C declaration:__ @complex_function@
+    __defined at:__ @documentation\/doxygen_docs.h 428:15@
 
-__defined at:__ @documentation\/doxygen_docs.h 423:15@
-
-__exported by:__ @documentation\/doxygen_docs.h@
+    __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function :: RIP.FunPtr ((RIP.Ptr Config_t) -> (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
 complex_function =
@@ -671,7 +718,7 @@ hs_bindgen_8ad88b79fd71f9d4 =
 {-# NOINLINE hash #-}
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h 427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 432:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -691,10 +738,223 @@ hs_bindgen_7ede0f7ec1b30650 =
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h 429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 434:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 square =
   RIP.unsafePerformIO hs_bindgen_7ede0f7ec1b30650
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
+foreign import ccall unsafe "hs_bindgen_11a28326d5a28a43" hs_bindgen_11a28326d5a28a43_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
+hs_bindgen_11a28326d5a28a43 :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_11a28326d5a28a43 =
+  RIP.fromFFIType hs_bindgen_11a28326d5a28a43_base
+
+{-# NOINLINE auto_brief_func #-}
+{-| Auto-brief function without explicit @brief tag.
+
+    This tests that the first sentence is used as the brief description when no explicit @brief is present.
+
+    [__@x@__]: The input value
+
+    __Returns:__ The negated value
+
+    __C declaration:__ @auto_brief_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+auto_brief_func :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+auto_brief_func =
+  RIP.unsafePerformIO hs_bindgen_11a28326d5a28a43
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
+foreign import ccall unsafe "hs_bindgen_05c7a7832fb84e2e" hs_bindgen_05c7a7832fb84e2e_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
+hs_bindgen_05c7a7832fb84e2e :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO ()))
+hs_bindgen_05c7a7832fb84e2e =
+  RIP.fromFFIType hs_bindgen_05c7a7832fb84e2e_base
+
+{-# NOINLINE multi_paragraph_details #-}
+{-| Multi-paragraph details.
+
+    First paragraph of the detailed description. This explains the basic purpose of the function.
+
+    Second paragraph with more context. This includes information about the algorithm and its complexity, which is O(n) in the input size.
+
+    Third paragraph with usage notes. Callers should ensure that the buffer is large enough before calling this function.
+
+    [__@buf@__]: Output buffer
+
+    [__@len@__]: Buffer length
+
+    __C declaration:__ @multi_paragraph_details@
+
+    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+multi_paragraph_details :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO ())
+multi_paragraph_details =
+  RIP.unsafePerformIO hs_bindgen_05c7a7832fb84e2e
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
+foreign import ccall unsafe "hs_bindgen_092b9697f2154ac5" hs_bindgen_092b9697f2154ac5_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
+hs_bindgen_092b9697f2154ac5 :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt)))
+hs_bindgen_092b9697f2154ac5 =
+  RIP.fromFFIType hs_bindgen_092b9697f2154ac5_base
+
+{-# NOINLINE todo_remark_attention #-}
+{-| Function with @todo and @remark.
+
+    __Todo:__ Optimize this function for large inputs
+
+    Add support for negative values
+
+    __Remark:__ This function is thread-safe
+
+    __ATTENTION:__ The caller must free the returned pointer
+
+    [__@n@__]: Input count
+
+    __Returns:__ Allocated array
+
+    __C declaration:__ @todo_remark_attention@
+
+    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+todo_remark_attention :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr RIP.CInt))
+todo_remark_attention =
+  RIP.unsafePerformIO hs_bindgen_092b9697f2154ac5
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
+foreign import ccall unsafe "hs_bindgen_2e8b5e895e58fc3d" hs_bindgen_2e8b5e895e58fc3d_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
+hs_bindgen_2e8b5e895e58fc3d :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_2e8b5e895e58fc3d =
+  RIP.fromFFIType hs_bindgen_2e8b5e895e58fc3d_base
+
+{-# NOINLINE html_entities_func #-}
+{-| HTML entities: & means AND, <tag> is a tag.
+
+    Handles values < 0 and values > 100 differently. Copyright 2025.
+
+    [__@x@__]: Input (> 0 required)
+
+    __Returns:__ Result code
+
+    __C declaration:__ @html_entities_func@
+
+    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_entities_func :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+html_entities_func =
+  RIP.unsafePerformIO hs_bindgen_2e8b5e895e58fc3d
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
+foreign import ccall unsafe "hs_bindgen_db292926f05c7b36" hs_bindgen_db292926f05c7b36_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
+hs_bindgen_db292926f05c7b36 :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_db292926f05c7b36 =
+  RIP.fromFFIType hs_bindgen_db292926f05c7b36_base
+
+{-# NOINLINE nested_inline_format #-}
+{-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
+
+    [__@x@__]: Input value
+
+    __C declaration:__ @nested_inline_format@
+
+    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+nested_inline_format :: RIP.FunPtr (RIP.CInt -> IO ())
+nested_inline_format =
+  RIP.unsafePerformIO hs_bindgen_db292926f05c7b36
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
+foreign import ccall unsafe "hs_bindgen_492a4fd860afb02a" hs_bindgen_492a4fd860afb02a_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
+hs_bindgen_492a4fd860afb02a :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_492a4fd860afb02a =
+  RIP.fromFFIType hs_bindgen_492a4fd860afb02a_base
+
+{-# NOINLINE tagged_code_example #-}
+{-| Language-tagged code block.
+
+    Example usage:
+
+    @
+    int result = tagged_code_example(42);
+    printf("Result: %d\n", result);
+    @
+
+    [__@x@__]: Input value
+
+    __Returns:__ Processed value
+
+    __C declaration:__ @tagged_code_example@
+
+    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+tagged_code_example :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+tagged_code_example =
+  RIP.unsafePerformIO hs_bindgen_492a4fd860afb02a
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
+foreign import ccall unsafe "hs_bindgen_9ef09ad63fac68e2" hs_bindgen_9ef09ad63fac68e2_base ::
+     IO (RIP.FunPtr RIP.Void)
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
+hs_bindgen_9ef09ad63fac68e2 :: IO (RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> (RIP.Ptr RIP.CChar) -> IO RIP.CInt))
+hs_bindgen_9ef09ad63fac68e2 =
+  RIP.fromFFIType hs_bindgen_9ef09ad63fac68e2_base
+
+{-# NOINLINE backslash_syntax #-}
+{-| Function documented with backslash syntax.
+
+    This function uses backslash commands instead of @ commands to verify both syntaxes are handled equivalently.
+
+    [__@input@__]: The input string
+
+    [__@output@__]: The output buffer
+
+    __Returns:__ Number of bytes written
+
+    __See:__ 'auto_brief_func'
+
+    @since 2.0
+
+    __C declaration:__ @backslash_syntax@
+
+    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+backslash_syntax :: RIP.FunPtr ((PtrConst.PtrConst RIP.CChar) -> (RIP.Ptr RIP.CChar) -> IO RIP.CInt)
+backslash_syntax =
+  RIP.unsafePerformIO hs_bindgen_9ef09ad63fac68e2

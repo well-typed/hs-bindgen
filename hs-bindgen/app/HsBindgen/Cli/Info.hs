@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen.App
 import HsBindgen.Cli.Info.BuiltinMacros qualified as BuiltinMacros
+import HsBindgen.Cli.Info.Doxygen qualified as Doxygen
 import HsBindgen.Cli.Info.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Cli.Info.Instances qualified as Instances
 import HsBindgen.Cli.Info.Libclang qualified as Libclang
@@ -37,6 +38,7 @@ info = progDesc "Informational commands, useful when creating bindings"
 -- Ordered lexicographically
 data Cmd =
     CmdBuiltinMacros BuiltinMacros.Opts
+  | CmdDoxygen       Doxygen.Opts
   | CmdIncludeGraph  IncludeGraph.Opts
   | CmdInstances     ()
   | CmdLibclang      Libclang.Opts
@@ -50,6 +52,11 @@ parseCmd = subparser $ mconcat [
         CmdBuiltinMacros
         BuiltinMacros.parseOpts
         BuiltinMacros.info
+    , cmd
+        "doxygen"
+        CmdDoxygen
+        Doxygen.parseOpts
+        Doxygen.info
     , cmd
         "include-graph"
         CmdIncludeGraph
@@ -84,6 +91,7 @@ parseCmd = subparser $ mconcat [
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
     CmdBuiltinMacros opts -> BuiltinMacros.exec gopts opts
+    CmdDoxygen       opts -> Doxygen.exec       gopts opts
     CmdIncludeGraph  opts -> IncludeGraph.exec  gopts opts
     CmdInstances     ()   -> Instances.exec
     CmdLibclang      opts -> Libclang.exec      gopts opts

@@ -39,7 +39,7 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen
-import HsBindgen.ArtefactM
+import HsBindgen.ArtefactM (DirPolicy (..), FilePolicy (..))
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config

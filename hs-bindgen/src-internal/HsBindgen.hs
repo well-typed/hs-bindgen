@@ -7,6 +7,7 @@ module HsBindgen (
     -- ** High-level artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
+  , writeDoxygen
   , getBindings
   , getBindingsMultiple
   , writeBindings
@@ -200,6 +201,17 @@ writeUseDeclGraph filePolicy dirPolicy mPath = do
         Lift $ delay $ WriteToStdOut $ StringContent rendered
       Just path ->
         write filePolicy dirPolicy "use-decl graph" (UserSpecified path) rendered
+
+-- | Write the parsed doxygen state to @STDOUT@ or a file.
+writeDoxygen :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
+writeDoxygen filePolicy dirPolicy mPath = do
+    doxy <- DoxygenA
+    let rendered = show doxy
+    case mPath of
+      Nothing   ->
+        Lift $ delay $ WriteToStdOut $ StringContent rendered
+      Just path ->
+        write filePolicy dirPolicy "doxygen" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: ModuleRenderConfig -> Artefact String
