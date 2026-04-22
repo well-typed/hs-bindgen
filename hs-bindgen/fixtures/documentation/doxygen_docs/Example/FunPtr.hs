@@ -4,7 +4,8 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr
-    ( Example.FunPtr.process_data
+    ( -- * Function Definitions
+      Example.FunPtr.process_data
     , Example.FunPtr.process_file
     , Example.FunPtr.calculate_value
     , Example.FunPtr.html_example
@@ -16,9 +17,11 @@ module Example.FunPtr
     , Example.FunPtr.process_buffer
     , Example.FunPtr.my_memcpy
     , Example.FunPtr.double_value
+      -- * Advanced Features
     , Example.FunPtr.complex_function
     , Example.FunPtr.hash
     , Example.FunPtr.square
+      -- * Extra Doxygen Coverage
     , Example.FunPtr.auto_brief_func
     , Example.FunPtr.multi_paragraph_details
     , Example.FunPtr.todo_remark_attention

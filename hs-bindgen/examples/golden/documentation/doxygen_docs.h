@@ -18,18 +18,18 @@
  * - Documentation in every possible location
  */
 
-/**
- * @defgroup core_types Core Data Types
- * @brief Fundamental data types and structures
- * @{
- */
-
 #ifndef DOXYGEN_DOCS_H
 #define DOXYGEN_DOCS_H
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+
+/**
+ * @defgroup core_types Core Data Types
+ * @brief Fundamental data types and structures
+ * @{
+ */
 
 /**
  * @def MAX_NAME_LENGTH
@@ -624,5 +624,10 @@ typedef struct {
 } unnamed_field_t;
 
 /** @} */ /* end extra_coverage */
+
+/**
+ * @brief API version number (not in any group).
+ */
+typedef int api_version_t;
 
 #endif /* DOXYGEN_DOCS_H */

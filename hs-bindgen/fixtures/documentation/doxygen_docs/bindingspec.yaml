@@ -99,7 +99,39 @@ ctypes:
 - headers: documentation/doxygen_docs.h
   cname: unnamed_field_t
   hsname: Unnamed_field_t
+- headers: documentation/doxygen_docs.h
+  cname: api_version_t
+  hsname: Api_version_t
 hstypes:
+- hsname: Api_version_t
+  representation:
+    newtype:
+      constructor: Api_version_t
+      fields:
+      - unwrapApi_version_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Bitfield_t
   representation:
     record:

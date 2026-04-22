@@ -3,7 +3,8 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global
-    ( Example.Global.global_counter
+    ( -- * Core Data Types
+      Example.Global.global_counter
     , Example.Global.version_string
     )
   where

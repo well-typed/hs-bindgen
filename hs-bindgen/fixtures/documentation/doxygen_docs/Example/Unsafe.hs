@@ -4,7 +4,8 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe
-    ( Example.Unsafe.process_data
+    ( -- * Function Definitions
+      Example.Unsafe.process_data
     , Example.Unsafe.process_file
     , Example.Unsafe.calculate_value
     , Example.Unsafe.html_example
@@ -16,9 +17,11 @@ module Example.Unsafe
     , Example.Unsafe.process_buffer
     , Example.Unsafe.my_memcpy
     , Example.Unsafe.double_value
+      -- * Advanced Features
     , Example.Unsafe.complex_function
     , Example.Unsafe.hash
     , Example.Unsafe.square
+      -- * Extra Doxygen Coverage
     , Example.Unsafe.auto_brief_func
     , Example.Unsafe.multi_paragraph_details
     , Example.Unsafe.todo_remark_attention

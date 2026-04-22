@@ -1966,6 +1966,38 @@ instance HasCField Unnamed_field_t "unnamed_field_t_after"
 instance (~) ty CInt =>
          HasField "unnamed_field_t_after" (Ptr Unnamed_field_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_after")
+{-| API version number (not in any group).
+
+    __C declaration:__ @api_version_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 631:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+newtype Api_version_t
+    = Api_version_t {unwrapApi_version_t :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
+         HasField "unwrapApi_version_t" (Ptr Api_version_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapApi_version_t")
+instance HasCField Api_version_t "unwrapApi_version_t"
+    where type CFieldType Api_version_t "unwrapApi_version_t" = CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     Ptr Void

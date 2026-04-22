@@ -19,14 +19,17 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.mAX_NAME_LENGTH
-    , Example.Size_type(..)
-    , Example.Forward_declared_struct
+    ( Example.Forward_declared_struct
     , Example.Forward_declared_union
+    , Example.Api_version_t(..)
+      -- * Core Data Types
+    , Example.mAX_NAME_LENGTH
+    , Example.Size_type(..)
     , Example.Color_enum(..)
     , pattern Example.COLOR_RED
     , pattern Example.COLOR_GREEN
     , pattern Example.COLOR_BLUE
+      -- * Function Definitions
     , Example.Event_callback_t_Aux(..)
     , Example.Event_callback_t(..)
     , Example.Config_t(..)
@@ -52,6 +55,7 @@ module Example
     , Example.Filename_t(..)
     , Example.Flexible_array_Aux(..)
     , Example.Flexible_array
+      -- * Extra Doxygen Coverage
     , Example.Dyn_array_t(..)
     , Example.Multi_anon_t_pos(..)
     , Example.Multi_anon_t_dim(..)
@@ -2221,3 +2225,46 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")
+
+{-| API version number (not in any group).
+
+    __C declaration:__ @api_version_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 631:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+newtype Api_version_t = Api_version_t
+  { unwrapApi_version_t :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapApi_version_t" (RIP.Ptr Api_version_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unwrapApi_version_t")
+
+instance HasCField.HasCField Api_version_t "unwrapApi_version_t" where
+
+  type CFieldType Api_version_t "unwrapApi_version_t" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0

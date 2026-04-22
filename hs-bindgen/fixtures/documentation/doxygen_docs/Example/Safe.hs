@@ -4,7 +4,8 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe
-    ( Example.Safe.process_data
+    ( -- * Function Definitions
+      Example.Safe.process_data
     , Example.Safe.process_file
     , Example.Safe.calculate_value
     , Example.Safe.html_example
@@ -16,9 +17,11 @@ module Example.Safe
     , Example.Safe.process_buffer
     , Example.Safe.my_memcpy
     , Example.Safe.double_value
+      -- * Advanced Features
     , Example.Safe.complex_function
     , Example.Safe.hash
     , Example.Safe.square
+      -- * Extra Doxygen Coverage
     , Example.Safe.auto_brief_func
     , Example.Safe.multi_paragraph_details
     , Example.Safe.todo_remark_attention

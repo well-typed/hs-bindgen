@@ -36,19 +36,54 @@ instance Pretty HsModule where
 -- with names from the implicit Prelude (e.g. @Example.reverse@ instead of
 -- @reverse@).
 --
-prettyModuleHeader :: Hs.ModuleName -> [ExportItem] -> CtxDoc
+prettyModuleHeader :: Hs.ModuleName -> [ExportEntry] -> CtxDoc
 prettyModuleHeader name [] =
     PP.hsep ["module", PP.string (Hs.moduleNameToString name), "where"]
 prettyModuleHeader name exports =
     PP.vcat [
         PP.hsep ["module", PP.string (Hs.moduleNameToString name)] $$ PP.nest 4 (
-          PP.vlist "(" ")" (map (prettyExportItem qualPrefix) exports)
+          prettyExportList qualPrefix exports
         )
       , PP.nest 2 "where"
       ]
   where
     qualPrefix :: String
     qualPrefix = Hs.moduleNameToString name ++ "."
+
+-- | Pretty-print the export list with section headers
+--
+-- Section headers (@-- *@, @-- **@) are interleaved without commas.
+-- Regular export items use the standard leading-comma style.
+--
+-- Example output:
+--
+-- > ( Example.Api_version_t(..)
+-- >   -- * Core Data Types
+-- > , Example.Config_t(..)
+-- > , Example.Color_enum(..)
+-- > , pattern Example.COLOR_RED
+-- >   -- * Advanced Features
+-- > , Example.complex_function
+-- > )
+prettyExportList :: String -> [ExportEntry] -> CtxDoc
+prettyExportList qualPrefix = PP.vcat . go True False
+  where
+    -- @needOpen@: whether we still need to emit the opening @(@
+    -- @needComma@: whether we've seen a regular export item (and need @,@)
+    go :: Bool -> Bool -> [ExportEntry] -> [CtxDoc]
+    go _ _ [] = [")"]
+    go needOpen needComma (entry : rest) = case entry of
+      ExportSectionHeader depth title ->
+        let prefix = if needOpen then "( " else "  "
+            stars = replicate (fromIntegral depth) '*'
+        in  (PP.string prefix >< PP.string ("-- " ++ stars ++ " ") >< PP.text title)
+            : go False needComma rest
+      ExportEntry item ->
+        let prefix | needOpen       = "( "
+                   | not needComma  = "  "
+                   | otherwise      = ", "
+        in  (PP.string prefix >< prettyExportItem qualPrefix item)
+            : go False True rest
 
 -- | Pretty-print a single export item, qualified with the module name
 prettyExportItem :: String -> ExportItem -> CtxDoc
