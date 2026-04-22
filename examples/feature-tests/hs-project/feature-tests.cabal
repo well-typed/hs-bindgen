@@ -18,19 +18,32 @@ common warnings
 common language
   default-language:   GHC2021
   default-extensions:
+    DataKinds
+    DefaultSignatures
+    DeriveAnyClass
     DerivingStrategies
-    ImportQualifiedPost
+    DerivingVia
+    DisambiguateRecordFields
+    DuplicateRecordFields
+    FunctionalDependencies
     LambdaCase
+    MultiWayIf
+    NoFieldSelectors
+    NoNamedFieldPuns
+    OverloadedLabels
     OverloadedRecordDot
+    OverloadedStrings
     PatternSynonyms
-    RecordWildCards
-    RoleAnnotations
+    QuantifiedConstraints
+    TypeApplications
+    TypeFamilies
+    UndecidableInstances
     ViewPatterns
 
 library generated
-  import:          warnings, language
-  visibility:      private
-  hs-source-dirs:  src-generated
+  import:             warnings, language
+  visibility:         private
+  hs-source-dirs:     src-generated
   exposed-modules:
     Generated.Callbacks.Arrays.KnownSize
     Generated.Callbacks.Arrays.KnownSize.FunPtr
@@ -52,6 +65,8 @@ library generated
     Generated.Callbacks.Unions.FunPtr
     Generated.Callbacks.Unions.Safe
     Generated.Callbacks.Unions.Unsafe
+    Generated.PointerManipulation
+    Generated.PointerManipulation.Structs
     Generated.Types.Anonymous
     Generated.Types.Anonymous.Global
     Generated.Types.Bitfields
@@ -63,8 +78,11 @@ library generated
     , base
     , hs-bindgen-runtime
 
-  extra-libraries: feature-tests
-  ghc-options:     -Wno-missing-export-lists
+  extra-libraries:    feature-tests
+  ghc-options:        -Wno-missing-export-lists
+
+  -- TODO <https://github.com/well-typed/hs-bindgen/issues/1657>
+  default-extensions: FieldSelectors
 
 test-suite feature-tests
   import:         warnings, language
@@ -77,6 +95,9 @@ test-suite feature-tests
     Test.Callbacks.Basic
     Test.Callbacks.Structs
     Test.Callbacks.Unions
+    Test.PointerManipulation
+    Test.PointerManipulation.Structs
+    Test.PointerManipulation.Util
     Test.Types.Anonymous
     Test.Types.Bitfields
     Test.Util
@@ -84,9 +105,11 @@ test-suite feature-tests
 
   build-depends:
     , base
+    , constraints
     , feature-tests:generated
     , hs-bindgen-runtime
     , QuickCheck
+    , optics
     , tasty
     , tasty-quickcheck
     , vector
