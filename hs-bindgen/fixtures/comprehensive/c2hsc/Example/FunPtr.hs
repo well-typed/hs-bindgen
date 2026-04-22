@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_37f32218c55b498b" hs_bindgen_37f32218c55
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_function@
-hs_bindgen_37f32218c55b498b :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ()))
+hs_bindgen_37f32218c55b498b :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ()))
 hs_bindgen_37f32218c55b498b =
   RIP.fromFFIType hs_bindgen_37f32218c55b498b_base
 
@@ -67,7 +67,7 @@ hs_bindgen_37f32218c55b498b =
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-foo_function :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ())
+foo_function :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ())
 foo_function =
   RIP.unsafePerformIO hs_bindgen_37f32218c55b498b
 

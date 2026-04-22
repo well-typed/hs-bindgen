@@ -110,7 +110,7 @@ instance Read EnumA where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
 
   getField =
@@ -187,7 +187,7 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) EnumA
+instance ( ty ~ EnumA
          ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
 
   getField =
@@ -271,7 +271,7 @@ instance Read ExB_fieldB1 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapExB_fieldB1" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -349,7 +349,7 @@ instance HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) ExB_fieldB1
+instance ( ty ~ ExB_fieldB1
          ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
 
   getField =

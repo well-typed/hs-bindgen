@@ -68,7 +68,7 @@ instance HasCField.HasCField Struct2 "struct2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "struct2_x" (RIP.Ptr Struct2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct2_x")

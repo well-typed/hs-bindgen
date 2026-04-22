@@ -38,7 +38,7 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
-hs_bindgen_29b4fea741132943 :: IO (RIP.FunPtr ((RIP.Complex RIP.CFloat) -> (RIP.Complex RIP.CFloat) -> IO (RIP.Complex RIP.CFloat)))
+hs_bindgen_29b4fea741132943 :: IO (RIP.FunPtr (RIP.Complex RIP.CFloat -> RIP.Complex RIP.CFloat -> IO (RIP.Complex RIP.CFloat)))
 hs_bindgen_29b4fea741132943 =
   RIP.fromFFIType hs_bindgen_29b4fea741132943_base
 
@@ -49,7 +49,7 @@ hs_bindgen_29b4fea741132943 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: RIP.FunPtr ((RIP.Complex RIP.CFloat) -> (RIP.Complex RIP.CFloat) -> IO (RIP.Complex RIP.CFloat))
+multiply_complex_f :: RIP.FunPtr (RIP.Complex RIP.CFloat -> RIP.Complex RIP.CFloat -> IO (RIP.Complex RIP.CFloat))
 multiply_complex_f =
   RIP.unsafePerformIO hs_bindgen_29b4fea741132943
 
@@ -58,7 +58,7 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
-hs_bindgen_b53577d6ad8dd36c :: IO (RIP.FunPtr ((RIP.Complex RIP.CDouble) -> (RIP.Complex RIP.CDouble) -> IO (RIP.Complex RIP.CDouble)))
+hs_bindgen_b53577d6ad8dd36c :: IO (RIP.FunPtr (RIP.Complex RIP.CDouble -> RIP.Complex RIP.CDouble -> IO (RIP.Complex RIP.CDouble)))
 hs_bindgen_b53577d6ad8dd36c =
   RIP.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 
@@ -69,6 +69,6 @@ hs_bindgen_b53577d6ad8dd36c =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: RIP.FunPtr ((RIP.Complex RIP.CDouble) -> (RIP.Complex RIP.CDouble) -> IO (RIP.Complex RIP.CDouble))
+add_complex :: RIP.FunPtr (RIP.Complex RIP.CDouble -> RIP.Complex RIP.CDouble -> IO (RIP.Complex RIP.CDouble))
 add_complex =
   RIP.unsafePerformIO hs_bindgen_b53577d6ad8dd36c

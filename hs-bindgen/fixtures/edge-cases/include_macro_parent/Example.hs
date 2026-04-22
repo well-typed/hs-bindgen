@@ -80,7 +80,7 @@ instance HasCField.HasCField Pt "pt_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "pt_x" (RIP.Ptr Pt) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"pt_x")
@@ -91,7 +91,7 @@ instance HasCField.HasCField Pt "pt_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "pt_y" (RIP.Ptr Pt) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"pt_y")
@@ -162,8 +162,7 @@ instance HasCField.HasCField Rect "rect_tl" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Pt
-         ) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
+instance (ty ~ Pt) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"rect_tl")
 
@@ -173,7 +172,6 @@ instance HasCField.HasCField Rect "rect_br" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) Pt
-         ) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
+instance (ty ~ Pt) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"rect_br")

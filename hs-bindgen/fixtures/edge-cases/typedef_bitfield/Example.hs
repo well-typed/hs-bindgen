@@ -56,7 +56,7 @@ newtype MyInt = MyInt
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -96,7 +96,7 @@ newtype MyUInt = MyUInt
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr ty) where
 
   getField =
@@ -136,7 +136,7 @@ newtype MyLong = MyLong
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr ty) where
 
   getField =
@@ -215,7 +215,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( ((~) ty) MyInt
+instance ( ty ~ MyInt
          ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -229,7 +229,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   bitfieldWidth# = \_ -> \_ -> 4
 
-instance ( ((~) ty) MyUInt
+instance ( ty ~ MyUInt
          ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
@@ -243,7 +243,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ((~) ty) MyLong
+instance ( ty ~ MyLong
          ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =

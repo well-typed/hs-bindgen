@@ -35,11 +35,11 @@ newtype U = U
   }
   deriving stock (RIP.Generic)
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize U
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw U
 
-deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U
 
 deriving via Marshal.EquivStorable U instance RIP.Storable U
 
@@ -74,8 +74,7 @@ instance HasCField.HasCField U "u_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"u_x")
 
@@ -126,6 +125,6 @@ instance HasCField.HasCField S "s_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance (((~) ty) U) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
+instance (ty ~ U) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_y")

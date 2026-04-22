@@ -107,7 +107,7 @@ instance Read FileOperationStatus where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr ty) where
 
   getField =
@@ -233,7 +233,7 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" wh
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) FileOperationStatus
+instance ( ty ~ FileOperationStatus
          ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
 
   getField =
@@ -246,7 +246,7 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_proc
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
 
   getField =

@@ -198,7 +198,7 @@ foreign import ccall unsafe "hs_bindgen_21338ece6a009179" hs_bindgen_21338ece6a0
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr0@
-hs_bindgen_21338ece6a009179 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_21338ece6a009179 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_21338ece6a009179 =
   RIP.fromFFIType hs_bindgen_21338ece6a009179_base
 
@@ -211,7 +211,7 @@ hs_bindgen_21338ece6a009179 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr0 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr0 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr0 =
   RIP.unsafePerformIO hs_bindgen_21338ece6a009179
 
@@ -220,7 +220,7 @@ foreign import ccall unsafe "hs_bindgen_a058c9f90a6e675c" hs_bindgen_a058c9f90a6
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr1@
-hs_bindgen_a058c9f90a6e675c :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_a058c9f90a6e675c :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_a058c9f90a6e675c =
   RIP.fromFFIType hs_bindgen_a058c9f90a6e675c_base
 
@@ -233,7 +233,7 @@ hs_bindgen_a058c9f90a6e675c =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr1 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr1 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr1 =
   RIP.unsafePerformIO hs_bindgen_a058c9f90a6e675c
 
@@ -242,7 +242,7 @@ foreign import ccall unsafe "hs_bindgen_c57aab7f71d2cb0b" hs_bindgen_c57aab7f71d
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr2@
-hs_bindgen_c57aab7f71d2cb0b :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_c57aab7f71d2cb0b :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_c57aab7f71d2cb0b =
   RIP.fromFFIType hs_bindgen_c57aab7f71d2cb0b_base
 
@@ -255,7 +255,7 @@ hs_bindgen_c57aab7f71d2cb0b =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr2 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr2 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr2 =
   RIP.unsafePerformIO hs_bindgen_c57aab7f71d2cb0b
 
@@ -264,7 +264,7 @@ foreign import ccall unsafe "hs_bindgen_e2b7478ee9c12746" hs_bindgen_e2b7478ee9c
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr3@
-hs_bindgen_e2b7478ee9c12746 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_e2b7478ee9c12746 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_e2b7478ee9c12746 =
   RIP.fromFFIType hs_bindgen_e2b7478ee9c12746_base
 
@@ -277,7 +277,7 @@ hs_bindgen_e2b7478ee9c12746 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr3 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr3 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr3 =
   RIP.unsafePerformIO hs_bindgen_e2b7478ee9c12746
 
@@ -286,7 +286,7 @@ foreign import ccall unsafe "hs_bindgen_5d33e8cdfb8c9242" hs_bindgen_5d33e8cdfb8
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr4@
-hs_bindgen_5d33e8cdfb8c9242 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_5d33e8cdfb8c9242 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_5d33e8cdfb8c9242 =
   RIP.fromFFIType hs_bindgen_5d33e8cdfb8c9242_base
 
@@ -299,7 +299,7 @@ hs_bindgen_5d33e8cdfb8c9242 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr4 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr4 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr4 =
   RIP.unsafePerformIO hs_bindgen_5d33e8cdfb8c9242
 
@@ -308,7 +308,7 @@ foreign import ccall unsafe "hs_bindgen_ef557ae1941f9959" hs_bindgen_ef557ae1941
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr5@
-hs_bindgen_ef557ae1941f9959 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_ef557ae1941f9959 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_ef557ae1941f9959 =
   RIP.fromFFIType hs_bindgen_ef557ae1941f9959_base
 
@@ -321,7 +321,7 @@ hs_bindgen_ef557ae1941f9959 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr5 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr5 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr5 =
   RIP.unsafePerformIO hs_bindgen_ef557ae1941f9959
 
@@ -330,7 +330,7 @@ foreign import ccall unsafe "hs_bindgen_5f4d28170d6fa0d1" hs_bindgen_5f4d28170d6
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr6@
-hs_bindgen_5f4d28170d6fa0d1 :: IO (RIP.Ptr ((CA.ConstantArray 1) RIP.CInt))
+hs_bindgen_5f4d28170d6fa0d1 :: IO (RIP.Ptr (CA.ConstantArray 1 RIP.CInt))
 hs_bindgen_5f4d28170d6fa0d1 =
   RIP.fromFFIType hs_bindgen_5f4d28170d6fa0d1_base
 
@@ -343,7 +343,7 @@ hs_bindgen_5f4d28170d6fa0d1 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr6 :: RIP.Ptr ((CA.ConstantArray 1) RIP.CInt)
+arr6 :: RIP.Ptr (CA.ConstantArray 1 RIP.CInt)
 arr6 =
   RIP.unsafePerformIO hs_bindgen_5f4d28170d6fa0d1
 
@@ -374,7 +374,7 @@ foreign import ccall unsafe "hs_bindgen_fe12bb34a92772f4" hs_bindgen_fe12bb34a92
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr8@
-hs_bindgen_fe12bb34a92772f4 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_fe12bb34a92772f4 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_fe12bb34a92772f4 =
   RIP.fromFFIType hs_bindgen_fe12bb34a92772f4_base
 
@@ -387,7 +387,7 @@ hs_bindgen_fe12bb34a92772f4 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr8 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr8 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr8 =
   RIP.unsafePerformIO hs_bindgen_fe12bb34a92772f4
 
@@ -396,7 +396,7 @@ foreign import ccall unsafe "hs_bindgen_2d21b7cb9ac33ea8" hs_bindgen_2d21b7cb9ac
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_1@
-hs_bindgen_2d21b7cb9ac33ea8 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_2d21b7cb9ac33ea8 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_2d21b7cb9ac33ea8 =
   RIP.fromFFIType hs_bindgen_2d21b7cb9ac33ea8_base
 
@@ -409,7 +409,7 @@ hs_bindgen_2d21b7cb9ac33ea8 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr_1 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+arr_1 :: RIP.Ptr (CA.ConstantArray 3 RIP.CInt)
 arr_1 =
   RIP.unsafePerformIO hs_bindgen_2d21b7cb9ac33ea8
 
@@ -484,7 +484,7 @@ foreign import ccall unsafe "hs_bindgen_a733c5b896a8ae4e" hs_bindgen_a733c5b896a
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_5@
-hs_bindgen_a733c5b896a8ae4e :: IO (RIP.Ptr ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)))
+hs_bindgen_a733c5b896a8ae4e :: IO (RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_a733c5b896a8ae4e =
   RIP.fromFFIType hs_bindgen_a733c5b896a8ae4e_base
 
@@ -497,7 +497,7 @@ hs_bindgen_a733c5b896a8ae4e =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr_5 :: RIP.Ptr ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
+arr_5 :: RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))
 arr_5 =
   RIP.unsafePerformIO hs_bindgen_a733c5b896a8ae4e
 
@@ -528,7 +528,7 @@ foreign import ccall unsafe "hs_bindgen_b5e93d2d90ffc861" hs_bindgen_b5e93d2d90f
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_7@
-hs_bindgen_b5e93d2d90ffc861 :: IO (RIP.Ptr (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)))
+hs_bindgen_b5e93d2d90ffc861 :: IO (RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_b5e93d2d90ffc861 =
   RIP.fromFFIType hs_bindgen_b5e93d2d90ffc861_base
 
@@ -541,7 +541,7 @@ hs_bindgen_b5e93d2d90ffc861 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr_7 :: RIP.Ptr (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
+arr_7 :: RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))
 arr_7 =
   RIP.unsafePerformIO hs_bindgen_b5e93d2d90ffc861
 
@@ -572,7 +572,7 @@ foreign import ccall unsafe "hs_bindgen_25089a5dd72254bc" hs_bindgen_25089a5dd72
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_1_const@
-hs_bindgen_25089a5dd72254bc :: IO (PtrConst.PtrConst ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_25089a5dd72254bc :: IO (PtrConst.PtrConst (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_25089a5dd72254bc =
   RIP.fromFFIType hs_bindgen_25089a5dd72254bc_base
 
@@ -587,12 +587,12 @@ hs_bindgen_25089a5dd72254bc =
 
     __unique:__ @test_arraysarray_Example_arr_1_const@
 -}
-hs_bindgen_a182a929fe06593d :: PtrConst.PtrConst ((CA.ConstantArray 3) RIP.CInt)
+hs_bindgen_a182a929fe06593d :: PtrConst.PtrConst (CA.ConstantArray 3 RIP.CInt)
 hs_bindgen_a182a929fe06593d =
   RIP.unsafePerformIO hs_bindgen_25089a5dd72254bc
 
 {-# NOINLINE arr_1_const #-}
-arr_1_const :: (CA.ConstantArray 3) RIP.CInt
+arr_1_const :: CA.ConstantArray 3 RIP.CInt
 arr_1_const =
   RIP.unsafePerformIO (PtrConst.peek hs_bindgen_a182a929fe06593d)
 
@@ -674,7 +674,7 @@ foreign import ccall unsafe "hs_bindgen_088c9ea4e73d1cfe" hs_bindgen_088c9ea4e73
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_5_const@
-hs_bindgen_088c9ea4e73d1cfe :: IO (PtrConst.PtrConst ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)))
+hs_bindgen_088c9ea4e73d1cfe :: IO (PtrConst.PtrConst (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_088c9ea4e73d1cfe =
   RIP.fromFFIType hs_bindgen_088c9ea4e73d1cfe_base
 
@@ -689,12 +689,12 @@ hs_bindgen_088c9ea4e73d1cfe =
 
     __unique:__ @test_arraysarray_Example_arr_5_const@
 -}
-hs_bindgen_be82907b3025ae62 :: PtrConst.PtrConst ((CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt))
+hs_bindgen_be82907b3025ae62 :: PtrConst.PtrConst (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))
 hs_bindgen_be82907b3025ae62 =
   RIP.unsafePerformIO hs_bindgen_088c9ea4e73d1cfe
 
 {-# NOINLINE arr_5_const #-}
-arr_5_const :: (CA.ConstantArray 4) ((CA.ConstantArray 3) RIP.CInt)
+arr_5_const :: CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
 arr_5_const =
   RIP.unsafePerformIO (PtrConst.peek hs_bindgen_be82907b3025ae62)
 
@@ -732,7 +732,7 @@ foreign import ccall unsafe "hs_bindgen_2ca44942791eacc4" hs_bindgen_2ca44942791
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_arraysarray_Example_get_arr_7_const@
-hs_bindgen_2ca44942791eacc4 :: IO (PtrConst.PtrConst (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt)))
+hs_bindgen_2ca44942791eacc4 :: IO (PtrConst.PtrConst (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
 hs_bindgen_2ca44942791eacc4 =
   RIP.fromFFIType hs_bindgen_2ca44942791eacc4_base
 
@@ -745,7 +745,7 @@ hs_bindgen_2ca44942791eacc4 =
 
     __exported by:__ @arrays\/array.h@
 -}
-arr_7_const :: PtrConst.PtrConst (IA.IncompleteArray ((CA.ConstantArray 3) RIP.CInt))
+arr_7_const :: PtrConst.PtrConst (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))
 arr_7_const =
   RIP.unsafePerformIO hs_bindgen_2ca44942791eacc4
 

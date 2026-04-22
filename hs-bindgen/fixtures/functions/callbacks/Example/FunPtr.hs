@@ -197,7 +197,7 @@ foreign import ccall unsafe "hs_bindgen_793b9ca86a272b6a" hs_bindgen_793b9ca86a2
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_readFileWithProcessor@
-hs_bindgen_793b9ca86a272b6a :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO ())) -> RIP.CInt -> IO RIP.CInt))
+hs_bindgen_793b9ca86a272b6a :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO ()) -> RIP.CInt -> IO RIP.CInt))
 hs_bindgen_793b9ca86a272b6a =
   RIP.fromFFIType hs_bindgen_793b9ca86a272b6a_base
 
@@ -208,7 +208,7 @@ hs_bindgen_793b9ca86a272b6a =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-readFileWithProcessor :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO ())) -> RIP.CInt -> IO RIP.CInt)
+readFileWithProcessor :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO ()) -> RIP.CInt -> IO RIP.CInt)
 readFileWithProcessor =
   RIP.unsafePerformIO hs_bindgen_793b9ca86a272b6a
 
@@ -217,7 +217,7 @@ foreign import ccall unsafe "hs_bindgen_a2b606291df27114" hs_bindgen_a2b606291df
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_watchTemperature@
-hs_bindgen_a2b606291df27114 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO ())) -> RIP.CInt -> IO ()))
+hs_bindgen_a2b606291df27114 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO ()) -> RIP.CInt -> IO ()))
 hs_bindgen_a2b606291df27114 =
   RIP.fromFFIType hs_bindgen_a2b606291df27114_base
 
@@ -228,7 +228,7 @@ hs_bindgen_a2b606291df27114 =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-watchTemperature :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO ())) -> RIP.CInt -> IO ())
+watchTemperature :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO ()) -> RIP.CInt -> IO ())
 watchTemperature =
   RIP.unsafePerformIO hs_bindgen_a2b606291df27114
 
@@ -357,7 +357,7 @@ foreign import ccall unsafe "hs_bindgen_2e8d6b201521b14a" hs_bindgen_2e8d6b20152
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_transformMeasurement@
-hs_bindgen_2e8d6b201521b14a :: IO (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble)) -> RIP.CInt -> IO ())) -> IO ()))
+hs_bindgen_2e8d6b201521b14a :: IO (RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ()) -> IO ()))
 hs_bindgen_2e8d6b201521b14a =
   RIP.fromFFIType hs_bindgen_2e8d6b201521b14a_base
 
@@ -368,7 +368,7 @@ hs_bindgen_2e8d6b201521b14a =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-transformMeasurement :: RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble)) -> RIP.CInt -> IO ())) -> IO ())
+transformMeasurement :: RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ()) -> IO ())
 transformMeasurement =
   RIP.unsafePerformIO hs_bindgen_2e8d6b201521b14a
 
@@ -377,7 +377,7 @@ foreign import ccall unsafe "hs_bindgen_7f4acb7260277d86" hs_bindgen_7f4acb72602
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_processWithCallbacks@
-hs_bindgen_7f4acb7260277d86 :: IO (RIP.FunPtr ((RIP.FunPtr ((RIP.Ptr Measurement) -> FileOpenedNotification -> RIP.CInt -> IO ())) -> IO ()))
+hs_bindgen_7f4acb7260277d86 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ()) -> IO ()))
 hs_bindgen_7f4acb7260277d86 =
   RIP.fromFFIType hs_bindgen_7f4acb7260277d86_base
 
@@ -388,7 +388,7 @@ hs_bindgen_7f4acb7260277d86 =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-processWithCallbacks :: RIP.FunPtr ((RIP.FunPtr ((RIP.Ptr Measurement) -> FileOpenedNotification -> RIP.CInt -> IO ())) -> IO ())
+processWithCallbacks :: RIP.FunPtr (RIP.FunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ()) -> IO ())
 processWithCallbacks =
   RIP.unsafePerformIO hs_bindgen_7f4acb7260277d86
 
@@ -397,7 +397,7 @@ foreign import ccall unsafe "hs_bindgen_80684ecfa6d982b7" hs_bindgen_80684ecfa6d
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_registerHandler@
-hs_bindgen_80684ecfa6d982b7 :: IO (RIP.FunPtr ((RIP.Ptr MeasurementHandler) -> IO ()))
+hs_bindgen_80684ecfa6d982b7 :: IO (RIP.FunPtr (RIP.Ptr MeasurementHandler -> IO ()))
 hs_bindgen_80684ecfa6d982b7 =
   RIP.fromFFIType hs_bindgen_80684ecfa6d982b7_base
 
@@ -408,7 +408,7 @@ hs_bindgen_80684ecfa6d982b7 =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-registerHandler :: RIP.FunPtr ((RIP.Ptr MeasurementHandler) -> IO ())
+registerHandler :: RIP.FunPtr (RIP.Ptr MeasurementHandler -> IO ())
 registerHandler =
   RIP.unsafePerformIO hs_bindgen_80684ecfa6d982b7
 
@@ -417,7 +417,7 @@ foreign import ccall unsafe "hs_bindgen_1714a267564c9f6f" hs_bindgen_1714a267564
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_executePipeline@
-hs_bindgen_1714a267564c9f6f :: IO (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.Ptr DataPipeline) -> IO ()))
+hs_bindgen_1714a267564c9f6f :: IO (RIP.FunPtr (RIP.Ptr Measurement -> RIP.Ptr DataPipeline -> IO ()))
 hs_bindgen_1714a267564c9f6f =
   RIP.fromFFIType hs_bindgen_1714a267564c9f6f_base
 
@@ -428,7 +428,7 @@ hs_bindgen_1714a267564c9f6f =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-executePipeline :: RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.Ptr DataPipeline) -> IO ())
+executePipeline :: RIP.FunPtr (RIP.Ptr Measurement -> RIP.Ptr DataPipeline -> IO ())
 executePipeline =
   RIP.unsafePerformIO hs_bindgen_1714a267564c9f6f
 
@@ -437,7 +437,7 @@ foreign import ccall unsafe "hs_bindgen_fedf80fe8e91dc7a" hs_bindgen_fedf80fe8e9
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_runProcessor@
-hs_bindgen_fedf80fe8e91dc7a :: IO (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.Ptr Processor) -> IO ()))
+hs_bindgen_fedf80fe8e91dc7a :: IO (RIP.FunPtr (RIP.Ptr Measurement -> RIP.Ptr Processor -> IO ()))
 hs_bindgen_fedf80fe8e91dc7a =
   RIP.fromFFIType hs_bindgen_fedf80fe8e91dc7a_base
 
@@ -448,7 +448,7 @@ hs_bindgen_fedf80fe8e91dc7a =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-runProcessor :: RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.Ptr Processor) -> IO ())
+runProcessor :: RIP.FunPtr (RIP.Ptr Measurement -> RIP.Ptr Processor -> IO ())
 runProcessor =
   RIP.unsafePerformIO hs_bindgen_fedf80fe8e91dc7a
 
@@ -457,7 +457,7 @@ foreign import ccall unsafe "hs_bindgen_443cb57c681c2cab" hs_bindgen_443cb57c681
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_processMeasurementWithValidation@
-hs_bindgen_443cb57c681c2cab :: IO (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> DataValidator -> RIP.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ()))
+hs_bindgen_443cb57c681c2cab :: IO (RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ()) -> IO ()))
 hs_bindgen_443cb57c681c2cab =
   RIP.fromFFIType hs_bindgen_443cb57c681c2cab_base
 
@@ -468,7 +468,7 @@ hs_bindgen_443cb57c681c2cab =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-processMeasurementWithValidation :: RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> (RIP.FunPtr ((RIP.Ptr Measurement) -> DataValidator -> RIP.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ())
+processMeasurementWithValidation :: RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ()) -> IO ())
 processMeasurementWithValidation =
   RIP.unsafePerformIO hs_bindgen_443cb57c681c2cab
 
@@ -477,7 +477,7 @@ foreign import ccall unsafe "hs_bindgen_7cf6cffd19682c36" hs_bindgen_7cf6cffd196
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_f@
-hs_bindgen_7cf6cffd19682c36 :: IO (RIP.FunPtr ((RIP.FunPtr (Foo -> IO ())) -> IO ()))
+hs_bindgen_7cf6cffd19682c36 :: IO (RIP.FunPtr (RIP.FunPtr (Foo -> IO ()) -> IO ()))
 hs_bindgen_7cf6cffd19682c36 =
   RIP.fromFFIType hs_bindgen_7cf6cffd19682c36_base
 
@@ -488,7 +488,7 @@ hs_bindgen_7cf6cffd19682c36 =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-f :: RIP.FunPtr ((RIP.FunPtr (Foo -> IO ())) -> IO ())
+f :: RIP.FunPtr (RIP.FunPtr (Foo -> IO ()) -> IO ())
 f = RIP.unsafePerformIO hs_bindgen_7cf6cffd19682c36
 
 -- __unique:__ @test_functionscallbacks_Example_get_f2@
@@ -496,7 +496,7 @@ foreign import ccall unsafe "hs_bindgen_81fde2984e04c791" hs_bindgen_81fde2984e0
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionscallbacks_Example_get_f2@
-hs_bindgen_81fde2984e04c791 :: IO (RIP.FunPtr ((RIP.FunPtr (Foo2 -> IO ())) -> IO ()))
+hs_bindgen_81fde2984e04c791 :: IO (RIP.FunPtr (RIP.FunPtr (Foo2 -> IO ()) -> IO ()))
 hs_bindgen_81fde2984e04c791 =
   RIP.fromFFIType hs_bindgen_81fde2984e04c791_base
 
@@ -507,5 +507,5 @@ hs_bindgen_81fde2984e04c791 =
 
     __exported by:__ @functions\/callbacks.h@
 -}
-f2 :: RIP.FunPtr ((RIP.FunPtr (Foo2 -> IO ())) -> IO ())
+f2 :: RIP.FunPtr (RIP.FunPtr (Foo2 -> IO ()) -> IO ())
 f2 = RIP.unsafePerformIO hs_bindgen_81fde2984e04c791

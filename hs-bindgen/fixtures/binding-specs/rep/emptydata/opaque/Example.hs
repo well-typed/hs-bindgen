@@ -78,7 +78,7 @@ instance HasCField.HasCField Bar "bar_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) (RIP.Ptr Foo)
+instance ( ty ~ RIP.Ptr Foo
          ) => RIP.HasField "bar_a" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_a")

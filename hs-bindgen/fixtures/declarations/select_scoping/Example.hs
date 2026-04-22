@@ -49,7 +49,7 @@ newtype ParsedAndSelected1 = ParsedAndSelected1
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapParsedAndSelected1" (RIP.Ptr ParsedAndSelected1) (RIP.Ptr ty) where
 
   getField =

@@ -67,7 +67,7 @@ foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 3) RIP.CInt))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
   -> IO ()
 hs_bindgen_99bb90e6d7637d2c =
   RIP.fromFFIType hs_bindgen_99bb90e6d7637d2c_base
@@ -79,7 +79,7 @@ hs_bindgen_99bb90e6d7637d2c =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 foo ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 3) RIP.CInt))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_99bb90e6d7637d2c

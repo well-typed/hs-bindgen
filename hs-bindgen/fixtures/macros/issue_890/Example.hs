@@ -28,7 +28,7 @@ a = (0 :: RIP.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: forall a0. (C.Expr.HostPlatform.Add a0) RIP.CInt => a0 -> (C.Expr.HostPlatform.AddRes a0) RIP.CInt
+b :: forall a0. C.Expr.HostPlatform.Add a0 RIP.CInt => a0 -> C.Expr.HostPlatform.AddRes a0 RIP.CInt
 b = \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
 
 {-| __C declaration:__ @macro C@

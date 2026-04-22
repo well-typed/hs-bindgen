@@ -77,7 +77,7 @@ instance HasCField.HasCField Hoge "hoge_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "hoge_x" (RIP.Ptr Hoge) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"hoge_x")
@@ -88,7 +88,7 @@ instance HasCField.HasCField Hoge "hoge_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "hoge_y" (RIP.Ptr Hoge) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"hoge_y")

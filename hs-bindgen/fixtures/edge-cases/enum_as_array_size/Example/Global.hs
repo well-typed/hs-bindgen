@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
-hs_bindgen_30b94bcf7e387817 :: IO (PtrConst.PtrConst ((CA.ConstantArray 1) RIP.CChar))
+hs_bindgen_30b94bcf7e387817 :: IO (PtrConst.PtrConst (CA.ConstantArray 1 RIP.CChar))
 hs_bindgen_30b94bcf7e387817 =
   RIP.fromFFIType hs_bindgen_30b94bcf7e387817_base
 
@@ -41,11 +41,11 @@ hs_bindgen_30b94bcf7e387817 =
 
     __unique:__ @test_edgecasesenum_as_array_size_Example_test_array@
 -}
-hs_bindgen_e30c033f156164cc :: PtrConst.PtrConst ((CA.ConstantArray 1) RIP.CChar)
+hs_bindgen_e30c033f156164cc :: PtrConst.PtrConst (CA.ConstantArray 1 RIP.CChar)
 hs_bindgen_e30c033f156164cc =
   RIP.unsafePerformIO hs_bindgen_30b94bcf7e387817
 
 {-# NOINLINE test_array #-}
-test_array :: (CA.ConstantArray 1) RIP.CChar
+test_array :: CA.ConstantArray 1 RIP.CChar
 test_array =
   RIP.unsafePerformIO (PtrConst.peek hs_bindgen_e30c033f156164cc)

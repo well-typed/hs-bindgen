@@ -34,14 +34,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr_Aux = Fun_ptr_Aux
-  { unwrapFun_ptr_Aux :: (RIP.Ptr Forward_declaration) -> IO ()
+  { unwrapFun_ptr_Aux :: RIP.Ptr Forward_declaration -> IO ()
   }
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
-     ((RIP.Ptr RIP.Void) -> IO ())
-  -> IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO ()))
+     (RIP.Ptr RIP.Void -> IO ())
+  -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))
 
 -- __unique:__ @toFun_ptr_Aux@
 hs_bindgen_5964bbadb359ee4a ::
@@ -52,8 +52,8 @@ hs_bindgen_5964bbadb359ee4a =
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (RIP.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
-     RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO ())
-  -> (RIP.Ptr RIP.Void) -> IO ()
+     RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
+  -> RIP.Ptr RIP.Void -> IO ()
 
 -- __unique:__ @fromFun_ptr_Aux@
 hs_bindgen_f8391e85af67fcb6 ::
@@ -71,7 +71,7 @@ instance RIP.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( ((~) ty) ((RIP.Ptr Forward_declaration) -> IO ())
+instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
          ) => RIP.HasField "unwrapFun_ptr_Aux" (RIP.Ptr Fun_ptr_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -80,7 +80,7 @@ instance ( ((~) ty) ((RIP.Ptr Forward_declaration) -> IO ())
 instance HasCField.HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux" where
 
   type CFieldType Fun_ptr_Aux "unwrapFun_ptr_Aux" =
-    (RIP.Ptr Forward_declaration) -> IO ()
+    RIP.Ptr Forward_declaration -> IO ()
 
   offset# = \_ -> \_ -> 0
 
@@ -102,7 +102,7 @@ newtype Fun_ptr = Fun_ptr
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr Fun_ptr_Aux)
+instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
          ) => RIP.HasField "unwrapFun_ptr" (RIP.Ptr Fun_ptr) (RIP.Ptr ty) where
 
   getField =
@@ -163,7 +163,7 @@ instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Fun_ptr
+instance ( ty ~ Fun_ptr
          ) => RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr ty) where
 
   getField =

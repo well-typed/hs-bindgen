@@ -373,7 +373,7 @@ foreign import ccall unsafe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b59
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
-hs_bindgen_b548dda6b5993793 :: IO (RIP.Ptr ((CA.ConstantArray 10) (RIP.Complex RIP.CFloat)))
+hs_bindgen_b548dda6b5993793 :: IO (RIP.Ptr (CA.ConstantArray 10 (RIP.Complex RIP.CFloat)))
 hs_bindgen_b548dda6b5993793 =
   RIP.fromFFIType hs_bindgen_b548dda6b5993793_base
 
@@ -384,7 +384,7 @@ hs_bindgen_b548dda6b5993793 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_float_array :: RIP.Ptr ((CA.ConstantArray 10) (RIP.Complex RIP.CFloat))
+complex_float_array :: RIP.Ptr (CA.ConstantArray 10 (RIP.Complex RIP.CFloat))
 complex_float_array =
   RIP.unsafePerformIO hs_bindgen_b548dda6b5993793
 
@@ -393,7 +393,7 @@ foreign import ccall unsafe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da409
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
-hs_bindgen_c56913da40952669 :: IO (RIP.Ptr ((CA.ConstantArray 10) (RIP.Complex RIP.CDouble)))
+hs_bindgen_c56913da40952669 :: IO (RIP.Ptr (CA.ConstantArray 10 (RIP.Complex RIP.CDouble)))
 hs_bindgen_c56913da40952669 =
   RIP.fromFFIType hs_bindgen_c56913da40952669_base
 
@@ -404,6 +404,6 @@ hs_bindgen_c56913da40952669 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_double_array :: RIP.Ptr ((CA.ConstantArray 10) (RIP.Complex RIP.CDouble))
+complex_double_array :: RIP.Ptr (CA.ConstantArray 10 (RIP.Complex RIP.CDouble))
 complex_double_array =
   RIP.unsafePerformIO hs_bindgen_c56913da40952669

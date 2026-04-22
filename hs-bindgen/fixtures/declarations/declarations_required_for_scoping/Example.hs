@@ -50,7 +50,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CSize
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")

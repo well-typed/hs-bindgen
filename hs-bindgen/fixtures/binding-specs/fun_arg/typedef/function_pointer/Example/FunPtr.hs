@@ -76,7 +76,7 @@ foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ()))
+hs_bindgen_2020929269c10652 :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ()))
 hs_bindgen_2020929269c10652 =
   RIP.fromFFIType hs_bindgen_2020929269c10652_base
 
@@ -87,7 +87,7 @@ hs_bindgen_2020929269c10652 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
 -}
-foo :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ())
+foo :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_2020929269c10652
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@

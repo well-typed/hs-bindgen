@@ -59,7 +59,7 @@ newtype Int16_T = Int16_T
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapInt16_T" (RIP.Ptr Int16_T) (RIP.Ptr ty) where
 
   getField =
@@ -99,7 +99,7 @@ newtype Int32_T = Int32_T
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapInt32_T" (RIP.Ptr Int32_T) (RIP.Ptr ty) where
 
   getField =
@@ -139,7 +139,7 @@ newtype Int64_T = Int64_T
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "unwrapInt64_T" (RIP.Ptr Int64_T) (RIP.Ptr ty) where
 
   getField =
@@ -207,7 +207,7 @@ instance HasCField.HasCField Cint16_T "cint16_T_re" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Int16_T
+instance ( ty ~ Int16_T
          ) => RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
 
   getField =
@@ -219,7 +219,7 @@ instance HasCField.HasCField Cint16_T "cint16_T_im" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( ((~) ty) Int16_T
+instance ( ty ~ Int16_T
          ) => RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
 
   getField =
@@ -276,7 +276,7 @@ data A = A
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
-  , a_samples :: (CA.ConstantArray 128) RIP.CChar
+  , a_samples :: CA.ConstantArray 128 RIP.CChar
     {- ^ __C declaration:__ @samples@
 
          __defined at:__ @edge-cases\/spec_examples.h 26:8@
@@ -338,8 +338,7 @@ instance HasCField.HasCField A "a_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CDouble
-         ) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ RIP.CDouble) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_x")
 
@@ -349,7 +348,7 @@ instance HasCField.HasCField A "a_label" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) (RIP.Ptr RIP.CChar)
+instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_label")
@@ -357,11 +356,11 @@ instance ( ((~) ty) (RIP.Ptr RIP.CChar)
 instance HasCField.HasCField A "a_samples" where
 
   type CFieldType A "a_samples" =
-    (CA.ConstantArray 128) RIP.CChar
+    CA.ConstantArray 128 RIP.CChar
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) ((CA.ConstantArray 128) RIP.CChar)
+instance ( ty ~ CA.ConstantArray 128 RIP.CChar
          ) => RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
@@ -372,7 +371,7 @@ instance HasCField.HasCField A "a_b" where
 
   offset# = \_ -> \_ -> 144
 
-instance (((~) ty) B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_b")
 
@@ -382,8 +381,7 @@ instance HasCField.HasCField A "a_c" where
 
   offset# = \_ -> \_ -> 144
 
-instance ( ((~) ty) (RIP.Ptr C)
-         ) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ RIP.Ptr C) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_c")
 

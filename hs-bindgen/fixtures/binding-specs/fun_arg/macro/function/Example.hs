@@ -68,7 +68,7 @@ instance RIP.FromFunPtr MyFunction where
 
   fromFunPtr = hs_bindgen_bb71f7e730356103
 
-instance ( ((~) ty) (RIP.CInt -> IO RIP.CInt)
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapMyFunction" (RIP.Ptr MyFunction) (RIP.Ptr ty) where
 
   getField =
@@ -93,7 +93,7 @@ newtype A = A
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ((~) ty) MyFunction
+instance ( ty ~ MyFunction
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -116,7 +116,7 @@ newtype B = B
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -137,7 +137,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

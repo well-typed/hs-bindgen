@@ -37,7 +37,7 @@ newtype MyArray = MyArray
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapMyArray" (RIP.Ptr MyArray) (RIP.Ptr ty) where
 
   getField =
@@ -62,8 +62,7 @@ newtype A = A
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) MyArray
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ MyArray) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -85,7 +84,7 @@ newtype B = B
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -106,7 +105,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

@@ -32,7 +32,7 @@ import qualified M
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 newtype A = A
-  { unwrapA :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapA :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -43,7 +43,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -51,7 +51,7 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -73,7 +73,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -94,7 +94,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

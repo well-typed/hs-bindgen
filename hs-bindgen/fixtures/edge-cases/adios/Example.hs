@@ -50,7 +50,7 @@ newtype Adio'0301s = Adio'0301s
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapAdio'0301s" (RIP.Ptr Adio'0301s) (RIP.Ptr ty) where
 
   getField =
@@ -91,7 +91,7 @@ newtype C数字 = C数字
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapC\25968\23383" (RIP.Ptr C数字) (RIP.Ptr ty) where
 
   getField =

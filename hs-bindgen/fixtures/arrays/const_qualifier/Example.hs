@@ -40,7 +40,7 @@ newtype S = S
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapS")
@@ -64,7 +64,7 @@ newtype T = T
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -83,7 +83,7 @@ instance HasCField.HasCField T "unwrapT" where
     __exported by:__ @arrays\/const_qualifier.h@
 -}
 newtype U = U
-  { unwrapU :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapU :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -94,7 +94,7 @@ newtype U = U
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapU" (RIP.Ptr U) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapU")
@@ -102,7 +102,7 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField U "unwrapU" where
 
   type CFieldType U "unwrapU" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -113,7 +113,7 @@ instance HasCField.HasCField U "unwrapU" where
     __exported by:__ @arrays\/const_qualifier.h@
 -}
 newtype V = V
-  { unwrapV :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapV :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -124,7 +124,7 @@ newtype V = V
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapV" (RIP.Ptr V) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapV")
@@ -132,7 +132,7 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField V "unwrapV" where
 
   type CFieldType V "unwrapV" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -143,7 +143,7 @@ instance HasCField.HasCField V "unwrapV" where
     __exported by:__ @arrays\/const_qualifier.h@
 -}
 newtype W = W
-  { unwrapW :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapW :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -154,7 +154,7 @@ newtype W = W
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapW" (RIP.Ptr W) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapW")
@@ -162,7 +162,7 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField W "unwrapW" where
 
   type CFieldType W "unwrapW" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -173,7 +173,7 @@ instance HasCField.HasCField W "unwrapW" where
     __exported by:__ @arrays\/const_qualifier.h@
 -}
 newtype X = X
-  { unwrapX :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapX :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -184,7 +184,7 @@ newtype X = X
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapX" (RIP.Ptr X) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapX")
@@ -192,6 +192,6 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField X "unwrapX" where
 
   type CFieldType X "unwrapX" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0

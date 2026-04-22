@@ -620,7 +620,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 64 RIP.CChar))
   -> HsBindgen.Runtime.LibC.CSize
   -> IO RIP.CInt
 hs_bindgen_97c1191917e6eece =
@@ -641,7 +641,7 @@ hs_bindgen_97c1191917e6eece =
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer ::
-     RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))
+     RIP.Ptr (IsA.Elem (CA.ConstantArray 64 RIP.CChar))
      {- ^
 
           [__@buffer@__]: Buffer with minimum size

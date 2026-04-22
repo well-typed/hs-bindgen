@@ -339,7 +339,7 @@ instance HasCField.HasCField Primitive "primitive_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CChar
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "primitive_c" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -351,7 +351,7 @@ instance HasCField.HasCField Primitive "primitive_sc" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( ((~) ty) RIP.CSChar
+instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "primitive_sc" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -363,7 +363,7 @@ instance HasCField.HasCField Primitive "primitive_uc" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( ((~) ty) RIP.CUChar
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "primitive_uc" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -375,7 +375,7 @@ instance HasCField.HasCField Primitive "primitive_s" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "primitive_s" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -387,7 +387,7 @@ instance HasCField.HasCField Primitive "primitive_si" where
 
   offset# = \_ -> \_ -> 6
 
-instance ( ((~) ty) RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "primitive_si" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -399,7 +399,7 @@ instance HasCField.HasCField Primitive "primitive_ss" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "primitive_ss" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -412,7 +412,7 @@ instance HasCField.HasCField Primitive "primitive_ssi" where
 
   offset# = \_ -> \_ -> 10
 
-instance ( ((~) ty) RIP.CShort
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "primitive_ssi" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -425,7 +425,7 @@ instance HasCField.HasCField Primitive "primitive_us" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( ((~) ty) RIP.CUShort
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "primitive_us" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -438,7 +438,7 @@ instance HasCField.HasCField Primitive "primitive_usi" where
 
   offset# = \_ -> \_ -> 14
 
-instance ( ((~) ty) RIP.CUShort
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "primitive_usi" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -450,7 +450,7 @@ instance HasCField.HasCField Primitive "primitive_i" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "primitive_i" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -462,7 +462,7 @@ instance HasCField.HasCField Primitive "primitive_s2" where
 
   offset# = \_ -> \_ -> 20
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "primitive_s2" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -474,7 +474,7 @@ instance HasCField.HasCField Primitive "primitive_si2" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "primitive_si2" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -486,7 +486,7 @@ instance HasCField.HasCField Primitive "primitive_u" where
 
   offset# = \_ -> \_ -> 28
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "primitive_u" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -498,7 +498,7 @@ instance HasCField.HasCField Primitive "primitive_ui" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "primitive_ui" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -510,7 +510,7 @@ instance HasCField.HasCField Primitive "primitive_l" where
 
   offset# = \_ -> \_ -> 40
 
-instance ( ((~) ty) RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "primitive_l" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -522,7 +522,7 @@ instance HasCField.HasCField Primitive "primitive_li" where
 
   offset# = \_ -> \_ -> 48
 
-instance ( ((~) ty) RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "primitive_li" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -534,7 +534,7 @@ instance HasCField.HasCField Primitive "primitive_sl" where
 
   offset# = \_ -> \_ -> 56
 
-instance ( ((~) ty) RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "primitive_sl" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -546,7 +546,7 @@ instance HasCField.HasCField Primitive "primitive_sli" where
 
   offset# = \_ -> \_ -> 64
 
-instance ( ((~) ty) RIP.CLong
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "primitive_sli" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -558,7 +558,7 @@ instance HasCField.HasCField Primitive "primitive_ul" where
 
   offset# = \_ -> \_ -> 72
 
-instance ( ((~) ty) RIP.CULong
+instance ( ty ~ RIP.CULong
          ) => RIP.HasField "primitive_ul" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -571,7 +571,7 @@ instance HasCField.HasCField Primitive "primitive_uli" where
 
   offset# = \_ -> \_ -> 80
 
-instance ( ((~) ty) RIP.CULong
+instance ( ty ~ RIP.CULong
          ) => RIP.HasField "primitive_uli" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -583,7 +583,7 @@ instance HasCField.HasCField Primitive "primitive_ll" where
 
   offset# = \_ -> \_ -> 88
 
-instance ( ((~) ty) RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "primitive_ll" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -596,7 +596,7 @@ instance HasCField.HasCField Primitive "primitive_lli" where
 
   offset# = \_ -> \_ -> 96
 
-instance ( ((~) ty) RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "primitive_lli" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -609,7 +609,7 @@ instance HasCField.HasCField Primitive "primitive_sll" where
 
   offset# = \_ -> \_ -> 104
 
-instance ( ((~) ty) RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "primitive_sll" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -622,7 +622,7 @@ instance HasCField.HasCField Primitive "primitive_slli" where
 
   offset# = \_ -> \_ -> 112
 
-instance ( ((~) ty) RIP.CLLong
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "primitive_slli" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -635,7 +635,7 @@ instance HasCField.HasCField Primitive "primitive_ull" where
 
   offset# = \_ -> \_ -> 120
 
-instance ( ((~) ty) RIP.CULLong
+instance ( ty ~ RIP.CULLong
          ) => RIP.HasField "primitive_ull" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -648,7 +648,7 @@ instance HasCField.HasCField Primitive "primitive_ulli" where
 
   offset# = \_ -> \_ -> 128
 
-instance ( ((~) ty) RIP.CULLong
+instance ( ty ~ RIP.CULLong
          ) => RIP.HasField "primitive_ulli" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -660,7 +660,7 @@ instance HasCField.HasCField Primitive "primitive_f" where
 
   offset# = \_ -> \_ -> 136
 
-instance ( ((~) ty) RIP.CFloat
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "primitive_f" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =
@@ -672,7 +672,7 @@ instance HasCField.HasCField Primitive "primitive_d" where
 
   offset# = \_ -> \_ -> 144
 
-instance ( ((~) ty) RIP.CDouble
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "primitive_d" (RIP.Ptr Primitive) (RIP.Ptr ty) where
 
   getField =

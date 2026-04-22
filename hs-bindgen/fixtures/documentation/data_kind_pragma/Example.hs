@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}
 newtype Triplet = Triplet
-  { unwrapTriplet :: (CA.ConstantArray 3) RIP.CInt
+  { unwrapTriplet :: CA.ConstantArray 3 RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -40,7 +40,7 @@ newtype Triplet = Triplet
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
 
   getField =
@@ -49,6 +49,6 @@ instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
 instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   type CFieldType Triplet "unwrapTriplet" =
-    (CA.ConstantArray 3) RIP.CInt
+    CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0

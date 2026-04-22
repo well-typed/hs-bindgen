@@ -34,7 +34,7 @@ newtype Toggle = Toggle
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ((~) ty) (Block.Block (IO RIP.CBool))
+instance ( ty ~ Block.Block (IO RIP.CBool)
          ) => RIP.HasField "unwrapToggle" (RIP.Ptr Toggle) (RIP.Ptr ty) where
 
   getField =
@@ -59,7 +59,7 @@ newtype Counter = Counter
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ((~) ty) (Block.Block (IO RIP.CInt))
+instance ( ty ~ Block.Block (IO RIP.CInt)
          ) => RIP.HasField "unwrapCounter" (RIP.Ptr Counter) (RIP.Ptr ty) where
 
   getField =
@@ -84,7 +84,7 @@ newtype VarCounter = VarCounter
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ((~) ty) (Block.Block (RIP.CInt -> IO RIP.CInt))
+instance ( ty ~ Block.Block (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapVarCounter" (RIP.Ptr VarCounter) (RIP.Ptr ty) where
 
   getField =

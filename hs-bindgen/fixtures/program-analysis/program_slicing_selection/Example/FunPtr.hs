@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d718
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
-hs_bindgen_6e12e70d71890a10 :: IO (RIP.FunPtr ((RIP.Ptr HsBindgen.Runtime.LibC.CFile) -> (RIP.Ptr RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
+hs_bindgen_6e12e70d71890a10 :: IO (RIP.FunPtr (RIP.Ptr HsBindgen.Runtime.LibC.CFile -> RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
 hs_bindgen_6e12e70d71890a10 =
   RIP.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
@@ -42,6 +42,6 @@ hs_bindgen_6e12e70d71890a10 =
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk :: RIP.FunPtr ((RIP.Ptr HsBindgen.Runtime.LibC.CFile) -> (RIP.Ptr RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
+read_file_chunk :: RIP.FunPtr (RIP.Ptr HsBindgen.Runtime.LibC.CFile -> RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
 read_file_chunk =
   RIP.unsafePerformIO hs_bindgen_6e12e70d71890a10

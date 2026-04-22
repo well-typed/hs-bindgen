@@ -336,7 +336,7 @@ foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f89
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
-hs_bindgen_c6c52463f890e752 :: IO (RIP.Ptr ((CA.ConstantArray 3) RIP.CChar))
+hs_bindgen_c6c52463f890e752 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CChar))
 hs_bindgen_c6c52463f890e752 =
   RIP.fromFFIType hs_bindgen_c6c52463f890e752_base
 
@@ -347,7 +347,7 @@ hs_bindgen_c6c52463f890e752 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesString2 :: RIP.Ptr ((CA.ConstantArray 3) RIP.CChar)
+nesString2 :: RIP.Ptr (CA.ConstantArray 3 RIP.CChar)
 nesString2 =
   RIP.unsafePerformIO hs_bindgen_c6c52463f890e752
 
@@ -496,7 +496,7 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
-hs_bindgen_798af9a98bfc3030 :: IO (RIP.Ptr ((CA.ConstantArray 4) HsBindgen.Runtime.LibC.Word8))
+hs_bindgen_798af9a98bfc3030 :: IO (RIP.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_798af9a98bfc3030 =
   RIP.fromFFIType hs_bindgen_798af9a98bfc3030_base
 
@@ -507,7 +507,7 @@ hs_bindgen_798af9a98bfc3030 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: RIP.Ptr ((CA.ConstantArray 4) HsBindgen.Runtime.LibC.Word8)
+nesInitList :: RIP.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8)
 nesInitList =
   RIP.unsafePerformIO hs_bindgen_798af9a98bfc3030
 
@@ -536,7 +536,7 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
      IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
-hs_bindgen_b243f9b292f8b883 :: IO (RIP.Ptr ((CA.ConstantArray 4096) HsBindgen.Runtime.LibC.Word8))
+hs_bindgen_b243f9b292f8b883 :: IO (RIP.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_b243f9b292f8b883 =
   RIP.fromFFIType hs_bindgen_b243f9b292f8b883_base
 
@@ -551,7 +551,7 @@ hs_bindgen_b243f9b292f8b883 =
 
     __exported by:__ @globals\/globals.h@
 -}
-streamBinary :: RIP.Ptr ((CA.ConstantArray 4096) HsBindgen.Runtime.LibC.Word8)
+streamBinary :: RIP.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8)
 streamBinary =
   RIP.unsafePerformIO hs_bindgen_b243f9b292f8b883
 

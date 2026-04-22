@@ -70,7 +70,7 @@ instance HasCField.HasCField Vector_Aux "vector_length" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "vector_length" (RIP.Ptr Vector_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -86,4 +86,4 @@ instance FLAM.Offset RIP.CLong Vector_Aux where
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-type Vector = (FLAM.WithFlam RIP.CLong) Vector_Aux
+type Vector = FLAM.WithFlam RIP.CLong Vector_Aux

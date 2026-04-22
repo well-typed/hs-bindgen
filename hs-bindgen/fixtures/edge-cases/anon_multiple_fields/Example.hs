@@ -79,7 +79,7 @@ instance HasCField.HasCField Some_struct_field1 "some_struct_field1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "some_struct_field1_x" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
 
   getField =
@@ -92,7 +92,7 @@ instance HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "some_struct_field1_y" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
 
   getField =
@@ -164,7 +164,7 @@ instance HasCField.HasCField Some_struct "some_struct_field1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) Some_struct_field1
+instance ( ty ~ Some_struct_field1
          ) => RIP.HasField "some_struct_field1" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
 
   getField =
@@ -177,7 +177,7 @@ instance HasCField.HasCField Some_struct "some_struct_field2" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ((~) ty) Some_struct_field1
+instance ( ty ~ Some_struct_field1
          ) => RIP.HasField "some_struct_field2" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
 
   getField =
@@ -190,7 +190,7 @@ instance HasCField.HasCField Some_struct "some_struct_field3" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ((~) ty) Some_struct_field1
+instance ( ty ~ Some_struct_field1
          ) => RIP.HasField "some_struct_field3" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
 
   getField =

@@ -35,14 +35,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @functions\/typedef_funptr.h@
 -}
 newtype RunDriver_Aux = RunDriver_Aux
-  { unwrapRunDriver_Aux :: (RIP.Ptr Driver) -> IO RIP.CInt
+  { unwrapRunDriver_Aux :: RIP.Ptr Driver -> IO RIP.CInt
   }
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
-     ((RIP.Ptr RIP.Void) -> IO RIP.Int32)
-  -> IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO RIP.Int32))
+     (RIP.Ptr RIP.Void -> IO RIP.Int32)
+  -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32))
 
 -- __unique:__ @toRunDriver_Aux@
 hs_bindgen_d86ecf261d7044c6 ::
@@ -53,8 +53,8 @@ hs_bindgen_d86ecf261d7044c6 =
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (RIP.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
-     RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO RIP.Int32)
-  -> (RIP.Ptr RIP.Void) -> IO RIP.Int32
+     RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32)
+  -> RIP.Ptr RIP.Void -> IO RIP.Int32
 
 -- __unique:__ @fromRunDriver_Aux@
 hs_bindgen_6520ae39b50ffb4e ::
@@ -72,7 +72,7 @@ instance RIP.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( ((~) ty) ((RIP.Ptr Driver) -> IO RIP.CInt)
+instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
          ) => RIP.HasField "unwrapRunDriver_Aux" (RIP.Ptr RunDriver_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -81,7 +81,7 @@ instance ( ((~) ty) ((RIP.Ptr Driver) -> IO RIP.CInt)
 instance HasCField.HasCField RunDriver_Aux "unwrapRunDriver_Aux" where
 
   type CFieldType RunDriver_Aux "unwrapRunDriver_Aux" =
-    (RIP.Ptr Driver) -> IO RIP.CInt
+    RIP.Ptr Driver -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -103,7 +103,7 @@ newtype RunDriver = RunDriver
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) (RIP.FunPtr RunDriver_Aux)
+instance ( ty ~ RIP.FunPtr RunDriver_Aux
          ) => RIP.HasField "unwrapRunDriver" (RIP.Ptr RunDriver) (RIP.Ptr ty) where
 
   getField =
@@ -163,7 +163,7 @@ instance HasCField.HasCField Driver "driver_run" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RunDriver
+instance ( ty ~ RunDriver
          ) => RIP.HasField "driver_run" (RIP.Ptr Driver) (RIP.Ptr ty) where
 
   getField =
@@ -217,7 +217,7 @@ instance HasCField.HasCField Bare "bare_callback" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) (RIP.FunPtr (RIP.CInt -> IO ()))
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
          ) => RIP.HasField "bare_callback" (RIP.Ptr Bare) (RIP.Ptr ty) where
 
   getField =

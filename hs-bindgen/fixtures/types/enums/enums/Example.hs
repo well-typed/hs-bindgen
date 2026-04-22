@@ -132,7 +132,7 @@ instance Read First where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapFirst" (RIP.Ptr First) (RIP.Ptr ty) where
 
   getField =
@@ -243,7 +243,7 @@ instance Read Second where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CInt
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapSecond" (RIP.Ptr Second) (RIP.Ptr ty) where
 
   getField =
@@ -359,7 +359,7 @@ instance Read Same where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapSame" (RIP.Ptr Same) (RIP.Ptr ty) where
 
   getField =
@@ -460,7 +460,7 @@ instance Read Nonseq where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapNonseq" (RIP.Ptr Nonseq) (RIP.Ptr ty) where
 
   getField =
@@ -580,7 +580,7 @@ instance Read Packed where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUChar
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapPacked" (RIP.Ptr Packed) (RIP.Ptr ty) where
 
   getField =
@@ -697,7 +697,7 @@ instance Read EnumA where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
 
   getField =
@@ -805,7 +805,7 @@ instance Read EnumB where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumB" (RIP.Ptr EnumB) (RIP.Ptr ty) where
 
   getField =
@@ -913,7 +913,7 @@ instance Read EnumC where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumC" (RIP.Ptr EnumC) (RIP.Ptr ty) where
 
   getField =
@@ -1021,7 +1021,7 @@ instance Read EnumD_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ((~) ty) RIP.CUInt
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumD_t" (RIP.Ptr EnumD_t) (RIP.Ptr ty) where
 
   getField =

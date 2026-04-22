@@ -49,7 +49,7 @@ newtype Stdlib_CBool = Stdlib_CBool
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CBool
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr ty) where
 
   getField =
