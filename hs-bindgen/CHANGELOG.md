@@ -40,6 +40,10 @@
   is not installed, `hs-bindgen` silently falls back to generating
   metadata-only comments (source location and C name) with no documentation
   content.
+* Print types without redundant parentheses in generated bindings. See [issue
+  #1790][is-1790] and [PR #1917][pr-1917].
+* Print type operators with infix notation in generated bindings. See [issue
+  #1715][is-1715] and [PR #1917][pr-1917].
 
 ### Bug fixes
 
@@ -162,12 +166,15 @@
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
+[is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
+[is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
 [issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
+[pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 
 ## 0.1.0-alpha -- 2026-02-06
 
