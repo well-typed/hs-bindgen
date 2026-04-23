@@ -1,21 +1,26 @@
 module HsBindgen.Clang.Sizeof (getSizeofs) where
 
-import Control.Monad
+import Control.Monad ((>=>))
 import Data.Map.Strict qualified as Map
-import Data.Text
+import Data.Text (Text)
 import Text.Printf (printf)
 
-import Clang.Args
+import Clang.Args (ClangArgs)
 import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (foldContinue)
 import Clang.HighLevel.Types qualified as HighLevel
-import Clang.LowLevel.Core
+import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_VarDecl), CXType,
+                            clang_Type_getSizeOf, clang_getCursorKind,
+                            clang_getCursorSpelling, clang_getCursorType,
+                            clang_getTranslationUnitCursor,
+                            clang_getTypeSpelling)
 
-import HsBindgen.Clang
+import HsBindgen.Clang (ClangInput (ClangInputMemory), ClangMsg,
+                        defaultClangSetup, withClang)
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Language.C
-import HsBindgen.Util.Tracer
+import HsBindgen.Language.C (NumBytes (..), Sizeofs (..))
+import HsBindgen.Util.Tracer (Tracer)
 
 getSizeofs :: Tracer ClangMsg -> ClangArgs -> IO Sizeofs
 getSizeofs tr args = withClang tr clangSetup $ \unit -> do
