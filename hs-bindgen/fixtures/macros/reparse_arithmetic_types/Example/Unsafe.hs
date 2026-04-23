@@ -100,7 +100,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return (f10)(arg1);"
   , "}"
-  , "signed int hs_bindgen_21c3896990e488d7 ("
+  , "A hs_bindgen_21c3896990e488d7 ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -112,7 +112,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return (f12)(arg1);"
   , "}"
-  , "signed int hs_bindgen_18851b26abc94040 ("
+  , "A hs_bindgen_18851b26abc94040 ("
   , "  unsigned int arg1"
   , ")"
   , "{"
@@ -161,37 +161,37 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return (f20)(arg1);"
   , "}"
   , "A hs_bindgen_488efc7f974c971b ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return (f21)(arg1);"
   , "}"
   , "A hs_bindgen_d6563ce8f86f1541 ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return (f22)(arg1);"
   , "}"
   , "A hs_bindgen_0ecb5a60c4365a73 ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return (f23)(arg1);"
   , "}"
   , "A hs_bindgen_0d5e24fc786feaec ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return (f24)(arg1);"
   , "}"
   , "A hs_bindgen_d6b4f74553c4e27b ("
-  , "  unsigned long arg1"
+  , "  unsigned long long arg1"
   , ")"
   , "{"
   , "  return (f25)(arg1);"
   , "}"
   , "A hs_bindgen_da234f84dc67b630 ("
-  , "  unsigned long arg1"
+  , "  unsigned long long arg1"
   , ")"
   , "{"
   , "  return (f26)(arg1);"
@@ -458,7 +458,7 @@ foreign import ccall unsafe "hs_bindgen_21c3896990e488d7" hs_bindgen_21c3896990e
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f11@
 hs_bindgen_21c3896990e488d7 ::
      RIP.CInt
-  -> IO RIP.CInt
+  -> IO A
 hs_bindgen_21c3896990e488d7 =
   RIP.fromFFIType hs_bindgen_21c3896990e488d7_base
 
@@ -471,7 +471,7 @@ hs_bindgen_21c3896990e488d7 =
 f11 ::
      RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO A
 f11 = hs_bindgen_21c3896990e488d7
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f12@
@@ -506,7 +506,7 @@ foreign import ccall unsafe "hs_bindgen_18851b26abc94040" hs_bindgen_18851b26abc
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f13@
 hs_bindgen_18851b26abc94040 ::
      RIP.CUInt
-  -> IO RIP.CInt
+  -> IO A
 hs_bindgen_18851b26abc94040 =
   RIP.fromFFIType hs_bindgen_18851b26abc94040_base
 
@@ -519,7 +519,7 @@ hs_bindgen_18851b26abc94040 =
 f13 ::
      RIP.CUInt
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO A
 f13 = hs_bindgen_18851b26abc94040
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f14@
@@ -697,7 +697,7 @@ foreign import ccall unsafe "hs_bindgen_488efc7f974c971b" hs_bindgen_488efc7f974
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f21@
 hs_bindgen_488efc7f974c971b ::
-     RIP.CLong
+     RIP.CLLong
   -> IO A
 hs_bindgen_488efc7f974c971b =
   RIP.fromFFIType hs_bindgen_488efc7f974c971b_base
@@ -709,7 +709,7 @@ hs_bindgen_488efc7f974c971b =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f21 ::
-     RIP.CLong
+     RIP.CLLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f21 = hs_bindgen_488efc7f974c971b
@@ -721,7 +721,7 @@ foreign import ccall unsafe "hs_bindgen_d6563ce8f86f1541" hs_bindgen_d6563ce8f86
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f22@
 hs_bindgen_d6563ce8f86f1541 ::
-     RIP.CLong
+     RIP.CLLong
   -> IO A
 hs_bindgen_d6563ce8f86f1541 =
   RIP.fromFFIType hs_bindgen_d6563ce8f86f1541_base
@@ -733,7 +733,7 @@ hs_bindgen_d6563ce8f86f1541 =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f22 ::
-     RIP.CLong
+     RIP.CLLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f22 = hs_bindgen_d6563ce8f86f1541
@@ -745,7 +745,7 @@ foreign import ccall unsafe "hs_bindgen_0ecb5a60c4365a73" hs_bindgen_0ecb5a60c43
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f23@
 hs_bindgen_0ecb5a60c4365a73 ::
-     RIP.CLong
+     RIP.CLLong
   -> IO A
 hs_bindgen_0ecb5a60c4365a73 =
   RIP.fromFFIType hs_bindgen_0ecb5a60c4365a73_base
@@ -757,7 +757,7 @@ hs_bindgen_0ecb5a60c4365a73 =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f23 ::
-     RIP.CLong
+     RIP.CLLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f23 = hs_bindgen_0ecb5a60c4365a73
@@ -769,7 +769,7 @@ foreign import ccall unsafe "hs_bindgen_0d5e24fc786feaec" hs_bindgen_0d5e24fc786
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f24@
 hs_bindgen_0d5e24fc786feaec ::
-     RIP.CLong
+     RIP.CLLong
   -> IO A
 hs_bindgen_0d5e24fc786feaec =
   RIP.fromFFIType hs_bindgen_0d5e24fc786feaec_base
@@ -781,7 +781,7 @@ hs_bindgen_0d5e24fc786feaec =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f24 ::
-     RIP.CLong
+     RIP.CLLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f24 = hs_bindgen_0d5e24fc786feaec
@@ -793,7 +793,7 @@ foreign import ccall unsafe "hs_bindgen_d6b4f74553c4e27b" hs_bindgen_d6b4f74553c
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f25@
 hs_bindgen_d6b4f74553c4e27b ::
-     RIP.CULong
+     RIP.CULLong
   -> IO A
 hs_bindgen_d6b4f74553c4e27b =
   RIP.fromFFIType hs_bindgen_d6b4f74553c4e27b_base
@@ -805,7 +805,7 @@ hs_bindgen_d6b4f74553c4e27b =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f25 ::
-     RIP.CULong
+     RIP.CULLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f25 = hs_bindgen_d6b4f74553c4e27b
@@ -817,7 +817,7 @@ foreign import ccall unsafe "hs_bindgen_da234f84dc67b630" hs_bindgen_da234f84dc6
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_Unsafe_f26@
 hs_bindgen_da234f84dc67b630 ::
-     RIP.CULong
+     RIP.CULLong
   -> IO A
 hs_bindgen_da234f84dc67b630 =
   RIP.fromFFIType hs_bindgen_da234f84dc67b630_base
@@ -829,7 +829,7 @@ hs_bindgen_da234f84dc67b630 =
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
 f26 ::
-     RIP.CULong
+     RIP.CULLong
      -- ^ __C declaration:__ @x@
   -> IO A
 f26 = hs_bindgen_da234f84dc67b630

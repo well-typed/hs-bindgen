@@ -122,7 +122,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "}"
   , "/* test_macrosreparse_arithmetic_type_Example_get_f11 */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_2517979024c47c45 (void)) ("
+  , "A (*hs_bindgen_2517979024c47c45 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -138,7 +138,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "}"
   , "/* test_macrosreparse_arithmetic_type_Example_get_f13 */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_b68c62cf00f60189 (void)) ("
+  , "A (*hs_bindgen_b68c62cf00f60189 (void)) ("
   , "  unsigned int arg1"
   , ")"
   , "{"
@@ -203,7 +203,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f21 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_2190f01b986beb9b (void)) ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return &f21;"
@@ -211,7 +211,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f22 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_8889f9f47fc90b7c (void)) ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return &f22;"
@@ -219,7 +219,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f23 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_028951472795c23d (void)) ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return &f23;"
@@ -227,7 +227,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f24 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_81579afc5577422e (void)) ("
-  , "  signed long arg1"
+  , "  signed long long arg1"
   , ")"
   , "{"
   , "  return &f24;"
@@ -235,7 +235,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f25 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_81230c41df4ab36f (void)) ("
-  , "  unsigned long arg1"
+  , "  unsigned long long arg1"
   , ")"
   , "{"
   , "  return &f25;"
@@ -243,7 +243,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_arithmetic_type_Example_get_f26 */"
   , "__attribute__ ((const))"
   , "A (*hs_bindgen_750219148022d1bd (void)) ("
-  , "  unsigned long arg1"
+  , "  unsigned long long arg1"
   , ")"
   , "{"
   , "  return &f26;"
@@ -461,7 +461,7 @@ foreign import ccall unsafe "hs_bindgen_2517979024c47c45" hs_bindgen_2517979024c
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f11@
-hs_bindgen_2517979024c47c45 :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_2517979024c47c45 :: IO (RIP.FunPtr (RIP.CInt -> IO A))
 hs_bindgen_2517979024c47c45 =
   RIP.fromFFIType hs_bindgen_2517979024c47c45_base
 
@@ -472,7 +472,7 @@ hs_bindgen_2517979024c47c45 =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f11 :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+f11 :: RIP.FunPtr (RIP.CInt -> IO A)
 f11 = RIP.unsafePerformIO hs_bindgen_2517979024c47c45
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f12@
@@ -499,7 +499,7 @@ foreign import ccall unsafe "hs_bindgen_b68c62cf00f60189" hs_bindgen_b68c62cf00f
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f13@
-hs_bindgen_b68c62cf00f60189 :: IO (RIP.FunPtr (RIP.CUInt -> IO RIP.CInt))
+hs_bindgen_b68c62cf00f60189 :: IO (RIP.FunPtr (RIP.CUInt -> IO A))
 hs_bindgen_b68c62cf00f60189 =
   RIP.fromFFIType hs_bindgen_b68c62cf00f60189_base
 
@@ -510,7 +510,7 @@ hs_bindgen_b68c62cf00f60189 =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f13 :: RIP.FunPtr (RIP.CUInt -> IO RIP.CInt)
+f13 :: RIP.FunPtr (RIP.CUInt -> IO A)
 f13 = RIP.unsafePerformIO hs_bindgen_b68c62cf00f60189
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f14@
@@ -651,7 +651,7 @@ foreign import ccall unsafe "hs_bindgen_2190f01b986beb9b" hs_bindgen_2190f01b986
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f21@
-hs_bindgen_2190f01b986beb9b :: IO (RIP.FunPtr (RIP.CLong -> IO A))
+hs_bindgen_2190f01b986beb9b :: IO (RIP.FunPtr (RIP.CLLong -> IO A))
 hs_bindgen_2190f01b986beb9b =
   RIP.fromFFIType hs_bindgen_2190f01b986beb9b_base
 
@@ -662,7 +662,7 @@ hs_bindgen_2190f01b986beb9b =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f21 :: RIP.FunPtr (RIP.CLong -> IO A)
+f21 :: RIP.FunPtr (RIP.CLLong -> IO A)
 f21 = RIP.unsafePerformIO hs_bindgen_2190f01b986beb9b
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f22@
@@ -670,7 +670,7 @@ foreign import ccall unsafe "hs_bindgen_8889f9f47fc90b7c" hs_bindgen_8889f9f47fc
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f22@
-hs_bindgen_8889f9f47fc90b7c :: IO (RIP.FunPtr (RIP.CLong -> IO A))
+hs_bindgen_8889f9f47fc90b7c :: IO (RIP.FunPtr (RIP.CLLong -> IO A))
 hs_bindgen_8889f9f47fc90b7c =
   RIP.fromFFIType hs_bindgen_8889f9f47fc90b7c_base
 
@@ -681,7 +681,7 @@ hs_bindgen_8889f9f47fc90b7c =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f22 :: RIP.FunPtr (RIP.CLong -> IO A)
+f22 :: RIP.FunPtr (RIP.CLLong -> IO A)
 f22 = RIP.unsafePerformIO hs_bindgen_8889f9f47fc90b7c
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f23@
@@ -689,7 +689,7 @@ foreign import ccall unsafe "hs_bindgen_028951472795c23d" hs_bindgen_02895147279
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f23@
-hs_bindgen_028951472795c23d :: IO (RIP.FunPtr (RIP.CLong -> IO A))
+hs_bindgen_028951472795c23d :: IO (RIP.FunPtr (RIP.CLLong -> IO A))
 hs_bindgen_028951472795c23d =
   RIP.fromFFIType hs_bindgen_028951472795c23d_base
 
@@ -700,7 +700,7 @@ hs_bindgen_028951472795c23d =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f23 :: RIP.FunPtr (RIP.CLong -> IO A)
+f23 :: RIP.FunPtr (RIP.CLLong -> IO A)
 f23 = RIP.unsafePerformIO hs_bindgen_028951472795c23d
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f24@
@@ -708,7 +708,7 @@ foreign import ccall unsafe "hs_bindgen_81579afc5577422e" hs_bindgen_81579afc557
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f24@
-hs_bindgen_81579afc5577422e :: IO (RIP.FunPtr (RIP.CLong -> IO A))
+hs_bindgen_81579afc5577422e :: IO (RIP.FunPtr (RIP.CLLong -> IO A))
 hs_bindgen_81579afc5577422e =
   RIP.fromFFIType hs_bindgen_81579afc5577422e_base
 
@@ -719,7 +719,7 @@ hs_bindgen_81579afc5577422e =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f24 :: RIP.FunPtr (RIP.CLong -> IO A)
+f24 :: RIP.FunPtr (RIP.CLLong -> IO A)
 f24 = RIP.unsafePerformIO hs_bindgen_81579afc5577422e
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f25@
@@ -727,7 +727,7 @@ foreign import ccall unsafe "hs_bindgen_81230c41df4ab36f" hs_bindgen_81230c41df4
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f25@
-hs_bindgen_81230c41df4ab36f :: IO (RIP.FunPtr (RIP.CULong -> IO A))
+hs_bindgen_81230c41df4ab36f :: IO (RIP.FunPtr (RIP.CULLong -> IO A))
 hs_bindgen_81230c41df4ab36f =
   RIP.fromFFIType hs_bindgen_81230c41df4ab36f_base
 
@@ -738,7 +738,7 @@ hs_bindgen_81230c41df4ab36f =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f25 :: RIP.FunPtr (RIP.CULong -> IO A)
+f25 :: RIP.FunPtr (RIP.CULLong -> IO A)
 f25 = RIP.unsafePerformIO hs_bindgen_81230c41df4ab36f
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f26@
@@ -746,7 +746,7 @@ foreign import ccall unsafe "hs_bindgen_750219148022d1bd" hs_bindgen_75021914802
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f26@
-hs_bindgen_750219148022d1bd :: IO (RIP.FunPtr (RIP.CULong -> IO A))
+hs_bindgen_750219148022d1bd :: IO (RIP.FunPtr (RIP.CULLong -> IO A))
 hs_bindgen_750219148022d1bd =
   RIP.fromFFIType hs_bindgen_750219148022d1bd_base
 
@@ -757,7 +757,7 @@ hs_bindgen_750219148022d1bd =
 
     __exported by:__ @macros\/reparse_arithmetic_types.h@
 -}
-f26 :: RIP.FunPtr (RIP.CULong -> IO A)
+f26 :: RIP.FunPtr (RIP.CULLong -> IO A)
 f26 = RIP.unsafePerformIO hs_bindgen_750219148022d1bd
 
 -- __unique:__ @test_macrosreparse_arithmetic_type_Example_get_f27@
