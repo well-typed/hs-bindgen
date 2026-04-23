@@ -12,3 +12,8 @@ exclude_path = [
   # passed globs (see https://github.com/lycheeverse/lychee/discussions/1612).
   "dist-newstyle*",
 ]
+
+# gitlab.haskell.org is frequently unreliable (502 Bad Gateway).
+exclude = [
+  "https://gitlab.haskell.org/.*",
+]
