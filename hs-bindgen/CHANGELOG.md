@@ -57,6 +57,10 @@
   literal from a `HasField` instance, or a function-typed argument).  This was
   previously covered implicitly by `GHC2021`, but broke downstream consumers
   using `Haskell2010` as the default language.
+* Fix the parsing of primitive types in declarations that involve macro
+  expansions. The bug would, for example, cause `long long int` to be parsed as
+  `long int` in some cases, but that is now fixed. See [issue #1685][is-1685]
+  and [PR #1921][pr-1921].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -155,7 +159,7 @@
   Haddock documentation of declarations in the included header, we just
   document the filename of the header.
 * Fix `--create-output-dirs` not creating directories for `--gen-binding-spec`
-  output paths. See [issue #1806][issue-1806].
+  output paths. See [issue #1806][is-1806].
 * Skip functions whose parameters reference struct/union declarations that
   will not be visible outside of the function, including both forward
   references and inline definitions. This could indicate a missing `#include`
@@ -163,18 +167,20 @@
   `MangleNames`; now they are skipped with a warning.
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
+[is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
-[issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
+[is-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
+[pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
 
 ## 0.1.0-alpha -- 2026-02-06
 

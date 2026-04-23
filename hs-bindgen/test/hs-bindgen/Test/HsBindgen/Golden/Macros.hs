@@ -41,6 +41,7 @@ testCases = [
     , test_macros_parse_intermittent_include_conditional
     , test_macros_parse_macro_typedef_scope_multiple
     , test_macros_reparse
+    , test_macros_reparse_arithmetic_types
     , test_macros_reparse_functions
     ]
 
@@ -156,6 +157,18 @@ test_macros_reparse =
       & #clangVersion   .~ Just (>= (15, 0, 0))
         -- `bool` is a keyword.
       & #cStandard      .~ c23
+
+test_macros_reparse_arithmetic_types :: TestCase
+test_macros_reparse_arithmetic_types =
+    defaultTest "macros/reparse_arithmetic_types"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name@"f29" (SelectParseFailure ParseUnsupportedLongDouble) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs = ["f29"]
 
 test_macros_reparse_functions :: TestCase
 test_macros_reparse_functions =
