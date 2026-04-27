@@ -61,7 +61,7 @@ data FloatingLiteral =
 
 -- | A C character literal, with the original source text.
 --
--- See 'CharLiteralValue'.
+-- See @CharLiteralValue@.
 data CharLiteral =
   CharLiteral
     { charLiteralText :: Text

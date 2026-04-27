@@ -164,7 +164,7 @@ instance Aeson.ToJSON AVersion where
     , "binding_specification" .= version.bindingSpec
     ]
 
--- | Construct an 'AVersion' with the current versions
+-- | Construct an @AVersion@ with the current versions
 mkAVersion :: BindingSpecVersion -> AVersion
 mkAVersion aVersionBindingSpecification = AVersion{
       bindgen = Package.version

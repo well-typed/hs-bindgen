@@ -3,14 +3,14 @@
 -- | Simple pretty-printing library
 --
 -- This library wraps the @pretty@ library.  Instead of using 'PP.Doc' directly,
--- type 'CtxDoc' threads a 'Context'.  Keeping track of the current indentation
+-- type @CtxDoc@ threads a @Context@.  Keeping track of the current indentation
 -- and maximum line length enables the implementation of 'renderedLines', which
 -- can be used to format documentation comments for the current indentation.
 -- Keeping track of a unique name index enables rendering of unique names with
 -- 'withFreshName'.
 --
 -- Some of the API functions provided by this library differ in behavior from
--- @pretty@ API functions of similar/same names.  In particular, '($+$)'
+-- @pretty@ API functions of similar/same names.  In particular, @($+$)@
 -- vertically joins documents with blank lines, while '($$)' vertically joins
 -- documents without blank lines, behaving like the @pretty@ '(PP.$+$)'
 -- function.  The list equivalents of these functions are similarly different.
@@ -30,7 +30,7 @@
 -- > import Text.SimplePrettyPrint ((><), (<+>), ($$), ($+$))
 module Text.SimplePrettyPrint (
     CtxDoc -- opaque
-    -- * 'CtxDoc' features
+    -- * @CtxDoc@ features
   , withFreshName
   , ifFits
     -- * Rendering
@@ -106,7 +106,7 @@ data Context = Context {
     , uniqueNameIdx :: !Int
     }
 
--- | Construct an initial 'Context' with the specified line length
+-- | Construct an initial @Context@ with the specified line length
 mkContext :: Int -> Context
 mkContext maxLineCols = Context {
       indentation   = 0
@@ -118,7 +118,7 @@ mkContext maxLineCols = Context {
 defaultContext :: Context
 defaultContext = mkContext 80
 
--- | Add to the indentation in a 'Context'
+-- | Add to the indentation in a @Context@
 indentContext :: Int -> Context -> Context
 indentContext n ctx = ctx{indentation = ctx.indentation + n}
 
@@ -143,7 +143,7 @@ instance IsString CtxDoc where
 instance Show CtxDoc where
   show = renderCtxDoc defaultContext
 
--- | Run a 'CtxDoc' with the specified context
+-- | Run a @CtxDoc@ with the specified context
 runCtxDoc :: Context -> CtxDoc -> PP.Doc
 runCtxDoc ctx (CtxDoc f) = f ctx
 
@@ -153,7 +153,7 @@ withFreshName nameHint k = CtxDoc $ \ctx ->
     let (i, ctx') = getUniqueNameIdx ctx
     in  runCtxDoc ctx' . k $ CtxDoc (\_ -> PP.text (nameHint ++ Prelude.show i))
 
--- | Render a 'CtxDoc'
+-- | Render a @CtxDoc@
 renderCtxDoc :: Context -> CtxDoc -> String
 renderCtxDoc ctx = PP.renderStyle style . runCtxDoc ctx
   where
@@ -352,7 +352,7 @@ hangs dA n dBs = dA $$ vsep (nest n <$> dBs)
 hangs' :: CtxDoc -> Int -> [CtxDoc] -> CtxDoc
 hangs' dA n dBs = dA $$ vcat (nest n <$> dBs)
 
--- | Select a 'CtxDoc' depending on if a rendered 'CtxDoc' fits within the
+-- | Select a @CtxDoc@ depending on if a rendered @CtxDoc@ fits within the
 -- maximum line length
 ifFits :: CtxDoc -> CtxDoc -> CtxDoc -> CtxDoc
 ifFits condD thenD elseD = CtxDoc $ \ctx ->

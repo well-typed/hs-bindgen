@@ -151,10 +151,10 @@ data CommentInlineContent
       { moduleContent     :: Text -- ^ "Module"
       }
   | Identifier
-      { identifierContent :: Text -- ^ 'identifier'
+      { identifierContent :: Text -- ^ @\'identifier\'@
       }
   | Type
-      { typeContent       :: Text -- ^ t'Type'
+      { typeContent       :: Text -- ^ @t\'Type\'@
       }
   | Link                                            -- ^ [label](url)
       { linkLabel         :: [CommentInlineContent] -- ^ link label
@@ -176,7 +176,7 @@ data CommentInlineContent
       { typeSignature     :: HsType
       }
     -- ^ This constructor allows one to render a 'HsType'. For example, when
-    -- generating FFI "wrapper" stubs it could be useful to take a 'HsFun'
+    -- generating FFI "wrapper" stubs it could be useful to take a @HsFun@
     -- type and include it in the Haddocks, however one only has access to
     -- the 'HsType' pretty printer at rendering time.
   deriving (Show, Eq, Generic)

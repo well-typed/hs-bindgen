@@ -169,7 +169,7 @@ unionDecs haddockConfig info union spec = do
               , HsDoc.Identifier name
               ]
 
--- | 'HasCField' and 'HasField' instances for a field of a
+-- | @HasCField@ and @HasField@ instances for a field of a
 -- union declaration
 --
 -- Given a union:
@@ -191,8 +191,8 @@ unionDecs haddockConfig info union spec = do
 -- >   type CFieldType "myUnion_option2" MyUnion = CChar
 -- > instance HasField "myUnion_option2" (Ptr MyUnion) (Ptr CChar)
 --
--- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
--- instead of a 'HasCField' instance.
+-- This works similarly for bit-fields, but those get a @HasCBitfield@ instance
+-- instead of a @HasCField@ instance.
 unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl]
 unionFieldDecls unionName field = [
       Hs.DeclDefineInstance $

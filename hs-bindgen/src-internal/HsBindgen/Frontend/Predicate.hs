@@ -78,7 +78,7 @@ data DeclPredicate =
     -- | Match declaration name against regex
     DeclNameMatches Regex
     -- | Match deprecated declarations taking current target platform into
-    -- account; see 'Availability'
+    -- account; see @Availability@
   | DeclDeprecated
   deriving stock (Show, Eq, Generic)
 

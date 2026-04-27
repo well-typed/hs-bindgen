@@ -309,12 +309,12 @@ data DataTyCon nbArgs where
   -- | Type of types
   MacroTypeTyCon :: DataTyCon Z
 
-  -- | Type constructor for 'Void'
+  -- | Type constructor for @Void@
   VoidTyCon      :: DataTyCon Z
   -- | Type constructor for character literals (different from the C @char@
   -- integral type)
   CharLitTyCon   :: DataTyCon Z
-  -- | Unary type constructor for integral types, such as 'Int' or 'UShort'
+  -- | Unary type constructor for integral types, such as @Int@ or @UShort@.
   IntLikeTyCon   :: DataTyCon ( S Z )
   -- | Unary type constructor for floating-point types, such as 'Float' or 'Double'
   FloatLikeTyCon :: DataTyCon ( S Z )

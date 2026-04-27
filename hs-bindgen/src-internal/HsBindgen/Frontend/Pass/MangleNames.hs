@@ -197,7 +197,7 @@ getCollisionFailures (i, xs) =
 data NameInfo = NameInfo {
     cName    :: DeclId
   , hsName   :: Hs.SomeName
-    -- | We need the location to obtain 'WithLocationInfo'
+    -- | We need the location to obtain @WithLocationInfo@
   , loc      :: SingleLoc
     -- | We expect name collisions for squashed declarations
   , squashed :: Bool

@@ -68,7 +68,7 @@ tolerateAll :: IsTrace Level a => TracePredicate Level a
 tolerateAll =
     customTracePredicateAux @GotExpectedTrace mempty [] (const $ Just Tolerated)
 
--- | 'Expect' a trace with given name exactly one time.
+-- | @Expect@ a trace with given name exactly one time.
 singleTracePredicate ::
      IsTrace Level a
   => (a -> Maybe (TraceExpectation ()))
@@ -172,7 +172,7 @@ quietTracerConfig = def {
 
 -- | Run an action with a tracer that collects all trace messages.
 --
--- Use a 'Predicate' to decide whether traces are expected, or unexpected.
+-- Use a @TracePredicate@ to decide whether traces are expected, or unexpected.
 withTracePredicate ::
      (Typeable a, IsTrace Level a, Show a)
   => (String -> IO ())
@@ -185,7 +185,7 @@ withTracePredicate report predicate action =
 
 -- | Run an action with a tracer configuration that collects all trace messages.
 --
--- Use a 'Predicate' to decide whether traces are expected, or unexpected.
+-- Use a @TracePredicate@ to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate ::
      forall a b l. (Typeable a, IsTrace l a, Show a)
   => (String -> IO ())
@@ -266,9 +266,9 @@ instance (Typeable a, IsTrace l a, Show a)
 -- that info against a list of expected info. There are then two main cases
 -- (that is, main choses for @b@):
 --
--- * 'GotExpectedTrace': we either expect the trace message, or we don't; we
+-- * 'Test.Common.HsBindgen.Trace.Predicate.GotExpectedTrace': we either expect the trace message, or we don't; we
 --   don't expect to get more than one.
--- * 'GotTraceLabelled': we expect multiple traces for this case, and label each
+-- * 'Test.Common.HsBindgen.Trace.Predicate.GotTraceLabelled': we expect multiple traces for this case, and label each
 --   one. In this case, we show specific counts.
 --
 -- This is an internal class (not exported).

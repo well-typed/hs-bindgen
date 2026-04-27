@@ -129,15 +129,15 @@ squelchUnless p =
     . ContraTracer.squelchUnless (p . (.traceMsg))
     . unwrap
 
--- | Apply a function that consumes a 'WithCallStack' value, preserving the
+-- | Apply a function that consumes a @WithCallStack@ value, preserving the
 -- original callstack in the result.
 --
--- This is the comonadic extend for 'WithCallStack': the function sees the
+-- This is the comonadic extend for @WithCallStack@: the function sees the
 -- full wrapped value (including the callstack), but the output is re-wrapped
 -- with the original callstack.
 --
 -- Useful when wrapping pass-specific messages in a sum type constructor
--- (e.g. @FrontendSimplifyAST@) that takes @'WithCallStack' a@, while
+-- (e.g. @FrontendSimplifyAST@) that takes @@WithCallStack@ a@, while
 -- preserving the creation-site callstack for tracing.
 extendCallStackMsg :: (WithCallStack a -> b) -> WithCallStack a -> WithCallStack b
 extendCallStackMsg f wcs@(WithCallStack cs _) = WithCallStack cs (f wcs)
@@ -181,7 +181,7 @@ data Level =
 
     -- | Regular progress, perhaps useful for debugging hs-bindgen config
     --
-    -- E.g.: "Why why `foo` not selected?"
+    -- E.g.: "Why why @foo@ not selected?"
   | Info
 
     -- | Normal but significant condition the user should be aware of
@@ -399,7 +399,7 @@ instance Default OutputHandle where
 --
 -- Propagate warnings and errors to GHC.
 --
--- Report traces with other log levels to `stdout`.
+-- Report traces with other log levels to @stdout@.
 outputConfigTH :: OutputConfig e
 outputConfigTH = OutputConfigCustom OutputCustom{
       report    = report
@@ -468,7 +468,7 @@ instance Default (TracerConfig l e) where
 --
 -- The default tracer configuration
 --
--- - writes to 'stdout', and
+-- - writes to @stdout@, and
 -- - uses ANSI colors, if available.
 --
 -- Return 'Nothing' if an 'Error' trace was emitted.

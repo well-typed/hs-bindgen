@@ -18,7 +18,7 @@ import HsBindgen.Imports
 
 -- | Configuration of @libclang@ command-line arguments
 --
--- `ClangArgsConfig` is not intended to be complete; instead, we have added
+-- @ClangArgsConfig@ is not intended to be complete; instead, we have added
 -- configuration options most relevant to @hs-bindgen@. Pass other
 -- configurations options directly using command line arguments ('argsBefore',
 -- 'argsInner', and 'argsAfter').

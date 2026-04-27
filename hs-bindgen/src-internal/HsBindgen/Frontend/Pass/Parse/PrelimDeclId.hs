@@ -48,7 +48,7 @@ data AnonId = AnonId{
 --
 -- Not all declarations in a C header have names; to be able to nonetheless
 -- refer to these declarations we use the source location.  We replace these by
--- proper names in the 'AssignAnonIds' pass.
+-- proper names in the @AssignAnonIds@ pass.
 data PrelimDeclId =
     -- | Named declaration
     Named CDeclName

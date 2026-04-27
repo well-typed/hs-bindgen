@@ -63,7 +63,7 @@ data Squash = SquashTypedef {
 
 -- | What should we do with a particular declaration?
 --
--- NOTE: The /absence/ of a conclusion in the 'TypedefAnalysis' indicates that
+-- NOTE: The /absence/ of a conclusion in the @TypedefAnalysis@ indicates that
 -- we should leave the declaration as-is.
 data Conclusion =
     -- | Squash typedef
@@ -121,7 +121,7 @@ data Conclusion =
 
     -- | Instruct the name mangler to use the name of another C declaration
     --
-    -- Useful in conjunction with 'Squash'. That is, the C typedef is squashed,
+    -- Useful in conjunction with @Squash@. That is, the C typedef is squashed,
     -- and the squash target is assigned the name of the typedef with
     -- 'UseNameOf'.
   | UseNameOf DeclId

@@ -218,7 +218,7 @@ getBuiltinIncDir tracer config =
         IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
         return mBuiltinIncDir
 
--- | Apply the builtin include directory to 'ClangArgs'
+-- | Apply the builtin include directory to @ClangArgs@
 --
 -- When configured, the builtin include directory is passed with @-isystem@ as
 -- the last argument.  This ensures that it is prioritized as close to the

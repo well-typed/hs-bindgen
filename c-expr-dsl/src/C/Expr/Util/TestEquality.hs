@@ -42,7 +42,7 @@ infixr 4 `equals2`
 -- ...
 --
 -- The GHC generated Eq instance for SBool would have default case, so this example *could* work.
--- If you want to be safe, use `geq` from `some` package.
+-- If you want to be safe, use @geq@ from @some@ package.
 --
 equals1 :: forall a tag1 tag2.
   ( forall tag. Eq ( a tag )

@@ -78,7 +78,7 @@ data Include =
 -- This is the raw text of a macro argument to @#include@ or @#include_next@.
 type MacroArg = Text
 
--- | Get the 'HashIncludeArg' for an 'Include'
+-- | Get the @HashIncludeArg@ for an 'Include'
 getIncludeArg :: Include -> HashIncludeArg
 getIncludeArg = \case
     BracketInclude     arg   -> arg
@@ -161,7 +161,7 @@ data DumpOpts = DumpOpts {
       --         |
       --         +-->D
       --
-      --   Removal of node 'B' creates
+      --   Removal of node @B@ creates
       --
       --     A-->C
       --     |
@@ -177,7 +177,7 @@ data DumpOpts = DumpOpts {
 
 -- | Dump include graph
 --
--- See 'DumpOpts'.
+-- See @DumpOpts@.
 --
 -- Render direct (transient) dependencies using straight (dotted) arrows,
 -- respectively.

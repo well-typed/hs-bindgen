@@ -167,7 +167,7 @@ hsBindgenE
   High-level artefacts
 -------------------------------------------------------------------------------}
 
--- | Write the include graph to `STDOUT` or a file.
+-- | Write the include graph to @STDOUT@ or a file.
 writeIncludeGraph ::
      Boolean Regex
   -> Bool

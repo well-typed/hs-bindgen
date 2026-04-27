@@ -60,13 +60,13 @@ data TranslationUnit p = TranslationUnit{
       -- Declarations from all headers that we have processed. Passes may remove
       -- some declarations. For example,
       --
-      -- * The 'Parse' pass filters out declarations not matching the selection
+      -- * The @Parse@ pass filters out declarations not matching the selection
       --   predicate (without program slicing).
       --
-      -- * If program slicing is enabled, the 'Slice' pass filters selected
+      -- * If program slicing is enabled, the @Slice@ pass filters selected
       --   declarations and their transitive dependencies.
       --
-      -- * The 'ResolveBindingSpecs' pass removes declarations for which we have
+      -- * The @ResolveBindingSpecs@ pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
       decls :: [Decl p]
@@ -386,7 +386,7 @@ newtype Comment p = Comment{
 --
 -- Doxygen references are just strings; in particular, they do not distinguish
 -- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
--- 'MangleNames' we will /search/ for a matching name and set the 'Id'
+-- @MangleNames@ we will /search/ for a matching name and set the 'Id'
 -- accordingly, so that we can generate an appropriate reference in the
 -- Haddocks.
 data CommentRef p = CommentRef Text (Maybe (Id p))

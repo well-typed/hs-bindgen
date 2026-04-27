@@ -123,10 +123,10 @@ data BindingSpec header = BindingSpec {
 
       -- | C type specifications
       --
-      -- A C type is identified using a 'DeclId' and a set of headers that
-      -- provide the type.  For a given 'DeclId', the sets of headers are
+      -- A C type is identified using a @DeclId@ and a set of headers that
+      -- provide the type.  For a given @DeclId@, the sets of headers are
       -- disjoint.  The type of this map is therefore equivalent to
-      -- @'Map' 'DeclId' ('Map' header ('Omittable' 'CTypeSpec'))@, but this
+      -- @'Map' @DeclId@ ('Map' header ('Omittable' @CTypeSpec@))@, but this
       -- type is used as an optimization.
     , cTypes :: Map DeclId [(Set header, Omittable CTypeSpec)]
 
@@ -451,7 +451,7 @@ resolve tracer injResolveHeader args uSpec = do
 
 -- | Merged (external) binding specifications
 --
--- While a 'BindingSpec' is specific to a Haskell module, this type supports
+-- While a @BindingSpec@ is specific to a Haskell module, this type supports
 -- binding specifications across multiple Haskell modules.  It is a performance
 -- optimization for resolving external binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
@@ -510,7 +510,7 @@ merge =
               | Set.disjoint eS seenS -> (dupSet, (seenMap', acc'))
               | otherwise -> (Set.insert cDeclId dupSet, (seenMap', acc'))
 
--- | Lookup type specs in 'MergedBindingSpecs'
+-- | Lookup type specs in @MergedBindingSpecs@
 lookupMergedBindingSpecs ::
      DeclId
   -> Set SourcePath

@@ -561,7 +561,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
               ToFromFunPtr.forNewtype sizeofs nt (args, res)
             _ -> []
 
--- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a typedef
+-- | @HasCField@, @HasCBitfield@, and @HasField@ instances for a typedef
 -- declaration.
 --
 -- Given a typedef:
@@ -579,9 +579,9 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
 -- >   type CFieldType "unwrapMyInt" MyInt = CInt
 -- > instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
 --
--- These instance help eliminating newtypes from 'Ptr' types. Naturally,
--- newtypes can also be introduced in 'Ptr' types, but this should be done using
--- 'castPtr' or some similar function.
+-- These instance help eliminating newtypes from @Ptr@ types. Naturally,
+-- newtypes can also be introduced in @Ptr@ types, but this should be done using
+-- @castPtr@ or some similar function.
 typedefFieldDecls :: Hs.Newtype -> [Hs.Decl]
 typedefFieldDecls hsNewType = [
     -- * Eliminate newtypes
@@ -809,7 +809,7 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
 -- is important that the header is imported /somewhere/, otherwise the global
 -- variable is not linked in; we therefore add an explicit import. It is
 -- important that we don't import such headers more than once, but this is taken
--- care of in 'csources'.
+-- care of in @csources@.
 --
 -- On Windows, simply generating a foreign import of a global variable's address
 -- can lead to errors (see #898). For example, given a global @int
@@ -847,7 +847,7 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
 -- We generate bindings for these as we would generate bindings for non-constant
 -- global variables.
 --
--- However, if the type of the global constant has a 'Storable' instance, we
+-- However, if the type of the global constant has a @Storable@ instance, we
 -- also generate an additional \"getter\" function in Haskell land that returns
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
@@ -903,9 +903,9 @@ global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
 -- > simpleGlobal = unsafePerformIO (peek simpleGlobal)
 --
 -- We only generate a getter function if the type of the global constant has a
--- 'Storable' instance. In such cases, a user of the generated bindings should
+-- @Storable@ instance. In such cases, a user of the generated bindings should
 -- use the foreign import of the stub function instead. Most notably, arrays of
--- unknown size do not have a 'Storable' instance.
+-- unknown size do not have a @Storable@ instance.
 constGetter ::
      HsType
   -> C.DeclInfo Final
@@ -942,7 +942,7 @@ data RunnerNameSpec =
 -- | Create a stub C function that returns the address of a given declaration,
 -- and create a binding to that stub C function.
 --
--- See 'global' and 'globalConst' for example uses.
+-- See 'global' and @globalConst@ for example uses.
 --
 -- This function returns a pair @(stubDecs, stubImportName)@:
 --

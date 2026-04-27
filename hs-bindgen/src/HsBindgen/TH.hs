@@ -59,12 +59,13 @@ module HsBindgen.TH (
     -- * Deriving
     --
     -- Ensure constructors are in scope when using @deriving via@.
-  , module HsBindgen.Runtime.Internal.Deriving
+  , Deriving.EquivStorable(..)
+  , Deriving.SizedByteArray(..)
   ) where
 
 import Data.Default qualified as Default
 
-import HsBindgen.Runtime.Internal.Deriving
+import HsBindgen.Runtime.Internal.Deriving qualified as Deriving
 
 import HsBindgen.Backend.Category qualified as Category
 import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock

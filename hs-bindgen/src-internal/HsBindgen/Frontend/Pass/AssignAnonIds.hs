@@ -401,7 +401,7 @@ instance UpdateUseSites C.AnonEnumConstant where
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Construct 'DeclId' from 'C.PrelimDeclId'
+-- | Construct @DeclId@ from 'C.PrelimDeclId'
 --
 -- Returns 'Left' an 'C.AnonId' if the 'C.PrelimDeclId' is anonymous and we have
 -- assigned no name.
