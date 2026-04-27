@@ -45,7 +45,7 @@ import HsBindgen.Util.Tracer
 -- Declaration itself.
 type Decl = C.Decl Select
 
--- | Internal data type! This data type @Unselectable@ refers to declarations
+-- | Internal data type! This data type 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations
 -- that are not selectable _from the perspective of `hs-bindgen`_; and, in
 -- particular, not from the perspective of the user (they can change the select
 -- predicate).

@@ -57,9 +57,9 @@ getExtraClangArgs tracer = fmap splitArguments <$> lookupEnv envName >>= \case
     Just []   -> []   <$ traceWith tracer (withCallStack ExtraClangArgsEmpty)
     Just args -> args <$ traceWith tracer (withCallStack $ ExtraClangArgsParsed args)
 
--- | Apply extra Clang arguments to @ClangArgsConfig@
+-- | Apply extra Clang arguments to 'HsBindgen.Config.ClangArgs.ClangArgsConfig'
 --
--- When configured, extra clang arguments are appended to @clangArgsInner@.
+-- When configured, extra clang arguments are appended to 'HsBindgen.Config.ClangArgs.clangArgsInner'.
 applyExtraClangArgs :: [String] -> ClangArgsConfig path -> ClangArgsConfig path
 applyExtraClangArgs args = #argsInner %~ (++ args)
 

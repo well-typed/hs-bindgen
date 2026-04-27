@@ -482,7 +482,7 @@ parseGenTestsOutput = strOption $ mconcat [
 -- | Parse one or more input header arguments
 --
 -- This uses standard syntax for one or more arguments, which
--- @optparse-applicative@ does not get right when just using @some@.
+-- @optparse-applicative@ does not get right when just using 'Control.Applicative.some'.
 parseInputs :: Parser [UncheckedHashIncludeArg]
 parseInputs = some . strArgument $ mconcat [
       metavar "HEADER..."

@@ -122,7 +122,7 @@ data Expr ctx
     = Call Name [Expr ctx]
     | Var (Idx ctx)
       -- | A named variable can be used to refer to variables that are free with
-      -- respect to the enclosing @Decl@\/@FunDefn@.
+      -- respect to the enclosing 'HsBindgen.Frontend.AST.Decl.Decl'\/'HsBindgen.PrettyC.FunDefn'.
       --
       -- If a variable is bound by the function definition, use 'Var' instead.
       --
@@ -133,7 +133,7 @@ data Expr ctx
       -- > void i_plus (int j) { i += j; }
       --
       -- With respect to the function definition, @i@ is a free variable, @j@ is
-      -- a bound variable. A @FunDefn@ describing @i_plus@ should use 'NamedVar'
+      -- a bound variable. A 'HsBindgen.PrettyC.FunDefn' describing @i_plus@ should use 'NamedVar'
       -- for @i@, and 'Var' for @j@.
     | NamedVar Name
     | DeRef (Expr ctx)

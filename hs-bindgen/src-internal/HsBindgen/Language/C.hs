@@ -79,11 +79,11 @@ data PrimSign = Signed | Unsigned
 --
 -- Our general approach in @hs-bindgen@ is to generate machine code but with a
 -- machine independent API. For example, we might know that @int@ is 32 bits on
--- a particular platform, and use this information to define @sizeOf@ in
--- @Storable@ instances, but still use @CInt@ in the type definition (rather
--- than @Word32@). For this reason, /if/ the sign was compiler inferred, we
--- record this as a special case, so that we can generate @CChar@ instead of
--- @CUChar@ or @CSChar@.
+-- a particular platform, and use this information to define 'Foreign.Storable.sizeOf' in
+-- 'Foreign.Storable.Storable' instances, but still use 'Foreign.C.Types.CInt' in the type definition (rather
+-- than 'Data.Word.Word32'). For this reason, /if/ the sign was compiler inferred, we
+-- record this as a special case, so that we can generate 'Foreign.C.Types.CChar' instead of
+-- 'Foreign.C.Types.CUChar' or 'Foreign.C.Types.CSChar'.
 data PrimSignChar =
     -- | User explicitly specified sign
     PrimSignExplicit PrimSign
@@ -145,11 +145,11 @@ primTypeSign = \case
 -- <https://en.cppreference.com/w/c/language/arithmetic_types.html>
 --
 -- In the backend we generate foreign import declarations at FFI types only.
--- That is, types like @Word8@, 'Float', and @Int32@. The FFI type corresponding
+-- That is, types like 'Data.Word.Word8', 'Float', and 'Data.Int.Int32'. The FFI type corresponding
 -- to arithmetic C types like @int@ depends on the size of the C type, which in
 -- turn depends on the target system. For example, if @int@ is 32-bits on a
--- given machine, then the corresponding FFI type would be @Int32@. For
--- @unsigned int@ of the same size, it would be @Word32@. The @Sizeofs@ record
+-- given machine, then the corresponding FFI type would be 'Data.Int.Int32'. For
+-- @unsigned int@ of the same size, it would be 'Data.Word.Word32'. The t'Sizeofs' record
 -- stores the size of each of these arithmetic types. This record is created in
 -- the @Boot@ phase.
 --

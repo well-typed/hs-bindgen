@@ -372,7 +372,7 @@ getFormat path
     | ".json" `List.isSuffixOf` path = FormatJSON
     | otherwise                      = FormatYAML
 
--- | Function that reads a file and gets the @AVersion@, which determines how to
+-- | Function that reads a file and gets the 'HsBindgen.BindingSpec.Private.Version.AVersion', which determines how to
 -- parse the corresponding 'Aeson.Value'
 type ReadVersionFunction =
      Tracer BindingSpecReadMsg
@@ -428,7 +428,7 @@ getAVersionM tracer path value = case getAVersion value of
   Aeson auxiliary functions
 -------------------------------------------------------------------------------}
 
--- | Omit empty lists, for use with @objectWithOptionalFields@ and @(.=?)@
+-- | Omit empty lists in aeson output
 omitWhenNull :: [a] -> Maybe [a]
 omitWhenNull xs
     | null xs   = Nothing

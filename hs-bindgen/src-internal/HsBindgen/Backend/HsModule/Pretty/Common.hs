@@ -36,14 +36,14 @@ instance Pretty (Hs.Name ns) where
 instance Pretty Hs.TermName where
   pretty = PP.text . Hs.termNameToText
 
--- | Pretty-print a @ResolvedName@ in prefix notation
+-- | Pretty-print a 'HsBindgen.Backend.HsModule.Names.ResolvedName' in prefix notation
 --
 -- Operators are parenthesized.
 instance Pretty ResolvedName where
   pretty resolved =
     PP.parensWhen (resolved.typ == OperatorName) $ prettyResolvedNamePlain resolved
 
--- | Pretty-print a @ResolvedName@
+-- | Pretty-print a 'HsBindgen.Backend.HsModule.Names.ResolvedName'
 --
 -- This auxialary function pretty-prints without parenthesizing operators or
 -- surrounding identifiers with backticks.

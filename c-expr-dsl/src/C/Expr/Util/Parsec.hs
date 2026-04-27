@@ -20,7 +20,7 @@ import Text.Parsec.Pos (updatePosChar, updatePosString)
   Character streams
 -------------------------------------------------------------------------------}
 
--- | Case-insensitive version of @string'@
+-- | Case-insensitive version of 'Text.Parsec.string''
 --
 -- Returns the parsed string (which may be different from the argument string).
 caseInsensitive' :: Stream s m Char => String -> ParsecT s u m String
@@ -39,7 +39,7 @@ caseInsensitive' = \expected ->
 foldCharTokens :: Stream s m Char => Consumer Char a -> ParsecT s u m a
 foldCharTokens = foldTokens show updatePosString
 
--- | Generalization of @satisfy@ that returns evidence
+-- | Generalization of 'Text.Parsec.satisfy' that returns evidence
 satisfyWith :: Stream s m Char => (Char -> Maybe a) -> ParsecT s u m a
 satisfyWith =
     tokenPrim show updatePos
@@ -60,7 +60,7 @@ data Consumer t a =
 
 -- | Fold a sequence of tokens; no input is consumed on failure.
 --
--- This is a generalization of @tokens'@, which can be defined in terms of
+-- This is a generalization of 'Text.Parsec.tokens'', which can be defined in terms of
 -- 'foldTokens' as follows:
 --
 -- > tokens' showTokens updatePos expected =

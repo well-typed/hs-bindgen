@@ -318,7 +318,7 @@ basicEscapedChar =
   Runtime.fromHaskellChar <$>
     satisfyM ( `lookup` ( basicSourceEscapedChars ++ executionEscapedChars ) )
 
--- | Like @satisfy@ but takes a @Char -> Maybe a@ predicate.
+-- | Like 'Text.Parsec.satisfy' but takes a @Char -> Maybe a@ predicate.
 satisfyM :: Stream s m Char => (Char -> Maybe a) -> ParsecT s u m a
 {-# INLINABLE satisfyM #-}
 satisfyM f = tokenPrim

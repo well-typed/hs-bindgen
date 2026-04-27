@@ -425,7 +425,7 @@ newtype FieldOffset = FieldOffset { int :: Int }
 --
 -- If the named field is *not* an (indirect) field of the enclosing object, then
 -- an 'UnexpectedClangOffsetOfException' exception is returned. Otherwise, a
--- @FieldOffset@ is returned.
+-- t'FieldOffset' is returned.
 offsetOf ::
      MonadIO m
   => EnclosingObject

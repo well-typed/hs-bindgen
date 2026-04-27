@@ -145,7 +145,7 @@ parseDecl' enclosing mCtx = withCursorKindNoCtx $ \case
 
     -- Unavoidably panic (!) on an unrecognized cursor kind
     --
-    -- Only use this function if there is no way to assemble a @ParseResult@.
+    -- Only use this function if there is no way to assemble a 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
     --
     -- See 'failUnrecognizedKind'.
     unavoidablePanicUnrecognizedKind ::
@@ -823,7 +823,7 @@ failUnrecognizedKind ctx eKind curr =
 -- | Obtain cursor kind and run continuation
 --
 -- Only run continuation if the cursor kind can be obtain, otherwise fail with a
--- @ParseFailure@.
+-- 'HsBindgen.Frontend.Pass.Parse.Msg.DelayedParseMsg'.
 withCursorKind ::
      ParseCtx
   -> (CXCursorKind -> Parser)

@@ -27,7 +27,7 @@ import Doxygen.Parser qualified as Doxygen
 
 -- | Configuration of @hs-bindgen@.
 --
--- @BindgenConfig@ combines all configurable settings of @hs-bindgen@ that are
+-- t'BindgenConfig' combines all configurable settings of @hs-bindgen@ that are
 -- necessary in all modes (CLI and Template Haskell).
 --
 -- Configuration types determine the "how", not the "what". For example,
@@ -38,7 +38,7 @@ import Doxygen.Parser qualified as Doxygen
 -- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
 -- artefacts.
 --
--- These @BindgenConfig@ options are provided /once/ (i.e., the function
+-- These t'BindgenConfig' options are provided /once/ (i.e., the function
 -- 'HsBindgen.hsBindgen' runs once). This is, for example, the C standard. In
 -- contrast, configuration of external artifacts that may change even for the
 -- same @hsBindgen@ run, should be directly provided to these external

@@ -48,10 +48,10 @@ uniqueCDeclName uniqueSymbol =
 -- must make sure to pick globally unique names. We do this by generating names
 -- of the following shape:
 --
--- > "hs_bindgen_" ++ hashOf @UniqueId@ @BaseModuleName@ 'String'
+-- > "hs_bindgen_" ++ hashOf 'HsBindgen.Config.Prelims.UniqueId' 'HsBindgen.Config.Prelims.BaseModuleName' 'String'
 --
--- where @'String'@ is some arbitrary string, which the caller must ensure is
--- unique for a given @@UniqueId@@ and @@BaseModuleName@@.
+-- where 'String' is some arbitrary string, which the caller must ensure is
+-- unique for a given 'HsBindgen.Config.Prelims.UniqueId' and 'HsBindgen.Config.Prelims.BaseModuleName'.
 --
 -- We only use the hash in the name to avoid problems with linkers that only use
 -- a fixed length prefix of names; callers should ensure that

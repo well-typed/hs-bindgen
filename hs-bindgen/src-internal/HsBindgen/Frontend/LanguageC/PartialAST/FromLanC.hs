@@ -75,7 +75,7 @@ instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
 
       other -> \_ -> unexpectedF other
 
--- | See discussion of @init-declarator-list@ for @CDecl@
+-- | See discussion of @init-declarator-list@ for 'HsBindgen.Frontend.AST.Decl.CDecl'
 --
 -- <https://hackage-content.haskell.org/package/language-c-0.10.0/docs/Language-C-Syntax-AST.html#t:CDecl>
 instance Apply

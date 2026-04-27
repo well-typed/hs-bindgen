@@ -56,7 +56,7 @@ defaultClangSetup args input = ClangSetup{
     , flags       = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
     }
 
--- | Call clang to parse with the specified @ClangSetup@
+-- | Call clang to parse with the specified t'ClangSetup'
 --
 -- All diagnostics are traced.
 --
@@ -94,7 +94,7 @@ data LibclangException = LibclangException String
 
 instance Exception LibclangException
 
--- | Call clang to parse with the specified @ClangSetup@
+-- | Call clang to parse with the specified t'ClangSetup'
 --
 -- Diagnostics are not traced, and the specified continuation is called even if
 -- there are error diagnostics.

@@ -145,21 +145,21 @@ instance PrettyForTrace CDeclName where
 mapCDeclNameText :: (Text -> Text) -> CDeclName -> CDeclName
 mapCDeclNameText f name = CDeclName{text = f name.text, kind = name.kind}
 
--- | User-facing syntax for @CDeclName@
+-- | User-facing syntax for t'CDeclName'
 renderCDeclName :: CDeclName -> Text
 renderCDeclName cDeclName = case cDeclName.kind of
     CNameKindOrdinary        -> cDeclName.text
     CNameKindTagged cTagKind -> cTagKindPrefix cTagKind <> " " <> cDeclName.text
     CNameKindMacro           -> "macro " <> cDeclName.text
 
--- | C source syntax for @CDeclName@
+-- | C source syntax for t'CDeclName'
 renderCDeclNameC :: CDeclName -> Text
 renderCDeclNameC cDeclName = case cDeclName.kind of
     CNameKindOrdinary        -> cDeclName.text
     CNameKindTagged cTagKind -> cTagKindPrefix cTagKind <> " " <> cDeclName.text
     CNameKindMacro           -> cDeclName.text
 
--- | Parse a @CDeclName@ from 'Text'
+-- | Parse a t'CDeclName' from 'Text'
 parseCDeclName :: Text -> Maybe CDeclName
 parseCDeclName t = case Text.words t of
     [n]           -> Just $ CDeclName n CNameKindOrdinary
@@ -183,7 +183,7 @@ data CScopedName = CScopedName {
 instance PrettyForTrace CScopedName where
   prettyForTrace = PP.singleQuotes . PP.text . (.text)
 
--- | Parse a @CScopedName@ from 'Text'
+-- | Parse a t'CScopedName' from 'Text'
 parseCScopedName :: Text -> Maybe CScopedName
 parseCScopedName t = case Text.words t of
     [n]        -> Just $ CScopedName n
@@ -225,13 +225,13 @@ declIdSourceName declId = do
     guard $ not declId.isAnon
     return declId.name
 
--- | User-facing syntax for @DeclId@
+-- | User-facing syntax for t'DeclId'
 renderDeclId :: DeclId -> Text
 renderDeclId declId
   | declId.isAnon = renderCDeclName $ mapCDeclNameText ("@" <>) declId.name
   | otherwise     = renderCDeclName declId.name
 
--- | Parse user-facing syntax for @DeclId@
+-- | Parse user-facing syntax for t'DeclId'
 parseDeclId :: Text -> Maybe DeclId
 parseDeclId t = do
     declName <- parseCDeclName t

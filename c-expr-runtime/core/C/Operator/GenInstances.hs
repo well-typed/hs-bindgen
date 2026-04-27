@@ -210,7 +210,7 @@ cExprInstances platform = do
 
 --------------------------------------------------------------------------------
 
--- | Utility function to construct a 'C.Operator.GenInstances.AssocTyFam' argument to pass
+-- | Utility function to construct a 'C.Operator.TH.AssocTyFam' argument to pass
 -- to 'genUnaryInstances' or 'genBinaryInstances'.
 withAssoc :: String -> String -> AssocTyFamArgs -> Either TH.Type AssocTyFam
 withAssoc famName implName args =

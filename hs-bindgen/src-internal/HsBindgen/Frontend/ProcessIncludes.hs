@@ -200,7 +200,7 @@ toGetMainHeaders f = fmap fst . f
 -- * 'to'      will be @/full/path/to/b.h@
 -- * 'inRoot'  will be 'True' if the include is in the root header
 --
--- The full @SourcePath@s are constructed by @libclang@, and depend on factors
+-- The full 'HsBindgen.Clang.HighLevel.Types.SourcePath's are constructed by @libclang@, and depend on factors
 -- such as @-I@ command line arguments, environment variables such as
 -- @C_INCLUDE_PATH@, etc.
 data IncDir = IncDir {

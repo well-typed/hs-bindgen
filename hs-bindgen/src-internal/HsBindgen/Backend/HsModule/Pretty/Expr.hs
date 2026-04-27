@@ -214,7 +214,7 @@ prettyRolledExpr env prec expr = case expr of
 prettyTypeGlobal :: Global LvlType -> CtxDoc
 prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
 
--- | Returns the unboxed @Addr#@ literal for the given @ByteArray@, together
+-- | Returns the unboxed @Addr#@ literal for the given 'Data.Array.Byte.ByteArray', together
 -- with its length.
 addrLiteral :: ByteArray -> (String, Int)
 addrLiteral ba@(ByteArray ba#) =
@@ -312,7 +312,7 @@ unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
 resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
 resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
--- | Pretty-print a @ResolvedName@ in infix notation
+-- | Pretty-print a 'HsBindgen.Backend.HsModule.Names.ResolvedName' in infix notation
 --
 -- Identifiers are surrounded by backticks.
 prettyInfixResolvedName :: ResolvedName -> CtxDoc

@@ -45,7 +45,7 @@ wrapEff = Eff . ReaderT
 unwrapEff :: Eff m a -> Support m -> IO a
 unwrapEff = runReaderT . getEff
 
--- | @ReaderT@ argument required to support @m@
+-- | 'Control.Monad.Reader.ReaderT' argument required to support @m@
 type family Support (m :: Star -> Star) :: Star
 
 --

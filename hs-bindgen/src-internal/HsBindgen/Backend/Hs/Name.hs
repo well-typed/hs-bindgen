@@ -22,13 +22,13 @@ data TermName =
       -- | Human-readable name that is to be exported
       --
       -- Term-level declarations with exported names should not have use sites
-      -- and therefore they can easily be renamed (@RenameTerm@).
+      -- and therefore they can easily be renamed ('HsBindgen.Backend.Category.RenameTerm').
       ExportedName (Hs.Name Hs.NsVar)
 
       -- | Auxiliary name used in the implementation of other declarations
       --
       -- Since those functions have use-sites, we should not normally rename
-      -- them (@RenameTerm@).
+      -- them ('HsBindgen.Backend.Category.RenameTerm').
     | InternalName UniqueSymbol
   deriving stock (Eq, Ord, Show)
 
