@@ -12,11 +12,8 @@ module HsBindgen.Backend.SHs.Translation.Common (
   , asNaryTApp
   ) where
 
-import Data.Text qualified as T
-
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -26,7 +23,10 @@ import HsBindgen.NameHint (NameHint (..))
   Structs
 -------------------------------------------------------------------------------}
 
-translateElimStruct :: (forall ctx'. t ctx' -> SExpr ctx') -> Hs.ElimStruct t ctx -> SExpr ctx
+translateElimStruct ::
+     (forall ctx'. t ctx' -> SExpr ctx')
+  -> Hs.ElimStruct t ctx
+  -> SExpr ctx
 translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt struct.constr add hints (f k)]
@@ -34,7 +34,7 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     hints = fmap (toNameHint . (.name)) struct.fields
 
 toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
-toNameHint = NameHint . T.unpack . Hs.getName
+toNameHint = NameHint . Hs.nameToStr
 
 {-------------------------------------------------------------------------------
 -  Internal auxiliary: derived functionality

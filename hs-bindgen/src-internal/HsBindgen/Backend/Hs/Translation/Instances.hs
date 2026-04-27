@@ -18,12 +18,12 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 --------------------------------------------------------------------------------
 
@@ -53,10 +53,10 @@ type InstanceMap = Map (Hs.Name NsTypeConstr) (Set Inst.TypeClass)
 
 getInstances ::
      HasCallStack
-  => InstanceMap                   -- ^ Current state
-  -> Maybe (Hs.Name NsTypeConstr)  -- ^ Name of current type (optional)
-  -> Set Inst.TypeClass            -- ^ Candidate instances
-  -> [HsType]                      -- ^ Dependencies
+  => InstanceMap                  -- ^ Current state
+  -> Maybe (Hs.Name NsTypeConstr) -- ^ Name of current type (optional)
+  -> Set Inst.TypeClass           -- ^ Candidate instances
+  -> [HsType]                     -- ^ Dependencies
   -> Set Inst.TypeClass
 getInstances instanceMap name = aux
   where

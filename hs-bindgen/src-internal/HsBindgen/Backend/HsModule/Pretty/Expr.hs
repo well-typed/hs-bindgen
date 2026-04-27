@@ -298,7 +298,7 @@ getInfixSpecialCase env = \case
     sp :: CtxDoc -> CtxDoc
     sp =
       -- TODO compute column width, do not just count chars with length
-      PP.string . flip List.replicate ' ' . length . PP.renderCtxDoc PP.defaultContext
+      PP.string . flip List.replicate ' ' . length . show
 
 {-------------------------------------------------------------------------------
   Helpers

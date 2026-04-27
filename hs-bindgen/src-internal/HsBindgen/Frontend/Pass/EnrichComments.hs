@@ -72,15 +72,15 @@
 --
 -- === Lookup algorithm
 --
--- Each 'DeclInfo' carries @declEnclosing@: the immediately enclosing @'Id' p@,
--- set during parsing.
+-- Each 'DeclInfo' carries @enclosing@: the list of enclosing declarations
+-- (innermost first), set during parsing.
 --
 -- __Named declarations__ ('lookupCommentForId'): 'resolveQualifiedName'
--- walks the @declEnclosing@ chain, collects named ancestors (skipping
+-- reverses the @enclosing@ list, collects named ancestors (skipping
 -- anonymous ones), and joins with @\"::\"@.  Then we look up
 -- @'KeyDecl' qualName \<|\> 'KeyStruct' qualName@.
 --
---  * @inner_inner_inner@ → enclosing chain @\<anon> → inner → outer@, skip
+--  * @inner_inner_inner@ → enclosing list @[\<anon>, inner, outer]@, skip
 --    anon → @\"outer::inner::inner_inner_inner\"@
 --
 -- Anonymous declarations have no doxygen comment of their own: doxygen
@@ -95,8 +95,6 @@ module HsBindgen.Frontend.Pass.EnrichComments (enrichComments) where
 import Control.Applicative ((<|>))
 import Data.Text qualified as Text
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
@@ -125,13 +123,10 @@ enrichComments doxy results =
     coerced :: [ParseResult EnrichComments]
     coerced = map coercePass results
 
-    index :: DeclIndex
-    index = DeclIndex.fromParseResults coerced
-
     enrichOne :: ParseResult EnrichComments -> ParseResult EnrichComments
     enrichOne pr = case pr.classification of
       ParseResultSuccess success ->
-        let decl' = enrichDecl doxy index success.decl
+        let decl' = enrichDecl doxy success.decl
         in  pr { classification =
                     ParseResultSuccess success { decl = decl' }
                }
@@ -143,38 +138,35 @@ enrichComments doxy results =
 
 enrichDecl ::
      Doxygen
-  -> DeclIndex
   -> C.Decl EnrichComments
   -> C.Decl EnrichComments
-enrichDecl doxy index decl =
-    decl & #info %~ enrichDeclInfo doxy index
+enrichDecl doxy decl =
+    decl & #info %~ enrichDeclInfo doxy
          & #kind %~ enrichDeclKind doxy effectiveEnclosing
   where
     -- Doxygen-qualified name for field lookups (e.g., @\"outer::inner\"@)
-    effectiveEnclosing :: Maybe Text
-    effectiveEnclosing = resolveQualifiedName index decl.info
+    effectiveEnclosing :: Text
+    effectiveEnclosing = resolveQualifiedName decl.info
 
 enrichDeclInfo ::
      Doxygen
-  -> DeclIndex
   -> C.DeclInfo EnrichComments
   -> C.DeclInfo EnrichComments
-enrichDeclInfo doxy index info
-  | Just doxyComment <- lookupCommentForId doxy index info
+enrichDeclInfo doxy info
+  | Just doxyComment <- lookupCommentForId doxy info
   = info & #comment .~ Just (wrapDoxygenRefs doxyComment)
   | otherwise
   = info
 
 lookupCommentForId ::
      Doxygen
-  -> DeclIndex
   -> C.DeclInfo EnrichComments
   -> Maybe (Doxy.Comment Text)
-lookupCommentForId doxy index info
-  | not info.id.isAnon = do
-      qualName <- resolveQualifiedName index info
-      lookupComment (KeyDecl qualName) doxy
-        <|> lookupComment (KeyStruct qualName) doxy
+lookupCommentForId doxy info
+  | not info.id.isAnon =
+      let qualName = resolveQualifiedName info
+      in  lookupComment (KeyDecl qualName) doxy
+            <|> lookupComment (KeyStruct qualName) doxy
   | otherwise = Nothing
 
 {-------------------------------------------------------------------------------
@@ -183,51 +175,48 @@ lookupCommentForId doxy index info
 
 enrichDeclKind ::
      Doxygen
-  -> Maybe Text  -- ^ Declaration C name (enclosing for field lookups)
+  -> Text  -- ^ Declaration C name (enclosing for field lookups)
   -> C.DeclKind EnrichComments
   -> C.DeclKind EnrichComments
-enrichDeclKind doxy mbName = \case
-    C.DeclStruct struct -> C.DeclStruct $ enrichStruct doxy mbName struct
-    C.DeclUnion  union  -> C.DeclUnion  $ enrichUnion  doxy mbName union
-    C.DeclEnum   enum   -> C.DeclEnum   $ enrichEnum   doxy mbName enum
+enrichDeclKind doxy name = \case
+    C.DeclStruct struct -> C.DeclStruct $ enrichStruct doxy name struct
+    C.DeclUnion  union  -> C.DeclUnion  $ enrichUnion  doxy name union
+    C.DeclEnum   enum   -> C.DeclEnum   $ enrichEnum   doxy name enum
     C.DeclAnonEnumConstant aec ->
       C.DeclAnonEnumConstant $
-        aec & #constant %~ enrichEnumConstant doxy mbName
+        aec & #constant %~ enrichEnumConstant doxy name
     other -> other
 
-enrichStruct :: Doxygen -> Maybe Text -> C.Struct EnrichComments -> C.Struct EnrichComments
-enrichStruct doxy mbName struct = struct
-    & #fields %~ map (enrichStructField doxy mbName)
-    & #flam   %~ fmap (enrichStructField doxy mbName)
+enrichStruct :: Doxygen -> Text -> C.Struct EnrichComments -> C.Struct EnrichComments
+enrichStruct doxy name struct = struct
+    & #fields %~ map (enrichStructField doxy name)
+    & #flam   %~ fmap (enrichStructField doxy name)
 
-enrichUnion :: Doxygen -> Maybe Text -> C.Union EnrichComments -> C.Union EnrichComments
-enrichUnion doxy mbName union = union
-    & #fields %~ map (enrichUnionField doxy mbName)
+enrichUnion :: Doxygen -> Text -> C.Union EnrichComments -> C.Union EnrichComments
+enrichUnion doxy name union = union
+    & #fields %~ map (enrichUnionField doxy name)
 
-enrichEnum :: Doxygen -> Maybe Text -> C.Enum EnrichComments -> C.Enum EnrichComments
-enrichEnum doxy mbName enum = enum
-    & #constants %~ map (enrichEnumConstant doxy mbName)
+enrichEnum :: Doxygen -> Text -> C.Enum EnrichComments -> C.Enum EnrichComments
+enrichEnum doxy name enum = enum
+    & #constants %~ map (enrichEnumConstant doxy name)
 
 enrichStructField ::
-     Doxygen -> Maybe Text -> C.StructField EnrichComments -> C.StructField EnrichComments
-enrichStructField doxy mbName sf =
+     Doxygen -> Text -> C.StructField EnrichComments -> C.StructField EnrichComments
+enrichStructField doxy name sf =
     maybe sf (\c -> sf & #info % #comment .~ Just c) $ do
-      enclosing <- mbName
-      lookupFieldComment doxy (KeyField enclosing sf.info.name.text)
+      lookupFieldComment doxy (KeyField name sf.info.name.text)
 
 enrichUnionField ::
-     Doxygen -> Maybe Text -> C.UnionField EnrichComments -> C.UnionField EnrichComments
-enrichUnionField doxy mbName uf =
+     Doxygen -> Text -> C.UnionField EnrichComments -> C.UnionField EnrichComments
+enrichUnionField doxy name uf =
     maybe uf (\c -> uf & #info % #comment .~ Just c) $ do
-      enclosing <- mbName
-      lookupFieldComment doxy (KeyField enclosing uf.info.name.text)
+      lookupFieldComment doxy (KeyField name uf.info.name.text)
 
 enrichEnumConstant ::
-     Doxygen -> Maybe Text -> C.EnumConstant EnrichComments -> C.EnumConstant EnrichComments
-enrichEnumConstant doxy mbName ec =
+     Doxygen -> Text -> C.EnumConstant EnrichComments -> C.EnumConstant EnrichComments
+enrichEnumConstant doxy name ec =
     maybe ec (\c -> ec & #info % #comment .~ Just c) $ do
-      enclosing <- mbName
-      lookupFieldComment doxy (KeyEnumValue enclosing ec.info.name.text)
+      lookupFieldComment doxy (KeyEnumValue name ec.info.name.text)
 
 {-------------------------------------------------------------------------------
   Enclosing declaration resolution
@@ -238,29 +227,19 @@ enrichEnumConstant doxy mbName ec =
 -- Named ancestors are joined with @\"::\"@ (e.g., @outer::inner@).
 -- Anonymous ancestors are skipped. Anonymous decls resolve to the nearest
 -- named ancestor.
-resolveQualifiedName :: DeclIndex -> C.DeclInfo EnrichComments -> Maybe Text
-resolveQualifiedName index info
-  | not info.id.isAnon =
-      Just $ case collectNamedAncestors index info of
-        []        -> info.id.name.text
-        ancestors -> Text.intercalate "::" (ancestors ++ [info.id.name.text])
-  | otherwise =
-      info.declEnclosing >>= \enclosingId ->
-        DeclIndex.lookup enclosingId index >>= \enclosingDecl ->
-          resolveQualifiedName index enclosingDecl.info
+resolveQualifiedName :: C.DeclInfo EnrichComments -> Text
+resolveQualifiedName info =
+    Text.intercalate "::" (map (.name.text) path)
+  where
+    path :: [DeclId]
+    path =
+      filter (not . (.isAnon)) $
+      reverse (map getEnclosingRef info.enclosing) ++ [info.id]
 
--- | Collect named ancestor segments (outermost first), skipping anonymous ones
-collectNamedAncestors :: DeclIndex -> C.DeclInfo EnrichComments -> [Text]
-collectNamedAncestors index info = case info.declEnclosing of
-    Nothing -> []
-    Just enclosingId -> case DeclIndex.lookup enclosingId index of
-      Nothing -> []
-      Just enclosingDecl
-        | not enclosingDecl.info.id.isAnon ->
-            collectNamedAncestors index enclosingDecl.info
-              ++ [enclosingDecl.info.id.name.text]
-        | otherwise ->
-            collectNamedAncestors index enclosingDecl.info
+    getEnclosingRef :: C.EnclosingRef EnrichComments -> DeclId
+    getEnclosingRef = \case
+        C.EnclosingRef         x -> x
+        C.UnusableEnclosingRef x -> x
 
 {-------------------------------------------------------------------------------
   Helpers

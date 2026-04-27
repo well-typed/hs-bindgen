@@ -11,6 +11,7 @@ newtype RunDriver_Aux
     = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
     deriving stock Generic
     deriving newtype HasFFIType
+-- __unique:__ @toRunDriver_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
     Ptr Void -> IO Int32
  -> IO (FunPtr (Ptr Void -> IO Int32))
@@ -19,6 +20,7 @@ hs_bindgen_d86ecf261d7044c6 :: RunDriver_Aux ->
                                IO (FunPtr RunDriver_Aux)
 -- __unique:__ @toRunDriver_Aux@
 hs_bindgen_d86ecf261d7044c6 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (toFFIType fun_0))
+-- __unique:__ @fromRunDriver_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
     FunPtr (Ptr Void -> IO Int32)
  -> Ptr Void

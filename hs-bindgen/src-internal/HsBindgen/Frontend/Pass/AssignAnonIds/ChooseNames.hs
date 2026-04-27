@@ -130,17 +130,17 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
   map for values already considered.
 -------------------------------------------------------------------------------}
 
-data AssignedName =
-    AssignedName DeclId
-  | FailedToAssignName
+data AssignedId =
+    AssignedId DeclId
+  | FailedToAssignId
   deriving stock (Show)
 
-assignedName :: AssignedName -> Maybe DeclId
+assignedName :: AssignedId -> Maybe DeclId
 assignedName = \case
-    AssignedName name  -> Just name
-    FailedToAssignName -> Nothing
+    AssignedId name  -> Just name
+    FailedToAssignId -> Nothing
 
-type Memoize = State (Map AnonId AssignedName)
+type Memoize = State (Map AnonId AssignedId)
 
 memoize ::
      (AnonId -> Memoize (Maybe DeclId))
@@ -153,7 +153,7 @@ memoize f anonId = state $ \acc ->
           (mName, acc') -> (
               mName
             , case mName of
-                Nothing   -> Map.insert anonId FailedToAssignName  acc'
-                Just name -> Map.insert anonId (AssignedName name) acc'
+                Nothing   -> Map.insert anonId FailedToAssignId  acc'
+                Just name -> Map.insert anonId (AssignedId name) acc'
             )
 

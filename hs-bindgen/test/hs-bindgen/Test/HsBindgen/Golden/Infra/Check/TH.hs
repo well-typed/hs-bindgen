@@ -9,7 +9,6 @@ import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Foldable qualified as Foldable
 import Data.Generics qualified as SYB
 import Data.Map.Strict qualified as Map
-import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
@@ -23,7 +22,6 @@ import Clang.Version
 
 import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Pretty.Comment
 import HsBindgen.Config
 import HsBindgen.Config.Internal
@@ -193,13 +191,12 @@ instance Guasi Qu where
     reportError _ = return ()
 
     putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> Qu ()
-    putLocalDoc nm s = do
+    putLocalDoc nm cmt = do
         q@QuState{ docMap = docMap } <- get
-        let ns = Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns)
-            loc = QuDecLoc ns (Text.unpack $ Hs.getName nm)
+        let loc = QuDecLoc (Hs.namespaceOf (Hs.singNamespace @ns)) (Hs.nameToStr nm)
         put $!
           q { docMap =
-                Map.insert (QuD loc) s docMap
+                Map.insert (QuD loc) cmt docMap
             }
 
     putLocalFieldDoc _fns parent field s = do
@@ -211,8 +208,8 @@ instance Guasi Qu where
             }
       where
         parentStr, fieldStr :: String
-        parentStr = Text.unpack $ Hs.getName parent
-        fieldStr  = Text.unpack $ Hs.getName field
+        parentStr = Hs.nameToStr parent
+        fieldStr  = Hs.nameToStr field
 
 runQu :: Qu a -> (QuState, a)
 runQu (Qu m) = case runState m emptyQuState of

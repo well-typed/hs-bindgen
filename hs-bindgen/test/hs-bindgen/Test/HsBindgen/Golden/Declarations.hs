@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.Declarations (testCases) where
 
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure (MangleNamesCollision))
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports

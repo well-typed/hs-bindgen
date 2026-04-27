@@ -294,7 +294,7 @@ lookupCTypeSpec cDeclId headers spec =
 
 -- | Lookup the 'BindingSpec.HsTypeSpec' associated with a Haskell type
 lookupHsTypeSpec ::
-     Hs.Identifier
+     Hs.Name Hs.NsTypeConstr
   -> BindingSpec
   -> Maybe BindingSpec.HsTypeSpec
 lookupHsTypeSpec hsIdentifier spec =

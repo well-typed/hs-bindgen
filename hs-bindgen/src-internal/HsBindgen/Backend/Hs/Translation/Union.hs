@@ -10,7 +10,6 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
@@ -27,7 +26,8 @@ import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 unionDecs ::
-     HaddockConfig
+     HasCallStack
+  => HaddockConfig
   -> C.DeclInfo Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
@@ -42,10 +42,10 @@ unionDecs haddockConfig info union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.id.unsafeHsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = union.names.constr
+        newtypeConstr = union.names.dataConstr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
@@ -63,7 +63,7 @@ unionDecs haddockConfig info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks haddockConfig info newtypeName
+        newtypeComment = mkHaddocks haddockConfig info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
@@ -140,13 +140,13 @@ unionDecs haddockConfig info union spec = do
                     , typ     = hsType
                     , constr  = nt.name
                     , comment = mkHaddocksFieldInfo haddockConfig info field.info
-                             <> commentRefName (Hs.getName setterName)
+                             <> commentRefName setterName.text
                     }
                 , Hs.DeclUnionSetter Hs.UnionSetter{
                       name    = setterName
                     , typ     = hsType
                     , constr  = nt.name
-                    , comment = commentRefName (Hs.getName getterName)
+                    , comment = commentRefName getterName.text
                     }
                 ]
               else []
@@ -220,7 +220,7 @@ unionFieldDecls unionName field = [
     parentType = Hs.HsTypRef unionName Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName field.info.name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel field.typ

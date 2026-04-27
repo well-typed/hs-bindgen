@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.Types (testCases) where
 
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure (MangleNamesCollision))
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (UnsupportedEmptyAnon))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports

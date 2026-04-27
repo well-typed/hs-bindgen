@@ -14,9 +14,13 @@
 -}
 data Bar
     = Bar {bar_x1_1 :: CInt
-           {- ^ __C declaration:__ @x1_1@
+           {- ^ Comment attached to @foo::bar::x1_1@ .
 
-                __defined at:__ @types\/scoping\/nesting.h 15:9@
+                This comment must be preserved, even though the enclosing declaration uses an unsupported feature.
+
+                __C declaration:__ @x1_1@
+
+                __defined at:__ @types\/scoping\/nesting.h 21:9@
 
                 __exported by:__ @types\/scoping\/nesting.h@
            -}}
@@ -45,14 +49,14 @@ hs_bindgen_7640032abd722ca9 = fromFFIType hs_bindgen_7640032abd722ca9_base
 {-# NOINLINE x #-}
 {-| __C declaration:__ @X@
 
-    __defined at:__ @types\/scoping\/nesting.h 20:19@
+    __defined at:__ @types\/scoping\/nesting.h 26:19@
 
     __exported by:__ @types\/scoping\/nesting.h@
 -}
 x :: Ptr Bar
 {-| __C declaration:__ @X@
 
-    __defined at:__ @types\/scoping\/nesting.h 20:19@
+    __defined at:__ @types\/scoping\/nesting.h 26:19@
 
     __exported by:__ @types\/scoping\/nesting.h@
 -}

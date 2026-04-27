@@ -87,6 +87,8 @@ test_edgeCases_duplicate =
               Just $ Expected (name, "conflict")
             MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just $ Expected (name, "transitive conflict")
+            MatchSelect name SelectMangleNamesFailure{} ->
+              Just $ Expected (name, "mangle")
             _otherwise ->
                Nothing
           )
@@ -94,8 +96,9 @@ test_edgeCases_duplicate =
     declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
           ("macro duplicate", "conflict")
-        , ("duplicate", "conflict")
-        , ("function",  "transitive conflict")
+        , ("duplicate",       "conflict")
+        , ("function",        "transitive conflict")
+        , ("function",        "mangle")
         ]
 
 test_edgeCases_duplicate_record_field :: TestCase

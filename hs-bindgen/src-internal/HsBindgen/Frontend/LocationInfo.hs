@@ -30,7 +30,7 @@ data WithLocationInfo a = WithLocationInfo{
       loc :: LocationInfo
     , msg :: a
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Ord)
 
 instance IsTrace lvl a => IsTrace lvl (WithLocationInfo a) where
   getDefaultLogLevel x = getDefaultLogLevel x.msg
@@ -55,7 +55,7 @@ data LocationInfo =
 
     -- | No location information
   | LocationUnavailable
-  deriving stock (Show)
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Construct 'LocationInfo'

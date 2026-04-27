@@ -70,8 +70,8 @@ data BindingSpecReadMsg =
   | BindingSpecReadModuleNotSpecified FilePath
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadCTypeConflict FilePath DeclId HashIncludeArg
-  | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
-  | BindingSpecReadHsTypeConflict FilePath Hs.Identifier
+  | BindingSpecReadHsTypeNameNoRef FilePath (Hs.Name Hs.NsTypeConstr)
+  | BindingSpecReadHsTypeConflict FilePath (Hs.Name Hs.NsTypeConstr)
   | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
   | BindingSpecReadConvertVersion FilePath BindingSpecVersion BindingSpecVersion
   deriving stock (Show)
@@ -87,7 +87,7 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadModuleNotSpecified{}   -> Error
     BindingSpecReadInvalidCName{}         -> Error
     BindingSpecReadCTypeConflict{}        -> Error
-    BindingSpecReadHsIdentifierNoRef{}    -> Error
+    BindingSpecReadHsTypeNameNoRef{}    -> Error
     BindingSpecReadHsTypeConflict{}       -> Error
     BindingSpecReadHashIncludeArg _ x     -> getDefaultLogLevel x
     BindingSpecReadConvertVersion _ f t
@@ -154,7 +154,7 @@ instance PrettyForTrace BindingSpecReadMsg where
       , PP.string header.path
       , ")"
       ]
-    BindingSpecReadHsIdentifierNoRef path hsIdentifier -> PP.hcat [
+    BindingSpecReadHsTypeNameNoRef path hsIdentifier -> PP.hcat [
         "Haskell identifier in "
       , PP.string path
       , " not referenced by C type: "

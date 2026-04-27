@@ -618,6 +618,7 @@ newtype Callback_t_Aux
                                                IO HsBindgen.Runtime.LibC.Word32)}
     deriving stock Generic
     deriving newtype HasFFIType
+-- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
     Ptr Void -> Word32 -> IO Word32
  -> IO (FunPtr (Ptr Void -> Word32 -> IO Word32))
@@ -626,6 +627,7 @@ hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
                                IO (FunPtr Callback_t_Aux)
 -- __unique:__ @toCallback_t_Aux@
 hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (toFFIType fun_0))
+-- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
     FunPtr (Ptr Void -> Word32 -> IO Word32)
  -> Ptr Void

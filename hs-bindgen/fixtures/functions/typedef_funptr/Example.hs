@@ -40,6 +40,7 @@ newtype RunDriver_Aux = RunDriver_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toRunDriver_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
      (RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32))
@@ -52,6 +53,7 @@ hs_bindgen_d86ecf261d7044c6 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromRunDriver_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> RIP.Ptr RIP.Void -> IO RIP.Int32

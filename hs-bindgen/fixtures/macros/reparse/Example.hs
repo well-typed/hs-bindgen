@@ -496,6 +496,7 @@ newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFunptr_typedef1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
      IO RIP.Int32
   -> IO (RIP.FunPtr (IO RIP.Int32))
@@ -508,6 +509,7 @@ hs_bindgen_c584d0f839fd43de =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_c584d0f839fd43de_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFunptr_typedef1_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_806a46dc418a062c_base ::
      RIP.FunPtr (IO RIP.Int32)
   -> IO RIP.Int32
@@ -586,6 +588,7 @@ newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFunptr_typedef2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
      IO (RIP.Ptr RIP.Void)
   -> IO (RIP.FunPtr (IO (RIP.Ptr RIP.Void)))
@@ -598,6 +601,7 @@ hs_bindgen_f174457a161ac5a0 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_f174457a161ac5a0_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFunptr_typedef2_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_323d07dff85b802c_base ::
      RIP.FunPtr (IO (RIP.Ptr RIP.Void))
   -> IO (RIP.Ptr RIP.Void)
@@ -676,6 +680,7 @@ newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFunptr_typedef3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
      IO (RIP.Ptr RIP.Void)
   -> IO (RIP.FunPtr (IO (RIP.Ptr RIP.Void)))
@@ -688,6 +693,7 @@ hs_bindgen_031d1a7decd790d8 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_031d1a7decd790d8_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFunptr_typedef3_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_82dc7b932974117e_base ::
      RIP.FunPtr (IO (RIP.Ptr RIP.Void))
   -> IO (RIP.Ptr RIP.Void)
@@ -766,6 +772,7 @@ newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFunptr_typedef4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
      (RIP.Int32 -> Double -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32))
@@ -778,6 +785,7 @@ hs_bindgen_da2336d254667386 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_da2336d254667386_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFunptr_typedef4_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d4a97954476da161_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32)
   -> RIP.Int32 -> Double -> IO RIP.Int32
@@ -856,6 +864,7 @@ newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFunptr_typedef5_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -868,6 +877,7 @@ hs_bindgen_1f45632f07742a46 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_1f45632f07742a46_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFunptr_typedef5_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_0bd1877eaaba0d3e_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)
@@ -1519,6 +1529,7 @@ newtype Const_funptr1_Aux = Const_funptr1_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
      (RIP.Int32 -> Double -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32))
@@ -1531,6 +1542,7 @@ hs_bindgen_7f125e20a9d4075b =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_7f125e20a9d4075b_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr1_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_ac4bd8d789bba94b_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32)
   -> RIP.Int32 -> Double -> IO RIP.Int32
@@ -1609,6 +1621,7 @@ newtype Const_funptr2_Aux = Const_funptr2_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
      (RIP.Int32 -> Double -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32))
@@ -1621,6 +1634,7 @@ hs_bindgen_c7b1e36d845634fb =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_c7b1e36d845634fb_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr2_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_352cebf463125ca9_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO RIP.Int32)
   -> RIP.Int32 -> Double -> IO RIP.Int32
@@ -1699,6 +1713,7 @@ newtype Const_funptr3_Aux = Const_funptr3_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -1711,6 +1726,7 @@ hs_bindgen_2dcbfe1c2502178c =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_2dcbfe1c2502178c_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr3_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_86738dcfd7c9d33c_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)
@@ -1789,6 +1805,7 @@ newtype Const_funptr4_Aux = Const_funptr4_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -1801,6 +1818,7 @@ hs_bindgen_5461deeda491de0b =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_5461deeda491de0b_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr4_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_de7846fca3bfd1b6_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)
@@ -1879,6 +1897,7 @@ newtype Const_funptr5_Aux = Const_funptr5_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr5_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -1891,6 +1910,7 @@ hs_bindgen_7b0174fc978a1ce1 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_7b0174fc978a1ce1_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr5_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_38a21d84bb7115b5_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)
@@ -1969,6 +1989,7 @@ newtype Const_funptr6_Aux = Const_funptr6_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr6_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -1981,6 +2002,7 @@ hs_bindgen_4e32721222f4df9f =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_4e32721222f4df9f_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr6_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_45251216b04aa8b5_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)
@@ -2059,6 +2081,7 @@ newtype Const_funptr7_Aux = Const_funptr7_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toConst_funptr7_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
      (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> IO (RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)))
@@ -2071,6 +2094,7 @@ hs_bindgen_0d04fc96ffb9de06 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_0d04fc96ffb9de06_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromConst_funptr7_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_42fbcebf75a973ba_base ::
      RIP.FunPtr (RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void))
   -> RIP.Int32 -> Double -> IO (RIP.Ptr RIP.Void)

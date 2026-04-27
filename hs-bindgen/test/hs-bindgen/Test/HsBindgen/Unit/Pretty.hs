@@ -1,10 +1,10 @@
 module Test.HsBindgen.Unit.Pretty (tests) where
 
+import Data.Text (Text)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 import Text.SimplePrettyPrint (Pretty (..))
 
-import HsBindgen.Backend.Hs.Name (unsafeHsIdHsName)
 import HsBindgen.Backend.HsModule.Pretty.Expr ()
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Language.Haskell qualified as Hs
@@ -70,8 +70,8 @@ tupleTypeTests =
       , testCase "unsaturated 4-section" $ testPretty usec4T usec4R
       ]
   where
-    free :: Hs.Identifier -> SType ctx
-    free = TFree . unsafeHsIdHsName
+    free :: Text -> SType ctx
+    free = TFree . Hs.UnsafeName
 
     tup2T :: ClosedType
     tup2R :: String

@@ -20,10 +20,9 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
-import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -52,7 +51,7 @@ genBindingSpec ::
   -> DeclIndex
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
+  -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl]
   -> ByteString
 genBindingSpec
@@ -94,7 +93,7 @@ genBindingSpec' ::
      Hs.ModuleName
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
+  -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
@@ -108,9 +107,10 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           | (cDeclId, path) <- omitTypes
           ] ++
           [ let headers   = getMainHeaders' sourcePath
-                cTypeSpec = def & #hsIdent .~ Just hsId
+                cTypeSpec :: CTypeSpec
+                cTypeSpec = CTypeSpec $ Just hsName
             in  (cDeclId, [(headers, Require cTypeSpec)])
-          | (cDeclId, (sourcePath, hsId)) <- squashedTypes
+          | (cDeclId, (sourcePath, hsName)) <- squashedTypes
           ]
       , hsTypes = Map.empty
       }
@@ -148,53 +148,51 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
 
     insertType ::
          ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
-         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec =
+    insertType ((declInfo, cTypeSpec), (hsName, hsTypeSpec)) spec =
       spec
         & #cTypes %~
             Map.insertWith (++)
               declInfo.id.cName
               [(getHeaders declInfo, Require cTypeSpec)]
         & #hsTypes %~
-            Map.insert hsId hsTypeSpec
+            Map.insert hsName hsTypeSpec
 
     auxTypSyn ::
          Hs.TypSyn
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
-         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxTypSyn typSyn =
-      let hsIdentifier = Hs.Identifier $ Hs.getName typSyn.name
-          cTypeSpec = BindingSpec.CTypeSpec {
-              hsIdent = Just hsIdentifier
+      let cTypeSpec = BindingSpec.CTypeSpec {
+              hsName = Just typSyn.name
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsRep     = Just $ BindingSpec.HsTypeRepTypeAlias
+              hsRep     = Just BindingSpec.HsTypeRepTypeAlias
             , instances = Map.empty
             }
       in  ( (typSyn.origin.info, cTypeSpec)
-          , (hsIdentifier, hsTypeSpec)
+          , (typSyn.name, hsTypeSpec)
           )
 
     auxStruct ::
          Hs.Struct n
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
-         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxStruct hsStruct = case hsStruct.origin of
       Nothing -> panicPure "Origin of structure unavailable"
       Just originDecl ->
-        let hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
-            cTypeSpec = BindingSpec.CTypeSpec {
-                hsIdent = Just hsIdentifier
+        let cTypeSpec = BindingSpec.CTypeSpec {
+                hsName = Just hsStruct.name
               }
             hsRecordRep = BindingSpec.HsRecordRep {
-                constructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
+                constructor = Just hsStruct.constr
               , fields      = Just [
-                    Hs.Identifier $ Hs.getName field.name
+                    field.name
                   | field <- Vec.toList hsStruct.fields
                   ]
               }
@@ -206,42 +204,40 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                     hsStruct.instances
               }
         in  ( (originDecl.info, cTypeSpec)
-            , (hsIdentifier, hsTypeSpec)
+            , (hsStruct.name, hsTypeSpec)
             )
 
     auxEmptyData ::
          Hs.EmptyData
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
-         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
       let originDecl   = edata.origin
-          hsIdentifier = Hs.Identifier $ Hs.getName edata.name
           cTypeSpec = BindingSpec.CTypeSpec {
-              hsIdent = Just hsIdentifier
+              hsName = Just edata.name
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just BindingSpec.HsTypeRepEmptyData
             , instances = Map.empty
             }
       in  ( (originDecl.info, cTypeSpec)
-          , (hsIdentifier, hsTypeSpec)
+          , (edata.name, hsTypeSpec)
           )
 
     auxNewtype ::
          Hs.Newtype
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
-         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
       let originDecl   = hsNewtype.origin
-          hsIdentifier = Hs.Identifier $ Hs.getName hsNewtype.name
           cTypeSpec    = BindingSpec.CTypeSpec {
-              hsIdent = Just hsIdentifier
+              hsName = Just hsNewtype.name
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
-              constructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr
-            , field       = Just $ Hs.Identifier $ Hs.getName hsNewtype.field.name
+              constructor = Just hsNewtype.constr
+            , field       = Just hsNewtype.field.name
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
@@ -251,7 +247,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                   hsNewtype.instances
             }
       in  ( (originDecl.info, cTypeSpec)
-          , (hsIdentifier, hsTypeSpec)
+          , (hsNewtype.name, hsTypeSpec)
           )
 
     getHeaders :: C.DeclInfo Final -> Set HashIncludeArg

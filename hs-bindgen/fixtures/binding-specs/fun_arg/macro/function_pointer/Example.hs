@@ -40,6 +40,7 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toMyFunctionPointer_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
      (RIP.Int32 -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
@@ -52,6 +53,7 @@ hs_bindgen_47dfd04698dd2e6f =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_47dfd04698dd2e6f_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromMyFunctionPointer_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
      RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
   -> RIP.Int32 -> IO RIP.Int32

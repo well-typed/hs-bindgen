@@ -9,7 +9,6 @@ module HsBindgen.Backend.SHs.Translation (
 
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Category
@@ -96,21 +95,28 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasCBitfieldInstance i defInst.comment
       Hs.InstanceHasField i ->
         DInst $ translateHasFieldInstance i defInst.comment
-      Hs.InstanceHasFlam struct fty i ->
+      Hs.InstanceHasFlam struct i ->
         DInst Instance{
             clss    = Inst.Flam_Offset
-          , args    = [ translateType fty, TCon struct.name ]
+          , args    = [ translateType i.typ, TCon struct.name ]
           , super   = []
           , types   = []
           , comment = defInst.comment
           , decs    = [ ( bindgenGlobalTerm Flam_Offset_offset
-                        , ELam "_ty" $ EIntegral (toInteger i) Nothing)
+                        , ELam "_ty" $ EIntegral (toInteger i.offset) Nothing)
                       ]
           }
-      Hs.InstanceCEnum struct fTyp vMap isSequential ->
-        DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
-      Hs.InstanceSequentialCEnum struct nameMin nameMax ->
-        DInst $ translateSequentialCEnum struct nameMin nameMax defInst.comment
+      Hs.InstanceCEnum struct i ->
+        DInst $
+          translateCEnumInstance
+            struct
+            i.fieldType
+            i.valueNames
+            i.isSequential
+            defInst.comment
+      Hs.InstanceSequentialCEnum struct i ->
+        DInst $
+          translateSequentialCEnum struct i.minName i.maxName defInst.comment
       Hs.InstanceCEnumShow struct ->
         DInst $ translateCEnumInstanceShow struct defInst.comment
       Hs.InstanceCEnumRead struct ->
@@ -220,7 +226,7 @@ translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
           tBindgenGlobal IO_type `TApp`
           (tBindgenGlobal Foreign_FunPtr_type `TApp`
           translateType importWrapper.funType)
-    , name       = importWrapper.name
+    , name       = Hs.InternalName importWrapper.name
     , origName   = CDeclName "wrapper" CNameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
     , origin     = importWrapper.origin
@@ -239,7 +245,7 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
               }
           ]
     , result     = Result (translateType importDyn.funType) Nothing
-    , name       = importDyn.name
+    , name       = Hs.InternalName importDyn.name
     , origName   = CDeclName "dynamic" CNameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
     , origin     = importDyn.origin
@@ -485,7 +491,7 @@ translateHasCFieldInstance inst mbComment = Instance {
     }
   where
     parent    = translateType inst.parentType
-    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
     fieldType = translateType inst.cFieldType
     o         = fromIntegral inst.fieldOffset
 
@@ -516,7 +522,7 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     }
   where
     parent    = translateType inst.parentType
-    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
     fieldType = translateType inst.cBitfieldType
     o         = fromIntegral inst.bitOffset
     w         = fromIntegral inst.bitWidth
@@ -556,11 +562,11 @@ translateHasFieldInstance inst mbComment = Instance{
     parent    = translateType inst.parentType
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
     field     = translateType inst.fieldType
-    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
-    tyTypeVar = TFree $ Hs.ExportedName "ty"
+    tyTypeVar = TFree $ Hs.UnsafeName "ty"
 
 {-------------------------------------------------------------------------------
   Unions
@@ -568,7 +574,7 @@ translateHasFieldInstance inst mbComment = Instance{
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
 translateUnionGetter getter = DBinding Binding{
-      name       = getter.name
+      name       = Hs.ExportedName getter.name
     , result     = Result (translateType getter.typ) Nothing
     , body       = eBindgenGlobal ByteArray_getUnionPayload
     , pragmas    = []
@@ -583,7 +589,7 @@ translateUnionGetter getter = DBinding Binding{
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
 translateUnionSetter setter = DBinding Binding{
-      name       = setter.name
+      name       = Hs.ExportedName setter.name
     , result     = Result (TCon setter.constr) Nothing
     , body       = eBindgenGlobal ByteArray_setUnionPayload
     , pragmas    = []
@@ -601,7 +607,7 @@ translateUnionSetter setter = DBinding Binding{
 -------------------------------------------------------------------------------}
 
 translateDeclVar :: Hs.Var -> SDecl
-translateDeclVar var = DBinding Binding {
+translateDeclVar var = DBinding Binding{
       name      = var.name
     , parameters= []
     , result    = Result var.typ Nothing
@@ -640,13 +646,13 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     tcon = TCon struct.name
 
     dconStrE :: SExpr ctx
-    dconStrE = EString . T.unpack $ Hs.getName struct.constr
+    dconStrE = EString $ Hs.nameToStr struct.constr
 
     fname :: Hs.Name Hs.NsVar
     fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
 
     fnameStr :: String
-    fnameStr = T.unpack $ Hs.getName fname
+    fnameStr = Hs.nameToStr fname
 
     fromCEnumE :: ClosedExpr
     fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit fnameStr)

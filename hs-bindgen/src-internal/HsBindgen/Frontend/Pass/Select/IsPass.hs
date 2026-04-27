@@ -24,7 +24,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure)
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
@@ -44,11 +44,11 @@ data Select a
 type family AnnSelect ix where
   AnnSelect "TranslationUnit"  = DeclMeta
   AnnSelect "Decl"             = PrescriptiveDeclSpec
-  AnnSelect "Struct"           = RecordNames
+  AnnSelect "Struct"           = StructNames
   AnnSelect "Union"            = NewtypeNames
   AnnSelect "UnionField"       = UnionFieldNames
   AnnSelect "Enum"             = NewtypeNames
-  AnnSelect "Typedef"          = NewtypeNames
+  AnnSelect "Typedef"          = TypedefNames
   AnnSelect "CheckedMacroType" = NewtypeNames
   AnnSelect "TypeFunArg"       = AdjustedFrom Select
   AnnSelect _                  = NoAnn
@@ -63,9 +63,9 @@ instance IsPass Select where
   type MacroId     Select = Id Select
   type CommentDecl Select = Maybe (C.Comment Select)
 
-  idNameKind     _ namePair   = namePair.cName.name.kind
-  idSourceName   _ namePair   = declIdSourceName namePair.cName
-  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
+  idNameKind     _ namePair = namePair.cName.name.kind
+  idSourceName   _ namePair = declIdSourceName namePair.cName
+  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
   extBindingId _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
 
@@ -157,7 +157,7 @@ data SelectMsg =
     -- | Delayed construct translation unit message for conflicting declarations
     -- the user wants to select directly.
   | SelectConflict
-  | SelectMangleNamesFailure MangleNamesFailure
+  | SelectMangleNamesFailure MangleNamesError
   | SelectMangleNamesSquashed Squashed
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.

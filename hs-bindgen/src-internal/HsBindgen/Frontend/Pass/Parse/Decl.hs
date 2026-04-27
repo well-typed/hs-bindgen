@@ -68,8 +68,8 @@ topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
 type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
 
 -- | Parse declarations with available parse context
-parseDeclNested :: Maybe PrelimDeclId -> ParseCtx -> Parser
-parseDeclNested mEnclosing ctx = parseDecl' mEnclosing (Just ctx)
+parseDeclNested :: [C.EnclosingRef Parse] -> ParseCtx -> Parser
+parseDeclNested enclosing ctx = parseDecl' enclosing (Just ctx)
 
 -- | Parse a top level declaration (parse context not yet available)
 parseDeclTopLevel :: CXCursor -> ParseDecl (Next ParseDecl (CXSourceLocation, [ParseResult Parse]))
@@ -79,7 +79,7 @@ parseDeclTopLevel curr = do
     -- next to all parse results and use it to retrieve the single location
     -- stored in the 'DeclInfo'.
     loc       <- clang_getCursorLocation curr
-    nextDecls <- parseDecl' Nothing Nothing curr
+    nextDecls <- parseDecl' [] Nothing curr
     -- We cannot directly thread in macros here because the 'Functor' instance
     -- of 'Next' drops them when we have `Continue Nothing`. That is, there is a
     -- subtle difference between `foldContinue`, and `foldContinueWith []`. This
@@ -94,18 +94,18 @@ parseDeclTopLevel curr = do
     pure $ (loc,) <$> nextDecls
 
 -- | Auxiliary function; use 'parseDeclNested' or 'parseDeclTopLevel'
-parseDecl' :: HasCallStack => Maybe PrelimDeclId -> Maybe ParseCtx -> Parser
-parseDecl' mEnclosing mCtx = withCursorKindNoCtx $ \case
+parseDecl' :: HasCallStack => [C.EnclosingRef Parse] -> Maybe ParseCtx -> Parser
+parseDecl' enclosing mCtx = withCursorKindNoCtx $ \case
       -- Ordinary kinds that we parse
-      Right CXCursor_FunctionDecl    -> parseDeclWith mEnclosing (push CNameKindOrdinary NotRequiredForScoping) functionDecl
-      Right CXCursor_VarDecl         -> parseDeclWith mEnclosing (push CNameKindOrdinary NotRequiredForScoping) varDecl
-      Right CXCursor_TypedefDecl     -> parseDeclWith mEnclosing (push CNameKindOrdinary RequiredForScoping)    typedefDecl
-      Right CXCursor_MacroDefinition -> parseDeclWith mEnclosing (push CNameKindMacro    NotRequiredForScoping) macroDefinition
+      Right CXCursor_FunctionDecl    -> parseDeclWith enclosing (push CNameKindOrdinary NotRequiredForScoping) functionDecl
+      Right CXCursor_VarDecl         -> parseDeclWith enclosing (push CNameKindOrdinary NotRequiredForScoping) varDecl
+      Right CXCursor_TypedefDecl     -> parseDeclWith enclosing (push CNameKindOrdinary RequiredForScoping)    typedefDecl
+      Right CXCursor_MacroDefinition -> parseDeclWith enclosing (push CNameKindMacro    NotRequiredForScoping) macroDefinition
 
       -- Tagged kinds that we parse
-      Right CXCursor_StructDecl -> parseDeclWith mEnclosing (push (CNameKindTagged CTagKindStruct) NotRequiredForScoping) structDecl
-      Right CXCursor_UnionDecl  -> parseDeclWith mEnclosing (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) unionDecl
-      Right CXCursor_EnumDecl   -> parseDeclWith mEnclosing (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
+      Right CXCursor_StructDecl -> parseDeclWith enclosing (push (CNameKindTagged CTagKindStruct) NotRequiredForScoping) structDecl
+      Right CXCursor_UnionDecl  -> parseDeclWith enclosing (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) unionDecl
+      Right CXCursor_EnumDecl   -> parseDeclWith enclosing (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
 
       -- Process macro expansions independent of any select predicates
       Right CXCursor_MacroExpansion -> macroExpansion
@@ -177,12 +177,16 @@ parseDecl' mEnclosing mCtx = withCursorKindNoCtx $ \case
 -- /have/ an associated declaration at all are macros. However, since we cannot
 -- get the list of tokens for built-in macros, we would anyway need to
 -- special-case them. For now we skip /all/ builtins.
-parseDeclWith :: Maybe PrelimDeclId -> ParseCtx -> (ParseCtx -> C.DeclInfo Parse -> Parser) -> Parser
-parseDeclWith mEnclosing ctx parser curr = do
+parseDeclWith ::
+     [C.EnclosingRef Parse]
+  -> ParseCtx
+  -> ([C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser)
+  -> Parser
+parseDeclWith enclosing ctx parser curr = do
     mBuiltin <- PrelimDeclId.checkIsBuiltin curr
     case mBuiltin of
       Just _name -> foldContinue
-      Nothing    -> withDeclInfo mEnclosing ctx parseExplicitDecl curr
+      Nothing    -> withDeclInfo enclosing ctx parseExplicitDecl curr
   where
     parseExplicitDecl :: C.DeclInfo Parse -> Parser
     parseExplicitDecl info = \_curr ->
@@ -191,11 +195,12 @@ parseDeclWith mEnclosing ctx parser curr = do
                  parseDoNotAttempt info DeclarationUnavailable
                ]
          | otherwise ->
-             parser ctx info curr
+             parser enclosing ctx info curr
 
 -- | Macros
-macroDefinition :: HasCallStack => ParseCtx -> C.DeclInfo Parse -> Parser
-macroDefinition _ctx info = \curr -> do
+macroDefinition ::
+  HasCallStack => [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+macroDefinition _enclosing _ctx info = \curr -> do
     cxLoc  <- clang_getCursorLocation curr
     tokens <- getMacroTokens curr
     cStd   <- getCStandard
@@ -230,8 +235,8 @@ macroDefinition _ctx info = \curr -> do
 --
 -- Visibility attributes are ignored on structs, since as far as we can tell
 -- they do not affect the Haskell bindings.
-structDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-structDecl ctx info = \curr -> do
+structDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+structDecl enclosing ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -255,9 +260,12 @@ structDecl ctx info = \curr -> do
               where
                 (regularFields, mFlam) = partitionFields allFields
 
+            enclosing' :: [C.EnclosingRef Parse]
+            enclosing' = C.EnclosingRef info.id : enclosing
+
         -- Recursively parse all members of the struct. These members include
         -- field declarations and nested struct/union declarations.
-        parseStructMembersWith ty ctx (parseDeclNested (Just info.id)) $ \membersResult ->
+        parseStructMembersWith ty ctx (parseDeclNested enclosing') $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
           --
@@ -313,8 +321,8 @@ structDecl ctx info = \curr -> do
 --
 -- Visibility attributes are ignored on unions, since as far as we can tell they
 -- do not affect the Haskell bindings.
-unionDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-unionDecl ctx info = \curr -> do
+unionDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+unionDecl enclosing ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -334,10 +342,12 @@ unionDecl ctx info = \curr -> do
                            , ann       = IsAnon isAnon
                            }
                 }
+            enclosing' :: [C.EnclosingRef Parse]
+            enclosing' = C.EnclosingRef info.id : enclosing
 
         -- Recursively parse all members of the union. These members include
         -- field declarations and nested struct/union declarations.
-        parseUnionMembersWith ty ctx (parseDeclNested (Just info.id)) $ \membersResult ->
+        parseUnionMembersWith ty ctx (parseDeclNested enclosing') $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
           --
@@ -371,8 +381,8 @@ unionDecl ctx info = \curr -> do
     isField :: C.UnionField Parse -> Bool
     isField field = not $ Text.null field.info.name.text
 
-typedefDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-typedefDecl ctx info = \curr -> do
+typedefDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+typedefDecl _enclosing ctx info = \curr -> do
     typedefType <-
       fromCXType ctx =<< clang_getTypedefDeclUnderlyingType curr
 
@@ -443,8 +453,8 @@ macroExpansion = \curr -> do
 --
 -- Visibility attributes are ignored on enums, since as far as we can tell they
 -- do not affect the Haskell bindings.
-enumDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-enumDecl ctx info = \curr -> do
+enumDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+enumDecl _enclosing ctx info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -524,8 +534,8 @@ enumConstantDecl sign = \curr -> do
       , value = enumConstantValue
       }
 
-functionDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-functionDecl ctx info =
+functionDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+functionDecl enclosing ctx info =
     withCursorVisibility ctx info $ \visibility ->
       withCursorLinkage ctx info $ \linkage ->
         aux visibility linkage
@@ -622,14 +632,16 @@ functionDecl ctx info =
     nestedDecl :: Fold ParseDecl [Either (ParseResult Parse) C.FunctionPurity]
     nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
+        let enclosing' :: [C.EnclosingRef Parse]
+            enclosing' = C.EnclosingRef info.id : enclosing
         case kind of
           -- 'ParmDecl' sometimes appear in nested in the AST
           Right CXCursor_ParmDecl ->
             foldRecurseWith nestedDecl (return . concat)
 
           -- Nested declarations
-          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDeclNested (Just info.id) ctx curr
-          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDeclNested (Just info.id) ctx curr
+          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDeclNested enclosing' ctx curr
+          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDeclNested enclosing' ctx curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
@@ -662,8 +674,8 @@ functionDecl ctx info =
             foldContinueWith $ map Left failures
 
 -- | Global variable declaration
-varDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
-varDecl ctx info = do
+varDecl :: [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
+varDecl enclosing ctx info = do
     withCursorVisibility ctx info $ \visibility ->
       withCursorLinkage ctx info $ \linkage ->
         aux visibility linkage
@@ -727,14 +739,16 @@ varDecl ctx info = do
                     parseFail ctx info.id info.loc $ ParseUnknownStorageClass storage
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]
-    nestedDecl = simpleFold $ withCursorKind ctx $ \case
+    nestedDecl =
+        let enclosing' = C.EnclosingRef info.id : enclosing
+        in simpleFold $ withCursorKind ctx $ \case
           -- Reference to previously declared type can safely be skipped
           CXCursor_TypeRef -> skip
 
           -- Nested /new/ declarations
-          CXCursor_StructDecl -> parseDeclNested (Just info.id) ctx
-          CXCursor_UnionDecl  -> parseDeclNested (Just info.id) ctx
-          CXCursor_EnumDecl   -> parseDeclNested (Just info.id) ctx
+          CXCursor_StructDecl -> parseDeclNested enclosing' ctx
+          CXCursor_UnionDecl  -> parseDeclNested enclosing' ctx
+          CXCursor_EnumDecl   -> parseDeclNested enclosing' ctx
 
           -- Initializers
           --
@@ -829,24 +843,25 @@ withCursorKind ctx k = \curr -> do
 -- The continuation is only called when the declaration info can be determined.
 --
 -- Must not be called on built-ins.
-withDeclInfo :: Maybe PrelimDeclId -> ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
-withDeclInfo mEnclosing ctx k = \curr -> do
+withDeclInfo ::
+  [C.EnclosingRef Parse] -> ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
+withDeclInfo enclosing ctx k = \curr -> do
     declId          <- PrelimDeclId.atCursor curr ctx.inner.kind
     declLoc         <- HighLevel.clang_getCursorLocation' curr
     (withHeaderInfo ctx declId declLoc $ \headerInfo ->
       withAvailability ctx declId declLoc $ \availability curr' -> do
         let info :: C.DeclInfo Parse
             info = C.DeclInfo{
-                  loc           = declLoc
-                , id            = declId
+                  loc          = declLoc
+                , id           = declId
                   -- We initialize the sequence number to 'Nothing', and
                   -- populate it when consolidating macros with non-macros in
                   -- "HsBindgen.Frontend.Pass.Parse".
-                , seqNr         = Nothing
-                , headerInfo    = headerInfo
-                , availability  = availability
-                , comment       = ()
-                , declEnclosing = mEnclosing
+                , seqNr        = Nothing
+                , headerInfo   = headerInfo
+                , availability = availability
+                , comment      = ()
+                , enclosing    = enclosing
                 }
         k info curr') curr
 

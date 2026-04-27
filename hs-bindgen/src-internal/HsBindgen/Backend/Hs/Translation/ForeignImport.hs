@@ -83,7 +83,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
           & #typ .~ unsafeToFFI sizeofs x.hsParam.typ
           ) params
 
-    fiComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
+    fiComment =  Just $ HsDoc.uniqueSymbol name.uniqSymbol
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -132,11 +132,12 @@ foreignImportWrapperDec sizeofs name hsType origin =
           name    = fiName
         , funType = fiFunType
         , origin  = origin
-        , comment = Nothing
+        , comment = Just $ HsDoc.uniqueSymbol fiName
         }
 
     -- fiName is unique because it is created from a unique name + suffix
-    fiName = Hs.InternalName (name.uniqSymbol & #unique %~ (<> "_base"))
+    fiName :: UniqueSymbol
+    fiName = name.uniqSymbol & #unique %~ (<> "_base")
     fiFunType = unsafeToFFI sizeofs hsType
 
     funDecl :: Hs.FunctionDecl
@@ -163,7 +164,7 @@ foreignImportWrapperDec sizeofs name hsType origin =
         ELam "fun" $
         eBindgenGlobal Functor_fmap `EApp`
         eBindgenGlobal HasFFIType_castFunPtrFromFFIType `EApp`
-        (EFree fiName `EApp`
+        (EFree (Hs.InternalName fiName) `EApp`
         (eBindgenGlobal HasFFIType_toFFIType `EApp`
         EBound IZ
         ))
@@ -200,11 +201,12 @@ foreignImportDynamicDec sizeofs name hsType origin =
           name    = fiName
         , funType = fiFunType
         , origin  = origin
-        , comment = Nothing
+        , comment = Just $ HsDoc.uniqueSymbol fiName
         }
 
     -- fiName is unique because it is created from a unique name + suffix
-    fiName = Hs.InternalName (name.uniqSymbol & #unique %~ (<> "_base"))
+    fiName :: UniqueSymbol
+    fiName = name.uniqSymbol & #unique %~ (<> "_base")
     fiFunType = unsafeToFFI sizeofs hsType
 
     funDecl :: Hs.FunctionDecl
@@ -230,7 +232,7 @@ foreignImportDynamicDec sizeofs name hsType origin =
     fBody =
         ELam "funPtr" $
         eBindgenGlobal HasFFIType_fromFFIType `EApp`
-        (EFree fiName `EApp`
+        (EFree (Hs.InternalName fiName) `EApp`
         (eBindgenGlobal HasFFIType_castFunPtrToFFIType `EApp`
         EBound IZ
         ))

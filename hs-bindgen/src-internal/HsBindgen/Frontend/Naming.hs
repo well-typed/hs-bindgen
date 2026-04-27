@@ -33,16 +33,9 @@ module HsBindgen.Frontend.Naming (
     -- * Pairing C names and Haskell names
   , ScopedNamePair(..)
   , DeclIdPair(..)
-  , unsafeHsName
-  , AssignedIdentifier (..)
-  , assignedIdentifier
-  , noAssignedIdentifier
-  , Reason (..)
   ) where
 
 import Data.Text qualified as Text
-import GHC.Records (HasField (..))
-import GHC.Stack (CallStack, prettyCallStack)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors (panicPure)
@@ -256,74 +249,17 @@ instance PrettyForTrace DeclId where
   intended usage (constructor, variable, ..).
 -------------------------------------------------------------------------------}
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1927>
+--
+-- ScopedNamePair only ever refers to "type constructors" and "variable names".
 data ScopedNamePair = ScopedNamePair {
       cName  :: CScopedName
-    , hsName :: Hs.Identifier
+    , hsName :: Hs.SomeName
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 data DeclIdPair = DeclIdPair {
-      cName :: DeclId
-    , hsName :: AssignedIdentifier
+      cName  :: DeclId
+    , hsName :: Hs.SomeName
     }
   deriving stock (Show, Eq, Ord)
-
-instance HasField "unsafeHsName" DeclIdPair Hs.Identifier where
-  getField = unsafeHsName
-
-unsafeHsName :: HasCallStack => DeclIdPair -> Hs.Identifier
-unsafeHsName dip =
-      case dip.hsName of
-        NoAssignedIdentifier cstack reason ->
-          panicPure $ concat
-            [ prettyReason reason, "\n"
-            , "No identifier assigned at:\n"
-            , prettyCallStack cstack
-            ]
-        AssignedIdentifier x -> x
-
-data AssignedIdentifier =
-    AssignedIdentifier Hs.Identifier
-    -- | Haskell identifiers are not always assigned. See 'Reason'.
-  | NoAssignedIdentifier CallStack Reason
-  deriving stock Show
-
--- | Ignores the 'CallStack' field
-instance Eq AssignedIdentifier where
-  AssignedIdentifier x     == AssignedIdentifier y     = x == y
-  NoAssignedIdentifier _ x == NoAssignedIdentifier _ y = x == y
-  _                        == _                        = False
-
--- | Ignores the 'CallStack' field
-instance Ord AssignedIdentifier where
-  AssignedIdentifier x     `compare` AssignedIdentifier y     = x `compare` y
-  AssignedIdentifier{}     `compare` NoAssignedIdentifier{}   = GT
-  NoAssignedIdentifier{}   `compare` AssignedIdentifier{}     = LT
-  NoAssignedIdentifier _ x `compare` NoAssignedIdentifier _ y = x `compare` y
-
-assignedIdentifier :: Hs.Identifier -> AssignedIdentifier
-assignedIdentifier = AssignedIdentifier
-
-noAssignedIdentifier :: HasCallStack => Reason -> AssignedIdentifier
-noAssignedIdentifier = NoAssignedIdentifier callStack
-
--- | A Haskell identifier is not available.
-data Reason =
-      -- | The C name of the declaration was not mangled because it only appears
-      -- in an underlying type.
-      --
-      -- Mangling produces Haskell identifiers for the names of C declarations.
-      -- Only the names of declarations that are selected are mangled, but
-      -- references to unselected declarations can still appear in /underlying
-      -- types/. See 'HsBindgen.Frontend.AST.Type.Ref' for info about underlying
-      -- types. Haskell identifiers are not expected to be used in underlying
-      -- types.
-    UnderlyingTypeNotMangled
-  deriving stock (Show, Eq, Ord)
-
--- | See 'Reason' for more information about the reasons.
-prettyReason :: Reason -> String
-prettyReason reason = "A Haskell identifier is not available: " <> case reason of
-    UnderlyingTypeNotMangled ->
-      "The C name of the declaration was not mangled because it only appears \
-      \in an underlying type."

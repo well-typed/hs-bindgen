@@ -12,21 +12,28 @@ module HsBindgen.Language.Haskell (
     -- * Module imports
   , Import(..)
     -- * References
-  , Identifier(..)
   , ExtRef(..)
   , Ref(..)
-    -- * Namespaced names
+    -- * Namespaces
   , Namespace(..)
   , SNamespace(..)
   , namespaceOf
   , SingNamespace(..)
+    -- * Namespaced names
+  , Name(..)
+  , nameToStr
+  , SomeName(..)
+  , demoteNs
+  , assertNs
   ) where
 
 import Data.Foldable qualified as Foldable
 import Data.Text qualified as Text
 import System.FilePath
+import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -84,40 +91,28 @@ data Import =
   References
 -------------------------------------------------------------------------------}
 
--- | Haskell identifier
---
--- Example: @Tm@
---
--- This type is used to reference Haskell types, constructors, fields, etc.  It
--- does /not/ specify a 'Namespace' like the 'Name' type below.
-newtype Identifier = Identifier { text :: Text }
-  deriving stock (Eq, Ord, Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (IsString, Show, Semigroup)
-
-instance PrettyForTrace Identifier where
-  prettyForTrace ident = PP.text ident.text
-
 -- | External reference
---
--- An external reference specifies the 'ModuleName' and 'Identifier'
 data ExtRef = ExtRef {
       moduleName :: ModuleName
-    , ident      :: Identifier
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/423
+      --
+      -- At the moment, we only handle external references to types types. Later
+      -- we may support external references to variables (e.g., in macros).
+    , name       :: Name NsTypeConstr
     }
   deriving stock (Eq, Generic, Ord, Show)
 
 -- | Reference
 data Ref =
-    -- | Reference to an identifier in the local scope
-    RefLocal Identifier
+    -- | Reference to a name in the local scope
+    RefLocal SomeName
 
-  | -- | Reference to an identifier in a different module
+  | -- | Reference to a type in a different module
     RefExt ExtRef
   deriving stock (Eq, Show)
 
 {-------------------------------------------------------------------------------
-  Namespaced names
+  Namespaces
 -------------------------------------------------------------------------------}
 
 -- | Namespace
@@ -130,11 +125,19 @@ data Namespace =
   | NsVar
   deriving (Eq, Ord, Show)
 
+instance PrettyForTrace Namespace where
+  prettyForTrace = \case
+    NsTypeConstr -> "type constructor"
+    NsConstr     -> "data constructor"
+    NsVar        -> "variable"
+
 -- | Namespace singleton
 data SNamespace :: Namespace -> Star where
   SNsTypeConstr :: SNamespace 'NsTypeConstr
   SNsConstr     :: SNamespace 'NsConstr
   SNsVar        :: SNamespace 'NsVar
+
+deriving stock instance Show (SNamespace ns)
 
 -- | Get the namespace of a namespace singleton
 namespaceOf :: SNamespace ns -> Namespace
@@ -150,3 +153,67 @@ class SingNamespace ns where
 instance SingNamespace 'NsTypeConstr where singNamespace = SNsTypeConstr
 instance SingNamespace 'NsConstr     where singNamespace = SNsConstr
 instance SingNamespace 'NsVar        where singNamespace = SNsVar
+
+{-------------------------------------------------------------------------------
+  Namespaced names
+-------------------------------------------------------------------------------}
+
+-- | Haskell name created by "HsBindgen.Config.MangleCandidate" with correctness
+-- guarantees.
+--
+-- Also stores information about the Haskell namespace on the type level.
+-- Useful locally, to ensure correctness on the type level.
+--
+-- The constructor is "unsafe", because only the name mangler can ensure that
+-- namespace-specific naming rules are honored.
+newtype Name (ns :: Namespace) = UnsafeName {
+      text :: Text
+    }
+    deriving stock   (Show, Eq, Ord, Generic)
+
+nameToStr :: Name ns -> String
+nameToStr n = Text.unpack n.text
+
+instance SingNamespace ns => PrettyForTrace (Name ns) where
+  prettyForTrace x = prettyForTrace $ UnsafeSomeName ns x.text
+    where
+      ns :: Namespace
+      ns = namespaceOf (singNamespace @ns)
+
+-- | Haskell names with information about the Haskell namespace on the value
+--   level. Useful when handling names more globally such as in the list of
+--   declarations.
+--
+-- The constructor is "unsafe", because only the name mangler can ensure that
+-- namespace-specific naming rules are honored.
+data SomeName = UnsafeSomeName {
+      ns   :: Namespace
+    , text :: Text
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyForTrace SomeName where
+  prettyForTrace x = PP.hsep [
+      PP.text x.text
+    , "(" >< prettyForTrace x.ns >< ")"
+    ]
+
+-- | Remove the type-level namespace information, and store it on the value
+--   level.
+demoteNs :: forall ns. SingNamespace ns => Name ns -> SomeName
+demoteNs name = UnsafeSomeName (namespaceOf $ singNamespace @ns) name.text
+
+-- | Get Haskell name for some name in the expected namespace
+--
+-- Panics if the stored namespace does not match the expected one.
+assertNs ::
+     forall ns. (HasCallStack, SingNamespace ns)
+  => Proxy ns -> SomeName -> Name ns
+assertNs _ nm
+    | nm.ns == expected = UnsafeName nm.text
+    | otherwise = panicPure $
+        "assertNs: namespace mismatch; expected "
+          <> show expected <> " but got " <> show nm.ns
+  where
+    expected :: Namespace
+    expected = namespaceOf (singNamespace @ns)

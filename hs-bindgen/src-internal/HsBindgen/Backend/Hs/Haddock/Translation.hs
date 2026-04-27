@@ -15,7 +15,6 @@ import Clang.Paths qualified as C
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
@@ -33,17 +32,19 @@ import Doxygen.Parser.Types qualified as Doxy
 
 -- | Convert a Doxygen comment to a Haddock comment
 --
-mkHaddocks :: HaddockConfig -> C.DeclInfo Final -> Hs.Name ns -> Maybe HsDoc.Comment
-mkHaddocks config info name =
-    fmap (mbAddUniqueSymbolSource name) .
-      fst $ mkHaddocksWithArgs config info Args{
-          isField     = False
-        , loc         = info.loc
-        , nameC       = renderDeclId info.id.cName
-        , nameHsIdent = info.id.unsafeHsName
-        , comment     = info.comment
-        , params      = []
-        }
+mkHaddocks ::
+     HaddockConfig
+  -> C.DeclInfo Final
+  -> Maybe HsDoc.Comment
+mkHaddocks config info =
+    fst $ mkHaddocksWithArgs config info Args{
+        isField = False
+      , loc     = info.loc
+      , cName   = renderDeclId info.id.cName
+      , hsName  = info.id.hsName
+      , comment = info.comment
+      , params  = []
+      }
 
 mkHaddocksFieldInfo ::
      HaddockConfig
@@ -52,12 +53,12 @@ mkHaddocksFieldInfo ::
   -> Maybe HsDoc.Comment
 mkHaddocksFieldInfo config declInfo fieldInfo =
     fst $ mkHaddocksWithArgs config declInfo Args{
-        isField     = True
-      , loc         = fieldInfo.loc
-      , nameC       = fieldInfo.name.cName.text
-      , nameHsIdent = fieldInfo.name.hsName
-      , comment     = fieldInfo.comment
-      , params      = []
+        isField = True
+      , loc     = fieldInfo.loc
+      , cName   = fieldInfo.name.cName.text
+      , hsName  = fieldInfo.name.hsName
+      , comment = fieldInfo.comment
+      , params  = []
       }
 
 -- | Extract Haddock documentation for a function; enrich function parameters
@@ -65,31 +66,30 @@ mkHaddocksFieldInfo config declInfo fieldInfo =
 mkHaddocksDecorateParams ::
      HaddockConfig
   -> C.DeclInfo Final
-  -> Hs.Name ns
   -> [(Maybe Text, Hs.FunctionParameter)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksDecorateParams config info name params =
+mkHaddocksDecorateParams config info params =
     let (mbc, xs) = mkHaddocksWithArgs config info Args{
-        isField     = False
-      , loc         = info.loc
-      , nameC       = renderDeclId info.id.cName
-      , nameHsIdent = info.id.unsafeHsName
-      , comment     = info.comment
-      , params      = params
+        isField = False
+      , loc     = info.loc
+      , cName   = renderDeclId info.id.cName
+      , hsName  = info.id.hsName
+      , comment = info.comment
+      , params  = params
       }
-    in  (mbAddUniqueSymbolSource name <$> mbc, xs)
+    in  (mbc, xs)
 
 {-------------------------------------------------------------------------------
   Internal
 -------------------------------------------------------------------------------}
 
 data Args = Args{
-      isField     :: Bool
-    , loc         :: C.SingleLoc
-    , nameC       :: Text
-    , nameHsIdent :: Hs.Identifier
-    , comment     :: Maybe (C.Comment Final)
-    , params      :: [(Maybe Text, Hs.FunctionParameter)]
+      isField :: Bool
+    , loc     :: C.SingleLoc
+    , cName   :: Text
+    , hsName  :: Hs.SomeName
+    , comment :: Maybe (C.Comment Final)
+    , params  :: [(Maybe Text, Hs.FunctionParameter)]
     }
 
 -- | Convert a Doxygen comment to a Haddock comment, updating function
@@ -99,13 +99,13 @@ mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
       ( Just $
           mempty
-            & #origin     .~ Just nameC
+            & #origin     .~ Just cName
             & #location   .~ Just (updateSingleLoc pathStyle loc)
             & #headerInfo .~ Just info.headerInfo
       , map (uncurry addFunctionParameterComment) params
       )
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
-  let commentCName    = nameC
+  let commentCName    = cName
       commentLocation = updateSingleLoc pathStyle loc
 
       -- The brief description becomes the Haddock title
@@ -317,7 +317,7 @@ convertInline = \case
 
   Doxy.Ref (C.CommentRef c mHsIdent) _displayText ->
     case mHsIdent of
-      Just namePair -> [HsDoc.Identifier namePair.unsafeHsName.text]
+      Just namePair -> [HsDoc.Identifier namePair.hsName.text]
       Nothing       -> [HsDoc.Monospace [HsDoc.TextContent c]]
 
   Doxy.Anchor idText -> [HsDoc.Anchor idText]
@@ -343,8 +343,3 @@ updateSingleLoc Short C.SingleLoc{..} =
   , ..
   }
 updateSingleLoc _     sloc = sloc
-
-mbAddUniqueSymbolSource :: Hs.Name ns -> HsDoc.Comment -> HsDoc.Comment
-mbAddUniqueSymbolSource = \case
-  Hs.ExportedName _ -> id
-  Hs.InternalName x -> (HsDoc.uniqueSymbol x <>)

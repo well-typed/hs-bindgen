@@ -292,6 +292,7 @@ newtype Event_callback_t_Aux = Event_callback_t_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toEvent_callback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
      (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32))
@@ -304,6 +305,7 @@ hs_bindgen_111918b0aee2a7fb =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromEvent_callback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
      RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32
@@ -1099,6 +1101,7 @@ newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toProcessor_fn_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
      (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32))
@@ -1111,6 +1114,7 @@ hs_bindgen_d4e16471c82d5df0 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromProcessor_fn_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
      RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32

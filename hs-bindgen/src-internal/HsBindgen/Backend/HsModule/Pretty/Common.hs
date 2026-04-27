@@ -31,7 +31,10 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 instance Pretty (Hs.Name ns) where
-  pretty = PP.text . Hs.getName
+  pretty nm = PP.text nm.text
+
+instance Pretty Hs.TermName where
+  pretty = PP.text . Hs.termNameToText
 
 -- | Pretty-print a 'ResolvedName' in prefix notation
 --
@@ -60,14 +63,14 @@ prettyResolvedNamePlain resolved =
 instance Pretty Hs.ModuleName where
   pretty = PP.string . Hs.moduleNameToString
 
-instance Pretty Hs.Identifier where
+instance Pretty Hs.SomeName where
   pretty = PP.string . Text.unpack . (.text)
 
 instance Pretty Hs.ExtRef where
   pretty extRef = PP.hcat [
         pretty extRef.moduleName
       , PP.char '.'
-      , pretty extRef.ident
+      , PP.text extRef.name.text
       ]
 
 {-------------------------------------------------------------------------------

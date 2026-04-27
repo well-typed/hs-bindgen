@@ -95,5 +95,5 @@ and a reproducer.
   cross-compilation, and troubleshooting
 - [Clang Cross-Compilation](https://clang.llvm.org/docs/CrossCompilation.html)
 - [QEMU User Mode Emulation](https://www.qemu.org/docs/master/user/main.html)
-- [Nix Cross-Compilation](https://nixos.wiki/wiki/Cross_Compiling)
+- [Nix Cross-Compilation](https://wiki.nixos.org/wiki/Cross_Compiling)
 - [GHC External Interpreter (iserv)](https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/external-interpreter)

@@ -8,7 +8,6 @@ import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (TranslationState)
@@ -46,7 +45,12 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           }
       where
         resolvedInsts :: Set Inst.TypeClass
-        resolvedInsts = Hs.getInstances transState.instanceMap (Just name) candidateInsts [field.typ]
+        resolvedInsts =
+          Hs.getInstances
+            transState.instanceMap
+            (Just name)
+            candidateInsts
+            [field.typ]
 
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
