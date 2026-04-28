@@ -22,7 +22,7 @@ on Linux), while `hs-bindgen` uses `libclang` to parse headers and derive type
 layouts. For simple types this is unlikely to cause problems, but GCC and Clang
 can disagree on memory layout for more exotic constructs (bitfields, packed
 structs, platform-specific alignment). See the [Compiler choice (GCC vs.
-Clang)](../../manual/LowLevel/Usage/01-Invocation.md#compiler-choice-gcc-vs-clang)
+Clang)](../../manual/Installation.md#compiler-choice-gcc-vs-clang)
 
 ## Prerequisites
 
