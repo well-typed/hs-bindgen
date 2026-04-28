@@ -12,6 +12,7 @@ import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.THFixtures qualified as THFixtures
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
+import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
 
@@ -26,6 +27,7 @@ main = defaultMain $
         Frontend.LanguageC.tests
       , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
+          , Unit.Frontend.tests testResources
           , Unit.Tracer.tests
           , Unit.Pretty.tests
           ]
