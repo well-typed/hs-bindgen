@@ -2,9 +2,7 @@ module HsBindgen.Frontend.Pass.TypecheckMacros (
     typecheckMacros
   ) where
 
-import Control.Applicative (asum)
-import Control.Monad.Reader (MonadReader (..), Reader, runReader)
-import Control.Monad.State (MonadState (..), StateT, modify, runStateT)
+import Control.Monad.State (MonadState (..), State, modify, runState)
 import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
@@ -36,7 +34,7 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 type CType = C.Type TypecheckMacros
-type TypeEnv = Map Text CType
+type CTypes = Map Text CType
 
 -- | We perform two traversals:
 --
@@ -55,17 +53,18 @@ typecheckMacros ::
      , LanC.ReparseEnv
      )
 typecheckMacros unit =
-    let typedefTypes, taggedTypes :: TypeEnv
+    let typedefTypes, taggedTypes :: CTypes
         (typedefTypes, taggedTypes) =
           bimap Map.fromList Map.fromList $
             partitionEithers $
               mapMaybe getKnownType unit.decls
         ((failedMacros, typecheckedDecls), typecheckState) =
-          runM typedefTypes taggedTypes $
+          runM (Map.keys typedefTypes) $
             fmap partitionEithers $ mapM typecheckDecl unit.decls
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
-        , Map.map coercePass $ typedefTypes <> taggedTypes
-        , Map.map coercePass $ typecheckState.macroTypes )
+        , Map.map coercePass (typedefTypes <> taggedTypes)
+        , Map.map coercePass typecheckState.macroTypes
+        )
 
 {-------------------------------------------------------------------------------
   Reconstruct translation unit after typechecking
@@ -137,14 +136,14 @@ typecheckDecl ::
   -> M (Either FailedMacro (C.Decl TypecheckMacros))
 typecheckDecl decl = case decl.kind of
     C.DeclMacro        macro -> typecheckMacro info' macro
-    C.DeclTypedef          k -> withCoercedKind $ C.DeclTypedef          $ coercePass k
-    C.DeclStruct           k -> withCoercedKind $ C.DeclStruct           $ coercePass k
-    C.DeclUnion            k -> withCoercedKind $ C.DeclUnion            $ coercePass k
-    C.DeclEnum             k -> withCoercedKind $ C.DeclEnum             $ coercePass k
-    C.DeclAnonEnumConstant k -> withCoercedKind $ C.DeclAnonEnumConstant $ coercePass k
+    C.DeclTypedef          x -> withCoercedKind $ C.DeclTypedef          $ coercePass x
+    C.DeclStruct           x -> withCoercedKind $ C.DeclStruct           $ coercePass x
+    C.DeclUnion            x -> withCoercedKind $ C.DeclUnion            $ coercePass x
+    C.DeclEnum             x -> withCoercedKind $ C.DeclEnum             $ coercePass x
+    C.DeclAnonEnumConstant x -> withCoercedKind $ C.DeclAnonEnumConstant $ coercePass x
     C.DeclOpaque             -> withCoercedKind $ C.DeclOpaque
-    C.DeclFunction         k -> withCoercedKind $ C.DeclFunction         $ coercePass k
-    C.DeclGlobal           k -> withCoercedKind $ C.DeclGlobal           $ coercePass k
+    C.DeclFunction         x -> withCoercedKind $ C.DeclFunction         $ coercePass x
+    C.DeclGlobal           x -> withCoercedKind $ C.DeclGlobal           $ coercePass x
   where
     info' :: C.DeclInfo TypecheckMacros
     info' = coercePass decl.info
@@ -175,47 +174,26 @@ typecheckMacro info parsedMacro = do
   Internal: monad used for type checking macros
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM { _unwrapM :: StateT TypecheckState (Reader TypecheckEnv) a }
+newtype M a = WrapM { _unwrapM :: State TypecheckState a }
   deriving newtype (
       Functor
     , Applicative
     , Monad
-    , MonadReader TypecheckEnv
     , MonadState  TypecheckState
     )
-
-data TypecheckEnv = TypecheckEnv {
-      -- | Known @typedef@ types from the first traversal.
-      --
-      -- The macro typechecker only needs to know about @typedef@s.
-      knownTypedefs :: TypeEnv
-      -- | Known @union@, @struct@, and @enum@ types from the first traversal.
-      --
-      -- Translation to @hs-bindgen@ C types, as well as reparsing in the next
-      -- pass, also requires knowledge about @struct@, @enum@, and @union@
-      -- types.
-    , knownTaggedTypes :: TypeEnv
-}
 
 data TypecheckState = TypecheckState {
       -- | Quantified types of macro expressions.
       macroEnv   :: CExpr.DSL.TypeEnv
-      -- | New macro C types. We need these to convert type-checked macros to C
-      --   types in @hs-bindgen@, and also when reparsing declarations with
-      --   macro expansions in the next pass.
-    , macroTypes :: TypeEnv
+      -- | New macro types. We need these when reparsing declarations with macro
+      -- expansions in the next pass.
+    , macroTypes :: CTypes
     }
   deriving stock (Generic)
 
-runM :: TypeEnv -> TypeEnv -> M a -> (a, TypecheckState)
-runM knownTypedefs knownTaggedTypes (WrapM ma) = runReader (runStateT ma s) e
+runM :: [Text] -> M a -> (a, TypecheckState)
+runM knownTypedefs (WrapM ma) = runState ma s
   where
-    e :: TypecheckEnv
-    e = TypecheckEnv{
-      knownTypedefs = knownTypedefs
-    , knownTaggedTypes = knownTaggedTypes
-    }
-
     s :: TypecheckState
     s = TypecheckState{
       macroEnv   = buildCTypeEnv knownTypedefs
@@ -231,7 +209,7 @@ runM knownTypedefs knownTaggedTypes (WrapM ma) = runReader (runStateT ma s) e
     -- never as bare 'CExpr.DSL.Var' nodes.
     --
     -- Use a dummy 'FunValue' that is never invoked.
-    buildCTypeEnv :: TypeEnv -> CExpr.DSL.TypeEnv
+    buildCTypeEnv :: [Text] -> CExpr.DSL.TypeEnv
     buildCTypeEnv types =
         Map.fromList
           [ ( CExpr.DSL.Name nm
@@ -241,20 +219,8 @@ runM knownTypedefs knownTaggedTypes (WrapM ma) = runReader (runStateT ma s) e
                   , CExpr.DSL.MacroTypeTy
                   )
             )
-          | nm <- Map.keys types
+          | nm <- types
           ]
-
-
-getLookupKnownType :: M (Text -> Maybe CType)
-getLookupKnownType = do
-    st <- get
-    env <- ask
-    pure $ \n ->
-      let mKnownTypedef, mKnownTaggedType, mKnownMacroType :: Maybe CType
-          mKnownTypedef    = Map.lookup n env.knownTypedefs
-          mKnownTaggedType = Map.lookup n env.knownTaggedTypes
-          mKnownMacroType  = Map.lookup n st.macroTypes
-      in  asum [mKnownTypedef, mKnownTaggedType, mKnownMacroType]
 
 {-------------------------------------------------------------------------------
   Type checking
@@ -274,20 +240,21 @@ tcMacro name (ParsedMacro macro) = do
       Left err ->
         pure $ Left $ MacroTypecheckErrorCExpr err
       Right (CExpr.DSL.MacroTcTypeExpr typeExpr quant) -> do
-        r <- convertTExpr typeExpr
-        case r of
-          Right typ -> do
-            addQuant quant
-            addNewMacroTypeToReparseEnv typ
-            pure $ Right $ MacroType $ CheckedMacroType typ NoAnn
-          Left err  -> pure $ Left err
+        addQuant quant
+        let typ = fmap mkId typeExpr
+        addNewMacroTypeToReparseEnv typ
+        pure $ Right $ MacroType $ CheckedMacroType {
+            typ = typ
+          , ann = NoAnn
+          }
+
       Right (CExpr.DSL.MacroTcValueExpr valueExpr inf) -> do
         modify $ #macroEnv %~ Map.insert macro.macroName inf
         pure $ Right $ MacroExpr $ CheckedMacroExpr{
-              args = map mkId macro.macroArgs
-            , body = fmap mkId valueExpr
-            , typ  = fmap snd inf
-            }
+            args = map mkId macro.macroArgs
+          , body = fmap mkId valueExpr
+          , typ  = fmap snd inf
+          }
   where
     mkId :: CExpr.DSL.Name -> Id TypecheckMacros
     mkId (CExpr.DSL.Name n) = DeclId{
@@ -301,7 +268,7 @@ tcMacro name (ParsedMacro macro) = do
     addQuant quant =
         modify $ #macroEnv %~ Map.insert macro.macroName (quant)
 
-    addNewMacroTypeToReparseEnv :: CType -> M ()
+    addNewMacroTypeToReparseEnv :: T.Expr DeclId -> M ()
     addNewMacroTypeToReparseEnv typ
       -- stdbool.h defines @#define bool _Bool@, which is just an alias for
       -- the primitive boolean type. We normalise this away: if @bool@ maps
@@ -311,103 +278,112 @@ tcMacro name (ParsedMacro macro) = do
       -- Genuine redefinitions like @#define bool int@ are not affected
       -- because their underlying type is not @PrimBool@.
       | name.text == "bool"
-      , C.TypePrim C.PrimBool <- typ
-      = addMacroType name typ
+      , T.TypeLit CExpr.DSL.TypeBool <- typ
+        = addMacroType name (C.TypePrim C.PrimBool)
       | otherwise
-      = addMacroType name $
-          C.TypeMacro $ C.Ref {
-              name = DeclId{name = name, isAnon = False}
-            , underlying = typ
-            }
+        = addMacroType name $
+            C.TypeMacro $ C.Ref {
+                name       = macroId
+              , underlying = C.TypeRef macroId
+              }
+
+    macroId :: DeclId
+    macroId = DeclId{name = name, isAnon = False}
 
     addMacroType :: CDeclName -> CType -> M ()
     addMacroType n typ =
         modify $ #macroTypes %~ Map.insert (renderCDeclNameC n) typ
 
-{-------------------------------------------------------------------------------
-  Convert T.Expr to C.Type
--------------------------------------------------------------------------------}
+-- {-------------------------------------------------------------------------------
+--   Convert T.Expr to C.Type
+-- -------------------------------------------------------------------------------}
 
--- | Convert a typechecked macro type expression ('T.Expr') to a C type.
---
--- Correctly handles chains of @const@ and pointer modifiers (e.g.
--- @const int *@, @int * const@, @const int * const *@).
---
--- Rejects bare @void@ at the top level (including @const void@), but allows
--- @void@ as the pointee of a pointer (e.g. @void *@, @const void *@).
-convertTExpr ::
-     T.Expr CExpr.DSL.Name
-  -> M (Either MacroTypecheckError CType)
-convertTExpr expr = do
-    result <- go expr
-    pure $ result >>= checkTopLevelVoid
-  where
-    go :: T.Expr CExpr.DSL.Name -> M (Either MacroTypecheckError CType)
-    go = \case
-      T.App T.Pointer inner -> fmap (fmap (C.TypePointers 1)) (go inner)
-      T.App T.Const   inner -> fmap (fmap (C.TypeQual C.QualConst)) (go inner)
-      T.TypeLit t           -> convertLiteral t
-      T.Var   nm            -> do
-        lookupKnownType <- getLookupKnownType
-        pure $ case lookupKnownType nm.getName of
-          Just t  -> Right t
-          Nothing -> Left $ MacroTypecheckErrorUnresolvedType nm.getName
+-- TODO-D; Move this to the backend.
 
-    -- | @void@ is not a valid standalone type; it is only valid as the
-    -- pointee of a pointer (e.g. @void *@).
-    checkTopLevelVoid :: CType -> Either MacroTypecheckError CType
-    checkTopLevelVoid = \case
-      C.TypeVoid              -> Left MacroTypecheckErrorVoidType
-      C.TypeQual _ C.TypeVoid -> Left MacroTypecheckErrorVoidType
-      ty                      -> Right ty
+-- TODO-D: I am not sure what we do with a the MacroTypecheckError. Panic?
 
--- | Convert a primitive type specifier to a C type.
---
--- Named types (previously 'CExpr.DSL.MSpecName' / 'CExpr.DSL.MTypeTagged')
--- are handled in 'convertTExpr' via 'T.Var'.
-convertLiteral ::
-     CExpr.DSL.TypeLit
-  -> M (Either MacroTypecheckError CType)
-convertLiteral = \case
-    CExpr.DSL.TypeInt sign size ->
-      pure $ Right $ C.TypePrim $ C.PrimIntegral (convertIntSize size) (convertSign sign)
-    CExpr.DSL.TypeChar sign ->
-      pure $ Right $ C.TypePrim $ C.PrimChar (convertCharSign sign)
-    CExpr.DSL.TypeFloat size ->
-      pure $ Right $ C.TypePrim $ C.PrimFloating (convertFloatSize size)
-    CExpr.DSL.TypeVoid ->
-      pure $ Right C.TypeVoid
-    CExpr.DSL.TypeBool ->
-      pure $ Right $ C.TypePrim C.PrimBool
-    CExpr.DSL.TypeTagged tag name -> do
-      lookupKnownType <- getLookupKnownType
-      let cname      = CDeclName name (CNameKindTagged (convertTagKind tag))
-          taggedName = renderCDeclNameC cname
-      pure $ case lookupKnownType taggedName of
-        Just typ -> Right typ
-        Nothing  -> Left $ MacroTypecheckErrorUnresolvedType taggedName
+-- TODO-D: Try to translate into HsType right here.
 
-convertSign :: Maybe CExpr.DSL.Sign -> C.PrimSign
-convertSign = \case
-    Nothing                  -> C.Signed
-    Just CExpr.DSL.Signed   -> C.Signed
-    Just CExpr.DSL.Unsigned -> C.Unsigned
+-- -- | Convert a typechecked macro type expression ('T.Expr') to a C type.
+-- --
+-- -- Correctly handles chains of @const@ and pointer modifiers (e.g.
+-- -- @const int *@, @int * const@, @const int * const *@).
+-- --
+-- -- Rejects bare @void@ at the top level (including @const void@), but allows
+-- -- @void@ as the pointee of a pointer (e.g. @void *@, @const void *@).
+-- convertTExpr ::
+--      T.Expr CExpr.DSL.Name
+--   -> M (Either MacroTypecheckError CType)
+-- convertTExpr expr = do
+--     result <- go expr
+--     pure $ result >>= checkTopLevelVoid
+--   where
+--     go :: T.Expr CExpr.DSL.Name -> M (Either MacroTypecheckError CType)
+--     go = \case
+--       T.App T.Pointer inner -> fmap (fmap (C.TypePointers 1)) (go inner)
+--       T.App T.Const   inner -> fmap (fmap (C.TypeQual C.QualConst)) (go inner)
+--       T.TypeLit t           -> convertLiteral t
+--       T.Var   nm            -> do
+--         lookupKnownType <- getLookupKnownType
+--         pure $ case lookupKnownType nm.getName of
+--           Just t  -> Right t
+--           Nothing -> Left $ MacroTypecheckErrorUnresolvedType nm.getName
 
-convertCharSign :: Maybe CExpr.DSL.Sign -> C.PrimSignChar
-convertCharSign = \case
-    Nothing                  -> C.PrimSignImplicit Nothing
-    Just CExpr.DSL.Signed   -> C.PrimSignExplicit C.Signed
-    Just CExpr.DSL.Unsigned -> C.PrimSignExplicit C.Unsigned
+--     -- | @void@ is not a valid standalone type; it is only valid as the
+--     -- pointee of a pointer (e.g. @void *@).
+--     checkTopLevelVoid :: CType -> Either MacroTypecheckError CType
+--     checkTopLevelVoid = \case
+--       C.TypeVoid              -> Left MacroTypecheckErrorVoidType
+--       C.TypeQual _ C.TypeVoid -> Left MacroTypecheckErrorVoidType
+--       ty                      -> Right ty
 
-convertIntSize :: Maybe CExpr.DSL.IntSize -> C.PrimIntType
-convertIntSize = \case
-    Nothing                      -> C.PrimInt
-    Just CExpr.DSL.SizeShort    -> C.PrimShort
-    Just CExpr.DSL.SizeInt      -> C.PrimInt
-    Just CExpr.DSL.SizeLong     -> C.PrimLong
-    Just CExpr.DSL.SizeLongLong -> C.PrimLongLong
+-- -- | Convert a primitive type specifier to a C type.
+-- --
+-- -- Named types (previously 'CExpr.DSL.MSpecName' / 'CExpr.DSL.MTypeTagged')
+-- -- are handled in 'convertTExpr' via 'T.Var'.
+-- convertLiteral ::
+--      CExpr.DSL.TypeLit
+--   -> M (Either MacroTypecheckError CType)
+-- convertLiteral = \case
+--     CExpr.DSL.TypeInt sign size ->
+--       pure $ Right $ C.TypePrim $ C.PrimIntegral (convertIntSize size) (convertSign sign)
+--     CExpr.DSL.TypeChar sign ->
+--       pure $ Right $ C.TypePrim $ C.PrimChar (convertCharSign sign)
+--     CExpr.DSL.TypeFloat size ->
+--       pure $ Right $ C.TypePrim $ C.PrimFloating (convertFloatSize size)
+--     CExpr.DSL.TypeVoid ->
+--       pure $ Right C.TypeVoid
+--     CExpr.DSL.TypeBool ->
+--       pure $ Right $ C.TypePrim C.PrimBool
+--     CExpr.DSL.TypeTagged tag name -> do
+--       lookupKnownType <- getLookupKnownType
+--       let cname      = CDeclName name (CNameKindTagged (convertTagKind tag))
+--           taggedName = renderCDeclNameC cname
+--       pure $ case lookupKnownType taggedName of
+--         Just typ -> Right typ
+--         Nothing  -> Left $ MacroTypecheckErrorUnresolvedType taggedName
 
-convertFloatSize :: CExpr.DSL.FloatSize -> C.PrimFloatType
-convertFloatSize = \case
-    CExpr.DSL.SizeFloat  -> C.PrimFloat
-    CExpr.DSL.SizeDouble -> C.PrimDouble
+-- convertSign :: Maybe CExpr.DSL.Sign -> C.PrimSign
+-- convertSign = \case
+--     Nothing                  -> C.Signed
+--     Just CExpr.DSL.Signed   -> C.Signed
+--     Just CExpr.DSL.Unsigned -> C.Unsigned
+
+-- convertCharSign :: Maybe CExpr.DSL.Sign -> C.PrimSignChar
+-- convertCharSign = \case
+--     Nothing                  -> C.PrimSignImplicit Nothing
+--     Just CExpr.DSL.Signed   -> C.PrimSignExplicit C.Signed
+--     Just CExpr.DSL.Unsigned -> C.PrimSignExplicit C.Unsigned
+
+-- convertIntSize :: Maybe CExpr.DSL.IntSize -> C.PrimIntType
+-- convertIntSize = \case
+--     Nothing                      -> C.PrimInt
+--     Just CExpr.DSL.SizeShort    -> C.PrimShort
+--     Just CExpr.DSL.SizeInt      -> C.PrimInt
+--     Just CExpr.DSL.SizeLong     -> C.PrimLong
+--     Just CExpr.DSL.SizeLongLong -> C.PrimLongLong
+
+-- convertFloatSize :: CExpr.DSL.FloatSize -> C.PrimFloatType
+-- convertFloatSize = \case
+--     CExpr.DSL.SizeFloat  -> C.PrimFloat
+--     CExpr.DSL.SizeDouble -> C.PrimDouble

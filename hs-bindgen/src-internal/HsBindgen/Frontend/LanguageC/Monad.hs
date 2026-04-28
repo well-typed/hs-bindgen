@@ -3,7 +3,6 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend.LanguageC.Monad (
     FromLanC(..)
-  , ReparseEnv
   , runFromLanC
   , getReparseEnv
     -- * Throwing errors
@@ -23,11 +22,8 @@ import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
 import GHC.Stack
 
-import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.LanguageC.Env
 import HsBindgen.Frontend.LanguageC.Error
-import HsBindgen.Frontend.LanguageC.PartialAST (CName)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
-import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -47,9 +43,6 @@ newtype FromLanC a = WrapFromLanC (
     , Monad
     , MonadError Error
     )
-
--- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (C.Type ReparseMacroExpansions)
 
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv (WrapFromLanC ma) =

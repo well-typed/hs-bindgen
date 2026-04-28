@@ -437,9 +437,9 @@ runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
   where
     e :: ReparseEnv
     e = ReparseEnv {
-        -- Add the initial reparse environment as a fallback (note, 'Map.union'
-        -- is left-biased).
-        knownTypes      = knownTypes `Map.union` LanC.initReparseEnv cStd
+        -- Add C-standard bespoke types as a fallback; user-provided types win
+        -- ('Map.union' is left-biased).
+        knownTypes      = knownTypes `Map.union` LanC.bespokeReparseEnv cStd
       , knownMacroTypes = knownMacroTypes
       }
 

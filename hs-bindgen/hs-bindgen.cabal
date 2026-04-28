@@ -164,6 +164,7 @@ library internal
     HsBindgen.Frontend.AST.PrettyPrinter
     HsBindgen.Frontend.AST.Type
     HsBindgen.Frontend.LanguageC
+    HsBindgen.Frontend.LanguageC.Env
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad
     HsBindgen.Frontend.LanguageC.PartialAST

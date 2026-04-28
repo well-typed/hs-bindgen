@@ -9,12 +9,12 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   ) where
 
 import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Interface.Type qualified as T
 import C.Expr.Typecheck.Interface.Value qualified as V
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -60,9 +60,10 @@ data CheckedMacro p =
 
 -- | Checked type macro
 data CheckedMacroType p = CheckedMacroType{
-      typ :: Type p
+      typ :: T.Expr (Id p)
     , ann :: Ann "CheckedMacroType" p
     }
+  deriving stock (Generic)
 
 -- | Checked expression (function) macro
 data CheckedMacroExpr p = CheckedMacroExpr{
@@ -99,11 +100,11 @@ instance (
   coercePass (MacroExpr expr) = MacroExpr (coercePass expr)
 
 instance (
-      CoercePass Type p p'
+      CoercePassId p p'
     , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
     ) => CoercePass CheckedMacroType p p' where
   coercePass macroType = CheckedMacroType{
-        typ = coercePass macroType.typ
+        typ = fmap (coercePassId (Proxy @'(p, p'))) macroType.typ
       , ann = macroType.ann
       }
 

@@ -936,23 +936,26 @@ instance MangleWithDeclName CheckedMacro where
       MacroType typ  -> MacroType <$> mangleWithDeclName hsName typ
       MacroExpr expr -> MacroExpr <$> mangle expr
 
+-- TODO-D: TExpr needs to be traversable.
 instance MangleWithDeclName CheckedMacroType where
   mangleWithDeclName hsName macroType = do
-      strategy <- asks (.fieldNamingStrategy)
+      strategy       <- asks (.fieldNamingStrategy)
       macroTypeNames <- mkMacroTypeNames strategy hsName
-      reconstruct macroTypeNames <$> mangle macroType.typ
-    where
-      reconstruct :: NewtypeNames -> C.Type MangleNames -> CheckedMacroType MangleNames
-      reconstruct macroTypeNames typ' = CheckedMacroType{
-            typ = typ'
-          , ann = macroTypeNames
-          }
+      typ'           <- traverse lookupTypePair macroType.typ
+      pure CheckedMacroType{
+          typ = typ'
+        , ann = macroTypeNames
+        }
 
+-- TODO-D: Arguments should not be free variables, but have their own
+-- constructor (probably newtype around text).
 instance Mangle CheckedMacroExpr where
   mangle macroExpr = do
+      -- TODO-D: For VExpr, we need to know the list of arguments.
       args' <- traverse mangleMacroParam macroExpr.args
       let localNameMap :: Map DeclId (Hs.Name Hs.NsVar)
           localNameMap = Map.fromList args'
+      -- TODO-D: The VExpr macro body needs to be traversable.
       body' <- traverse (mangleMacroBodyVar localNameMap) macroExpr.body
       pure CheckedMacroExpr{
             args = map (uncurry DeclIdPair . second Hs.demoteNs) args'

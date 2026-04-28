@@ -28,12 +28,16 @@ data Expr var =
   --
   -- Change how we represent @const@.
   | App Fun (Expr var)
-  deriving stock (Show)
+  deriving stock (Show, Eq)
+
+deriving stock instance Functor Expr
+deriving stock instance Foldable Expr
+deriving stock instance Traversable Expr
 
 data Fun =
     Pointer
   | Const
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 data ConversionError =
     -- | Unexpected value literal (e.g., the integer @42@)

@@ -492,16 +492,20 @@ instance Resolve CheckedMacro where
     MacroType typ  -> MacroType <$> resolve ctx typ
     MacroExpr expr -> return (MacroExpr $ coercePass expr)
 
+-- TODO-D: Implement binding specification resolution for macro types.
+--
+-- Try using the traversable instance!
 instance Resolve CheckedMacroType where
-  resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ
-    where
-      reconstruct ::
-           C.Type ResolveBindingSpecs
-        -> CheckedMacroType ResolveBindingSpecs
-      reconstruct typ' = CheckedMacroType {
-          typ = typ'
-        , ann = macroType.ann
-        }
+  resolve _ctx macroType = pure $ coercePass macroType
+  -- resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ
+  --   where
+  --     reconstruct ::
+  --          C.Type ResolveBindingSpecs
+  --       -> CheckedMacroType ResolveBindingSpecs
+  --     reconstruct typ' = CheckedMacroType {
+  --         typ = typ'
+  --       , ann = macroType.ann
+  --       }
 
 instance Resolve C.Type where
   resolve ctx = \case

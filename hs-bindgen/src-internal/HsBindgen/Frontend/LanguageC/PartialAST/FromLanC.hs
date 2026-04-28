@@ -109,16 +109,24 @@ instance Apply (LanC.CDeclarator a) PartialDecl where
 
 notFun :: Update (C.Type ReparseMacroExpansions) PartialType
 notFun typ = \case
-    PartialUnknown unknown -> do
-      if null unknown.base && null unknown.sign && null unknown.size then
-          return $
-              PartialKnown . KnownType
-            $ (if unknown.isConst then C.TypeQual C.QualConst else id)
-            $ typ
+    PartialUnknown unknown ->
+      if isEmpty unknown then
+        pure $ toPartial $
+          if unknown.isConst then
+            C.TypeQual C.QualConst typ
+          else
+            typ
       else
           unexpected $ show (typ, unknown)
     other ->
       unexpected $ show other
+  where
+    isEmpty :: UnknownType -> Bool
+    isEmpty unknown =
+      null unknown.base && null unknown.sign && null unknown.size
+
+    toPartial :: C.Type ReparseMacroExpansions -> PartialType
+    toPartial = PartialKnown . KnownType
 
 addSign :: Update C.PrimSign PartialType
 addSign sign = \case

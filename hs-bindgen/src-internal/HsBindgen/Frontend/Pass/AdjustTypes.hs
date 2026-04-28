@@ -32,7 +32,6 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (MacroExpr, 
 --
 -- > * any parameter of array type is adjusted to the corresponding pointer
 -- >   type
---
 adjustTypes ::
      C.TranslationUnit MangleNames
   -> C.TranslationUnit AdjustTypes
@@ -149,11 +148,7 @@ processMacro macro =
       MacroExpr expr -> MacroExpr $ processMacroExpr expr
 
 processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
-processMacroType macroType =
-    CheckedMacroType {
-        typ = processType macroType.typ
-      , ann = macroType.ann
-      }
+processMacroType macroType = coercePass macroType
 
 processMacroExpr :: CheckedMacroExpr MangleNames -> CheckedMacroExpr AdjustTypes
 processMacroExpr macroExpr =
@@ -192,46 +187,26 @@ processType ::
      C.Type MangleNames
   -> C.Type AdjustTypes
 processType = \case
-    C.TypePrim primTy ->
-      C.TypePrim primTy
-    C.TypeComplex primTy ->
-      C.TypeComplex primTy
-    C.TypeRef name ->
-      C.TypeRef name
-    C.TypeEnum ref ->
-      C.TypeEnum $ C.Ref {
-          name       = ref.name
-        , underlying = processType ref.underlying
-        }
-    C.TypeMacro ref ->
-      C.TypeMacro $ C.Ref {
-          name       = ref.name
-        , underlying = processType ref.underlying
-        }
-    C.TypeTypedef ref ->
-      C.TypeTypedef $ C.Ref {
-          name       = ref.name
-        , underlying = processType ref.underlying
-        }
-    C.TypePointers n ty ->
-      C.TypePointers n      $ processType ty
-    C.TypeConstArray n ty ->
-      C.TypeConstArray n    $ processType ty
-    C.TypeIncompleteArray ty ->
-      C.TypeIncompleteArray $ processType ty
-    C.TypeFun args res ->
-      C.TypeFun (map processTypeFunArg args) (processType res)
-    C.TypeVoid ->
-      C.TypeVoid
-    C.TypeBlock ty ->
-      C.TypeBlock $ processType ty
-    C.TypeQual qual ty ->
-      C.TypeQual qual $ processType ty
-    C.TypeExtBinding ref ->
-      C.TypeExtBinding $ C.Ref {
-          name       = ref.name
-        , underlying = processType ref.underlying
-        }
+    C.TypePrim primTy        -> C.TypePrim primTy
+    C.TypeComplex primTy     -> C.TypeComplex primTy
+    C.TypeRef name           -> C.TypeRef name
+    C.TypeEnum ref           -> C.TypeEnum            $ processRef ref
+    C.TypeMacro ref          -> C.TypeMacro           $ processRef ref
+    C.TypeTypedef ref        -> C.TypeTypedef         $ processRef ref
+    C.TypePointers n ty      -> C.TypePointers n      $ processType ty
+    C.TypeConstArray n ty    -> C.TypeConstArray n    $ processType ty
+    C.TypeIncompleteArray ty -> C.TypeIncompleteArray $ processType ty
+    C.TypeFun args res       -> C.TypeFun (map processTypeFunArg args) (processType res)
+    C.TypeVoid               -> C.TypeVoid
+    C.TypeBlock ty           -> C.TypeBlock           $ processType ty
+    C.TypeQual qual ty       -> C.TypeQual qual       $ processType ty
+    C.TypeExtBinding ref     -> C.TypeExtBinding      $ processRef ref
+
+processRef :: C.Ref a MangleNames -> C.Ref a AdjustTypes
+processRef ref = C.Ref {
+      name       = ref.name
+    , underlying = processType ref.underlying
+    }
 
 processTypeFunArg :: C.TypeFunArg MangleNames -> C.TypeFunArg AdjustTypes
 processTypeFunArg arg =

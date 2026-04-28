@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 -- | Main entry point to the @language-c@ infrastructure
 --
 -- It should not be necessary to import any other module in @LanguageC.*@ (but
@@ -17,12 +15,11 @@ module HsBindgen.Frontend.LanguageC (
   , reparseGlobal
     -- * Scoping
   , ReparseEnv
-  , initReparseEnv
+  , bespokeReparseEnv
   ) where
 
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
-import Data.Map qualified as Map
 import Data.Text qualified as Text
 import Data.Tuple (swap)
 import Language.C qualified as LanC
@@ -33,7 +30,6 @@ import Clang.HighLevel.Types qualified as Clang
 import Clang.LowLevel.Core qualified as Clang
 import Clang.Paths qualified as Clang
 
-import HsBindgen.Clang.CStandard
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
@@ -42,9 +38,8 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
-#if !MIN_VERSION_language_c(0,10,2)
-import HsBindgen.Language.C qualified as C
-#endif
+import HsBindgen.Frontend.LanguageC.Env
+import Data.Map qualified as Map
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -193,32 +188,6 @@ prependToken token rest = concat [
     , " "
     , rest
     ]
-
-{-------------------------------------------------------------------------------
-  Construct type environment
--------------------------------------------------------------------------------}
-
--- | Initial 'ReparseEnv'
---
--- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: ClangCStandard -> ReparseEnv
-initReparseEnv standard = Map.fromList (bespokeTypes standard)
-
--- | \"Primitive\" we expect the reparser to recognize
---
--- The language-c parser does not support these explicitly.
-bespokeTypes :: ClangCStandard -> [(CName, C.Type p)]
-bespokeTypes = \case
-#if !MIN_VERSION_language_c(0,10,2)
-    -- Make sure that we really only replace keywords lacking definitions.
-    --
-    -- If we add entries for types to `bespokeTypes` which are not keywords
-    -- (i.e., are not part of the standard), we will pretend to know what these
-    -- types are, but the actual type must come from a header, and we actually
-    -- do not know what that definition is.
-    ClangCStandard C23 _gnu -> [("bool", C.TypePrim C.PrimBool)]
-#endif
-    _otherwise -> []
 
 {-------------------------------------------------------------------------------
   Auxiliary language-c: working with the unique name supply

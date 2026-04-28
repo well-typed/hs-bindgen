@@ -13,6 +13,7 @@ import Data.Set qualified as Set
 import GHC.Records
 
 import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Interface.Type qualified as T
 import C.Expr.Typecheck.Interface.Value qualified as V
 
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -81,10 +82,19 @@ depsOfDeclTcMacro = depsOfDeclWith (depsOfTcMacro (Proxy @p))
 depsOfTcMacro ::
      (IsPass p, MacroBody p ~ CheckedMacro p)
   => Proxy p -> MacroBody p -> [(ValOrRef, Id p)]
-depsOfTcMacro proxy = \case
-    MacroType typ  -> depsOfType typ.typ
-    MacroExpr expr -> depsOfVExpr proxy (Set.fromList expr.args) expr.body
+depsOfTcMacro proxy = map (ByValue,) . \case
+    MacroType typ ->
+      depsOfTExpr proxy typ.typ
+    MacroExpr expr ->
+      depsOfVExpr proxy (Set.fromList expr.args) expr.body
   where
+    -- Collect value-level dependencies from a checked macro type.
+    depsOfTExpr ::
+         forall p.
+         Proxy p
+      -> T.Expr (Id p)
+      -> [Id p]
+    depsOfTExpr _ = toList
     -- Collect value-level dependencies from a checked macro body. Local
     -- arguments (lambda-bound ids) are excluded.
     depsOfVExpr ::
@@ -92,9 +102,9 @@ depsOfTcMacro proxy = \case
       => Proxy p
       -> Set (Id p)
       -> V.Expr (Id p)
-      -> [(ValOrRef, Id p)]
+      -> [Id p]
     depsOfVExpr _ localArgs =
-        map (ByValue,) . filter (not . isLocalArg) . toList
+         filter (not . isLocalArg) . toList
       where
         isLocalArg :: Id p -> Bool
         isLocalArg x = Set.member x localArgs
