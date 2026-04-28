@@ -39,6 +39,8 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
+import Doxygen.Parser.Types qualified as Doxy
+
 {-------------------------------------------------------------------------------
   Top-level
 
@@ -821,38 +823,65 @@ instance Mangle C.Comment where
 
 instance Mangle C.CommentRef where
     mangle = \case
-      (C.CommentRef name Nothing) -> do
-        mTarget <- lift $ searchNameMap name
-        -- NB: If this fails it means that we tried all possible name kinds and
-        -- still didn't find any result. This might be because of a typo in the
-        -- documentation, or a missing reference.
-        pure $ C.CommentRef name mTarget
-      (C.CommentRef name (Just declId)) ->
-        C.CommentRef name . Just <$> lookupAnyPair declId
+      (C.CommentRef name Nothing mKind) -> do
+        mTarget <- lift $ searchNameMap name mKind
+        pure $ C.CommentRef name mTarget mKind
+      (C.CommentRef name (Just declId) mKind) ->
+        (\pair -> C.CommentRef name (Just pair) mKind) <$> lookupAnyPair declId
       where
-        -- TODO https://github.com/well-typed/hs-bindgen/issues/1924
+        -- | Dispatch on the Doxygen @kindref@ attribute to choose which
+        -- 'CNameKind' values to try and which lookup function to use:
         --
-        -- Avoid searching the complete name map; instead only lookup the
-        -- `DeclIdPair` for a specific `DeclId`, and a specific `Hs.Namespace`.
-        --
-        -- Search the 'NameMap', when we don't know the name kind
-        searchNameMap :: Text -> M (Maybe DeclIdPair)
-        searchNameMap name = do
+        -- * Compound → only tagged kinds, only 'typeConstrs' (3 lookups)
+        -- * Member  → ordinary + macro kinds, all three sub-maps (6 lookups)
+        -- * Nothing → all kinds, all sub-maps (15 lookups, fallback)
+        searchNameMap :: Text -> Maybe Doxy.RefKind -> M (Maybe DeclIdPair)
+        searchNameMap name = \case
+            Just Doxy.RefCompound ->
+              searchKinds lookupTypeNs
+                [ CNameKindTagged CTagKindStruct
+                , CNameKindTagged CTagKindUnion
+                , CNameKindTagged CTagKindEnum ]
+                name
+            Just Doxy.RefMember ->
+              searchKinds lookupAnyNs [CNameKindOrdinary, CNameKindMacro] name
+            Nothing ->
+              searchKinds lookupAnyNs [minBound .. maxBound] name
+
+        -- | For each 'CNameKind', construct a 'DeclId' and try the given
+        -- lookup function. Return the first match.
+        searchKinds ::
+             (DeclId -> NameMap -> Maybe DeclIdPair)
+          -> [CNameKind]
+          -> Text
+          -> M (Maybe DeclIdPair)
+        searchKinds lookupFn kinds name = do
             nameMap <- asks (.nameMap)
-            pure $ asum [
-                case may of
-                   Nothing   -> Nothing
-                   Just hsNm -> Just $ DeclIdPair declId hsNm
-              | kind <- [minBound .. maxBound]
-              , let declId = DeclId{name = CDeclName name kind, isAnon = False}
-              , let may = lookupAny declId nameMap
+            pure $ asum
+              [ lookupFn (DeclId (CDeclName name kind) False) nameMap
+              | kind <- kinds
               ]
 
-        -- Lookup 'DeclIdPair' in any namespace.
+        -- | Single sub-map lookup: compounds are always type constructors.
+        lookupTypeNs :: DeclId -> NameMap -> Maybe DeclIdPair
+        lookupTypeNs declId nameMap =
+            DeclIdPair declId . Hs.demoteNs <$> lookupType declId nameMap
+
+        -- | Try all three sub-maps: for members we don't know the Haskell
+        -- namespace (typedef → type constr, function → var, enum const →
+        -- data constr).
+        lookupAnyNs :: DeclId -> NameMap -> Maybe DeclIdPair
+        lookupAnyNs declId nameMap =
+            DeclIdPair declId <$> asum
+              [ Hs.demoteNs <$> lookupType declId nameMap
+              , Hs.demoteNs <$> lookupData declId nameMap
+              , Hs.demoteNs <$> lookupVar  declId nameMap
+              ]
+
         lookupAnyPair :: DeclId -> E M DeclIdPair
         lookupAnyPair declId = do
             nameMap <- asks (.nameMap)
-            case lookupAny declId nameMap of
+            case lookupAnyNs declId nameMap of
               Nothing ->
                 throwError $
                   MangleNamesUnderlyingDeclNotMangled declId $ NonEmpty.fromList [
@@ -860,19 +889,8 @@ instance Mangle C.CommentRef where
                     , Hs.NsConstr
                     , Hs.NsVar
                     ]
-              Just hsName ->
-                pure $ DeclIdPair{
-                    cName  = declId
-                  , hsName = hsName
-                  }
-
-        -- Lookup 'Hs.SomeName' in any namespace.
-        lookupAny :: DeclId -> NameMap -> Maybe Hs.SomeName
-        lookupAny declId nameMap = asum [
-              Hs.demoteNs <$> lookupType declId nameMap
-            , Hs.demoteNs <$> lookupData declId nameMap
-            , Hs.demoteNs <$> lookupVar  declId nameMap
-            ]
+              Just pair ->
+                pure pair
 
 instance MangleWithDeclName C.Typedef where
   mangleWithDeclName hsName typedef = do

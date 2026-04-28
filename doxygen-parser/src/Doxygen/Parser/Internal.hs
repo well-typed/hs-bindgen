@@ -151,14 +151,15 @@ data DoxygenKey
 --
 -- The 'comments' map uses 'DoxygenKey' to distinguish declaration-level,
 -- struct-level, field-level, and enum-value-level comments.
--- The @Comment Text@ values contain @Text@ at cross-reference
--- positions (@\<ref\>@ elements in the XML). These @Text@ values are
--- C names that consumers can resolve to their own identifier types
+-- The @Comment DoxyRef@ values contain @DoxyRef@ at cross-reference
+-- positions (@\<ref\>@ elements in the XML). Each @DoxyRef@ carries
+-- the C name and the optional @kindref@ attribute ('RefKind').
+-- Consumers can resolve these to their own identifier types
 -- via 'Functor'\/'Traversable' on 'Comment'.
 --
 data Doxygen = Doxygen {
     -- | All extracted comments, keyed by 'DoxygenKey'.
-    comments        :: Map DoxygenKey (Comment Text)
+    comments        :: Map DoxygenKey (Comment DoxyRef)
     -- | Group membership: declaration name -> group name.
     --
     -- Useful for generating export-list sections from Doxygen
@@ -188,7 +189,7 @@ emptyDoxygen = Doxygen {
 -------------------------------------------------------------------------------}
 
 -- | Look up a comment by key
-lookupComment :: DoxygenKey -> Doxygen -> Maybe (Comment Text)
+lookupComment :: DoxygenKey -> Doxygen -> Maybe (Comment DoxyRef)
 lookupComment key doxy = Map.lookup key doxy.comments
 
 -- | Look up which group a declaration belongs to
@@ -359,7 +360,7 @@ parseXMLOutput xmlDir = do
 -- They are merged into the final 'Doxygen' by 'parseXMLOutput'.
 --
 data XMLFileResult = XMLFileResult {
-    comments       :: Map DoxygenKey (Comment Text)
+    comments       :: Map DoxygenKey (Comment DoxyRef)
   , groupTitles    :: [(Text, Text)]
     -- ^ (group name, title) — only populated for group XML files
   , groupChildren  :: [(Text, Text)]
@@ -565,7 +566,7 @@ extractEntity cd =
 
     -- Top-level declarations (functions, typedefs, enums).
     -- Struct fields have a qualifiedname containing "::" — exclude those.
-    toDeclMap :: [MemberInfo] -> [(DoxygenKey, Comment Text)]
+    toDeclMap :: [MemberInfo] -> [(DoxygenKey, Comment DoxyRef)]
     toDeclMap ms =
       [ (KeyDecl mi.miName, mi.miComment)
       | mi <- ms
@@ -575,7 +576,7 @@ extractEntity cd =
     -- For struct/union compounds, all members are fields of that struct.
     -- For other compounds (groups, files), fields are identified by their
     -- <qualifiedname> (e.g. "config_t::id" → KeyField "config_t" "id").
-    toFieldMap :: Text -> Maybe Text -> [MemberInfo] -> [(DoxygenKey, Comment Text)]
+    toFieldMap :: Text -> Maybe Text -> [MemberInfo] -> [(DoxygenKey, Comment DoxyRef)]
     toFieldMap k mEntityName ms
       | k `elem` ["struct", "union"]
       , Just sname <- mEntityName
@@ -623,14 +624,14 @@ extractEntity cd =
       <enumvalue> extraction
     -------------------------------------------------------------------}
 
-    extractAllEnumValues :: [MemberInfo] -> ([Warning], [(DoxygenKey, Comment Text)])
+    extractAllEnumValues :: [MemberInfo] -> ([Warning], [(DoxygenKey, Comment DoxyRef)])
     extractAllEnumValues = collectWarnings . map extractEnumValuesFrom
 
-    extractEnumValuesFrom :: MemberInfo -> ([Warning], [(DoxygenKey, Comment Text)])
+    extractEnumValuesFrom :: MemberInfo -> ([Warning], [(DoxygenKey, Comment DoxyRef)])
     extractEnumValuesFrom mi =
         collectWarnings $ map (extractEnumValue mi.miName) mi.miEnumValues
 
-    extractEnumValue :: Text -> Cursor -> ([Warning], [(DoxygenKey, Comment Text)])
+    extractEnumValue :: Text -> Cursor -> ([Warning], [(DoxygenKey, Comment DoxyRef)])
     extractEnumValue ename ev =
         let evp = classifyEnumValue (Cursor.child ev)
             (commentWarns, mComment) = extractBriefAndDetail evp.briefs evp.details
@@ -756,7 +757,7 @@ data EnumValueParts = EnumValueParts {
 -- | Intermediate result from extracting a single @\<memberdef\>@
 data MemberInfo = MemberInfo {
     miName       :: Text
-  , miComment    :: Comment Text
+  , miComment    :: Comment DoxyRef
   , miQualName   :: Maybe Text   -- ^ e.g. @\"config_t::id\"@ for struct fields
   , miEnumValues :: [Cursor]     -- ^ @\<enumvalue\>@ children (enum memberdefs only)
   }
@@ -858,7 +859,7 @@ collectWarnings pairs = (concatMap fst pairs, concatMap snd pairs)
 -- Takes the @\<briefdescription\>@ and @\<detaileddescription\>@ cursors
 -- (already classified by the caller's fold).  Enumerates brief children
 -- for @\<para\>@s, warning on unexpected elements.
-extractBriefAndDetail :: [Cursor] -> [Cursor] -> ([Warning], Maybe (Comment Text))
+extractBriefAndDetail :: [Cursor] -> [Cursor] -> ([Warning], Maybe (Comment DoxyRef))
 extractBriefAndDetail briefDescs detailDescs =
   let (briefDescWarns, briefParas) =
         collectWarnings $ map classifyBriefChildren briefDescs
@@ -875,7 +876,7 @@ extractBriefAndDetail briefDescs detailDescs =
 
 -- | Build a 'Comment' from pre-classified brief @\<para\>@s and detailed
 -- children.
-buildComment :: [Cursor] -> [Cursor] -> ([Warning], Maybe (Comment Text))
+buildComment :: [Cursor] -> [Cursor] -> ([Warning], Maybe (Comment DoxyRef))
 buildComment briefParas detailChildren =
   let (briefWarns, briefInlines) =
         collectWarnings $ map parseInlineChildren briefParas
@@ -895,14 +896,14 @@ buildComment briefParas detailChildren =
 -------------------------------------------------------------------------------}
 
 -- | Parse block-level content from a cursor
-parseBlockElement :: Cursor -> ([Warning], [Block Text])
+parseBlockElement :: Cursor -> ([Warning], [Block DoxyRef])
 parseBlockElement cursor =
   case Cursor.node cursor of
     XML.NodeElement el -> parseBlock el cursor
     _                  -> ([], [])
 
 -- | Parse a block-level XML element
-parseBlock :: XML.Element -> Cursor -> ([Warning], [Block Text])
+parseBlock :: XML.Element -> Cursor -> ([Warning], [Block DoxyRef])
 parseBlock el cursor = case XML.nameLocalName (XML.elementName el) of
   "para" ->
     let children = Cursor.child cursor
@@ -976,7 +977,7 @@ parseBlock el cursor = case XML.nameLocalName (XML.elementName el) of
 
 -- | Partition children of a @\<para\>@ into block and inline content
 --
-partitionContent :: [Cursor] -> ([Warning], [Block Text], [Inline Text])
+partitionContent :: [Cursor] -> ([Warning], [Block DoxyRef], [Inline DoxyRef])
 partitionContent = go [] [] []
   where
     go warns blocks inlines [] = (reverse warns, reverse blocks, reverse inlines)
@@ -1004,13 +1005,17 @@ partitionContent = go [] [] []
       ]
 
 -- | Parse inline content from an XML element
-parseInline :: XML.Element -> Cursor -> ([Warning], [Inline Text])
+parseInline :: XML.Element -> Cursor -> ([Warning], [Inline DoxyRef])
 parseInline el cursor = case XML.nameLocalName (XML.elementName el) of
   "bold"           -> let (w, is) = parseInlineChildren cursor in (w, [Bold is])
   "emphasis"       -> let (w, is) = parseInlineChildren cursor in (w, [Emph is])
   "computeroutput" -> let (w, is) = parseInlineChildren cursor in (w, [Mono is])
   "ref"            -> let t = Text.strip $ Text.concat $ cursor $/ Cursor.content
-                      in  ([], [Ref t t])
+                          k = case listToMaybe $ Cursor.attribute "kindref" cursor of
+                                Just "compound" -> Just RefCompound
+                                Just "member"   -> Just RefMember
+                                _               -> Nothing
+                      in  ([], [Ref (DoxyRef t k) t])
   "anchor"         -> ([], [Anchor $ Text.concat $ Cursor.attribute "id" cursor])
   "ulink"          -> let (w, is) = parseInlineChildren cursor
                       in  (w, [Link is (Text.concat $ Cursor.attribute "url" cursor)])
@@ -1024,10 +1029,10 @@ parseInline el cursor = case XML.nameLocalName (XML.elementName el) of
           else ([w], [Text txt])
 
 -- | Parse all inline children of a cursor
-parseInlineChildren :: Cursor -> ([Warning], [Inline Text])
+parseInlineChildren :: Cursor -> ([Warning], [Inline DoxyRef])
 parseInlineChildren cursor = collectWarnings $ map go (Cursor.child cursor)
   where
-    go :: Cursor -> ([Warning], [Inline Text])
+    go :: Cursor -> ([Warning], [Inline DoxyRef])
     go c = case Cursor.node c of
       XML.NodeContent txt
         | Text.all Char.isSpace txt -> ([], [Text " "])
@@ -1083,12 +1088,12 @@ trimEdges = trimTrailing . trimLeading
       where stripped = Text.stripEnd t
     trimTrailing (x : xs) = x : trimTrailing xs
 
-parseParamItems :: [Cursor] -> ([Warning], [Param Text])
+parseParamItems :: [Cursor] -> ([Warning], [Param DoxyRef])
 parseParamItems cursors =
     let pairs = map parseParamItem cursors
     in  (concatMap fst pairs, mapMaybe snd pairs)
 
-parseParamItem :: Cursor -> ([Warning], Maybe (Param Text))
+parseParamItem :: Cursor -> ([Warning], Maybe (Param DoxyRef))
 parseParamItem cursor =
   let (itemWarns, parts) =
         forChildren "parameteritem" (Cursor.child cursor) $
@@ -1167,16 +1172,16 @@ extractCodeLine cursor =
       _ -> ""
 
 -- | Collect block elements from children, threading warnings
-unzipBlocks :: [Cursor] -> ([Warning], [Block Text])
+unzipBlocks :: [Cursor] -> ([Warning], [Block DoxyRef])
 unzipBlocks = collectWarnings . map parseBlockElement
 
 -- | Collect list items, threading warnings
-unzipListItems :: [Cursor] -> ([Warning], [[Block Text]])
+unzipListItems :: [Cursor] -> ([Warning], [[Block DoxyRef]])
 unzipListItems items =
     let pairs = map parseListItem items
     in  (concatMap fst pairs, map snd pairs)
 
-parseListItem :: Cursor -> ([Warning], [Block Text])
+parseListItem :: Cursor -> ([Warning], [Block DoxyRef])
 parseListItem cursor = unzipBlocks (Cursor.child cursor)
 
 -- | Check if a cursor points at a @\<title\>@ element

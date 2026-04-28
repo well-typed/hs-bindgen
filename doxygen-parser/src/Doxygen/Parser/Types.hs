@@ -23,6 +23,9 @@ module Doxygen.Parser.Types (
   , Block(..)
   , Inline(..)
   , Param(..)
+    -- * Cross-reference types
+  , DoxyRef(..)
+  , RefKind(..)
     -- * Enumerations
   , ParamListKind(..)
   , ParamDirection(..)
@@ -169,4 +172,29 @@ data SimpleSectKind
     -- ^ @\@author@
   | SSDate
     -- ^ @\@date@
+  deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Cross-reference types
+-------------------------------------------------------------------------------}
+
+-- | Kind of a Doxygen cross-reference target
+--
+-- Corresponds to the @kindref@ attribute on @\<ref\>@ elements in Doxygen XML.
+data RefKind
+  = RefCompound
+    -- ^ Compound type (struct, union, class, namespace, etc.)
+  | RefMember
+    -- ^ Member (function, variable, typedef, macro, enum value, etc.)
+  deriving stock (Show, Eq, Generic)
+
+-- | Doxygen cross-reference with optional kind information
+--
+-- The parser produces @'DoxyRef'@ values at cross-reference positions
+-- (@\<ref\>@ elements in Doxygen XML), preserving the @kindref@ attribute
+-- when present.
+data DoxyRef = DoxyRef {
+    doxyRefName :: Text
+  , doxyRefKind :: Maybe RefKind
+  }
   deriving stock (Show, Eq, Generic)
