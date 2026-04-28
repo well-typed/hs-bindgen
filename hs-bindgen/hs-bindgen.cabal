@@ -219,6 +219,10 @@ library internal
     HsBindgen.Instances
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Macro.Handler
+    HsBindgen.Macro.Ref
+    HsBindgen.Macro.Type
+    HsBindgen.Macro.Value
     HsBindgen.NameHint
     HsBindgen.Orphans
     HsBindgen.PrettyC
