@@ -13,3 +13,5 @@ exclude_path = [
   # passed globs (see https://github.com/lycheeverse/lychee/discussions/1612).
   "dist-newstyle*",
 ]
+
+accept = ["100..=103", "200..=299", 502]
