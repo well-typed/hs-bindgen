@@ -278,7 +278,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
   Fields
 -------------------------------------------------------------------------------}
 
--- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a field of a
+-- | 'HsBindgen.Runtime.HasCField.HasCField', 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', and 'GHC.Records.HasField' instances for a field of a
 -- struct declaration
 --
 -- Given a struct:
@@ -289,7 +289,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
 --
 -- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
 --
--- Then, 'structFieldDecls' will generate roughly the following class instances
+-- Then, 'getFieldDecls' will generate roughly the following class instances
 -- for the fields @x@ and @y@ respectively:
 --
 -- > instance HasCField "myStruct_x" MyStruct where
@@ -300,8 +300,8 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
 -- >   type CFieldType "myStruct_y" MyStruct = CChar
 -- > instance HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
 --
--- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
--- instead of a 'HasCField' instance.
+-- This works similarly for bit-fields, but those get a 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
+-- instead of a 'HsBindgen.Runtime.HasCField.HasCField' instance.
 getFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl]
 getFieldDecls structName field = [
       Hs.DeclDefineInstance $

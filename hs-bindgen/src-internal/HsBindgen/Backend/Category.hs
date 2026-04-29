@@ -61,7 +61,7 @@ mapWithCategory f g x = ByCategory {
     , cGlobal = g CGlobal x.cGlobal
     }
 
--- | A strict, total map from 'Category' to 'a'.
+-- | A strict, total map from 'Category' to @a@.
 type ByCategory :: (Level -> Star) -> Star
 data ByCategory f = ByCategory {
       cType   :: !(f LvlType)

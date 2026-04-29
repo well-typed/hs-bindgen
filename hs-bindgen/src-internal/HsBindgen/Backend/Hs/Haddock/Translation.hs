@@ -328,7 +328,7 @@ convertInline = \case
   Helpers
 -------------------------------------------------------------------------------}
 
--- | Depending on the configured 'PathStyle', update 'SingleLoc'
+-- | Depending on the configured 'PathStyle', update 'HsBindgen.Clang.HighLevel.Types.SingleLoc'
 -- to either have a short or full path name.
 --
 -- See #966.

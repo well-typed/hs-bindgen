@@ -62,8 +62,8 @@ instance IsPass ResolveBindingSpecs where
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1770>
 -- If we have binding specs for different kinds of things (types, functions, ..)
 -- we may want to have different types for those kinds of specs, and then
--- associate the appropriate type with specific 'DeclKind's (rather than this
--- "catch all" type with the top-level 'Decl').
+-- associate the appropriate type with specific 'HsBindgen.Frontend.AST.Decl.DeclKind's (rather than this
+-- "catch all" type with the top-level 'HsBindgen.Frontend.AST.Decl.Decl').
 data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
       cSpec  :: Maybe BindingSpec.CTypeSpec
     , hsSpec :: Maybe BindingSpec.HsTypeSpec

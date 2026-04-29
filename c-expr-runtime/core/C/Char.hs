@@ -59,7 +59,7 @@ data CharValue
     }
   deriving stock ( Eq, Ord, Show, Generic, Lift )
 
--- | Create a 'CharValue' from an 'Addr#' (e.g. a primitive @Addr#@ literal).
+-- | Create a t'CharValue' from an 'Addr#' (e.g. a primitive @Addr#@ literal).
 charValueFromAddr :: Addr# -> Int -> Maybe Char -> CharValue
 charValueFromAddr addr ( I# len ) mbUnicode = runST $ ST $
   -- Copied from 'Data.Array.Byte.addrToByteArray'
@@ -71,7 +71,7 @@ charValueFromAddr addr ( I# len ) mbUnicode = runST $ ST $
             (# s''', ret #) ->
               (# s''', CharValue ( ByteArray ret ) mbUnicode #)
 
--- | Turn a Haskell 'Char' into a @C@ 'CharValue'.
+-- | Turn a Haskell 'Char' into a @C@ t'CharValue'.
 fromHaskellChar :: Char -> CharValue
 fromHaskellChar c =
   CharValue
@@ -90,7 +90,7 @@ utf8SingleByteCodeUnit ( CharValue { charValue = ba } ) =
     [ b ] -> Just b
     _     -> Nothing
 
--- | Convert a number to a 'CharValue' as raw bytes.
+-- | Convert a number to a t'CharValue' as raw bytes.
 charValueFromCodeUnit :: ( Integral i, Bits i ) => i -> CharValue
 charValueFromCodeUnit u =
    CharValue
@@ -102,7 +102,7 @@ charValueFromCodeUnit u =
     step x = Just (fromIntegral (x .&. 0xFF), x `shiftR` 8)
 {-# INLINEABLE charValueFromCodeUnit #-}
 
--- | Convert a numeric Unicode code point to a 'CharValue'.
+-- | Convert a numeric Unicode code point to a t'CharValue'.
 charValueFromCodePoint :: ( Integral i, Bits i ) => i -> CharValue
 charValueFromCodePoint i =
   CharValue

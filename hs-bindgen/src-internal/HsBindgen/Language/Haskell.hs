@@ -79,7 +79,7 @@ data Import =
     --
     -- In detail: On GHC versions <= 9.2, type equality @(~)@ is a magic
     -- built-in syntax, while on later GHC versions it is a proper type operator
-    -- that has to be imported from 'Prelude' or some other module from the
+    -- that has to be imported from @Prelude@ or some other module from the
     -- @base@ package.
     ImplicitPrelude
   | UnqualifiedImport ModuleName

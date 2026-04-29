@@ -70,7 +70,7 @@ class (
 
         -- 'Eq'
         --
-        -- We use equality on 'DeclKind' during construction of the 'DeclIndex'
+        -- We use equality on 'HsBindgen.Frontend.AST.Decl.DeclKind' during construction of the 'DeclIndex'
         -- (it's OK to repeat a declaration in a header, as long as they are
         -- identical). All other 'Eq' constraints we provide are in order to
         -- support this equality.
@@ -96,11 +96,11 @@ class (
   --
   -- This takes various forms during processing:
   --
-  -- 1. After parsing, this is 'PrelimDeclId': anonymous structures are assigned
+  -- 1. After parsing, this is 'HsBindgen.Frontend.Pass.Parse.PrelimDeclId.PrelimDeclId': anonymous structures are assigned
   --    an ID based on source location, for everything else we use the C name.
-  -- 2. After 'AssignAnonIds', this is 'DeclId': /everything/ has a name,
+  -- 2. After 'HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds', this is 'HsBindgen.Frontend.Naming.DeclId': /everything/ has a name,
   --    because we have assigned names to anonymous structures.
-  -- 3. After 'MangleNames', this becomes a pair of the C name and the
+  -- 3. After 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
   type Id p = DeclId
@@ -109,7 +109,7 @@ class (
   --
   -- This is the name of struct fields, function arguments, etc.; names that
   -- live in a local scope. This is initially 'C.ScopedName', and becomes
-  -- 'ScopedNamePair' after 'MangleNames'.
+  -- 'HsBindgen.Frontend.Naming.ScopedNamePair' after 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames'.
   type ScopedName p :: Star
   type ScopedName p = CScopedName
 

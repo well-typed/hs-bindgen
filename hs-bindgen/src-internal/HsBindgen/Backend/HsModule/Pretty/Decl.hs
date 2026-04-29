@@ -226,7 +226,7 @@ prettyTopLevelComment :: Maybe HsDoc.Comment -> CtxDoc
 prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment)
 
 
--- | Pretty-print a 'ResolvedName' unqualified
+-- | Pretty-print a 'HsBindgen.Backend.HsModule.Names.ResolvedName' unqualified
 --
 -- This is needed in instance declarations.
 prettyUnqualResolvedName :: ResolvedName -> CtxDoc

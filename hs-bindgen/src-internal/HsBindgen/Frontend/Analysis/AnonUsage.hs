@@ -148,7 +148,7 @@ resolveConflicts anonId new old =
         -- NOTE: This is the ONLY conflict case that can occur in Clang >= 16.
         -- In Clang >= 16, when a typedef has both direct and indirect declarators
         -- (e.g., `typedef struct { ... } a, *b;`), Clang names the anonymous struct
-        -- with the first direct typedef name ('a'), and the indirect typedef ('b')
+        -- with the first direct typedef name (@a@), and the indirect typedef ('b')
         -- becomes a pointer to that named type. Thus no conflict exists.
         old
 

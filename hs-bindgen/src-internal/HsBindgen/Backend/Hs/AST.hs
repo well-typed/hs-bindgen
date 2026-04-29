@@ -39,10 +39,10 @@ module HsBindgen.Backend.Hs.AST (
   , FunctionParameter(..)
     -- ** Function declarations
   , FunctionDecl(..)
-    -- ** 'ToFunPtr'
+    -- ** 'HsBindgen.Runtime.Internal.FunPtr.Class.ToFunPtr'
   , ToFunPtrInstance(..)
   , ForeignImportWrapper(..)
-    -- ** 'FromFunPtr'
+    -- ** 'HsBindgen.Runtime.Internal.FunPtr.Class.FromFunPtr'
   , FromFunPtrInstance(..)
   , ForeignImportDynamic(..)
     -- ** @StaticSize@, @ReadRaw@, @WriteRaw@
@@ -51,11 +51,11 @@ module HsBindgen.Backend.Hs.AST (
   , WriteRawInstance(..)
   , ReadRawCField(..)
   , WriteRawCField(..)
-    -- ** 'Storable'
+    -- ** 'Foreign.Storable.Storable'
   , StorableInstance(..)
   , PeekCField(..)
   , PokeCField(..)
-    -- ** 'Prim'
+    -- ** 'HsBindgen.Instances.Prim'
   , PrimInstance(..)
   , IndexPrimFieldData(..)
   , IndexByteArrayField(..)
@@ -66,11 +66,11 @@ module HsBindgen.Backend.Hs.AST (
   , WritePrimFieldsData(..)
   , WriteByteArrayFields(..)
   , WriteOffAddrFields(..)
-    -- ** 'HasCField'
+    -- ** 'HsBindgen.Runtime.HasCField.HasCField'
   , HasCFieldInstance(..)
-    -- ** 'HasCBitfield'
+    -- ** 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
   , HasCBitfieldInstance(..)
-    -- ** 'HasField'
+    -- ** 'GHC.Records.HasField'
   , HasFieldInstance(..)
   , HasFieldInstanceVia(..)
     -- ** 'HasFlam'
@@ -235,7 +235,7 @@ deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 
 -- | Direct application (non-applicative)
 --
--- Unlike 'Ap' which uses applicative composition (<*>), DirectApply directly
+-- Unlike t'Ap' which uses applicative composition (<*>), DirectApply directly
 -- applies a constructor to a list of expressions.
 --
 data Apply pure xs ctx = Apply (pure ctx) [xs ctx]
@@ -367,7 +367,7 @@ data PatSyn = PatSyn{
   'ToFunPtr'
 -------------------------------------------------------------------------------}
 
--- | 'ToFunPtr' instance
+-- | 'HsBindgen.Runtime.Internal.FunPtr.Class.ToFunPtr' instance
 data ToFunPtrInstance = ToFunPtrInstance{
       typ  :: HsType
     , body :: UniqueSymbol
@@ -393,7 +393,7 @@ data ForeignImportWrapper = ForeignImportWrapper {
   'FromFunPtr'
 -------------------------------------------------------------------------------}
 
--- | 'FromFunPtr' instance
+-- | 'HsBindgen.Runtime.Internal.FunPtr.Class.FromFunPtr' instance
 data FromFunPtrInstance = FromFunPtrInstance{
       typ  :: HsType
     , body :: UniqueSymbol
@@ -444,7 +444,7 @@ data WriteRawInstance = WriteRawInstance{
     }
   deriving stock (Generic, Show)
 
--- | A call to 'readRawCField', 'readRawCBitfield', or 'readRawByteOff'
+-- | A call to 'HsBindgen.Runtime.HasCField.readRawCField', 'HsBindgen.Runtime.HasCBitfield.readRawCBitfield', or 'HsBindgen.Runtime.HasCField.readRawByteOff'
 type ReadRawCField :: Ctx -> Star
 data ReadRawCField ctx =
     ReadRawCField HsType (Idx ctx)
@@ -452,7 +452,7 @@ data ReadRawCField ctx =
   | ReadRawByteOff (Idx ctx) Int
   deriving stock (Generic, Show)
 
--- | A call to 'writeRawCField', 'writeRawCBitfield', or 'writeRawByteOff'
+-- | A call to 'HsBindgen.Runtime.HasCField.writeRawCField', 'HsBindgen.Runtime.HasCBitfield.writeRawCBitfield', or 'HsBindgen.Runtime.HasCField.writeRawByteOff'
 type WriteRawCField :: Ctx -> Star
 data WriteRawCField ctx =
     WriteRawCField HsType (Idx ctx) (Idx ctx)
@@ -464,7 +464,7 @@ data WriteRawCField ctx =
   'Storable'
 -------------------------------------------------------------------------------}
 
--- | 'Storable' instance
+-- | 'Foreign.Storable.Storable' instance
 --
 -- Currently this models storable instances for structs /only/.
 --
@@ -477,7 +477,7 @@ data StorableInstance = StorableInstance{
     }
   deriving stock (Generic, Show)
 
--- | A call to 'peekCField', 'peekCBitfield', or 'peekByteOff'.
+-- | A call to 'HsBindgen.Runtime.HasCField.peekCField', 'HsBindgen.Runtime.HasCBitfield.peekCBitfield', or 'Foreign.Storable.peekByteOff'.
 type PeekCField :: Ctx -> Star
 data PeekCField ctx =
     PeekCField HsType (Idx ctx)
@@ -485,7 +485,7 @@ data PeekCField ctx =
   | PeekByteOff (Idx ctx) Int
   deriving stock (Generic, Show)
 
--- | A call to 'pokeCField', 'pokeCBitfield', or 'pokeByteOff'.
+-- | A call to 'HsBindgen.Runtime.HasCField.pokeCField', 'HsBindgen.Runtime.HasCBitfield.pokeCBitfield', or 'Foreign.Storable.pokeByteOff'.
 type PokeCField :: Ctx -> Star
 data PokeCField ctx =
     PokeCField HsType (Idx ctx) (Idx ctx)
@@ -662,7 +662,7 @@ data WriteOffAddrFields ctx = WriteOffAddrFields {
   'HasCField'
 -------------------------------------------------------------------------------}
 
--- | 'HasCField' instance
+-- | 'HsBindgen.Runtime.HasCField.HasCField' instance
 data HasCFieldInstance = HasCFieldInstance {
       -- | The haskell type of the parent C object
       parentType :: HsType
@@ -682,7 +682,7 @@ data HasCFieldInstance = HasCFieldInstance {
   'HasCBitfield'
 -------------------------------------------------------------------------------}
 
--- | 'HasCBitfield' instance
+-- | 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
 data HasCBitfieldInstance = HasCBitfieldInstance {
       -- | The haskell type of the parent C object
       parentType :: HsType
@@ -705,7 +705,7 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
   'HasField'
 -------------------------------------------------------------------------------}
 
--- | 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
+-- | 'GHC.Records.HasField' instance (via a 'HsBindgen.Runtime.HasCField.HasCField' or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance).
 data HasFieldInstance = HasFieldInstance {
       -- | The Haskell type of the parent C object
       parentType :: HsType
@@ -716,12 +716,12 @@ data HasFieldInstance = HasFieldInstance {
       -- | The haskell type of the (bit-)field
     , fieldType :: HsType
 
-      -- | Implement the instance via a 'HasCField' or 'HasCBitfield' instance.
+      -- | Implement the instance via a 'HsBindgen.Runtime.HasCField.HasCField' or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance.
     , deriveVia :: HasFieldInstanceVia
     }
   deriving stock (Generic, Show)
 
--- | See 'hasFieldInstanceVia'
+-- | See the @deriveVia@ field of 'HasFieldInstance'.
 data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
   deriving stock (Generic, Show)
 
@@ -800,7 +800,7 @@ data ElimStruct t ctx where
 
 deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 
--- | Create 'ElimStruct' using kind-of HOAS interface.
+-- | Create 'HsBindgen.Backend.Hs.AST.ElimStruct' using kind-of HOAS interface.
 makeElimStruct :: forall n ctx t.
      SNatI n
   => Idx ctx

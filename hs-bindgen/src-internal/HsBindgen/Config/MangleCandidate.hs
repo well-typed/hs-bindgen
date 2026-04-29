@@ -233,7 +233,7 @@ data CannotApplyRuleset ns = CannotApplyRuleset{
 
       -- | The prefix we cannot handle
       --
-      -- This contains characters for which 'toUpper' to 'toLower' is
+      -- This contains characters for which 'Data.Char.toUpper' to 'Data.Char.toLower' is
       -- insufficient to enforce the ruleset.
     , unhandledPrefix :: Text
 

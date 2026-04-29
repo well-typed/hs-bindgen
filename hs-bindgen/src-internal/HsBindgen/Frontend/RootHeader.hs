@@ -43,7 +43,7 @@ import HsBindgen.Util.Tracer
 -- This is /precisely/ the set of main files as specified by the user.
 newtype RootHeader = RootHeader [HashIncludeArg]
 
--- | Construct a 'RootHeader'
+-- | Construct a t'RootHeader'
 fromMainFiles :: [HashIncludeArg] -> RootHeader
 fromMainFiles = RootHeader
 
@@ -58,7 +58,7 @@ name = SourcePath "hs-bindgen-root.h"
 -- | Root header content
 --
 -- The content contains one include per line, in order, with no extra lines.
--- Functions 'at' and 'lookup' rely on this.
+-- Functions @at@ and 'Prelude.lookup' rely on this.
 content :: RootHeader -> String
 content (RootHeader headers) =
     unlines $ map toLine headers
@@ -95,7 +95,7 @@ newtype HashIncludeArg = HashIncludeArg { path :: FilePath }
   deriving stock (Show)
   deriving newtype (Eq, IsString, Ord)
 
--- | Construct a 'HashIncludeArg', returning trace messages
+-- | Construct a t'HashIncludeArg', returning trace messages
 hashIncludeArg :: FilePath -> ([HashIncludeArgMsg], HashIncludeArg)
 hashIncludeArg fp = (hashIncludeArgMsgs fp, HashIncludeArg fp)
 
@@ -105,7 +105,7 @@ hashIncludeArg fp = (hashIncludeArgMsgs fp, HashIncludeArg fp)
 -- the pure parser.
 type UncheckedHashIncludeArg = FilePath
 
--- | Construct a 'HashIncludeArg', emitting trace messages
+-- | Construct a t'HashIncludeArg', emitting trace messages
 hashIncludeArgWithTrace ::
      Tracer HashIncludeArgMsg
   -> UncheckedHashIncludeArg

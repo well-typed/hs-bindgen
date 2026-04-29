@@ -588,7 +588,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     passArgsByAddressIfNecessary ::
          -- | Context of in-scope variables
          Env ctx VarInfo
-         -- | Construct the body of the string of 'with's
+         -- | Construct the body of the string of 'Foreign.Marshal.Utils.with's
       -> (forall ctx'. [(Var ctx')] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passArgsByAddressIfNecessary env0 kont =
@@ -598,7 +598,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
             envIdxs = reverseEnv (tabulateEnv (sizeEnv env0) id)
         in go envTypes envIdxs []
       where
-        --  | Run down the context of in-scope variables, and include a 'with' if
+        --  | Run down the context of in-scope variables, and include a 'Foreign.Marshal.Utils.with' if
         -- if the variable is a 'PassByAddress'.
         go ::
              Env ctx' VarInfo
@@ -679,10 +679,10 @@ type Var :: Ctx -> Type
 data Var ctx = Var {
     -- | The name (i.e., DeBruijn index) of the variable
     name :: Idx ctx
-    -- | Whether to wrap the variable in a 'PtrConst'
+    -- | Whether to wrap the variable in a 'HsBindgen.Runtime.PtrConst.PtrConst'
     --
-    -- 'with' and 'allocaAndPeek' always use 'Ptr' rather than 'PtrConst', hence
-    -- the need to convert 'Ptr' to 'PtrConst' manually.
+    -- 'Foreign.Marshal.Utils.with' and 'HsBindgen.Runtime.IncompleteArray.allocaAndPeek' always use 'Foreign.Ptr.Ptr' rather than 'HsBindgen.Runtime.PtrConst.PtrConst', hence
+    -- the need to convert 'Foreign.Ptr.Ptr' to 'HsBindgen.Runtime.PtrConst.PtrConst' manually.
   , wrapPtrConst :: Bool
   }
 

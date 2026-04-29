@@ -60,13 +60,13 @@ data TranslationUnit p = TranslationUnit{
       -- Declarations from all headers that we have processed. Passes may remove
       -- some declarations. For example,
       --
-      -- * The 'Parse' pass filters out declarations not matching the selection
+      -- * The 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse' pass filters out declarations not matching the selection
       --   predicate (without program slicing).
       --
-      -- * If program slicing is enabled, the 'Slice' pass filters selected
+      -- * If program slicing is enabled, the @Select@ pass filters selected
       --   declarations and their transitive dependencies.
       --
-      -- * The 'ResolveBindingSpecs' pass removes declarations for which we have
+      -- * The 'HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass.ResolveBindingSpecs' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
       decls :: [Decl p]
@@ -384,8 +384,8 @@ newtype Comment p = Comment{
 
 -- | Cross-reference in a Doxygen comment
 --
--- The @RefKind@ from the Doxygen XML @kindref@ attribute narrows the search
--- in 'MangleNames': compounds (struct\/union) are looked up in the type
+-- The 'Doxy.RefKind' from the Doxygen XML @kindref@ attribute narrows the search
+-- in 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames': compounds (struct\/union) are looked up in the type
 -- constructor namespace, members (function\/typedef\/macro) in the variable
 -- and type constructor namespaces.
 data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)

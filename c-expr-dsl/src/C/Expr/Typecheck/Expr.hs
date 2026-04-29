@@ -292,7 +292,7 @@ pprUnificationError = \case
       , pprCtOrigin orig ]
 
 data CouldNotUnifyReason
-  -- | Trying to unify incompatible types, e.g. a 'PiTy' with a 'TyConAppTy'.
+  -- | Trying to unify incompatible types.
   = IncompatibleTypes
   -- | Trying to unify two TyConApps of different lengths.
   | TyConAppUnequalLength
@@ -429,7 +429,7 @@ newMetaTyVarTy metaOrigin metaTyVarName = do
           , metaOrigin
           }
 
--- | 'Control.Monad.Trans.Control.liftBaseWith' for 'TcPureM' and 'TcGenM'.
+-- | 'Control.Monad.Trans.Control.liftBaseWith' for t'TcPureM' and 'TcGenM'.
 liftBaseTcM :: ( forall x. TcPureM x -> TcPureM x ) -> TcGenM a -> TcGenM a
 liftBaseTcM morph g = do
   s0 <- lift $ State.get
@@ -465,7 +465,7 @@ runTcGenMTcM = aux . Writer.runWriterT
       State.StateT \ u ->
         ( `State.runStateT` u ) $ f mempty
 
--- | Run a 'TcUnifyM' action and retrieve the underlying 'Subst'
+-- | Run a 'TcUnifyM' action and retrieve the underlying t'Subst'
 -- when unification succeeded without deferring any equalities.
 runTcUnifyMSubst :: forall a. Subst TyVar -> TcUnifyM a -> TcPureM ( Maybe ( a, Subst TyVar ) )
 runTcUnifyMSubst subst0 =
@@ -477,7 +477,7 @@ runTcUnifyMSubst subst0 =
         | otherwise
         = Nothing
 
--- | Run a 'TcGenM' action and retrieve the underlying 'Subst'
+-- | Run a 'TcGenM' action and retrieve the underlying t'Subst'
 -- when there were no errors.
 runTcGenMSubst :: TcGenM a -> TcUniqueM ( Maybe ( ( Cts, Subst TyVar ), a ) )
 runTcGenMSubst = fmap noErrs . runTcGenMTcM
@@ -895,7 +895,7 @@ inferTyFun fun = case fun of
     -- Const qualifier: MacroType -> MacroType
     Const   -> mkFunTy [MacroTypeTy] MacroTypeTy
 
--- | Infer the type of an 'VFun', together with a 'FunValue' used to
+-- | Infer the type of a 'VFun', together with a 'FunValue' used to
 -- evaluate this function.
 inferVaFun :: VaFun arity -> Quant ( FunValue, Type Ty )
 inferVaFun fun = case fun of
@@ -1036,16 +1036,16 @@ The following pieces of information determine how class constraints are solved:
      'classInstancesWithDefaults'.
 -}
 
--- | The type constructor tag of a 'DataTyCon' or 'ClassTyCon'.
+-- | The type constructor tag of a 'C.Expr.Typecheck.Type.DataTyCon' or 'C.Expr.Typecheck.Type.ClassTyCon'.
 type TyConTag :: Kind -> Hs.Type
 newtype TyConTag ki = TyConTag Int
   deriving stock ( Eq, Ord, Show )
 
--- | The type constructor tag of a 'DataTyCon'.
+-- | The type constructor tag of a 'C.Expr.Typecheck.Type.DataTyCon'.
 --
 --See Note [Class instances and DataTyConTag].
 type DataTyConTag  = TyConTag Ty
--- | The type constructor tag of a 'ClassTyCon'.
+-- | The type constructor tag of a 'C.Expr.Typecheck.Type.ClassTyCon'.
 type ClassTyConTag = TyConTag Ct
 
 -- | What heads this type?
@@ -1769,7 +1769,7 @@ Evaluation proceeds as follows:
     After typechecking each macro, we also compute a function which allows
     evaluating this macro; see the call to 'evaluateExpr' in 'tcMacro'.
     This is a function that takes a vector of argument values, and returns the
-    result of evaluating the macro on these arguments (see 'FunValue').
+    result of evaluating the macro on these arguments (see 'C.Expr.Typecheck.Type.FunValue').
 
     To do this, we create a new value environment (using 'Map Name Value'),
     and then call 'evaluateExpr'.

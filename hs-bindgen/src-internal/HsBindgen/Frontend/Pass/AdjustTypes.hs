@@ -256,7 +256,7 @@ processTypeFunArg arg =
 -- > int foo (char xs[])
 -- > int foo (char * xs)
 --
--- The original type before adjustment is recorded in an an 'Ann'otation.
+-- The original type before adjustment is recorded in an an 'HsBindgen.Frontend.Pass.Ann'otation.
 --
 adjustFunArg :: C.Type AdjustTypes -> (C.Type AdjustTypes, AdjustedFrom AdjustTypes)
 adjustFunArg ty

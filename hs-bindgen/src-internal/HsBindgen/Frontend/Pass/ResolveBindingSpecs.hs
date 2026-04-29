@@ -586,7 +586,7 @@ instance Resolve C.TypeFunArg where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
--- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
+-- | Lookup qualified name in the 'HsBindgen.BindingSpec.Private.V1.ResolvedBindingSpec'
 resolveExtBinding ::
      HasCallStack
   => DeclId

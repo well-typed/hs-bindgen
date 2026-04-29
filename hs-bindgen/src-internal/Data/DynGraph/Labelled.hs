@@ -404,7 +404,7 @@ mapEdges f g = DynGraph{
 -- | Replace vertices with new values obtained from the outgoing edges and the
 --   old vertex.
 --
--- Specific function to serve creation of 'IncludeGraph's.
+-- Specific function to serve creation of 'HsBindgen.Frontend.Analysis.IncludeGraph.IncludeGraph's.
 mapVerticesOutgoingEdges ::
      forall a b l.
      (Ord l, Ord a, Ord b) => ([l] -> a -> b)

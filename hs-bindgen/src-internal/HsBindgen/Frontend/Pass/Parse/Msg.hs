@@ -238,7 +238,7 @@ data DelayedParseMsg =
     -- > #include "config.h"
     -- > struct { .. } config = ..
     --
-    -- will result in an error: "conflicting types for 'config'".
+    -- will result in an error: "conflicting types for @config@".
     --
     -- The /header/ however by itself will not result in a @clang@ warning, so
     -- we detect the situation and warn the user in @hs-bindgen@.
@@ -304,7 +304,7 @@ data DelayedParseMsg =
     -- (actually this happens as a separate post-processing step in
     -- @AssignAnonIds@). We record the identifier of the anonymous declaration
     -- here (that is, it's source location); the identifier of the outer
-    -- declaration is recorded in the encloding 'ParseResult'.
+    -- declaration is recorded in the encloding 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
   | ParseUnusableAnonDecl AnonId
 
   | ParseExpectedFunctionType String
@@ -315,7 +315,7 @@ data DelayedParseMsg =
 
     -- | We encountered an unexpected cursor kind
     --
-    -- Similar comments apply as for 'UnexpectedTypeKind'.
+    -- Similar comments apply as for 'ParseUnexpectedTypeKind'.
   | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
 
   | ParseUnexpectedLinkage (Either CInt CXLinkageKind)

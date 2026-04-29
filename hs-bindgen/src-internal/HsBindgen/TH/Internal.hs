@@ -190,7 +190,7 @@ getThDecls fns deps wrappers decls = do
 tracerConfigDefTH :: TracerConfig l a
 tracerConfigDefTH = def{outputConfig = outputConfigTH}
 
--- | State monad used by `withBindgen`
+-- | State monad used by 'HsBindgen.withBindgen'
 --
 -- Internal!
 type BindgenM = State BindgenState ()

@@ -64,15 +64,17 @@ common common
   build-depends:      base >=4.16 && <4.23
   default-language:   Haskell2010
 
--- Platform independent core library
+-- C arithmetic DSL
+--
 -- Note: the C.Operator.Classes should not be publicly visible.
 -- We should only be able to import the definitions "polluted"
 -- by instances declarations (from C.Expr.HostPlatform).
-library c-expr-core
+library
   import:          common
-  hs-source-dirs:  core
+  hs-source-dirs:  core lib
   exposed-modules:
     C.Char
+    C.Expr.HostPlatform
     C.Operator.Classes
     C.Operator.GenInstances
     C.Operators
@@ -80,6 +82,9 @@ library c-expr-core
     C.Type.Internal.Universe
 
   other-modules:
+    C.Expr.Posix32
+    C.Expr.Posix64
+    C.Expr.Win64
     C.Operator.Internal
     C.Operator.TH
 
@@ -94,24 +99,6 @@ library c-expr-core
   if impl(ghc <9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
 
--- C arithmetic DSL, in the form of platform-dependent modules
-library
-  import:             common
-  hs-source-dirs:     lib
-  exposed-modules:    C.Expr.HostPlatform
-  other-modules:
-    C.Expr.Posix32
-    C.Expr.Posix64
-    C.Expr.Win64
-
-  reexported-modules:
-    C.Char
-    , C.Operators
-    , C.Type
-
-  -- Internal dependencies
-  build-depends:      c-expr-runtime:c-expr-core
-
 test-suite tests
   import:         common
   hs-source-dirs: test
@@ -121,7 +108,7 @@ test-suite tests
 
   -- Internal dependencies
   build-depends:
-    , c-expr-runtime:c-expr-core
+    , c-expr-runtime
     , libclang-bindings
 
   -- Inherited dependencies

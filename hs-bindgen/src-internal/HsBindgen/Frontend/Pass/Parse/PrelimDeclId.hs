@@ -1,7 +1,7 @@
 -- | Preliminary declaration IDs
 --
 -- The parser assigns \"preliminary\" IDs to declarations, which are then
--- replaced by the \"real\" IDs (@DeclId@) in the @AssignAnonIds@ pass. They
+-- replaced by the \"real\" IDs (@DeclId@) in the 'HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds' pass. They
 -- are different only for anonymous declarations: the preliminary ID for an
 -- anonymous declaration is just its source location rather than a name decided
 -- based on context (see "HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames").
@@ -48,7 +48,7 @@ data AnonId = AnonId{
 --
 -- Not all declarations in a C header have names; to be able to nonetheless
 -- refer to these declarations we use the source location.  We replace these by
--- proper names in the 'AssignAnonIds' pass.
+-- proper names in the 'HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds' pass.
 data PrelimDeclId =
     -- | Named declaration
     Named CDeclName
@@ -101,7 +101,7 @@ atCursor curr kind = do
            -- This means that in this case we will misclassify the struct as
            -- not-anonymous (and this will then also depend on the clang
            -- version: for older versions we /will/ classify it as anonymous).
-           -- We smooth over this difference in the @AssignAnonIds@ pass
+           -- We smooth over this difference in the 'HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds' pass
            -- (see "HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames").
            markAsAnon
        | otherwise ->

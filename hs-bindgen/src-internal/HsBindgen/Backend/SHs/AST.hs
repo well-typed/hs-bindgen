@@ -232,8 +232,8 @@ data Newtype = Newtype{
     }
   deriving stock (Show, Generic)
 
--- | We might want to reconsider the decision of 'foreignImportParameters' as
--- well as 'foreignImportResultType' being 'ClosedType's if we ever want to
+-- | We might want to reconsider the decision of 'HsBindgen.Backend.Hs.AST.foreignImportParameters' as
+-- well as 'HsBindgen.Backend.Hs.AST.foreignImportResultType' being 'ClosedType's if we ever want to
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport{

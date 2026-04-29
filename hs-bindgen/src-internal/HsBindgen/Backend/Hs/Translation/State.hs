@@ -39,7 +39,7 @@ emptyTranslationState = TranslationState Map.empty
 
 {- $actions
 
-Normally in the @Backend.Hs@ translation step, an action in the 'HsM' monad can
+Normally in the @Backend.Hs@ translation step, an action in the t'HsM' monad can
 be immediately executed with possible side effects as a result. There is one
 exception where we want to delay actions as long as possible: when we generate
 auxiliary newtypes for function pointer types.
@@ -76,7 +76,7 @@ When @F@ is processed before @T@, we can see panics.
 
 The solution is this: we make a distinction between actions we want to execute
 immediately and ones we want to delay until the end of the @Backend.Hs@
-translation step. The 'Action' abstraction is used for this distinction.
+translation step. The t'HsBindgen.Backend.Hs.Translation.State.Action' abstraction is used for this distinction.
 
 Very crudely, we could process @F@ and @F_Aux@ before @T@ as long as we delay
 side effects of processing @F_Aux@ until after @T@ is processed. In pseudo-code:
@@ -92,20 +92,20 @@ side effects of processing @F_Aux@ until after @T@ is processed. In pseudo-code:
 >       ]
 
 To achieve the same goal, we could have used a different abstraction than
-'Action'. For example, we could have stored a list of 'HsM' actions in
-'TranslationState' to be computed at the very end of the @Backend.Hs@
+t'HsBindgen.Backend.Hs.Translation.State.Action'. For example, we could have stored a list of t'HsM' actions in
+t'HsBindgen.Backend.Hs.Translation.State.TranslationState' to be computed at the very end of the @Backend.Hs@
 translation step. However, this would cause @_Aux@ newtypes to be rendered at
-the very end of Haskell bindings. 'Action' does not have this downside.
+the very end of Haskell bindings. t'HsBindgen.Backend.Hs.Translation.State.Action' does not have this downside.
 
-NOTE: Right now the only use case for the 'Action' abstraction is auxiliary
+NOTE: Right now the only use case for the t'HsBindgen.Backend.Hs.Translation.State.Action' abstraction is auxiliary
 @newtype@s for function pointers. If there are other use cases in the future,
 then its use might become convoluted and hard to maintain. At that point, it
-might be worth looking into replacing the 'Action' abstraction with a proper
+might be worth looking into replacing the t'HsBindgen.Backend.Hs.Translation.State.Action' abstraction with a proper
 sorting phase that takes dependencies between Haskell declarations (like
 auxiliary @newtype@s) into account.
 -}
 
--- | An action that is run in the 'HsM' monad.
+-- | An action that is run in the t'HsM' monad.
 --
 -- There are two types of actions:
 --

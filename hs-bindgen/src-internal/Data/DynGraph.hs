@@ -108,7 +108,7 @@ dfFindMember = Labelled.dfFindMember
 --       |
 --       +-->D
 --
--- Removal of vertex 'B' creates
+-- Removal of vertex @B@ creates
 --
 --   A------>C
 --   |

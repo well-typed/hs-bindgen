@@ -145,7 +145,7 @@ parseDecl' enclosing mCtx = withCursorKindNoCtx $ \case
 
     -- Unavoidably panic (!) on an unrecognized cursor kind
     --
-    -- Only use this function if there is no way to assemble a 'ParseResult'.
+    -- Only use this function if there is no way to assemble a 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
     --
     -- See 'failUnrecognizedKind'.
     unavoidablePanicUnrecognizedKind ::
@@ -823,7 +823,7 @@ failUnrecognizedKind ctx eKind curr =
 -- | Obtain cursor kind and run continuation
 --
 -- Only run continuation if the cursor kind can be obtain, otherwise fail with a
--- 'ParseFailure'.
+-- 'HsBindgen.Frontend.Pass.Parse.Msg.DelayedParseMsg'.
 withCursorKind ::
      ParseCtx
   -> (CXCursorKind -> Parser)
@@ -1050,9 +1050,9 @@ data VarClassification =
     -- > extern const int globalConstant;
     -- > static const int staticConst = 123;
     --
-    -- NOTE: `static` can be useful to be able to specify the /value/ of the
+    -- NOTE: @static@ can be useful to be able to specify the /value/ of the
     -- constant in the header file (perhaps so that the compiler can inline it).
-    -- Without `const`, `static` results in a mutable variable local to any C
+    -- Without @const@, @static@ results in a mutable variable local to any C
     -- file that includes the header, invisible to the C API. Arguably this does
     -- not make much sense, but it does occur in real-world code (e.g. device
     -- driver headers), so we accept it nonetheless.

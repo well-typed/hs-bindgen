@@ -14,7 +14,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
--- | Pretty print the CAPI `addCSource` code fragment.
+-- | Pretty print the CAPI 'HsBindgen.Config.Internal.addCSource' code fragment.
 prettyCapiWrappers :: [CWrapper] -> CtxDoc
 prettyCapiWrappers wrappers
   | null src  = PP.empty
