@@ -190,21 +190,22 @@ getMacroExpansions range
 
 -- | Immediately emit a parse trace message with location information
 traceImmediate ::
-     PrelimDeclId
+     HasCallStack
+  => PrelimDeclId
   -> SingleLoc
   -> ImmediateParseMsg
   -> ParseDecl ()
 traceImmediate declId declLoc msg = wrapEff $ \support ->
-    traceWith (contramap withCallStack support.env.tracer) $
+    traceWith support.env.tracer $
       withCallStack WithLocationInfo{
         loc = prelimDeclIdLocationInfo declId [declLoc]
       , msg = msg
       }
 
 -- | Immediately emit a global parse trace message without location information
-traceImmediateGlobal :: ImmediateParseMsg -> ParseDecl ()
+traceImmediateGlobal :: HasCallStack => ImmediateParseMsg -> ParseDecl ()
 traceImmediateGlobal msg = wrapEff $ \support ->
-    traceWith (contramap withCallStack support.env.tracer) $
+    traceWith support.env.tracer $
       withCallStack WithLocationInfo{
         loc = LocationUnavailable
       , msg = msg

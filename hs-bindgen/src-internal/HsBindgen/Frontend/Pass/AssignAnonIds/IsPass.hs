@@ -31,7 +31,7 @@ instance IsPass AssignAnonIds where
   type MacroBody   AssignAnonIds = ParsedMacro
   type ExtBinding  AssignAnonIds = Void
   type Ann ix      AssignAnonIds = AnnAssignAnonIds ix
-  type Msg         AssignAnonIds = WithCallStack ImmediateAssignAnonIdsMsg
+  type Msg         AssignAnonIds = ImmediateAssignAnonIdsMsg
   type CommentDecl AssignAnonIds = ()
 
 {-------------------------------------------------------------------------------
