@@ -3,8 +3,11 @@ module HsBindgen.Backend.HsModule.Translation (
     GhcPragma (..)
     -- * ImportListItem
   , ImportListItem(..)
-    -- * ExportItem
+    -- * Export list
+  , ExportEntry(..)
   , ExportItem(..)
+  , defaultResolveExports
+  , resolveDeclExports
     -- * HsModule
   , HsModule(..)
     -- * Translation
@@ -21,6 +24,7 @@ import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
@@ -53,8 +57,30 @@ data ImportListItem =
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
-  ExportItem
+  Export list
 -------------------------------------------------------------------------------}
+
+-- | An entry in the module export list.
+--
+-- Sections nest naturally: an 'ExportSection' carries its own children, so
+-- depth is implicit in the tree structure rather than tracked as an integer
+-- on each header.  The pretty-printer derives Haddock @*@ count from the
+-- recursion depth.
+--
+-- Example: a top-level @api_version_t@ followed by a @Core Data Types@
+-- group containing a record and a derived pattern synonym is rendered as:
+--
+-- > [ ExportEntry (ExportTypeAll "Api_version_t")
+-- > , ExportSection [TextContent "Core Data Types"]
+-- >     [ ExportEntry (ExportTypeAll "Config_t")
+-- >     , ExportEntry (ExportPattern "COLOR_RED")
+-- >     ]
+-- > ]
+data ExportEntry =
+    ExportEntry ExportItem
+    -- | A Haddock section header carrying its title (as inline content,
+    -- so it can mix bold\/italic\/monospace markup) and its nested children.
+  | ExportSection [HsDoc.CommentInlineContent] [ExportEntry]
 
 -- | An item in the module export list
 data ExportItem =
@@ -65,6 +91,12 @@ data ExportItem =
     -- | Export a pattern synonym: @pattern PatName@
   | ExportPattern Text
 
+-- | Default export resolver: a flat list with no section headers.
+--
+-- Used when no extra grouping information is available.
+defaultResolveExports :: [SDecl] -> [ExportEntry]
+defaultResolveExports = map ExportEntry . concatMap resolveDeclExports
+
 {-------------------------------------------------------------------------------
   HsModule
 -------------------------------------------------------------------------------}
@@ -73,7 +105,7 @@ data ExportItem =
 data HsModule = HsModule {
       pragmas        :: [GhcPragma]
     , name           ::  Hs.ModuleName
-    , exports        :: [ExportItem]
+    , exports        :: [ExportEntry]
     , imports        :: [ImportListItem]
     , qualifiedStyle :: QualifiedStyle
     , cWrappers      :: [CWrapper]
@@ -88,40 +120,46 @@ translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> BaseModuleName
+  -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple fns mrc moduleBaseName declsByCat =
+translateModuleMultiple fns mrc moduleBaseName resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
-    go cat xs     = Just $ translateModule' fns mrc (Just cat) moduleBaseName xs
+    go cat xs     = Just $
+      translateModule' fns mrc (Just cat) moduleBaseName resolveExports xs
 
 translateModuleSingle ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> BaseModuleName
+  -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle fns mrc name declsByCat =
-    translateModule' fns mrc Nothing name $ Foldable.fold declsByCat
+translateModuleSingle fns mrc name resolveExports declsByCat =
+    translateModule' fns mrc Nothing name resolveExports $
+      Foldable.fold declsByCat
 
 translateModule' ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> Maybe Category
   -> BaseModuleName
+  -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc mcat moduleBaseName (cWrappers, decs) = HsModule{
-      pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
-    , exports        = resolveExports decs
-    , imports        = resolveImports moduleBaseName mcat cWrappers decs
-    , name           = fromBaseModuleName moduleBaseName mcat
-    , qualifiedStyle = mrc.qualifiedStyle
-    , cWrappers      = cWrappers
-    , decls          = decs
-    }
+translateModule' fns mrc mcat moduleBaseName resolveExports (cWrappers, decs) =
+    HsModule{
+        pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+      , exports        = resolveExports decs
+      , imports        = resolveImports moduleBaseName mcat cWrappers decs
+      , name           = fromBaseModuleName moduleBaseName mcat
+      , qualifiedStyle = mrc.qualifiedStyle
+      , cWrappers      = cWrappers
+      , decls          = decs
+      }
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
@@ -391,16 +429,11 @@ resolveExtHsRefImports extRef = ImportAcc{
   Auxiliary: Export resolution
 -------------------------------------------------------------------------------}
 
--- | Resolve exports from a list of declarations
+-- | Resolve the export items contributed by a single declaration.
 --
--- Only declarations with exported (user-facing) names are included.
--- Internal names (e.g. @hs_bindgen_...@ helper bindings) are excluded.
--- Instances and deriving instances are never exported explicitly (GHC exports
--- them automatically).
-resolveExports :: [SDecl] -> [ExportItem]
-resolveExports = concatMap resolveDeclExports
-
--- | Resolve exports from a single declaration
+-- Returns one or more 'ExportItem' values for declarations with exported
+-- (user-facing) names; internal names and instance declarations produce
+-- the empty list (instances are auto-exported by GHC).
 resolveDeclExports :: SDecl -> [ExportItem]
 resolveDeclExports = \case
     DTypSyn typSyn               -> exportTypeConstr typSyn.name ExportName

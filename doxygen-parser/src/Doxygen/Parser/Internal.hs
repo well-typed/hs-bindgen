@@ -342,12 +342,16 @@ parseXMLOutput xmlDir = do
         | r <- results
         , (gname, title) <- r.groupTitles
         ]
+      innerClassMembers = Map.fromList $ concatMap (.groupMembers) results
+
+      allGroupMembership = Map.union memberGroupMap innerClassMembers
+
       allWarnings   = concatMap (.warnings) results
 
   pure Result {
       doxygen = Doxygen {
           comments        = allComments
-        , groupMembership = memberGroupMap
+        , groupMembership = allGroupMembership
         , groupInfo       = allGroupInfo
         }
     , warnings        = indexWarns ++ allWarnings
@@ -366,6 +370,9 @@ data XMLFileResult = XMLFileResult {
   , groupChildren  :: [(Text, Text)]
     -- ^ (child group name, parent group name) — derived from
     -- @\<innergroup\>@ elements in group XML files
+  , groupMembers   :: [(Text, Text)]
+    -- ^ (declaration name, group name) — derived from
+    -- @\<innerclass\>@ elements in group XML files (structs\/unions)
   , warnings       :: [Warning]
   }
 
@@ -508,6 +515,7 @@ parseEntityXML path = do
       comments      = Map.unionsWith const [r.comments | r <- results]
     , groupTitles   = concatMap (.groupTitles) results
     , groupChildren = concatMap (.groupChildren) results
+    , groupMembers  = concatMap (.groupMembers) results
     , warnings      = rootWarns ++ concatMap (.warnings) results
     }
 
@@ -544,6 +552,13 @@ extractEntity cd =
           ]
         _ -> []
 
+      groupMembers = case (kind, parts.name) of
+        ("group", Just groupName) ->
+          [ (extractText c, groupName)
+          | c <- parts.innerClasses
+          ]
+        _ -> []
+
       -- Member comments from <sectiondef>s → keyed as KeyDecl / KeyField
       (membersWarns, members) = extractAllMembers parts.sections
       declDocs  = toDeclMap members
@@ -556,6 +571,7 @@ extractEntity cd =
          comments      = Map.fromList (structDocs ++ declDocs ++ fieldDocs ++ enumDocs)
        , groupTitles   = groupTitles
        , groupChildren = groupChildren
+       , groupMembers  = groupMembers
        , warnings      = parts.warnings ++ commentWarns ++ membersWarns ++ enumWarns
        }
   where
@@ -650,7 +666,7 @@ extractEntity cd =
     -------------------------------------------------------------------}
 
     classifyCompoundDef :: [Cursor] -> CompoundParts
-    classifyCompoundDef = foldr go (CompoundParts [] Nothing Nothing [] [] [] [])
+    classifyCompoundDef = foldr go (CompoundParts [] Nothing Nothing [] [] [] [] [])
       where
         go c acc@CompoundParts{..} = case nodeElementName c of
           -- Processed:
@@ -660,10 +676,10 @@ extractEntity cd =
           Just "detaileddescription" -> CompoundParts { details = c : details, .. }
           Just "sectiondef"          -> CompoundParts { sections = c : sections, .. }
           Just "innergroup"          -> CompoundParts { innerGroups = c : innerGroups, .. }
+          Just "innerclass"          -> CompoundParts { innerClasses = c : innerClasses, .. }
           -- Known but ignored (expected doxygen output):
           Just "includes"            -> acc
           Just "includedby"          -> acc
-          Just "innerclass"          -> acc
           Just "innernamespace"      -> acc
           Just "listofallmembers"    -> acc
           Just "location"            -> acc
@@ -727,13 +743,14 @@ extractEntity cd =
 
 -- | Classified children of a @\<compounddef\>@ element
 data CompoundParts = CompoundParts {
-    warnings    :: [Warning]
-  , name        :: Maybe Text
-  , title       :: Maybe Text
-  , briefs      :: [Cursor]
-  , details     :: [Cursor]
-  , sections    :: [Cursor]
-  , innerGroups :: [Cursor]
+    warnings     :: [Warning]
+  , name         :: Maybe Text
+  , title        :: Maybe Text
+  , briefs       :: [Cursor]
+  , details      :: [Cursor]
+  , sections     :: [Cursor]
+  , innerGroups  :: [Cursor]
+  , innerClasses :: [Cursor]
   }
 
 -- | Classified children of a @\<memberdef\>@ element

@@ -28,6 +28,13 @@
 * The `hs-bindgen-cli info doxygen` subcommand dumps the parsed doxygen
   state (the map of `DoxygenKey` to structured comments), alongside the
   other `info` dump subcommands.
+* Mirror Doxygen `@defgroup` sections (including nested `@ingroup`
+  groupings) as Haddock section headers in the generated module export
+  lists. The export list is now structured as a recursive `ExportEntry`
+  tree: `ExportSection` carries its title and nested children, with
+  Haddock `*`-depth derived from tree depth. Doxygen-specific export
+  resolution lives in the new internal module
+  `HsBindgen.Backend.HsModule.Translation.Doxygen`.
 
 ### Minor changes
 

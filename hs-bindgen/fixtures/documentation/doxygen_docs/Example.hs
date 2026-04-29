@@ -19,14 +19,17 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.mAX_NAME_LENGTH
+    ( Example.Opaque_struct
+    , Example.Opaque_union
+    , Example.Api_version_t(..)
+      -- * Core Data Types
+    , Example.mAX_NAME_LENGTH
     , Example.Size_type(..)
-    , Example.Forward_declared_struct
-    , Example.Forward_declared_union
     , Example.Color_enum(..)
     , pattern Example.COLOR_RED
     , pattern Example.COLOR_GREEN
     , pattern Example.COLOR_BLUE
+      -- * Function Definitions
     , Example.Event_callback_t_Aux(..)
     , Example.Event_callback_t(..)
     , Example.Config_t(..)
@@ -52,6 +55,7 @@ module Example
     , Example.Filename_t(..)
     , Example.Flexible_array_Aux(..)
     , Example.Flexible_array
+      -- * Extra Doxygen Coverage
     , Example.Dyn_array_t(..)
     , Example.Multi_anon_t_pos(..)
     , Example.Multi_anon_t_dim(..)
@@ -133,21 +137,21 @@ instance HasCField.HasCField Size_type "unwrapSize_type" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct forward_declared_struct@
+{-| __C declaration:__ @struct opaque_struct@
 
     __defined at:__ @documentation\/doxygen_docs.h 76:8@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Forward_declared_struct
+data Opaque_struct
 
-{-| __C declaration:__ @union forward_declared_union@
+{-| __C declaration:__ @union opaque_union@
 
     __defined at:__ @documentation\/doxygen_docs.h 81:7@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Forward_declared_union
+data Opaque_union
 
 {-| Color enumeration without typedef.
 
@@ -1303,7 +1307,7 @@ type Flexible_array =
 
     __C declaration:__ @struct dyn_array_t@
 
-    __defined at:__ @documentation\/doxygen_docs.h 492:9@
+    __defined at:__ @documentation\/doxygen_docs.h 523:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1313,7 +1317,7 @@ data Dyn_array_t = Dyn_array_t
 
          __C declaration:__ @data@
 
-         __defined at:__ @documentation\/doxygen_docs.h 493:10@
+         __defined at:__ @documentation\/doxygen_docs.h 524:10@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1322,7 +1326,7 @@ data Dyn_array_t = Dyn_array_t
 
          __C declaration:__ @size@
 
-         __defined at:__ @documentation\/doxygen_docs.h 494:12@
+         __defined at:__ @documentation\/doxygen_docs.h 525:12@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1331,7 +1335,7 @@ data Dyn_array_t = Dyn_array_t
 
          __C declaration:__ @capacity@
 
-         __defined at:__ @documentation\/doxygen_docs.h 495:12@
+         __defined at:__ @documentation\/doxygen_docs.h 526:12@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1407,7 +1411,7 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
 
 {-| __C declaration:__ @struct \@multi_anon_t_pos@
 
-    __defined at:__ @documentation\/doxygen_docs.h 555:5@
+    __defined at:__ @documentation\/doxygen_docs.h 586:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1417,7 +1421,7 @@ data Multi_anon_t_pos = Multi_anon_t_pos
 
          __C declaration:__ @x@
 
-         __defined at:__ @documentation\/doxygen_docs.h 556:15@
+         __defined at:__ @documentation\/doxygen_docs.h 587:15@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1426,7 +1430,7 @@ data Multi_anon_t_pos = Multi_anon_t_pos
 
          __C declaration:__ @y@
 
-         __defined at:__ @documentation\/doxygen_docs.h 557:15@
+         __defined at:__ @documentation\/doxygen_docs.h 588:15@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1487,7 +1491,7 @@ instance ( ty ~ RIP.CFloat
 
 {-| __C declaration:__ @struct \@multi_anon_t_dim@
 
-    __defined at:__ @documentation\/doxygen_docs.h 563:5@
+    __defined at:__ @documentation\/doxygen_docs.h 594:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1497,7 +1501,7 @@ data Multi_anon_t_dim = Multi_anon_t_dim
 
          __C declaration:__ @w@
 
-         __defined at:__ @documentation\/doxygen_docs.h 564:15@
+         __defined at:__ @documentation\/doxygen_docs.h 595:15@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1506,7 +1510,7 @@ data Multi_anon_t_dim = Multi_anon_t_dim
 
          __C declaration:__ @h@
 
-         __defined at:__ @documentation\/doxygen_docs.h 565:15@
+         __defined at:__ @documentation\/doxygen_docs.h 596:15@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1571,7 +1575,7 @@ instance ( ty ~ RIP.CFloat
 
     __C declaration:__ @struct multi_anon_t@
 
-    __defined at:__ @documentation\/doxygen_docs.h 551:9@
+    __defined at:__ @documentation\/doxygen_docs.h 582:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1583,7 +1587,7 @@ data Multi_anon_t = Multi_anon_t
 
          __C declaration:__ @pos@
 
-         __defined at:__ @documentation\/doxygen_docs.h 558:30@
+         __defined at:__ @documentation\/doxygen_docs.h 589:30@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1594,7 +1598,7 @@ data Multi_anon_t = Multi_anon_t
 
          __C declaration:__ @dim@
 
-         __defined at:__ @documentation\/doxygen_docs.h 566:31@
+         __defined at:__ @documentation\/doxygen_docs.h 597:31@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1657,7 +1661,7 @@ instance ( ty ~ Multi_anon_t_dim
 
     __C declaration:__ @struct named_inner@
 
-    __defined at:__ @documentation\/doxygen_docs.h 577:12@
+    __defined at:__ @documentation\/doxygen_docs.h 608:12@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1667,7 +1671,7 @@ data Named_inner = Named_inner
 
          __C declaration:__ @nx@
 
-         __defined at:__ @documentation\/doxygen_docs.h 579:13@
+         __defined at:__ @documentation\/doxygen_docs.h 610:13@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1676,7 +1680,7 @@ data Named_inner = Named_inner
 
          __C declaration:__ @ny@
 
-         __defined at:__ @documentation\/doxygen_docs.h 581:13@
+         __defined at:__ @documentation\/doxygen_docs.h 612:13@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1741,7 +1745,7 @@ instance ( ty ~ RIP.CInt
 
     __C declaration:__ @struct named_outer@
 
-    __defined at:__ @documentation\/doxygen_docs.h 575:8@
+    __defined at:__ @documentation\/doxygen_docs.h 606:8@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1749,7 +1753,7 @@ data Named_outer = Named_outer
   { named_outer_inner_field :: Named_inner
     {- ^ __C declaration:__ @inner_field@
 
-         __defined at:__ @documentation\/doxygen_docs.h 582:7@
+         __defined at:__ @documentation\/doxygen_docs.h 613:7@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1758,7 +1762,7 @@ data Named_outer = Named_outer
 
          __C declaration:__ @nz@
 
-         __defined at:__ @documentation\/doxygen_docs.h 584:9@
+         __defined at:__ @documentation\/doxygen_docs.h 615:9@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1819,7 +1823,7 @@ instance ( ty ~ RIP.CInt
 
 {-| __C declaration:__ @struct \@deep_mid_anon_field@
 
-    __defined at:__ @documentation\/doxygen_docs.h 598:9@
+    __defined at:__ @documentation\/doxygen_docs.h 629:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1829,7 +1833,7 @@ data Deep_mid_anon_field = Deep_mid_anon_field
 
          __C declaration:__ @deep_a@
 
-         __defined at:__ @documentation\/doxygen_docs.h 600:17@
+         __defined at:__ @documentation\/doxygen_docs.h 631:17@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1877,7 +1881,7 @@ instance ( ty ~ RIP.CInt
 
     __C declaration:__ @struct deep_mid@
 
-    __defined at:__ @documentation\/doxygen_docs.h 594:12@
+    __defined at:__ @documentation\/doxygen_docs.h 625:12@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1887,7 +1891,7 @@ data Deep_mid = Deep_mid
 
          __C declaration:__ @m@
 
-         __defined at:__ @documentation\/doxygen_docs.h 596:13@
+         __defined at:__ @documentation\/doxygen_docs.h 627:13@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1896,7 +1900,7 @@ data Deep_mid = Deep_mid
 
          __C declaration:__ @anon_field@
 
-         __defined at:__ @documentation\/doxygen_docs.h 601:11@
+         __defined at:__ @documentation\/doxygen_docs.h 632:11@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1960,7 +1964,7 @@ instance ( ty ~ Deep_mid_anon_field
 
     __C declaration:__ @struct deep_outer@
 
-    __defined at:__ @documentation\/doxygen_docs.h 592:8@
+    __defined at:__ @documentation\/doxygen_docs.h 623:8@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1968,7 +1972,7 @@ data Deep_outer = Deep_outer
   { deep_outer_mid_field :: Deep_mid
     {- ^ __C declaration:__ @mid_field@
 
-         __defined at:__ @documentation\/doxygen_docs.h 602:7@
+         __defined at:__ @documentation\/doxygen_docs.h 633:7@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1977,7 +1981,7 @@ data Deep_outer = Deep_outer
 
          __C declaration:__ @o@
 
-         __defined at:__ @documentation\/doxygen_docs.h 604:9@
+         __defined at:__ @documentation\/doxygen_docs.h 635:9@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2037,7 +2041,7 @@ instance ( ty ~ RIP.CInt
 
 {-| __C declaration:__ @struct \@unnamed_field_t_ua@
 
-    __defined at:__ @documentation\/doxygen_docs.h 616:5@
+    __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2047,7 +2051,7 @@ data Unnamed_field_t_ua = Unnamed_field_t_ua
 
          __C declaration:__ @ua@
 
-         __defined at:__ @documentation\/doxygen_docs.h 618:13@
+         __defined at:__ @documentation\/doxygen_docs.h 649:13@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2056,7 +2060,7 @@ data Unnamed_field_t_ua = Unnamed_field_t_ua
 
          __C declaration:__ @ub@
 
-         __defined at:__ @documentation\/doxygen_docs.h 620:13@
+         __defined at:__ @documentation\/doxygen_docs.h 651:13@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2121,7 +2125,7 @@ instance ( ty ~ RIP.CInt
 
     __C declaration:__ @struct unnamed_field_t@
 
-    __defined at:__ @documentation\/doxygen_docs.h 613:9@
+    __defined at:__ @documentation\/doxygen_docs.h 644:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2131,7 +2135,7 @@ data Unnamed_field_t = Unnamed_field_t
 
          __C declaration:__ @before@
 
-         __defined at:__ @documentation\/doxygen_docs.h 615:9@
+         __defined at:__ @documentation\/doxygen_docs.h 646:9@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2140,7 +2144,7 @@ data Unnamed_field_t = Unnamed_field_t
 
          __C declaration:__ @ua@
 
-         __defined at:__ @documentation\/doxygen_docs.h 616:5@
+         __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2149,7 +2153,7 @@ data Unnamed_field_t = Unnamed_field_t
 
          __C declaration:__ @after@
 
-         __defined at:__ @documentation\/doxygen_docs.h 623:9@
+         __defined at:__ @documentation\/doxygen_docs.h 654:9@
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -2225,3 +2229,46 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")
+
+{-| API version number (not in any group).
+
+    __C declaration:__ @api_version_t@
+
+    __defined at:__ @documentation\/doxygen_docs.h 662:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+newtype Api_version_t = Api_version_t
+  { unwrapApi_version_t :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unwrapApi_version_t" (RIP.Ptr Api_version_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unwrapApi_version_t")
+
+instance HasCField.HasCField Api_version_t "unwrapApi_version_t" where
+
+  type CFieldType Api_version_t "unwrapApi_version_t" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0

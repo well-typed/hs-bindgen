@@ -11,6 +11,7 @@ import Text.SimplePrettyPrint (CtxDoc, Pretty (..), ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.HsModule.Pretty.CAPI
+import HsBindgen.Backend.HsModule.Pretty.Comment ()
 import HsBindgen.Backend.HsModule.Pretty.Decl ()
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Config.Prelims
@@ -36,19 +37,64 @@ instance Pretty HsModule where
 -- with names from the implicit Prelude (e.g. @Example.reverse@ instead of
 -- @reverse@).
 --
-prettyModuleHeader :: Hs.ModuleName -> [ExportItem] -> CtxDoc
+prettyModuleHeader :: Hs.ModuleName -> [ExportEntry] -> CtxDoc
 prettyModuleHeader name [] =
     PP.hsep ["module", PP.string (Hs.moduleNameToString name), "where"]
 prettyModuleHeader name exports =
     PP.vcat [
         PP.hsep ["module", PP.string (Hs.moduleNameToString name)] $$ PP.nest 4 (
-          PP.vlist "(" ")" (map (prettyExportItem qualPrefix) exports)
+          prettyExportList qualPrefix exports
         )
       , PP.nest 2 "where"
       ]
   where
     qualPrefix :: String
     qualPrefix = Hs.moduleNameToString name ++ "."
+
+-- | Pretty-print the export list with nested section headers
+--
+-- Section headers (@-- *@, @-- **@, …) are interleaved without commas, with
+-- the @*@ count derived from the recursion depth in the 'ExportEntry' tree.
+-- Regular export items use the standard leading-comma style.
+--
+-- Example output:
+--
+-- > ( Example.Api_version_t(..)
+-- >   -- * Core Data Types
+-- > , Example.Config_t(..)
+-- > , Example.Color_enum(..)
+-- > , pattern Example.COLOR_RED
+-- >   -- * Function Definitions
+-- > , Example.process_data
+-- >   -- ** I/O Helpers
+-- > , Example.read_data
+-- > )
+prettyExportList :: String -> [ExportEntry] -> CtxDoc
+prettyExportList qualPrefix entries =
+    PP.vcat (fst (go 1 True False entries) ++ [")"])
+  where
+    -- @depth@: 1 → @-- *@, 2 → @-- **@, etc.  Increments at each section.
+    -- @needOpen@: whether we still need to emit the opening @(@.
+    -- @needComma@: whether we've already emitted a regular export item.
+    -- Returns (rendered docs, needComma after rendering).
+    go :: Int -> Bool -> Bool -> [ExportEntry] -> ([CtxDoc], Bool)
+    go _ _ needComma [] = ([], needComma)
+    go depth needOpen needComma (entry : rest) = case entry of
+      ExportSection title children ->
+        let prefix    = if needOpen then "( " else "  "
+            stars     = replicate depth '*'
+            header    = PP.string prefix
+                     >< PP.string ("-- " ++ stars ++ " ")
+                     >< PP.hsep (map pretty title)
+            (cd, nc)  = go (depth + 1) False needComma children
+            (rd, nc') = go depth False nc rest
+        in  (header : cd ++ rd, nc')
+      ExportEntry item ->
+        let prefix | needOpen      = "( "
+                   | not needComma = "  "
+                   | otherwise     = ", "
+            (rd, nc) = go depth False True rest
+        in  ((PP.string prefix >< prettyExportItem qualPrefix item) : rd, nc)
 
 -- | Pretty-print a single export item, qualified with the module name
 prettyExportItem :: String -> ExportItem -> CtxDoc

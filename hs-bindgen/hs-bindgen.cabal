@@ -116,6 +116,7 @@ library internal
     HsBindgen.Backend.HsModule.Pretty.Type
     HsBindgen.Backend.HsModule.Render
     HsBindgen.Backend.HsModule.Translation
+    HsBindgen.Backend.HsModule.Translation.Doxygen
     HsBindgen.Backend.Level
     HsBindgen.Backend.SHs.AST
     HsBindgen.Backend.SHs.AST.Type
