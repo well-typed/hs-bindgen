@@ -289,7 +289,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
 --
 -- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
 --
--- Then, @structFieldDecls@ will generate roughly the following class instances
+-- Then, 'getFieldDecls' will generate roughly the following class instances
 -- for the fields @x@ and @y@ respectively:
 --
 -- > instance HasCField "myStruct_x" MyStruct where

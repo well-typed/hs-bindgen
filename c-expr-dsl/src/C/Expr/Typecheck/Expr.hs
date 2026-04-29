@@ -292,7 +292,7 @@ pprUnificationError = \case
       , pprCtOrigin orig ]
 
 data CouldNotUnifyReason
-  -- | Trying to unify incompatible types, e.g. a @PiTy@ with a 'C.Expr.Typecheck.Type.TyConAppTy'.
+  -- | Trying to unify incompatible types.
   = IncompatibleTypes
   -- | Trying to unify two TyConApps of different lengths.
   | TyConAppUnequalLength

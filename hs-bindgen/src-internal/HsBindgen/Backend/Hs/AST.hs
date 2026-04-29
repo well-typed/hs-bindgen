@@ -721,7 +721,7 @@ data HasFieldInstance = HasFieldInstance {
     }
   deriving stock (Generic, Show)
 
--- | See 'HasFieldInstanceVia'
+-- | See the @deriveVia@ field of 'HasFieldInstance'.
 data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
   deriving stock (Generic, Show)
 

@@ -63,7 +63,7 @@ data TranslationUnit p = TranslationUnit{
       -- * The 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse' pass filters out declarations not matching the selection
       --   predicate (without program slicing).
       --
-      -- * If program slicing is enabled, the @Slice@ pass filters selected
+      -- * If program slicing is enabled, the @Select@ pass filters selected
       --   declarations and their transitive dependencies.
       --
       -- * The 'HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass.ResolveBindingSpecs' pass removes declarations for which we have
