@@ -49,14 +49,14 @@ mkCursor xml =
     Cursor.fromDocument $ XML.parseText_ XML.def (LText.fromStrict xml)
 
 -- | Parse all children of @\<root\>@ as block elements
-parseBlockFromXML :: Text -> ([Warning], [Block Text])
+parseBlockFromXML :: Text -> ([Warning], [Block DoxyRef])
 parseBlockFromXML xml =
     let root = mkCursor xml
         pairs = map parseBlockElement (Cursor.child root)
     in  (concatMap fst pairs, concatMap snd pairs)
 
 -- | Parse comment from an XML element with brief/detailed descriptions
-parseCommentFromXML :: Text -> ([Warning], Maybe (Comment Text))
+parseCommentFromXML :: Text -> ([Warning], Maybe (Comment DoxyRef))
 parseCommentFromXML xml =
   let cursor = mkCursor xml
       (_warns, parts) = forChildren "root" (Cursor.child cursor) $ \n c ->
@@ -69,7 +69,7 @@ parseCommentFromXML xml =
   in  extractBriefAndDetail briefDescs detailDescs
 
 -- | Parse inline children of the root element
-parseInlinesFromXML :: Text -> ([Warning], [Inline Text])
+parseInlinesFromXML :: Text -> ([Warning], [Inline DoxyRef])
 parseInlinesFromXML xml = parseInlineChildren (mkCursor xml)
 
 -- | Wrap content in a root element
@@ -82,7 +82,7 @@ wrap content = "<root>" <> content <> "</root>"
 
 -- | Assert that parsing an inline XML fragment produces the expected inlines
 -- with no warnings.
-inlineShouldBe :: Text -> [Inline Text] -> Assertion
+inlineShouldBe :: Text -> [Inline DoxyRef] -> Assertion
 inlineShouldBe xml expected = do
     let (ws, is) = parseInlinesFromXML (wrap xml)
     ws @?= []
@@ -90,7 +90,7 @@ inlineShouldBe xml expected = do
 
 -- | Assert that parsing a block XML fragment produces a single block matching
 -- the predicate, with no warnings.
-blockShouldMatch :: Text -> (Block Text -> Assertion) -> Assertion
+blockShouldMatch :: Text -> (Block DoxyRef -> Assertion) -> Assertion
 blockShouldMatch xml check = do
     let (ws, bs) = parseBlockFromXML (wrap xml)
     ws @?= []
@@ -245,8 +245,14 @@ testInlineParsing =
       "<emphasis>text</emphasis>" `inlineShouldBe` [Emph [Text "text"]]
   , testCase "computeroutput" $
       "<computeroutput>code</computeroutput>" `inlineShouldBe` [Mono [Text "code"]]
-  , testCase "ref" $
-      "<ref refid=\"abc\">my_func</ref>" `inlineShouldBe` [Ref "my_func" "my_func"]
+  , testCase "ref without kindref" $
+      "<ref refid=\"abc\">my_func</ref>" `inlineShouldBe` [Ref (DoxyRef "my_func" Nothing) "my_func"]
+  , testCase "ref with kindref compound" $
+      "<ref refid=\"structfoo\" kindref=\"compound\">foo</ref>"
+        `inlineShouldBe` [Ref (DoxyRef "foo" (Just RefCompound)) "foo"]
+  , testCase "ref with kindref member" $
+      "<ref refid=\"file_1abc\" kindref=\"member\">bar</ref>"
+        `inlineShouldBe` [Ref (DoxyRef "bar" (Just RefMember)) "bar"]
   , testCase "anchor" $
       "<anchor id=\"foo\"/>" `inlineShouldBe` [Anchor "foo"]
   , testCase "ulink" $
@@ -300,7 +306,7 @@ testInlineNesting =
           [Emph [Text "outer ", Emph [Text "inner"], Text " outer"]]
   , testCase "ref inside emphasis" $
       "<emphasis><ref refid=\"x\">name</ref></emphasis>"
-        `inlineShouldBe` [Emph [Ref "name" "name"]]
+        `inlineShouldBe` [Emph [Ref (DoxyRef "name" Nothing) "name"]]
   , testCase "link inside bold" $
       "<bold><ulink url=\"http://x\">text</ulink></bold>"
         `inlineShouldBe` [Bold [Link [Text "text"] "http://x"]]

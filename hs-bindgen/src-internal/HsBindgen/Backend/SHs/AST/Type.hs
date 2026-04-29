@@ -16,7 +16,6 @@ module HsBindgen.Backend.SHs.AST.Type (
 import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 import HsBindgen.Backend.Global
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports

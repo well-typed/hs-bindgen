@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.Decl (
     -- * Declarations
   , Decl(..)
   , Availability(..)
+  , EnclosingRef(..)
   , DeclInfo(..)
   , HeaderInfo(..)
   , FieldInfo(..)
@@ -38,6 +39,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
@@ -105,6 +107,15 @@ data Availability =
   | Unavailable
   deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
 
+-- | Reference to enclosing declaration
+data EnclosingRef p =
+    EnclosingRef (Id p)
+  | UnusableEnclosingRef DeclId
+
+deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
+deriving stock instance (Eq   (Id p)) => Eq   (EnclosingRef p)
+deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
+
 data DeclInfo p = DeclInfo{
       loc           :: SingleLoc
     , id            :: Id p
@@ -123,14 +134,15 @@ data DeclInfo p = DeclInfo{
       -- passes have @CommentDecl p = ()@: the type system guarantees comments
       -- cannot exist. Post-@EnrichComments@ passes have
       -- @CommentDecl p = Maybe (Comment p)@.
-    , declEnclosing :: Maybe (Id p)
-      -- ^ Immediately enclosing declaration, if this declaration is nested.
+    , enclosing :: [EnclosingRef p]
+      -- ^ List of enclosing declarations, if this declaration is nested.
       --
-      -- Set during parsing for declarations nested inside another
-      -- declaration (e.g., anonymous or named structs\/unions inside an
-      -- enclosing struct\/union).  'Nothing' for top-level declarations.
-      -- Used by 'EnrichComments' to build doxygen-qualified names and
-      -- look up enclosing field comments in the doxygen state.
+      -- Set during parsing for declarations nested inside another declaration
+      -- (e.g., anonymous or named structs\/unions inside an enclosing
+      -- struct\/union). Empty for top-level declarations.
+      --
+      -- Used by 'EnrichComments' to build doxygen-qualified names and look up
+      -- enclosing field comments in the doxygen state.
     }
   deriving stock (Generic)
 
@@ -372,12 +384,11 @@ newtype Comment p = Comment{
 
 -- | Cross-reference in a Doxygen comment
 --
--- Doxygen references are just strings; in particular, they do not distinguish
--- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
--- 'MangleNames' we will /search/ for a matching name and set the 'Id'
--- accordingly, so that we can generate an appropriate reference in the
--- Haddocks.
-data CommentRef p = CommentRef Text (Maybe (Id p))
+-- The @RefKind@ from the Doxygen XML @kindref@ attribute narrows the search
+-- in 'MangleNames': compounds (struct\/union) are looked up in the type
+-- constructor namespace, members (function\/typedef\/macro) in the variable
+-- and type constructor namespaces.
+data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 
 {-------------------------------------------------------------------------------
   Instances

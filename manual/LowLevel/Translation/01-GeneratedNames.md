@@ -13,7 +13,7 @@ Haskell name will be, and also is less likely to result in name clashes.
 > `hs-bindgen` as a library; providing a syntax for modifying some aspects of
 > name mangling through the CLI is future work. Here we discuss the defaults.
 > The two aspects of name generation are captured by two separate abstractions
-> in the library: `ProduceCandidate` and `FixCandidate`.
+> in the library: `ProduceCandidate` and `MangleCandidate`.
 
 ## Name candidates
 

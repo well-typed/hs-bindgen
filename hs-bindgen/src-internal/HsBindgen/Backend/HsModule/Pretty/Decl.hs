@@ -22,7 +22,6 @@ import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.Naming
 import HsBindgen.Instances as Inst
-import HsBindgen.Language.Haskell qualified as Hs
 
 instance Pretty SDecl where
   pretty = \case
@@ -197,7 +196,7 @@ strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
 
-prettyPragma :: Hs.Name Hs.NsVar -> Pragma -> CtxDoc
+prettyPragma :: Hs.TermName -> Pragma -> CtxDoc
 prettyPragma n = \case
   NOINLINE -> "{-# NOINLINE" <+> pretty n <+> "#-}"
 

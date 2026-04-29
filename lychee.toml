@@ -8,12 +8,10 @@ exclude_path = [
   "examples/c-qrcode/QR-Code-generator",
   "examples/c-rogueutil/rogueuti",
   "examples/c-rpm/rpm",
+  "examples/libpcap/libpcap",
   # copied from .gitignore because lychee does not respect .gitignore when
   # passed globs (see https://github.com/lycheeverse/lychee/discussions/1612).
   "dist-newstyle*",
 ]
 
-# gitlab.haskell.org is frequently unreliable (502 Bad Gateway).
-exclude = [
-  "https://gitlab.haskell.org/.*",
-]
+accept = ["100..=103", "200..=299", 502]

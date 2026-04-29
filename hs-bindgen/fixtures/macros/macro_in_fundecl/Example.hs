@@ -219,6 +219,7 @@ instance HasCField.HasCField S "unwrapS" where
 
   offset# = \_ -> \_ -> 0
 
+-- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
      (RIP.Int16 -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
@@ -231,6 +232,7 @@ hs_bindgen_25a28556cfbbf031 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
      RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
   -> RIP.Int16 -> IO RIP.Int32
@@ -251,6 +253,7 @@ instance RIP.FromFunPtr (RIP.CShort -> IO I) where
 
   fromFunPtr = hs_bindgen_255a05599df0464e
 
+-- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
      (RIP.Int16 -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
@@ -263,6 +266,7 @@ hs_bindgen_016f1407db09bd2f =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
      RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
   -> RIP.Int16 -> IO RIP.Int32

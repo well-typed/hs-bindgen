@@ -70,6 +70,7 @@ newtype FileOpenedNotification_Aux = FileOpenedNotification_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFileOpenedNotification_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
      IO ()
   -> IO (RIP.FunPtr (IO ()))
@@ -82,6 +83,7 @@ hs_bindgen_b3b8b1fad168671a =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_b3b8b1fad168671a_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFileOpenedNotification_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_f3ba5920f34c7f6a_base ::
      RIP.FunPtr (IO ())
   -> IO ()
@@ -160,6 +162,7 @@ newtype ProgressUpdate_Aux = ProgressUpdate_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toProgressUpdate_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
      (RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
@@ -172,6 +175,7 @@ hs_bindgen_d551f31556ffa727 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_d551f31556ffa727_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromProgressUpdate_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_ccf7f4b62a839a04_base ::
      RIP.FunPtr (RIP.Int32 -> IO ())
   -> RIP.Int32 -> IO ()
@@ -250,6 +254,7 @@ newtype DataValidator_Aux = DataValidator_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toDataValidator_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
      (RIP.Int32 -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
@@ -262,6 +267,7 @@ hs_bindgen_c656ca21e63343d6 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_c656ca21e63343d6_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromDataValidator_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_c1e79a4c11ca4033_base ::
      RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
   -> RIP.Int32 -> IO RIP.Int32
@@ -416,6 +422,7 @@ newtype MeasurementReceived_Aux = MeasurementReceived_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toMeasurementReceived_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
      (RIP.Ptr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))
@@ -428,6 +435,7 @@ hs_bindgen_9259654df9d40f5b =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_9259654df9d40f5b_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromMeasurementReceived_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_383c36bb22947621_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> IO ()
@@ -563,6 +571,7 @@ newtype SampleBufferFull_Aux = SampleBufferFull_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toSampleBufferFull_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
      (RIP.Ptr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))
@@ -575,6 +584,7 @@ hs_bindgen_57d9e30494ae4453 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_57d9e30494ae4453_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromSampleBufferFull_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> IO ()
@@ -1254,6 +1264,7 @@ instance HasCField.HasCField Foo2 "unwrapFoo2" where
 
   offset# = \_ -> \_ -> 0
 
+-- __unique:__ @instance ToFunPtr (Foo -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::
      (RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
@@ -1266,6 +1277,7 @@ hs_bindgen_d2a71f330b782e41 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_d2a71f330b782e41_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (Foo -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_c08440542d338bad_base ::
      RIP.FunPtr (RIP.Int32 -> IO ())
   -> RIP.Int32 -> IO ()
@@ -1286,6 +1298,7 @@ instance RIP.FromFunPtr (Foo -> IO ()) where
 
   fromFunPtr = hs_bindgen_c08440542d338bad
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> IO RIP.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_c35dcc53e2952644_base ::
      (RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32))
@@ -1298,6 +1311,7 @@ hs_bindgen_c35dcc53e2952644 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_c35dcc53e2952644_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> IO RIP.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_4870f754b794efd8_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32)
   -> RIP.Ptr RIP.Void -> IO RIP.Int32
@@ -1318,6 +1332,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> IO RIP.CInt) where
 
   fromFunPtr = hs_bindgen_4870f754b794efd8
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_1ef92d1ca0096c8e_base ::
      (RIP.Ptr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))
@@ -1330,6 +1345,7 @@ hs_bindgen_1ef92d1ca0096c8e =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_1ef92d1ca0096c8e_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_f85e28bf298e80fe_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> IO ()
@@ -1350,6 +1366,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> IO ()) where
 
   fromFunPtr = hs_bindgen_f85e28bf298e80fe
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_42a8c43031a3b7c4_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()))
@@ -1362,6 +1379,7 @@ hs_bindgen_42a8c43031a3b7c4 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_42a8c43031a3b7c4_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_d8ff83721034b660_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()
@@ -1382,6 +1400,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> DataValidator -> IO ()) where
 
   fromFunPtr = hs_bindgen_d8ff83721034b660
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_b132552b9b74338e_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()))
@@ -1394,6 +1413,7 @@ hs_bindgen_b132552b9b74338e =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_b132552b9b74338e_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_ece50ae3e3f1396c_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()
@@ -1414,6 +1434,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO 
 
   fromFunPtr = hs_bindgen_ece50ae3e3f1396c
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_4bbdbe9cbf0c0243_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()))
@@ -1426,6 +1447,7 @@ hs_bindgen_4bbdbe9cbf0c0243 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_4bbdbe9cbf0c0243_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CInt -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_9a14680987a1f239_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()
@@ -1446,6 +1468,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> FileOpenedNotification -> RIP.CI
 
   fromFunPtr = hs_bindgen_9a14680987a1f239
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_90fe42b4e5a89315_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()))
@@ -1458,6 +1481,7 @@ hs_bindgen_90fe42b4e5a89315 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_90fe42b4e5a89315_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_ff635c9ba1d9c3bc_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()
@@ -1478,6 +1502,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ()) where
 
   fromFunPtr = hs_bindgen_ff635c9ba1d9c3bc
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_5577e57ba0acd874_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()))
@@ -1490,6 +1515,7 @@ hs_bindgen_5577e57ba0acd874 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_5577e57ba0acd874_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.CInt -> IO RIP.CDouble) -> RIP.CInt -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_ceaeccdf4f67e2fb_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.Int32 -> IO ()
@@ -1510,6 +1536,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.CDouble -> RIP.C
 
   fromFunPtr = hs_bindgen_ceaeccdf4f67e2fb
 
+-- __unique:__ @instance ToFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_b663dd2b5542a897_base ::
      (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()))
@@ -1522,6 +1549,7 @@ hs_bindgen_b663dd2b5542a897 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_b663dd2b5542a897_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> RIP.CInt -> IO ()) -> DataValidator -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_3a019dfec3b79f7e_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.FunPtr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> RIP.FunPtr RIP.Void -> RIP.FunPtr RIP.Void -> IO ()
@@ -1542,6 +1570,7 @@ instance RIP.FromFunPtr (RIP.Ptr Measurement -> RIP.FunPtr (RIP.Ptr Measurement 
 
   fromFunPtr = hs_bindgen_3a019dfec3b79f7e
 
+-- __unique:__ @instance ToFunPtr (Foo2 -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_235fa4a89af25f04_base ::
      (RIP.Int32 -> IO ())
   -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
@@ -1554,6 +1583,7 @@ hs_bindgen_235fa4a89af25f04 =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_235fa4a89af25f04_base (RIP.toFFIType fun0))
 
+-- __unique:__ @instance FromFunPtr (Foo2 -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_8605b223a9ab9562_base ::
      RIP.FunPtr (RIP.Int32 -> IO ())
   -> RIP.Int32 -> IO ()

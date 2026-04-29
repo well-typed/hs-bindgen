@@ -73,6 +73,11 @@ module HsBindgen.Backend.Hs.AST (
     -- ** 'HasField'
   , HasFieldInstance(..)
   , HasFieldInstanceVia(..)
+    -- ** 'HasFlam'
+  , HasFlamInstance(..)
+    -- ** 'CEnum'
+  , CEnumInstance(..)
+  , SequentialCEnumInstance(..)
     -- ** Statements
   , Seq(..)
     -- ** Type synonyms
@@ -155,7 +160,7 @@ data Newtype = Newtype{
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl{
-      name       :: Hs.Name Hs.NsVar
+      name       :: Hs.TermName
     , parameters :: [FunctionParameter]
     , result     :: HsType
     , origName   :: CDeclName
@@ -173,7 +178,7 @@ data FunctionParameter = FunctionParameter{
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl{
-      name       :: Hs.Name Hs.NsVar
+      name       :: Hs.TermName
     , parameters :: [FunctionParameter]
     , result     :: HsType
     , body       :: SHs.ClosedExpr
@@ -208,7 +213,7 @@ data DeriveInstance = DeriveInstance{
   deriving stock (Generic, Show)
 
 data Var = Var{
-      name    :: Hs.Name Hs.NsVar
+      name    :: Hs.TermName
     , typ     :: SHs.ClosedType
     , expr    :: SHs.ClosedExpr
     , pragmas :: [SHs.Pragma]
@@ -273,29 +278,20 @@ data DefineInstance = DefineInstance{
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
-    InstanceStaticSize :: Struct n -> StaticSizeInstance -> InstanceDecl
-    InstanceReadRaw :: Struct n -> ReadRawInstance -> InstanceDecl
-    InstanceWriteRaw :: Struct n -> WriteRawInstance -> InstanceDecl
-    InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
-    InstanceHasCField :: HasCFieldInstance -> InstanceDecl
-    InstanceHasCBitfield :: HasCBitfieldInstance -> InstanceDecl
-    InstanceHasField :: HasFieldInstance -> InstanceDecl
-    InstanceHasFlam :: Struct n -> HsType -> Int -> InstanceDecl
-    InstanceCEnum ::
-         Struct (S Z)
-      -> HsType
-      -> Map Integer (NonEmpty String)
-      -> Bool  -- is sequential?
-      -> InstanceDecl
-    InstanceSequentialCEnum ::
-         Struct (S Z)
-      -> Hs.Name Hs.NsConstr
-      -> Hs.Name Hs.NsConstr
-      -> InstanceDecl
-    InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
-    InstanceCEnumRead :: Struct (S Z) -> InstanceDecl
-    InstanceToFunPtr   :: ToFunPtrInstance -> InstanceDecl
-    InstanceFromFunPtr :: FromFunPtrInstance -> InstanceDecl
+    InstanceStaticSize      :: Struct n -> StaticSizeInstance -> InstanceDecl
+    InstanceReadRaw         :: Struct n -> ReadRawInstance -> InstanceDecl
+    InstanceWriteRaw        :: Struct n -> WriteRawInstance -> InstanceDecl
+    InstanceStorable        :: Struct n -> StorableInstance -> InstanceDecl
+    InstanceHasCField       :: HasCFieldInstance -> InstanceDecl
+    InstanceHasCBitfield    :: HasCBitfieldInstance -> InstanceDecl
+    InstanceHasField        :: HasFieldInstance -> InstanceDecl
+    InstanceHasFlam         :: Struct n -> HasFlamInstance -> InstanceDecl
+    InstanceCEnum           :: Struct (S Z) -> CEnumInstance -> InstanceDecl
+    InstanceSequentialCEnum :: Struct (S Z) -> SequentialCEnumInstance -> InstanceDecl
+    InstanceCEnumShow       :: Struct (S Z) -> InstanceDecl
+    InstanceCEnumRead       :: Struct (S Z) -> InstanceDecl
+    InstanceToFunPtr        :: ToFunPtrInstance -> InstanceDecl
+    InstanceFromFunPtr      :: FromFunPtrInstance -> InstanceDecl
 
 deriving instance Show InstanceDecl
 
@@ -386,7 +382,7 @@ data ToFunPtrInstance = ToFunPtrInstance{
 --
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportWrapper = ForeignImportWrapper {
-      name    :: Hs.Name Hs.NsVar
+      name    :: UniqueSymbol
     , funType :: HsType
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
@@ -412,7 +408,7 @@ data FromFunPtrInstance = FromFunPtrInstance{
 --
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportDynamic = ForeignImportDynamic {
-      name    :: Hs.Name Hs.NsVar
+      name    :: UniqueSymbol
     , funType :: HsType
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
@@ -711,7 +707,7 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
 
 -- | 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
 data HasFieldInstance = HasFieldInstance {
-      -- | The haskell type of the parent C object
+      -- | The Haskell type of the parent C object
       parentType :: HsType
 
       -- | The name of the (bit-)field
@@ -727,6 +723,33 @@ data HasFieldInstance = HasFieldInstance {
 
 -- | See 'hasFieldInstanceVia'
 data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'HasFlam'
+-------------------------------------------------------------------------------}
+
+data HasFlamInstance = HasFlamInstance {
+      typ    :: HsType
+    , offset :: Int
+    }
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  CEnum
+-------------------------------------------------------------------------------}
+
+data CEnumInstance = CEnumInstance {
+      fieldType    :: HsType
+    , valueNames   :: Map Integer (NonEmpty String)
+    , isSequential :: Bool
+    }
+  deriving stock (Generic, Show)
+
+data SequentialCEnumInstance = SequentialCEnumInstance {
+      minName :: Hs.Name Hs.NsConstr
+    , maxName :: Hs.Name Hs.NsConstr
+    }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

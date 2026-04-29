@@ -64,7 +64,7 @@ mkExpr env expr = case asNaryEApp expr of
 mkRolledExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkRolledExpr env expr = case expr of
     EGlobal n     -> mkGlobalExpr n
-    EFree n       -> TH.varE $ mkHsName n
+    EFree n       -> TH.varE $ mkHsTermName n
     EBound x      -> TH.varE (lookupEnv x env)
     ECon n        -> TH.conE $ mkHsName n
     EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
@@ -321,14 +321,14 @@ mkDecl fns = \case
               <$> pure callconv
               <*> pure safety
               <*> pure impent
-              <*> pure (mkHsName foreignImport.name)
+              <*> pure (mkHsTermName foreignImport.name)
               <*> mkType EmptyEnv importType
-        putLocalDocM foreignImport.name foreignImport.comment
+        putLocalDocTermNameM foreignImport.name foreignImport.comment
         pure [decl]
 
       DBinding binding -> do
         let bindingName :: TH.Name
-            bindingName = mkHsName binding.name
+            bindingName = mkHsTermName binding.name
             bindingType :: SType EmptyCtx
             bindingType = foldr (TFun . (.typ)) binding.result.typ binding.parameters
 
@@ -339,7 +339,7 @@ mkDecl fns = \case
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
-        putLocalDocM binding.name binding.comment
+        putLocalDocTermNameM binding.name binding.comment
         pure decls
 
       DPatternSynonym patSyn -> do
@@ -369,10 +369,10 @@ mkDecl fns = \case
                 (mkType EmptyEnv (foldl (\acc x -> acc `TApp` x) (TGlobal g) typArgs))
                 (mkType EmptyEnv typSyn)
 
-      pragma :: Hs.Name Hs.NsVar -> Pragma -> q TH.Dec
+      pragma :: Hs.TermName -> Pragma -> q TH.Dec
       pragma n = \case
         NOINLINE ->
-            TH.pragInlD (mkHsName n) TH.NoInline TH.FunLike TH.AllPhases
+            TH.pragInlD (mkHsTermName n) TH.NoInline TH.FunLike TH.AllPhases
 
 -- | Nested deriving clauses (part of a datatype declaration)
 nestedDeriving :: forall q.
@@ -404,7 +404,16 @@ appsT = foldl' TH.appT
 -- symbols /must be in scope/, and users must import the probably only
 -- indirectly-used modules.
 mkHsName :: Hs.Name ns -> TH.Name
-mkHsName = TH.mkName . Text.unpack . Hs.getName
+mkHsName = TH.mkName . Hs.nameToStr
+
+-- | Create a 'TH.name' from an 'Hs.TermName'
+--
+-- Be careful! This function uses 'TH.mkName'. Names created with 'TH.mkName'
+-- are resolved in the context of the use site of the splice. That is, used
+-- symbols /must be in scope/, and users must import the probably only
+-- indirectly-used modules.
+mkHsTermName :: Hs.TermName -> TH.Name
+mkHsTermName = TH.mkName . Hs.termNameToStr
 
 newNames ::
      Quote q
@@ -418,9 +427,6 @@ newNames env (AS n) (NameHint hint ::: hints) = do
     x <- TH.newName hint
     return (x : xs, env' :> x)
 
-putLocalDocM ::
-  (Guasi g, Hs.SingNamespace ns) => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
-putLocalDocM nm = traverse_ (putLocalDoc nm)
 
 putLocalFieldDocM ::
      Guasi g
@@ -512,7 +518,7 @@ lookupExtType extRef = do
     qualName = concat [
           Hs.moduleNameToString extRef.moduleName
         , "."
-        , Text.unpack extRef.ident.text
+        , Text.unpack extRef.name.text
         ]
 
     putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState

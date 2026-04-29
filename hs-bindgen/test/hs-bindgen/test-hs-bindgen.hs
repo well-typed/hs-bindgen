@@ -3,6 +3,7 @@ module Main (main) where
 import Data.Sequence qualified as Seq
 import Test.Tasty
 
+import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
@@ -22,7 +23,8 @@ main :: IO ()
 main = defaultMain $
     withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
-        testGroup "unit tests" [
+        Frontend.LanguageC.tests
+      , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
           , Unit.Tracer.tests
           , Unit.Pretty.tests

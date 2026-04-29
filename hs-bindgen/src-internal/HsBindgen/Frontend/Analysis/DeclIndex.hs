@@ -39,7 +39,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , registerExternalDeclarations
     -- * Support for name mangle failures
   , registerSquashedDeclarations
-  , registerMangleNamesFailures
+  , registerMangleNamesFailure
   ) where
 
 import Prelude hiding (filter, lookup)
@@ -176,7 +176,7 @@ data Unusable =
       UnusableParseNotAttempted   SingleLoc (NonEmpty ParseNotAttempted)
     | UnusableParseFailure        SingleLoc DelayedParseMsg
     | UnusableConflict            Conflict
-    | UnusableMangleNamesFailure  SingleLoc MangleNamesFailure
+    | UnusableMangleNamesFailure  SingleLoc MangleNamesError
     | UnusableMacroTypecheckError SingleLoc MacroTypecheckError
 
       -- | Omitted by prescriptive binding specifications
@@ -213,7 +213,7 @@ data Squashed = Squashed {
   , targetNameC  :: DeclId
     -- | 'Nothing' if target declaration is not in the list of declarations
     -- (e.g., it was not parsed).
-  , targetNameHs :: Maybe Hs.Identifier
+  , targetNameHs :: Maybe (Hs.Name Hs.NsTypeConstr)
   }
   deriving stock (Show, Generic)
 
@@ -428,10 +428,13 @@ getOmitted index = Map.mapMaybe toOmitted index.map
 --
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- We may no longer need `getSquashed` once we properly record lists of aliases.
-getSquashed :: DeclIndex -> Set DeclId -> Map DeclId (SourcePath, Hs.Identifier)
+getSquashed ::
+     DeclIndex
+  -> Set DeclId
+  -> Map DeclId (SourcePath, Hs.Name Hs.NsTypeConstr)
 getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
   where
-    onlySquashedTargetingSet :: Entry -> Maybe (SourcePath, Hs.Identifier)
+    onlySquashedTargetingSet :: Entry -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
       UsableE (UsableSquashed e) ->
         case (e.targetNameHs, Set.member e.targetNameC targets) of
@@ -499,7 +502,7 @@ registerSquashedDeclarations :: Map DeclId Squashed -> DeclIndex -> DeclIndex
 registerSquashedDeclarations xs index = DeclIndex $
     Map.union (UsableE . UsableSquashed <$> xs) index.map
 
-registerMangleNamesFailures ::
-  Map DeclId (SingleLoc, MangleNamesFailure) -> DeclIndex -> DeclIndex
-registerMangleNamesFailures xs index = DeclIndex $
+registerMangleNamesFailure ::
+  Map DeclId (SingleLoc, MangleNamesError) -> DeclIndex -> DeclIndex
+registerMangleNamesFailure xs index = DeclIndex $
     Map.union (UnusableE . uncurry UnusableMangleNamesFailure <$> xs) index.map

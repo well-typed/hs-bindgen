@@ -118,8 +118,8 @@ instance (
 instance (
       CoercePassId p p'
     ) => CoercePass C.CommentRef p p' where
-  coercePass (C.CommentRef c hs) =
-      C.CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs)
+  coercePass (C.CommentRef c hs k) =
+      C.CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs) k
 
 instance (
       CoercePassId p p'
@@ -147,14 +147,21 @@ instance (
     , CoercePassCommentDecl p p'
     ) => CoercePass C.DeclInfo p p' where
   coercePass info = C.DeclInfo{
-        loc           = info.loc
-      , id            = coercePassId (Proxy @'(p, p')) info.id
-      , seqNr         = info.seqNr
-      , headerInfo    = info.headerInfo
-      , availability  = info.availability
-      , comment       = coercePassCommentDecl (Proxy @'(p, p')) info.comment
-      , declEnclosing = fmap (coercePassId (Proxy @'(p, p'))) info.declEnclosing
+        loc          = info.loc
+      , id           = coercePassId (Proxy @'(p, p')) info.id
+      , seqNr        = info.seqNr
+      , headerInfo   = info.headerInfo
+      , availability = info.availability
+      , comment      = coercePassCommentDecl (Proxy @'(p, p')) info.comment
+      , enclosing    = map coercePass info.enclosing
       }
+
+instance (CoercePassId p p') => CoercePass C.EnclosingRef p p' where
+    coercePass = \case
+      C.EnclosingRef x ->
+        C.EnclosingRef (coercePassId (Proxy @'(p, p')) x)
+      C.UnusableEnclosingRef x ->
+        C.UnusableEnclosingRef x
 
 instance (
       CoercePassCommentDecl p p'

@@ -15,7 +15,6 @@ import Foreign.C.Types (CUInt)
 import GHC.Generics (Generic)
 import Options.Applicative qualified as OA
 import System.Exit (exitFailure)
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
@@ -98,7 +97,7 @@ clangAstDump opts = do
               | otherwise                               -> foldDecls opts cursor
     case eitherRes of
       Left  e  -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
+        print $ prettyForTrace e
         exitFailure
       Right _  -> pure ()
   where

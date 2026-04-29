@@ -228,11 +228,11 @@ type CTypeKV =
   (DeclId, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
 
 -- | Concise alias for the Haskell type 'Map'
-type HsTypeMap = Map Hs.Identifier BindingSpec.HsTypeSpec
+type HsTypeMap = Map (Hs.Name Hs.NsTypeConstr) BindingSpec.HsTypeSpec
 
 -- | Concise alias for the key and value tuple corresponding to an entry in a
 -- 'HsTypeMap'
-type HsTypeKV = (Hs.Identifier, BindingSpec.HsTypeSpec)
+type HsTypeKV = (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
 
 mkMaps :: [(CTypeKV, HsTypeKV)] -> (CTypeMap, HsTypeMap)
 mkMaps = bimap Map.fromList Map.fromList . unzip
@@ -240,25 +240,30 @@ mkMaps = bimap Map.fromList Map.fromList . unzip
 -- | Construct the 'CTypeKV' and 'HsTypeKV' for a type
 mkType ::
      Text
-  -> Hs.Identifier
+  -> Text
   -> BindingSpec.HsTypeRep
   -> [Inst.TypeClass]
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkType t hsIdentifier hsTypeRep insts headers' =
+mkType t hsId hsTypeRep insts headers' =
     case parseDeclId t of
       Just cDeclId ->
         ( (cDeclId, [(headers, Require cTypeSpec)])
-        , (hsIdentifier, hsTypeSpec)
+        , (typeConstrName, hsTypeSpec)
         )
       Nothing -> panicPure $ "Invalid declaration ID: " ++ show t
   where
+    -- Names in the stdlib binding spec are statically known-valid Haskell
+    -- identifiers, so 'Hs.UnsafeName' is safe here.
+    typeConstrName :: Hs.Name Hs.NsTypeConstr
+    typeConstrName = Hs.UnsafeName hsId
+
     headers :: Set HashIncludeArg
     headers = Set.fromList $ map HashIncludeArg headers'
 
     cTypeSpec :: BindingSpec.CTypeSpec
     cTypeSpec = BindingSpec.CTypeSpec {
-        hsIdent = Just hsIdentifier
+        hsName = Just typeConstrName
       }
 
     hsTypeSpec :: BindingSpec.HsTypeSpec
@@ -276,18 +281,20 @@ hsED = BindingSpec.HsTypeRepEmptyData
 
 -- | Construct a 'BindingSpec.HsTypeRepRecord' with the specified constructor
 -- and field names
-mkHsR :: Hs.Identifier -> [Hs.Identifier] -> BindingSpec.HsTypeRep
-mkHsR constructorName fieldNames = BindingSpec.HsTypeRepRecord $
+mkHsR :: Text -> [Text] -> BindingSpec.HsTypeRep
+mkHsR hsId fieldNames = BindingSpec.HsTypeRepRecord $
     BindingSpec.HsRecordRep {
-        constructor = Just constructorName
-      , fields      = Just fieldNames
+        -- Names in the stdlib binding spec are statically known-valid Haskell
+        -- identifiers, so 'Hs.UnsafeName' is safe here.
+        constructor = Just $ Hs.UnsafeName hsId
+      , fields      = Just $ map Hs.UnsafeName fieldNames
       }
 
 -- | Construct a 'BindingSpec.HsTypeRepNewtype' with the specified constructor
 -- name and no field names
 --
 -- The standard @newtype@ types do not have field names.
-mkHsN :: Hs.Identifier -> BindingSpec.HsTypeRep
+mkHsN :: Hs.Name Hs.NsConstr -> BindingSpec.HsTypeRep
 mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
     BindingSpec.HsNewtypeRep {
         constructor = Just constructorName
@@ -298,9 +305,14 @@ mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
 -- constructor has the same name as the type
 mkTypeN ::
      Text
-  -> Hs.Identifier
+  -> Text
   -> [Inst.TypeClass]
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkTypeN t hsIdentifier insts headers =
-    mkType t hsIdentifier (mkHsN hsIdentifier) insts headers
+mkTypeN t hsId insts headers =
+    mkType t hsId (mkHsN dataConstrName) insts headers
+  where
+    -- Names in the stdlib binding spec are statically known-valid Haskell
+    -- identifiers, so 'Hs.UnsafeName' is safe here.
+    dataConstrName :: Hs.Name Hs.NsConstr
+    dataConstrName = Hs.UnsafeName hsId

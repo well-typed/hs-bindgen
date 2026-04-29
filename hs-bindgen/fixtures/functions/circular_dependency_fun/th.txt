@@ -12,6 +12,7 @@ newtype Fun_ptr_Aux
                                          IO ())}
     deriving stock Generic
     deriving newtype HasFFIType
+-- __unique:__ @toFun_ptr_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
     Ptr Void -> IO ()
  -> IO (FunPtr (Ptr Void -> IO ()))
@@ -20,6 +21,7 @@ hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
                                IO (FunPtr Fun_ptr_Aux)
 -- __unique:__ @toFun_ptr_Aux@
 hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (toFFIType fun_0))
+-- __unique:__ @fromFun_ptr_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
     FunPtr (Ptr Void -> IO ())
  -> Ptr Void

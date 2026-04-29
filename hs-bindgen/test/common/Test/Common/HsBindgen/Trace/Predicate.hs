@@ -38,7 +38,6 @@ import HsBindgen.Clang
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports (Default (def))
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.Trace
@@ -237,7 +236,7 @@ data TraceExpectationException a = TraceExpectationException {
     }
 
 instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
-  show e = PP.renderCtxDoc PP.defaultContext $
+  show e = show $
       PP.vcat $
            ( if null e.unexpectedTraces
                then []
@@ -327,7 +326,6 @@ instance RenderLabel String where renderLabel = PP.string
 instance RenderLabel Text   where renderLabel = PP.string . Text.unpack
 
 instance RenderLabel CDeclName
-instance RenderLabel Hs.Identifier
 
 instance RenderLabel a => RenderLabel (Maybe a) where
   renderLabel Nothing  = ""

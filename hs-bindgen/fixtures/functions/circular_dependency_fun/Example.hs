@@ -39,6 +39,7 @@ newtype Fun_ptr_Aux = Fun_ptr_Aux
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+-- __unique:__ @toFun_ptr_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
      (RIP.Ptr RIP.Void -> IO ())
   -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))
@@ -51,6 +52,7 @@ hs_bindgen_5964bbadb359ee4a =
   \fun0 ->
     fmap RIP.castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (RIP.toFFIType fun0))
 
+-- __unique:__ @fromFun_ptr_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
      RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
   -> RIP.Ptr RIP.Void -> IO ()

@@ -46,7 +46,6 @@ runBackend tracer config boot frontend = do
           cDecls = final.decls
       pure $ Hs.generateDeclarations
         config.backend.uniqueId
-        config.frontend.fieldNamingStrategy
         config.backend.haddock
         boot.baseModule
         declIndex

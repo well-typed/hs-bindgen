@@ -107,43 +107,45 @@ instance Apply (LanC.CDeclarator a) PartialDecl where
   'PartialType'
 -------------------------------------------------------------------------------}
 
-withSign :: Update (Maybe C.PrimSign -> C.PrimType) PartialType
-withSign f = \case
-    PartialUnknown unknown -> do
-      return $
-          PartialKnown . KnownType
-        $ (if unknown.isConst then C.TypeQual C.QualConst else id)
-        $ C.TypePrim $ f unknown.sign
-    alreadyKnown@(PartialKnown (KnownType _typ)) ->
-      -- In an example such as
-      --
-      -- > short int
-      --
-      -- a fully constructed type will already be present when we see the @int@
-      -- part; in this case, we just stick with the type we have already have.
-      return alreadyKnown
-    other ->
-      unexpected $ show other
-
 notFun :: Update (C.Type ReparseMacroExpansions) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
-      case unknown.sign of
-        Nothing ->
+      if null unknown.base && null unknown.sign && null unknown.size then
           return $
               PartialKnown . KnownType
             $ (if unknown.isConst then C.TypeQual C.QualConst else id)
             $ typ
-        Just sign ->
-          unexpected $ show (typ, sign)
+      else
+          unexpected $ show (typ, unknown)
     other ->
       unexpected $ show other
 
-setSign :: Update C.PrimSign PartialType
-setSign sign = \case
+addSign :: Update C.PrimSign PartialType
+addSign sign = \case
     PartialUnknown unknown ->
-      return $ PartialUnknown $ Optics.set #sign (Just sign) unknown
-    other ->
+      return $ PartialUnknown $ unknown & #sign %~ (sign:)
+    other@PartialKnown{} ->
+      unexpected $ show other
+
+addBase :: Update Base PartialType
+addBase base = \case
+    PartialUnknown unknown ->
+      return $ PartialUnknown $ unknown & #base %~ (base:)
+    other@PartialKnown{} ->
+      unexpected $ show other
+
+addSize :: Update Size PartialType
+addSize size = \case
+    PartialUnknown unknown ->
+      return $ PartialUnknown $ unknown & #size %~ (size:)
+    other@PartialKnown{} ->
+      unexpected $ show other
+
+addComplex :: Update () PartialType
+addComplex () = \case
+    PartialUnknown unknown ->
+      return $ PartialUnknown $ unknown & #isComplex .~ True
+    other@PartialKnown{} ->
       unexpected $ show other
 
 -- | Transition from unknown types to known types
@@ -153,12 +155,12 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       LanC.CVoidType _a -> notFun $ C.TypeVoid
 
       -- Primitive types
-      LanC.CCharType   _a -> withSign $ C.PrimChar . charSign
-      LanC.CShortType  _a -> withSign $ C.PrimIntegral C.PrimShort . fromMaybe C.Signed
-      LanC.CIntType    _a -> withSign $ C.PrimIntegral C.PrimInt   . fromMaybe C.Signed
-      LanC.CLongType   _a -> withSign $ C.PrimIntegral C.PrimLong  . fromMaybe C.Signed
-      LanC.CFloatType  _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimFloat
-      LanC.CDoubleType _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimDouble
+      LanC.CCharType   _a -> addBase Char
+      LanC.CShortType  _a -> addSize Short
+      LanC.CIntType    _a -> addBase Int
+      LanC.CLongType   _a -> addSize Long
+      LanC.CFloatType  _a -> addBase Float
+      LanC.CDoubleType _a -> addBase Double
 #if MIN_VERSION_language_c(0,10,2)
       -- language-c 0.10.2 lexes both @bool@ and @_Bool@ as @CBoolType@.
       -- If @bool@ has been redefined (via @#define@ or @typedef@), the
@@ -176,15 +178,11 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
 #endif
 
       -- Complex types
-      LanC.CComplexType _a -> \case
-        PartialKnown (KnownType (C.TypePrim prim)) ->
-          return $ PartialKnown . KnownType $ C.TypeComplex prim
-        other ->
-          unexpected $ show other
+      LanC.CComplexType _a -> addComplex ()
 
       -- Sign specifiers
-      LanC.CSignedType _a -> setSign C.Signed
-      LanC.CUnsigType  _a -> setSign C.Unsigned
+      LanC.CSignedType _a -> addSign C.Signed
+      LanC.CUnsigType  _a -> addSign C.Unsigned
 
       -- Unsupported types
       LanC.CInt128Type{}   -> \_ -> unsupported "CInt128Type"
@@ -221,10 +219,6 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
           Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where
-      charSign :: Maybe C.PrimSign -> C.PrimSignChar
-      charSign Nothing     = C.PrimSignImplicit Nothing
-      charSign (Just sign) = C.PrimSignExplicit sign
-
       typeRef :: CDeclName -> C.Type ReparseMacroExpansions
       typeRef name = C.TypeRef $ DeclId{name = name, isAnon = False}
 
@@ -246,11 +240,9 @@ instance Apply (LanC.CTypeQualifier a) PartialType where
       PartialUnknown typ -> PartialUnknown <$> apply qual typ
 
 instance Apply (LanC.CDerivedDeclarator a) PartialType where
-  apply deriv partial = case partial of
-      PartialUnknown{} ->
-        unexpected $ show (nodeOmitted deriv, partial)
-      PartialKnown typ ->
-        PartialKnown <$> apply deriv typ
+  apply deriv partial = do
+      typ <- fromPartialType partial
+      PartialKnown <$> apply deriv typ
 
 {-------------------------------------------------------------------------------
   'UnknownType'

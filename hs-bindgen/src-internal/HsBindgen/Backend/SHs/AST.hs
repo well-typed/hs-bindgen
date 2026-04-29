@@ -66,7 +66,7 @@ type SExpr :: Ctx -> Star
 data SExpr ctx =
     EGlobal (Global LvlTerm)
   | EBound (Idx ctx)
-  | EFree (Hs.Name Hs.NsVar)
+  | EFree Hs.TermName
   | ECon (Hs.Name Hs.NsConstr)
   | EUnboxedIntegral Integer
   | EIntegral Integer (Maybe ClosedType)
@@ -237,7 +237,7 @@ data Newtype = Newtype{
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport{
-      name       :: Hs.Name Hs.NsVar
+      name       :: Hs.TermName
     , parameters :: [Parameter]
     , result     :: Result
     , origName   :: CDeclName
@@ -256,7 +256,7 @@ instance Default Safety where
   def = Safe
 
 data Binding = Binding{
-      name       :: Hs.Name Hs.NsVar
+      name       :: Hs.TermName
     , parameters :: [Parameter]
     , result     :: Result
     , body       :: ClosedExpr

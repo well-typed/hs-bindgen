@@ -8,7 +8,17 @@
 module HsBindgen.Frontend.LanguageC.PartialAST (
     PartialDecl(..)
   , PartialType(..)
-  , UnknownType(..)
+  , UnknownType(
+        ..
+      , CChar, CSChar, CUChar
+      , CShort, CSShort, CUShort
+      , CInt, CSInt, CUInt
+      , CLong, CSLong, CULong
+      , CLLong, CSLLong, CULLong
+      , CFloat, CDouble, CLDouble
+      , CTypeUnknown)
+  , Base(..)
+  , Size(..)
   , KnownType(..)
   , CName
     -- * Starting point: no information known
@@ -35,13 +45,6 @@ data PartialType =
   | PartialKnown KnownType
   deriving stock (Show)
 
--- | The type itself is not yet known, but may have some qualifiers
-data UnknownType = UnknownType{
-      sign    :: Maybe C.PrimSign
-    , isConst :: Bool
-    }
-  deriving stock (Show, Generic)
-
 data KnownType =
     KnownType (C.Type ReparseMacroExpansions)
 
@@ -62,6 +65,111 @@ data KnownType =
 type CName = Text
 
 {-------------------------------------------------------------------------------
+  UnknownType
+-------------------------------------------------------------------------------}
+
+-- | The type itself is not yet known, but may have some qualifiers
+data UnknownType = UnknownType{
+      base      :: [Base]
+    , sign      :: [C.PrimSign]
+    , size      :: [Size]
+    , isConst   :: Bool
+    , isComplex :: Bool
+    }
+  deriving stock (Show, Generic)
+
+data Base = Char | Int | Float | Double
+  deriving stock (Show, Eq, Ord, Generic)
+
+data Size = Short | Long
+  deriving stock (Show, Eq, Ord, Generic)
+
+{-# COMPLETE
+    CChar
+  , CSChar
+  , CUChar
+  , CShort
+  , CSShort
+  , CUShort
+  , CInt
+  , CSInt
+  , CUInt
+  , CLong
+  , CSLong
+  , CULong
+  , CLLong
+  , CSLLong
+  , CULLong
+  , CFloat
+  , CDouble
+  , CLDouble
+  , CTypeUnknown
+  #-}
+
+pattern CChar :: UnknownType
+pattern CChar <- UnknownType [Char] [] [] _ _
+
+pattern CSChar :: UnknownType
+pattern CSChar <- UnknownType [Char] [C.Signed] [] _ _
+
+pattern CUChar :: UnknownType
+pattern CUChar <- UnknownType [Char] [C.Unsigned] [] _ _
+
+pattern CShort :: UnknownType
+pattern CShort <- UnknownType (optional Int -> True) [] [Short] _ _
+
+pattern CSShort :: UnknownType
+pattern CSShort <- UnknownType (optional Int -> True) [C.Signed] [Short] _ _
+
+pattern CUShort :: UnknownType
+pattern CUShort <- UnknownType (optional Int -> True) [C.Unsigned] [Short] _ _
+
+pattern CInt :: UnknownType
+pattern CInt <- UnknownType [Int] [] [] _ _
+
+pattern CSInt :: UnknownType
+pattern CSInt <- UnknownType (optional Int -> True) [C.Signed] [] _ _
+
+pattern CUInt :: UnknownType
+pattern CUInt <- UnknownType (optional Int -> True) [C.Unsigned] [] _ _
+
+pattern CLong :: UnknownType
+pattern CLong <- UnknownType (optional Int -> True) [] [Long] _ _
+
+pattern CSLong :: UnknownType
+pattern CSLong <- UnknownType (optional Int -> True) [C.Signed] [Long] _ _
+
+pattern CULong :: UnknownType
+pattern CULong <- UnknownType (optional Int -> True) [C.Unsigned] [Long] _ _
+
+pattern CLLong :: UnknownType
+pattern CLLong <- UnknownType (optional Int -> True) [] [Long, Long] _ _
+
+pattern CSLLong :: UnknownType
+pattern CSLLong <- UnknownType (optional Int -> True) [C.Signed] [Long, Long] _ _
+
+pattern CULLong :: UnknownType
+pattern CULLong <- UnknownType (optional Int -> True) [C.Unsigned] [Long, Long] _ _
+
+pattern CFloat :: UnknownType
+pattern CFloat <- UnknownType [Float] [] [] _ _
+
+pattern CDouble :: UnknownType
+pattern CDouble <- UnknownType [Double] [] [] _ _
+
+pattern CLDouble :: UnknownType
+pattern CLDouble <- UnknownType [Double] [] [Long] _ _
+
+pattern CTypeUnknown :: UnknownType
+pattern CTypeUnknown <- UnknownType{}
+
+optional :: Eq a => a -> [a] -> Bool
+optional x = \case
+    []  -> True
+    [y] -> x == y
+    _   -> False
+
+{-------------------------------------------------------------------------------
   Starting point: no information known
 -------------------------------------------------------------------------------}
 
@@ -73,6 +181,9 @@ unknownDecl = PartialDecl{
 
 unknownType :: PartialType
 unknownType = PartialUnknown UnknownType{
-      sign    = Nothing
-    , isConst = False
+      base      = []
+    , sign      = []
+    , size      = []
+    , isConst   = False
+    , isComplex = False
     }

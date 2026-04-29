@@ -98,14 +98,11 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
       , [restoreOrigSignature]
       ]
   where
-    origName :: Text
-    origName = info.id.cName.name.text
+    origCName :: Text
+    origCName = info.id.cName.name.text
 
-    mangledOrigId :: Hs.Identifier
-    mangledOrigId = info.id.unsafeHsName
-
-    mangledOrigName :: Hs.Name Hs.NsVar
-    mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
+    origHsName :: Hs.TermName
+    origHsName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
 
     cWrapperName :: UniqueSymbol
     cWrapperName =
@@ -113,7 +110,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
           concat [
               show safety
             , "_"
-            , T.unpack origName
+            , T.unpack origCName
             ]
 
     primResult :: PassResBy
@@ -137,7 +134,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
         cWrapperDecl :: PC.FunDefn
         cWrapperDecl =
             getCWrapperDecl
-              (T.unpack origName)
+              (T.unpack origCName)
               cWrapperName.unique
               primResult
               primParams
@@ -196,7 +193,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     restoreOrigSignature :: Hs.Decl
     restoreOrigSignature =
         getRestoreOrigSignatureDecl
-          mangledOrigName
+          origHsName
           (Hs.InternalName cWrapperName)
           primResult
           primParams
@@ -216,7 +213,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
                        })
                      | arg <- origCFun.args
                      ]
-      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
+      in  mkHaddocksDecorateParams haddockConfig info params
 
     runsInIO :: Bool
     runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
@@ -478,8 +475,8 @@ getCWrapperDecl origName wrapperName res args
 -- | Generate a function declaration restoring the signature of the original C
 -- function.
 getRestoreOrigSignatureDecl ::
-     Hs.Name Hs.NsVar       -- ^ name of new function
-  -> Hs.Name Hs.NsVar       -- ^ name of foreign import
+     Hs.TermName        -- ^ name of new function
+  -> Hs.TermName        -- ^ name of foreign import
   -> PassResBy              -- ^ C result type
   -> [PassArgBy]            -- ^ C types of function parameters
   -> HsType                 -- ^ Haskell result type

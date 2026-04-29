@@ -448,16 +448,12 @@ resolveDeclExports = \case
     DDerivingInstance _          -> []
   where
     exportTypeConstr :: Hs.Name Hs.NsTypeConstr -> (Text -> ExportItem) -> [ExportItem]
-    exportTypeConstr name mkItem = case name of
-      Hs.ExportedName _ -> [mkItem (Hs.getName name)]
-      Hs.InternalName _ -> []
+    exportTypeConstr name mkItem = [mkItem name.text]
 
-    exportVar :: Hs.Name Hs.NsVar -> [ExportItem]
+    exportVar :: Hs.TermName -> [ExportItem]
     exportVar name = case name of
-      Hs.ExportedName _ -> [ExportName (Hs.getName name)]
+      Hs.ExportedName n -> [ExportName n.text]
       Hs.InternalName _ -> []
 
     exportPattern :: Hs.Name Hs.NsConstr -> [ExportItem]
-    exportPattern name = case name of
-      Hs.ExportedName _ -> [ExportPattern (Hs.getName name)]
-      Hs.InternalName _ -> []
+    exportPattern name = [ExportPattern name.text]

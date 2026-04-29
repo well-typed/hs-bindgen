@@ -142,9 +142,9 @@ library internal
     HsBindgen.Clang.Macos
     HsBindgen.Clang.Sizeof
     HsBindgen.Config.ClangArgs
-    HsBindgen.Config.FixCandidate
-    HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
+    HsBindgen.Config.MangleCandidate
+    HsBindgen.Config.MangleCandidate.ReservedNames
     HsBindgen.Config.Prelims
     HsBindgen.Doxygen
     HsBindgen.Eff
@@ -425,6 +425,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Fixtures.Haddock
     Test.HsBindgen.Fixtures.TestCases
     Test.HsBindgen.Fixtures.Utils
+    Test.HsBindgen.Frontend.LanguageC
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Arrays
     Test.HsBindgen.Golden.Attributes
@@ -469,6 +470,7 @@ test-suite test-hs-bindgen
   -- Inherited dependencies
   build-depends:
     , containers
+    , data-default
     , directory
     , filepath
     , mtl

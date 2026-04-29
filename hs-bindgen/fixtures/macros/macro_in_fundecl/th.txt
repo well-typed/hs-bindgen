@@ -454,6 +454,7 @@ instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort
           offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
@@ -462,6 +463,7 @@ hs_bindgen_25a28556cfbbf031 :: (CShort -> IO I) ->
                                IO (FunPtr (CShort -> IO I))
 -- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
 hs_bindgen_25a28556cfbbf031 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16
@@ -475,6 +477,7 @@ instance ToFunPtr (CShort -> IO I)
     where toFunPtr = hs_bindgen_25a28556cfbbf031
 instance FromFunPtr (CShort -> IO I)
     where fromFunPtr = hs_bindgen_255a05599df0464e
+-- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
@@ -483,6 +486,7 @@ hs_bindgen_016f1407db09bd2f :: (S -> IO CInt) ->
                                IO (FunPtr (S -> IO CInt))
 -- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
 hs_bindgen_016f1407db09bd2f = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16

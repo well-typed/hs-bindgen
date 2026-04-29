@@ -125,16 +125,22 @@ updateDeclInfo ::
   -> C.DeclInfo SimplifyAST
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info = do
-    declEnclosing' <- mapM updateDeclId info.declEnclosing
+    enclosing' <- mapM updateEnclosing info.enclosing
     pure C.DeclInfo{
-          loc           = info.loc
-        , id            = declId'
-        , seqNr         = info.seqNr
-        , headerInfo    = info.headerInfo
-        , availability  = info.availability
-        , comment       = ()
-        , declEnclosing = declEnclosing'
+          loc          = info.loc
+        , id           = declId'
+        , seqNr        = info.seqNr
+        , headerInfo   = info.headerInfo
+        , availability = info.availability
+        , comment      = ()
+        , enclosing    = enclosing'
         }
+  where
+    updateEnclosing ::
+      C.EnclosingRef SimplifyAST -> M (C.EnclosingRef AssignAnonIds)
+    updateEnclosing = \case
+      C.EnclosingRef         x -> C.EnclosingRef <$> updateDeclId x
+      C.UnusableEnclosingRef x -> pure $ C.UnusableEnclosingRef x
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: monad for updating use sites

@@ -29,9 +29,13 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 -}
 data Bar = Bar
   { bar_x1_1 :: RIP.CInt
-    {- ^ __C declaration:__ @x1_1@
+    {- ^ Comment attached to @foo::bar::x1_1@ .
 
-         __defined at:__ @types\/scoping\/nesting.h 15:9@
+         This comment must be preserved, even though the enclosing declaration uses an unsupported feature.
+
+         __C declaration:__ @x1_1@
+
+         __defined at:__ @types\/scoping\/nesting.h 21:9@
 
          __exported by:__ @types\/scoping\/nesting.h@
     -}

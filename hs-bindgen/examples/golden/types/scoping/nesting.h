@@ -12,6 +12,12 @@
 
 struct foo {
   struct bar {
+    //!
+    //! Comment attached to foo::bar::x1_1.
+    //!
+    //! This comment must be preserved, even though the enclosing declaration
+    //! uses an unsupported feature.
+    //!
     int x1_1;
   } x1;
   long double x2;

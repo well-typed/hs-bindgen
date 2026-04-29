@@ -4,6 +4,7 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -248,6 +249,8 @@ test_programAnalysis_selection_fail =
         Just $ Expected name
       MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
         Just $ Expected name
+      MatchSelect name (SelectMangleNamesFailure{}) ->
+        Just $ Expected name
       _otherwise ->
         Nothing
   where
@@ -256,6 +259,8 @@ test_programAnalysis_selection_fail =
           "struct Fail"
         , "struct Fail"
         , "struct DependOnFailByValue"
+        , "struct DependOnFailByValue"
+        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -273,6 +278,8 @@ test_programAnalysis_selection_fail_variant_1 =
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
+            MatchSelect name (SelectMangleNamesFailure{}) ->
+              Just $ Expected name
             _otherwise ->
               Nothing
           )
@@ -280,6 +287,8 @@ test_programAnalysis_selection_fail_variant_1 =
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
+        , "struct DependOnFailByValue"
+        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -299,6 +308,8 @@ test_programAnalysis_selection_fail_variant_2 =
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
              Just $ Expected name
+           MatchSelect name (SelectMangleNamesFailure{}) ->
+             Just $ Expected name
            _otherwise ->
              Nothing
          )
@@ -306,6 +317,8 @@ test_programAnalysis_selection_fail_variant_2 =
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
+        , "struct DependOnFailByValue"
+        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -423,16 +436,19 @@ test_programAnalysis_selection_omit_prescriptive =
     defaultTest "program-analysis/selection_omit_prescriptive"
       & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
-              Just $ Expected name
+            MatchSelect name (MatchTransMissing{}) ->
+              Just $ Expected (name, "select")
+            MatchSelect name (SelectMangleNamesFailure MangleNamesUnderlyingDeclNotMangled{}) ->
+              Just $ Expected (name, "mangle")
             _otherwise ->
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
-          "struct DirectlyDependsOnOmitted"
-        , "struct IndirectlyDependsOnOmitted"
+          ("struct DirectlyDependsOnOmitted",   "mangle")
+        , ("struct DirectlyDependsOnOmitted",   "select")
+        , ("struct IndirectlyDependsOnOmitted", "select")
         ]
 
 test_programAnalysis_selection_squash :: TestCase
@@ -458,11 +474,11 @@ test_programAnalysis_typedef_analysis =
       MatchSelect name SelectMangleNamesSquashed{} ->
         Just $ Expected (name, Nothing)
       MatchMangle name (MangleNamesAssignedName new) ->
-        Just $ Expected (name, Just new)
+        Just $ Expected (name, Just new.text)
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [(CDeclName, Maybe Hs.Identifier)]
+    declsWithMsgs :: [(CDeclName, Maybe Text)]
     declsWithMsgs = [
           ("struct struct1"  , Just "Struct1_t")
         , ("struct1_t"       , Nothing)
