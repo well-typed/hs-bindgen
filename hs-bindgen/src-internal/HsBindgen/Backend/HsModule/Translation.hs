@@ -6,8 +6,8 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * Export list
   , ExportEntry(..)
   , ExportItem(..)
-    -- * GroupSections
-  , GroupSections
+  , defaultResolveExports
+  , resolveDeclExports
     -- * HsModule
   , HsModule(..)
     -- * Translation
@@ -16,7 +16,6 @@ module HsBindgen.Backend.HsModule.Translation (
   ) where
 
 import Data.Foldable qualified as Foldable
-import Data.List (partition)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -25,13 +24,11 @@ import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims
-import HsBindgen.Frontend.AST.Decl (DeclInfo (..))
-import HsBindgen.Frontend.Naming (CDeclName (..), DeclId (..), DeclIdPair (..))
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
@@ -60,27 +57,30 @@ data ImportListItem =
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
-  ExportItem
+  Export list
 -------------------------------------------------------------------------------}
 
--- | An entry in the module export list
+-- | An entry in the module export list.
 --
--- Separates section headers from actual export items so the pretty-printer
--- can handle them differently (section headers have no commas).
+-- Sections nest naturally: an 'ExportSection' carries its own children, so
+-- depth is implicit in the tree structure rather than tracked as an integer
+-- on each header.  The pretty-printer derives Haddock @*@ count from the
+-- recursion depth.
 --
--- Example: given two grouped declarations and one ungrouped, the export list
--- might be:
+-- Example: a top-level @api_version_t@ followed by a @Core Data Types@
+-- group containing a record and a derived pattern synonym is rendered as:
 --
--- > [ ExportEntry (ExportName "api_version")     -- ungrouped, hoisted
--- > , ExportSectionHeader 1 "Core Data Types"    -- section transition
--- > , ExportEntry (ExportTypeAll "Config_t")      -- grouped
--- > , ExportEntry (ExportPattern "COLOR_RED")     -- derived from grouped
+-- > [ ExportEntry (ExportTypeAll "Api_version_t")
+-- > , ExportSection [TextContent "Core Data Types"]
+-- >     [ ExportEntry (ExportTypeAll "Config_t")
+-- >     , ExportEntry (ExportPattern "COLOR_RED")
+-- >     ]
 -- > ]
 data ExportEntry =
     ExportEntry ExportItem
-    -- | A Haddock section header at the given depth.  Depth 1 means @-- *@,
-    -- depth 2 means @-- **@, etc.
-  | ExportSectionHeader Natural Text
+    -- | A Haddock section header carrying its title (as inline content,
+    -- so it can mix bold\/italic\/monospace markup) and its nested children.
+  | ExportSection [HsDoc.CommentInlineContent] [ExportEntry]
 
 -- | An item in the module export list
 data ExportItem =
@@ -91,38 +91,11 @@ data ExportItem =
     -- | Export a pattern synonym: @pattern PatName@
   | ExportPattern Text
 
-{-------------------------------------------------------------------------------
-  GroupSections
--------------------------------------------------------------------------------}
-
--- | Mapping from declaration names to their Doxygen group title path.
+-- | Default export resolver: a flat list with no section headers.
 --
--- Built by 'computeGroupSections' in "HsBindgen" from Doxygen XML data and
--- the final C declarations.  Keyed by both C names and Haskell names because
--- the two consumer-side lookup functions cover different 'SDecl' constructors:
---
---  * __Haskell-name keys__ are needed for 'DForeignImport', 'DBinding', and
---    'DPatternSynonym', which have no 'Origin.Decl' and therefore no
---    extractable C name (see 'sdeclOriginCName').  For these constructors,
---    'sdeclExportedName' is the only lookup path.
---
---  * __C-name keys__ are needed for backend-generated declarations whose
---    Haskell name differs from the originating C name (e.g. @_Aux@ newtypes).
---    Their Haskell name is not in the map, but 'sdeclOriginCName' extracts
---    the C name, which is.
---
--- Values are group title paths from root to leaf, e.g.:
---
--- > fromList
--- >   [ ("config_t",  ["Core Data Types"])
--- >   , ("Config_t",  ["Core Data Types"])
--- >   , ("inner_typ", ["Outer Group", "Inner A"])
--- >   , ("Inner_typ", ["Outer Group", "Inner A"])
--- >   ]
---
--- An empty map means no group information is available, in which case
--- no section headers are emitted.
-type GroupSections = Map Text [Text]
+-- Used when no extra grouping information is available.
+defaultResolveExports :: [SDecl] -> [ExportEntry]
+defaultResolveExports = map ExportEntry . concatMap resolveDeclExports
 
 {-------------------------------------------------------------------------------
   HsModule
@@ -147,43 +120,46 @@ translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> BaseModuleName
-  -> GroupSections
+  -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple fns mrc moduleBaseName groups declsByCat =
+translateModuleMultiple fns mrc moduleBaseName resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
-    go cat xs     = Just $ translateModule' fns mrc (Just cat) moduleBaseName groups xs
+    go cat xs     = Just $
+      translateModule' fns mrc (Just cat) moduleBaseName resolveExports xs
 
 translateModuleSingle ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> BaseModuleName
-  -> GroupSections
+  -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle fns mrc name groups declsByCat =
-    translateModule' fns mrc Nothing name groups $ Foldable.fold declsByCat
+translateModuleSingle fns mrc name resolveExports declsByCat =
+    translateModule' fns mrc Nothing name resolveExports $
+      Foldable.fold declsByCat
 
 translateModule' ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> Maybe Category
   -> BaseModuleName
-  -> GroupSections
+  -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc mcat moduleBaseName groups (cWrappers, decs) = HsModule{
-      pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
-    , exports        = resolveExports groups decs
-    , imports        = resolveImports moduleBaseName mcat cWrappers decs
-    , name           = fromBaseModuleName moduleBaseName mcat
-    , qualifiedStyle = mrc.qualifiedStyle
-    , cWrappers      = cWrappers
-    , decls          = decs
-    }
+translateModule' fns mrc mcat moduleBaseName resolveExports (cWrappers, decs) =
+    HsModule{
+        pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+      , exports        = resolveExports decs
+      , imports        = resolveImports moduleBaseName mcat cWrappers decs
+      , name           = fromBaseModuleName moduleBaseName mcat
+      , qualifiedStyle = mrc.qualifiedStyle
+      , cWrappers      = cWrappers
+      , decls          = decs
+      }
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
@@ -453,210 +429,11 @@ resolveExtHsRefImports extRef = ImportAcc{
   Auxiliary: Export resolution
 -------------------------------------------------------------------------------}
 
--- | How a declaration relates to doxygen group sections
+-- | Resolve the export items contributed by a single declaration.
 --
--- Tagging is a two-step lookup (see 'taggedExports'):
---
---  1. Try the Haskell export name in 'GroupSections'.
---  2. If that misses, try the C origin name ('sdeclOriginCName').
---  3. If both miss, distinguish top-level C declarations ('ExportUngrouped')
---     from anonymous\/nested\/derived ones ('ExportDerived').
---
--- Example: given @\@defgroup core "Core"@ containing @config_t@ and its
--- anonymous inner union, plus an ungrouped @api_version_t@:
---
--- > Config_t        → ExportGrouped ["Core"]    (step 1: Haskell name hit)
--- > Config_t_union  → ExportGrouped ["Core"]    (step 2: C name "config_t" hit)
--- > Api_version_t   → ExportUngrouped           (step 3: top-level, no group)
--- > pattern COLOR_RED → ExportDerived            (step 3: not top-level)
-data ExportGroupTag =
-    -- | Top-level C declaration not in any doxygen group.
-    -- Hoisted before all section headers by 'resolveExports'.
-    ExportUngrouped
-    -- | Backend-derived declaration (e.g. pattern synonyms, anonymous inner
-    -- types) without its own group membership.  Inherits the enclosing
-    -- section from the preceding grouped declaration in 'insertSections'.
-  | ExportDerived
-    -- | Member of a doxygen group.  The path lists section titles from
-    -- root to leaf (e.g. @[\"Outer Group\", \"Inner A\"]@).
-  | ExportGrouped [Text]
-
--- | Resolve exports from a list of declarations
---
--- Only declarations with exported (user-facing) names are included.
--- Internal names (e.g. @hs_bindgen_...@ helper bindings) are excluded.
--- Instances and deriving instances are never exported explicitly (GHC exports
--- them automatically).
---
--- When 'GroupSections' is non-empty, the export list is built in two phases:
---
---  1. __Tag__: each declaration is classified as 'ExportUngrouped',
---     'ExportDerived', or 'ExportGrouped' (see 'ExportGroupTag').
---  2. __Partition & assemble__: ungrouped items are hoisted to the front
---     (before any section headers), then grouped\/derived items follow with
---     Haddock section headers inserted at group transitions.
---
--- Example: for a C header with an ungrouped @api_version_t@ and a
--- @\@defgroup core "Core"@ containing @config_t@ and @enum color@:
---
--- > resolveExports groups decls
--- > ==> [ ExportEntry (ExportTypeAll "Api_version_t")  -- ungrouped, hoisted
--- >      , ExportSectionHeader 1 "Core"                 -- section transition
--- >      , ExportEntry (ExportTypeAll "Config_t")       -- grouped
--- >      , ExportEntry (ExportTypeAll "Color")           -- grouped
--- >      , ExportEntry (ExportPattern "COLOR_RED")       -- derived, inherits
--- >      ]
---
--- When the map is empty (no doxygen data), the declarations are returned
--- in their original order without any section headers.
-resolveExports :: GroupSections -> [SDecl] -> [ExportEntry]
-resolveExports groups decls
-  | Map.null groups = map ExportEntry $ concatMap resolveDeclExports decls
-  | otherwise =
-    let tagged    = concatMap taggedExports decls
-        (ungrouped, rest) = partition isUngrouped tagged
-    in  map (ExportEntry . snd) ungrouped
-     ++ insertSections [] rest
-  where
-    -- | Classify a declaration and pair each of its export items with a tag.
-    -- A single 'SDecl' can produce multiple export items (e.g. a record
-    -- type exports both @TypeName(..)@ and its pattern synonyms).
-    taggedExports :: SDecl -> [(ExportGroupTag, ExportItem)]
-    taggedExports decl =
-      let lookupGroup n = Map.lookup n groups
-          tag = case sdeclExportedName decl >>= lookupGroup of
-            Just path -> ExportGrouped path
-            Nothing   -> case sdeclOriginCName decl >>= lookupGroup of
-              Just path -> ExportGrouped path
-              Nothing
-                | sdeclIsTopLevel decl -> ExportUngrouped
-                | otherwise            -> ExportDerived
-      in [(tag, item) | item <- resolveDeclExports decl]
-
-    isUngrouped :: (ExportGroupTag, a) -> Bool
-    isUngrouped (ExportUngrouped, _) = True
-    isUngrouped _                    = False
-
-    -- | Walk the grouped and derived items, emitting section headers at
-    -- group transitions.  @prev@ tracks the current group path so that
-    -- 'sectionTransition' can compute the minimal set of new headers.
-    --
-    -- 'ExportDerived' items inherit the enclosing section — they are emitted
-    -- without updating @prev@, keeping pattern synonyms and anonymous inner
-    -- types together with their parent declaration.
-    insertSections :: [Text] -> [(ExportGroupTag, ExportItem)] -> [ExportEntry]
-    insertSections _ [] = []
-    insertSections prev ((tag, item) : rest) = case tag of
-      ExportGrouped g ->
-        let sections = sectionTransition prev g
-        in sections ++ [ExportEntry item] ++ insertSections g rest
-      _otherwise -> ExportEntry item : insertSections prev rest
-
--- | Compute section headers needed when transitioning between group paths.
---
--- Compares the previous and current group title paths, finds their common
--- prefix, and emits headers only for the new segments.  The header depth
--- starts at @commonPrefixLength + 1@.
---
--- Examples:
---
--- > sectionTransition [] ["Core"]
--- >   ==> [ExportSectionHeader 1 "Core"]
--- >
--- > sectionTransition ["Core"] ["Core"]
--- >   ==> []                                       -- same group, no header
--- >
--- > sectionTransition ["Core"] ["Advanced"]
--- >   ==> [ExportSectionHeader 1 "Advanced"]       -- sibling group
--- >
--- > sectionTransition ["Outer"] ["Outer", "Inner"]
--- >   ==> [ExportSectionHeader 2 "Inner"]           -- child group
--- >
--- > sectionTransition ["Outer", "Inner A"] ["Outer", "Inner B"]
--- >   ==> [ExportSectionHeader 2 "Inner B"]         -- sibling under same parent
-sectionTransition :: [Text] -> [Text] -> [ExportEntry]
-sectionTransition old new =
-    let common = commonPrefixLength old new
-        newSegments = drop common new
-    in  zipWith ExportSectionHeader [fromIntegral (common + 1) ..] newSegments
-  where
-    commonPrefixLength :: Eq a => [a] -> [a] -> Int
-    commonPrefixLength xs ys = length $ takeWhile (uncurry (==)) $ zip xs ys
-
--- | Is this a non-nested C declaration?
---
--- 'True' when @declEnclosing = Nothing@ — i.e. the declaration is not
--- inside another struct\/union.  Only 'Origin.Decl'-carrying constructors
--- can be top-level; the rest ('DForeignImport', 'DBinding', etc.) return
--- 'False'.
-sdeclIsTopLevel :: SDecl -> Bool
-sdeclIsTopLevel = \case
-    DTypSyn typSyn      -> isTopLevel typSyn.origin
-    DRecord record      -> isTopLevel record.origin
-    DNewtype newtyp     -> isTopLevel newtyp.origin
-    DEmptyData empty    -> isTopLevel empty.origin
-    DForeignImport _    -> False
-    DBinding _          -> False
-    DPatternSynonym _   -> False
-    DInst _             -> False
-    DDerivingInstance _  -> False
-  where
-    isTopLevel :: Origin.Decl a -> Bool
-    isTopLevel (Origin.Decl DeclInfo{declEnclosing = enc} _ _) =
-      isNothing enc
-
--- | Extract the C name from the declaration's 'Origin.Decl', if present.
---
--- Available for 'DTypSyn', 'DRecord', 'DNewtype', 'DEmptyData'.  Returns
--- 'Nothing' for the rest ('DForeignImport', 'DBinding', 'DPatternSynonym',
--- etc.) because they carry different origin types without a 'C.DeclInfo'.
---
--- Used as the fallback in 'taggedExports' when the Haskell export name
--- misses in 'GroupSections' — e.g. @Event_callback_t_Aux@ is not a key,
--- but its C origin name @event_callback_t@ is.
-sdeclOriginCName :: SDecl -> Maybe Text
-sdeclOriginCName = \case
-    DTypSyn typSyn               -> Just $ originCName typSyn.origin
-    DRecord record               -> Just $ originCName record.origin
-    DNewtype newtyp              -> Just $ originCName newtyp.origin
-    DEmptyData empty             -> Just $ originCName empty.origin
-    DForeignImport _             -> Nothing
-    DBinding _                   -> Nothing
-    DPatternSynonym _            -> Nothing
-    DInst _                      -> Nothing
-    DDerivingInstance _          -> Nothing
-  where
-    originCName :: Origin.Decl a -> Text
-    originCName (Origin.Decl DeclInfo{id = declIdPair} _ _) =
-      let DeclIdPair{cName = DeclId{name = CDeclName{text = t}}} = declIdPair
-      in t
-
--- | Extract the user-facing Haskell name from a declaration.
---
--- Returns 'Nothing' for internal names, instances, and deriving instances.
---
--- This is the primary lookup key in 'taggedExports'.  For constructors
--- where 'sdeclOriginCName' returns 'Nothing' ('DForeignImport',
--- 'DBinding', 'DPatternSynonym'), this is the /only/ path into
--- 'GroupSections' — which is why the map is keyed by Haskell names too.
-sdeclExportedName :: SDecl -> Maybe Text
-sdeclExportedName = \case
-    DTypSyn typSyn               -> exportedName typSyn.name
-    DRecord record               -> exportedName record.typ
-    DNewtype newtyp              -> exportedName newtyp.name
-    DEmptyData empty             -> exportedName empty.name
-    DForeignImport foreignImport -> exportedName foreignImport.name
-    DBinding binding             -> exportedName binding.name
-    DPatternSynonym patSyn       -> exportedName patSyn.name
-    DInst _                      -> Nothing
-    DDerivingInstance _          -> Nothing
-  where
-    exportedName :: Hs.Name ns -> Maybe Text
-    exportedName n = case n of
-      Hs.ExportedName _ -> Just (Hs.getName n)
-      Hs.InternalName _ -> Nothing
-
--- | Resolve exports from a single declaration
+-- Returns one or more 'ExportItem' values for declarations with exported
+-- (user-facing) names; internal names and instance declarations produce
+-- the empty list (instances are auto-exported by GHC).
 resolveDeclExports :: SDecl -> [ExportItem]
 resolveDeclExports = \case
     DTypSyn typSyn               -> exportTypeConstr typSyn.name ExportName

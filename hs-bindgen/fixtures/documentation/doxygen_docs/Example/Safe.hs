@@ -17,6 +17,9 @@ module Example.Safe
     , Example.Safe.process_buffer
     , Example.Safe.my_memcpy
     , Example.Safe.double_value
+      -- ** I/O Helpers
+    , Example.Safe.read_chunk
+    , Example.Safe.write_chunk
       -- * Advanced Features
     , Example.Safe.complex_function
     , Example.Safe.hash
@@ -120,6 +123,22 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , ")"
   , "{"
   , "  return (double_value)(arg1);"
+  , "}"
+  , "signed int hs_bindgen_3545f99d29c4fc53 ("
+  , "  signed int arg1,"
+  , "  void *arg2,"
+  , "  size_t arg3"
+  , ")"
+  , "{"
+  , "  return (read_chunk)(arg1, arg2, arg3);"
+  , "}"
+  , "signed int hs_bindgen_839c1d19dfe95042 ("
+  , "  signed int arg1,"
+  , "  void const *arg2,"
+  , "  size_t arg3"
+  , ")"
+  , "{"
+  , "  return (write_chunk)(arg1, arg2, arg3);"
   , "}"
   , "status_code_t hs_bindgen_c4e7e99dba20204d ("
   , "  config_t *arg1,"
@@ -753,6 +772,122 @@ double_value ::
   -> IO RIP.CInt
 double_value = hs_bindgen_f5bc63a9952c2618
 
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_read_chunk@
+foreign import ccall safe "hs_bindgen_3545f99d29c4fc53" hs_bindgen_3545f99d29c4fc53_base ::
+     RIP.Int32
+  -> RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Int32
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_read_chunk@
+hs_bindgen_3545f99d29c4fc53 ::
+     RIP.CInt
+  -> RIP.Ptr RIP.Void
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO RIP.CInt
+hs_bindgen_3545f99d29c4fc53 =
+  RIP.fromFFIType hs_bindgen_3545f99d29c4fc53_base
+
+{-| Read a chunk of bytes into the provided buffer.
+
+    Demonstrates a section nested inside @functions@ .
+
+    [__@fd@__]: File descriptor
+
+    [__@buf@__]: Output buffer
+
+    [__@count@__]: Number of bytes to read
+
+    __Returns:__ Number of bytes read
+
+    __C declaration:__ @read_chunk@
+
+    __defined at:__ @documentation\/doxygen_docs.h 387:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+read_chunk ::
+     RIP.CInt
+     {- ^
+
+          [__@fd@__]: File descriptor
+
+          __C declaration:__ @fd@
+     -}
+  -> RIP.Ptr RIP.Void
+     {- ^
+
+          [__@buf@__]: Output buffer
+
+          __C declaration:__ @buf@
+     -}
+  -> HsBindgen.Runtime.LibC.CSize
+     {- ^
+
+          [__@count@__]: Number of bytes to read
+
+          __C declaration:__ @count@
+     -}
+  -> IO RIP.CInt
+read_chunk = hs_bindgen_3545f99d29c4fc53
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_write_chunk@
+foreign import ccall safe "hs_bindgen_839c1d19dfe95042" hs_bindgen_839c1d19dfe95042_base ::
+     RIP.Int32
+  -> RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Int32
+
+-- __unique:__ @test_documentationdoxygen_docs_Example_Safe_write_chunk@
+hs_bindgen_839c1d19dfe95042 ::
+     RIP.CInt
+  -> PtrConst.PtrConst RIP.Void
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO RIP.CInt
+hs_bindgen_839c1d19dfe95042 =
+  RIP.fromFFIType hs_bindgen_839c1d19dfe95042_base
+
+{-| Write a chunk of bytes from the provided buffer.
+
+    [__@fd@__]: File descriptor
+
+    [__@buf@__]: Input buffer
+
+    [__@count@__]: Number of bytes to write
+
+    __Returns:__ Number of bytes written
+
+    __C declaration:__ @write_chunk@
+
+    __defined at:__ @documentation\/doxygen_docs.h 397:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+write_chunk ::
+     RIP.CInt
+     {- ^
+
+          [__@fd@__]: File descriptor
+
+          __C declaration:__ @fd@
+     -}
+  -> PtrConst.PtrConst RIP.Void
+     {- ^
+
+          [__@buf@__]: Input buffer
+
+          __C declaration:__ @buf@
+     -}
+  -> HsBindgen.Runtime.LibC.CSize
+     {- ^
+
+          [__@count@__]: Number of bytes to write
+
+          __C declaration:__ @count@
+     -}
+  -> IO RIP.CInt
+write_chunk = hs_bindgen_839c1d19dfe95042
+
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d_base ::
      RIP.Ptr RIP.Void
@@ -834,7 +969,7 @@ hs_bindgen_c4e7e99dba20204d =
 
     __C declaration:__ @complex_function@
 
-    __defined at:__ @documentation\/doxygen_docs.h 428:15@
+    __defined at:__ @documentation\/doxygen_docs.h 459:15@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -881,7 +1016,7 @@ hs_bindgen_935f2aead358d9ef =
 
     __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h 432:5@
+    __defined at:__ @documentation\/doxygen_docs.h 463:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -909,7 +1044,7 @@ hs_bindgen_39fef54c23d4e1ee =
 
     __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h 434:5@
+    __defined at:__ @documentation\/doxygen_docs.h 465:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -941,7 +1076,7 @@ hs_bindgen_29749932a4449f10 =
 
     __C declaration:__ @auto_brief_func@
 
-    __defined at:__ @documentation\/doxygen_docs.h 455:5@
+    __defined at:__ @documentation\/doxygen_docs.h 486:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -984,7 +1119,7 @@ hs_bindgen_03f0269c9296b8c0 =
 
     __C declaration:__ @multi_paragraph_details@
 
-    __defined at:__ @documentation\/doxygen_docs.h 472:6@
+    __defined at:__ @documentation\/doxygen_docs.h 503:6@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1034,7 +1169,7 @@ hs_bindgen_0446a821eb966f46 =
 
     __C declaration:__ @todo_remark_attention@
 
-    __defined at:__ @documentation\/doxygen_docs.h 485:6@
+    __defined at:__ @documentation\/doxygen_docs.h 516:6@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1071,7 +1206,7 @@ hs_bindgen_25a9ea376bb793e9 =
 
     __C declaration:__ @html_entities_func@
 
-    __defined at:__ @documentation\/doxygen_docs.h 507:5@
+    __defined at:__ @documentation\/doxygen_docs.h 538:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1104,7 +1239,7 @@ hs_bindgen_6f311771e5e063e6 =
 
     __C declaration:__ @nested_inline_format@
 
-    __defined at:__ @documentation\/doxygen_docs.h 514:6@
+    __defined at:__ @documentation\/doxygen_docs.h 545:6@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1146,7 +1281,7 @@ hs_bindgen_34473a588f1157e4 =
 
     __C declaration:__ @tagged_code_example@
 
-    __defined at:__ @documentation\/doxygen_docs.h 528:5@
+    __defined at:__ @documentation\/doxygen_docs.h 559:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1191,7 +1326,7 @@ hs_bindgen_471f4a3c2db31252 =
 
     __C declaration:__ @backslash_syntax@
 
-    __defined at:__ @documentation\/doxygen_docs.h 543:5@
+    __defined at:__ @documentation\/doxygen_docs.h 574:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}

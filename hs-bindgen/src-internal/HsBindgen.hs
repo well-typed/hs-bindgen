@@ -54,6 +54,8 @@ import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.HsModule.Translation.Doxygen (GroupSections,
+                                                       resolveExports)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
@@ -225,7 +227,7 @@ getBindings mrc = do
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ render $
-      translateModuleSingle fns mrc name groups decls
+      translateModuleSingle fns mrc name (resolveExports groups) decls
 
 -- | Write bindings to file.
 writeBindings ::
@@ -274,7 +276,8 @@ getBindingsMultiple mrc = do
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
-    pure $ fmap render <$> translateModuleMultiple fns mrc name groups decls
+    pure $ fmap render <$>
+      translateModuleMultiple fns mrc name (resolveExports groups) decls
 
 -- | Write bindings to files in provided output directory.
 --

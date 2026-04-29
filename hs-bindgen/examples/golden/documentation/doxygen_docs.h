@@ -69,16 +69,16 @@ extern int global_counter;
 extern const char* version_string;
 
 /**
- * @brief Forward declaration with documentation
+ * @brief Opaque struct
  *
  * This is the comment @c title
  */
-struct forward_declared_struct;
+struct opaque_struct;
 
 /**
- * @brief Forward declaration of union
+ * @brief Opaque union
  */
-union forward_declared_union;
+union opaque_union;
 
 /**
  * @enum color_enum
@@ -366,6 +366,37 @@ struct flexible_array {
     size_t count;      /**< @brief Number of elements */
     int data[];        /**< @brief Flexible array member */
 };
+
+/**
+ * @defgroup io_helpers I/O Helpers
+ * @ingroup functions
+ * @brief Functions dealing with I/O buffers
+ * @{
+ */
+
+/**
+ * @brief Read a chunk of bytes into the provided buffer
+ *
+ * Demonstrates a section nested inside @c functions.
+ *
+ * @param fd File descriptor
+ * @param buf Output buffer
+ * @param count Number of bytes to read
+ * @return Number of bytes read
+ */
+int read_chunk(int fd, void* buf, size_t count);
+
+/**
+ * @brief Write a chunk of bytes from the provided buffer
+ *
+ * @param fd File descriptor
+ * @param buf Input buffer
+ * @param count Number of bytes to write
+ * @return Number of bytes written
+ */
+int write_chunk(int fd, const void* buf, size_t count);
+
+/** @} */ /* end io_helpers */
 
 /**
  * @}

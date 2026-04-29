@@ -7,11 +7,11 @@ ctypes:
   cname: size_type
   hsname: Size_type
 - headers: documentation/doxygen_docs.h
-  cname: struct forward_declared_struct
-  hsname: Forward_declared_struct
+  cname: struct opaque_struct
+  hsname: Opaque_struct
 - headers: documentation/doxygen_docs.h
-  cname: union forward_declared_union
-  hsname: Forward_declared_union
+  cname: union opaque_union
+  hsname: Opaque_union
 - headers: documentation/doxygen_docs.h
   cname: enum color_enum
   hsname: Color_enum
@@ -346,10 +346,6 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Forward_declared_struct
-  representation: emptydata
-- hsname: Forward_declared_union
-  representation: emptydata
 - hsname: Multi_anon_t
   representation:
     record:
@@ -435,6 +431,10 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: Opaque_struct
+  representation: emptydata
+- hsname: Opaque_union
+  representation: emptydata
 - hsname: Processor_fn_t
   representation:
     newtype:
