@@ -315,7 +315,7 @@ convertInline = \case
   Doxy.Emph inlines  -> [HsDoc.Emph $ concatMap convertInline inlines]
   Doxy.Mono inlines  -> [HsDoc.Monospace $ concatMap convertInline inlines]
 
-  Doxy.Ref (C.CommentRef c mHsIdent) _displayText ->
+  Doxy.Ref (C.CommentRef c mHsIdent _mKind) _displayText ->
     case mHsIdent of
       Just namePair -> [HsDoc.Identifier namePair.hsName.text]
       Nothing       -> [HsDoc.Monospace [HsDoc.TextContent c]]
