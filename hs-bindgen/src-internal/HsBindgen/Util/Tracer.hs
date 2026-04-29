@@ -9,7 +9,6 @@ module HsBindgen.Util.Tracer (
   , withCallStack
   , simpleTracer
   , nullTracer
-  , extendCallStackMsg
     -- * Data types and typeclasses useful for tracing
   , PrettyForTrace (..)
   , Level (..)
@@ -128,19 +127,6 @@ squelchUnless p =
       Wrap
     . ContraTracer.squelchUnless (p . (.traceMsg))
     . unwrap
-
--- | Apply a function that consumes a 'WithCallStack' value, preserving the
--- original callstack in the result.
---
--- This is the comonadic extend for 'WithCallStack': the function sees the
--- full wrapped value (including the callstack), but the output is re-wrapped
--- with the original callstack.
---
--- Useful when wrapping pass-specific messages in a sum type constructor
--- (e.g. @FrontendSimplifyAST@) that takes @'WithCallStack' a@, while
--- preserving the creation-site callstack for tracing.
-extendCallStackMsg :: (WithCallStack a -> b) -> WithCallStack a -> WithCallStack b
-extendCallStackMsg f wcs@(WithCallStack cs _) = WithCallStack cs (f wcs)
 
 nullTracer :: Tracer e
 nullTracer = Wrap ContraTracer.nullTracer

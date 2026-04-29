@@ -53,7 +53,7 @@ mangleNames ::
      HasCallStack
   => FieldNamingStrategy
   -> C.TranslationUnit ResolveBindingSpecs
-  -> (C.TranslationUnit MangleNames, [Msg MangleNames])
+  -> (C.TranslationUnit MangleNames, [AMsg MangleNames])
 mangleNames fieldNaming unit = (
          C.TranslationUnit{
            decls        = decls2
@@ -76,7 +76,7 @@ mangleNames fieldNaming unit = (
     -- Pass 1.
     nameMap   :: NameMap
     failures1 :: [MangleNamesFailure]
-    msgs1     :: [Msg MangleNames]
+    msgs1     :: [AMsg MangleNames]
     (decls1, nameMap, failures1, msgs1) =
       chooseNames typedefAnalysis mangleCandidateConfig unit.decls
 
@@ -90,7 +90,7 @@ mangleNames fieldNaming unit = (
         }
 
     mangleDeclResults   :: [MangleDeclResult]
-    msgs2 :: [Msg MangleNames]
+    msgs2 :: [AMsg MangleNames]
     (mangleDeclResults, msgs2) = runM env $ mapM mangleDecl decls1
 
     failures2 :: [MangleNamesFailure]
@@ -146,14 +146,14 @@ chooseNames ::
   => TypedefAnalysis
   -> MangleCandidate Maybe
   -> [C.Decl ResolveBindingSpecs]
-  -> ([C.Decl ResolveBindingSpecs], NameMap, [MangleNamesFailure], [Msg MangleNames])
+  -> ([C.Decl ResolveBindingSpecs], NameMap, [MangleNamesFailure], [AMsg MangleNames])
 chooseNames td mc decls =
     let specifiedNames :: Map DeclId (Hs.Name Hs.NsTypeConstr)
         specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
 
         nameInfos :: [NameInfo]
         failures  :: [MangleNamesFailure]
-        messages  :: [Msg MangleNames]
+        messages  :: [AMsg MangleNames]
         ((failures, nameInfos), messages) =
           bimap partitionEithers mconcat $ unzip $
             map (nameForDecl td mc specifiedNames) decls
@@ -210,7 +210,7 @@ nameForDecl ::
   -> MangleCandidate Maybe
   -> Map DeclId (Hs.Name Hs.NsTypeConstr)
   -> C.Decl ResolveBindingSpecs
-  -> (Either MangleNamesFailure NameInfo, [Msg MangleNames])
+  -> (Either MangleNamesFailure NameInfo, [AMsg MangleNames])
 nameForDecl td mc specifiedNames decl =
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleCandidate' :: Text -> Either MangleNamesError (Hs.Name ns)
@@ -278,7 +278,7 @@ nameForDecl td mc specifiedNames decl =
     loc :: SingleLoc
     loc = decl.info.loc
 
-    failWith :: MangleNamesError -> (Either MangleNamesFailure a, [Msg MangleNames])
+    failWith :: MangleNamesError -> (Either MangleNamesFailure a, [AMsg MangleNames])
     failWith err = (Left $ toFailure info err, [])
 
     toMs :: HasCallStack => [a] -> [WithCallStack (WithLocationInfo a)]
@@ -306,7 +306,7 @@ mangleCandidate mc _ cName =
 type E m a = ExceptT MangleNamesError m a
 
 newtype M a = WrapM (
-      StateT [Msg MangleNames] (Reader Env) a
+      StateT [AMsg MangleNames] (Reader Env) a
     )
   deriving newtype (
       Functor
@@ -339,7 +339,7 @@ data Env = Env{
     }
   deriving stock (Generic)
 
-runM :: Env -> M a -> (a, [Msg MangleNames])
+runM :: Env -> M a -> (a, [AMsg MangleNames])
 runM env (WrapM ma) = second reverse . flip runReader env $ runStateT ma mempty
 
 checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)

@@ -135,7 +135,7 @@ fromSetting = \case
         t | "macro" `List.isInfixOf` (getTraceId t).id
           -> const Warning
         -- Macro parsing requires declarations required for scoping.
-        TraceFrontend (FrontendParse WithCallStack{traceMsg = WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}}})
+        TraceFrontend (FrontendParse WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
           -> const Warning
         _otherTrace
           -> id

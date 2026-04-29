@@ -195,7 +195,7 @@ traceImmediate ::
   -> ImmediateParseMsg
   -> ParseDecl ()
 traceImmediate declId declLoc msg = wrapEff $ \support ->
-    traceWith (contramap withCallStack support.env.tracer) $
+    traceWith support.env.tracer $
       withCallStack WithLocationInfo{
         loc = prelimDeclIdLocationInfo declId [declLoc]
       , msg = msg
@@ -204,7 +204,7 @@ traceImmediate declId declLoc msg = wrapEff $ \support ->
 -- | Immediately emit a global parse trace message without location information
 traceImmediateGlobal :: ImmediateParseMsg -> ParseDecl ()
 traceImmediateGlobal msg = wrapEff $ \support ->
-    traceWith (contramap withCallStack support.env.tracer) $
+    traceWith support.env.tracer $
       withCallStack WithLocationInfo{
         loc = LocationUnavailable
       , msg = msg

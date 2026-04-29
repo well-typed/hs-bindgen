@@ -35,14 +35,14 @@ simplifyAST ::
      HasCallStack
   => AnonUsageAnalysis
   -> [ParseResult Parse]
-  -> ([ParseResult SimplifyAST], [Msg SimplifyAST])
+  -> ([ParseResult SimplifyAST], [AMsg SimplifyAST])
 simplifyAST usage parseResults = (results, msgs)
   where
     processedResults = map processResult parseResults
     results = concatMap fst processedResults
     msgs = concatMap snd processedResults
 
-    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [Msg SimplifyAST])
+    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [AMsg SimplifyAST])
     processResult result =
       case result.classification of
         ParseResultSuccess success ->

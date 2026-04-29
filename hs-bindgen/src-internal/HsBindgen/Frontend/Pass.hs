@@ -144,6 +144,10 @@ class (
   -- | Trace messages possibly emitted by the pass
   type Msg p :: Star
 
+  -- | Trace messages with a callstack
+  type AMsg p :: Star
+  type AMsg p = WithCallStack (Msg p)
+
   -- | Type of comments attached to declarations
   --
   -- Pre-'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments' passes
