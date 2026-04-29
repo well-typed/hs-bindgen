@@ -46,7 +46,7 @@ instance IsPass ResolveBindingSpecs where
   type MacroBody   ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
   type ExtBinding  ResolveBindingSpecs = ResolvedExtBinding
   type Ann ix      ResolveBindingSpecs = AnnResolveBindingSpecs ix
-  type Msg         ResolveBindingSpecs = WithCallStack ResolveBindingSpecsMsg
+  type Msg         ResolveBindingSpecs = ResolveBindingSpecsMsg
   type MacroId     ResolveBindingSpecs = Id ResolveBindingSpecs
   type CommentDecl ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
 

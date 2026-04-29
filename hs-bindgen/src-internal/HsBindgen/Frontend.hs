@@ -261,7 +261,7 @@ runFrontend tracer config boot = do
       afterParse <- parsePass
       let (afterSimplifyAST, msgsSimplifyAST) =
             simplifyAST afterParse.usageAnalysis afterParse.results
-      forM_ msgsSimplifyAST $ traceWith tracer . extendCallStackMsg FrontendSimplifyAST
+      forM_ msgsSimplifyAST $ traceWith (contramap FrontendSimplifyAST tracer)
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
@@ -269,7 +269,7 @@ runFrontend tracer config boot = do
       afterSimplifyAST <- simplifyASTPass
       let (afterAssignAnonIds, msgsAssignAnonIds) =
             assignAnonIds afterParse.usageAnalysis afterSimplifyAST
-      forM_ msgsAssignAnonIds $ traceWith tracer . extendCallStackMsg FrontendAssignAnonIds
+      forM_ msgsAssignAnonIds $ traceWith (contramap FrontendAssignAnonIds tracer)
       pure afterAssignAnonIds
 
     enrichCommentsPass <- cache "enrichComments" $ do
@@ -305,14 +305,14 @@ runFrontend tracer config boot = do
               extSpecs
               pSpec
               afterReparseMacroExpansions
-      forM_ msgsResolveBindingSpecs $ traceWith tracer . extendCallStackMsg FrontendResolveBindingSpecs
+      forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
       pure afterResolveBindingSpecs
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
             mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
-      forM_ msgsMangleNames $ traceWith tracer . extendCallStackMsg FrontendMangleNames
+      forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
       pure afterMangleNames
 
     adjustTypesPass <- cache "AdjustTypes" $ do
@@ -328,7 +328,7 @@ runFrontend tracer config boot = do
               afterParse.isInMainHeaderDir
               selectConfig
               afterAdjustTypesPass
-      forM_ msgsSelect $ traceWith tracer . extendCallStackMsg FrontendSelect
+      forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
       pure afterSelect
 
     finalPass <- cache "Final" $ selectPass

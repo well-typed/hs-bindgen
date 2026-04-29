@@ -33,7 +33,6 @@ import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
-import HsBindgen.Util.Tracer (WithCallStack (..))
 
 {-------------------------------------------------------------------------------
   Clang
@@ -72,10 +71,10 @@ matchDiagnosticSpelling text = \case
 
 pattern MatchImmediate :: CDeclName -> ImmediateParseMsg -> TraceMsg
 pattern MatchImmediate name x <- TraceFrontend (
-      FrontendParse WithCallStack{traceMsg = WithLocationInfo{
+      FrontendParse WithLocationInfo{
           loc = locationInfoName -> Just name
         , msg = x
-        }}
+        }
     )
 
 pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
@@ -95,7 +94,7 @@ pattern MatchBindingSpec x <- TraceBoot (
 
 pattern MatchResolveBindingSpecs :: ResolveBindingSpecsMsg -> TraceMsg
 pattern MatchResolveBindingSpecs x <- TraceFrontend (
-      FrontendResolveBindingSpecs WithCallStack{traceMsg = x}
+      FrontendResolveBindingSpecs x
     )
 
 {-------------------------------------------------------------------------------
@@ -104,17 +103,17 @@ pattern MatchResolveBindingSpecs x <- TraceFrontend (
 
 pattern MatchNoDeclarations :: TraceMsg
 pattern MatchNoDeclarations <- TraceFrontend (
-      FrontendSelect WithCallStack{traceMsg = WithLocationInfo{
+      FrontendSelect WithLocationInfo{
           msg = SelectNoDeclarationsMatched
-        }}
+        }
     )
 
 pattern MatchSelect :: CDeclName -> SelectMsg -> TraceMsg
 pattern MatchSelect name x <- TraceFrontend (
-      FrontendSelect WithCallStack{traceMsg = WithLocationInfo{
+      FrontendSelect WithLocationInfo{
           loc = locationInfoName -> Just name
         , msg = x
-        }}
+        }
     )
 
 -- | Transitive dependencies of a declaration are missing
@@ -135,10 +134,10 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x _
 
 pattern MatchMangle :: CDeclName -> MangleNamesMsg -> TraceMsg
 pattern MatchMangle name x <- TraceFrontend (
-      FrontendMangleNames WithCallStack{traceMsg = WithLocationInfo{
+      FrontendMangleNames WithLocationInfo{
            loc = locationInfoName -> Just name
          , msg = x
-        }}
+        }
     )
 
 {-------------------------------------------------------------------------------
