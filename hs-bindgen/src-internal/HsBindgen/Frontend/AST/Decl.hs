@@ -384,12 +384,11 @@ newtype Comment p = Comment{
 
 -- | Cross-reference in a Doxygen comment
 --
--- Doxygen references are just strings; in particular, they do not distinguish
--- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
--- 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames' we will /search/ for a matching name and set the 'Id'
--- accordingly, so that we can generate an appropriate reference in the
--- Haddocks.
-data CommentRef p = CommentRef Text (Maybe (Id p))
+-- The 'Doxy.RefKind' from the Doxygen XML @kindref@ attribute narrows the search
+-- in 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames': compounds (struct\/union) are looked up in the type
+-- constructor namespace, members (function\/typedef\/macro) in the variable
+-- and type constructor namespaces.
+data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 
 {-------------------------------------------------------------------------------
   Instances

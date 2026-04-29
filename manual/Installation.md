@@ -6,16 +6,25 @@ macOS, and Windows.
 
 ## Linux
 
-Setup on Linux involves choosing between the GCC and Clang compiler toolchains.
+We recommend using the Clang compiler toolchain on Linux for best compatibility
+with `hs-bindgen`. GCC should normally work, but there are edge cases where GCC
+and Clang differ.
 
 ### Compiler choice (GCC vs. Clang)
 
-GCC is the default compiler on many Linux distributions and is also the compiler
-used by GHC. However, `hs-bindgen` uses `libclang` internally to parse C code.
-GCC and Clang will mostly be compatible, but there are some exceptions. For
-example, GCC and Clang may exhibit differences in memory layout. Unfortunately,
-it is not straightforward to make GHC use Clang without effectively building GHC
-from scratch. There are flags like `-pgmc` and `-pgml` ([see the GHC user
+`hs-bindgen` uses `libclang` internally to parse C code. GCC is the default
+compiler on many Linux distributions and is also the compiler used by GHC.
+While GCC and Clang are mostly compatible, they can exhibit differences in
+memory layout for some constructs. Using Clang for both generation of and
+compilation of the bindings ensures consistency and correctness.
+
+Note that `static inline` functions in a C header file are compiled using the C
+compiler that GHC is configured to use. One should beware of any Clang/GCC
+discrepancies in such functions when GCC is used.
+
+Unfortunately, it is not straightforward to make GHC use Clang without
+effectively building GHC from scratch. There are flags like `-pgmc` and `-pgml`
+([see the GHC user
 guide](https://downloads.haskell.org/ghc/latest/docs/users_guide/phases.html#replacing-the-program-for-one-or-more-phases))
 which allow specification of the C compiler used by GHC; however, experiments
 showed that just setting these flags was not enough. For more details see the
@@ -92,7 +101,7 @@ should be set in the `.cabal` file.
     ```
 
     > [!NOTE]
-    > Without `-no-stdinc`, there are likely multiple directories in the C
+    > Without `-nostdinc`, there are likely multiple directories in the C
     > include path that provide the same headers. Which header is ultimately
     > used depends on the order of directories in the include path.
 

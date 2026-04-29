@@ -500,3 +500,70 @@ and we will generate
 foreign import ccall safe "<userland CAPI wrapper>"
   mod_10 :: CInt -> IO CInt
 ```
+
+## Function attributes
+
+C functions can carry compiler-specific attributes such as `__attribute__((const))`
+or `__attribute__((pure))`. `hs-bindgen` recognises common GCC and Clang function
+attributes and interprets them when generating bindings. In particular, `const`
+and `pure` attributes affect the generated type signatures. For example, given
+
+```c
+int square (int) __attribute__ ((const));
+int hash (char *) __attribute__ ((pure));
+```
+
+`hs-bindgen` generates bindings that reflect these attributes. A `const`
+function is pure in the Haskell sense, so the binding omits `IO`. A `pure`
+function may read from memory, so `IO` is retained. The generated Haddock
+documentation also records the attribute:
+
+```haskell
+{-| Marked @__attribute((const))__@
+
+    __C declaration:__ @square@
+
+    ...
+-}
+square :: CInt -> CInt
+
+{-| Marked @__attribute((pure))__@
+
+    __C declaration:__ @hash@
+
+    ...
+-}
+hash :: Ptr CChar -> IO CInt
+```
+
+Other attributes such as `deprecated`, `noreturn`, `malloc`, `nonnull`, and so
+on do not currently appear in the generated documentation, but the bindings
+themselves are still generated.
+
+## Unsupported: variadic functions
+
+We do not generate bindings for variadic functions, i.e., functions using `...`
+or `va_list` parameters ([#53][issue-53]):
+
+```c
+void f(const char* fmt, ...);
+void g(const char* fmt, va_list args);
+```
+
+These functions are skipped (with a warning) during binding generation. Other
+non-variadic functions in the same header are not affected. For example, given
+
+```c
+void f(const char* fmt, ...);
+void h();
+```
+
+`hs-bindgen` will generate a binding for `h` but not for `f`.
+
+The Haskell FFI does not have direct support for variadic calling conventions,
+so supporting variadic functions would require a fundamentally different
+approach such as generating fixed-arity wrappers for each call site. If you need
+to call a specific variadic function from Haskell, you can write a manual
+`foreign import` declaration for a fixed-arity version of the call.
+
+[issue-53]:https://github.com/well-typed/hs-bindgen/issues/53

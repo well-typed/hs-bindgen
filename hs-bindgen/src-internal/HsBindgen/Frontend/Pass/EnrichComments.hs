@@ -161,7 +161,7 @@ enrichDeclInfo doxy info
 lookupCommentForId ::
      Doxygen
   -> C.DeclInfo EnrichComments
-  -> Maybe (Doxy.Comment Text)
+  -> Maybe (Doxy.Comment Doxy.DoxyRef)
 lookupCommentForId doxy info
   | not info.id.isAnon =
       let qualName = resolveQualifiedName info
@@ -249,9 +249,9 @@ resolveQualifiedName info =
 lookupFieldComment :: Doxygen -> DoxygenKey -> Maybe (C.Comment EnrichComments)
 lookupFieldComment doxy key = wrapDoxygenRefs <$> lookupComment key doxy
 
--- | Wrap doxygen cross-reference 'Text' values into 'C.CommentRef'
-wrapDoxygenRefs :: Doxy.Comment Text -> C.Comment EnrichComments
+-- | Wrap doxygen cross-references into 'C.CommentRef'
+wrapDoxygenRefs :: Doxy.Comment Doxy.DoxyRef -> C.Comment EnrichComments
 wrapDoxygenRefs comment = C.Comment (fmap wrapRef comment)
   where
-    wrapRef :: Text -> C.CommentRef EnrichComments
-    wrapRef ref = C.CommentRef ref Nothing
+    wrapRef :: Doxy.DoxyRef -> C.CommentRef EnrichComments
+    wrapRef (Doxy.DoxyRef name mKind) = C.CommentRef name Nothing mKind

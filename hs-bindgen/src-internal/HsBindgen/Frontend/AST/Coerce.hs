@@ -118,8 +118,8 @@ instance (
 instance (
       CoercePassId p p'
     ) => CoercePass C.CommentRef p p' where
-  coercePass (C.CommentRef c hs) =
-      C.CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs)
+  coercePass (C.CommentRef c hs k) =
+      C.CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs) k
 
 instance (
       CoercePassId p p'

@@ -685,7 +685,7 @@ typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) names or
           brief = [
               Doxy.Text "Auxiliary type used by"
             , Doxy.Ref
-                (C.CommentRef origInfo.id.cName.name.text (Just origInfo.id))
+                (C.CommentRef origInfo.id.cName.name.text (Just origInfo.id) Nothing)
                 origInfo.id.cName.name.text
             ]
         , detailed = []

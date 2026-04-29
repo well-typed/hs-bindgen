@@ -30,6 +30,8 @@ module Doxygen.Parser (
   , Block(..)
   , Inline(..)
   , Param(..)
+  , DoxyRef(..)
+  , RefKind(..)
   , ParamListKind(..)
   , ParamDirection(..)
   , SimpleSectKind(..)
