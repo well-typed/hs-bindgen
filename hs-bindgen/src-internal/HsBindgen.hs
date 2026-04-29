@@ -470,10 +470,10 @@ computeGroupSections doxy decls =
   where
     declGroupEntries :: C.Decl Final -> [(Text, [Text])]
     declGroupEntries decl = do
-      let cText = decl.info.id.cName.name.text
+      let cText  = decl.info.id.cName.name.text
+          hsText = decl.info.id.hsName.text
       path <- toList $ groupPath cText
-      (cText, path)
-        : [(hsText, path) | hsText <- toList $ assignedHsName decl.info.id.hsName]
+      [(cText, path), (hsText, path)]
 
     -- | Resolve the full group title path (root to leaf) for a C declaration.
     --
@@ -504,10 +504,6 @@ computeGroupSections doxy decls =
         Just (parentTitle, grandparent) ->
           buildPath (parentTitle : acc) grandparent
         Nothing -> acc
-
-    assignedHsName :: AssignedIdentifier -> Maybe Text
-    assignedHsName (AssignedIdentifier ident) = Just ident.text
-    assignedHsName NoAssignedIdentifier{}     = Nothing
 
 {-------------------------------------------------------------------------------
   Errors

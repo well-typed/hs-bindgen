@@ -22,6 +22,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.AST.Decl (DeclInfo (..))
 import HsBindgen.Frontend.Naming (CDeclName (..), DeclId (..), DeclIdPair (..))
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   GroupSections
@@ -190,7 +191,7 @@ buildTree items@((seg : _, _) : _) =
 
 -- | Is this a non-nested C declaration?
 --
--- 'True' when @declEnclosing = Nothing@ — i.e. the declaration is not
+-- 'True' when the @enclosing@ chain is empty — i.e. the declaration is not
 -- inside another struct\/union.  Only 'Origin.Decl'-carrying constructors
 -- can be top-level; the rest ('DForeignImport', 'DBinding', etc.) return
 -- 'False'.
@@ -207,8 +208,7 @@ sdeclIsTopLevel = \case
     DDerivingInstance _ -> False
   where
     isTopLevel :: Origin.Decl a -> Bool
-    isTopLevel (Origin.Decl DeclInfo{declEnclosing = enc} _ _) =
-      isNothing enc
+    isTopLevel d = null d.info.enclosing
 
 -- | Extract the C name from the declaration's 'Origin.Decl', if present.
 --
@@ -232,27 +232,26 @@ sdeclOriginCName = \case
     DDerivingInstance _ -> Nothing
   where
     originCName :: Origin.Decl a -> Text
-    originCName (Origin.Decl DeclInfo{id = declIdPair} _ _) =
-      let DeclIdPair{cName = DeclId{name = CDeclName{text = t}}} = declIdPair
-      in t
+    originCName d = d.info.id.cName.name.text
 
 -- | Extract the user-facing Haskell name from a declaration.
 --
--- Returns 'Nothing' for internal names, instances, and deriving instances.
--- This is the primary lookup key in 'taggedExports'.
+-- Type-constructor and pattern-synonym names are always exported.  Term-level
+-- names ('DForeignImport', 'DBinding') may be internal helpers, in which case
+-- 'Nothing' is returned.  Instances and deriving-instances return 'Nothing'.
 sdeclExportedName :: SDecl -> Maybe Text
 sdeclExportedName = \case
-    DTypSyn typSyn               -> exportedName typSyn.name
-    DRecord record               -> exportedName record.typ
-    DNewtype newtyp              -> exportedName newtyp.name
-    DEmptyData empty             -> exportedName empty.name
-    DForeignImport foreignImport -> exportedName foreignImport.name
-    DBinding binding             -> exportedName binding.name
-    DPatternSynonym patSyn       -> exportedName patSyn.name
+    DTypSyn typSyn               -> Just typSyn.name.text
+    DRecord record               -> Just record.typ.text
+    DNewtype newtyp              -> Just newtyp.name.text
+    DEmptyData empty             -> Just empty.name.text
+    DForeignImport foreignImport -> termText foreignImport.name
+    DBinding binding             -> termText binding.name
+    DPatternSynonym patSyn       -> Just patSyn.name.text
     DInst _                      -> Nothing
     DDerivingInstance _          -> Nothing
   where
-    exportedName :: Hs.Name ns -> Maybe Text
-    exportedName n = case n of
-      Hs.ExportedName _ -> Just (Hs.getName n)
+    termText :: Hs.TermName -> Maybe Text
+    termText = \case
+      Hs.ExportedName n -> Just n.text
       Hs.InternalName _ -> Nothing
