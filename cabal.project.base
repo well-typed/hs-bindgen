@@ -7,6 +7,11 @@ source-repository-package
     location: https://github.com/well-typed/libclang
     tag: cdbf817187a261ebf8c31b32c85c5693eedf298d
 
+source-repository-package
+    type: git
+    location: https://github.com/well-typed/doxygen-parser
+    tag: 64faaf3d43599076eb5a04eae7af777de74c7e9b
+
 --
 -- Temporary package bounds overrides for ghc 9.14
 --

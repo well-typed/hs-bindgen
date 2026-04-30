@@ -1,5 +1,4 @@
 packages: .
-          ../../../doxygen-parser
           ../../../hs-bindgen-runtime
           ../../../c-expr-runtime
           ../../../c-expr-dsl
@@ -9,3 +8,8 @@ source-repository-package
     type: git
     location: https://github.com/well-typed/libclang
     tag: d4ae9a5fcca9ae71fcb4df2c0b0ea37c6b15c48c
+
+source-repository-package
+    type: git
+    location: https://github.com/well-typed/doxygen-parser
+    tag: 64faaf3d43599076eb5a04eae7af777de74c7e9b
