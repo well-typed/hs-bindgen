@@ -63,9 +63,15 @@
   #1790][is-1790] and [PR #1917][pr-1917].
 * Print type operators with infix notation in generated bindings. See [issue
   #1715][is-1715] and [PR #1917][pr-1917].
+* Function-like macro parameters are now resolved to de Bruijn indices at
+  parse time and correctly propagated through the backend.
 
 ### Bug fixes
 
+* Unresolved tagged types in macro expressions produce a `Warning`-level
+  diagnostic (`MacroTypecheckErrorUnresolvedTaggedType`) instead of panicking.
+* Forward-declared (opaque) tagged types are included in `knownTaggedTypes`
+  during macro typechecking.
 * Fixture tests now invoke the same GHC that cabal used to build the test
   suite, so they no longer fail when `with-compiler` is set to a non-default
   version and the system's `ghc` on `PATH` is something else. See [issue

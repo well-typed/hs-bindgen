@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -54,21 +55,21 @@ getCWrappers decls = mapMaybe getCWrapper decls
 
 translateDecl :: Hs.Decl -> SDecl
 translateDecl = \case
-    Hs.DeclTypSyn         x -> translateDeclTypSyn         x
-    Hs.DeclData           x -> translateDeclData           x
-    Hs.DeclEmpty          x -> translateDeclEmpty          x
-    Hs.DeclNewtype        x -> translateNewtype            x
-    Hs.DeclDefineInstance x -> translateDefineInstanceDecl x
-    Hs.DeclDeriveInstance x -> translateDeriveInstance     x
-    Hs.DeclMacroExpr      x -> translateMacroExpr          x
-    Hs.DeclForeignImport  x -> translateForeignImportDecl  x
-    Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper x
-    Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic x
-    Hs.DeclFunction       x -> translateFunctionDecl       x
-    Hs.DeclPatSyn         x -> translatePatSyn             x
-    Hs.DeclUnionGetter    x -> translateUnionGetter        x
-    Hs.DeclUnionSetter    x -> translateUnionSetter        x
-    Hs.DeclVar            x -> translateDeclVar            x
+  Hs.DeclTypSyn               x -> translateDeclTypSyn           x
+  Hs.DeclData                 x -> translateDeclData             x
+  Hs.DeclEmpty                x -> translateDeclEmpty            x
+  Hs.DeclNewtype              x -> translateNewtype              x
+  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl   x
+  Hs.DeclDeriveInstance       x -> translateDeriveInstance       x
+  Hs.DeclMacroValue           x -> translateMacroValue           x
+  Hs.DeclForeignImport        x -> translateForeignImportDecl    x
+  Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper x
+  Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic x
+  Hs.DeclFunction             x -> translateFunctionDecl         x
+  Hs.DeclPatSyn               x -> translatePatSyn               x
+  Hs.DeclUnionGetter          x -> translateUnionGetter          x
+  Hs.DeclUnionSetter          x -> translateUnionSetter          x
+  Hs.DeclVar                  x -> translateDeclVar              x
 
 translateDeclTypSyn :: Hs.TypSyn -> SDecl
 translateDeclTypSyn d = DTypSyn $ TypeSynonym {
@@ -103,7 +104,8 @@ translateDefineInstanceDecl defInst =
           , types   = []
           , comment = defInst.comment
           , decs    = [ ( bindgenGlobalTerm Flam_Offset_offset
-                        , ELam "_ty" $ EIntegral (toInteger i.offset) Nothing)
+                        , ELam (NameHint "_proxy") $
+                            EIntegral (toInteger i.offset) Nothing)
                       ]
           }
       Hs.InstanceCEnum struct i ->

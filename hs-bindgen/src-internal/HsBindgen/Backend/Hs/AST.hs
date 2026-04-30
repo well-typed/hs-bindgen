@@ -29,7 +29,7 @@ module HsBindgen.Backend.Hs.AST (
   , DeriveInstance(..)
   , Var(..)
     -- ** Variable declarations
-  , MacroExpr(..)
+  , MacroValue(..)
   , VarDeclRHS(..)
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
@@ -96,7 +96,7 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 import C.Char qualified as CExpr.Runtime
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
@@ -263,7 +263,7 @@ data Decl where
     DeclForeignImportDynamic :: ForeignImportDynamic -> Decl
     DeclForeignImportWrapper :: ForeignImportWrapper -> Decl
     DeclFunction             :: FunctionDecl         -> Decl
-    DeclMacroExpr            :: MacroExpr            -> Decl
+    DeclMacroValue           :: MacroValue           -> Decl
     DeclUnionGetter          :: UnionGetter          -> Decl
     DeclUnionSetter          :: UnionSetter          -> Decl
     DeclVar                  :: Var                  -> Decl
@@ -296,12 +296,12 @@ data InstanceDecl where
 deriving instance Show InstanceDecl
 
 -- | Macro expression
-type MacroExpr :: Star
-data MacroExpr = MacroExpr {
+type MacroValue :: Star
+data MacroValue = MacroValue {
     -- | Name of variable/function.
       name    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , expr    :: CheckedMacroExpr Final
+    , expr    :: CheckedMacroValue Final
     -- | RHS of variable/function.
     , comment :: Maybe HsDoc.Comment
     }
@@ -327,7 +327,7 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (CExpr.DSL.VaFun arity)
+  = forall arity. InfixAppHead (CExpr.VaFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (Hs.Name Hs.NsVar)
 

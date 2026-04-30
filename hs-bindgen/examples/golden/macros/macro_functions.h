@@ -3,12 +3,14 @@
 
 #define ID(X) X
 #define CONST(X,Y) X
+#define CONST_3(X,Y,Z) X
 
 #define CMP(X,Y) X < Y
 #define FUN1(X,Y) X + 12ull * Y
 #define FUN2(X,Y) X << ( 3ull * Y )
 
 #define G(X,Y) CONST(INCR(Y),ID(X))
+#define G_3(X,Y,Z) CONST_3(INCR(Y),ID(X),ID(Z))
 
 #define DIV1(X,Y) X / ( Y + 12u )
 #define DIV2(X,Y) 10.0f * X / Y

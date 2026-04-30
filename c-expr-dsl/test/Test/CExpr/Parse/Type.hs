@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Unit tests for 'C.Expr.Parse.Type.parseMacroType'
 module Test.CExpr.Parse.Type (tests) where
 
@@ -8,9 +6,9 @@ import Data.Vec.Lazy (Vec (..))
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Clang.CStandard
-
 import C.Expr.Syntax
+
+import Clang.CStandard
 
 import Test.CExpr.Parse.Infra
 
@@ -25,17 +23,17 @@ tests = testGroup "Parse.Type" [
 
 testWithCStd :: CStandard -> TestTree
 testWithCStd cStd = testGroup (show cStd) [
-      testGroup "void and bool"        $ tests_voidBool     std
-    , testGroup "integer types"        $ tests_int          std
-    , testGroup "char"                 $ tests_char         std
-    , testGroup "float and double"     $ tests_float        std
-    , testGroup "named types"          $ tests_named        std
-    , testGroup "tagged types"         $ tests_tagged       std
-    , testGroup "const qualifier"      $ tests_const        std
-    , testGroup "pointer indirection"  $ tests_pointer      std
-    , testGroup "combined"             $ tests_combined     std
-    , testGroup "keyword order"        $ tests_keywordOrder std
-    , testGroup "failures"             $ tests_failures     std
+      testGroup "void and bool"       $ tests_voidBool     std
+    , testGroup "integer types"       $ tests_int          std
+    , testGroup "char"                $ tests_char         std
+    , testGroup "float and double"    $ tests_float        std
+    , testGroup "named types"         $ tests_named        std
+    , testGroup "tagged types"        $ tests_tagged       std
+    , testGroup "const qualifier"     $ tests_const        std
+    , testGroup "pointer indirection" $ tests_pointer      std
+    , testGroup "combined"            $ tests_combined     std
+    , testGroup "keyword order"       $ tests_keywordOrder std
+    , testGroup "failures"            $ tests_failures     std
     ]
   where
     std = ClangCStandard cStd DisableGnu
@@ -197,15 +195,15 @@ tests_tagged cStd = [
       testCase "struct Foo" $
         -- struct Foo
         checkType cStd [kw "struct", ident "Foo"]
-          @?= Right (tyLit (TypeTagged TagStruct "Foo"))
+          @?= Right (Term $ Literal (TypeTagged TagStruct "Foo"))
     , testCase "union Bar" $
         -- union Bar
         checkType cStd [kw "union", ident "Bar"]
-          @?= Right (tyLit (TypeTagged TagUnion "Bar"))
+          @?= Right (Term $ Literal (TypeTagged TagUnion "Bar"))
     , testCase "enum Baz" $
         -- enum Baz
         checkType cStd [kw "enum", ident "Baz"]
-          @?= Right (tyLit (TypeTagged TagEnum "Baz"))
+          @?= Right (Term $ Literal (TypeTagged TagEnum "Baz"))
     ]
 
 {-------------------------------------------------------------------------------
@@ -233,7 +231,7 @@ tests_const cStd = [
     , testCase "const struct Foo" $
         -- const struct Foo
         checkType cStd [kw "const", kw "struct", ident "Foo"]
-          @?= Right (TyApp Const (tyLit (TypeTagged TagStruct "Foo") ::: VNil))
+          @?= Right (TyApp Const (Term (Literal (TypeTagged TagStruct "Foo")) ::: VNil))
     ]
 
 {-------------------------------------------------------------------------------
@@ -261,7 +259,7 @@ tests_pointer cStd = [
     , testCase "struct Foo*" $
         -- struct Foo *
         checkType cStd [kw "struct", ident "Foo", punc "*"]
-          @?= Right (TyApp Pointer (tyLit (TypeTagged TagStruct "Foo") ::: VNil))
+          @?= Right (TyApp Pointer (Term (Literal (TypeTagged TagStruct "Foo")) ::: VNil))
     ]
 
 {-------------------------------------------------------------------------------
@@ -292,7 +290,7 @@ tests_combined cStd = [
     , testCase "const struct Foo**" $
         -- const struct Foo **
         checkType cStd [kw "const", kw "struct", ident "Foo", punc "*", punc "*"]
-          @?= Right (TyApp Pointer (TyApp Pointer (TyApp Const (tyLit (TypeTagged TagStruct "Foo") ::: VNil) ::: VNil) ::: VNil))
+          @?= Right (TyApp Pointer (TyApp Pointer (TyApp Const (Term (Literal (TypeTagged TagStruct "Foo")) ::: VNil) ::: VNil) ::: VNil))
     , testCase "unsigned long long int" $
         -- unsigned long long int
         checkType cStd [kw "unsigned", kw "long", kw "long", kw "int"]

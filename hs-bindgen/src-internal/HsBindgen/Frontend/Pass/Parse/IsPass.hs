@@ -11,7 +11,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , IsAnon(..)
   ) where
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core (CXType)
@@ -60,12 +60,12 @@ instance IsPass Parse where
 
 -- | Syntactic parse result from @c-expr-dsl@.
 --
--- A type macro (e.g. @#define FOO int@) has 'CExpr.DSL.macroBody' equal to
--- @'CExpr.DSL.MTerm' ('CExpr.DSL.MType' …)@. An expression macro has any
--- other 'CExpr.DSL.macroBody'. Type conversion and expression typechecking
+-- A type macro (e.g. @#define FOO int@) has 'CExpr.macroBody' equal to
+-- @'CExpr.MTerm' ('CExpr.MType' …)@. An expression macro has any
+-- other 'CExpr.macroBody'. Type conversion and expression typechecking
 -- happen later in "HsBindgen.Frontend.Pass.TypecheckMacros".
 newtype ParsedMacro = ParsedMacro {
-      parsedMacro :: CExpr.DSL.Macro
+      parsedMacro :: CExpr.Macro
     }
 
 deriving stock instance Show ParsedMacro

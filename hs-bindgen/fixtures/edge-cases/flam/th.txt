@@ -30,7 +30,7 @@ instance (~) ty CInt =>
          HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"pascal_len")
 instance Offset CChar Pascal_Aux
-    where offset = \_ty_0 -> 4
+    where offset = \_proxy_0 -> 4
 type Pascal = WithFlam CChar Pascal_Aux
 {-| __C declaration:__ @struct \@foo_bar@
 
@@ -104,7 +104,7 @@ instance HasCField Foo_Aux "foo_len"
 instance (~) ty CInt => HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_len")
 instance Offset Foo_bar Foo_Aux
-    where offset = \_ty_0 -> 4
+    where offset = \_proxy_0 -> 4
 type Foo = WithFlam Foo_bar Foo_Aux
 {-| __C declaration:__ @struct diff@
 
@@ -151,7 +151,7 @@ instance (~) ty CChar =>
          HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"diff_second")
 instance Offset CChar Diff_Aux
-    where offset = \_ty_0 -> 9
+    where offset = \_proxy_0 -> 9
 type Diff = WithFlam CChar Diff_Aux
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
@@ -186,5 +186,5 @@ instance (~) ty CInt =>
          HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"triplets_len")
 instance Offset (ConstantArray 3 CInt) Triplets_Aux
-    where offset = \_ty_0 -> 4
+    where offset = \_proxy_0 -> 4
 type Triplets = WithFlam (ConstantArray 3 CInt) Triplets_Aux

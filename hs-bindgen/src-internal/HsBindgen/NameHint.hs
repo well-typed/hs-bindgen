@@ -2,18 +2,8 @@ module HsBindgen.NameHint (
     NameHint(..)
   ) where
 
-import Data.Char (toLower)
-
-import HsBindgen.Imports
-
+-- | Hint used to render bound variables
+--
+-- Invariant: the name hint must be valid Haskell for its intended context.
 newtype NameHint = NameHint String
 deriving newtype instance Show NameHint
-
--- | This instance tries to make name hints valid variable names in Haskell.
-instance IsString NameHint where
-    fromString []     = NameHint "x"
-    fromString (x:xs) = NameHint (toLower x : xs)
-
--- | All name hints are equal.
-instance Eq NameHint where
-    _ == _ = True

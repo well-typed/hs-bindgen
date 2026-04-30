@@ -18,9 +18,10 @@ import Text.Parsec
 import Text.Parsec.Pos (updatePosChar)
 
 import C.Char qualified as Runtime
+import C.Type qualified as Runtime
+
 import C.Expr.Parse.Infra
 import C.Expr.Util.Parsec
-import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
   Parser for integer literals

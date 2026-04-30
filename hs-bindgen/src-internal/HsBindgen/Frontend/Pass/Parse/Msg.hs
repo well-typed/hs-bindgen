@@ -13,7 +13,7 @@ import Foreign.C (CInt)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
-import C.Expr.Parse qualified as CExpr.DSL
+import C.Expr.Parse qualified as CExpr
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
@@ -129,7 +129,7 @@ data DelayedParseMsg =
   | ParseMacroEmpty PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
-  | ParseMacroErrorParse CExpr.DSL.MacroParseError
+  | ParseMacroErrorParse CExpr.MacroParseError
 
     -- | We could not reparse a fragment of C (to recover macro use sites)
   | ParseMacroErrorReparse LanC.Error
@@ -466,7 +466,7 @@ instance PrettyForTrace DelayedParseMsg where
           , PP.string pleaseReport
           ]
 
-      prettyMacroParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
+      prettyMacroParseError :: CExpr.MacroParseError -> PP.CtxDoc
       prettyMacroParseError err = PP.renderedLines $ \_maxWidth -> lines err.reparseError
 
 -- | Unsupported features are warnings
