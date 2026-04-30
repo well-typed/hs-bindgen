@@ -27,39 +27,63 @@ import Test.Tasty.HUnit
 import C.Expr.Syntax
 import C.Expr.Typecheck (MacroTcError, MacroTcResult (..), TypeEnv, tcMacro)
 import C.Type qualified as Runtime
+import Data.Functor.Identity (Identity (..))
 
 type MacDef = (Name, [Name], Expr Ps)
 
-runTcSeq :: [MacDef] -> [Either MacroTcError MacroTcResult]
+tcMacroSimple ::
+     TypeEnv
+  -> Name
+  -> [Name]
+  -> Expr Ps
+  -> Either MacroTcError (MacroTcResult Name Name)
+tcMacroSimple tyEnv name args expr =
+    runIdentity $
+      tcMacro tyEnv pure injectTaggedName pure name args expr
+  where
+    tagToName :: TagKind -> Name
+    tagToName = \case
+      TagStruct -> "struct"
+      TagUnion  -> "union"
+      TagEnum   -> "enum"
+
+    injectTaggedName :: TagKind -> Name -> Identity Name
+    injectTaggedName tag nm = pure $ tagToName tag <> " " <> nm
+
+runTcSeq :: [MacDef] -> [Either MacroTcError (MacroTcResult Name Name)]
 runTcSeq = go Map.empty
   where
-    go :: TypeEnv -> [MacDef] -> [Either MacroTcError MacroTcResult]
+    go :: TypeEnv -> [MacDef] -> [Either MacroTcError (MacroTcResult Name Name)]
     go _   []                              = []
     go env ((name, args, body) : rest) =
-      let result = tcMacro env name args body
+      let result = tcMacroSimple env name args body
           env'   = case result of
-                     Right (MacroTcValueExpr _ quant) ->
+                     Right (MacroTcValueExpr quant _) ->
                        Map.insert name quant env
                      _ -> env
       in  result : go env' rest
 
-classifyOne :: Name -> [Name] -> Expr Ps -> Either MacroTcError MacroTcResult
-classifyOne n args body = tcMacro Map.empty n args body
+classifyOne ::
+     Name
+  -> [Name]
+  -> Expr Ps
+  -> Either MacroTcError (MacroTcResult Name Name)
+classifyOne n args body = tcMacroSimple Map.empty n args body
 
-isTypeMacro :: MacroTcResult -> Bool
+isTypeMacro :: MacroTcResult a b -> Bool
 isTypeMacro (MacroTcTypeExpr _ _) = True
 isTypeMacro _                     = False
 
-isValueMacro :: MacroTcResult -> Bool
+isValueMacro :: MacroTcResult a b -> Bool
 isValueMacro (MacroTcValueExpr _ _) = True
 isValueMacro _                      = False
 
-assertTypeMacro :: Show e => Either e MacroTcResult -> Assertion
+assertTypeMacro :: Show e => Either e (MacroTcResult a b) -> Assertion
 assertTypeMacro = \case
     Left e  -> assertFailure $ "expected MacroTcTypeExpr, got Left: " ++ show e
     Right r -> assertBool "expected MacroTcTypeExpr" (isTypeMacro r)
 
-assertValueMacro :: Show e => Either e MacroTcResult -> Assertion
+assertValueMacro :: Show e => Either e (MacroTcResult a b) -> Assertion
 assertValueMacro = \case
     Left e  -> assertFailure $ "expected MacroTcValueExpr, got Left: " ++ show e
     Right r -> assertBool "expected MacroTcValueExpr" (isValueMacro r)

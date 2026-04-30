@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Infrastructure for reparsing
 module C.Expr.Parse.Infra (
     -- * Parser type

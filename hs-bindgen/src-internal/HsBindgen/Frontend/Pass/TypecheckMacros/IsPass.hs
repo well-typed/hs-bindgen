@@ -8,9 +8,9 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   , convertTagKind
   ) where
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck.Interface.Value qualified as V
-import C.Expr.Typecheck.Type qualified as CExpr.DSL
+import C.Expr.Typecheck.Type qualified as CExpr
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -66,9 +66,9 @@ data CheckedMacroType p = CheckedMacroType{
 
 -- | Checked expression (function) macro
 data CheckedMacroExpr p = CheckedMacroExpr{
-      args :: [Id p]
+      args :: [CExpr.Name]
     , body :: V.Expr (Id p)
-    , typ  :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
+    , typ  :: CExpr.Quant (CExpr.Type CExpr.Ty)
     }
   deriving stock (Generic)
 
@@ -80,12 +80,12 @@ deriving stock instance IsPass p => Eq (CheckedMacro     p)
 deriving stock instance IsPass p => Eq (CheckedMacroType p)
 deriving stock instance IsPass p => Eq (CheckedMacroExpr p)
 
--- | Convert a @c-expr-dsl@ 'CExpr.DSL.TagKind' to an hs-bindgen 'CTagKind'
-convertTagKind :: CExpr.DSL.TagKind -> CTagKind
+-- | Convert a @c-expr-dsl@ 'CExpr.TagKind' to an hs-bindgen 'CTagKind'
+convertTagKind :: CExpr.TagKind -> CTagKind
 convertTagKind = \case
-    CExpr.DSL.TagStruct -> CTagKindStruct
-    CExpr.DSL.TagUnion  -> CTagKindUnion
-    CExpr.DSL.TagEnum   -> CTagKindEnum
+    CExpr.TagStruct -> CTagKindStruct
+    CExpr.TagUnion  -> CTagKindUnion
+    CExpr.TagEnum   -> CTagKindEnum
 
 {-------------------------------------------------------------------------------
   CoercePass for CheckedMacro (parametric; applies to any passes p, p')
@@ -109,7 +109,7 @@ instance (
 
 instance CoercePassId p p' => CoercePass CheckedMacroExpr p p' where
   coercePass e = CheckedMacroExpr{
-        args = map  (coercePassId (Proxy @'(p, p'))) e.args
+        args = e.args
       , body = fmap (coercePassId (Proxy @'(p, p'))) e.body
       , typ  = e.typ
       }

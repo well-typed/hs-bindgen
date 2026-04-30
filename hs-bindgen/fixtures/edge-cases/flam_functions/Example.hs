@@ -78,7 +78,7 @@ instance ( ty ~ RIP.CInt
 
 instance FLAM.Offset RIP.CLong Vector_Aux where
 
-  offset = \_ty0 -> 8
+  offset = \_proxy0 -> 8
 
 {-| __C declaration:__ @struct Vector@
 

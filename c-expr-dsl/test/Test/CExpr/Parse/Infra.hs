@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Test infrastructure for the c-expr-dsl parser tests
 module Test.CExpr.Parse.Infra (
     -- * Token constructors
@@ -15,6 +13,7 @@ module Test.CExpr.Parse.Infra (
   , tyLit
   ) where
 
+import Data.Set qualified as Set
 import Data.Text (Text)
 import Text.Parsec (eof)
 
@@ -76,7 +75,7 @@ mkToken kind spelling = Token{
 -- Adds 'eof' so that trailing tokens are rejected as parse failures.
 checkType ::
   ClangCStandard -> [Token TokenSpelling] -> Either MacroParseError (Expr Ps)
-checkType cStd = runParser (parseMacroType cStd <* eof)
+checkType cStd = runParser (parseMacroType cStd Set.empty <* eof)
 
 -- | Run the macro parser on a complete token sequence
 --

@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Golden integration tests for 'C.Expr.Parse.Expr.parseMacro'
 --
 -- These tests use @libclang@ to tokenise the macros defined in

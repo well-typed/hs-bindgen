@@ -47,6 +47,7 @@ type Macro :: Hs.Type
 data Macro = Macro {
       macroLoc  :: MultiLoc
     , macroName :: Name
+      -- TODO-D: macroParams
     , macroArgs :: [Name]
     , macroExpr :: Expr Ps
     }

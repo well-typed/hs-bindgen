@@ -9,7 +9,6 @@ import Data.Text qualified as T
 import Data.Type.Equality ((:~:) (Refl))
 import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 import DeBruijn.Add (Add, lzeroAdd, swapAdd, unrzeroAdd)
-import GHC.Records
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -26,6 +25,7 @@ import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
+import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -425,7 +425,7 @@ instance ToOrigType PassResBy where
 --
 requiresRestore :: PassBy byValue byAddress -> Bool
 requiresRestore = \case
-    PassByValue{} -> False
+    PassByValue{}   -> False
     PassByAddress{} -> True
 
 {-------------------------------------------------------------------------------
@@ -610,7 +610,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
             PassByAddress ty -> SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified ty in
               [ SHs.EBound y
-              , SHs.ELam x.ptrNameHint $
+              , SHs.ELam x.nameHint $
                   go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
               ]
 
@@ -637,7 +637,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.eBindgenGlobal Capi_allocaAndPeek)
-          (SHs.ELam "res" $ kont zs')
+          (SHs.ELam (NameHint "res") $ kont zs')
       | otherwise
       = kont zs
 
@@ -667,8 +667,18 @@ data FunArg = FunArg {
 funArgToVarInfo :: FunArg -> VarInfo
 funArgToVarInfo arg = VarInfo {
       typ = arg.typ
-    , optNameHint = fmap (fromString . T.unpack) arg.cParamName
+    , nameHint = toHint $ case arg.cParamName of
+        Nothing -> fallback
+        Just x  -> mangleCandidateDefaultFallback fallback x
     }
+  where
+    fallback :: Hs.Name Hs.NsVar
+    fallback = Hs.UnsafeName $ case arg.typ of
+      PassByValue{}   -> "x"
+      PassByAddress{} -> "ptr"
+
+    toHint :: Hs.Name Hs.NsVar -> NameHint
+    toHint n = NameHint $ T.unpack n.text
 
 {-------------------------------------------------------------------------------
   Variables
@@ -712,15 +722,9 @@ exprVar var
 
 -- | Information for variables corresponding to function arguments
 data VarInfo = VarInfo {
-    typ         :: PassArgBy
-  , optNameHint :: Maybe NameHint
+    typ      :: PassArgBy
+  , nameHint :: NameHint
   }
-
-instance HasField "nameHint" VarInfo NameHint where
-  getField vinfo = fromMaybe "x" vinfo.optNameHint
-
-instance HasField "ptrNameHint" VarInfo NameHint where
-  getField vinfo = fromMaybe "ptr" vinfo.optNameHint
 
 {-------------------------------------------------------------------------------
   Environment

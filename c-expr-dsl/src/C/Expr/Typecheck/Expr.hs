@@ -1,7 +1,6 @@
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp #-}
 
 #if __GLASGOW_HASKELL__ >=908
@@ -158,9 +157,6 @@ isEmptySubst ( Subst s ) = IntMap.null s
 
 domain :: Subst tv -> IntSet
 domain ( Subst s ) = IntMap.keysSet s
-
---range :: IntSet -> Subst tv -> [ Type Ty ]
---range tvs ( Subst s ) = IntMap.elems $ fmap snd $ IntMap.restrictKeys s tvs
 
 addOneToSubst :: HasCallStack => TyVar -> Type Ty -> Subst TyVar -> Subst TyVar
 addOneToSubst tv ty s = mkSubst [ ( tv, ty ) ] <> s
@@ -778,6 +774,9 @@ inferTerm :: Term Ps -> TcGenM ( Type Ty, Term Tc )
 inferTerm = \case
   Literal x ->
     pure (inferLit x, Literal x)
+  LocalArg fun ->
+    do ( _funVal, resTy ) <- inferFun ( Fun $ Left fun )
+       return ( resTy, LocalArg fun )
   Var NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
     do ( funVal, ( args', resTy ) ) <- inferVaApp ( Fun $ Left fun ) args
        return ( resTy, Var ( XVarTc funVal ) fun ( Vec.toList args' ) )
@@ -785,6 +784,7 @@ inferTerm = \case
 inferLit :: Literal -> Type Ty
 inferLit = \case
   TypeLit{}        -> MacroTypeTy
+  TypeTagged{}     -> MacroTypeTy
   ValueLit vaLit -> case vaLit of
     ValueInt ( IntegerLiteral { integerLiteralType = intyTy } ) ->
       IntLike $ PrimIntInfoTy $ CIntegralType $ Runtime.IntLike intyTy
@@ -1826,12 +1826,9 @@ evaluateExpr argVals tyEnv = \case
 evaluateTerm :: Map Name Value -> TypeEnv -> Term Tc -> Value
 evaluateTerm argVals tyEnv = \case
   Literal x -> evaluateLit x
+  -- Local macro argument, e.g. @X@ in @#define AddOne(X) X+1@.
+  LocalArg nm -> maybe NoValue id $ Map.lookup nm argVals
   Var ( XVarTc ( FunValue @n _ fn ) ) nm args
-    -- Is this an argument to the macro, e.g. @X@ in @#define AddOne(X) X+1@?
-    | [] <- args
-    , Just mbVal <- Map.lookup nm argVals
-    -> mbVal
-    | otherwise
     -> Vec.reifyList args $ \ ( argsVec :: Vec m ( Expr Tc ) ) ->
         case Nat.eqNat @n @m of
           Nothing ->
@@ -1876,6 +1873,7 @@ evaluateLit = \case
     ValueString {} -> NoValue
   -- We do not evaluate type functions.
   TypeLit    {} -> NoValue
+  TypeTagged {} -> NoValue
 
 naturalMaybe :: ValSType ty -> ty -> Maybe Natural
 naturalMaybe ( ValSType ty ) i =

@@ -1,6 +1,5 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE MagicHash         #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 #if __GLASGOW_HASKELL__ >=908
 {-# LANGUAGE TypeAbstractions #-}
@@ -18,6 +17,7 @@ module C.Expr.Typecheck.Type (
   , Tc
     -- * Type inference
   , TypeEnv
+  , buildTypedefEnv
   , VarEnv
     -- ** Type system
   , Type(..)
@@ -101,6 +101,7 @@ import Data.GADT.Compare
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
 import Data.Map (Map)
+import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Nat (Nat (..))
 import Data.Proxy
@@ -460,6 +461,28 @@ instance Show ( ClassTyCon n ) where
 -- unavailable.
 type TypeEnv = Map Name ( Quant ( FunValue, Type Ty ) )
 type VarEnv  = Map Name ( Type Ty )
+
+-- | Build a 'TypeEnv' from a list of typedef names.
+--
+-- Each name is registered as a type alias (with kind 'MacroTypeTy') and a
+-- dummy 'FunValue' that is never invoked.
+--
+-- Note: @struct@, @union@, and @enum@ types should /not/ be added here.
+-- Tagged types always parse as 'TypeTagged' literals, never as bare 'Var'
+-- nodes, so they are resolved through the @injectTagged@ callback of
+-- 'C.Expr.Typecheck.tcMacro' instead.
+buildTypedefEnv :: [Name] -> TypeEnv
+buildTypedefEnv names =
+    Map.fromList
+      [ ( nm
+        , Quant @Z $ \VNil ->
+            QuantTyBody []
+              ( FunValue @Z (getName nm) (\VNil -> NoValue)
+              , MacroTypeTy
+              )
+        )
+      | nm <- names
+      ]
 
 {-------------------------------------------------------------------------------
   Pass definition

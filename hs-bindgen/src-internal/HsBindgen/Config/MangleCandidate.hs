@@ -2,6 +2,7 @@ module HsBindgen.Config.MangleCandidate (
     -- * Definition
     MangleCandidate(..)
   , mangleCandidate
+  , mangleCandidateDefaultFallback
     -- * Parse
   , ParseCandidateError(..)
   , parseCandidate
@@ -140,6 +141,19 @@ mangleCandidate mc =
       = Hs.UnsafeName $ mc.onReservedName name.text
       | otherwise
       = name
+
+-- | Mangle a candidate
+--
+-- Use the default configuration 'mangleCandidateDefault'.
+--
+-- If mangling fails, return the @fallback@ value.
+mangleCandidateDefaultFallback ::
+     forall ns. Hs.SingNamespace ns
+  => Hs.Name ns -> Text -> Hs.Name ns
+mangleCandidateDefaultFallback fallback candidate =
+  case mangleCandidate mangleCandidateDefault candidate of
+    Nothing   -> fallback
+    Just name -> name
 
 {-------------------------------------------------------------------------------
   Parse

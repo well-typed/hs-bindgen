@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Unit tests for 'C.Expr.Parse.Expr.parseMacro'
 --
 -- Tests the full macro parser, focusing on:
@@ -31,9 +29,10 @@ tests = testGroup "Parse.Macro" [
 
 testsWithCStd :: CStandard -> TestTree
 testsWithCStd cStd = testGroup (show cStd) [
-      testGroup "type bodies"       $ tests_typeBody       std
-    , testGroup "expression bodies" $ tests_exprBody       std
-    , testGroup "disambiguation"    $ tests_disambiguation std
+      testGroup "type bodies"               $ tests_typeBody         std
+    , testGroup "function-like type bodies" $ tests_funcLikeTypeBody std
+    , testGroup "expression bodies"         $ tests_exprBody         std
+    , testGroup "disambiguation"            $ tests_disambiguation   std
     ]
   where
     std = ClangCStandard cStd DisableGnu
@@ -98,7 +97,7 @@ tests_typeBody cStd = [
     , testCase "struct Foo" $
         -- #define FOO struct Foo
         getMacroExpr (checkMacro cStd [macroNameTok, kw "struct", ident "Foo"])
-          @?= Just (tyLit (TypeTagged TagStruct "Foo"))
+          @?= Just (Term $ Literal (TypeTagged TagStruct "Foo"))
     , testCase "size_t" $
         -- #define FOO size_t (bare identifier; typechecker decides it's a type)
         getMacroExpr (checkMacro cStd [macroNameTok, ident "size_t"])
@@ -111,6 +110,37 @@ tests_typeBody cStd = [
         -- #define FOO size_t const * const
         getMacroExpr (checkMacro cStd [macroNameTok, ident "size_t", kw "const", punc "*", kw "const" ])
           @?= Just (TyApp Const (TyApp Pointer (TyApp Const (Term (Var NoXVar "size_t" []) ::: VNil) ::: VNil) ::: VNil))
+    ]
+
+{-------------------------------------------------------------------------------
+  Function-like type bodies (local args)
+-------------------------------------------------------------------------------}
+
+tests_funcLikeTypeBody :: ClangCStandard -> [TestTree]
+tests_funcLikeTypeBody cStd = [
+      testCase "PTR(T) = T*" $
+        -- #define PTR(T) T*
+        -- T is a local arg; the body is a pointer type parameterised by T.
+        getMacroExpr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , ident "T", punc "*"
+            ])
+          @?= Just (TyApp Pointer (Term (LocalArg "T") ::: VNil))
+    , testCase "CONST_PTR(T) = const T*" $
+        -- #define CONST_PTR(T) const T*
+        getMacroExpr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , kw "const", ident "T", punc "*"
+            ])
+          @?= Just (TyApp Pointer (TyApp Const (Term (LocalArg "T") ::: VNil) ::: VNil))
+    , testCase "free var is not a local arg" $
+        -- #define PTR(T) size_t*
+        -- size_t is not a formal arg, so it stays as Var, not LocalArg.
+        getMacroExpr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , ident "size_t", punc "*"
+            ])
+          @?= Just (TyApp Pointer (Term (Var NoXVar "size_t" []) ::: VNil))
     ]
 
 {-------------------------------------------------------------------------------

@@ -198,20 +198,23 @@ instance GEq VaFun where
 
 -- | Value literal
 data ValueLit =
-    -- | Integer literal
-    ValueInt IntegerLiteral
-    -- | Floating-point literal
-  | ValueFloat FloatingLiteral
-    -- | Character literal
-  | ValueChar CharLiteral
-    -- | String literal
+    ValueInt    IntegerLiteral
+  | ValueFloat  FloatingLiteral
+  | ValueChar   CharLiteral
   | ValueString StringLiteral
   deriving stock (Eq, Ord, Show)
 
 type Literal :: Type
 data Literal =
-    TypeLit TypeLit
+    TypeLit  TypeLit
+
   | ValueLit ValueLit
+
+    -- NB: We do not accept untagged identifiers here, since they may correspond
+    -- to a value expression, not a type expression.
+
+    -- | An elaborated type literal: @struct tag@, @union tag@, @enum tag@
+  | TypeTagged !TagKind !Name
   deriving stock (Eq, Ord, Show)
 
 type Term :: Pass -> Type
@@ -219,9 +222,19 @@ data Term p =
     -- | Literal (i.e., constant) type or value
     Literal Literal
 
-    -- | Variable or function/macro call
+    -- TODO-D: Rename to Param
+
+    -- | Reference to a function parameter
     --
-    -- This might be a macro argument, or another macro.
+    -- A parameter of the enclosing function-like macro. For example, the second
+    -- @X@ in @#define F(X) X + 1@.
+    --
+    -- The language defined in @c-expr-dsl@ is a first-order language, so there
+    -- is no need for arguments. For example, we do not support
+    -- @#define MACRO(F,X) F(X)@.
+  | LocalArg Name
+
+    -- | Free variable: another macro or typedef
   | Var ( XVar p ) Name [Expr p]
   deriving stock Generic
 deriving stock instance ( Eq   ( XApp p ), Eq   ( XVar p ) ) => Eq   ( Term p )

@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -103,7 +104,8 @@ translateDefineInstanceDecl defInst =
           , types   = []
           , comment = defInst.comment
           , decs    = [ ( bindgenGlobalTerm Flam_Offset_offset
-                        , ELam "_ty" $ EIntegral (toInteger i.offset) Nothing)
+                        , ELam (NameHint "_proxy") $
+                            EIntegral (toInteger i.offset) Nothing)
                       ]
           }
       Hs.InstanceCEnum struct i ->

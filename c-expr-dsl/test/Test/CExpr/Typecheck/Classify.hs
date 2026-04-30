@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Test.CExpr.Typecheck.Classify (
     tests
   ) where
@@ -35,9 +33,9 @@ tests_keywordTypes = testGroup "keyword type bodies" [
     , testCase "double"     $ assertTypeMacro $ classifyOne "M" [] (tyLit (TypeFloat SizeDouble))
     , testCase "_Bool"      $ assertTypeMacro $ classifyOne "M" [] (tyLit TypeBool)
     , testCase "char"       $ assertTypeMacro $ classifyOne "M" [] (tyLit (TypeChar Nothing))
-    , testCase "struct Foo" $ assertTypeMacro $ classifyOne "M" [] (tyLit (TypeTagged TagStruct "Foo"))
-    , testCase "union Bar"  $ assertTypeMacro $ classifyOne "M" [] (tyLit (TypeTagged TagUnion  "Bar"))
-    , testCase "enum Baz"   $ assertTypeMacro $ classifyOne "M" [] (tyLit (TypeTagged TagEnum   "Baz"))
+    , testCase "struct Foo" $ assertTypeMacro $ classifyOne "M" [] (Term (Literal (TypeTagged TagStruct "Foo")))
+    , testCase "union Bar"  $ assertTypeMacro $ classifyOne "M" [] (Term (Literal (TypeTagged TagUnion  "Bar")))
+    , testCase "enum Baz"   $ assertTypeMacro $ classifyOne "M" [] (Term (Literal (TypeTagged TagEnum   "Baz")))
     ]
 
 {-------------------------------------------------------------------------------
@@ -51,7 +49,7 @@ tests_typeApp = testGroup "type application bodies" [
     , testCase "const int *"  $ assertTypeMacro $ classifyOne "M" [] (ptrOf (constOf (tyLit intTy)))
     , testCase "int * const"  $ assertTypeMacro $ classifyOne "M" [] (constOf (ptrOf (tyLit intTy)))
     , testCase "void *"       $ assertTypeMacro $ classifyOne "M" [] (ptrOf (tyLit TypeVoid))
-    , testCase "struct Foo *" $ assertTypeMacro $ classifyOne "M" [] (ptrOf (tyLit (TypeTagged TagStruct "Foo")))
+    , testCase "struct Foo *" $ assertTypeMacro $ classifyOne "M" [] (ptrOf (Term (Literal (TypeTagged TagStruct "Foo"))))
     ]
 
 {-------------------------------------------------------------------------------

@@ -1,9 +1,9 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module C.Expr.Parse.Expr (parseMacro, parseMacroType) where
 
 import Control.Monad
 import Data.Functor.Identity
+import Data.Set (Set)
+import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Type.Nat
 import Data.Vec.Lazy hiding ((++), length)
@@ -47,17 +47,21 @@ parseMacro cStd = do
     return $ Macro macroLoc macroName macroArgs macroExpr
   where
     functionLike :: Parser ([Name], Expr Ps)
-    functionLike = (,) <$> formalArgs <*> exprTuple cStd
+    functionLike = do
+      -- TODO-D: Params
+      args <- formalArgs
+      body <- bodyExpr (Set.fromList args)
+      return (args, body)
 
     objectLike :: Parser ([Name], Expr Ps)
-    objectLike = ([], ) <$> bodyExpr
+    objectLike = ([], ) <$> bodyExpr Set.empty
 
     -- Try the body as a type expression first. The @'eof'@ inside the @'try'@
     -- is essential: if @'parseMacroType'@ succeeds on a prefix (e.g. the bare
     -- identifier in @size_t + 1@) but leaves tokens unconsumed, the whole
     -- attempt is abandoned and we fall back to the expression parser.
-    bodyExpr :: Parser (Expr Ps)
-    bodyExpr = try (parseMacroType cStd <* eof) <|> exprTuple cStd
+    bodyExpr :: Set Name -> Parser (Expr Ps)
+    bodyExpr locals = try (parseMacroType cStd locals <* eof) <|> exprTuple cStd locals
 
 formalArgs :: Parser [Name]
 formalArgs = parens $ formalArg `sepBy` comma
@@ -91,14 +95,15 @@ formalArg = parseName
 -- Returns an 'Expr Ps' where:
 --
 -- * A keyword or tagged base type becomes @'Term' ('Type' literal)@.
--- * A bare identifier becomes @'Term' ('Var' …)@; the typechecker decides
---   whether it names a type or a value.
+-- * A bare identifier that is a local macro argument becomes @'Term' ('LocalArg' …)@.
+-- * A bare identifier that is a free variable becomes @'Term' ('Var' …)@;
+--   the typechecker decides whether it names a type or a value.
 -- * Each @const@ qualifier wraps the expression in @'TyApp' 'Const'@.
 -- * Each @*@ pointer layer wraps the expression in @'TyApp' 'Pointer'@.
-parseMacroType :: ClangCStandard -> Parser (Expr Ps)
-parseMacroType cStd = do
+parseMacroType :: ClangCStandard -> Set Name -> Parser (Expr Ps)
+parseMacroType cStd locals = do
     constBefore <- option False (True <$ keyword "const")
-    base        <- typeBase cStd
+    base        <- typeBase cStd locals
     constAfter  <- option False (True <$ keyword "const")
     ptrs        <- pointerLayers
     -- In C, @const@ is idempotent: @const int const@ is valid but equivalent
@@ -117,14 +122,17 @@ parseMacroType cStd = do
 --
 -- Returns:
 --
--- * @'Term' ('Type' literal)@ for keyword or elaborated base types.
--- * @'Term' ('Var' …)@ for a bare identifier; the caller / typechecker
---   decides whether it names a type or a value.
-typeBase :: ClangCStandard -> Parser (Expr Ps)
-typeBase cStd =
+-- * @'Term' ('Literal' …)@ for keyword or elaborated base types.
+-- * @'Term' ('LocalArg' …)@ for a bare identifier that is a local macro argument.
+-- * @'Term' ('Var' …)@ for any other bare identifier; the typechecker decides
+--   whether it names a type or a value.
+typeBase :: ClangCStandard -> Set Name -> Parser (Expr Ps)
+typeBase cStd locals =
     choice [
         -- Type literal.
-        Term . Literal . TypeLit <$> tyLit cStd
+        Term . Literal . TypeLit <$> typeLiteral cStd
+        -- Tagged type (e.g., @struct Foo@)
+      , Term . Literal . uncurry TypeTagged <$> taggedTypeLit
         -- The bare identifier (typedef name, type macro, or expression
         -- variable) is needed to parse pointer-qualified typedef references
         -- such as @size_t *@: without it, @parseMacroType@ would reject the
@@ -133,17 +141,15 @@ typeBase cStd =
         -- the two by restricting @parseMacroType@ to keyword\/tagged bases only
         -- does not help (both paths produce the same @'Var'@ node) while
         -- adding backtracking overhead.
-      , (\n -> Term (Var NoXVar n [])) <$> parseName
+      , (Term . mkVar) <$> parseName
       ]
-
-tyLit :: ClangCStandard -> Parser TypeLit
-tyLit cStd =
-    choice [
-        -- Keyword type (e.g. @int@, @unsigned long@)
-        pritypeLiteral cStd
-        -- Elaborated type literal: @struct/union/enum Name@
-      , taggedTypeLit
-      ]
+  where
+    mkVar :: Name -> Term Ps
+    mkVar n =
+      if n `Set.member` locals then
+        LocalArg n
+      else
+        Var NoXVar n []
 
 -- | Parse a sequence of type-literal keywords and combine them
 --
@@ -156,8 +162,8 @@ tyLit cStd =
 -- @
 --
 -- are all the same type.
-pritypeLiteral :: ClangCStandard -> Parser TypeLit
-pritypeLiteral cStd = do
+typeLiteral :: ClangCStandard -> Parser TypeLit
+typeLiteral cStd = do
     kws <- many1 (typeKeyword cStd)
     case interpretKeywords kws of
       Just lit -> return lit
@@ -170,15 +176,15 @@ pritypeLiteral cStd = do
 --   union  tag
 --   enum   tag
 -- @
-taggedTypeLit :: Parser TypeLit
+taggedTypeLit :: Parser (TagKind, Name)
 taggedTypeLit = do
     tag <- choice [
         TagStruct <$ keyword "struct"
       , TagUnion  <$ keyword "union"
       , TagEnum   <$ keyword "enum"
       ]
-    name <- identifier
-    return $ TypeTagged tag name
+    name <- parseName
+    return $ (tag, name)
 
 data TypeKeyword =
     KwSigned | KwUnsigned
@@ -280,26 +286,27 @@ keyword expected = token $ \t ->
       then Just ()
       else Nothing
 
--- | Match an identifier token, returning its spelling
-identifier :: Parser Text
-identifier = token $ \t ->
-    if fromSimpleEnum (tokenKind t) == Right CXToken_Identifier
-      then Just $ getTokenSpelling (tokenSpelling t)
-      else Nothing
-
 {-------------------------------------------------------------------------------
   Simple expressions
 -------------------------------------------------------------------------------}
 
-term :: ClangCStandard -> Parser (Term Ps)
-term cStd =
+term :: ClangCStandard -> Set Name -> Parser (Term Ps)
+term cStd locals =
     buildExpressionParser ops trm <?> "simple expression"
   where
     trm :: Parser (Term Ps)
     trm = choice [
         Literal <$> lit
-      , Var NoXVar <$> var <*> option [] (actualArgs cStd)
+      , localOrVar
       ]
+
+    localOrVar :: Parser (Term Ps)
+    localOrVar = do
+      varName <- parseName
+      if varName `Set.member` locals then
+        pure $ LocalArg varName
+      else
+        Var NoXVar varName <$> option [] (actualArgs cStd locals)
 
     lit :: Parser Literal
     lit = ValueLit <$> choice [
@@ -312,8 +319,6 @@ term cStd =
     ops :: OperatorTable [Token TokenSpelling] () Identity (Term Ps)
     ops = []
 
-var :: Parser Name
-var = parseName
 
 -- | Parse integer literal
 literalInteger :: Parser IntegerLiteral
@@ -362,8 +367,8 @@ literalString = do
       , stringLiteralValue = val
       }
 
-actualArgs :: ClangCStandard -> Parser [Expr Ps]
-actualArgs cStd = parens $ expr cStd `sepBy` comma
+actualArgs :: ClangCStandard -> Set Name -> Parser [Expr Ps]
+actualArgs cStd locals = parens $ expr cStd locals `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -373,12 +378,12 @@ actualArgs cStd = parens $ expr cStd `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-exprTuple :: ClangCStandard -> Parser (Expr Ps)
-exprTuple cStd = try tuple <|> expr cStd
+exprTuple :: ClangCStandard -> Set Name -> Parser (Expr Ps)
+exprTuple cStd locals = try tuple <|> expr cStd locals
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("
-      (e1, e2, es) <- expr cStd `sepBy2` comma
+      (e1, e2, es) <- expr cStd locals `sepBy2` comma
       case openParen of
         Nothing -> return ()
         Just {} -> punctuation ")"
@@ -386,14 +391,14 @@ exprTuple cStd = try tuple <|> expr cStd
         reifyList es $ \es' ->
            VaApp NoXApp MTuple ( e1 ::: e2 ::: es' )
 
-expr :: ClangCStandard -> Parser (Expr Ps)
-expr cStd = buildExpressionParser ops trm <?> "expression"
+expr :: ClangCStandard -> Set Name -> Parser (Expr Ps)
+expr cStd locals = buildExpressionParser ops trm <?> "expression"
   where
 
     trm :: Parser (Expr Ps)
     trm = choice [
-          parens (expr cStd)
-        , Term <$> term cStd
+          parens (expr cStd locals)
+        , Term <$> term cStd locals
         ]
 
     -- 'OperatorTable' expects the list in descending precedence

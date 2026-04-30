@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/mangle_fun_param_names.h
+  cname: struct S
+  hsname: T
+- headers: edge-cases/mangle_fun_param_names.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - t_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

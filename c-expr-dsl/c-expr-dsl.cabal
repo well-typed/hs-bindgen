@@ -29,6 +29,7 @@ common lang
     DerivingStrategies
     LambdaCase
     MultiWayIf
+    OverloadedStrings
     PatternSynonyms
     QuantifiedConstraints
     TypeFamilies
@@ -66,6 +67,7 @@ library
     C.Expr.Syntax.TTG.Typecheck
     C.Expr.Syntax.Type
     C.Expr.Typecheck.Expr
+    C.Expr.Util.Panic
     C.Expr.Util.Parsec
     C.Expr.Util.TestEquality
 
