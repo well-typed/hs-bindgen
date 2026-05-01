@@ -462,7 +462,7 @@ runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
 reparseWith ::
      DeclId
   -> LanC.Parser a
-  -> ReparseInfo
+  -> ReparseInfo Tokens
   -> r
   -> (a -> M r)
   -> M r

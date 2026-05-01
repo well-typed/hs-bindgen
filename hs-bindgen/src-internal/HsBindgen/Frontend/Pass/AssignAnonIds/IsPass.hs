@@ -20,11 +20,11 @@ data AssignAnonIds a
 
 -- We preserve the annotations from the @Parse@ pass
 type family AnnAssignAnonIds ix where
-  AnnAssignAnonIds "StructField" = ReparseInfo
-  AnnAssignAnonIds "UnionField"  = ReparseInfo
-  AnnAssignAnonIds "Typedef"     = ReparseInfo
-  AnnAssignAnonIds "Function"    = ReparseInfo
-  AnnAssignAnonIds "Global"      = ReparseInfo
+  AnnAssignAnonIds "StructField" = ReparseInfo Tokens
+  AnnAssignAnonIds "UnionField"  = ReparseInfo Tokens
+  AnnAssignAnonIds "Typedef"     = ReparseInfo Tokens
+  AnnAssignAnonIds "Function"    = ReparseInfo Tokens
+  AnnAssignAnonIds "Global"      = ReparseInfo Tokens
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where

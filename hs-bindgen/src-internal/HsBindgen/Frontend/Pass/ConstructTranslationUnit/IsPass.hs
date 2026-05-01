@@ -25,11 +25,11 @@ data ConstructTranslationUnit a
 
 type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit "TranslationUnit" = DeclMeta
-  AnnConstructTranslationUnit "StructField"     = ReparseInfo
-  AnnConstructTranslationUnit "UnionField"      = ReparseInfo
-  AnnConstructTranslationUnit "Typedef"         = ReparseInfo
-  AnnConstructTranslationUnit "Function"        = ReparseInfo
-  AnnConstructTranslationUnit "Global"          = ReparseInfo
+  AnnConstructTranslationUnit "StructField"     = ReparseInfo Tokens
+  AnnConstructTranslationUnit "UnionField"      = ReparseInfo Tokens
+  AnnConstructTranslationUnit "Typedef"         = ReparseInfo Tokens
+  AnnConstructTranslationUnit "Function"        = ReparseInfo Tokens
+  AnnConstructTranslationUnit "Global"          = ReparseInfo Tokens
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
