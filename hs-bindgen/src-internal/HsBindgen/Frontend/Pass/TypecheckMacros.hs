@@ -51,8 +51,8 @@ type TypeEnv = Map Text CType
 typecheckMacros ::
      C.TranslationUnit ConstructTranslationUnit
   -> ( C.TranslationUnit TypecheckMacros
-     , LanC.ReparseEnv
-     , LanC.ReparseEnv
+     , LanC.ReparseEnv TypecheckMacros
+     , LanC.ReparseEnv TypecheckMacros
      )
 typecheckMacros unit =
     let typedefTypes, taggedTypes :: TypeEnv
@@ -64,8 +64,8 @@ typecheckMacros unit =
           runM typedefTypes taggedTypes $
             fmap partitionEithers $ mapM typecheckDecl unit.decls
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
-        , Map.map coercePass $ typedefTypes <> taggedTypes
-        , Map.map coercePass $ typecheckState.macroTypes )
+        , typedefTypes <> taggedTypes
+        , typecheckState.macroTypes )
 
 {-------------------------------------------------------------------------------
   Reconstruct translation unit after typechecking

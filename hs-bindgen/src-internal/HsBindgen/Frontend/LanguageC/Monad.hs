@@ -39,7 +39,7 @@ import HsBindgen.Imports
 -- to @ReparseMacroExpansions@. We leave it polymorphic here to avoid
 -- unnecessary mutual dependencies.
 newtype FromLanC a = WrapFromLanC (
-      ExceptT Error (Reader ReparseEnv) a
+      ExceptT Error (Reader (ReparseEnv ReparseMacroExpansions)) a
     )
   deriving newtype (
       Functor
@@ -49,14 +49,14 @@ newtype FromLanC a = WrapFromLanC (
     )
 
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (C.Type ReparseMacroExpansions)
+type ReparseEnv p = Map CName (C.Type p)
 
-runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
+runFromLanC :: ReparseEnv ReparseMacroExpansions -> FromLanC a -> Either Error a
 runFromLanC typeEnv (WrapFromLanC ma) =
       flip Reader.runReader typeEnv $
         Except.runExceptT ma
 
-getReparseEnv :: FromLanC ReparseEnv
+getReparseEnv :: FromLanC (ReparseEnv ReparseMacroExpansions)
 getReparseEnv = WrapFromLanC Reader.ask
 
 {-------------------------------------------------------------------------------

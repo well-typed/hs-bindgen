@@ -39,9 +39,9 @@ type CType = C.Type ReparseMacroExpansions
 -- using the known-types environment from 'typecheckMacros'.
 reparseMacroExpansions ::
      ClangCStandard
-  -> LanC.ReparseEnv
+  -> LanC.ReparseEnv TypecheckMacros
      -- ^ Known non-macro type (see 'ReparseEnv')
-  -> LanC.ReparseEnv
+  -> LanC.ReparseEnv TypecheckMacros
      -- ^ Known macro type names (see 'ReparseEnv')
   -> C.TranslationUnit TypecheckMacros
   -> C.TranslationUnit ReparseMacroExpansions
@@ -49,8 +49,8 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacroTypes unit =
     let (reparsedDecls, reparseState) =
           runM
             cStd
-            knownNonMacroTypes
-            knownMacroTypes
+            (Map.map coercePass knownNonMacroTypes)
+            (Map.map coercePass knownMacroTypes)
             (mapM reparseDecl unit.decls)
     in reconstructAfterReparse unit reparseState reparsedDecls
 
@@ -408,11 +408,11 @@ newtype M a = WrapM { _unwrapM :: StateT ReparseState (Reader ReparseEnv) a }
 -- | Environment used when reparsing declarations with macro expansions.
 data ReparseEnv = ReparseEnv {
       -- | Known non-macro type names (e.g., @typedef@s or @struct@s)
-      knownTypes :: LanC.ReparseEnv
+      knownTypes :: LanC.ReparseEnv ReparseMacroExpansions
       -- | Known macro type names; we keep the known macros separate, because we
       --   need to restrict the reparse environment to macros actually
       --   /expanded/.
-    , knownMacroTypes :: LanC.ReparseEnv
+    , knownMacroTypes :: LanC.ReparseEnv ReparseMacroExpansions
     }
 
 data ReparseState = ReparseState {
@@ -429,8 +429,8 @@ data ReparseState = ReparseState {
 
 runM ::
      ClangCStandard
-  -> LanC.ReparseEnv
-  -> LanC.ReparseEnv
+  -> LanC.ReparseEnv ReparseMacroExpansions
+  -> LanC.ReparseEnv ReparseMacroExpansions
   -> M a
   -> (a, ReparseState)
 runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
@@ -471,7 +471,7 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
       pure fallback
     ReparseNeeded tokens usedMacros -> do
       env <- ask
-      let usedMacroTypes :: LanC.ReparseEnv
+      let usedMacroTypes :: LanC.ReparseEnv ReparseMacroExpansions
           usedMacroTypes = Map.restrictKeys env.knownMacroTypes usedMacros
           unknownMacros :: Set Text
           unknownMacros = Set.difference usedMacros (Map.keysSet usedMacroTypes)
@@ -479,7 +479,7 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
           modify $ #reparseWarnings %~
             ((declId, ParseMacroReparseUnknownType u) :)
 
-      let reparseEnv :: LanC.ReparseEnv
+      let reparseEnv :: LanC.ReparseEnv ReparseMacroExpansions
           -- Macro types override other types ('Map.union' is left-biased).
           reparseEnv = usedMacroTypes `Map.union` env.knownTypes
       case parser reparseEnv tokens of

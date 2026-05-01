@@ -51,7 +51,7 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 type Parser a =
-     ReparseEnv
+     ReparseEnv ReparseMacroExpansions
   -> [Clang.Token Clang.TokenSpelling]
   -> Either Error a
 
@@ -201,7 +201,7 @@ prependToken token rest = concat [
 -- | Initial 'ReparseEnv'
 --
 -- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: ClangCStandard -> ReparseEnv
+initReparseEnv :: ClangCStandard -> ReparseEnv p
 initReparseEnv standard = Map.fromList (bespokeTypes standard)
 
 -- | \"Primitive\" we expect the reparser to recognize
