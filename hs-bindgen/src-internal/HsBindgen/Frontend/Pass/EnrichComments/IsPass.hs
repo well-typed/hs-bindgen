@@ -6,7 +6,7 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParsedMacro, ReparseInfo)
+import HsBindgen.Frontend.Pass.Parse.IsPass (ParsedMacro, ReparseInfo, Tokens)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -19,11 +19,11 @@ data EnrichComments a
 
 -- We preserve the annotations from the @Parse@ pass (same as @AssignAnonIds@)
 type family AnnEnrichComments ix where
-  AnnEnrichComments "StructField" = ReparseInfo
-  AnnEnrichComments "UnionField"  = ReparseInfo
-  AnnEnrichComments "Typedef"     = ReparseInfo
-  AnnEnrichComments "Function"    = ReparseInfo
-  AnnEnrichComments "Global"      = ReparseInfo
+  AnnEnrichComments "StructField" = ReparseInfo Tokens
+  AnnEnrichComments "UnionField"  = ReparseInfo Tokens
+  AnnEnrichComments "Typedef"     = ReparseInfo Tokens
+  AnnEnrichComments "Function"    = ReparseInfo Tokens
+  AnnEnrichComments "Global"      = ReparseInfo Tokens
   AnnEnrichComments _             = NoAnn
 
 instance IsPass EnrichComments where

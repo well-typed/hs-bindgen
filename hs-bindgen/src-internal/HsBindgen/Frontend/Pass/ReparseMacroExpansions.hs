@@ -459,7 +459,7 @@ reparseWith ::
      Align r
   => DeclId
   -> LanC.Parser a
-  -> ReparseInfo
+  -> ReparseInfo Tokens
   -> r
   -> (a -> M r)
   -> M r
