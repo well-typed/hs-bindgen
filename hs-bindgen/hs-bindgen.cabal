@@ -201,6 +201,8 @@ library internal
     HsBindgen.Frontend.Pass.Parse.PrelimDeclId
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
+    HsBindgen.Frontend.Pass.PrepareReparse
+    HsBindgen.Frontend.Pass.PrepareReparse.IsPass
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs

@@ -6,6 +6,7 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -31,11 +32,11 @@ instance IsPass ReparseMacroExpansions where
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
-  CoercePass: TypecheckMacros → ReparseMacroExpansions
+  CoercePass: PrepareReparse → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               TypecheckMacros ReparseMacroExpansions
-instance CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
-instance CoercePassCommentDecl     TypecheckMacros ReparseMacroExpansions where
+instance CoercePassId               PrepareReparse ReparseMacroExpansions
+instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
+instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
