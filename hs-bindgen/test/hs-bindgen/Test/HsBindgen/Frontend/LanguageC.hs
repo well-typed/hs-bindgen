@@ -41,8 +41,8 @@ import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.PrettyPrinter (showsVariableType)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -292,7 +292,7 @@ prop_reparseGlobal input expectedOutput =
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
 
 -- | The pass that comes just before the 'ReparseMacroExpansions' pass
-type PrePass = TypecheckMacros
+type PrePass = PrepareReparse
 
 -- | Copy of 'LanC.Error' without the callstack
 --

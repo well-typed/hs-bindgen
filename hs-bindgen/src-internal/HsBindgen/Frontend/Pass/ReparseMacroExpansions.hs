@@ -26,6 +26,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -45,7 +46,7 @@ reparseMacroExpansions ::
      -- ^ Known non-macro type (see 'ReparseEnv')
   -> Map LanC.CName CType
      -- ^ Known macro types with their underlying C types (see 'ReparseEnv')
-  -> C.TranslationUnit TypecheckMacros
+  -> C.TranslationUnit PrepareReparse
   -> C.TranslationUnit ReparseMacroExpansions
 reparseMacroExpansions cStd knownNonMacroTypes knownMacroTypes unit =
     let (reparsedDecls, reparseState) =
@@ -61,7 +62,7 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacroTypes unit =
 -------------------------------------------------------------------------------}
 
 reconstructAfterReparse ::
-     C.TranslationUnit TypecheckMacros
+     C.TranslationUnit PrepareReparse
   -> ReparseState
   -> [C.Decl ReparseMacroExpansions]
   -> C.TranslationUnit ReparseMacroExpansions
@@ -103,7 +104,7 @@ reconstructAfterReparse unit reparseState decls =
 -------------------------------------------------------------------------------}
 
 reparseDecl ::
-     C.Decl TypecheckMacros
+     C.Decl PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 reparseDecl decl = case decl.kind of
     C.DeclMacro macro                    -> processMacro            info' macro
@@ -126,7 +127,7 @@ reparseDecl decl = case decl.kind of
 -- | Macros have already been type-checked; just coerce the pass annotation.
 processMacro ::
      C.DeclInfo ReparseMacroExpansions
-  -> CheckedMacro TypecheckMacros
+  -> CheckedMacro PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processMacro info macro =
     pure C.Decl{
@@ -137,7 +138,7 @@ processMacro info macro =
 
 processStruct ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Struct TypecheckMacros
+  -> C.Struct PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processStruct info struct = do
     mkDecl
@@ -165,7 +166,7 @@ processStruct info struct = do
 -- When @mName@ is 'Nothing', the original name is preserved; when it is
 -- 'Just', the reparsed name replaces it.
 mkFieldInfo ::
-     C.FieldInfo TypecheckMacros
+     C.FieldInfo PrepareReparse
   -> Maybe Text
   -> C.FieldInfo ReparseMacroExpansions
 mkFieldInfo info mName = C.FieldInfo{
@@ -176,7 +177,7 @@ mkFieldInfo info mName = C.FieldInfo{
 
 processStructField ::
      DeclId
-  -> C.StructField TypecheckMacros
+  -> C.StructField PrepareReparse
   -> M (C.StructField ReparseMacroExpansions)
 processStructField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
@@ -201,7 +202,7 @@ processStructField declId field =
 
 processUnion ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Union TypecheckMacros
+  -> C.Union PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processUnion info union = do
     combineFields <$> mapM (processUnionField info.id) union.fields
@@ -220,7 +221,7 @@ processUnion info union = do
 
 processUnionField ::
      DeclId
-  -> C.UnionField TypecheckMacros
+  -> C.UnionField PrepareReparse
   -> M (C.UnionField ReparseMacroExpansions)
 processUnionField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
@@ -252,7 +253,7 @@ processOpaque info kind =
 
 processEnum ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Enum TypecheckMacros
+  -> C.Enum PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processEnum info enum =
     mkDecl <$> mapM processEnumConstant enum.constants
@@ -272,7 +273,7 @@ processEnum info enum =
 
 processAnonEnumConstant ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.AnonEnumConstant TypecheckMacros
+  -> C.AnonEnumConstant PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processAnonEnumConstant info anonEnumConst =
     mkDecl <$> processEnumConstant anonEnumConst.constant
@@ -288,7 +289,7 @@ processAnonEnumConstant info anonEnumConst =
         }
 
 processEnumConstant ::
-     C.EnumConstant TypecheckMacros
+     C.EnumConstant PrepareReparse
   -> M (C.EnumConstant ReparseMacroExpansions)
 processEnumConstant constant =
     pure C.EnumConstant{
@@ -302,7 +303,7 @@ processEnumConstant constant =
 
 processTypedef ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Typedef TypecheckMacros
+  -> C.Typedef PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processTypedef info typedef = do
     -- If the @typedef@ refers to another type, we do not reparse the
@@ -329,7 +330,7 @@ processTypedef info typedef = do
 
 processFunction ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Function TypecheckMacros
+  -> C.Function PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processFunction info function = do
     function' <- reparseWith info.id LanC.reparseFunDecl function.ann withoutReparse withReparse
@@ -366,7 +367,7 @@ processFunction info function = do
 -- | Globals (externs or constants)
 processGlobal ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.Global TypecheckMacros
+  -> C.Global PrepareReparse
   -> M (C.Decl ReparseMacroExpansions)
 processGlobal info global = do
     global' <- reparseWith info.id LanC.reparseGlobal global.ann withoutReparse withReparse
