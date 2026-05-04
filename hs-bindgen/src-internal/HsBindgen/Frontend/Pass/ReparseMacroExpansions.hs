@@ -23,9 +23,10 @@ import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (..), Tokens)
+import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (..))
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens,
+                                                      PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro)
 import HsBindgen.Imports
@@ -463,7 +464,7 @@ runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
 reparseWith ::
      DeclId
   -> LanC.Parser a
-  -> ReparseInfo Tokens
+  -> ReparseInfo FlatTokens
   -> r
   -> (a -> M r)
   -> M r

@@ -5,16 +5,25 @@
 -- > import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 module HsBindgen.Frontend.Pass.PrepareReparse.IsPass (
     PrepareReparse
+    -- * Tokens
+  , FlatTokens (..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
+import Clang.HighLevel.Types (MultiLoc)
+
+import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass), CoercePassAnn,
+                                      CoercePassCommentDecl (..), CoercePassId,
+                                      CoercePassMacroBody (..),
+                                      CoercePassMacroId)
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass (IsPass (Ann, CommentDecl, Id, MacroBody, MacroId, Msg, macroIdId),
+                                NoAnn, NoMsg, Pass)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo)
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (..),
+                                                       TypecheckMacros)
+import HsBindgen.Imports (Star, Symbol)
+import HsBindgen.Util.Tracer (Level)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -25,11 +34,11 @@ data PrepareReparse a
 
 type family AnnPrepareReparse (ix :: Symbol) :: Star where
   AnnPrepareReparse "TranslationUnit" = DeclMeta
-  AnnPrepareReparse "StructField"     = ReparseInfo Tokens
-  AnnPrepareReparse "UnionField"      = ReparseInfo Tokens
-  AnnPrepareReparse "Typedef"         = ReparseInfo Tokens
-  AnnPrepareReparse "Function"        = ReparseInfo Tokens
-  AnnPrepareReparse "Global"          = ReparseInfo Tokens
+  AnnPrepareReparse "StructField"     = ReparseInfo FlatTokens
+  AnnPrepareReparse "UnionField"      = ReparseInfo FlatTokens
+  AnnPrepareReparse "Typedef"         = ReparseInfo FlatTokens
+  AnnPrepareReparse "Function"        = ReparseInfo FlatTokens
+  AnnPrepareReparse "Global"          = ReparseInfo FlatTokens
   AnnPrepareReparse _                 = NoAnn
 
 instance IsPass PrepareReparse where
@@ -39,6 +48,19 @@ instance IsPass PrepareReparse where
   type MacroId     PrepareReparse = Id PrepareReparse
   type CommentDecl PrepareReparse = Maybe (C.Comment PrepareReparse)
   macroIdId _ = id
+
+{-------------------------------------------------------------------------------
+  Tokens
+-------------------------------------------------------------------------------}
+
+-- | @libclang@ tokens flattened into a single string
+data FlatTokens = FlatTokens {
+      -- | Tokens flattened into a single string
+      flatten  :: String
+      -- | Location of the first token before flattening
+    , locStart :: MultiLoc
+    }
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   CoercePass: TypecheckMacros → PrepareReparse

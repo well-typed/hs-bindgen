@@ -23,6 +23,7 @@ import HsBindgen.Doxygen (DoxygenMsg (DoxygenUnsupported, DoxygenWarning))
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes (adjustTypes)
@@ -61,7 +62,6 @@ import HsBindgen.Util.Tracer
 
 import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
                        emptyDoxygen, parse)
-import HsBindgen.Frontend.AST.Coerce (CoercePass(coercePass))
 
 -- | Frontend
 --
