@@ -12,9 +12,10 @@ module C.Expr.Typecheck.Interface.Type (
   )
   where
 
-import Control.Exception (Exception, throw)
-import Data.Vec.Lazy (Vec(..))
+import Control.Exception (Exception)
 import Data.Nat (Nat (..))
+import Data.Vec.Lazy (Vec (..))
+import DeBruijn (idxToInt)
 
 import C.Expr.Syntax qualified as M
 import C.Expr.Syntax.Name
@@ -22,25 +23,25 @@ import C.Expr.Util.Panic
 
 data Expr var =
     TypeLit M.TypeLit
-    -- TODO-D: Also change to Param.
-  | LocalArg Name
   | Var var
   -- TODO <https://github.com/well-typed/hs-bindgen/issues/1521>
   --
   -- Change how we represent @const@.
   | App Fun (Expr var)
-  deriving stock (Show)
+  deriving stock (Eq, Show)
 
 data Fun =
     Pointer
   | Const
-  deriving stock (Show)
+  deriving stock (Eq, Show)
 
 data ConversionError =
     -- | Unexpected value literal (e.g., the integer @42@)
     UnexpectedValueLiteralInType String
     -- | Unexpected named function call in type
   | UnexpectedFunctionCallInType Name
+    -- | Unexpected local parameter in type
+  | UnexpectedLocalParameterInType Int
     -- | A unary type function received multiple arguments
   | UnexpectedMultipleArgumentsToUnaryTypeFunction
     -- | Unexpected function application on a value (not a type)
@@ -50,19 +51,19 @@ data ConversionError =
 instance Exception ConversionError
 
 fromExpr ::
-     forall m var p. Applicative m
+     forall ctx m var p. Applicative m
   => (Name -> m var)
   -> (M.TagKind -> Name -> m var)
-  -> M.Expr p
+  -> M.Expr ctx p
   -> m (Expr var)
 fromExpr injectType injectTaggedType = go
   where
-    go :: M.Expr p -> m (Expr var)
+    go :: M.Expr ctx p -> m (Expr var)
     go = \case
       M.Term (M.Literal x) ->
         fromLit x
-      M.Term (M.LocalArg nm) ->
-        pure $ LocalArg nm
+      M.Term (M.LocalParam i) ->
+        panicPure $ show $ UnexpectedLocalParameterInType (idxToInt i)
       M.Term (M.Var _ nm []) ->
         Var <$> (injectType nm)
       M.Term (M.Var _ nm _ ) ->
@@ -73,7 +74,7 @@ fromExpr injectType injectTaggedType = go
           M.Pointer -> App Pointer <$> (go arg)
           M.Const   -> App Const   <$> (go arg)
       M.VaApp _ fun _ ->
-        throw $ UnexpectedValueFunctionApplicationInType (show fun)
+        panicPure $ show $ UnexpectedValueFunctionApplicationInType (show fun)
 
     fromLit :: M.Literal -> m (Expr var)
     fromLit = \case

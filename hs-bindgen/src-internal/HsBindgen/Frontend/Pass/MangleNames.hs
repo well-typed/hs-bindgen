@@ -972,12 +972,12 @@ instance MangleWithDeclName CheckedMacroType where
           }
 
 instance Mangle CheckedMacroExpr where
-  mangle macroExpr = do
-      body' <- traverse lookupVarPair macroExpr.body
+  mangle (CheckedMacroExpr params body typ) = do
+      body' <- traverse lookupVarPair body
       pure CheckedMacroExpr{
-            args = macroExpr.args
-          , body = body'
-          , typ  = macroExpr.typ
+            params = params
+          , body   = body'
+          , typ    = typ
           }
 
 instance Mangle C.Type where

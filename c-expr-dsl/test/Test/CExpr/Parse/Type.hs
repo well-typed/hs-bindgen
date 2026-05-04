@@ -6,9 +6,9 @@ import Data.Vec.Lazy (Vec (..))
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Clang.CStandard
-
 import C.Expr.Syntax
+
+import Clang.CStandard
 
 import Test.CExpr.Parse.Infra
 

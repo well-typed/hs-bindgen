@@ -62,9 +62,10 @@ EXPR_SHIFT_LEFT: Right VaApp NoXApp MShiftLeft (Term (Literal (ValueLit (ValueIn
 EXPR_BITWISE_OR: Right VaApp NoXApp MBitwiseOr (Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "0x0F", integerLiteralType = Int Signed, integerLiteralValue = 15})))) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "0xF0", integerLiteralType = Int Signed, integerLiteralValue = 240})))) ::: VNil)
 EXPR_PARENS: Right Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "42", integerLiteralType = Int Signed, integerLiteralValue = 42}))))
 EXPR_COMPOUND: Right VaApp NoXApp MMult (VaApp NoXApp MAdd (Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "2", integerLiteralType = Int Signed, integerLiteralValue = 2})))) ::: VNil) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "3", integerLiteralType = Int Signed, integerLiteralValue = 3})))) ::: VNil)
-FUNC_IDENTITY: Right Term (LocalArg "x")
-FUNC_ADD: Right VaApp NoXApp MAdd (Term (LocalArg "a") ::: Term (LocalArg "b") ::: VNil)
-FUNC_NEG: Right VaApp NoXApp MUnaryMinus (Term (LocalArg "x") ::: VNil)
+FUNC_IDENTITY: Right Term (LocalParam 0)
+FUNC_ADD: Right VaApp NoXApp MAdd (Term (LocalParam 1) ::: Term (LocalParam 0) ::: VNil)
+FUNC_NEG: Right VaApp NoXApp MUnaryMinus (Term (LocalParam 0) ::: VNil)
+FUNC_MULTIPLE_LOCAL_PARAMS: Right VaApp NoXApp MAdd (Term (LocalParam 3) ::: VaApp NoXApp MSub (Term (LocalParam 2) ::: VaApp NoXApp MAdd (Term (LocalParam 1) ::: Term (LocalParam 0) ::: VNil) ::: VNil) ::: VNil)
 EXPR_REF_ADD: Right VaApp NoXApp MAdd (Term (Var NoXVar "EXPR_ONE" []) ::: Term (Var NoXVar "EXPR_FORTY_TWO" []) ::: VNil)
 EXPR_CALL_ADD: Right Term (Var NoXVar "FUNC_ADD" [Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))),Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "2", integerLiteralType = Int Signed, integerLiteralValue = 2}))))])
 EXPR_CALL_NESTED: Right VaApp NoXApp MAdd (Term (Var NoXVar "FUNC_ADD" [Term (Var NoXVar "EXPR_ONE" []),Term (Var NoXVar "EXPR_FORTY_TWO" [])]) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))) ::: VNil)
@@ -72,5 +73,6 @@ CAST_SINGLE_NOKW: Right Term (Var NoXVar "x" [])
 CAST_SINGLE_KW: Left <parse error>
 BAD_CAST: Left <parse error>
 BAD_KEYWORD_AS_PARAM: Left <parse error>
+TFUN2: Right Term (Literal (TypeLit (TypeInt Nothing (Just SizeInt))))
 BAD_TERNARY: Left <parse error>
 BAD_LONG_DOUBLE: Left <parse error>

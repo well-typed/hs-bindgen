@@ -4,8 +4,8 @@ module C.Expr.Util.Panic (
   ) where
 
 import Control.Exception
-import GHC.Stack
 import Control.Monad.IO.Class
+import GHC.Stack
 
 -- | Unexpected (e.g. invariant violation) conditions.
 data PanicException = PanicException !CallStack !String

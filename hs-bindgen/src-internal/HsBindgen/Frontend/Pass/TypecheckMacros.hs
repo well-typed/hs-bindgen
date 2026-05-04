@@ -42,9 +42,9 @@ type CType = C.Type TypecheckMacros
 
 -- | We perform two traversals:
 --
--- 1. Collect known types
+-- Traversal 1: collect known types
 --
--- 2. Typecheck macros
+-- Traversal 2: typecheck macros
 --
 -- Returns the updated translation unit together with the 'LanC.ReparseEnv'
 -- that 'reparseMacroExpansions' uses to reparse declarations.
@@ -59,10 +59,12 @@ typecheckMacros ::
 typecheckMacros unit =
     let typedefTypes :: Map Text CType
         taggedTypes  :: Map CDeclName CType
+        -- Traversal 1
         (typedefTypes, taggedTypes) =
           bimap Map.fromList Map.fromList $
             partitionEithers $
               mapMaybe getKnownType unit.decls
+        -- Traversal 2
         ((failedMacros, typecheckedDecls), typecheckState) =
           runM typedefTypes taggedTypes $
             fmap partitionEithers $ mapM typecheckDecl unit.decls
@@ -293,34 +295,34 @@ tcMacro ::
      CDeclName
   -> ParsedMacro
   -> M (Either MacroTypecheckError (CheckedMacro TypecheckMacros))
-tcMacro name (ParsedMacro macro) = do
+tcMacro name (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
     st    <- get
     eTcRes <- runExceptT $ CExpr.tcMacro
                st.typeEnv
                (lift . injectType)
                injectTaggedType
                (lift . injectValueName)
-               macro.macroName
-               macro.macroArgs
-               macro.macroExpr
+               macroName
+               macroParams
+               macroExpr
     case eTcRes of
       Left err    -> pure $ Left err
       Right tcRes -> case tcRes of
         Left err ->
           pure $ Left $ MacroTypecheckErrorCExpr err
-        Right (CExpr.MacroTcTypeExpr quant typeExpr) ->
+        Right (CExpr.MacroTcTypeExpr (CExpr.CheckedMacroTypeExpr typeExpr quant)) ->
           case convertTExpr typeExpr of
             Left err  -> pure $ Left err
             Right typ -> do
               addQuant quant
               addNewMacroTypeToReparseEnv typ
               pure $ Right $ MacroType $ CheckedMacroType typ NoAnn
-        Right (CExpr.MacroTcValueExpr inf valueExpr) -> do
-          modify $ #typeEnv %~ Map.insert macro.macroName inf
-          pure $ Right $ MacroExpr $ CheckedMacroExpr{
-                args = macro.macroArgs
-              , body = valueExpr
-              , typ  = fmap snd inf
+        Right (CExpr.MacroTcValueExpr (CExpr.CheckedMacroValueExpr params expr quant )) -> do
+          addQuant quant
+          pure $ Right $ MacroExpr $ CExpr.CheckedMacroValueExpr{
+                macroValueParams = params
+              , macroValueBody   = expr
+              , macroValueType   = quant
               }
   where
     -- Type names: resolve to 'CType' via lookup in known typedefs and
@@ -350,7 +352,7 @@ tcMacro name (ParsedMacro macro) = do
 
     addQuant :: CExpr.Quant (CExpr.FunValue, CExpr.Type CExpr.Ty) -> M ()
     addQuant quant =
-        modify $ #typeEnv %~ Map.insert macro.macroName quant
+        modify $ #typeEnv %~ Map.insert macroName quant
 
     addNewMacroTypeToReparseEnv :: CType -> M ()
     addNewMacroTypeToReparseEnv typ
@@ -394,11 +396,14 @@ convertTExpr expr = go expr >>= checkTopLevelVoid
   where
     go :: T.Expr CType -> Either MacroTypecheckError CType
     go = \case
-      T.App T.Pointer inner -> C.TypePointers 1 <$> go inner
-      T.App T.Const   inner -> C.TypeQual C.QualConst <$> go inner
-      T.TypeLit t           -> Right $ convertLiteral t
-      T.LocalArg nm         -> Left $ MacroTypecheckErrorTypeArgInType nm.getName
-      T.Var ctype           -> Right ctype
+      T.App T.Pointer inner ->
+        C.TypePointers 1 <$> go inner
+      T.App T.Const   inner ->
+        C.TypeQual C.QualConst <$> go inner
+      T.TypeLit t ->
+        Right $ convertLiteral t
+      T.Var ctype ->
+        Right ctype
 
     -- | @void@ is not a valid standalone type; it is only valid as the
     -- pointee of a pointer (e.g. @void *@).

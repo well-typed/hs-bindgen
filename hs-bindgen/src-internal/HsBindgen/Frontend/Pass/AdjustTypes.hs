@@ -2,18 +2,18 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
     adjustTypes
   ) where
 
+import Data.Proxy (Proxy (..))
 import Numeric.Natural (Natural)
 
-import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
+import C.Expr.Typecheck qualified as CExpr
+
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes,
-                                                   AdjustedFrom (..))
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
-                                                       CheckedMacroExpr,
-                                                       CheckedMacroType (..))
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 
 -- | Adjust function argument types
 --
@@ -145,7 +145,7 @@ processAnonEnumConstant anonEnumConstant =
 processMacro :: MacroBody MangleNames -> MacroBody AdjustTypes
 processMacro macro =
     case macro of
-      MacroType typ -> MacroType $ processMacroType typ
+      MacroType typ  -> MacroType $ processMacroType typ
       MacroExpr expr -> MacroExpr $ processMacroExpr expr
 
 processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
@@ -155,12 +155,14 @@ processMacroType macroType =
       , ann = macroType.ann
       }
 
-processMacroExpr :: CheckedMacroExpr MangleNames -> CheckedMacroExpr AdjustTypes
+processMacroExpr ::
+  CExpr.CheckedMacroValueExpr (Id MangleNames) ->
+  CExpr.CheckedMacroValueExpr (Id AdjustTypes)
 processMacroExpr macroExpr =
     -- NOTE: currently macro expressions don't support function/array type
     -- parameters, if they do in the future, then we might have to recurse into
     -- the type of the macro expression?
-    coercePass macroExpr
+    coerceCheckedMacroValueExpr (Proxy @MangleNames) (Proxy @AdjustTypes) macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =

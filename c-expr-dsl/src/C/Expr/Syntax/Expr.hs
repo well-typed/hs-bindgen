@@ -23,6 +23,7 @@ import Data.Type.Nat (SNatI)
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
+import DeBruijn (Idx, Ctx)
 import GHC.Generics (Generic)
 
 import C.Expr.Syntax.Literals
@@ -38,21 +39,21 @@ import C.Expr.Util.TestEquality
 -- | Macro expression
 --
 -- For examples, see the extensive test suite "Test.CExpr.Parse".
-type Expr :: Pass -> Type
-data Expr p
+type Expr :: Ctx -> Pass -> Type
+data Expr ctx p
   -- | A term that is not a function application.
-  = Term ( Term p )
+  = Term ( Term ctx p )
   -- | Exactly saturated non-nullary type-level function application.
   --
   -- We don't need an extension point here, because we do not need to evaluate
   -- type functions in Haskell. 'XApp' may be unnecessary if we can remove
   -- 'FunValue'.
-  | forall n. TyApp             ( TyFun ( S n ) ) ( Vec ( S n ) ( Expr p ) )
+  | forall n. TyApp             ( TyFun ( S n ) ) ( Vec ( S n ) ( Expr ctx p ) )
   -- | Exactly saturated non-nullary function application.
-  | forall n. VaApp !( XApp p ) ( VaFun ( S n ) ) ( Vec ( S n ) ( Expr p ) )
-deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( Expr p )
+  | forall n. VaApp !( XApp p ) ( VaFun ( S n ) ) ( Vec ( S n ) ( Expr ctx p ) )
+deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( Expr ctx p )
 
-instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Expr p ) where
+instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Expr ctx p ) where
   Term m1 == Term m2 = m1 == m2
   TyApp f1 args1 == TyApp f2 args2
     | Just Refl <- f1 `equals1` f2
@@ -66,15 +67,15 @@ instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Expr p ) where
     = False
   _ == _ = False
 
-instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( Expr p ) where
+instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( Expr ctx p ) where
   compare ( Term m1 ) ( Term m2 ) = compare m1 m2
-  compare ( TyApp @_ @n1 f1 args1 ) ( TyApp @_ @n2 f2 args2 ) =
+  compare ( TyApp @_ @_ @n1 f1 args1 ) ( TyApp @_ @_ @n2 f2 args2 ) =
     Vec.withDict args1 $ Vec.withDict args2 $
     case Nat.eqNat @( S n1 ) @( S n2 ) of
       Just Refl -> compare f1 f2 <> compare args1 args2
       Nothing ->
         compare ( Nat.reflect @( S n1 ) Proxy ) ( Nat.reflect @( S n2 ) Proxy )
-  compare ( VaApp @_ @n1 x1 f1 args1 ) ( VaApp @_ @n2 x2 f2 args2 ) =
+  compare ( VaApp @_ @_ @n1 x1 f1 args1 ) ( VaApp @_ @_ @n2 x2 f2 args2 ) =
     Vec.withDict args1 $ Vec.withDict args2 $
     case Nat.eqNat @( S n1 ) @( S n2 ) of
       Just Refl -> compare f1 f2 <> compare x1 x2 <> compare args1 args2
@@ -217,26 +218,24 @@ data Literal =
   | TypeTagged !TagKind !Name
   deriving stock (Eq, Ord, Show)
 
-type Term :: Pass -> Type
-data Term p =
+type Term :: Ctx -> Pass -> Type
+data Term ctx p =
     -- | Literal (i.e., constant) type or value
     Literal Literal
 
-    -- TODO-D: Rename to Param
-
     -- | Reference to a function parameter
     --
-    -- A parameter of the enclosing function-like macro. For example, the second
-    -- @X@ in @#define F(X) X + 1@.
+    -- A parameter De Bruijn index and name of the enclosing function-like
+    -- macro. For example, the second @X@ in @#define F(X) X + 1@, with index 0.
     --
     -- The language defined in @c-expr-dsl@ is a first-order language, so there
     -- is no need for arguments. For example, we do not support
     -- @#define MACRO(F,X) F(X)@.
-  | LocalArg Name
+  | LocalParam (Idx ctx)
 
     -- | Free variable: another macro or typedef
-  | Var ( XVar p ) Name [Expr p]
+  | Var ( XVar p ) Name [Expr ctx p]
   deriving stock Generic
-deriving stock instance ( Eq   ( XApp p ), Eq   ( XVar p ) ) => Eq   ( Term p )
-deriving stock instance ( Ord  ( XApp p ), Ord  ( XVar p ) ) => Ord  ( Term p )
-deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Term p )
+deriving stock instance ( Eq   ( XApp p ), Eq   ( XVar p ) ) => Eq   ( Term ctx p )
+deriving stock instance ( Ord  ( XApp p ), Ord  ( XVar p ) ) => Ord  ( Term ctx p )
+deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Term ctx p )

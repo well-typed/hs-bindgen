@@ -51,7 +51,7 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 
-import C.Expr.Syntax
+import C.Expr.Syntax qualified as CExpr
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -343,14 +343,9 @@ fromParseResults results = flip execState empty $ mapM_ aux results
       -> C.DeclKind EnrichComments
       -> Bool
     sameDefinition a b = case (a, b) of
-      (C.DeclMacro macroA, C.DeclMacro macroB) -> sameMacro macroA macroB
+      (C.DeclMacro macroA, C.DeclMacro macroB) ->
+         CExpr.sameMacro macroA.parsedMacro macroB.parsedMacro
       _otherwise                               -> a == b
-
-    sameMacro :: ParsedMacro -> ParsedMacro -> Bool
-    sameMacro a b =
-        -- The location does not need to match. Everything else must be equal.
-        a.parsedMacro.macroName == b.parsedMacro.macroName &&
-        a.parsedMacro.macroExpr == b.parsedMacro.macroExpr
 
 {-------------------------------------------------------------------------------
   Filter

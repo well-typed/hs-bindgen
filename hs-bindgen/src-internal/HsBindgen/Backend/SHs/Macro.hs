@@ -124,33 +124,20 @@ simpleTyConApp _ _ =
   Translate body
 -------------------------------------------------------------------------------}
 
-translateBody ::
-     [CExpr.Name]
-  -> V.Expr (Id Final)
-  -> SExpr EmptyCtx
-translateBody macroArgs expr =
-    topLevelLambdaN idNameHint macroArgs (flip mexpr expr)
+translateBody :: V.Expr ctx (Id Final) -> SExpr EmptyCtx
+translateBody expr = mexpr expr
 
 mexpr :: forall ctx.
-     Map CExpr.Name (Idx ctx)
-  -> V.Expr (Id Final)
+     V.Expr ctx (Id Final)
   -> SExpr ctx
-mexpr env =
-    goExpr
+mexpr = goExpr
   where
-    goExpr :: V.Expr (Id Final) -> SExpr ctx
+    goExpr :: V.Expr ctx (Id Final) -> SExpr ctx
     goExpr = \case
-      V.Literal lit ->
-        goLiteral lit
-      V.LocalArg xId ->
-        case Map.lookup xId env of
-          Just i  -> EBound i
-          -- TODO-D: Try DeBruijn.
-          Nothing -> panicPure "unexpected local arg without name"
-      V.Var xId args ->
-        eAppN (EFree (macroIdToHsName xId)) (goExpr <$> args)
-      V.App fun xs ->
-        eAppN (mfun fun) (goExpr <$> xs)
+      V.Literal lit  -> goLiteral lit
+      V.LocalParam i -> EBound i
+      V.Var xId args -> eAppN (EFree (macroIdToHsName xId)) (goExpr <$> args)
+      V.App fun xs   -> eAppN (mfun fun) (goExpr <$> xs)
 
     goLiteral :: CExpr.ValueLit -> SExpr ctx
     goLiteral = \case
@@ -337,20 +324,6 @@ eAppN = foldl' EApp
 -- | Construct n-ary type application
 tAppN :: Foldable f => SType ctx -> f (SType ctx) -> SType ctx
 tAppN = foldl' TApp
-
--- | Construct n-ary top-level lambda
-topLevelLambdaN :: forall a.
-     Ord a
-  => (a -> NameHint)
-  -> [a]
-  -> (forall ctx. Map a (Idx ctx) -> SExpr ctx)
-  -> SExpr EmptyCtx
-topLevelLambdaN nameHint args mkBody =
-    go Map.empty args
-  where
-    go :: forall ctx. Map a (Idx ctx) -> [a] -> SExpr ctx
-    go env []     = mkBody env
-    go env (n:ns) = ELam (nameHint n) $ go (Map.insert n IZ (fmap IS env)) ns
 
 -- | Top-level quantified type
 topLevelForall :: forall n a.

@@ -29,7 +29,6 @@ module C.Expr.Typecheck.Expr
 
     -- * Evaluating macros
   , naturalMaybe
-
   )
   where
 
@@ -65,11 +64,13 @@ import Data.STRef (newSTRef, readSTRef)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Traversable (for)
+import Data.Traversable.WithIndex (ifor)
 import Data.Type.Equality (type (:~:) (..))
 import Data.Type.Nat qualified as Nat
 import Data.Typeable (Typeable, eqT)
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
+import DeBruijn (Idx, idxToInt)
 import Debug.Trace (traceM)
 import Foreign.C.Types
 import GHC.Exts (Int (I#), dataToTag#)
@@ -248,13 +249,16 @@ isAtomicType = \case
   Constraints & errors
 -------------------------------------------------------------------------------}
 
-data Fun = forall arity. Fun ( Either Name ( VaFun arity ) )
+data Fun ctx =
+    FunLocal ( Idx ctx )
+  | FunVar   Name
+  | forall arity. FunVaFun ( VaFun arity )
 
-funName :: Fun -> FunName
-funName ( Fun f ) =
-  case f of
-    Left  n  -> getName n
-    Right mf -> Text.pack ( show mf )
+funName :: Fun ctx -> FunName
+funName = \case
+    FunLocal i  -> Text.pack ( "local_param_" ++ show i )
+    FunVar   n  -> getName n
+    FunVaFun mf -> Text.pack ( show mf )
 
 typFunName :: TyFun n -> FunName
 typFunName = \case
@@ -338,8 +342,8 @@ instance Show SrcSpan where
 
 data TcLclEnv
   = TcLclEnv
-      { tcSrcSpan :: !SrcSpan
-      , tcVarEnv  :: !VarEnv
+      { tcSrcSpan   :: !SrcSpan
+      , tcLclParams :: !ParamEnv
       }
 
 newtype TcPureM a = TcPureM ( forall s. TcEnv s -> ST s a )
@@ -359,7 +363,7 @@ runTcM plat initTyEnv ( TcPureM f ) = runST do
   tcErrs    <- newSTRef []
   let
     tcGblEnv = TcGblEnv { tcTypeEnv = initTyEnv, tcPlatform = plat }
-    tcLclEnv = TcLclEnv { tcSrcSpan = SrcSpan, tcVarEnv = Map.empty }
+    tcLclEnv = TcLclEnv { tcSrcSpan = SrcSpan, tcLclParams = IntMap.empty }
   res <- f ( TcEnv { tcGblEnv, tcLclEnv } )
   errs <- readSTRef tcErrs
   return ( res, errs )
@@ -378,13 +382,18 @@ lookupTyEnv :: Name -> TcPureM ( Maybe ( Quant ( FunValue, Type Ty ) ) )
 lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) ->
   return $ Map.lookup varNm tcTypeEnv
 
-lookupVar :: Name -> TcPureM ( Maybe ( Type Ty ) )
-lookupVar varNm = TcPureM \ ( TcEnv _ lcl ) ->
-  return $ Map.lookup varNm ( tcVarEnv lcl )
+declareLocalParams :: Vec ctx (Type Ty ) -> TcPureM a -> TcPureM a
+declareLocalParams tys ( TcPureM f ) = TcPureM \ ( TcEnv gbl lcl ) ->
+    f $
+      TcEnv
+        gbl
+        lcl { tcLclParams = IntMap.fromList $ zip [0..] (Vec.toList tys) }
 
-declareLocalVars :: Map Name ( Type Ty ) -> TcPureM a -> TcPureM a
-declareLocalVars vs ( TcPureM f ) = TcPureM \ ( TcEnv gbl lcl ) ->
-  f ( TcEnv gbl ( lcl { tcVarEnv = tcVarEnv lcl <> vs } ) )
+lookupLocalParam :: forall ctx. Idx ctx -> TcPureM ( Type Ty )
+lookupLocalParam i = TcPureM \ ( TcEnv _ lcl ) ->
+    case IntMap.lookup (idxToInt i) ( tcLclParams lcl ) of
+      Nothing -> error "lookupLocalParam: index out of bounds"
+      Just ty -> pure ty
 
 {-------------------------------------------------------------------------------
   Typechecking macros: constraint generation monad
@@ -743,42 +752,43 @@ instantiate ctOrig instOrig body = do
 -------------------------------------------------------------------------------}
 
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: Name -> Vec nbArgs Name -> Expr Ps
-         -> TcUniqueM ( ( ( Expr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
-inferTop funNm args body = do
+inferTop :: Name -> Vec ctx Name -> Expr ctx Ps
+         -> TcUniqueM ( ( ( Expr ctx Tc, ( Vec ctx ( Type Ty ), Type Ty ) ), Cts )
+                      , [ ( TcError, SrcSpan ) ] )
+inferTop funNm params body = do
   plat <- lift getPlatform
-  ( ( ( tcBody, ( argTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
-  let argTys' = fmap ( applySubstNormalise plat subst ) argTys
+  ( ( ( tcBody, ( paramTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm params body )
+  let paramTys' = fmap ( applySubstNormalise plat subst ) paramTys
       bodyTy' = applySubstNormalise plat subst bodyTy
       cts' = map ( first ( applySubstNormalise plat subst ) ) cts
   debugTraceM $ unlines
     [ "inferTop " ++ show funNm
-    , "argTys: " ++ show argTys'
+    , "paramTys: " ++ show paramTys'
     , "bodyTy: " ++ show bodyTy'
     , "cts: " ++ show cts'
     , "final subst: " ++ show subst
     ]
-  return ( ( ( tcBody, ( argTys', bodyTy' ) ), cts' ), mbErrs )
+  return ( ( ( tcBody, ( paramTys', bodyTy' ) ), cts' ), mbErrs )
 
-inferExpr :: Expr Ps -> TcGenM ( Type Ty, Expr Tc )
+inferExpr :: Expr ctx Ps -> TcGenM ( Type Ty, Expr ctx Tc )
 inferExpr = \case
   Term tm -> second Term <$> inferTerm tm
   TyApp fun args -> do
     ( args', resTy ) <- inferTyApp fun args
     pure ( resTy, TyApp fun args' )
   VaApp NoXApp fun args -> do
-    ( funVal, ( args', resTy ) ) <- inferVaApp ( Fun $ Right fun ) args
+    ( funVal, ( args', resTy ) ) <- inferVaApp ( FunVaFun fun ) args
     return ( resTy, VaApp ( XAppTc funVal ) fun args' )
 
-inferTerm :: Term Ps -> TcGenM ( Type Ty, Term Tc )
+inferTerm :: Term ctx Ps -> TcGenM ( Type Ty, Term ctx Tc )
 inferTerm = \case
   Literal x ->
     pure (inferLit x, Literal x)
-  LocalArg fun ->
-    do ( _funVal, resTy ) <- inferFun ( Fun $ Left fun )
-       return ( resTy, LocalArg fun )
+  LocalParam i ->
+    do resTy <- liftTcPureM $ lookupLocalParam i
+       return ( resTy, LocalParam i )
   Var NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
-    do ( funVal, ( args', resTy ) ) <- inferVaApp ( Fun $ Left fun ) args
+    do ( funVal, ( args', resTy ) ) <- inferVaApp ( FunVar fun ) args
        return ( resTy, Var ( XVarTc funVal ) fun ( Vec.toList args' ) )
 
 inferLit :: Literal -> Type Ty
@@ -797,8 +807,8 @@ inferLit = \case
 
 inferTyApp ::
      TyFun n
-  -> Vec nbArgs ( Expr Ps )
-  -> TcGenM ( Vec nbArgs ( Expr Tc ), Type Ty )
+  -> Vec nbArgs ( Expr ctx Ps )
+  -> TcGenM ( Vec nbArgs ( Expr ctx Tc ), Type Ty )
 inferTyApp fun args = do
   let funTy = inferTyFun fun
   -- The handling of arguments is duplicated in 'inferVaApp'.
@@ -819,9 +829,9 @@ inferTyApp fun args = do
 --
 -- Also returns a 'FunValue', which allows evaluating the instantiated function.
 inferVaApp ::
-     Fun
-  -> Vec nbArgs ( Expr Ps )
-  -> TcGenM ( FunValue, ( Vec nbArgs ( Expr Tc ), Type Ty ) )
+     Fun ctx
+  -> Vec nbArgs ( Expr ctx Ps )
+  -> TcGenM ( FunValue, ( Vec nbArgs ( Expr ctx Tc ), Type Ty ) )
 inferVaApp fun args = do
   ( funVal, funTy ) <- inferFun fun
   -- The handling of arguments is duplicated in 'inferTyApp'.
@@ -838,53 +848,51 @@ inferVaApp fun args = do
 
 -- | Infer the type of an occurrence of a variable or function,
 -- instantiating if necessary.
-inferFun :: Fun -> TcGenM ( FunValue, Type Ty )
-inferFun f@( Fun fun ) =
-  case fun of
-    Left varNm@( Name varStr ) -> do
-      -- Variable: should either be a local variable (a macro argument)
-      -- or a top-level macro (calling another macro).
-      mbTy <- liftTcPureM $ lookupVar varNm
-      case mbTy of
-        Just varTy ->
-          return
-            ( FunValue @Z varStr $ const NoValue -- this is not consulted, see 'evaluateTerm'
-            , varTy )
+inferFun :: Fun ctx -> TcGenM ( FunValue, Type Ty )
+inferFun f = case f of
+    FunLocal idx -> do
+      paramTy <- liftTcPureM $ lookupLocalParam idx
+      pure
+        -- The value is not consulted, see 'evaluateTerm'.
+        ( FunValue @Z funNm $ const NoValue
+        , paramTy )
+    FunVar   varNm -> do
+      mbQTy <- liftTcPureM $ lookupTyEnv varNm
+      case mbQTy of
+        Just ( Quant funQTy ) ->
+          snd <$>
+            instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
         Nothing -> do
-          mbQTy <- liftTcPureM $ lookupTyEnv varNm
-          case mbQTy of
-            Just ( Quant funQTy ) ->
-              snd <$>
-                instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
-            Nothing -> do
-              addErrTcGenM $ UnboundVariable varNm
-              alpha <- newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
-              return ( FunValue @Z varStr $ const NoValue, alpha )
-    Right mFun  ->
+          addErrTcGenM $ UnboundVariable varNm
+          alpha <- newMetaTyVarTy ( ExpectedVarTy varNm ) ( funNm <> "_ty" )
+          return ( FunValue @Z funNm $ const NoValue, alpha )
+    FunVaFun mFun  ->
       case inferVaFun mFun of
         Quant funQTy -> do
           snd <$>
             instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
   where
+    funNm :: FunName
     funNm = funName f
 
 -- | Infer the type of a lambda expression.
-inferLam :: forall nbArgs
-         .  Name            -- ^ name of the function (for error messages)
-         -> Vec nbArgs Name -- ^ argument names
-         -> Expr Ps        -- ^ function body
-         -> TcGenM ( Expr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
+inferLam :: forall ctx
+         .  Name         -- ^ name of the function (for error messages)
+         -> Vec ctx Name -- ^ local parameters
+         -> Expr ctx Ps  -- ^ function body
+         -> TcGenM ( Expr ctx Tc, ( Vec ctx ( Type Ty ), Type Ty ) )
 inferLam _ VNil body = do
   ( bodyTy, body' ) <- inferExpr body
   return ( body', ( VNil, bodyTy) )
-inferLam funNm argNms@( _ ::: _ ) body = do
-  let is = Vec.imap ( \ i _ -> fromIntegral ( Fin.toNatural i ) + 1 ) argNms
-  argTys <-
-    for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( Name argStr ) ) ->
-      newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
-  liftBaseTcM ( declareLocalVars ( Map.fromList $ Foldable.toList $ Vec.zipWith (,) argNms argTys ) ) $ do
+inferLam funNm params body = do
+  paramTys <-
+    ifor params \ i param  ->
+      newMetaTyVarTy
+        ( FunParam funNm ( param, Fin.toNatural i ) )
+        ( "ty_" <> getName param )
+  liftBaseTcM ( declareLocalParams paramTys ) $ do
     ( bodyTy, body' ) <- inferExpr body
-    return ( body', ( argTys, bodyTy ) )
+    return ( body', ( paramTys, bodyTy ) )
 
 -- Unlike value functions, functions on the type level are always monomorphic,
 -- so we don't need a 'Quant'.
@@ -1133,7 +1141,7 @@ instanceKey ( Instance { instanceQuantTy = qty } ) =
   map typeHead $ Vec.toList $ quantTyBody ( mkQuantTyBody ( Quant qty ) )
 
 argsTypeHeads :: Vec n ( Type Ty ) -> [ Maybe TypeHead ]
-argsTypeHeads = Foldable.toList . fmap typeHead
+argsTypeHeads = Vec.toList . fmap typeHead
 
 typeHead :: Type Ty -> Maybe TypeHead
 typeHead = \case
@@ -1805,11 +1813,11 @@ This is easier than erasing the types and dealing with typeclass specialisation,
 which is what GHC does.
 -}
 
-evaluateExpr :: Map Name Value -> TypeEnv -> Expr Tc -> Value
+evaluateExpr :: IntMap Value -> TypeEnv -> Expr ctx Tc -> Value
 evaluateExpr argVals tyEnv = \case
   Term tm  -> evaluateTerm argVals tyEnv tm
   TyApp{}  -> NoValue
-  VaApp @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
+  VaApp @_ @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
     -- We have stored the function that performs evaluation in the XAppTc
     -- field of the AST. For example, for addition, we have wrapped
     --
@@ -1823,13 +1831,13 @@ evaluateExpr argVals tyEnv = \case
         Nothing ->
           NoValue
 
-evaluateTerm :: Map Name Value -> TypeEnv -> Term Tc -> Value
+evaluateTerm :: IntMap Value -> TypeEnv -> Term ctx Tc -> Value
 evaluateTerm argVals tyEnv = \case
   Literal x -> evaluateLit x
-  -- Local macro argument, e.g. @X@ in @#define AddOne(X) X+1@.
-  LocalArg nm -> maybe NoValue id $ Map.lookup nm argVals
+  -- Local macro parameter, e.g. @X@ in @#define AddOne(X) X+1@.
+  LocalParam i -> fromMaybe NoValue $ IntMap.lookup (idxToInt i) argVals
   Var ( XVarTc ( FunValue @n _ fn ) ) nm args
-    -> Vec.reifyList args $ \ ( argsVec :: Vec m ( Expr Tc ) ) ->
+    -> Vec.reifyList args $ \ ( argsVec :: Vec m ( Expr ctx Tc ) ) ->
         case Nat.eqNat @n @m of
           Nothing ->
             error $ unlines
@@ -1839,7 +1847,7 @@ evaluateTerm argVals tyEnv = \case
               , "arguments: " ++ show args
               ]
           Just Refl ->
-            -- This is a macro call; evaluate the arguments and apply the
+            -- This is a macro call; evaluate the argument and apply the
             -- evaluator function. See also the 'MApp' case in 'evaluateExpr'.
             fn $ fmap ( evaluateExpr argVals tyEnv ) argsVec
 
@@ -1895,10 +1903,11 @@ naturalMaybe ( ValSType ty ) i =
 -- Also returns the body type (post-inference, pre-quantification) so the
 -- caller can tell whether the macro denotes a type or a value.
 tcExpr ::
-     TypeEnv
-  -> Name            -- ^ name of the macro
-  -> Vec nbArgs Name -- ^ macro arguments
-  -> Expr Ps        -- ^ macro body
+     forall ctx
+  .  TypeEnv
+  -> Name         -- ^ name of the macro
+  -> Vec ctx Name -- ^ macro arguments
+  -> Expr ctx Ps  -- ^ macro body
   -> Either MacroTcError ( Type Ty, Quant ( FunValue, Type Ty ) )
 tcExpr tyEnv macroNm args body =
   let plat = Runtime.hostPlatform in
@@ -1910,7 +1919,9 @@ tcExpr tyEnv macroNm args body =
 
     -- Step 2: compute the set of metavariables that are candidates for quantification.
     let
-      freeTvs = seenTvs $ getFVs noBoundVars $ freeTyVarsOfTypes ( bodyTy : Vec.toList argTys )
+      freeTvs =
+        seenTvs $ getFVs noBoundVars $
+          freeTyVarsOfTypes ( bodyTy : Vec.toList argTys )
 
     -- Step 3: simplify and default constraints.
     ( ctSubst, simpleCts ) <- simplifyAndDefault freeTvs ctsOrigs
@@ -1919,7 +1930,9 @@ tcExpr tyEnv macroNm args body =
     let
       qtvsFVs =
         getFVs noBoundVars $
-          freeTyVarsOfTypes ( fmap ( applySubstNormalise plat ctSubst ) $ bodyTy : Vec.toList argTys )
+          freeTyVarsOfTypes $
+            fmap ( applySubstNormalise plat ctSubst ) $
+              bodyTy : Vec.toList argTys
       qtvsList = reverse $ seenTvsRevList qtvsFVs
       ctTvs =
         seenTvs $ getFVs noBoundVars $
@@ -1973,17 +1986,17 @@ tcExpr tyEnv macroNm args body =
       ( bodyTy
       , Vec.reifyList qtvsList \ qtvs ->
           Quant \ tys ->
-            let quantSubst = mkSubst $ Foldable.toList $ Vec.zipWith (,) qtvs tys
+            let quantSubst = mkSubst $ Vec.toList $ Vec.zipWith (,) qtvs tys
                 finalSubst = quantSubst <> ctSubst
                 norm :: Type ki -> Type ki
                 norm = applySubstNormalise plat finalSubst
                 evalFun =
                   Vec.withDict args $
-                    FunValue ( getName macroNm )$ \ argVals ->
-                    evaluateExpr
-                      ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
-                      tyEnv
-                      body'
+                    FunValue ( getName macroNm ) $ \ (argVals :: Vec ctx Value) ->
+                      evaluateExpr
+                        ( IntMap.fromList $ zip [0..] $ Vec.toList argVals )
+                        tyEnv
+                        body'
             in QuantTyBody
                 { quantTyQuant = map norm ( fmap fst simpleCts )
                 , quantTyBody  = ( evalFun, mkFunTy ( fmap norm argTys ) ( norm bodyTy ) )
@@ -1999,6 +2012,7 @@ data MacroTcError
   = TcErrors !( NE.NonEmpty ( TcError, SrcSpan ) )
   -- | A collection of class constraints was inconsistent.
   | TcInconsistentConstraints !( NE.NonEmpty Cts )
+  -- TODO-D: Add typecheck error for type-like macros with parameters.
   deriving stock ( Show, Generic )
 
 instance Eq MacroTcError where

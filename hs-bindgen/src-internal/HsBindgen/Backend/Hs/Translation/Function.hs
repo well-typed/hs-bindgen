@@ -7,8 +7,8 @@ import Data.Kind (Type)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as T
 import Data.Type.Equality ((:~:) (Refl))
-import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
-import DeBruijn.Add (Add, lzeroAdd, swapAdd, unrzeroAdd)
+import DeBruijn (Add, Ctx, Env (..), Idx (..), lzeroAdd, sizeEnv, swapAdd,
+                 tabulateEnv, unrzeroAdd, zipWithEnv)
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs

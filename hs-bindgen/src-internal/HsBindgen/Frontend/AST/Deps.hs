@@ -12,6 +12,7 @@ module HsBindgen.Frontend.AST.Deps (
 import GHC.Records
 
 import C.Expr.Syntax qualified as CExpr
+import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Interface.Value qualified as V
 
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -81,15 +82,15 @@ depsOfTcMacro ::
      (IsPass p, MacroBody p ~ CheckedMacro p)
   => Proxy p -> MacroBody p -> [(ValOrRef, Id p)]
 depsOfTcMacro proxy = \case
-    MacroType typ  -> depsOfType typ.typ
-    MacroExpr expr -> depsOfVExpr proxy expr.body
+    MacroType typ                                    -> depsOfType typ.typ
+    MacroExpr (CExpr.CheckedMacroValueExpr _ body _) -> depsOfVExpr proxy body
   where
     -- Collect value-level dependencies from a checked macro body. Local
     -- arguments (lambda-bound ids) are excluded.
     depsOfVExpr ::
-         forall p.
+         forall p ctx.
          Proxy p
-      -> V.Expr (Id p)
+      -> V.Expr ctx (Id p)
       -> [(ValOrRef, Id p)]
     depsOfVExpr _ =
         map (ByValue,) . toList
@@ -153,19 +154,21 @@ depsOfCExprMacro ::
      MacroNameResolver
   -> CExpr.Macro
   -> [(ValOrRef, DeclId)]
-depsOfCExprMacro resolver macro =
-    map (ByValue,) $ goExpr macro.macroExpr
+depsOfCExprMacro resolver (CExpr.Macro _ _ _ macroExpr) =
+    map (ByValue,) $ goExpr macroExpr
   where
-    goExpr :: CExpr.Expr CExpr.Ps -> [DeclId]
+    goExpr :: CExpr.Expr ctx CExpr.Ps -> [DeclId]
     goExpr = \case
       CExpr.Term  term   -> goTerm term
       CExpr.TyApp _ xs   -> concatMap goExpr xs
       CExpr.VaApp _ _ xs -> concatMap goExpr xs
 
-    goTerm :: CExpr.Term CExpr.Ps -> [DeclId]
+    goTerm :: CExpr.Term ctx CExpr.Ps -> [DeclId]
     goTerm = \case
-      CExpr.Literal lit -> goLit lit
-      CExpr.LocalArg  _ -> []
+      CExpr.Literal lit ->
+        goLit lit
+      CExpr.LocalParam{} ->
+        []
       -- Variable / function call. A bare identifier is always parsed as Var;
       -- the typechecker decides whether it is a type or value reference.
       -- We use the resolver to emit a dep of the correct kind, or skip the

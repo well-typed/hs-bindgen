@@ -145,6 +145,7 @@
 #define FUNC_IDENTITY(x) x
 #define FUNC_ADD(a, b) a + b
 #define FUNC_NEG(x) (-x)
+#define FUNC_MULTIPLE_LOCAL_PARAMS(a, b, c, d) a + (b - (c + d))
 // TODO <https://github.com/well-typed/hs-bindgen/issues/1904>
 //
 // Ternary operator is not yet in the expression grammar (see below).
@@ -192,6 +193,11 @@
 
 // This is genuine erroneous function; keywords must not be parameter names.
 #define BAD_KEYWORD_AS_PARAM(int) x
+
+// TODO-D: Check that typecheck fails gracefully.
+
+// We can parse this macro, but typecheck will fail.
+#define TFUN2(X) int
 
 // TODO <https://github.com/well-typed/hs-bindgen/issues/1904>
 //

@@ -2,7 +2,11 @@
 // As a result it is absent from the declaration environment, so the macro
 // below triggers 'MacroTypecheckErrorUnresolvedTaggedType'.
 struct Unparsable {
-    long double x;
+  long double x;
 };
 
-#define MY_PTR struct Unparsable *
+#define PTR_UNPARSABLE struct Unparsable *
+
+#define PTR_DOES_NOT_EXIST struct DoesNotExist *
+
+#define DOES_NOT_EXIST struct DoesNotExist
