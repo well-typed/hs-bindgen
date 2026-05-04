@@ -58,6 +58,10 @@
 
 ### Bug fixes
 
+* Fixture tests now invoke the same GHC that cabal used to build the test
+  suite, so they no longer fail when `with-compiler` is set to a non-default
+  version and the system's `ghc` on `PATH` is something else. See [issue
+  #1940](https://github.com/well-typed/hs-bindgen/issues/1940).
 * Fix reversed order of Haddock documentation in TH mode
 * Fix `DeclIndex` construction when macros and ordinary declarations share a
   name.
