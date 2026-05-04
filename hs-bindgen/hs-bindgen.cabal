@@ -203,9 +203,16 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
     HsBindgen.Frontend.Pass.PrepareReparse
+    HsBindgen.Frontend.Pass.PrepareReparse.AST
     HsBindgen.Frontend.Pass.PrepareReparse.Flatten
     HsBindgen.Frontend.Pass.PrepareReparse.IsPass
+    HsBindgen.Frontend.Pass.PrepareReparse.Lexer
+    HsBindgen.Frontend.Pass.PrepareReparse.Parser
+    HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor
+    HsBindgen.Frontend.Pass.PrepareReparse.Printer
     HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util
+    HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
+    HsBindgen.Frontend.Pass.PrepareReparse.Tracer
     HsBindgen.Frontend.Pass.PrepareReparse.Updater
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
@@ -275,11 +282,13 @@ library internal
     , language-c          >=0.9        && <0.11
     , mtl                 >=2.2        && <2.4
     , optics-core         >=0.4        && <0.5
+    , parsec              >=3.1        && <3.2
     , pretty              >=1.1.3.6    && <1.2
     , process             >=1.6        && <1.7
     , regex-pcre-builtin  >=0.95       && <0.96
     , some                >=1.0.6      && <1.1
     , template-haskell    >=2.18       && <2.25
+    , temporary           >=1.3        && <1.4
     , text                >=1.2        && <2.2
     , time                >=1.11       && <1.16
     , transformers        >=0.5        && <0.7
@@ -432,6 +441,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Fixtures.TestCases
     Test.HsBindgen.Fixtures.Utils
     Test.HsBindgen.Frontend.LanguageC
+    Test.HsBindgen.Frontend.Pass.PrepareReparse
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Arrays
     Test.HsBindgen.Golden.Attributes
@@ -481,10 +491,12 @@ test-suite test-hs-bindgen
     , filepath
     , mtl
     , optics-core
+    , parsec
     , process
     , tasty
     , tasty-hunit
     , template-haskell
+    , temporary
     , text
     , utf8-string
 
@@ -493,7 +505,6 @@ test-suite test-hs-bindgen
     , async             >=2.2     && <2.3
     , syb               >=0.7.2.4 && <0.8
     , tasty-quickcheck  >=0.11    && <0.12
-    , temporary         >=1.3     && <1.4
 
   -- Build tools needed for integration tests
   build-tool-depends: hs-bindgen:hs-bindgen-cli

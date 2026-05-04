@@ -12,8 +12,10 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Updater (
 
 import Prelude hiding (lex, print)
 
-import Control.Monad.Reader (MonadReader, Reader, ReaderT (ReaderT), runReader)
+import Control.Monad.Reader (MonadReader (ask), Reader, ReaderT (ReaderT),
+                             runReader)
 import Data.Kind (Type)
+import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
@@ -22,23 +24,32 @@ import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (ReparseNeeded, ReparseNotNeeded),
                                              Tokens)
+import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Tag (..),
+                                                   TagType (Function))
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault,
                                                        flattenFunction)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (..),
                                                       PrepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (fieldTag, functionTag,
+                                                          typedefTag,
+                                                          variableTag)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro,
                                                        TypecheckMacros)
+import HsBindgen.Imports (Map)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 update ::
-     C.TranslationUnit TypecheckMacros
+     Map Tag Decl
+  -> C.TranslationUnit TypecheckMacros
   -> C.TranslationUnit PrepareReparse
-update unit = runM env $ updateIt () unit
+update mapping unit = runM env $ updateIt () unit
   where
-    env = Env
+    env = Env {
+        map = mapping
+      }
 
 {-------------------------------------------------------------------------------
   Update: class
@@ -61,7 +72,9 @@ newtype M a = M (Reader Env a)
 
 deriving newtype instance MonadReader Env M
 
-data Env = Env
+data Env = Env {
+      map    :: Map Tag Decl
+    }
 
 {-------------------------------------------------------------------------------
   Update: instances
@@ -118,8 +131,8 @@ instance Update C.Struct where
         }
 
 instance Update C.StructField where
-  updateIt _info field = do
-      ann' <- updateReparseInfo False field.ann
+  updateIt info field = do
+      ann' <- updateReparseInfo (fieldTag info field.info) field.ann
       pure C.StructField {
           info = coercePass field.info
         , typ = coercePass field.typ
@@ -139,8 +152,8 @@ instance Update C.Union where
         }
 
 instance Update C.UnionField where
-  updateIt _info field = do
-      ann' <- updateReparseInfo False field.ann
+  updateIt info field = do
+      ann' <- updateReparseInfo (fieldTag info field.info) field.ann
       pure C.UnionField {
           info = coercePass field.info
         , typ = coercePass field.typ
@@ -148,8 +161,8 @@ instance Update C.UnionField where
         }
 
 instance Update C.Typedef where
-  updateIt _info typedef = do
-      ann' <- updateReparseInfo False typedef.ann
+  updateIt info typedef = do
+      ann' <- updateReparseInfo (typedefTag info) typedef.ann
       pure C.Typedef {
           typ = coercePass typedef.typ
         , ann = ann'
@@ -165,8 +178,8 @@ instance Update CheckedMacro where
   updateIt _info macro = pure $ coercePass macro
 
 instance Update C.Function where
-  updateIt _info function = do
-      ann' <- updateReparseInfo True function.ann
+  updateIt info function = do
+      ann' <- updateReparseInfo (functionTag info) function.ann
       pure C.Function {
           args = map coercePass function.args
         , res = coercePass function.res
@@ -175,23 +188,27 @@ instance Update C.Function where
         }
 
 instance Update C.Global where
-  updateIt _info global = do
-      ann' <- updateReparseInfo False global.ann
+  updateIt info global = do
+      ann' <- updateReparseInfo (variableTag info) global.ann
       pure C.Global {
           typ = coercePass global.typ
         , ann = ann'
         }
 
 updateReparseInfo ::
-     Bool
+     Tag
   -> ReparseInfo Tokens
   -> M (ReparseInfo FlatTokens)
-updateReparseInfo isFunction reparseInfo = do
+updateReparseInfo tag@(Tag typ _) reparseInfo = do
+    env <- ask
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
       ReparseNeeded tokens usedMacros -> do
-        let flatten | isFunction = flattenFunction tokens
-                    | otherwise  = flattenDefault tokens
+        let flatten = case Map.lookup tag env.map of
+              Nothing -> case typ of -- TODO: trace a bug-level message in the Nothing case
+                Function -> flattenFunction tokens
+                _        -> flattenDefault tokens
+              Just (Decl dec) -> dec
             flatTokens = FlatTokens {
                 flatten = flatten
               , locStart = getLocation tokens
