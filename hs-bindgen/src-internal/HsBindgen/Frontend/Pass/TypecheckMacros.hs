@@ -3,8 +3,10 @@ module HsBindgen.Frontend.Pass.TypecheckMacros (
   ) where
 
 import Control.Applicative
+import Control.Monad.Except (ExceptT, runExceptT, throwError)
 import Control.Monad.Reader (MonadReader (..), Reader, runReader)
 import Control.Monad.State (MonadState (..), StateT, modify, runStateT)
+import Control.Monad.Trans.Class (lift)
 import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
@@ -111,12 +113,22 @@ getKnownType decl = case decl.kind of
     C.DeclUnion{}            -> Just $ Right (taggedName,  knownStructOrUnion)
     C.DeclEnum enum          -> Just $ Right (taggedName,  getKnownEnum enum)
     C.DeclAnonEnumConstant{} -> Nothing
-    C.DeclOpaque{}           -> Nothing
+    -- Include opaque tagged types: they can be referenced by macros (e.g. as a
+    -- pointer type). The only opaque type-like declarations carrying an
+    -- ordinary names are @typedef void foo@, which is not a valid standalone
+    -- type, so macros using them will fail anyway.
+    C.DeclOpaque{}           -> Right <$> getKnownTypeOpaque
     C.DeclFunction{}         -> Nothing
     C.DeclGlobal{}           -> Nothing
   where
     info :: C.DeclInfo ConstructTranslationUnit
     info = decl.info
+
+    getKnownTypeOpaque :: Maybe (CDeclName, CType)
+    getKnownTypeOpaque =
+      case info.id.name.kind of
+        CNameKindTagged _ -> Just (taggedName, knownStructOrUnion)
+        _                 -> Nothing
 
     -- | Typedef names are plain text (always 'CNameKindOrdinary').
     typedefName :: Text
@@ -231,14 +243,15 @@ runM knownTypedefs knownTaggedTypes (WrapM ma) = runReader (runStateT ma s) e
     , resolvedMacroTypes = Map.empty
     }
 
--- | Look up a typedef or macro-defined type by bare name.
+-- | Look up a @typedef@ or macro-defined type by bare name.
 --
--- Searches both the known typedefs (from the first traversal) and the
+-- Searches both the known @typedef@s (from the first traversal) and the
 -- resolved macro types (accumulated during typechecking).
 --
--- Precondition: the name must exist in one of these maps. This is guaranteed
--- because c-expr-dsl only calls the inject function for names present in its
--- 'CExpr.TypeEnv', which we built from these same maps.
+-- 'panicPure' is safe here: c-expr-dsl only calls the inject function for names
+-- present in 'CExpr.TypeEnv', which we built from these same maps. That is, it
+-- is a bug, if we fail to lookup an ordinary type, because the typechecker
+-- should have failed gracefully at an earlier stage.
 lookupType :: Text -> M CType
 lookupType n = do
     st  <- get
@@ -250,14 +263,16 @@ lookupType n = do
 
 -- | Look up a tagged type (struct, union, enum) by 'CDeclName'.
 --
--- Same precondition as 'lookupTypedefType'.
-lookupTaggedType :: CDeclName -> M CType
+-- Unlike 'lookupType', there is no invariant guaranteeing presence: tagged
+-- types are resolved from syntax alone and are not gated by 'CExpr.TypeEnv'.
+-- A macro may reference a tagged type we failed to parse or that was defined
+-- in an unprocessed header, so we return a proper error rather than panic.
+lookupTaggedType :: CDeclName -> ExceptT MacroTypecheckError M CType
 lookupTaggedType key = do
     env <- ask
     case Map.lookup key env.knownTaggedTypes of
       Just t  -> pure t
-      Nothing -> panicPure $
-        "lookupTaggedType: name not found: " <> show key
+      Nothing -> throwError $ MacroTypecheckErrorUnresolvedTaggedType key
 
 {-------------------------------------------------------------------------------
   Type checking
@@ -279,32 +294,34 @@ tcMacro ::
   -> ParsedMacro
   -> M (Either MacroTypecheckError (CheckedMacro TypecheckMacros))
 tcMacro name (ParsedMacro macro) = do
-    st  <- get
-    tcRes <- CExpr.tcMacro
+    st    <- get
+    eTcRes <- runExceptT $ CExpr.tcMacro
                st.typeEnv
-               injectType
+               (lift . injectType)
                injectTaggedType
-               injectValueName
+               (lift . injectValueName)
                macro.macroName
                macro.macroArgs
                macro.macroExpr
-    case tcRes of
-      Left err ->
-        pure $ Left $ MacroTypecheckErrorCExpr err
-      Right (CExpr.MacroTcTypeExpr quant typeExpr) ->
-        case convertTExpr typeExpr of
-          Left err  -> pure $ Left err
-          Right typ -> do
-            addQuant quant
-            addNewMacroTypeToReparseEnv typ
-            pure $ Right $ MacroType $ CheckedMacroType typ NoAnn
-      Right (CExpr.MacroTcValueExpr inf valueExpr) -> do
-        modify $ #typeEnv %~ Map.insert macro.macroName inf
-        pure $ Right $ MacroExpr $ CheckedMacroExpr{
-              args = macro.macroArgs
-            , body = valueExpr
-            , typ  = fmap snd inf
-            }
+    case eTcRes of
+      Left err    -> pure $ Left err
+      Right tcRes -> case tcRes of
+        Left err ->
+          pure $ Left $ MacroTypecheckErrorCExpr err
+        Right (CExpr.MacroTcTypeExpr quant typeExpr) ->
+          case convertTExpr typeExpr of
+            Left err  -> pure $ Left err
+            Right typ -> do
+              addQuant quant
+              addNewMacroTypeToReparseEnv typ
+              pure $ Right $ MacroType $ CheckedMacroType typ NoAnn
+        Right (CExpr.MacroTcValueExpr inf valueExpr) -> do
+          modify $ #typeEnv %~ Map.insert macro.macroName inf
+          pure $ Right $ MacroExpr $ CheckedMacroExpr{
+                args = macro.macroArgs
+              , body = valueExpr
+              , typ  = fmap snd inf
+              }
   where
     -- Type names: resolve to 'CType' via lookup in known typedefs and
     -- previously resolved macro types.
@@ -312,7 +329,12 @@ tcMacro name (ParsedMacro macro) = do
     injectType n = lookupType n.getName
 
     -- Tagged type names: resolve to 'CType' via lookup in known tagged types.
-    injectTaggedType :: CExpr.TagKind -> CExpr.Name -> M CType
+    -- Uses 'ExceptT' so that unknown tagged types produce a proper error
+    -- rather than a panic; see 'lookupTaggedType'.
+    injectTaggedType ::
+         CExpr.TagKind
+      -> CExpr.Name
+      -> ExceptT MacroTypecheckError M CType
     injectTaggedType tag n =
         lookupTaggedType CDeclName{
             text = n.getName
