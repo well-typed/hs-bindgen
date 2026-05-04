@@ -3,17 +3,17 @@
     "doxygen-parser-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1777473549,
-        "narHash": "sha256-VMw6SPkJUK4qw0zHByNmgogwwFGrGG7J2XLr3JETLTs=",
+        "lastModified": 1777909970,
+        "narHash": "sha256-7G142qWNIpz4porHJ1OHr8bywaDPIMbc0Bkc+WikRnY=",
         "owner": "well-typed",
         "repo": "doxygen-parser",
-        "rev": "64faaf3d43599076eb5a04eae7af777de74c7e9b",
+        "rev": "33b5074eb5122062ac41fa8b9ed0596d39913b63",
         "type": "github"
       },
       "original": {
         "owner": "well-typed",
         "repo": "doxygen-parser",
-        "rev": "64faaf3d43599076eb5a04eae7af777de74c7e9b",
+        "rev": "33b5074eb5122062ac41fa8b9ed0596d39913b63",
         "type": "github"
       }
     },

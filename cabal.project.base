@@ -10,7 +10,7 @@ source-repository-package
 source-repository-package
     type: git
     location: https://github.com/well-typed/doxygen-parser
-    tag: 64faaf3d43599076eb5a04eae7af777de74c7e9b
+    tag: 33b5074eb5122062ac41fa8b9ed0596d39913b63
 
 --
 -- Temporary package bounds overrides for ghc 9.14

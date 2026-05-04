@@ -9,7 +9,7 @@
       flake = false;
     };
     doxygen-parser-src = {
-      url = "github:well-typed/doxygen-parser?rev=64faaf3d43599076eb5a04eae7af777de74c7e9b";
+      url = "github:well-typed/doxygen-parser?rev=33b5074eb5122062ac41fa8b9ed0596d39913b63";
       flake = false;
     };
   };
