@@ -3,7 +3,7 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: macros/reparse_arithmetic_types.h
+- headers: macros/reparse/arithmetic_types.h
   cname: macro A
   hsname: A
 hstypes:

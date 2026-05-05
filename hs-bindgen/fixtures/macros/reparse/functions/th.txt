@@ -1,0 +1,188 @@
+-- addDependentFile examples/golden/macros/reparse/functions.h
+-- #include <macros/reparse/functions.h>
+-- void hs_bindgen_b6e9ae739486d53b (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- signed int hs_bindgen_e44e9d05eacbc37e (
+--   signed int arg1
+-- )
+-- {
+--   return (bar)(arg1);
+-- }
+-- void hs_bindgen_39eae3eb6460ea6a (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- signed int hs_bindgen_eb2d164aacb2e06d (
+--   signed int arg1
+-- )
+-- {
+--   return (bar)(arg1);
+-- }
+-- /* test_macrosreparsefunctions_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_0ee6ccf5e9065e6c (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosreparsefunctions_Example_get_bar */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_8ec5846013c7fa41 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &bar;
+-- }
+{-| __C declaration:__ @macro ID@
+
+    __defined at:__ @macros\/reparse\/functions.h 1:9@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+iD :: forall a_0 . a_0 -> a_0
+{-| __C declaration:__ @macro ID@
+
+    __defined at:__ @macros\/reparse\/functions.h 1:9@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+iD = \x_0 -> x_0
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_b6e9ae739486d53b" hs_bindgen_b6e9ae739486d53b_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_foo@
+hs_bindgen_b6e9ae739486d53b :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_foo@
+hs_bindgen_b6e9ae739486d53b = fromFFIType hs_bindgen_b6e9ae739486d53b_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_safe = hs_bindgen_b6e9ae739486d53b
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_e44e9d05eacbc37e" hs_bindgen_e44e9d05eacbc37e_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_bar@
+hs_bindgen_e44e9d05eacbc37e :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_bar@
+hs_bindgen_e44e9d05eacbc37e = fromFFIType hs_bindgen_e44e9d05eacbc37e_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_safe :: CInt -> IO CInt
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_safe = hs_bindgen_e44e9d05eacbc37e
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_39eae3eb6460ea6a" hs_bindgen_39eae3eb6460ea6a_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
+hs_bindgen_39eae3eb6460ea6a :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
+hs_bindgen_39eae3eb6460ea6a = fromFFIType hs_bindgen_39eae3eb6460ea6a_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_unsafe = hs_bindgen_39eae3eb6460ea6a
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_eb2d164aacb2e06d" hs_bindgen_eb2d164aacb2e06d_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_bar@
+hs_bindgen_eb2d164aacb2e06d :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_bar@
+hs_bindgen_eb2d164aacb2e06d = fromFFIType hs_bindgen_eb2d164aacb2e06d_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_unsafe = hs_bindgen_eb2d164aacb2e06d
+-- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_0ee6ccf5e9065e6c" hs_bindgen_0ee6ccf5e9065e6c_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
+hs_bindgen_0ee6ccf5e9065e6c :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
+hs_bindgen_0ee6ccf5e9065e6c = fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/functions.h 6:6@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_0ee6ccf5e9065e6c
+-- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_8ec5846013c7fa41" hs_bindgen_8ec5846013c7fa41_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
+hs_bindgen_8ec5846013c7fa41 :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
+hs_bindgen_8ec5846013c7fa41 = fromFFIType hs_bindgen_8ec5846013c7fa41_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/functions.h 11:19@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_8ec5846013c7fa41

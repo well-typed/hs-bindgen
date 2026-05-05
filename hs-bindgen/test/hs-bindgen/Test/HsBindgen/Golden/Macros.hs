@@ -160,7 +160,7 @@ test_macros_reparse =
 
 test_macros_reparse_arithmetic_types :: TestCase
 test_macros_reparse_arithmetic_types =
-    defaultTest "macros/reparse_arithmetic_types"
+    defaultTest "macros/reparse/arithmetic_types"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name@"f29" (SelectParseFailure ParseUnsupportedLongDouble) ->
               Just $ Expected name
@@ -172,6 +172,6 @@ test_macros_reparse_arithmetic_types =
 
 test_macros_reparse_functions :: TestCase
 test_macros_reparse_functions =
-    defaultTest "macros/reparse_functions"
+    defaultTest "macros/reparse/functions"
       -- C99 required for inline functions
       & #cStandard .~ c99
