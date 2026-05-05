@@ -23,9 +23,9 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @macros\/reparse_arithmetic_types.h 16:9@
+    __defined at:__ @macros\/reparse\/arithmetic_types.h 16:9@
 
-    __exported by:__ @macros\/reparse_arithmetic_types.h@
+    __exported by:__ @macros\/reparse\/arithmetic_types.h@
 -}
 newtype A = A
   { unwrapA :: RIP.CInt
