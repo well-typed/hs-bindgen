@@ -80,6 +80,11 @@
   expansions. The bug would, for example, cause `long long int` to be parsed as
   `long int` in some cases, but that is now fixed. See [issue #1685][is-1685]
   and [PR #1921][pr-1921].
+* Fix the reparser to ignore storage class specifiers and function specifiers.
+  Previously, declarations carrying any of these on macro-using function headers
+  or globals failed to reparse and silently fell back to the un-reparsed type,
+  dropping macro typedef names from generated bindings. See
+  [issue #1891][is-1891].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -188,13 +193,14 @@
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
-[pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
-[pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
-[pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
 [is-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 [is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
+[is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
+[pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
+[pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
+[pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862

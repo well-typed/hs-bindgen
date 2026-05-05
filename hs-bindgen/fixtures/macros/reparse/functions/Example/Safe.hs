@@ -65,7 +65,7 @@ hs_bindgen_e44e9d05eacbc37e =
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}

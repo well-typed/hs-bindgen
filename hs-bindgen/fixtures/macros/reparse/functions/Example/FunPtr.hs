@@ -62,7 +62,7 @@ hs_bindgen_8ec5846013c7fa41 =
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}

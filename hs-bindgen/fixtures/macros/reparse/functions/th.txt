@@ -86,14 +86,14 @@ hs_bindgen_e44e9d05eacbc37e :: CInt -> IO CInt
 hs_bindgen_e44e9d05eacbc37e = fromFFIType hs_bindgen_e44e9d05eacbc37e_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_safe :: CInt -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -130,14 +130,14 @@ hs_bindgen_eb2d164aacb2e06d :: CInt -> IO CInt
 hs_bindgen_eb2d164aacb2e06d = fromFFIType hs_bindgen_eb2d164aacb2e06d_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_unsafe :: CInt -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -174,14 +174,14 @@ hs_bindgen_8ec5846013c7fa41 = fromFFIType hs_bindgen_8ec5846013c7fa41_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_funptr :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 11:19@
+    __defined at:__ @macros\/reparse\/functions.h 8:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
