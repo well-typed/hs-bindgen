@@ -38,6 +38,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Arrays.KnownSize \
+    --omit-field-prefixes \
     callbacks/arrays/known_size.h
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -48,6 +49,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Arrays.UnknownSize \
+    --omit-field-prefixes \
     callbacks/arrays/unknown_size.h
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -58,6 +60,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Basic \
+    --omit-field-prefixes \
     callbacks/basic.h
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -68,6 +71,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Structs \
+    --omit-field-prefixes \
     callbacks/structs.h
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -78,6 +82,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Unions \
+    --omit-field-prefixes \
     callbacks/unions.h
 
 echo "## Types"

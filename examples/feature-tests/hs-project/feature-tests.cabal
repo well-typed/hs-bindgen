@@ -18,13 +18,26 @@ common warnings
 common language
   default-language:   GHC2021
   default-extensions:
+    DataKinds
+    DefaultSignatures
+    DeriveAnyClass
     DerivingStrategies
-    ImportQualifiedPost
+    DerivingVia
+    DisambiguateRecordFields
+    DuplicateRecordFields
+    FunctionalDependencies
     LambdaCase
+    MultiWayIf
+    NoFieldSelectors
+    NoNamedFieldPuns
+    OverloadedLabels
     OverloadedRecordDot
+    OverloadedStrings
     PatternSynonyms
-    RecordWildCards
-    RoleAnnotations
+    QuantifiedConstraints
+    TypeApplications
+    TypeFamilies
+    UndecidableInstances
     ViewPatterns
 
 library generated
