@@ -12,6 +12,7 @@ libfeature-tests.so: \
 		callbacks/basic.o \
 		callbacks/structs.o \
 		callbacks/unions.o \
+		pointer_manipulation.o \
 		types/anonymous.o \
 		types/bitfields.o
 
@@ -21,6 +22,7 @@ libfeature-tests.so: \
 		callbacks/basic.o \
 		callbacks/structs.o \
 		callbacks/unions.o \
+		pointer_manipulation.o \
 		types/anonymous.o \
 		types/bitfields.o
 
@@ -40,6 +42,11 @@ callbacks/structs.o: callbacks/structs.h callbacks/structs.c
 
 callbacks/unions.o: callbacks/unions.h callbacks/unions.c
 	$(CC) -Wall -o callbacks/unions.o -c -fPIC callbacks/unions.c
+
+# pointer manipulation
+
+pointer_manipulation.o: pointer_manipulation.h pointer_manipulation.c
+	$(CC) -Wall -o pointer_manipulation.o -c -fPIC pointer_manipulation.c
 
 # types
 

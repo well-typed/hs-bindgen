@@ -65,6 +65,9 @@ library generated
     Generated.Callbacks.Unions.FunPtr
     Generated.Callbacks.Unions.Safe
     Generated.Callbacks.Unions.Unsafe
+    Generated.PointerManipulation
+    Generated.PointerManipulation.Safe
+    Generated.PointerManipulation.Unsafe
     Generated.Types.Anonymous
     Generated.Types.Anonymous.Global
     Generated.Types.Bitfields
@@ -90,6 +93,15 @@ test-suite feature-tests
     Test.Callbacks.Basic
     Test.Callbacks.Structs
     Test.Callbacks.Unions
+    Test.PointerManipulation
+    Test.PointerManipulation.Enums
+    Test.PointerManipulation.Infra
+    Test.PointerManipulation.MacroTypes
+    Test.PointerManipulation.Structs
+    Test.PointerManipulation.Structs.Bitfields
+    Test.PointerManipulation.Typedefs
+    Test.PointerManipulation.Unions
+    Test.PointerManipulation.Unions.Bitfields
     Test.Types.Anonymous
     Test.Types.Bitfields
     Test.Util
@@ -97,8 +109,10 @@ test-suite feature-tests
 
   build-depends:
     , base
+    , constraints
     , feature-tests:generated
     , hs-bindgen-runtime
+    , optics
     , QuickCheck
     , tasty
     , tasty-quickcheck
