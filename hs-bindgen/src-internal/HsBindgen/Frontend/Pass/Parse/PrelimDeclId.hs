@@ -38,9 +38,27 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 -------------------------------------------------------------------------------}
 
 -- | Anonymous declaration identifier
+--
+-- libclang reports the same expansion location for /every/ declaration
+-- produced by a single macro expansion, so two distinct anonymous
+-- declarations from one expansion would otherwise share an 'AnonId'. We
+-- therefore also key on the spelling location (where the tokens appear in
+-- the macro definition).
+--
+-- The 'spelling' field is rarely read directly. However it is usefult to
+-- disambiguate the derived 'Eq' and 'Ord'.
+--
+-- The spelling location is only populated correctly on @llvm >= 19.1.0@; on
+-- older toolchains it equals the expansion location and disambiguation is
+-- best-effort.
 data AnonId = AnonId{
-      loc  :: SingleLoc
-    , kind :: CNameKind
+      -- | Macro expansion site, or the source location for non-macro decls.
+      -- Used for tracing and Haddock comments.
+      loc      :: SingleLoc
+      -- | Spelling location: where the tokens were written in the source
+      -- (inside the macro definition, for macro-expanded decls).
+    , spelling :: SingleLoc
+    , kind     :: CNameKind
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -109,8 +127,10 @@ atCursor curr kind = do
   where
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
-        loc <- HighLevel.clang_getCursorLocation' curr
-        return $ Anon AnonId{loc = loc, kind = kind}
+        cxLoc    <- clang_getCursorLocation curr
+        loc      <- HighLevel.clang_getExpansionLocation cxLoc
+        spelling <- HighLevel.clang_getSpellingLocation  cxLoc
+        return $ Anon AnonId{loc = loc, spelling = spelling, kind = kind}
 
 -- | Check for built-in definitions
 checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)
@@ -130,7 +150,7 @@ checkIsBuiltin curr = do
 -------------------------------------------------------------------------------}
 
 instance PrettyForTrace AnonId where
-  prettyForTrace anonId = PP.singleQuotes $ PP.hsep [
+  prettyForTrace anonId = PP.singleQuotes $ PP.hsep $ [
       "unnamed"
     , case anonId.kind of
         CNameKindTagged tagKind ->
@@ -141,6 +161,9 @@ instance PrettyForTrace AnonId where
           "macro"
     , "at"
     , PP.string $ HighLevel.prettySingleLoc ShowFile anonId.loc
+    ] ++ [
+      PP.string $ "<Spelling=" ++ HighLevel.prettySingleLoc ShowFile anonId.spelling ++ ">"
+    | anonId.spelling /= anonId.loc
     ]
 
 instance PrettyForTrace PrelimDeclId where
