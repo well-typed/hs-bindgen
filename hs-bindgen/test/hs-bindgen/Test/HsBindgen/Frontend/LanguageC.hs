@@ -28,7 +28,8 @@ import Clang.Args (ClangArgs)
 import Clang.Enum.Bitfield (BitfieldEnum, bitfieldEnum)
 import Clang.Enum.Simple (SimpleEnum)
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types (Diagnostic, MultiLoc (multiLocExpansion), Token,
+import Clang.HighLevel.Types (Diagnostic, MultiLoc (multiLocExpansion),
+                              Range (rangeStart), Token (tokenExtent),
                               TokenSpelling, diagnosticIsError)
 import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
                             CXTranslationUnit_Flags (CXTranslationUnit_DetailedPreprocessingRecord),
@@ -37,12 +38,15 @@ import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
                             clang_getTranslationUnitCursor)
 import Clang.Paths (SourcePath (SourcePath))
 
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.PrettyPrinter (showsVariableType)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
+import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (FlatTokens, flatten, locStart),
+                                                      PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -279,7 +283,11 @@ prop_reparseGlobal ::
 prop_reparseGlobal input expectedOutput =
     ioProperty $ do
       tokens <- tokenize contents
-      let output = LanC.reparseGlobal Map.empty tokens
+      let flatTokens = FlatTokens {
+              flatten = flattenDefault tokens
+            , locStart = getLocation tokens
+            }
+      let output = LanC.reparseGlobal Map.empty flatTokens
       pure $
         counterexample ("reparser input: " <> contents) $
         tabulate "reparser input" [contents] $
@@ -291,8 +299,12 @@ prop_reparseGlobal input expectedOutput =
         LanC.UpdateUnexpected _ str -> UpdateUnexpected str
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
 
+    getLocation :: [Token a] -> MultiLoc
+    getLocation []    = panicPure "Unexpected empty list of tokens"
+    getLocation (t:_) = t.tokenExtent.rangeStart
+
 -- | The pass that comes just before the 'ReparseMacroExpansions' pass
-type PrePass = TypecheckMacros
+type PrePass = PrepareReparse
 
 -- | Copy of 'LanC.Error' without the callstack
 --
@@ -303,12 +315,6 @@ data Error =
     UpdateUnexpected String
   | UpdateUnsupported String
   deriving stock (Show, Eq)
-
-newtype Typ = Typ String
-  deriving stock Show
-
-newtype Decl = Decl String
-  deriving stock Show
 
 {-------------------------------------------------------------------------------
   Enumerate

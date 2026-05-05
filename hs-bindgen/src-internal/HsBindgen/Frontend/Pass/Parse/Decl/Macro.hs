@@ -9,11 +9,11 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion))
 import Clang.LowLevel.Core (CXCursor)
 
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (..), Tokens)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl, getMacroExpansions,
                                                  getTranslationUnit)
 
-getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
+getReparseInfo :: CXCursor -> ParseDecl (ReparseInfo Tokens)
 getReparseInfo = \curr -> do
     extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
     macroExpansions <- getMacroExpansions extent

@@ -18,7 +18,7 @@ import HsBindgen.Frontend.AST.Type
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo)
+import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -35,11 +35,11 @@ data TypecheckMacros a
 -- 'ReparseMacroExpansions' pass.
 type family AnnTypecheckMacros (ix :: Symbol) :: Star where
   AnnTypecheckMacros "TranslationUnit" = DeclMeta
-  AnnTypecheckMacros "StructField"     = ReparseInfo
-  AnnTypecheckMacros "UnionField"      = ReparseInfo
-  AnnTypecheckMacros "Typedef"         = ReparseInfo
-  AnnTypecheckMacros "Function"        = ReparseInfo
-  AnnTypecheckMacros "Global"          = ReparseInfo
+  AnnTypecheckMacros "StructField"     = ReparseInfo Tokens
+  AnnTypecheckMacros "UnionField"      = ReparseInfo Tokens
+  AnnTypecheckMacros "Typedef"         = ReparseInfo Tokens
+  AnnTypecheckMacros "Function"        = ReparseInfo Tokens
+  AnnTypecheckMacros "Global"          = ReparseInfo Tokens
   AnnTypecheckMacros _                 = NoAnn
 
 instance IsPass TypecheckMacros where

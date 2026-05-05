@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     -- * Macros
   , ParsedMacro(..)
   , ReparseInfo(..)
+  , Tokens
     -- * Fields
   , FieldOrigin(..)
   , ExplicitFieldOrigin(..)
@@ -34,12 +35,12 @@ data Parse a
 
 type family AnnParse (ix :: Symbol) :: Star where
   AnnParse "Struct"      = IsAnon
-  AnnParse "StructField" = (ReparseInfo, FieldOrigin)
+  AnnParse "StructField" = (ReparseInfo Tokens, FieldOrigin)
   AnnParse "Union"       = IsAnon
-  AnnParse "UnionField"  = (ReparseInfo, FieldOrigin)
-  AnnParse "Typedef"     = ReparseInfo
-  AnnParse "Function"    = ReparseInfo
-  AnnParse "Global"      = ReparseInfo
+  AnnParse "UnionField"  = (ReparseInfo Tokens, FieldOrigin)
+  AnnParse "Typedef"     = ReparseInfo Tokens
+  AnnParse "Function"    = ReparseInfo Tokens
+  AnnParse "Global"      = ReparseInfo Tokens
   AnnParse _             = NoAnn
 
 instance IsPass Parse where
@@ -71,13 +72,13 @@ newtype ParsedMacro = ParsedMacro {
 deriving stock instance Show ParsedMacro
 deriving stock instance Eq   ParsedMacro
 
-data ReparseInfo =
+data ReparseInfo tokens =
     -- | We need to reparse this declaration (to deal with macros)
     --
     -- We do not use this for macro declarations _themselves_ (see
     -- 'ParsedMacro').
     ReparseNeeded
-      [Token TokenSpelling]
+      tokens
       -- ^ Original tokens of declaration without macro expansions
       (Set Text)
       -- ^ Names of expanded macros
@@ -85,6 +86,8 @@ data ReparseInfo =
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded
   deriving stock (Show, Eq, Ord)
+
+type Tokens = [Token TokenSpelling]
 
 {-------------------------------------------------------------------------------
   Fields

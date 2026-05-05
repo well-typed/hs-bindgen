@@ -28,9 +28,7 @@ import Data.Tuple (swap)
 import Language.C qualified as LanC
 import Language.C.Data.Position qualified as LanC
 
-import Clang.Enum.Simple qualified as Clang
 import Clang.HighLevel.Types qualified as Clang
-import Clang.LowLevel.Core qualified as Clang
 import Clang.Paths qualified as Clang
 
 import HsBindgen.Clang.CStandard
@@ -41,7 +39,9 @@ import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+
 #if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
 #endif
@@ -51,8 +51,8 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 type Parser a =
-     ReparseEnv
-  -> [Clang.Token Clang.TokenSpelling]
+     ReparseEnv ReparseMacroExpansions
+  -> FlatTokens
   -> Either Error a
 
 -- | Reparse function declaration
@@ -65,37 +65,32 @@ reparseFunDecl ::
          )
        , CName
        )
-reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
+reparseFunDecl = parseWith (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
 reparseTypedef :: Parser (C.Type ReparseMacroExpansions)
-reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
+reparseTypedef = parseWith (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
 reparseField :: Parser (C.Type ReparseMacroExpansions, CName)
-reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
+reparseField = parseWith (fmap swap .  fromNamedDecl)
 
 -- | Reparse global variable declaration
 reparseGlobal :: Parser (C.Type ReparseMacroExpansions)
-reparseGlobal = parseWith defaultFlatten (fmap snd . fromDecl)
+reparseGlobal = parseWith (fmap snd . fromDecl)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: run the language-c parser
 -------------------------------------------------------------------------------}
 
 parseWith ::
-     ([Clang.Token Clang.TokenSpelling] -> String)
-     -- ^ Flatten tokens into raw string we can feed to language-c
-  -> (PartialDecl -> FromLanC a)
+     (PartialDecl -> FromLanC a)
      -- ^ Construct our AST from the partial declaration
   -> Parser a
-parseWith flatten fromPartial env tokens =
+parseWith fromPartial env tokens =
     runFromLanC env $ do
-      partial <- parseUsingLanC (getLocation tokens) raw
+      partial <- parseUsingLanC tokens.locStart tokens.flatten
       fromPartial partial
-  where
-    raw :: String
-    raw = flatten tokens
 
 parseUsingLanC ::
      Clang.MultiLoc -- ^ Approximate location of the string in the source
@@ -130,10 +125,6 @@ fromCDeclExt = \case
   Auxiliary: locations
 -------------------------------------------------------------------------------}
 
-getLocation :: [Clang.Token a] -> Clang.MultiLoc
-getLocation []    = panicPure "Unexpected empty list of tokens"
-getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
-
 multiLocToLanC :: Clang.MultiLoc -> LanC.Position
 multiLocToLanC mloc =
     LanC.position
@@ -149,59 +140,13 @@ multiLocToLanC mloc =
     sloc = Clang.multiLocExpansion mloc
 
 {-------------------------------------------------------------------------------
-  Flatten: produce a raw string we can give to language-c to parse
--------------------------------------------------------------------------------}
-
-flattenTokens :: String -> [Clang.Token Clang.TokenSpelling] -> String
-flattenTokens trailer allTokens =
-    go allTokens
-  where
-    -- Skip over comments
-    go :: [Clang.Token Clang.TokenSpelling] -> String
-    go []     = trailer
-    go (t:ts) =
-        case Clang.fromSimpleEnum $ Clang.tokenKind t of
-          Right Clang.CXToken_Comment -> go ts
-          _otherwise -> prependToken t $ go ts
-
-defaultFlatten :: [Clang.Token Clang.TokenSpelling] -> String
-defaultFlatten = flattenTokens ";"
-
-flattenFunDecl :: [Clang.Token Clang.TokenSpelling] -> String
-flattenFunDecl allTokens =
-    go allTokens
-  where
-    go :: [Clang.Token Clang.TokenSpelling] -> String
-    go []     = ";"
-    go (t:ts) =
-        case ( Clang.fromSimpleEnum $ Clang.tokenKind       t
-             , Clang.fromSimpleEnum $ Clang.tokenCursorKind t
-             ) of
-
-          -- Skip over comments
-          (Right Clang.CXToken_Comment, _) -> go ts
-
-          -- Ignore function body, if present
-          (_, Right Clang.CXCursor_CompoundStmt) -> ";"
-
-          -- Everything else we just add to the raw string
-          _otherwise -> prependToken t $ go ts
-
-prependToken :: Clang.Token Clang.TokenSpelling -> String -> String
-prependToken token rest = concat [
-      Text.unpack (Clang.getTokenSpelling $ Clang.tokenSpelling token)
-    , " "
-    , rest
-    ]
-
-{-------------------------------------------------------------------------------
   Construct type environment
 -------------------------------------------------------------------------------}
 
 -- | Initial 'ReparseEnv'
 --
 -- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: ClangCStandard -> ReparseEnv
+initReparseEnv :: ClangCStandard -> ReparseEnv p
 initReparseEnv standard = Map.fromList (bespokeTypes standard)
 
 -- | \"Primitive\" we expect the reparser to recognize
