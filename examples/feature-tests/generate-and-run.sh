@@ -85,6 +85,19 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     callbacks/unions.h
 
+echo "## Pointer manipulation"
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.PointerManipulation \
+    --omit-field-prefixes \
+    pointer_manipulation.h
+
 echo "## Types"
 
 echo "### Anonymous"
