@@ -51,4 +51,5 @@ determinePPStatus tc
       , "attributes/visibility/functions"
       , "attributes/visibility/variables"
       , "declarations/tentative_definitions"
+      , "macros/redeclaration/different"
       ]
