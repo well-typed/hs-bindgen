@@ -140,7 +140,7 @@ runList_op (Types.List_op f) xs = do
         IA.peekArray xsLen (IA.toPtr xsPtr)
   where
     xsLen :: Num a => a
-    xsLen = fromIntegral (VS.length (IA.toVector (Types.unwrapList xs)))
+    xsLen = fromIntegral (VS.length (IA.toVector xs.unwrap))
 
 apply_list_opHelper :: FunPtr Types.List_op -> Types.List -> IO Types.List
 apply_list_opHelper fPtr xs = do
@@ -149,7 +149,7 @@ apply_list_opHelper fPtr xs = do
         IA.peekArray xsLen (IA.toPtr xsPtr)
   where
     xsLen :: Num a => a
-    xsLen = fromIntegral (VS.length (IA.toVector (Types.unwrapList xs)))
+    xsLen = fromIntegral (VS.length (IA.toVector xs.unwrap))
 
 getList_op :: ListOp -> Types.List_op
 getList_op (ListOp f) = Types.List_op $ \xsPtr xsLen -> do

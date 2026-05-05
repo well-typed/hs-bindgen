@@ -69,22 +69,22 @@ instance QC.Arbitrary Bitfields.Foo_8 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.foo_8_a x /= 0
+        if x.foo_8_a /= 0
           then Just x{ Bitfields.foo_8_a = 0 }
           else Nothing
-      , if Bitfields.foo_8_b x /= 0
+      , if x.foo_8_b /= 0
           then Just x{ Bitfields.foo_8_b = 0 }
           else Nothing
-      , if Bitfields.foo_8_c x /= 0
+      , if x.foo_8_c /= 0
           then Just x{ Bitfields.foo_8_c = 0 }
           else Nothing
-      , if Bitfields.foo_8_d x /= 0
+      , if x.foo_8_d /= 0
           then Just x{ Bitfields.foo_8_d = 0 }
           else Nothing
-      , if Bitfields.foo_8_e x /= 0
+      , if x.foo_8_e /= 0
           then Just x{ Bitfields.foo_8_e = 0 }
           else Nothing
-      , if Bitfields.foo_8_f x /= 0
+      , if x.foo_8_f /= 0
           then Just x{ Bitfields.foo_8_f = 0 }
           else Nothing
       ]
@@ -100,12 +100,12 @@ test_foo_8 = testGroup "<=8-bit fields" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_foo_8
           ptr
-          (Bitfields.foo_8_a x)
-          (Bitfields.foo_8_b x)
-          (Bitfields.foo_8_c x)
-          (Bitfields.foo_8_d x)
-          (Bitfields.foo_8_e x)
-          (Bitfields.foo_8_f x)
+          x.foo_8_a
+          x.foo_8_b
+          x.foo_8_c
+          x.foo_8_d
+          x.foo_8_e
+          x.foo_8_f
         Foreign.peek ptr
       return $ y === x
 
@@ -115,12 +115,12 @@ test_foo_8 = testGroup "<=8-bit fields" [
         Foreign.poke ptr x
         Bitfields.eq_foo_8
           ptr
-          (Bitfields.foo_8_a x)
-          (Bitfields.foo_8_b x)
-          (Bitfields.foo_8_c x)
-          (Bitfields.foo_8_d x)
-          (Bitfields.foo_8_e x)
-          (Bitfields.foo_8_f x)
+          x.foo_8_a
+          x.foo_8_b
+          x.foo_8_c
+          x.foo_8_d
+          x.foo_8_e
+          x.foo_8_f
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -141,22 +141,22 @@ instance QC.Arbitrary Bitfields.Foo_16 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.foo_16_a x /= 0
+        if x.foo_16_a /= 0
           then Just x{ Bitfields.foo_16_a = 0 }
           else Nothing
-      , if Bitfields.foo_16_b x /= 0
+      , if x.foo_16_b /= 0
           then Just x{ Bitfields.foo_16_b = 0 }
           else Nothing
-      , if Bitfields.foo_16_c x /= 0
+      , if x.foo_16_c /= 0
           then Just x{ Bitfields.foo_16_c = 0 }
           else Nothing
-      , if Bitfields.foo_16_d x /= 0
+      , if x.foo_16_d /= 0
           then Just x{ Bitfields.foo_16_d = 0 }
           else Nothing
-      , if Bitfields.foo_16_e x /= 0
+      , if x.foo_16_e /= 0
           then Just x{ Bitfields.foo_16_e = 0 }
           else Nothing
-      , if Bitfields.foo_16_f x /= 0
+      , if x.foo_16_f /= 0
           then Just x{ Bitfields.foo_16_f = 0 }
           else Nothing
       ]
@@ -172,12 +172,12 @@ test_foo_16 = testGroup "<=16-bit fields" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_foo_16
           ptr
-          (Bitfields.foo_16_a x)
-          (Bitfields.foo_16_b x)
-          (Bitfields.foo_16_c x)
-          (Bitfields.foo_16_d x)
-          (Bitfields.foo_16_e x)
-          (Bitfields.foo_16_f x)
+          x.foo_16_a
+          x.foo_16_b
+          x.foo_16_c
+          x.foo_16_d
+          x.foo_16_e
+          x.foo_16_f
         Foreign.peek ptr
       return $ y === x
 
@@ -187,12 +187,12 @@ test_foo_16 = testGroup "<=16-bit fields" [
         Foreign.poke ptr x
         Bitfields.eq_foo_16
           ptr
-          (Bitfields.foo_16_a x)
-          (Bitfields.foo_16_b x)
-          (Bitfields.foo_16_c x)
-          (Bitfields.foo_16_d x)
-          (Bitfields.foo_16_e x)
-          (Bitfields.foo_16_f x)
+          x.foo_16_a
+          x.foo_16_b
+          x.foo_16_c
+          x.foo_16_d
+          x.foo_16_e
+          x.foo_16_f
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -214,25 +214,25 @@ instance QC.Arbitrary Bitfields.Foo_32 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.foo_32_a x /= 0
+        if x.foo_32_a /= 0
           then Just x{ Bitfields.foo_32_a = 0 }
           else Nothing
-      , if Bitfields.foo_32_b x /= 0
+      , if x.foo_32_b /= 0
           then Just x{ Bitfields.foo_32_b = 0 }
           else Nothing
-      , if Bitfields.foo_32_c x /= 0
+      , if x.foo_32_c /= 0
           then Just x{ Bitfields.foo_32_c = 0 }
           else Nothing
-      , if Bitfields.foo_32_d x /= 0
+      , if x.foo_32_d /= 0
           then Just x{ Bitfields.foo_32_d = 0 }
           else Nothing
-      , if Bitfields.foo_32_e x /= 0
+      , if x.foo_32_e /= 0
           then Just x{ Bitfields.foo_32_e = 0 }
           else Nothing
-      , if Bitfields.foo_32_f x /= 0
+      , if x.foo_32_f /= 0
           then Just x{ Bitfields.foo_32_f = 0 }
           else Nothing
-      , if Bitfields.foo_32_g x /= 0
+      , if x.foo_32_g /= 0
           then Just x{ Bitfields.foo_32_g = 0 }
           else Nothing
       ]
@@ -248,13 +248,13 @@ test_foo_32 = testGroup "<=32-bit fields" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_foo_32
           ptr
-          (Bitfields.foo_32_a x)
-          (Bitfields.foo_32_b x)
-          (Bitfields.foo_32_c x)
-          (Bitfields.foo_32_d x)
-          (Bitfields.foo_32_e x)
-          (Bitfields.foo_32_f x)
-          (Bitfields.foo_32_g x)
+          x.foo_32_a
+          x.foo_32_b
+          x.foo_32_c
+          x.foo_32_d
+          x.foo_32_e
+          x.foo_32_f
+          x.foo_32_g
         Foreign.peek ptr
       return $ y === x
 
@@ -264,13 +264,13 @@ test_foo_32 = testGroup "<=32-bit fields" [
         Foreign.poke ptr x
         Bitfields.eq_foo_32
           ptr
-          (Bitfields.foo_32_a x)
-          (Bitfields.foo_32_b x)
-          (Bitfields.foo_32_c x)
-          (Bitfields.foo_32_d x)
-          (Bitfields.foo_32_e x)
-          (Bitfields.foo_32_f x)
-          (Bitfields.foo_32_g x)
+          x.foo_32_a
+          x.foo_32_b
+          x.foo_32_c
+          x.foo_32_d
+          x.foo_32_e
+          x.foo_32_f
+          x.foo_32_g
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -290,16 +290,16 @@ instance QC.Arbitrary Bitfields.Foo_64 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.foo_64_a x /= 0
+        if x.foo_64_a /= 0
           then Just x{ Bitfields.foo_64_a = 0 }
           else Nothing
-      , if Bitfields.foo_64_b x /= 0
+      , if x.foo_64_b /= 0
           then Just x{ Bitfields.foo_64_b = 0 }
           else Nothing
-      , if Bitfields.foo_64_c x /= 0
+      , if x.foo_64_c /= 0
           then Just x{ Bitfields.foo_64_c = 0 }
           else Nothing
-      , if Bitfields.foo_64_d x /= 0
+      , if x.foo_64_d /= 0
           then Just x{ Bitfields.foo_64_d = 0 }
           else Nothing
       ]
@@ -315,10 +315,10 @@ test_foo_64 = testGroup "<=64-bit fields" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_foo_64
           ptr
-          (Bitfields.foo_64_a x)
-          (Bitfields.foo_64_b x)
-          (Bitfields.foo_64_c x)
-          (Bitfields.foo_64_d x)
+          x.foo_64_a
+          x.foo_64_b
+          x.foo_64_c
+          x.foo_64_d
         Foreign.peek ptr
       return $ y === x
 
@@ -328,10 +328,10 @@ test_foo_64 = testGroup "<=64-bit fields" [
         Foreign.poke ptr x
         Bitfields.eq_foo_64
           ptr
-          (Bitfields.foo_64_a x)
-          (Bitfields.foo_64_b x)
-          (Bitfields.foo_64_c x)
-          (Bitfields.foo_64_d x)
+          x.foo_64_a
+          x.foo_64_b
+          x.foo_64_c
+          x.foo_64_d
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -347,10 +347,10 @@ instance QC.Arbitrary Bitfields.Bar_8_8 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_8_8_a x /= 0
+        if x.bar_8_8_a /= 0
           then Just x{ Bitfields.bar_8_8_a = 0 }
           else Nothing
-      , if Bitfields.bar_8_8_b x /= 0
+      , if x.bar_8_8_b /= 0
           then Just x{ Bitfields.bar_8_8_b = 0 }
           else Nothing
       ]
@@ -366,8 +366,8 @@ test_bar_8_8 = testGroup "<=8-bit field crosses 8-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_8_8
           ptr
-          (Bitfields.bar_8_8_a x)
-          (Bitfields.bar_8_8_b x)
+          x.bar_8_8_a
+          x.bar_8_8_b
         Foreign.peek ptr
       return $ y === x
 
@@ -377,8 +377,8 @@ test_bar_8_8 = testGroup "<=8-bit field crosses 8-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_8_8
           ptr
-          (Bitfields.bar_8_8_a x)
-          (Bitfields.bar_8_8_b x)
+          x.bar_8_8_a
+          x.bar_8_8_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -394,10 +394,10 @@ instance QC.Arbitrary Bitfields.Bar_8_16 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_8_16_a x /= 0
+        if x.bar_8_16_a /= 0
           then Just x{ Bitfields.bar_8_16_a = 0 }
           else Nothing
-      , if Bitfields.bar_8_16_b x /= 0
+      , if x.bar_8_16_b /= 0
           then Just x{ Bitfields.bar_8_16_b = 0 }
           else Nothing
       ]
@@ -413,8 +413,8 @@ test_bar_8_16 = testGroup "<=8-bit field crosses 16-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_8_16
           ptr
-          (Bitfields.bar_8_16_a x)
-          (Bitfields.bar_8_16_b x)
+          x.bar_8_16_a
+          x.bar_8_16_b
         Foreign.peek ptr
       return $ y === x
 
@@ -424,8 +424,8 @@ test_bar_8_16 = testGroup "<=8-bit field crosses 16-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_8_16
           ptr
-          (Bitfields.bar_8_16_a x)
-          (Bitfields.bar_8_16_b x)
+          x.bar_8_16_a
+          x.bar_8_16_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -441,10 +441,10 @@ instance QC.Arbitrary Bitfields.Bar_8_32 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_8_32_a x /= 0
+        if x.bar_8_32_a /= 0
           then Just x{ Bitfields.bar_8_32_a = 0 }
           else Nothing
-      , if Bitfields.bar_8_32_b x /= 0
+      , if x.bar_8_32_b /= 0
           then Just x{ Bitfields.bar_8_32_b = 0 }
           else Nothing
       ]
@@ -460,8 +460,8 @@ test_bar_8_32 = testGroup "<=8-bit field crosses 32-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_8_32
           ptr
-          (Bitfields.bar_8_32_a x)
-          (Bitfields.bar_8_32_b x)
+          x.bar_8_32_a
+          x.bar_8_32_b
         Foreign.peek ptr
       return $ y === x
 
@@ -471,8 +471,8 @@ test_bar_8_32 = testGroup "<=8-bit field crosses 32-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_8_32
           ptr
-          (Bitfields.bar_8_32_a x)
-          (Bitfields.bar_8_32_b x)
+          x.bar_8_32_a
+          x.bar_8_32_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -489,10 +489,10 @@ instance QC.Arbitrary Bitfields.Bar_8_64 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_8_64_a x /= 0
+        if x.bar_8_64_a /= 0
           then Just x{ Bitfields.bar_8_64_a = 0 }
           else Nothing
-      , if Bitfields.bar_8_64_b x /= 0
+      , if x.bar_8_64_b /= 0
           then Just x{ Bitfields.bar_8_64_b = 0 }
           else Nothing
       ]
@@ -508,8 +508,8 @@ test_bar_8_64 = testGroup "<=8-bit field crosses 64-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_8_64
           ptr
-          (Bitfields.bar_8_64_a x)
-          (Bitfields.bar_8_64_b x)
+          x.bar_8_64_a
+          x.bar_8_64_b
         Foreign.peek ptr
       return $ y === x
 
@@ -519,8 +519,8 @@ test_bar_8_64 = testGroup "<=8-bit field crosses 64-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_8_64
           ptr
-          (Bitfields.bar_8_64_a x)
-          (Bitfields.bar_8_64_b x)
+          x.bar_8_64_a
+          x.bar_8_64_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -536,10 +536,10 @@ instance QC.Arbitrary Bitfields.Bar_16_16 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_16_16_a x /= 0
+        if x.bar_16_16_a /= 0
           then Just x{ Bitfields.bar_16_16_a = 0 }
           else Nothing
-      , if Bitfields.bar_16_16_b x /= 0
+      , if x.bar_16_16_b /= 0
           then Just x{ Bitfields.bar_16_16_b = 0 }
           else Nothing
       ]
@@ -555,8 +555,8 @@ test_bar_16_16 = testGroup "<=16-bit field crosses 16-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_16_16
           ptr
-          (Bitfields.bar_16_16_a x)
-          (Bitfields.bar_16_16_b x)
+          x.bar_16_16_a
+          x.bar_16_16_b
         Foreign.peek ptr
       return $ y === x
 
@@ -566,8 +566,8 @@ test_bar_16_16 = testGroup "<=16-bit field crosses 16-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_16_16
           ptr
-          (Bitfields.bar_16_16_a x)
-          (Bitfields.bar_16_16_b x)
+          x.bar_16_16_a
+          x.bar_16_16_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -583,10 +583,10 @@ instance QC.Arbitrary Bitfields.Bar_16_32 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_16_32_a x /= 0
+        if x.bar_16_32_a /= 0
           then Just x{ Bitfields.bar_16_32_a = 0 }
           else Nothing
-      , if Bitfields.bar_16_32_b x /= 0
+      , if x.bar_16_32_b /= 0
           then Just x{ Bitfields.bar_16_32_b = 0 }
           else Nothing
       ]
@@ -602,8 +602,8 @@ test_bar_16_32 = testGroup "<=16-bit field crosses 32-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_16_32
           ptr
-          (Bitfields.bar_16_32_a x)
-          (Bitfields.bar_16_32_b x)
+          x.bar_16_32_a
+          x.bar_16_32_b
         Foreign.peek ptr
       return $ y === x
 
@@ -613,8 +613,8 @@ test_bar_16_32 = testGroup "<=16-bit field crosses 32-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_16_32
           ptr
-          (Bitfields.bar_16_32_a x)
-          (Bitfields.bar_16_32_b x)
+          x.bar_16_32_a
+          x.bar_16_32_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -631,10 +631,10 @@ instance QC.Arbitrary Bitfields.Bar_16_64 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_16_64_a x /= 0
+        if x.bar_16_64_a /= 0
           then Just x{ Bitfields.bar_16_64_a = 0 }
           else Nothing
-      , if Bitfields.bar_16_64_b x /= 0
+      , if x.bar_16_64_b /= 0
           then Just x{ Bitfields.bar_16_64_b = 0 }
           else Nothing
       ]
@@ -650,8 +650,8 @@ test_bar_16_64 = testGroup "<=16-bit field crosses 64-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_16_64
           ptr
-          (Bitfields.bar_16_64_a x)
-          (Bitfields.bar_16_64_b x)
+          x.bar_16_64_a
+          x.bar_16_64_b
         Foreign.peek ptr
       return $ y === x
 
@@ -661,8 +661,8 @@ test_bar_16_64 = testGroup "<=16-bit field crosses 64-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_16_64
           ptr
-          (Bitfields.bar_16_64_a x)
-          (Bitfields.bar_16_64_b x)
+          x.bar_16_64_a
+          x.bar_16_64_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -678,10 +678,10 @@ instance QC.Arbitrary Bitfields.Bar_32_32 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_32_32_a x /= 0
+        if x.bar_32_32_a /= 0
           then Just x{ Bitfields.bar_32_32_a = 0 }
           else Nothing
-      , if Bitfields.bar_32_32_b x /= 0
+      , if x.bar_32_32_b /= 0
           then Just x{ Bitfields.bar_32_32_b = 0 }
           else Nothing
       ]
@@ -697,8 +697,8 @@ test_bar_32_32 = testGroup "<=32-bit field crosses 32-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_32_32
           ptr
-          (Bitfields.bar_32_32_a x)
-          (Bitfields.bar_32_32_b x)
+          x.bar_32_32_a
+          x.bar_32_32_b
         Foreign.peek ptr
       return $ y === x
 
@@ -708,8 +708,8 @@ test_bar_32_32 = testGroup "<=32-bit field crosses 32-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_32_32
           ptr
-          (Bitfields.bar_32_32_a x)
-          (Bitfields.bar_32_32_b x)
+          x.bar_32_32_a
+          x.bar_32_32_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
@@ -726,10 +726,10 @@ instance QC.Arbitrary Bitfields.Bar_32_64 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_32_64_a x /= 0
+        if x.bar_32_64_a /= 0
           then Just x{ Bitfields.bar_32_64_a = 0 }
           else Nothing
-      , if Bitfields.bar_32_64_b x /= 0
+      , if x.bar_32_64_b /= 0
           then Just x{ Bitfields.bar_32_64_b = 0 }
           else Nothing
       ]
@@ -745,8 +745,8 @@ test_bar_32_64 = testGroup "<=32-bit field crosses 64-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_32_64
           ptr
-          (Bitfields.bar_32_64_a x)
-          (Bitfields.bar_32_64_b x)
+          x.bar_32_64_a
+          x.bar_32_64_b
         Foreign.peek ptr
       return $ y === x
 
@@ -756,8 +756,8 @@ test_bar_32_64 = testGroup "<=32-bit field crosses 64-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_32_64
           ptr
-          (Bitfields.bar_32_64_a x)
-          (Bitfields.bar_32_64_b x)
+          (x.bar_32_64_a)
+          (x.bar_32_64_b)
       return $ isEq === C.CBool 1
 
 
@@ -775,10 +775,10 @@ instance QC.Arbitrary Bitfields.Bar_64_64 where
       }
 
   shrink x = Maybe.catMaybes [
-        if Bitfields.bar_64_64_a x /= 0
+        if x.bar_64_64_a /= 0
           then Just x{ Bitfields.bar_64_64_a = 0 }
           else Nothing
-      , if Bitfields.bar_64_64_b x /= 0
+      , if x.bar_64_64_b /= 0
           then Just x{ Bitfields.bar_64_64_b = 0 }
           else Nothing
       ]
@@ -794,8 +794,8 @@ test_bar_64_64 = testGroup "<=64-bit field crosses 64-bit word boundary" [
       y <- allocaAligned $ \ptr -> do
         Bitfields.set_bar_64_64
           ptr
-          (Bitfields.bar_64_64_a x)
-          (Bitfields.bar_64_64_b x)
+          x.bar_64_64_a
+          x.bar_64_64_b
         Foreign.peek ptr
       return $ y === x
 
@@ -805,8 +805,8 @@ test_bar_64_64 = testGroup "<=64-bit field crosses 64-bit word boundary" [
         Foreign.poke ptr x
         Bitfields.eq_bar_64_64
           ptr
-          (Bitfields.bar_64_64_a x)
-          (Bitfields.bar_64_64_b x)
+          x.bar_64_64_a
+          x.bar_64_64_b
       return $ isEq === C.CBool 1
 
 {-------------------------------------------------------------------------------
