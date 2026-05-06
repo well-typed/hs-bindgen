@@ -80,6 +80,10 @@
   expansions. The bug would, for example, cause `long long int` to be parsed as
   `long int` in some cases, but that is now fixed. See [issue #1685][is-1685]
   and [PR #1921][pr-1921].
+* Stop emitting the redundant `CApiFFI` language pragma in generated modules.
+  The pragma was previously added unconditionally for every foreign import,
+  even though the generated bindings only use the `ccall` calling convention.
+  See [issue #1868][is-1868].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -201,6 +205,7 @@
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
+[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
 
 ## 0.1.0-alpha -- 2026-02-06
 

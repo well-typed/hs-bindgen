@@ -37,8 +37,7 @@ generateModule testResources tc = unlines $ List.intercalate [""] [
 -- the TH splice may expand to must be listed here.
 languagePragmas :: [String]
 languagePragmas = [
-      "{-# LANGUAGE CApiFFI #-}"
-    , "{-# LANGUAGE DataKinds #-}"
+      "{-# LANGUAGE DataKinds #-}"
     , "{-# LANGUAGE DeriveGeneric #-}"
     , "{-# LANGUAGE DerivingStrategies #-}"
     , "{-# LANGUAGE DerivingVia #-}"
