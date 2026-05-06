@@ -65,8 +65,10 @@ instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
       -- remaining specifiers say how the symbol is linked or compiled,
       -- not what its type is, so we leave the partial declaration
       -- unchanged.
-      LanC.CStorageSpec _ -> return  -- @static@, @extern@, @typedef@, ...
-      LanC.CFunSpec     _ -> return  -- @inline@, @_Noreturn@
+      LanC.CStorageSpec (LanC.CStatic     _) -> return
+      LanC.CStorageSpec (LanC.CExtern     _) -> return
+      LanC.CStorageSpec (LanC.CTypedef    _) -> return
+      LanC.CFunSpec     (LanC.CInlineQual _) -> return
 
       other -> \_ -> unexpectedF other
 

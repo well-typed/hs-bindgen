@@ -12,6 +12,12 @@
 -- {
 --   return (bar)(arg1);
 -- }
+-- signed int hs_bindgen_4566eba0a19c4890 (
+--   signed int arg1
+-- )
+-- {
+--   return (baz)(arg1);
+-- }
 -- void hs_bindgen_39eae3eb6460ea6a (
 --   signed int arg1
 -- )
@@ -23,6 +29,12 @@
 -- )
 -- {
 --   return (bar)(arg1);
+-- }
+-- signed int hs_bindgen_69a979a1e6a18eb1 (
+--   signed int arg1
+-- )
+-- {
+--   return (baz)(arg1);
 -- }
 -- /* test_macrosreparsefunctions_Example_get_foo */
 -- __attribute__ ((const))
@@ -40,6 +52,14 @@
 -- {
 --   return &bar;
 -- }
+-- /* test_macrosreparsefunctions_Example_get_baz */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_740f410e15c8820e (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &baz;
+-- }
 {-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/reparse\/functions.h 1:9@
@@ -54,6 +74,66 @@ iD :: forall a_0 . a_0 -> a_0
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 iD = \x_0 -> x_0
+{-| __C declaration:__ @macro MY_INT@
+
+    __defined at:__ @macros\/reparse\/functions.h 2:9@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+newtype MY_INT
+    = MY_INT {unwrapMY_INT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
+         HasField "unwrapMY_INT" (Ptr MY_INT) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMY_INT")
+instance HasCField MY_INT "unwrapMY_INT"
+    where type CFieldType MY_INT "unwrapMY_INT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @my_int_t@
+
+    __defined at:__ @macros\/reparse\/functions.h 19:16@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+newtype My_int_t
+    = My_int_t {unwrapMy_int_t :: MY_INT}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty MY_INT =>
+         HasField "unwrapMy_int_t" (Ptr My_int_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMy_int_t")
+instance HasCField My_int_t "unwrapMy_int_t"
+    where type CFieldType My_int_t "unwrapMy_int_t" = MY_INT
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosreparsefunctions_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_b6e9ae739486d53b" hs_bindgen_b6e9ae739486d53b_base ::
     Int32
@@ -64,14 +144,14 @@ hs_bindgen_b6e9ae739486d53b :: CInt -> IO ()
 hs_bindgen_b6e9ae739486d53b = fromFFIType hs_bindgen_b6e9ae739486d53b_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 foo_safe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -86,18 +166,40 @@ hs_bindgen_e44e9d05eacbc37e :: CInt -> IO CInt
 hs_bindgen_e44e9d05eacbc37e = fromFFIType hs_bindgen_e44e9d05eacbc37e_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_safe :: CInt -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_safe = hs_bindgen_e44e9d05eacbc37e
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_baz@
+foreign import ccall safe "hs_bindgen_4566eba0a19c4890" hs_bindgen_4566eba0a19c4890_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_baz@
+hs_bindgen_4566eba0a19c4890 :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparsefunctions_Example_Safe_baz@
+hs_bindgen_4566eba0a19c4890 = fromFFIType hs_bindgen_4566eba0a19c4890_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_safe :: CInt -> IO CInt
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_safe = hs_bindgen_4566eba0a19c4890
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_39eae3eb6460ea6a" hs_bindgen_39eae3eb6460ea6a_base ::
     Int32
@@ -108,14 +210,14 @@ hs_bindgen_39eae3eb6460ea6a :: CInt -> IO ()
 hs_bindgen_39eae3eb6460ea6a = fromFFIType hs_bindgen_39eae3eb6460ea6a_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 foo_unsafe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -130,18 +232,40 @@ hs_bindgen_eb2d164aacb2e06d :: CInt -> IO CInt
 hs_bindgen_eb2d164aacb2e06d = fromFFIType hs_bindgen_eb2d164aacb2e06d_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_unsafe :: CInt -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_unsafe = hs_bindgen_eb2d164aacb2e06d
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
+foreign import ccall unsafe "hs_bindgen_69a979a1e6a18eb1" hs_bindgen_69a979a1e6a18eb1_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
+hs_bindgen_69a979a1e6a18eb1 :: CInt -> IO CInt
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
+hs_bindgen_69a979a1e6a18eb1 = fromFFIType hs_bindgen_69a979a1e6a18eb1_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_unsafe = hs_bindgen_69a979a1e6a18eb1
 -- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_0ee6ccf5e9065e6c" hs_bindgen_0ee6ccf5e9065e6c_base ::
     IO (FunPtr Void)
@@ -152,14 +276,14 @@ hs_bindgen_0ee6ccf5e9065e6c = fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 foo_funptr :: FunPtr (CInt -> IO ())
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -174,15 +298,37 @@ hs_bindgen_8ec5846013c7fa41 = fromFFIType hs_bindgen_8ec5846013c7fa41_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_funptr :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar_funptr = unsafePerformIO hs_bindgen_8ec5846013c7fa41
+-- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
+foreign import ccall unsafe "hs_bindgen_740f410e15c8820e" hs_bindgen_740f410e15c8820e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
+hs_bindgen_740f410e15c8820e :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
+hs_bindgen_740f410e15c8820e = fromFFIType hs_bindgen_740f410e15c8820e_base
+{-# NOINLINE baz_funptr #-}
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz_funptr = unsafePerformIO hs_bindgen_740f410e15c8820e

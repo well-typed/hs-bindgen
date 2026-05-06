@@ -5,6 +5,7 @@
 module Example.Unsafe
     ( Example.Unsafe.foo
     , Example.Unsafe.bar
+    , Example.Unsafe.baz
     )
   where
 
@@ -25,6 +26,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return (bar)(arg1);"
   , "}"
+  , "signed int hs_bindgen_69a979a1e6a18eb1 ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  return (baz)(arg1);"
+  , "}"
   ]))
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
@@ -41,7 +48,7 @@ hs_bindgen_39eae3eb6460ea6a =
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/reparse\/functions.h 6:6@
+    __defined at:__ @macros\/reparse\/functions.h 7:6@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -65,7 +72,7 @@ hs_bindgen_eb2d164aacb2e06d =
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/reparse\/functions.h 8:19@
+    __defined at:__ @macros\/reparse\/functions.h 9:19@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
@@ -74,3 +81,27 @@ bar ::
      -- ^ __C declaration:__ @x@
   -> IO RIP.CInt
 bar = hs_bindgen_eb2d164aacb2e06d
+
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
+foreign import ccall unsafe "hs_bindgen_69a979a1e6a18eb1" hs_bindgen_69a979a1e6a18eb1_base ::
+     RIP.Int32
+  -> IO RIP.Int32
+
+-- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
+hs_bindgen_69a979a1e6a18eb1 ::
+     RIP.CInt
+  -> IO RIP.CInt
+hs_bindgen_69a979a1e6a18eb1 =
+  RIP.fromFFIType hs_bindgen_69a979a1e6a18eb1_base
+
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @macros\/reparse\/functions.h 14:12@
+
+    __exported by:__ @macros\/reparse\/functions.h@
+-}
+baz ::
+     RIP.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO RIP.CInt
+baz = hs_bindgen_69a979a1e6a18eb1
