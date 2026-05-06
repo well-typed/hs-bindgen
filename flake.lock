@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "doxygen-parser-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777909970,
+        "narHash": "sha256-7G142qWNIpz4porHJ1OHr8bywaDPIMbc0Bkc+WikRnY=",
+        "owner": "well-typed",
+        "repo": "doxygen-parser",
+        "rev": "33b5074eb5122062ac41fa8b9ed0596d39913b63",
+        "type": "github"
+      },
+      "original": {
+        "owner": "well-typed",
+        "repo": "doxygen-parser",
+        "rev": "33b5074eb5122062ac41fa8b9ed0596d39913b63",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -68,6 +85,7 @@
     },
     "root": {
       "inputs": {
+        "doxygen-parser-src": "doxygen-parser-src",
         "flake-parts": "flake-parts",
         "libclang-bindings-src": "libclang-bindings-src",
         "nixpkgs": "nixpkgs"
