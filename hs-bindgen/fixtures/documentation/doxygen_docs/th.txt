@@ -1434,7 +1434,7 @@ instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "flexible_array_count" (Ptr Flexible_array_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"flexible_array_count")
 instance Offset CInt Flexible_array_Aux
-    where offset = \_ty_0 -> 8
+    where offset = \_proxy_0 -> 8
 type Flexible_array = WithFlam CInt Flexible_array_Aux
 {-| Struct with invariant.
 

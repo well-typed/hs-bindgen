@@ -96,7 +96,7 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 import C.Char qualified as CExpr.Runtime
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
@@ -327,7 +327,7 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (CExpr.DSL.VaFun arity)
+  = forall arity. InfixAppHead (CExpr.VaFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (Hs.Name Hs.NsVar)
 

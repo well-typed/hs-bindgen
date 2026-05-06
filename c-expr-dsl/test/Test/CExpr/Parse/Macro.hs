@@ -1,4 +1,8 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE CPP #-}
+
+#if __GLASGOW_HASKELL__ >=908
+{-# LANGUAGE TypeAbstractions #-}
+#endif
 
 -- | Unit tests for 'C.Expr.Parse.Expr.parseMacro'
 --
@@ -9,7 +13,12 @@
 module Test.CExpr.Parse.Macro (tests) where
 
 import Data.Either (isLeft, isRight)
+import Data.Nat (Nat (..))
+import Data.Type.Equality ((:~:)(..))
+import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
+import Data.Vec.Lazy qualified as Vec
+import DeBruijn (Idx(..))
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -31,9 +40,10 @@ tests = testGroup "Parse.Macro" [
 
 testsWithCStd :: CStandard -> TestTree
 testsWithCStd cStd = testGroup (show cStd) [
-      testGroup "type bodies"       $ tests_typeBody       std
-    , testGroup "expression bodies" $ tests_exprBody       std
-    , testGroup "disambiguation"    $ tests_disambiguation std
+      testGroup "type bodies"               $ tests_typeBody         std
+    , testGroup "function-like type bodies" $ tests_funcLikeTypeBody std
+    , testGroup "expression bodies"         $ tests_exprBody         std
+    , testGroup "disambiguation"            $ tests_disambiguation   std
     ]
   where
     std = ClangCStandard cStd DisableGnu
@@ -69,9 +79,22 @@ isExprBody (Right Macro{macroExpr}) = case macroExpr of
     _                 -> False
 isExprBody _ = False
 
-getMacroExpr :: Either e Macro -> Maybe (Expr Ps)
-getMacroExpr (Right Macro{macroExpr}) = Just macroExpr
-getMacroExpr _                        = Nothing
+getMacroExpr :: forall e ctx. Nat.SNatI ctx => Either e Macro -> Maybe (Expr ctx Ps)
+getMacroExpr (Right (Macro @ctx1 _ _ macroParams macroExpr)) =
+    Vec.withDict macroParams $
+      case Nat.eqNat @ctx @ctx1 of
+        Just Refl -> Just macroExpr
+        Nothing   -> Nothing
+getMacroExpr _ =
+    Nothing
+
+-- | Extract the expression body from an object-like (0-arg) macro.
+getObjExpr :: forall e. Either e Macro -> Maybe (Expr Z Ps)
+getObjExpr = getMacroExpr
+
+-- | Extract the expression body from a function-like macro with one parameter.
+getFn1Expr :: forall e. Either e Macro -> Maybe (Expr (S Z) Ps)
+getFn1Expr = getMacroExpr
 
 {-------------------------------------------------------------------------------
   Type bodies
@@ -81,36 +104,67 @@ tests_typeBody :: ClangCStandard -> [TestTree]
 tests_typeBody cStd = [
       testCase "int" $
         -- #define FOO int
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "int"])
+        getObjExpr (checkMacro cStd [macroNameTok, kw "int"])
           @?= Just (tyLit (TypeInt Nothing (Just SizeInt)))
     , testCase "unsigned long" $
         -- #define FOO unsigned long
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "unsigned", kw "long"])
+        getObjExpr (checkMacro cStd [macroNameTok, kw "unsigned", kw "long"])
           @?= Just (tyLit (TypeInt (Just Unsigned) (Just SizeLong)))
     , testCase "const int*" $
         -- #define FOO const int *
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "const", kw "int", punc "*"])
+        getObjExpr (checkMacro cStd [macroNameTok, kw "const", kw "int", punc "*"])
           @?= Just (TyApp Pointer (TyApp Const (tyLit (TypeInt Nothing (Just SizeInt)) ::: VNil) ::: VNil))
     , testCase "void*" $
         -- #define FOO void *
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "void", punc "*"])
+        getObjExpr (checkMacro cStd [macroNameTok, kw "void", punc "*"])
           @?= Just (TyApp Pointer (tyLit TypeVoid ::: VNil))
     , testCase "struct Foo" $
         -- #define FOO struct Foo
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "struct", ident "Foo"])
-          @?= Just (tyLit (TypeTagged TagStruct "Foo"))
+        getObjExpr (checkMacro cStd [macroNameTok, kw "struct", ident "Foo"])
+          @?= Just (Term $ Literal (TypeTagged TagStruct "Foo"))
     , testCase "size_t" $
         -- #define FOO size_t (bare identifier; typechecker decides it's a type)
-        getMacroExpr (checkMacro cStd [macroNameTok, ident "size_t"])
+        getObjExpr (checkMacro cStd [macroNameTok, ident "size_t"])
           @?= Just (Term (Var NoXVar "size_t" []))
     , testCase "_Bool" $
         -- #define FOO _Bool
-        getMacroExpr (checkMacro cStd [macroNameTok, kw "_Bool"])
+        getObjExpr (checkMacro cStd [macroNameTok, kw "_Bool"])
           @?= Just (tyLit TypeBool)
     , testCase "_Bool" $
         -- #define FOO size_t const * const
-        getMacroExpr (checkMacro cStd [macroNameTok, ident "size_t", kw "const", punc "*", kw "const" ])
+        getObjExpr (checkMacro cStd [macroNameTok, ident "size_t", kw "const", punc "*", kw "const" ])
           @?= Just (TyApp Const (TyApp Pointer (TyApp Const (Term (Var NoXVar "size_t" []) ::: VNil) ::: VNil) ::: VNil))
+    ]
+
+{-------------------------------------------------------------------------------
+  Function-like type bodies (local args)
+-------------------------------------------------------------------------------}
+
+tests_funcLikeTypeBody :: ClangCStandard -> [TestTree]
+tests_funcLikeTypeBody cStd = [
+      testCase "PTR(T) = T*" $
+        -- #define PTR(T) T*
+        -- T is a local arg; the body is a pointer type parameterised by T.
+        getFn1Expr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , ident "T", punc "*"
+            ])
+          @?= Just (TyApp Pointer (Term (LocalParam IZ) ::: VNil))
+    , testCase "CONST_PTR(T) = const T*" $
+        -- #define CONST_PTR(T) const T*
+        getFn1Expr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , kw "const", ident "T", punc "*"
+            ])
+          @?= Just (TyApp Pointer (TyApp Const (Term (LocalParam IZ) ::: VNil) ::: VNil))
+    , testCase "free var is not a local arg" $
+        -- #define PTR(T) size_t*
+        -- size_t is not a formal parameter, so it stays as Var, not LocalParam.
+        getFn1Expr (checkMacro cStd
+            [ macroNameTok, punc "(", ident "T", punc ")"
+            , ident "size_t", punc "*"
+            ])
+          @?= Just (TyApp Pointer (Term (Var NoXVar "size_t" []) ::: VNil))
     ]
 
 {-------------------------------------------------------------------------------

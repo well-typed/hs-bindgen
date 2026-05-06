@@ -4,6 +4,7 @@ module Test.HsBindgen.Golden.Macros (testCases) where
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -32,6 +33,7 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/redeclaration/identical_semantics"
       -- Bespoke tests
+    , test_macros_macro_type_unresolved_tagged
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
     , test_macros_macro_redefines_global
@@ -54,6 +56,25 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
+
+test_macros_macro_type_unresolved_tagged :: TestCase
+test_macros_macro_type_unresolved_tagged =
+    testTraceMulti "macros/macro_type_unresolved_tagged" declsWithMsgs $ \case
+      MatchSelect name@"struct Unparsable" (SelectParseFailure ParseUnsupportedLongDouble) ->
+        Just $ Expected (name, "select-parse-failure")
+      MatchSelect name@"macro MY_PTR" (TransitiveDependenciesMissing{}) ->
+        Just $ Expected (name, "select-transitive-dependencies-missing")
+      MatchSelect name@"macro MY_PTR" (SelectMacroTypecheckFailure MacroTypecheckErrorUnresolvedTaggedType{}) ->
+        Just $ Expected (name, "macro-unresolved-tagged-type")
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs = [
+        ("struct Unparsable", "select-parse-failure")
+      , ("macro MY_PTR", "select-transitive-dependencies-missing")
+      , ("macro MY_PTR", "macro-unresolved-tagged-type")
+      ]
 
 test_macros_macro_in_fundecl :: TestCase
 test_macros_macro_in_fundecl =

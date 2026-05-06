@@ -4,7 +4,7 @@ module HsBindgen.Orphans () where
 
 import Data.GADT.Compare (GEq (geq))
 import Data.Type.Equality ((:~:) (Refl))
-import DeBruijn.Idx (Idx, idxToInt)
+import DeBruijn (Idx, idxToInt)
 import Unsafe.Coerce (unsafeCoerce)
 
 {-------------------------------------------------------------------------------

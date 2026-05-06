@@ -9,10 +9,10 @@ module HsBindgen.Frontend.AST.Deps (
   , depsOfDeclParsedMacro
   ) where
 
-import Data.Set qualified as Set
 import GHC.Records
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
+import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Interface.Value qualified as V
 
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -82,22 +82,18 @@ depsOfTcMacro ::
      (IsPass p, MacroBody p ~ CheckedMacro p)
   => Proxy p -> MacroBody p -> [(ValOrRef, Id p)]
 depsOfTcMacro proxy = \case
-    MacroType typ  -> depsOfType typ.typ
-    MacroExpr expr -> depsOfVExpr proxy (Set.fromList expr.args) expr.body
+    MacroType typ                                    -> depsOfType typ.typ
+    MacroExpr (CExpr.CheckedMacroValueExpr _ body _) -> depsOfVExpr proxy body
   where
     -- Collect value-level dependencies from a checked macro body. Local
     -- arguments (lambda-bound ids) are excluded.
     depsOfVExpr ::
-         forall p. (Ord (Id p))
-      => Proxy p
-      -> Set (Id p)
-      -> V.Expr (Id p)
+         forall p ctx.
+         Proxy p
+      -> V.Expr ctx (Id p)
       -> [(ValOrRef, Id p)]
-    depsOfVExpr _ localArgs =
-        map (ByValue,) . filter (not . isLocalArg) . toList
-      where
-        isLocalArg :: Id p -> Bool
-        isLocalArg x = Set.member x localArgs
+    depsOfVExpr _ =
+        map (ByValue,) . toList
 
 {-------------------------------------------------------------------------------
   Structs and unions
@@ -156,42 +152,45 @@ type MacroNameResolver = Text -> Maybe CNameKind
 -- Local macro arguments are excluded.
 depsOfCExprMacro ::
      MacroNameResolver
-  -> CExpr.DSL.Macro
+  -> CExpr.Macro
   -> [(ValOrRef, DeclId)]
-depsOfCExprMacro resolver macro =
-    map (ByValue,) $ goExpr (Set.fromList macro.macroArgs) macro.macroExpr
+depsOfCExprMacro resolver (CExpr.Macro _ _ _ macroExpr) =
+    map (ByValue,) $ goExpr macroExpr
   where
-    goExpr :: Set CExpr.DSL.Name -> CExpr.DSL.Expr CExpr.DSL.Ps -> [DeclId]
-    goExpr localArgs = \case
-      CExpr.DSL.Term  term   -> goTerm  localArgs term
-      CExpr.DSL.TyApp _ xs   -> concatMap (goExpr localArgs) xs
-      CExpr.DSL.VaApp _ _ xs -> concatMap (goExpr localArgs) xs
+    goExpr :: CExpr.Expr ctx CExpr.Ps -> [DeclId]
+    goExpr = \case
+      CExpr.Term  term   -> goTerm term
+      CExpr.TyApp _ xs   -> concatMap goExpr xs
+      CExpr.VaApp _ _ xs -> concatMap goExpr xs
 
-    goTerm :: Set CExpr.DSL.Name -> CExpr.DSL.Term CExpr.DSL.Ps -> [DeclId]
-    goTerm localArgs = \case
-      CExpr.DSL.Literal lit -> goLit lit
+    goTerm :: CExpr.Term ctx CExpr.Ps -> [DeclId]
+    goTerm = \case
+      CExpr.Literal lit ->
+        goLit lit
+      CExpr.LocalParam{} ->
+        []
       -- Variable / function call. A bare identifier is always parsed as Var;
       -- the typechecker decides whether it is a type or value reference.
       -- We use the resolver to emit a dep of the correct kind, or skip the
       -- name entirely if it is not a known declaration (e.g. a built-in type).
-      CExpr.DSL.Var _ nm callArgs
-        | nm `Set.member` localArgs ->
-            concatMap (goExpr localArgs) callArgs
+      CExpr.Var _ nm callArgs
         | Just kind <- resolver nm.getName ->
-            mkId nm.getName kind :
-            concatMap (goExpr localArgs) callArgs
+            mkId nm kind :
+            concatMap goExpr callArgs
         | otherwise ->
-            concatMap (goExpr localArgs) callArgs
+            concatMap goExpr callArgs
 
-    goLit :: CExpr.DSL.Literal -> [DeclId]
+    goLit :: CExpr.Literal -> [DeclId]
     goLit = \case
       -- Named type specifier using an elaborated tag: struct/union/enum.
-      CExpr.DSL.TypeLit (CExpr.DSL.TypeTagged tag nm) ->
+      CExpr.TypeTagged tag nm ->
         [ mkId nm (CNameKindTagged (convertTagKind tag)) ]
       -- Other built-in type specifiers (int, char, etc.) have no dependencies.
-      CExpr.DSL.TypeLit _ -> []
+      CExpr.TypeLit{} ->
+        []
       -- Value literals have no dependencies.
-      _ -> []
+      CExpr.ValueLit{} ->
+        []
 
-    mkId :: Text -> CNameKind -> DeclId
-    mkId name kind = DeclId (CDeclName name kind) False
+    mkId :: CExpr.Name -> CNameKind -> DeclId
+    mkId name kind = DeclId (CDeclName name.getName kind) False

@@ -6,4 +6,3 @@ alternatives/**/*.hs
 hs-bindgen/fixtures/*.hs
 hs-bindgen/src-internal/HsBindgen/Frontend/Macro/**/*
 c-expr-runtime/**/*.hs
-c-expr-dsl/**/*.hs

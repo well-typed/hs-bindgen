@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Golden integration tests for 'C.Expr.Parse.Expr.parseMacro'
 --
 -- These tests use @libclang@ to tokenise the macros defined in
@@ -9,14 +7,18 @@
 -- To regenerate the golden file, delete it and re-run the test suite.
 module Test.CExpr.Parse.Golden (tests) where
 
-import Control.Monad (unless, filterM)
+import Control.Monad (filterM, unless)
+import Data.Bifunctor (Bifunctor (..))
 import Data.ByteString.Lazy.Char8 qualified as LBS
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.Directory (doesDirectoryExist, doesFileExist)
 import System.FilePath ((</>))
-import Test.Tasty (TestTree, TestName, testGroup)
-import Test.Tasty.HUnit (testCase, assertFailure)
+import Test.Tasty (TestName, TestTree, testGroup)
+import Test.Tasty.HUnit (assertFailure, testCase)
+
+import C.Expr.Parse
+import C.Expr.Syntax
 
 import Clang.Args
 import Clang.CStandard
@@ -27,10 +29,6 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import Clang.Version
-
-import C.Expr.Parse
-import C.Expr.Syntax
-import Data.Bifunctor (Bifunctor(..))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -130,8 +128,8 @@ parseMacrosFixture testCStd fixturePath = do
         Text.unpack name ++ ": " ++ formatResult result
 
     formatResult :: Either MacroParseError Macro -> String
-    formatResult (Right mac) = "Right " ++ show (macroExpr mac)
-    formatResult (Left _)    = "Left <parse error>"
+    formatResult (Right (Macro{macroExpr})) = "Right " ++ show macroExpr
+    formatResult (Left _)                   = "Left <parse error>"
 
 {-------------------------------------------------------------------------------
   Collect macro definitions from a C header file via libclang

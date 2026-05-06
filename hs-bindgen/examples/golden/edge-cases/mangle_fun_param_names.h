@@ -1,4 +1,4 @@
-// See issue #1490
+/* We must mangle function parameter names */
 
 struct S {
   int x;
@@ -6,9 +6,6 @@ struct S {
 
 typedef struct S T;
 
-T fun(T x);
-
-/* We must mangle function parameter names */
 void param_underscore(T _);
 void param_uppercase(T Type);
 void param_undersore_capital(T _T);

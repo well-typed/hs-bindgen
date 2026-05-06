@@ -1,6 +1,5 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE MagicHash         #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 #if __GLASGOW_HASKELL__ >=908
 {-# LANGUAGE TypeAbstractions #-}
@@ -18,7 +17,8 @@ module C.Expr.Typecheck.Type (
   , Tc
     -- * Type inference
   , TypeEnv
-  , VarEnv
+  , buildTypedefEnv
+  , ParamEnv
     -- ** Type system
   , Type(..)
   , IntegralType(..)
@@ -98,9 +98,11 @@ module C.Expr.Typecheck.Type (
 
 import Data.Foldable qualified as Foldable
 import Data.GADT.Compare
+import Data.IntMap (IntMap)
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
 import Data.Map (Map)
+import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Nat (Nat (..))
 import Data.Proxy
@@ -115,9 +117,11 @@ import Foreign.C.Types
 import Foreign.Ptr qualified as Foreign
 import GHC.Generics (Generic)
 import GHC.Show (showSpace)
+import Numeric.Natural
 
 import C.Expr.Syntax
 import C.Expr.Util.TestEquality (equals2)
+
 import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
@@ -162,19 +166,11 @@ data Quant res where
     -> Quant res
 deriving stock instance Functor Quant
 
-instance Eq ( Quant ( Type ki ) ) where
+instance Eq (QuantTyBody body) => Eq ( Quant body ) where
   qty1@( Quant @n1 _ ) == qty2@( Quant @n2 _ ) =
     case Nat.eqNat @n1 @n2 of
-      Nothing -> False
-      Just Refl ->
-        mkQuantTyBody qty1 == mkQuantTyBody qty2
-
-instance Eq ( Quant ( Vec n ( Type ki ) ) ) where
-  qty1@( Quant @n1 _ ) == qty2@( Quant @n2 _ ) =
-    case Nat.eqNat @n1 @n2 of
-      Nothing -> False
-      Just Refl ->
-        mkQuantTyBody qty1 == mkQuantTyBody qty2
+      Nothing   -> False
+      Just Refl -> mkQuantTyBody qty1 == mkQuantTyBody qty2
 
 -- | The body of a quantified type (what's under the forall).
 type QuantTyBody :: Hs.Type -> Hs.Type
@@ -191,6 +187,14 @@ instance Eq ( QuantTyBody ( Type ki ) ) where
         , all ( uncurry eqType ) ( zip cts1 cts2 )
         , eqType body1 body2
         ]
+instance Eq ( QuantTyBody ( FunValue, Type ki ) ) where
+  QuantTyBody cts1 (funVal1, body1) == QuantTyBody cts2 (funVal2, body2) =
+    and [ length cts1 == length cts2
+        , all ( uncurry eqType ) ( zip cts1 cts2 )
+        , eqType body1 body2
+        , funVal1 == funVal2
+        ]
+
 instance Eq ( QuantTyBody ( Vec n ( Type ki ) ) ) where
   QuantTyBody cts1 body1 == QuantTyBody cts2 body2 =
     and [ length cts1 == length cts2
@@ -458,8 +462,30 @@ instance Show ( ClassTyCon n ) where
 --
 -- Use @'Maybe' 'FunValue'@ and emit typecheck error when value required but
 -- unavailable.
-type TypeEnv = Map Name ( Quant ( FunValue, Type Ty ) )
-type VarEnv  = Map Name ( Type Ty )
+type TypeEnv  = Map Name ( Quant ( FunValue, Type Ty ) )
+type ParamEnv = IntMap   ( Type Ty )
+
+-- | Build a 'TypeEnv' from a list of typedef names.
+--
+-- Each name is registered as a type alias (with kind 'MacroTypeTy') and a
+-- dummy 'FunValue' that is never invoked.
+--
+-- Note: @struct@, @union@, and @enum@ types should /not/ be added here.
+-- Tagged types always parse as 'TypeTagged' literals, never as bare 'Var'
+-- nodes, so they are resolved through the @injectTagged@ callback of
+-- 'C.Expr.Typecheck.tcMacro' instead.
+buildTypedefEnv :: [Name] -> TypeEnv
+buildTypedefEnv names =
+    Map.fromList
+      [ ( nm
+        , Quant @Z $ \VNil ->
+            QuantTyBody []
+              ( FunValue @Z (getName nm) (\VNil -> NoValue)
+              , MacroTypeTy
+              )
+        )
+      | nm <- names
+      ]
 
 {-------------------------------------------------------------------------------
   Pass definition
@@ -563,10 +589,11 @@ data MetaOrigin
   = ExpectedFunTyResTy !FunName
   | ExpectedVarTy !Name
   | Inst { instOrigin :: !InstOrigin, instPos :: !Int }
-  | FunArg !Name !( Name, Int )
+  | FunParam !Name !( Name, Natural )
   | IntLitMeta !IntegerLiteral
   | FloatLitMeta !FloatingLiteral
-  deriving stock ( Generic, Show )
+
+deriving stock instance Show MetaOrigin
 
 data InstOrigin
   = FunInstMetaOrigin !FunName
@@ -581,8 +608,8 @@ pprMetaOrigin = \case
     "the type of the identifier '" <> varNm <> "'"
   Inst funNm i ->
     "the " <> speakNth i <> " type argument in the instantiation of '" <> Text.pack ( show funNm ) <> "'"
-  FunArg ( Name funNm ) ( _argNm, i ) ->
-    "the type of the " <> speakNth i <> " argument of '" <> funNm <> "'"
+  FunParam ( Name funNm ) ( param, i ) ->
+    "the type of the " <> speakNth (fromIntegral i) <> " parameter of '" <> funNm <> "' with name '" <> getName param <> "'"
   IntLitMeta i ->
     "the type of the integer literal '" <> Text.pack ( show i ) <> "'"
   FloatLitMeta f ->

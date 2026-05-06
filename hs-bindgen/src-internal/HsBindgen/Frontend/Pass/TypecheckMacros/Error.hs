@@ -4,41 +4,41 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.Error (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import C.Expr.Typecheck qualified as CExpr.DSL
+import C.Expr.Typecheck qualified as CExpr
 
-import HsBindgen.Imports
+import HsBindgen.Frontend.Naming
 import HsBindgen.Util.Tracer
 
 data MacroTypecheckError =
     -- | We could not type-check the macro expression
-    MacroTypecheckErrorCExpr CExpr.DSL.MacroTcError
+    MacroTypecheckErrorCExpr CExpr.MacroTcError
     -- | Macro type is @void@, which is not a valid standalone type
   | MacroTypecheckErrorVoidType
-    -- | Named type in macro could not be resolved
+    -- | Macro type references a tagged type we could not resolve
     --
-    -- This is considered a 'Bug', because if we reference an non-existing
-    -- variable or tagged specifier (such as @struct Foo@), the typechecker
-    -- should fail instead.
-  | MacroTypecheckErrorUnresolvedType Text
+    -- This happens when a macro references a struct, union, or enum that
+    -- @hs-bindgen@ did not parse (e.g., defined in an unprocessed header, or
+    -- whose fields failed to parse).
+  | MacroTypecheckErrorUnresolvedTaggedType CDeclName
   deriving stock (Show)
 
 instance PrettyForTrace MacroTypecheckError where
   prettyForTrace = \case
       MacroTypecheckErrorCExpr x -> PP.hsep [
           "Failed to typecheck macro:"
-        , PP.text $ CExpr.DSL.pprMacroTcError x
+        , PP.text $ CExpr.pprMacroTcError x
         ]
       MacroTypecheckErrorVoidType ->
         "Macro type 'void' is not supported as a standalone type"
-      MacroTypecheckErrorUnresolvedType name -> PP.hsep [
-          "Unresolved type name in macro:"
-        , PP.text name
+      MacroTypecheckErrorUnresolvedTaggedType name -> PP.hsep [
+          "Macro type references unknown tagged type:"
+        , prettyForTrace name
         ]
 
 instance IsTrace Level MacroTypecheckError where
   getDefaultLogLevel = \case
-    MacroTypecheckErrorCExpr{}           -> Info
-    MacroTypecheckErrorVoidType{}        -> Info
-    MacroTypecheckErrorUnresolvedType{}  -> Bug
+    MacroTypecheckErrorCExpr{}                       -> Info
+    MacroTypecheckErrorVoidType{}                    -> Info
+    MacroTypecheckErrorUnresolvedTaggedType{}        -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "macro-typecheck"

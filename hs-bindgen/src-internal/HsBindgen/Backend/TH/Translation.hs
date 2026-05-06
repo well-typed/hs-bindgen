@@ -20,7 +20,7 @@ import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 
-import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -77,14 +77,14 @@ mkRolledExpr env expr = case expr of
     -- Word32/Word64 and then cast back.
     EFloat f t ->
       TH.sigE
-        ( if CExpr.DSL.canBeRepresentedAsRational f
+        ( if CExpr.canBeRepresentedAsRational f
             then [| f |]
             else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
         )
         (mkType EmptyEnv t)
     EDouble d t ->
       TH.sigE
-        ( if CExpr.DSL.canBeRepresentedAsRational d
+        ( if CExpr.canBeRepresentedAsRational d
             then [| d |]
             else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
         )

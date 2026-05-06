@@ -1286,7 +1286,7 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
 
 instance FLAM.Offset RIP.CInt Flexible_array_Aux where
 
-  offset = \_ty0 -> 8
+  offset = \_proxy0 -> 8
 
 {-| Structure with flexible array member.
 

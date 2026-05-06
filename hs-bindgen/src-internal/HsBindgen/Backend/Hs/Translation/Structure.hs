@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
 
 -- | Generate declarations for given C struct
 structDecs ::
@@ -206,7 +207,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                     comment      = Nothing
                   , instanceDecl =
                       Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
-                          readRaw = Hs.Lambda "ptr" $
+                          readRaw = Hs.Lambda (NameHint "ptr") $
                             Hs.Ap (Hs.StructCon hsStruct) $
                               map (readRawField IZ) struct.fields
                         }
@@ -216,7 +217,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                     comment      = Nothing
                   , instanceDecl =
                       Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
-                          writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                          writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
                             Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
                               Vec.zipWith (writeRawField (weaken wk I1))
                                 fieldsVec xs
@@ -235,10 +236,10 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                     , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
                           sizeOf    = struct.sizeof
                         , alignment = struct.alignment
-                        , peek      = Hs.Lambda "ptr" $
+                        , peek      = Hs.Lambda (NameHint "ptr") $
                             Hs.Ap (Hs.StructCon hsStruct) $
                               map (peekField IZ) struct.fields
-                        , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                        , poke      = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
                             Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
                               Vec.zipWith (pokeField (weaken wk I1))
                                 fieldsVec xs

@@ -423,6 +423,12 @@ lookupVarE declId = do
       Just hsNm ->
         pure hsNm
 
+lookupVarPair :: DeclId -> E M DeclIdPair
+lookupVarPair declId = lookupVarE declId >>= \hsName -> pure $ DeclIdPair{
+        cName  = declId
+      , hsName = Hs.demoteNs hsName
+    }
+
 {-------------------------------------------------------------------------------
   Pass 2: Apply NameMap
 -------------------------------------------------------------------------------}
@@ -966,39 +972,13 @@ instance MangleWithDeclName CheckedMacroType where
           }
 
 instance Mangle CheckedMacroExpr where
-  mangle macroExpr = do
-      args' <- traverse mangleMacroParam macroExpr.args
-      let localNameMap :: Map DeclId (Hs.Name Hs.NsVar)
-          localNameMap = Map.fromList args'
-      body' <- traverse (mangleMacroBodyVar localNameMap) macroExpr.body
+  mangle (CheckedMacroExpr params body typ) = do
+      body' <- traverse lookupVarPair body
       pure CheckedMacroExpr{
-            args = map (uncurry DeclIdPair . second Hs.demoteNs) args'
-          , body = body'
-          , typ  = macroExpr.typ
+            params = params
+          , body   = body'
+          , typ    = typ
           }
-
--- | Mangle a macro parameter name locally.
---
--- Macro parameters (e.g., @x@ in @PLUS(x)@) are not top-level declarations
--- and therefore not present in the global 'NameMap'. We assign them Haskell
--- names directly, without a name-map lookup.
-mangleMacroParam :: DeclId -> E M (DeclId, Hs.Name Hs.NsVar)
-mangleMacroParam declId = do
-    name <- mkIdentifier (Proxy @Hs.NsVar) declId.name.text
-    pure (declId, name)
-
--- | Resolve a variable reference inside a macro body.
---
--- Body variables are first looked up in the local parameter map (for macro
--- parameters), and fall back to the global 'NameMap' for references to other
--- declarations (e.g. global macros or @typedef@s used inside the body).
-mangleMacroBodyVar ::
-  Map DeclId (Hs.Name Hs.NsVar) -> DeclId -> E M DeclIdPair
-mangleMacroBodyVar localMap declId =
-    (DeclIdPair declId) . Hs.demoteNs <$>
-      case Map.lookup declId localMap of
-        Just hsNm -> pure $ hsNm
-        Nothing   -> lookupVarE declId
 
 instance Mangle C.Type where
   mangle = \case

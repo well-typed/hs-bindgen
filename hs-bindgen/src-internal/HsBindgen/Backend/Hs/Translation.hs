@@ -51,6 +51,7 @@ import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
 import HsBindgen.PrettyC qualified as PC
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -369,7 +370,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
                 comment      = Nothing
               , instanceDecl =
                   Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
-                      readRaw = Hs.Lambda "ptr" $
+                      readRaw = Hs.Lambda (NameHint "ptr") $
                         Hs.Ap (Hs.StructCon hsStruct) [ Hs.ReadRawByteOff IZ 0 ]
                     }
               }
@@ -377,7 +378,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
                 comment      = Nothing
               , instanceDecl =
                   Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
-                      writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                      writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
                         Hs.ElimStruct IZ hsStruct (AS AZ) $
                           Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
                     }
