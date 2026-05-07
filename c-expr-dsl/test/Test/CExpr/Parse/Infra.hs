@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- | Test infrastructure for the c-expr-dsl parser tests
 module Test.CExpr.Parse.Infra (
     -- * Token constructors
@@ -15,16 +13,18 @@ module Test.CExpr.Parse.Infra (
   , tyLit
   ) where
 
+import Data.Nat (Nat (..))
 import Data.Text (Text)
+import Data.Vec.Lazy (Vec (..))
 import Text.Parsec (eof)
+
+import C.Expr.Parse
+import C.Expr.Syntax
 
 import Clang.CStandard
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-
-import C.Expr.Parse
-import C.Expr.Syntax
 
 {-------------------------------------------------------------------------------
   Token constructors
@@ -75,8 +75,8 @@ mkToken kind spelling = Token{
 --
 -- Adds 'eof' so that trailing tokens are rejected as parse failures.
 checkType ::
-  ClangCStandard -> [Token TokenSpelling] -> Either MacroParseError (Expr Ps)
-checkType cStd = runParser (parseMacroType cStd <* eof)
+  ClangCStandard -> [Token TokenSpelling] -> Either MacroParseError (Expr Z Ps)
+checkType cStd = runParser (parseMacroType cStd VNil <* eof)
 
 -- | Run the macro parser on a complete token sequence
 --
@@ -102,5 +102,5 @@ parseTestWith p pairs = print $ runParser p (map (uncurry mkToken) pairs)
   Results
 -------------------------------------------------------------------------------}
 
-tyLit :: TypeLit -> Expr Ps
+tyLit :: TypeLit -> Expr ctx Ps
 tyLit = Term . Literal . TypeLit

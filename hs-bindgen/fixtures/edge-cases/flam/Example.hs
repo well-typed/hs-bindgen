@@ -86,7 +86,7 @@ instance ( ty ~ RIP.CInt
 
 instance FLAM.Offset RIP.CChar Pascal_Aux where
 
-  offset = \_ty0 -> 4
+  offset = \_proxy0 -> 4
 
 {-| __C declaration:__ @struct pascal@
 
@@ -222,7 +222,7 @@ instance ( ty ~ RIP.CInt
 
 instance FLAM.Offset Foo_bar Foo_Aux where
 
-  offset = \_ty0 -> 4
+  offset = \_proxy0 -> 4
 
 {-| __C declaration:__ @struct foo@
 
@@ -308,7 +308,7 @@ instance ( ty ~ RIP.CChar
 
 instance FLAM.Offset RIP.CChar Diff_Aux where
 
-  offset = \_ty0 -> 9
+  offset = \_proxy0 -> 9
 
 {-| __C declaration:__ @struct diff@
 
@@ -376,7 +376,7 @@ instance ( ty ~ RIP.CInt
 
 instance FLAM.Offset (CA.ConstantArray 3 RIP.CInt) Triplets_Aux where
 
-  offset = \_ty0 -> 4
+  offset = \_proxy0 -> 4
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 

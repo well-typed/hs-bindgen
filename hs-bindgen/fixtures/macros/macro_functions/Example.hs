@@ -6,10 +6,12 @@ module Example
     , Example.aDD
     , Example.iD
     , Example.cONST
+    , Example.cONST_3
     , Example.cMP
     , Example.fUN1
     , Example.fUN2
     , Example.g
+    , Example.g_3
     , Example.dIV1
     , Example.dIV2
     , Example.sWAP32
@@ -57,9 +59,18 @@ iD = \x0 -> x0
 cONST :: forall a0 b1. a0 -> b1 -> a0
 cONST = \x0 -> \y1 -> x0
 
+{-| __C declaration:__ @macro CONST_3@
+
+    __defined at:__ @macros\/macro_functions.h 6:9@
+
+    __exported by:__ @macros\/macro_functions.h@
+-}
+cONST_3 :: forall a0 b1 c2. a0 -> b1 -> c2 -> a0
+cONST_3 = \x0 -> \y1 -> \z2 -> x0
+
 {-| __C declaration:__ @macro CMP@
 
-    __defined at:__ @macros\/macro_functions.h 7:9@
+    __defined at:__ @macros\/macro_functions.h 8:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -68,7 +79,7 @@ cMP = \x0 -> \y1 -> (C.Expr.HostPlatform.<) x0 y1
 
 {-| __C declaration:__ @macro FUN1@
 
-    __defined at:__ @macros\/macro_functions.h 8:9@
+    __defined at:__ @macros\/macro_functions.h 9:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -80,7 +91,7 @@ fUN1 =
 
 {-| __C declaration:__ @macro FUN2@
 
-    __defined at:__ @macros\/macro_functions.h 9:9@
+    __defined at:__ @macros\/macro_functions.h 10:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -92,16 +103,27 @@ fUN2 =
 
 {-| __C declaration:__ @macro G@
 
-    __defined at:__ @macros\/macro_functions.h 11:9@
+    __defined at:__ @macros\/macro_functions.h 12:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g :: forall a0 b1. C.Expr.HostPlatform.Add a0 RIP.CInt => b1 -> a0 -> C.Expr.HostPlatform.AddRes a0 RIP.CInt
+g :: forall a0 b1. C.Expr.HostPlatform.Add b1 RIP.CInt => a0 -> b1 -> C.Expr.HostPlatform.AddRes b1 RIP.CInt
 g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
+
+{-| __C declaration:__ @macro G_3@
+
+    __defined at:__ @macros\/macro_functions.h 13:9@
+
+    __exported by:__ @macros\/macro_functions.h@
+-}
+g_3 :: forall a0 b1 c2. C.Expr.HostPlatform.Add b1 RIP.CInt => a0 -> b1 -> c2 -> C.Expr.HostPlatform.AddRes b1 RIP.CInt
+g_3 =
+  \x0 ->
+    \y1 -> \z2 -> cONST_3 (iNCR y1) (iD x0) (iD z2)
 
 {-| __C declaration:__ @macro DIV1@
 
-    __defined at:__ @macros\/macro_functions.h 13:9@
+    __defined at:__ @macros\/macro_functions.h 15:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -113,7 +135,7 @@ dIV1 =
 
 {-| __C declaration:__ @macro DIV2@
 
-    __defined at:__ @macros\/macro_functions.h 14:9@
+    __defined at:__ @macros\/macro_functions.h 16:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -125,7 +147,7 @@ dIV2 =
 
 {-| __C declaration:__ @macro SWAP32@
 
-    __defined at:__ @macros\/macro_functions.h 18:9@
+    __defined at:__ @macros\/macro_functions.h 20:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -136,7 +158,7 @@ sWAP32 =
 
 {-| __C declaration:__ @macro AV_VERSION_INT@
 
-    __defined at:__ @macros\/macro_functions.h 19:9@
+    __defined at:__ @macros\/macro_functions.h 21:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}

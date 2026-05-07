@@ -15,6 +15,8 @@ import Data.Map qualified as Map
 import Data.Proxy
 import Data.Set qualified as Set
 
+import C.Expr.Typecheck qualified as CExpr
+
 import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -422,6 +424,12 @@ lookupVarE declId = do
           MangleNamesUnderlyingDeclNotMangled declId (NonEmpty.singleton Hs.NsVar)
       Just hsNm ->
         pure hsNm
+
+lookupVarPair :: DeclId -> E M DeclIdPair
+lookupVarPair declId = lookupVarE declId >>= \hsName -> pure $ DeclIdPair{
+        cName  = declId
+      , hsName = Hs.demoteNs hsName
+    }
 
 {-------------------------------------------------------------------------------
   Pass 2: Apply NameMap
@@ -950,55 +958,28 @@ instance Mangle C.Global where
 
 instance MangleWithDeclName CheckedMacro where
   mangleWithDeclName hsName = \case
-      MacroType typ  -> MacroType <$> mangleWithDeclName hsName typ
-      MacroExpr expr -> MacroExpr <$> mangle expr
+      MacroType  typ -> MacroType  <$> mangleWithDeclName hsName typ
+      MacroValue val -> MacroValue <$> mangle val
 
 instance MangleWithDeclName CheckedMacroType where
   mangleWithDeclName hsName macroType = do
-      strategy <- asks (.fieldNamingStrategy)
+      strategy       <- asks (.fieldNamingStrategy)
       macroTypeNames <- mkMacroTypeNames strategy hsName
-      reconstruct macroTypeNames <$> mangle macroType.typ
-    where
-      reconstruct :: NewtypeNames -> C.Type MangleNames -> CheckedMacroType MangleNames
-      reconstruct macroTypeNames typ' = CheckedMacroType{
-            typ = typ'
+      cType'         <- mangle macroType.cType
+      pure CheckedMacroType{
+            cType = cType'
           , ann = macroTypeNames
           }
 
-instance Mangle CheckedMacroExpr where
-  mangle macroExpr = do
-      args' <- traverse mangleMacroParam macroExpr.args
-      let localNameMap :: Map DeclId (Hs.Name Hs.NsVar)
-          localNameMap = Map.fromList args'
-      body' <- traverse (mangleMacroBodyVar localNameMap) macroExpr.body
-      pure CheckedMacroExpr{
-            args = map (uncurry DeclIdPair . second Hs.demoteNs) args'
-          , body = body'
-          , typ  = macroExpr.typ
+instance Mangle CheckedMacroValue where
+  mangle macroValue = CheckedMacroValue <$> case macroValue.value of
+    CExpr.CheckedMacroValueExpr params body typ -> do
+      body' <- traverse lookupVarPair body
+      pure CExpr.CheckedMacroValueExpr{
+            macroValueParams = params
+          , macroValueBody   = body'
+          , macroValueType   = typ
           }
-
--- | Mangle a macro parameter name locally.
---
--- Macro parameters (e.g., @x@ in @PLUS(x)@) are not top-level declarations
--- and therefore not present in the global 'NameMap'. We assign them Haskell
--- names directly, without a name-map lookup.
-mangleMacroParam :: DeclId -> E M (DeclId, Hs.Name Hs.NsVar)
-mangleMacroParam declId = do
-    name <- mkIdentifier (Proxy @Hs.NsVar) declId.name.text
-    pure (declId, name)
-
--- | Resolve a variable reference inside a macro body.
---
--- Body variables are first looked up in the local parameter map (for macro
--- parameters), and fall back to the global 'NameMap' for references to other
--- declarations (e.g. global macros or @typedef@s used inside the body).
-mangleMacroBodyVar ::
-  Map DeclId (Hs.Name Hs.NsVar) -> DeclId -> E M DeclIdPair
-mangleMacroBodyVar localMap declId =
-    (DeclIdPair declId) . Hs.demoteNs <$>
-      case Map.lookup declId localMap of
-        Just hsNm -> pure $ hsNm
-        Nothing   -> lookupVarE declId
 
 instance Mangle C.Type where
   mangle = \case
@@ -1057,8 +1038,8 @@ withDeclNamespace kind k =
 
       C.DeclMacro macro ->
         case macro of
-          MacroType{} -> k (Proxy @Hs.NsTypeConstr)
-          MacroExpr{} -> k (Proxy @Hs.NsVar)
+          MacroType{}  -> k (Proxy @Hs.NsTypeConstr)
+          MacroValue{} -> k (Proxy @Hs.NsVar)
 
 withDeclLoc :: forall p a.
      IsPass p

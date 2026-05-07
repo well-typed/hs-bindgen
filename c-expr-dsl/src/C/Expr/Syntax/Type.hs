@@ -13,7 +13,6 @@ module C.Expr.Syntax.Type (
   , FloatSize(..)
   ) where
 
-import Data.Text (Text)
 import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
@@ -57,12 +56,6 @@ data TypeLit =
 
     -- | @_Bool@ or @bool@ (C23)
   | TypeBool
-
-    -- NB: We do not accept untagged identifiers here, since they may correspond
-    -- to a value expression, not a type expression.
-
-    -- | An elaborated type literal: @struct tag@, @union tag@, @enum tag@
-  | TypeTagged !TagKind !Text
   deriving stock (Eq, Ord, Show, Generic)
 
 -- | Tag kind for elaborated types

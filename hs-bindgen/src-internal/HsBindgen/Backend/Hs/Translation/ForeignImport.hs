@@ -27,6 +27,7 @@ import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Language.C qualified as C
+import HsBindgen.NameHint
 
 -- | Info about a function name
 data FunName = FunName {
@@ -161,7 +162,7 @@ foreignImportWrapperDec sizeofs name hsType origin =
         ]
     fResult = Hs.HsIO $ Hs.HsFunPtr hsType
     fBody =
-        ELam "fun" $
+        ELam (NameHint "fun") $
         eBindgenGlobal Functor_fmap `EApp`
         eBindgenGlobal HasFFIType_castFunPtrFromFFIType `EApp`
         (EFree (Hs.InternalName fiName) `EApp`
@@ -230,7 +231,7 @@ foreignImportDynamicDec sizeofs name hsType origin =
         ]
     fResult = hsType
     fBody =
-        ELam "funPtr" $
+        ELam (NameHint "funPtr") $
         eBindgenGlobal HasFFIType_fromFFIType `EApp`
         (EFree (Hs.InternalName fiName) `EApp`
         (eBindgenGlobal HasFFIType_castFunPtrToFFIType `EApp`

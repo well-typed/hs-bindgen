@@ -8,7 +8,7 @@ import Data.List qualified as List
 import Data.Text qualified as Text
 import Foreign.C (CInt)
 
-import C.Expr.Parse qualified as CExpr.DSL
+import C.Expr.Parse qualified as CExpr
 
 import Clang.CStandard
 import Clang.Enum.Simple
@@ -1018,7 +1018,7 @@ partitionAnonDecls =
 
 -- | Parse macro tokens
 --
--- We use @c-expr-dsl@ to parse the macro tokens into a 'CExpr.DSL.Macro'.
+-- We use @c-expr-dsl@ to parse the macro tokens into a 'CExpr.Macro'.
 -- No type environment is needed for this step; type resolution and
 -- expression typechecking happen later in 'TypecheckMacros'.
 parseMacroTokens ::
@@ -1030,7 +1030,7 @@ parseMacroTokens cStd name = \case
     []      -> Left $ ParseMacroEmpty name []
     [token] -> Left $ ParseMacroEmpty name [token]
     tokens  ->
-      case CExpr.DSL.runParser (CExpr.DSL.parseMacro cStd) tokens of
+      case CExpr.runParser (CExpr.parseMacro cStd) tokens of
         Right macro ->
           Right $ ParsedMacro macro
         Left errParse ->

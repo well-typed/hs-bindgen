@@ -3,18 +3,17 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
     -- * Checked macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
-  , CheckedMacroExpr(..)
+  , CheckedMacroValue(..)
     -- * Conversions
   , convertTagKind
   ) where
 
-import C.Expr.Syntax qualified as CExpr.DSL
-import C.Expr.Typecheck.Interface.Value qualified as V
-import C.Expr.Typecheck.Type qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr
+import C.Expr.Typecheck qualified as CExpr
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -55,37 +54,36 @@ instance IsPass TypecheckMacros where
 -------------------------------------------------------------------------------}
 
 data CheckedMacro p =
-    MacroType (CheckedMacroType p)
-  | MacroExpr (CheckedMacroExpr p)
+    MacroType  (CheckedMacroType p)
+  | MacroValue (CheckedMacroValue p)
 
 -- | Checked type macro
 data CheckedMacroType p = CheckedMacroType{
-      typ :: Type p
-    , ann :: Ann "CheckedMacroType" p
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
+      --
+      -- Legacy C type; replace with the typechecked type-like macro expression.
+      cType :: C.Type p
+    , ann   :: Ann "CheckedMacroType" p
     }
 
--- | Checked expression (function) macro
-data CheckedMacroExpr p = CheckedMacroExpr{
-      args :: [Id p]
-    , body :: V.Expr (Id p)
-    , typ  :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
+newtype CheckedMacroValue p = CheckedMacroValue {
+      value :: CExpr.CheckedMacroValueExpr (Id p)
     }
-  deriving stock (Generic)
 
 deriving stock instance IsPass p => Show (CheckedMacro     p)
 deriving stock instance IsPass p => Show (CheckedMacroType p)
-deriving stock instance IsPass p => Show (CheckedMacroExpr p)
+deriving stock instance IsPass p => Show (CheckedMacroValue p)
 
 deriving stock instance IsPass p => Eq (CheckedMacro     p)
 deriving stock instance IsPass p => Eq (CheckedMacroType p)
-deriving stock instance IsPass p => Eq (CheckedMacroExpr p)
+deriving stock instance IsPass p => Eq (CheckedMacroValue p)
 
--- | Convert a @c-expr-dsl@ 'CExpr.DSL.TagKind' to an hs-bindgen 'CTagKind'
-convertTagKind :: CExpr.DSL.TagKind -> CTagKind
+-- | Convert a @c-expr-dsl@ 'CExpr.TagKind' to an hs-bindgen 'CTagKind'
+convertTagKind :: CExpr.TagKind -> CTagKind
 convertTagKind = \case
-    CExpr.DSL.TagStruct -> CTagKindStruct
-    CExpr.DSL.TagUnion  -> CTagKindUnion
-    CExpr.DSL.TagEnum   -> CTagKindEnum
+    CExpr.TagStruct -> CTagKindStruct
+    CExpr.TagUnion  -> CTagKindUnion
+    CExpr.TagEnum   -> CTagKindEnum
 
 {-------------------------------------------------------------------------------
   CoercePass for CheckedMacro (parametric; applies to any passes p, p')
@@ -93,26 +91,26 @@ convertTagKind = \case
 
 instance (
       CoercePass CheckedMacroType p p'
-    , CoercePass CheckedMacroExpr p p'
+    , CoercePassId p p'
     ) => CoercePass CheckedMacro p p' where
-  coercePass (MacroType typ)  = MacroType (coercePass typ)
-  coercePass (MacroExpr expr) = MacroExpr (coercePass expr)
+  coercePass = \case
+    MacroType  typ -> MacroType  (coercePass typ)
+    MacroValue val -> MacroValue (coercePass val)
 
 instance (
-      CoercePass Type p p'
+      CoercePass C.Type p p'
     , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
     ) => CoercePass CheckedMacroType p p' where
-  coercePass macroType = CheckedMacroType{
-        typ = coercePass macroType.typ
-      , ann = macroType.ann
+  coercePass (CheckedMacroType ctype ann) =
+    CheckedMacroType{
+        cType = coercePass ctype
+      , ann   = ann
       }
 
-instance CoercePassId p p' => CoercePass CheckedMacroExpr p p' where
-  coercePass e = CheckedMacroExpr{
-        args = map  (coercePassId (Proxy @'(p, p'))) e.args
-      , body = fmap (coercePassId (Proxy @'(p, p'))) e.body
-      , typ  = e.typ
-      }
+instance CoercePassId p p' => CoercePass CheckedMacroValue p p' where
+  coercePass (CheckedMacroValue (CExpr.CheckedMacroValueExpr p b t)) =
+    let b' = fmap (coercePassId (Proxy @'(p, p'))) b
+    in  CheckedMacroValue $ CExpr.CheckedMacroValueExpr p b' t
 
 {-------------------------------------------------------------------------------
   CoercePass: ConstructTranslationUnit → TypecheckMacros

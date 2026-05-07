@@ -46,17 +46,7 @@ fromDecls includeGraph declIndex =
     -- below).
     insertDepsOfDeclParsedMacro :: C.Decl EnrichComments -> UseDeclGraph -> UseDeclGraph
     insertDepsOfDeclParsedMacro d =
-      insertDeps d.info.id (depsOfDeclParsedMacro resolver d.kind)
-
-    resolver :: MacroNameResolver
-    resolver nm
-      | macroId   `Set.member` allDeclIds = Just CNameKindMacro
-      | typedefId `Set.member` allDeclIds = Just CNameKindOrdinary
-      | otherwise                         = Nothing
-      where
-        macroId, typedefId :: DeclId
-        macroId   = DeclId (CDeclName nm CNameKindMacro)    False
-        typedefId = DeclId (CDeclName nm CNameKindOrdinary) False
+      insertDeps d.info.id (depsOfDeclParsedMacro allDeclIds d.kind)
 
     -- We first insert all vertices. For successfully parsed declarations, we do
     -- this in source order, this ensures that we preserve source order as much

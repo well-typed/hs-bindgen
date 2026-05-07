@@ -296,8 +296,8 @@ applyPrescriptive decl cTypeSpec = \case
             C.DeclTypedef{}   -> True
             C.DeclOpaque{}    -> True
             C.DeclMacro macro -> case macro of
-              MacroType{} -> True
-              MacroExpr{} -> False
+              MacroType{}  -> True
+              MacroValue{} -> False
             _otherwise        -> False
       if isValid
         then do
@@ -489,17 +489,20 @@ instance Resolve C.FunctionArg where
 
 instance Resolve CheckedMacro where
   resolve ctx = \case
-    MacroType typ  -> MacroType <$> resolve ctx typ
-    MacroExpr expr -> return (MacroExpr $ coercePass expr)
+    MacroType  typ -> MacroType  <$> resolve ctx typ
+    MacroValue val -> MacroValue <$> pure (coercePass val)
 
 instance Resolve CheckedMacroType where
-  resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ
+  resolve ctx macroType = reconstruct <$> resolve ctx macroType.cType
     where
       reconstruct ::
            C.Type ResolveBindingSpecs
         -> CheckedMacroType ResolveBindingSpecs
-      reconstruct typ' = CheckedMacroType {
-          typ = typ'
+      reconstruct cType' = CheckedMacroType {
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
+          --
+          -- Be careful when we replace the CType with the TExpr.
+          cType = cType'
         , ann = macroType.ann
         }
 

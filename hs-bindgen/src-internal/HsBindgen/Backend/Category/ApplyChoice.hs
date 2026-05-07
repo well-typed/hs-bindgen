@@ -38,7 +38,7 @@ applyTerms = \case
         fiw@Hs.DeclForeignImportWrapper{} -> fiw
         fid@Hs.DeclForeignImportDynamic{} -> fid
         Hs.DeclFunction fn                -> Hs.DeclFunction $ over #name renameTerm $ fn
-        Hs.DeclMacroExpr{}                -> p
+        Hs.DeclMacroValue{}               -> p
         Hs.DeclUnionGetter{}              -> p
         Hs.DeclUnionSetter{}              -> p
         Hs.DeclVar x                      -> Hs.DeclVar $ over #name renameTerm $ x

@@ -4,16 +4,13 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
 
 import Numeric.Natural (Natural)
 
-import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes,
-                                                   AdjustedFrom (..))
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
-                                                       CheckedMacroExpr,
-                                                       CheckedMacroType (..))
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 
 -- | Adjust function argument types
 --
@@ -145,17 +142,20 @@ processAnonEnumConstant anonEnumConstant =
 processMacro :: MacroBody MangleNames -> MacroBody AdjustTypes
 processMacro macro =
     case macro of
-      MacroType typ -> MacroType $ processMacroType typ
-      MacroExpr expr -> MacroExpr $ processMacroExpr expr
+      MacroType  typ -> MacroType  $ processMacroType typ
+      MacroValue val -> MacroValue $ processMacroExpr val
 
 processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
 processMacroType macroType =
     CheckedMacroType {
-        typ = processType macroType.typ
-      , ann = macroType.ann
+        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1953>
+        --
+        -- Be careful when we replace the CType with the TExpr.
+        cType = processType macroType.cType
+      , ann   = macroType.ann
       }
 
-processMacroExpr :: CheckedMacroExpr MangleNames -> CheckedMacroExpr AdjustTypes
+processMacroExpr :: CheckedMacroValue MangleNames -> CheckedMacroValue AdjustTypes
 processMacroExpr macroExpr =
     -- NOTE: currently macro expressions don't support function/array type
     -- parameters, if they do in the future, then we might have to recurse into

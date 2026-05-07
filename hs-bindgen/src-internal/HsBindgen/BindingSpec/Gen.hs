@@ -141,7 +141,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       Hs.DeclForeignImportWrapper{} -> id
       Hs.DeclForeignImportDynamic{} -> id
       Hs.DeclFunction{}             -> id
-      Hs.DeclMacroExpr{}            -> id
+      Hs.DeclMacroValue{}           -> id
       Hs.DeclUnionGetter{}          -> id
       Hs.DeclUnionSetter{}          -> id
       Hs.DeclVar{}                  -> id
