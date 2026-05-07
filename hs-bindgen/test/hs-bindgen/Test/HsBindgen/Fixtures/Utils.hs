@@ -7,6 +7,11 @@
 -- package databases and visible packages from the main project build.
 -- Individual fixtures are then compiled in parallel.
 --
+-- The compiler binary is selected from the env file's version suffix (e.g.
+-- @ghc-9.10.3@ from @.ghc.environment.x86_64-linux-9.10.3@), so fixture
+-- compilation uses the same GHC that cabal built the test suite with even
+-- when @with-compiler@ differs from the system default on @PATH@.
+--
 module Test.HsBindgen.Fixtures.Utils (
     -- * Name sanitization
     sanitizeLibName
@@ -22,16 +27,22 @@ import Control.Concurrent.Async (forConcurrently)
 import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
 import Control.Exception (bracket_)
 import Control.Monad (filterM)
-import Data.List (isPrefixOf, stripPrefix)
+import Data.List (intercalate, isPrefixOf, stripPrefix)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
+import Data.Maybe (listToMaybe)
+import Data.Version (Version, makeVersion, parseVersion, showVersion,
+                     versionBranch)
 import GHC.Conc (getNumProcessors)
-import System.Directory (createDirectoryIfMissing, doesPathExist, listDirectory)
+import System.Directory (createDirectoryIfMissing, doesPathExist,
+                         findExecutable, listDirectory)
 import System.Environment (getEnvironment)
 import System.Exit (ExitCode (..))
-import System.FilePath (isAbsolute, pathSeparator, takeDirectory, (<.>), (</>))
+import System.FilePath (isAbsolute, pathSeparator, takeDirectory, takeFileName,
+                        (<.>), (</>))
 import System.IO (readFile')
 import System.Process (CreateProcess (..), proc, readCreateProcessWithExitCode)
+import Text.ParserCombinators.ReadP (readP_to_S)
 
 {-------------------------------------------------------------------------------
   Name sanitization
@@ -143,6 +154,14 @@ runDirectGhcBuild workDir envFile ghcOpts includeDirs mHaddockDir jobs = do
                    -- and PP compilation needs.
                    : filter ((/= "GHC_ENVIRONMENT") . fst) baseEnv
 
+    -- Resolve the compiler binary that matches the env file's GHC version,
+    -- so we don't pick up a different system @ghc@ on @PATH@ when the user
+    -- has configured @with-compiler@.
+    let mGhcVersion = parseGhcVersionFromEnvFile envFile
+    cmd <- case mHaddockDir of
+      Nothing -> resolveVersionedExe "ghc"         "ghc"     mGhcVersion
+      Just _  -> resolveVersionedExe "haddock-ghc" "haddock" mGhcVersion
+
     -- Compile each fixture in parallel, bounded by available cores
     caps <- max 1 <$> getNumProcessors
     sem <- newQSem caps
@@ -169,9 +188,6 @@ runDirectGhcBuild workDir envFile ghcOpts includeDirs mHaddockDir jobs = do
                   in  ["--ghc", "--html", "-o", haddockOutDir]
                    ++ map ("--optghc=" ++) allGhcOpts
                    ++ sources
-              cmd = case mHaddockDir of
-                Nothing -> "ghc"
-                Just _  -> "haddock"
               compileProc = (proc cmd args)
                             { cwd = Just workDir
                             , env = Just compileEnv
@@ -212,6 +228,51 @@ discoverGhcEnvFile dir = do
                  ++ ": " ++ show fs
     checkPackageDbsExist envFile
     return envFile
+
+-- | Extract the GHC version from a @.ghc.environment.*@ file name
+--
+-- Cabal names env files @.ghc.environment.\<arch\>-\<os\>-\<version\>@, e.g.
+-- @.ghc.environment.x86_64-linux-9.10.3@.  Splits off the suffix after the
+-- last @-@ and parses it with 'parseVersion'.  Returns 'Nothing' if the
+-- suffix is absent or not a valid version.
+parseGhcVersionFromEnvFile :: FilePath -> Maybe Version
+parseGhcVersionFromEnvFile envFile = do
+    suffix <- case break (== '-') (reverse (takeFileName envFile)) of
+      (revVer, '-':_) | not (null revVer) -> Just (reverse revVer)
+      _                                   -> Nothing
+    listToMaybe [ v | (v, "") <- readP_to_S parseVersion suffix ]
+
+-- | Locate a version-specific variant of an executable, falling back to a
+-- name without the version suffix
+--
+-- Given e.g. @versionedBase = "ghc"@, @fallback = "ghc"@, and version
+-- @9.10.3@, tries @ghc-9.10.3@, then @ghc-9.10@ (ghcup-style short alias),
+-- then @ghc@.  For haddock: @versionedBase = "haddock-ghc"@,
+-- @fallback = "haddock"@, since the GHC distribution names its haddock binary
+-- @haddock-ghc-X.Y.Z@.  Used to ensure fixture compilation invokes the same
+-- compiler cabal used to build the test suite, even when the system @ghc@ on
+-- @PATH@ is a different version.
+resolveVersionedExe :: String -> String -> Maybe Version -> IO FilePath
+resolveVersionedExe versionedBase fallback mVersion = do
+    let candidates = case mVersion of
+          Just v  -> map ((versionedBase ++ "-") ++) (versionVariants v)
+                  ++ [fallback]
+          Nothing -> [fallback]
+    found <- firstJustM findExecutable candidates
+    case found of
+      Just p  -> return p
+      Nothing -> fail $ "Could not find any of "
+                     ++ intercalate ", " candidates ++ " on PATH"
+  where
+    -- 9.10.3 -> ["9.10.3", "9.10"]; 9.10 -> ["9.10"]; 9 -> ["9"].
+    versionVariants :: Version -> [String]
+    versionVariants v = case versionBranch v of
+      branch@(_:_:_:_) -> [showVersion v, showVersion (makeVersion (take 2 branch))]
+      _                -> [showVersion v]
+
+    firstJustM :: Monad m => (a -> m (Maybe b)) -> [a] -> m (Maybe b)
+    firstJustM _ []     = return Nothing
+    firstJustM f (x:xs) = f x >>= maybe (firstJustM f xs) (return . Just)
 
 -- | Verify that every @package-db@ path referenced by an env file exists
 --
