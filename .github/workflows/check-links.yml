@@ -1,12 +1,6 @@
 name: Check links
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
-
   repository_dispatch:
   workflow_dispatch:
   # Run daily on the default branch to catch links that break unexpectedly, for
