@@ -61,17 +61,14 @@ instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
       LanC.CTypeSpec x -> overM #typ $ apply x
       LanC.CTypeQual x -> overM #typ $ apply x
 
-      LanC.CStorageSpec x ->
-        case x of
-         -- We ignore the @typedef@ specifier: when reparsing typedefs it adds
-         -- no information, and elsewhere we don't expect it at all (we /could/
-         -- in principle check in such cases that it's not there, to catch
-         -- potential bugs, at the cost of some increased code complexity).
-          LanC.CTypedef _a -> return
-
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1768>
-          -- We could deal other storage specifiers (auto, static, extern, ..).
-          other -> \_ -> unexpectedF other
+      -- We only care about the name and type of the declaration. The
+      -- remaining specifiers say how the symbol is linked or compiled,
+      -- not what its type is, so we leave the partial declaration
+      -- unchanged.
+      LanC.CStorageSpec (LanC.CStatic     _) -> return
+      LanC.CStorageSpec (LanC.CExtern     _) -> return
+      LanC.CStorageSpec (LanC.CTypedef    _) -> return
+      LanC.CFunSpec     (LanC.CInlineQual _) -> return
 
       other -> \_ -> unexpectedF other
 

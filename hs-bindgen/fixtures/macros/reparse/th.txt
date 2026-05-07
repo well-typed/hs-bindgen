@@ -2475,37 +2475,37 @@
 -- }
 -- /* test_macrosreparse_Example_get_global1 */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_feda7c77651645fe (void)
+-- A *hs_bindgen_feda7c77651645fe (void)
 -- {
 --   return &global1;
 -- }
 -- /* test_macrosreparse_Example_get_global2 */
 -- __attribute__ ((const))
--- signed int **hs_bindgen_61b4abc5e1afa043 (void)
+-- A **hs_bindgen_61b4abc5e1afa043 (void)
 -- {
 --   return &global2;
 -- }
 -- /* test_macrosreparse_Example_get_global3 */
 -- __attribute__ ((const))
--- signed int ***hs_bindgen_f9bcb9580741dbc1 (void)
+-- A ***hs_bindgen_f9bcb9580741dbc1 (void)
 -- {
 --   return &global3;
 -- }
 -- /* test_macrosreparse_Example_get_const1 */
 -- __attribute__ ((const))
--- signed int const *hs_bindgen_044004234e2019f6 (void)
+-- A const *hs_bindgen_044004234e2019f6 (void)
 -- {
 --   return &const1;
 -- }
 -- /* test_macrosreparse_Example_get_const2 */
 -- __attribute__ ((const))
--- signed int *const *hs_bindgen_6c69b6e35fe122c5 (void)
+-- A *const *hs_bindgen_6c69b6e35fe122c5 (void)
 -- {
 --   return &const2;
 -- }
 -- /* test_macrosreparse_Example_get_const3 */
 -- __attribute__ ((const))
--- signed int **const *hs_bindgen_da21ad94b09d46ae (void)
+-- A **const *hs_bindgen_da21ad94b09d46ae (void)
 -- {
 --   return &const3;
 -- }
@@ -11729,7 +11729,7 @@ funptr_ret10_funptr = unsafePerformIO hs_bindgen_44a7eb47cf87f092
 foreign import ccall unsafe "hs_bindgen_feda7c77651645fe" hs_bindgen_feda7c77651645fe_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_global1@
-hs_bindgen_feda7c77651645fe :: IO (Ptr CInt)
+hs_bindgen_feda7c77651645fe :: IO (Ptr A)
 -- __unique:__ @test_macrosreparse_Example_get_global1@
 hs_bindgen_feda7c77651645fe = fromFFIType hs_bindgen_feda7c77651645fe_base
 {-# NOINLINE global1 #-}
@@ -11741,7 +11741,7 @@ hs_bindgen_feda7c77651645fe = fromFFIType hs_bindgen_feda7c77651645fe_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-global1 :: Ptr CInt
+global1 :: Ptr A
 {-| Globals and constants
 
     __C declaration:__ @global1@
@@ -11755,7 +11755,7 @@ global1 = unsafePerformIO hs_bindgen_feda7c77651645fe
 foreign import ccall unsafe "hs_bindgen_61b4abc5e1afa043" hs_bindgen_61b4abc5e1afa043_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_global2@
-hs_bindgen_61b4abc5e1afa043 :: IO (Ptr (Ptr CInt))
+hs_bindgen_61b4abc5e1afa043 :: IO (Ptr (Ptr A))
 -- __unique:__ @test_macrosreparse_Example_get_global2@
 hs_bindgen_61b4abc5e1afa043 = fromFFIType hs_bindgen_61b4abc5e1afa043_base
 {-# NOINLINE global2 #-}
@@ -11765,7 +11765,7 @@ hs_bindgen_61b4abc5e1afa043 = fromFFIType hs_bindgen_61b4abc5e1afa043_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-global2 :: Ptr (Ptr CInt)
+global2 :: Ptr (Ptr A)
 {-| __C declaration:__ @global2@
 
     __defined at:__ @macros\/reparse.h 162:13@
@@ -11777,7 +11777,7 @@ global2 = unsafePerformIO hs_bindgen_61b4abc5e1afa043
 foreign import ccall unsafe "hs_bindgen_f9bcb9580741dbc1" hs_bindgen_f9bcb9580741dbc1_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_global3@
-hs_bindgen_f9bcb9580741dbc1 :: IO (Ptr (Ptr (Ptr CInt)))
+hs_bindgen_f9bcb9580741dbc1 :: IO (Ptr (Ptr (Ptr A)))
 -- __unique:__ @test_macrosreparse_Example_get_global3@
 hs_bindgen_f9bcb9580741dbc1 = fromFFIType hs_bindgen_f9bcb9580741dbc1_base
 {-# NOINLINE global3 #-}
@@ -11787,7 +11787,7 @@ hs_bindgen_f9bcb9580741dbc1 = fromFFIType hs_bindgen_f9bcb9580741dbc1_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-global3 :: Ptr (Ptr (Ptr CInt))
+global3 :: Ptr (Ptr (Ptr A))
 {-| __C declaration:__ @global3@
 
     __defined at:__ @macros\/reparse.h 163:13@
@@ -11799,7 +11799,7 @@ global3 = unsafePerformIO hs_bindgen_f9bcb9580741dbc1
 foreign import ccall unsafe "hs_bindgen_044004234e2019f6" hs_bindgen_044004234e2019f6_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const1@
-hs_bindgen_044004234e2019f6 :: IO (PtrConst CInt)
+hs_bindgen_044004234e2019f6 :: IO (PtrConst A)
 -- __unique:__ @test_macrosreparse_Example_get_const1@
 hs_bindgen_044004234e2019f6 = fromFFIType hs_bindgen_044004234e2019f6_base
 {-# NOINLINE hs_bindgen_f883e611325aa029 #-}
@@ -11811,7 +11811,7 @@ hs_bindgen_044004234e2019f6 = fromFFIType hs_bindgen_044004234e2019f6_base
 
     __unique:__ @test_macrosreparse_Example_const1@
 -}
-hs_bindgen_f883e611325aa029 :: PtrConst CInt
+hs_bindgen_f883e611325aa029 :: PtrConst A
 {-| __C declaration:__ @const1@
 
     __defined at:__ @macros\/reparse.h 165:19@
@@ -11822,13 +11822,13 @@ hs_bindgen_f883e611325aa029 :: PtrConst CInt
 -}
 hs_bindgen_f883e611325aa029 = unsafePerformIO hs_bindgen_044004234e2019f6
 {-# NOINLINE const1 #-}
-const1 :: CInt
+const1 :: A
 const1 = unsafePerformIO (peek hs_bindgen_f883e611325aa029)
 -- __unique:__ @test_macrosreparse_Example_get_const2@
 foreign import ccall unsafe "hs_bindgen_6c69b6e35fe122c5" hs_bindgen_6c69b6e35fe122c5_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const2@
-hs_bindgen_6c69b6e35fe122c5 :: IO (PtrConst (Ptr CInt))
+hs_bindgen_6c69b6e35fe122c5 :: IO (PtrConst (Ptr A))
 -- __unique:__ @test_macrosreparse_Example_get_const2@
 hs_bindgen_6c69b6e35fe122c5 = fromFFIType hs_bindgen_6c69b6e35fe122c5_base
 {-# NOINLINE hs_bindgen_4a0e98a60a6414ee #-}
@@ -11840,7 +11840,7 @@ hs_bindgen_6c69b6e35fe122c5 = fromFFIType hs_bindgen_6c69b6e35fe122c5_base
 
     __unique:__ @test_macrosreparse_Example_const2@
 -}
-hs_bindgen_4a0e98a60a6414ee :: PtrConst (Ptr CInt)
+hs_bindgen_4a0e98a60a6414ee :: PtrConst (Ptr A)
 {-| __C declaration:__ @const2@
 
     __defined at:__ @macros\/reparse.h 166:19@
@@ -11851,13 +11851,13 @@ hs_bindgen_4a0e98a60a6414ee :: PtrConst (Ptr CInt)
 -}
 hs_bindgen_4a0e98a60a6414ee = unsafePerformIO hs_bindgen_6c69b6e35fe122c5
 {-# NOINLINE const2 #-}
-const2 :: Ptr CInt
+const2 :: Ptr A
 const2 = unsafePerformIO (peek hs_bindgen_4a0e98a60a6414ee)
 -- __unique:__ @test_macrosreparse_Example_get_const3@
 foreign import ccall unsafe "hs_bindgen_da21ad94b09d46ae" hs_bindgen_da21ad94b09d46ae_base ::
     IO (Ptr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const3@
-hs_bindgen_da21ad94b09d46ae :: IO (PtrConst (Ptr (Ptr CInt)))
+hs_bindgen_da21ad94b09d46ae :: IO (PtrConst (Ptr (Ptr A)))
 -- __unique:__ @test_macrosreparse_Example_get_const3@
 hs_bindgen_da21ad94b09d46ae = fromFFIType hs_bindgen_da21ad94b09d46ae_base
 {-# NOINLINE hs_bindgen_0d6ba48ba79ada14 #-}
@@ -11869,7 +11869,7 @@ hs_bindgen_da21ad94b09d46ae = fromFFIType hs_bindgen_da21ad94b09d46ae_base
 
     __unique:__ @test_macrosreparse_Example_const3@
 -}
-hs_bindgen_0d6ba48ba79ada14 :: PtrConst (Ptr (Ptr CInt))
+hs_bindgen_0d6ba48ba79ada14 :: PtrConst (Ptr (Ptr A))
 {-| __C declaration:__ @const3@
 
     __defined at:__ @macros\/reparse.h 167:19@
@@ -11880,5 +11880,5 @@ hs_bindgen_0d6ba48ba79ada14 :: PtrConst (Ptr (Ptr CInt))
 -}
 hs_bindgen_0d6ba48ba79ada14 = unsafePerformIO hs_bindgen_da21ad94b09d46ae
 {-# NOINLINE const3 #-}
-const3 :: Ptr (Ptr CInt)
+const3 :: Ptr (Ptr A)
 const3 = unsafePerformIO (peek hs_bindgen_0d6ba48ba79ada14)
