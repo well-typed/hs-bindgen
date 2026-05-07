@@ -49,6 +49,7 @@ testCases = [
     , test_macros_reparse_cref_attributes
     , test_macros_reparse_gnu_attributes
     , test_macros_reparse_functions
+    , test_macros_wrong_source_location
     ]
 
 {-------------------------------------------------------------------------------
@@ -242,3 +243,11 @@ test_macros_reparse_functions =
     defaultTest "macros/reparse/functions"
       -- C99 required for inline functions
       & #cStandard .~ c99
+
+test_macros_wrong_source_location :: TestCase
+test_macros_wrong_source_location =
+    defaultTest "macros/wrong_source_location"
+      -- Spelling location is only populated correctly on llvm >= 19.1.0;
+      -- older toolchains cannot disambiguate anonymous declarations
+      -- originating from the same macro expansion.
+      & #clangVersion .~ Just (>= (19, 1, 0))

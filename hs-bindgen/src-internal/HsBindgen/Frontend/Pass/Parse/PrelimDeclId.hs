@@ -38,9 +38,40 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 -------------------------------------------------------------------------------}
 
 -- | Anonymous declaration identifier
+--
+-- A single macro expansion can produce multiple anonymous tag declarations,
+-- and libclang reports the /same/ expansion location for all of them
+-- (the macro call site). Without further information they would share an
+-- 'AnonId'. For example:
+--
+-- > #define TwoAnons \
+-- >     struct { int a; } x; \
+-- >     struct { int b; } y;
+-- >
+-- > TwoAnons   // both 'struct {}'s share the expansion location
+--
+-- The /spelling/ location points back to where each token was originally
+-- written — for macro-expanded code, an offset inside the macro body rather
+-- than the call site. The two structs above have distinct spelling
+-- locations (one per @struct@ token in the macro), so keying on it
+-- disambiguates them.
+--
+-- 'loc' (expansion) is what we surface in traces and Haddock, so it stays
+-- the human-facing identifier; 'spelling' exists only to make the derived
+-- 'Eq' and 'Ord' fine-grained enough. For non-macro code 'spelling' equals
+-- 'loc' and 'AnonId' behaves as before.
+--
+-- The spelling location is only populated correctly on @llvm >= 19.1.0@; on
+-- older toolchains it equals the expansion location and the collision
+-- returns.
 data AnonId = AnonId{
-      loc  :: SingleLoc
-    , kind :: CNameKind
+      -- | Macro expansion site, or the source location for non-macro decls.
+      -- Used for tracing and Haddock comments.
+      loc      :: SingleLoc
+      -- | Spelling location: where the tokens were written in the source
+      -- (inside the macro definition, for macro-expanded decls).
+    , spelling :: SingleLoc
+    , kind     :: CNameKind
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -109,8 +140,10 @@ atCursor curr kind = do
   where
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
-        loc <- HighLevel.clang_getCursorLocation' curr
-        return $ Anon AnonId{loc = loc, kind = kind}
+        cxLoc    <- clang_getCursorLocation curr
+        loc      <- HighLevel.clang_getExpansionLocation cxLoc
+        spelling <- HighLevel.clang_getSpellingLocation  cxLoc
+        return $ Anon AnonId{loc = loc, spelling = spelling, kind = kind}
 
 -- | Check for built-in definitions
 checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)
@@ -130,7 +163,7 @@ checkIsBuiltin curr = do
 -------------------------------------------------------------------------------}
 
 instance PrettyForTrace AnonId where
-  prettyForTrace anonId = PP.singleQuotes $ PP.hsep [
+  prettyForTrace anonId = PP.singleQuotes $ PP.hsep $ [
       "unnamed"
     , case anonId.kind of
         CNameKindTagged tagKind ->
@@ -141,6 +174,9 @@ instance PrettyForTrace AnonId where
           "macro"
     , "at"
     , PP.string $ HighLevel.prettySingleLoc ShowFile anonId.loc
+    ] ++ [
+      PP.string $ "<Spelling=" ++ HighLevel.prettySingleLoc ShowFile anonId.spelling ++ ">"
+    | anonId.spelling /= anonId.loc
     ]
 
 instance PrettyForTrace PrelimDeclId where

@@ -84,6 +84,13 @@
   expansions. The bug would, for example, cause `long long int` to be parsed as
   `long int` in some cases, but that is now fixed. See [issue #1685][is-1685]
   and [PR #1921][pr-1921].
+* Distinguish anonymous declarations originating from the same macro
+  expansion. libclang reports the same expansion location for all of them,
+  which previously caused them to collide on the same `AnonId` and panic in
+  the `AssignAnonIds` pass; we now also key on the spelling location.
+  Requires `llvm >= 19.1.0`; older toolchains fall back to the previous
+  best-effort behaviour. See
+  [issue #1860](https://github.com/well-typed/hs-bindgen/issues/1860).
 * Fix the reparser to ignore storage class specifiers and function specifiers.
   Previously, declarations carrying any of these on macro-using function headers
   or globals failed to reparse and silently fell back to the un-reparsed type,

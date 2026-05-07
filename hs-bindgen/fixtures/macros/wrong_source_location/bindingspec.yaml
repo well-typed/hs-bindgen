@@ -1,0 +1,204 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/wrong_source_location.h
+  cname: UU1
+  hsname: UU1
+- headers: macros/wrong_source_location.h
+  cname: struct @UU1_fieldY
+  hsname: UU1_fieldY
+- headers: macros/wrong_source_location.h
+  cname: struct UU1
+  hsname: UU1
+- headers: macros/wrong_source_location.h
+  cname: UU2
+  hsname: UU2
+- headers: macros/wrong_source_location.h
+  cname: struct @UU2_fieldY
+  hsname: UU2_fieldY
+- headers: macros/wrong_source_location.h
+  cname: struct UU2
+  hsname: UU2
+- headers: macros/wrong_source_location.h
+  cname: struct @VV1_fieldA
+  hsname: VV1_fieldA
+- headers: macros/wrong_source_location.h
+  cname: struct @VV1_fieldB
+  hsname: VV1_fieldB
+- headers: macros/wrong_source_location.h
+  cname: struct VV1
+  hsname: VV1
+- headers: macros/wrong_source_location.h
+  cname: struct @VV2_fieldA
+  hsname: VV2_fieldA
+- headers: macros/wrong_source_location.h
+  cname: struct @VV2_fieldB
+  hsname: VV2_fieldB
+- headers: macros/wrong_source_location.h
+  cname: struct VV2
+  hsname: VV2
+hstypes:
+- hsname: UU1
+  representation:
+    record:
+      constructor: UU1
+      fields:
+      - uU1_fieldY
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UU1_fieldY
+  representation:
+    record:
+      constructor: UU1_fieldY
+      fields:
+      - uU1_fieldY_fieldX
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UU2
+  representation:
+    record:
+      constructor: UU2
+      fields:
+      - uU2_fieldY
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UU2_fieldY
+  representation:
+    record:
+      constructor: UU2_fieldY
+      fields:
+      - uU2_fieldY_fieldX
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV1
+  representation:
+    record:
+      constructor: VV1
+      fields:
+      - vV1_fieldA
+      - vV1_fieldB
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV1_fieldA
+  representation:
+    record:
+      constructor: VV1_fieldA
+      fields:
+      - vV1_fieldA_a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV1_fieldB
+  representation:
+    record:
+      constructor: VV1_fieldB
+      fields:
+      - vV1_fieldB_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV2
+  representation:
+    record:
+      constructor: VV2
+      fields:
+      - vV2_fieldA
+      - vV2_fieldB
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV2_fieldA
+  representation:
+    record:
+      constructor: VV2_fieldA
+      fields:
+      - vV2_fieldA_a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: VV2_fieldB
+  representation:
+    record:
+      constructor: VV2_fieldB
+      fields:
+      - vV2_fieldB_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
