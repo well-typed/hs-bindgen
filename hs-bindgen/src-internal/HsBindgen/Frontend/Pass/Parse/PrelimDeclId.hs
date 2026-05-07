@@ -39,18 +39,31 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 -- | Anonymous declaration identifier
 --
--- libclang reports the same expansion location for /every/ declaration
--- produced by a single macro expansion, so two distinct anonymous
--- declarations from one expansion would otherwise share an 'AnonId'. We
--- therefore also key on the spelling location (where the tokens appear in
--- the macro definition).
+-- A single macro expansion can produce multiple anonymous tag declarations,
+-- and libclang reports the /same/ expansion location for all of them
+-- (the macro call site). Without further information they would share an
+-- 'AnonId'. For example:
 --
--- The 'spelling' field is rarely read directly. However it is usefult to
--- disambiguate the derived 'Eq' and 'Ord'.
+-- > #define TwoAnons \
+-- >     struct { int a; } x; \
+-- >     struct { int b; } y;
+-- >
+-- > TwoAnons   // both 'struct {}'s share the expansion location
+--
+-- The /spelling/ location points back to where each token was originally
+-- written — for macro-expanded code, an offset inside the macro body rather
+-- than the call site. The two structs above have distinct spelling
+-- locations (one per @struct@ token in the macro), so keying on it
+-- disambiguates them.
+--
+-- 'loc' (expansion) is what we surface in traces and Haddock, so it stays
+-- the human-facing identifier; 'spelling' exists only to make the derived
+-- 'Eq' and 'Ord' fine-grained enough. For non-macro code 'spelling' equals
+-- 'loc' and 'AnonId' behaves as before.
 --
 -- The spelling location is only populated correctly on @llvm >= 19.1.0@; on
--- older toolchains it equals the expansion location and disambiguation is
--- best-effort.
+-- older toolchains it equals the expansion location and the collision
+-- returns.
 data AnonId = AnonId{
       -- | Macro expansion site, or the source location for non-macro decls.
       -- Used for tracing and Haddock comments.
