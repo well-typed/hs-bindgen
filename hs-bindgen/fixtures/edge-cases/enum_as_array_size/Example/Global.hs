@@ -1,4 +1,3 @@
-{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}

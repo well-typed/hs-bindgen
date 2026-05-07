@@ -1,0 +1,38 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/redeclaration/identical_semantics.h
+  cname: macro T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

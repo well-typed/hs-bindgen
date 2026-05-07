@@ -1,0 +1,174 @@
+-- addDependentFile examples/golden/macros/redeclaration/def_undef_def.h
+-- #include <macros/redeclaration/def_undef_def.h>
+-- void hs_bindgen_79fe9113b0a5d6a5 (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_4327dd00f245ace9 (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_cd656f42f4fc25f4 (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_fe4fb459e811e272 (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- /* test_macrosredeclarationdef_undef_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_cf4e7a02d3afe48b (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosredeclarationdef_undef_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_0d437e8c57fae439 (void)) (
+--   char arg1
+-- )
+-- {
+--   return &bar;
+-- }
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_79fe9113b0a5d6a5" hs_bindgen_79fe9113b0a5d6a5_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
+hs_bindgen_79fe9113b0a5d6a5 :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
+hs_bindgen_79fe9113b0a5d6a5 = fromFFIType hs_bindgen_79fe9113b0a5d6a5_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_safe = hs_bindgen_79fe9113b0a5d6a5
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_4327dd00f245ace9" hs_bindgen_4327dd00f245ace9_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_bar@
+hs_bindgen_4327dd00f245ace9 :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_bar@
+hs_bindgen_4327dd00f245ace9 = fromFFIType hs_bindgen_4327dd00f245ace9_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_safe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_safe = hs_bindgen_4327dd00f245ace9
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_cd656f42f4fc25f4" hs_bindgen_cd656f42f4fc25f4_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
+hs_bindgen_cd656f42f4fc25f4 :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
+hs_bindgen_cd656f42f4fc25f4 = fromFFIType hs_bindgen_cd656f42f4fc25f4_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_unsafe = hs_bindgen_cd656f42f4fc25f4
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_fe4fb459e811e272" hs_bindgen_fe4fb459e811e272_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_bar@
+hs_bindgen_fe4fb459e811e272 :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_bar@
+hs_bindgen_fe4fb459e811e272 = fromFFIType hs_bindgen_fe4fb459e811e272_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_unsafe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_unsafe = hs_bindgen_fe4fb459e811e272
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_cf4e7a02d3afe48b" hs_bindgen_cf4e7a02d3afe48b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
+hs_bindgen_cf4e7a02d3afe48b :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
+hs_bindgen_cf4e7a02d3afe48b = fromFFIType hs_bindgen_cf4e7a02d3afe48b_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_cf4e7a02d3afe48b
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_0d437e8c57fae439" hs_bindgen_0d437e8c57fae439_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_bar@
+hs_bindgen_0d437e8c57fae439 :: IO (FunPtr (CChar -> IO ()))
+-- __unique:__ @test_macrosredeclarationdef_undef_Example_get_bar@
+hs_bindgen_0d437e8c57fae439 = fromFFIType hs_bindgen_0d437e8c57fae439_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_funptr :: FunPtr (CChar -> IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/def_undef_def.h 7:6@
+
+    __exported by:__ @macros\/redeclaration\/def_undef_def.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_0d437e8c57fae439
