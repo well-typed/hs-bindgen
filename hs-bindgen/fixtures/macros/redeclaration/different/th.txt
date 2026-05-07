@@ -1,0 +1,174 @@
+-- addDependentFile examples/golden/macros/redeclaration/different.h
+-- #include <macros/redeclaration/different.h>
+-- void hs_bindgen_07088bb3b4171c29 (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_190787b2a527df76 (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_42c808e061719a11 (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_06a03878580406ca (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- /* test_macrosredeclarationdifferent_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_d0db0eb938233932 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosredeclarationdifferent_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_46700de9dec9ddc2 (void)) (
+--   char arg1
+-- )
+-- {
+--   return &bar;
+-- }
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_07088bb3b4171c29" hs_bindgen_07088bb3b4171c29_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
+hs_bindgen_07088bb3b4171c29 :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
+hs_bindgen_07088bb3b4171c29 = fromFFIType hs_bindgen_07088bb3b4171c29_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_safe = hs_bindgen_07088bb3b4171c29
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_190787b2a527df76" hs_bindgen_190787b2a527df76_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
+hs_bindgen_190787b2a527df76 :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
+hs_bindgen_190787b2a527df76 = fromFFIType hs_bindgen_190787b2a527df76_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_safe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_safe = hs_bindgen_190787b2a527df76
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_42c808e061719a11" hs_bindgen_42c808e061719a11_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
+hs_bindgen_42c808e061719a11 :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
+hs_bindgen_42c808e061719a11 = fromFFIType hs_bindgen_42c808e061719a11_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_unsafe = hs_bindgen_42c808e061719a11
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_06a03878580406ca" hs_bindgen_06a03878580406ca_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
+hs_bindgen_06a03878580406ca :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
+hs_bindgen_06a03878580406ca = fromFFIType hs_bindgen_06a03878580406ca_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_unsafe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_unsafe = hs_bindgen_06a03878580406ca
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_d0db0eb938233932" hs_bindgen_d0db0eb938233932_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
+hs_bindgen_d0db0eb938233932 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
+hs_bindgen_d0db0eb938233932 = fromFFIType hs_bindgen_d0db0eb938233932_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_d0db0eb938233932
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_46700de9dec9ddc2" hs_bindgen_46700de9dec9ddc2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
+hs_bindgen_46700de9dec9ddc2 :: IO (FunPtr (CChar -> IO ()))
+-- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
+hs_bindgen_46700de9dec9ddc2 = fromFFIType hs_bindgen_46700de9dec9ddc2_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_funptr :: FunPtr (CChar -> IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/different.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_46700de9dec9ddc2

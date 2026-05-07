@@ -30,6 +30,7 @@ testCases = [
     , defaultTest "macros/object_like_as_function_like"
     , defaultTest "macros/parse/first_parse_then_typecheck"
     , defaultTest "macros/parse/macro_typedef_scope"
+    , defaultTest "macros/redeclaration/identical_semantics"
       -- Bespoke tests
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
@@ -40,8 +41,13 @@ testCases = [
     , test_macros_parse_intermittent_include
     , test_macros_parse_intermittent_include_conditional
     , test_macros_parse_macro_typedef_scope_multiple
+    , test_macros_redeclaration_def_undef_def
+    , test_macros_redeclaration_different
+    , test_macros_redeclaration_identical_syntax
     , test_macros_reparse
     , test_macros_reparse_arithmetic_types
+    , test_macros_reparse_cref_attributes
+    , test_macros_reparse_gnu_attributes
     , test_macros_reparse_functions
     , test_macros_wrong_source_location
     ]
@@ -151,12 +157,73 @@ test_macros_parse_macro_typedef_scope_multiple =
           & #selectPredicate .~ BTrue
           )
 
+test_macros_redeclaration_def_undef_def :: TestCase
+test_macros_redeclaration_def_undef_def =
+    defaultTest "macros/redeclaration/def_undef_def"
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["macro T"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchSelect name SelectConflict{} ->
+        Just $ Expected name
+      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
+        Just $ Tolerated
+      _otherwise ->
+        Nothing
+
+test_macros_redeclaration_different :: TestCase
+test_macros_redeclaration_different =
+    defaultTest "macros/redeclaration/different"
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["macro T"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchSelect name SelectConflict{} ->
+        Just $ Expected name
+      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
+        Just $ Tolerated
+      _otherwise ->
+        Nothing
+
+test_macros_redeclaration_identical_syntax :: TestCase
+test_macros_redeclaration_identical_syntax =
+    defaultTest "macros/redeclaration/identical_syntax"
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["macro A", "macro T"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchSelect name@"macro A" SelectConflict{} ->
+        Just $ Expected name
+      MatchSelect name@"macro T" TransitiveDependenciesMissing{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+
 test_macros_reparse :: TestCase
 test_macros_reparse =
     defaultTest "macros/reparse"
         -- `bool` is a keyword.
       & #clangVersion   .~ Just (>= (15, 0, 0))
         -- `bool` is a keyword.
+      & #cStandard      .~ c23
+
+test_macros_reparse_gnu_attributes :: TestCase
+test_macros_reparse_gnu_attributes =
+    defaultTest "macros/reparse/gnu_attributes"
+      & #cStandard      .~ c23
+
+test_macros_reparse_cref_attributes :: TestCase
+test_macros_reparse_cref_attributes =
+    defaultTest "macros/reparse/cref_attributes"
       & #cStandard      .~ c23
 
 test_macros_reparse_arithmetic_types :: TestCase

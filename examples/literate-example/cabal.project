@@ -2,6 +2,5 @@ import: ../../cabal.project.base
 
 packages: .
           ../../c-expr-dsl
-          ../../doxygen-parser
           ../../hs-bindgen
           ../../hs-bindgen-runtime

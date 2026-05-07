@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Hs.AST (Strategy (..))
+import HsBindgen.Backend.Hs.CallConv (CallConv (..))
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Imports
@@ -54,8 +55,7 @@ requiredExtensions fieldNaming = \case
       , typeExtensions deriv.typ
       ]
     DForeignImport foreignImport -> mconcat [
-        -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
-        ext TH.CApiFFI
+        callConvExtensions foreignImport.callConv
       , foldMap (typeExtensions . (.typ)) foreignImport.parameters
       , typeExtensions foreignImport.result.typ
       ]
@@ -187,3 +187,13 @@ strategyExtensions = \case
     DeriveNewtype -> Set.singleton TH.GeneralizedNewtypeDeriving
     DeriveStock   -> Set.empty
     DeriveVia t   -> Set.insert TH.DerivingVia (typeExtensions t)
+
+-- | Language extensions required by a calling convention.
+--
+-- Only GHC's standard @capi@ calling convention requires @CApiFFI@; the
+-- @ccall@-based conventions (including our userland CAPI) do not.
+callConvExtensions :: CallConv -> Set TH.Extension
+callConvExtensions = \case
+    CallConvGhcCapi{}      -> Set.singleton TH.CApiFFI
+    CallConvUserlandCapi{} -> Set.empty
+    CallConvGhcCCall{}     -> Set.empty

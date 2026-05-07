@@ -10,7 +10,6 @@ let
   hsBindgenPkgNames = [
     "c-expr-dsl"
     "c-expr-runtime"
-    "doxygen-parser"
     "hs-bindgen"
     "hs-bindgen-runtime"
     "hs-bindgen-test-runtime"
@@ -26,7 +25,7 @@ in
         hsBindgenPkgs = mkHsBindgenPkgs hfinal;
       in
       {
-        inherit (hsBindgenPkgs) doxygen-parser hs-bindgen-runtime hs-bindgen-test-runtime;
+        inherit (hsBindgenPkgs) hs-bindgen-runtime hs-bindgen-test-runtime;
         # TODO: The documentation fails to build.
         c-expr-dsl = hlib.dontHaddock hsBindgenPkgs.c-expr-dsl;
         # TODO: The test of `c-expr-runtime` requires `musl` headers, but

@@ -1,0 +1,174 @@
+-- addDependentFile examples/golden/macros/redeclaration/identical_syntax.h
+-- #include <macros/redeclaration/identical_syntax.h>
+-- void hs_bindgen_3a672aa51059499f (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_f6ce0c67437e90e7 (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_1f6a4a088740d7bc (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_69080a62615bc0d8 (
+--   char arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- /* test_macrosredeclarationidentical_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_a17f85783f80f294 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosredeclarationidentical_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_fbbde3e7da8ad667 (void)) (
+--   char arg1
+-- )
+-- {
+--   return &bar;
+-- }
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
+hs_bindgen_3a672aa51059499f :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
+hs_bindgen_3a672aa51059499f = fromFFIType hs_bindgen_3a672aa51059499f_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_safe = hs_bindgen_3a672aa51059499f
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_f6ce0c67437e90e7" hs_bindgen_f6ce0c67437e90e7_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
+hs_bindgen_f6ce0c67437e90e7 :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
+hs_bindgen_f6ce0c67437e90e7 = fromFFIType hs_bindgen_f6ce0c67437e90e7_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_safe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_safe = hs_bindgen_f6ce0c67437e90e7
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_1f6a4a088740d7bc" hs_bindgen_1f6a4a088740d7bc_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
+hs_bindgen_1f6a4a088740d7bc :: CInt -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
+hs_bindgen_1f6a4a088740d7bc = fromFFIType hs_bindgen_1f6a4a088740d7bc_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_unsafe = hs_bindgen_1f6a4a088740d7bc
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_69080a62615bc0d8" hs_bindgen_69080a62615bc0d8_base ::
+    Int8
+ -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
+hs_bindgen_69080a62615bc0d8 :: CChar -> IO ()
+-- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
+hs_bindgen_69080a62615bc0d8 = fromFFIType hs_bindgen_69080a62615bc0d8_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_unsafe :: CChar -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_unsafe = hs_bindgen_69080a62615bc0d8
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_a17f85783f80f294" hs_bindgen_a17f85783f80f294_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
+hs_bindgen_a17f85783f80f294 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
+hs_bindgen_a17f85783f80f294 = fromFFIType hs_bindgen_a17f85783f80f294_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_a17f85783f80f294
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_fbbde3e7da8ad667" hs_bindgen_fbbde3e7da8ad667_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
+hs_bindgen_fbbde3e7da8ad667 :: IO (FunPtr (CChar -> IO ()))
+-- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
+hs_bindgen_fbbde3e7da8ad667 = fromFFIType hs_bindgen_fbbde3e7da8ad667_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_funptr :: FunPtr (CChar -> IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 10:6@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_fbbde3e7da8ad667

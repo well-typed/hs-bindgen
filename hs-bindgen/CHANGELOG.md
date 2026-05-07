@@ -38,6 +38,14 @@
 
 ### Minor changes
 
+* The `doxygen-parser` library has been extracted into its own repository
+  ([well-typed/doxygen-parser](https://github.com/well-typed/doxygen-parser))
+  and is no longer published as part of the `hs-bindgen` source tree. The
+  package and its API (`Doxygen.Parser`, `Doxygen.Parser.Types`,
+  `Doxygen.Parser.Warning`, `Doxygen.Parser.Internal`) are unchanged.
+  Downstream consumers that previously depended on `doxygen-parser` as a
+  local package should depend on it via Hackage (or
+  `source-repository-package`) instead. See [#1884][is-1884].
 * Overhaul internal identifier and name representation: `Name ns` and `SomeName`
   replace `Identifier` and `ExportedName ns` across the pipeline
 * The `enclosing` field in `DeclInfo` is now `[EnclosingRef p]` (a flat nesting
@@ -79,6 +87,10 @@
   Requires `llvm >= 19.1.0`; older toolchains fall back to the previous
   best-effort behaviour. See
   [issue #1860](https://github.com/well-typed/hs-bindgen/issues/1860).
+* Stop emitting the redundant `CApiFFI` language pragma in generated modules.
+  The pragma was previously added unconditionally for every foreign import,
+  even though the generated bindings only use the `ccall` calling convention.
+  See [issue #1868][is-1868].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -193,12 +205,14 @@
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
 [is-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
+[is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
+[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
 
 ## 0.1.0-alpha -- 2026-02-06
 
