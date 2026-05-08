@@ -1,0 +1,15 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: M
+ctypes:
+- headers: macros/macro_ext_binding_dep.h
+  cname: A
+  hsname: A
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA

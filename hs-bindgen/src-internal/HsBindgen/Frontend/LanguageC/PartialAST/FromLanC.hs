@@ -7,7 +7,6 @@ module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
   ) where
 
 import Control.Monad
-import Data.Map qualified as Map
 import Data.Text qualified as Text
 import GHC.Stack
 import Language.C qualified as LanC
@@ -166,8 +165,8 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- away by 'addKnownType' in the ReparseMacroExpansions pass, so the
       -- lookup returns @TypePrim PrimBool@ in that case.
       LanC.CBoolType   _a -> \partial -> do
-        typeEnv <- getReparseEnv
-        case Map.lookup "bool" typeEnv of
+        env <- getReparseEnv
+        case lookupType "bool" env of
           Just typ -> notFun typ partial
           Nothing  -> notFun (C.TypePrim C.PrimBool) partial
 #else
@@ -205,14 +204,14 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
         name <- checkNotAnon mTag CTagKindEnum
         checkNoDef "enum definition" mDef
-        typeEnv <- getReparseEnv
-        case Map.lookup (renderCDeclNameC name) typeEnv of
+        env <- getReparseEnv
+        case lookupType (renderCDeclNameC name) env of
           Nothing  -> unexpected $ "enum reference " ++ show name
           Just typ -> notFun typ partial
       LanC.CTypeDef name _a -> \partial -> do
         let name' = mkCName name
-        typeEnv <- getReparseEnv
-        case Map.lookup name' typeEnv of
+        env <- getReparseEnv
+        case lookupType name' env of
           Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where

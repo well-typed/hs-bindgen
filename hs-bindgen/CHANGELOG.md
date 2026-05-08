@@ -15,7 +15,9 @@
   whose bodies contain macro expansions. See [PR #1862][pr-1862].
 * Type-like macro expressions (e.g. `#define A int`) are now parsed and
   typechecked together with value-like macro expressions (e.q., `#define FOO 1`)
-  using `c-expr-dsl` rather than `language-c`.
+  using `c-expr-dsl` rather than `language-c`. The typechecked type expression
+  is translated directly to a Haskell type in the backend (see
+  [#1953](https://github.com/well-typed/hs-bindgen/issues/1953)).
 * Scoped reparse: when reparsing a declaration that uses macro expansions, only
   macros actually expanded by Clang *in that declaration* are substituted,
   avoiding spurious substitutions.

@@ -10,6 +10,8 @@ import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import C.Expr.Typecheck qualified as CExpr
+
 import Clang.HighLevel.Types
 import Clang.Paths
 
@@ -344,6 +346,13 @@ resolveDeep decl (cSpec, hsSpec) = do
   Instances
 -------------------------------------------------------------------------------}
 
+-- | Resolve references to external declarations
+--
+-- This is part of the second pass ('resolveDeep').
+--
+-- We do not need to handle references to omitted declarations here since
+-- declarations depending on unavailable declarations will be removed in the
+-- @Select@ pass.
 class Resolve a where
   resolve ::
        HasCallStack
@@ -493,18 +502,27 @@ instance Resolve CheckedMacro where
     MacroValue val -> MacroValue <$> pure (coercePass val)
 
 instance Resolve CheckedMacroType where
-  resolve ctx macroType = reconstruct <$> resolve ctx macroType.cType
-    where
-      reconstruct ::
-           C.Type ResolveBindingSpecs
-        -> CheckedMacroType ResolveBindingSpecs
-      reconstruct cType' = CheckedMacroType {
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
-          --
-          -- Be careful when we replace the CType with the TExpr.
-          cType = cType'
-        , ann = macroType.ann
+  resolve ctx (CheckedMacroType (CExpr.CheckedMacroTypeExpr body typ) ann) = do
+      body' <- traverse resolveVar body
+      pure CheckedMacroType{
+          typ = CExpr.CheckedMacroTypeExpr body' typ
+        , ann = ann
         }
+    where
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1969>
+      --
+      -- Usage of 'MacroTypeBodyVar' hints at possible drawbacks of our design
+      -- of 'DeclId'. Maybe we can directly refer to external bindings from
+      -- 'DeclId'?
+      resolveVar ::
+           MacroTypeBodyVar ReparseMacroExpansions
+        -> M (MacroTypeBodyVar ResolveBindingSpecs)
+      resolveVar (MacroTypeExtBinding   x) = absurd x
+      resolveVar (MacroTypeBodyVar declId) = do
+          mExt <- auxExt ctx declId
+          pure $ case mExt of
+            Just ext -> MacroTypeExtBinding ext
+            Nothing  -> MacroTypeBodyVar declId
 
 instance Resolve C.Type where
   resolve ctx = \case
@@ -551,31 +569,9 @@ instance Resolve C.Type where
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
       aux :: HasCallStack => DeclId -> M (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
-      aux cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
-        -- Check for selected external binding
-        case Map.lookup cDeclId state.extTypes of
-          Just ty -> do
-            State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
-            pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
-          Nothing -> do
-            -- In the first pass we have looked at all "usable" declarations.
-            -- Now we check for external bindings of types of "unusable"
-            -- declarations.
-            case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
-              []   -> return Nothing
-              locs -> do
-                let declPaths =
-                      foldMap
-                        (IncludeGraph.reaches env.includeGraph . singleLocPath)
-                        locs
-                mTy <- resolveExtBinding cDeclId declPaths Nothing
-                case mTy of
-                  Just ty -> do
-                    State.modify' $
-                        insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
-                      . insertExtType cDeclId ty
-                    pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
-                  Nothing -> return Nothing
+      aux cDeclId = fmap reconstruct <$> auxExt ctx cDeclId
+        where
+          reconstruct ty uTy = C.TypeExtBinding $ C.Ref ty uTy
 
 instance Resolve C.TypeFunArg where
   resolve ctx arg = do
@@ -584,6 +580,33 @@ instance Resolve C.TypeFunArg where
           typ = typ'
         , ann = arg.ann
         }
+
+auxExt ::
+     HasCallStack
+  => DeclId
+  -> DeclId
+  -> M (Maybe ResolvedExtBinding)
+auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
+    case Map.lookup cDeclId state.extTypes of
+      Just ty -> do
+        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
+        pure (Just ty)
+      Nothing ->
+        case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
+          []   -> pure Nothing
+          locs -> do
+            let declPaths =
+                  foldMap
+                    (IncludeGraph.reaches env.includeGraph . singleLocPath)
+                    locs
+            mTy <- resolveExtBinding cDeclId declPaths Nothing
+            case mTy of
+              Just ty -> do
+                State.modify' $
+                    insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
+                  . insertExtType cDeclId ty
+                pure (Just ty)
+              Nothing -> pure Nothing
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

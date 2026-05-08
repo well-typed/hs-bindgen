@@ -69,7 +69,7 @@ deriving stock instance (Show var) => Show (MacroTcResult var)
 -- | Typecheck a macro
 tcMacro ::
      forall m ctx var.
-     Applicative m
+     Monad m
   => TypeEnv
   -> (Name -> m var)              -- ^ Inject type
   -> (M.TagKind -> Name -> m var) -- ^ Inject tagged type
@@ -87,12 +87,24 @@ tcMacro tyEnv injectType injectTaggedType injectValue name params expr =
          (Type Ty, Quant (FunValue, Type Ty))
       -> m (Either MacroTcError (MacroTcResult var))
     classify = \case
-      (MacroTypeTy, quant) ->
-        if Vec.null params then
-          let toRes texpr = MacroTcTypeExpr $ CheckedMacroTypeExpr texpr quant
-          in  Right . toRes <$> T.fromExpr injectType injectTaggedType expr
-        else
+      (MacroTypeTy, quant)
+        | not (Vec.null params) ->
           pure $ Left $ TcUnsupportedTypeWithLocalParameters name (Vec.toList params)
-      (_, quant)           ->
-        let toRes vexpr = MacroTcValueExpr $ CheckedMacroValueExpr params vexpr quant
-        in  Right . toRes <$> V.fromExpr injectValue expr
+        | otherwise -> do
+          texpr <- T.fromExpr injectType injectTaggedType expr
+          pure $ if isIncompleteType texpr then
+            Left $ TcIncompleteTypeMacro name
+          else
+            Right $ MacroTcTypeExpr $ CheckedMacroTypeExpr texpr quant
+      (_, quant) -> do
+        vexpr <- V.fromExpr injectValue expr
+        pure $ Right $ MacroTcValueExpr $ CheckedMacroValueExpr params vexpr quant
+
+    -- | An incomplete type at the top level of a type-like macro: 'void' or
+    -- 'const'-wrapped 'void'. Pointer indirection makes the type complete, so
+    -- 'void *' (and 'const void *') are not flagged.
+    isIncompleteType :: T.Expr var -> Bool
+    isIncompleteType = \case
+        T.TypeLit M.TypeVoid -> True
+        T.App T.Const e      -> isIncompleteType e
+        _                    -> False

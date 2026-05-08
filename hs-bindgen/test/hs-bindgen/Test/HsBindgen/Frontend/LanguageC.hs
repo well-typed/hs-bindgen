@@ -279,7 +279,7 @@ prop_reparseGlobal ::
 prop_reparseGlobal input expectedOutput =
     ioProperty $ do
       tokens <- tokenize contents
-      let output = LanC.reparseGlobal Map.empty tokens
+      let output = LanC.reparseGlobal (LanC.ReparseEnv Map.empty Map.empty) tokens
       pure $
         counterexample ("reparser input: " <> contents) $
         tabulate "reparser input" [contents] $
