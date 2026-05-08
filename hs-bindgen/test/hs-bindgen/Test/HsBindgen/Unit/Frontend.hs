@@ -59,7 +59,7 @@ testWhenClangVersion p name assertion
     | otherwise  = testGroup name []
   where
     isRunnable :: Bool
-    isRunnable = case clangVersion of
+    isRunnable = case runtimeClangVersion of
       ClangVersion version  -> p version
       ClangVersionUnknown _ -> False
 

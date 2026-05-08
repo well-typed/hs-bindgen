@@ -92,11 +92,11 @@ check getTestResources test =
     --
     normalizeQuotes :: String -> String
     normalizeQuotes =
-      case clangVersion of
+      case runtimeClangVersion of
         ClangVersionUnknown _ -> id
         ClangVersion v
           -- Put your clang version here
-          | v >= (19, 0 ,0) -> go False
+          | v >= (19, 0, 0) -> go False
           | otherwise       -> id
       where
         go _ [] = []

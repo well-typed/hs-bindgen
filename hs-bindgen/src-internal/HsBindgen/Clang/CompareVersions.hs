@@ -6,7 +6,7 @@ module HsBindgen.Clang.CompareVersions (
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.Version (clangVersionCompileTime, clang_getClangVersion)
+import Clang.Version
 
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -39,14 +39,15 @@ instance IsTrace Level CompareVersionsMsg where
   Comparison functions
 -------------------------------------------------------------------------------}
 
--- | Check if the compile time version of clang is different than the
--- runtime version, issue a warning if that's the case to inform the user
--- of this fact.
+-- | Check that the runtime version of libclang is compatible with the
+-- compile-time version
 --
+-- A warning is issued if they are incompatible.
 compareClangVersions :: Tracer CompareVersionsMsg -> IO ()
-compareClangVersions tracer = do
-  let compileTimeVersion = clangVersionCompileTime
-  runtimeVersion <- liftIO clang_getClangVersion
-  when (compileTimeVersion /= runtimeVersion) $
-    traceWith tracer $ withCallStack $ CompileTimeAndRuntimeVersionMismatch compileTimeVersion runtimeVersion
-
+compareClangVersions tracer
+    | isCompatibleClangVersion compileTimeClangVersion runtimeClangVersion =
+        return ()
+    | otherwise = traceWith tracer . withCallStack $
+        CompileTimeAndRuntimeVersionMismatch
+          compileTimeClangVersionString
+          runtimeClangVersionString
