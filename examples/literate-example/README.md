@@ -17,8 +17,6 @@ The literate preprocessor approach (option 4) leverages Cabal's support for lite
 
 By configuring `hs-bindgen-cli` as the preprocessor, binding generation occurs automatically during `cabal build`.  Instead of literate Haskell markup, the `.lhs` file contains configuration flags for `hs-bindgen` in the form of a Haskell list.
 
-The Template Haskell mode avoids the need for any of these approaches, but is less suitable for cross-compilation scenarios where target platform information may not be available at compile time.
-
 ## Structure
 
 ```

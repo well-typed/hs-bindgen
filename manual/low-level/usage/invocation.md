@@ -153,10 +153,6 @@ automatically during `cabal build`.  Instead of literate Haskell markup, the
 `.lhs` file contains configuration flags for `hs-bindgen` in the form of a
 Haskell list.
 
-The Template Haskell mode (described later) avoids the need for any of these
-approaches, but is less suitable for cross-compilation scenarios where target
-platform information may not be available at compile time.
-
 A minimal demonstration of the literate preprocessor mechanism (independent of
 hs-bindgen) is available [here][example:literate-example].
 

@@ -1,13 +1,26 @@
 module Main (main) where
 
+import Optics ((%), (&), (.~))
+
+import HsBindgen.TH
+
 import ArchSizes
-import ArchTypes.Generated
 import PrintStructs
+
+-- TH splice generates bindings for arch_types.h at compile time. During
+-- cross-compilation, the splice runs inside iserv under QEMU.
+let cfg :: Config
+    cfg = def
+      & #clang % #extraIncludeDirs .~ [Pkg "../c-src"]
+    cfgTh :: ConfigTH
+    cfgTh = def
+ in withHsBindgen cfg cfgTh $
+      hashInclude "arch_types.h"
 
 main :: IO ()
 main = do
     putStrLn "==========================================================="
-    putStrLn "  Struct Sizes from Generated Bindings (hs-bindgen)"
+    putStrLn "  Struct Sizes from Generated Bindings (hs-bindgen TH mode)"
     putStrLn "==========================================================="
     putStrLn ""
 

@@ -13,6 +13,7 @@ hs-project/dist-newstyle-aarch64/
 hs-project/cabal.project.local
 hs-project/iserv-wrapper-*.sh
 hs-project/iserv-build-*/
+hs-project/llvm-config-*-stub.sh
 
 # Core dumps (from QEMU/iserv crashes during debugging)
 *.core
