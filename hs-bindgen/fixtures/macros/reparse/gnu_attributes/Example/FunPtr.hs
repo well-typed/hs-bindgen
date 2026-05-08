@@ -27,7 +27,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparsegnu_attributes_Example_get_bar */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_30ffbacf53832dc4 (void)) ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  return &bar;"
@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparsegnu_attributes_Example_get_dash */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_3cc756628379222d (void)) ("
-  , "  signed int arg1"
+  , "  BOOL arg1"
   , ")"
   , "{"
   , "  return &dash;"
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_30ffbacf53832dc4" hs_bindgen_30ffbacf538
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_bar@
-hs_bindgen_30ffbacf53832dc4 :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_30ffbacf53832dc4 :: IO (RIP.FunPtr (BOOL -> IO ()))
 hs_bindgen_30ffbacf53832dc4 =
   RIP.fromFFIType hs_bindgen_30ffbacf53832dc4_base
 
@@ -93,7 +93,7 @@ hs_bindgen_30ffbacf53832dc4 =
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-bar :: RIP.FunPtr (RIP.CInt -> IO ())
+bar :: RIP.FunPtr (BOOL -> IO ())
 bar = RIP.unsafePerformIO hs_bindgen_30ffbacf53832dc4
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_dash@
@@ -101,7 +101,7 @@ foreign import ccall unsafe "hs_bindgen_3cc756628379222d" hs_bindgen_3cc75662837
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_dash@
-hs_bindgen_3cc756628379222d :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_3cc756628379222d :: IO (RIP.FunPtr (BOOL -> IO ()))
 hs_bindgen_3cc756628379222d =
   RIP.fromFFIType hs_bindgen_3cc756628379222d_base
 
@@ -112,7 +112,7 @@ hs_bindgen_3cc756628379222d =
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-dash :: RIP.FunPtr (RIP.CInt -> IO ())
+dash :: RIP.FunPtr (BOOL -> IO ())
 dash =
   RIP.unsafePerformIO hs_bindgen_3cc756628379222d
 

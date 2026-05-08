@@ -249,6 +249,7 @@ instance Apply (LanC.CTypeQualifier a) UnknownType where
   apply = \case
       LanC.CConstQual _a ->
         return . Optics.set #isConst True
+      LanC.CAttrQual  _ -> return
       other -> \_ ->
         unexpectedF other
 
@@ -280,6 +281,7 @@ instance Apply (LanC.CTypeQualifier a) (C.Type ReparseMacroExpansions) where
   apply = \case
       LanC.CConstQual _ -> return . C.TypeQual C.QualConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
+      LanC.CAttrQual _  -> return
       other             -> \_ -> unexpectedF other
 
 instance Apply (LanC.CDerivedDeclarator a) (C.Type ReparseMacroExpansions) where
