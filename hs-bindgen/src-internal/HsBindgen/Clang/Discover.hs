@@ -184,12 +184,32 @@ discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
   API
 -------------------------------------------------------------------------------}
 
--- | Try to get the builtin include directory
+-- | Try to discover paths for the @clang@ executable, and the builtin include
+-- directory
+--
+-- Discovered paths should should only be determined a single time. Calling
+-- 'getPaths' caches the result, and any subsequent call simply returns the
+-- cached value.
+--
+-- === Clang executable
+--
+-- The @clang@ executable is run to discover the builtin include directory, and it
+-- is run by the @hs-bingen@ frontend to preprocess macro invocations.
+--
+-- This function tries to determine the path to the @clang@ executable by using
+-- the first successful result of the following strategies:
+--
+-- 1. @${LLVM_PATH}/bin/clang@
+-- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
+-- 3. @$(llvm-config --prefix)/bin/clang@
+-- 4. Search @${PATH}@
+--
+-- === Builtin include directory
 --
 -- LLVM/Clang determines the builtin include directory based on the path of the
--- executable being run.  When using @libclang@, there is not enough information
--- to determine the absolute builtin include directory.  @hs-bindgen@ can
--- attempt to determine and configure the builtin include directory
+-- @clang@ executable being run. When using @libclang@, there is not enough
+-- information to determine the absolute builtin include directory. @hs-bindgen@
+-- can attempt to determine and configure the builtin include directory
 -- automatically so that users do not have to do so manually.
 --
 -- Upstream issues:
@@ -209,39 +229,57 @@ discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
 -- 3. @$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include@
 -- 4. @$(clang -print-resource-dir)/include@
 --
--- The builtin include directory should only be determined a single time.
--- Calling 'getBuiltinIncDir' caches the result, and any subsequent calls simply
--- returns the cached value.
+-- Note that this uses the @clang@ executable that we discovered before (see the
+-- "Clang executable" section).
+--
+getPaths ::
+     Tracer DiscoverMsg
+  -> BuiltinIncDirConfig
+  -> IO Paths
+getPaths tracer config =
+    IORef.readIORef discoverState >>= \case
+      DiscoverStateCached paths -> return paths
+      DiscoverStateInitial -> do
+        mClangExe <- runMaybeT $ findClangExe tracer
+        mEnvConfig <- getEnvConfig tracer
+        mBuiltinIncDir <- case fromMaybe config mEnvConfig of
+          BuiltinIncDirDisable -> return Nothing
+          BuiltinIncDirClang -> runMaybeT $
+            getBuiltinIncDirWithClang tracer (myHoistMaybe mClangExe)
+        let paths = Paths {
+                clangExe = mClangExe
+              , builtinIncDir = mBuiltinIncDir
+              }
+        IORef.writeIORef discoverState (DiscoverStateCached paths)
+        return paths
+  where
+    -- | hoistMaybe was only added in transformers-0.6.0.0
+    myHoistMaybe :: Maybe a -> MaybeT IO a
+    myHoistMaybe = MaybeT . pure
+
 getBuiltinIncDir ::
      Tracer DiscoverMsg
   -> BuiltinIncDirConfig
   -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDir tracer config =
-    IORef.readIORef discoverState >>= \case
-      DiscoverStateCached paths -> return paths.builtinIncDir
-      DiscoverStateInitial -> do
-        mEnvConfig <- getEnvConfig tracer
-        mBuiltinIncDir <- case fromMaybe config mEnvConfig of
-          BuiltinIncDirDisable -> return Nothing
-          BuiltinIncDirClang -> runMaybeT $ getBuiltinIncDirWithClang tracer
-        let paths = Paths {
-                clangExe = Nothing
-              , builtinIncDir = mBuiltinIncDir
-              }
-        IORef.writeIORef discoverState (DiscoverStateCached paths)
-        return mBuiltinIncDir
+getBuiltinIncDir tracer config = (.builtinIncDir) <$> getPaths tracer config
 
--- | Apply the builtin include directory to 'Clang.Args.ClangArgs'
+-- | Apply the discovered paths to 'Clang.Args.ClangArgs'
 --
 -- When configured, the builtin include directory is passed with @-isystem@ as
 -- the last argument.  This ensures that it is prioritized as close to the
 -- default include directories as possible.
+applyPaths ::
+     Paths
+  -> ClangArgsConfig path
+  -> ClangArgsConfig path
+applyPaths paths = case paths.builtinIncDir of
+    Nothing            -> id
+    Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
+
 applyBuiltinIncDir ::
      Maybe BuiltinIncDir
   -> ClangArgsConfig path -> ClangArgsConfig path
-applyBuiltinIncDir = \case
-    Nothing            -> id
-    Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
+applyBuiltinIncDir = applyPaths . Paths Nothing
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -266,9 +304,12 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
 --
 -- @clang -print-file-name=include@ is called to get the builtin include
 -- directory.
-getBuiltinIncDirWithClang :: Tracer DiscoverMsg -> MaybeT IO BuiltinIncDir
-getBuiltinIncDirWithClang tracer = do
-    exe <- findClangExe tracer <|> do
+getBuiltinIncDirWithClang ::
+     Tracer DiscoverMsg
+  -> MaybeT IO ClangExe
+  -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithClang tracer getExe = do
+    exe <- getExe <|> do
       traceWith tracer (withCallStack DiscoverClangNotFound)
       MaybeT $ return Nothing
     clangVersionString <- getClangVersion tracer exe
