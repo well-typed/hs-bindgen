@@ -98,6 +98,9 @@ commonFixtureStatus tc
   -- Issue #1679
   | tc.name `elem` issue1679
       = Just $ FixtureSkip "Issue #1679"
+  -- Issue #1956
+  | tc.name == "macros/undef"
+      = Just $ FixtureSkip "Issue #1956"
   -- @typedef int bool@ / @#define bool int@ is invalid in C23
   | tc.name == "types/primitives/bool_typedef_override"
  || tc.name == "types/primitives/bool_macro_override"
