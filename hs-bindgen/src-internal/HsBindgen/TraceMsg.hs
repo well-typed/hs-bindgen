@@ -34,7 +34,6 @@ import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
-import HsBindgen.Clang.Discover (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
@@ -61,7 +60,6 @@ import HsBindgen.Util.Tracer
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
-  | TraceBuiltinIncDir BuiltinIncDirMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

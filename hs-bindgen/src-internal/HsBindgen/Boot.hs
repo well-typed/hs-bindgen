@@ -122,7 +122,7 @@ getClangArtefacts ::
 getClangArtefacts tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
-    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
+    mBuiltinIncDir <- getBuiltinIncDir tracerDiscover config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs
           . applyBuiltinIncDir  mBuiltinIncDir
@@ -134,8 +134,8 @@ getClangArtefacts tracer config0 = do
       , clangArgs = clangArgs'
       }
   where
-    tracerBuiltinIncDir :: Tracer BuiltinIncDirMsg
-    tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
+    tracerDiscover :: Tracer DiscoverMsg
+    tracerDiscover = contramap BootDiscover tracer
 
     tracerExtraClangArgs :: Tracer ExtraClangArgsMsg
     tracerExtraClangArgs = contramap BootExtraClangArgs tracer
@@ -236,7 +236,7 @@ data BootMsg =
     BootBackendConfig        BackendConfigMsg
   | BootMacos                MacosMsg
   | BootBindingSpec          BindingSpecMsg
-  | BootBuiltinIncDir        BuiltinIncDirMsg
+  | BootDiscover             DiscoverMsg
   | BootClang                ClangMsg
   | BootCStandard            BootCStandardMsg
   | BootExtraClangArgs       ExtraClangArgsMsg
