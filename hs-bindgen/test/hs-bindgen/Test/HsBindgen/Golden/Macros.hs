@@ -32,6 +32,7 @@ testCases = [
     , defaultTest "macros/parse/first_parse_then_typecheck"
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/redeclaration/identical_semantics"
+    , defaultTest "macros/undef"
       -- Bespoke tests
     , test_macros_macro_type_unresolved_tagged
     , test_macros_macro_in_fundecl
