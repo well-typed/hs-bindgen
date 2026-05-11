@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module HsBindgen.Clang.BuiltinIncDir (
+module HsBindgen.Clang.Discover (
     -- * Types
     BuiltinIncDir
     -- * Trace messages

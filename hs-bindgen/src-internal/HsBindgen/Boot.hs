@@ -16,10 +16,10 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang
-import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
 import HsBindgen.Clang.CStandard
+import HsBindgen.Clang.Discover
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Clang.Macos
 import HsBindgen.Clang.Sizeof (getSizeofs)
