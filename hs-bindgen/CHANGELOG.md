@@ -106,6 +106,10 @@
   The pragma was previously added unconditionally for every foreign import,
   even though the generated bindings only use the `ccall` calling convention.
   See [issue #1868][is-1868].
+* Fix the reparser to ignore attribute specifier sequences. Previously,
+  declarations carrying macro expansions and attribute specifier sequences
+  failed to reparse and silently fell back to the un-reparsed type, dropping
+  macro typedef names from generated bindings. See [PR #1955][pr-1955].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -229,6 +233,7 @@
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
 [is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
+[pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 
 ## 0.1.0-alpha -- 2026-02-06
 
