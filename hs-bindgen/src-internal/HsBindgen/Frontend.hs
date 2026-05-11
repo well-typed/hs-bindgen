@@ -206,6 +206,9 @@ runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
       setup      <- getSetup
       cStd       <- boot.cStandard
+      -- TODO <https://github.com/well-typed/hs-bindgen/pull/1892>: use the
+      -- clang executable to preprocess macro invocations
+      !_clangExe <- boot.clangExe
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit

@@ -8,8 +8,8 @@ module HsBindgen.Clang.Discover (
     -- * Trace messages
   , DiscoverMsg(..)
     -- * API
-  , getBuiltinIncDir
-  , applyBuiltinIncDir
+  , getPaths
+  , applyPaths
   ) where
 
 import Control.Applicative ((<|>), asum)
@@ -173,9 +173,9 @@ data DiscoverState =
 
 -- | Global state for caching discovered paths
 --
--- Paths should only be discovered a single time. Calling 'getBuiltinIncDir'
--- stores the result in this global state, and any subsequent calls simply
--- returns the cached value.
+-- Paths should only be discovered a single time. Calling 'getPaths' stores the
+-- result in this global state, and any subsequent calls simply returns the
+-- cached value.
 discoverState :: IORef DiscoverState
 discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
 {-# NOINLINE discoverState #-}
@@ -257,12 +257,6 @@ getPaths tracer config =
     myHoistMaybe :: Maybe a -> MaybeT IO a
     myHoistMaybe = MaybeT . pure
 
-getBuiltinIncDir ::
-     Tracer DiscoverMsg
-  -> BuiltinIncDirConfig
-  -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDir tracer config = (.builtinIncDir) <$> getPaths tracer config
-
 -- | Apply the discovered paths to 'Clang.Args.ClangArgs'
 --
 -- When configured, the builtin include directory is passed with @-isystem@ as
@@ -275,11 +269,6 @@ applyPaths ::
 applyPaths paths = case paths.builtinIncDir of
     Nothing            -> id
     Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
-
-applyBuiltinIncDir ::
-     Maybe BuiltinIncDir
-  -> ClangArgsConfig path -> ClangArgsConfig path
-applyBuiltinIncDir = applyPaths . Paths Nothing
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
