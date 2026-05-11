@@ -2,7 +2,9 @@
 
 module HsBindgen.Clang.Discover (
     -- * Types
-    BuiltinIncDir
+    Paths(..)
+  , ClangExe
+  , BuiltinIncDir
     -- * Trace messages
   , DiscoverMsg(..)
     -- * API
@@ -40,7 +42,16 @@ import Text.SimplePrettyPrint qualified as PP
   Types
 -------------------------------------------------------------------------------}
 
--- | Builtin include directory
+-- | Discovered path information
+data Paths = Paths {
+    clangExe :: Maybe ClangExe
+  , builtinIncDir :: Maybe BuiltinIncDir
+  }
+
+-- | Path to the @clang@ executable
+type ClangExe = FilePath
+
+-- | Path to the builtin include directory
 type BuiltinIncDir = FilePath
 
 {-------------------------------------------------------------------------------
@@ -156,19 +167,18 @@ instance IsTrace Level DiscoverMsg where
   Global state
 -------------------------------------------------------------------------------}
 
--- | Builtin include directory state
-data BuiltinIncDirState =
-    BuiltinIncDirInitial
-  | BuiltinIncDirCached (Maybe BuiltinIncDir)
+data DiscoverState =
+    DiscoverStateInitial
+  | DiscoverStateCached Paths
 
--- | Builtin include directory global state
+-- | Global state for caching discovered paths
 --
--- The builtin include directory should only be determined a single time.
--- Calling 'getBuiltinIncDir' stores the result in this global state, and any
--- subsequent calls simply returns the cached value.
-builtinIncDirState :: IORef BuiltinIncDirState
-builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
-{-# NOINLINE builtinIncDirState #-}
+-- Paths should only be discovered a single time. Calling 'getBuiltinIncDir'
+-- stores the result in this global state, and any subsequent calls simply
+-- returns the cached value.
+discoverState :: IORef DiscoverState
+discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
+{-# NOINLINE discoverState #-}
 
 {-------------------------------------------------------------------------------
   API
@@ -207,14 +217,18 @@ getBuiltinIncDir ::
   -> BuiltinIncDirConfig
   -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDir tracer config =
-    IORef.readIORef builtinIncDirState >>= \case
-      BuiltinIncDirCached mBuiltinIncDir -> return mBuiltinIncDir
-      BuiltinIncDirInitial -> do
+    IORef.readIORef discoverState >>= \case
+      DiscoverStateCached paths -> return paths.builtinIncDir
+      DiscoverStateInitial -> do
         mEnvConfig <- getEnvConfig tracer
         mBuiltinIncDir <- case fromMaybe config mEnvConfig of
           BuiltinIncDirDisable -> return Nothing
           BuiltinIncDirClang -> runMaybeT $ getBuiltinIncDirWithClang tracer
-        IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
+        let paths = Paths {
+                clangExe = Nothing
+              , builtinIncDir = mBuiltinIncDir
+              }
+        IORef.writeIORef discoverState (DiscoverStateCached paths)
         return mBuiltinIncDir
 
 -- | Apply the builtin include directory to 'Clang.Args.ClangArgs'
@@ -279,10 +293,10 @@ getBuiltinIncDirWithClang tracer = do
 -- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
 -- 3. @$(llvm-config --prefix)/bin/clang@
 -- 4. Search @${PATH}@
-findClangExe :: Tracer DiscoverMsg -> MaybeT IO FilePath
+findClangExe :: Tracer DiscoverMsg -> MaybeT IO ClangExe
 findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
   where
-    auxLlvmPath :: MaybeT IO FilePath
+    auxLlvmPath :: MaybeT IO ClangExe
     auxLlvmPath = do
       prefix <- lookupLlvmPath tracer
       ifM
@@ -292,7 +306,7 @@ findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
         Dir.doesFileExist
         (FilePath.joinPath [prefix, "bin", clangExe])
 
-    auxLlvmConfig :: MaybeT IO FilePath
+    auxLlvmConfig :: MaybeT IO ClangExe
     auxLlvmConfig = do
       exe <- findLlvmConfigExe tracer
       prefix <- getLlvmConfigPrefix tracer exe
@@ -303,7 +317,7 @@ findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
         Dir.doesFileExist
         (FilePath.joinPath [prefix, "bin", clangExe])
 
-    auxPath :: MaybeT IO FilePath
+    auxPath :: MaybeT IO ClangExe
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable clangExe
       traceWith tracer (withCallStack $ DiscoverClangPathFound exe)
