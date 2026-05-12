@@ -1,0 +1,104 @@
+name: Alpine Linux
+
+# Build and test hs-bindgen on Alpine Linux (musl), then build the libpcap
+# example against Alpine's system libpcap-dev package.
+#
+# CI consumes the dev/alpine/Dockerfile (see dev/alpine/README.md), so the two
+# environments cannot drift.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-test:
+    name: Build and test on Alpine
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      IMAGE: hs-bindgen-alpine-dev
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v6
+
+      - name: 🛠️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🐳 Build Alpine dev image
+        uses: docker/build-push-action@v6
+        with:
+          context: dev/alpine
+          file: dev/alpine/Dockerfile
+          load: true
+          tags: ${{ env.IMAGE }}:latest
+          cache-from: type=gha,scope=alpine-dev
+          cache-to: type=gha,scope=alpine-dev,mode=max
+
+      # Cache the in-container cabal store across runs; key on cabal/project
+      # files so the cache invalidates when dependencies change.
+      - name: 💾 Cache cabal store
+        uses: actions/cache@v4
+        with:
+          path: .cabal-store
+          key: alpine-cabal-${{ hashFiles('cabal.project*', '**/*.cabal') }}
+          restore-keys: alpine-cabal-
+
+      - name: 🏗️ cabal build all
+        run: |
+          mkdir -p .cabal-store
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            sh -c 'cabal update && cabal build all'
+
+      - name: 🧪 cabal test all
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            cabal test all --test-show-details=direct
+
+      # Build the libpcap example against Alpine's system libpcap-dev,
+      # *not* the bundled libpcap source the Ubuntu workflow builds via
+      # generate-and-run.sh.
+      - name: 📦 Build libpcap example against system libpcap
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            -e PCAP_INCLUDE_DIR=/usr/include \
+            "$IMAGE" \
+            sh -c '
+              set -e
+              cd examples/libpcap
+              ./generate.sh
+              cd hs-project
+              cabal build libpcap-bin
+              file "$(cabal list-bin -v0 libpcap-bin)"
+            '
+
+      - name: 📦 Build and run blocktest example
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            ./examples/blocktest/generate-and-run.sh
