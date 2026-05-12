@@ -85,7 +85,15 @@ parseClangType cxTy = do
     Right ki -> do
       case ki of
         Clang.CXType_Invalid             -> return Nothing
-        Clang.CXType_Unexposed           -> return Nothing
+        -- LLVM/Clang 22 reports the predefined sugar types '__ptrdiff_t',
+        -- '__size_t', and '__signed_size_t' as 'CXType_Unexposed' (see
+        -- upstream https://github.com/llvm/llvm-project/issues/192268).
+        -- Fall back to the canonical type to recover the underlying kind.
+        Clang.CXType_Unexposed           -> do { canTy <- Clang.clang_getCanonicalType cxTy
+                                               ; case Clang.fromSimpleEnum $ Clang.cxtKind canTy of
+                                                   Right Clang.CXType_Unexposed -> return Nothing
+                                                   _otherKind                   -> parseClangType canTy
+                                               }
         Clang.CXType_Void                -> return $ Just $ CType Void
         Clang.CXType_Bool                -> return $ Just $ CType $ Arithmetic $ Integral $ Bool
         Clang.CXType_Char_U              -> return $ Just $ CType $ Arithmetic $ Integral $ CharLike UChar

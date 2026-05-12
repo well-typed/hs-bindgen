@@ -50,8 +50,17 @@
   replace `Identifier` and `ExportedName ns` across the pipeline
 * The `enclosing` field in `DeclInfo` is now `[EnclosingRef p]` (a flat nesting
   chain rather than a single `Maybe (Id p)`)
-* Skip over declarations with unexposed types (such as `malloc`), primarily in
-  support of LLVM/Clang 22.
+* Recover from unexposed types by falling back to the canonical type, in
+  support of LLVM/Clang 22, where the new `PredefinedSugarType` AST node
+  wraps `__size_t`, `__ptrdiff_t`, and `__signed_size_t` and is reported by
+  `libclang` as `CXType_Unexposed`. In practice this affects declarations
+  Clang recognises as libc built-ins (e.g. `malloc`, `memcpy`, `strlen` —
+  whose parameter types get rewritten to the sugar) and the result type of
+  pointer-subtract / `sizeof` expressions consumed by `c-expr-runtime`. See
+  upstream
+  [llvm/llvm-project#192268](https://github.com/llvm/llvm-project/issues/192268).
+  Declarations whose canonical type is itself unexposed are still skipped
+  with a warning.
 * Extract Haddock documentation from C headers using doxygen. When the `doxygen`
   binary is available on `PATH`, `hs-bindgen` invokes it to parse structured
   documentation comments (Javadoc/Doxygen-style `/** ... */`) and translates
