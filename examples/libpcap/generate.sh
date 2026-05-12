@@ -54,7 +54,7 @@ debug_flags=(
     # -v4
 )
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli preprocess \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli preprocess \
     "${module_flags[@]}" \
     "${libclang_flags[@]}" \
     "${select_flags[@]}" \
