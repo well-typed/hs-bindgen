@@ -7,11 +7,8 @@ name: Alpine Linux
 # environments cannot drift.
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -76,10 +73,11 @@ jobs:
             "$IMAGE" \
             cabal test all --test-show-details=direct
 
-      # Build the libpcap example against Alpine's system libpcap-dev,
-      # *not* the bundled libpcap source the Ubuntu workflow builds via
-      # generate-and-run.sh.
-      - name: 📦 Build libpcap example against system libpcap
+      # Build the libpcap example as a fully static binary against Alpine's
+      # system libpcap-dev (which ships /usr/lib/libpcap.a).
+      # `pcap_findalldevs` requires CAP_NET_RAW; Docker grants this by
+      # default, so the binary runs successfully inside the container.
+      - name: 📦 Build, run, and verify static libpcap example
         run: |
           docker run --rm \
             -v "$PWD:/repo" -w /repo \
@@ -91,8 +89,22 @@ jobs:
               cd examples/libpcap
               ./generate.sh
               cd hs-project
-              cabal build libpcap-bin
-              file "$(cabal list-bin -v0 libpcap-bin)"
+              cabal build -fstatic libpcap-bin
+              BIN="$(cabal list-bin -v0 -fstatic libpcap-bin)"
+              # Gate 1 — file: ELF header heuristic (no PT_INTERP).
+              file "$BIN" | grep -q "statically linked" || {
+                echo "FAIL: file does not report statically linked:" >&2
+                file "$BIN" >&2
+                exit 1
+              }
+              # Gate 2 — ldd: walks DT_NEEDED. On musl a fully static binary
+              # produces empty stdout (the message goes to stderr).
+              if [ -n "$(ldd "$BIN" 2>/dev/null)" ]; then
+                echo "FAIL: ldd lists dynamic dependencies:" >&2
+                ldd "$BIN" >&2
+                exit 1
+              fi
+              "$BIN"
             '
 
       - name: 📦 Build and run blocktest example

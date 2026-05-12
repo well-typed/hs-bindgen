@@ -548,3 +548,11 @@ jobs:
       working-directory: examples/cross-compilation
       run: |
         nix develop .#cross-aarch64 --command ./generate-and-run.sh
+
+  # ============================================================================
+  # Job 8: Alpine Linux (musl) build, test, and static-binary example
+  # ============================================================================
+
+  alpine:
+    name: Alpine Linux
+    uses: ./.github/workflows/alpine.yml
