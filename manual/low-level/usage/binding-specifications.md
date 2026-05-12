@@ -297,7 +297,7 @@ There are several strategies for managing non-portable bindings.
 
 When generating bindings, pass `-D` flags to ensure that the CPP resolution
 matches the intended target. There are three mechanisms for doing so (see
-[Clang options](03-ClangOptions.md) for details):
+[Clang options][manual:clang-options] for details):
 
 * `hs-bindgen-cli preprocess --clang-option="-DUSE_EXTENDED" ...`
 * `BINDGEN_EXTRA_CLANG_ARGS="-DUSE_EXTENDED" hs-bindgen-cli preprocess ...`
@@ -330,11 +330,19 @@ if !(os(linux) && arch(x86_64))
   buildable: false
 ```
 
-See [Installation](../../Installation.md) for further discussion of
+See [Installation][manual:installation] for further discussion of
 platform-specific considerations.
 
-The [`bundled-c` example](../../../examples/bundled-c/) provides a concrete
-demonstration. Its C header uses `#ifdef RECT_3D` to optionally add a struct
-field; The `test-cpp-mismatch.sh` script exercises the most subtle case:
-bindings are generated *without* the flag but the C code is compiled *with*
-it, causing silent runtime data corruption.
+The [`bundled-c` example][example:bundled-c] provides a concrete demonstration.
+Its C header uses `#ifdef RECT_3D` to optionally add a struct field; The
+`test-cpp-mismatch.sh` script exercises the most subtle case: bindings are
+generated *without* the flag but the C code is compiled *with* it, causing
+silent runtime data corruption.
+
+
+
+<!-- sources and references -->
+
+[example:bundled-c]: ../../../examples/bundled-c
+[manual:clang-options]: clang-options.md
+[manual:installation]: ../../installation.md

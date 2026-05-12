@@ -17,6 +17,7 @@ your case. Our recommendation would be to use it if your data structures are
 large and you care about performance.
 
 ## Feature list
+[t:feature-list]: #feature-list
 
 The pointer manipulation API supports:
 
@@ -25,9 +26,10 @@ The pointer manipulation API supports:
 * Indexing of bit-fields (for both structs and unions) through a pointer
 * Erasing `newtype` sugar (introduced by `typedef`s or macro-defined types) from
   a pointer type
-* Convering a pointer to an array to a pointer to the array's first element
+* Converting a pointer to an array to a pointer to the array's first element
 
 ## Example
+[t:example]: #example
 
 Let's consider an example to illustrate how to use the tools offered by the
 pointer manipulation API. We define a `point` struct that is used twice in a
@@ -104,10 +106,12 @@ infrastructure. If you prefer to avoid record-dot syntax, you can either:
 * Use the `getField` function from the `HasField` class, or
 * Use the `HsBindgen.Runtime.HasCField` infrastructure directly.
 
+
+
 <!-- footnotes -->
 
 [^1]: Though the example only uses structs, the pointer manipulation API
     supports many other types and other use cases as well. See the [Feature list
-    section](#feature-list) for all supported features.
+    section][t:feature-list] for all supported features.
 
 [^2]: The use of lenses here is optional.

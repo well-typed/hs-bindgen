@@ -146,7 +146,7 @@ data RoomD = RoomD
 
 Finally, we could leave out the name of the `door1` field as well. Now the
 nested struct becomes an *anonymous* struct. The definition of anonymous structs
-can be found in the [C reference][c-reference:struct]:
+can be found in the [C reference][creference:struct]:
 
 > An unnamed member of a struct or union whose type is a struct without a name
 > is known as an anonymous struct.
@@ -207,6 +207,6 @@ warning-level trace message will be emitted in this case.
 
 <!-- sources and references -->
 
-[c-reference:struct]: https://en.cppreference.com/w/c/language/struct.html
-[manual:usage/binding-specs]: ../../Usage/06-BindingSpecifications.md
-[manual:unions/nesting]: ../04-Unions/Nesting.md
+[creference:struct]: https://en.cppreference.com/w/c/language/struct.html
+[manual:unions/nesting]: ../unions/nesting.md
+[manual:usage/binding-specs]: ../../usage/binding-specifications.md

@@ -47,11 +47,10 @@ The following terminology is used by `hs-bindgen`.
 
 ## Clang
 
-This section describes common Clang usage.  See [Clang documentation][] for
-additional information.  See the `hs-bindgen` section below for details about
-how to configure Clang via `hs-bindgen`.
-
-[Clang documentation]: <https://clang.llvm.org/docs/index.html>
+This section describes common Clang usage.  See
+[Clang documentation][clang:docs] for additional information.  See the
+`hs-bindgen` section below for details about how to configure Clang via
+`hs-bindgen`.
 
 Clang maintains separate C include search paths.
 
@@ -91,7 +90,7 @@ The following options are used to disable default include directories:
 
 Reference:
 
-* [Include path management](https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management)
+* [Include path management][clang:docs:cli-include-path]
 
 ### Clang environment variables
 
@@ -149,12 +148,10 @@ that this is separate from compilation of the generated bindings, described in
 the CAPI section below.
 
 `hs-bindgen` passes Clang command-line options to `libclang`.  See
-[Clang options][] for details.  Include options that `hs-bindgen` passes to
-`libclang` are created based on the `hs-bindgen` command-line options and
-environment variables, described below.  In addition, `libclang` process the
-Clang environment variables, described above.
-
-[Clang options]: <03-ClangOptions.md>
+[Clang options][manual:clang-options] for details.  Include options that
+`hs-bindgen` passes to `libclang` are created based on the `hs-bindgen`
+command-line options and environment variables, described below.  In addition,
+`libclang` process the Clang environment variables, described above.
 
 `libclang` constructs C include search paths like Clang, but it is generally
 unable to correctly determine the builtin include directory.  When the builtin
@@ -214,7 +211,7 @@ hs-bindgen-cli preprocess \
 
 ### `hs-bindgen` environment variables
 
-As described in [Clang options][], environment variable
+As described in [Clang options][manual:clang-options], environment variable
 `BINDGEN_EXTRA_CLANG_ARGS` may be used to specify arbitrary Clang options.
 
 Options that `hs-bindgen` passes to Clang, including those specified in
@@ -229,10 +226,8 @@ are `disable` and `clang`.
 
 Headers to translate are specified as arguments to `hs-bindgen-cli preprocess`
 or Template Haskell `hashInclude` function calls.  In addition, headers are
-specified in [Binding specifications][].  All of these headers are resolved
-via `libclang` using bracket includes.
-
-[Binding specifications]: <06-BindingSpecifications.md>
+specified in [Binding specifications][manual:binding-specifications].  All of
+these headers are resolved via `libclang` using bracket includes.
 
 Headers must be specified as they would be in an include directive.  They are
 generally relative to a directory in a C include search path, but note that they
@@ -343,9 +338,7 @@ hs-bindgen-cli info resolve-header -v4 stddef.h
 ```
 
 The `hs-bindgen-cli info include-graph` command may be used to display the full
-include graph for one or more headers, in [Mermaid][] syntax.
-
-[Mermaid]: <https://mermaid.js.org/>
+include graph for one or more headers, in [Mermaid][mermaid] syntax.
 
 ```console
 hs-bindgen-cli info include-graph stdint.h
@@ -358,3 +351,13 @@ paths, etc.
 ```console
 hs-bindgen-cli info libclang --clang-option=-v
 ```
+
+
+
+<!-- sources and references -->
+
+[clang:docs]: https://clang.llvm.org/docs/index.html
+[clang:docs:cli-include-path]: https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management
+[manual:binding-specifications]: binding-specifications.md
+[manual:clang-options]: clang-options.md
+[mermaid]: https://mermaid.js.org/

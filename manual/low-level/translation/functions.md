@@ -7,8 +7,7 @@ This chapter discusses how `hs-bindgen` generates bindings for C functions.
 ## Safe vs unsafe foreign imports
 
 When importing a C function, we can choose between two calling conventions:
-`safe` and `unsafe`. The [Haskell 2010 Language Report
-states](https://www.haskell.org/onlinereport/haskell2010/haskellch8.html):
+`safe` and `unsafe`. The [Haskell 2010 Language Report states][haskell2010:ffi]:
 
 > [...] an import declaration can specify, after the calling convention, the
 > safety level that should be used when invoking an external entity. A safe call
@@ -27,14 +26,13 @@ That is:
   during a function call with an unsafe import.
 
 
-The [Haskell Unfoldr Episode 36 "Discussing
-FFI"](https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37)
-also provides valid information with respect to the two foreign function calling
-conventions and its unexpected interactions with the moving garbage collector of
-Haskell. In particular, Edsko de Vries cautions that safe foreign imports may be
-problematic when pointers are involved. The pointer targets may be moved by the
-Haskell garbage collector during the execution of the safely imported foreign
-function, leading to undefined behavior.
+The [Haskell Unfolder Episode 36 "Discussing FFI"][unfolder:36] also provides
+valid information with respect to the two foreign function calling conventions
+and its unexpected interactions with the moving garbage collector of Haskell. In
+particular, Edsko de Vries cautions that safe foreign imports may be problematic
+when pointers are involved. The pointer targets may be moved by the Haskell
+garbage collector during the execution of the safely imported foreign function,
+leading to undefined behavior.
 
 In summary, `hs-bindgen` does not favor one foreign function calling convention
 over the other because it simply cannot know what is appropriate, and what is
@@ -94,7 +92,8 @@ apply :: F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
 ```
 
 Function pointers use stubs, just like bindings to global variables. See the
-[Globals][globals] section of the manual for more information about stubs.
+[Globals][manual:globals-guidelines] section of the manual for more information
+about stubs.
 
 Note that we also generate `apply`, even though we did not need it in this case.
 `hs-bindgen` generates address stubs for *all* function declarations.
@@ -106,8 +105,6 @@ main = do
   y <- apply square 4
   print y -- prints 16
 ```
-
-[globals]:./07-Globals.md#Guidelines-for-binding-generation
 
 ### Implicit function to pointer conversion
 
@@ -236,8 +233,6 @@ set_apply1Union_apply1_nopointer_union_field ::
   -> Apply1Union
 apply1_union :: Apply1Union
 ```
-
-[creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
 
 ## Conversion between Haskell functions and C functions
 
@@ -567,3 +562,12 @@ to call a specific variadic function from Haskell, you can write a manual
 `foreign import` declaration for a fixed-arity version of the call.
 
 [issue-53]:https://github.com/well-typed/hs-bindgen/issues/53
+
+
+
+<!-- sources and references -->
+
+[creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
+[haskell2010:ffi]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html
+[manual:globals-guidelines]: globals.md#guidelines-for-binding-generation
+[unfolder:36]: https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37

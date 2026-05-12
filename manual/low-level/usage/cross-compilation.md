@@ -164,9 +164,9 @@ instance F.Storable Example where
 ### Working example
 
 A comprehensive working example is available at
-[`examples/cross-compilation/`](../../../examples/cross-compilation/). It
-includes a Nix development environment and a script to generate bindings,
-cross-compile, and run under QEMU.
+[`examples/cross-compilation/`][example:cross-compilation]. It includes a Nix
+development environment and a script to generate bindings, cross-compile, and
+run under QEMU.
 
 ```bash
 cd examples/cross-compilation
@@ -209,13 +209,12 @@ let
 in ...
 ```
 
-The [cross-compilation example](../../../examples/cross-compilation/) includes a
-complete `flake.nix` that can be adapted for your own projects.
+The [cross-compilation example][example:cross-compilation] includes a complete
+`flake.nix` that can be adapted for your own projects.
 
 #### Building from source
 
-Follow the guides the [GHC Cross-Compilation
-Wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling) for
+Follow the guides the [GHC Cross-Compilation Wiki][ghc:wiki:cross-compiling] for
 detailed instructions.
 
 ### Cross-compiling C compiler
@@ -226,17 +225,17 @@ cross-compilation -- GHC's cross-compiler has its own C compiler (typically GCC)
 hardcoded in its settings file, which it uses internally for linking and RTS
 compilation. You do not need to configure GHC's internal C compiler.
 
-The [cross-compilation example](../../../examples/cross-compilation/) uses Clang
-via Nix's `pkgsAarch64.llvmPackages.stdenv.cc` for consistency with
-`hs-bindgen-cli`, which is built on libclang/LLVM. This is a Nix CC wrapper with
-the target sysroot headers, linker paths, and `--target` flag baked in, so
+The [cross-compilation example][example:cross-compilation] uses Clang via Nix's
+`pkgsAarch64.llvmPackages.stdenv.cc` for consistency with `hs-bindgen-cli`,
+which is built on libclang/LLVM. This is a Nix CC wrapper with the target
+sysroot headers, linker paths, and `--target` flag baked in, so
 `make CC="$AARCH64_CC"` works without extra flags.
 
 Non-Nix users can use any cross-compiler for their C libraries; Clang is
 recommended for consistency with `hs-bindgen-cli` (which is built on
-libclang/LLVM). See the [Clang cross-compilation
-documentation](https://clang.llvm.org/docs/CrossCompilation.html) for details on
-configuring `--target` and sysroot paths.
+libclang/LLVM). See the
+[Clang cross-compilation documentation][clang:docs:cross-compilation] for
+details on configuring `--target` and sysroot paths.
 
 ### Template Haskell and iserv
 
@@ -416,7 +415,7 @@ containing `libclang.so`:
 export LD_LIBRARY_PATH=/usr/lib/llvm-18/lib:$LD_LIBRARY_PATH
 ```
 
-The Nix dev shells in the [cross-compilation example](../../../examples/cross-compilation/)
+The Nix dev shells in the [cross-compilation example][example:cross-compilation]
 handle this automatically.
 
 #### Missing target headers
@@ -465,10 +464,21 @@ Verify the binary architecture with `file ./your-app`.
 
 ## References
 
-- [GHC Cross-Compilation Wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling)
-- [zw3rk blog -- GHC cross-compilation tutorials](https://log.zw3rk.com/)
-- [Well-Typed: Improving GHC configuration and cross-compilation](https://well-typed.com/blog/2023/10/improving-ghc-configuration-and-cross-compilation-with-ghc-toolchain/)
-- [GHC External Interpreter wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/external-interpreter)
-- [Cross-compilation example](../../../examples/cross-compilation/)
-- [Clang Cross-Compilation](https://clang.llvm.org/docs/CrossCompilation.html)
-- [QEMU User Mode Emulation](https://www.qemu.org/docs/master/user/main.html)
+- [GHC Cross-Compilation Wiki][ghc:wiki:cross-compiling]
+- [zw3rk blog -- GHC cross-compilation tutorials][blog:zw3rk]
+- [Well-Typed: Improving GHC configuration and cross-compilation][]
+- [GHC External Interpreter wiki][ghc:wiki:external-interpreter]
+- [Cross-compilation example][example:cross-compilation]
+- [Clang Cross-Compilation][clang:docs:cross-compilation]
+- [QEMU User Mode Emulation][qemu:docs:user-mode-emulation]
+
+
+<!-- sources and references -->
+
+[blog:zw3rk]: https://log.zw3rk.com/
+[clang:docs:cross-compilation]: https://clang.llvm.org/docs/CrossCompilation.html
+[example:cross-compilation]: ../../../examples/cross-compilation
+[ghc:wiki:cross-compiling]: https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling
+[ghc:wiki:external-interpreter]: https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/external-interpreter
+[qemu:docs:user-mode-emulation]: https://www.qemu.org/docs/master/user/main.html
+[Well-Typed: Improving GHC configuration and cross-compilation]: https://well-typed.com/blog/2023/10/improving-ghc-configuration-and-cross-compilation-with-ghc-toolchain/

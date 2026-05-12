@@ -16,9 +16,7 @@ struct/union][t:nested] is called an *anonymous struct/union*.
 > erroneously for "things that lack names" in general, such as untagged structs
 > and unions. It is on our TODO list to audit the code and documentation to
 > consistently apply the *anonymous* terminology correctly. See [issue
-> #1893][issue-1893].
-
-[issue-1893]: https://github.com/well-typed/hs-bindgen/issues/1893
+> #1893][issue:1893].
 
 </details>
 
@@ -39,8 +37,8 @@ struct S {
 <details>
 <summary>Binding generation</summary>
 
-* [Binding generation for anonymous structs](./Translation/02-Structs/Nesting.md#example-e)
-* [Binding generation for anonymous unions](./Translation/04-Unions/Nesting.md#example-e)
+* [Binding generation for anonymous structs][manual:structs/nesting-example-e]
+* [Binding generation for anonymous unions][manual:unions/nesting-example-e]
 
 </details>
 
@@ -66,7 +64,7 @@ declarations.
 ### File scope
 [t:file_scope]: #file-scope
 
-https://en.cppreference.com/w/c/language/scope.html#File_scope
+<https://en.cppreference.com/w/c/language/scope.html#File_scope>
 
 ### Indirect field
 
@@ -120,7 +118,7 @@ to this name as a *tag*.
 
 ### Tagged struct/union/enum
 
-A struct or union or enum with a [tag][t:stag] is called *tagged*.
+A struct or union or enum with a [tag][t:tag] is called *tagged*.
 
 ### Unnamed field
 [t:unnamed_field]: #unnamed-field
@@ -142,3 +140,11 @@ Any field that is not directly accessible through the `libclang` API is
 represented as an *implicit field* in `libclang`'s C AST. Fields that declare an
 anonymous struct/union are such implicit fields. Indirect fields are also
 represented in `libclang` internally as implicit fields.
+
+
+
+<!-- sources and references -->
+
+[issue:1893]: https://github.com/well-typed/hs-bindgen/issues/1893
+[manual:structs/nesting-example-e]: translation/structs/nesting.md#example-e
+[manual:unions/nesting-example-e]: translation/unions/nesting.md#example-e

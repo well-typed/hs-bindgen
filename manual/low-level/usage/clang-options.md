@@ -1,20 +1,15 @@
 # Clang options
 
-`hs-bindgen` uses the [`libclang`][] interface to the [Clang][] compiler to
-parse C header files.  Clang provides various options that determine how the
-header files are parsed.  Note that, in some cases, options affect which
+`hs-bindgen` uses the [`libclang`][libclang] interface to the [Clang][clang]
+compiler to parse C header files.  Clang provides various options that determine
+how the header files are parsed.  Note that, in some cases, options affect which
 preprocessor macros are defined.
-
-[`libclang`]: <https://clang.llvm.org/doxygen/group__CINDEX.html>
-[Clang]: <https://clang.llvm.org/>
 
 ## Command-line options
 
-`hs-bindgen` passes [Clang command-line options][] to `libclang`.  Some common
-options are managed by `hs-bindgen`, but you can configure arbitrary options as
-well.
-
-[Clang command-line options]: <https://clang.llvm.org/docs/ClangCommandLineReference.html>
+`hs-bindgen` passes [Clang command-line options][clang:docs:cli] to `libclang`.
+Some common options are managed by `hs-bindgen`, but you can configure arbitrary
+options as well.
 
 When using `hs-bindgen-cli preprocess`, Clang options may be specified as
 command-line options.  Common options are exposed as `hs-bindgen-cli`
@@ -59,7 +54,15 @@ BINDGEN_EXTRA_CLANG_ARGS="arg1\ with\ whitespace\ endOfArg1 arg2"
 BINDGEN_EXTRA_CLANG_ARGS="\"arg1 with whitespace endOfArg1\" arg2"
 ```
 
-Note that use of this environment variable is consistent with [`rust-bindgen`],
-but we do *not* support target-specific environment variables.
+Note that use of this environment variable is consistent with
+[`rust-bindgen`][rust-bindgen:env], but we do *not* support target-specific
+environment variables.
 
-[`rust-bindgen`]: <https://github.com/rust-lang/rust-bindgen?tab=readme-ov-file#environment-variables>
+
+
+<!-- sources and references -->
+
+[clang]: https://clang.llvm.org/
+[clang:docs:cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
+[libclang]: https://clang.llvm.org/doxygen/group__CINDEX.html
+[rust-bindgen:env]: https://github.com/rust-lang/rust-bindgen?tab=readme-ov-file#environment-variables

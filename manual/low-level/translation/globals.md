@@ -90,7 +90,7 @@ moved outside of the header file.
 ## Unsupported: thread-local variables
 
 We currently do not generate bindings for global variables that are marked
-`thread_local` ([#828](https://github.com/well-typed/hs-bindgen/issues/828)):
+`thread_local` ([#828][issue:828]):
 
 ```c
 thread_local extern int threadLocal;
@@ -290,8 +290,8 @@ The approach to generating foreign imports for global variables is as follows:
 
 * But first, we generate a stub C function that returns the address of the
   global variable. This stub is necessary to prevent linker errors on Windows.
-  For more information about the error, see [issue #898][issue-898] and [PR
-  #927][pr-927]. The stub is given a unique, mangled name to prevent duplicate
+  For more information about the error, see [issue #898][issue:898] and [PR
+  #927][pr:927]. The stub is given a unique, mangled name to prevent duplicate
   symbols.
 
 * Then, we create a foreign import of that stub C function, returning a pointer
@@ -312,9 +312,6 @@ The approach to generating foreign imports for global variables is as follows:
   safe, since the value of the global constant should not change. In this last
   case, we also mangle the name of the variable pointer, to indicate it is
   internal and encourage the use of the *pure* value.
-
-[issue-898]:https://github.com/well-typed/hs-bindgen/issues/898
-[pr-927]:https://github.com/well-typed/hs-bindgen/pull/927
 
 We include (simplified) examples of generated bindings for a variety of types
 below.
@@ -553,3 +550,11 @@ Constant:
 {-# NOINLINE 2 #-}
 d2 :: List -- ERROR
 ```
+
+
+
+<!-- sources and references -->
+
+[issue:828]: https://github.com/well-typed/hs-bindgen/issues/828
+[issue:898]: https://github.com/well-typed/hs-bindgen/issues/898
+[pr:927]: https://github.com/well-typed/hs-bindgen/pull/927

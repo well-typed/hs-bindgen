@@ -21,7 +21,7 @@ library and thus should be fixed in the C library.
 
 ## Types of linkage
 
-There are [3 types of linkage][linkage]: **external**,
+There are [3 types of linkage][creference:linkage]: **external**,
 **internal**, or **none**.
 
 * **External**: the symbol is visible outside the translation unit it's defined in.
@@ -39,16 +39,14 @@ consider **external** and **internal** linkage from now on.
 `static` keywords respectively, but there are other factors that determine the
 linkage of declarations.
 
-[linkage]: https://en.cppreference.com/w/cpp/language/storage_duration.html#Linkage
-
 ## Types of visibility
 
-There are [4 types of visibility][visibility]: **default**, **hidden**,
-**internal**, and **protected**. We leave out descriptions for **internal** and
-**protected** because they are rarely used in practice, and for our purposes of
-binding generation we can treat them as **hidden** (they lead to linker errors
-in all the same way). We will call **hidden**, **internal** and **protected**:
-**non-public** visibility.
+There are [4 types of visibility][gcc:docs:attributes:visibility]: **default**,
+**hidden**, **internal**, and **protected**. We leave out descriptions for
+**internal** and **protected** because they are rarely used in practice, and for
+our purposes of binding generation we can treat them as **hidden** (they lead to
+linker errors in all the same way). We will call **hidden**, **internal** and
+**protected**: **non-public** visibility.
 
 * **Default:** The symbol is visible outside the shared object that it is
   defined in. Despite the name, **default** always means public.
@@ -56,20 +54,17 @@ in all the same way). We will call **hidden**, **internal** and **protected**:
 * **Hidden:**  The symbol is *not* visible outside the shared object that it is
   defined in.
 
-[Visibility attributes][visibility] in C code affect visibility, but so do [GCC
-options][gcc-options] and [Clang options][clang-options]. As such, it is
-technically not sufficient to look at the syntax of the C code to determine
-visibility. Currently we obtain the visibility of functions and variables (see
-the `getCursorVisibility` function) purely syntactically regardless.
+[Visibility attributes][gcc:docs:attributes:visibility] in C code affect
+visibility, but so do [GCC options][gcc:docs:options-visibility] and
+[Clang options][clang:docs:cli-visibility]. As such, it is technically not
+sufficient to look at the syntax of the C code to determine visibility.
+Currently we obtain the visibility of functions and variables (see the
+`getCursorVisibility` function) purely syntactically regardless.
 
 TODO: we currently use `clang` for parsing in `hs-bindgen` without an
 `-fvisilibity` option. Should we? What if a shared library is compiled and
 linked using `-fvisibility=hidden`, but we use clang in `hs-bindgen` with
 `-fvisibility=default`? It sounds like that would be wrong.
-
-[visibility]: https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-visibility
-[gcc-options]: https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#index-fvisibility
-[clang-options]: https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fvisibility
 
 ### Example linker error
 
@@ -194,3 +189,12 @@ unexpected definition for the symbol they are referencing. So, if a symbol has
 non-public visibility, the risk of such surprises is mitigated somewhat. This is
 also reflected in the warning message that is emitted for potential duplicate
 globals.
+
+
+
+<!-- sources and references -->
+
+[creference:linkage]: https://en.cppreference.com/w/cpp/language/storage_duration.html#Linkage
+[clang:docs:cli-visibility]: https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fvisibility
+[gcc:docs:options-visibility]: https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#index-fvisibility
+[gcc:docs:attributes-visibility]: https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-visibility

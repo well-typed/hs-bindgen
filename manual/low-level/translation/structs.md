@@ -1,12 +1,11 @@
 # Structs
 
-In this section we will consider the details of translating [C
-structures](https://en.wikipedia.org/wiki/Struct_(C_programming_language))
-(`struct`s). The examples are available in the [C header file
-`structs.h`](../../c/structs.h).
+In this section we will consider the details of translating
+[C structures][wikipedia:struct] (`struct`s). The examples are available in the
+[C header file `structs.h`][header:struct.h].
 
-In the [Introduction](../Introduction.md), we have seen bindings
-created for a named C `struct` (structure) storing a triple of integers:
+In the [Introduction][manual:introduction], we have seen bindings created for a
+named C `struct` (structure) storing a triple of integers:
 
 ```c
 struct triple {
@@ -31,7 +30,7 @@ instance F.Storable Triple where ...
 
 Adding a `typedef` matching the name of the structure, or using a `typedef` in
 place of a structure name, does not change the generated bindings. For more
-details, see the [section on name generation](01-GeneratedNames.md).
+details, see the [section on name generation][manual:generated-names].
 
 ```c
 typedef struct triple triple;
@@ -51,12 +50,12 @@ newtype Triple_t = Triple_t { unwrapTriple_t :: Triple }
 
 ## Nesting
 
-See the [Structs/Nesting](./02-Structs/Nesting.md) manual section.
+See the [Structs/Nesting][manual:structs/nesting] manual section.
 
 ## Bitfields
 
-[_Bitfields_](https://www.geeksforgeeks.org/c/bit-fields-c/) are structures or
-unions with elements of individual size. For example,
+[_Bitfields_][wikipedia:bit-field] are structures or unions with elements of
+individual size. For example,
 
 ```c
 struct aula_setup {
@@ -112,7 +111,8 @@ obtains the bitfield member of type `a` at the destination of the provided
 ## Flexible array members
 
 Members of unknown size can only appear at the end of structure declarations.
-These are called [_flexible array members_ (FLAMs)](https://en.wikipedia.org/wiki/Flexible_array_member). For example,
+These are called [_flexible array members_ (FLAMs)][wikipedia:flam]. For
+example,
 
 ```c
 struct surname {
@@ -125,7 +125,7 @@ Note: The `sizeof` C operator, when applied to a structure with a FLAM, gives
 the size of the structure as if the FLAM were empty.
 
 In a similar spirit, and since we do not know the length of the FLAM,
-`hs-bindgen` generates an auxiliary =newtype= that only contains the fixed-size
+`hs-bindgen` generates an auxiliary `newtype` that only contains the fixed-size
 members of the structure
 
 ```haskell
@@ -221,3 +221,15 @@ foreign import ccall safe "Structs_create_square" create_square
 
 Note that opaque types do not get a `Storable` instance, and therefore can not be
 used by value.
+
+
+
+<!-- sources and references -->
+
+[header:struct.h]: ../../c/structs.h
+[manual:generated-names]: generated-names.md
+[manual:introduction]: ../introduction.md
+[manual:structs/nesting]: structs/nesting.md
+[wikipedia:bit-field]: https://en.wikipedia.org/wiki/Bit_field
+[wikipedia:flam]: https://en.wikipedia.org/wiki/Flexible_array_member
+[wikipedia:struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)

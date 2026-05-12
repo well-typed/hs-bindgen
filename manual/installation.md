@@ -24,11 +24,9 @@ discrepancies in such functions when GCC is used.
 
 Unfortunately, it is not straightforward to make GHC use Clang without
 effectively building GHC from scratch. There are flags like `-pgmc` and `-pgml`
-([see the GHC user
-guide](https://downloads.haskell.org/ghc/latest/docs/users_guide/phases.html#replacing-the-program-for-one-or-more-phases))
-which allow specification of the C compiler used by GHC; however, experiments
-showed that just setting these flags was not enough. For more details see the
-discussions at issues
+([see the GHC user guide][ghc:guide:phases-programs]) which allow specification
+of the C compiler used by GHC; however, experiments showed that just setting
+these flags was not enough. For more details see the discussions at issues
 [#846](https://github.com/well-typed/hs-bindgen/issues/846), and
 [#847](https://github.com/well-typed/hs-bindgen/issues/847).
 
@@ -334,5 +332,13 @@ $env:Path = "C:\path\to\your\c\libs;" + $env:Path
 
 ## Nix
 
-We provide and maintain a [Nix Flake](../flake.nix), and a [Nix-focused
-tutorial](https://github.com/well-typed/hs-bindgen-tutorial-nix).
+We provide and maintain a [Nix Flake][flake.nix], and a
+[Nix-focused tutorial][hs-bindgen-tutorial-nix].
+
+
+
+<!-- sources and references -->
+
+[ghc:guide:phases-programs]: https://downloads.haskell.org/ghc/latest/docs/users_guide/phases.html#replacing-the-program-for-one-or-more-phases
+[flake.nix]: ../flake.nix
+[hs-bindgen-tutorial-nix]: https://github.com/well-typed/hs-bindgen-tutorial-nix
