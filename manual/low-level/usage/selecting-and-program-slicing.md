@@ -9,17 +9,18 @@ The determination of which C declarations to translate is a complex problem. In
    reifies these declarations.
 
 3. Given the set of declarations parsed and reified by `hs-bindgen`, [_select
-   predicates_](#select-predicates) dictate which declarations to generate
+   predicates_][t:select-predicates] dictate which declarations to generate
    bindings for.
 
 4. Now we have the set of selected declarations to generate bindings for. If
-   [_program slicing_](#program-slicing) is disabled, `hs-bindgen` only
+   [_program slicing_][t:program-slicing] is disabled, `hs-bindgen` only
    generates bindings for these declarations. If, instead, program slicing is
    enabled, `hs-bindgen` also selects and generates bindings for transitive
    dependencies. Transitive dependencies may be located in non-main headers such
    as other library headers or system headers.
 
 ## Main headers
+[t:main-headers]: #main-headers
 
 Users can specify _main headers_ via command line arguments, by passing them to
 the library function `hsBindgen`, or via `hashInclude` expressions when using
@@ -28,15 +29,16 @@ these main headers including all declarations therein, and transitive
 dependencies.
 
 > [!NOTE]
-> The manual section [Includes](./04-Includes.md) describes how headers are
+> The manual section [Includes][manual:includes] describes how headers are
 > resolved.
 
 ## Select predicates
+[t:select-predicates]: #select-predicates
 
 After parsing and reifying the declarations, the frontend of `hs-bindgen` sorts
 the declarations, handles macros, [provides names to
-declarations](../Translation/01-GeneratedNames.md) and resolves and applies
-[binding specifications](06-BindingSpecifications.md). Then, it matches a
+declarations][manual:generated-names] and resolves and applies [binding
+specifications][manual:binding-specifications]. Then, it matches a
 _select predicate_, further reducing the number of declarations to be
 translated.
 
@@ -83,6 +85,7 @@ to specify select predicates are (excerpt of `hs-bindgen-cli preprocess
 > can be tricky when used in regular expressions.
 
 ## Program slicing
+[t:program-slicing]: #program-slicing
 
 Let us translate a specific declaration --- for example, the function
 declaration
@@ -102,6 +105,7 @@ slicing_ determines and selects the corresponding transitive dependencies.
 > explicitly deselected by a select predicate.
 
 ## Notes and examples
+[t:notes-and-examples]: #notes-and-examples
 
 ### Example use case and default behavior of `hs-bindgen`
 
@@ -122,3 +126,11 @@ By default, `hs-bindgen` the command-line client uses the following configuratio
 The header files in `/path/to/simple/**` may use declarations from other
 transitively included headers not residing in `/path/to/simple/**` (e.g.,
 standard headers).
+
+
+
+<!-- sources and references -->
+
+[manual:binding-specifications]: binding-specifications.md
+[manual:generated-names]: ../translation/generated-names.md
+[manual:includes]: includes.md

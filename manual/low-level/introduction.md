@@ -102,7 +102,7 @@ The reason that `Index` is defined as a `newtype` around `CUInt` rather than a
 Haskell ADT is that a C `enum` declaration only defines _values_; it does not
 limit the range of the corresponding type. For the same reason we do not derive
 `Enum` or `Bounded` for `Index`, and the patterns `A`, `B` and `C` are _not_
-declared [complete][ghc-manual:complete].
+declared [complete][ghc:guide:pragmas-complete].
 
 > [!NOTE]
 > The `CENum` class will provide an alternative interface to `Enum` and
@@ -183,7 +183,7 @@ macro functions:
 
 C macros lack type annotations, and we cannot tell from just looking at the
 macro body how it is intended to be used. Therefore `hs-bindgen` uses type
-inference to generate a Haskel function with the most general type possible:
+inference to generate a Haskell function with the most general type possible:
 
 ```haskell
 pTR_TO_FIELD :: forall a. (C.Add a) CInt => a -> (C.AddRes a) CInt
@@ -243,6 +243,12 @@ foreign import ccall safe "hs_bindgen_1c549fc082857e68"
   getYear :: Ptr Date -> IO YEAR
 ```
 
+
+
+<!-- footnotes -->
+
 [^1]: Slightly edited for layout.
 
-[ghc-manual:complete]: https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#complete-pragmas
+<!-- sources and references -->
+
+[ghc:guide:pragmas-complete]: https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#complete-pragmas

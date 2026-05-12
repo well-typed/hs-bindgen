@@ -115,7 +115,7 @@ generate_bindings "$TARGET_TRIPLE" "$HS_PROJECT_DIR/src-aarch64"
 #
 # iserv: External interpreter for Template Haskell cross-compilation
 #
-# See manual/LowLevel/Usage/08-CrossCompilation.md for detailed explanation.
+# See manual/low-level/usage/cross-compilation.md for detailed explanation.
 # Brief: iserv evaluates TH splices under QEMU for the target architecture.
 # We build it from source because Nix's cross-GHC does not ship an iserv
 # binary (Hadrian explicitly excludes it from cross builds). If you built

@@ -171,7 +171,7 @@ data ShapeD = ShapeD
 
 Finally, we could leave out the name of the `size` field as well. Now the nested
 union becomes an *anonymous* union. The definition of anonymous unions can be
-found in the [C reference][c-reference:union]:
+found in the [C reference][creference:union]:
 
 > An unnamed member of a union whose type is a union without name is known as
 > anonymous union.
@@ -236,6 +236,6 @@ warning-level trace message will be emitted in this case.
 
 <!-- sources and references -->
 
-[c-reference:union]: https://en.cppreference.com/w/c/language/union.html
-[manual:usage/binding-specs]: ../../Usage/06-BindingSpecifications.md
-[manual:structs/nesting]: ../02-Structs/Nesting.md
+[creference:union]: https://en.cppreference.com/w/c/language/union.html
+[manual:structs/nesting]: ../structs/nesting.md
+[manual:usage/binding-specs]: ../../usage/binding-specifications.md

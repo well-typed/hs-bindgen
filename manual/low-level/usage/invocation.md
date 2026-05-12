@@ -52,7 +52,7 @@ Options configuring `libclang`:
 - `--clang-option-before OPT` - Pass option before managed options
 - `--clang-option-after OPT` - Pass option after managed options
 
-See [Clang options](03-ClangOptions.md) for details about the order in which
+See [Clang options][manual:clang-options] for details about the order in which
 options are passed to Clang.
 
 #### Select predicates
@@ -71,7 +71,7 @@ predicates are included.  With program slicing enabled, transitive
 dependencies of selected declarations are included, even if explicitly
 deselected.
 
-See [Selecting, and program slicing](05-SelectingAndProgramSlicing.md) for
+See [Selecting, and program slicing][manual:selecting-and-program-slicing] for
 details.
 
 ### Example
@@ -158,7 +158,7 @@ approaches, but is less suitable for cross-compilation scenarios where target
 platform information may not be available at compile time.
 
 A minimal demonstration of the literate preprocessor mechanism (independent of
-hs-bindgen) is available [here](../../../examples/literate-example).
+hs-bindgen) is available [here][example:literate-example].
 
 ### Configuration
 
@@ -360,7 +360,7 @@ use command-line or preprocessor invocation instead.  Use higher verbosity
 
 ## Preparation of system environment for `hs-bindgen`
 
-See the [Installation](../../Installation.md) guide for platform-specific setup
+See the [Installation][manual:installation] guide for platform-specific setup
 instructions (Linux, macOS, Windows, Nix).
 
 ## Using `hs-bindgen` with bundled C source files
@@ -416,6 +416,17 @@ Since the C code is compiled by Cabal, there is no need to update
 > unlikely to cause problems, but GCC and Clang can disagree on memory layout
 > for more exotic constructs (bitfields, packed structs, platform-specific
 > alignment).  See [Compiler choice (GCC vs.
-> Clang)](../../Installation.md#compiler-choice-gcc-vs-clang) for details.
+> Clang)](../../installation.md#compiler-choice-gcc-vs-clang) for details.
 
-A complete working example is available in [`examples/bundled-c`](../../../examples/bundled-c/).
+A complete working example is available in
+[`examples/bundled-c`][example:bundled-c].
+
+
+
+<!-- sources and references -->
+
+[example:bundled-c]: ../../../examples/bundled-c
+[example:literate-example]: ../../../examples/literate-example
+[manual:clang-options]: clang-options.md
+[manual:installation]: ../../installation.md
+[manual:selecting-and-program-slicing]: selecting-and-program-slicing.md

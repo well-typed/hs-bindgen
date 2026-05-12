@@ -22,6 +22,10 @@ extra-source-files:
   clib/*.c
   clib/*.h
 
+extra-doc-files:
+  CHANGELOG.md
+  README.md
+
 common lang
   ghc-options:
     -Wall -Widentities -Wprepositive-qualified-module

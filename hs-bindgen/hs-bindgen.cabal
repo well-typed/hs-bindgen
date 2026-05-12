@@ -28,6 +28,10 @@ extra-source-files:
   fixtures/**/*.yaml
   musl-include/**/*.h
 
+extra-doc-files:
+  CHANGELOG.md
+  README.md
+
 flag dev
   description: Build debugging utilities for developing hs-bindgen itself
   default:     False

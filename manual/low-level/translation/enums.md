@@ -5,7 +5,7 @@
 ### Simple `enum`s
 
 We already saw the simplest form of `enum` in the
-[Introduction](../Introduction.md): given
+[Introduction][manual:introduction]. Given
 
 ```c
 typedef enum index {
@@ -278,8 +278,7 @@ readPrecCEnum :: forall a. (CEnum a, Read (CEnumZ a)) => ReadPrec a
 
 `readPrecCEnum` uses the class method `readPrecUndeclared` to read undeclared
 values. We also define default implementations for `readList`, and
-`readListPrec` as detailed in
-[Text.Read](https://hackage.haskell.org/package/base/docs/Text-Read.html#t:Read).
+`readListPrec` as detailed in [Text.Read][hackage:base:Text.Read].
 
 The function `readPrecCEnum` parses declared and undeclared values. For example,
 
@@ -435,5 +434,11 @@ C `enum`) would break one of the two properties we stated above:
 We feel that either of these two options would ultimately result in more
 confusion rather than less.
 
+
+
+<!-- sources and references -->
+
+[hackage:base:Text.Read]: https://hackage.haskell.org/package/base/docs/Text-Read.html#t:Read
 [libclang]: https://clang.llvm.org/doxygen/group__CINDEX.html
 [libclang:CXCursor]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+[manual:introduction]: ../introduction.md

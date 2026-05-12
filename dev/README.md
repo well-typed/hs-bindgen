@@ -13,6 +13,7 @@ please refer to the [main documentation](../manual).
 - [Development Environment](dev-environment.md): Instructions for setting up your
   development environment on Linux, NixOS, macOS, and Windows, including
   platform-specific quirks and requirements.
+- [Manual Style Guide](manual-style-guide.md): Manual style guide.
 - [Building the Manual](building-manual.md): Detailed instructions for building
   and running the manual on all supported platforms (Linux, macOS, and
   Windows).

@@ -90,7 +90,7 @@ and a reproducer.
 
 ## Further reading
 
-- [hs-bindgen Cross-Compilation Manual](../../manual/LowLevel/Usage/08-CrossCompilation.md) --
+- [hs-bindgen Cross-Compilation Manual](../../manual/low-level/usage/cross-compilation.md) --
   authoritative reference covering target triples, sysroots, iserv/TH
   cross-compilation, and troubleshooting
 - [Clang Cross-Compilation](https://clang.llvm.org/docs/CrossCompilation.html)

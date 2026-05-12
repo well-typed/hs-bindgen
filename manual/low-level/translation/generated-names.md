@@ -209,7 +209,7 @@ which `isAlphaNum` returns `False`. After escaping, this name becomes
 
 > [!NOTE]
 > For this _particular_ example we could generate a better name if we
-> transformed it to [NFC][unicode:NFC] first. Indeed, `gcc` (but not `clang`)
+> transformed it to [NFC][unicode:nfc] first. Indeed, `gcc` (but not `clang`)
 > will issue a warning that this name is not in NFC.
 > <https://github.com/well-typed/hs-bindgen/issues/560>
 
@@ -307,5 +307,9 @@ newtype Data = Data {
   }
 ```
 
+
+
+<!-- sources and references -->
+
 [hackage:base:isAlphaNum]: https://hackage.haskell.org/package/base/docs/Data-Char.html#v:isAlphaNum
-[unicode:NFC]: https://unicode.org/reports/tr15/
+[unicode:nfc]: https://unicode.org/reports/tr15/
