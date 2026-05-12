@@ -120,3 +120,31 @@ as the following requirements are met:
 
 Now create a PR with these changs and (hopefully) you will observe that a new
 job is run that tests the new example project.
+
+### System-library mode (optional)
+
+By default each example bundles or downloads its C dependency, builds it
+from source, and points `hs-bindgen-cli` at the resulting headers. This
+guarantees a known-good version but means the example doesn't exercise the
+"system library" code path that real users hit.
+
+Where the library is also available as a system package on common distros,
+expose a single override env var (e.g. `LIBFOO_INCLUDE_DIR`) that, when
+set, skips the bundled build and points `hs-bindgen-cli` at the system
+headers instead.
+
+`examples/libpcap/generate.sh:14` is the worked example:
+
+```sh
+module_flags=(
+    -I "${PCAP_INCLUDE_DIR:-./libpcap}"
+    ...
+)
+```
+
+`PCAP_INCLUDE_DIR=/usr/include ./generate.sh` skips the cmake/make
+detour and uses Alpine's `apk add libpcap-dev` install. The Alpine CI
+workflow (`.github/workflows/alpine.yml`) consumes exactly this entry
+point. The example's `extra-libraries: pcap` directive in the cabal
+file already finds the system `libpcap.so` via standard search paths,
+so no further plumbing is needed.
