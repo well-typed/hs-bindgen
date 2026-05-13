@@ -9,7 +9,7 @@ import Options.Applicative.Help qualified as Help
 import Prettyprinter.Util qualified as PP
 import System.Exit (ExitCode, exitFailure)
 
-import Clang.Version (runtimeClangVersionString)
+import Clang.Version (compileTimeClangVersionString, runtimeClangVersionString)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -56,7 +56,9 @@ execCliParser = customExecParser prefs' opts
     vers = List.intercalate "\n" [
         "hs-bindgen " ++ showVersion Package.version
       , "binding specification " ++ show BindingSpec.currentBindingSpecVersion
-      , Text.unpack runtimeClangVersionString
+      , "clang compile time version: "
+          ++ Text.unpack compileTimeClangVersionString
+      , "clang runtime version:      " ++ Text.unpack runtimeClangVersionString
       ]
 
 {-------------------------------------------------------------------------------
