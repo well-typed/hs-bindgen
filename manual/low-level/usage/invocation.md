@@ -415,8 +415,8 @@ Since the C code is compiled by Cabal, there is no need to update
 > parse the headers and derive type layouts.  For simple types this is
 > unlikely to cause problems, but GCC and Clang can disagree on memory layout
 > for more exotic constructs (bitfields, packed structs, platform-specific
-> alignment).  See [Compiler choice (GCC vs.
-> Clang)](../../installation.md#compiler-choice-gcc-vs-clang) for details.
+> alignment).  See [Clang vs. GCC][manual:installation-clang-vs-gcc] for
+> details.
 
 A complete working example is available in
 [`examples/bundled-c`][example:bundled-c].
@@ -429,4 +429,5 @@ A complete working example is available in
 [example:literate-example]: ../../../examples/literate-example
 [manual:clang-options]: clang-options.md
 [manual:installation]: ../../installation.md
+[manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
 [manual:selecting-and-program-slicing]: selecting-and-program-slicing.md
