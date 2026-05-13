@@ -3,9 +3,11 @@
 -- Intended for unqualified import.
 module HsBindgen.Frontend.LanguageC.Monad (
     FromLanC(..)
-  , ReparseEnv
+  , ReparseEnv(..)
   , runFromLanC
   , getReparseEnv
+  , getKnownTypes
+  , lookupType
     -- * Throwing errors
   , unexpected
   , unsupported
@@ -16,11 +18,13 @@ module HsBindgen.Frontend.LanguageC.Monad (
   , optionally
   ) where
 
+import Control.Applicative
 import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.Except qualified as Except
 import Control.Monad.Reader (Reader)
 import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
+import Data.Map qualified as Map
 import GHC.Stack
 
 import HsBindgen.Frontend.AST.Type qualified as C
@@ -49,7 +53,22 @@ newtype FromLanC a = WrapFromLanC (
     )
 
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (C.Type ReparseMacroExpansions)
+data ReparseEnv = ReparseEnv {
+    -- | Known @typedef@s
+    knownTypes      :: Map CName (C.Type ReparseMacroExpansions)
+    -- | Known type-like macros
+    --
+    -- We store macros in a separate field, because in the future we may not
+    -- translate macros to their full C types anymore.
+    --
+    -- Furthermore, we only add the macros /expanded in the reparsed
+    -- declaration/ to the environment.
+    --
+    -- At the moment, we translate to C.Type using @addNewMacroTypeToReparseEnv@
+    -- in @TypecheckMacros@.
+  , knownMacroTypes :: Map CName (C.Type ReparseMacroExpansions)
+  }
+  deriving (Show, Eq)
 
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv (WrapFromLanC ma) =
@@ -58,6 +77,15 @@ runFromLanC typeEnv (WrapFromLanC ma) =
 
 getReparseEnv :: FromLanC ReparseEnv
 getReparseEnv = WrapFromLanC Reader.ask
+
+getKnownTypes :: ReparseEnv -> Set CName
+getKnownTypes env = Map.keysSet env.knownTypes <> Map.keysSet env.knownMacroTypes
+
+lookupType :: CName -> ReparseEnv -> Maybe (C.Type ReparseMacroExpansions)
+lookupType nm env =
+    -- Macro types take priority: a typedef and a type-like macro may share the
+    -- same bare name (e.g. 'bool' from stdbool.h alongside a typedef 'bool').
+    Map.lookup nm env.knownMacroTypes <|> Map.lookup nm env.knownTypes
 
 {-------------------------------------------------------------------------------
   Throwing errors

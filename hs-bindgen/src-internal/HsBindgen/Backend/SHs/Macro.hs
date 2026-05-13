@@ -47,7 +47,7 @@ translateMacroValue macro = DBinding Binding{
     , comment    = macro.comment
     }
   where
-    typ = fmap snd $ macro.expr.value.macroValueType
+    typ = fmap snd $ macro.expr.val.macroValueType
 
 {-------------------------------------------------------------------------------
   Translate type
@@ -129,7 +129,7 @@ simpleTyConApp _ _ =
 -------------------------------------------------------------------------------}
 
 translateBody :: CheckedMacroValue Final -> SExpr EmptyCtx
-translateBody expr = case expr.value of
+translateBody expr = case expr.val of
   (CExpr.CheckedMacroValueExpr p b _) ->
     lambdaN (Vec.reverse $ idNameHint <$> p) $ mexpr b
 

@@ -16,13 +16,16 @@ module HsBindgen.Frontend.LanguageC (
   , reparseField
   , reparseGlobal
     -- * Scoping
-  , ReparseEnv
-  , initReparseEnv
+  , CName
+  , ReparseEnv(..)
+  , bespokeTypes
   ) where
 
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
+import Data.Map (Map)
 import Data.Map qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Tuple (swap)
 import Language.C qualified as LanC
@@ -107,7 +110,7 @@ parseUsingLanC mloc raw = do
     let predefinedTypes' :: [LanC.Ident]
         uniqNameSupply   :: [LanC.Name]
         (predefinedTypes', uniqNameSupply) = runWithNewNameSupply $ do
-            mapM declarePredefined $ Map.keys reparseEnv
+            mapM declarePredefined $ Set.toList $ getKnownTypes reparseEnv
 
     case LanC.execParser
            LanC.extDeclP
@@ -198,17 +201,11 @@ prependToken token rest = concat [
   Construct type environment
 -------------------------------------------------------------------------------}
 
--- | Initial 'ReparseEnv'
+-- | \"Primitives\" we expect the reparser to recognize
 --
--- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: ClangCStandard -> ReparseEnv
-initReparseEnv standard = Map.fromList (bespokeTypes standard)
-
--- | \"Primitive\" we expect the reparser to recognize
---
--- The language-c parser does not support these explicitly.
-bespokeTypes :: ClangCStandard -> [(CName, C.Type p)]
-bespokeTypes = \case
+-- The @language-c@ parser does not support these explicitly.
+bespokeTypes :: ClangCStandard -> Map CName (C.Type p)
+bespokeTypes = Map.fromList . \case
 #if !MIN_VERSION_language_c(0,10,2)
     -- Make sure that we really only replace keywords lacking definitions.
     --

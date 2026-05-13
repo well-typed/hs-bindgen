@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -52,8 +53,8 @@ type CType = C.Type TypecheckMacros
 typecheckMacros ::
      C.TranslationUnit ConstructTranslationUnit
   -> ( C.TranslationUnit TypecheckMacros
-     , LanC.ReparseEnv
-     , LanC.ReparseEnv
+     , Map LanC.CName (C.Type ReparseMacroExpansions)
+     , Map LanC.CName (C.Type ReparseMacroExpansions)
      )
 typecheckMacros unit =
     let typedefTypes :: Map Text CType
@@ -70,7 +71,8 @@ typecheckMacros unit =
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
         , Map.map coercePass $
             typedefTypes <> Map.mapKeys renderCDeclNameC taggedTypes
-        , Map.map coercePass $ typecheckState.resolvedMacroTypes )
+        , Map.map coercePass $ typecheckState.resolvedMacroTypes
+        )
 
 {-------------------------------------------------------------------------------
   Reconstruct translation unit after typechecking
@@ -178,7 +180,7 @@ typecheckMacro ::
   -> ParsedMacro
   -> M (Either FailedMacro (C.Decl TypecheckMacros))
 typecheckMacro info parsedMacro = do
-    result <- tcMacro info.id.name parsedMacro
+    result <- tcMacro info.id parsedMacro
     pure $ bimap addInfo toDecl result
   where
     addInfo :: MacroTypecheckError -> FailedMacro
@@ -213,13 +215,12 @@ data TypecheckEnv = TypecheckEnv {
     }
 
 data TypecheckState = TypecheckState {
-      -- | The c-expr-dsl type environment, accumulating quantified types
+      -- | The @c-expr-dsl@ type environment, accumulating quantified types
       --   for each macro as we typecheck them.
       typeEnv :: CExpr.TypeEnv
-      -- | Resolved macro C types, keyed by bare name. We need these when
-      --   injecting type names (for macros that reference other macro-defined
-      --   types) and for reparsing declarations with macro expansions in the
-      --   next pass.
+      -- | Resolved macro C types, keyed by bare name. Used to populate the
+      --   reparse environment in the next pass, and to distinguish macro-defined
+      --   types from @typedef@s in 'lookupTypeName'.
     , resolvedMacroTypes :: Map Text CType
     }
   deriving stock (Generic)
@@ -247,12 +248,12 @@ runM knownTypedefs knownTaggedTypes (WrapM ma) = runReader (runStateT ma s) e
 -- | Look up a @typedef@ or macro-defined type by bare name.
 --
 -- Searches both the known @typedef@s (from the first traversal) and the
--- resolved macro types (accumulated during typechecking).
+-- names of macros that previously typechecked as type expressions.
 --
 -- 'panicPure' is safe here: c-expr-dsl only calls the inject function for names
--- present in 'CExpr.TypeEnv', which we built from these same maps. That is, it
--- is a bug, if we fail to lookup an ordinary type, because the typechecker
--- should have failed gracefully at an earlier stage.
+-- present in 'CExpr.TypeEnv', which is populated from the same two sources.
+-- Failing to resolve an ordinary type is a bug; the typechecker should have
+-- failed gracefully at an earlier stage.
 lookupTypeName :: TypecheckEnv -> TypecheckState -> Text -> DeclId
 lookupTypeName env st n =
     case (Map.member n env.knownTypedefs, Map.member n st.resolvedMacroTypes) of
@@ -300,10 +301,12 @@ lookupTypeWith env st declId =
 -- values used for dependency tracking. For type macros, 'convertTExpr' then
 -- maps the 'DeclId' leaves in the result back to 'CType' via 'lookupTypeWith'.
 tcMacro ::
-     CDeclName
+     DeclId
+     -- ^ The macro's own declaration id (used to build the 'MacroRef' entry
+     --   in the reparse environment).
   -> ParsedMacro
   -> M (Either MacroTypecheckError (CheckedMacro TypecheckMacros))
-tcMacro name (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
+tcMacro macroDeclId (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
     st  <- get
     env <- ask
 
@@ -351,45 +354,47 @@ tcMacro name (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
       Right tcRes -> case tcRes of
         Left err ->
           pure $ Left $ MacroTypecheckErrorCExpr err
-        Right (CExpr.MacroTcTypeExpr mType) ->
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
-          --
-          -- We are still pulling along the C type.
-          case convertTExpr (lookupTypeWith env st) mType.macroTypeBody of
-            Left err  -> pure $ Left err
-            Right cType -> do
-              addQuant mType.macroTypeType
-              addNewMacroTypeToReparseEnv cType
-              pure $ Right $ MacroType $ CheckedMacroType cType NoAnn
-        Right (CExpr.MacroTcValueExpr (CExpr.CheckedMacroValueExpr params expr quant )) -> do
-          addQuant quant
-          pure $ Right $ MacroValue $ CheckedMacroValue $
-            CExpr.CheckedMacroValueExpr{
-                macroValueParams = params
-              , macroValueBody   = expr
-              , macroValueType   = quant
-              }
+        Right (CExpr.MacroTcTypeExpr typ) -> do
+          let cType = convertTExpr (lookupTypeWith env st) typ.macroTypeBody
+          addQuant typ.macroTypeType
+          addNewMacroTypeToReparseEnv cType
+          let typ' = typ{
+                CExpr.macroTypeBody = fmap MacroTypeBodyVar typ.macroTypeBody
+                }
+          pure $ Right $ MacroType $ CheckedMacroType typ' NoAnn
+        Right (CExpr.MacroTcValueExpr val) ->
+          case val of
+            (CExpr.CheckedMacroValueExpr params expr quant ) -> do
+              addQuant quant
+              pure $ Right $ MacroValue $ CheckedMacroValue $
+                CExpr.CheckedMacroValueExpr{
+                    macroValueParams = params
+                  , macroValueBody   = expr
+                  , macroValueType   = quant
+                  }
   where
     addQuant :: CExpr.Quant (CExpr.FunValue, CExpr.Type CExpr.Ty) -> M ()
     addQuant quant =
         modify $ #typeEnv %~ Map.insert macroName quant
 
+    -- Add this macro's underlying C type to 'resolvedMacroTypes', making it
+    -- available for the reparse environment and 'lookupTypeName'.
+    --
+    -- Special case: stdbool.h defines @#define bool _Bool@. We normalise this
+    -- away: if @bool@ maps to @PrimBool@, we store @TypePrim PrimBool@
+    -- directly instead of wrapping it in @TypeMacro@. This ensures that @bool@
+    -- from stdbool.h renders identically to @_Bool@, regardless of
+    -- language-c version. Genuine redefinitions like @#define bool int@ are
+    -- not affected because their underlying type is not @PrimBool@.
     addNewMacroTypeToReparseEnv :: CType -> M ()
     addNewMacroTypeToReparseEnv typ
-      -- stdbool.h defines @#define bool _Bool@, which is just an alias for
-      -- the primitive boolean type. We normalise this away: if @bool@ maps
-      -- to @PrimBool@, we store @TypePrim PrimBool@ directly instead of
-      -- wrapping it in @TypeMacro@. This ensures that @bool@ from stdbool.h
-      -- renders identically to @_Bool@, regardless of language-c version.
-      -- Genuine redefinitions like @#define bool int@ are not affected
-      -- because their underlying type is not @PrimBool@.
-      | name.text == "bool"
+      | macroDeclId.name.text == "bool"
       , C.TypePrim C.PrimBool <- typ
-      = addMacroType name.text typ
+      = addMacroType macroDeclId.name.text typ
       | otherwise
-      = addMacroType name.text $
+      = addMacroType macroDeclId.name.text $
           C.TypeMacro $ C.Ref {
-              name = DeclId{name = name, isAnon = False}
+              name       = macroDeclId
             , underlying = typ
             }
 
@@ -399,6 +404,10 @@ tcMacro name (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
 
 {-------------------------------------------------------------------------------
   Convert T.Expr to C.Type
+
+  See 'HsBindgen.Backend.Hs.Translation.MacroType'.
+
+  Will be removed in the future.
 -------------------------------------------------------------------------------}
 
 -- | Convert a typechecked macro type expression ('T.Expr') to a C type.
@@ -406,32 +415,17 @@ tcMacro name (ParsedMacro (CExpr.Macro _ macroName macroParams macroExpr)) = do
 -- Named types appear as 'DeclId' leaves; 'lookupType' maps each 'DeclId' back
 -- to its 'CType'.
 --
--- Correctly handles chains of @const@ and pointer modifiers (e.g.
--- @const int *@, @int * const@, @const int * const *@).
---
--- Rejects bare @void@ at the top level (including @const void@), but allows
--- @void@ as the pointee of a pointer (e.g. @void *@, @const void *@).
-convertTExpr :: (DeclId -> CType) -> T.Expr DeclId -> Either MacroTypecheckError CType
-convertTExpr lookupType expr = go expr >>= checkTopLevelVoid
+-- Top-level @void@ and @const void@ are already rejected by 'CExpr.tcMacro'
+-- ('TcIncompleteTypeMacro'), so this conversion is total.
+convertTExpr :: (DeclId -> CType) -> T.Expr DeclId -> CType
+convertTExpr lookupType = go
   where
-    go :: T.Expr DeclId -> Either MacroTypecheckError CType
+    go :: T.Expr DeclId -> CType
     go = \case
-      T.App T.Pointer inner ->
-        C.TypePointers 1 <$> go inner
-      T.App T.Const   inner ->
-        C.TypeQual C.QualConst <$> go inner
-      T.TypeLit t ->
-        Right $ convertLiteral t
-      T.Var declId ->
-        Right $ lookupType declId
-
-    -- | @void@ is not a valid standalone type; it is only valid as the
-    -- pointee of a pointer (e.g. @void *@).
-    checkTopLevelVoid :: CType -> Either MacroTypecheckError CType
-    checkTopLevelVoid = \case
-      C.TypeVoid              -> Left MacroTypecheckErrorVoidType
-      C.TypeQual _ C.TypeVoid -> Left MacroTypecheckErrorVoidType
-      ty                      -> Right ty
+      T.App T.Pointer inner -> C.TypePointers 1 (go inner)
+      T.App T.Const   inner -> C.TypeQual C.QualConst (go inner)
+      T.TypeLit t           -> convertLiteral t
+      T.Var declId          -> lookupType declId
 
 -- | Convert a primitive type literal to a C type.
 convertLiteral :: CExpr.TypeLit -> CType

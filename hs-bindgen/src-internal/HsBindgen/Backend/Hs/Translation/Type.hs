@@ -7,6 +7,7 @@ module HsBindgen.Backend.Hs.Translation.Type (
     topLevel
   , TypeContext(..)
   , InContext(..)
+  , primType
   ) where
 
 import Data.Proxy (Proxy (..))

@@ -272,58 +272,58 @@ toFFIType sizeofs = go
 
     go :: HsType -> Maybe FFI.FFIType
     go = \case
-      HsPrimType pt -> goPrim pt
-      HsTypRef _ t -> t >>= go
-      HsConstArray{} -> no
-      HsIncompleteArray{} -> no
-      HsPtrArrayElem {} -> yes $ FFI.Basic FFI.Ptr
+      HsPrimType pt          -> goPrim pt
+      HsTypRef _ t           -> t >>= go
+      HsConstArray{}         -> no
+      HsIncompleteArray{}    -> no
+      HsPtrArrayElem {}      -> yes $ FFI.Basic FFI.Ptr
       HsPtrConstArrayElem {} -> yes $ FFI.Basic FFI.Ptr
-      HsPtr{} -> yes $ FFI.Basic FFI.Ptr
-      HsFunPtr{} -> yes $ FFI.Basic FFI.FunPtr
-      HsStablePtr{} -> no
-      HsPtrConst{} -> yes $ FFI.Basic FFI.Ptr
-      HsIO t' -> FFI.IO <$> go t'
-      HsFun s t' -> FFI.FunArrow <$> go s <*> go t'
-      HsExtBinding _ _ _ t' -> go t'
-      HsByteArray -> no
-      HsSizedByteArray{} -> no
-      HsBlock{} -> yes $ FFI.Basic FFI.Ptr
-      HsComplexType{} -> no
-      HsStrLit{} -> no
-      HsWithFlam{} -> no
-      HsEquivStorable{} -> no
+      HsPtr{}                -> yes $ FFI.Basic FFI.Ptr
+      HsFunPtr{}             -> yes $ FFI.Basic FFI.FunPtr
+      HsStablePtr{}          -> no
+      HsPtrConst{}           -> yes $ FFI.Basic FFI.Ptr
+      HsIO t'                -> FFI.IO <$> go t'
+      HsFun s t'             -> FFI.FunArrow <$> go s <*> go t'
+      HsExtBinding _ _ _ t'  -> go t'
+      HsByteArray            -> no
+      HsSizedByteArray{}     -> no
+      HsBlock{}              -> yes $ FFI.Basic FFI.Ptr
+      HsComplexType{}        -> no
+      HsStrLit{}             -> no
+      HsWithFlam{}           -> no
+      HsEquivStorable{}      -> no
 
     goPrim :: HsPrimType -> Maybe FFI.FFIType
     goPrim pt = case pt of
-        HsPrimVoid -> no
-        HsPrimUnit -> yes $ FFI.Unit
-        HsPrimChar -> yes $ FFI.Basic FFI.Char
-        HsPrimInt -> yes $ FFI.Basic FFI.Int
-        HsPrimDouble -> yes $ FFI.Basic FFI.Double
-        HsPrimFloat -> yes $ FFI.Basic FFI.Float
-        HsPrimBool -> yes $ FFI.Basic FFI.Bool
-        HsPrimInt8 -> yes $ FFI.Basic FFI.Int8
-        HsPrimInt16 -> yes $ FFI.Basic FFI.Int16
-        HsPrimInt32 -> yes $ FFI.Basic FFI.Int32
-        HsPrimInt64 -> yes $ FFI.Basic FFI.Int64
-        HsPrimWord -> yes $ FFI.Basic FFI.Word
-        HsPrimWord8 -> yes $ FFI.Basic FFI.Word8
-        HsPrimWord16 -> yes $ FFI.Basic FFI.Word16
-        HsPrimWord32 -> yes $ FFI.Basic FFI.Word32
-        HsPrimWord64 -> yes $ FFI.Basic FFI.Word64
-        HsPrimCChar -> yes $ FFI.Basic $ signedType sizeofs.char
-        HsPrimCSChar -> yes $ FFI.Basic $ signedType sizeofs.schar
-        HsPrimCUChar -> yes $ FFI.Basic $ unsignedType sizeofs.uchar
-        HsPrimCShort -> yes $ FFI.Basic $ signedType sizeofs.short
+        HsPrimVoid    -> no
+        HsPrimUnit    -> yes $ FFI.Unit
+        HsPrimChar    -> yes $ FFI.Basic FFI.Char
+        HsPrimInt     -> yes $ FFI.Basic FFI.Int
+        HsPrimDouble  -> yes $ FFI.Basic FFI.Double
+        HsPrimFloat   -> yes $ FFI.Basic FFI.Float
+        HsPrimBool    -> yes $ FFI.Basic FFI.Bool
+        HsPrimInt8    -> yes $ FFI.Basic FFI.Int8
+        HsPrimInt16   -> yes $ FFI.Basic FFI.Int16
+        HsPrimInt32   -> yes $ FFI.Basic FFI.Int32
+        HsPrimInt64   -> yes $ FFI.Basic FFI.Int64
+        HsPrimWord    -> yes $ FFI.Basic FFI.Word
+        HsPrimWord8   -> yes $ FFI.Basic FFI.Word8
+        HsPrimWord16  -> yes $ FFI.Basic FFI.Word16
+        HsPrimWord32  -> yes $ FFI.Basic FFI.Word32
+        HsPrimWord64  -> yes $ FFI.Basic FFI.Word64
+        HsPrimCChar   -> yes $ FFI.Basic $ signedType sizeofs.char
+        HsPrimCSChar  -> yes $ FFI.Basic $ signedType sizeofs.schar
+        HsPrimCUChar  -> yes $ FFI.Basic $ unsignedType sizeofs.uchar
+        HsPrimCShort  -> yes $ FFI.Basic $ signedType sizeofs.short
         HsPrimCUShort -> yes $ FFI.Basic $ unsignedType sizeofs.ushort
-        HsPrimCInt -> yes $ FFI.Basic $ signedType sizeofs.int
-        HsPrimCUInt -> yes $ FFI.Basic $ unsignedType sizeofs.uint
-        HsPrimCLong -> yes $ FFI.Basic $ signedType sizeofs.long
-        HsPrimCULong -> yes $ FFI.Basic $ unsignedType sizeofs.ulong
-        HsPrimCLLong -> yes $ FFI.Basic $ signedType sizeofs.longlong
+        HsPrimCInt    -> yes $ FFI.Basic $ signedType sizeofs.int
+        HsPrimCUInt   -> yes $ FFI.Basic $ unsignedType sizeofs.uint
+        HsPrimCLong   -> yes $ FFI.Basic $ signedType sizeofs.long
+        HsPrimCULong  -> yes $ FFI.Basic $ unsignedType sizeofs.ulong
+        HsPrimCLLong  -> yes $ FFI.Basic $ signedType sizeofs.longlong
         HsPrimCULLong -> yes $ FFI.Basic $ unsignedType sizeofs.ulonglong
-        HsPrimCBool -> yes $ FFI.Basic $ unsignedType sizeofs.bool
-        HsPrimCFloat -> yes $ FFI.Basic FFI.Float
+        HsPrimCBool   -> yes $ FFI.Basic $ unsignedType sizeofs.bool
+        HsPrimCFloat  -> yes $ FFI.Basic FFI.Float
         HsPrimCDouble -> yes $ FFI.Basic FFI.Double
 
 signedType :: C.NumBytes -> FFI.BasicFFIType
@@ -349,26 +349,26 @@ fromFFIType = goBase
     goBase :: FFI.FFIType -> HsType
     goBase t = case t of
         FFI.FunArrow s t' -> goBase s `HsFun` goBase t'
-        FFI.Unit -> prim HsPrimUnit
-        FFI.IO t' -> HsIO (goBase t')
-        FFI.Basic t' -> goBasic t'
+        FFI.Unit          -> prim HsPrimUnit
+        FFI.IO t'         -> HsIO (goBase t')
+        FFI.Basic t'      -> goBasic t'
 
     goBasic :: FFI.BasicFFIType -> HsType
     goBasic t = case t of
-        FFI.Char -> prim HsPrimChar
-        FFI.Int -> prim HsPrimInt
-        FFI.Double -> prim HsPrimDouble
-        FFI.Float -> prim HsPrimFloat
-        FFI.Bool -> prim HsPrimBool
-        FFI.Int8 -> prim HsPrimInt8
-        FFI.Int16 -> prim HsPrimInt16
-        FFI.Int32 -> prim HsPrimInt32
-        FFI.Int64 -> prim HsPrimInt64
-        FFI.Word -> prim HsPrimWord
-        FFI.Word8 -> prim HsPrimWord8
-        FFI.Word16 -> prim HsPrimWord16
-        FFI.Word32 -> prim HsPrimWord32
-        FFI.Word64 -> prim HsPrimWord64
-        FFI.Ptr -> HsPtr $ prim HsPrimVoid
-        FFI.FunPtr -> HsFunPtr $ prim HsPrimVoid
+        FFI.Char      -> prim HsPrimChar
+        FFI.Int       -> prim HsPrimInt
+        FFI.Double    -> prim HsPrimDouble
+        FFI.Float     -> prim HsPrimFloat
+        FFI.Bool      -> prim HsPrimBool
+        FFI.Int8      -> prim HsPrimInt8
+        FFI.Int16     -> prim HsPrimInt16
+        FFI.Int32     -> prim HsPrimInt32
+        FFI.Int64     -> prim HsPrimInt64
+        FFI.Word      -> prim HsPrimWord
+        FFI.Word8     -> prim HsPrimWord8
+        FFI.Word16    -> prim HsPrimWord16
+        FFI.Word32    -> prim HsPrimWord32
+        FFI.Word64    -> prim HsPrimWord64
+        FFI.Ptr       -> HsPtr       $ prim HsPrimVoid
+        FFI.FunPtr    -> HsFunPtr    $ prim HsPrimVoid
         FFI.StablePtr -> HsStablePtr $ prim HsPrimVoid

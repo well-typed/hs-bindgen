@@ -25,6 +25,9 @@
 * Local macro parameters in function-like macros are resolved to de Bruijn
   indices (`LocalParam (Idx ctx)`) at parse time, distinguishing them from
   free variables (`Var`).
+* `tcMacro` now rejects type-like macros that expand to an incomplete type
+  (`void` or `const void` at the top level) with a new `TcIncompleteTypeMacro`
+  error. Pointer-to-incomplete types (e.g. `void *`) are still accepted.
 
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 

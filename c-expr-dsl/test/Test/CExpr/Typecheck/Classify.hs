@@ -28,8 +28,7 @@ tests = testGroup "classify" [
 
 tests_keywordTypes :: TestTree
 tests_keywordTypes = testGroup "keyword type bodies" [
-      testCase "void"       $ assertTypeMacro $ classifyOne "M" VNil (tyLit TypeVoid)
-    , testCase "int"        $ assertTypeMacro $ classifyOne "M" VNil (tyLit (TypeInt Nothing (Just SizeInt)))
+      testCase "int"        $ assertTypeMacro $ classifyOne "M" VNil (tyLit (TypeInt Nothing (Just SizeInt)))
     , testCase "unsigned"   $ assertTypeMacro $ classifyOne "M" VNil (tyLit (TypeInt (Just Unsigned) Nothing))
     , testCase "float"      $ assertTypeMacro $ classifyOne "M" VNil (tyLit (TypeFloat SizeFloat))
     , testCase "double"     $ assertTypeMacro $ classifyOne "M" VNil (tyLit (TypeFloat SizeDouble))
@@ -137,6 +136,24 @@ tests_errors = testGroup "error cases" [
           Right r ->
             assertFailure $ unlines [
                 "expected Left for type macro with unused parameter; but got"
+              , show r
+              ]
+
+    , testCase "bare void type macro is rejected" $
+        case classifyOne "M" VNil (tyLit TypeVoid) of
+          Left  _ -> pure ()
+          Right r ->
+            assertFailure $ unlines [
+                "expected Left for bare 'void' type macro; but got"
+              , show r
+              ]
+
+    , testCase "const void type macro is rejected" $
+        case classifyOne "M" VNil (constOf (tyLit TypeVoid)) of
+          Left  _ -> pure ()
+          Right r ->
+            assertFailure $ unlines [
+                "expected Left for 'const void' type macro; but got"
               , show r
               ]
     ]

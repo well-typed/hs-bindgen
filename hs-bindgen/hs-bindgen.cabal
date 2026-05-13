@@ -104,6 +104,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.ForeignImport
     HsBindgen.Backend.Hs.Translation.Function
     HsBindgen.Backend.Hs.Translation.Instances
+    HsBindgen.Backend.Hs.Translation.MacroType
     HsBindgen.Backend.Hs.Translation.Newtype
     HsBindgen.Backend.Hs.Translation.State
     HsBindgen.Backend.Hs.Translation.Structure
