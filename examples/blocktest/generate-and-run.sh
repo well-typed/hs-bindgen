@@ -7,6 +7,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 export PROJECT_ROOT
 
+# All subsequent relative paths (`-I c`, `iterator.h`, `hs-project/`) resolve
+# from the example directory, so make that the cwd unconditionally.
+cd "$SCRIPT_DIR"
+
 (
     echo "# "
     echo "# Building C library"
@@ -16,8 +20,8 @@ export PROJECT_ROOT
     make
 )
 
-C_DIR=$(realpath c)
-echo $C_DIR
+C_DIR="$SCRIPT_DIR/c"
+echo "$C_DIR"
 
 echo "# "
 echo "# Generating Haskell bindings"

@@ -48,9 +48,14 @@ jobs:
           cache-to: type=gha,scope=alpine-dev,mode=max
 
       # Cache the in-container cabal store across runs; key on cabal/project
-      # files so the cache invalidates when dependencies change.
-      - name: 💾 Cache cabal store
-        uses: actions/cache@v4
+      # files so the cache invalidates when dependencies change. We use the
+      # split restore/save form so the cache is also saved when later steps
+      # (test, examples) fail — the unified `actions/cache@v4` only saves on
+      # full job success, which wastes the 10+ min cabal build on every
+      # failed PR push.
+      - name: 💾 Restore cabal store cache
+        id: cache-cabal
+        uses: actions/cache/restore@v4
         with:
           path: .cabal-store
           key: alpine-cabal-${{ hashFiles('cabal.project*', '**/*.cabal') }}
@@ -114,3 +119,12 @@ jobs:
             -v "$PWD/.cabal-store:/root/.cabal" \
             "$IMAGE" \
             ./examples/blocktest/generate-and-run.sh
+
+      # Save the cabal store cache even if an earlier step failed. Skip
+      # when the exact key already hit (no new dependencies pulled).
+      - name: 💾 Save cabal store cache
+        if: always() && steps.cache-cabal.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .cabal-store
+          key: ${{ steps.cache-cabal.outputs.cache-primary-key }}

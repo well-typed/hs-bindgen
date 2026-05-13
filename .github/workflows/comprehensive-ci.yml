@@ -59,6 +59,9 @@ jobs:
       with:
         version: ${{ matrix.llvm }}
 
+    - name: 🛠️ Install doxygen
+      uses: ./.github/actions/setup-doxygen
+
     - name: 🛠️ cabal.project
       run: cp cabal.project.ci cabal.project
 
@@ -127,6 +130,9 @@ jobs:
       uses: ./.github/actions/setup-llvm-windows
       with:
         ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+    - name: 🛠️ Install doxygen
+      uses: ./.github/actions/setup-doxygen
 
     - name: 🛠️ cabal.project
       run: cat cabal.project.ci | tee cabal.project
@@ -505,6 +511,9 @@ jobs:
         uses: ./.github/actions/setup-llvm
         with:
           version: ${{ matrix.llvm }}
+
+      - name: 🛠️ Install doxygen
+        uses: ./.github/actions/setup-doxygen
 
       - name: 🛠️ Configure
         run: |
