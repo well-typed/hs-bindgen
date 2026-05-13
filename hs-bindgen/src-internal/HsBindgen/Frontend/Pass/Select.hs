@@ -430,7 +430,7 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
             loc = declIdLocationInfo declId [loc]
           , msg = SelectMangleNamesFailure x
           }
-        UnusableMacroTypecheckError loc err -> List.singleton$ withCallStack WithLocationInfo{
+        UnusableTypecheckMacrosError loc err -> List.singleton$ withCallStack WithLocationInfo{
             loc = declIdLocationInfo declId [loc]
           , msg = SelectMacroTypecheckFailure err
           }
@@ -493,7 +493,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
           _otherLvl -> []
         UnusableConflict{} -> []
         UnusableMangleNamesFailure{} -> []
-        UnusableMacroTypecheckError loc err -> case getDefaultLogLevel err of
+        UnusableTypecheckMacrosError loc err -> case getDefaultLogLevel err of
           Bug ->
             List.singleton $ withCallStack WithLocationInfo{
                 loc = declIdLocationInfo declId [loc]
@@ -596,7 +596,7 @@ selectDeclIndex declUseGraph p declIndex =
             Just (Conflict.toList conflict, C.Available)
           UnusableMangleNamesFailure loc _ ->
             Just ([loc], C.Available)
-          UnusableMacroTypecheckError loc _ ->
+          UnusableTypecheckMacrosError loc _ ->
             Just ([loc], C.Available)
           UnusableOmitted{} ->
             Nothing

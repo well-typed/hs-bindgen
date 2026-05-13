@@ -217,6 +217,8 @@ library internal
     HsBindgen.Frontend.Pass.TypecheckMacros
     HsBindgen.Frontend.Pass.TypecheckMacros.Error
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+    HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
+    HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
     HsBindgen.Frontend.Predicate
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader

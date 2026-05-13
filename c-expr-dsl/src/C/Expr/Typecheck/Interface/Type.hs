@@ -57,7 +57,7 @@ instance Exception ConversionError
 
 fromExpr ::
      forall ctx m var p. Applicative m
-  => (Name -> m var)
+  => (Name -> var)
   -> (M.TagKind -> Name -> m var)
   -> M.Expr ctx p
   -> m (Expr var)
@@ -70,7 +70,7 @@ fromExpr injectType injectTaggedType = go
       M.Term (M.LocalParam i) ->
         panicPure $ show $ UnexpectedLocalParameterInType (idxToInt i)
       M.Term (M.Var _ nm []) ->
-        Var <$> (injectType nm)
+        pure $ Var (injectType nm)
       M.Term (M.Var _ nm _ ) ->
         panicPure $ show $ UnexpectedFunctionCallInType nm
       M.TyApp fun args -> do

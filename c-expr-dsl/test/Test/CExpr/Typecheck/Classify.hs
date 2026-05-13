@@ -2,12 +2,15 @@ module Test.CExpr.Typecheck.Classify (
     tests
   ) where
 
+import Data.Map qualified as Map
+import Data.Maybe
 import Data.Vec.Lazy (Vec (..))
 import DeBruijn (Idx (..), pattern I1)
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import C.Expr.Syntax
+import C.Expr.Typecheck
 
 import Test.CExpr.Typecheck.Infra
 
@@ -108,7 +111,7 @@ tests_typeEnvChain = testGroup "TypeEnv chain (value macro references)" [
               , ("B", mvar "A")
               , ("C", add (mvar "B") (intLit 1))
               ]
-        assertValueMacro $ last results
+        assertValueMacro $ fromJust $ Map.lookup "C" results
     ]
 
 {-------------------------------------------------------------------------------
@@ -119,44 +122,31 @@ tests_errors :: TestTree
 tests_errors = testGroup "error cases" [
       testCase "unbound variable" $
         -- A bare identifier not in TypeEnv and not a macro argument is an
-        -- unbound variable.  'tcMacro' returns Left (TcErrors [UnboundVariable ...]).
-        case classifyOne "M" VNil (mvar "unknown") of
-          Left  _ -> pure ()
-          Right _ -> assertFailure "expected Left for unbound variable"
+        -- unbound variable.  'tcMacros' reports it as 'MacroTcCheckError'.
+        assertCheckError $ classifyOne "M" VNil (mvar "unknown")
 
     , testCase "value macro referencing unknown name" $
         -- Even inside arithmetic, an unbound reference fails.
-        case classifyOne "M" VNil (add (intLit 1) (mvar "UNDEFINED")) of
-          Left  _ -> pure ()
-          Right _ -> assertFailure "expected Left for unbound reference in arithmetic"
+        assertCheckError $
+          classifyOne "M" VNil (add (intLit 1) (mvar "UNDEFINED"))
 
     , testCase "type macro with unused parameter" $
-        case classifyOne "M" ("X" ::: VNil) ((tyLit (TypeInt Nothing Nothing))) of
-          Left  _ -> pure ()
-          Right r ->
-            assertFailure $ unlines [
-                "expected Left for type macro with unused parameter; but got"
-              , show r
-              ]
+        assertCheckError $
+          classifyOne "M" ("X" ::: VNil) ((tyLit (TypeInt Nothing Nothing)))
 
     , testCase "bare void type macro is rejected" $
-        case classifyOne "M" VNil (tyLit TypeVoid) of
-          Left  _ -> pure ()
-          Right r ->
-            assertFailure $ unlines [
-                "expected Left for bare 'void' type macro; but got"
-              , show r
-              ]
+        assertCheckError $ classifyOne "M" VNil (tyLit TypeVoid)
 
     , testCase "const void type macro is rejected" $
-        case classifyOne "M" VNil (constOf (tyLit TypeVoid)) of
-          Left  _ -> pure ()
-          Right r ->
-            assertFailure $ unlines [
-                "expected Left for 'const void' type macro; but got"
-              , show r
-              ]
+        assertCheckError $ classifyOne "M" VNil (constOf (tyLit TypeVoid))
     ]
+  where
+    assertCheckError :: (Show e, Show a) => MacroTcResult e a -> Assertion
+    assertCheckError = \case
+      MacroTcError _ ->
+        pure ()
+      r ->
+        assertFailure $ "expected MacroTcError; got: " ++ show r
 
 {-------------------------------------------------------------------------------
   Helpers

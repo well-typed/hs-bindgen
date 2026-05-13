@@ -467,7 +467,7 @@ instance PrettyForTrace DelayedParseMsg where
           ]
 
       prettyMacroParseError :: CExpr.MacroParseError -> PP.CtxDoc
-      prettyMacroParseError err = PP.renderedLines $ \_maxWidth -> lines err.reparseError
+      prettyMacroParseError err = PP.renderedLines $ \_maxWidth -> lines err.parseError
 
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where

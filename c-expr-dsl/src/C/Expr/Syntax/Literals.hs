@@ -5,11 +5,8 @@ module C.Expr.Syntax.Literals (
   , StringLiteral(..)
     -- * Auxiliary
   , canBeRepresentedAsRational
-  , fromBytes
   ) where
 
-import Data.Bits
-import Data.Foldable qualified as Foldable
 import Data.Text (Text)
 import GHC.Generics (Generic)
 
@@ -91,8 +88,3 @@ canBeRepresentedAsRational f = not $ or
   , isNegativeZero f
   , isDenormalized f -- not strictly necessary, but let's be conservative
   ]
-
--- TODO: Delete?
-fromBytes :: Bits i => [i] -> i
-fromBytes = Foldable.foldl' (\ acc b -> ( acc `shiftL` 8 ) .|. b) zeroBits
-{-# INLINEABLE fromBytes #-}

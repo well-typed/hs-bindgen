@@ -74,11 +74,11 @@ test_macros_macro_type_unresolved_tagged =
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroTypecheckFailure MacroTypecheckErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       _otherwise ->
         Nothing
