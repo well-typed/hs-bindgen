@@ -31,7 +31,7 @@ determineTHStatus tc
       = status
   -- Check clangVersion requirement
   | Just versionPred <- tc.clangVersion
-  , case clangVersion of
+  , case runtimeClangVersion of
       ClangVersion version  -> not (versionPred version)
       ClangVersionUnknown _ -> True
       = FixtureSkip "Requires newer clang version"

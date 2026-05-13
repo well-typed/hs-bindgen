@@ -461,6 +461,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
 

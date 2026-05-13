@@ -21,8 +21,9 @@ Cabal compiles `rect.c` and links it into the executable automatically.
 on Linux), while `hs-bindgen` uses `libclang` to parse headers and derive type
 layouts. For simple types this is unlikely to cause problems, but GCC and Clang
 can disagree on memory layout for more exotic constructs (bitfields, packed
-structs, platform-specific alignment). See the [Compiler choice (GCC vs.
-Clang)](../../manual/installation.md#compiler-choice-gcc-vs-clang)
+structs, platform-specific alignment). See the
+[Clang vs. GCC](../../manual/installation.md#clang-vs-gcc) documentation in the
+manual.
 
 ## Prerequisites
 

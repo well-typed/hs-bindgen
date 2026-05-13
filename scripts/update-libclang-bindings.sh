@@ -3,7 +3,7 @@
 set -e
 
 nix_flakes_equal_revision() {
-    grep "github:well-typed/libclang" "${NIX_FLAKE}" |
+    grep "github:well-typed/libclang-bindings" "${NIX_FLAKE}" |
         grep "${REV_OLD}" \
             >/dev/null 2>&1
 }
@@ -19,12 +19,12 @@ PROJECT_ROOT=$(git rev-parse --show-toplevel)
 CABAL_PROJECT_BASE="${PROJECT_ROOT}/cabal.project.base"
 NIX_FLAKE="${PROJECT_ROOT}/flake.nix"
 
-REV_OLD=$(grep -C 2 'github.com/well-typed/libclang' "${CABAL_PROJECT_BASE}" |
+REV_OLD=$(grep -C 2 'github.com/well-typed/libclang-bindings' "${CABAL_PROJECT_BASE}" |
     grep 'tag:' |
     awk '{print $NF}')
 
 if [ -z "$REV_OLD" ]; then
-    echo "Error: Could not find current libclang tag in $CABAL_PROJECT_BASE"
+    echo "Error: Could not find current libclang-bindings tag in $CABAL_PROJECT_BASE"
     exit 1
 fi
 
@@ -35,7 +35,7 @@ else
     exit 1
 fi
 
-REV_NEW=$(git ls-remote https://github.com/well-typed/libclang HEAD | cut -f 1)
+REV_NEW=$(git ls-remote https://github.com/well-typed/libclang-bindings HEAD | cut -f 1)
 echo "New libclang-bindings revision: ${REV_NEW}"
 
 sed -i 's/'"${REV_OLD}"'/'"${REV_NEW}"'/' "$CABAL_PROJECT_BASE"

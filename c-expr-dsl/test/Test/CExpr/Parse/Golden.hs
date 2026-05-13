@@ -50,7 +50,7 @@ tests :: TestTree
 tests = testGroup "Parse.Golden" $ [goldenWith CExprC17] ++ mbC23
   where
     mbC23 =
-      case clangVersion of
+      case runtimeClangVersion of
         ClangVersion x | x >= (15,0,0) -> [goldenWith CExprC23]
         _                              -> []
 

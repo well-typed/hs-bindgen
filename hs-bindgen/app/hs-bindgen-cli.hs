@@ -9,7 +9,7 @@ import Options.Applicative.Help qualified as Help
 import Prettyprinter.Util qualified as PP
 import System.Exit (ExitCode, exitFailure)
 
-import Clang.Version (clang_getClangVersion)
+import Clang.Version (compileTimeClangVersionString, runtimeClangVersionString)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -35,20 +35,13 @@ parseCli =
       <*> Cli.parseCmd
 
 execCliParser :: IO Cli
-execCliParser = do
-    clangVersion <- Text.unpack <$> clang_getClangVersion
-    let vers = List.intercalate "\n" [
-            "hs-bindgen " ++ showVersion Package.version
-          , "binding specification " ++ show BindingSpec.currentBindingSpecVersion
-          , clangVersion
-          ]
-    customExecParser prefs' (opts vers)
+execCliParser = customExecParser prefs' opts
   where
     prefs' :: ParserPrefs
     prefs' = prefs $ helpShowGlobals <> subparserInline
 
-    opts :: String -> ParserInfo Cli
-    opts vers = info (parseCli <**> simpleVersioner vers <**> helper) $
+    opts :: ParserInfo Cli
+    opts = info (parseCli <**> simpleVersioner vers <**> helper) $
       mconcat [
           header "hs-bindgen - generate Haskell bindings from C headers"
         , footerDoc . Just . Help.vcat $ List.intersperse "" [
@@ -58,6 +51,15 @@ execCliParser = do
             , exitCodeFooter
             ]
         ]
+
+    vers :: String
+    vers = List.intercalate "\n" [
+        "hs-bindgen " ++ showVersion Package.version
+      , "binding specification " ++ show BindingSpec.currentBindingSpecVersion
+      , "clang compile time version: "
+          ++ Text.unpack compileTimeClangVersionString
+      , "clang runtime version:      " ++ Text.unpack runtimeClangVersionString
+      ]
 
 {-------------------------------------------------------------------------------
   Execution
