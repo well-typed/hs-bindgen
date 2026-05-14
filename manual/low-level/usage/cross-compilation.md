@@ -402,14 +402,14 @@ cross-compilation.
 
 > [!TIP]
 > Preprocess mode is the recommended path for cross-compilation. TH mode
-> works but is structurally heavier. This means the full `hs-bindgen` package
-> must be cross-built, and a target-architecture `libclang.so` must be
-> reachable from the iserv runtime.
+> works but is structurally heavier: the full `hs-bindgen` package must be
+> cross-built, and a target-architecture `libclang.so` must be reachable
+> from the iserv runtime.
 
 ### Why TH-mode cross-compilation is different
 
 A cross-compiling GHC delegates TH splices to **iserv**, a target-architecture
-binary running under QEMU (Part B above). This means the splice itself
+binary running under QEMU (covered in Part B). The splice itself therefore
 executes in the *target* environment, not on the host:
 
 1. GHC encounters `withHsBindgen ... $ hashInclude "foo.h"` and sends the
@@ -420,7 +420,7 @@ executes in the *target* environment, not on the host:
 4. iserv returns the generated declarations; GHC compiles them into the
    target binary.
 
-The two consequences:
+This has two practical consequences:
 
 - **The full `hs-bindgen` package is cross-built**, not just
   `hs-bindgen-runtime`. In preprocess mode the user's package depends only on
@@ -436,13 +436,14 @@ The two consequences:
 
 ### Cabal configuration
 
-Depend on the full `hs-bindgen` package (not just `hs-bindgen-runtime`)
-and enable the language extensions the splice-generated code needs.
-Mirror the set used by hs-bindgen's own TH tests
+The user's package needs to depend on the full `hs-bindgen` package (not just
+`hs-bindgen-runtime`) and enable the language extensions the splice-generated
+code uses. A practical baseline is `default-language: GHC2021` together with
+the extension list used by hs-bindgen's own TH tests
 ([`hs-bindgen/test/th/Test/TH/Test01.hs`](../../../hs-bindgen/test/th/Test/TH/Test01.hs)).
-`default-language: GHC2021`, e.g. can also be added as a way to cover what's
-needed when the splice expands in the user's module rather than its own
-generated file:
+GHC2021 matters because the splice expands inside the user's module rather
+than a separate generated file, so the user's `default-extensions` need to
+cover everything the generated code uses:
 
 ```cabal
 executable my-app
@@ -463,8 +464,8 @@ executable my-app
       UndecidableInstances
 ```
 
-The same `-fexternal-interpreter -pgmi <wrapper>` ghc-options shown in
-Part B apply, since `hs-bindgen` itself uses TH and must go through iserv.
+The `-fexternal-interpreter -pgmi <wrapper>` ghc-options from Part B still
+apply here, because `hs-bindgen` itself uses TH and must go through iserv.
 Set them on `package *`:
 
 ```cabal
@@ -476,12 +477,11 @@ package *
 
 Each `foreign import ccall foo :: ...` declaration causes GHC to emit a
 small C stub (in `dist-newstyle/.../*-tmp/ghc_*.c`) that calls into the
-underlying C symbol. That stub is compiled into the same object file as
-the module containing the import.
-
-In TH mode, the splice expands inside the user's module. The FFI stubs
-end up in `Main.o` itself, alongside `main`. This means the linker needs to
-find the C symbols. Declare the wrapped library explicitly:
+underlying C symbol. That stub is compiled into the same object file as the
+module containing the import. In TH mode the splice expands inside the
+user's module, so the stubs end up in `Main.o` itself, alongside `main`,
+which means the final link must resolve the C symbols. Declare the wrapped
+library explicitly:
 
 ```cabal
 executable my-app
@@ -512,8 +512,8 @@ in ...
 
 ### TH splice include paths
 
-Pass C include directories explicitly in the splice's `Config`. They are
-*not* derived from cabal's `extra-include-dirs`:
+The splice's C include directories must be passed explicitly via its
+`Config`, they are *not* derived from cabal's `extra-include-dirs`:
 
 ```haskell
 import HsBindgen.TH
@@ -532,11 +532,11 @@ containing the `.cabal` file). `Dir` accepts an absolute path. Cross- and
 host-target flags (e.g. `--target=aarch64-linux-gnu`) can be passed via
 `Config`'s clang fields.
 
-### Working around transitive cross-dep build failures
+### Transitive dependency workarounds
 
-Two of `hs-bindgen`'s transitive dependencies do not cross-build cleanly
-out of the box in a manual cabal setup (cross-GHC + target-arch package
-set, no nixpkgs Haskell wrapper). Both are easy to work around:
+Two of `hs-bindgen`'s transitive dependencies need a small workaround when
+cross-building manually (cross-GHC + target-arch package set, no nixpkgs
+Haskell wrapper):
 
 #### `zlib`: `Stream.hsc:...: fatal error: zlib.h: No such file or directory`
 
@@ -585,9 +585,10 @@ utility:
 AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
 ```
 
-With `llvm-config` only present on `PATH` as the host one, the subsequent
-`AC_CHECK_HEADER([clang-c/Index.h])` tries to compile against host
-include paths -- mismatch, fail. The configure script also declares
+If only the host `llvm-config` is on `PATH`, the subsequent
+`AC_CHECK_HEADER([clang-c/Index.h])` checks against host include paths and
+the configure step fails with a "Cannot find libclang headers" error. The
+configure script also declares
 
 ```
 AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
@@ -646,11 +647,11 @@ checks, in order:
 3. `$(clang -print-resource-dir)/include` from `PATH`
 
 If your header has no system `#include`s, the splice does not need any of
-these. You can let discovery run as it will fall through to host-clang and the
-splice will still produce correct bindings. But setting
-`BINDGEN_BUILTIN_INCLUDE_DIR=disable` is recommended: it skips discovery
-entirely so the splice cannot accidentally pick up host builtin includes that
-would be architecturally wrong if the header started using `<stdint.h>` etc.
+these, discovery falls through to host-clang and the splice still produces
+correct bindings. Setting `BINDGEN_BUILTIN_INCLUDE_DIR=disable` is still
+recommended though: it skips discovery entirely, so the splice cannot
+accidentally pick up host builtin includes that would be architecturally
+wrong if the header started using `<stdint.h>` etc.
 
 ### Working example
 
