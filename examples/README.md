@@ -109,7 +109,20 @@ as the following requirements are met:
   * The composite action should run the
     `REPOSITORY_ROOT/examples/libfoo/generate-and-run.sh` script
 * Update the workflow file at `REPOSITORY_ROOT/.github/workflows/examples.yml`
-  * Add `'libfoo'` to the `example` array of the workflow matrix
+  * In the `setup-matrix` job, add a line for `libfoo` to the "default" matrix,
+      or add it to both the "default" and "comprehensive" matrix . For example,
+      the inserted line could look like:
+
+      ```yaml
+      '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "libfoo"},'
+      ```
+
+      The difference between the "default" and "comprehensive" matrix is that
+      the "comprehensive" matrix only runs on [nightly CI][nightly-ci]. The
+      "default" matrix runs as part of the regular development cycle (PRs, merge
+      queue, `main`). If you add `libfoo` to the default matrix, then you should
+      also add it to the comprehensive matrix.
+
   * Towards the end of the file, add a step that calls the `libfoo` composite action:
 
     ```yml
@@ -120,3 +133,7 @@ as the following requirements are met:
 
 Now create a PR with these changs and (hopefully) you will observe that a new
 job is run that tests the new example project.
+
+<!-- sources and references -->
+
+[nightly-ci]: ../dev/ci.md#nightly-ci
