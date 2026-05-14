@@ -6,6 +6,12 @@
 
 ### New features
 
+* New `ClangArgsConfig.enableExtraClangArgs` field (default `True`) and
+  matching `--no-extra-clang-args` CLI flag, allowing library users and the
+  CLI to opt out of reading the `BINDGEN_EXTRA_CLANG_ARGS` environment
+  variable. The test suite now opts out so that `BINDGEN_EXTRA_CLANG_ARGS`
+  in the developer's shell no longer interferes with golden tests
+  ([#875](https://github.com/well-typed/hs-bindgen/issues/875)).
 * When using the Template Haskell backend, external types referenced via
   external binding specifications that are not in scope now produce a helpful
   compile error suggesting the missing import.

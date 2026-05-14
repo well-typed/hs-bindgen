@@ -53,6 +53,16 @@ data ClangArgsConfig path = ClangArgsConfig {
       -- @Block.h@ header.
     , enableBlocks :: Bool
 
+      -- | Read extra Clang arguments from the @BINDGEN_EXTRA_CLANG_ARGS@
+      -- environment variable
+      --
+      -- When 'True' (the default), @hs-bindgen@ consults the
+      -- @BINDGEN_EXTRA_CLANG_ARGS@ environment variable at boot and appends
+      -- its contents to 'argsInner'. Set to 'False' to ignore the environment
+      -- variable; useful for test suites and library consumers that need full
+      -- control over @libclang@ arguments.
+    , enableExtraClangArgs :: Bool
+
       -- | Arguments to prepend when calling @libclang@
       --
       -- See 'argsInner'.
@@ -67,7 +77,7 @@ data ClangArgsConfig path = ClangArgsConfig {
       --     'argsBefore'
       --   ,  argsInternal  -- other ClangArgsConfig options
       --   , 'argsInner'
-      --   ,  argsExtra     -- BINDGEN_EXTRA_CLANG_ARGS
+      --   ,  argsExtra     -- BINDGEN_EXTRA_CLANG_ARGS, gated by 'enableExtraClangArgs'
       --   , 'argsAfter'
       --   ,  argsBuiltin   -- builtin include directory
       --   ]
@@ -86,13 +96,14 @@ data ClangArgsConfig path = ClangArgsConfig {
 
 instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
-      builtinIncDir    = def
-    , extraIncludeDirs = []
-    , defineMacros     = []
-    , enableBlocks     = False
-    , argsBefore       = []
-    , argsInner        = []
-    , argsAfter        = []
+      builtinIncDir        = def
+    , extraIncludeDirs     = []
+    , defineMacros         = []
+    , enableBlocks         = False
+    , enableExtraClangArgs = True
+    , argsBefore           = []
+    , argsInner            = []
+    , argsAfter            = []
     }
 
 {-------------------------------------------------------------------------------

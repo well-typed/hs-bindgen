@@ -255,27 +255,35 @@ parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    enableBlocks     <- parseEnableBlocks
-    builtinIncDir    <- parseBuiltinIncDirConfig
-    extraIncludeDirs <- many parseIncludeDir
-    defineMacros     <- many parseDefineMacro
-    argsBefore       <- many parseClangOptionBefore
-    argsInner        <- many parseClangOptionInner
-    argsAfter        <- many parseClangOptionAfter
+    enableBlocks         <- parseEnableBlocks
+    enableExtraClangArgs <- parseEnableExtraClangArgs
+    builtinIncDir        <- parseBuiltinIncDirConfig
+    extraIncludeDirs     <- many parseIncludeDir
+    defineMacros         <- many parseDefineMacro
+    argsBefore           <- many parseClangOptionBefore
+    argsInner            <- many parseClangOptionInner
+    argsAfter            <- many parseClangOptionAfter
     pure $ ClangArgsConfig{
-        enableBlocks     = enableBlocks
-      , builtinIncDir    = builtinIncDir
-      , extraIncludeDirs = extraIncludeDirs
-      , defineMacros     = defineMacros
-      , argsBefore       = argsBefore
-      , argsInner        = argsInner
-      , argsAfter        = argsAfter
+        enableBlocks         = enableBlocks
+      , enableExtraClangArgs = enableExtraClangArgs
+      , builtinIncDir        = builtinIncDir
+      , extraIncludeDirs     = extraIncludeDirs
+      , defineMacros         = defineMacros
+      , argsBefore           = argsBefore
+      , argsInner            = argsInner
+      , argsAfter            = argsAfter
       }
 
 parseEnableBlocks :: Parser Bool
 parseEnableBlocks = switch $ mconcat [
       long "fblocks"
     , help "Enable the 'blocks' language feature"
+    ]
+
+parseEnableExtraClangArgs :: Parser Bool
+parseEnableExtraClangArgs = fmap not $ switch $ mconcat [
+      long "no-extra-clang-args"
+    , help "Ignore the BINDGEN_EXTRA_CLANG_ARGS environment variable"
     ]
 
 parseIncludeDir :: Parser FilePath

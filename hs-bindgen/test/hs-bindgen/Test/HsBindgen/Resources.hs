@@ -98,9 +98,10 @@ withTestResources = withResource initTestResources freeTestResources
       return TestResources{
           packageRoot     = packageRoot
         , clangArgsConfig = def{
-              builtinIncDir    = BuiltinIncDirDisable
-            , extraIncludeDirs = [packageRoot </> "musl-include/x86_64"]
-            , argsAfter        = ["-target", "x86_64-pc-linux-musl"]
+              builtinIncDir        = BuiltinIncDirDisable
+            , extraIncludeDirs     = [packageRoot </> "musl-include/x86_64"]
+            , argsAfter            = ["-target", "x86_64-pc-linux-musl"]
+            , enableExtraClangArgs = False
             }
         }
 

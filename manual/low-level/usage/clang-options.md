@@ -58,6 +58,15 @@ Note that use of this environment variable is consistent with
 [`rust-bindgen`][rust-bindgen:env], but we do *not* support target-specific
 environment variables.
 
+### Disabling `BINDGEN_EXTRA_CLANG_ARGS`
+
+The environment variable lookup can be disabled.  Use the
+`--no-extra-clang-args` flag with `hs-bindgen-cli`, or set
+`enableExtraClangArgs = False` on the `ClangArgsConfig` record when using
+`hs-bindgen` as a library.  This is useful for test suites and tooling that
+need full control over `libclang` arguments and must not be affected by the
+user's shell environment.
+
 
 
 <!-- sources and references -->

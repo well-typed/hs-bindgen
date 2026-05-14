@@ -98,6 +98,7 @@ envVarsFooter :: Help.Doc
 envVarsFooter = Help.vcat [
       "Environment variables:"
     , li $ "BINDGEN_EXTRA_CLANG_ARGS: Arguments passed to Clang"
+        <> " (disable with --no-extra-clang-args)"
     ]
 
 clangArgsFooter :: Help.Doc
@@ -106,7 +107,7 @@ clangArgsFooter = Help.vcat [
     , "  1. --clang-option-before options"
     , "  2. Clang options managed by hs-bindgen (e.g., -I options)"
     , "  3. --clang-option options"
-    , "  4. BINDGEN_EXTRA_CLANG_ARGS options"
+    , "  4. BINDGEN_EXTRA_CLANG_ARGS options (unless --no-extra-clang-args)"
     , "  5. --clang-option-after options"
     , "  6. Builtin include directory options"
     ]

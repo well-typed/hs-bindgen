@@ -121,7 +121,11 @@ getClangArtefacts ::
   -> IO ClangArtefacts
 getClangArtefacts tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
-    extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
+    extraClangArgs <-
+      if config0.enableExtraClangArgs
+        then getExtraClangArgs tracerExtraClangArgs
+        else [] <$ traceWith tracerExtraClangArgs
+                     (withCallStack ExtraClangArgsDisabled)
     mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs

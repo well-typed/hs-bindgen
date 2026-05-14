@@ -25,6 +25,7 @@ data ExtraClangArgsMsg =
     ExtraClangArgsNotSet
   | ExtraClangArgsEmpty
   | ExtraClangArgsParsed [String]
+  | ExtraClangArgsDisabled
   deriving stock (Show)
 
 instance PrettyForTrace ExtraClangArgsMsg where
@@ -34,12 +35,15 @@ instance PrettyForTrace ExtraClangArgsMsg where
     ExtraClangArgsParsed args ->
       PP.string envName >< " environment variable parsed 'libclang' arguments: "
         >< PP.show args
+    ExtraClangArgsDisabled ->
+      PP.string envName >< " environment variable lookup disabled by config"
 
 instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case
-    ExtraClangArgsNotSet   -> Debug
-    ExtraClangArgsEmpty    -> Debug
-    ExtraClangArgsParsed{} -> Info
+    ExtraClangArgsNotSet    -> Debug
+    ExtraClangArgsEmpty     -> Debug
+    ExtraClangArgsParsed{}  -> Info
+    ExtraClangArgsDisabled  -> Debug
   getSource  = const HsBindgen
   getTraceId = const "extra-clang-args"
 
