@@ -1,0 +1,117 @@
+-- addDependentFile test-artefacts/headers/golden/macros/undef.h
+-- #include <macros/undef.h>
+-- void hs_bindgen_2a245181e5fb1e1c (
+--   T arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_d73ff9e79242e63c (
+--   T arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- /* test_macrosundef_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_71864e8181a7e9dd (void)) (
+--   T arg1
+-- )
+-- {
+--   return &foo;
+-- }
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/undef.h 3:9@
+
+    __exported by:__ @macros\/undef.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosundef_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_2a245181e5fb1e1c" hs_bindgen_2a245181e5fb1e1c_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosundef_Example_Safe_foo@
+hs_bindgen_2a245181e5fb1e1c :: T -> IO ()
+-- __unique:__ @test_macrosundef_Example_Safe_foo@
+hs_bindgen_2a245181e5fb1e1c = fromFFIType hs_bindgen_2a245181e5fb1e1c_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_safe :: T -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_safe = hs_bindgen_2a245181e5fb1e1c
+-- __unique:__ @test_macrosundef_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_d73ff9e79242e63c" hs_bindgen_d73ff9e79242e63c_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosundef_Example_Unsafe_foo@
+hs_bindgen_d73ff9e79242e63c :: T -> IO ()
+-- __unique:__ @test_macrosundef_Example_Unsafe_foo@
+hs_bindgen_d73ff9e79242e63c = fromFFIType hs_bindgen_d73ff9e79242e63c_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_unsafe :: T -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_unsafe = hs_bindgen_d73ff9e79242e63c
+-- __unique:__ @test_macrosundef_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_71864e8181a7e9dd" hs_bindgen_71864e8181a7e9dd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosundef_Example_get_foo@
+hs_bindgen_71864e8181a7e9dd :: IO (FunPtr (T -> IO ()))
+-- __unique:__ @test_macrosundef_Example_get_foo@
+hs_bindgen_71864e8181a7e9dd = fromFFIType hs_bindgen_71864e8181a7e9dd_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_funptr :: FunPtr (T -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_71864e8181a7e9dd

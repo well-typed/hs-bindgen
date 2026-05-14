@@ -1,0 +1,157 @@
+-- addDependentFile test-artefacts/headers/golden/functions/heap_types/union_const_typedef.h
+-- #include <functions/heap_types/union_const_typedef.h>
+-- void hs_bindgen_8a303cd5b4f7787b (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = (fun)(*arg1);
+-- }
+-- void hs_bindgen_4e22c71ca196dc5e (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = (fun)(*arg1);
+-- }
+-- /* test_functionsheap_typesunion_con_Example_get_fun */
+-- __attribute__ ((const))
+-- T (*hs_bindgen_7e6af500caa71b85 (void)) (
+--   T arg1
+-- )
+-- {
+--   return &fun;
+-- }
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 3:7@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+newtype U = U {unwrapU :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize U
+deriving via (SizedByteArray 4 4) instance ReadRaw U
+deriving via (SizedByteArray 4 4) instance WriteRaw U
+deriving via (EquivStorable U) instance Storable U
+{-|
+
+    __See:__ 'set_u_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+get_u_x :: U -> CInt
+{-|
+
+    __See:__ 'set_u_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+get_u_x = getUnionPayload
+{-|
+
+    __See:__ 'get_u_x'
+
+-}
+set_u_x :: CInt -> U
+{-|
+
+    __See:__ 'get_u_x'
+
+-}
+set_u_x = setUnionPayload
+instance HasCField U "u_x"
+    where type CFieldType U "u_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_x")
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+newtype T
+    = T {unwrapT :: U}
+    deriving stock Generic
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty U => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = U
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
+foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
+hs_bindgen_8a303cd5b4f7787b :: PtrConst T -> PtrConst T -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
+hs_bindgen_8a303cd5b4f7787b = fromFFIType hs_bindgen_8a303cd5b4f7787b_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_safe :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_safe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_8a303cd5b4f7787b (unsafeFromPtr x_1) res_2))
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
+foreign import ccall unsafe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca196dc5e_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
+hs_bindgen_4e22c71ca196dc5e :: PtrConst T -> PtrConst T -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
+hs_bindgen_4e22c71ca196dc5e = fromFFIType hs_bindgen_4e22c71ca196dc5e_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_unsafe :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_unsafe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4e22c71ca196dc5e (unsafeFromPtr x_1) res_2))
+-- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
+foreign import ccall unsafe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa71b85_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
+hs_bindgen_7e6af500caa71b85 :: IO (FunPtr (T -> IO T))
+-- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
+hs_bindgen_7e6af500caa71b85 = fromFFIType hs_bindgen_7e6af500caa71b85_base
+{-# NOINLINE fun_funptr #-}
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_funptr :: FunPtr (T -> IO T)
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
+-}
+fun_funptr = unsafePerformIO hs_bindgen_7e6af500caa71b85

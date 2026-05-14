@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/declaration_unselected_a.h
+-- addDependentFile test-artefacts/headers/golden/declarations/declaration_unselected_b.h

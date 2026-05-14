@@ -64,7 +64,7 @@ Let's say we we want to create an example project for the `libfoo` C library,
 and also build and run it in CI. Integration is rather straightforward as long
 as the following requirements are met:
 
-* Creat a directory at `REPOSITORY_ROOT/examples/libfoo`
+* Create a directory at `REPOSITORY_ROOT/examples/libfoo`
 * Create a Haskell package at
    `REPOSITORY_ROOT/examples/libfoo/hs-project/libfoo.cabal`
   * The package should include an executable component `libfoo-bin`

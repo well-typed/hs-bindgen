@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/circular_macro.h

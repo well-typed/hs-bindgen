@@ -31,12 +31,13 @@
 module Test.TH.RecordDot where
 
 import Optics ((%), (&), (.~))
+import System.FilePath ((</>))
 
 import HsBindgen.TH
 
 let cfg :: Config
     cfg = def
-      & #clang % #extraIncludeDirs .~ [Pkg "examples"]
+      & #clang % #extraIncludeDirs .~ [Pkg ("test-artefacts" </> "headers")]
       & #fieldNamingStrategy       .~ OmitFieldPrefixes
     cfgTh :: ConfigTH
     cfgTh = def

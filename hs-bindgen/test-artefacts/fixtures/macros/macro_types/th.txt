@@ -1,0 +1,278 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_types.h
+{-| __C declaration:__ @macro PtrInt@
+
+    __defined at:__ @macros\/macro_types.h 2:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype PtrInt
+    = PtrInt {unwrapPtrInt :: (Ptr CInt)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr CInt) =>
+         HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrInt")
+instance HasCField PtrInt "unwrapPtrInt"
+    where type CFieldType PtrInt "unwrapPtrInt" = Ptr CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro ShortInt@
+
+    __defined at:__ @macros\/macro_types.h 3:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype ShortInt
+    = ShortInt {unwrapShortInt :: CShort}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
+         HasField "unwrapShortInt" (Ptr ShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapShortInt")
+instance HasCField ShortInt "unwrapShortInt"
+    where type CFieldType ShortInt "unwrapShortInt" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro SignedShortInt@
+
+    __defined at:__ @macros\/macro_types.h 4:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype SignedShortInt
+    = SignedShortInt {unwrapSignedShortInt :: CShort}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
+         HasField "unwrapSignedShortInt" (Ptr SignedShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSignedShortInt")
+instance HasCField SignedShortInt "unwrapSignedShortInt"
+    where type CFieldType SignedShortInt
+                          "unwrapSignedShortInt" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro UnsignedShortInt@
+
+    __defined at:__ @macros\/macro_types.h 5:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype UnsignedShortInt
+    = UnsignedShortInt {unwrapUnsignedShortInt :: CUShort}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUShort =>
+         HasField "unwrapUnsignedShortInt" (Ptr UnsignedShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUnsignedShortInt")
+instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
+    where type CFieldType UnsignedShortInt
+                          "unwrapUnsignedShortInt" = CUShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PtrPtrChar@
+
+    __defined at:__ @macros\/macro_types.h 8:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype PtrPtrChar
+    = PtrPtrChar {unwrapPtrPtrChar :: (Ptr (Ptr CChar))}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr (Ptr CChar)) =>
+         HasField "unwrapPtrPtrChar" (Ptr PtrPtrChar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrPtrChar")
+instance HasCField PtrPtrChar "unwrapPtrPtrChar"
+    where type CFieldType PtrPtrChar
+                          "unwrapPtrPtrChar" = Ptr (Ptr CChar)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro MTy@
+
+    __defined at:__ @macros\/macro_types.h 11:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype MTy
+    = MTy {unwrapMTy :: CFloat}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
+                      Floating,
+                      Fractional,
+                      HasFFIType,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      RealFloat,
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CFloat => HasField "unwrapMTy" (Ptr MTy) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMTy")
+instance HasCField MTy "unwrapMTy"
+    where type CFieldType MTy "unwrapMTy" = CFloat
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @tty@
+
+    __defined at:__ @macros\/macro_types.h 12:13@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype Tty
+    = Tty {unwrapTty :: MTy}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
+                      Floating,
+                      Fractional,
+                      HasFFIType,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      RealFloat,
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty MTy => HasField "unwrapTty" (Ptr Tty) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTty")
+instance HasCField Tty "unwrapTty"
+    where type CFieldType Tty "unwrapTty" = MTy
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro UINT8_T@
+
+    __defined at:__ @macros\/macro_types.h 14:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype UINT8_T
+    = UINT8_T {unwrapUINT8_T :: CUChar}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUChar =>
+         HasField "unwrapUINT8_T" (Ptr UINT8_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUINT8_T")
+instance HasCField UINT8_T "unwrapUINT8_T"
+    where type CFieldType UINT8_T "unwrapUINT8_T" = CUChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro BOOLEAN_T@
+
+    __defined at:__ @macros\/macro_types.h 15:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype BOOLEAN_T
+    = BOOLEAN_T {unwrapBOOLEAN_T :: UINT8_T}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty UINT8_T =>
+         HasField "unwrapBOOLEAN_T" (Ptr BOOLEAN_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBOOLEAN_T")
+instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
+    where type CFieldType BOOLEAN_T "unwrapBOOLEAN_T" = UINT8_T
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @boolean_T@
+
+    __defined at:__ @macros\/macro_types.h 16:19@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype Boolean_T
+    = Boolean_T {unwrapBoolean_T :: BOOLEAN_T}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty BOOLEAN_T =>
+         HasField "unwrapBoolean_T" (Ptr Boolean_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBoolean_T")
+instance HasCField Boolean_T "unwrapBoolean_T"
+    where type CFieldType Boolean_T "unwrapBoolean_T" = BOOLEAN_T
+          offset# = \_ -> \_ -> 0

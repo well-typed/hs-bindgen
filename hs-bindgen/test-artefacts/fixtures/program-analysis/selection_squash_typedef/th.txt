@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/selection_squash_struct.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/selection_squash_typedef.h

@@ -66,7 +66,7 @@ test_bindingSpecs_omit_type :: TestCase
 test_bindingSpecs_omit_type =
     defaultTest "binding-specs/omit_type"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/omit_type_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/omit_type_p.yaml"
 
 {-------------------------------------------------------------------------------
   Bugs / regression tests
@@ -78,7 +78,7 @@ test_bindingSpecs_trans_dep_macro_trans_dep_missing :: TestCase
 test_bindingSpecs_trans_dep_macro_trans_dep_missing =
     defaultTest "binding-specs/trans_dep/macro_trans_dep_missing"
       & #specExternal .~
-          [ "examples/golden/binding-specs/trans_dep/macro_trans_dep_missing.yaml"
+          [ "test-artefacts/headers/golden/binding-specs/trans_dep/macro_trans_dep_missing.yaml"
           ]
       & #onFrontend .~
           #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
@@ -93,7 +93,7 @@ test_bindingSpecs_trans_dep_typedef_trans_dep_missing :: TestCase
 test_bindingSpecs_trans_dep_typedef_trans_dep_missing =
     defaultTest "binding-specs/trans_dep/typedef_trans_dep_missing"
       & #specExternal .~
-          [ "examples/golden/binding-specs/trans_dep/typedef_trans_dep_missing.yaml"
+          [ "test-artefacts/headers/golden/binding-specs/trans_dep/typedef_trans_dep_missing.yaml"
           ]
       & #onFrontend .~
           #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
@@ -107,28 +107,28 @@ test_bindingSpecs_name_squash_both :: TestCase
 test_bindingSpecs_name_squash_both =
     defaultTest "binding-specs/name/squash_both"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_both_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/name/squash_both_p.yaml"
 
 -- | Naming a squashed type, specifying the name for the struct
 test_bindingSpecs_name_squash_struct :: TestCase
 test_bindingSpecs_name_squash_struct =
     defaultTest "binding-specs/name/squash_struct"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_struct_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/name/squash_struct_p.yaml"
 
 -- | Naming a squashed type, specifying the name for the typedef
 test_bindingSpecs_name_squash_typedef :: TestCase
 test_bindingSpecs_name_squash_typedef =
     defaultTest "binding-specs/name/squash_typedef"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_typedef_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/name/squash_typedef_p.yaml"
 
 -- | Naming a type
 test_bindingSpecs_name_type :: TestCase
 test_bindingSpecs_name_type =
     defaultTest "binding-specs/name/type"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/type_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/name/type_p.yaml"
 
 {-------------------------------------------------------------------------------
   Representation: emptydata
@@ -139,21 +139,21 @@ test_bindingSpecs_rep_emptydata_enum :: TestCase
 test_bindingSpecs_rep_emptydata_enum =
     defaultTest "binding-specs/rep/emptydata/enum"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/enum_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/enum_p.yaml"
 
 -- | Making a macro type opaque
 test_bindingSpecs_rep_emptydata_macro_type :: TestCase
 test_bindingSpecs_rep_emptydata_macro_type =
     defaultTest "binding-specs/rep/emptydata/macro_type"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
 
 -- | Opaque types work with representation emptydata
 test_bindingSpecs_rep_emptydata_opaque :: TestCase
 test_bindingSpecs_rep_emptydata_opaque =
     defaultTest "binding-specs/rep/emptydata/opaque"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/opaque_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/opaque_p.yaml"
 
 -- | Making a struct type opaque
 --
@@ -165,7 +165,7 @@ test_bindingSpecs_rep_emptydata_struct :: TestCase
 test_bindingSpecs_rep_emptydata_struct =
     defaultTest "binding-specs/rep/emptydata/struct"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/struct_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/struct_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
           & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
@@ -179,7 +179,7 @@ test_bindingSpecs_rep_emptydata_typedef :: TestCase
 test_bindingSpecs_rep_emptydata_typedef =
     defaultTest "binding-specs/rep/emptydata/typedef"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/typedef_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/typedef_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
           & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
@@ -195,7 +195,7 @@ test_bindingSpecs_rep_emptydata_union :: TestCase
 test_bindingSpecs_rep_emptydata_union =
     defaultTest "binding-specs/rep/emptydata/union"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/union_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/union_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
           & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
@@ -271,7 +271,7 @@ test_bindingSpecs_fun_arg_typedef :: FilePath -> TestCase
 test_bindingSpecs_fun_arg_typedef path =
   defaultTest path
       & #specExternal .~
-          [ "examples" </> "golden" </> path <.> "yaml"
+          [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
           ]
       & #onFrontend .~
           #selectPredicate .~ test_bindingSpecs_fun_arg_typedef_selectPredicate
@@ -352,7 +352,7 @@ test_bindingSpecs_fun_arg_macro :: FilePath -> TestCase
 test_bindingSpecs_fun_arg_macro path =
   defaultTest path
       & #specExternal .~
-          [ "examples" </> "golden" </> path <.> "yaml"
+          [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
           ]
       & #onFrontend .~
           #selectPredicate .~ test_bindingSpecs_fun_arg_macro_selectPredicate

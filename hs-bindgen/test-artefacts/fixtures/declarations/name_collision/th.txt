@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/name_collision.h

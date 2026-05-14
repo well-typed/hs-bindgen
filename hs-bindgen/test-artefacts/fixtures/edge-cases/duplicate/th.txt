@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/duplicate_macro.h
+-- addDependentFile test-artefacts/headers/golden/edge-cases/duplicate.h

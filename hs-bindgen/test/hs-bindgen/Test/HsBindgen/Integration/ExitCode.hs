@@ -73,7 +73,7 @@ testSuccessCaseProcess :: IO TestResources -> TestTree
 testSuccessCaseProcess getTestResources = testCase "success returns exit code 0" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath = root </> "examples/golden/functions/simple_func.h"
+    let headerPath = root </> "test-artefacts/headers/golden/functions/simple_func.h"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
                                                , "--create-output-dirs"

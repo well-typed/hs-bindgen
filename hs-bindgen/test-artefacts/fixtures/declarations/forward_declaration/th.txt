@@ -1,0 +1,59 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/forward_declaration.h
+{-| __C declaration:__ @struct S1@
+
+    __defined at:__ @declarations\/forward_declaration.h 3:8@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
+data S1_t
+    = S1_t {s1_t_a :: CInt
+            {- ^ __C declaration:__ @a@
+
+                 __defined at:__ @declarations\/forward_declaration.h 4:7@
+
+                 __exported by:__ @declarations\/forward_declaration.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S1_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S1_t
+    where readRaw = \ptr_0 -> pure S1_t <*> readRaw (Proxy @"s1_t_a") ptr_0
+instance WriteRaw S1_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1_t s1_t_a_2 -> writeRaw (Proxy @"s1_t_a") ptr_0 s1_t_a_2
+deriving via (EquivStorable S1_t) instance Storable S1_t
+instance HasCField S1_t "s1_t_a"
+    where type CFieldType S1_t "s1_t_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_t_a")
+{-| __C declaration:__ @struct S2@
+
+    __defined at:__ @declarations\/forward_declaration.h 9:8@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
+data S2
+    = S2 {s2_a :: CInt
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @declarations\/forward_declaration.h 10:7@
+
+               __exported by:__ @declarations\/forward_declaration.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2
+    where readRaw = \ptr_0 -> pure S2 <*> readRaw (Proxy @"s2_a") ptr_0
+instance WriteRaw S2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2 s2_a_2 -> writeRaw (Proxy @"s2_a") ptr_0 s2_a_2
+deriving via (EquivStorable S2) instance Storable S2
+instance HasCField S2 "s2_a"
+    where type CFieldType S2 "s2_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s2_a" (Ptr S2) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_a")

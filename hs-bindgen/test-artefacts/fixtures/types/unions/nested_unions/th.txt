@@ -1,0 +1,244 @@
+-- addDependentFile test-artefacts/headers/golden/types/unions/nested_unions.h
+{-| __C declaration:__ @union unionA@
+
+    __defined at:__ @types\/unions\/nested_unions.h 2:15@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+newtype UnionA
+    = UnionA {unwrapUnionA :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UnionA
+deriving via (SizedByteArray 4 4) instance ReadRaw UnionA
+deriving via (SizedByteArray 4 4) instance WriteRaw UnionA
+deriving via (EquivStorable UnionA) instance Storable UnionA
+{-|
+
+    __See:__ 'set_unionA_a'
+
+    __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_unionA_a :: UnionA -> CInt
+{-|
+
+    __See:__ 'set_unionA_a'
+
+    __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_unionA_a = getUnionPayload
+{-|
+
+    __See:__ 'get_unionA_a'
+
+-}
+set_unionA_a :: CInt -> UnionA
+{-|
+
+    __See:__ 'get_unionA_a'
+
+-}
+set_unionA_a = setUnionPayload
+{-|
+
+    __See:__ 'set_unionA_b'
+
+    __C declaration:__ @b@
+
+    __defined at:__ @types\/unions\/nested_unions.h 4:22@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_unionA_b :: UnionA -> CChar
+{-|
+
+    __See:__ 'set_unionA_b'
+
+    __C declaration:__ @b@
+
+    __defined at:__ @types\/unions\/nested_unions.h 4:22@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_unionA_b = getUnionPayload
+{-|
+
+    __See:__ 'get_unionA_b'
+
+-}
+set_unionA_b :: CChar -> UnionA
+{-|
+
+    __See:__ 'get_unionA_b'
+
+-}
+set_unionA_b = setUnionPayload
+instance HasCField UnionA "unionA_a"
+    where type CFieldType UnionA "unionA_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unionA_a" (Ptr UnionA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unionA_a")
+instance HasCField UnionA "unionA_b"
+    where type CFieldType UnionA "unionA_b" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CChar => HasField "unionA_b" (Ptr UnionA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unionA_b")
+{-| __C declaration:__ @struct exA@
+
+    __defined at:__ @types\/unions\/nested_unions.h 1:8@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+data ExA
+    = ExA {exA_fieldA1 :: UnionA
+           {- ^ __C declaration:__ @fieldA1@
+
+                __defined at:__ @types\/unions\/nested_unions.h 5:11@
+
+                __exported by:__ @types\/unions\/nested_unions.h@
+           -}}
+    deriving stock Generic
+instance StaticSize ExA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExA
+    where readRaw = \ptr_0 -> pure ExA <*> readRaw (Proxy @"exA_fieldA1") ptr_0
+instance WriteRaw ExA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExA exA_fieldA1_2 -> writeRaw (Proxy @"exA_fieldA1") ptr_0 exA_fieldA1_2
+deriving via (EquivStorable ExA) instance Storable ExA
+instance HasCField ExA "exA_fieldA1"
+    where type CFieldType ExA "exA_fieldA1" = UnionA
+          offset# = \_ -> \_ -> 0
+instance (~) ty UnionA => HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
+    where getField = fromPtr (Proxy @"exA_fieldA1")
+{-| __C declaration:__ @union \@exB_fieldB1@
+
+    __defined at:__ @types\/unions\/nested_unions.h 9:9@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+newtype ExB_fieldB1
+    = ExB_fieldB1 {unwrapExB_fieldB1 :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance ReadRaw ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance WriteRaw ExB_fieldB1
+deriving via (EquivStorable ExB_fieldB1) instance Storable ExB_fieldB1
+{-|
+
+    __See:__ 'set_exB_fieldB1_a'
+
+    __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_exB_fieldB1_a :: ExB_fieldB1 -> CInt
+{-|
+
+    __See:__ 'set_exB_fieldB1_a'
+
+    __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_exB_fieldB1_a = getUnionPayload
+{-|
+
+    __See:__ 'get_exB_fieldB1_a'
+
+-}
+set_exB_fieldB1_a :: CInt -> ExB_fieldB1
+{-|
+
+    __See:__ 'get_exB_fieldB1_a'
+
+-}
+set_exB_fieldB1_a = setUnionPayload
+{-|
+
+    __See:__ 'set_exB_fieldB1_b'
+
+    __C declaration:__ @b@
+
+    __defined at:__ @types\/unions\/nested_unions.h 11:22@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_exB_fieldB1_b :: ExB_fieldB1 -> CChar
+{-|
+
+    __See:__ 'set_exB_fieldB1_b'
+
+    __C declaration:__ @b@
+
+    __defined at:__ @types\/unions\/nested_unions.h 11:22@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+get_exB_fieldB1_b = getUnionPayload
+{-|
+
+    __See:__ 'get_exB_fieldB1_b'
+
+-}
+set_exB_fieldB1_b :: CChar -> ExB_fieldB1
+{-|
+
+    __See:__ 'get_exB_fieldB1_b'
+
+-}
+set_exB_fieldB1_b = setUnionPayload
+instance HasCField ExB_fieldB1 "exB_fieldB1_a"
+    where type CFieldType ExB_fieldB1 "exB_fieldB1_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "exB_fieldB1_a" (Ptr ExB_fieldB1) (Ptr ty)
+    where getField = fromPtr (Proxy @"exB_fieldB1_a")
+instance HasCField ExB_fieldB1 "exB_fieldB1_b"
+    where type CFieldType ExB_fieldB1 "exB_fieldB1_b" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CChar =>
+         HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr ty)
+    where getField = fromPtr (Proxy @"exB_fieldB1_b")
+{-| __C declaration:__ @struct exB@
+
+    __defined at:__ @types\/unions\/nested_unions.h 8:8@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+data ExB
+    = ExB {exB_fieldB1 :: ExB_fieldB1
+           {- ^ __C declaration:__ @fieldB1@
+
+                __defined at:__ @types\/unions\/nested_unions.h 12:11@
+
+                __exported by:__ @types\/unions\/nested_unions.h@
+           -}}
+    deriving stock Generic
+instance StaticSize ExB
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExB
+    where readRaw = \ptr_0 -> pure ExB <*> readRaw (Proxy @"exB_fieldB1") ptr_0
+instance WriteRaw ExB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExB exB_fieldB1_2 -> writeRaw (Proxy @"exB_fieldB1") ptr_0 exB_fieldB1_2
+deriving via (EquivStorable ExB) instance Storable ExB
+instance HasCField ExB "exB_fieldB1"
+    where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
+          offset# = \_ -> \_ -> 0
+instance (~) ty ExB_fieldB1 =>
+         HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
+    where getField = fromPtr (Proxy @"exB_fieldB1")
