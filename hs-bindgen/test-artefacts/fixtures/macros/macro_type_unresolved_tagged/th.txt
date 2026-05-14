@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_type_unresolved_tagged.h

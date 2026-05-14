@@ -1,0 +1,260 @@
+-- addDependentFile test-artefacts/headers/golden/types/nested/nested_types.h
+{-| __C declaration:__ @struct foo@
+
+    __defined at:__ @types\/nested\/nested_types.h 1:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Foo
+    = Foo {foo_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @types\/nested\/nested_types.h 2:9@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           foo_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @types\/nested\/nested_types.h 3:10@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> (pure Foo <*> readRaw (Proxy @"foo_i") ptr_0) <*> readRaw (Proxy @"foo_c") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_i_2
+                                           foo_c_3 -> writeRaw (Proxy @"foo_i") ptr_0 foo_i_2 >> writeRaw (Proxy @"foo_c") ptr_0 foo_c_3
+deriving via (EquivStorable Foo) instance Storable Foo
+instance HasCField Foo "foo_i"
+    where type CFieldType Foo "foo_i" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_i")
+instance HasCField Foo "foo_c"
+    where type CFieldType Foo "foo_c" = CChar
+          offset# = \_ -> \_ -> 4
+instance (~) ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_c")
+{-| __C declaration:__ @struct bar@
+
+    __defined at:__ @types\/nested\/nested_types.h 6:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Bar
+    = Bar {bar_foo1 :: Foo
+           {- ^ __C declaration:__ @foo1@
+
+                __defined at:__ @types\/nested\/nested_types.h 7:16@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           bar_foo2 :: Foo
+           {- ^ __C declaration:__ @foo2@
+
+                __defined at:__ @types\/nested\/nested_types.h 8:16@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Bar
+    where readRaw = \ptr_0 -> (pure Bar <*> readRaw (Proxy @"bar_foo1") ptr_0) <*> readRaw (Proxy @"bar_foo2") ptr_0
+instance WriteRaw Bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar bar_foo1_2
+                                           bar_foo2_3 -> writeRaw (Proxy @"bar_foo1") ptr_0 bar_foo1_2 >> writeRaw (Proxy @"bar_foo2") ptr_0 bar_foo2_3
+deriving via (EquivStorable Bar) instance Storable Bar
+instance HasCField Bar "bar_foo1"
+    where type CFieldType Bar "bar_foo1" = Foo
+          offset# = \_ -> \_ -> 0
+instance (~) ty Foo => HasField "bar_foo1" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_foo1")
+instance HasCField Bar "bar_foo2"
+    where type CFieldType Bar "bar_foo2" = Foo
+          offset# = \_ -> \_ -> 8
+instance (~) ty Foo => HasField "bar_foo2" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_foo2")
+{-| __C declaration:__ @struct \@ex3_ex3_struct@
+
+    __defined at:__ @types\/nested\/nested_types.h 12:5@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex3_ex3_struct
+    = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt
+                      {- ^ __C declaration:__ @ex3_a@
+
+                           __defined at:__ @types\/nested\/nested_types.h 13:13@
+
+                           __exported by:__ @types\/nested\/nested_types.h@
+                      -},
+                      ex3_ex3_struct_ex3_b :: CChar
+                      {- ^ __C declaration:__ @ex3_b@
+
+                           __defined at:__ @types\/nested\/nested_types.h 14:14@
+
+                           __exported by:__ @types\/nested\/nested_types.h@
+                      -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Ex3_ex3_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Ex3_ex3_struct
+    where readRaw = \ptr_0 -> (pure Ex3_ex3_struct <*> readRaw (Proxy @"ex3_ex3_struct_ex3_a") ptr_0) <*> readRaw (Proxy @"ex3_ex3_struct_ex3_b") ptr_0
+instance WriteRaw Ex3_ex3_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex3_ex3_struct ex3_ex3_struct_ex3_a_2
+                                                      ex3_ex3_struct_ex3_b_3 -> writeRaw (Proxy @"ex3_ex3_struct_ex3_a") ptr_0 ex3_ex3_struct_ex3_a_2 >> writeRaw (Proxy @"ex3_ex3_struct_ex3_b") ptr_0 ex3_ex3_struct_ex3_b_3
+deriving via (EquivStorable Ex3_ex3_struct) instance Storable Ex3_ex3_struct
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_a")
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
+          offset# = \_ -> \_ -> 4
+instance (~) ty CChar =>
+         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_b")
+{-| __C declaration:__ @struct ex3@
+
+    __defined at:__ @types\/nested\/nested_types.h 11:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex3
+    = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct
+           {- ^ __C declaration:__ @ex3_struct@
+
+                __defined at:__ @types\/nested\/nested_types.h 15:7@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           ex3_ex3_c :: CFloat
+           {- ^ __C declaration:__ @ex3_c@
+
+                __defined at:__ @types\/nested\/nested_types.h 16:11@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Ex3
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Ex3
+    where readRaw = \ptr_0 -> (pure Ex3 <*> readRaw (Proxy @"ex3_ex3_struct") ptr_0) <*> readRaw (Proxy @"ex3_ex3_c") ptr_0
+instance WriteRaw Ex3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex3 ex3_ex3_struct_2
+                                           ex3_ex3_c_3 -> writeRaw (Proxy @"ex3_ex3_struct") ptr_0 ex3_ex3_struct_2 >> writeRaw (Proxy @"ex3_ex3_c") ptr_0 ex3_ex3_c_3
+deriving via (EquivStorable Ex3) instance Storable Ex3
+instance HasCField Ex3 "ex3_ex3_struct"
+    where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
+          offset# = \_ -> \_ -> 0
+instance (~) ty Ex3_ex3_struct =>
+         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct")
+instance HasCField Ex3 "ex3_ex3_c"
+    where type CFieldType Ex3 "ex3_ex3_c" = CFloat
+          offset# = \_ -> \_ -> 8
+instance (~) ty CFloat => HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_c")
+{-| __C declaration:__ @struct ex4_odd@
+
+    __defined at:__ @types\/nested\/nested_types.h 22:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex4_odd
+    = Ex4_odd {ex4_odd_value :: CInt
+               {- ^ __C declaration:__ @value@
+
+                    __defined at:__ @types\/nested\/nested_types.h 23:9@
+
+                    __exported by:__ @types\/nested\/nested_types.h@
+               -},
+               ex4_odd_next :: (Ptr Ex4_even)
+               {- ^ __C declaration:__ @next@
+
+                    __defined at:__ @types\/nested\/nested_types.h 27:8@
+
+                    __exported by:__ @types\/nested\/nested_types.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Ex4_odd
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Ex4_odd
+    where readRaw = \ptr_0 -> (pure Ex4_odd <*> readRaw (Proxy @"ex4_odd_value") ptr_0) <*> readRaw (Proxy @"ex4_odd_next") ptr_0
+instance WriteRaw Ex4_odd
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex4_odd ex4_odd_value_2
+                                               ex4_odd_next_3 -> writeRaw (Proxy @"ex4_odd_value") ptr_0 ex4_odd_value_2 >> writeRaw (Proxy @"ex4_odd_next") ptr_0 ex4_odd_next_3
+deriving via (EquivStorable Ex4_odd) instance Storable Ex4_odd
+instance HasCField Ex4_odd "ex4_odd_value"
+    where type CFieldType Ex4_odd "ex4_odd_value" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_odd_value")
+instance HasCField Ex4_odd "ex4_odd_next"
+    where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
+          offset# = \_ -> \_ -> 8
+instance (~) ty (Ptr Ex4_even) =>
+         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_odd_next")
+{-| __C declaration:__ @struct ex4_even@
+
+    __defined at:__ @types\/nested\/nested_types.h 24:12@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex4_even
+    = Ex4_even {ex4_even_value :: CDouble
+                {- ^ __C declaration:__ @value@
+
+                     __defined at:__ @types\/nested\/nested_types.h 25:16@
+
+                     __exported by:__ @types\/nested\/nested_types.h@
+                -},
+                ex4_even_next :: (Ptr Ex4_odd)
+                {- ^ __C declaration:__ @next@
+
+                     __defined at:__ @types\/nested\/nested_types.h 26:25@
+
+                     __exported by:__ @types\/nested\/nested_types.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Ex4_even
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Ex4_even
+    where readRaw = \ptr_0 -> (pure Ex4_even <*> readRaw (Proxy @"ex4_even_value") ptr_0) <*> readRaw (Proxy @"ex4_even_next") ptr_0
+instance WriteRaw Ex4_even
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex4_even ex4_even_value_2
+                                                ex4_even_next_3 -> writeRaw (Proxy @"ex4_even_value") ptr_0 ex4_even_value_2 >> writeRaw (Proxy @"ex4_even_next") ptr_0 ex4_even_next_3
+deriving via (EquivStorable Ex4_even) instance Storable Ex4_even
+instance HasCField Ex4_even "ex4_even_value"
+    where type CFieldType Ex4_even "ex4_even_value" = CDouble
+          offset# = \_ -> \_ -> 0
+instance (~) ty CDouble =>
+         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_even_value")
+instance HasCField Ex4_even "ex4_even_next"
+    where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
+          offset# = \_ -> \_ -> 8
+instance (~) ty (Ptr Ex4_odd) =>
+         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_even_next")

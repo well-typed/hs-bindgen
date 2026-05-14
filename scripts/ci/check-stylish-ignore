@@ -3,6 +3,6 @@
 # Examples:
 */Setup.hs
 alternatives/**/*.hs
-hs-bindgen/fixtures/*.hs
 hs-bindgen/src-internal/HsBindgen/Frontend/Macro/**/*
+hs-bindgen/test-artefacts/fixtures/*.hs
 c-expr-runtime/**/*.hs

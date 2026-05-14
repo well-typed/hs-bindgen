@@ -1,0 +1,870 @@
+-- addDependentFile test-artefacts/headers/golden/types/structs/bitfields.h
+{-| __C declaration:__ @struct foo_8@
+
+    __defined at:__ @types\/structs\/bitfields.h 5:8@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Foo_8
+    = Foo_8 {foo_8_a :: CSChar
+             {- ^ __C declaration:__ @a@
+
+                  __defined at:__ @types\/structs\/bitfields.h 6:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -},
+             foo_8_b :: CSChar
+             {- ^ __C declaration:__ @b@
+
+                  __defined at:__ @types\/structs\/bitfields.h 7:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -},
+             foo_8_c :: CSChar
+             {- ^ __C declaration:__ @c@
+
+                  __defined at:__ @types\/structs\/bitfields.h 8:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -},
+             foo_8_d :: CSChar
+             {- ^ __C declaration:__ @d@
+
+                  __defined at:__ @types\/structs\/bitfields.h 9:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -},
+             foo_8_e :: CSChar
+             {- ^ __C declaration:__ @e@
+
+                  __defined at:__ @types\/structs\/bitfields.h 10:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -},
+             foo_8_f :: CSChar
+             {- ^ __C declaration:__ @f@
+
+                  __defined at:__ @types\/structs\/bitfields.h 11:15@
+
+                  __exported by:__ @types\/structs\/bitfields.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo_8
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Foo_8
+    where readRaw = \ptr_0 -> (((((pure Foo_8 <*> peek (Proxy @"foo_8_a") ptr_0) <*> peek (Proxy @"foo_8_b") ptr_0) <*> peek (Proxy @"foo_8_c") ptr_0) <*> peek (Proxy @"foo_8_d") ptr_0) <*> peek (Proxy @"foo_8_e") ptr_0) <*> peek (Proxy @"foo_8_f") ptr_0
+instance WriteRaw Foo_8
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_8 foo_8_a_2
+                                             foo_8_b_3
+                                             foo_8_c_4
+                                             foo_8_d_5
+                                             foo_8_e_6
+                                             foo_8_f_7 -> poke (Proxy @"foo_8_a") ptr_0 foo_8_a_2 >> (poke (Proxy @"foo_8_b") ptr_0 foo_8_b_3 >> (poke (Proxy @"foo_8_c") ptr_0 foo_8_c_4 >> (poke (Proxy @"foo_8_d") ptr_0 foo_8_d_5 >> (poke (Proxy @"foo_8_e") ptr_0 foo_8_e_6 >> poke (Proxy @"foo_8_f") ptr_0 foo_8_f_7))))
+deriving via (EquivStorable Foo_8) instance Storable Foo_8
+instance HasCBitfield Foo_8 "foo_8_a"
+    where type CBitfieldType Foo_8 "foo_8_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar =>
+         HasField "foo_8_a" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_a")
+instance HasCBitfield Foo_8 "foo_8_b"
+    where type CBitfieldType Foo_8 "foo_8_b" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 3
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar =>
+         HasField "foo_8_b" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_b")
+instance HasCBitfield Foo_8 "foo_8_c"
+    where type CBitfieldType Foo_8 "foo_8_c" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 6
+          bitfieldWidth# = \_ -> \_ -> 2
+instance (~) ty CSChar =>
+         HasField "foo_8_c" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_c")
+instance HasCBitfield Foo_8 "foo_8_d"
+    where type CBitfieldType Foo_8 "foo_8_d" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 8
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar =>
+         HasField "foo_8_d" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_d")
+instance HasCBitfield Foo_8 "foo_8_e"
+    where type CBitfieldType Foo_8 "foo_8_e" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 16
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CSChar =>
+         HasField "foo_8_e" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_e")
+instance HasCBitfield Foo_8 "foo_8_f"
+    where type CBitfieldType Foo_8 "foo_8_f" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 24
+          bitfieldWidth# = \_ -> \_ -> 5
+instance (~) ty CSChar =>
+         HasField "foo_8_f" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_f")
+{-| __C declaration:__ @struct foo_16@
+
+    __defined at:__ @types\/structs\/bitfields.h 15:8@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Foo_16
+    = Foo_16 {foo_16_a :: CSChar
+              {- ^ __C declaration:__ @a@
+
+                   __defined at:__ @types\/structs\/bitfields.h 16:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_16_b :: CInt
+              {- ^ __C declaration:__ @b@
+
+                   __defined at:__ @types\/structs\/bitfields.h 17:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_16_c :: CInt
+              {- ^ __C declaration:__ @c@
+
+                   __defined at:__ @types\/structs\/bitfields.h 18:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_16_d :: CInt
+              {- ^ __C declaration:__ @d@
+
+                   __defined at:__ @types\/structs\/bitfields.h 19:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_16_e :: CInt
+              {- ^ __C declaration:__ @e@
+
+                   __defined at:__ @types\/structs\/bitfields.h 20:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_16_f :: CInt
+              {- ^ __C declaration:__ @f@
+
+                   __defined at:__ @types\/structs\/bitfields.h 21:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo_16
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo_16
+    where readRaw = \ptr_0 -> (((((pure Foo_16 <*> peek (Proxy @"foo_16_a") ptr_0) <*> peek (Proxy @"foo_16_b") ptr_0) <*> peek (Proxy @"foo_16_c") ptr_0) <*> peek (Proxy @"foo_16_d") ptr_0) <*> peek (Proxy @"foo_16_e") ptr_0) <*> peek (Proxy @"foo_16_f") ptr_0
+instance WriteRaw Foo_16
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_16 foo_16_a_2
+                                              foo_16_b_3
+                                              foo_16_c_4
+                                              foo_16_d_5
+                                              foo_16_e_6
+                                              foo_16_f_7 -> poke (Proxy @"foo_16_a") ptr_0 foo_16_a_2 >> (poke (Proxy @"foo_16_b") ptr_0 foo_16_b_3 >> (poke (Proxy @"foo_16_c") ptr_0 foo_16_c_4 >> (poke (Proxy @"foo_16_d") ptr_0 foo_16_d_5 >> (poke (Proxy @"foo_16_e") ptr_0 foo_16_e_6 >> poke (Proxy @"foo_16_f") ptr_0 foo_16_f_7))))
+deriving via (EquivStorable Foo_16) instance Storable Foo_16
+instance HasCBitfield Foo_16 "foo_16_a"
+    where type CBitfieldType Foo_16 "foo_16_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CSChar =>
+         HasField "foo_16_a" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_a")
+instance HasCBitfield Foo_16 "foo_16_b"
+    where type CBitfieldType Foo_16 "foo_16_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 6
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CInt =>
+         HasField "foo_16_b" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_b")
+instance HasCBitfield Foo_16 "foo_16_c"
+    where type CBitfieldType Foo_16 "foo_16_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 16
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt =>
+         HasField "foo_16_c" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_c")
+instance HasCBitfield Foo_16 "foo_16_d"
+    where type CBitfieldType Foo_16 "foo_16_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 32
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt =>
+         HasField "foo_16_d" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_d")
+instance HasCBitfield Foo_16 "foo_16_e"
+    where type CBitfieldType Foo_16 "foo_16_e" = CInt
+          bitfieldOffset# = \_ -> \_ -> 48
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "foo_16_e" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_e")
+instance HasCBitfield Foo_16 "foo_16_f"
+    where type CBitfieldType Foo_16 "foo_16_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "foo_16_f" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_f")
+{-| __C declaration:__ @struct foo_32@
+
+    __defined at:__ @types\/structs\/bitfields.h 25:8@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Foo_32
+    = Foo_32 {foo_32_a :: CSChar
+              {- ^ __C declaration:__ @a@
+
+                   __defined at:__ @types\/structs\/bitfields.h 26:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_b :: CInt
+              {- ^ __C declaration:__ @b@
+
+                   __defined at:__ @types\/structs\/bitfields.h 27:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_c :: CInt
+              {- ^ __C declaration:__ @c@
+
+                   __defined at:__ @types\/structs\/bitfields.h 28:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_d :: CInt
+              {- ^ __C declaration:__ @d@
+
+                   __defined at:__ @types\/structs\/bitfields.h 29:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_e :: CLong
+              {- ^ __C declaration:__ @e@
+
+                   __defined at:__ @types\/structs\/bitfields.h 30:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_f :: CInt
+              {- ^ __C declaration:__ @f@
+
+                   __defined at:__ @types\/structs\/bitfields.h 31:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_32_g :: CLong
+              {- ^ __C declaration:__ @g@
+
+                   __defined at:__ @types\/structs\/bitfields.h 32:15@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo_32
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Foo_32
+    where readRaw = \ptr_0 -> ((((((pure Foo_32 <*> peek (Proxy @"foo_32_a") ptr_0) <*> peek (Proxy @"foo_32_b") ptr_0) <*> peek (Proxy @"foo_32_c") ptr_0) <*> peek (Proxy @"foo_32_d") ptr_0) <*> peek (Proxy @"foo_32_e") ptr_0) <*> peek (Proxy @"foo_32_f") ptr_0) <*> peek (Proxy @"foo_32_g") ptr_0
+instance WriteRaw Foo_32
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_32 foo_32_a_2
+                                              foo_32_b_3
+                                              foo_32_c_4
+                                              foo_32_d_5
+                                              foo_32_e_6
+                                              foo_32_f_7
+                                              foo_32_g_8 -> poke (Proxy @"foo_32_a") ptr_0 foo_32_a_2 >> (poke (Proxy @"foo_32_b") ptr_0 foo_32_b_3 >> (poke (Proxy @"foo_32_c") ptr_0 foo_32_c_4 >> (poke (Proxy @"foo_32_d") ptr_0 foo_32_d_5 >> (poke (Proxy @"foo_32_e") ptr_0 foo_32_e_6 >> (poke (Proxy @"foo_32_f") ptr_0 foo_32_f_7 >> poke (Proxy @"foo_32_g") ptr_0 foo_32_g_8)))))
+deriving via (EquivStorable Foo_32) instance Storable Foo_32
+instance HasCBitfield Foo_32 "foo_32_a"
+    where type CBitfieldType Foo_32 "foo_32_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CSChar =>
+         HasField "foo_32_a" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_a")
+instance HasCBitfield Foo_32 "foo_32_b"
+    where type CBitfieldType Foo_32 "foo_32_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 6
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "foo_32_b" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_b")
+instance HasCBitfield Foo_32 "foo_32_c"
+    where type CBitfieldType Foo_32 "foo_32_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 18
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "foo_32_c" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_c")
+instance HasCBitfield Foo_32 "foo_32_d"
+    where type CBitfieldType Foo_32 "foo_32_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 32
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CInt =>
+         HasField "foo_32_d" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_d")
+instance HasCBitfield Foo_32 "foo_32_e"
+    where type CBitfieldType Foo_32 "foo_32_e" = CLong
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 32
+instance (~) ty CLong =>
+         HasField "foo_32_e" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_e")
+instance HasCBitfield Foo_32 "foo_32_f"
+    where type CBitfieldType Foo_32 "foo_32_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 96
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CInt =>
+         HasField "foo_32_f" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_f")
+instance HasCBitfield Foo_32 "foo_32_g"
+    where type CBitfieldType Foo_32 "foo_32_g" = CLong
+          bitfieldOffset# = \_ -> \_ -> 102
+          bitfieldWidth# = \_ -> \_ -> 24
+instance (~) ty CLong =>
+         HasField "foo_32_g" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_g")
+{-| __C declaration:__ @struct foo_64@
+
+    __defined at:__ @types\/structs\/bitfields.h 36:8@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Foo_64
+    = Foo_64 {foo_64_a :: CLong
+              {- ^ __C declaration:__ @a@
+
+                   __defined at:__ @types\/structs\/bitfields.h 37:20@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_64_b :: CLLong
+              {- ^ __C declaration:__ @b@
+
+                   __defined at:__ @types\/structs\/bitfields.h 38:20@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_64_c :: CLLong
+              {- ^ __C declaration:__ @c@
+
+                   __defined at:__ @types\/structs\/bitfields.h 39:20@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -},
+              foo_64_d :: CLLong
+              {- ^ __C declaration:__ @d@
+
+                   __defined at:__ @types\/structs\/bitfields.h 40:20@
+
+                   __exported by:__ @types\/structs\/bitfields.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo_64
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Foo_64
+    where readRaw = \ptr_0 -> (((pure Foo_64 <*> peek (Proxy @"foo_64_a") ptr_0) <*> peek (Proxy @"foo_64_b") ptr_0) <*> peek (Proxy @"foo_64_c") ptr_0) <*> peek (Proxy @"foo_64_d") ptr_0
+instance WriteRaw Foo_64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_64 foo_64_a_2
+                                              foo_64_b_3
+                                              foo_64_c_4
+                                              foo_64_d_5 -> poke (Proxy @"foo_64_a") ptr_0 foo_64_a_2 >> (poke (Proxy @"foo_64_b") ptr_0 foo_64_b_3 >> (poke (Proxy @"foo_64_c") ptr_0 foo_64_c_4 >> poke (Proxy @"foo_64_d") ptr_0 foo_64_d_5))
+deriving via (EquivStorable Foo_64) instance Storable Foo_64
+instance HasCBitfield Foo_64 "foo_64_a"
+    where type CBitfieldType Foo_64 "foo_64_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+instance (~) ty CLong =>
+         HasField "foo_64_a" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_a")
+instance HasCBitfield Foo_64 "foo_64_b"
+    where type CBitfieldType Foo_64 "foo_64_b" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 24
+          bitfieldWidth# = \_ -> \_ -> 40
+instance (~) ty CLLong =>
+         HasField "foo_64_b" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_b")
+instance HasCBitfield Foo_64 "foo_64_c"
+    where type CBitfieldType Foo_64 "foo_64_c" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 64
+instance (~) ty CLLong =>
+         HasField "foo_64_c" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_c")
+instance HasCBitfield Foo_64 "foo_64_d"
+    where type CBitfieldType Foo_64 "foo_64_d" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 128
+          bitfieldWidth# = \_ -> \_ -> 36
+instance (~) ty CLLong =>
+         HasField "foo_64_d" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_d")
+{-| __C declaration:__ @struct bar_8_8@
+
+    __defined at:__ @types\/structs\/bitfields.h 44:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_8
+    = Bar_8_8 {bar_8_8_a :: CSChar
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @types\/structs\/bitfields.h 45:15@
+
+                    __exported by:__ @types\/structs\/bitfields.h@
+               -},
+               bar_8_8_b :: CInt
+               {- ^ __C declaration:__ @b@
+
+                    __defined at:__ @types\/structs\/bitfields.h 46:15@
+
+                    __exported by:__ @types\/structs\/bitfields.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_8_8
+    where staticSizeOf = \_ -> 2 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_8_8
+    where readRaw = \ptr_0 -> (pure Bar_8_8 <*> peek (Proxy @"bar_8_8_a") ptr_0) <*> peek (Proxy @"bar_8_8_b") ptr_0
+instance WriteRaw Bar_8_8
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_8_8 bar_8_8_a_2
+                                               bar_8_8_b_3 -> poke (Proxy @"bar_8_8_a") ptr_0 bar_8_8_a_2 >> poke (Proxy @"bar_8_8_b") ptr_0 bar_8_8_b_3
+deriving via (EquivStorable Bar_8_8) instance Storable Bar_8_8
+instance HasCBitfield Bar_8_8 "bar_8_8_a"
+    where type CBitfieldType Bar_8_8 "bar_8_8_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CSChar =>
+         HasField "bar_8_8_a" (Ptr Bar_8_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_8_a")
+instance HasCBitfield Bar_8_8 "bar_8_8_b"
+    where type CBitfieldType Bar_8_8 "bar_8_8_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 6
+          bitfieldWidth# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "bar_8_8_b" (Ptr Bar_8_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_8_b")
+{-| __C declaration:__ @struct bar_8_16@
+
+    __defined at:__ @types\/structs\/bitfields.h 50:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_16
+    = Bar_8_16 {bar_8_16_a :: CInt
+                {- ^ __C declaration:__ @a@
+
+                     __defined at:__ @types\/structs\/bitfields.h 51:14@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -},
+                bar_8_16_b :: CInt
+                {- ^ __C declaration:__ @b@
+
+                     __defined at:__ @types\/structs\/bitfields.h 52:14@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_8_16
+    where staticSizeOf = \_ -> 3 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_8_16
+    where readRaw = \ptr_0 -> (pure Bar_8_16 <*> peek (Proxy @"bar_8_16_a") ptr_0) <*> peek (Proxy @"bar_8_16_b") ptr_0
+instance WriteRaw Bar_8_16
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_8_16 bar_8_16_a_2
+                                                bar_8_16_b_3 -> poke (Proxy @"bar_8_16_a") ptr_0 bar_8_16_a_2 >> poke (Proxy @"bar_8_16_b") ptr_0 bar_8_16_b_3
+deriving via (EquivStorable Bar_8_16) instance Storable Bar_8_16
+instance HasCBitfield Bar_8_16 "bar_8_16_a"
+    where type CBitfieldType Bar_8_16 "bar_8_16_a" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "bar_8_16_a" (Ptr Bar_8_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_16_a")
+instance HasCBitfield Bar_8_16 "bar_8_16_b"
+    where type CBitfieldType Bar_8_16 "bar_8_16_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 14
+          bitfieldWidth# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "bar_8_16_b" (Ptr Bar_8_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_16_b")
+{-| __C declaration:__ @struct bar_8_32@
+
+    __defined at:__ @types\/structs\/bitfields.h 56:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_32
+    = Bar_8_32 {bar_8_32_a :: CLong
+                {- ^ __C declaration:__ @a@
+
+                     __defined at:__ @types\/structs\/bitfields.h 57:15@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -},
+                bar_8_32_b :: CInt
+                {- ^ __C declaration:__ @b@
+
+                     __defined at:__ @types\/structs\/bitfields.h 58:15@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_8_32
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_8_32
+    where readRaw = \ptr_0 -> (pure Bar_8_32 <*> peek (Proxy @"bar_8_32_a") ptr_0) <*> peek (Proxy @"bar_8_32_b") ptr_0
+instance WriteRaw Bar_8_32
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_8_32 bar_8_32_a_2
+                                                bar_8_32_b_3 -> poke (Proxy @"bar_8_32_a") ptr_0 bar_8_32_a_2 >> poke (Proxy @"bar_8_32_b") ptr_0 bar_8_32_b_3
+deriving via (EquivStorable Bar_8_32) instance Storable Bar_8_32
+instance HasCBitfield Bar_8_32 "bar_8_32_a"
+    where type CBitfieldType Bar_8_32 "bar_8_32_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 30
+instance (~) ty CLong =>
+         HasField "bar_8_32_a" (Ptr Bar_8_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_32_a")
+instance HasCBitfield Bar_8_32 "bar_8_32_b"
+    where type CBitfieldType Bar_8_32 "bar_8_32_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 30
+          bitfieldWidth# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "bar_8_32_b" (Ptr Bar_8_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_32_b")
+{-| __C declaration:__ @struct bar_8_64@
+
+    __defined at:__ @types\/structs\/bitfields.h 62:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_64
+    = Bar_8_64 {bar_8_64_a :: CLLong
+                {- ^ __C declaration:__ @a@
+
+                     __defined at:__ @types\/structs\/bitfields.h 63:20@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -},
+                bar_8_64_b :: CInt
+                {- ^ __C declaration:__ @b@
+
+                     __defined at:__ @types\/structs\/bitfields.h 64:20@
+
+                     __exported by:__ @types\/structs\/bitfields.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_8_64
+    where staticSizeOf = \_ -> 9 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_8_64
+    where readRaw = \ptr_0 -> (pure Bar_8_64 <*> peek (Proxy @"bar_8_64_a") ptr_0) <*> peek (Proxy @"bar_8_64_b") ptr_0
+instance WriteRaw Bar_8_64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_8_64 bar_8_64_a_2
+                                                bar_8_64_b_3 -> poke (Proxy @"bar_8_64_a") ptr_0 bar_8_64_a_2 >> poke (Proxy @"bar_8_64_b") ptr_0 bar_8_64_b_3
+deriving via (EquivStorable Bar_8_64) instance Storable Bar_8_64
+instance HasCBitfield Bar_8_64 "bar_8_64_a"
+    where type CBitfieldType Bar_8_64 "bar_8_64_a" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 62
+instance (~) ty CLLong =>
+         HasField "bar_8_64_a" (Ptr Bar_8_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_64_a")
+instance HasCBitfield Bar_8_64 "bar_8_64_b"
+    where type CBitfieldType Bar_8_64 "bar_8_64_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 62
+          bitfieldWidth# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "bar_8_64_b" (Ptr Bar_8_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_8_64_b")
+{-| __C declaration:__ @struct bar_16_16@
+
+    __defined at:__ @types\/structs\/bitfields.h 68:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_16
+    = Bar_16_16 {bar_16_16_a :: CInt
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 69:14@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_16_16_b :: CInt
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 70:14@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_16_16
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_16_16
+    where readRaw = \ptr_0 -> (pure Bar_16_16 <*> peek (Proxy @"bar_16_16_a") ptr_0) <*> peek (Proxy @"bar_16_16_b") ptr_0
+instance WriteRaw Bar_16_16
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_16_16 bar_16_16_a_2
+                                                 bar_16_16_b_3 -> poke (Proxy @"bar_16_16_a") ptr_0 bar_16_16_a_2 >> poke (Proxy @"bar_16_16_b") ptr_0 bar_16_16_b_3
+deriving via (EquivStorable Bar_16_16) instance Storable Bar_16_16
+instance HasCBitfield Bar_16_16 "bar_16_16_a"
+    where type CBitfieldType Bar_16_16 "bar_16_16_a" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "bar_16_16_a" (Ptr Bar_16_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_16_a")
+instance HasCBitfield Bar_16_16 "bar_16_16_b"
+    where type CBitfieldType Bar_16_16 "bar_16_16_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 14
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "bar_16_16_b" (Ptr Bar_16_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_16_b")
+{-| __C declaration:__ @struct bar_16_32@
+
+    __defined at:__ @types\/structs\/bitfields.h 74:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_32
+    = Bar_16_32 {bar_16_32_a :: CLong
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 75:15@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_16_32_b :: CInt
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 76:15@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_16_32
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_16_32
+    where readRaw = \ptr_0 -> (pure Bar_16_32 <*> peek (Proxy @"bar_16_32_a") ptr_0) <*> peek (Proxy @"bar_16_32_b") ptr_0
+instance WriteRaw Bar_16_32
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_16_32 bar_16_32_a_2
+                                                 bar_16_32_b_3 -> poke (Proxy @"bar_16_32_a") ptr_0 bar_16_32_a_2 >> poke (Proxy @"bar_16_32_b") ptr_0 bar_16_32_b_3
+deriving via (EquivStorable Bar_16_32) instance Storable Bar_16_32
+instance HasCBitfield Bar_16_32 "bar_16_32_a"
+    where type CBitfieldType Bar_16_32 "bar_16_32_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+instance (~) ty CLong =>
+         HasField "bar_16_32_a" (Ptr Bar_16_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_32_a")
+instance HasCBitfield Bar_16_32 "bar_16_32_b"
+    where type CBitfieldType Bar_16_32 "bar_16_32_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 24
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "bar_16_32_b" (Ptr Bar_16_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_32_b")
+{-| __C declaration:__ @struct bar_16_64@
+
+    __defined at:__ @types\/structs\/bitfields.h 80:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_64
+    = Bar_16_64 {bar_16_64_a :: CLLong
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 81:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_16_64_b :: CInt
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 82:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_16_64
+    where staticSizeOf = \_ -> 9 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_16_64
+    where readRaw = \ptr_0 -> (pure Bar_16_64 <*> peek (Proxy @"bar_16_64_a") ptr_0) <*> peek (Proxy @"bar_16_64_b") ptr_0
+instance WriteRaw Bar_16_64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_16_64 bar_16_64_a_2
+                                                 bar_16_64_b_3 -> poke (Proxy @"bar_16_64_a") ptr_0 bar_16_64_a_2 >> poke (Proxy @"bar_16_64_b") ptr_0 bar_16_64_b_3
+deriving via (EquivStorable Bar_16_64) instance Storable Bar_16_64
+instance HasCBitfield Bar_16_64 "bar_16_64_a"
+    where type CBitfieldType Bar_16_64 "bar_16_64_a" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 56
+instance (~) ty CLLong =>
+         HasField "bar_16_64_a" (Ptr Bar_16_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_64_a")
+instance HasCBitfield Bar_16_64 "bar_16_64_b"
+    where type CBitfieldType Bar_16_64 "bar_16_64_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 56
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt =>
+         HasField "bar_16_64_b" (Ptr Bar_16_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_16_64_b")
+{-| __C declaration:__ @struct bar_32_32@
+
+    __defined at:__ @types\/structs\/bitfields.h 86:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_32_32
+    = Bar_32_32 {bar_32_32_a :: CLong
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 87:15@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_32_32_b :: CLong
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 88:15@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_32_32
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_32_32
+    where readRaw = \ptr_0 -> (pure Bar_32_32 <*> peek (Proxy @"bar_32_32_a") ptr_0) <*> peek (Proxy @"bar_32_32_b") ptr_0
+instance WriteRaw Bar_32_32
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_32_32 bar_32_32_a_2
+                                                 bar_32_32_b_3 -> poke (Proxy @"bar_32_32_a") ptr_0 bar_32_32_a_2 >> poke (Proxy @"bar_32_32_b") ptr_0 bar_32_32_b_3
+deriving via (EquivStorable Bar_32_32) instance Storable Bar_32_32
+instance HasCBitfield Bar_32_32 "bar_32_32_a"
+    where type CBitfieldType Bar_32_32 "bar_32_32_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 30
+instance (~) ty CLong =>
+         HasField "bar_32_32_a" (Ptr Bar_32_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_32_32_a")
+instance HasCBitfield Bar_32_32 "bar_32_32_b"
+    where type CBitfieldType Bar_32_32 "bar_32_32_b" = CLong
+          bitfieldOffset# = \_ -> \_ -> 30
+          bitfieldWidth# = \_ -> \_ -> 30
+instance (~) ty CLong =>
+         HasField "bar_32_32_b" (Ptr Bar_32_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_32_32_b")
+{-| __C declaration:__ @struct bar_32_64@
+
+    __defined at:__ @types\/structs\/bitfields.h 92:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_32_64
+    = Bar_32_64 {bar_32_64_a :: CLLong
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 93:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_32_64_b :: CLong
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 94:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_32_64
+    where staticSizeOf = \_ -> 11 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_32_64
+    where readRaw = \ptr_0 -> (pure Bar_32_64 <*> peek (Proxy @"bar_32_64_a") ptr_0) <*> peek (Proxy @"bar_32_64_b") ptr_0
+instance WriteRaw Bar_32_64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_32_64 bar_32_64_a_2
+                                                 bar_32_64_b_3 -> poke (Proxy @"bar_32_64_a") ptr_0 bar_32_64_a_2 >> poke (Proxy @"bar_32_64_b") ptr_0 bar_32_64_b_3
+deriving via (EquivStorable Bar_32_64) instance Storable Bar_32_64
+instance HasCBitfield Bar_32_64 "bar_32_64_a"
+    where type CBitfieldType Bar_32_64 "bar_32_64_a" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 56
+instance (~) ty CLLong =>
+         HasField "bar_32_64_a" (Ptr Bar_32_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_32_64_a")
+instance HasCBitfield Bar_32_64 "bar_32_64_b"
+    where type CBitfieldType Bar_32_64 "bar_32_64_b" = CLong
+          bitfieldOffset# = \_ -> \_ -> 56
+          bitfieldWidth# = \_ -> \_ -> 30
+instance (~) ty CLong =>
+         HasField "bar_32_64_b" (Ptr Bar_32_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_32_64_b")
+{-| __C declaration:__ @struct bar_64_64@
+
+    __defined at:__ @types\/structs\/bitfields.h 98:32@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_64_64
+    = Bar_64_64 {bar_64_64_a :: CLLong
+                 {- ^ __C declaration:__ @a@
+
+                      __defined at:__ @types\/structs\/bitfields.h 99:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -},
+                 bar_64_64_b :: CLLong
+                 {- ^ __C declaration:__ @b@
+
+                      __defined at:__ @types\/structs\/bitfields.h 100:20@
+
+                      __exported by:__ @types\/structs\/bitfields.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_64_64
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar_64_64
+    where readRaw = \ptr_0 -> (pure Bar_64_64 <*> peek (Proxy @"bar_64_64_a") ptr_0) <*> peek (Proxy @"bar_64_64_b") ptr_0
+instance WriteRaw Bar_64_64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_64_64 bar_64_64_a_2
+                                                 bar_64_64_b_3 -> poke (Proxy @"bar_64_64_a") ptr_0 bar_64_64_a_2 >> poke (Proxy @"bar_64_64_b") ptr_0 bar_64_64_b_3
+deriving via (EquivStorable Bar_64_64) instance Storable Bar_64_64
+instance HasCBitfield Bar_64_64 "bar_64_64_a"
+    where type CBitfieldType Bar_64_64 "bar_64_64_a" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 56
+instance (~) ty CLLong =>
+         HasField "bar_64_64_a" (Ptr Bar_64_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_64_64_a")
+instance HasCBitfield Bar_64_64 "bar_64_64_b"
+    where type CBitfieldType Bar_64_64 "bar_64_64_b" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 56
+          bitfieldWidth# = \_ -> \_ -> 40
+instance (~) ty CLLong =>
+         HasField "bar_64_64_b" (Ptr Bar_64_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"bar_64_64_b")

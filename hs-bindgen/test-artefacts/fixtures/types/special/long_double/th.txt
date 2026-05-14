@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/types/special/long_double.h

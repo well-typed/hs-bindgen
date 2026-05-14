@@ -64,7 +64,7 @@ test_macros_macro_ext_binding_dep :: TestCase
 test_macros_macro_ext_binding_dep =
     defaultTest "macros/macro_ext_binding_dep"
       & #specExternal .~
-          [ "examples/golden/macros/macro_ext_binding_dep.yaml"
+          [ "test-artefacts/headers/golden/macros/macro_ext_binding_dep.yaml"
           ]
 
 test_macros_macro_type_unresolved_tagged :: TestCase

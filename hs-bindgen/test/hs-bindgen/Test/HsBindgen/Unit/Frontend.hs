@@ -1,5 +1,6 @@
 module Test.HsBindgen.Unit.Frontend (tests) where
 
+import System.FilePath ((</>))
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -38,7 +39,12 @@ testParseSequenceNumber :: IO TestResources -> TestTree
 testParseSequenceNumber getTestResources =
   testWhenClangVersion (>= (20, 1, 0)) "ParseSequenceNumber" $ do
     results <-
-      execFrontend getTestResources c89 ["examples"] "minimal.h" getParseResults
+      execFrontend
+        getTestResources
+        c89
+        ["test-artefacts" </> "headers"]
+        "minimal.h"
+        getParseResults
     forM_ results $ \result -> case getParseResultMaybeDecl result of
       Nothing   -> assertFailure $ "parse failed: " ++ show result
       Just decl -> do

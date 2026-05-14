@@ -1,0 +1,262 @@
+-- addDependentFile musl-include/x86_64/features.h
+-- addDependentFile musl-include/x86_64/bits/errno.h
+-- addDependentFile musl-include/x86_64/errno.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stdio.h
+-- addDependentFile musl-include/x86_64/time.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/program_slicing_selection.h
+-- #include <program-analysis/program_slicing_selection.h>
+-- enum FileOperationStatus hs_bindgen_b2a91b3b7edf2ad3 (
+--   FILE *arg1,
+--   void *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return (read_file_chunk)(arg1, arg2, arg3);
+-- }
+-- enum FileOperationStatus hs_bindgen_654858ed6a5db417 (
+--   FILE *arg1,
+--   void *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return (read_file_chunk)(arg1, arg2, arg3);
+-- }
+-- /* test_programanalysisprogram_slici_Example_get_read_file_chunk */
+-- __attribute__ ((const))
+-- enum FileOperationStatus (*hs_bindgen_6e12e70d71890a10 (void)) (
+--   FILE *arg1,
+--   void *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return &read_file_chunk;
+-- }
+{-| __C declaration:__ @enum FileOperationStatus@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 7:6@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+newtype FileOperationStatus
+    = FileOperationStatus {unwrapFileOperationStatus :: CInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize FileOperationStatus
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw FileOperationStatus
+    where readRaw = \ptr_0 -> pure FileOperationStatus <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw FileOperationStatus
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       FileOperationStatus unwrapFileOperationStatus_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapFileOperationStatus_2
+deriving via (EquivStorable FileOperationStatus) instance Storable FileOperationStatus
+deriving via CInt instance Prim FileOperationStatus
+instance CEnum FileOperationStatus
+    where type CEnumZ FileOperationStatus = CInt
+          toCEnum = FileOperationStatus
+          fromCEnum = getField @"unwrapFileOperationStatus"
+          declaredValues = \_ -> declaredValuesFromList [(-1,
+                                                          singleton "CUSTOM_ERROR_OTHER"),
+                                                         (0, singleton "SUCCESS"),
+                                                         (2, singleton "NOT_FOUND"),
+                                                         (12, singleton "OUT_OF_MEMORY"),
+                                                         (13, singleton "PERMISSION_DENIED"),
+                                                         (22, singleton "INVALID_ARGUMENT")]
+          showsUndeclared = showsWrappedUndeclared "FileOperationStatus"
+          readPrecUndeclared = readPrecWrappedUndeclared "FileOperationStatus"
+instance Show FileOperationStatus
+    where showsPrec = shows
+instance Read FileOperationStatus
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CInt =>
+         HasField "unwrapFileOperationStatus"
+                  (Ptr FileOperationStatus)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFileOperationStatus")
+instance HasCField FileOperationStatus "unwrapFileOperationStatus"
+    where type CFieldType FileOperationStatus
+                          "unwrapFileOperationStatus" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @SUCCESS@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern SUCCESS :: FileOperationStatus
+pattern SUCCESS = FileOperationStatus 0
+{-| __C declaration:__ @NOT_FOUND@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 9:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern NOT_FOUND :: FileOperationStatus
+pattern NOT_FOUND = FileOperationStatus 2
+{-| __C declaration:__ @PERMISSION_DENIED@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 10:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern PERMISSION_DENIED :: FileOperationStatus
+pattern PERMISSION_DENIED = FileOperationStatus 13
+{-| __C declaration:__ @INVALID_ARGUMENT@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 11:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern INVALID_ARGUMENT :: FileOperationStatus
+pattern INVALID_ARGUMENT = FileOperationStatus 22
+{-| __C declaration:__ @OUT_OF_MEMORY@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 12:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern OUT_OF_MEMORY :: FileOperationStatus
+pattern OUT_OF_MEMORY = FileOperationStatus 12
+{-| __C declaration:__ @CUSTOM_ERROR_OTHER@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 13:3@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+pattern CUSTOM_ERROR_OTHER :: FileOperationStatus
+pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
+{-| __C declaration:__ @struct FileOperationRecord@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 16:8@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+data FileOperationRecord
+    = FileOperationRecord {fileOperationRecord_status :: FileOperationStatus
+                           {- ^ __C declaration:__ @status@
+
+                                __defined at:__ @program-analysis\/program_slicing_selection.h 17:28@
+
+                                __exported by:__ @program-analysis\/program_slicing_selection.h@
+                           -},
+                           fileOperationRecord_bytes_processed :: HsBindgen.Runtime.LibC.CSize
+                           {- ^ __C declaration:__ @bytes_processed@
+
+                                __defined at:__ @program-analysis\/program_slicing_selection.h 18:10@
+
+                                __exported by:__ @program-analysis\/program_slicing_selection.h@
+                           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize FileOperationRecord
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw FileOperationRecord
+    where readRaw = \ptr_0 -> (pure FileOperationRecord <*> readRaw (Proxy @"fileOperationRecord_status") ptr_0) <*> readRaw (Proxy @"fileOperationRecord_bytes_processed") ptr_0
+instance WriteRaw FileOperationRecord
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       FileOperationRecord fileOperationRecord_status_2
+                                                           fileOperationRecord_bytes_processed_3 -> writeRaw (Proxy @"fileOperationRecord_status") ptr_0 fileOperationRecord_status_2 >> writeRaw (Proxy @"fileOperationRecord_bytes_processed") ptr_0 fileOperationRecord_bytes_processed_3
+deriving via (EquivStorable FileOperationRecord) instance Storable FileOperationRecord
+instance HasCField FileOperationRecord "fileOperationRecord_status"
+    where type CFieldType FileOperationRecord
+                          "fileOperationRecord_status" = FileOperationStatus
+          offset# = \_ -> \_ -> 0
+instance (~) ty FileOperationStatus =>
+         HasField "fileOperationRecord_status"
+                  (Ptr FileOperationRecord)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"fileOperationRecord_status")
+instance HasCField FileOperationRecord
+                   "fileOperationRecord_bytes_processed"
+    where type CFieldType FileOperationRecord
+                          "fileOperationRecord_bytes_processed" = HsBindgen.Runtime.LibC.CSize
+          offset# = \_ -> \_ -> 8
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "fileOperationRecord_bytes_processed"
+                  (Ptr FileOperationRecord)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"fileOperationRecord_bytes_processed")
+-- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
+foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
+    Ptr Void
+ -> Ptr Void
+ -> Word64
+ -> IO Int32
+-- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
+hs_bindgen_b2a91b3b7edf2ad3 :: Ptr HsBindgen.Runtime.LibC.CFile ->
+                               Ptr Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus
+-- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
+hs_bindgen_b2a91b3b7edf2ad3 = fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_safe :: Ptr HsBindgen.Runtime.LibC.CFile ->
+                        Ptr Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_safe = hs_bindgen_b2a91b3b7edf2ad3
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417_base ::
+    Ptr Void
+ -> Ptr Void
+ -> Word64
+ -> IO Int32
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+hs_bindgen_654858ed6a5db417 :: Ptr HsBindgen.Runtime.LibC.CFile ->
+                               Ptr Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+hs_bindgen_654858ed6a5db417 = fromFFIType hs_bindgen_654858ed6a5db417_base
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_unsafe :: Ptr HsBindgen.Runtime.LibC.CFile ->
+                          Ptr Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_unsafe = hs_bindgen_654858ed6a5db417
+-- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
+foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
+hs_bindgen_6e12e70d71890a10 :: IO (FunPtr (Ptr HsBindgen.Runtime.LibC.CFile ->
+                                           Ptr Void ->
+                                           HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
+-- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
+hs_bindgen_6e12e70d71890a10 = fromFFIType hs_bindgen_6e12e70d71890a10_base
+{-# NOINLINE read_file_chunk_funptr #-}
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_funptr :: FunPtr (Ptr HsBindgen.Runtime.LibC.CFile ->
+                                  Ptr Void ->
+                                  HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
+read_file_chunk_funptr = unsafePerformIO hs_bindgen_6e12e70d71890a10

@@ -89,8 +89,8 @@ setupFixtureEnv ::
 setupFixtureEnv repoRoot = do
     let hsBindgenDir = repoRoot </> "hs-bindgen"
         includeDirs  =
-          [ hsBindgenDir </> "examples"
-          , hsBindgenDir </> "examples" </> "golden"
+          [ hsBindgenDir </> "test-artefacts" </> "headers"
+          , hsBindgenDir </> "test-artefacts" </> "headers" </> "golden"
           , hsBindgenDir </> "musl-include" </> "x86_64"
           ]
 

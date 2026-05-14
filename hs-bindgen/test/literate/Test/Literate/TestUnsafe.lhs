@@ -1,4 +1,4 @@
-[ "-I", "examples"
+[ "-I", "test-artefacts/headers"
 , "--module=Test.Literate.TestUnsafe"
 , "--unique-id", "com.well-typed.hs-bindgen"
 , "--single-file", "--unsafe", ""
