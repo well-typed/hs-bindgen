@@ -1,0 +1,433 @@
+# Invocation
+
+`hs-bindgen` provides three methods for generating Haskell bindings from C
+header files:
+
+1. Command-line invocation via `hs-bindgen-cli preprocess`
+2. Cabal preprocessor integration using literate Haskell files
+3. Template Haskell mode via the `HsBindgen.TH` module
+
+> [!NOTE]
+> This documentation is for `hs-bindgen` version 0.1.0.
+
+## Command-line invocation
+
+The `preprocess` command generates Haskell bindings from C header files.  It
+uses `libclang` to parse headers and produces Haskell modules containing the
+bindings.
+
+### Basic usage
+
+```bash
+cabal run hs-bindgen-cli -- preprocess [OPTIONS] HEADER_FILE
+```
+
+On Windows:
+
+```powershell
+cabal run hs-bindgen-cli.exe -- preprocess [OPTIONS] HEADER_FILE
+```
+
+### Options
+
+The `preprocess` command accepts several categories of options.
+
+#### Module generation
+
+Options controlling module generation:
+
+- `--hs-output-dir DIR` - Output directory for generated modules
+- `--module NAME` - Base module name (e.g., `Generated.MyLib`)
+- `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
+- `--create-output-dirs` - Create output directories if they do not exist
+
+#### Clang configuration
+
+Options configuring `libclang`:
+
+- `-I DIR` - Add include directory
+- `--gnu` - Enable GNU extensions
+- `--c-standard STANDARD` - Specify C standard (c89, c99, c11, c17)
+- `--clang-option OPT` - Pass arbitrary option to Clang
+- `--clang-option-before OPT` - Pass option before managed options
+- `--clang-option-after OPT` - Pass option after managed options
+
+See [Clang options][manual:clang-options] for details about the order in which
+options are passed to Clang.
+
+#### Select predicates
+
+Options determining which parsed declarations are included in the generated
+bindings:
+
+- `--select-by-header-path PATTERN` - Select declarations from headers matching pattern
+- `--select-by-decl-name PATTERN` - Select declarations with C names matching pattern
+- `--select-except-by-decl-name PATTERN` - Exclude declarations with C names matching pattern
+- `--select-except-deprecated` - Exclude deprecated declarations
+- `--enable-program-slicing` - Enable program slicing (includes transitive dependencies)
+
+With program slicing disabled (the default), only declarations matching select
+predicates are included.  With program slicing enabled, transitive
+dependencies of selected declarations are included, even if explicitly
+deselected.
+
+See [Selecting, and program slicing][manual:selecting-and-program-slicing] for
+details.
+
+### Example
+
+The following example is adapted from `examples/libpcap/generate.sh`:
+
+```bash
+cabal run hs-bindgen-cli -- preprocess \
+    -I "./libpcap" \
+    --unique-id org.hs-bindgen.libpcap \
+    --hs-output-dir hs-project/src \
+    --create-output-dirs \
+    --module Generated.Pcap \
+    --gnu \
+    --select-by-header-path pcap.h \
+    --enable-program-slicing \
+    --select-except-deprecated \
+    --select-except-by-decl-name 'pcap_open' \
+    pcap.h
+```
+
+### Verbosity
+
+The `-v` option controls verbosity:
+
+- `-v1` - Warnings only
+- `-v2` - Info messages
+- `-v3` - Debug messages
+- `-v4` - Trace messages
+
+Higher verbosity levels show which declarations are selected or deselected, and which macros succeed or fail to parse.
+
+### Other commands
+
+Besides `preprocess`, `hs-bindgen-cli` provides:
+
+- `gen-tests` - Generate test cases for bindings
+- `binding-spec` - Manage binding specifications
+- `info` - Query information (libclang, headers, etc.)
+
+Run `cabal run hs-bindgen-cli -- --help` for details.
+
+### Exit codes
+
+`hs-bindgen` uses the following exit codes:
+- 0: Success
+- 1: Other errors (panics)
+- 2: Invocation of `libclang` has failed
+- 3: An `hs-bindgen`-specific error has happened
+
+## Cabal preprocessor integration
+
+`hs-bindgen` can integrate with Cabal's build system using the literate
+Haskell preprocessor mechanism.  This approach provides seamless integration
+without requiring external build systems or custom setup scripts.
+
+### Background
+
+Binding generation requires running `hs-bindgen` before GHC compiles Haskell
+code.  Several approaches exist to orchestrate this:
+
+1. **External build system** - Use Make, Nix, or similar tools to run
+   `hs-bindgen-cli preprocess` before Cabal
+2. **Custom setup script** - Write a `Setup.hs` that invokes `hs-bindgen-cli`
+   (discouraged; poor tooling integration, particularly with HLS)
+3. **Cabal hooks** - Use Cabal's hooks infrastructure (requires very recent
+   Cabal versions; not yet fully explored)
+4. **Literate preprocessor** - Configure `.lhs` files to use `hs-bindgen-cli`
+   as the preprocessor (this section)
+
+The literate preprocessor approach (option 4) leverages Cabal's support for
+literate Haskell.  Haskell modules in Cabal can have the `.lhs` extension to
+mark them as literate Haskell.  When compiling such files, Cabal runs them
+through a preprocessor (normally `unlit`) to generate the `.hs` file before
+compilation.  The preprocessor can be changed using the `-pgmL` GHC flag.
+
+By configuring `hs-bindgen-cli` as the preprocessor, binding generation occurs
+automatically during `cabal build`.  Instead of literate Haskell markup, the
+`.lhs` file contains configuration flags for `hs-bindgen` in the form of a
+Haskell list.
+
+The Template Haskell mode (described later) avoids the need for any of these
+approaches, but is less suitable for cross-compilation scenarios where target
+platform information may not be available at compile time.
+
+A minimal demonstration of the literate preprocessor mechanism (independent of
+hs-bindgen) is available [here][example:literate-example].
+
+### Configuration
+
+Add the following to your `.cabal` file:
+
+```cabal
+library
+  exposed-modules:     MyBindings
+  hs-source-dirs:      src
+  other-extensions:    ForeignFunctionInterface
+  build-tool-depends:  hs-bindgen:hs-bindgen-cli
+  ghc-options:         -pgmL hs-bindgen-cli -optL tool-support -optL literate
+  build-depends:       base, hs-bindgen-runtime
+  default-language:    Haskell2010
+```
+
+The GHC options specify:
+- `-pgmL hs-bindgen-cli` - Use `hs-bindgen-cli` as the literate Haskell
+  preprocessor
+- `-optL tool-support -optL literate` - Pass arguments to the literate
+  preprocessor
+
+### Literate Haskell file
+
+Create a file `src/MyBindings.lhs` containing a Haskell list of command-line
+arguments:
+
+```haskell
+[ "-I", "./c-lib"
+, "--module=MyBindings"
+, "--unique-id", "org.example.mybindings"
+, "--gnu"
+, "--enable-program-slicing"
+, "mylib.h"
+]
+```
+
+This list contains the same arguments you would pass to `hs-bindgen-cli
+preprocess`, in standard Haskell list syntax.
+
+The `.lhs` file can contain arbitrary content—it is simply passed to the
+preprocessor.  The preprocessor is responsible for parsing the file and
+generating Haskell code.
+
+### Build process
+
+When `cabal build` is invoked:
+
+ 1. Cabal detects the `.lhs` file
+2. Cabal invokes `hs-bindgen-cli tool-support literate src/MyBindings.lhs
+   src/MyBindings.hs -I ./c-lib --module=MyBindings --unique-id org.example.mybindings --gnu --enable-program-slicing mylib.h`
+3. The preprocessor reads the configuration from the file
+4. The preprocessor generates bindings, equivalent to `hs-bindgen-cli
+   preprocess`
+5. The preprocessor writes the generated code to `src/MyBindings.hs`
+6. GHC compiles the resulting `.hs` file
+
+### Example
+
+See `examples/literate-example/` for a complete example using the Cabal
+preprocessor integration.
+
+## Template Haskell mode
+
+The `HsBindgen.TH` module provides a Template Haskell interface for generating
+bindings inline within Haskell modules.  Bindings are generated at compile
+time and become part of the module.
+
+### Setup
+
+Enable Template Haskell and import the module:
+
+```haskell
+{-# LANGUAGE TemplateHaskell #-}
+
+import HsBindgen.TH
+```
+
+Add `hs-bindgen` to `build-depends` in your `.cabal` file:
+
+```cabal
+build-depends: base, hs-bindgen, hs-bindgen-runtime
+```
+
+### Basic usage
+
+Use `withHsBindgen` with `hashInclude` to generate bindings:
+
+```haskell
+{-# LANGUAGE TemplateHaskell #-}
+
+module MyBindings where
+
+import HsBindgen.TH
+import Optics ((&), (%), (.~))
+
+let cfg :: Config
+    cfg = def & #clang % #extraIncludeDirs .~ [Pkg "my-c-lib"]
+
+    cfgTH :: ConfigTH
+    cfgTH = def & #verbosity .~ Verbosity Warning
+ in withHsBindgen cfg cfgTH $
+      hashInclude "mylib.h"
+```
+
+The `withHsBindgen` function takes three arguments:
+
+1. `Config` - Configuration for binding generation
+2. `ConfigTH` - Template Haskell-specific configuration
+3. Template Haskell splice specifying what to bind (typically `hashInclude`)
+
+### Configuration
+
+#### Config
+
+The `Config` type configures binding generation.  Common fields:
+
+- `#clang % #extraIncludeDirs` - Include directories
+  - `Pkg "package"` - Package directory
+  - `Abs "/path"` - Absolute path
+  - `Rel "path"` - Relative path (relative to module directory)
+- `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
+- `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
+- `#select` - Select predicates and program slicing
+- `#backend % #safety` - Safety (`Safe`, `Unsafe`, or `GenerateBoth`)
+
+See the `HsBindgen.TH` module documentation for all configuration options.
+
+#### ConfigTH
+
+The `ConfigTH` type configures Template Haskell behavior:
+
+- `#verbosity` - Log level (`Verbosity Silent`, `Verbosity Warning`,
+  `Verbosity Info`, `Verbosity Debug`)
+- `#customLogLevelSettings` - Fine-grained logging (e.g.,
+  `[EnableMacroWarnings]`)
+
+### Complete example
+
+```haskell
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedLabels #-}
+
+module CompleteExample where
+
+import HsBindgen.TH
+import Optics ((&), (%), (.~))
+
+let cfg :: Config
+    cfg = def
+            & #clang % #extraIncludeDirs .~ [
+                  Pkg "my-c-library"
+                , Abs "/usr/local/include"
+                ]
+            & #clang % #gnu .~ GnuEnabled
+            & #clang % #cStandard .~ C11
+            & #select % #predicate .~ SelectByHeaderPath (Regex "mylib\\.h")
+            & #select % #programSlicing .~ ProgramSlicingEnabled
+
+    cfgTH :: ConfigTH
+    cfgTH = def
+              & #verbosity .~ Verbosity Info
+              & #customLogLevelSettings .~ [EnableMacroWarnings]
+ in withHsBindgen cfg cfgTH $
+      hashInclude "mylib.h"
+```
+
+### Viewing generated code
+
+Use GHC's `-ddump-splices` option to view generated code:
+
+```bash
+cabal build --ghc-options="-ddump-splices"
+```
+
+### Multiple headers
+
+Call `hashInclude` multiple times:
+
+```haskell
+let cfg = def
+ in withHsBindgen cfg def $ do
+      hashInclude "header1.h"
+      hashInclude "header2.h"
+```
+
+### Troubleshooting
+
+**"Not in scope" errors:** Verify that `{-# LANGUAGE TemplateHaskell #-}` is
+enabled, `HsBindgen.TH` is imported, and `hs-bindgen` is in `build-depends`.
+
+**"Could not find header" errors:** Check include directories in `#clang %
+#extraIncludeDirs`.  Try absolute paths if relative paths fail.
+
+**Long compilation times:** Reduce selected declarations via predicates, or
+use command-line or preprocessor invocation instead.  Use higher verbosity
+(`-v3`) to see what is being processed.
+
+## Preparation of system environment for `hs-bindgen`
+
+See the [Installation][manual:installation] guide for platform-specific setup
+instructions (Linux, macOS, Windows, Nix).
+
+## Using `hs-bindgen` with bundled C source files
+
+All examples in the preceding sections assume that the C library you are
+binding to is built separately and linked as a shared library. However, when
+you are writing your own C code alongside your Haskell project, you can
+compile it directly into the package using Cabal's `c-sources` field.  This
+eliminates the need for a separate build step, `extra-libraries`,
+`extra-lib-dirs`/`extra-include-dirs` in `cabal.project.local`, and
+`LD_LIBRARY_PATH` at runtime.
+
+### `.cabal` configuration
+
+Instead of `extra-libraries`, use `c-sources` and `include-dirs`:
+
+```cabal
+executable my-app
+  main-is:        Main.hs
+  hs-source-dirs: app generated
+  c-sources:      cbits/my_lib.c
+  include-dirs:   cbits
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+```
+
+Cabal compiles the listed C files and links them into the executable
+automatically.
+
+### Generating bindings
+
+Run `hs-bindgen-cli` on the header file as usual:
+
+```bash
+hs-bindgen-cli preprocess \
+    -I cbits \
+    --hs-output-dir generated \
+    --module MyLib \
+    --create-output-dirs \
+    --overwrite-files \
+    my_lib.h
+```
+
+Since the C code is compiled by Cabal, there is no need to update
+`cabal.project.local` with library paths or set `LD_LIBRARY_PATH`.
+
+>[!NOTE]
+>
+> When using `c-sources`, GHC compiles the C files with its configured C
+> compiler (typically GCC on Linux), while `hs-bindgen` uses `libclang` to
+> parse the headers and derive type layouts.  For simple types this is
+> unlikely to cause problems, but GCC and Clang can disagree on memory layout
+> for more exotic constructs (bitfields, packed structs, platform-specific
+> alignment).  See [Clang vs. GCC][manual:installation-clang-vs-gcc] for
+> details.
+
+A complete working example is available in
+[`examples/bundled-c`][example:bundled-c].
+
+
+
+<!-- sources and references -->
+
+[example:bundled-c]: ../../../examples/bundled-c
+[example:literate-example]: ../../../examples/literate-example
+[manual:clang-options]: clang-options.md
+[manual:installation]: ../../installation.md
+[manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
+[manual:selecting-and-program-slicing]: selecting-and-program-slicing.md

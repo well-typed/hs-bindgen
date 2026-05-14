@@ -1,0 +1,837 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/iterator.h
+-- #include <edge-cases/iterator.h>
+-- Toggle hs_bindgen_9d01035006b66206 (
+--   _Bool arg1
+-- )
+-- {
+--   return (makeToggle)(arg1);
+-- }
+-- _Bool hs_bindgen_ccd3ba727d0c0cf4 (
+--   Toggle arg1
+-- )
+-- {
+--   return (toggleNext)(arg1);
+-- }
+-- void hs_bindgen_602b40e971b06c72 (
+--   Toggle arg1
+-- )
+-- {
+--   (releaseToggle)(arg1);
+-- }
+-- Counter hs_bindgen_234fa6f1fb089e1d (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return (makeCounter)(arg1, arg2);
+-- }
+-- signed int hs_bindgen_f0fca62d78f225c3 (
+--   Counter arg1
+-- )
+-- {
+--   return (counterNext)(arg1);
+-- }
+-- void hs_bindgen_e42dcbee8a114957 (
+--   Counter arg1
+-- )
+-- {
+--   (releaseCounter)(arg1);
+-- }
+-- VarCounter hs_bindgen_2bee4eb5b4d895c1 (
+--   signed int arg1
+-- )
+-- {
+--   return (makeVarCounter)(arg1);
+-- }
+-- signed int hs_bindgen_276b9cb5320fec37 (
+--   VarCounter arg1,
+--   signed int arg2
+-- )
+-- {
+--   return (varCounterNext)(arg1, arg2);
+-- }
+-- void hs_bindgen_8423b076f7c9df21 (
+--   VarCounter arg1
+-- )
+-- {
+--   (releaseVarCounter)(arg1);
+-- }
+-- Toggle hs_bindgen_1b7a6a61a9c0da07 (
+--   _Bool arg1
+-- )
+-- {
+--   return (makeToggle)(arg1);
+-- }
+-- _Bool hs_bindgen_4d2d650f2c8798d6 (
+--   Toggle arg1
+-- )
+-- {
+--   return (toggleNext)(arg1);
+-- }
+-- void hs_bindgen_ddbe11e76502cbdc (
+--   Toggle arg1
+-- )
+-- {
+--   (releaseToggle)(arg1);
+-- }
+-- Counter hs_bindgen_2b04d558934551d2 (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return (makeCounter)(arg1, arg2);
+-- }
+-- signed int hs_bindgen_5bba69c8bfbeedf0 (
+--   Counter arg1
+-- )
+-- {
+--   return (counterNext)(arg1);
+-- }
+-- void hs_bindgen_429845bb55a5a7b5 (
+--   Counter arg1
+-- )
+-- {
+--   (releaseCounter)(arg1);
+-- }
+-- VarCounter hs_bindgen_4421633e88fc96c4 (
+--   signed int arg1
+-- )
+-- {
+--   return (makeVarCounter)(arg1);
+-- }
+-- signed int hs_bindgen_31edd817cb78027d (
+--   VarCounter arg1,
+--   signed int arg2
+-- )
+-- {
+--   return (varCounterNext)(arg1, arg2);
+-- }
+-- void hs_bindgen_32e5b257124f69a2 (
+--   VarCounter arg1
+-- )
+-- {
+--   (releaseVarCounter)(arg1);
+-- }
+-- /* test_edgecasesiterator_Example_get_makeToggle */
+-- __attribute__ ((const))
+-- Toggle (*hs_bindgen_ccdad25a057f8efd (void)) (
+--   _Bool arg1
+-- )
+-- {
+--   return &makeToggle;
+-- }
+-- /* test_edgecasesiterator_Example_get_toggleNext */
+-- __attribute__ ((const))
+-- _Bool (*hs_bindgen_fd8e19ba2d78baa9 (void)) (
+--   Toggle arg1
+-- )
+-- {
+--   return &toggleNext;
+-- }
+-- /* test_edgecasesiterator_Example_get_releaseToggle */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_780e490698de9df1 (void)) (
+--   Toggle arg1
+-- )
+-- {
+--   return &releaseToggle;
+-- }
+-- /* test_edgecasesiterator_Example_get_makeCounter */
+-- __attribute__ ((const))
+-- Counter (*hs_bindgen_517dd14dbdb5e3ba (void)) (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &makeCounter;
+-- }
+-- /* test_edgecasesiterator_Example_get_counterNext */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_28d81dd8ce6aca30 (void)) (
+--   Counter arg1
+-- )
+-- {
+--   return &counterNext;
+-- }
+-- /* test_edgecasesiterator_Example_get_releaseCounter */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_849de94baad0430a (void)) (
+--   Counter arg1
+-- )
+-- {
+--   return &releaseCounter;
+-- }
+-- /* test_edgecasesiterator_Example_get_makeVarCounter */
+-- __attribute__ ((const))
+-- VarCounter (*hs_bindgen_8eea20d99febeef3 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &makeVarCounter;
+-- }
+-- /* test_edgecasesiterator_Example_get_varCounterNext */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_3ae982266c863a3d (void)) (
+--   VarCounter arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &varCounterNext;
+-- }
+-- /* test_edgecasesiterator_Example_get_releaseVarCounter */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_802a723805cb041f (void)) (
+--   VarCounter arg1
+-- )
+-- {
+--   return &releaseVarCounter;
+-- }
+{-| __C declaration:__ @Toggle@
+
+    __defined at:__ @edge-cases\/iterator.h 3:16@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+newtype Toggle
+    = Toggle {unwrapToggle :: (Block (IO CBool))}
+    deriving stock Generic
+    deriving newtype HasFFIType
+instance (~) ty (Block (IO CBool)) =>
+         HasField "unwrapToggle" (Ptr Toggle) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapToggle")
+instance HasCField Toggle "unwrapToggle"
+    where type CFieldType Toggle "unwrapToggle" = Block (IO CBool)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @Counter@
+
+    __defined at:__ @edge-cases\/iterator.h 10:14@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+newtype Counter
+    = Counter {unwrapCounter :: (Block (IO CInt))}
+    deriving stock Generic
+    deriving newtype HasFFIType
+instance (~) ty (Block (IO CInt)) =>
+         HasField "unwrapCounter" (Ptr Counter) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapCounter")
+instance HasCField Counter "unwrapCounter"
+    where type CFieldType Counter "unwrapCounter" = Block (IO CInt)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @VarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 17:14@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+newtype VarCounter
+    = VarCounter {unwrapVarCounter :: (Block (CInt -> IO CInt))}
+    deriving stock Generic
+    deriving newtype HasFFIType
+instance (~) ty (Block (CInt -> IO CInt)) =>
+         HasField "unwrapVarCounter" (Ptr VarCounter) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapVarCounter")
+instance HasCField VarCounter "unwrapVarCounter"
+    where type CFieldType VarCounter
+                          "unwrapVarCounter" = Block (CInt -> IO CInt)
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
+foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::
+    Word8
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
+hs_bindgen_9d01035006b66206 :: CBool -> IO Toggle
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
+hs_bindgen_9d01035006b66206 = fromFFIType hs_bindgen_9d01035006b66206_base
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_safe :: CBool -> IO Toggle
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_safe = hs_bindgen_9d01035006b66206
+-- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
+foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0cf4_base ::
+    Ptr Void
+ -> IO Word8
+-- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
+hs_bindgen_ccd3ba727d0c0cf4 :: Toggle -> IO CBool
+-- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
+hs_bindgen_ccd3ba727d0c0cf4 = fromFFIType hs_bindgen_ccd3ba727d0c0cf4_base
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_safe :: Toggle -> IO CBool
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_safe = hs_bindgen_ccd3ba727d0c0cf4
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
+foreign import ccall safe "hs_bindgen_602b40e971b06c72" hs_bindgen_602b40e971b06c72_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
+hs_bindgen_602b40e971b06c72 :: Toggle -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
+hs_bindgen_602b40e971b06c72 = fromFFIType hs_bindgen_602b40e971b06c72_base
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_safe :: Toggle -> IO ()
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_safe = hs_bindgen_602b40e971b06c72
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
+foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089e1d_base ::
+    Int32
+ -> Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
+hs_bindgen_234fa6f1fb089e1d :: CInt -> CInt -> IO Counter
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
+hs_bindgen_234fa6f1fb089e1d = fromFFIType hs_bindgen_234fa6f1fb089e1d_base
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_safe :: CInt -> CInt -> IO Counter
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_safe = hs_bindgen_234fa6f1fb089e1d
+-- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
+foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f225c3_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
+hs_bindgen_f0fca62d78f225c3 :: Counter -> IO CInt
+-- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
+hs_bindgen_f0fca62d78f225c3 = fromFFIType hs_bindgen_f0fca62d78f225c3_base
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_safe :: Counter -> IO CInt
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_safe = hs_bindgen_f0fca62d78f225c3
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
+foreign import ccall safe "hs_bindgen_e42dcbee8a114957" hs_bindgen_e42dcbee8a114957_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
+hs_bindgen_e42dcbee8a114957 :: Counter -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
+hs_bindgen_e42dcbee8a114957 = fromFFIType hs_bindgen_e42dcbee8a114957_base
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_safe :: Counter -> IO ()
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_safe = hs_bindgen_e42dcbee8a114957
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
+foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d895c1_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
+hs_bindgen_2bee4eb5b4d895c1 :: CInt -> IO VarCounter
+-- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
+hs_bindgen_2bee4eb5b4d895c1 = fromFFIType hs_bindgen_2bee4eb5b4d895c1_base
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_safe :: CInt -> IO VarCounter
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_safe = hs_bindgen_2bee4eb5b4d895c1
+-- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
+foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fec37_base ::
+    Ptr Void
+ -> Int32
+ -> IO Int32
+-- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
+hs_bindgen_276b9cb5320fec37 :: VarCounter -> CInt -> IO CInt
+-- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
+hs_bindgen_276b9cb5320fec37 = fromFFIType hs_bindgen_276b9cb5320fec37_base
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_safe :: VarCounter -> CInt -> IO CInt
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_safe = hs_bindgen_276b9cb5320fec37
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
+foreign import ccall safe "hs_bindgen_8423b076f7c9df21" hs_bindgen_8423b076f7c9df21_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
+hs_bindgen_8423b076f7c9df21 :: VarCounter -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
+hs_bindgen_8423b076f7c9df21 = fromFFIType hs_bindgen_8423b076f7c9df21_base
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_safe :: VarCounter -> IO ()
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_safe = hs_bindgen_8423b076f7c9df21
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
+foreign import ccall unsafe "hs_bindgen_1b7a6a61a9c0da07" hs_bindgen_1b7a6a61a9c0da07_base ::
+    Word8
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
+hs_bindgen_1b7a6a61a9c0da07 :: CBool -> IO Toggle
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
+hs_bindgen_1b7a6a61a9c0da07 = fromFFIType hs_bindgen_1b7a6a61a9c0da07_base
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_unsafe :: CBool -> IO Toggle
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_unsafe = hs_bindgen_1b7a6a61a9c0da07
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
+foreign import ccall unsafe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c8798d6_base ::
+    Ptr Void
+ -> IO Word8
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
+hs_bindgen_4d2d650f2c8798d6 :: Toggle -> IO CBool
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
+hs_bindgen_4d2d650f2c8798d6 = fromFFIType hs_bindgen_4d2d650f2c8798d6_base
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_unsafe :: Toggle -> IO CBool
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_unsafe = hs_bindgen_4d2d650f2c8798d6
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
+foreign import ccall unsafe "hs_bindgen_ddbe11e76502cbdc" hs_bindgen_ddbe11e76502cbdc_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
+hs_bindgen_ddbe11e76502cbdc :: Toggle -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
+hs_bindgen_ddbe11e76502cbdc = fromFFIType hs_bindgen_ddbe11e76502cbdc_base
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_unsafe :: Toggle -> IO ()
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_unsafe = hs_bindgen_ddbe11e76502cbdc
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
+foreign import ccall unsafe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d558934551d2_base ::
+    Int32
+ -> Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
+hs_bindgen_2b04d558934551d2 :: CInt -> CInt -> IO Counter
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
+hs_bindgen_2b04d558934551d2 = fromFFIType hs_bindgen_2b04d558934551d2_base
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_unsafe :: CInt -> CInt -> IO Counter
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_unsafe = hs_bindgen_2b04d558934551d2
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
+foreign import ccall unsafe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbeedf0_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
+hs_bindgen_5bba69c8bfbeedf0 :: Counter -> IO CInt
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
+hs_bindgen_5bba69c8bfbeedf0 = fromFFIType hs_bindgen_5bba69c8bfbeedf0_base
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_unsafe :: Counter -> IO CInt
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_unsafe = hs_bindgen_5bba69c8bfbeedf0
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
+foreign import ccall unsafe "hs_bindgen_429845bb55a5a7b5" hs_bindgen_429845bb55a5a7b5_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
+hs_bindgen_429845bb55a5a7b5 :: Counter -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
+hs_bindgen_429845bb55a5a7b5 = fromFFIType hs_bindgen_429845bb55a5a7b5_base
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_unsafe :: Counter -> IO ()
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_unsafe = hs_bindgen_429845bb55a5a7b5
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
+foreign import ccall unsafe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc96c4_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
+hs_bindgen_4421633e88fc96c4 :: CInt -> IO VarCounter
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
+hs_bindgen_4421633e88fc96c4 = fromFFIType hs_bindgen_4421633e88fc96c4_base
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_unsafe :: CInt -> IO VarCounter
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_unsafe = hs_bindgen_4421633e88fc96c4
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
+foreign import ccall unsafe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb78027d_base ::
+    Ptr Void
+ -> Int32
+ -> IO Int32
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
+hs_bindgen_31edd817cb78027d :: VarCounter -> CInt -> IO CInt
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
+hs_bindgen_31edd817cb78027d = fromFFIType hs_bindgen_31edd817cb78027d_base
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_unsafe :: VarCounter -> CInt -> IO CInt
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_unsafe = hs_bindgen_31edd817cb78027d
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
+foreign import ccall unsafe "hs_bindgen_32e5b257124f69a2" hs_bindgen_32e5b257124f69a2_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
+hs_bindgen_32e5b257124f69a2 :: VarCounter -> IO ()
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
+hs_bindgen_32e5b257124f69a2 = fromFFIType hs_bindgen_32e5b257124f69a2_base
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_unsafe :: VarCounter -> IO ()
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_unsafe = hs_bindgen_32e5b257124f69a2
+-- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
+foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057f8efd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
+hs_bindgen_ccdad25a057f8efd :: IO (FunPtr (CBool -> IO Toggle))
+-- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
+hs_bindgen_ccdad25a057f8efd = fromFFIType hs_bindgen_ccdad25a057f8efd_base
+{-# NOINLINE makeToggle_funptr #-}
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_funptr :: FunPtr (CBool -> IO Toggle)
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 4:8@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeToggle_funptr = unsafePerformIO hs_bindgen_ccdad25a057f8efd
+-- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
+foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d78baa9_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
+hs_bindgen_fd8e19ba2d78baa9 :: IO (FunPtr (Toggle -> IO CBool))
+-- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
+hs_bindgen_fd8e19ba2d78baa9 = fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
+{-# NOINLINE toggleNext_funptr #-}
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_funptr :: FunPtr (Toggle -> IO CBool)
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @edge-cases\/iterator.h 5:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+toggleNext_funptr = unsafePerformIO hs_bindgen_fd8e19ba2d78baa9
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
+foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698de9df1_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
+hs_bindgen_780e490698de9df1 :: IO (FunPtr (Toggle -> IO ()))
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
+hs_bindgen_780e490698de9df1 = fromFFIType hs_bindgen_780e490698de9df1_base
+{-# NOINLINE releaseToggle_funptr #-}
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_funptr :: FunPtr (Toggle -> IO ())
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @edge-cases\/iterator.h 6:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseToggle_funptr = unsafePerformIO hs_bindgen_780e490698de9df1
+-- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
+foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb5e3ba_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
+hs_bindgen_517dd14dbdb5e3ba :: IO (FunPtr (CInt ->
+                                           CInt -> IO Counter))
+-- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
+hs_bindgen_517dd14dbdb5e3ba = fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
+{-# NOINLINE makeCounter_funptr #-}
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_funptr :: FunPtr (CInt -> CInt -> IO Counter)
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 11:9@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeCounter_funptr = unsafePerformIO hs_bindgen_517dd14dbdb5e3ba
+-- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
+foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6aca30_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
+hs_bindgen_28d81dd8ce6aca30 :: IO (FunPtr (Counter -> IO CInt))
+-- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
+hs_bindgen_28d81dd8ce6aca30 = fromFFIType hs_bindgen_28d81dd8ce6aca30_base
+{-# NOINLINE counterNext_funptr #-}
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_funptr :: FunPtr (Counter -> IO CInt)
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 12:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+counterNext_funptr = unsafePerformIO hs_bindgen_28d81dd8ce6aca30
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
+foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad0430a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
+hs_bindgen_849de94baad0430a :: IO (FunPtr (Counter -> IO ()))
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
+hs_bindgen_849de94baad0430a = fromFFIType hs_bindgen_849de94baad0430a_base
+{-# NOINLINE releaseCounter_funptr #-}
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_funptr :: FunPtr (Counter -> IO ())
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 13:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseCounter_funptr = unsafePerformIO hs_bindgen_849de94baad0430a
+-- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
+foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99febeef3_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
+hs_bindgen_8eea20d99febeef3 :: IO (FunPtr (CInt -> IO VarCounter))
+-- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
+hs_bindgen_8eea20d99febeef3 = fromFFIType hs_bindgen_8eea20d99febeef3_base
+{-# NOINLINE makeVarCounter_funptr #-}
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_funptr :: FunPtr (CInt -> IO VarCounter)
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 18:12@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+makeVarCounter_funptr = unsafePerformIO hs_bindgen_8eea20d99febeef3
+-- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
+foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c863a3d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
+hs_bindgen_3ae982266c863a3d :: IO (FunPtr (VarCounter ->
+                                           CInt -> IO CInt))
+-- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
+hs_bindgen_3ae982266c863a3d = fromFFIType hs_bindgen_3ae982266c863a3d_base
+{-# NOINLINE varCounterNext_funptr #-}
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_funptr :: FunPtr (VarCounter -> CInt -> IO CInt)
+{-| __C declaration:__ @varCounterNext@
+
+    __defined at:__ @edge-cases\/iterator.h 19:5@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+varCounterNext_funptr = unsafePerformIO hs_bindgen_3ae982266c863a3d
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
+foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805cb041f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
+hs_bindgen_802a723805cb041f :: IO (FunPtr (VarCounter -> IO ()))
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
+hs_bindgen_802a723805cb041f = fromFFIType hs_bindgen_802a723805cb041f_base
+{-# NOINLINE releaseVarCounter_funptr #-}
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_funptr :: FunPtr (VarCounter -> IO ())
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @edge-cases\/iterator.h 20:6@
+
+    __exported by:__ @edge-cases\/iterator.h@
+-}
+releaseVarCounter_funptr = unsafePerformIO hs_bindgen_802a723805cb041f

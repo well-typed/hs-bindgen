@@ -145,21 +145,17 @@ processMacro macro =
       MacroType  typ -> MacroType  $ processMacroType typ
       MacroValue val -> MacroValue $ processMacroExpr val
 
+-- NOTE: currently type-like macro expressions don't support array or function
+-- constructors. If they do in the future, then we might have to recurse into
+-- the macro expression.
 processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
-processMacroType macroType =
-    CheckedMacroType {
-        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1953>
-        --
-        -- Be careful when we replace the CType with the TExpr.
-        cType = processType macroType.cType
-      , ann   = macroType.ann
-      }
+processMacroType macroType = coercePass macroType
 
+-- NOTE: currently value-like macro expressions don't support array or function
+-- constructors. If they do in the future, then we might have to recurse into
+-- the macro expression.
 processMacroExpr :: CheckedMacroValue MangleNames -> CheckedMacroValue AdjustTypes
 processMacroExpr macroExpr =
-    -- NOTE: currently macro expressions don't support function/array type
-    -- parameters, if they do in the future, then we might have to recurse into
-    -- the type of the macro expression?
     coercePass macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes

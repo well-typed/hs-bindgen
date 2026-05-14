@@ -65,10 +65,10 @@ data TypeF tag p =
     -- | Complex type (such as @float complex@)
   | TypeComplex C.PrimType
 
-    -- | Reference to named type other than an enum, macro type or typedef
+    -- | Reference to named type other than an @enum@, macro type or @typedef@
   | TypeRef (Id p)
 
-    -- | Reference to an enum
+    -- | Reference to an @enum@
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypeEnumRefF tag p ~ Void@.
@@ -76,11 +76,15 @@ data TypeF tag p =
 
     -- | Reference to a macro type
     --
+    -- Structurally identical to 'TypeRef' (both carry just an 'Id'), but kept
+    -- separate so pattern matches can distinguish macro use-sites from
+    -- struct/union/opaque ones without inspecting 'CDeclName.kind'.
+    --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypeMacroRefF tag p ~ Void@.
   | TypeMacro !(TypeMacroRefF tag p)
 
-    -- | Reference to typedef
+    -- | Reference to @typedef@
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag p ~ Void@.
@@ -239,7 +243,7 @@ type ExtBindingRef p = Ref (ExtBinding p) p
 --
 -- The type of the global variable @x@ is roughly:
 --
--- > Ref { name = "T", underlying = TypePrim int }
+-- > Ref { name = macroIdOfT, underlying = TypePrim int }
 --
 type MacroRef p = Ref (MacroId p) p
 
@@ -291,9 +295,13 @@ data Ref a p = Ref {
 -------------------------------------------------------------------------------}
 
 data TypeTag =
-    Full       -- ^ A full C type includes all C type constructs.
-  | Erased     -- ^ No @typedef@s.
-  | Canonical  -- ^ All sugar (typedefs and qualifiers like @const@) removed
+    -- | A full C type includes all C type constructs.
+    Full
+    -- | No @typedef@s, external binding specification references, macro-defined
+    -- types, and @enum@s.
+  | Erased
+    -- | All sugar (typedefs and qualifiers like @const@) removed.
+  | Canonical
 
 -- | Normal forms of types
 class ( IsPass p
@@ -426,7 +434,7 @@ buildPointersF n inner
 -------------------------------------------------------------------------------}
 
 class Normalize tag tag' where
-  normalize :: TypeF tag p -> TypeF tag' p
+  normalize :: IsPass p => TypeF tag p -> TypeF tag' p
 
 instance Normalize tag tag where
   normalize = id
@@ -441,6 +449,7 @@ instance Normalize tag tag where
 -- probably not that long, so we do not expect this algorithm to have
 -- problematic performance.
 instance Normalize Full Erased where
+  normalize :: forall p. IsPass p => TypeF Full p -> TypeF Erased p
   normalize = mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef
     where
       fTypedefRef :: TypedefRef p -> TypeF Erased p
@@ -461,16 +470,22 @@ instance Normalize Full Erased where
 instance Normalize Erased Canonical where
   normalize = mapTypeF absurd fQual absurd absurd absurd
     where
-      fQual :: TypeQual -> TypeF Erased p -> TypeF Canonical p
+      fQual :: IsPass p => TypeQual -> TypeF Erased p -> TypeF Canonical p
       fQual _qual typ = normalize typ
 
 instance Normalize Full Canonical where
   normalize = getCanonicalType . getErasedType
 
-getCanonicalType :: Normalize tag Canonical => TypeF tag p -> CanonicalType p
+getCanonicalType ::
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p
+  -> CanonicalType p
 getCanonicalType = normalize
 
-getErasedType :: Normalize tag Erased => TypeF tag p -> ErasedType p
+getErasedType ::
+     (Normalize tag Erased, IsPass p)
+  => TypeF tag p
+  -> ErasedType p
 getErasedType = normalize
 
 {-------------------------------------------------------------------------------
@@ -533,6 +548,7 @@ hasUnsupportedType = aux . getCanonicalType
     aux TypeVoid              = False
     aux TypeBlock{}           = False
 
+    -- 'Normalize Full Erased' erases @typedef@s, @enum@s, and type macros.
     auxRef :: CNameKind -> Bool
     auxRef = \case
       CNameKindOrdinary              -> panicPure "Unexpected CNameKindOrdinary"
@@ -550,14 +566,20 @@ isVoid TypeVoid = True
 isVoid _        = False
 
 -- | Is the canonical type a complex type?
-isCanonicalTypeComplex :: Normalize tag Canonical => TypeF tag p -> Bool
+isCanonicalTypeComplex ::
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p
+  -> Bool
 isCanonicalTypeComplex ty =
     case getCanonicalType ty of
       TypeComplex{} -> True
       _otherwise    -> False
 
 -- | Is the canonical type a function type?
-isCanonicalTypeFunction :: Normalize tag Canonical => TypeF tag p -> Bool
+isCanonicalTypeFunction ::
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p
+  -> Bool
 isCanonicalTypeFunction ty =
     case getCanonicalType ty of
       TypeFun{} -> True
@@ -582,7 +604,10 @@ isCanonicalTypeUnion ty =
       _otherwise  -> False
 
 -- | Is the erased type @const@-qualified?
-isErasedTypeConstQualified :: Normalize tag Erased => TypeF tag p -> Bool
+isErasedTypeConstQualified ::
+     (Normalize tag Erased, IsPass p)
+  => TypeF tag p
+  -> Bool
 isErasedTypeConstQualified ty =
     case getErasedType ty of
       -- Types can be directly @const@-qualified,
@@ -598,7 +623,10 @@ isErasedTypeConstQualified ty =
       _ -> False
 
 -- | Is the canonical type an array type?
-isCanonicalTypeArray :: Normalize tag Canonical => TypeF tag p -> Bool
+isCanonicalTypeArray ::
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p
+  -> Bool
 isCanonicalTypeArray ty =
     case getCanonicalType ty of
       TypeConstArray{}   -> True

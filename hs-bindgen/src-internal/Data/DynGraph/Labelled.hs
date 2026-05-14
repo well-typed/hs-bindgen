@@ -147,7 +147,6 @@ insertEdge vFrom l vTo graph =
     panicWith which vertex =
       panicPure $ which <> " vertex " <> show vertex <> " not in the graph"
 
-
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}

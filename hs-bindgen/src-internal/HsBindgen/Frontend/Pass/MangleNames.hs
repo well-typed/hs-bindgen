@@ -394,10 +394,12 @@ lookupTypeE declId = do
         pure hsNm
 
 lookupTypePair :: DeclId -> E M DeclIdPair
-lookupTypePair declId = lookupTypeE declId >>= \hsName -> pure $ DeclIdPair{
-        cName  = declId
-      , hsName = Hs.demoteNs hsName
-    }
+lookupTypePair declId = do
+    hsName <- lookupTypeE declId
+    pure $ DeclIdPair{
+          cName  = declId
+        , hsName = Hs.demoteNs hsName
+      }
 
 lookupData :: DeclId -> NameMap -> Maybe (Hs.Name Hs.NsConstr)
 lookupData declId nameMap = Map.lookup declId nameMap.dataConstrs
@@ -962,17 +964,28 @@ instance MangleWithDeclName CheckedMacro where
       MacroValue val -> MacroValue <$> mangle val
 
 instance MangleWithDeclName CheckedMacroType where
-  mangleWithDeclName hsName macroType = do
+  mangleWithDeclName hsName macroType = case macroType.typ of
+    (CExpr.CheckedMacroTypeExpr body typ) -> do
       strategy       <- asks (.fieldNamingStrategy)
       macroTypeNames <- mkMacroTypeNames strategy hsName
-      cType'         <- mangle macroType.cType
+      body'          <- traverse mangleMacroTypeVar body
       pure CheckedMacroType{
-            cType = cType'
-          , ann = macroTypeNames
-          }
+          typ = CExpr.CheckedMacroTypeExpr{
+              macroTypeBody = body'
+            , macroTypeType = typ
+            }
+        , ann = macroTypeNames
+        }
+    where
+      mangleMacroTypeVar ::
+           MacroTypeBodyVar ResolveBindingSpecs
+        -> E M (MacroTypeBodyVar MangleNames)
+      mangleMacroTypeVar = \case
+        MacroTypeExtBinding ext -> pure $ MacroTypeExtBinding ext
+        MacroTypeBodyVar declId -> MacroTypeBodyVar <$> lookupTypePair declId
 
 instance Mangle CheckedMacroValue where
-  mangle macroValue = CheckedMacroValue <$> case macroValue.value of
+  mangle macroValue = CheckedMacroValue <$> case macroValue.val of
     CExpr.CheckedMacroValueExpr params body typ -> do
       body' <- traverse lookupVarPair body
       pure CExpr.CheckedMacroValueExpr{
@@ -989,7 +1002,7 @@ instance Mangle C.Type where
       C.TypeEnum ref -> fmap C.TypeEnum $
         C.Ref <$> lookupTypePair ref.name <*> mangle ref.underlying
       C.TypeMacro ref -> fmap C.TypeMacro $
-        C.Ref <$>  lookupTypePair ref.name <*> mangle ref.underlying
+        C.Ref <$> lookupTypePair ref.name <*> mangle ref.underlying
       C.TypeTypedef ref -> fmap C.TypeTypedef $
         C.Ref <$>  lookupTypePair ref.name <*> mangle ref.underlying
 

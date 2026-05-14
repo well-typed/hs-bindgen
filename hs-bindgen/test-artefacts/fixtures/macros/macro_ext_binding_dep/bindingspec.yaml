@@ -1,0 +1,19 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_ext_binding_dep.h
+  cname: macro B
+  hsname: B
+hstypes:
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+  instances:
+  - Generic
+  - HasCField
+  - HasField

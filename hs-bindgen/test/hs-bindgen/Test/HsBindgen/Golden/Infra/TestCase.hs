@@ -141,8 +141,8 @@ defaultTest ::
 defaultTest fp = TestCase{
       name             = fp
     , inputHeader      = fp <.> "h"
-    , inputDir         = "examples" </> "golden"
-    , outputDir        = "fixtures" </> fp
+    , inputDir         = "test-artefacts" </> "headers" </> "golden"
+    , outputDir        = "test-artefacts" </> "fixtures" </> fp
     , tracePredicate   = defaultTracePredicate
     , outcome          = Success
     , clangVersion     = Nothing
@@ -203,7 +203,7 @@ defaultFailingTest :: String -> TestCase
 defaultFailingTest filename =
     defaultTest filename
       & #outcome  .~ FailureBindgen
-      & #inputDir .~ "examples/golden"
+      & #inputDir .~ "test-artefacts/headers/golden"
 
 failingTestTrace :: String -> TracePredicate Level TraceMsg -> TestCase
 failingTestTrace filename trace =
@@ -230,7 +230,7 @@ defaultFailingTestLibclang :: String -> TestCase
 defaultFailingTestLibclang filename =
     defaultTest filename
       & #outcome  .~ FailureLibclang
-      & #inputDir .~ "examples/golden"
+      & #inputDir .~ "test-artefacts/headers/golden"
 
 failingTestLibclangTrace :: String -> TracePredicate Level TraceMsg -> TestCase
 failingTestLibclangTrace filename trace =

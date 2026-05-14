@@ -25,6 +25,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
+import HsBindgen.Backend.Hs.Translation.MacroType qualified as MacroType
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
@@ -760,7 +761,7 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = macroType.names.field
-            , typ     = Type.topLevel macroType.cType
+            , typ     = MacroType.macroTypeToHsType macroType.typ
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }

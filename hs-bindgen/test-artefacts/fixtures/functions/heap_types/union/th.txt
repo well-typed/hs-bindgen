@@ -1,0 +1,142 @@
+-- addDependentFile test-artefacts/headers/golden/functions/heap_types/union.h
+-- #include <functions/heap_types/union.h>
+-- void hs_bindgen_9fc5746860ab93cb (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = (fun)(*arg1);
+-- }
+-- void hs_bindgen_54b038887c811176 (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = (fun)(*arg1);
+-- }
+-- /* test_functionsheap_typesunion_Example_get_fun */
+-- __attribute__ ((const))
+-- T (*hs_bindgen_d5d6e9f882bc09ed (void)) (
+--   T arg1
+-- )
+-- {
+--   return &fun;
+-- }
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @functions\/heap_types\/union.h 3:7@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+newtype T = T {unwrapT :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize T
+deriving via (SizedByteArray 4 4) instance ReadRaw T
+deriving via (SizedByteArray 4 4) instance WriteRaw T
+deriving via (EquivStorable T) instance Storable T
+{-|
+
+    __See:__ 'set_t_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/union.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+get_t_x :: T -> CInt
+{-|
+
+    __See:__ 'set_t_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/union.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+get_t_x = getUnionPayload
+{-|
+
+    __See:__ 'get_t_x'
+
+-}
+set_t_x :: CInt -> T
+{-|
+
+    __See:__ 'get_t_x'
+
+-}
+set_t_x = setUnionPayload
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"t_x")
+-- __unique:__ @test_functionsheap_typesunion_Example_Safe_fun@
+foreign import ccall safe "hs_bindgen_9fc5746860ab93cb" hs_bindgen_9fc5746860ab93cb_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_Example_Safe_fun@
+hs_bindgen_9fc5746860ab93cb :: Ptr T -> Ptr T -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_Example_Safe_fun@
+hs_bindgen_9fc5746860ab93cb = fromFFIType hs_bindgen_9fc5746860ab93cb_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_safe :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_safe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_9fc5746860ab93cb x_1 res_2))
+-- __unique:__ @test_functionsheap_typesunion_Example_Unsafe_fun@
+foreign import ccall unsafe "hs_bindgen_54b038887c811176" hs_bindgen_54b038887c811176_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_Example_Unsafe_fun@
+hs_bindgen_54b038887c811176 :: Ptr T -> Ptr T -> IO ()
+-- __unique:__ @test_functionsheap_typesunion_Example_Unsafe_fun@
+hs_bindgen_54b038887c811176 = fromFFIType hs_bindgen_54b038887c811176_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_unsafe :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_unsafe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_54b038887c811176 x_1 res_2))
+-- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
+foreign import ccall unsafe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882bc09ed_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
+hs_bindgen_d5d6e9f882bc09ed :: IO (FunPtr (T -> IO T))
+-- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
+hs_bindgen_d5d6e9f882bc09ed = fromFFIType hs_bindgen_d5d6e9f882bc09ed_base
+{-# NOINLINE fun_funptr #-}
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_funptr :: FunPtr (T -> IO T)
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+fun_funptr = unsafePerformIO hs_bindgen_d5d6e9f882bc09ed

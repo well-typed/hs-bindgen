@@ -15,12 +15,13 @@
 module Test.TH.Test01 where
 
 import Optics ((%), (&), (.~))
+import System.FilePath ((</>))
 
 import HsBindgen.TH
 
 let cfg :: Config
     cfg = def
-      & #clang % #extraIncludeDirs .~ [Pkg "examples"]
+      & #clang % #extraIncludeDirs .~ [Pkg ("test-artefacts" </> "headers")]
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $

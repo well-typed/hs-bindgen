@@ -1,39 +1,39 @@
 # `hs-bindgen` manual
 
-* [Design goals](DesignGoals.md)
-* [Installation](Installation.md)
+* [Design goals](design-goals.md)
+* [Installation](installation.md)
 
 ## Generating low-level bindings
 
-* [Introduction](LowLevel/Introduction.md)
-* [Terminology](LowLevel/Terminology.md)
+* [Introduction](low-level/introduction.md)
+* [Terminology](low-level/terminology.md)
 
 ### Usage
 
-* [Invocation](LowLevel/Usage/01-Invocation.md)
-* [Tracing](LowLevel/Usage/02-Tracing.md)
-* [Clang options](LowLevel/Usage/03-ClangOptions.md)
-* [Includes](LowLevel/Usage/04-Includes.md)
-* [Selecting and program slicing](LowLevel/Usage/05-SelectingAndProgramSlicing.md)
-* [Binding specifications](LowLevel/Usage/06-BindingSpecifications.md)
-* [Test generation](LowLevel/Usage/07-TestGeneration.md)
-* [Cross-compilation](LowLevel/Usage/08-CrossCompilation.md)
+* [Invocation](low-level/usage/invocation.md)
+* [Tracing](low-level/usage/tracing.md)
+* [Clang options](low-level/usage/clang-options.md)
+* [Includes](low-level/usage/includes.md)
+* [Selecting and program slicing](low-level/usage/selecting-and-program-slicing.md)
+* [Binding specifications](low-level/usage/binding-specifications.md)
+* [Test generation](low-level/usage/test-generation.md)
+* [Cross-compilation](low-level/usage/cross-compilation.md)
 
 ### Translation
 
-* [Generated names](LowLevel/Translation/01-GeneratedNames.md)
-* [Structs](LowLevel/Translation/02-Structs.md)
-* [Enums](LowLevel/Translation/03-Enums.md)
-* [Unions](LowLevel/Translation/04-Unions.md)
-* [Pointer manipulation API](LowLevel/Translation/05-PointerManipulation.md)
-* [Functions](LowLevel/Translation/06-Functions.md)
-* [Global variables and constants](LowLevel/Translation/07-Globals.md)
-* [Macros](LowLevel/Translation/08-Macros.md)
+* [Generated names](low-level/translation/generated-names.md)
+* [Structs](low-level/translation/structs.md)
+* [Enums](low-level/translation/enums.md)
+* [Unions](low-level/translation/unions.md)
+* [Pointer manipulation API](low-level/translation/pointer-manipulation.md)
+* [Functions](low-level/translation/functions.md)
+* [Global variables and constants](low-level/translation/globals.md)
+* [Macros](low-level/translation/macros.md)
 
 ### Appendix
 
-* [Visibility](LowLevel/Appendix/01-Visibility.md)
-* [The `Prim` class](LowLevel/Appendix/02-Prim.md)
+* [Visibility](low-level/appendix/visibility.md)
+* [The `Prim` class](low-level/appendix/prim.md)
 
 ## Handwriting high-level bindings
 
@@ -46,4 +46,4 @@ bindings easier. This is currently under active development.
 
 ## Generating high-level bindings
 
-This is not yet supported; see the [roadmap](Roadmap.md) for details.
+This is not yet supported; see the [roadmap](roadmap.md) for details.

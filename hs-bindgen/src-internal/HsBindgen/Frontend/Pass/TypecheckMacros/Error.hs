@@ -12,8 +12,6 @@ import HsBindgen.Util.Tracer
 data MacroTypecheckError =
     -- | We could not type-check the macro expression
     MacroTypecheckErrorCExpr CExpr.MacroTcError
-    -- | Macro type is @void@, which is not a valid standalone type
-  | MacroTypecheckErrorVoidType
     -- | Macro type references a tagged type we could not resolve
     --
     -- This happens when a macro references a struct, union, or enum that
@@ -28,8 +26,6 @@ instance PrettyForTrace MacroTypecheckError where
           "Failed to typecheck macro:"
         , PP.text $ CExpr.pprMacroTcError x
         ]
-      MacroTypecheckErrorVoidType ->
-        "Macro type 'void' is not supported as a standalone type"
       MacroTypecheckErrorUnresolvedTaggedType name -> PP.hsep [
           "Macro type references unknown tagged type:"
         , prettyForTrace name
@@ -37,8 +33,7 @@ instance PrettyForTrace MacroTypecheckError where
 
 instance IsTrace Level MacroTypecheckError where
   getDefaultLogLevel = \case
-    MacroTypecheckErrorCExpr{}                       -> Info
-    MacroTypecheckErrorVoidType{}                    -> Info
-    MacroTypecheckErrorUnresolvedTaggedType{}        -> Warning
+    MacroTypecheckErrorCExpr{}               -> Info
+    MacroTypecheckErrorUnresolvedTaggedType{} -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "macro-typecheck"

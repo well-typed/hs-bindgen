@@ -1,12 +1,14 @@
 name: Check links
 
 on:
-  repository_dispatch:
   workflow_dispatch:
-  # Run daily on the default branch to catch links that break unexpectedly, for
-  # example because they link to web pages that do not exist anymore.
   schedule:
     - cron: "00 18 * * *"
+
+env:
+  # Run nightly on the default branch to catch links that break unexpectedly, for
+  # example because they link to web pages that do not exist anymore.
+  nightly: ${{ github.event_name == 'schedule' }}
 
 jobs:
   # Checks links in Markdown, HTML and text files using lychee.
@@ -53,3 +55,21 @@ jobs:
           args: "${{ env.default-args }} ${{ env.custom-args }}"
           fail: true
           failIfEmpty: true
+
+      # Post a comment on an issue to notify developers of failures
+      #
+      # This step is based on:
+      # <https://docs.github.com/en/actions/tutorials/manage-your-work/add-comments-with-labels>
+      - name: Notifications for failure (Nightly)
+        # NOTE: env.nightly is a stringized boolean, so we perform string
+        # equality rather than boolean equality
+        if: ${{ env.nightly == 'false' && failure() }}
+        id: notifications
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: 1972
+          BODY: >
+            Nightly CI for the Link Checker workflow failed.
+            See the results at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.

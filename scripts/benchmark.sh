@@ -18,7 +18,7 @@ create_bindings() {
 
     ${hs_bindgen_bin} preprocess \
         --unique-id "$(basename "${tmp_dir}")" \
-        -I ./hs-bindgen/examples/golden \
+        -I ./hs-bindgen/test-artefacts/headers/golden \
         -I ./hs-bindgen/musl-include/x86_64 \
         --module Example \
         --hs-output-dir "${tmp_dir}" \

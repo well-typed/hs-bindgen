@@ -28,6 +28,6 @@ shift
 cabal run -- \
     hs-bindgen-cli info "$COMMAND" \
     --unique-id "$(basename "${TMP}")" \
-    -I ./hs-bindgen/examples/golden \
+    -I ./hs-bindgen/test-artefacts/headers/golden \
     -I ./hs-bindgen/musl-include/x86_64 \
     "$@"

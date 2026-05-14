@@ -2015,6 +2015,11 @@ data MacroTcError
   -- | A collection of class constraints was inconsistent.
   | TcInconsistentConstraints !( NE.NonEmpty Cts )
   | TcUnsupportedTypeWithLocalParameters Name [Name]
+  -- | A type-like macro reduces to an incomplete type (e.g. @void@,
+  -- @const void@) at the top level. Such a type cannot be used to declare
+  -- a value, so the macro cannot be translated to a usable Haskell binding.
+  -- Pointer-to-incomplete (e.g. @void *@) is fine and is not rejected here.
+  | TcIncompleteTypeMacro Name
   deriving stock ( Show, Generic )
 
 instance Eq MacroTcError where
@@ -2037,6 +2042,10 @@ pprMacroTcError tcMacroErr =
       TcUnsupportedTypeWithLocalParameters nm ps -> [
           "Unsupported type-like macro expression with local parameters:"
         , getName nm <> " with parameters " <> Text.pack (show ps)
+        ]
+      TcIncompleteTypeMacro nm -> [
+          "Type-like macro " <> getName nm <> " expands to an incomplete type"
+        , "(such as 'void' or 'const void') at the top level."
         ]
 
 mapMaybeA :: Applicative m => ( a -> m ( Maybe b ) ) -> [ a ] -> m [ b ]

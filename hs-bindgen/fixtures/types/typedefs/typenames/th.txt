@@ -1,1 +1,0 @@
--- addDependentFile examples/golden/types/typedefs/typenames.h

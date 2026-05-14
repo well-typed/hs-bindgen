@@ -28,6 +28,10 @@ description:
   and then import other modules as needed; with the exception of the prelude,
   all other modules are intended for qualified import.
 
+extra-doc-files:
+  CHANGELOG.md
+  README.md
+
 common lang
   ghc-options:
     -Wall -Wcompat -Wincomplete-uni-patterns

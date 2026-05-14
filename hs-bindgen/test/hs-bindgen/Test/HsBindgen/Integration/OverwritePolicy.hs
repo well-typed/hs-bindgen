@@ -23,7 +23,7 @@ testDirPolicy :: IO TestResources -> TestTree
 testDirPolicy getTestResources = testCase "do not create output directory by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath = root </> "examples/golden/functions/simple_func.h"
+    let headerPath = root </> "test-artefacts/headers/golden/functions/simple_func.h"
         outDir = tmpDir </> "src"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
@@ -40,7 +40,7 @@ testFilePolicy :: IO TestResources -> TestTree
 testFilePolicy getTestResources = testCase "do not overwrite existing files by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath = root </> "examples/golden/functions/simple_func.h"
+    let headerPath = root </> "test-artefacts/headers/golden/functions/simple_func.h"
     -- Create a file that would be overwritten.
     createDirectory $ tmpDir </> "Generated"
     writeFile (tmpDir </> "Generated/Safe.hs") "Placeholder file"
@@ -60,7 +60,7 @@ testOverwritePolicies :: IO TestResources -> TestTree
 testOverwritePolicies getTestResources = testCase "create directories and overwrite files if told by user" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath         = root </> "examples/golden/functions/simple_func.h"
+    let headerPath         = root </> "test-artefacts/headers/golden/functions/simple_func.h"
         placeholderPath    = tmpDir </> "Generated/Safe.hs"
         placeholderContent =  "Placeholder file"
     -- Create a file that will be overwritten.
@@ -84,7 +84,7 @@ testBindingSpecCreateDirs :: IO TestResources -> TestTree
 testBindingSpecCreateDirs getTestResources = testCase "--create-output-dirs creates dirs for --gen-binding-spec" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath      = root </> "examples/golden/functions/simple_func.h"
+    let headerPath      = root </> "test-artefacts/headers/golden/functions/simple_func.h"
         bindingSpecPath = tmpDir </> "specs" </> "binding-spec.yaml"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
@@ -104,7 +104,7 @@ testBindingSpecNoDirByDefault :: IO TestResources -> TestTree
 testBindingSpecNoDirByDefault getTestResources = testCase "do not create --gen-binding-spec directory by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
-    let headerPath      = root </> "examples/golden/functions/simple_func.h"
+    let headerPath      = root </> "test-artefacts/headers/golden/functions/simple_func.h"
         bindingSpecPath = tmpDir </> "specs" </> "binding-spec.yaml"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"

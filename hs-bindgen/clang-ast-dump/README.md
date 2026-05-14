@@ -17,7 +17,7 @@ cabal run clang-ast-dump -- --help
 Run:
 
 ```console
-cabal run clang-ast-dump -- hs-bindgen/examples/comments.h
+cabal run clang-ast-dump -- hs-bindgen/test-artefacts/headers/comments.h
 ```
 
 ## Alternatives

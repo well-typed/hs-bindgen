@@ -8,11 +8,13 @@ module HsBindgen.Frontend.AST.Deps (
   , depsOfDeclParsedMacro
   ) where
 
+import Data.Maybe
 import Data.Set qualified as Set
 import GHC.Records
 
 import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck qualified as CExpr
+import C.Expr.Typecheck.Interface.Type qualified as T
 import C.Expr.Typecheck.Interface.Value qualified as V
 
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -79,28 +81,42 @@ depsOfDeclTcMacro = depsOfDeclWith (depsOfTcMacro (Proxy @p))
 
 -- | Dependencies of typechecked macro declarations
 depsOfTcMacro ::
-     forall p. (IsPass p, MacroBody p ~ CheckedMacro p)
+     forall p. (MacroBody p ~ CheckedMacro p)
   => Proxy p -> MacroBody p -> [(ValOrRef, Id p)]
 depsOfTcMacro proxy = \case
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
-    --
-    -- If we replace the CType with the TExpr, we need to know if the
-    -- dependencies are by value or by reference.
-    MacroType  typ -> depsOfType  typ.cType
-    MacroValue val -> depsOfValue val.value
+    MacroType  typ -> maybeToList $ depsOfMacroType typ.typ
+    MacroValue val -> depsOfMacroValue val.val
   where
-    depsOfValue :: CExpr.CheckedMacroValueExpr (Id p) -> [(ValOrRef, Id p)]
-    depsOfValue (CExpr.CheckedMacroValueExpr _ body _) = depsOfVExpr proxy body
+    -- 'T.Expr' is a linear chain of 'App' constructors ending in a single
+    -- 'TypeLit' or 'Var' leaf, so there is at most one non-external dependency.
+    depsOfMacroType ::
+         CExpr.CheckedMacroTypeExpr (MacroTypeBodyVar p)
+      -> Maybe (ValOrRef, Id p)
+    depsOfMacroType x = go ByValue x.macroTypeBody
+      where
+        go :: ValOrRef -> T.Expr (MacroTypeBodyVar p) -> Maybe (ValOrRef, Id p)
+        go depTy = \case
+          T.TypeLit{}          -> Nothing
+          -- Pointer: switch the dependency type to 'ByRef'.
+          T.App T.Pointer expr         -> go ByRef expr
+          T.App T.Const   expr         -> go depTy expr
+          T.Var MacroTypeExtBinding{}  -> Nothing
+          T.Var (MacroTypeBodyVar var) -> Just (depTy, var)
+
+    depsOfMacroValue :: CExpr.CheckedMacroValueExpr (Id p) -> [(ValOrRef, Id p)]
+    depsOfMacroValue  = \case
+      CExpr.CheckedMacroValueExpr _ body _ -> depsOfVExpr proxy body
 
     -- Collect value-level dependencies from a checked macro body. Local
     -- arguments (lambda-bound ids) are excluded.
+    --
+    -- On the value-level, all dependencies must be 'ByValue'.
     depsOfVExpr ::
          forall ctx.
          Proxy p
       -> V.Expr ctx (Id p)
       -> [(ValOrRef, Id p)]
-    depsOfVExpr _ =
-        map (ByValue,) . toList
+    depsOfVExpr _ = map (ByValue,) . toList
 
 {-------------------------------------------------------------------------------
   Structs and unions
@@ -142,26 +158,26 @@ depsOfDeclParsedMacro allDeclIds = depsOfDeclWith depsOfParsedMacro
     depsOfParsedMacro :: ParsedMacro -> [(ValOrRef, DeclId)]
     depsOfParsedMacro (ParsedMacro m) = depsOfCExprMacro allDeclIds m
 
--- | Collect all references in a macro body.
---
--- Local macro arguments are excluded.
+-- | Collect all external (i.e., non-local) references in a macro body
 depsOfCExprMacro ::
      Set DeclId
   -> CExpr.Macro
   -> [(ValOrRef, DeclId)]
 depsOfCExprMacro allDeclIds (CExpr.Macro _ _ _ macroExpr) =
-    map (ByValue,) $ goExpr macroExpr
+    goExpr ByValue macroExpr
   where
-    goExpr :: CExpr.Expr ctx CExpr.Ps -> [DeclId]
-    goExpr = \case
-      CExpr.Term  term   -> goTerm term
-      CExpr.TyApp _ xs   -> concatMap goExpr xs
-      CExpr.VaApp _ _ xs -> concatMap goExpr xs
+    goExpr :: ValOrRef -> CExpr.Expr ctx CExpr.Ps -> [(ValOrRef, DeclId)]
+    goExpr depTy = \case
+      CExpr.Term  term             -> goTerm depTy term
+      -- Pointer: switch the dependency type to 'ByRef'.
+      CExpr.TyApp CExpr.Pointer xs -> concatMap (goExpr ByRef) xs
+      CExpr.TyApp CExpr.Const   xs -> concatMap (goExpr depTy) xs
+      CExpr.VaApp _ _ xs           -> concatMap (goExpr depTy) xs
 
-    goTerm :: CExpr.Term ctx CExpr.Ps -> [DeclId]
-    goTerm = \case
+    goTerm :: ValOrRef -> CExpr.Term ctx CExpr.Ps -> [(ValOrRef, DeclId)]
+    goTerm depTy = \case
       CExpr.Literal lit ->
-        goLit lit
+        goLit depTy lit
       CExpr.LocalParam{} ->
         []
       -- Variable / function call. A bare identifier is always parsed as Var;
@@ -170,16 +186,16 @@ depsOfCExprMacro allDeclIds (CExpr.Macro _ _ _ macroExpr) =
       -- name entirely if it is not a known declaration (e.g. a built-in type).
       CExpr.Var _ nm callArgs
         | Just declId <- resolveMacroTypedef nm.getName ->
-            declId : concatMap goExpr callArgs
+            (depTy, declId) : concatMap (goExpr depTy) callArgs
         | otherwise ->
-            concatMap goExpr callArgs
+            concatMap (goExpr depTy) callArgs
 
-    goLit :: CExpr.Literal -> [DeclId]
-    goLit = \case
+    goLit :: ValOrRef -> CExpr.Literal -> [(ValOrRef, DeclId)]
+    goLit depTy = \case
       -- Named type specifier using an elaborated tag: struct/union/enum.
       CExpr.TypeTagged tag nm
         | Just declId <- resolveTaggedType (convertTagKind tag) nm.getName ->
-            [declId]
+            [(depTy, declId)]
         | otherwise ->
             []
       -- Other built-in type specifiers (int, char, etc.) have no dependencies.
@@ -189,9 +205,9 @@ depsOfCExprMacro allDeclIds (CExpr.Macro _ _ _ macroExpr) =
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1952>
     --
-    -- We should only resolve the declaration IDs of macro dependencies one. Now
-    -- we resolve them twice: when we get the dependencies of parsed macros, and
-    -- when we typecheck macros.
+    -- We should only resolve the declaration IDs of macro dependencies once.
+    -- Now we resolve them twice: when we get the dependencies of parsed macros,
+    -- and when we typecheck macros.
 
     -- | Resolves a bare name found in a parsed macro body
     --

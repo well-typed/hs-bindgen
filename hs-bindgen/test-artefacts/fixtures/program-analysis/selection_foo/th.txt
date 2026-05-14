@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/selection_foo_t.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/selection_foo.h

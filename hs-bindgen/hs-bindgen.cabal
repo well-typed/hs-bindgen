@@ -21,12 +21,16 @@ tested-with:
 
 extra-source-files:
   bootstrap/*.h
-  examples/**/*.h
-  examples/**/*.yaml
-  fixtures/**/*.hs
-  fixtures/**/*.txt
-  fixtures/**/*.yaml
   musl-include/**/*.h
+  test-artefacts/fixtures/**/*.hs
+  test-artefacts/fixtures/**/*.txt
+  test-artefacts/fixtures/**/*.yaml
+  test-artefacts/headers/**/*.h
+  test-artefacts/headers/**/*.yaml
+
+extra-doc-files:
+  CHANGELOG.md
+  README.md
 
 flag dev
   description: Build debugging utilities for developing hs-bindgen itself
@@ -100,6 +104,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.ForeignImport
     HsBindgen.Backend.Hs.Translation.Function
     HsBindgen.Backend.Hs.Translation.Instances
+    HsBindgen.Backend.Hs.Translation.MacroType
     HsBindgen.Backend.Hs.Translation.Newtype
     HsBindgen.Backend.Hs.Translation.State
     HsBindgen.Backend.Hs.Translation.Structure
@@ -457,6 +462,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
 
@@ -501,7 +507,7 @@ test-suite test-th
   type:             exitcode-stdio-1.0
   main-is:          test-th.hs
   hs-source-dirs:   test/th
-  include-dirs:     examples
+  include-dirs:     test-artefacts/headers
   default-language: GHC2021
   ghc-options:
     -Wall -Widentities -Wprepositive-qualified-module
@@ -524,6 +530,7 @@ test-suite test-th
   -- Inherited dependencies
   build-depends:
     , base
+    , filepath
     , optics
     , tasty
     , tasty-hunit
@@ -535,7 +542,7 @@ test-suite test-literate
   type:               exitcode-stdio-1.0
   main-is:            test-literate.hs
   hs-source-dirs:     test/literate
-  include-dirs:       examples
+  include-dirs:       test-artefacts/headers
   default-language:   GHC2021
   build-depends:      base >=4.16 && <4.23
   ghc-options:

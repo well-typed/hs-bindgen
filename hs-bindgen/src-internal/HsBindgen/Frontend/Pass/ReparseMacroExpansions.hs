@@ -39,10 +39,10 @@ type CType = C.Type ReparseMacroExpansions
 -- using the known-types environment from 'typecheckMacros'.
 reparseMacroExpansions ::
      ClangCStandard
-  -> LanC.ReparseEnv
+  -> Map LanC.CName CType
      -- ^ Known non-macro type (see 'ReparseEnv')
-  -> LanC.ReparseEnv
-     -- ^ Known macro type names (see 'ReparseEnv')
+  -> Map LanC.CName CType
+     -- ^ Known macro types with their underlying C types (see 'ReparseEnv')
   -> C.TranslationUnit TypecheckMacros
   -> C.TranslationUnit ReparseMacroExpansions
 reparseMacroExpansions cStd knownNonMacroTypes knownMacroTypes unit =
@@ -408,11 +408,10 @@ newtype M a = WrapM { _unwrapM :: StateT ReparseState (Reader ReparseEnv) a }
 -- | Environment used when reparsing declarations with macro expansions.
 data ReparseEnv = ReparseEnv {
       -- | Known non-macro type names (e.g., @typedef@s or @struct@s)
-      knownTypes :: LanC.ReparseEnv
-      -- | Known macro type names; we keep the known macros separate, because we
-      --   need to restrict the reparse environment to macros actually
-      --   /expanded/.
-    , knownMacroTypes :: LanC.ReparseEnv
+      knownTypes :: Map LanC.CName CType
+      -- | Known macro types with their underlying C types; kept separate so we
+      --   can restrict the reparse environment to macros actually /expanded/.
+    , knownMacroTypes :: Map LanC.CName CType
     }
 
 data ReparseState = ReparseState {
@@ -429,17 +428,17 @@ data ReparseState = ReparseState {
 
 runM ::
      ClangCStandard
-  -> LanC.ReparseEnv
-  -> LanC.ReparseEnv
+  -> Map LanC.CName CType
+  -> Map LanC.CName CType
   -> M a
   -> (a, ReparseState)
 runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
   where
     e :: ReparseEnv
     e = ReparseEnv {
-        -- Add the initial reparse environment as a fallback (note, 'Map.union'
-        -- is left-biased).
-        knownTypes      = knownTypes `Map.union` LanC.initReparseEnv cStd
+        -- Add the bespoke types as a fallback (note, 'Map.union' is
+        -- left-biased).
+        knownTypes      = knownTypes `Map.union` LanC.bespokeTypes cStd
       , knownMacroTypes = knownMacroTypes
       }
 
@@ -456,9 +455,7 @@ runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
 -- | Run reparser if needed; use fallback on failure or if not needed.
 --
 -- On failure, records @(declId, ParseMacroErrorReparse e)@ in
--- 'ReparseState.reparseWarnings' and uses the fallback value. Note that
--- 'knownTypes' doubles as the language-c parse environment since both have
--- type 'Map Text CType'.
+-- 'ReparseState.reparseWarnings' and uses the fallback value.
 reparseWith ::
      DeclId
   -> LanC.Parser a
@@ -471,17 +468,16 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
       pure fallback
     ReparseNeeded tokens usedMacros -> do
       env <- ask
-      let usedMacroTypes :: LanC.ReparseEnv
-          usedMacroTypes = Map.restrictKeys env.knownMacroTypes usedMacros
-          unknownMacros :: Set Text
-          unknownMacros = Set.difference usedMacros (Map.keysSet usedMacroTypes)
-      forM_ unknownMacros $ \u ->
+      let usedKnownMacros :: Map LanC.CName CType
+          usedKnownMacros = Map.restrictKeys env.knownMacroTypes usedMacros
+          usedUnknownMacros :: Set LanC.CName
+          usedUnknownMacros = Set.difference usedMacros (Map.keysSet env.knownMacroTypes)
+      forM_ usedUnknownMacros $ \u ->
           modify $ #reparseWarnings %~
             ((declId, ParseMacroReparseUnknownType u) :)
 
       let reparseEnv :: LanC.ReparseEnv
-          -- Macro types override other types ('Map.union' is left-biased).
-          reparseEnv = usedMacroTypes `Map.union` env.knownTypes
+          reparseEnv = LanC.ReparseEnv env.knownTypes usedKnownMacros
       case parser reparseEnv tokens of
         Right a -> do
           modify $ #reparseSuccesses %~ Set.insert declId

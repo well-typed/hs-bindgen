@@ -1,12 +1,12 @@
 # `hs-bindgen`
 
-[![Build Status](https://github.com/well-typed/hs-bindgen/actions/workflows/haskell.yml/badge.svg)](https://github.com/well-typed/hs-bindgen/actions)
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-lightgray.svg)](https://github.com/well-typed/hs-bindgen/blob/main/hs-bindgen/LICENSE)
+[![Build Status](https://github.com/well-typed/hs-bindgen/actions/workflows/haskell.yml/badge.svg)](https://github.com/well-typed/hs-bindgen/actions)
+[![Nightly CI: Examples](https://img.shields.io/github/actions/workflow/status/well-typed/hs-bindgen/examples.yml?event=schedule&label=Nightly%20CI%3A%20Examples)](https://github.com/well-typed/hs-bindgen/actions/workflows/examples.yml?query=event%3Aschedule)
+[![Nightly CI: Check links](https://img.shields.io/github/actions/workflow/status/well-typed/hs-bindgen/check-links.yml?event=schedule&label=Nightly%20CI%3A%20Check%20Links)](https://github.com/well-typed/hs-bindgen/actions/workflows/check-links.yml?query=event%3Aschedule)
 
 `hs-bindgen` is a [Haskell][] library that *automatically* generates Haskell FFI
 bindings from C header files.
-
-[Haskell]: <https://www.haskell.org/>
 
 > [!WARNING]
 > This project has not had an official release yet.  There is a wide variety of
@@ -15,21 +15,18 @@ bindings from C header files.
 > something breaks, please check the [issues][] to see if the problem is already
 > known, and open an issue if not.
 
-[issues]: <https://github.com/well-typed/hs-bindgen/issues>
-
 Check the [releases][] ([RSS][]) for release information.  A Hackage package
 will be made available from the first official release.
 
-[releases]: <https://github.com/well-typed/hs-bindgen/releases>
-[RSS]: <https://github.com/well-typed/hs-bindgen/releases.atom>
+[Haskell]: https://www.haskell.org/
+[issues]: https://github.com/well-typed/hs-bindgen/issues
+[releases]: https://github.com/well-typed/hs-bindgen/releases
+[RSS]: https://github.com/well-typed/hs-bindgen/releases.atom
 
 ## Documentation
 
-* [`hs-bindgen` Manual][]
-* [`hs-bindgen` Nix tutorial][]
-
-[`hs-bindgen` manual]: <https://github.com/well-typed/hs-bindgen/blob/main/manual/README.md>
-[`hs-bindgen` Nix tutorial]: <https://github.com/well-typed/hs-bindgen-tutorial-nix/blob/main/readme.md>
+* [`hs-bindgen` Manual](manual/README.md)
+* [`hs-bindgen` Nix tutorial](https://github.com/well-typed/hs-bindgen-tutorial-nix/blob/main/readme.md)
 
 ### Blog posts
 
@@ -53,39 +50,44 @@ will be made available from the first official release.
 
 We test `hs-bindgen` with various C projects, and we include some examples in
 this repository.  Please note that these are used for testing and are not
-meant to be complete.  See the [examples README][] for details.
-
-[examples README]: <https://github.com/well-typed/hs-bindgen/tree/main/examples#examples>
+meant to be complete.  See the [examples README](examples/README.md) for
+details.
 
 Examples include:
 
-* [Botan][], a C++ cryptography library:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/botan)
-* [libpcap][], an interface to various kernel packet capture mechanisms:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/libpcap)
-* [MiniSat][], a minimalistic, open-source SAT solver:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-minisat)
-* [QR-Code-generator][], a library for generating QR codes:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-qrcode)
-* [RogueUtil][], a cross-platform C library for terminal manipulation:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-rogueutil)
-* [rpm][], a powerful package management system:
-  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-rpm)
+* [Botan](https://botan.randombit.net/), a C++ cryptography library:
+  [bindings](examples/botan)
+* [libpcap](https://github.com/the-tcpdump-group/libpcap), an interface to
+  various kernel packet capture mechanisms: [bindings](examples/libpcap)
+* [MiniSat](https://github.com/niklasso/minisat-c-bindings), a minimalistic,
+  open-source SAT solver: [bindings](c-minisat)
+* [QR-Code-generator](https://github.com/nayuki/QR-Code-generator), a library
+  for generating QR codes: [bindings](examples/c-qrcode)
+* [RogueUtil](https://github.com/sakhmatd/rogueutil), a cross-platform C library
+  for terminal manipulation: [bindings](examples/c-rogueutil)
+* [rpm](https://github.com/rpm-software-management/rpm), a powerful package
+  management system: [bindings](examples/c-rpm)
 
-[Botan]: <https://botan.randombit.net/>
-[libpcap]: <https://github.com/the-tcpdump-group/libpcap>
-[minisat]: <https://github.com/niklasso/minisat-c-bindings>
-[QR-Code-generator]: <https://github.com/nayuki/QR-Code-generator>
-[RogueUtil]: <https://github.com/sakhmatd/rogueutil>
-[rpm]: <https://github.com/rpm-software-management/rpm>
+## Packages in this repository
+
+* [`c-expr-dsl`](c-expr-dsl), a library that provides a DSL for the language
+  support by `c-expr-runtime`
+* [`c-expr-runtime`](c-expr-runtime), a library that provides a Haskell DSL for
+  simple C arithmetic expressions
+* [`hs-bindgen`](hs-bindgen), a utility that automatically generates Haskell
+  bindings from C headers
+* [`hs-bindgen-runtime`](hs-bindgen-runtime), a library that provides runtime
+  support for code generated by `hs-bindgen`
+* [`hs-bindgen-test-runtime`](hs-bindgen-test-runtime), a library for testing
+  bindings generated by `hs-bindgen`
 
 ## Supporting packages
 
-* `c-expr`, a Haskell DSL for simple C arithmetic expressions
-* [`doxygen-parser`](https://github.com/well-typed/doxygen-parser), a parser for
-  the XML files generated by the Doxygen CLI
-* [`libclang-bindings`](https://github.com/well-typed/libclang-bindings),
-  Haskell bindings to `libclang`
+* [`doxygen-parser`](https://github.com/well-typed/doxygen-parser), a parser
+  for the XML files generated by the Doxygen CLI
+* [`libclang-bindings`](https://github.com/well-typed/libclang-bindings), a
+  library that provides bindings for the
+  [LLVM/Clang](https://github.com/llvm/llvm-project) `libclang` C API
 
 ## Contributors
 

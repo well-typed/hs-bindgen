@@ -8,11 +8,9 @@
   llvmPackages,
 }:
 let
-  libclang-bindings-base = callCabal2nix "libclang-bindings" "${libclang-bindings-src}" {
-    # Truly override the LLVM version used. Use `cabal2nix` and drectly inspect
-    # the derivation created by `callCabal2nix`.
-    inherit (llvmPackages) libclang;
-  };
+  libclang-bindings-base =
+    callCabal2nix "libclang-bindings" "${libclang-bindings-src}/libclang-bindings"
+      { };
   libclang-bindings = haskellLib.compose.addBuildDepends [
     llvmPackages.libclang
     llvmPackages.llvm

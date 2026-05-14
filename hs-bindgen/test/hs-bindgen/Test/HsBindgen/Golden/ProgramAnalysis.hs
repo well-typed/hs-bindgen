@@ -207,7 +207,7 @@ test_programAnalysis_program_slicing_simple =
           & #programSlicing  .~ EnableProgramSlicing
           )
       & #specStdlib .~ BindingSpec.DisableStdlibBindingSpec
-      & #specExternal .~ [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
+      & #specExternal .~ [ "test-artefacts/headers/golden/program-analysis/program_slicing_simple.yaml" ]
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected (name, "root")
@@ -359,7 +359,7 @@ test_programAnalysis_selection_foo =
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =
     testVariant "program-analysis/selection_matches_c_names" "1.positive_case"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectPredicate .~ predicate )
   where
     predicate :: Boolean SelectPredicate
@@ -371,7 +371,7 @@ test_programAnalysis_selection_matches_c_names_1 =
 test_programAnalysis_selection_matches_c_names_2 :: TestCase
 test_programAnalysis_selection_matches_c_names_2 =
     testVariant "program-analysis/selection_matches_c_names" "2.negative_case"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectPredicate .~ predicate )
       & #tracePredicate .~ singleTracePredicate (\case
             MatchNoDeclarations ->
@@ -410,7 +410,7 @@ test_programAnalysis_selection_merge_traces =
 test_programAnalysis_selection_omit_external_a :: TestCase
 test_programAnalysis_selection_omit_external_a =
     defaultTest "program-analysis/selection_omit_external_a"
-      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
+      & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
@@ -428,13 +428,13 @@ test_programAnalysis_selection_omit_external_a =
 test_programAnalysis_selection_omit_external_b :: TestCase
 test_programAnalysis_selection_omit_external_b =
     defaultTest "program-analysis/selection_omit_external_b"
-      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
+      & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend   .~ ( #programSlicing .~  EnableProgramSlicing )
 
 test_programAnalysis_selection_omit_prescriptive :: TestCase
 test_programAnalysis_selection_omit_prescriptive =
     defaultTest "program-analysis/selection_omit_prescriptive"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_omit_prescriptive.yaml"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing{}) ->
               Just $ Expected (name, "select")

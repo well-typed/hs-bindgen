@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   , CheckedMacro(..)
   , CheckedMacroType(..)
   , CheckedMacroValue(..)
+  , MacroTypeBodyVar(..)
     -- * Conversions
   , convertTagKind
   ) where
@@ -13,7 +14,6 @@ import C.Expr.Typecheck qualified as CExpr
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -59,15 +59,12 @@ data CheckedMacro p =
 
 -- | Checked type macro
 data CheckedMacroType p = CheckedMacroType{
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1953>
-      --
-      -- Legacy C type; replace with the typechecked type-like macro expression.
-      cType :: C.Type p
-    , ann   :: Ann "CheckedMacroType" p
+      typ :: CExpr.CheckedMacroTypeExpr (MacroTypeBodyVar p)
+    , ann :: Ann "CheckedMacroType" p
     }
 
 newtype CheckedMacroValue p = CheckedMacroValue {
-      value :: CExpr.CheckedMacroValueExpr (Id p)
+      val :: CExpr.CheckedMacroValueExpr (Id p)
     }
 
 deriving stock instance IsPass p => Show (CheckedMacro     p)
@@ -77,6 +74,15 @@ deriving stock instance IsPass p => Show (CheckedMacroValue p)
 deriving stock instance IsPass p => Eq (CheckedMacro     p)
 deriving stock instance IsPass p => Eq (CheckedMacroType p)
 deriving stock instance IsPass p => Eq (CheckedMacroValue p)
+
+-- | We have to be specific, when a macro type refers to an external binding.
+data MacroTypeBodyVar p =
+    MacroTypeExtBinding (ExtBinding p)
+  | MacroTypeBodyVar    (Id p)
+
+deriving stock instance IsPass p => Eq   (MacroTypeBodyVar p)
+deriving stock instance IsPass p => Ord  (MacroTypeBodyVar p)
+deriving stock instance IsPass p => Show (MacroTypeBodyVar p)
 
 -- | Convert a @c-expr-dsl@ 'CExpr.TagKind' to an hs-bindgen 'CTagKind'
 convertTagKind :: CExpr.TagKind -> CTagKind
@@ -98,19 +104,31 @@ instance (
     MacroValue val -> MacroValue (coercePass val)
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassId p p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass MacroTypeBodyVar p p' where
+  coercePass = \case
+    MacroTypeExtBinding x -> MacroTypeExtBinding x
+    MacroTypeBodyVar    x -> MacroTypeBodyVar (coercePassId (Proxy @'(p, p')) x)
+
+instance (
+      CoercePassId p p'
+    , ExtBinding p ~ ExtBinding p'
     , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
     ) => CoercePass CheckedMacroType p p' where
-  coercePass (CheckedMacroType ctype ann) =
-    CheckedMacroType{
-        cType = coercePass ctype
-      , ann   = ann
-      }
+  coercePass (CheckedMacroType (CExpr.CheckedMacroTypeExpr body typ) ann) =
+    let body' = fmap coercePass body
+    in  CheckedMacroType{
+          typ = CExpr.CheckedMacroTypeExpr body' typ
+        , ann = ann
+        }
 
 instance CoercePassId p p' => CoercePass CheckedMacroValue p p' where
-  coercePass (CheckedMacroValue (CExpr.CheckedMacroValueExpr p b t)) =
-    let b' = fmap (coercePassId (Proxy @'(p, p'))) b
-    in  CheckedMacroValue $ CExpr.CheckedMacroValueExpr p b' t
+  coercePass (CheckedMacroValue (CExpr.CheckedMacroValueExpr params body typ)) =
+    let body' = fmap (coercePassId (Proxy @'(p, p'))) body
+    in  CheckedMacroValue{
+            val = CExpr.CheckedMacroValueExpr params body' typ
+          }
 
 {-------------------------------------------------------------------------------
   CoercePass: ConstructTranslationUnit → TypecheckMacros

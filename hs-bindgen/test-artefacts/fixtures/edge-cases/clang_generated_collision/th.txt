@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/clang_generated_collision.h

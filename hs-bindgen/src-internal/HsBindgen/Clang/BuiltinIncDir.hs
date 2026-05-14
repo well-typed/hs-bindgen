@@ -12,7 +12,6 @@ module HsBindgen.Clang.BuiltinIncDir (
 
 import Control.Applicative ((<|>), asum)
 import Control.Exception (Exception(displayException))
-import Control.Monad.Trans.Class (MonadTrans(lift))
 import Control.Monad.Trans.Maybe
 import Data.IORef (IORef)
 import Data.IORef qualified as IORef
@@ -29,7 +28,7 @@ import System.FilePath.Posix qualified as Posix
 import System.FilePath.Windows qualified as Windows
 #endif
 
-import Clang.Version (clang_getClangVersion)
+import Clang.Version
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Imports
 import HsBindgen.Util.Process
@@ -258,12 +257,13 @@ getBuiltinIncDirWithClang tracer = do
     exe <- findClangExe tracer <|> do
       traceWith tracer (withCallStack BuiltinIncDirClangNotFound)
       MaybeT $ return Nothing
-    clangVer <- getClangVersion tracer exe
-    libclangVer <- lift clang_getClangVersion
-    unless (clangVer == libclangVer) $ do
-      traceWith tracer $
-        withCallStack  $
-        BuiltinIncDirClangVersionMismatch libclangVer clangVer
+    clangVersionString <- getClangVersion tracer exe
+    let clangVersion = parseClangVersion clangVersionString
+    unless (isCompatibleClangVersion runtimeClangVersion clangVersion) $ do
+      traceWith tracer . withCallStack $
+        BuiltinIncDirClangVersionMismatch
+          runtimeClangVersionString
+          clangVersionString
       MaybeT $ return Nothing
     resourceDir <- getClangResourceDir tracer exe
     ifM

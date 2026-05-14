@@ -88,7 +88,7 @@ testTreeFor getTestResources = goTree
     goCase :: TestCase -> TestTree
     goCase test
       | Just versionPred <- test.clangVersion
-      , case clangVersion of
+      , case runtimeClangVersion of
           ClangVersion version  -> not (versionPred version)
           ClangVersionUnknown _ -> True
       = testGroup test.name []

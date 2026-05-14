@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     libclang-bindings-src = {
-      url = "github:well-typed/libclang?rev=cdbf817187a261ebf8c31b32c85c5693eedf298d";
+      url = "github:well-typed/libclang-bindings?rev=821b62535af96353be6a30baf45a0adcd08770c0";
       flake = false;
     };
     doxygen-parser-src = {
