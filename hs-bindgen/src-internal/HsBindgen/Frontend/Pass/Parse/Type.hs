@@ -74,7 +74,7 @@ cxtype ty = do
       CXType_Record          -> fromDecl
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
-      CXType_Unexposed       -> unexposed
+      CXType_Unexposed       -> failure ParseUnexposedType
 
       kind -> failure $ ParseUnexpectedTypeKind (Right kind)
 
@@ -108,26 +108,6 @@ complex ty = do
 
 elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
-
--- | Recover from 'CXType_Unexposed' by retrying with the canonical type.
---
--- LLVM/Clang 22 introduced a @PredefinedSugarType@ AST node that wraps
--- @__ptrdiff_t@, @__size_t@, and @__signed_size_t@ (see upstream
--- <https://github.com/llvm/llvm-project/pull/143653>).  @libclang@'s
--- @GetTypeKind@ was not updated to classify it, so these types fall through
--- to 'CXType_Unexposed' even though the canonical type is the expected
--- primitive (e.g. @long@, @unsigned long@).  See upstream report:
--- <https://github.com/llvm/llvm-project/issues/192268>.
---
--- If the canonical type is itself unexposed we have no further recourse and
--- emit the 'ParseUnexposedType' warning, causing the enclosing declaration
--- to be skipped (matching the prior behaviour from PR #1886).
-unexposed :: CXType -> ParseType (C.Type Parse)
-unexposed ty = do
-    canTy <- clang_getCanonicalType ty
-    case fromSimpleEnum (cxtKind canTy) of
-      Right CXType_Unexposed -> throwError ParseUnexposedType
-      _otherKind             -> cxtype canTy
 
 pointer :: CXType -> ParseType (C.Type Parse)
 pointer = clang_getPointeeType >=> fmap (C.TypePointers 1) . cxtype
