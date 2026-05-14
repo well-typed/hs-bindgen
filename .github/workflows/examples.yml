@@ -6,9 +6,14 @@ on:
       - main
   pull_request:
   merge_group:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 18 * * *"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # We do not want nightly runs to cancel non-nightly runs and vice versa, so
+  # for nightly runs the name of the concurreny group includes a "nightly" infix
+  group: ${{ github.workflow }}-${{ github.event_name == 'schedule' && 'nightly-' || '' }}${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -18,27 +23,142 @@ defaults:
   run:
     shell: bash
 
+env:
+  # Run a comprehensive set of examples nightly on the default branch.
+  nightly: ${{ github.event_name == 'schedule' }}
+  # A number of default examples are run on PRs, in the merge queue, and on
+  # pushes to main. A more comprehensive suite of examples is run nightly or
+  # when dispatched manually.
+  comprehensive: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+
 jobs:
+  setup-matrix:
+    name: "Examples: Setup matrix"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      # A number of default examples are run on PRs, in the merge queue, and on
+      # pushes to main. A more comprehensive suite of examples is run nightly or
+      # when dispatched manually.
+      comprehensive: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+
+    steps:
+
+    # NOTE: For caching purposes, the matrix combinations that we test on pull
+    # requests should be a subset of the matrix combinations we run on the
+    # merge queue and the default branch.
+    - name: 🛠️ Setup matrix
+      # Note: env.comprehensive is a stringized boolean, so we have to check
+      # string equality
+      if: ${{ env.comprehensive == 'false' }}
+      run: |
+        { echo 'MATRIX_COMBINATIONS<<EOF'
+          # default
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: 🛠️ Setup matrix (Comprehensive)
+      # Note: env.comprehensive is a stringized boolean, so we have to check
+      # string equality
+      if: ${{ env.comprehensive == 'true' }}
+      run: |
+        { echo 'MATRIX_COMBINATIONS<<EOF'
+          # default
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          # comprehensive
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "botan"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-minisat"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-qrcode"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rogueutil"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rpm"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "libpcap"},'
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: 🛠️ Setup matrix
+      id: setup-matrix
+      run: |
+        echo $MATRIX_COMBINATIONS
+        MATRIX="{\"include\":[$MATRIX_COMBINATIONS]}"
+        echo $MATRIX
+        {
+          echo 'MATRIX<<EOF'
+          echo "$MATRIX"
+          echo EOF
+        } >> "$GITHUB_OUTPUT"
+
+  check-success:
+    name: "Examples: Check success"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    needs:
+    - build-and-test-example
+
+    defaults:
+      run:
+        shell: bash
+
+    if: ${{ !cancelled() }}
+
+    steps:
+    - name: 🧪 Report failure
+      if: ${{ needs.build-and-test-example.result == 'failure' }}
+      run: |
+        echo "Some jobs failed"
+        exit 1
+
+    - name: 🧪 Report success
+      if: ${{ needs.build-and-test-example.result == 'success'  }}
+      run: |
+        echo "All jobs succeeded"
+        exit 0
+
+    # Post a comment on an issue to notify developers of failures
+    #
+    # This step is based on:
+    # <https://docs.github.com/en/actions/tutorials/manage-your-work/add-comments-with-labels>
+    - name: 🧪 Notifications for failure (Nightly)
+      # NOTE: env.nightly is a stringized boolean, so we perform string
+      # equality rather than boolean equality
+      if: ${{ env.nightly == 'false' && failure() }}
+      id: notifications
+      run: gh issue comment "$NUMBER" --body "$BODY"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        NUMBER: 1977
+        BODY: >
+          Nightly CI for the Examples workflow failed.
+          See the results at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
+
   build-and-test-example:
-    name: Build and test ${{ matrix.example }} example (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})
+    name: "Examples: Build and test ${{ matrix.example }} example (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})"
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
 
+    needs:
+    - setup-matrix
+
     strategy:
       fail-fast: false
-      # We run each example only once per workflow trigger (push/PR/MQ), always
-      # on Ubuntu, and with fixed GHC/Cabal/LLVM versions. This should be
-      # sufficient, since we already test hs-bindgen more extensively in the
-      # haskell-simple-* workflows.
-      matrix:
-        runner: ['ubuntu-latest']
-        ghc-version: ['9.4']
-        cabal-version: ['3.16']
-        llvm-version: ['15']
-        # NOTE: add new example projects here. The example project has to
-        # satisfy some requirements for this workflow to work correctly. See
-        # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'bundled-c', 'cef', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm', 'feature-tests']
+      matrix: ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
 
     env:
       # We assume that the example executable lives in this directory
