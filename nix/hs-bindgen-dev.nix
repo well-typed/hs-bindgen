@@ -48,7 +48,7 @@ let
       # only Clang), the GCC includes end up in BINDGEN_EXTRA_CLANG_ARGS which
       # is suboptimal. We could use a `clangStdenv` Nixpkgs overlay, but that
       # requires recompilation of the complete toolchain; see, e.g.,
-      # https://nixos.wiki/wiki/Using_Clang_instead_of_GCC.
+      # https://wiki.nixos.org/wiki/Using_Clang_instead_of_GCC.
       pkgsOverlay.hsBindgenHook
     ]
     ++
