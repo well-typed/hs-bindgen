@@ -586,21 +586,17 @@ AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
 ```
 
 If only the host `llvm-config` is on `PATH`, the subsequent
-`AC_CHECK_HEADER([clang-c/Index.h])` checks against host include paths and
-the configure step fails with a "Cannot find libclang headers" error. The
-configure script also declares
+`AC_CHECK_HEADER([clang-c/Index.h])` checks against host include paths and the
+configure step fails with a "Cannot find libclang headers" error.
 
-```
-AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
-```
-
-[`AC_ARG_VAR`](https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html)
-is autoconf's mechanism for "precious" environment variables: if set,
-they override any `AC_PATH_PROG`-style search and are documented in
-`./configure --help`. A stub script that returns target paths is enough:
+The fix is to provide a target-aware `llvm-config` for the build. Write a
+small stub that returns the target paths, name it exactly `llvm-config`,
+place it in a dedicated directory, and prepend that directory to `PATH` so
+`AC_PATH_PROG`'s normal search picks it up before the host's:
 
 ```bash
-cat > llvm-config-target-stub.sh << 'EOF'
+mkdir -p llvm-stub-bin
+cat > llvm-stub-bin/llvm-config << 'EOF'
 #!/usr/bin/env bash
 case "$1" in
     --version)    echo "19.1.7" ;;
@@ -609,10 +605,23 @@ case "$1" in
     --prefix)     echo "/path/to/target/libclang" ;;
 esac
 EOF
-chmod +x llvm-config-target-stub.sh
+chmod +x llvm-stub-bin/llvm-config
 
-LLVM_CONFIG=$(pwd)/llvm-config-target-stub.sh cabal build ...
+PATH=$(pwd)/llvm-stub-bin:$PATH cabal build ...
 ```
+
+The configure script also declares
+
+```
+AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
+```
+
+so as a fallback you can set `LLVM_CONFIG=/path/to/stub`
+([`AC_ARG_VAR`](https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html)
+is autoconf's "precious" env-var mechanism, which overrides any
+`AC_PATH_PROG` search). The `PATH` approach above is preferred because it
+keeps the configure flow on its normal path and avoids reserving an env
+var for this single purpose.
 
 The four flags above are the subset that our consumers actually call:
 

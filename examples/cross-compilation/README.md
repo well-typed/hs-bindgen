@@ -115,9 +115,10 @@ mode. Compared to preprocess mode, TH mode has additional requirements:
     zlib's include dir to `package *` so the cross-CC finds the header. (The
     `+bundled-c-zlib` flag is an alternative if you don't have a target
     zlib's headers handy.)
-  - `libclang-bindings`: point its `configure.ac` at a tiny
-    `llvm-config` stub script that returns target-arch paths via
-    `LLVM_CONFIG=...`.
+  - `libclang-bindings`: place a tiny `llvm-config` stub that returns
+    target-arch paths on `PATH` (ahead of the host's `llvm-config`) so its
+    `configure.ac`'s `AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])` picks
+    it up via the normal search.
 
 See [`manual/low-level/usage/cross-compilation.md`](../../manual/low-level/usage/cross-compilation.md)
 for the full TH-mode workflow.
@@ -143,6 +144,15 @@ This cost is likely much more significant in situations when
 cross-compilation is required.  When cross-compiling, you likely want to
 use the CLI, so that `hs-bindgen` is not a dependency of your
 library/executable and `libclang` is not linked.
+
+The primary motivation for cross-compiling Haskell (rather than building
+under QEMU) is speed. See, for example, [this account of a build going from
+~3-4 days under QEMU to ~2 hours
+cross-compiled](https://old.reddit.com/r/haskell/comments/k0qtrz/a_tale_of_template_haskell_and_cross_compilation/)
+(search for "Slower is an understatement"). The recommended pattern is
+therefore to run `hs-bindgen-cli` on the host to generate `.hs` sources
+*before* cross-compiling the project: that preserves the speedup and keeps
+`libclang` out of the cross-compiled output.
 
 ## Known issues and workarounds
 

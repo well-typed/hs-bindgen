@@ -309,18 +309,22 @@ echo "  Successfully ran aarch64 Haskell executable under QEMU"
 # declarations are inlined into the user's MainTH.o and linked against the
 # wrapped C library (\`extra-libraries: arch_types\` in the .cabal).
 #
-# Two env vars feed information into the splice:
-#   * LLVM_CONFIG   - so libclang-bindings's configure script (run during
-#                     cross-build of hs-bindgen) finds target LLVM paths.
-#                     Without it, configure picks up the host llvm-config
-#                     and fails with "Cannot find libclang headers".
-#   * BINDGEN_BUILTIN_INCLUDE_DIR=disable - hygiene, not strictly required
-#                     for arch_types.h (it has no system #includes). With
-#                     it unset, the splice falls through to host-clang
-#                     discovery and silently uses host builtin includes,
-#                     which would be wrong for headers that #include
-#                     <stdint.h> etc. \`disable\` is a documented value;
-#                     see hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs.
+# Two environment tweaks feed information into the splice:
+#
+#   * PATH with the stub prepended - so libclang-bindings's configure script
+#   (run during cross-build of hs-bindgen) finds our target llvm-config stub
+#   via the normal AC_PATH_PROG search instead of picking up the host's
+#   llvm-config and failing with "Cannot find libclang headers". We
+#   intentionally avoid setting the LLVM_CONFIG env var: using PATH keeps
+#   libclang-bindings's existing configure flow on its normal path and leaves
+#   LLVM_CONFIG free for other potential uses.
+#
+#   * BINDGEN_BUILTIN_INCLUDE_DIR=disable - hygiene, not strictly required for
+#   arch_types.h (it has no system #includes). With it unset, the splice falls
+#   through to host-clang discovery and silently uses host builtin includes,
+#   which would be wrong for headers that #include <stdint.h> etc. \`disable\`
+#   is a documented value; see
+#   hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs.
 
 echo "==> Phase 4: Cross-compiling and running TH-mode executable"
 
@@ -338,7 +342,11 @@ write_iserv_wrapper "$TH_ISERV_WRAPPER" "$th_iserv_ld_path"
 #
 #     AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
 #
-# We exploit that hook to point at a stub returning *target* paths.
+# AC_PATH_PROG searches PATH for an executable named `llvm-config`. We
+# place a stub named exactly `llvm-config` in a dedicated bin directory
+# and prepend that directory to PATH for the cabal build below, so the
+# configure script finds our target-aware stub instead of the host's
+# llvm-config, without us having to set the LLVM_CONFIG env var.
 #
 # The four flags below are the subset of llvm-config's interface our
 # consumers actually call:
@@ -355,7 +363,9 @@ write_iserv_wrapper "$TH_ISERV_WRAPPER" "$th_iserv_ld_path"
 # 19.1.7 happens to match LLVM in our nixos-25.05 pin, but any non-empty
 # string would do.
 
-LLVM_CONFIG_STUB="$HS_PROJECT_TH_DIR/llvm-config-aarch64-stub.sh"
+LLVM_STUB_BIN_DIR="$HS_PROJECT_TH_DIR/llvm-stub-bin"
+LLVM_CONFIG_STUB="$LLVM_STUB_BIN_DIR/llvm-config"
+mkdir -p "$LLVM_STUB_BIN_DIR"
 
 write_if_changed "$LLVM_CONFIG_STUB" << STUB_EOF
 #!/usr/bin/env bash
@@ -401,7 +411,7 @@ cd "$HS_PROJECT_TH_DIR"
 
 echo "  Building Haskell TH executable for aarch64"
 
-LLVM_CONFIG="$LLVM_CONFIG_STUB" \
+PATH="$LLVM_STUB_BIN_DIR:$PATH" \
 BINDGEN_BUILTIN_INCLUDE_DIR=disable \
     aarch64_cabal_build "$EXE_NAME_TH"
 
