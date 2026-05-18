@@ -60,7 +60,7 @@ Examples include:
 * [libpcap](https://github.com/the-tcpdump-group/libpcap), an interface to
   various kernel packet capture mechanisms: [bindings](examples/libpcap)
 * [MiniSat](https://github.com/niklasso/minisat-c-bindings), a minimalistic,
-  open-source SAT solver: [bindings](c-minisat)
+  open-source SAT solver: [bindings](examples/c-minisat)
 * [QR-Code-generator](https://github.com/nayuki/QR-Code-generator), a library
   for generating QR codes: [bindings](examples/c-qrcode)
 * [RogueUtil](https://github.com/sakhmatd/rogueutil), a cross-platform C library
@@ -108,6 +108,7 @@ including:
 * [George Thomas](https://github.com/georgefst)
 * [Jonathan Lorimer](https://github.com/JonathanLorimer)
 * [Joris Dral](https://github.com/jorisdral)
+* [Justin Le](https://github.com/mstksg)
 * [`Krantz98`](https://www.reddit.com/user/Krantz98)
 * [Lin Jian](https://github.com/jian-lin)
 * [`Merivuokko`](https://github.com/Merivuokko)
@@ -115,5 +116,7 @@ including:
 * [Rodrigo Mesquita](https://github.com/alt-romes)
 * [Ruifeng Xie](https://github.com/ruifengx)
 * [Sam Derbyshire](https://github.com/sheaf)
+* [Shea Levy](https://github.com/shlevy)
 * [Tobias Dammers](https://github.com/tdammers)
 * [Travis Cardwell](https://github.com/TravisCardwell)
+* [Travis Whitaker](https://github.com/TravisWhitaker)
