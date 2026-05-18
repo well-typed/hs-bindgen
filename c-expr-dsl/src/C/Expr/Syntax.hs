@@ -10,7 +10,6 @@
 module C.Expr.Syntax (
     -- * Definition
     Macro(..)
-  , sameMacro
     -- ** Type syntax
   , TypeLit(..)
   , TagKind(..)
@@ -71,16 +70,3 @@ instance Eq Macro where
           Nothing   -> False
 
 deriving stock instance Show Macro
-
--- | Are two macros referring to the same macro.
---
--- The location and parameter names do not need to match. Everything else must
--- be equal.
-sameMacro :: Macro -> Macro -> Bool
-sameMacro (Macro @c1 _ n1 p1 e1) (Macro @c2 _ n2 p2 e2) =
-    n1 == n2 && sameBody
-  where
-    sameBody = withDict p1 $ withDict p2 $
-      case Nat.eqNat @c1 @c2 of
-        Just Refl -> e1 == e2
-        Nothing   -> False

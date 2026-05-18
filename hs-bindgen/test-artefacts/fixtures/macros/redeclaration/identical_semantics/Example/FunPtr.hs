@@ -9,14 +9,13 @@ module Example.FunPtr
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <macros/redeclaration/identical_semantics.h>"
   , "/* test_macrosredeclarationidentical_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_a17f85783f80f294 (void)) ("
-  , "  T arg1"
+  , "  signed int arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -24,7 +23,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosredeclarationidentical_Example_get_bar */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_fbbde3e7da8ad667 (void)) ("
-  , "  T arg1"
+  , "  signed int arg1"
   , ")"
   , "{"
   , "  return &bar;"
@@ -36,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_a17f85783f80f294" hs_bindgen_a17f85783f8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
-hs_bindgen_a17f85783f80f294 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_a17f85783f80f294 :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
 hs_bindgen_a17f85783f80f294 =
   RIP.fromFFIType hs_bindgen_a17f85783f80f294_base
 
@@ -47,7 +46,7 @@ hs_bindgen_a17f85783f80f294 =
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-foo :: RIP.FunPtr (T -> IO ())
+foo :: RIP.FunPtr (RIP.CInt -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_a17f85783f80f294
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
@@ -55,7 +54,7 @@ foreign import ccall unsafe "hs_bindgen_fbbde3e7da8ad667" hs_bindgen_fbbde3e7da8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
-hs_bindgen_fbbde3e7da8ad667 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_fbbde3e7da8ad667 :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
 hs_bindgen_fbbde3e7da8ad667 =
   RIP.fromFFIType hs_bindgen_fbbde3e7da8ad667_base
 
@@ -66,5 +65,5 @@ hs_bindgen_fbbde3e7da8ad667 =
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-bar :: RIP.FunPtr (T -> IO ())
+bar :: RIP.FunPtr (RIP.CInt -> IO ())
 bar = RIP.unsafePerformIO hs_bindgen_fbbde3e7da8ad667

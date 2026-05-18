@@ -37,6 +37,8 @@
   Haddock `*`-depth derived from tree depth. Doxygen-specific export
   resolution lives in the new internal module
   `HsBindgen.Backend.HsModule.Translation.Doxygen`.
+* Redefinitions of macros are now considered conflicting even if they are
+  syntactically equal. See [PR #1983][pr-1983].
 
 ### Minor changes
 
@@ -236,6 +238,7 @@
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
 [is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
+[pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
 
 ## 0.1.0-alpha -- 2026-02-06
 
