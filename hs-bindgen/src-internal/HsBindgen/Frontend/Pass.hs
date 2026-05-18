@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass (
     Pass
   , IsPass(..)
+  , AMsg
   , NoAnn(..)
   , NoMsg
   ) where
@@ -178,6 +179,10 @@ class (
   macroIdId :: Proxy p -> MacroId p -> Id p
   default macroIdId :: MacroId p ~ Void => Proxy p -> MacroId p -> Id p
   macroIdId _ = absurd
+
+-- | Trace messages with call-stack annotations
+type AMsg :: Pass -> Star
+type AMsg p = WithCallStack (Msg p)
 
 {-------------------------------------------------------------------------------
   Defaults

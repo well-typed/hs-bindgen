@@ -47,7 +47,7 @@ instance IsPass MangleNames where
   type MacroBody   MangleNames = CheckedMacro MangleNames
   type ExtBinding  MangleNames = ResolvedExtBinding
   type Ann ix      MangleNames = AnnMangleNames ix
-  type Msg         MangleNames = WithCallStack (WithLocationInfo MangleNamesMsg)
+  type Msg         MangleNames = WithLocationInfo MangleNamesMsg
   type MacroId     MangleNames = Id MangleNames
   type CommentDecl MangleNames = Maybe (C.Comment MangleNames)
 
