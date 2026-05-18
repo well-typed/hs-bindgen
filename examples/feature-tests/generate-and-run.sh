@@ -30,7 +30,7 @@ fi
 
 echo "## Callbacks"
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -41,7 +41,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     callbacks/arrays/known_size.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -52,7 +52,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     callbacks/arrays/unknown_size.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -63,7 +63,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     callbacks/basic.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -74,7 +74,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     callbacks/structs.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -87,7 +87,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
 
 echo "## Pointer manipulation"
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -102,7 +102,7 @@ echo "## Types"
 
 echo "### Anonymous"
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \
@@ -114,7 +114,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
 
 echo "### Bit-fields"
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/src-generated \

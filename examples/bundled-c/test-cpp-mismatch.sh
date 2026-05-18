@@ -22,7 +22,7 @@ echo "#"
 echo "# Step 1: Generate bindings WITHOUT RECT_3D (4-field struct)"
 echo "#"
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I hs-project/cbits \
     --unique-id bundled-c.well-typed.com \

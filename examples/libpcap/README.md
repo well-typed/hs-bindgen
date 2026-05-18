@@ -34,3 +34,21 @@ This script will:
 3. Generate Haskell bindings using `hs-bindgen`
 4. Create `cabal.project.local`
 5. Build and run the example program
+
+## Static binary (Alpine Linux / musl)
+
+The `+static` flag in `hs-project/libpcap.cabal` builds `libpcap-bin` as a
+fully static executable. From inside the `dev/alpine` container:
+
+```bash
+export PCAP_INCLUDE_DIR=/usr/include
+./generate.sh
+cd hs-project
+cabal build -fstatic libpcap-bin
+"$(cabal list-bin -v0 -fstatic libpcap-bin)"   # lists network devices
+```
+
+`pcap_findalldevs` requires `CAP_NET_RAW`, which Docker's default capability
+set already includes — the binary runs unmodified inside the container.
+The Alpine CI workflow (`.github/workflows/alpine.yml`) exercises the same
+build + verify + run path on every push.

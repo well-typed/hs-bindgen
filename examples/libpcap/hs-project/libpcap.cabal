@@ -9,6 +9,14 @@ category:      Development
 build-type:    Simple
 synopsis:      Test `hs-bindgen` on the `pcap` library
 
+flag static
+  description:
+    Build the executable as a fully static binary. Requires libc and
+    libpcap static archives (e.g. Alpine `musl-dev` + `libpcap-dev`).
+
+  default:     False
+  manual:      True
+
 common common
   ghc-options:      -Wall -Wunused-packages
   build-depends:    base >=4.16 && <4.22
@@ -39,3 +47,6 @@ executable libpcap-bin
   build-depends:
     , base     >=4.7 && <5
     , libpcap
+
+  if flag(static)
+    ghc-options: -static -optl-static

@@ -7,6 +7,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 export PROJECT_ROOT
 
+# All subsequent relative paths (`-I c`, `iterator.h`, `hs-project/`) resolve
+# from the example directory, so make that the cwd unconditionally.
+cd "$SCRIPT_DIR"
+
 (
     echo "# "
     echo "# Building C library"
@@ -16,17 +20,19 @@ export PROJECT_ROOT
     make
 )
 
-C_DIR=$(realpath c)
-echo $C_DIR
+C_DIR="$SCRIPT_DIR/c"
+echo "$C_DIR"
 
 echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --hs-output-dir hs-project/generated \
+    --create-output-dirs \
+    --overwrite-files \
     --unique-id blocksdemo.well-typed.com \
     --module Iterator \
     --clang-option '-std=c2x' \

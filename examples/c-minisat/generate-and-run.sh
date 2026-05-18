@@ -32,11 +32,12 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     preprocess \
     -I "minisat-c-bindings" \
     --hs-output-dir "hs-project/src" \
     --create-output-dirs \
+    --overwrite-files \
     --module Generated.Minisat \
     "minisat.h"
 

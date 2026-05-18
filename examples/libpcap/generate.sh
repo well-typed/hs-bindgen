@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 
+# Resolve the repository root if not already exported by a parent script
+# (generate-and-run.sh exports PROJECT_ROOT before sourcing/calling us).
+if [ -z "${PROJECT_ROOT:-}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+    export PROJECT_ROOT
+fi
+
 # Command line flags affecting module generation.
+#
+# `PCAP_INCLUDE_DIR` defaults to the bundled libpcap source built by
+# generate-and-run.sh. Override to a system include dir (e.g.
+# `PCAP_INCLUDE_DIR=/usr/include`) to bind against an installed libpcap-dev
+# package, as the Alpine CI workflow does.
 module_flags=(
-    -I "./libpcap"
+    -I "${PCAP_INCLUDE_DIR:-./libpcap}"
     # C has a global namespace. Providing a unique ID ensures the C wrappers
     # have unique names.
     --unique-id org.hs-bindgen.libpcap
@@ -54,7 +67,7 @@ debug_flags=(
     # -v4
 )
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli preprocess \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli preprocess \
     "${module_flags[@]}" \
     "${libclang_flags[@]}" \
     "${select_flags[@]}" \

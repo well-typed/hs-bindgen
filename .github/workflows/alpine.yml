@@ -1,0 +1,130 @@
+name: Alpine Linux
+
+# Build and test hs-bindgen on Alpine Linux (musl), then build the libpcap
+# example against Alpine's system libpcap-dev package.
+#
+# CI consumes the dev/alpine/Dockerfile (see dev/alpine/README.md), so the two
+# environments cannot drift.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-test:
+    name: Build and test on Alpine
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      IMAGE: hs-bindgen-alpine-dev
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v6
+
+      - name: 🛠️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🐳 Build Alpine dev image
+        uses: docker/build-push-action@v6
+        with:
+          context: dev/alpine
+          file: dev/alpine/Dockerfile
+          load: true
+          tags: ${{ env.IMAGE }}:latest
+          cache-from: type=gha,scope=alpine-dev
+          cache-to: type=gha,scope=alpine-dev,mode=max
+
+      # Cache the in-container cabal store across runs; key on cabal/project
+      # files so the cache invalidates when dependencies change. We use the
+      # split restore/save form so the cache is also saved when later steps
+      # (test, examples) fail — the unified `actions/cache@v4` only saves on
+      # full job success, which wastes the 10+ min cabal build on every
+      # failed PR push.
+      - name: 💾 Restore cabal store cache
+        id: cache-cabal
+        uses: actions/cache/restore@v4
+        with:
+          path: .cabal-store
+          key: alpine-cabal-${{ hashFiles('cabal.project*', '**/*.cabal') }}
+          restore-keys: alpine-cabal-
+
+      - name: 🏗️ cabal build all
+        run: |
+          mkdir -p .cabal-store
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            sh -c 'cabal update && cabal build all'
+
+      - name: 🧪 cabal test all
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            cabal test all --test-show-details=direct
+
+      # Build the libpcap example as a fully static binary against Alpine's
+      # system libpcap-dev (which ships /usr/lib/libpcap.a).
+      # `pcap_findalldevs` requires CAP_NET_RAW; Docker grants this by
+      # default, so the binary runs successfully inside the container.
+      - name: 📦 Build, run, and verify static libpcap example
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            -e PCAP_INCLUDE_DIR=/usr/include \
+            "$IMAGE" \
+            sh -c '
+              set -e
+              cd examples/libpcap
+              ./generate.sh
+              cd hs-project
+              cabal build -fstatic libpcap-bin
+              BIN="$(cabal list-bin -v0 -fstatic libpcap-bin)"
+              # Gate 1 — file: ELF header heuristic (no PT_INTERP).
+              file "$BIN" | grep -q "statically linked" || {
+                echo "FAIL: file does not report statically linked:" >&2
+                file "$BIN" >&2
+                exit 1
+              }
+              # Gate 2 — ldd: walks DT_NEEDED. On musl a fully static binary
+              # produces empty stdout (the message goes to stderr).
+              if [ -n "$(ldd "$BIN" 2>/dev/null)" ]; then
+                echo "FAIL: ldd lists dynamic dependencies:" >&2
+                ldd "$BIN" >&2
+                exit 1
+              fi
+              "$BIN"
+            '
+
+      - name: 📦 Build and run blocktest example
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" -w /repo \
+            -v "$PWD/.cabal-store:/root/.cabal" \
+            "$IMAGE" \
+            ./examples/blocktest/generate-and-run.sh
+
+      # Save the cabal store cache even if an earlier step failed. Skip
+      # when the exact key already hit (no new dependencies pulled).
+      - name: 💾 Save cabal store cache
+        if: always() && steps.cache-cabal.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .cabal-store
+          key: ${{ steps.cache-cabal.outputs.cache-primary-key }}
