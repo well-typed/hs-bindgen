@@ -115,9 +115,11 @@ parseCustomLogLevel = do
     makeBugsErrors     <- optional parseMakeBugsErrors
     makeWarningsErrors <- optional parseMakeWarningsErrors
     -- Specific setters
-    enableMacroWarnings <- optional parseEnableMacroWarnings
+    enableMacroWarnings         <- optional parseEnableMacroWarnings
+    makeMangleNamesSquashedInfo <- optional parseMakeMangleNamesSquashedInfo
     pure $ getCustomLogLevel $ catMaybes [
         enableMacroWarnings
+      , makeMangleNamesSquashedInfo
       , makeBugsErrors
       , makeWarningsErrors
       ]
@@ -154,6 +156,16 @@ parseCustomLogLevel = do
           , " (default: info)"
           ]
       ]
+
+    parseMakeMangleNamesSquashedInfo :: Parser CustomLogLevelSetting
+    parseMakeMangleNamesSquashedInfo =
+        flag' MakeMangleNamesSquashedInfo $ mconcat [
+            long "log-squashed-as-info"
+          , help $ concat [
+                "Set log level of squashed-typedef traces to info"
+              , " (default: notice)"
+              ]
+          ]
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [

@@ -6,6 +6,11 @@
 
 ### New features
 
+* A new CLI option `--log-squashed-as-info` (and matching
+  `CustomLogLevelSetting` constructor `MakeMangleNamesSquashedInfo`) demotes
+  the `select-mangle-names-squashed` trace from `Notice` to `Info`, so the
+  per-typedef squash messages no longer appear at the default verbosity.
+  See [#1574](https://github.com/well-typed/hs-bindgen/issues/1574).
 * When using the Template Haskell backend, external types referenced via
   external binding specifications that are not in scope now produce a helpful
   compile error suggesting the missing import.
