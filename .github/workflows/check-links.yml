@@ -63,7 +63,7 @@ jobs:
       - name: Notifications for failure (Nightly)
         # NOTE: env.nightly is a stringized boolean, so we perform string
         # equality rather than boolean equality
-        if: ${{ env.nightly == 'false' && failure() }}
+        if: ${{ failure() && env.nightly == 'true' }}
         id: notifications
         run: gh issue comment "$NUMBER" --body "$BODY"
         env:
