@@ -8,7 +8,10 @@ runs:
       shell: bash
       working-directory: ./examples/feature-tests
       run: ./generate-and-run.sh
+    # On Windows we only have the Clang bundled with GHC and no `gcc` on PATH,
+    # so skip the GCC pass there.  Linux and macOS runners both ship GCC.
     - name: Run generation and build script (GCC)
+      if: runner.os != 'Windows'
       shell: bash
       working-directory: ./examples/feature-tests
       env:
