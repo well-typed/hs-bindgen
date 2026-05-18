@@ -409,4 +409,4 @@ such limitations.
 [manual:includes]: low-level/usage/includes.md
 [manual:includes-hs-bindgen]: low-level/usage/includes.md#hs-bindgen
 [Nix flake]: ../flake.nix
-[pkg-config]: https://www.freedesktop.org/wiki/Software/pkg-config
+[pkg-config]: https://www.freedesktop.org/wiki/Software/pkg-config/

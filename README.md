@@ -60,7 +60,7 @@ Examples include:
 * [libpcap](https://github.com/the-tcpdump-group/libpcap), an interface to
   various kernel packet capture mechanisms: [bindings](examples/libpcap)
 * [MiniSat](https://github.com/niklasso/minisat-c-bindings), a minimalistic,
-  open-source SAT solver: [bindings](c-minisat)
+  open-source SAT solver: [bindings](examples/c-minisat)
 * [QR-Code-generator](https://github.com/nayuki/QR-Code-generator), a library
   for generating QR codes: [bindings](examples/c-qrcode)
 * [RogueUtil](https://github.com/sakhmatd/rogueutil), a cross-platform C library
