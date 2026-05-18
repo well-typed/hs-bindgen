@@ -112,6 +112,12 @@
   declarations carrying macro expansions and attribute specifier sequences
   failed to reparse and silently fell back to the un-reparsed type, dropping
   macro typedef names from generated bindings. See [PR #1955][pr-1955].
+* Silently ignore `__declspec(dllimport)` and `__declspec(dllexport)` attribute
+  cursors (`CXCursor_DLLImport` / `CXCursor_DLLExport`) when parsing function,
+  variable, and enum declarations. Previously, these cursors triggered a
+  `Bug`-level `Unexpected cursor kind` trace on Windows for every CRT
+  declaration carrying `__declspec(dllimport)`. See [issue
+  #1910](https://github.com/well-typed/hs-bindgen/issues/1910).
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
