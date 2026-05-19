@@ -59,6 +59,8 @@ Examples include:
   [bindings](examples/botan)
 * [libpcap](https://github.com/the-tcpdump-group/libpcap), an interface to
   various kernel packet capture mechanisms: [bindings](examples/libpcap)
+* [LibYAML](https://github.com/yaml/libyaml), a YAML parser and emitter library:
+  [bindings](examples/c-yaml)
 * [MiniSat](https://github.com/niklasso/minisat-c-bindings), a minimalistic,
   open-source SAT solver: [bindings](examples/c-minisat)
 * [QR-Code-generator](https://github.com/nayuki/QR-Code-generator), a library
@@ -67,6 +69,9 @@ Examples include:
   for terminal manipulation: [bindings](examples/c-rogueutil)
 * [rpm](https://github.com/rpm-software-management/rpm), a powerful package
   management system: [bindings](examples/c-rpm)
+* [Chromium Embedded Framework (CEF)](https://bitbucket.org/chromiumembedded/cef),
+  a framework for embedding Chromium-based browsers in other applications:
+  [bindings](examples/cef)
 
 ## Packages in this repository
 

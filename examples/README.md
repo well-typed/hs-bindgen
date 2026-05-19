@@ -15,6 +15,7 @@ examples include bindings and toy programs for various C libraries.
 * `bundled-c`
 * `c-minisat`
 * `c-qrcode`
+* `c-yaml`
 * `libpcap`
 
 ## Running examples

@@ -98,6 +98,7 @@ jobs:
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-qrcode"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rogueutil"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rpm"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-yaml"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "libpcap"},'
           echo EOF
@@ -331,6 +332,10 @@ jobs:
     - name: 🧪 Build and run c-rpm example
       if: ${{ matrix.example == 'c-rpm' }}
       uses: ./.github/actions/examples/c-rpm
+
+    - name: 🧪 Build and run c-yaml example
+      if: ${{ matrix.example == 'c-yaml' }}
+      uses: ./.github/actions/examples/c-yaml
 
     - name: 🧪 Build and run cef example
       if: ${{ matrix.example == 'cef' }}
