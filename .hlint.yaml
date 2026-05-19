@@ -100,3 +100,8 @@
 
 # To generate a suitable file for HLint do:
 # $ hlint --default > .hlint.yaml
+
+- arguments:
+  - --path=hs-bindgen/src
+  - --path=hs-bindgen/app
+  - --path=hs-bindgen/src-internal
