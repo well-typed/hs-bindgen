@@ -67,7 +67,7 @@ FUNC_ADD: Right VaApp NoXApp MAdd (Term (LocalParam 1) ::: Term (LocalParam 0) :
 FUNC_NEG: Right VaApp NoXApp MUnaryMinus (Term (LocalParam 0) ::: VNil)
 FUNC_MULTIPLE_LOCAL_PARAMS: Right VaApp NoXApp MAdd (Term (LocalParam 3) ::: VaApp NoXApp MSub (Term (LocalParam 2) ::: VaApp NoXApp MAdd (Term (LocalParam 1) ::: Term (LocalParam 0) ::: VNil) ::: VNil) ::: VNil)
 FUNC_SINGLELINE: Right VaApp NoXApp MMult (Term (LocalParam 1) ::: Term (LocalParam 0) ::: VNil)
-FUNC_MULTILINE: Left <parse error>
+FUNC_MULTILINE: Right VaApp NoXApp MMult (Term (LocalParam 1) ::: Term (LocalParam 0) ::: VNil)
 EXPR_REF_ADD: Right VaApp NoXApp MAdd (Term (Var NoXVar "EXPR_ONE" []) ::: Term (Var NoXVar "EXPR_FORTY_TWO" []) ::: VNil)
 EXPR_CALL_ADD: Right Term (Var NoXVar "FUNC_ADD" [Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))),Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "2", integerLiteralType = Int Signed, integerLiteralValue = 2}))))])
 EXPR_CALL_NESTED: Right VaApp NoXApp MAdd (Term (Var NoXVar "FUNC_ADD" [Term (Var NoXVar "EXPR_ONE" []),Term (Var NoXVar "EXPR_FORTY_TWO" [])]) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))) ::: VNil)

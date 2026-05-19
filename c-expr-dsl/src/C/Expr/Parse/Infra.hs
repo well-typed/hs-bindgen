@@ -103,21 +103,44 @@ tokenOfKind kind f = token $ \t ->
       then f $ getTokenSpelling (tokenSpelling t)
       else Nothing
 
-exact :: CXTokenKind -> Text -> Parser ()
-exact kind expected = tokenOfKind kind (\actual -> guard $ expected == actual)
+tokenOfKind' :: CXTokenKind -> (Text -> Bool) -> Parser ()
+tokenOfKind' kind cmp = tokenOfKind kind (\actual -> guard $ cmp actual)
 
 {-------------------------------------------------------------------------------
   Punctuation
 -------------------------------------------------------------------------------}
 
 punctuation :: Text -> Parser ()
-punctuation = exact CXToken_Punctuation
+punctuation expected = tokenOfKind' CXToken_Punctuation $
+    \actual -> Text.unpack expected == removeMultilines (Text.unpack actual)
 
 parens :: Parser a -> Parser a
 parens p = punctuation "(" *> p <* punctuation ")"
 
 comma :: Parser ()
 comma = punctuation ","
+
+
+-- | Remove multiline characters from the string
+--
+-- Multiline characters are a pair of characters of the form "\\\n". These
+-- characters are sometimes included in (punctuation) tokens. In other cases
+-- @libclang@ handles multiline characters for us and does not report them. We
+-- should remove multiline characters before comparing against a target string.
+-- For example, we want @punctuation "("@ to match with a token that has
+-- spelling "\\\n(".
+--
+-- >>> removeMultilines "a\\\ngbe\\\n"
+-- "agbe"
+--
+removeMultilines :: String -> String
+removeMultilines = \case
+    []     -> []
+    (c:cs) -> go c cs
+  where
+    go prev []        = [prev]
+    go '\\' ('\n':cs) = removeMultilines cs
+    go prev (c   :cs) = prev : go c cs
 
 {-------------------------------------------------------------------------------
   Parse individual tokens
