@@ -1,9 +1,9 @@
 // F is a function-like macro definition while G is an object-like macro
 // definition. The difference is in the whitespace between the identifier and
-// the opening parenthesis. hs-bindgen treats F and G both as function-like
-// macro definitions, which is wrong.
-//
-// TODO <https://github.com/well-typed/hs-bindgen/issues/1903>
+// the opening parenthesis. hs-bindgen used to treat F and G both as
+// function-like macro definitions, which was wrong. Now only F is considered
+// function-like. See issue #1903:
+// <https://github.com/well-typed/hs-bindgen/issues/1903>
 //
 // <https://en.cppreference.com/w/cpp/preprocessor/replace.html>
 

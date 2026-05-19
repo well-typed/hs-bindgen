@@ -34,12 +34,12 @@ parseName = token $ \t -> do
 -- 16), @bool@ is classified as a keyword rather than an identifier. We accept
 -- keywords here so that macros such as @#define bool int@ can be parsed. Even
 -- in C23 the meaning of @bool@ can be overwritten (the macro takes precedence).
-parseLocName :: Parser (MultiLoc, Name)
+parseLocName :: Parser (Range MultiLoc, Name)
 parseLocName = token $ \t -> do
     let spelling = getTokenSpelling (tokenSpelling t)
     let ki = fromSimpleEnum (tokenKind t)
     guard $ ki == Right CXToken_Identifier || ki == Right CXToken_Keyword
     return (
-        rangeStart $ tokenExtent t
+        tokenExtent t
       , Name spelling
       )

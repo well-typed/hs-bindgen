@@ -69,9 +69,9 @@ FUNC_MULTIPLE_LOCAL_PARAMS: Right VaApp NoXApp MAdd (Term (LocalParam 3) ::: VaA
 EXPR_REF_ADD: Right VaApp NoXApp MAdd (Term (Var NoXVar "EXPR_ONE" []) ::: Term (Var NoXVar "EXPR_FORTY_TWO" []) ::: VNil)
 EXPR_CALL_ADD: Right Term (Var NoXVar "FUNC_ADD" [Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))),Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "2", integerLiteralType = Int Signed, integerLiteralValue = 2}))))])
 EXPR_CALL_NESTED: Right VaApp NoXApp MAdd (Term (Var NoXVar "FUNC_ADD" [Term (Var NoXVar "EXPR_ONE" []),Term (Var NoXVar "EXPR_FORTY_TWO" [])]) ::: Term (Literal (ValueLit (ValueInt (IntegerLiteral {integerLiteralText = "1", integerLiteralType = Int Signed, integerLiteralValue = 1})))) ::: VNil)
-CAST_SINGLE_NOKW: Right Term (Var NoXVar "x" [])
+CAST_SINGLE_NOKW: Left <parse error>
 CAST_SINGLE_KW: Left <parse error>
-BAD_CAST: Left <parse error>
+CAST_MULTI_KW: Left <parse error>
 BAD_KEYWORD_AS_PARAM: Left <parse error>
 TYPE_FUN_WITH_PARAM: Right Term (Literal (TypeLit (TypeInt Nothing (Just SizeInt))))
 BAD_TERNARY: Left <parse error>
