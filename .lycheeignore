@@ -1,9 +1,9 @@
 # Reference: https://lychee.cli.rs/recipes/excluding-links/
 
 # Sites that protect against automated access
+^https://dl\.acm\.org
 ^https://en\.cppreference\.com
+^https://old\.reddit\.com
+^https://registry\.khronos\.org
 ^https://www\.freedesktop\.org
-
-# TODO Document reason for ignore; ignore whole domains?
-https://dl.acm.org/doi/10.1145/3759164.3759350
-https://www.reddit.com/user/Krantz98
+^https://www\.reddit\.com
