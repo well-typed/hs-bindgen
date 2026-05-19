@@ -8,7 +8,6 @@ import Control.Monad.State qualified as State hiding (MonadState)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
 import DeBruijn (Idx (..), Weaken (..), pattern I1)
 
@@ -41,51 +40,45 @@ structDecs ::
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 structDecs supInsts hCfg info struct spec =
-    reifyStructFields $ case struct.flam of
-      Nothing   -> getDeclsFieldVec          supInsts hCfg spec info struct
-      Just flam -> getDeclsFieldVecFlam flam supInsts hCfg spec info struct
-  where
-    reifyStructFields ::
-      (forall n. SNatI n => Vec n (C.StructField Final) -> a) -> a
-    reifyStructFields k = Vec.reifyList struct.fields k
+    case struct.flam of
+      Nothing   -> getDeclsRegular   supInsts hCfg spec info struct
+      Just flam -> getDeclsFlam flam supInsts hCfg spec info struct
 
-getDeclsFieldVec :: forall n.
-     (HasCallStack, SNatI n)
+getDeclsRegular ::
+     HasCallStack
   => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
-  -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
+getDeclsRegular supInsts hCfg spec info struct = do
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts hCfg spec name info struct fieldsVec insts'
+          getDecls supInsts hCfg spec name info struct insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
-getDeclsFieldVecFlam :: forall n.
-     (HasCallStack, SNatI n)
+getDeclsFlam ::
+     HasCallStack
   => C.StructField Final
   -> Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
-  -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
+getDeclsFlam flam supInsts hCfg spec info struct = do
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts hCfg spec auxName info struct fieldsVec insts'
+          getDecls supInsts hCfg spec auxName info struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
@@ -97,7 +90,7 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
         Just n -> n
         Nothing -> panicPure "name of auxiliary declaration unavailable"
 
-    getHasFlamInstanceDecl :: Hs.Struct n -> Hs.Decl
+    getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl
     getHasFlamInstanceDecl hsStruct =
       Hs.DeclDefineInstance
         Hs.DefineInstance{
@@ -143,21 +136,16 @@ getInstances supInsts structName fields instanceMap =
     candidateInsts :: Set Inst.TypeClass
     candidateInsts = Hs.getCandidateInsts supInsts
 
-getDecls :: forall n.
-     SNatI n
-  => Map Inst.TypeClass Inst.SupportedStrategies
+getDecls ::
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
   -> C.DeclInfo Final
   -> C.Struct Final
-     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1576>
-     -- The field vector contains information about the number of fields on the
-     -- type level. Tracking this information here may not be necessary.
-  -> Vec n (C.StructField Final)
   -> Set Inst.TypeClass
-  -> (Hs.Struct n, [Hs.Decl])
-getDecls supInsts hCfg spec structName info struct fieldsVec insts =
+  -> (Hs.Struct, [Hs.Decl])
+getDecls supInsts hCfg spec structName info struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ fieldDecls
     )
@@ -171,11 +159,11 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
           , comment = mkHaddocksFieldInfo hCfg info field.info
           }
 
-    hsStruct :: Hs.Struct n
+    hsStruct :: Hs.Struct
     hsStruct = Hs.Struct {
           name      = structName
         , constr    = struct.names.constr
-        , fields    = Vec.map getHsField fieldsVec
+        , fields    = map getHsField struct.fields
         , instances = insts <> knownInsts
         , comment   = mkHaddocks hCfg info
         , origin    = Just Origin.Decl{
@@ -218,9 +206,10 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                   , instanceDecl =
                       Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
                           writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                              Vec.zipWith (writeRawField (weaken wk I1))
-                                fieldsVec xs
+                            Vec.reifyList struct.fields $ \fieldsVec ->
+                              Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                                Vec.zipWith (writeRawField (weaken wk I1))
+                                  fieldsVec xs
                         }
                   }
             , if hasStaticSize && hasReadRaw && hasWriteRaw
@@ -240,9 +229,10 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                             Hs.Ap (Hs.StructCon hsStruct) $
                               map (peekField IZ) struct.fields
                         , poke      = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                              Vec.zipWith (pokeField (weaken wk I1))
-                                fieldsVec xs
+                            Vec.reifyList struct.fields $ \fieldsVec ->
+                              Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                                Vec.zipWith (pokeField (weaken wk I1))
+                                  fieldsVec xs
                         }
                     }
             ]

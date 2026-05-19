@@ -132,10 +132,10 @@ data Field = Field{
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
 -- For enums we generate /both/ a newtype /and/ a struct, and then define
 -- instances only for the struct. We should get rid of this nasty hack.
-data Struct (n :: Nat) = Struct{
+data Struct = Struct{
       name      :: Hs.Name Hs.NsTypeConstr
     , constr    :: Hs.Name Hs.NsConstr
-    , fields    :: Vec n Field
+    , fields    :: [Field]
     , origin    :: Maybe (Origin.Decl Origin.Struct)
     , instances :: Set Inst.TypeClass
     , comment   :: Maybe HsDoc.Comment
@@ -253,7 +253,7 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 type Decl :: Star
 data Decl where
     DeclTypSyn               :: TypSyn               -> Decl
-    DeclData                 :: SNatI n => Struct n  -> Decl
+    DeclData                 :: Struct               -> Decl
     DeclEmpty                :: EmptyData            -> Decl
     DeclNewtype              :: Newtype              -> Decl
     DeclPatSyn               :: PatSyn               -> Decl
@@ -278,18 +278,21 @@ data DefineInstance = DefineInstance{
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
-    InstanceStaticSize      :: Struct n -> StaticSizeInstance -> InstanceDecl
-    InstanceReadRaw         :: Struct n -> ReadRawInstance -> InstanceDecl
-    InstanceWriteRaw        :: Struct n -> WriteRawInstance -> InstanceDecl
-    InstanceStorable        :: Struct n -> StorableInstance -> InstanceDecl
+    InstanceStaticSize      :: Struct -> StaticSizeInstance -> InstanceDecl
+    InstanceReadRaw         :: Struct -> ReadRawInstance -> InstanceDecl
+    InstanceWriteRaw        :: Struct -> WriteRawInstance -> InstanceDecl
+    InstanceStorable        :: Struct -> StorableInstance -> InstanceDecl
     InstanceHasCField       :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield    :: HasCBitfieldInstance -> InstanceDecl
     InstanceHasField        :: HasFieldInstance -> InstanceDecl
-    InstanceHasFlam         :: Struct n -> HasFlamInstance -> InstanceDecl
-    InstanceCEnum           :: Struct (S Z) -> CEnumInstance -> InstanceDecl
-    InstanceSequentialCEnum :: Struct (S Z) -> SequentialCEnumInstance -> InstanceDecl
-    InstanceCEnumShow       :: Struct (S Z) -> InstanceDecl
-    InstanceCEnumRead       :: Struct (S Z) -> InstanceDecl
+    InstanceHasFlam         :: Struct -> HasFlamInstance -> InstanceDecl
+    -- | The 'Struct' wraps the C enum's underlying integer field. Invariant:
+    -- exactly one field. Established at 'HsBindgen.Backend.Hs.Translation'
+    -- where these instances are built from a 'Newtype' carrying a single field.
+    InstanceCEnum           :: Struct -> CEnumInstance -> InstanceDecl
+    InstanceSequentialCEnum :: Struct -> SequentialCEnumInstance -> InstanceDecl
+    InstanceCEnumShow       :: Struct -> InstanceDecl
+    InstanceCEnumRead       :: Struct -> InstanceDecl
     InstanceToFunPtr        :: ToFunPtrInstance -> InstanceDecl
     InstanceFromFunPtr      :: FromFunPtrInstance -> InstanceDecl
 
@@ -784,7 +787,7 @@ data TypSyn = TypSyn{
 
 type StructCon :: Ctx -> Star
 data StructCon ctx where
-    StructCon :: Struct n -> StructCon ctx
+    StructCon :: Struct -> StructCon ctx
 
 deriving instance Show (StructCon ctx)
 
@@ -793,7 +796,7 @@ type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
 data ElimStruct t ctx where
     ElimStruct ::
          Idx ctx
-      -> Struct n
+      -> Struct
       -> Add n ctx ctx'
       -> t ctx'
       -> ElimStruct t ctx
@@ -804,7 +807,7 @@ deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 makeElimStruct :: forall n ctx t.
      SNatI n
   => Idx ctx
-  -> Struct n
+  -> Struct
   -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
   -> ElimStruct t ctx
 makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->

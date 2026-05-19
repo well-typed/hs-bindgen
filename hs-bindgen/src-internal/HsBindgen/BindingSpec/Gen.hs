@@ -14,7 +14,6 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe qualified as Maybe
 import Data.Ord qualified as Ord
 import Data.Set qualified as Set
-import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -179,7 +178,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           )
 
     auxStruct ::
-         Hs.Struct n
+         Hs.Struct
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
@@ -193,7 +192,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                 constructor = Just hsStruct.constr
               , fields      = Just [
                     field.name
-                  | field <- Vec.toList hsStruct.fields
+                  | field <- hsStruct.fields
                   ]
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {

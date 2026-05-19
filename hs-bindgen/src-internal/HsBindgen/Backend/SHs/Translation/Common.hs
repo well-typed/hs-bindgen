@@ -12,9 +12,12 @@ module HsBindgen.Backend.SHs.Translation.Common (
   , asNaryTApp
   ) where
 
+import DeBruijn (Add (..))
+
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -31,7 +34,18 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt struct.constr add hints (f k)]
   where
-    hints = fmap (toNameHint . (.name)) struct.fields
+    hints = listToVecBy add (toNameHint . (.name) <$> struct.fields)
+
+-- | Convert a list to a 'Vec' driven by the shape of an 'Add' proof.
+--
+-- The list must have at least as many elements as 'n'. Surplus elements are
+-- discarded. Invariant established by all current 'Hs.ElimStruct' construction
+-- sites: the field list determines the @n@ in 'Add' (via 'Vec.reifyList' in
+-- 'Hs.makeElimStruct', or by direct construction with matching arity).
+listToVecBy :: Add n ctx ctx' -> [a] -> Vec n a
+listToVecBy AZ     _      = VNil
+listToVecBy (AS a) (x:xs) = x ::: listToVecBy a xs
+listToVecBy (AS _) []     = panicPure "listToVecBy: list shorter than Add"
 
 toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
 toNameHint = NameHint . Hs.nameToStr

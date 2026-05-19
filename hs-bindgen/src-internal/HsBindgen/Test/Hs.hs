@@ -104,7 +104,7 @@ getOrphanInstances :: Hs.Decl -> [OrphanInstance]
 getOrphanInstances = \case
     Hs.DeclDefineInstance instanceDecl -> case instanceDecl of
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
-        let fieldNames = Hs.fieldName <$> Vec.toList structFields
+        let fieldNames = Hs.fieldName <$> structFields
         in  [ ArbitraryInstance     structName structConstr fieldNames
             , GenSeqInstance        structName structConstr fieldNames
             , PerturbInstance       structName structConstr fieldNames
