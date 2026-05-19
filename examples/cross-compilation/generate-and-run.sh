@@ -4,8 +4,9 @@
 #
 # Demonstrates the full cross-compilation pipeline:
 #   Phase 1: Build C library for aarch64
-#   Phase 2: Generate Haskell bindings for aarch64
-#   Phase 3: Cross-compile and run Haskell executable under QEMU
+#   Phase 2: Generate Haskell bindings for aarch64 (preprocess mode)
+#   Phase 3: Cross-compile and run preprocess-mode executable under QEMU
+#   Phase 4: Cross-compile and run TH-mode executable under QEMU
 #
 # Requires: nix develop (provides cross-GHC, QEMU, sysroots)
 #
@@ -18,7 +19,9 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 C_SRC_DIR="$SCRIPT_DIR/c-src"
-HS_PROJECT_DIR="$SCRIPT_DIR/hs-project"
+HS_PROJECT_PREPROCESS_DIR="$SCRIPT_DIR/hs-project-preprocess"
+HS_PROJECT_TH_DIR="$SCRIPT_DIR/hs-project-th"
+SHARED_BUILD_DIR="$SCRIPT_DIR/build-aarch64"
 
 # ============================================================================
 # Target configuration (aarch64)
@@ -30,8 +33,36 @@ CABAL_PATH="$CABAL_AARCH64_PATH"
 QEMU_CMD="qemu-aarch64"
 QEMU_LD_PREFIX="${QEMU_AARCH64_LD_PREFIX:-}"
 LIB_DIR_AARCH64="$C_SRC_DIR/lib-aarch64"
+LIBCLANG_DIR_AARCH64="${AARCH64_LIBCLANG_LIB:-}"
+LIBCLANG_INC_AARCH64="${AARCH64_LIBCLANG_INCLUDE:-}"
+ZLIB_DIR_AARCH64="${AARCH64_ZLIB_LIB:-}"
 EXE_NAME="cross-compilation-aarch64"
+EXE_NAME_TH="cross-compilation-aarch64-th"
 BUILDDIR="dist-newstyle-aarch64"
+
+# prepend_path BASE [DIR ...]: prepend non-empty DIRs to BASE, colon-joined
+# (precedence-first; later args have lower precedence).
+prepend_path() {
+    local path="$1" entry
+    shift
+    for entry in "$@"; do
+        [ -n "$entry" ] && path="$entry:$path"
+    done
+    printf '%s' "$path"
+}
+
+# write_if_changed PATH: read stdin and write to PATH only if it differs.
+# Preserves mtime on no-op runs so cabal does not reconfigure unnecessarily.
+write_if_changed() {
+    local path="$1" tmp
+    tmp="$(mktemp)"
+    cat > "$tmp"
+    if cmp -s "$tmp" "$path" 2>/dev/null; then
+        rm "$tmp"
+    else
+        mv "$tmp" "$path"
+    fi
+}
 
 echo "==> hs-bindgen Cross-Compilation: aarch64"
 
@@ -60,7 +91,6 @@ cd "$C_SRC_DIR"
 # (llvmPackages.stdenv.cc). The wrapper has target sysroot headers, linker
 # paths, and --target baked in — just override CC, no extra flags needed.
 echo "  Building aarch64 C library (cross-clang)"
-make clean >/dev/null 2>&1 || true
 make CC="$AARCH64_CC" >/dev/null
 mkdir -p "$LIB_DIR_AARCH64"
 cp libarch_types.* "$LIB_DIR_AARCH64/"
@@ -68,7 +98,7 @@ cp libarch_types.* "$LIB_DIR_AARCH64/"
 make clean >/dev/null 2>&1
 
 # ============================================================================
-# Phase 2: Generate Haskell bindings
+# Phase 2: Generate Haskell bindings (preprocess mode)
 # ============================================================================
 
 echo "==> Phase 2: Generating Haskell bindings"
@@ -106,31 +136,26 @@ generate_bindings() {
         "$C_SRC_DIR/arch_types.h"
 }
 
-# Generate aarch64 bindings
-echo "  Generating bindings for aarch64"
-generate_bindings "$TARGET_TRIPLE" "$HS_PROJECT_DIR/src-aarch64"
+echo "  Generating bindings for aarch64 (preprocess project)"
+generate_bindings "$TARGET_TRIPLE" "$HS_PROJECT_PREPROCESS_DIR/src-aarch64"
 
 # ============================================================================
-# Phase 3: Cross-compile and run under QEMU
+# Phase 3 + 4 shared scaffolding
 #
-# iserv: External interpreter for Template Haskell cross-compilation
+# A cross-compiling GHC cannot natively execute Template Haskell splices,
+# since the compiled splice code is target-architecture. GHC's solution is
+# `-fexternal-interpreter`: ship the splice over a pipe to `iserv`, a
+# target-arch binary that we run on the build host via QEMU user-mode
+# emulation. Both phases below rely on this same iserv-on-QEMU pipeline.
 #
-# See manual/low-level/usage/cross-compilation.md for detailed explanation.
-# Brief: iserv evaluates TH splices under QEMU for the target architecture.
-# We build it from source because Nix's cross-GHC does not ship an iserv
-# binary (Hadrian explicitly excludes it from cross builds). If you built
-# GHC from source with Hadrian's default settings, iserv is already included
-# in the installation and this step is unnecessary.
+# See manual/low-level/usage/cross-compilation.md (Part B + Part C) for the
+# full rationale.
 # ============================================================================
-
-echo "==> Phase 3: Cross-compiling and running aarch64 under QEMU"
-
-cd "$HS_PROJECT_DIR"
 
 # -- Validate prerequisites --------------------------------------------------
 
 if [ ! -x "$GHC_PATH" ]; then
-    echo "  Error: Cross-compiled GHC not found at: $GHC_PATH"
+    echo "  Error: cross-GHC not found at: $GHC_PATH"
     exit 1
 fi
 
@@ -146,8 +171,13 @@ if [ -z "$qemu_cmd_path" ]; then
 fi
 
 # -- Build iserv from source -------------------------------------------------
+#
+# Hadrian (GHC's build system) excludes iserv from cross builds by default,
+# and Nix's cross-GHC follows that default. If you built GHC from source
+# with `--cross-compile-flag --enable-iserv` (or similar), iserv is already
+# in your install tree and this step is a no-op.
 
-ISERV_DIR="$HS_PROJECT_DIR/iserv-build-aarch64"
+ISERV_DIR="$SHARED_BUILD_DIR/iserv"
 ISERV_BINARY="$ISERV_DIR/iserv"
 
 if [ ! -x "$ISERV_BINARY" ]; then
@@ -171,75 +201,225 @@ HS_EOF
     echo "  iserv built: $ISERV_BINARY"
 fi
 
-# -- Create iserv wrapper script ----------------------------------------------
+# -- write_iserv_wrapper PATH LD_PATH ----------------------------------------
+#
+# QEMU does NOT propagate the host's environment into the emulated process
+# (and the host's LD_LIBRARY_PATH would point at host-arch .so files anyway,
+# which the emulated linker cannot load). The -E flag is the only way to
+# inject env vars into the QEMU-side process.
 
-ISERV_WRAPPER="$HS_PROJECT_DIR/iserv-wrapper-aarch64.sh"
-
-cat > "$ISERV_WRAPPER" << WRAPPER_EOF
+write_iserv_wrapper() {
+    local wrapper_path="$1" ld_path="$2"
+    write_if_changed "$wrapper_path" << WRAPPER_EOF
 #!/usr/bin/env bash
-exec $qemu_cmd_path ${QEMU_LD_PREFIX:+-L "$QEMU_LD_PREFIX"} $ISERV_BINARY "\$@"
+exec $qemu_cmd_path \
+    ${QEMU_LD_PREFIX:+-L "$QEMU_LD_PREFIX"} \
+    -E "LD_LIBRARY_PATH=$ld_path" \
+    $ISERV_BINARY "\$@"
 WRAPPER_EOF
+    chmod +x "$wrapper_path"
+}
 
-chmod +x "$ISERV_WRAPPER"
-
-# -- Configure cabal for cross-compilation ------------------------------------
+# -- Shared cabal invocation helpers -----------------------------------------
+#
+# --with-hsc2hs is required because Nix's cross-GHC ships hsc2hs under a
+# target-prefixed name (aarch64-unknown-linux-gnu-hsc2hs) that cabal does
+# not discover automatically.
 
 ghc_pkg_path="${GHC_PATH%-ghc}-ghc-pkg"
 hsc2hs_path="${GHC_PATH%-ghc}-hsc2hs"
 
-cat > "$HS_PROJECT_DIR/cabal.project.local" << CABAL_EOF
+cabal_args=(
+    --with-compiler="$GHC_PATH"
+    --with-ghc-pkg="$ghc_pkg_path"
+    --builddir="$BUILDDIR"
+)
+[ -n "$hsc2hs_path" ] && cabal_args+=(--with-hsc2hs="$hsc2hs_path")
+
+aarch64_cabal_build() {
+    "$CABAL_PATH" build "$1" "${cabal_args[@]}"
+}
+
+aarch64_exe_path() {
+    "$CABAL_PATH" list-bin -v0 "$1" "${cabal_args[@]}"
+}
+
+# qemu_run EXE LD_PATH: run EXE under QEMU with target-arch LD_LIBRARY_PATH.
+# As with the iserv wrapper, host LD_LIBRARY_PATH is *not* propagated;
+# QEMU's -E flag is the only path in.
+qemu_run() {
+    local exe="$1" ld_path="$2"
+    if [ -z "$QEMU_LD_PREFIX" ]; then
+        echo "  Warning: QEMU_LD_PREFIX not set, system libraries may not be found"
+        "$QEMU_CMD" "$exe"
+    else
+        "$QEMU_CMD" -L "$QEMU_LD_PREFIX" -E "LD_LIBRARY_PATH=$ld_path" "$exe"
+    fi
+}
+
+# ============================================================================
+# Phase 3: Preprocess-mode executable
+# ============================================================================
+#
+# The bindings already live in src-aarch64/, generated by hs-bindgen-cli on
+# the host in Phase 2. The cross-GHC just compiles them. iserv handles the
+# small TH splices internal to hs-bindgen-runtime (Storable derivations
+# etc.), but no libclang is invoked at TH time.
+
+echo "==> Phase 3: Cross-compiling and running preprocess-mode executable"
+
+PREPROCESS_ISERV_WRAPPER="$HS_PROJECT_PREPROCESS_DIR/iserv-wrapper-aarch64.sh"
+preprocess_iserv_ld_path=$(prepend_path "$LIB_DIR_AARCH64" "$AARCH64_GMP_LIB")
+write_iserv_wrapper "$PREPROCESS_ISERV_WRAPPER" "$preprocess_iserv_ld_path"
+
+write_if_changed "$HS_PROJECT_PREPROCESS_DIR/cabal.project.local" << CABAL_EOF
 -- Auto-generated by generate-and-run.sh for aarch64 cross-compilation
-package cross-compilation-example
-  extra-include-dirs: $C_SRC_DIR
-  extra-lib-dirs: $LIB_DIR_AARCH64
+-- (preprocess mode). Do not edit by hand: the absolute Nix store paths
+-- below are baked in at script-generation time and become stale after any
+-- \`nix develop\` change. Re-run ./generate-and-run.sh to regenerate.
 
 package *
-  ghc-options: -fexternal-interpreter -pgmi $ISERV_WRAPPER
+  -- -fexternal-interpreter routes hs-bindgen-runtime's small TH splices
+  -- through iserv.
+  ghc-options: -fexternal-interpreter -pgmi $PREPROCESS_ISERV_WRAPPER
+  extra-lib-dirs: $LIB_DIR_AARCH64
   ${AARCH64_GMP_LIB:+extra-lib-dirs: $AARCH64_GMP_LIB}
+
+package cross-compilation-preprocess
+  extra-include-dirs: $C_SRC_DIR
 CABAL_EOF
 
-# -- Build cross-compiled executable ------------------------------------------
-#
-# Note: --with-hsc2hs is required because Nix's cross-GHC ships hsc2hs under
-# a target-prefixed name (e.g. aarch64-unknown-linux-gnu-hsc2hs) that cabal
-# does not discover automatically. The example includes a .hsc file
-# (app/ArchSizes.hsc) to demonstrate this requirement.
+cd "$HS_PROJECT_PREPROCESS_DIR"
 
 echo "  Building Haskell executable for aarch64"
-
-if ! "$CABAL_PATH" build "$EXE_NAME" \
-    --with-compiler="$GHC_PATH" \
-    --with-ghc-pkg="$ghc_pkg_path" \
-    ${hsc2hs_path:+--with-hsc2hs="$hsc2hs_path"} \
-    --builddir="$BUILDDIR" \
-    --extra-lib-dirs="$LIB_DIR_AARCH64" \
-    ${AARCH64_GMP_LIB:+--extra-lib-dirs="$AARCH64_GMP_LIB"} \
-    --extra-include-dirs="$C_SRC_DIR" \
-    --ghc-option="-optc-Wno-error"; then
-    echo "  Build failed"
-    exit 1
-fi
-
-# -- Run under QEMU -----------------------------------------------------------
-
-exe_path=$(find "$BUILDDIR" -type f -name "$EXE_NAME" -executable 2>/dev/null | head -1)
-
-if [ -z "$exe_path" ]; then
-    echo "  Error: Executable not found in $BUILDDIR"
-    exit 1
-fi
+aarch64_cabal_build "$EXE_NAME"
 
 echo "  Running aarch64 executable under QEMU:"
-
-if [ -n "$QEMU_LD_PREFIX" ]; then
-    LD_LIBRARY_PATH="$LIB_DIR_AARCH64:${LD_LIBRARY_PATH:-}" \
-        "$QEMU_CMD" -L "$QEMU_LD_PREFIX" -E "LD_LIBRARY_PATH=$LIB_DIR_AARCH64" "$exe_path"
-else
-    echo "  Warning: QEMU_LD_PREFIX not set, system libraries may not be found"
-    LD_LIBRARY_PATH="$LIB_DIR_AARCH64:${LD_LIBRARY_PATH:-}" \
-        "$QEMU_CMD" "$exe_path"
-fi
-
+qemu_run "$(aarch64_exe_path "$EXE_NAME")" "$LIB_DIR_AARCH64"
 echo "  Successfully ran aarch64 Haskell executable under QEMU"
+
+# ============================================================================
+# Phase 4: TH-mode executable
+# ============================================================================
+#
+# The splice (\`withHsBindgen ... \$ hashInclude "arch_types.h"\`) runs in
+# iserv-on-QEMU. iserv loads the cross-built hs-bindgen object code, which
+# dlopens target libclang.so (resolved via the iserv wrapper's
+# LD_LIBRARY_PATH set below) and parses the header. The resulting Haskell
+# declarations are inlined into the user's MainTH.o and linked against the
+# wrapped C library (\`extra-libraries: arch_types\` in the .cabal).
+#
+# Two environment tweaks feed information into the splice:
+#
+#   * PATH with the stub prepended - so libclang-bindings's configure script
+#   (run during cross-build of hs-bindgen) finds our target llvm-config stub
+#   via the normal AC_PATH_PROG search instead of picking up the host's
+#   llvm-config and failing with "Cannot find libclang headers". We
+#   intentionally avoid setting the LLVM_CONFIG env var: using PATH keeps
+#   libclang-bindings's existing configure flow on its normal path and leaves
+#   LLVM_CONFIG free for other potential uses.
+#
+#   * BINDGEN_BUILTIN_INCLUDE_DIR=disable - hygiene, not strictly required for
+#   arch_types.h (it has no system #includes). With it unset, the splice falls
+#   through to host-clang discovery and silently uses host builtin includes,
+#   which would be wrong for headers that #include <stdint.h> etc. \`disable\`
+#   is a documented value; see
+#   hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs.
+
+echo "==> Phase 4: Cross-compiling and running TH-mode executable"
+
+TH_ISERV_WRAPPER="$HS_PROJECT_TH_DIR/iserv-wrapper-aarch64.sh"
+th_iserv_ld_path=$(prepend_path "$LIB_DIR_AARCH64" \
+    "$LIBCLANG_DIR_AARCH64" "$ZLIB_DIR_AARCH64" "$AARCH64_GMP_LIB")
+write_iserv_wrapper "$TH_ISERV_WRAPPER" "$th_iserv_ld_path"
+
+# -- llvm-config stub for libclang-bindings's configure script ---------------
+#
+# Real `llvm-config` is a tool shipped with LLVM that exposes installation
+# paths to build systems (see https://llvm.org/docs/CommandGuide/llvm-config.html).
+# libclang-bindings is `build-type: Configure` and ships a configure.ac
+# that finds LLVM via:
+#
+#     AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
+#
+# AC_PATH_PROG searches PATH for an executable named `llvm-config`. We
+# place a stub named exactly `llvm-config` in a dedicated bin directory
+# and prepend that directory to PATH for the cabal build below, so the
+# configure script finds our target-aware stub instead of the host's
+# llvm-config, without us having to set the LLVM_CONFIG env var.
+#
+# The four flags below are the subset of llvm-config's interface our
+# consumers actually call:
+#
+#   --version    libclang-bindings configure.ac sanity check
+#                (output unused beyond `$? == 0` + non-empty check;
+#                see configure.ac:30-44 in the libclang-bindings tree)
+#   --libdir     libclang-bindings configure.ac: LDFLAGS=-L<libdir>
+#   --includedir libclang-bindings configure.ac: CPPFLAGS=-I<includedir>
+#   --prefix     hs-bindgen Clang/BuiltinIncDir.hs (used to locate clang's
+#                builtin headers -- only exercised when
+#                BINDGEN_BUILTIN_INCLUDE_DIR != "disable")
+#
+# 19.1.7 happens to match LLVM in our nixos-25.05 pin, but any non-empty
+# string would do.
+
+LLVM_STUB_BIN_DIR="$HS_PROJECT_TH_DIR/llvm-stub-bin"
+LLVM_CONFIG_STUB="$LLVM_STUB_BIN_DIR/llvm-config"
+mkdir -p "$LLVM_STUB_BIN_DIR"
+
+write_if_changed "$LLVM_CONFIG_STUB" << STUB_EOF
+#!/usr/bin/env bash
+case "\$1" in
+    --version)    echo "19.1.7" ;;  # value unused beyond non-empty check
+    --libdir)     echo "$LIBCLANG_DIR_AARCH64" ;;
+    --includedir) echo "$LIBCLANG_INC_AARCH64" ;;
+    --prefix)     echo "${LIBCLANG_DIR_AARCH64%/lib}" ;;
+esac
+STUB_EOF
+chmod +x "$LLVM_CONFIG_STUB"
+
+write_if_changed "$HS_PROJECT_TH_DIR/cabal.project.local" << CABAL_EOF
+-- Auto-generated by generate-and-run.sh for aarch64 cross-compilation
+-- (TH mode). Do not edit by hand: the absolute Nix store paths below are
+-- baked in at script-generation time and become stale after any
+-- \`nix develop\` change. Re-run ./generate-and-run.sh to regenerate.
+
+package *
+  -- -fexternal-interpreter routes TH splices through iserv. Required here
+  -- because the hs-bindgen TH splice itself runs inside iserv under QEMU.
+  ghc-options: -fexternal-interpreter -pgmi $TH_ISERV_WRAPPER
+  extra-lib-dirs: $LIB_DIR_AARCH64
+  ${AARCH64_GMP_LIB:+extra-lib-dirs: $AARCH64_GMP_LIB}
+  ${LIBCLANG_DIR_AARCH64:+extra-lib-dirs: $LIBCLANG_DIR_AARCH64}
+  ${ZLIB_DIR_AARCH64:+extra-lib-dirs: $ZLIB_DIR_AARCH64}
+  -- zlib's hsc files \`#include <zlib.h>\`. With the default
+  -- \`+pkg-config\` flag, cabal asks pkg-config for the include path,
+  -- but pkg-config is not target-aware in our cross setup, so the
+  -- preprocessing fails with \`zlib.h: No such file or directory\`.
+  -- Adding the target zlib's include dir here lets the cross-CC find
+  -- it without overriding cabal flags.
+  ${AARCH64_ZLIB_INCLUDE:+extra-include-dirs: $AARCH64_ZLIB_INCLUDE}
+
+package cross-compilation-th
+  extra-include-dirs: $C_SRC_DIR
+
+package libclang-bindings
+  ${LIBCLANG_INC_AARCH64:+extra-include-dirs: $LIBCLANG_INC_AARCH64}
+CABAL_EOF
+
+cd "$HS_PROJECT_TH_DIR"
+
+echo "  Building Haskell TH executable for aarch64"
+
+PATH="$LLVM_STUB_BIN_DIR:$PATH" \
+BINDGEN_BUILTIN_INCLUDE_DIR=disable \
+    aarch64_cabal_build "$EXE_NAME_TH"
+
+th_run_ld_path=$(prepend_path "$LIB_DIR_AARCH64" \
+    "$LIBCLANG_DIR_AARCH64" "$ZLIB_DIR_AARCH64" "$AARCH64_GMP_LIB")
+
+echo "  Running aarch64-th executable under QEMU:"
+qemu_run "$(aarch64_exe_path "$EXE_NAME_TH")" "$th_run_ld_path"
+echo "  Successfully ran aarch64-th Haskell executable under QEMU"
 
 echo "==> Done!"

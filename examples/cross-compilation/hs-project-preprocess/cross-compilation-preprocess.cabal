@@ -1,0 +1,52 @@
+cabal-version: 3.0
+name:          cross-compilation-preprocess
+version:       0.1.0.0
+synopsis:      hs-bindgen cross-compilation example (preprocess mode)
+description:
+  Cross-compilation example using hs-bindgen in preprocess mode: bindings
+  are generated ahead of time by @hs-bindgen-cli@ on the host and then
+  cross-compiled into the executable. Sibling of the @cross-compilation-th@
+  project, which demonstrates the same thing in TH mode. See the parent
+  directory's @generate-and-run.sh@ for the full workflow.
+
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Well-Typed LLP
+maintainer:    hs-bindgen@well-typed.com
+build-type:    Simple
+
+common warnings
+  ghc-options: -Wall
+
+-- Library with aarch64-linux-gnu bindings
+-- Use this when building for 64-bit ARM Linux
+library cross-compilation-aarch64-lib
+  import:           warnings
+  exposed-modules:
+    ArchTypes.Generated
+    ArchTypes.Generated.FunPtr
+    ArchTypes.Generated.Safe
+    ArchTypes.Generated.Unsafe
+
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen-runtime
+    , primitive
+
+  hs-source-dirs:   src-aarch64
+  default-language: Haskell2010
+
+-- aarch64 executable (runs under QEMU or on ARM64 hardware)
+executable cross-compilation-aarch64
+  import:           warnings
+  hs-source-dirs:   app
+  other-modules:
+    ArchSizes
+    PrintStructs
+
+  main-is:          Main.hs
+  default-language: Haskell2010
+  build-depends:
+    , base                           >=4.16 && <5
+    , cross-compilation-aarch64-lib
+    , hs-bindgen-runtime

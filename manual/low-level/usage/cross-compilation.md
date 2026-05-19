@@ -391,6 +391,285 @@ LD_LIBRARY_PATH=./lib-aarch64 \
 The `-L` flag tells QEMU where to find the target's system libraries (glibc,
 ld-linux, etc.).
 
+## Part C: Cross-compilation in Template Haskell mode
+
+Parts A and B describe **preprocess mode**: `hs-bindgen-cli` runs on the host
+to generate `.hs` files ahead of time, then a cross-GHC compiles them. In
+**Template Haskell (TH) mode**, the user's package contains a
+`withHsBindgen` / `hashInclude` splice that generates the bindings *during*
+compilation. This section covers the additional considerations for TH-mode
+cross-compilation.
+
+> [!TIP]
+> Preprocess mode is the recommended path for cross-compilation. TH mode
+> works but is structurally heavier: the full `hs-bindgen` package must be
+> cross-built, and a target-architecture `libclang.so` must be reachable
+> from the iserv runtime.
+
+### Why TH-mode cross-compilation is different
+
+A cross-compiling GHC delegates TH splices to **iserv**, a target-architecture
+binary running under QEMU (covered in Part B). The splice itself therefore
+executes in the *target* environment, not on the host:
+
+1. GHC encounters `withHsBindgen ... $ hashInclude "foo.h"` and sends the
+   splice to iserv.
+2. Inside iserv, the GHC RTS object linker loads the compiled `hs-bindgen`
+   object code (target architecture).
+3. That code dynamically loads `libclang.so` to parse the C header.
+4. iserv returns the generated declarations; GHC compiles them into the
+   target binary.
+
+This has two practical consequences:
+
+- **The full `hs-bindgen` package is cross-built**, not just
+  `hs-bindgen-runtime`. In preprocess mode the user's package depends only on
+  `hs-bindgen-runtime` (which is small); in TH mode it depends on
+  `hs-bindgen` itself, which transitively pulls in `libclang-bindings`,
+  `doxygen-parser`, and so on. The first cross-build is therefore
+  significantly heavier.
+- **A target-architecture `libclang.so` must be reachable from iserv.** The
+  `libclang-bindings` package declares `extra-libraries: clang`, so when
+  iserv loads `hs-bindgen`'s object code it dlopens `libclang.so`. That
+  `libclang.so` must be the target architecture and on the QEMU dynamic
+  linker's search path.
+
+### Cabal configuration
+
+The user's package needs to depend on the full `hs-bindgen` package (not just
+`hs-bindgen-runtime`) and enable the language extensions the splice-generated
+code uses. A practical baseline is `default-language: GHC2021` together with
+the extension list used by hs-bindgen's own TH tests
+([`hs-bindgen/test/th/Test/TH/Test01.hs`](../../../hs-bindgen/test/th/Test/TH/Test01.hs)).
+GHC2021 matters because the splice expands inside the user's module rather
+than a separate generated file, so the user's `default-extensions` need to
+cover everything the generated code uses:
+
+```cabal
+executable my-app
+  build-depends:      base, hs-bindgen, hs-bindgen-runtime
+  default-language:   GHC2021
+  default-extensions:
+      CApiFFI
+      DataKinds
+      DerivingStrategies
+      DerivingVia
+      MagicHash
+      OverloadedLabels
+      OverloadedStrings
+      PatternSynonyms
+      TemplateHaskell
+      TypeFamilies
+      UnboxedTuples
+      UndecidableInstances
+```
+
+The `-fexternal-interpreter -pgmi <wrapper>` ghc-options from Part B still
+apply here, because `hs-bindgen` itself uses TH and must go through iserv.
+Set them on `package *`:
+
+```cabal
+package *
+  ghc-options: -fexternal-interpreter -pgmi /path/to/iserv-wrapper.sh
+```
+
+#### Linking the wrapped C library: `extra-libraries`
+
+Each `foreign import ccall foo :: ...` declaration causes GHC to emit a
+small C stub (in `dist-newstyle/.../*-tmp/ghc_*.c`) that calls into the
+underlying C symbol. That stub is compiled into the same object file as the
+module containing the import. In TH mode the splice expands inside the
+user's module, so the stubs end up in `Main.o` itself, alongside `main`,
+which means the final link must resolve the C symbols. Declare the wrapped
+library explicitly:
+
+```cabal
+executable my-app
+  extra-libraries: my_c_lib
+```
+
+### Reaching target `libclang.so` from QEMU
+
+Augment the iserv wrapper script to set `LD_LIBRARY_PATH` (via QEMU's `-E`
+flag) so the RTS object linker inside iserv can find target `libclang.so`:
+
+```bash
+#!/usr/bin/env bash
+exec qemu-aarch64 \
+    -L /path/to/target/sysroot \
+    -E "LD_LIBRARY_PATH=/path/to/target/libclang/lib:/path/to/target/gmp/lib:/path/to/target/c-libs" \
+    /path/to/target/iserv "$@"
+```
+
+On Nix, the target libclang is exposed by `pkgsCross.<target>.llvmPackages.libclang.lib`:
+
+```nix
+let
+  pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
+  aarch64Libclang = pkgsAarch64.llvmPackages.libclang.lib;
+in ...
+```
+
+### TH splice include paths
+
+The splice's C include directories must be passed explicitly via its
+`Config`, they are *not* derived from cabal's `extra-include-dirs`:
+
+```haskell
+import HsBindgen.TH
+
+let cfg :: Config
+    cfg = def
+      & #clang % #extraIncludeDirs .~ [Pkg "../c-src"]
+    cfgTh :: ConfigTH
+    cfgTh = def
+ in withHsBindgen cfg cfgTh $
+      hashInclude "arch_types.h"
+```
+
+`Pkg` paths are resolved relative to the package root (the directory
+containing the `.cabal` file). `Dir` accepts an absolute path. Cross- and
+host-target flags (e.g. `--target=aarch64-linux-gnu`) can be passed via
+`Config`'s clang fields.
+
+### Transitive dependency workarounds
+
+Two of `hs-bindgen`'s transitive dependencies need a small workaround when
+cross-building manually (cross-GHC + target-arch package set, no nixpkgs
+Haskell wrapper):
+
+#### `zlib`: `Stream.hsc:...: fatal error: zlib.h: No such file or directory`
+
+The Hackage [`zlib`](https://hackage.haskell.org/package/zlib) package
+wraps the C zlib library. Its `.hsc` files do `#include <zlib.h>`, and
+the cabal preprocessor invokes the cross-CC to expand them. With the
+default `pkg-config` flag (`flag pkg-config { default: True }` in
+zlib.cabal) cabal asks pkg-config for the include path, but pkg-config
+in a typical cross setup is not target-aware -- it either fails or
+returns host paths -- so the preprocessing fails with `zlib.h: No such
+file or directory`.
+
+The simplest fix is to make the target zlib's headers visible to all
+packages:
+
+```cabal
+package *
+  extra-include-dirs: /path/to/target/zlib/include
+  extra-lib-dirs:     /path/to/target/zlib/lib
+```
+
+On Nix the include dir comes from `pkgsCross.<target>.zlib.dev` and the
+lib dir from `pkgsCross.<target>.zlib.out`.
+
+If a target zlib is inconvenient to obtain, an alternative is the
+package's `bundled-c-zlib` flag, which swaps the system-library
+dependency for the
+[`zlib-clib`](https://hackage.haskell.org/package/zlib-clib) package
+(zlib's C source, compiled inline -- no system zlib needed):
+
+```cabal
+package zlib
+  flags: +bundled-c-zlib
+```
+
+(or, on the cabal CLI: `--constraint='zlib +bundled-c-zlib'`).
+
+#### `libclang-bindings`: `Cannot find libclang headers`
+
+`libclang-bindings` is `build-type: Configure` and ships an autoconf
+`configure.ac` that locates LLVM via the standard
+[`llvm-config`](https://llvm.org/docs/CommandGuide/llvm-config.html)
+utility:
+
+```
+AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
+```
+
+If only the host `llvm-config` is on `PATH`, the subsequent
+`AC_CHECK_HEADER([clang-c/Index.h])` checks against host include paths and the
+configure step fails with a "Cannot find libclang headers" error.
+
+The fix is to provide a target-aware `llvm-config` for the build. Write a
+small stub that returns the target paths, name it exactly `llvm-config`,
+place it in a dedicated directory, and prepend that directory to `PATH` so
+`AC_PATH_PROG`'s normal search picks it up before the host's:
+
+```bash
+mkdir -p llvm-stub-bin
+cat > llvm-stub-bin/llvm-config << 'EOF'
+#!/usr/bin/env bash
+case "$1" in
+    --version)    echo "19.1.7" ;;
+    --libdir)     echo "/path/to/target/libclang/lib" ;;
+    --includedir) echo "/path/to/target/libclang/include" ;;
+    --prefix)     echo "/path/to/target/libclang" ;;
+esac
+EOF
+chmod +x llvm-stub-bin/llvm-config
+
+PATH=$(pwd)/llvm-stub-bin:$PATH cabal build ...
+```
+
+The configure script also declares
+
+```
+AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
+```
+
+so as a fallback you can set `LLVM_CONFIG=/path/to/stub`
+([`AC_ARG_VAR`](https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html)
+is autoconf's "precious" env-var mechanism, which overrides any
+`AC_PATH_PROG` search). The `PATH` approach above is preferred because it
+keeps the configure flow on its normal path and avoids reserving an env
+var for this single purpose.
+
+The four flags above are the subset that our consumers actually call:
+
+- `--version` -- libclang-bindings's configure.ac sanity check (output
+  unused beyond a non-empty check; any string works)
+- `--libdir` -- `libclang-bindings` configure.ac: `LDFLAGS=-L<libdir>`
+- `--includedir` -- `libclang-bindings` configure.ac:
+  `CPPFLAGS=-I<includedir>`
+- `--prefix` -- consumed by hs-bindgen's clang-builtin-headers discovery
+  (see next subsection); only exercised when
+  `BINDGEN_BUILTIN_INCLUDE_DIR != "disable"`
+
+On Nix, the target paths come from
+`pkgsCross.<target>.llvmPackages.libclang.{lib,dev}`. The `.dev` output
+provides the headers that go in `--includedir`; the `.lib` output
+provides the `.so` files that go in `--libdir`.
+
+#### Skipping clang's builtin-headers discovery
+
+When the splice runs, hs-bindgen tries to locate clang's builtin
+include directory. In a normal install this lives at
+`<llvm-prefix>/lib/clang/<ver>/include/`.
+
+The discovery flow (see
+[`hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs`](../../../hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs))
+checks, in order:
+
+1. The `BINDGEN_BUILTIN_INCLUDE_DIR` environment variable
+   (`disable` skips discovery; `clang` selects the discovery path below)
+2. `$(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir` then
+   `<resource-dir>/include`
+3. `$(clang -print-resource-dir)/include` from `PATH`
+
+If your header has no system `#include`s, the splice does not need any of
+these, discovery falls through to host-clang and the splice still produces
+correct bindings. Setting `BINDGEN_BUILTIN_INCLUDE_DIR=disable` is still
+recommended though: it skips discovery entirely, so the splice cannot
+accidentally pick up host builtin includes that would be architecturally
+wrong if the header started using `<stdint.h>` etc.
+
+### Working example
+
+The [cross-compilation example](../../../examples/cross-compilation/)
+ships both modes side-by-side. Phase 4 of `generate-and-run.sh` cross-builds
+and runs the TH executable under QEMU; on success the output reports the
+target struct sizes from the TH splice next to the same values measured by
+`hsc2hs`, and the two columns match.
+
 ### Troubleshooting
 
 #### Environment variable conflicts

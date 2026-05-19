@@ -13,17 +13,17 @@
 
         # Cross-compilation package sets
         #
-        # NOTE: GHC 9.10+ cannot cross-compile to ARM32 due to an LLVM bug:
-        #   llc segfaults in ARMAsmPrinter::emitXXStructor (null Subtarget)
-        #   Affects all LLVM versions 17–21. Fixed on LLVM main (PR #166329),
-        #   but the backport to release/21.x was rejected (#168380).
-        #   Upstream issues: llvm/llvm-project#165422, ghc#26510,
-        #   NixOS/nixpkgs#466116
-        # GHC 9.8 generates different IR that does not trigger this bug,
-        # so we pin to nixos-25.05 (GHC 9.8.4) until LLVM 22 ships.
-        #
-        # ARM32 cross-compilation with Template Haskell is additionally
-        # blocked by a GHC runtime linker bug (ghc#26937).
+        # We pin nixos-25.05 (GHC 9.8.4) as a known-good baseline. The pin
+        # is conservative for aarch64-only: the historical reason was an
+        # LLVM bug in the 32-bit ARM backend
+        # (`ARMAsmPrinter::emitXXStructor`, null `Subtarget`) that
+        # affected GHC 9.10+ when cross-compiling to ARM32 with LLVM
+        # 17-21. Upstream refs: llvm/llvm-project#165422, ghc#26510,
+        # NixOS/nixpkgs#466116. ARM32 was removed from this example, so
+        # for aarch64 the pin can likely be relaxed to a newer nixpkgs --
+        # this just hasn't been re-validated. Bumping the pin would also
+        # need to re-check ghc#26937 (GHC runtime linker / TH on ARM32),
+        # which is not a concern for aarch64 either.
         pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
 
         # Target sysroot (glibc headers + libraries).
@@ -64,6 +64,15 @@
         # the final executable.
         aarch64Gmp = pkgsAarch64.gmp;
 
+        # Target-arch libclang and zlib (TH mode only -- iserv dlopens
+        # libclang.so under QEMU; hs-bindgen pulls in zlib transitively).
+        # `.dev` exposes the C headers (clang-c/Index.h) that
+        # libclang-bindings's configure script needs.
+        # See manual/low-level/usage/cross-compilation.md.
+        aarch64Libclang    = pkgsAarch64.llvmPackages.libclang.lib;
+        aarch64LibclangDev = pkgsAarch64.llvmPackages.libclang.dev;
+        aarch64Zlib        = pkgsAarch64.zlib;
+
         # Common tools needed by all shells
         commonBuildInputs = with pkgs; [
           gnumake
@@ -81,64 +90,49 @@
           LD_LIBRARY_PATH = "${pkgs.lib.getLib pkgs.llvmPackages.libclang}/lib";
         };
 
+        # Variables consumed by examples/cross-compilation/generate-and-run.sh.
+        aarch64Exports = ''
+          export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
+          export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
+          export AARCH64_SYSROOT="${aarch64Sysroot}"
+          export AARCH64_CC="${aarch64Clang}"
+          export AARCH64_GMP_LIB="${aarch64Gmp}/lib"
+          export AARCH64_LIBCLANG_LIB="${aarch64Libclang}/lib"
+          export AARCH64_LIBCLANG_INCLUDE="${aarch64LibclangDev}/include"
+          export AARCH64_ZLIB_LIB="${aarch64Zlib.out}/lib"
+          export AARCH64_ZLIB_INCLUDE="${aarch64Zlib.dev}/include"
+          export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
+        '';
+
+        mkAarch64Shell = { name, banner ? "" }: pkgs.mkShell (commonShellVars // {
+          inherit name;
+          buildInputs = commonBuildInputs ++ [
+            pkgs.qemu
+            ghcAarch64
+            cabalAarch64
+            aarch64Libclang
+            aarch64LibclangDev
+            aarch64Zlib
+          ];
+          shellHook = banner + aarch64Exports;
+        });
+
       in
       {
         devShells = {
-          # Full environment with all cross-targets (for local development)
-          default = pkgs.mkShell (commonShellVars // {
+          default = mkAarch64Shell {
             name = "hs-bindgen-cross-compilation";
-
-            buildInputs = commonBuildInputs ++ [
-              pkgs.qemu
-              ghcAarch64
-              cabalAarch64
-            ];
-
-            shellHook = ''
+            banner = ''
               echo "hs-bindgen cross-compilation environment"
               echo "  Target: aarch64-linux-gnu"
               echo "  Run: ./generate-and-run.sh"
               echo ""
-
-              # Cross-compiled GHC paths (read by generate-and-run.sh)
-              export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
-              export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
-
-              # Target sysroot: used for QEMU runtime (dynamic linker +
-              # system libs) and for hs-bindgen-cli binding generation when
-              # C headers #include system headers (via -isystem)
-              export AARCH64_SYSROOT="${aarch64Sysroot}"
-
-              # Cross-compiling Clang wrapper (for C library cross-compilation)
-              export AARCH64_CC="${aarch64Clang}"
-
-              # Target-arch GMP (GHC's RTS links against libgmp)
-              export AARCH64_GMP_LIB="${aarch64Gmp}/lib"
-
-              # QEMU library path (sysroot for runtime library access)
-              export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
             '';
-          });
+          };
 
-          # AArch64 cross-compilation only
-          cross-aarch64 = pkgs.mkShell (commonShellVars // {
+          cross-aarch64 = mkAarch64Shell {
             name = "hs-bindgen-cross-aarch64";
-
-            buildInputs = commonBuildInputs ++ [
-              pkgs.qemu
-              ghcAarch64
-              cabalAarch64
-            ];
-
-            shellHook = ''
-              export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
-              export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
-              export AARCH64_SYSROOT="${aarch64Sysroot}"
-              export AARCH64_CC="${aarch64Clang}"
-              export AARCH64_GMP_LIB="${aarch64Gmp}/lib"
-              export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
-            '';
-          });
+          };
         };
       }
     );
