@@ -102,6 +102,7 @@
 # $ hlint --default > .hlint.yaml
 
 - arguments:
-  - --path=hs-bindgen/src
-  - --path=hs-bindgen/app
-  - --path=hs-bindgen/src-internal
+  - --ignore-glob=alternatives/**
+  - --ignore-glob=c-expr-runtime/**/HostPlatform.hs
+  - --ignore-glob=examples/**
+  - --ignore-glob=hs-bindgen/test-artefacts/**
