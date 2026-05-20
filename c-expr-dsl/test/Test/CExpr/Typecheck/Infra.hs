@@ -20,11 +20,13 @@ module Test.CExpr.Typecheck.Infra (
   , mvar
   ) where
 
-import Data.Functor.Identity (Identity (..))
-import Data.Map.Strict qualified as Map
+import Data.Map (Map)
+import Data.Map qualified as Map
 import Data.Nat (Nat (..))
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Vec.Lazy (Vec (..))
+import Data.Void (Void)
 import DeBruijn (Idx (..))
 import Test.Tasty.HUnit
 
@@ -33,66 +35,65 @@ import C.Type qualified as Runtime
 import C.Expr.Syntax
 import C.Expr.Typecheck
 
+import Test.CExpr.Util
+
 type MacDef = (Name, Expr Z Ps)
 
-tcMacroSimple ::
+-- | Run 'tcMacros' on a single macro
+--
+-- Convenience for tests that exercise one macro in isolation; threads no
+-- typedef context.
+classifyOne ::
      forall ctx.
-     TypeEnv
-  -> Name
+     Name
   -> Vec ctx Name
   -> Expr ctx Ps
-  -> Either MacroTcError (MacroTcResult Name)
-tcMacroSimple tyEnv name params expr =
-    runIdentity $
-      tcMacro tyEnv pure injectTaggedName pure name params expr
+  -> MacroTcResult Void Name
+classifyOne name params body =
+    case Map.toList (runTcMacros [Macro fakeLoc name params body]) of
+      ((_, x):_) -> x
+      []         -> error "classifyOne: unexpected empty typecheck result"
+
+-- | Typecheck a sequence of nullary macros in order, threading each successful
+-- result into the typing environment for later macros to reference.
+runTcSeq :: [MacDef] -> Map Name (MacroTcResult Void Name)
+runTcSeq defs =
+    runTcMacros [Macro fakeLoc nm VNil body | (nm, body) <- defs]
+
+-- | Shared 'tcMacros' driver for the test helpers: no typedefs in scope,
+-- variable injection is the identity, tagged-type injection renders as
+-- @"<tag> <name>"@ to match the textual form expected by tests.
+--
+-- Tagged-type injection never fails here (uses 'Void' as the inject error
+-- type), so 'MacroTcInjectError' results are not produced.
+runTcMacros :: [Macro] -> Map Name (MacroTcResult Void Name)
+runTcMacros macros =
+    tcMacros Set.empty (const id) id injectTaggedName macros
   where
+    injectTaggedName :: Applicative m => TagKind -> Name -> m Name
+    injectTaggedName tag nm = pure $ tagToName tag <> " " <> nm
+
     tagToName :: TagKind -> Name
     tagToName = \case
       TagStruct -> "struct"
       TagUnion  -> "union"
       TagEnum   -> "enum"
 
-    injectTaggedName :: TagKind -> Name -> Identity Name
-    injectTaggedName tag nm = pure $ tagToName tag <> " " <> nm
-
-runTcSeq :: [MacDef] -> [Either MacroTcError (MacroTcResult Name)]
-runTcSeq = go Map.empty
-  where
-    go :: TypeEnv -> [MacDef] -> [Either MacroTcError (MacroTcResult Name)]
-    go _   []                    = []
-    go env ((name, body) : rest) =
-      let result = tcMacroSimple env name VNil body
-          env'   = case result of
-                     Right (MacroTcValueExpr vexpr) ->
-                       Map.insert name (macroValueType vexpr) env
-                     _ -> env
-      in  result : go env' rest
-
-classifyOne ::
-     forall ctx.
-     Name
-  -> Vec ctx Name
-  -> Expr ctx Ps
-  -> Either MacroTcError (MacroTcResult Name)
-classifyOne n params body = tcMacroSimple Map.empty n params body
-
-isTypeMacro :: MacroTcResult a -> Bool
+isTypeMacro :: MacroTcResult e a -> Bool
 isTypeMacro (MacroTcTypeExpr _) = True
 isTypeMacro _                   = False
 
-isValueMacro :: MacroTcResult a -> Bool
+isValueMacro :: MacroTcResult e a -> Bool
 isValueMacro (MacroTcValueExpr _) = True
 isValueMacro _                    = False
 
-assertTypeMacro :: Show e => Either e (MacroTcResult a) -> Assertion
-assertTypeMacro = \case
-    Left e  -> assertFailure $ "expected MacroTcTypeExpr, got Left: " ++ show e
-    Right r -> assertBool "expected MacroTcTypeExpr" (isTypeMacro r)
+assertTypeMacro :: (Show e, Show a) => MacroTcResult e a -> Assertion
+assertTypeMacro r =
+    assertBool ("expected MacroTcTypeExpr, got: " ++ show r) (isTypeMacro r)
 
-assertValueMacro :: Show e => Either e (MacroTcResult a) -> Assertion
-assertValueMacro = \case
-    Left e  -> assertFailure $ "expected MacroTcValueExpr, got Left: " ++ show e
-    Right r -> assertBool "expected MacroTcValueExpr" (isValueMacro r)
+assertValueMacro :: (Show e, Show a) => MacroTcResult e a -> Assertion
+assertValueMacro r =
+    assertBool ("expected MacroTcValueExpr, got: " ++ show r) (isValueMacro r)
 
 tyLit :: TypeLit -> Expr ctx Ps
 tyLit = Term . Literal . TypeLit

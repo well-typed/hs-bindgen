@@ -53,32 +53,32 @@ data ConversionError =
 instance Exception ConversionError
 
 fromExpr ::
-     forall ctx m var p. Applicative m
-  => (Name -> m var)
+     forall ctx var p.
+     (Name -> var)
   -> M.Expr ctx p
-  -> m (Expr ctx var)
+  -> Expr ctx var
 fromExpr injectValue = go
   where
-    go :: M.Expr ctx p -> m (Expr ctx var)
+    go :: M.Expr ctx p -> Expr ctx var
     go = \case
       M.Term (M.Literal x) ->
         fromLit x
       M.Term (M.LocalParam i) ->
-        pure $ LocalParam i
+        LocalParam i
       M.Term (M.Var _ nm args) ->
-        Var <$> injectValue nm <*> traverse go args
+        Var (injectValue nm) (map go args)
       M.TyApp fun _ ->
         panicPure $ show $ UnexpectedTypeFunctionApplicationInValue (show fun)
       M.VaApp _ fun args ->
-        App fun <$> traverse go args
+        App fun $ fmap go args
 
-    fromLit :: M.Literal -> m (Expr ctx var)
+    fromLit :: M.Literal -> Expr ctx var
     fromLit = \case
       M.TypeLit x ->
         panicPure $ show $ UnexpectedTypeInValue (show x)
       M.TypeTagged tag nm ->
         panicPure $ show $ UnexpectedTypeInValue (show (tag, nm))
-      M.ValueLit x -> pure . Literal $ case x of
+      M.ValueLit x -> Literal $ case x of
         M.ValueInt y    -> M.ValueInt y
         M.ValueFloat y  -> M.ValueFloat y
         M.ValueChar y   -> M.ValueChar y

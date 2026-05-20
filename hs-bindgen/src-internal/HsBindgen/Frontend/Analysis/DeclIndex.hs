@@ -173,11 +173,11 @@ data Unusable =
       -- Historically, there were more reasons for not attempting a parse,
       -- that's why we store a non-empty list of reasons. We could remove this
       -- indirection.
-      UnusableParseNotAttempted   SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure        SingleLoc DelayedParseMsg
-    | UnusableConflict            Conflict
-    | UnusableMangleNamesFailure  SingleLoc MangleNamesError
-    | UnusableMacroTypecheckError SingleLoc MacroTypecheckError
+      UnusableParseNotAttempted    SingleLoc (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure         SingleLoc DelayedParseMsg
+    | UnusableConflict             Conflict
+    | UnusableMangleNamesFailure   SingleLoc MangleNamesError
+    | UnusableTypecheckMacrosError SingleLoc TypecheckMacrosError
 
       -- | Omitted by prescriptive binding specifications
     | UnusableOmitted            SingleLoc
@@ -193,19 +193,19 @@ instance PrettyForTrace Unusable where
       "Conflicting declarations"
     UnusableMangleNamesFailure{} ->
       "Name mangler failure"
-    UnusableMacroTypecheckError{} ->
+    UnusableTypecheckMacrosError{} ->
       "Macro type-checking failed"
     UnusableOmitted{} ->
       "Omitted by prescriptive binding specification"
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
-    UnusableParseNotAttempted loc _   -> [loc]
-    UnusableParseFailure loc _        -> [loc]
-    UnusableConflict conflict         -> Conflict.toList conflict
-    UnusableMangleNamesFailure loc _  -> [loc]
-    UnusableMacroTypecheckError loc _ -> [loc]
-    UnusableOmitted loc               -> [loc]
+    UnusableParseNotAttempted loc _    -> [loc]
+    UnusableParseFailure loc _         -> [loc]
+    UnusableConflict conflict          -> Conflict.toList conflict
+    UnusableMangleNamesFailure loc _   -> [loc]
+    UnusableTypecheckMacrosError loc _ -> [loc]
+    UnusableOmitted loc                -> [loc]
 
 data Squashed = Squashed {
     -- | The location of the squashed typedef (i.e., _not_ the target)
@@ -322,9 +322,9 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         UnusableMangleNamesFailure _ x ->
           panicPure $
             "Unexpected UnusableMangleNamesFailure: " <> show x
-        UnusableMacroTypecheckError loc err ->
+        UnusableTypecheckMacrosError loc err ->
           panicPure $
-            "Unexpected UnusableMacroTypecheckError: " <> show loc <> " " <> show err
+            "Unexpected UnusableTypecheckMacrosError: " <> show loc <> " " <> show err
         UnusableOmitted x ->
           panicPure $
             "Unexpected UnusableOmitted: " <> show x
@@ -470,9 +470,9 @@ registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
 -------------------------------------------------------------------------------}
 
 registerMacroTypecheckFailure
-  :: (DeclId, SingleLoc, MacroTypecheckError) -> DeclIndex -> DeclIndex
+  :: (DeclId, SingleLoc, TypecheckMacrosError) -> DeclIndex -> DeclIndex
 registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
-    Map.insert declId (UnusableE $ UnusableMacroTypecheckError loc err) i
+    Map.insert declId (UnusableE $ UnusableTypecheckMacrosError loc err) i
 
 {-------------------------------------------------------------------------------
   Support for binding specifications

@@ -161,7 +161,7 @@ data SelectMsg =
   | SelectMangleNamesSquashed Squashed
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
-  | SelectMacroTypecheckFailure MacroTypecheckError
+  | SelectMacroTypecheckFailure TypecheckMacrosError
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)

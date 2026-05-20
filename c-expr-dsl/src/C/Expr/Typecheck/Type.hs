@@ -106,10 +106,11 @@ import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Nat (Nat (..))
 import Data.Proxy
+import Data.Set (Set)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Type.Equality
-import Data.Type.Nat (SNatI, SNat (..))
+import Data.Type.Nat (SNat (..), SNatI)
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
@@ -119,10 +120,10 @@ import GHC.Generics (Generic)
 import GHC.Show (showSpace)
 import Numeric.Natural
 
+import C.Type qualified as Runtime
+
 import C.Expr.Syntax
 import C.Expr.Util.TestEquality (equals2)
-
-import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
   Type system for macros
@@ -462,7 +463,12 @@ instance Show ( ClassTyCon n ) where
 --
 -- Use @'Maybe' 'FunValue'@ and emit typecheck error when value required but
 -- unavailable.
+
+-- | The typing environment: every in-scope name (@typedef@ or previously
+-- typechecked macro) mapped to its quantified type.
 type TypeEnv  = Map Name ( Quant ( FunValue, Type Ty ) )
+-- | De Bruijn indexed environment of parameters /local to the macro
+-- definition/.
 type ParamEnv = IntMap   ( Type Ty )
 
 -- | Build a 'TypeEnv' from a list of typedef names.
@@ -473,19 +479,18 @@ type ParamEnv = IntMap   ( Type Ty )
 -- Note: @struct@, @union@, and @enum@ types should /not/ be added here.
 -- Tagged types always parse as 'TypeTagged' literals, never as bare 'Var'
 -- nodes, so they are resolved through the @injectTagged@ callback of
--- 'C.Expr.Typecheck.tcMacro' instead.
-buildTypedefEnv :: [Name] -> TypeEnv
-buildTypedefEnv names =
-    Map.fromList
-      [ ( nm
-        , Quant @Z $ \VNil ->
-            QuantTyBody []
-              ( FunValue @Z (getName nm) (\VNil -> NoValue)
-              , MacroTypeTy
-              )
-        )
-      | nm <- names
-      ]
+-- 'C.Expr.Typecheck.tcMacros' instead.
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1915>
+--
+-- Should simplify significantly when we use @'Maybe' 'FunValue'@.
+buildTypedefEnv :: Set Name -> TypeEnv
+buildTypedefEnv =
+    Map.fromSet $ \nm ->
+      Quant @Z $ \VNil ->
+        QuantTyBody []
+          ( FunValue @Z (getName nm) (\VNil -> NoValue)
+          , MacroTypeTy )
 
 {-------------------------------------------------------------------------------
   Pass definition

@@ -1,5 +1,5 @@
 module HsBindgen.Frontend.Pass.TypecheckMacros.Error (
-    MacroTypecheckError(..)
+    TypecheckMacrosError(..)
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
@@ -9,31 +9,31 @@ import C.Expr.Typecheck qualified as CExpr
 import HsBindgen.Frontend.Naming
 import HsBindgen.Util.Tracer
 
-data MacroTypecheckError =
+data TypecheckMacrosError =
     -- | We could not type-check the macro expression
-    MacroTypecheckErrorCExpr CExpr.MacroTcError
+    TypecheckMacrosErrorCExpr CExpr.MacroTcError
     -- | Macro type references a tagged type we could not resolve
     --
     -- This happens when a macro references a struct, union, or enum that
     -- @hs-bindgen@ did not parse (e.g., defined in an unprocessed header, or
     -- whose fields failed to parse).
-  | MacroTypecheckErrorUnresolvedTaggedType CDeclName
+  | TypecheckMacrosErrorUnresolvedTaggedType CDeclName
   deriving stock (Show)
 
-instance PrettyForTrace MacroTypecheckError where
+instance PrettyForTrace TypecheckMacrosError where
   prettyForTrace = \case
-      MacroTypecheckErrorCExpr x -> PP.hsep [
+      TypecheckMacrosErrorCExpr x -> PP.hsep [
           "Failed to typecheck macro:"
         , PP.text $ CExpr.pprMacroTcError x
         ]
-      MacroTypecheckErrorUnresolvedTaggedType name -> PP.hsep [
+      TypecheckMacrosErrorUnresolvedTaggedType name -> PP.hsep [
           "Macro type references unknown tagged type:"
         , prettyForTrace name
         ]
 
-instance IsTrace Level MacroTypecheckError where
+instance IsTrace Level TypecheckMacrosError where
   getDefaultLogLevel = \case
-    MacroTypecheckErrorCExpr{}               -> Info
-    MacroTypecheckErrorUnresolvedTaggedType{} -> Warning
+    TypecheckMacrosErrorCExpr{}                -> Info
+    TypecheckMacrosErrorUnresolvedTaggedType{} -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "macro-typecheck"

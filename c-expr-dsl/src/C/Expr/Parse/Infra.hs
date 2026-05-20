@@ -1,4 +1,4 @@
--- | Infrastructure for reparsing
+-- | Infrastructure for parsing
 module C.Expr.Parse.Infra (
     -- * Parser type
     Parser
@@ -49,7 +49,7 @@ runParser p tokens =
     sourcePath :: FilePath
     sourcePath =
         case tokens of
-          []  -> error "reparseWith: empty list"
+          []  -> error "runParser: empty list"
           t:_ -> getSourcePath $ singleLocPath start
             where
               start :: SingleLoc
@@ -57,8 +57,8 @@ runParser p tokens =
 
     unrecognized :: ParseError -> MacroParseError
     unrecognized err = MacroParseError{
-          reparseError       = show err
-        , reparseErrorTokens = tokens
+          parseError       = show err
+        , parseErrorTokens = tokens
         }
 
 {-------------------------------------------------------------------------------
@@ -66,8 +66,8 @@ runParser p tokens =
 -------------------------------------------------------------------------------}
 
 data MacroParseError = MacroParseError {
-      reparseError       :: String
-    , reparseErrorTokens :: [Token TokenSpelling]
+      parseError       :: String
+    , parseErrorTokens :: [Token TokenSpelling]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Exception)

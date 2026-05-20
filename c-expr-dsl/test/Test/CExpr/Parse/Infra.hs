@@ -26,6 +26,8 @@ import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import Test.CExpr.Util
+
 {-------------------------------------------------------------------------------
   Token constructors
 -------------------------------------------------------------------------------}
@@ -50,22 +52,9 @@ mkToken :: CXTokenKind -> Text -> Token TokenSpelling
 mkToken kind spelling = Token{
       tokenKind       = simpleEnum kind
     , tokenSpelling   = TokenSpelling spelling
-    , tokenExtent     = Range nullLoc nullLoc
+    , tokenExtent     = Range fakeLoc fakeLoc
     , tokenCursorKind = simpleEnum CXCursor_UnexposedDecl
     }
-  where
-    nullLoc :: MultiLoc
-    nullLoc = MultiLoc{
-          multiLocExpansion = SingleLoc{
-              singleLocPath   = "<test>"
-            , singleLocLine   = 1
-            , singleLocColumn = 1
-            , singleLocOffset = 1
-            }
-        , multiLocPresumed  = Nothing
-        , multiLocSpelling  = Nothing
-        , multiLocFile      = Nothing
-        }
 
 {-------------------------------------------------------------------------------
   Running parsers

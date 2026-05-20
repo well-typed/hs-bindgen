@@ -71,7 +71,7 @@
 ### Bug fixes
 
 * Unresolved tagged types in macro expressions produce a `Warning`-level
-  diagnostic (`MacroTypecheckErrorUnresolvedTaggedType`) instead of panicking.
+  diagnostic (`TypecheckMacrosErrorUnresolvedTaggedType`) instead of panicking.
 * Forward-declared (opaque) tagged types are included in `knownTaggedTypes`
   during macro typechecking.
 * Fixture tests now invoke the same GHC that cabal used to build the test
