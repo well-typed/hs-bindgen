@@ -172,7 +172,7 @@ mkTyFamEqs
       -- ^ function implementing the type family reduction rules
   -> [ TH.TySynEqn ]
 mkTyFamEqs fam impl =
-  [ TH.TySynEqn Nothing ( foldl' TH.AppT ( TH.ConT fam ) ( toList $ fmap mkType args ) ) ( mkType res )
+  [ TH.TySynEqn Nothing ( foldl' TH.AppT ( TH.ConT fam ) ( fmap mkType args ) ) ( mkType res )
   | ( args :: Vec n ( Type a ) ) <- map mkNames $ enumerateTypeTuples @n
   , res <- maybeToList $ impl args
   ]
