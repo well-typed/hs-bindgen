@@ -124,6 +124,7 @@ library internal
     HsBindgen.Backend.HsModule.Translation.Doxygen
     HsBindgen.Backend.Level
     HsBindgen.Backend.SHs.AST
+    HsBindgen.Backend.SHs.AST.Expr
     HsBindgen.Backend.SHs.AST.Type
     HsBindgen.Backend.SHs.Macro
     HsBindgen.Backend.SHs.Simplify
@@ -240,6 +241,7 @@ library internal
     HsBindgen.TraceMsg
     HsBindgen.Util.Monad
     HsBindgen.Util.Process
+    HsBindgen.Util.Rational
     HsBindgen.Util.TH
     HsBindgen.Util.Tracer
     Text.SimplePrettyPrint

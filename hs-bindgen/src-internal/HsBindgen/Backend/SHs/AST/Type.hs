@@ -8,6 +8,7 @@
 module HsBindgen.Backend.SHs.AST.Type (
     ClosedType
   , SType (.., TApps)
+  , tBindgenGlobal
     -- * Plus2
   , Plus2 (..)
   , applyPlus2
@@ -28,6 +29,9 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 type ClosedType = SType EmptyCtx
+
+tBindgenGlobal :: BindgenGlobalType -> SType ctx
+tBindgenGlobal = TGlobal . bindgenGlobalType
 
 -- | Simple types
 type SType :: Ctx -> Star
