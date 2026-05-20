@@ -1,12 +1,24 @@
-default: libfeature-tests.so
+# Default to a Linux shared object. Override the suffix on macOS and Windows
+# so the same Makefile builds on all three CI runners.
+TARGET_EXT = .so
+
+ifeq ($(shell uname -s),Darwin)
+	TARGET_EXT = .dylib
+endif
+
+ifeq ($(OS),Windows_NT)
+	TARGET_EXT = .dll
+endif
 
 CC = clang
 
+default: libfeature-tests$(TARGET_EXT)
+
 .PHONY: clean
 clean:
-	rm -f *.o *.so
+	rm -f *.o *.so *.dylib *.dll
 
-libfeature-tests.so: \
+libfeature-tests$(TARGET_EXT): \
 		callbacks/arrays/known_size.o \
 		callbacks/arrays/unknown_size.o \
 		callbacks/basic.o \
@@ -16,7 +28,7 @@ libfeature-tests.so: \
 		types/anonymous.o \
 		types/bitfields.o
 
-	$(CC) -Wall -shared -o libfeature-tests.so \
+	$(CC) -Wall -shared -o libfeature-tests$(TARGET_EXT) \
 		callbacks/arrays/known_size.o \
 		callbacks/arrays/unknown_size.o \
 		callbacks/basic.o \
