@@ -24,6 +24,7 @@
 - ignore: {name: "Use isDigit"} # 2 hints
 - ignore: {name: "Use isOctDigit"} # 1 hint
 - ignore: {name: "Use let"} # 1 hint
+- ignore: {name: "Use list comprehension"}
 - ignore: {name: "Use list literal pattern"} # 1 hint
 - ignore: {name: "Use newtype instead of data"} # 2 hints
 - ignore: {name: "Use notElem"} # 1 hint
@@ -84,15 +85,20 @@
 - error: {lhs: "error", rhs: "panicPure"}
 - error: {lhs: "undefined", rhs: "panicPure"}
 - error: {lhs: "fail", rhs: "panicIO"}
-# 'fail' is the only way to abort in TH, so helpers are defined in Errors.
-- ignore: {name: "Use panicIO", within: "HsBindgen.Errors" }
-# These cannot be used in hs-bindgen-runtime because they are defined in hs-bindgen.
-- ignore: {name: "Use panicIO",   within: "C.Expr.**" }
+
+- ignore: {name: "Use panicIO",   within: "C.**" }
+- ignore: {name: "Use panicIO",   within: "CallClang" }
+- ignore: {name: "Use panicIO",   within: "HsBindgen.Errors" }
 - ignore: {name: "Use panicIO",   within: "HsBindgen.Runtime.**" }
+- ignore: {name: "Use panicIO",   within: "HsBindgen.TestRuntime.**" }
+- ignore: {name: "Use panicIO",   within: "Main" }
 - ignore: {name: "Use panicIO",   within: "Test.**" }
-- ignore: {name: "Use panicPure", within: "C.Expr.**" }
+- ignore: {name: "Use panicPure", within: "C.**" }
+- ignore: {name: "Use panicPure", within: "CallClang" }
+- ignore: {name: "Use panicPure", within: "HsBindgen.Errors" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }
-- ignore: {name: "Use panicPure", within: "Test.HsBindgen.Runtime.**" }
+- ignore: {name: "Use panicPure", within: "HsBindgen.TestRuntime.**" }
+- ignore: {name: "Use panicPure", within: "Main" }
 - ignore: {name: "Use panicPure", within: "Test.**" }
 
 # Define some custom infix operators
@@ -106,3 +112,4 @@
   - --ignore-glob=c-expr-runtime/**/HostPlatform.hs
   - --ignore-glob=examples/**
   - --ignore-glob=hs-bindgen/test-artefacts/**
+  - --ignore-glob=manual/hs/**
