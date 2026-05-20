@@ -29,19 +29,19 @@ parseDecls parseEnv = do
     root <- clang_getTranslationUnitCursor parseEnv.unit
     ParseDecl.run parseEnv $ do
       resultsWithLocs <- HighLevel.clang_visitChildren root topLevelDecl
-      allMacros <- reverse <$> ParseDecl.getMacroDefinitions
       let resultsOriginalOrder :: [ParseResult Parse]
-          resultsOriginalOrder = map snd allMacros ++ concatMap snd resultsWithLocs
+          resultsOriginalOrder = concatMap snd resultsWithLocs
       -- If the version of Clang is >= 20.1, we can obtain sequence order by
-      -- threading in macros between non-macro declarations.
+      -- sorting declarations by source position.
       --
-      -- However, for older version of Clang, the required API function is
+      -- However, for older versions of Clang, the required API function is
       -- unavailable. Hence, we refrain from sorting declarations, and only
       -- populate the sequence order into 'DeclInfo'.
       case clang_isBeforeInTranslationUnit of
         Just isBeforeInUnit -> do
+          let isBefore (a, _) (b, _) = isBeforeInUnit a b
           resultsSequenceOrder :: [ParseResult Parse] <-
-            liftIO $ threadMacros isBeforeInUnit allMacros resultsWithLocs
+            liftIO $ concatMap snd <$> sortByM isBefore resultsWithLocs
           let -- The map is keyed on @('Id' 'Parse', 'SingleLoc')@ rather than
               -- just @'Id' 'Parse'@ to handle forward declarations at different
               -- locations with the same name.
@@ -62,41 +62,29 @@ parseDecls parseEnv = do
   Sequence order
 -------------------------------------------------------------------------------}
 
--- | Thread macros in-between non-macro declarations to obtain sequence order.
-threadMacros ::
-     (CXSourceLocation -> CXSourceLocation -> IO Bool)
-  -> [(CXSourceLocation, ParseResult Parse)]
-  -> [(CXSourceLocation, [ParseResult Parse])]
-  -> IO [ParseResult Parse]
-threadMacros p macros = \case
-    [] ->
-      pure $ map snd macros
-    (x:xs) -> do
-      (macrosBefore, macrosAfter) <- spanMacroDefinitions p macros (fst x)
-      xs' <- threadMacros p macrosAfter xs
-      pure $ map snd macrosBefore ++ snd x ++ xs'
-
--- | Similar to 'Data.List.span' but with a monadic predicate.
-spanMacroDefinitions ::
-     (CXSourceLocation -> CXSourceLocation -> IO Bool)
-  -> [(CXSourceLocation, ParseResult Parse)]
-  -> CXSourceLocation
-  -> IO ( [(CXSourceLocation, ParseResult Parse)]
-        , [(CXSourceLocation, ParseResult Parse)] )
-spanMacroDefinitions isBeforeInTranslationUnit macros rhs = do
-      (macrosBefore, macrosAfter) <- spanM isBefore macros
-      pure (macrosBefore, macrosAfter)
+-- | Stable merge sort using a monadic strict-less-than predicate.
+--
+-- @isBefore x y@ should return 'True' iff @x@ strictly precedes @y@. When
+-- neither element strictly precedes the other, ties are broken in favour of
+-- the left input (stable).
+sortByM :: Monad m => (a -> a -> m Bool) -> [a] -> m [a]
+sortByM isBefore = go
   where
-    isBefore :: (CXSourceLocation, ParseResult Parse) -> IO Bool
-    isBefore (lhs, _) = isBeforeInTranslationUnit lhs rhs
+    go []  = pure []
+    go [x] = pure [x]
+    go xs  = do
+      let (l, r) = splitAt (length xs `div` 2) xs
+      l' <- go l
+      r' <- go r
+      merge l' r'
 
-    spanM :: Monad m => (a -> m Bool) -> [a] -> m ([a], [a])
-    spanM _ []    = pure ([], [])
-    spanM f (x:xs) = do
-      ok <- f x
-      if ok
-        then first (x :) <$> spanM f xs
-        else pure ([], x : xs)
+    merge []     ys     = pure ys
+    merge xs     []     = pure xs
+    merge (x:xs) (y:ys) = do
+      yBeforeX <- isBefore y x
+      if yBeforeX
+        then (y :) <$> merge (x:xs) ys
+        else (x :) <$> merge xs     (y:ys)
 
 {-------------------------------------------------------------------------------
   Internal helpers

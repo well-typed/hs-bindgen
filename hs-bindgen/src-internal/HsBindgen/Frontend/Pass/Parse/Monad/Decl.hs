@@ -15,8 +15,6 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   , getCStandard
   , evalGetMainHeadersAndInclude
     -- ** "State"
-  , recordMacroDefinitionAt
-  , getMacroDefinitions
   , recordMacroExpansionAt
   , getMacroExpansions
     -- ** Logging
@@ -111,33 +109,20 @@ evalGetMainHeadersAndInclude path = wrapEff $ \support ->
 -------------------------------------------------------------------------------}
 
 data ParseState = ParseState {
-      -- | Macros definitions we have parsed
-      macroDefinitions :: [(CXSourceLocation, ParseResult Parse)]
-
       -- | Where did Clang expand macros, and what are their names?
       --
       -- Declarations with expanded macros need to be reparsed.
       --
       -- We use a stacked map so we can lookup macro expansions in source
       -- location ranges reasonably fast.
-    , macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
+      macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
     }
   deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
-      macroDefinitions = []
-    , macroExpansions  = Map.empty
+      macroExpansions = Map.empty
     }
-
-recordMacroDefinitionAt :: CXSourceLocation -> ParseResult Parse -> ParseDecl ()
-recordMacroDefinitionAt loc result = wrapEff $ \support ->
-    modifyIORef support.state $ #macroDefinitions %~ ((loc, result) :)
-
-getMacroDefinitions :: ParseDecl [(CXSourceLocation, ParseResult Parse)]
-getMacroDefinitions = wrapEff $ \support -> do
-    s <- readIORef support.state
-    pure s.macroDefinitions
 
 recordMacroExpansionAt :: SingleLoc -> Text -> ParseDecl ()
 recordMacroExpansionAt loc macroName = wrapEff $ \support -> do
