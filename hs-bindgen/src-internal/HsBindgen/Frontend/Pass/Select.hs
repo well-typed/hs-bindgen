@@ -108,9 +108,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
         -- Identifiers of transitive dependencies including selection roots.
         rootAndTransDepIds :: Set DeclId
-        rootAndTransDepIds =
-          UseDeclGraph.getTransitiveDeps useDeclGraph $
-            Set.toList rootIds
+        rootAndTransDepIds = UseDeclGraph.getTransitiveDeps useDeclGraph rootIds
 
         -- Identifiers of transitive dependencies excluding selection roots.
         strictTransDepIds :: Set DeclId
@@ -138,7 +136,10 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | otherwise                   = TransitivelyUnselectable unusabilityReasons
           where
             transDeps :: Set DeclId
-            transDeps = UseDeclGraph.getStrictTransitiveDeps useDeclGraph [x]
+            transDeps =
+              UseDeclGraph.getStrictTransitiveDeps
+                useDeclGraph
+                (Set.singleton x)
 
             unusables :: Map DeclId Unselectable
             unusables =
