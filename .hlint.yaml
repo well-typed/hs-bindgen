@@ -3,50 +3,42 @@
 ##########################
 
 # Warnings currently triggered by your code
-- ignore: {name: "Avoid lambda"} # 4 hints
-- ignore: {name: "Eta reduce"} # 2 hints
-- ignore: {name: "Evaluate"} # 1 hint
-- ignore: {name: "Move brackets to avoid $"} # 2 hints
-- ignore: {name: "Redundant $"} # 15 hints
-- ignore: {name: "Redundant as"} # 1 hint
-- ignore: {name: "Redundant bracket"} # 9 hints
-- ignore: {name: "Redundant multi-way if"} # 1 hint
-- ignore: {name: "Redundant where"} # 1 hint
-- ignore: {name: "Replace case with fromMaybe"} # 1 hint
-- ignore: {name: "Unused LANGUAGE pragma"} # 1 hint
-- ignore: {name: "Use &&"} # 3 hints
-- ignore: {name: "Use ++"} # 1 hint
-- ignore: {name: "Use <$>"} # 3 hints
-- ignore: {name: "Use camelCase"} # 6 hints
+- ignore: {name: "Avoid lambda"} # 12 hints
+- ignore: {name: "Avoid lambda using `infix`"} # 3 hints
+- ignore: {name: "Avoid restricted alias"} # 13 hints
+- ignore: {name: "Eta reduce"} # 39 hints
+- ignore: {name: "Evaluate"} # 4 hints
+- ignore: {name: "Functor law"} # 1 hint
+- ignore: {name: "Move brackets to avoid $"} # 14 hints
+- ignore: {name: "Redundant $"} # 88 hints
+- ignore: {name: "Redundant <$>"} # 8 hints
+- ignore: {name: "Redundant bracket"} # 89 hints
+- ignore: {name: "Redundant id"} # 147 hints
+- ignore: {name: "Redundant lambda"} # 19 hints
+- ignore: {name: "Redundant toList"} # 1 hint
+- ignore: {name: "Redundant where"} # 2 hints
+- ignore: {name: "Replace case with fromMaybe"} # 3 hints
+- ignore: {name: "Replace case with maybe"} # 4 hints
+- ignore: {name: "Unused LANGUAGE pragma"} # 19 hints
+- ignore: {name: "Use &&"} # 6 hints
+- ignore: {name: "Use ++"} # 17 hints
+- ignore: {name: "Use :"} # 1 hint
+- ignore: {name: "Use <$>"} # 18 hints
+- ignore: {name: "Use ?~"} # 40 hints
+- ignore: {name: "Use camelCase"} # 94 hints
+- ignore: {name: "Use const"} # 8 hints
 - ignore: {name: "Use elem"} # 4 hints
 - ignore: {name: "Use flip"} # 2 hints
-- ignore: {name: "Use gets"} # 1 hint
+- ignore: {name: "Use gets"} # 2 hints
 - ignore: {name: "Use isDigit"} # 2 hints
 - ignore: {name: "Use isOctDigit"} # 1 hint
-- ignore: {name: "Use let"} # 1 hint
-- ignore: {name: "Use list literal pattern"} # 1 hint
-- ignore: {name: "Use newtype instead of data"} # 2 hints
+- ignore: {name: "Use list comprehension"} # 3 hints
+- ignore: {name: "Use newtype instead of data"} # 40 hints
 - ignore: {name: "Use notElem"} # 1 hint
-- ignore: {name: "Use second"} # 1 hint
+- ignore: {name: "Use second"} # 4 hints
+- ignore: {name: "Use section"} # 1 hint
 - ignore: {name: "Use shows"} # 4 hints
-- ignore: {name: "Use unwords"} # 2 hints
-- ignore: {name: "Use writeFile"} # 1 hint
 - ignore: {name: "Use ||"} # 1 hint
-- ignore: {name: "Replace case with maybe"}
-- ignore: {name: "Fuse foldr/<$>"}
-- ignore: {name: "Use map once"}
-- ignore: {name: "Use section"}
-- ignore: {name: "Redundant lambda"}
-- ignore: {name: "Use const"}
-- ignore: {name: "Avoid lambda using `infix`"}
-- ignore: {name: "Redundant <$>"}
-- ignore: {name: "Avoid restricted alias"}
-- ignore: {name: "Use :"}
-- ignore: {name: "Functor law"}
-- ignore: {name: "Redundant pure"}
-- ignore: {name: "Redundant id"}
-- ignore: {name: "Use ?~"}
-- ignore: {name: "Fuse foldr/fmap"}
 
 # Specify additional command line arguments
 #
@@ -92,7 +84,6 @@
 - ignore: {name: "Use panicIO",   within: "Test.**" }
 - ignore: {name: "Use panicPure", within: "C.Expr.**" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }
-- ignore: {name: "Use panicPure", within: "Test.HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "Test.**" }
 
 # Define some custom infix operators
