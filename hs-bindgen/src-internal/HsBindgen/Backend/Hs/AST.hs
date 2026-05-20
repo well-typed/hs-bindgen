@@ -30,8 +30,6 @@ module HsBindgen.Backend.Hs.AST (
   , Var(..)
     -- ** Variable declarations
   , MacroValue(..)
-  , VarDeclRHS(..)
-  , VarDeclRHSAppHead(..)
     -- ** Deriving instances
   , Strategy(..)
     -- ** Foreign imports
@@ -93,10 +91,6 @@ module HsBindgen.Backend.Hs.AST (
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Fin
 import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
-
-import C.Char qualified as CExpr.Runtime
-
-import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
@@ -306,32 +300,6 @@ data MacroValue = MacroValue {
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
-
--- | RHS of a variable or function declaration.
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
--- Do we need this, or could we just use SExpr instead?
-type VarDeclRHS :: Ctx -> Star
-data VarDeclRHS ctx
-  = VarDeclIntegral Integer HsPrimType
-  | VarDeclFloat Float
-  | VarDeclDouble Double
-  | VarDeclChar   CExpr.Runtime.CharValue
-  | VarDeclString ByteArray
-  | VarDeclLambda (Lambda VarDeclRHS ctx)
-  | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
-  | VarDeclVar (Idx ctx)
-  deriving stock (Generic, Show)
-
--- | The function at the head of an application in the Haskell translation
--- of a C macro.
-data VarDeclRHSAppHead
-  -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (CExpr.VaFun arity)
-  -- | A function name, or the name of a function-like macro.
-  | VarAppHead (Hs.Name Hs.NsVar)
-
-deriving stock instance Show VarDeclRHSAppHead
 
 {-------------------------------------------------------------------------------
   Pattern Synonyms

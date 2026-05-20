@@ -1,0 +1,137 @@
+{-# LANGUAGE MagicHash #-}
+
+-- | Expression and binding types for the simplified Haskell AST
+--
+-- These types have no dependency on 'HsBindgen.Backend.Hs.Origin' and can
+-- therefore be imported from 'HsBindgen.Macro.Interface' without creating a
+-- module cycle.
+--
+-- Intended for qualified import.
+module HsBindgen.Backend.SHs.AST.Expr (
+    -- * Expressions
+    ClosedExpr
+  , SExpr(..)
+  , eBindgenGlobal
+  , eInt
+  , InfixOp(..)
+  , infixOpGlobal
+  , SAlt(..)
+  , PatExpr(..)
+    -- * Bindings
+  , Binding(..)
+  , Parameter(..)
+  , Result(..)
+  , Pragma(..)
+  ) where
+
+import Data.Type.Nat (Nat1)
+import DeBruijn (Add, Ctx, EmptyCtx, Idx)
+
+import C.Char qualified as CExpr.Runtime
+
+import HsBindgen.Backend.Global
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Backend.Level
+import HsBindgen.Backend.SHs.AST.Type
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
+
+{-------------------------------------------------------------------------------
+  Expressions
+-------------------------------------------------------------------------------}
+
+type ClosedExpr = SExpr EmptyCtx
+
+-- | Simple expressions
+type SExpr :: Ctx -> Star
+data SExpr ctx =
+    EGlobal (Global LvlTerm)
+  | EBound (Idx ctx)
+  | EFree Hs.TermName
+  | ECon (Hs.Name Hs.NsConstr)
+  | EUnboxedIntegral Integer
+  | EIntegral Integer (Maybe ClosedType)
+  | EFloat Float ClosedType
+  | EDouble Double ClosedType
+  | EChar CExpr.Runtime.CharValue
+  | EString String
+  | ECString ByteArray
+  | EApp (SExpr ctx) (SExpr ctx)
+  | EInfix InfixOp (SExpr ctx) (SExpr ctx)
+  | ELam NameHint (SExpr (S ctx))
+  | EUnusedLam (SExpr ctx)
+  | ECase (SExpr ctx) [SAlt ctx]
+  | EUnit
+  | EBoxedTup Plus2
+  | EUnboxedTup Plus2
+  | EList [SExpr ctx]
+  | ETypeApp (SExpr ctx) ClosedType
+  deriving stock (Show)
+
+eBindgenGlobal :: BindgenGlobalTerm -> SExpr ctx
+eBindgenGlobal = EGlobal . bindgenGlobalTerm
+
+-- | Pattern&Expressions
+type PatExpr :: Star
+data PatExpr
+  = PEApps (Hs.Name Hs.NsConstr) [PatExpr]
+  | PELit Integer
+  deriving stock (Show)
+
+eInt :: Int -> SExpr be
+eInt i = EIntegral (fromIntegral i) (Just $ tBindgenGlobal Int_type)
+
+-- | Supported infix operators.
+data InfixOp =
+    InfixApplicative_seq
+  | InfixMonad_seq
+  | InfixNonEmpty_constructor
+  deriving stock (Show, Eq)
+
+infixOpGlobal :: InfixOp -> Global LvlTerm
+infixOpGlobal = bindgenGlobalTerm . \case
+  InfixApplicative_seq      -> Applicative_seq
+  InfixMonad_seq            -> Monad_seq
+  InfixNonEmpty_constructor -> NonEmpty_constructor
+
+-- | Case alternatives
+data SAlt ctx where
+    SAlt
+      :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    SAltNoConstr
+      :: Vec Nat1 NameHint -> SExpr (S ctx) -> SAlt ctx
+    SAltUnboxedTuple
+      :: Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+
+deriving stock instance Show (SAlt ctx)
+
+{-------------------------------------------------------------------------------
+  Bindings
+-------------------------------------------------------------------------------}
+
+data Pragma = NOINLINE
+  deriving stock Show
+
+data Binding = Binding{
+      name       :: Hs.TermName
+    , parameters :: [Parameter]
+    , result     :: Result
+    , body       :: ClosedExpr
+    , pragmas    :: [Pragma]
+    , comment    :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show, Generic)
+
+data Parameter = Parameter{
+      typ     :: ClosedType
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show, Generic)
+
+data Result = Result{
+      typ     :: ClosedType
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show, Generic)

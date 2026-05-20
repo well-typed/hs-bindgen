@@ -18,8 +18,6 @@ import Text.SimplePrettyPrint qualified as PP
 
 import C.Char qualified as CExpr.Runtime
 
-import C.Expr.Syntax qualified as CExpr
-
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Pretty.Common
@@ -29,6 +27,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Imports
 import HsBindgen.NameHint
+import HsBindgen.Util.Rational (canBeRepresentedAsRational)
 
 import Numeric (showHex)
 
@@ -89,7 +88,7 @@ prettyRolledExpr env prec expr = case expr of
         ]
 
     EFloat f t -> PP.parens $ PP.hcat [
-        if CExpr.canBeRepresentedAsRational f then
+        if canBeRepresentedAsRational f then
           PP.show f
         else
           prettyExpr env prec $
@@ -100,7 +99,7 @@ prettyRolledExpr env prec expr = case expr of
       , prettyType EmptyEnv 0 t
       ]
     EDouble f t -> PP.parens $ PP.hcat [
-        if CExpr.canBeRepresentedAsRational f then
+        if canBeRepresentedAsRational f then
           PP.show f
         else
           prettyExpr env  prec $
