@@ -113,6 +113,11 @@ parseDecl' enclosing mCtx = withCursorKindNoCtx $ \case
       -- @visibility@ attributes. The visibility itself the value could be
       -- obtained using 'getCursorVisibility'.
       Right CXCursor_VisibilityAttr     -> \_curr -> foldContinue
+      -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@ attributes.
+      -- These do not affect the generated Haskell bindings: foreign imports
+      -- are resolved by the linker regardless of the DLL annotation.
+      Right CXCursor_DLLImport          -> \_curr -> foldContinue
+      Right CXCursor_DLLExport          -> \_curr -> foldContinue
 
       -- Report error for declarations we don't recognize
       eKind -> case mCtx of
@@ -475,6 +480,10 @@ enumDecl _enclosing ctx info = \curr -> do
                   -- @visibility@ attributes. The visibility itself the value can be
                   -- obtained using 'getCursorVisibility'.
                   Right CXCursor_VisibilityAttr -> foldContinue
+                  -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
+                  -- These don't affect the generated Haskell bindings.
+                  Right CXCursor_DLLImport -> foldContinue
+                  Right CXCursor_DLLExport -> foldContinue
                   unexpectedKind -> foldContinueWith
                     (Left $ ParseUnexpectedCursorKind unexpectedKind)
 
@@ -644,6 +653,11 @@ functionDecl enclosing ctx info =
           -- obtained using 'getCursorVisibility'.
           Right CXCursor_VisibilityAttr -> foldContinue
 
+          -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
+          -- attributes. These do not affect the generated Haskell bindings.
+          Right CXCursor_DLLImport -> foldContinue
+          Right CXCursor_DLLExport -> foldContinue
+
           -- Attributes we (probably?) want to ignore
           Right CXCursor_WarnUnusedResultAttr -> foldContinue
 
@@ -778,6 +792,11 @@ varDecl enclosing ctx info = do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           CXCursor_VisibilityAttr -> skip
+
+          -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
+          -- attributes. These do not affect the generated Haskell bindings.
+          CXCursor_DLLImport -> skip
+          CXCursor_DLLExport -> skip
 
           -- We are not interested in assembler labels.
           CXCursor_AsmLabelAttr -> skip
