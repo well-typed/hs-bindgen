@@ -80,17 +80,11 @@ parseDeclTopLevel curr = do
     -- stored in the 'DeclInfo'.
     loc       <- clang_getCursorLocation curr
     nextDecls <- parseDecl' [] Nothing curr
-    -- We cannot directly thread in macros here because the 'Functor' instance
-    -- of 'Next' drops them when we have `Continue Nothing`. That is, there is a
-    -- subtle difference between `foldContinue`, and `foldContinueWith []`. This
-    -- also leads to the following edge case:
-    --
-    -- Forward declarations ('DefinitionElsewhere') produce 'Continue Nothing',
-    -- so macros before a forward declaration end up being threaded after the
-    -- forward declaration, and before the next, actual declaration instead.
-    -- This is sub-optimal, but does not lead to incorrect behavior. Should the
-    -- next declaration be the definition of the forward declaration the macro
-    -- still appears before the definition.
+    -- Note the subtle difference between `foldContinue` and
+    -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
+    -- `Continue Nothing`, so a parser using `foldContinue` contributes no entry
+    -- to the result list here, whereas `foldContinueWith []` contributes an
+    -- empty entry (with location attached).
     pure $ (loc,) <$> nextDecls
 
 -- | Auxiliary function; use 'parseDeclNested' or 'parseDeclTopLevel'
@@ -201,15 +195,9 @@ parseDeclWith enclosing ctx parser curr = do
 macroDefinition ::
   HasCallStack => [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
 macroDefinition _enclosing _ctx info = \curr -> do
-    cxLoc  <- clang_getCursorLocation curr
     tokens <- getMacroTokens curr
     cStd   <- getCStandard
-    let result = mkResult cStd tokens
-    -- We only store the macro location and definition in the parser state. We
-    -- consolidate macros and non-macros at top-level because newer versions of
-    -- Clang allow us to determine the sequence number.
-    recordMacroDefinitionAt cxLoc result
-    foldContinue
+    foldContinueWith [mkResult cStd tokens]
   where
     mkResult :: ClangCStandard -> [Token TokenSpelling] -> ParseResult Parse
     mkResult cStd tokens =

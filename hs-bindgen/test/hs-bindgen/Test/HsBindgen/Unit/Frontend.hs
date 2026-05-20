@@ -1,5 +1,6 @@
 module Test.HsBindgen.Unit.Frontend (tests) where
 
+import Data.List
 import System.FilePath ((</>))
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -9,6 +10,7 @@ import Clang.Version
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Frontend
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -42,14 +44,49 @@ testParseSequenceNumber getTestResources =
       execFrontend
         getTestResources
         c89
-        ["test-artefacts" </> "headers"]
-        "minimal.h"
+        ["test-artefacts" </> "headers" </> "golden" </> "macros" </> "parse"]
+        "elaborate.h"
         getParseResults
-    forM_ results $ \result -> case getParseResultMaybeDecl result of
-      Nothing   -> assertFailure $ "parse failed: " ++ show result
-      Just decl -> do
-        let msg = "no sequence number for declaration " ++ show decl.info.id
-        assertBool msg (isJust decl.info.seqNr)
+    declNamesWithSeqNrs <- forM results $ \result ->
+      case getParseResultMaybeDecl result of
+        Nothing   -> assertFailure $ "parse failed: " ++ show result
+        Just decl -> do
+          case decl.info.seqNr of
+            Nothing ->
+              panicPure $
+                "no sequence number for declaration " ++ show decl.info.id
+            Just seqNr ->
+              pure (show $ prettyForTrace decl.info.id, seqNr)
+    let declNamesDependencyOrderActual :: [String]
+        declNamesDependencyOrderActual = map fst declNamesWithSeqNrs
+        declNamesDependencyOrderExpected :: [String]
+        declNamesDependencyOrderExpected = [
+             "'macro OUTER_A'"
+           , "'macro INNER_A'"
+           , "'macro INNER_B'"
+           , "'macro OUTER_B'"
+           , "'macro OUTER_C'"
+           , "'outer_int'"
+           , "'inner_int'"
+           ]
+    assertEqual "dependency order"
+      declNamesDependencyOrderExpected
+      declNamesDependencyOrderActual
+    let declNamesSequenceOrderActual :: [String]
+        declNamesSequenceOrderActual = map fst $ sortOn snd declNamesWithSeqNrs
+        declNamesSequenceOrderExpected :: [String]
+        declNamesSequenceOrderExpected = [
+            "'macro OUTER_A'"
+          , "'outer_int'"
+          , "'macro INNER_A'"
+          , "'macro INNER_B'"
+          , "'inner_int'"
+          , "'macro OUTER_B'"
+          , "'macro OUTER_C'"
+          ]
+    assertEqual "sequence order"
+      declNamesSequenceOrderExpected
+      declNamesSequenceOrderActual
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
