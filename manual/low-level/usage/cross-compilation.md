@@ -312,9 +312,9 @@ for heap size) to iserv for debugging.
 > flag, which prevents GC of a binary's own statically-linked CAFs. iserv does
 > not need `-fkeep-cafs`.
 
-The [cross-compilation example](../../../examples/cross-compilation/) script
-compiles this module with the cross-GHC, producing a target-architecture iserv
-binary that runs under QEMU.
+The [cross-compilation example][example:cross-compilation] script compiles this
+module with the cross-GHC, producing a target-architecture iserv binary that
+runs under QEMU.
 
 > [!TIP]
 > The `generate-and-run.sh` script handles iserv building, wrapper creation,
@@ -350,11 +350,11 @@ package your-package
 
 ### hsc2hs and cross-compilation
 
-[`hsc2hs`](https://downloads.haskell.org/ghc/latest/docs/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs)
-is a GHC preprocessor that processes `.hsc` files into `.hs` files.  It handles
-directives like `#{size struct foo}`, `#{alignment struct foo}`, and
-`#{peek struct foo, bar}` by compiling a small C program that prints the values,
-running it, and substituting the results into the Haskell source.
+[`hsc2hs`][ghc:guide:hsc2hs] is a GHC preprocessor that processes `.hsc` files
+into `.hs` files.  It handles directives like `#{size struct foo}`,
+`#{alignment struct foo}`, and `#{peek struct foo, bar}` by compiling a small C
+program that prints the values, running it, and substituting the results into
+the Haskell source.
 
 `hs-bindgen-runtime` uses `.hsc` files, so `hsc2hs` is needed during the build.
 
@@ -440,10 +440,10 @@ The user's package needs to depend on the full `hs-bindgen` package (not just
 `hs-bindgen-runtime`) and enable the language extensions the splice-generated
 code uses. A practical baseline is `default-language: GHC2021` together with
 the extension list used by hs-bindgen's own TH tests
-([`hs-bindgen/test/th/Test/TH/Test01.hs`](../../../hs-bindgen/test/th/Test/TH/Test01.hs)).
-GHC2021 matters because the splice expands inside the user's module rather
-than a separate generated file, so the user's `default-extensions` need to
-cover everything the generated code uses:
+([`hs-bindgen/test/th/Test/TH/Test01.hs`][source:Test01.hs]). GHC2021 matters
+because the splice expands inside the user's module rather than a separate
+generated file, so the user's `default-extensions` need to cover everything the
+generated code uses:
 
 ```cabal
 executable my-app
@@ -540,14 +540,13 @@ Haskell wrapper):
 
 #### `zlib`: `Stream.hsc:...: fatal error: zlib.h: No such file or directory`
 
-The Hackage [`zlib`](https://hackage.haskell.org/package/zlib) package
-wraps the C zlib library. Its `.hsc` files do `#include <zlib.h>`, and
-the cabal preprocessor invokes the cross-CC to expand them. With the
-default `pkg-config` flag (`flag pkg-config { default: True }` in
-zlib.cabal) cabal asks pkg-config for the include path, but pkg-config
-in a typical cross setup is not target-aware -- it either fails or
-returns host paths -- so the preprocessing fails with `zlib.h: No such
-file or directory`.
+The Hackage [`zlib`][hackage:zlib] package wraps the C zlib library. Its `.hsc`
+files do `#include <zlib.h>`, and the cabal preprocessor invokes the cross-CC to
+expand them. With the default `pkg-config` flag
+(`flag pkg-config { default: True }` in zlib.cabal) cabal asks pkg-config for
+the include path, but pkg-config in a typical cross setup is not
+target-aware -- it either fails or returns host paths -- so the preprocessing
+fails with `zlib.h: No such file or directory`.
 
 The simplest fix is to make the target zlib's headers visible to all
 packages:
@@ -563,9 +562,8 @@ lib dir from `pkgsCross.<target>.zlib.out`.
 
 If a target zlib is inconvenient to obtain, an alternative is the
 package's `bundled-c-zlib` flag, which swaps the system-library
-dependency for the
-[`zlib-clib`](https://hackage.haskell.org/package/zlib-clib) package
-(zlib's C source, compiled inline -- no system zlib needed):
+dependency for the [`zlib-clib`][hackage:zlib-clib] package (zlib's C source,
+compiled inline -- no system zlib needed):
 
 ```cabal
 package zlib
@@ -578,8 +576,7 @@ package zlib
 
 `libclang-bindings` is `build-type: Configure` and ships an autoconf
 `configure.ac` that locates LLVM via the standard
-[`llvm-config`](https://llvm.org/docs/CommandGuide/llvm-config.html)
-utility:
+[`llvm-config`][clang:docs:cli-llvm-config] utility:
 
 ```
 AC_PATH_PROG([LLVM_CONFIG],[llvm-config],[])
@@ -617,11 +614,10 @@ AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
 ```
 
 so as a fallback you can set `LLVM_CONFIG=/path/to/stub`
-([`AC_ARG_VAR`](https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html)
-is autoconf's "precious" env-var mechanism, which overrides any
-`AC_PATH_PROG` search). The `PATH` approach above is preferred because it
-keeps the configure flow on its normal path and avoids reserving an env
-var for this single purpose.
+([`AC_ARG_VAR`][autoconf:docs:AC_ARG_VAR] is autoconf's "precious" env-var
+mechanism, which overrides any `AC_PATH_PROG` search). The `PATH` approach above
+is preferred because it keeps the configure flow on its normal path and avoids
+reserving an env var for this single purpose.
 
 The four flags above are the subset that our consumers actually call:
 
@@ -646,7 +642,7 @@ include directory. In a normal install this lives at
 `<llvm-prefix>/lib/clang/<ver>/include/`.
 
 The discovery flow (see
-[`hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs`](../../../hs-bindgen/src-internal/HsBindgen/Clang/BuiltinIncDir.hs))
+[`hs-bindgen/src-internal/HsBindgen/Clang/Discover.hs`][source:Discover.hs])
 checks, in order:
 
 1. The `BINDGEN_BUILTIN_INCLUDE_DIR` environment variable
@@ -664,11 +660,11 @@ wrong if the header started using `<stdint.h>` etc.
 
 ### Working example
 
-The [cross-compilation example](../../../examples/cross-compilation/)
-ships both modes side-by-side. Phase 4 of `generate-and-run.sh` cross-builds
-and runs the TH executable under QEMU; on success the output reports the
-target struct sizes from the TH splice next to the same values measured by
-`hsc2hs`, and the two columns match.
+The [cross-compilation example][example:cross-compilation] ships both modes
+side-by-side. Phase 4 of `generate-and-run.sh` cross-builds and runs the TH
+executable under QEMU; on success the output reports the target struct sizes
+from the TH splice next to the same values measured by `hsc2hs`, and the two
+columns match.
 
 ### Troubleshooting
 
@@ -752,12 +748,20 @@ Verify the binary architecture with `file ./your-app`.
 - [QEMU User Mode Emulation][qemu:docs:user-mode-emulation]
 
 
+
 <!-- sources and references -->
 
+[autoconf:docs:AC_ARG_VAR]: https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html
 [blog:zw3rk]: https://log.zw3rk.com/
+[clang:docs:cli-llvm-config]: https://llvm.org/docs/CommandGuide/llvm-config.html
 [clang:docs:cross-compilation]: https://clang.llvm.org/docs/CrossCompilation.html
 [example:cross-compilation]: ../../../examples/cross-compilation
+[ghc:guide:hsc2hs]: https://downloads.haskell.org/ghc/latest/docs/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs
 [ghc:wiki:cross-compiling]: https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling
 [ghc:wiki:external-interpreter]: https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/external-interpreter
+[hackage:zlib]: https://hackage.haskell.org/package/zlib
+[hackage:zlib-clib]: https://hackage.haskell.org/package/zlib-clib
 [qemu:docs:user-mode-emulation]: https://www.qemu.org/docs/master/user/main.html
+[source:Discover.hs]: ../../../hs-bindgen/src-internal/HsBindgen/Clang/Discover.hs
+[source:Test01.hs]: ../../../hs-bindgen/test/th/Test/TH/Test01.hs
 [Well-Typed: Improving GHC configuration and cross-compilation]: https://well-typed.com/blog/2023/10/improving-ghc-configuration-and-cross-compilation-with-ghc-toolchain/
