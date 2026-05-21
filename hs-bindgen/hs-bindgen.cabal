@@ -140,9 +140,9 @@ library internal
     HsBindgen.Boot
     HsBindgen.Cache
     HsBindgen.Clang
-    HsBindgen.Clang.BuiltinIncDir
     HsBindgen.Clang.CompareVersions
     HsBindgen.Clang.CStandard
+    HsBindgen.Clang.Discover
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
     HsBindgen.Clang.Sizeof

@@ -16,10 +16,10 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang
-import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
 import HsBindgen.Clang.CStandard
+import HsBindgen.Clang.Discover
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Clang.Macos
 import HsBindgen.Clang.Sizeof (getSizeofs)
@@ -61,6 +61,9 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     getCStandard <- cache "cStandard" $ withTrace BootStatusCStandard $
       (.cStandard) <$> getClangArtefacts'
 
+    getClangExe <- cache "clangExe" $ withTrace BootStatusClangExe $
+      (.clangExe) <$> getClangArtefacts'
+
     getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
       (.clangArgs) <$> getClangArtefacts'
 
@@ -87,6 +90,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     pure BootArtefact {
           baseModule              = config.boot.baseModule
         , cStandard               = getCStandard
+        , clangExe                = getClangExe
         , clangArgs               = getClangArgs
         , hashIncludeArgs         = getHashIncludeArgs
         , externalBindingSpecs    = getExternalBindingSpecs
@@ -111,6 +115,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
 
 data ClangArtefacts = ClangArtefacts {
     cStandard :: ClangCStandard
+  , clangExe  :: Maybe ClangExe
   , clangArgs :: ClangArgs
   }
 
@@ -122,20 +127,21 @@ getClangArtefacts ::
 getClangArtefacts tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
-    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
+    paths <- getPaths tracerDiscover config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs
-          . applyBuiltinIncDir  mBuiltinIncDir
+          . applyPaths paths
           $ config0
         clangArgs' = ClangArgs.clangArgsConfigToClangArgs config
     cStandard' <- getClangCStandard' tracer clangArgs'
     return ClangArtefacts{
         cStandard = cStandard'
+      , clangExe  = paths.clangExe
       , clangArgs = clangArgs'
       }
   where
-    tracerBuiltinIncDir :: Tracer BuiltinIncDirMsg
-    tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
+    tracerDiscover :: Tracer DiscoverMsg
+    tracerDiscover = contramap BootDiscover tracer
 
     tracerExtraClangArgs :: Tracer ExtraClangArgsMsg
     tracerExtraClangArgs = contramap BootExtraClangArgs tracer
@@ -173,6 +179,7 @@ getClangCStandard' tracer clangArgs =
 data BootArtefact = BootArtefact {
       baseModule              :: BaseModuleName
     , cStandard               :: Cached ClangCStandard
+    , clangExe                :: Cached (Maybe ClangExe)
     , clangArgs               :: Cached ClangArgs
     , hashIncludeArgs         :: Cached [HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
@@ -187,6 +194,7 @@ data BootArtefact = BootArtefact {
 data BootStatusMsg =
     BootStatusStart                   BindgenConfig
   | BootStatusCStandard               ClangCStandard
+  | BootStatusClangExe                (Maybe ClangExe)
   | BootStatusClangArgs               ClangArgs
   | BootStatusHashIncludeArgs         [HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
@@ -201,6 +209,7 @@ instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
     BootStatusStart                   x -> bootStatus "BindgenConfig"           x
     BootStatusCStandard               x -> bootStatus "ClangCStandard"          x
+    BootStatusClangExe                x -> bootStatus "ClangExe"                x
     BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
     BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
     BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
@@ -236,7 +245,7 @@ data BootMsg =
     BootBackendConfig        BackendConfigMsg
   | BootMacos                MacosMsg
   | BootBindingSpec          BindingSpecMsg
-  | BootBuiltinIncDir        BuiltinIncDirMsg
+  | BootDiscover             DiscoverMsg
   | BootClang                ClangMsg
   | BootCStandard            BootCStandardMsg
   | BootExtraClangArgs       ExtraClangArgsMsg
