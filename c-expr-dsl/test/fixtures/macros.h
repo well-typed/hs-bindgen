@@ -151,6 +151,24 @@
 // Ternary operator is not yet in the expression grammar (see below).
 // #define FUNC_MAX(a, b)       ((a) > (b) ? (a) : (b))
 
+// FUNC_MULTILINE is like FUNC_SINGLELINE, but the former's definition is spread
+// over multiple lines. Both macros should lead to the same parse result.
+#define FUNC_SINGLELINE(xx, yy) xx * yy
+#define FUN\
+C_MULTIL\
+\
+INE\
+\
+\
+(\
+xx\
+,\
+yy\
+)\
+x\
+x * y\
+y
+
 // ---------------------------------------------------------------------------
 // Expression macros: references to other macros / typedefs
 //
