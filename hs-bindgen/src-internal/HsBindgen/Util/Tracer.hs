@@ -20,7 +20,6 @@ module HsBindgen.Util.Tracer (
   , IsUserRequested (..)
   , userRequestedIf
     -- * Tracer configuration
-  , ShowTimeStamp (..)
   , ShowCallStack (..)
   , AnsiColor (..)
   , Report
@@ -50,8 +49,6 @@ import Control.Tracer qualified as ContraTracer
 import Data.Bool (bool)
 import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
 import Data.Kind (Type)
-import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
-import Data.Time.Format (FormatTime)
 import GHC.Generics as GHC
 import GHC.Stack (CallStack, prettyCallStack)
 import Language.Haskell.TH (reportError, reportWarning, runQ)
@@ -316,9 +313,6 @@ userRequestedIf = bool NotUserRequested UserRequested
 data AnsiColor = EnableAnsiColor | DisableAnsiColor
   deriving stock (Show, Eq)
 
-data ShowTimeStamp = EnableTimeStamp | DisableTimeStamp
-  deriving stock (Show, Eq)
-
 data ShowCallStack = EnableCallStack | DisableCallStack
   deriving stock (Show, Eq)
 
@@ -334,8 +328,8 @@ data ShowCallStack = EnableCallStack | DisableCallStack
 -- separately here.
 --
 -- The report function has access to the typed trace @a@, and the formatted
--- trace. The formatted trace also possibly contains the time stamp, the call
--- stack, or other information.
+-- trace. The formatted trace also possibly contains the call stack, or other
+-- information.
 type Report e = Level -> e -> String -> IO ()
 
 data OutputConfig e =
@@ -426,7 +420,6 @@ data TracerConfig l e = TracerConfig{
       verbosity      :: Verbosity
     , outputConfig   :: OutputConfig e
     , customLogLevel :: CustomLogLevel l e
-    , showTimeStamp  :: ShowTimeStamp
     , showCallStack  :: ShowCallStack
     }
   deriving (Generic)
@@ -442,7 +435,6 @@ instance Default (TracerConfig l e) where
         verbosity      = def
       , outputConfig   = def
       , customLogLevel = mempty
-      , showTimeStamp  = DisableTimeStamp
       , showCallStack  = DisableCallStack
       }
 
@@ -499,7 +491,6 @@ withTracerUnsafe config action = do
               config.verbosity
               ansiColor
               config.showCallStack
-              config.showTimeStamp
               report)
            ref
   where
@@ -584,7 +575,6 @@ instance IsTrace SafeLevel e => IsTrace Level (SafeTrace e) where
 -- | Create a tracer emitting traces to a provided function @report@.
 --
 -- The traces provide additional information about
--- - the time,
 -- - the log level, and
 -- - the source.
 mkTracer :: forall e. (IsTrace Level e)
@@ -593,7 +583,6 @@ mkTracer :: forall e. (IsTrace Level e)
   -> Verbosity
   -> AnsiColor
   -> ShowCallStack
-  -> ShowTimeStamp
   -> Report e
   -> Tracer e
 mkTracer
@@ -602,7 +591,6 @@ mkTracer
   verbosity
   ansiColor
   showCallStack
-  showTimeStamp
   report =
     squelchUnless isLogLevelHighEnough $ simpleWithCallStack $ traceAction
   where
@@ -612,7 +600,7 @@ mkTracer
     traceAction :: WithCallStack e -> IO ()
     traceAction msg = do
       liftIO $ modifyIORef' tracerStateRef $ updateTracerState level
-      msgTrace <- formatTrace ansiColor showTimeStamp level msg.traceMsg
+      msgTrace <- formatTrace ansiColor level msg.traceMsg
       let msgStack = prettyCallStack msg.callStack
           components = msgTrace : [ msgStack | showCallStack == EnableCallStack ]
       report level msg.traceMsg $ unlines components
@@ -669,19 +657,16 @@ getAnsiColor handle = do
     pure $ if supportsAnsiColor then EnableAnsiColor else DisableAnsiColor
 
 -- Format a trace message.
-type Format m e = AnsiColor -> ShowTimeStamp -> Level -> e -> m String
+type Format m e = AnsiColor -> Level -> e -> m String
 
 -- Log format:
--- [OPTIONAL TIMESTAMP] [LEVEL] [SOURCE] Message.
+-- [LEVEL] [SOURCE] Message.
 --   Indent subsequent lines.
 --   OPTION CALL STACK.
 formatTrace :: (MonadIO m, IsTrace Level e) => Format m e
-formatTrace ansiColor showTimeStamp level trace = do
-    mTime <- case showTimeStamp of
-      DisableTimeStamp -> pure Nothing
-      EnableTimeStamp -> Just <$> liftIO getCurrentTime
+formatTrace ansiColor level trace =
     pure $
-      formatLine mTime $
+      formatLine $
         appendBugNote $
           PP.renderCtxDoc context $
             prettyForTrace trace
@@ -695,12 +680,6 @@ formatTrace ansiColor showTimeStamp level trace = do
     traceId :: TraceId
     traceId = getTraceId trace
 
-    showTime :: FormatTime t => t -> String
-    showTime = formatTime defaultTimeLocale "%Y-%m-%d %H:%M:%S%3QZ"
-
-    prependTime :: FormatTime t => t -> String -> String
-    prependTime time x = "[" <> showTime time <> "] " <> x
-
     prependLevel :: String -> String
     prependLevel x =
       withColor ansiColor level ("[" <> alignLevel level <> "]") <> " " <> x
@@ -713,15 +692,8 @@ formatTrace ansiColor showTimeStamp level trace = do
     prependTraceId x =
       withColor ansiColor level ("[" <> traceId.id <> "]") <> " " <> x
 
-    prependLabels :: Maybe UTCTime -> String -> String
-    prependLabels mTime =
-      maybePrependTime . prependLevel . prependSource . prependTraceId
-      where maybePrependTime = case mTime of
-              Nothing   -> id
-              Just time -> prependTime time
-
-    formatLine :: Maybe UTCTime -> String -> String
-    formatLine mTime = prependLabels mTime
+    formatLine :: String -> String
+    formatLine = prependLevel . prependSource . prependTraceId
 
     appendBugNote :: String -> String
     appendBugNote x = case level of

@@ -74,6 +74,9 @@
   `(DeclId, Dependency)`, reversing the previous `(ValOrRef, DeclId)` order.
   Macro-language backends must update accordingly. See
   [#1751](https://github.com/well-typed/hs-bindgen/issues/1751).
+* The `--log-show-time` CLI flag has been removed, along with the
+  `ShowTimeStamp` type and the `showTimeStamp` field of `TracerConfig`.
+  Trace output no longer includes timestamps.
 
 ### New features
 
