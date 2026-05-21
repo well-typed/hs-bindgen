@@ -69,7 +69,6 @@ parseGlobalOpts = aux <$> parseTracerConfig
               verbosity      = tracerConfigUnsafe.verbosity
             , outputConfig   = def
             , customLogLevel = mempty
-            , showTimeStamp  = tracerConfigUnsafe.showTimeStamp
             , showCallStack  = tracerConfigUnsafe.showCallStack
             }
       in  GlobalOpts tracerConfigUnsafe tracerConfigSafe
@@ -84,7 +83,6 @@ parseTracerConfig =
       <$> parseVerbosity
       <*> pure def
       <*> parseCustomLogLevel
-      <*> parseShowTimeStamp
       <*> parseShowCallStack
 
 parseVerbosity :: Parser Verbosity
@@ -166,12 +164,6 @@ parseCustomLogLevel = do
               , " (default: notice)"
               ]
           ]
-
-parseShowTimeStamp :: Parser ShowTimeStamp
-parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
-      long "log-show-time"
-    , help "Show time stamps in traces"
-    ]
 
 parseShowCallStack :: Parser ShowCallStack
 parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
