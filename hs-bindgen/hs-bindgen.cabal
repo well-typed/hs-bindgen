@@ -209,6 +209,8 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align.Error
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
