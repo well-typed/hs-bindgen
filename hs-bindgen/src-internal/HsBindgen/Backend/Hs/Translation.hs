@@ -381,7 +381,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
               , instanceDecl =
                   Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
                       writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                        Hs.ElimStruct IZ hsStruct (AS AZ) $
+                        Hs.ElimStruct IZ hsStruct.constr (toNameHint nt.field.name ::: VNil) (AS AZ) $
                           Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
                     }
               }

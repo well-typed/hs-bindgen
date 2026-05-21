@@ -9,7 +9,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Vec.Lazy qualified as Vec
-import DeBruijn (Idx (..), Weaken (..), pattern I1)
+import DeBruijn (EmptyCtx, Idx (..), Weaken (..), pattern I1)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -150,14 +150,32 @@ getDecls supInsts hCfg spec structName info struct insts =
     , marshalDecls ++ optDecls ++ fieldDecls
     )
   where
+    fieldName :: C.StructField Final -> Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) . (.info.name.hsName)
+
     getHsField :: C.StructField Final -> Hs.Field
     getHsField field =
         Hs.Field {
-            name    = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
+            name    = fieldName field
           , typ     = Type.topLevel field.typ
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo hCfg info field.info
           }
+
+    fieldHint :: C.StructField Final -> NameHint
+    fieldHint = toNameHint . fieldName
+
+    -- Build @\ptr s -> case s of Constr f0 f1 ... -> do { f f0; f f1; ... }@,
+    -- shared between 'writeRaw' and 'poke'.
+    elimFieldsLambda ::
+         (forall ctx. Idx ctx -> C.StructField Final -> Idx ctx -> a ctx)
+      -> Hs.Lambda (Hs.Lambda (Hs.ElimStruct (Hs.Seq a))) EmptyCtx
+    elimFieldsLambda mkField =
+        Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
+          Vec.reifyList struct.fields $ \fieldsVec ->
+            Hs.makeElimStruct IZ hsStruct.constr (fmap fieldHint fieldsVec) $
+              \wk xs -> Hs.Seq $ Vec.toList $
+                Vec.zipWith (mkField (weaken wk I1)) fieldsVec xs
 
     hsStruct :: Hs.Struct
     hsStruct = Hs.Struct {
@@ -205,11 +223,7 @@ getDecls supInsts hCfg spec structName info struct insts =
                     comment      = Nothing
                   , instanceDecl =
                       Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
-                          writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                            Vec.reifyList struct.fields $ \fieldsVec ->
-                              Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                                Vec.zipWith (writeRawField (weaken wk I1))
-                                  fieldsVec xs
+                          writeRaw = elimFieldsLambda writeRawField
                         }
                   }
             , if hasStaticSize && hasReadRaw && hasWriteRaw
@@ -228,11 +242,7 @@ getDecls supInsts hCfg spec structName info struct insts =
                         , peek      = Hs.Lambda (NameHint "ptr") $
                             Hs.Ap (Hs.StructCon hsStruct) $
                               map (peekField IZ) struct.fields
-                        , poke      = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                            Vec.reifyList struct.fields $ \fieldsVec ->
-                              Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                                Vec.zipWith (pokeField (weaken wk I1))
-                                  fieldsVec xs
+                        , poke      = elimFieldsLambda pokeField
                         }
                     }
             ]

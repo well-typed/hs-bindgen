@@ -796,7 +796,8 @@ type ElimStruct :: (Ctx -> Star) -> (Ctx -> Star)
 data ElimStruct t ctx where
     ElimStruct ::
          Idx ctx
-      -> Struct
+      -> Hs.Name Hs.NsConstr
+      -> Vec n NameHint
       -> Add n ctx ctx'
       -> t ctx'
       -> ElimStruct t ctx
@@ -807,11 +808,12 @@ deriving instance (forall ctx'. Show (t ctx')) => Show (ElimStruct t ctx)
 makeElimStruct :: forall n ctx t.
      SNatI n
   => Idx ctx
-  -> Struct
+  -> Hs.Name Hs.NsConstr
+  -> Vec n NameHint
   -> (forall ctx'. Wk ctx ctx' -> Vec n (Idx ctx') -> t ctx')
   -> ElimStruct t ctx
-makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
-    ElimStruct s struct add (kont wk xs)
+makeElimStruct s constr hints kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
+    ElimStruct s constr hints add (kont wk xs)
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
 -- - Use Data.Type.Nat.induction instead of explicit recursion.
