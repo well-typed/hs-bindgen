@@ -168,7 +168,9 @@ library internal
     HsBindgen.Frontend.AST.Decl
     HsBindgen.Frontend.AST.Deps
     HsBindgen.Frontend.AST.PrettyPrinter
+    HsBindgen.Frontend.AST.TranslationUnit
     HsBindgen.Frontend.AST.Type
+    HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad

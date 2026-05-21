@@ -13,7 +13,6 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -38,9 +37,8 @@ type ResolveBindingSpecs :: Pass
 data ResolveBindingSpecs a
 
 type family AnnResolveBindingSpecs ix where
-  AnnResolveBindingSpecs "TranslationUnit" = DeclMeta
-  AnnResolveBindingSpecs "Decl"            = PrescriptiveDeclSpec
-  AnnResolveBindingSpecs _                 = NoAnn
+  AnnResolveBindingSpecs "Decl" = PrescriptiveDeclSpec
+  AnnResolveBindingSpecs _      = NoAnn
 
 instance IsPass ResolveBindingSpecs where
   type MacroBody   ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs

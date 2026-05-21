@@ -18,11 +18,12 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
@@ -67,7 +68,7 @@ reconstructAfterReparse unit reparseState decls =
     C.TranslationUnit{
         decls        = decls
       , includeGraph = unit.includeGraph
-      , ann          = unit.ann{
+      , meta         = unit.meta{
             declIndex    = updatedDeclIndex
           , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
           , declUseGraph = updatedDeclUseGraph
@@ -86,14 +87,14 @@ reconstructAfterReparse unit reparseState decls =
       -- warnings.
       foldr
         DeclIndex.registerDelayedParseMsg
-        unit.ann.declIndex
+        unit.meta.declIndex
         reparseState.reparseWarnings
 
     updatedDeclUseGraph :: DeclUseGraph
     updatedDeclUseGraph =
       Foldable.foldl'
         (flip updateDeps)
-        unit.ann.declUseGraph
+        unit.meta.declUseGraph
         successfulReparses
 
 {-------------------------------------------------------------------------------

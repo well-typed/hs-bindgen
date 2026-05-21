@@ -23,7 +23,6 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -42,7 +41,6 @@ type Select :: Pass
 data Select a
 
 type family AnnSelect ix where
-  AnnSelect "TranslationUnit"  = DeclMeta
   AnnSelect "Decl"             = PrescriptiveDeclSpec
   AnnSelect "Struct"           = StructNames
   AnnSelect "Union"            = NewtypeNames

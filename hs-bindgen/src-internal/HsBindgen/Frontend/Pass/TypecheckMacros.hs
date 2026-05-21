@@ -9,7 +9,9 @@ import Data.Map qualified as Map
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -60,11 +62,11 @@ reconstructAfterTypecheck unit failedMacros decls =
     C.TranslationUnit{
         decls        = decls
       , includeGraph = unit.includeGraph
-      , ann          = unit.ann{
+      , meta         = unit.meta{
             declIndex =
               Foldable.foldl'
                 (flip DeclIndex.registerMacroTypecheckFailure)
-                unit.ann.declIndex
+                unit.meta.declIndex
                 failedMacros
           }
       }

@@ -4,8 +4,8 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
