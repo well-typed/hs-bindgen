@@ -80,6 +80,12 @@ identifiers, where uppercase and `_` characters may be used.
     [ghc:wiki:cross-compiling]: https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling
     ```
 
+* `hackage:PACKAGE` to link to a package on Hackage
+
+    ```markdown
+    hackage:base]: https://hackage.haskell.org/package/base
+    ```
+
 * `hackage:PACKAGE:IDENTIFIER` to link to documentation on Hackage
 
     ```markdown
@@ -133,6 +139,12 @@ identifiers, where uppercase and `_` characters may be used.
 
     ```markdown
     [pr:927]: https://github.com/well-typed/hs-bindgen/pull/927
+    ```
+
+* `source:FILE` to link to an `hs-bindgen` source file
+
+    ```markdown
+    [source:Test01.hs]: ../../../hs-bindgen/test/th/Test/TH/Test01.hs
     ```
 
 * `unfolder:EPISODE` to link to an Unfolder episode, which may include the
