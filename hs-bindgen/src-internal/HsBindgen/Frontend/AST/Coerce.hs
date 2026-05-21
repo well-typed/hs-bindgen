@@ -106,16 +106,6 @@ instance (
       }
 
 instance (
-      CoercePass C.Decl p p'
-    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass C.TranslationUnit p p' where
-  coercePass unit = C.TranslationUnit{
-        decls        = map coercePass unit.decls
-      , includeGraph = unit.includeGraph
-      , ann          = unit.ann
-      }
-
-instance (
       CoercePassId p p'
     ) => CoercePass C.CommentRef p p' where
   coercePass (C.CommentRef c hs k) =

@@ -15,7 +15,6 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -31,7 +30,6 @@ type MangleNames :: Pass
 data MangleNames a
 
 type family AnnMangleNames ix where
-  AnnMangleNames "TranslationUnit"  = DeclMeta
   AnnMangleNames "Decl"             = PrescriptiveDeclSpec
   AnnMangleNames "Struct"           = StructNames
   AnnMangleNames "Union"            = NewtypeNames

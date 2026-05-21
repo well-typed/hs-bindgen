@@ -26,10 +26,11 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -64,12 +65,12 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             extSpecs
             pSpec'
             unit.includeGraph
-            unit.ann.declIndex
+            unit.meta.declIndex
             (resolveDecls unit.decls)
         declUseGraph =
             DeclUseGraph.deleteRevDeps (Map.keysSet state.extTypes)
           . DeclUseGraph.deleteDeps state.opqTypes
-          $ unit.ann.declUseGraph
+          $ unit.meta.declUseGraph
         notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
     in  ( reconstruct decls declUseGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
@@ -88,10 +89,10 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
               . DeclIndex.registerOmittedDeclarations state.omitTypes
-              $ unit.ann.declIndex
+              $ unit.meta.declIndex
 
-          unitAnn' :: DeclMeta
-          unitAnn' = DeclMeta {
+          unitMeta' :: DeclMeta
+          unitMeta' = DeclMeta {
                 declIndex    = index'
               , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
               , declUseGraph = declUseGraph
@@ -100,7 +101,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       in C.TranslationUnit{
              decls        = decls'
            , includeGraph = unit.includeGraph
-           , ann          = unitAnn'
+           , meta         = unitMeta'
            }
 
 {-------------------------------------------------------------------------------

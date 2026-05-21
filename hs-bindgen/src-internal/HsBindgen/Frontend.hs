@@ -23,6 +23,7 @@ import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes (adjustTypes)
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)

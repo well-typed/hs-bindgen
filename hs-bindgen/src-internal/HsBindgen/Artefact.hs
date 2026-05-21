@@ -22,7 +22,7 @@ import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass

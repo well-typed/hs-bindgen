@@ -17,9 +17,9 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.AST.Decl
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -40,7 +40,7 @@ runBackend tracer config boot frontend = do
       final <- frontend.final
       sizeofs <- boot.sizeofs
       let declIndex :: DeclIndex
-          declIndex = final.ann.declIndex
+          declIndex = final.meta.declIndex
 
           cDecls :: [C.Decl Final]
           cDecls = final.decls

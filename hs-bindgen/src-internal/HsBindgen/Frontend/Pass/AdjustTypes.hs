@@ -6,6 +6,7 @@ import Numeric.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
@@ -39,7 +40,7 @@ adjustTypes unit =
         unit' =  C.TranslationUnit {
               decls        = decls'
             , includeGraph = unit.includeGraph
-            , ann          = unit.ann
+            , meta         = unit.meta
             }
       in
         unit'
