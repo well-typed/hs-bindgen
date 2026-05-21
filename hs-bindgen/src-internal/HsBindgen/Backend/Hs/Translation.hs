@@ -9,7 +9,6 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Vec.Lazy qualified as Vec
 import DeBruijn (Add (..), Idx (..), pattern I2)
 
 import HsBindgen.Backend.Category
@@ -347,11 +346,13 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
         ++ typedefFieldDecls nt
         ++ valueDecls
       where
-        hsStruct :: Hs.Struct (S Z)
+        -- Singleton field: 'InstanceCEnum' and its siblings rely on this
+        -- struct having exactly one field (the underlying enum integer).
+        hsStruct :: Hs.Struct
         hsStruct = Hs.Struct {
               name      = nt.name
             , constr    = nt.constr
-            , fields    = Vec.singleton nt.field
+            , fields    = [nt.field]
             , instances = nt.instances
             , origin    = Nothing
             , comment   = Nothing
@@ -380,7 +381,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
               , instanceDecl =
                   Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
                       writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                        Hs.ElimStruct IZ hsStruct (AS AZ) $
+                        Hs.ElimStruct IZ hsStruct.constr (toNameHint nt.field.name ::: VNil) (AS AZ) $
                           Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
                     }
               }

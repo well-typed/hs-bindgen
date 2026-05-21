@@ -75,7 +75,7 @@ getTestSourceDefns cFunPrefix = \case
       Hs.InstanceStorable Hs.Struct{..} _storableInstance ->
         case getStructCTypeSpelling structOrigin of
           Just cts ->
-            let fieldPs = getFieldP <$> Vec.toList structFields
+            let fieldPs = getFieldP <$> structFields
             in  [ CTestSizeofDefn   cFunPrefix structName cts
                 , CTestAlignofDefn  cFunPrefix structName cts
                 , CTestGenseqhsDefn cFunPrefix structName cts fieldPs
