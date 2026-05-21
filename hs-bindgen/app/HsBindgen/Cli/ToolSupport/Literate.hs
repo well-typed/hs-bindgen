@@ -32,6 +32,8 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -128,7 +130,7 @@ exec opts = do
             qualifiedStyle = lit.qualifiedStyle
           }
 
-        artefact :: Artefact ()
+        artefact :: Artefact CExpr ()
         artefact = writeBindings mrc filePolicy DoNotCreateOutputDirs opts.output
 
     hsBindgen

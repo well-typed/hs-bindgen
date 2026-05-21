@@ -73,9 +73,7 @@ library
     C.Expr.Util.TestEquality
 
   -- internal dependencies
-  build-depends:
-    , c-expr-runtime
-    , libclang-bindings
+  build-depends:   c-expr-runtime
 
   -- external dependencies
   build-depends:
@@ -83,6 +81,7 @@ library
     , debruijn             >=0.3.1 && <0.4
     , fin                  >=0.3.2 && <0.4
     , indexed-traversable  >=0.1.4 && <0.2
+    , libclang-bindings    >=0.1   && <0.2
     , mtl                  >=2.2   && <2.4
     , parsec               >=3.1   && <3.2
     , scientific           >=0.3.7 && <0.4
@@ -113,18 +112,18 @@ test-suite test-c-expr-dsl
   build-depends:
     , c-expr-dsl
     , c-expr-runtime
-    , libclang-bindings
 
   -- external dependencies
   build-depends:
-    , bytestring    >=0.10  && <0.13
-    , containers    >=0.6   && <0.9
-    , debruijn      >=0.3.1 && <0.4
-    , filepath      >=1.4   && <1.6
-    , fin           >=0.3.2 && <0.4
-    , parsec        >=3.1   && <3.2
-    , tasty         >=1.4   && <1.6
-    , tasty-golden  >=2.3   && <2.4
-    , tasty-hunit   >=0.10  && <0.11
-    , text          >=1.2   && <2.2
-    , vec           >=0.5   && <0.6
+    , bytestring         >=0.10  && <0.13
+    , containers         >=0.6   && <0.9
+    , debruijn           >=0.3.1 && <0.4
+    , filepath           >=1.4   && <1.6
+    , fin                >=0.3.2 && <0.4
+    , libclang-bindings  >=0.1   && <0.2
+    , parsec             >=3.1   && <3.2
+    , tasty              >=1.4   && <1.6
+    , tasty-golden       >=2.3   && <2.4
+    , tasty-hunit        >=0.10  && <0.11
+    , text               >=1.2   && <2.2
+    , vec                >=0.5   && <0.6

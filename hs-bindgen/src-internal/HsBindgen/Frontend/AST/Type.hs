@@ -24,14 +24,14 @@ module HsBindgen.Frontend.AST.Type (
      , TypePointers
      )
   , TypeFunArg
-  , TypeFunArgF (..)
+  , TypeFunArgF(..)
   , TypeQual(..)
 
     -- * References
   , EnumRef
-  , MacroRef
+  , MacroRef(..)
   , TypedefRef
-  , Ref (..)
+  , Ref(..)
 
     -- * Normal forms
   , Normalize(..)
@@ -83,9 +83,10 @@ data TypeF tag p =
 
     -- | Reference to a macro type
     --
-    -- Structurally identical to 'TypeRef' (both carry just an 'Id'), but kept
-    -- separate so pattern matches can distinguish macro use-sites from
-    -- struct/union/opaque ones without inspecting 'CDeclName.kind'.
+    -- During 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.ReparseMacroExpansions'
+    -- the underlying field of the 'MacroRef' is a placeholder (@()@);
+    -- 'HsBindgen.Frontend.Pass.Zip.Zip' fills it in with the actual type
+    -- and every downstream pass sees a fully populated 'MacroRef'.
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypeMacroRefF tag p ~ Void@.
@@ -158,7 +159,7 @@ data TypeFunArgF tag p = TypeFunArgF {
     typ :: TypeF tag p
   , ann :: Ann "TypeFunArg" p
   }
-  deriving stock Generic
+  deriving stock (Generic)
 
 deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Eq   (TypeFunArgF tag p)
@@ -241,7 +242,11 @@ type TypedefRef p = Ref (Id p) p
 --
 type ExtBindingRef p = Ref (ExtBinding p) p
 
--- |
+-- | A reference to a macro use site.
+--
+-- Structurally similar to 'Ref' but the 'underlying' field is driven by the
+-- 'MacroUnderlying' associated type family, so it can be a placeholder (@()@)
+-- during 'ReparseMacroExpansions' and the real @'Type' p@ from 'Zip' onwards.
 --
 -- For example, if we have this C code:
 --
@@ -250,9 +255,23 @@ type ExtBindingRef p = Ref (ExtBinding p) p
 --
 -- The type of the global variable @x@ is roughly:
 --
--- > Ref { name = macroIdOfT, underlying = TypePrim int }
+-- > MacroRef { name = macroIdOfT, underlying = TypePrim int }
 --
-type MacroRef p = Ref (MacroId p) p
+data MacroRef p = MacroRef {
+    name       :: !(MacroId p)
+  , underlying :: !(MacroUnderlying p)
+  }
+  deriving stock (Generic)
+
+deriving stock instance
+     (Show (MacroId p), Show (MacroUnderlying p))
+  => Show (MacroRef p)
+deriving stock instance
+     (Eq (MacroId p), Eq (MacroUnderlying p))
+  => Eq (MacroRef p)
+deriving stock instance
+     (Ord (MacroId p), Ord (MacroUnderlying p))
+  => Ord (MacroRef p)
 
 -- |
 --
@@ -332,10 +351,6 @@ class ( IsPass p
       , Show (TypeEnumRefF tag p)
       , Eq   (TypeEnumRefF tag p)
       , Ord  (TypeEnumRefF tag p)
-
-      , Show (Ann "TypeFunArg" p)
-      , Eq   (Ann "TypeFunArg" p)
-      , Ord  (Ann "TypeFunArg" p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
   type family TypedefRefF        tag p :: Star
   type family TypeQualifierF     tag p :: Star
@@ -421,27 +436,52 @@ buildPointersF n inner
 -- TypeUnsafePointer) is complete and exhaustive.
 {-# COMPLETE
        TypePrim
+     , TypeComplex
      , TypeRef
      , TypeEnum
      , TypeMacro
      , TypeTypedef
      , TypePointers
-     , TypeFun
-     , TypeVoid
      , TypeConstArray
      , TypeIncompleteArray
+     , TypeFun
+     , TypeVoid
      , TypeBlock
      , TypeQual
      , TypeExtBinding
-     , TypeComplex
   #-}
+
+_completePragmaCoversAllCases :: TypeF tag p -> ()
+_completePragmaCoversAllCases = \case
+    TypePrim{}            -> ()
+    TypeComplex{}         -> ()
+    TypeRef{}             -> ()
+    TypeEnum{}            -> ()
+    TypeMacro{}           -> ()
+    TypeTypedef{}         -> ()
+    TypeUnsafePointer{}   -> ()
+    TypeConstArray{}      -> ()
+    TypeIncompleteArray{} -> ()
+    TypeFun{}             -> ()
+    TypeVoid{}            -> ()
+    TypeBlock{}           -> ()
+    TypeQual{}            -> ()
+    TypeExtBinding{}      -> ()
 
 {-------------------------------------------------------------------------------
   Computing normal forms
 -------------------------------------------------------------------------------}
 
+-- | Normal-form computation.
+--
+-- The 'MacroUnderlying p ~ Type p' constraint excludes
+-- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.ReparseMacroExpansions',
+-- the only pass where the underlying of a 'MacroRef' is unresolved (@()@).
+-- Normalization recurses into 'MacroRef.underlying', which only makes sense
+-- once 'HsBindgen.Frontend.Pass.Zip.Zip' has filled the underlying in.
 class Normalize tag tag' where
-  normalize :: IsPass p => TypeF tag p -> TypeF tag' p
+  normalize :: (IsPass p, MacroUnderlying p ~ Type p)
+            => TypeF tag p -> TypeF tag' p
 
 instance Normalize tag tag where
   normalize = id
@@ -456,7 +496,8 @@ instance Normalize tag tag where
 -- probably not that long, so we do not expect this algorithm to have
 -- problematic performance.
 instance Normalize Full Erased where
-  normalize :: forall p. IsPass p => TypeF Full p -> TypeF Erased p
+  normalize :: forall p. (IsPass p, MacroUnderlying p ~ Type p)
+            => TypeF Full p -> TypeF Erased p
   normalize = mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef
     where
       fTypedefRef :: TypedefRef p -> TypeF Erased p
@@ -477,20 +518,24 @@ instance Normalize Full Erased where
 instance Normalize Erased Canonical where
   normalize = mapTypeF absurd fQual absurd absurd absurd
     where
-      fQual :: IsPass p => TypeQual -> TypeF Erased p -> TypeF Canonical p
+      fQual ::
+           (IsPass p, MacroUnderlying p ~ Type p)
+        => TypeQual
+        -> TypeF Erased p
+        -> TypeF Canonical p
       fQual _qual typ = normalize typ
 
 instance Normalize Full Canonical where
   normalize = getCanonicalType . getErasedType
 
 getCanonicalType ::
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> CanonicalType p
 getCanonicalType = normalize
 
 getErasedType ::
-     (Normalize tag Erased, IsPass p)
+     (Normalize tag Erased, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> ErasedType p
 getErasedType = normalize
@@ -540,7 +585,7 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 
 -- | Checks if a type is unsupported by Haskell's FFI
 hasUnsupportedType :: forall tag p.
-     (IsPass p, Normalize tag Canonical)
+     (IsPass p, Normalize tag Canonical, MacroUnderlying p ~ Type p)
   => TypeF tag p -> Bool
 hasUnsupportedType = aux . getCanonicalType
   where
@@ -579,6 +624,7 @@ referencesUntagged ::
      , Id p ~ DeclIdPair
      , MacroId p ~ DeclIdPair
      , ExtBinding p ~ ResolvedExtBinding
+     , MacroUnderlying p ~ Type p
      )
   => Type p
   -> Bool
@@ -635,7 +681,7 @@ isVoid _        = False
 
 -- | Is the canonical type a complex type?
 isCanonicalTypeComplex ::
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isCanonicalTypeComplex ty =
@@ -645,7 +691,7 @@ isCanonicalTypeComplex ty =
 
 -- | Is the canonical type a function type?
 isCanonicalTypeFunction ::
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isCanonicalTypeFunction ty =
@@ -655,7 +701,7 @@ isCanonicalTypeFunction ty =
 
 -- | Is the canonical type a struct type?
 isCanonicalTypeStruct :: forall tag p.
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p -> Bool
 isCanonicalTypeStruct ty =
     case getCanonicalType ty of
@@ -664,7 +710,7 @@ isCanonicalTypeStruct ty =
 
 -- | Is the canonical type a union type?
 isCanonicalTypeUnion :: forall tag p.
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p -> Bool
 isCanonicalTypeUnion ty =
     case getCanonicalType ty of
@@ -673,7 +719,7 @@ isCanonicalTypeUnion ty =
 
 -- | Is the erased type @const@-qualified?
 isErasedTypeConstQualified ::
-     (Normalize tag Erased, IsPass p)
+     (Normalize tag Erased, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isErasedTypeConstQualified ty =
@@ -692,7 +738,7 @@ isErasedTypeConstQualified ty =
 
 -- | Is the canonical type an array type?
 isCanonicalTypeArray ::
-     (Normalize tag Canonical, IsPass p)
+     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isCanonicalTypeArray ty =

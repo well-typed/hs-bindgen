@@ -31,7 +31,7 @@ unionDecs ::
   -> C.DeclInfo Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl]
+  -> HsM [Hs.Decl l]
 unionDecs haddockConfig info union spec = do
     nt <- newtypeDec
     flip aux nt <$> State.get
@@ -83,12 +83,12 @@ unionDecs haddockConfig info union spec = do
           ]
 
     -- everything in aux is state-dependent
-    aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
+    aux :: TranslationState -> Hs.Newtype -> [Hs.Decl l]
     aux transState nt =
         Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
         concatMap (unionFieldDecls nt.name) union.fields
       where
-        marshalDecls :: [Hs.Decl]
+        marshalDecls :: [Hs.Decl l]
         marshalDecls = [
             Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveStock
@@ -128,10 +128,10 @@ unionDecs haddockConfig info union spec = do
               (fromIntegral union.sizeof)
               (fromIntegral union.alignment)
 
-        accessorDecls :: [Hs.Decl]
+        accessorDecls :: [Hs.Decl l]
         accessorDecls = concatMap getAccessorDecls union.fields
 
-        getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
+        getAccessorDecls :: C.UnionField Final -> [Hs.Decl l]
         getAccessorDecls field =
             if Inst.Storable `Set.member` fInsts
               then [
@@ -193,7 +193,7 @@ unionDecs haddockConfig info union spec = do
 --
 -- This works similarly for bit-fields, but those get a 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
 -- instead of a 'HsBindgen.Runtime.HasCField.HasCField' instance.
-unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl]
+unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl l]
 unionFieldDecls unionName field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {

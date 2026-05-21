@@ -21,5 +21,5 @@ getReparseInfo = \curr -> do
       pure ReparseNotNeeded
     else do
       unit <- getTranslationUnit
-      ReparseNeeded <$>
-        HighLevel.clang_tokenize unit extent <*> pure macroExpansions
+      tokens <- HighLevel.clang_tokenize unit extent
+      pure $ ReparseNeeded tokens macroExpansions

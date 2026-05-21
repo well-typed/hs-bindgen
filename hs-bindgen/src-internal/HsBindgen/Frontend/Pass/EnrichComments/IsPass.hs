@@ -5,9 +5,10 @@ module HsBindgen.Frontend.Pass.EnrichComments.IsPass (
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParsedMacro, ReparseInfo, Tokens)
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -27,7 +28,7 @@ type family AnnEnrichComments ix where
   AnnEnrichComments _             = NoAnn
 
 instance IsPass EnrichComments where
-  type MacroBody   EnrichComments = ParsedMacro
+  type MacroBody   EnrichComments = ParsedMacroBody
   type ExtBinding  EnrichComments = Void
   type Ann ix      EnrichComments = AnnEnrichComments ix
   type Msg         EnrichComments = NoMsg Level
@@ -47,6 +48,7 @@ instance IsPass EnrichComments where
 instance CoercePassId               AssignAnonIds EnrichComments
 instance CoercePassMacroBody        AssignAnonIds EnrichComments
 instance CoercePassMacroId          AssignAnonIds EnrichComments
+instance CoercePassMacroUnderlying  AssignAnonIds EnrichComments
 instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
 instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
 

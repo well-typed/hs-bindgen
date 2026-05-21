@@ -31,8 +31,8 @@ import HsBindgen.Util.Tracer (withCallStack)
 assignAnonIds ::
      HasCallStack
   => AnonUsageAnalysis
-  -> [ParseResult SimplifyAST]
-  -> ([ParseResult AssignAnonIds], [AMsg AssignAnonIds])
+  -> [ParseResult l SimplifyAST]
+  -> ([ParseResult l AssignAnonIds], [AMsg AssignAnonIds])
 assignAnonIds usage parseResults =
     swap . partitionEithers $
       map (updateParseResult chosenNames) parseResults
@@ -45,10 +45,10 @@ assignAnonIds usage parseResults =
 -------------------------------------------------------------------------------}
 
 updateParseResult ::
-     HasCallStack
+     forall l. HasCallStack
   => ChosenNames
-  -> ParseResult SimplifyAST
-  -> Either (AMsg AssignAnonIds) (ParseResult AssignAnonIds)
+  -> ParseResult l SimplifyAST
+  -> Either (AMsg AssignAnonIds) (ParseResult l AssignAnonIds)
 updateParseResult chosenNames result =
     case result.classification of
       ParseResultSuccess success -> do
@@ -61,7 +61,10 @@ updateParseResult chosenNames result =
         auxFailure failure <$>
           updateDefSite chosenNames result.id
   where
-    auxSuccess :: ParseSuccess SimplifyAST -> DeclId -> ParseResult AssignAnonIds
+    auxSuccess ::
+         ParseSuccess l SimplifyAST
+      -> DeclId
+      -> ParseResult l AssignAnonIds
     auxSuccess success declId' =
         case runM chosenNames updated of
           Left (UnusableAnonDecl anonId) -> ParseResult{
@@ -83,7 +86,7 @@ updateParseResult chosenNames result =
             }
 
       where
-        updated :: M (C.DeclInfo AssignAnonIds, C.DeclKind AssignAnonIds)
+        updated :: M (C.DeclInfo AssignAnonIds, C.DeclKind l AssignAnonIds)
         updated = (,)
             <$> updateDeclInfo declId' success.decl.info
             <*> updateUseSites         success.decl.kind
@@ -91,7 +94,7 @@ updateParseResult chosenNames result =
     auxNotAttempted ::
          ParseNotAttempted
       -> DeclId
-      -> ParseResult AssignAnonIds
+      -> ParseResult l AssignAnonIds
     auxNotAttempted notAttempted declId' = ParseResult{
           id             = declId'
         , loc            = result.loc
@@ -101,7 +104,7 @@ updateParseResult chosenNames result =
     auxFailure ::
          DelayedParseMsg
       -> DeclId
-      -> ParseResult AssignAnonIds
+      -> ParseResult l AssignAnonIds
     auxFailure failure declId' = ParseResult{
           id             = declId'
         , loc            = result.loc
@@ -176,7 +179,7 @@ runM chosenNames (WrapM ma) = runExcept $ runReaderT ma chosenNames
 class UpdateUseSites a where
   updateUseSites :: a SimplifyAST -> M (a AssignAnonIds)
 
-instance UpdateUseSites C.DeclKind where
+instance UpdateUseSites (C.DeclKind l) where
   updateUseSites = \case
       C.DeclStruct   x         -> C.DeclStruct   <$> updateUseSites x
       C.DeclUnion    x         -> C.DeclUnion    <$> updateUseSites x

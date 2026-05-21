@@ -47,5 +47,5 @@ instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
 instance HasField "names" (C.Typedef Final) MangleNames.TypedefNames where
   getField typedef = typedef.ann
 
-instance HasField "names" (CheckedMacroType Final) MangleNames.NewtypeNames where
+instance HasField "names" (TypecheckedMacroType l Final) MangleNames.NewtypeNames where
   getField macro = macro.ann

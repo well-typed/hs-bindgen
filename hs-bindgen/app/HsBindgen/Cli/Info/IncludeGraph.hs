@@ -25,6 +25,8 @@ import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -107,7 +109,7 @@ exec global opts =
       opts.inputs
       artefact
   where
-    artefact :: Artefact ()
+    artefact :: Artefact CExpr ()
     artefact =
       writeIncludeGraph
         opts.predicate

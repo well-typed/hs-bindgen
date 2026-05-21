@@ -23,6 +23,8 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -73,7 +75,7 @@ exec global opts =
       opts.inputs
       artefact
   where
-    artefact :: Artefact ()
+    artefact :: Artefact CExpr ()
     artefact = writeDoxygen opts.filePolicy opts.dirPolicy opts.output
 
     bindgenConfig :: BindgenConfig

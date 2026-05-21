@@ -19,6 +19,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -28,9 +29,9 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -41,25 +42,26 @@ type Select :: Pass
 data Select a
 
 type family AnnSelect ix where
-  AnnSelect "Decl"             = PrescriptiveDeclSpec
-  AnnSelect "Struct"           = StructNames
-  AnnSelect "Union"            = NewtypeNames
-  AnnSelect "UnionField"       = UnionFieldNames
-  AnnSelect "Enum"             = NewtypeNames
-  AnnSelect "Typedef"          = TypedefNames
-  AnnSelect "CheckedMacroType" = NewtypeNames
-  AnnSelect "TypeFunArg"       = AdjustedFrom Select
-  AnnSelect _                  = NoAnn
+  AnnSelect "Decl"                 = PrescriptiveDeclSpec
+  AnnSelect "Struct"               = StructNames
+  AnnSelect "Union"                = NewtypeNames
+  AnnSelect "UnionField"           = UnionFieldNames
+  AnnSelect "Enum"                 = NewtypeNames
+  AnnSelect "Typedef"              = TypedefNames
+  AnnSelect "TypecheckedMacroType" = NewtypeNames
+  AnnSelect "TypeFunArg"           = AdjustedFrom Select
+  AnnSelect _                      = NoAnn
 
 instance IsPass Select where
-  type Id          Select = DeclIdPair
-  type ScopedName  Select = ScopedNamePair
-  type MacroBody   Select = CheckedMacro Select
-  type ExtBinding  Select = ResolvedExtBinding
-  type Ann ix      Select = AnnSelect ix
-  type Msg         Select = WithLocationInfo SelectMsg
-  type MacroId     Select = Id Select
-  type CommentDecl Select = Maybe (C.Comment Select)
+  type Id              Select = DeclIdPair
+  type ScopedName      Select = ScopedNamePair
+  type MacroBody       Select = TypecheckedMacro Select
+  type ExtBinding      Select = ResolvedExtBinding
+  type Ann ix          Select = AnnSelect ix
+  type Msg             Select = WithLocationInfo SelectMsg
+  type MacroId         Select = Id Select
+  type CommentDecl     Select = Maybe (C.Comment Select)
+  type MacroUnderlying Select = C.Type Select
 
   idNameKind     _ namePair = namePair.cName.name.kind
   idSourceName   _ namePair = declIdSourceName namePair.cName
@@ -159,7 +161,7 @@ data SelectMsg =
   | SelectMangleNamesSquashed Squashed
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
-  | SelectMacroTypecheckFailure TypecheckMacrosError
+  | SelectMacroTypecheckFailure MacroTypecheckError
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -241,14 +243,17 @@ instance IsTrace Level SelectMsg where
 
 instance CoercePassId        AdjustTypes Select
 instance CoercePassMacroId   AdjustTypes Select
+instance CoercePassMacroUnderlying AdjustTypes Select where
+  coercePassMacroUnderlying _ = coercePass
+
 instance CoercePassMacroBody AdjustTypes Select where
-  coercePassMacroBody _ = coercePass @CheckedMacro @AdjustTypes @Select
+  coercePassMacroBody _ = coercePassParam
 
 instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
   coercePassAnn _ = \case
-      AdjustedFromArray ty -> AdjustedFromArray (coercePass ty)
+      AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
       AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
-      NotAdjusted -> NotAdjusted
+      NotAdjusted             -> NotAdjusted
 
 instance CoercePassCommentDecl AdjustTypes Select where
   coercePassCommentDecl _ = fmap coercePass

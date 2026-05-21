@@ -9,6 +9,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
-  type MacroBody   AssignAnonIds = ParsedMacro
+  type MacroBody   AssignAnonIds = ParsedMacroBody
   type ExtBinding  AssignAnonIds = Void
   type Ann ix      AssignAnonIds = AnnAssignAnonIds ix
   type Msg         AssignAnonIds = ImmediateAssignAnonIdsMsg

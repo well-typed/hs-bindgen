@@ -31,10 +31,10 @@ import Data.Tuple (swap)
 import Language.C qualified as LanC
 import Language.C.Data.Position qualified as LanC
 
+import Clang.CStandard
 import Clang.HighLevel.Types qualified as Clang
 import Clang.Paths qualified as Clang
 
-import HsBindgen.Clang.CStandard
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error

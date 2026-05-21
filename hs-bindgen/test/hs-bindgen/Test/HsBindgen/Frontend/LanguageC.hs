@@ -17,6 +17,7 @@ import Data.Bifunctor (Bifunctor (first))
 import Data.Default (Default (def))
 import Data.List qualified as List
 import Data.Map.Lazy qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import GHC.Show (appPrec, showSpace)
 import Test.Tasty (TestTree, testGroup)
@@ -287,7 +288,7 @@ prop_reparseGlobal input expectedOutput =
               flatten = flattenDefault tokens
             , locStart = getLocation tokens
             }
-          emptyEnv = LanC.ReparseEnv Map.empty Map.empty
+          emptyEnv = LanC.ReparseEnv Map.empty Set.empty
           output = LanC.reparseGlobal emptyEnv flatTokens
       pure $
         counterexample ("reparser input: " <> contents) $

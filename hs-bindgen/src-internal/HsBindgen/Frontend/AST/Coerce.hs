@@ -1,8 +1,10 @@
 module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
+  , CoercePassParam(..)
   , CoercePassId(..)
   , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
+  , CoercePassMacroUnderlying(..)
   , CoercePassAnn(..)
   , CoercePassCommentDecl(..)
   ) where
@@ -32,11 +34,11 @@ class CoercePassId (p :: Pass) (p' :: Pass) where
   coercePassId _ = id
 
 class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
-  coercePassMacroBody :: Proxy '(p, p') -> MacroBody p -> MacroBody p'
+  coercePassMacroBody :: Proxy '(p, p') -> MacroBody p l -> MacroBody p' l
 
   default coercePassMacroBody ::
-       (MacroBody p ~ MacroBody p')
-    => Proxy '(p, p') -> MacroBody p -> MacroBody p'
+       (MacroBody p ~ MacroBody p' )
+    => Proxy '(p, p') -> MacroBody p l -> MacroBody p' l
   coercePassMacroBody _ = id
 
 class CoercePassMacroId (p :: Pass) (p' :: Pass) where
@@ -47,6 +49,15 @@ class CoercePassMacroId (p :: Pass) (p' :: Pass) where
     => Proxy '(p, p') -> MacroId p -> MacroId p'
   coercePassMacroId _ = id
 
+class CoercePassMacroUnderlying (p :: Pass) (p' :: Pass) where
+  coercePassMacroUnderlying ::
+    Proxy '(p, p') -> MacroUnderlying p -> MacroUnderlying p'
+
+  default coercePassMacroUnderlying ::
+       (MacroUnderlying p ~ MacroUnderlying p')
+    => Proxy '(p, p') -> MacroUnderlying p -> MacroUnderlying p'
+  coercePassMacroUnderlying _ = id
+
 class CoercePassAnn ix p p' where
   coercePassAnn :: Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
 
@@ -55,12 +66,6 @@ class CoercePassAnn ix p p' where
     => Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
   coercePassAnn _ = id
 
--- | Coerce the 'CommentDecl' between passes
---
--- Default is identity (for same-'CommentDecl' pairs, e.g., @() -> ()@ or
--- @Maybe (Comment p) -> Maybe (Comment p)@). Pairs that cross the
--- 'EnrichComments' boundary (where 'CommentDecl' changes from @()@ to
--- @Maybe (Comment p)@) must provide an explicit instance.
 class CoercePassCommentDecl (p :: Pass) (p' :: Pass) where
   coercePassCommentDecl :: Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
 
@@ -76,11 +81,14 @@ class CoercePassCommentDecl (p :: Pass) (p' :: Pass) where
 class CoercePass a p p' where
   coercePass :: a p -> a p'
 
+class CoercePassParam a p p' where
+  coercePassParam :: a p l -> a p' l
+
 instance (
       CoercePassId p p'
-    , CoercePass C.Decl p p'
+    , CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass ParseResult p p' where
+    ) => CoercePass (ParseResult l) p p' where
   coercePass pr = ParseResult{
         id             = coercePassId (Proxy @'(p, p')) pr.id
       , loc            = pr.loc
@@ -88,18 +96,18 @@ instance (
       }
 
 instance (
-      CoercePass C.Decl p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass ParseClassification p p' where
+    ) => CoercePass (ParseClassification l) p p' where
   coercePass = \case
     ParseResultSuccess s      -> ParseResultSuccess (coercePass s)
     ParseResultNotAttempted x -> ParseResultNotAttempted x
     ParseResultFailure x      -> ParseResultFailure x
 
 instance (
-      CoercePass C.Decl p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass ParseSuccess p p' where
+    ) => CoercePass (ParseSuccess l) p p' where
   coercePass ps = ParseSuccess{
         decl = coercePass ps.decl
       , delayedParseMsgs = ps.delayedParseMsgs
@@ -123,11 +131,11 @@ instance (
 
 instance (
       CoercePass C.DeclInfo p p'
-    , CoercePass C.DeclKind p p'
+    , CoercePass (C.DeclKind l) p p'
     , Ann "Decl" p ~ Ann "Decl" p'
-    ) => CoercePass C.Decl p p' where
+    ) => CoercePass (C.Decl l) p p' where
   coercePass decl = C.Decl{
-        info = coercePass decl.info
+        info = coercePass      decl.info
       , kind = coercePass decl.kind
       , ann  = decl.ann
       }
@@ -172,7 +180,7 @@ instance (
      , CoercePass C.Global   p p'
      , CoercePass C.AnonEnumConstant p p'
      , CoercePassMacroBody p p'
-     ) => CoercePass C.DeclKind p p' where
+     ) => CoercePass (C.DeclKind l) p p' where
   coercePass = \case
       C.DeclStruct           x -> C.DeclStruct           $ coercePass x
       C.DeclUnion            x -> C.DeclUnion            $ coercePass x
@@ -279,6 +287,7 @@ instance (
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     , CoercePassAnn "TypeFunArg" p p'
+    , CoercePassMacroUnderlying p p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass C.Function p p' where
   coercePass function = C.Function{
@@ -294,6 +303,7 @@ instance (
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     , CoercePassAnn "TypeFunArg" p p'
+    , CoercePassMacroUnderlying p p'
     , Ann "Global" p ~ Ann "Global" p'
     ) => CoercePass C.Global p p' where
   coercePass global = C.Global{
@@ -307,15 +317,17 @@ instance (
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     , CoercePassAnn "TypeFunArg" p p'
+    , CoercePassMacroUnderlying p p'
     ) => CoercePass C.FunctionArg p p' where
   coercePass functionArg = C.FunctionArg{
-        name = functionArg.name
+        name   = functionArg.name
       , argTyp = coercePass functionArg.argTyp
       }
 
 instance (
       CoercePassId p p'
     , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     , CoercePassAnn "TypeFunArg" p p'
@@ -324,7 +336,7 @@ instance (
       C.TypePrim prim           -> C.TypePrim prim
       C.TypeRef uid             -> C.TypeRef (goId uid)
       C.TypeEnum ref            -> C.TypeEnum (C.Ref (goId ref.name) (coercePass ref.underlying))
-      C.TypeMacro ref           -> C.TypeMacro (C.Ref (goMacroId ref.name) (coercePass ref.underlying))
+      C.TypeMacro ref           -> C.TypeMacro (C.MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
       C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (goId ref.name) (coercePass ref.underlying))
       C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
       C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
@@ -342,12 +354,16 @@ instance (
       goMacroId :: MacroId p -> MacroId p'
       goMacroId = coercePassMacroId (Proxy @'(p, p'))
 
+      goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
+      goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
+
 instance (
       CoercePassId p p'
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     , CoercePassAnn "TypeFunArg" p p'
+    , CoercePassMacroUnderlying p p'
     ) => CoercePass C.TypeFunArg p p' where
   coercePass arg = C.TypeFunArgF {
         typ = coercePass arg.typ

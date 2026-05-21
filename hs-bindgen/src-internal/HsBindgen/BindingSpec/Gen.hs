@@ -47,11 +47,11 @@ genBindingSpec ::
      Format
   -> Hs.ModuleName
   -> IncludeGraph
-  -> DeclIndex
+  -> DeclIndex l
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
   -> ByteString
 genBindingSpec
   format
@@ -93,7 +93,7 @@ genBindingSpec' ::
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
   -> UnresolvedBindingSpec
 genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
     foldr aux spec0
@@ -122,7 +122,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       . getMainHeaders
 
     aux ::
-         Hs.Decl
+         Hs.Decl l
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     aux = \case

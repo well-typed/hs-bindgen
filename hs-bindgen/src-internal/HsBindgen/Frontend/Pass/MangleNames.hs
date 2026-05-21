@@ -15,8 +15,6 @@ import Data.Map qualified as Map
 import Data.Proxy
 import Data.Set qualified as Set
 
-import C.Expr.Typecheck qualified as CExpr
-
 import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -40,6 +38,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -55,10 +54,10 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     HasCallStack
+     forall l. (HasCallStack, HasMacroTypes l)
   => FieldNamingStrategy
-  -> C.TranslationUnit ResolveBindingSpecs
-  -> (C.TranslationUnit MangleNames, [AMsg MangleNames])
+  -> C.TranslationUnit l ResolveBindingSpecs
+  -> (C.TranslationUnit l MangleNames, [AMsg MangleNames])
 mangleNames fieldNaming unit = (
          C.TranslationUnit{
            decls        = decls2
@@ -94,8 +93,8 @@ mangleNames fieldNaming unit = (
         , fieldNamingStrategy = fieldNaming
         }
 
-    mangleDeclResults   :: [MangleDeclResult]
-    msgs2 :: [AMsg MangleNames]
+    mangleDeclResults :: [MangleDeclResult l]
+    msgs2             :: [AMsg MangleNames]
     (mangleDeclResults, msgs2) = runM env $ mapM mangleDecl decls1
 
     failures2 :: [MangleNamesFailure]
@@ -103,10 +102,10 @@ mangleNames fieldNaming unit = (
     (failures2, squashes, decls2) = partitionResults mangleDeclResults
 
     partitionResults ::
-         [MangleDeclResult]
+         [MangleDeclResult l]
       -> ( [MangleNamesFailure]
          , [MangleNamesSquash]
-         , [C.Decl MangleNames] )
+         , [C.Decl l MangleNames] )
     partitionResults = rev . Foldable.foldl' aux ([], [], [])
       where
         aux (fs, ss, ds) x = case x of
@@ -120,8 +119,8 @@ updateDeclMeta ::
       NameMap
    -> [MangleNamesFailure]
    -> [MangleNamesSquash]
-   -> DeclMeta
-   -> DeclMeta
+   -> DeclMeta l
+   -> DeclMeta l
 updateDeclMeta nameMap failures squashes declMeta = declMeta{
       declIndex =
         DeclIndex.registerMangleNamesFailure failuresMap $
@@ -147,11 +146,11 @@ updateDeclMeta nameMap failures squashes declMeta = declMeta{
 -------------------------------------------------------------------------------}
 
 chooseNames ::
-     HasCallStack
+     forall l. HasCallStack
   => TypedefAnalysis
   -> MangleCandidate Maybe
-  -> [C.Decl ResolveBindingSpecs]
-  -> ([C.Decl ResolveBindingSpecs], NameMap, [MangleNamesFailure], [AMsg MangleNames])
+  -> [C.Decl l ResolveBindingSpecs]
+  -> ([C.Decl l ResolveBindingSpecs], NameMap, [MangleNamesFailure], [AMsg MangleNames])
 chooseNames td mc decls =
     let specifiedNames :: Map DeclId (Hs.Name Hs.NsTypeConstr)
         specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
@@ -182,13 +181,13 @@ chooseNames td mc decls =
         collidingDeclIds :: Set DeclId
         collidingDeclIds = Set.fromList $ map (.id) collisionFailures
 
-        okDecls :: [C.Decl ResolveBindingSpecs]
+        okDecls :: [C.Decl l ResolveBindingSpecs]
         okDecls = filter (\x -> Set.notMember x.info.id collidingDeclIds) decls
 
     in  (okDecls, nameMap, failures ++ collisionFailures, messages)
   where
     getSpecifiedName ::
-      C.Decl ResolveBindingSpecs -> Maybe (DeclId, Hs.Name Hs.NsTypeConstr)
+      C.Decl l ResolveBindingSpecs -> Maybe (DeclId, Hs.Name Hs.NsTypeConstr)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
 getCollisionFailures :: (Hs.SomeName, [(DeclId, SingleLoc)]) -> [MangleNamesFailure]
@@ -214,7 +213,7 @@ nameForDecl ::
   => TypedefAnalysis
   -> MangleCandidate Maybe
   -> Map DeclId (Hs.Name Hs.NsTypeConstr)
-  -> C.Decl ResolveBindingSpecs
+  -> C.Decl l ResolveBindingSpecs
   -> (Either MangleNamesFailure NameInfo, [AMsg MangleNames])
 nameForDecl td mc specifiedNames decl =
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
@@ -452,12 +451,19 @@ class Mangle a where
 class MangleWithDeclName a where
   mangleWithDeclName :: Text -> a ResolveBindingSpecs -> E M (a MangleNames)
 
-data MangleDeclResult =
+mangleWithDeclNameFlip ::
+     MangleWithDeclName (Flip a l)
+  => Text
+  -> a ResolveBindingSpecs l
+  -> ExceptT MangleNamesError M (a MangleNames l)
+mangleWithDeclNameFlip declName = flipM (mangleWithDeclName declName)
+
+data MangleDeclResult l =
       MdrFailure  MangleNamesFailure
     | MdrSquashed MangleNamesSquash
-    | MdrMangled (C.Decl MangleNames)
+    | MdrMangled (C.Decl l MangleNames)
 
-mangleDecl :: C.Decl ResolveBindingSpecs -> M MangleDeclResult
+mangleDecl :: HasMacroTypes l => C.Decl l ResolveBindingSpecs -> M (MangleDeclResult l)
 mangleDecl decl = do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
@@ -477,7 +483,7 @@ mangleDecl decl = do
             C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> mangle x
             C.DeclTypedef  x         -> C.DeclTypedef          <$> mangleWithDeclName hsId x
             C.DeclFunction x         -> C.DeclFunction         <$> mangle x
-            C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclName hsId x
+            C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclNameFlip hsId x
             C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle x
             C.DeclOpaque             -> pure C.DeclOpaque
           pure $ C.Decl{
@@ -685,7 +691,7 @@ mangleEnclosingRef = \case
     C.UnusableEnclosingRef e ->
       pure $ C.UnusableEnclosingRef e
 
-instance MangleWithDeclName C.DeclKind where
+instance HasMacroTypes l => MangleWithDeclName (C.DeclKind l) where
   mangleWithDeclName hsName = \case
       C.DeclStruct   x         -> C.DeclStruct           <$> mangleWithDeclName hsName x
       C.DeclUnion    x         -> C.DeclUnion            <$> mangleWithDeclName hsName x
@@ -693,7 +699,7 @@ instance MangleWithDeclName C.DeclKind where
       C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> mangle x
       C.DeclTypedef  x         -> C.DeclTypedef          <$> mangleWithDeclName hsName x
       C.DeclFunction x         -> C.DeclFunction         <$> mangle x
-      C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclName hsName x
+      C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclNameFlip hsName x
       C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle x
       C.DeclOpaque             -> pure C.DeclOpaque
 
@@ -959,23 +965,19 @@ instance Mangle C.Global where
         , ann = global.ann
         }
 
-instance MangleWithDeclName CheckedMacro where
-  mangleWithDeclName hsName = \case
+instance HasMacroTypes l => MangleWithDeclName (Flip TypecheckedMacro l) where
+  mangleWithDeclName hsName (Flip m) = Flip <$> case m of
       MacroType  typ -> MacroType  <$> mangleWithDeclName hsName typ
       MacroValue val -> MacroValue <$> mangle val
 
-instance MangleWithDeclName CheckedMacroType where
-  mangleWithDeclName hsName macroType = case macroType.typ of
-    (CExpr.CheckedMacroTypeExpr body typ) -> do
+instance HasMacroTypes l => MangleWithDeclName (TypecheckedMacroType l) where
+  mangleWithDeclName hsName macroType = do
       strategy       <- asks (.fieldNamingStrategy)
       macroTypeNames <- mkMacroTypeNames strategy hsName
-      body'          <- traverse mangleMacroTypeVar body
-      pure CheckedMacroType{
-          typ = CExpr.CheckedMacroTypeExpr{
-              macroTypeBody = body'
-            , macroTypeType = typ
-            }
-        , ann = macroTypeNames
+      body'          <- traverse mangleMacroTypeVar macroType.body
+      pure TypecheckedMacroType{
+          body = body'
+        , ann  = macroTypeNames
         }
     where
       mangleMacroTypeVar ::
@@ -985,15 +987,10 @@ instance MangleWithDeclName CheckedMacroType where
         MacroTypeExtBinding ext -> pure $ MacroTypeExtBinding ext
         MacroTypeBodyVar declId -> MacroTypeBodyVar <$> lookupTypePair declId
 
-instance Mangle CheckedMacroValue where
-  mangle macroValue = CheckedMacroValue <$> case macroValue.val of
-    CExpr.CheckedMacroValueExpr params body typ -> do
-      body' <- traverse lookupVarPair body
-      pure CExpr.CheckedMacroValueExpr{
-            macroValueParams = params
-          , macroValueBody   = body'
-          , macroValueType   = typ
-          }
+instance HasMacroTypes l => Mangle (TypecheckedMacroValue l) where
+  mangle macroValue = do
+      body' <- traverse lookupVarPair macroValue.body
+      pure $ TypecheckedMacroValue body'
 
 instance Mangle C.Type where
   mangle = \case
@@ -1003,7 +1000,7 @@ instance Mangle C.Type where
       C.TypeEnum ref -> fmap C.TypeEnum $
         C.Ref <$> lookupTypePair ref.name <*> mangle ref.underlying
       C.TypeMacro ref -> fmap C.TypeMacro $
-        C.Ref <$> lookupTypePair ref.name <*> mangle ref.underlying
+        C.MacroRef <$> lookupTypePair ref.name <*> mangle ref.underlying
       C.TypeTypedef ref -> fmap C.TypeTypedef $
         C.Ref <$>  lookupTypePair ref.name <*> mangle ref.underlying
 
@@ -1036,7 +1033,7 @@ instance Mangle C.TypeFunArg where
 -------------------------------------------------------------------------------}
 
 withDeclNamespace ::
-     C.DeclKind ResolveBindingSpecs
+     C.DeclKind l ResolveBindingSpecs
   -> (forall ns. HasName ns => Proxy ns -> r)
   -> r
 withDeclNamespace kind k =

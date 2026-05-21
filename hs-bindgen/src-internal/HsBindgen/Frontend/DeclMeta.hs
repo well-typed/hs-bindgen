@@ -12,8 +12,8 @@ import HsBindgen.Imports
   Information about the declarations
 -------------------------------------------------------------------------------}
 
-data DeclMeta = DeclMeta {
-      declIndex    :: DeclIndex
+data DeclMeta l = DeclMeta {
+      declIndex    :: DeclIndex l
     , useDeclGraph :: UseDeclGraph
     , declUseGraph :: DeclUseGraph
     }

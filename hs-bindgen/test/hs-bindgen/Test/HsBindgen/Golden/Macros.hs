@@ -4,9 +4,9 @@ module Test.HsBindgen.Golden.Macros (testCases) where
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -69,11 +69,11 @@ test_macros_macro_type_unresolved_tagged =
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroTypecheckFailure TypecheckMacrosErrorUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       _otherwise ->
         Nothing

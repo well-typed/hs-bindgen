@@ -4,6 +4,12 @@
 
 ### Breaking changes
 
+* `CheckedMacroTypeExpr` is renamed to `TypecheckedMacroTypeExpr` and gains
+  `Foldable` and `Traversable` instances.
+* `CheckedMacroValueExpr` is renamed to `TypecheckedMacroValueExpr` and gains
+  `Functor`, `Foldable`, and `Traversable` instances.
+* `TypeSource` is renamed to `CTypeSource`; its constructors `TypeSourceTypedef`
+  and `TypeSourceMacroType` are renamed to `FromTypedef` and `FromMacroType`.
 * Re-export parse-related symbols from `C.Expr.Parse`; demote lower-level
   modules to `other-modules`.
 * Re-export typecheck-related symbols from `C.Expr.Typecheck`; demote

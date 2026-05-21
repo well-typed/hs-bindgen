@@ -27,6 +27,7 @@ module HsBindgen.Frontend.Naming (
     -- * DeclId
   , DeclId(..)
   , declIdSourceName
+  , renderNonAnonDeclId
   , renderDeclId
   , parseDeclId
 
@@ -38,29 +39,19 @@ module HsBindgen.Frontend.Naming (
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Errors (panicPure)
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  C names
+  C tags and names
 
   This is not standard C because we distinguish a separate macro namespace.
 -------------------------------------------------------------------------------}
 
--- | C tag kind
---
--- This type distinguishes the kinds of C tags.
-data CTagKind =
-    -- | @struct@ tag kind
-    CTagKindStruct
-
-    -- | @union@ tag kind
-  | CTagKindUnion
-
-    -- | @enum@ tag kind
-  | CTagKindEnum
+-- | C tag kind for elaborated types (@struct@, @union@, @enum@).
+data CTagKind = CTagKindStruct | CTagKindUnion | CTagKindEnum
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace CTagKind where
@@ -71,8 +62,6 @@ cTagKindPrefix = \case
     CTagKindStruct -> "struct"
     CTagKindUnion  -> "union"
     CTagKindEnum   -> "enum"
-
---------------------------------------------------------------------------------
 
 -- | C name kind
 --
@@ -224,6 +213,12 @@ declIdSourceName :: DeclId -> Maybe CDeclName
 declIdSourceName declId = do
     guard $ not declId.isAnon
     return declId.name
+
+renderNonAnonDeclId :: DeclId -> Maybe Text
+renderNonAnonDeclId declId
+  | declId.isAnon = Nothing
+  | otherwise     = Just $ renderCDeclName declId.name
+
 
 -- | User-facing syntax for t'DeclId'
 renderDeclId :: DeclId -> Text

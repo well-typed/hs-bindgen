@@ -12,54 +12,49 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Update (
 
 import Prelude hiding (lex, print)
 
-import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
-import Control.Monad.State (MonadState, State, modify, runState)
-import Data.Kind (Type)
+import Control.Monad.Reader
+import Control.Monad.State
+import Data.Kind
 import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
-import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.DeclMeta (DeclMeta (declIndex))
-import HsBindgen.Frontend.Naming (DeclId)
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (ReparseNeeded, ReparseNotNeeded),
-                                             Tokens)
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseMacroPrepareReparseFailed))
-import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Tag (..),
-                                                   TagType (Function))
-import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault,
-                                                       flattenFunction)
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (..),
-                                                      PrepareReparse)
-import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (fieldTag, functionTag,
-                                                          typedefTag,
-                                                          variableTag)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro,
-                                                       TypecheckMacros)
+import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.PrepareReparse.AST
+import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
+import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports (Map)
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 update ::
+     forall l.
      Maybe (Map Tag Decl)
-  -> C.TranslationUnit TypecheckMacros
-  -> C.TranslationUnit PrepareReparse
-update mapping unit = unit' {
-      C.meta = unit'.meta {
+  -> C.TranslationUnit l TypecheckMacros
+  -> C.TranslationUnit l PrepareReparse
+update mapping unit = unit'{
+      C.meta = unit'.meta{
           declIndex = declIndex'
         }
     }
   where
     (unit', msgs) = runM env $ updateIt () unit
 
-    declIndex' ::  DeclIndex
+    declIndex' ::  DeclIndex l
     declIndex' =
       -- We use @foldr@ here to establish the original order of messages
       foldr
@@ -108,27 +103,27 @@ newtype St = St {
   Update: instances
 -------------------------------------------------------------------------------}
 
-instance Update C.TranslationUnit where
-  type Ctx C.TranslationUnit = ()
+instance Update (C.TranslationUnit l) where
+  type Ctx (C.TranslationUnit l) = ()
   updateIt _ unit = do
       decls' <- mapM (updateIt ()) unit.decls
-      pure C.TranslationUnit {
-          decls = decls'
+      pure C.TranslationUnit{
+          decls        = decls'
         , includeGraph = unit.includeGraph
-        , meta = unit.meta
+        , meta         = unit.meta
         }
 
-instance Update C.Decl where
-  type Ctx C.Decl = ()
+instance Update (C.Decl l) where
+  type Ctx (C.Decl l) = ()
   updateIt _ decl = do
-      kind' <- updateIt decl.info decl.kind
+      kind' <- (updateIt decl.info) decl.kind
       pure C.Decl {
           info = coercePass decl.info
         , kind = kind'
-        , ann = decl.ann
+        , ann  = decl.ann
         }
 
-instance Update C.DeclKind where
+instance Update (C.DeclKind l) where
   updateIt info declKind = case declKind of
       C.DeclStruct struct      -> C.DeclStruct           <$> recurse struct
       C.DeclUnion union        -> C.DeclUnion            <$> recurse union
@@ -136,7 +131,7 @@ instance Update C.DeclKind where
       C.DeclEnum enum          -> C.DeclEnum             <$> recurse enum
       C.DeclAnonEnumConstant c -> C.DeclAnonEnumConstant <$> recurse c
       C.DeclOpaque             -> pure C.DeclOpaque
-      C.DeclMacro macro        -> C.DeclMacro            <$> recurse macro
+      C.DeclMacro macro        -> C.DeclMacro            <$> (flipM recurse) macro
       C.DeclFunction function  -> C.DeclFunction         <$> recurse function
       C.DeclGlobal global      -> C.DeclGlobal           <$> recurse global
     where
@@ -151,32 +146,32 @@ instance Update C.Struct where
       fields' <- mapM (updateIt info) struct.fields
       flam' <- mapM (updateIt info) struct.flam
       pure C.Struct {
-          sizeof = struct.sizeof
+          sizeof    = struct.sizeof
         , alignment = struct.alignment
-        , fields = fields'
-        , flam = flam'
-        , ann = struct.ann
+        , fields    = fields'
+        , flam      = flam'
+        , ann       = struct.ann
         }
 
 instance Update C.StructField where
   updateIt info field = do
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.StructField {
-          info = coercePass field.info
-        , typ = coercePass field.typ
+          info   = coercePass field.info
+        , typ    = coercePass field.typ
         , offset = field.offset
-        , width = field.width
-        , ann = ann'
+        , width  = field.width
+        , ann    = ann'
         }
 
 instance Update C.Union where
   updateIt info union = do
       fields' <- mapM (updateIt info) union.fields
       pure C.Union {
-          sizeof = union.sizeof
+          sizeof    = union.sizeof
         , alignment = union.alignment
-        , fields = fields'
-        , ann = union.ann
+        , fields    = fields'
+        , ann       = union.ann
         }
 
 instance Update C.UnionField where
@@ -184,8 +179,8 @@ instance Update C.UnionField where
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.UnionField {
           info = coercePass field.info
-        , typ = coercePass field.typ
-        , ann = ann'
+        , typ  = coercePass field.typ
+        , ann  = ann'
         }
 
 instance Update C.Typedef where
@@ -202,8 +197,8 @@ instance Update C.Enum where
 instance Update C.AnonEnumConstant where
   updateIt _ constant = pure $ coercePass constant
 
-instance Update CheckedMacro where
-  updateIt _info macro = pure $ coercePass macro
+instance Update (Flip TypecheckedMacro l) where
+  updateIt _info (Flip macro) = pure $ Flip $ coercePassParam macro
 
 instance Update C.Function where
   updateIt info function = do

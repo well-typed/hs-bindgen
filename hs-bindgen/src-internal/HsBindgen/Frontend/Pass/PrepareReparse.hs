@@ -43,13 +43,14 @@ import HsBindgen.Util.Tracer (Tracer)
 -------------------------------------------------------------------------------}
 
 prepareReparse ::
+     forall l.
      Tracer (Msg PrepareReparse)
   -> Maybe ClangExe
   -> ClangSetup
   -> RootHeader
   -> [MacroDefinition]
-  -> C.TranslationUnit TypecheckMacros
-  -> IO (C.TranslationUnit PrepareReparse)
+  -> C.TranslationUnit l TypecheckMacros
+  -> IO (C.TranslationUnit l PrepareReparse)
 prepareReparse tr clangExeMay setup root macroDefs unit
   | invocationCanFloatInwards macroDefs
   = do
@@ -105,7 +106,7 @@ prepareReparse tr clangExeMay setup root macroDefs unit
                       pure $ runUpdater postHeader unit
   where
     -- | Default to flattening tokens without expanding macro invocations.
-    fallback :: C.TranslationUnit PrepareReparse
+    fallback :: C.TranslationUnit l PrepareReparse
     fallback = update Nothing unit
 
 {-------------------------------------------------------------------------------
@@ -128,7 +129,7 @@ cut headerPath headerContents = go (lines headerContents)
   Internal phases
 -------------------------------------------------------------------------------}
 
-runSimplifier :: FilePath -> C.TranslationUnit TypecheckMacros -> PreHeader
+runSimplifier :: FilePath -> C.TranslationUnit l TypecheckMacros -> PreHeader
 runSimplifier rootHeaderPath unit = simplify () unit $ Include rootHeaderPath
 
 runPrinter :: PreHeader -> ShowS
@@ -142,8 +143,8 @@ runParser = parse
 
 runUpdater ::
      PostHeader
-  -> C.TranslationUnit TypecheckMacros
-  -> C.TranslationUnit PrepareReparse
+  -> C.TranslationUnit l TypecheckMacros
+  -> C.TranslationUnit l PrepareReparse
 runUpdater header unit = update (Just mapping) unit
   where
     mapping :: Map Tag Decl

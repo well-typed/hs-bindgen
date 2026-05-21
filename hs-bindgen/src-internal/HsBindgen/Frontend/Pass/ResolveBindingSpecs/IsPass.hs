@@ -11,12 +11,12 @@ import Text.SimplePrettyPrint ((<+>))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding (ResolvedExtBinding (..),
-                                                                       extDeclIdPair)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -43,12 +43,13 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs _      = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type MacroBody   ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
-  type ExtBinding  ResolveBindingSpecs = ResolvedExtBinding
-  type Ann ix      ResolveBindingSpecs = AnnResolveBindingSpecs ix
-  type Msg         ResolveBindingSpecs = ResolveBindingSpecsMsg
-  type MacroId     ResolveBindingSpecs = Id ResolveBindingSpecs
-  type CommentDecl ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
+  type MacroBody       ResolveBindingSpecs = TypecheckedMacro ResolveBindingSpecs
+  type ExtBinding      ResolveBindingSpecs = ResolvedExtBinding
+  type Ann ix          ResolveBindingSpecs = AnnResolveBindingSpecs ix
+  type Msg             ResolveBindingSpecs = ResolveBindingSpecsMsg
+  type MacroId         ResolveBindingSpecs = Id ResolveBindingSpecs
+  type CommentDecl     ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
+  type MacroUnderlying ResolveBindingSpecs = C.Type ResolveBindingSpecs
 
   extBindingId _ = (.cName)
   macroIdId _ = id
@@ -148,7 +149,9 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId ReparseMacroExpansions ResolveBindingSpecs
+instance CoercePassId               Zip ResolveBindingSpecs
+instance CoercePassMacroId          Zip ResolveBindingSpecs
+instance CoercePassAnn "TypeFunArg" Zip ResolveBindingSpecs
 
-instance CoercePassCommentDecl ReparseMacroExpansions ResolveBindingSpecs where
+instance CoercePassCommentDecl Zip ResolveBindingSpecs where
   coercePassCommentDecl _ = fmap coercePass

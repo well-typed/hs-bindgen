@@ -42,6 +42,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C (PrimType)
+import HsBindgen.Macro.Type
 
 import Doxygen.Parser.Types qualified as Doxy
 
@@ -52,9 +53,9 @@ import Doxygen.Parser.Types qualified as Doxy
   'SingleLoc' (in addition to the 'SingleLoc' of the enclosing declaration).
 -------------------------------------------------------------------------------}
 
-data Decl p = Decl {
+data Decl l p = Decl {
       info :: DeclInfo p
-    , kind :: DeclKind p
+    , kind :: DeclKind l p
     , ann  :: Ann "Decl" p
     }
   deriving stock (Generic)
@@ -133,7 +134,7 @@ data FieldInfo p = FieldInfo {
     }
   deriving stock (Generic)
 
-data DeclKind p =
+data DeclKind l p =
     DeclStruct (Struct p)
   | DeclUnion (Union p)
   | DeclTypedef (Typedef p)
@@ -149,7 +150,7 @@ data DeclKind p =
     -- specify any kind of type to be opaque using a prescriptive binding
     -- specification, however, including @typedef@ types.
   | DeclOpaque
-  | DeclMacro (MacroBody p)
+  | DeclMacro (MacroBody p l)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal (Global p)
@@ -358,34 +359,43 @@ data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
   Instances
 -------------------------------------------------------------------------------}
 
-deriving stock instance IsPass p => Show (Comment          p)
-deriving stock instance IsPass p => Show (CommentRef       p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Decl             p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (DeclInfo         p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (FieldInfo        p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (DeclKind         p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Enum             p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (EnumConstant     p)
-deriving stock instance IsPass p => Show (Function         p)
-deriving stock instance IsPass p => Show (FunctionArg      p)
-deriving stock instance IsPass p => Show (Global           p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Struct           p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (StructField      p)
-deriving stock instance IsPass p => Show (Typedef          p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Union            p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (UnionField       p)
+deriving stock instance IsPass p => Show (Comment p)
+deriving stock instance IsPass p => Show (CommentRef p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (Decl l p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (DeclInfo p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (FieldInfo p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (DeclKind l p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Enum p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (EnumConstant p)
+deriving stock instance IsPass p => Show (Function p)
+deriving stock instance IsPass p => Show (FunctionArg p)
+deriving stock instance IsPass p => Show (Global p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Struct p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (StructField p)
+deriving stock instance IsPass p => Show (Typedef p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Union p)
+deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (UnionField p)
 
-deriving stock instance IsPass p => Eq (Comment          p)
-deriving stock instance IsPass p => Eq (CommentRef       p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (DeclKind         p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Enum             p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (EnumConstant     p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (FieldInfo        p)
-deriving stock instance IsPass p => Eq (Function         p)
-deriving stock instance IsPass p => Eq (FunctionArg      p)
-deriving stock instance IsPass p => Eq (Global           p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Struct           p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (StructField      p)
-deriving stock instance IsPass p => Eq (Typedef          p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Union            p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (UnionField       p)
+deriving stock instance IsPass p => Eq (Comment p)
+deriving stock instance IsPass p => Eq (CommentRef p)
+deriving stock instance ( IsPass p
+                        , Eq (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Eq (DeclKind l p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Enum p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (EnumConstant p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (FieldInfo p)
+deriving stock instance IsPass p => Eq (Function p)
+deriving stock instance IsPass p => Eq (FunctionArg p)
+deriving stock instance IsPass p => Eq (Global p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Struct p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (StructField p)
+deriving stock instance IsPass p => Eq (Typedef p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Union p)
+deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (UnionField p)

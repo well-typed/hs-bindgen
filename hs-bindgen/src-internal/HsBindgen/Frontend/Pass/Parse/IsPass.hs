@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Macros
-  , ParsedMacro(..)
   , ReparseInfo(..)
   , Tokens
     -- * Fields
@@ -12,18 +11,17 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , IsAnon(..)
   ) where
 
-import C.Expr.Syntax qualified as CExpr
-
 import Clang.HighLevel.Types
-import Clang.LowLevel.Core (CXType)
+import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming (CScopedName)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Definition
@@ -44,7 +42,7 @@ type family AnnParse (ix :: Symbol) :: Star where
 
 instance IsPass Parse where
   type Id          Parse = PrelimDeclId
-  type MacroBody   Parse = ParsedMacro
+  type MacroBody   Parse = ParsedMacroBody
   type ExtBinding  Parse = Void
   type Ann ix      Parse = AnnParse ix
   type Msg         Parse = WithLocationInfo ImmediateParseMsg
@@ -57,19 +55,6 @@ instance IsPass Parse where
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
-
--- | Syntactic parse result from @c-expr-dsl@.
---
--- A type macro (e.g. @#define FOO int@) has 'CExpr.macroBody' equal to
--- @'CExpr.MTerm' ('CExpr.MType' …)@. An expression macro has any
--- other 'CExpr.macroBody'. Type conversion and expression typechecking
--- happen later in "HsBindgen.Frontend.Pass.TypecheckMacros".
-newtype ParsedMacro = ParsedMacro {
-      parsedMacro :: CExpr.Macro
-    }
-
-deriving stock instance Show ParsedMacro
-deriving stock instance Eq   ParsedMacro
 
 data ReparseInfo tokens =
     -- | We need to reparse this declaration (to deal with macros)

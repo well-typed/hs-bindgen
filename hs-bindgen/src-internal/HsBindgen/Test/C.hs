@@ -16,7 +16,7 @@ genTestsC ::
      FilePath              -- ^ C test header file path
   -> FilePath              -- ^ C test source file path
   -> [HashIncludeArg]      -- ^ C header paths
-  -> ByCategory_ [Hs.Decl] -- ^ Declarations
+  -> ByCategory_ [Hs.Decl l] -- ^ Declarations
   -> IO ()
 genTestsC = throwPure_TODO 22 "generate test suite"
 

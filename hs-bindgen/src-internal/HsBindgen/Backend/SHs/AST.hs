@@ -134,7 +134,7 @@ data Newtype = Newtype{
     , deriv   :: [(Hs.Strategy ClosedType, [Inst.TypeClass])]
     , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show, Generic)
+  deriving stock (Generic, Show)
 
 data ForeignImport = ForeignImport{
       name       :: Hs.TermName

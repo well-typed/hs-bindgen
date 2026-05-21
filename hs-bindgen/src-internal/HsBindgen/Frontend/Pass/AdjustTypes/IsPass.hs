@@ -22,25 +22,26 @@ type AdjustTypes :: Pass
 data AdjustTypes a
 
 type family AnnAdjustTypes ix where
-  AnnAdjustTypes "Decl"             = PrescriptiveDeclSpec
-  AnnAdjustTypes "Struct"           = StructNames
-  AnnAdjustTypes "Union"            = NewtypeNames
-  AnnAdjustTypes "UnionField"       = UnionFieldNames
-  AnnAdjustTypes "Enum"             = NewtypeNames
-  AnnAdjustTypes "Typedef"          = TypedefNames
-  AnnAdjustTypes "CheckedMacroType" = NewtypeNames
-  AnnAdjustTypes "TypeFunArg"       = AdjustedFrom AdjustTypes
-  AnnAdjustTypes _                  = NoAnn
+  AnnAdjustTypes "Decl"                 = PrescriptiveDeclSpec
+  AnnAdjustTypes "Struct"               = StructNames
+  AnnAdjustTypes "Union"                = NewtypeNames
+  AnnAdjustTypes "UnionField"           = UnionFieldNames
+  AnnAdjustTypes "Enum"                 = NewtypeNames
+  AnnAdjustTypes "Typedef"              = TypedefNames
+  AnnAdjustTypes "TypecheckedMacroType" = NewtypeNames
+  AnnAdjustTypes "TypeFunArg"           = AdjustedFrom AdjustTypes
+  AnnAdjustTypes _                      = NoAnn
 
 instance IsPass AdjustTypes where
-  type Id          AdjustTypes = DeclIdPair
-  type ScopedName  AdjustTypes = ScopedNamePair
-  type MacroBody   AdjustTypes = CheckedMacro AdjustTypes
-  type ExtBinding  AdjustTypes = ResolvedExtBinding
-  type Ann ix      AdjustTypes = AnnAdjustTypes ix
-  type Msg         AdjustTypes = NoMsg Level
-  type MacroId     AdjustTypes = Id AdjustTypes
-  type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)
+  type Id              AdjustTypes = DeclIdPair
+  type ScopedName      AdjustTypes = ScopedNamePair
+  type MacroBody       AdjustTypes = TypecheckedMacro AdjustTypes
+  type ExtBinding      AdjustTypes = ResolvedExtBinding
+  type Ann ix          AdjustTypes = AnnAdjustTypes ix
+  type Msg             AdjustTypes = NoMsg Level
+  type MacroId         AdjustTypes = Id AdjustTypes
+  type CommentDecl     AdjustTypes = Maybe (C.Comment AdjustTypes)
+  type MacroUnderlying AdjustTypes = C.Type AdjustTypes
 
   idNameKind     _ namePair = namePair.cName.name.kind
   idSourceName   _ namePair = declIdSourceName namePair.cName

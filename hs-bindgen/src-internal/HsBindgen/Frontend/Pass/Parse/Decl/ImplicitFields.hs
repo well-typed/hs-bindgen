@@ -46,18 +46,18 @@ import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
 -------------------------------------------------------------------------------}
 
 -- | A list of nested struct\/union declarations and field declarations
-newtype Inputs field = Inputs {
-    nestedDecls :: [Either (C.Decl Parse) (field Parse)]
+newtype Inputs field l = Inputs {
+    nestedDecls :: [Either (C.Decl l Parse) (field Parse)]
   }
   deriving newtype (Semigroup, Monoid)
 
-inputEmpty :: Inputs field
+inputEmpty :: Inputs field l
 inputEmpty = Inputs []
 
-inputField :: field Parse -> Inputs field
+inputField :: field Parse -> Inputs field l
 inputField x = Inputs [Right x]
 
-inputDecl :: C.Decl Parse -> Inputs field
+inputDecl :: C.Decl l Parse -> Inputs field l
 inputDecl x = Inputs [Left x]
 
 {-------------------------------------------------------------------------------
@@ -161,13 +161,13 @@ data Outputs field =
 -- > };
 --
 withImplicitFields ::
-     forall m field. (
+     forall m field l. (
        MonadIO m
      , MakeImplicitField field
      , HasField "typ" (field Parse) (C.Type Parse)
      )
   => EnclosingObject
-  -> Inputs field
+  -> Inputs field l
   -> m (Outputs field)
 withImplicitFields encObj inputs = do
     resultsE <- runM $ mapM getImplicitField' classifications.candidates
@@ -185,7 +185,7 @@ withImplicitFields encObj inputs = do
     classifications = classifyInputs inputs
 
     getImplicitField' ::
-        Numbered (C.Decl Parse)
+        Numbered (C.Decl l Parse)
       -> M m (Numbered (field Parse))
     getImplicitField' decl =
         Numbered decl.number <$> getImplicitField encObj decl.numberee
@@ -194,11 +194,11 @@ withImplicitFields encObj inputs = do
   Inputs classification
 -------------------------------------------------------------------------------}
 
-data Classification field = Classification {
+data Classification field l = Classification {
     -- | Parsed explicit fields
     explicitFields :: [Numbered (field Parse)]
     -- | Candidates for implicit fields
-  , candidates     :: [Numbered (C.Decl Parse)]
+  , candidates     :: [Numbered (C.Decl l Parse)]
   }
 
 -- | Declarations are numbered so that we can sort them in the order that they
@@ -210,9 +210,9 @@ data Numbered a = Numbered {
   deriving stock (Functor, Foldable, Traversable)
 
 classifyInputs ::
-     forall field. HasField "typ" (field Parse) (C.Type Parse)
-  => Inputs field
-  -> Classification field
+     forall field l. HasField "typ" (field Parse) (C.Type Parse)
+  => Inputs field l
+  -> Classification field l
 classifyInputs inputs = Classification {
       explicitFields = explicitFields
     , candidates = candidates
@@ -221,16 +221,16 @@ classifyInputs inputs = Classification {
     -- | Number all the declarations so that we can re-sort them at the end of
     -- the algorithm
     membersNumbered ::
-      [Numbered (Either (C.Decl Parse) (field Parse))]
+      [Numbered (Either (C.Decl l Parse) (field Parse))]
     membersNumbered = zipWith Numbered [0..] inputs.nestedDecls
-    nestedDecls :: [Numbered (C.Decl Parse)]
+    nestedDecls :: [Numbered (C.Decl l Parse)]
     explicitFields :: [Numbered (field Parse)]
     (nestedDecls, explicitFields) = partitionEithers $ fmap numberedIn membersNumbered
 
     -- | A struct\/union declaration requires an implicit field if the
     -- declaration is anonymous, and if we have not already created an implicit
     -- field for that declaration
-    candidates :: [Numbered (C.Decl Parse)]
+    candidates :: [Numbered (C.Decl l Parse)]
     candidates = [
           decl
         | let decls = fmap (.numberee) nestedDecls
@@ -245,7 +245,7 @@ numberedIn x = bimap (Numbered x.number) (Numbered x.number) x.numberee
 
 -- | Check if a target declaration is anonymous with respect to an enclosing
 -- object.
-isAnonymous :: C.Decl Parse -> Bool
+isAnonymous :: C.Decl l Parse -> Bool
 isAnonymous decl = case decl.kind of
     C.DeclStruct struct -> struct.ann.isAnon
     C.DeclUnion  union  -> union.ann.isAnon
@@ -257,12 +257,12 @@ isAnonymous decl = case decl.kind of
 -- Note: the nested structs and unions should include implicit fields.
 isReferenced ::
      HasField "typ" (field Parse) (C.Type Parse)
-  => C.Decl Parse
+  => C.Decl l Parse
      -- | Fields that are declared directly in the enclosing object
   -> [field Parse]
      -- | Struct and union declarations (recursively) nested in the enclosing
      -- object
-  -> [C.Decl Parse]
+  -> [C.Decl l Parse]
   -> Bool
 isReferenced decl fields decls =
        decl.info.id `elem` map snd (concatMap depsOfField fields)
@@ -279,14 +279,14 @@ isReferenced decl fields decls =
 
 -- | Generate an implicit field for an anonymous object
 getImplicitField ::
-     forall m field. (
+     forall m field l. (
       MonadIO m
     , MakeImplicitField field
     )
      -- | The enclosing object
   => EnclosingObject
      -- | An anonymous object nested in the enclosing object
-  -> C.Decl Parse
+  -> C.Decl l Parse
   -> M m (field Parse)
 getImplicitField encObj decl = do
     targetsNE <- liftEither $ checkNonEmpty targets

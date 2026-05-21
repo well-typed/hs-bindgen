@@ -11,6 +11,7 @@ import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
+import Clang.CStandard
 
 import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.BindingSpec
@@ -18,7 +19,6 @@ import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
-import HsBindgen.Clang.CStandard
 import HsBindgen.Clang.Discover
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Clang.Macos
@@ -29,6 +29,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C (Sizeofs)
+import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -40,10 +41,11 @@ import HsBindgen.Util.Tracer
 -- - Load external and prescriptive binding specifications.
 runBoot ::
      Tracer BootMsg
+  -> (ClangCStandard -> IO (MacroLang l))
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
-  -> IO BootArtefact
-runBoot tracer config uncheckedHashIncludeArgs = do
+  -> IO (BootArtefact l)
+runBoot tracer mkMacroLang config uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart config
 
     checkBackendConfig (contramap BootBackendConfig tracer) config.backend
@@ -66,6 +68,10 @@ runBoot tracer config uncheckedHashIncludeArgs = do
 
     getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
       (.clangArgs) <$> getClangArtefacts'
+
+    getMacroLang <- cache "macroLang" $ do
+       cStandard <- getCStandard
+       liftIO $ mkMacroLang cStandard
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
       clangArgs <- getClangArgs
@@ -92,6 +98,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
         , cStandard               = getCStandard
         , clangExe                = getClangExe
         , clangArgs               = getClangArgs
+        , macroLang               = getMacroLang
         , hashIncludeArgs         = getHashIncludeArgs
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
@@ -176,11 +183,12 @@ getClangCStandard' tracer clangArgs =
   Artefact
 -------------------------------------------------------------------------------}
 
-data BootArtefact = BootArtefact {
+data BootArtefact l = BootArtefact {
       baseModule              :: BaseModuleName
     , cStandard               :: Cached ClangCStandard
     , clangExe                :: Cached (Maybe ClangExe)
     , clangArgs               :: Cached ClangArgs
+    , macroLang               :: Cached (MacroLang l)
     , hashIncludeArgs         :: Cached [HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec

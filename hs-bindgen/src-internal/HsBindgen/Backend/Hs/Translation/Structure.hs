@@ -38,7 +38,7 @@ structDecs ::
   -> C.DeclInfo Final
   -> C.Struct Final
   -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl]
+  -> HsM [Hs.Decl l]
 structDecs supInsts hCfg info struct spec =
     case struct.flam of
       Nothing   -> getDeclsRegular   supInsts hCfg spec info struct
@@ -51,7 +51,7 @@ getDeclsRegular ::
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
-  -> HsM [Hs.Decl]
+  -> HsM [Hs.Decl l]
 getDeclsRegular supInsts hCfg spec info struct = do
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
@@ -72,7 +72,7 @@ getDeclsFlam ::
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
-  -> HsM [Hs.Decl]
+  -> HsM [Hs.Decl l]
 getDeclsFlam flam supInsts hCfg spec info struct = do
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
@@ -90,7 +90,7 @@ getDeclsFlam flam supInsts hCfg spec info struct = do
         Just n -> n
         Nothing -> panicPure "name of auxiliary declaration unavailable"
 
-    getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl
+    getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl l
     getHasFlamInstanceDecl hsStruct =
       Hs.DeclDefineInstance
         Hs.DefineInstance{
@@ -104,7 +104,7 @@ getDeclsFlam flam supInsts hCfg spec info struct = do
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
     -- We generate pointer manipulation bindings for the FLAM field.
-    flamDecl :: Hs.Decl
+    flamDecl :: Hs.Decl l
     flamDecl =
       Hs.DeclTypSyn
         Hs.TypSyn{
@@ -144,7 +144,7 @@ getDecls ::
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Set Inst.TypeClass
-  -> (Hs.Struct, [Hs.Decl])
+  -> (Hs.Struct, [Hs.Decl l])
 getDecls supInsts hCfg spec structName info struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ fieldDecls
@@ -191,7 +191,7 @@ getDecls supInsts hCfg spec structName info struct insts =
             }
         }
 
-    marshalDecls :: [Hs.Decl]
+    marshalDecls :: [Hs.Decl l]
     marshalDecls =
       let hasStaticSize = Inst.StaticSize `Set.member` insts
           hasReadRaw    = Inst.ReadRaw    `Set.member` insts
@@ -247,7 +247,7 @@ getDecls supInsts hCfg spec structName info struct insts =
                     }
             ]
 
-    optDecls :: [Hs.Decl]
+    optDecls :: [Hs.Decl l]
     optDecls = catMaybes [
         case Hs.getDeriveStrat supStrats of
           Nothing    -> Nothing
@@ -261,7 +261,7 @@ getDecls supInsts hCfg spec structName info struct insts =
       , clss `Set.member` insts
       ]
 
-    fieldDecls :: [Hs.Decl]
+    fieldDecls :: [Hs.Decl l]
     fieldDecls = concatMap (getFieldDecls structName) struct.fields
 
     knownInsts :: Set Inst.TypeClass
@@ -303,7 +303,7 @@ getDecls supInsts hCfg spec structName info struct insts =
 --
 -- This works similarly for bit-fields, but those get a 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
 -- instead of a 'HsBindgen.Runtime.HasCField.HasCField' instance.
-getFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl]
+getFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl l]
 getFieldDecls structName field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {

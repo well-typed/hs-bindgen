@@ -21,6 +21,8 @@ import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -63,7 +65,7 @@ exec global opts =
       opts.inputs
       artefact
   where
-    artefact :: Artefact ()
+    artefact :: Artefact CExpr ()
     artefact = writeTests opts.output
 
     bindgenConfig :: BindgenConfig

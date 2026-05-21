@@ -57,7 +57,7 @@ foreignImportDec ::
   -> CallConv
   -> Origin.ForeignImport
   -> Safety
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 foreignImportDec sizeofs name params res origName callConv origin safety =
     [ Hs.DeclForeignImport foreignImportDecl
     , Hs.DeclFunction funDecl
@@ -122,7 +122,7 @@ foreignImportWrapperDec ::
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 foreignImportWrapperDec sizeofs name hsType origin =
     [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
@@ -191,7 +191,7 @@ foreignImportDynamicDec ::
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 foreignImportDynamicDec sizeofs name hsType origin =
     [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl

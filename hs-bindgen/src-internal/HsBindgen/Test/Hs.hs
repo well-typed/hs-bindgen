@@ -18,7 +18,7 @@ genTestsHs ::
   -> FilePath              -- ^ Main module path
   -> BaseModuleName        -- ^ Generated Haskell module name
   -> FilePath              -- ^ C test header file path
-  -> ByCategory_ [Hs.Decl] -- ^ Declarations
+  -> ByCategory_ [Hs.Decl l] -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"
 

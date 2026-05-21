@@ -12,7 +12,6 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
-  , getCStandard
   , evalGetMainHeadersAndInclude
     -- ** "State"
   , recordMacroDefinitionAt
@@ -32,7 +31,6 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import Clang.CStandard
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -88,16 +86,12 @@ run env f = do
 
 data Env = Env {
       unit                     :: CXTranslationUnit
-    , cStandard                :: ClangCStandard
     , getMainHeadersAndInclude :: GetMainHeadersAndInclude
     , tracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \support -> return support.env.unit
-
-getCStandard :: ParseDecl ClangCStandard
-getCStandard = wrapEff $ \support-> return support.env.cStandard
 
 evalGetMainHeadersAndInclude ::
      SourcePath
@@ -251,7 +245,7 @@ parseFail ::
   -> PrelimDeclId
   -> SingleLoc
   -> DelayedParseMsg
-  -> ParseDecl [ParseResult Parse]
+  -> ParseDecl [ParseResult l Parse]
 parseFail ctx declId declLoc msg = do
     maybeEmitScopingMsg ctx.outer.scoping declId declLoc
     pure $ (:[]) $
@@ -265,7 +259,11 @@ parseFail ctx declId declLoc msg = do
 --   available
 --
 -- Retrieve the information using libclang and the provided cursor.
-parseFailNoInfo :: ParseCtx -> DelayedParseMsg -> CXCursor -> ParseDecl [ParseResult Parse]
+parseFailNoInfo ::
+     ParseCtx
+  -> DelayedParseMsg
+  -> CXCursor
+  -> ParseDecl [ParseResult l Parse]
 parseFailNoInfo ctx msg curr = do
     (declId, declLoc) <- getDeclInfoForTrace
     parseFail ctx declId declLoc msg

@@ -2,8 +2,9 @@ module HsBindgen.TH.Internal (
     -- * Template Haskell API
     Config
   , IncludeDir(..)
-  , withHsBindgen
+  , withHsBindgenMacroLang
   , hashInclude
+  , BindgenM
 
    -- * Internal artefacts
   , getExtensions
@@ -16,6 +17,7 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
+import Clang.CStandard
 import Clang.Paths
 
 import HsBindgen
@@ -31,6 +33,8 @@ import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type (HasMacroTypes)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
@@ -56,17 +60,25 @@ toFilePath :: FilePath -> IncludeDir -> FilePath
 toFilePath root (Pkg x) = root </> x
 toFilePath _    (Dir x) = x
 
--- | Generate bindings for given C headers at compile-time
+-- | Generate bindings for given C headers at compile-time using a custom
+-- macro language.
 --
--- Use together with 'hashInclude', which acts in the `BindgenM` monad.
+-- Use together with 'hashInclude', which acts in the 'TH.BindgenM' monad.
 --
 -- For example,
 --
--- > withHsBindgen def def $ do
+-- > withHsBindgenMacroLang myMacroLang def def $ do
 -- >   hashInclude "foo.h"
 -- >   hashInclude "bar.h"
-withHsBindgen :: Config -> ConfigTH -> BindgenM -> TH.Q [TH.Dec]
-withHsBindgen config configTH hashIncludes = do
+withHsBindgenMacroLang ::
+     forall l. HasMacroTypes l
+  => (ClangCStandard -> IO (MacroLang l))
+     --  ^ The callback returning the 'MacroLang' to use.
+  -> Config
+  -> ConfigTH
+  -> BindgenM
+  -> TH.Q [TH.Dec]
+withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
     packageRoot <- getPackageRoot
 
     bindgenConfig <- toBindgenConfigTH config packageRoot configTH.categoryChoice
@@ -90,18 +102,19 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
 
-        artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
+        artefact :: Artefact l ([SourcePath], ([CWrapper], [SHs.SDecl]))
         artefact = (,)
           <$> getDependencies
           <*> (Foldable.fold <$> FinalDecls)
 
-    (deps, decls) <- liftIO $
-      hsBindgen
-        tracerConfigUnsafe
-        tracerConfigSafe
-        bindgenConfig
-        uncheckedHashIncludeArgs
-        artefact
+    (deps, decls) <- liftIO $ do
+        hsBindgenMacroLang
+          mkMacroLang
+          tracerConfigUnsafe
+          tracerConfigSafe
+          bindgenConfig
+          uncheckedHashIncludeArgs
+          artefact
 
     let fns  = bindgenConfig.frontend.fieldNamingStrategy
         exts = uncurry (getExtensions fns) decls
@@ -191,8 +204,6 @@ tracerConfigDefTH :: TracerConfig l a
 tracerConfigDefTH = def{outputConfig = outputConfigTH}
 
 -- | State monad used by 'HsBindgen.withBindgen'
---
--- Internal!
 type BindgenM = State BindgenState ()
 
 -- | State manipulated by 'hashInclude'

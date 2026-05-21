@@ -22,6 +22,7 @@ import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 -- | The backend translates the parsed C declarations in to Haskell
@@ -29,22 +30,25 @@ import HsBindgen.Util.Tracer
 --
 -- The backend is pure and should not emit warnings or errors.
 runBackend ::
-     Tracer BackendMsg
+     forall l. HasMacroTypes l
+  => Tracer BackendMsg
   -> BindgenConfig
-  -> BootArtefact
-  -> FrontendArtefact
-  -> IO BackendArtefact
+  -> BootArtefact l
+  -> FrontendArtefact l
+  -> IO (BackendArtefact l)
 runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
-      final <- frontend.final
-      sizeofs <- boot.sizeofs
-      let declIndex :: DeclIndex
+      final     <- frontend.final
+      macroLang <- boot.macroLang
+      sizeofs   <- boot.sizeofs
+      let declIndex :: DeclIndex l
           declIndex = final.meta.declIndex
 
-          cDecls :: [C.Decl Final]
+          cDecls :: [C.Decl l Final]
           cDecls = final.decls
       pure $ Hs.generateDeclarations
+        macroLang
         config.backend.uniqueId
         config.backend.haddock
         boot.baseModule
@@ -58,7 +62,9 @@ runBackend tracer config boot frontend = do
       pure $ applyBindingCategoryChoice config.backend.categoryChoice decls
 
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
-    sHsDecls <- cache "sHsDecls" $ SHs.translateDecls <$> backendHsDecls
+    sHsDecls <- cache "sHsDecls" $ do
+      macroLang <- boot.macroLang
+      SHs.translateDecls macroLang <$> backendHsDecls
 
     -- 4. Simplify.
     backendFinalDecls <- cache "finalDecls" $ SHs.simplifySHs <$> sHsDecls
@@ -75,9 +81,9 @@ runBackend tracer config boot frontend = do
   Backend
 -------------------------------------------------------------------------------}
 
-data BackendArtefact = BackendArtefact {
-      hsDecls             :: Cached (ByCategory_ [Hs.Decl])
-    , finalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
+data BackendArtefact l = BackendArtefact {
+      hsDecls    :: Cached (ByCategory_ [Hs.Decl l])
+    , finalDecls :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
     }
 
 {-------------------------------------------------------------------------------

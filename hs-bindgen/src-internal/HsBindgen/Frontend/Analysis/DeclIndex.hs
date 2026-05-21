@@ -63,9 +63,10 @@ import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.TypecheckMacros.Error
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -110,8 +111,8 @@ import HsBindgen.Util.Tracer
 --
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
-data DeclIndex = DeclIndex {
-      map :: Map DeclId Entry
+data DeclIndex l = DeclIndex {
+      map :: Map DeclId (Entry l)
     }
   deriving stock (Show, Generic)
 
@@ -141,8 +142,8 @@ data DeclIndex = DeclIndex {
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
-data Usable =
-      UsableSuccess (ParseSuccess EnrichComments)
+data Usable l =
+      UsableSuccess (ParseSuccess l EnrichComments)
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
       -- This should have a SingleLoc.
     | UsableExternal
@@ -152,7 +153,7 @@ data Usable =
     | UsableSquashed Squashed
     deriving stock (Show, Generic)
 
-usableToLoc :: Usable -> Maybe SingleLoc
+usableToLoc :: Usable l -> Maybe SingleLoc
 usableToLoc = \case
     UsableSuccess  x -> Just x.decl.info.loc
     UsableExternal   -> Nothing
@@ -174,7 +175,7 @@ data Unusable =
     | UnusableParseFailure         SingleLoc DelayedParseMsg
     | UnusableConflict             Conflict
     | UnusableMangleNamesFailure   SingleLoc MangleNamesError
-    | UnusableTypecheckMacrosError SingleLoc TypecheckMacrosError
+    | UnusableTypecheckMacrosError SingleLoc MacroTypecheckError
 
       -- | Omitted by prescriptive binding specifications
     | UnusableOmitted            SingleLoc
@@ -215,19 +216,19 @@ data Squashed = Squashed {
   deriving stock (Show, Generic)
 
 -- | Entry of declaration index
-data Entry =
-    UsableE   Usable
+data Entry l =
+    UsableE   (Usable l)
   | UnusableE Unusable
   deriving stock (Show, Generic)
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
 -- This should return NonEmpty
-entryToLoc :: Entry -> [SingleLoc]
+entryToLoc :: Entry l -> [SingleLoc]
 entryToLoc = \case
   (UnusableE e) -> unusableToLoc e
   (UsableE   e) -> maybeToList $ usableToLoc e
 
-entryToAvailability :: Entry -> C.Availability
+entryToAvailability :: Entry l -> C.Availability
 entryToAvailability = \case
     UsableE e   -> case e of
       UsableSuccess success -> success.decl.info.availability
@@ -239,7 +240,7 @@ entryToAvailability = \case
   Construction
 -------------------------------------------------------------------------------}
 
-empty :: DeclIndex
+empty :: DeclIndex l
 empty = DeclIndex Map.empty
 
 -- This function checks for conflicts between ordinary declarations and macro
@@ -247,12 +248,15 @@ empty = DeclIndex Map.empty
 -- namespaces. This is done here because we need to detect conflicts even with
 -- macros that we cannot typecheck, which are thrown out in the
 -- @TypecheckMacros@ pass.
-fromParseResults :: [ParseResult EnrichComments] -> DeclIndex
+fromParseResults ::
+     forall l. HasMacroTypes l
+  => [ParseResult l EnrichComments]
+  -> DeclIndex l
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
-    aux :: ParseResult EnrichComments -> State DeclIndex ()
+    aux :: ParseResult l EnrichComments -> State (DeclIndex l) ()
     aux new = modify' $ \index -> DeclIndex $
-      let mConflict :: Maybe (Either Entry ((DeclId, DeclId), Entry))
+      let mConflict :: Maybe (Either (Entry l) ((DeclId, DeclId), Entry l))
           mConflict = Foldable.asum [
               Left <$> Map.lookup new.id index.map
             , fmap Right $ case new.id.name.kind of
@@ -287,10 +291,10 @@ fromParseResults results = flip execState empty $ mapM_ aux results
 
     handleConflict ::
          DeclId
-      -> ParseResult EnrichComments
-      -> Entry
-      -> Map DeclId Entry
-      -> Map DeclId Entry
+      -> ParseResult l EnrichComments
+      -> Entry l
+      -> Map DeclId (Entry l)
+      -> Map DeclId (Entry l)
     handleConflict declId new = \case
       UsableE oldUsable -> case oldUsable of
         UsableSuccess oldSuccess -> case new.classification of
@@ -325,7 +329,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
           panicPure $
             "Unexpected UnusableOmitted: " <> show x
 
-    parseResultToEntry :: ParseResult EnrichComments -> Entry
+    parseResultToEntry :: ParseResult l EnrichComments -> Entry l
     parseResultToEntry result = case result.classification of
       ParseResultSuccess r ->
         UsableE $ UsableSuccess r
@@ -338,13 +342,13 @@ fromParseResults results = flip execState empty $ mapM_ aux results
   Filter
 -------------------------------------------------------------------------------}
 
-filter :: (DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
+filter :: (DeclId -> Entry l -> Bool) -> DeclIndex l -> DeclIndex l
 filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
 
-restrictKeys :: DeclIndex -> Set DeclId -> DeclIndex
+restrictKeys :: DeclIndex l -> Set DeclId -> DeclIndex l
 restrictKeys index xs = DeclIndex $ Map.restrictKeys index.map xs
 
-withoutKeys :: DeclIndex -> Set DeclId -> DeclIndex
+withoutKeys :: DeclIndex l -> Set DeclId -> DeclIndex l
 withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 
 {-------------------------------------------------------------------------------
@@ -352,14 +356,14 @@ withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: DeclId -> DeclIndex -> Maybe (C.Decl EnrichComments)
+lookup :: DeclId -> DeclIndex l -> Maybe (C.Decl l EnrichComments)
 lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Get all parse successes.
-getDecls :: DeclIndex -> [C.Decl EnrichComments]
+getDecls :: DeclIndex l -> [C.Decl l EnrichComments]
 getDecls index = mapMaybe toDecl $ Map.elems index.map
   where
     toDecl = \case
@@ -371,34 +375,34 @@ getDecls index = mapMaybe toDecl $ Map.elems index.map
 -------------------------------------------------------------------------------}
 
 -- | Lookup an entry of a declaration index.
-lookupEntry :: DeclId -> DeclIndex -> Maybe Entry
+lookupEntry :: DeclId -> DeclIndex l -> Maybe (Entry l)
 lookupEntry x index = Map.lookup x index.map
 
 -- | Get all entries of a declaration index.
-toList :: DeclIndex -> [(DeclId, Entry)]
+toList :: DeclIndex l -> [(DeclId, Entry l)]
 toList index = Map.toList index.map
 
 -- | Get the source locations of a declaration.
-lookupLoc :: DeclId -> DeclIndex -> [SingleLoc]
+lookupLoc :: DeclId -> DeclIndex l -> [SingleLoc]
 lookupLoc d i = case lookupEntry d i of
   Nothing -> []
   Just e  -> entryToLoc e
 
 -- | Get the source locations of an unusable declaration.
-lookupUnusableLoc :: DeclId -> DeclIndex -> [SingleLoc]
+lookupUnusableLoc :: DeclId -> DeclIndex l -> [SingleLoc]
 lookupUnusableLoc d i = case lookupEntry d i of
   Just (UnusableE  e) -> unusableToLoc e
   _otherwise          -> []
 
 -- | Get the identifiers of all declarations in the index.
-keysSet :: DeclIndex -> Set DeclId
+keysSet :: DeclIndex l -> Set DeclId
 keysSet index = Map.keysSet index.map
 
 -- | Get omitted entries.
-getOmitted :: DeclIndex -> Map DeclId SourcePath
+getOmitted :: DeclIndex l -> Map DeclId SourcePath
 getOmitted index = Map.mapMaybe toOmitted index.map
   where
-    toOmitted :: Entry -> Maybe SourcePath
+    toOmitted :: Entry l -> Maybe SourcePath
     toOmitted = \case
       UsableE (UsableSquashed e) -> lookupEntry e.targetNameC index >>= toOmitted
       UsableE{}                  -> Nothing
@@ -411,12 +415,12 @@ getOmitted index = Map.mapMaybe toOmitted index.map
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- We may no longer need `getSquashed` once we properly record lists of aliases.
 getSquashed ::
-     DeclIndex
+     DeclIndex l
   -> Set DeclId
   -> Map DeclId (SourcePath, Hs.Name Hs.NsTypeConstr)
 getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
   where
-    onlySquashedTargetingSet :: Entry -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
+    onlySquashedTargetingSet :: Entry l -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
       UsableE (UsableSquashed e) ->
         case (e.targetNameHs, Set.member e.targetNameC targets) of
@@ -425,10 +429,10 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
       _otherwise  -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.
-getUnusables :: DeclIndex -> Set DeclId -> Map DeclId Unusable
+getUnusables :: DeclIndex l -> Set DeclId -> Map DeclId Unusable
 getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
   where
-    onlyUnusable :: Entry -> Maybe Unusable
+    onlyUnusable :: Entry l -> Maybe Unusable
     onlyUnusable = \case
       UsableE   _ -> Nothing
       UnusableE e -> Just e
@@ -441,11 +445,11 @@ getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
 --
 -- Has no effect if the declaration is not a parse success (e.g., if it is a
 -- parse failure or a macro failure).
-registerDelayedParseMsg :: (DeclId, DelayedParseMsg) -> DeclIndex -> DeclIndex
+registerDelayedParseMsg :: (DeclId, DelayedParseMsg) -> DeclIndex l -> DeclIndex l
 registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
     Map.adjust addMsg declId i
   where
-    addMsg :: Entry -> Entry
+    addMsg :: Entry l -> Entry l
     addMsg (UsableE (UsableSuccess ps)) =
       UsableE $ UsableSuccess ps{
           delayedParseMsgs = ps.delayedParseMsgs ++ [msg]
@@ -457,7 +461,7 @@ registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
 -------------------------------------------------------------------------------}
 
 registerMacroTypecheckFailure
-  :: (DeclId, SingleLoc, TypecheckMacrosError) -> DeclIndex -> DeclIndex
+  :: (DeclId, SingleLoc, MacroTypecheckError) -> DeclIndex l -> DeclIndex l
 registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
     Map.insert declId (UnusableE $ UnusableTypecheckMacrosError loc err) i
 
@@ -465,14 +469,14 @@ registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
   Support for binding specifications
 -------------------------------------------------------------------------------}
 
-registerOmittedDeclarations :: Map DeclId SingleLoc -> DeclIndex -> DeclIndex
+registerOmittedDeclarations :: Map DeclId SingleLoc -> DeclIndex l -> DeclIndex l
 registerOmittedDeclarations xs index = DeclIndex $
     Map.union (UnusableE . UnusableOmitted <$> xs) index.map
 
-registerExternalDeclarations :: Set DeclId -> DeclIndex -> DeclIndex
+registerExternalDeclarations :: Set DeclId -> DeclIndex l -> DeclIndex l
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
-    insert :: DeclIndex -> DeclId -> DeclIndex
+    insert :: DeclIndex l -> DeclId -> DeclIndex l
     insert (DeclIndex i) x =
       DeclIndex $ Map.insert x (UsableE UsableExternal) i
 
@@ -480,11 +484,11 @@ registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   Support for mangle names
 -------------------------------------------------------------------------------}
 
-registerSquashedDeclarations :: Map DeclId Squashed -> DeclIndex -> DeclIndex
+registerSquashedDeclarations :: Map DeclId Squashed -> DeclIndex l -> DeclIndex l
 registerSquashedDeclarations xs index = DeclIndex $
     Map.union (UsableE . UsableSquashed <$> xs) index.map
 
 registerMangleNamesFailure ::
-  Map DeclId (SingleLoc, MangleNamesError) -> DeclIndex -> DeclIndex
+  Map DeclId (SingleLoc, MangleNamesError) -> DeclIndex l -> DeclIndex l
 registerMangleNamesFailure xs index = DeclIndex $
     Map.union (UnusableE . uncurry UnusableMangleNamesFailure <$> xs) index.map

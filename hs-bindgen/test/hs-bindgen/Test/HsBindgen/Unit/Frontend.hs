@@ -16,6 +16,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -111,23 +112,23 @@ execFrontend ::
   -> CStandard
   -> [FilePath]  -- ^ Include directories
   -> FilePath    -- ^ Header
-  -> (FrontendArtefact -> IO a)
+  -> (FrontendArtefact CExpr -> IO a)
   -> IO a
-execFrontend getTestResources cStd incDirs header k =
+execFrontend getTestResources cStdStr incDirs header k =
     withTracePredicate noReport defaultTracePredicate $ \tracer -> do
-      clangArgs <- getTestClangArgsConfig cStd incDirs <$> getTestResources
+      clangArgs <- getTestClangArgsConfig cStdStr incDirs <$> getTestResources
       let bootConfig     = BootConfig clangArgs def def
           frontendConfig = def
           backendConfig  = def{ uniqueId = UniqueId "test" }
           config         = BindgenConfig bootConfig frontendConfig backendConfig
           bootTracer     = contramap TraceBoot tracer
           frontendTracer = contramap TraceFrontend tracer
-      bootArtefact <- runBoot bootTracer config [header]
+      bootArtefact     <- runBoot bootTracer (pure . cExprLang) config [header]
       frontendArtefact <- runFrontend frontendTracer frontendConfig bootArtefact
       k frontendArtefact
   where
     noReport :: a -> IO ()
     noReport = const $ pure ()
 
-getParseResults :: FrontendArtefact -> IO [ParseResult Parse]
+getParseResults :: FrontendArtefact CExpr -> IO [ParseResult CExpr Parse]
 getParseResults = getCached . (.parse)

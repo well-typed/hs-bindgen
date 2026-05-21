@@ -17,13 +17,13 @@ module C.Expr.Syntax (
   , IntSize(..)
   , FloatSize(..)
     -- ** Expressions
+  , Name(..)
   , Expr(..)
   , TyFun(..)
   , VaFun(..)
   , ValueLit(..)
   , Literal(..)
   , Term(..)
-  , Name(..)
     -- ** Literals
   , IntegerLiteral(..)
   , FloatingLiteral(..)

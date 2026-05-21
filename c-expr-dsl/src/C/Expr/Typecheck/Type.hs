@@ -123,7 +123,7 @@ import Numeric.Natural
 import C.Type qualified as Runtime
 
 import C.Expr.Syntax
-import C.Expr.Util.TestEquality (equals2)
+import C.Expr.Util.TestEquality
 
 {-------------------------------------------------------------------------------
   Type system for macros

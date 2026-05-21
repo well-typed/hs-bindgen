@@ -32,8 +32,8 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 -- >   type
 --
 adjustTypes ::
-     C.TranslationUnit MangleNames
-  -> C.TranslationUnit AdjustTypes
+     C.TranslationUnit l MangleNames
+  -> C.TranslationUnit l AdjustTypes
 adjustTypes unit =
       let
         decls' = map processDecl unit.decls
@@ -49,7 +49,7 @@ adjustTypes unit =
   Decls
 -------------------------------------------------------------------------------}
 
-processDecl :: C.Decl MangleNames -> C.Decl AdjustTypes
+processDecl :: C.Decl l MangleNames -> C.Decl l AdjustTypes
 processDecl decl =
     C.Decl {
         info = coercePass decl.info
@@ -57,7 +57,7 @@ processDecl decl =
       , kind = processDeclKind decl.kind
       }
 
-processDeclKind :: C.DeclKind MangleNames -> C.DeclKind AdjustTypes
+processDeclKind :: C.DeclKind l MangleNames -> C.DeclKind l AdjustTypes
 processDeclKind kind =
     case kind of
       C.DeclStruct struct                  -> C.DeclStruct           $ processStruct struct
@@ -140,7 +140,7 @@ processAnonEnumConstant anonEnumConstant =
       , constant = processEnumConstant anonEnumConstant.constant
       }
 
-processMacro :: MacroBody MangleNames -> MacroBody AdjustTypes
+processMacro :: MacroBody MangleNames l -> MacroBody AdjustTypes l
 processMacro macro =
     case macro of
       MacroType  typ -> MacroType  $ processMacroType typ
@@ -149,15 +149,14 @@ processMacro macro =
 -- NOTE: currently type-like macro expressions don't support array or function
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
-processMacroType :: CheckedMacroType MangleNames -> CheckedMacroType AdjustTypes
+processMacroType :: TypecheckedMacroType l MangleNames -> TypecheckedMacroType l AdjustTypes
 processMacroType macroType = coercePass macroType
 
 -- NOTE: currently value-like macro expressions don't support array or function
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
-processMacroExpr :: CheckedMacroValue MangleNames -> CheckedMacroValue AdjustTypes
-processMacroExpr macroExpr =
-    coercePass macroExpr
+processMacroExpr :: TypecheckedMacroValue l MangleNames -> TypecheckedMacroValue l AdjustTypes
+processMacroExpr macroExpr = coercePass macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =
@@ -201,7 +200,7 @@ processType = \case
         , underlying = processType ref.underlying
         }
     C.TypeMacro ref ->
-      C.TypeMacro $ C.Ref {
+      C.TypeMacro $ C.MacroRef {
           name       = ref.name
         , underlying = processType ref.underlying
         }
@@ -290,7 +289,9 @@ getArrayElementType (IncompleteArrayClassification ty) = ty
 --
 -- If so, is it an array of known size or unknown size? And what is the /full
 -- type/ of the array elements?
-classifyCanonicalTypeArray :: C.Type p -> Maybe (ArrayClassification p)
+classifyCanonicalTypeArray ::
+     C.Type AdjustTypes
+  -> Maybe (ArrayClassification AdjustTypes)
 classifyCanonicalTypeArray ty =
     -- We do not use getCanonicalType here, because we do not want to
     -- canonicalize the array /element/ type.

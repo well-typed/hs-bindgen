@@ -36,6 +36,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -50,66 +51,68 @@ import Doxygen.Parser (Doxygen)
 --
 -- Each constructor corresponds to a frontend pass carrying the result type of
 -- that pass. See "HsBindgen.Frontend" for the pass ordering and descriptions.
-data FrontendPass (result :: Star) where
+data FrontendPass (l :: Star) (result :: Star) where
   ParsePass
-    :: FrontendPass [ParseResult Parse]
+    :: FrontendPass l [ParseResult       l Parse]
   SimplifyASTPass
-    :: FrontendPass [ParseResult SimplifyAST]
+    :: FrontendPass l [ParseResult       l SimplifyAST]
   AssignAnonIdsPass
-    :: FrontendPass [ParseResult AssignAnonIds]
+    :: FrontendPass l [ParseResult       l AssignAnonIds]
   EnrichCommentsPass
-    :: FrontendPass [ParseResult EnrichComments]
+    :: FrontendPass l [ParseResult       l EnrichComments]
   ConstructTranslationUnitPass
-    :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
+    :: FrontendPass l (C.TranslationUnit l ConstructTranslationUnit)
   TypecheckMacrosPass
-    :: FrontendPass (C.TranslationUnit TypecheckMacros)
+    :: FrontendPass l (C.TranslationUnit l TypecheckMacros)
   ReparseMacroExpansionsPass
-    :: FrontendPass (C.TranslationUnit ReparseMacroExpansions)
+    :: FrontendPass l (C.TranslationUnit l ReparseMacroExpansions)
+  ZipPass
+    :: FrontendPass l (C.TranslationUnit l Zip)
   ResolveBindingSpecsPass
-    :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
+    :: FrontendPass l (C.TranslationUnit l ResolveBindingSpecs)
   MangleNamesPass
-    :: FrontendPass (C.TranslationUnit MangleNames)
+    :: FrontendPass l (C.TranslationUnit l MangleNames)
   AdjustTypesPass
-    :: FrontendPass (C.TranslationUnit AdjustTypes)
+    :: FrontendPass l (C.TranslationUnit l AdjustTypes)
   SelectPass
-    :: FrontendPass (C.TranslationUnit Select)
+    :: FrontendPass l (C.TranslationUnit l Select)
   FinalPass
-    :: FrontendPass (C.TranslationUnit Final)
+    :: FrontendPass l (C.TranslationUnit l Final)
 
 {-------------------------------------------------------------------------------
   Artefact
 -------------------------------------------------------------------------------}
 
 -- | Build artefact.
-data Artefact (a :: Star) where
+data Artefact l (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact [HashIncludeArg]
-  ModuleBaseName  :: Artefact BaseModuleName
+  HashIncludeArgs :: Artefact l [HashIncludeArg]
+  ModuleBaseName  :: Artefact l BaseModuleName
   -- * Frontend
-  ParseInfoA      :: Artefact ParseInfo
-  DoxygenA        :: Artefact Doxygen
-  FrontendPassA   :: FrontendPass result -> Artefact result
+  ParseInfoA      :: Artefact l ParseInfo
+  DoxygenA        :: Artefact l Doxygen
+  FrontendPassA   :: FrontendPass l result -> Artefact l result
   -- * Backend
-  HsDecls         :: Artefact (ByCategory_ [Hs.Decl])
-  FinalDecls      :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
+  HsDecls         :: Artefact l (ByCategory_ [Hs.Decl l])
+  FinalDecls      :: Artefact l (ByCategory_ ([CWrapper], [SHs.SDecl]))
   -- * Control flow
-  EmitTrace       :: ArtefactMsg -> Artefact ()
-  Lift            :: ArtefactM a -> Artefact a
-  Bind            :: Artefact b  -> (b -> Artefact c ) -> Artefact c
+  EmitTrace       :: ArtefactMsg -> Artefact l ()
+  Lift            :: ArtefactM a -> Artefact l a
+  Bind            :: Artefact l b -> (b -> Artefact l c) -> Artefact l c
 
-instance Functor Artefact where
-  fmap :: (a -> b) -> Artefact a -> Artefact b
+instance Functor (Artefact l) where
+  fmap :: (a -> b) -> Artefact l a -> Artefact l b
   fmap = liftM
 
-instance Applicative Artefact where
-  pure :: a -> Artefact a
+instance Applicative (Artefact l) where
+  pure :: a -> Artefact l a
   pure = Lift . pure
 
-  (<*>) :: Artefact (a -> b) -> Artefact a -> Artefact b
+  (<*>) :: Artefact l (a -> b) -> Artefact l a -> Artefact l b
   (<*>) = ap
 
-instance Monad Artefact where
-  (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
+instance Monad (Artefact l) where
+  (>>=) :: Artefact l a -> (a -> Artefact l b) -> Artefact l b
   (>>=) = Bind
 
 {-------------------------------------------------------------------------------
@@ -120,18 +123,18 @@ instance Monad Artefact where
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts :: forall a.
+runArtefacts :: forall a l.
      Tracer ArtefactMsg
   -> BindgenConfig
-  -> BootArtefact
-  -> FrontendArtefact
-  -> BackendArtefact
-  -> Artefact a
+  -> BootArtefact l
+  -> FrontendArtefact l
+  -> BackendArtefact l
+  -> Artefact l a
   -> IO (a, [DelayedIO])
 runArtefacts tracer config boot frontend backend artefact =
     second reverse <$> (runArtefactM (runArtefact artefact) config)
   where
-    runArtefact :: forall x. Artefact x -> ArtefactM x
+    runArtefact :: forall x. Artefact l x -> ArtefactM x
     runArtefact = \case
         --Boot.
         HashIncludeArgs -> runCached boot.hashIncludeArgs
@@ -148,7 +151,7 @@ runArtefacts tracer config boot frontend backend artefact =
         (Lift   f)      -> f
         (Bind x f)      -> runArtefact x >>= runArtefact . f
 
-    runFrontendPass :: FrontendPass result -> ArtefactM result
+    runFrontendPass :: FrontendPass l result -> ArtefactM result
     runFrontendPass = \case
         ParsePass                    -> runCached frontend.parse
         SimplifyASTPass              -> runCached frontend.simplifyAST
@@ -157,6 +160,7 @@ runArtefacts tracer config boot frontend backend artefact =
         ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
         TypecheckMacrosPass          -> runCached frontend.typecheckMacros
         ReparseMacroExpansionsPass   -> runCached frontend.reparseMacroExpansions
+        ZipPass                      -> runCached frontend.zip
         ResolveBindingSpecsPass      -> runCached frontend.resolveBindingSpecs
         MangleNamesPass              -> runCached frontend.mangleNames
         AdjustTypesPass              -> runCached frontend.adjustTypes

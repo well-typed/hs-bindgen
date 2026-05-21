@@ -14,8 +14,9 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 
-data TranslationUnit p = TranslationUnit{
+data TranslationUnit l p = TranslationUnit{
       -- | Declarations in the unit
       --
       -- Declarations from all headers that we have processed. Passes may remove
@@ -30,7 +31,7 @@ data TranslationUnit p = TranslationUnit{
       -- * The 'HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass.ResolveBindingSpecs' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
-      decls :: [C.Decl p]
+      decls :: [C.Decl l p]
 
       -- | Include graph
       --
@@ -45,18 +46,22 @@ data TranslationUnit p = TranslationUnit{
     , includeGraph :: IncludeGraph
 
       -- | Pass-specific annotation
-    , meta :: DeclMeta
+    , meta :: DeclMeta l
     }
   deriving stock (Generic)
 
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (TranslationUnit  p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (TranslationUnit l p)
 
 instance (
-      CoercePass C.Decl p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass TranslationUnit p p' where
+    ) => CoercePass (TranslationUnit l) p p' where
   coercePass unit = TranslationUnit{
         decls        = map coercePass unit.decls
       , includeGraph = unit.includeGraph
       , meta         = unit.meta
       }
+
