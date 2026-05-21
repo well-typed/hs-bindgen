@@ -4,6 +4,10 @@
 
 ### Breaking changes
 
+* The `--log-show-time` CLI flag has been removed, along with the
+  `ShowTimeStamp` type and the `showTimeStamp` field of `TracerConfig`.
+  Trace output no longer includes timestamps.
+
 ### New features
 
 * A new CLI option `--log-squashed-as-info` (and matching
