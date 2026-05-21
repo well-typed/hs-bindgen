@@ -15,7 +15,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosredeclarationdef_undef_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_cf4e7a02d3afe48b (void)) ("
-  , "  signed int arg1"
+  , "  char arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -35,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_cf4e7a02d3afe48b" hs_bindgen_cf4e7a02d3a
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
-hs_bindgen_cf4e7a02d3afe48b :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_cf4e7a02d3afe48b :: IO (RIP.FunPtr (RIP.CChar -> IO ()))
 hs_bindgen_cf4e7a02d3afe48b =
   RIP.fromFFIType hs_bindgen_cf4e7a02d3afe48b_base
 
@@ -46,7 +46,7 @@ hs_bindgen_cf4e7a02d3afe48b =
 
     __exported by:__ @macros\/redeclaration\/def_undef_def.h@
 -}
-foo :: RIP.FunPtr (RIP.CInt -> IO ())
+foo :: RIP.FunPtr (RIP.CChar -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_cf4e7a02d3afe48b
 
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_get_bar@

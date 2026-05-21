@@ -13,7 +13,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <macros/redeclaration/identical_syntax.h>"
   , "void hs_bindgen_3a672aa51059499f ("
-  , "  signed int arg1"
+  , "  char arg1"
   , ")"
   , "{"
   , "  (foo)(arg1);"
@@ -28,12 +28,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
-     RIP.Int32
+     RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 hs_bindgen_3a672aa51059499f ::
-     RIP.CInt
+     RIP.CChar
   -> IO ()
 hs_bindgen_3a672aa51059499f =
   RIP.fromFFIType hs_bindgen_3a672aa51059499f_base
@@ -45,7 +45,7 @@ hs_bindgen_3a672aa51059499f =
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
 foo ::
-     RIP.CInt
+     RIP.CChar
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_3a672aa51059499f

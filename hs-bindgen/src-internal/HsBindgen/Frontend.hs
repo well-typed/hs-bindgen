@@ -238,9 +238,6 @@ runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
       setup      <- getSetup
       cStd       <- boot.cStandard
-      -- TODO <https://github.com/well-typed/hs-bindgen/pull/1892>: use the
-      -- clang executable to preprocess macro invocations
-      !_clangExe <- boot.clangExe
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
@@ -328,9 +325,10 @@ runFrontend tracer config boot = do
 
     prepareReparsePass <- cache "prepareReparse" $ do
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
+      clangExe <- boot.clangExe
       setup <- getSetup
       rootHeader <- getRootHeader
-      liftIO $ prepareReparse (contramap FrontendPrepareReparse tracer) setup rootHeader afterTypecheckMacros
+      liftIO $ prepareReparse (contramap FrontendPrepareReparse tracer) clangExe setup rootHeader afterTypecheckMacros
 
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
       (_, knownTypes, knownMacroTypes) <- typecheckMacrosPass

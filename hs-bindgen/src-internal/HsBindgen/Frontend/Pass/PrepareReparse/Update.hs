@@ -12,34 +12,64 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Update (
 
 import Prelude hiding (lex, print)
 
-import Control.Monad.Reader (MonadReader, Reader, ReaderT (ReaderT), runReader)
+import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
+import Control.Monad.State (MonadState, State, modify, runState)
 import Data.Kind (Type)
+import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
+import HsBindgen.Frontend.DeclMeta (DeclMeta (declIndex))
+import HsBindgen.Frontend.Naming (DeclId)
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (ReparseNeeded, ReparseNotNeeded),
                                              Tokens)
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseMacroPrepareReparseFailed))
+import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Tag (..),
+                                                   TagType (Function))
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault,
                                                        flattenFunction)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (..),
                                                       PrepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (fieldTag, functionTag,
+                                                          typedefTag,
+                                                          variableTag)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro,
                                                        TypecheckMacros)
+import HsBindgen.Imports (Map)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 update ::
-     C.TranslationUnit TypecheckMacros
+     Maybe (Map Tag Decl)
+  -> C.TranslationUnit TypecheckMacros
   -> C.TranslationUnit PrepareReparse
-update unit = runM env $ updateIt () unit
+update mapping unit = unit' {
+      C.meta = unit'.meta {
+          declIndex = declIndex'
+        }
+    }
   where
-    env = Env
+    (unit', msgs) = runM env $ updateIt () unit
+
+    declIndex' ::  DeclIndex
+    declIndex' =
+      -- We use @foldr@ here to establish the original order of messages
+      foldr
+        DeclIndex.registerDelayedParseMsg
+        unit.meta.declIndex
+        msgs
+
+    env = Env {
+        map = mapping
+      }
 
 {-------------------------------------------------------------------------------
   Update: class
@@ -54,15 +84,25 @@ class Update a where
   Update: monad
 -------------------------------------------------------------------------------}
 
-runM :: Env -> M a -> a
-runM m (M k) = runReader k m
+runM :: Env -> M a -> (a, [(DeclId, DelayedParseMsg)])
+runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
 
-newtype M a = M (Reader Env a)
+newtype M a = M (ReaderT Env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
 
 deriving newtype instance MonadReader Env M
+deriving newtype instance MonadState St M
 
-data Env = Env
+newtype Env = Env {
+    -- 'Nothing' means we could not expand macro invocations (for any of a
+    -- variety of reasons). We default to just flattening tokens at this
+    -- point.
+    map :: Maybe (Map Tag Decl)
+  }
+
+newtype St = St {
+    messages :: [(DeclId, DelayedParseMsg)]
+  }
 
 {-------------------------------------------------------------------------------
   Update: instances
@@ -119,8 +159,8 @@ instance Update C.Struct where
         }
 
 instance Update C.StructField where
-  updateIt _info field = do
-      ann' <- updateReparseInfo False field.ann
+  updateIt info field = do
+      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.StructField {
           info = coercePass field.info
         , typ = coercePass field.typ
@@ -140,8 +180,8 @@ instance Update C.Union where
         }
 
 instance Update C.UnionField where
-  updateIt _info field = do
-      ann' <- updateReparseInfo False field.ann
+  updateIt info field = do
+      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.UnionField {
           info = coercePass field.info
         , typ = coercePass field.typ
@@ -149,8 +189,8 @@ instance Update C.UnionField where
         }
 
 instance Update C.Typedef where
-  updateIt _info typedef = do
-      ann' <- updateReparseInfo False typedef.ann
+  updateIt info typedef = do
+      ann' <- updateReparseInfo info (typedefTag info) typedef.ann
       pure C.Typedef {
           typ = coercePass typedef.typ
         , ann = ann'
@@ -166,8 +206,8 @@ instance Update CheckedMacro where
   updateIt _info macro = pure $ coercePass macro
 
 instance Update C.Function where
-  updateIt _info function = do
-      ann' <- updateReparseInfo True function.ann
+  updateIt info function = do
+      ann' <- updateReparseInfo info (functionTag info) function.ann
       pure C.Function {
           args = map coercePass function.args
         , res = coercePass function.res
@@ -176,24 +216,37 @@ instance Update C.Function where
         }
 
 instance Update C.Global where
-  updateIt _info global = do
-      ann' <- updateReparseInfo False global.ann
+  updateIt info global = do
+      ann' <- updateReparseInfo info (variableTag info) global.ann
       pure C.Global {
           typ = coercePass global.typ
         , ann = ann'
         }
 
 updateReparseInfo ::
-     Bool
+     C.DeclInfo TypecheckMacros
+  -> Tag
   -> ReparseInfo Tokens
   -> M (ReparseInfo FlatTokens)
-updateReparseInfo isFunction reparseInfo = do
+updateReparseInfo info tag@(Tag typ _) reparseInfo = do
+    env <- ask
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
       ReparseNeeded tokens usedMacros -> do
-        let flatten | isFunction = flattenFunction tokens
-                    | otherwise  = flattenDefault tokens
-            flatTokens = FlatTokens {
+        let fallback = case typ of
+              Function -> flattenFunction tokens
+              _        -> flattenDefault tokens
+        flatten <-
+          case env.map of
+            -- If this is 'Nothing', we have already traced a reason why (see
+            -- 'PrepareReparseMsg').
+            Nothing -> pure fallback
+            Just mapping -> case Map.lookup tag mapping of
+              Nothing -> do
+                addMessage info.id ParseMacroPrepareReparseFailed
+                pure fallback
+              Just (Decl dec) -> pure dec
+        let flatTokens = FlatTokens {
                 flatten = flatten
               , locStart = getLocation tokens
               }
@@ -206,3 +259,8 @@ updateReparseInfo isFunction reparseInfo = do
 getLocation :: [Clang.Token a] -> Clang.MultiLoc
 getLocation []    = panicPure "Unexpected empty list of tokens"
 getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
+
+addMessage :: DeclId -> DelayedParseMsg -> M ()
+addMessage did msg = modify $ \st -> st {
+      messages = (did, msg) : st.messages
+    }
