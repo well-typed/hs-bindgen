@@ -172,24 +172,14 @@
 // Erroneous macros or macros with bodies the parser cannot handle
 // ---------------------------------------------------------------------------
 
-// TODO: <https://github.com/well-typed/hs-bindgen/issues/1903>
+// A macro is only function-like if there is no whitespace between the macro
+// name and the opening parenthesis of the parameter list.
 //
-// A space after the macro name makes the macro object-like (not function-like)!
-// We do not detect this in `c-expr-dsl` yet (we only get tokens after the macro
-// name).
-//
-// Beware, also casts look like functions. For example, these are C cast
-// expressions, but the parser actually treats them as function-like macros:
-//
-// 'X' is not a keyword; '(X)' is parsed as a formal parameter list ["X"], and
-// 'value' as the function body.
+// Beware: casts look like function-like macros, but they are parsed as
+// object-like macros because there is whitespace after the macro name.
 #define CAST_SINGLE_NOKW (X) x
-// 'int' is a keyword which must not be a formal parameter, inducing a parse
-// error.
 #define CAST_SINGLE_KW (int)x
-// '(unsigned int)' cannot be parsed as a formal parameter list (two tokens, not
-// one identifier).
-#define BAD_CAST (unsigned int)x
+#define CAST_MULTI_KW (unsigned int)x
 
 // This is genuine erroneous function; keywords must not be parameter names.
 #define BAD_KEYWORD_AS_PARAM(int) x
