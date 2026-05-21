@@ -31,7 +31,6 @@ testCases = [
     , defaultTest "macros/object_like_as_function_like"
     , defaultTest "macros/parse/first_parse_then_typecheck"
     , defaultTest "macros/parse/macro_typedef_scope"
-    , defaultTest "macros/redeclaration/identical_semantics"
     , defaultTest "macros/undef"
       -- Bespoke tests
     , test_macros_macro_ext_binding_dep
@@ -47,6 +46,7 @@ testCases = [
     , test_macros_parse_macro_typedef_scope_multiple
     , test_macros_redeclaration_def_undef_def
     , test_macros_redeclaration_different
+    , test_macros_redeclaration_identical_semantics
     , test_macros_redeclaration_identical_syntax
     , test_macros_reparse
     , test_macros_reparse_arithmetic_types
@@ -203,7 +203,7 @@ test_macros_redeclaration_def_undef_def =
 
     trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
     trace = \case
-      MatchSelect name SelectConflict{} ->
+      MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
       (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
         Just $ Tolerated
@@ -220,10 +220,25 @@ test_macros_redeclaration_different =
 
     trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
     trace = \case
-      MatchSelect name SelectConflict{} ->
+      MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
       (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
         Just $ Tolerated
+      _otherwise ->
+        Nothing
+
+test_macros_redeclaration_identical_semantics :: TestCase
+test_macros_redeclaration_identical_semantics =
+    defaultTest "macros/redeclaration/identical_semantics"
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["macro T"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchSelect name@"macro T" SelectConflict{} ->
+        Just $ Expected name
       _otherwise ->
         Nothing
 
@@ -239,7 +254,7 @@ test_macros_redeclaration_identical_syntax =
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      MatchSelect name@"macro T" TransitiveDependenciesMissing{} ->
+      MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
       _otherwise ->
         Nothing

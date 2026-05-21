@@ -51,8 +51,6 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 
-import C.Expr.Syntax qualified as CExpr
-
 import Clang.HighLevel.Types
 import Clang.Paths
 
@@ -63,7 +61,6 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.TypecheckMacros.Error
@@ -300,8 +297,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
           ParseResultSuccess newSuccess
             -- Redeclaration with the same definition can happen with opaque
             -- structs, for example.  We stick with the first declaration.
-            | sameDefinition oldSuccess.decl.kind newSuccess.decl.kind -> id
-            -- Redeclaration of macros cannot be supported.
+            | oldSuccess.decl.kind == newSuccess.decl.kind -> id
             | otherwise ->
                 let conflict = UnusableE $ UnusableConflict $
                       Conflict.between oldSuccess.decl.info.loc new.loc
@@ -337,15 +333,6 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
       ParseResultFailure r ->
         UnusableE $ UnusableParseFailure result.loc r
-
-    sameDefinition ::
-         C.DeclKind EnrichComments
-      -> C.DeclKind EnrichComments
-      -> Bool
-    sameDefinition a b = case (a, b) of
-      (C.DeclMacro macroA, C.DeclMacro macroB) ->
-         CExpr.sameMacro macroA.parsedMacro macroB.parsedMacro
-      _otherwise                               -> a == b
 
 {-------------------------------------------------------------------------------
   Filter
