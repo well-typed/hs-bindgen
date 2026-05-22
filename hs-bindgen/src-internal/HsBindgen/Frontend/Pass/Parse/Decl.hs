@@ -54,12 +54,12 @@ topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
     handleParseExceptions ::
          CXCursor
       -> SomeException
-      -> ParseDecl (Maybe (CXSourceLocation, [ParseResult Parse]))
+      -> ParseDecl (HandlerResult (Maybe (CXSourceLocation, [ParseResult Parse])))
     handleParseExceptions curr err
       | Just e <- fromException @(ExceptionInCtx DelayedParseMsg) err = do
           loc <- clang_getCursorLocation curr
-          Just . (loc,) <$> parseFailNoInfo e.ctx e.exception curr
-      | otherwise = liftIO $ throwIO err
+          HandlerResult . Just . (loc,) <$> parseFailNoInfo e.ctx e.exception curr
+      | otherwise = return HandlerRethrow
 
 {-------------------------------------------------------------------------------
   Functions for each kind of declaration
