@@ -314,10 +314,7 @@ echo "  Successfully ran aarch64 Haskell executable under QEMU"
 #   * PATH with the stub prepended - so libclang-bindings's configure script
 #   (run during cross-build of hs-bindgen) finds our target llvm-config stub
 #   via the normal AC_PATH_PROG search instead of picking up the host's
-#   llvm-config and failing with "Cannot find libclang headers". We
-#   intentionally avoid setting the LLVM_CONFIG env var: using PATH keeps
-#   libclang-bindings's existing configure flow on its normal path and leaves
-#   LLVM_CONFIG free for other potential uses.
+#   llvm-config and failing with "Cannot find libclang headers".
 #
 #   * BINDGEN_BUILTIN_INCLUDE_DIR=disable - hygiene, not strictly required for
 #   arch_types.h (it has no system #includes). With it unset, the splice falls
@@ -346,7 +343,7 @@ write_iserv_wrapper "$TH_ISERV_WRAPPER" "$th_iserv_ld_path"
 # place a stub named exactly `llvm-config` in a dedicated bin directory
 # and prepend that directory to PATH for the cabal build below, so the
 # configure script finds our target-aware stub instead of the host's
-# llvm-config, without us having to set the LLVM_CONFIG env var.
+# llvm-config.
 #
 # The four flags below are the subset of llvm-config's interface our
 # consumers actually call:

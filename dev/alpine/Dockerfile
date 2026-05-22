@@ -47,11 +47,7 @@ RUN apk add --no-cache --virtual .doxygen-build-deps \
     && apk del .doxygen-build-deps \
     && doxygen --version
 
-# libclang.so lives at /usr/lib (symlink to /usr/lib/llvm${LLVM_VERSION}/lib);
-# the hs-bindgen runtime dlopens it via LIBCLANG_PATH. llvm-config ships
-# under the versioned prefix and is not on PATH by default.
-ENV LIBCLANG_PATH=/usr/lib
-ENV LLVM_CONFIG=/usr/lib/llvm${LLVM_VERSION}/bin/llvm-config
+# llvm-config ships under the versioned prefix and is not on PATH by default.
 ENV PATH=/usr/lib/llvm${LLVM_VERSION}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 WORKDIR /repo

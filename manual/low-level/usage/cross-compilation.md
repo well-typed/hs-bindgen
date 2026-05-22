@@ -607,18 +607,6 @@ chmod +x llvm-stub-bin/llvm-config
 PATH=$(pwd)/llvm-stub-bin:$PATH cabal build ...
 ```
 
-The configure script also declares
-
-```
-AC_ARG_VAR(LLVM_CONFIG, [Location of llvm-config])
-```
-
-so as a fallback you can set `LLVM_CONFIG=/path/to/stub`
-([`AC_ARG_VAR`][autoconf:docs:AC_ARG_VAR] is autoconf's "precious" env-var
-mechanism, which overrides any `AC_PATH_PROG` search). The `PATH` approach above
-is preferred because it keeps the configure flow on its normal path and avoids
-reserving an env var for this single purpose.
-
 The four flags above are the subset that our consumers actually call:
 
 - `--version` -- libclang-bindings's configure.ac sanity check (output
@@ -638,25 +626,11 @@ provides the `.so` files that go in `--libdir`.
 #### Skipping clang's builtin-headers discovery
 
 When the splice runs, hs-bindgen tries to locate clang's builtin
-include directory. In a normal install this lives at
-`<llvm-prefix>/lib/clang/<ver>/include/`.
-
-The discovery flow (see
-[`hs-bindgen/src-internal/HsBindgen/Clang/Discover.hs`][source:Discover.hs])
-checks, in order:
-
-1. The `BINDGEN_BUILTIN_INCLUDE_DIR` environment variable
-   (`disable` skips discovery; `clang` selects the discovery path below)
-2. `$(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir` then
-   `<resource-dir>/include`
-3. `$(clang -print-resource-dir)/include` from `PATH`
-
-If your header has no system `#include`s, the splice does not need any of
-these, discovery falls through to host-clang and the splice still produces
-correct bindings. Setting `BINDGEN_BUILTIN_INCLUDE_DIR=disable` is still
-recommended though: it skips discovery entirely, so the splice cannot
-accidentally pick up host builtin includes that would be architecturally
-wrong if the header started using `<stdint.h>` etc.
+include directory by default.  (See
+[`hs-bindgen/src-internal/HsBindgen/Clang/Discover.hs`][source:Discover.hs]
+for details.)  Setting `BINDGEN_BUILTIN_INCLUDE_DIR=disable` is recommended
+so that the splice does not accidentally pick up host builtin includes that
+would be architecturally wrong if the header started using `<stdint.h>` etc.
 
 ### Working example
 
@@ -751,7 +725,6 @@ Verify the binary architecture with `file ./your-app`.
 
 <!-- sources and references -->
 
-[autoconf:docs:AC_ARG_VAR]: https://www.gnu.org/software/autoconf/manual/html_node/Setting-Output-Variables.html
 [blog:zw3rk]: https://log.zw3rk.com/
 [clang:docs:cli-llvm-config]: https://llvm.org/docs/CommandGuide/llvm-config.html
 [clang:docs:cross-compilation]: https://clang.llvm.org/docs/CrossCompilation.html
