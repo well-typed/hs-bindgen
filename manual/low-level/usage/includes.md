@@ -168,9 +168,8 @@ it does not have to be done manually.
   match.
 
     1. `$(${LLVM_PATH}/bin/clang -print-resource-dir)/include`
-    2. `$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include`
-    3. `$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include`
-    4. `$(clang -print-resource-dir)/include`
+    2. `$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include`
+    3. `$(clang -print-resource-dir)/include`
 
 * Configuration can be disabled (`disable`).  In this case, the builtin include
   directory can be configured using CLI options or environment variables when
