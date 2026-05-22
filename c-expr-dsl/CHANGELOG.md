@@ -15,6 +15,9 @@
   `Expr ctx Ps`. `sameMacro` compares macros structurally, ignoring location.
 * `TypeTagged !TagKind !Name` is now a separate `Literal` constructor
   instead of a `TypeLit` variant.
+* Some macros that were previously erroneously parsed as function-like are now
+  parsed as object-like. See [PR #1990][pr-1990].
+* Remove the `sameMacro` function. See [PR #1983][pr-1983].
 
 ### New features
 
@@ -28,12 +31,22 @@
 * `tcMacro` now rejects type-like macros that expand to an incomplete type
   (`void` or `const void` at the top level) with a new `TcIncompleteTypeMacro`
   error. Pointer-to-incomplete types (e.g. `void *`) are still accepted.
-
-[pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
+* Support multi-line macro definitions. See [PR #1993][pr-1993].
 
 ### Minor changes
 
+None
+
 ### Bug fixes
+
+* In accordance with the C reference, parse macros only as function-like when
+  there is no whitespace between the macro name and the opening parenthesis of
+  the parameter list. See [PR #1990][pr-1990].
+
+[pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
+[pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
+[pr-1990]: https://github.com/well-typed/hs-bindgen/pull/1990
+[pr-1993]: https://github.com/well-typed/hs-bindgen/pull/1993
 
 ## 0.1.0-alpha -- 2026-02-06
 
