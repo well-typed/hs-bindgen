@@ -18,7 +18,7 @@ tested-with:
    || ==9.12.2
    || ==9.14.1
 
-data-files:      test/fixtures/**.golden
+data-files:      *.golden
 data-dir:        test/fixtures
 
 common lang
