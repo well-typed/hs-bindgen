@@ -63,8 +63,6 @@ data DiscoverMsg =
   | DiscoverEnvSet BuiltinIncDirConfig
   | DiscoverEnvInvalid String
   | DiscoverLlvmPathNotFound FilePath
-  | DiscoverLlvmConfigEnvNotFound FilePath
-  | DiscoverLlvmConfigEnvFound FilePath
   | DiscoverLlvmConfigPathFound FilePath
   | DiscoverLlvmConfigPrefixUnexpected String
   | DiscoverLlvmConfigPrefixIOError IOError
@@ -93,10 +91,6 @@ instance PrettyForTrace DiscoverMsg where
       PP.string envName <+> "invalid:" <+> PP.string (show s) <+> "(ignored)"
     DiscoverLlvmPathNotFound path ->
       "$LLVM_PATH path not found or not directory (skipping):" <+> string path
-    DiscoverLlvmConfigEnvNotFound path ->
-      "$LLVM_CONFIG path not found or not file (skipping):" <+> string path
-    DiscoverLlvmConfigEnvFound path ->
-      "llvm-config found using $LLVM_CONFIG:" <+> string path
     DiscoverLlvmConfigPathFound path ->
       "llvm-config found using $PATH:" <+> string path
     DiscoverLlvmConfigPrefixUnexpected s ->
@@ -140,8 +134,6 @@ instance IsTrace Level DiscoverMsg where
     DiscoverEnvSet{}                          -> Info
     DiscoverEnvInvalid{}                      -> Warning
     DiscoverLlvmPathNotFound{}                -> Warning
-    DiscoverLlvmConfigEnvNotFound{}           -> Warning
-    DiscoverLlvmConfigEnvFound{}              -> Debug
     DiscoverLlvmConfigPathFound{}             -> Debug
     DiscoverLlvmConfigPrefixUnexpected{}      -> Warning
     DiscoverLlvmConfigPrefixIOError{}         -> Warning
@@ -200,9 +192,8 @@ discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
 -- the first successful result of the following strategies:
 --
 -- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
--- 3. @$(llvm-config --prefix)/bin/clang@
--- 4. Search @${PATH}@
+-- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
+-- 3. @clang@ (clang is found using PATH)
 --
 -- === Builtin include directory
 --
@@ -221,17 +212,8 @@ discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
 -- contains the executables, headers, and libraries used by the Clang compiler.
 --
 -- When 'BuiltinIncDirClang' is used, this function tries to determine the
--- builtin include directory using the first successful result of the following
--- strategies:
---
--- 1. @$(${LLVM_PATH}/bin/clang -print-resource-dir)/include@
--- 2. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include@
--- 3. @$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include@
--- 4. @$(clang -print-resource-dir)/include@
---
--- Note that this uses the @clang@ executable that we discovered before (see the
--- "Clang executable" section).
---
+-- builtin include directory using the @clang@ executable discovered as
+-- described above, using @$(clang -print-resource-dir)/include@.
 getPaths ::
      Tracer DiscoverMsg
   -> BuiltinIncDirConfig
@@ -320,9 +302,8 @@ getBuiltinIncDirWithClang tracer getExe = do
 -- | Find the @clang@ executable
 --
 -- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
--- 3. @$(llvm-config --prefix)/bin/clang@
--- 4. Search @${PATH}@
+-- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
+-- 3. @clang@ (clang is found using PATH)
 findClangExe :: Tracer DiscoverMsg -> MaybeT IO ClangExe
 findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
   where
@@ -372,28 +353,12 @@ lookupLlvmPath tracer = do
         traceWith tracer (withCallStack $ DiscoverLlvmPathNotFound prefix)
         return Nothing
 
--- | Find the @llvm-config@ executable
---
--- 1. @${LLVM_CONFIG}@
--- 2. Search @${PATH}@
+-- | Find the @llvm-config@ executable using @PATH@
 findLlvmConfigExe :: Tracer DiscoverMsg -> MaybeT IO FilePath
-findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
-  where
-    auxLlvmConfigEnv :: MaybeT IO FilePath
-    auxLlvmConfigEnv = do
-      exe <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_CONFIG"
-      ifM
-        tracer
-        DiscoverLlvmConfigEnvNotFound
-        DiscoverLlvmConfigEnvFound
-        Dir.doesFileExist
-        exe
-
-    auxPath :: MaybeT IO FilePath
-    auxPath = do
-      exe <- MaybeT $ Dir.findExecutable llvmConfigExe
-      traceWith tracer (withCallStack $ DiscoverLlvmConfigPathFound exe)
-      return exe
+findLlvmConfigExe tracer = do
+    exe <- MaybeT $ Dir.findExecutable llvmConfigExe
+    traceWith tracer (withCallStack $ DiscoverLlvmConfigPathFound exe)
+    return exe
 
 -- | @llvm-config@ executable name for the current platform
 llvmConfigExe :: FilePath

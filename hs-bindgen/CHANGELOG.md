@@ -4,6 +4,10 @@
 
 ### Breaking changes
 
+* The `LLVM_CONFIG` environment variable is no longer used to locate
+  `llvm-config`.  Configure `PATH` so that the desired `llvm-config` is found
+  instead.
+
 ### New features
 
 * A new CLI option `--log-squashed-as-info` (and matching
