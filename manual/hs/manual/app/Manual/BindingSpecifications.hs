@@ -6,9 +6,9 @@ import Game.Player.Safe
 import Game.State
 import Game.World.Safe
 import Manual.Tools
-import Vector.Length.Safe
-import Vector.Rotate.Safe
-import Vector.Safe
+import Vector
+import Vector.Length
+import Vector.Rotate
 
 {-------------------------------------------------------------------------------
   Examples
