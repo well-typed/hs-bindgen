@@ -1,7 +1,7 @@
 -- addDependentFile test-artefacts/headers/golden/macros/redeclaration/identical_syntax.h
 -- #include <macros/redeclaration/identical_syntax.h>
 -- void hs_bindgen_3a672aa51059499f (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   (foo)(arg1);
@@ -13,7 +13,7 @@
 --   (bar)(arg1);
 -- }
 -- void hs_bindgen_1f6a4a088740d7bc (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   (foo)(arg1);
@@ -27,7 +27,7 @@
 -- /* test_macrosredeclarationidentical_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_a17f85783f80f294 (void)) (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   return &foo;
@@ -42,10 +42,10 @@
 -- }
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
-    Int8
+    Int32
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
-hs_bindgen_3a672aa51059499f :: CChar -> IO ()
+hs_bindgen_3a672aa51059499f :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 hs_bindgen_3a672aa51059499f = fromFFIType hs_bindgen_3a672aa51059499f_base
 {-| __C declaration:__ @foo@
@@ -54,7 +54,7 @@ hs_bindgen_3a672aa51059499f = fromFFIType hs_bindgen_3a672aa51059499f_base
 
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
-foo_safe :: CChar -> IO ()
+foo_safe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
@@ -86,10 +86,10 @@ bar_safe :: CChar -> IO ()
 bar_safe = hs_bindgen_f6ce0c67437e90e7
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_1f6a4a088740d7bc" hs_bindgen_1f6a4a088740d7bc_base ::
-    Int8
+    Int32
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
-hs_bindgen_1f6a4a088740d7bc :: CChar -> IO ()
+hs_bindgen_1f6a4a088740d7bc :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 hs_bindgen_1f6a4a088740d7bc = fromFFIType hs_bindgen_1f6a4a088740d7bc_base
 {-| __C declaration:__ @foo@
@@ -98,7 +98,7 @@ hs_bindgen_1f6a4a088740d7bc = fromFFIType hs_bindgen_1f6a4a088740d7bc_base
 
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
-foo_unsafe :: CChar -> IO ()
+foo_unsafe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@
@@ -132,7 +132,7 @@ bar_unsafe = hs_bindgen_69080a62615bc0d8
 foreign import ccall unsafe "hs_bindgen_a17f85783f80f294" hs_bindgen_a17f85783f80f294_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
-hs_bindgen_a17f85783f80f294 :: IO (FunPtr (CChar -> IO ()))
+hs_bindgen_a17f85783f80f294 :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
 hs_bindgen_a17f85783f80f294 = fromFFIType hs_bindgen_a17f85783f80f294_base
 {-# NOINLINE foo_funptr #-}
@@ -142,7 +142,7 @@ hs_bindgen_a17f85783f80f294 = fromFFIType hs_bindgen_a17f85783f80f294_base
 
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
-foo_funptr :: FunPtr (CChar -> IO ())
+foo_funptr :: FunPtr (CInt -> IO ())
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_syntax.h 6:6@

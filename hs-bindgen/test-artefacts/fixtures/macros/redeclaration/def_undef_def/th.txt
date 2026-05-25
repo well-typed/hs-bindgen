@@ -1,7 +1,7 @@
 -- addDependentFile test-artefacts/headers/golden/macros/redeclaration/def_undef_def.h
 -- #include <macros/redeclaration/def_undef_def.h>
 -- void hs_bindgen_79fe9113b0a5d6a5 (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   (foo)(arg1);
@@ -13,7 +13,7 @@
 --   (bar)(arg1);
 -- }
 -- void hs_bindgen_cd656f42f4fc25f4 (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   (foo)(arg1);
@@ -27,7 +27,7 @@
 -- /* test_macrosredeclarationdef_undef_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_cf4e7a02d3afe48b (void)) (
---   char arg1
+--   signed int arg1
 -- )
 -- {
 --   return &foo;
@@ -42,10 +42,10 @@
 -- }
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_79fe9113b0a5d6a5" hs_bindgen_79fe9113b0a5d6a5_base ::
-    Int8
+    Int32
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
-hs_bindgen_79fe9113b0a5d6a5 :: CChar -> IO ()
+hs_bindgen_79fe9113b0a5d6a5 :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 hs_bindgen_79fe9113b0a5d6a5 = fromFFIType hs_bindgen_79fe9113b0a5d6a5_base
 {-| __C declaration:__ @foo@
@@ -54,7 +54,7 @@ hs_bindgen_79fe9113b0a5d6a5 = fromFFIType hs_bindgen_79fe9113b0a5d6a5_base
 
     __exported by:__ @macros\/redeclaration\/def_undef_def.h@
 -}
-foo_safe :: CChar -> IO ()
+foo_safe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
@@ -86,10 +86,10 @@ bar_safe :: CChar -> IO ()
 bar_safe = hs_bindgen_4327dd00f245ace9
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_cd656f42f4fc25f4" hs_bindgen_cd656f42f4fc25f4_base ::
-    Int8
+    Int32
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
-hs_bindgen_cd656f42f4fc25f4 :: CChar -> IO ()
+hs_bindgen_cd656f42f4fc25f4 :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
 hs_bindgen_cd656f42f4fc25f4 = fromFFIType hs_bindgen_cd656f42f4fc25f4_base
 {-| __C declaration:__ @foo@
@@ -98,7 +98,7 @@ hs_bindgen_cd656f42f4fc25f4 = fromFFIType hs_bindgen_cd656f42f4fc25f4_base
 
     __exported by:__ @macros\/redeclaration\/def_undef_def.h@
 -}
-foo_unsafe :: CChar -> IO ()
+foo_unsafe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@
@@ -132,7 +132,7 @@ bar_unsafe = hs_bindgen_fe4fb459e811e272
 foreign import ccall unsafe "hs_bindgen_cf4e7a02d3afe48b" hs_bindgen_cf4e7a02d3afe48b_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
-hs_bindgen_cf4e7a02d3afe48b :: IO (FunPtr (CChar -> IO ()))
+hs_bindgen_cf4e7a02d3afe48b :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_get_foo@
 hs_bindgen_cf4e7a02d3afe48b = fromFFIType hs_bindgen_cf4e7a02d3afe48b_base
 {-# NOINLINE foo_funptr #-}
@@ -142,7 +142,7 @@ hs_bindgen_cf4e7a02d3afe48b = fromFFIType hs_bindgen_cf4e7a02d3afe48b_base
 
     __exported by:__ @macros\/redeclaration\/def_undef_def.h@
 -}
-foo_funptr :: FunPtr (CChar -> IO ())
+foo_funptr :: FunPtr (CInt -> IO ())
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/def_undef_def.h 4:6@

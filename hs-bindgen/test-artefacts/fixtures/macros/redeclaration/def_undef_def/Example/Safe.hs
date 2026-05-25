@@ -13,7 +13,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <macros/redeclaration/def_undef_def.h>"
   , "void hs_bindgen_79fe9113b0a5d6a5 ("
-  , "  char arg1"
+  , "  signed int arg1"
   , ")"
   , "{"
   , "  (foo)(arg1);"
@@ -28,12 +28,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_79fe9113b0a5d6a5" hs_bindgen_79fe9113b0a5d6a5_base ::
-     RIP.Int8
+     RIP.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 hs_bindgen_79fe9113b0a5d6a5 ::
-     RIP.CChar
+     RIP.CInt
   -> IO ()
 hs_bindgen_79fe9113b0a5d6a5 =
   RIP.fromFFIType hs_bindgen_79fe9113b0a5d6a5_base
@@ -45,7 +45,7 @@ hs_bindgen_79fe9113b0a5d6a5 =
     __exported by:__ @macros\/redeclaration\/def_undef_def.h@
 -}
 foo ::
-     RIP.CChar
+     RIP.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_79fe9113b0a5d6a5

@@ -16,6 +16,8 @@ import Text.Parsec (ParseError)
 
 import HsBindgen.Clang (ClangSetup)
 import HsBindgen.Clang.Discover (ClangExe)
+import HsBindgen.Clang.Macros (MacroDefinition)
+import HsBindgen.Clang.Macros.Floating (invocationCanFloatInwards)
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass (IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
@@ -45,9 +47,16 @@ prepareReparse ::
   -> Maybe ClangExe
   -> ClangSetup
   -> RootHeader
+  -> [MacroDefinition]
   -> C.TranslationUnit TypecheckMacros
   -> IO (C.TranslationUnit PrepareReparse)
-prepareReparse tr clangExeMay setup root unit = do
+prepareReparse tr clangExeMay setup root macroDefs unit
+  | invocationCanFloatInwards macroDefs
+  = do
+      traceImmediate tr PrepareReparseInvocationsNotFloatable
+      pure fallback
+  | otherwise
+  = do
     case clangExeMay of
       -- When we can't find the @clang@ executable, return the fallback value.
       Nothing -> do

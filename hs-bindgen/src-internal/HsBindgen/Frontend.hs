@@ -17,6 +17,7 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
+import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen (DoxygenMsg (DoxygenUnsupported, DoxygenWarning))
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
@@ -267,7 +268,7 @@ runFrontend tracer config boot = do
               , getMainHeadersAndInclude = getMainHeadersAndInclude
               , tracer                   = contramap FrontendParse tracer
               }
-        parseResults <- parseDecls parseEnv
+        (parseResults, macroDefinitions) <- parseDecls parseEnv
 
         let decls :: [C.Decl Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
@@ -281,6 +282,7 @@ runFrontend tracer config boot = do
           , isInMainHeaderDir = isInMainHeaderDir
           , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis     = usageAnalysis
+          , macroDefinitions  = macroDefinitions
           }
 
     parseMeta <- cache "parseMeta" $ do
@@ -324,11 +326,18 @@ runFrontend tracer config boot = do
       pure $ typecheckMacros afterConstructTranslationUnit
 
     prepareReparsePass <- cache "prepareReparse" $ do
+      afterParse <- parsePass
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
       clangExe <- boot.clangExe
       setup <- getSetup
       rootHeader <- getRootHeader
-      liftIO $ prepareReparse (contramap FrontendPrepareReparse tracer) clangExe setup rootHeader afterTypecheckMacros
+      liftIO $ prepareReparse
+                  (contramap FrontendPrepareReparse tracer)
+                  clangExe
+                  setup
+                  rootHeader
+                  afterParse.macroDefinitions
+                  afterTypecheckMacros
 
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
       (_, knownTypes, knownMacroTypes) <- typecheckMacrosPass
@@ -486,4 +495,5 @@ data ParsePassResult = ParsePassResult {
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders
     , usageAnalysis     :: AnonUsageAnalysis
+    , macroDefinitions  :: [MacroDefinition]
     }

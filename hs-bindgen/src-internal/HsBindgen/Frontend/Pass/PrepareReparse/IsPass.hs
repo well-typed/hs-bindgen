@@ -30,7 +30,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (..),
                                                        TypecheckMacros)
 import HsBindgen.Imports (Star, Symbol)
-import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Warning),
+import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Info, Warning),
                               PrettyForTrace (..), Source (HsBindgen),
                               WithCallStack)
 
@@ -102,6 +102,13 @@ data PrepareReparseMsg =
     -- result.
     PrepareReparseClangExeNotFound
 
+    -- * Info
+
+    -- | There are macro invocations that are not inwards floatable, so we can
+    -- not expand them.
+  | PrepareReparseInvocationsNotFloatable
+
+
     -- * Debug
 
     -- | We wrote a temporary header to a temporary file path
@@ -147,6 +154,7 @@ data PrepareReparseMsg =
 instance PrettyForTrace PrepareReparseMsg where
   prettyForTrace = \case
       -- * Warning
+
       PrepareReparseClangExeNotFound -> PP.vsep [
           PP.hsep [
               "We could not find @clang@ executable, but we need it to preprocess"
@@ -159,7 +167,15 @@ instance PrettyForTrace PrepareReparseMsg where
             ]
         ]
 
+      -- * Info
+
+      PrepareReparseInvocationsNotFloatable -> PP.hsep [
+          "There are macro invocations that are not inwards floatable, so we can"
+        , "not expand them."
+        ]
+
       -- * Debug
+
       PrepareReparseWriteTempHeader path contents -> PP.hsep [
           "Creating a temporary header file at"
         , PP.string path
@@ -205,6 +221,8 @@ instance IsTrace Level PrepareReparseMsg where
   getDefaultLogLevel = \case
       -- * Warning
       PrepareReparseClangExeNotFound{} -> Warning
+      -- * Info
+      PrepareReparseInvocationsNotFloatable{} -> Info
       -- * Debug
       PrepareReparseWriteTempHeader{} -> Debug
       PrepareReparsePreprocessorCommand{} -> Debug
