@@ -23,7 +23,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-mkdir -p external
+mkdir -p binding-specs
 
 echo "# "
 echo "# Basic examples"
@@ -181,7 +181,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
-    --gen-binding-spec external/vector.yaml \
+    --gen-binding-spec binding-specs/vector.yaml \
     --module Vector \
     vector.h
 
@@ -194,7 +194,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
-    --external-binding-spec external/vector.yaml \
+    --external-binding-spec binding-specs/vector.yaml \
     --module Vector.Rotate \
     vector_rotate.h
 
@@ -205,7 +205,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.vectorl \
     --hs-output-dir hs/hs-vector/generated \
-    --external-binding-spec external/vector.yaml \
+    --external-binding-spec binding-specs/vector.yaml \
     --module Vector.Length \
     vector_length.h
 
@@ -223,7 +223,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --unique-id com.hs-bindgen.manual.game \
     --select-by-header-path 'game_internal\.h$' \
     --hs-output-dir hs/hs-game/generated \
-    --gen-binding-spec external/game.yaml \
+    --gen-binding-spec binding-specs/game.yaml \
     --module Game.State \
     game_world.h \
     game_player.h
@@ -235,7 +235,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.gamew \
     --hs-output-dir hs/hs-game/generated \
-    --external-binding-spec external/game.yaml \
+    --external-binding-spec binding-specs/game.yaml \
     --module Game.World \
     game_world.h
 
@@ -246,7 +246,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.gamep \
     --hs-output-dir hs/hs-game/generated \
-    --external-binding-spec external/game.yaml \
+    --external-binding-spec binding-specs/game.yaml \
     --module Game.Player \
     game_player.h
 
