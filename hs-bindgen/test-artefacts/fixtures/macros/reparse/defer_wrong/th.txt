@@ -50,13 +50,13 @@ instance HasCField T "unwrapT"
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
 newtype Foo
-    = Foo {unwrapFoo :: S}
+    = Foo {unwrapFoo :: T}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty S => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
+instance (~) ty T => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFoo")
 instance HasCField Foo "unwrapFoo"
-    where type CFieldType Foo "unwrapFoo" = S
+    where type CFieldType Foo "unwrapFoo" = T
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @bar@
 

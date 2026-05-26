@@ -110,7 +110,7 @@ instance HasCField.HasCField T "unwrapT" where
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
 newtype Foo = Foo
-  { unwrapFoo :: S
+  { unwrapFoo :: T
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
@@ -120,13 +120,13 @@ newtype Foo = Foo
     , Marshal.WriteRaw
     )
 
-instance (ty ~ S) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance (ty ~ T) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapFoo")
 
 instance HasCField.HasCField Foo "unwrapFoo" where
 
-  type CFieldType Foo "unwrapFoo" = S
+  type CFieldType Foo "unwrapFoo" = T
 
   offset# = \_ -> \_ -> 0
 
