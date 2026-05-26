@@ -7,6 +7,7 @@ import Test.HsBindgen.Runtime.CBool qualified
 import Test.HsBindgen.Runtime.CEnum qualified
 import Test.HsBindgen.Runtime.ConstantArray qualified
 import Test.HsBindgen.Runtime.HighLevel.Smoke qualified
+import Test.HsBindgen.Runtime.HighLevel.SpecSmoke qualified
 import Test.HsBindgen.Runtime.IncompleteArray qualified
 import Test.HsBindgen.Runtime.SizedByteArray qualified
 
@@ -21,6 +22,7 @@ main = defaultMain $ testGroup "test-runtime" [
     , Test.HsBindgen.Runtime.CEnum.tests
     , Test.HsBindgen.Runtime.ConstantArray.tests
     , Test.HsBindgen.Runtime.HighLevel.Smoke.tests
+    , Test.HsBindgen.Runtime.HighLevel.SpecSmoke.tests
     , Test.HsBindgen.Runtime.IncompleteArray.tests
     , Test.HsBindgen.Runtime.SizedByteArray.tests
     ]
