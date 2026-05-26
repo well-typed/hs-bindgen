@@ -26,6 +26,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -330,34 +331,31 @@ processFunction ::
      C.DeclInfo ReparseMacroExpansions
   -> C.Function TypecheckMacros
   -> M (C.Decl ReparseMacroExpansions)
-processFunction info function =
-    reparseWith info.id LanC.reparseFunDecl function.ann withoutReparse withReparse
+processFunction info function = do
+    function' <- reparseWith info.id LanC.reparseFunDecl function.ann withoutReparse withReparse
+    pure C.Decl {
+        info = info
+      , ann = NoAnn
+      , kind = C.DeclFunction function'
+      }
   where
-    withoutReparse :: C.Decl ReparseMacroExpansions
-    withoutReparse = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclFunction C.Function{
-              args  = map coercePass function.args
-            , res   = coercePass function.res
-            , attrs = function.attrs
-            , ann   = NoAnn
-            }
+    withoutReparse :: C.Function ReparseMacroExpansions
+    withoutReparse = C.Function{
+          args  = map coercePass function.args
+        , res   = coercePass function.res
+        , attrs = function.attrs
+        , ann   = NoAnn
         }
 
     withReparse ::
          (([(Maybe Text, CType)] , CType) , Text)
-      -> M (C.Decl ReparseMacroExpansions)
-    withReparse ((tys, ty), _name) = pure C.Decl{
-           info = info
-         , ann  = NoAnn
-         , kind = C.DeclFunction C.Function{
-               args  = map (uncurry mkFunctionArg) tys
-             , res   = ty
-             , attrs = function.attrs
-             , ann   = NoAnn
-             }
-         }
+      -> M (C.Function ReparseMacroExpansions)
+    withReparse ((tys, ty), _name) = pure C.Function{
+          args  = map (uncurry mkFunctionArg) tys
+        , res   = ty
+        , attrs = function.attrs
+        , ann   = NoAnn
+        }
 
     mkFunctionArg :: Maybe Text -> CType -> C.FunctionArg ReparseMacroExpansions
     mkFunctionArg mname typ = C.FunctionArg{
@@ -370,27 +368,24 @@ processGlobal ::
      C.DeclInfo ReparseMacroExpansions
   -> C.Global TypecheckMacros
   -> M (C.Decl ReparseMacroExpansions)
-processGlobal info global =
-    reparseWith info.id LanC.reparseGlobal global.ann withoutReparse withReparse
+processGlobal info global = do
+    global' <- reparseWith info.id LanC.reparseGlobal global.ann withoutReparse withReparse
+    pure C.Decl {
+        info = info
+      , ann = NoAnn
+      , kind = C.DeclGlobal global'
+      }
   where
-    withoutReparse :: C.Decl ReparseMacroExpansions
-    withoutReparse = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclGlobal C.Global{
-              typ = coercePass global.typ
-            , ann = NoAnn
-            }
+    withoutReparse :: C.Global ReparseMacroExpansions
+    withoutReparse = C.Global{
+          typ = coercePass global.typ
+        , ann = NoAnn
         }
 
-    withReparse :: CType -> M (C.Decl ReparseMacroExpansions)
-    withReparse ty = pure C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclGlobal C.Global{
-              typ = ty
-            , ann = NoAnn
-            }
+    withReparse :: CType -> M (C.Global ReparseMacroExpansions)
+    withReparse ty = pure C.Global{
+          typ = ty
+        , ann = NoAnn
         }
 
 {-------------------------------------------------------------------------------
@@ -455,10 +450,14 @@ runM cStd knownTypes knownMacroTypes (WrapM ma) = runReader (runStateT ma s) e
 
 -- | Run reparser if needed; use fallback on failure or if not needed.
 --
--- On failure, records @(declId, ParseMacroErrorReparse e)@ in
+-- On reparsing failure, records @(declId, ParseMacroErrorReparse e)@ in
+-- 'ReparseState.reparseWarnings' and uses the fallback value.
+--
+-- On alignment failure, records @(declId, ParseMacroErrorReparseAlign e)@ in
 -- 'ReparseState.reparseWarnings' and uses the fallback value.
 reparseWith ::
-     DeclId
+     Align r
+  => DeclId
   -> LanC.Parser a
   -> ReparseInfo
   -> r
@@ -481,8 +480,15 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
           reparseEnv = LanC.ReparseEnv env.knownTypes usedKnownMacros
       case parser reparseEnv tokens of
         Right a -> do
-          modify $ #reparseSuccesses %~ Set.insert declId
-          onSuccess a
+          r <- onSuccess a
+          case alignEither fallback r of
+            Left msgs -> do
+              forM_ msgs $ \msg ->
+                modify $ #reparseWarnings %~ ((declId, msg) :)
+              pure fallback
+            Right r' -> do
+              modify $ #reparseSuccesses %~ Set.insert declId
+              pure r'
         Left  e -> do
           modify $ #reparseWarnings %~ ((declId, ParseMacroErrorReparse e) :)
           pure fallback

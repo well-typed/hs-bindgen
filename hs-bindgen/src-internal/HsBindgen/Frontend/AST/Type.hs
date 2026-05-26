@@ -26,6 +26,11 @@ module HsBindgen.Frontend.AST.Type (
   , TypeFunArg
   , TypeFunArgF (..)
   , TypeQual(..)
+
+    -- * References
+  , EnumRef
+  , MacroRef
+  , TypedefRef
   , Ref (..)
 
     -- * Normal forms
