@@ -16,40 +16,28 @@ import Test.HsBindgen.Resources
 
 testCases :: [TestCase]
 testCases = [
-      -- Default tests
-
-      -- Bespoke tests
-      test_macros_reparse
-    , test_macros_reparse_arithmetic_types
-    , test_macros_reparse_cref_attributes
-    , test_macros_reparse_gnu_attributes
-    , test_macros_reparse_functions
+      test
+    , test_arithmetic_types
+    , test_cref_attributes
+    , test_defer_wrong
+    , test_functions
+    , test_gnu_attributes
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_macros_reparse :: TestCase
-test_macros_reparse =
+test :: TestCase
+test =
     defaultTest "macros/reparse"
         -- `bool` is a keyword.
       & #clangVersion   .~ Just (>= (15, 0, 0))
         -- `bool` is a keyword.
       & #cStandard      .~ c23
 
-test_macros_reparse_gnu_attributes :: TestCase
-test_macros_reparse_gnu_attributes =
-    defaultTest "macros/reparse/gnu_attributes"
-      & #cStandard      .~ c23
-
-test_macros_reparse_cref_attributes :: TestCase
-test_macros_reparse_cref_attributes =
-    defaultTest "macros/reparse/cref_attributes"
-      & #cStandard      .~ c23
-
-test_macros_reparse_arithmetic_types :: TestCase
-test_macros_reparse_arithmetic_types =
+test_arithmetic_types :: TestCase
+test_arithmetic_types =
     defaultTest "macros/reparse/arithmetic_types"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name@"f29" (SelectParseFailure ParseUnsupportedLongDouble) ->
@@ -60,8 +48,22 @@ test_macros_reparse_arithmetic_types =
   where
     declsWithMsgs = ["f29"]
 
-test_macros_reparse_functions :: TestCase
-test_macros_reparse_functions =
+test_cref_attributes :: TestCase
+test_cref_attributes =
+    defaultTest "macros/reparse/cref_attributes"
+      & #cStandard      .~ c23
+
+test_defer_wrong :: TestCase
+test_defer_wrong =
+    defaultTest "macros/reparse/defer_wrong"
+
+test_functions :: TestCase
+test_functions =
     defaultTest "macros/reparse/functions"
       -- C99 required for inline functions
       & #cStandard .~ c99
+
+test_gnu_attributes :: TestCase
+test_gnu_attributes =
+    defaultTest "macros/reparse/gnu_attributes"
+      & #cStandard      .~ c23
