@@ -26,6 +26,7 @@ import Test.HsBindgen.Golden.Infra.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Infra.Check.TH qualified as TH
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Golden.Macros qualified as Macros
+import Test.HsBindgen.Golden.Macros.Reparse qualified as Macros.Reparse
 import Test.HsBindgen.Golden.ProgramAnalysis qualified as ProgramAnalysis
 import Test.HsBindgen.Golden.Types qualified as Types
 import Test.HsBindgen.Resources
@@ -46,7 +47,10 @@ tests getTestResources = testTreeFor getTestResources $
       , TestCases "edgeCases"       EdgeCases.testCases
       , TestCases "functions"       Functions.testCases
       , TestCases "globals"         Globals.testCases
-      , TestCases "macros"          Macros.testCases
+      , TestCaseSection "macros" $ concat [
+           TestCaseLeafs Macros.testCases
+          , [ TestCases "reparse" Macros.Reparse.testCases ]
+          ]
       , TestCases "programAnalysis" ProgramAnalysis.testCases
       , TestCases "types"           Types.testCases
       ]
@@ -64,6 +68,7 @@ allTestCases = concat [
     , Functions.testCases
     , Globals.testCases
     , Macros.testCases
+    , Macros.Reparse.testCases
     , ProgramAnalysis.testCases
     , Types.testCases
     ]
@@ -74,7 +79,14 @@ allTestCases = concat [
 
 data TestCaseTree =
     TestCaseSection String [TestCaseTree]
-  | TestCases String [TestCase]
+  | TestCaseLeaf TestCase
+
+pattern TestCases :: String -> [TestCase] -> TestCaseTree
+pattern TestCases label cases = TestCaseSection label (TestCaseLeafs cases)
+
+pattern TestCaseLeafs :: [TestCase] -> [TestCaseTree]
+pattern TestCaseLeafs cases <- (fmap (\(TestCaseLeaf test) -> test) -> cases)
+  where TestCaseLeafs cases = fmap TestCaseLeaf cases
 
 testTreeFor :: IO TestResources -> TestCaseTree -> TestTree
 testTreeFor getTestResources = goTree
@@ -82,8 +94,7 @@ testTreeFor getTestResources = goTree
     goTree :: TestCaseTree -> TestTree
     goTree (TestCaseSection label sections) =
         testGroup label $ map goTree sections
-    goTree (TestCases label cases) =
-        testGroup label $ map goCase cases
+    goTree (TestCaseLeaf test) = goCase test
 
     goCase :: TestCase -> TestTree
     goCase test
