@@ -5,10 +5,7 @@ module Test.HsBindgen.Golden (
   , module Test.HsBindgen.Golden.Infra.TestCase
   ) where
 
-import System.Directory (createDirectoryIfMissing)
 import Test.Tasty
-
-import Clang.Version
 
 import Test.HsBindgen.Golden.Arrays qualified as Arrays
 import Test.HsBindgen.Golden.Attributes qualified as Attributes
@@ -19,12 +16,8 @@ import Test.HsBindgen.Golden.Documentation qualified as Documentation
 import Test.HsBindgen.Golden.EdgeCases qualified as EdgeCases
 import Test.HsBindgen.Golden.Functions qualified as Functions
 import Test.HsBindgen.Golden.Globals qualified as Globals
-import Test.HsBindgen.Golden.Infra.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Infra.Check.FailureBindgen qualified as FailureBindgen
-import Test.HsBindgen.Golden.Infra.Check.FailureLibclang qualified as FailureLibclang
-import Test.HsBindgen.Golden.Infra.Check.PP qualified as PP
-import Test.HsBindgen.Golden.Infra.Check.TH qualified as TH
 import Test.HsBindgen.Golden.Infra.TestCase
+import Test.HsBindgen.Golden.Infra.TestCaseTree
 import Test.HsBindgen.Golden.Macros qualified as Macros
 import Test.HsBindgen.Golden.Macros.Reparse qualified as Macros.Reparse
 import Test.HsBindgen.Golden.ProgramAnalysis qualified as ProgramAnalysis
@@ -36,7 +29,10 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests getTestResources = testTreeFor getTestResources $
+tests getTestResources = testTreeFor getTestResources testCaseTree
+
+testCaseTree :: TestCaseTree
+testCaseTree =
     TestCaseSection "Test.HsBindgen.Golden" [
         TestCases "arrays"          Arrays.testCases
       , TestCases "attributes"      Attributes.testCases
@@ -49,7 +45,7 @@ tests getTestResources = testTreeFor getTestResources $
       , TestCases "globals"         Globals.testCases
       , TestCaseSection "macros" $ concat [
            TestCaseLeafs Macros.testCases
-          , [ TestCases "reparse" Macros.Reparse.testCases ]
+          , Macros.Reparse.testCases
           ]
       , TestCases "programAnalysis" ProgramAnalysis.testCases
       , TestCases "types"           Types.testCases
@@ -57,69 +53,4 @@ tests getTestResources = testTreeFor getTestResources $
 
 -- | All test cases, for use by TH fixture compilation
 allTestCases :: [TestCase]
-allTestCases = concat [
-      Arrays.testCases
-    , Attributes.testCases
-    , BindingSpecs.testCases
-    , Comprehensive.testCases
-    , Declarations.testCases
-    , Documentation.testCases
-    , EdgeCases.testCases
-    , Functions.testCases
-    , Globals.testCases
-    , Macros.testCases
-    , Macros.Reparse.testCases
-    , ProgramAnalysis.testCases
-    , Types.testCases
-    ]
-
-{-------------------------------------------------------------------------------
-  Construct tasty test tree
--------------------------------------------------------------------------------}
-
-data TestCaseTree =
-    TestCaseSection String [TestCaseTree]
-  | TestCaseLeaf TestCase
-
-pattern TestCases :: String -> [TestCase] -> TestCaseTree
-pattern TestCases label cases = TestCaseSection label (TestCaseLeafs cases)
-
-pattern TestCaseLeafs :: [TestCase] -> [TestCaseTree]
-pattern TestCaseLeafs cases <- (fmap (\(TestCaseLeaf test) -> test) -> cases)
-  where TestCaseLeafs cases = fmap TestCaseLeaf cases
-
-testTreeFor :: IO TestResources -> TestCaseTree -> TestTree
-testTreeFor getTestResources = goTree
-  where
-    goTree :: TestCaseTree -> TestTree
-    goTree (TestCaseSection label sections) =
-        testGroup label $ map goTree sections
-    goTree (TestCaseLeaf test) = goCase test
-
-    goCase :: TestCase -> TestTree
-    goCase test
-      | Just versionPred <- test.clangVersion
-      , case runtimeClangVersion of
-          ClangVersion version  -> not (versionPred version)
-          ClangVersionUnknown _ -> True
-      = testGroup test.name []
-
-      | otherwise
-      = case test.outcome of
-          Success ->
-            withTestOutputDir test.outputDir $ testGroup test.name [
-                TH.check          getTestResources test
-              , PP.check          getTestResources test
-              , BindingSpec.check getTestResources test
-              ]
-          FailureBindgen ->
-            FailureBindgen.check getTestResources test
-          FailureLibclang ->
-            FailureLibclang.check getTestResources test
-
-    withTestOutputDir :: FilePath -> TestTree -> TestTree
-    withTestOutputDir outputDir k =
-        withResource
-          (createDirectoryIfMissing True outputDir)
-          (\_ -> pure ())
-          (\_ -> k)
+allTestCases = flatten testCaseTree

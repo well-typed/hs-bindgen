@@ -1,0 +1,104 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting.h
+  cname: macro MyInt
+  hsname: MyInt
+- headers: macros/reparse/nesting.h
+  cname: struct TS1
+  hsname: T2
+- headers: macros/reparse/nesting.h
+  cname: T2
+  hsname: T2
+- headers: macros/reparse/nesting.h
+  cname: struct TS3
+  hsname: T3
+- headers: macros/reparse/nesting.h
+  cname: T3
+  hsname: T3
+- headers: macros/reparse/nesting.h
+  cname: struct T4
+  hsname: T4
+- headers: macros/reparse/nesting.h
+  cname: T4
+  hsname: T4
+hstypes:
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - unwrapMyInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    record:
+      constructor: T2
+      fields:
+      - t2_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3
+  representation:
+    record:
+      constructor: T3
+      fields:
+      - t3_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T4
+  representation:
+    record:
+      constructor: T4
+      fields:
+      - t4_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
