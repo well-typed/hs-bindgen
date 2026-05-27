@@ -109,7 +109,7 @@ as the following requirements are met:
     `REPOSITORY_ROOT/examples/libfoo/generate-and-run.sh` script
 * Update the workflow file at `REPOSITORY_ROOT/.github/workflows/examples.yml`
   * In the `setup-matrix` job, add a line for `libfoo` to the "default" matrix,
-      or add it to both the "default" and "comprehensive" matrix . For example,
+      or add it to both the "default" and "comprehensive" matrix. For example,
       the inserted line could look like:
 
       ```yaml
@@ -121,8 +121,10 @@ as the following requirements are met:
       "default" matrix runs as part of the regular development cycle (PRs, merge
       queue, `main`). If you add `libfoo` to the default matrix, then you should
       also add it to the comprehensive matrix.
+      Within each section, entries should be in alphabetical order.
 
-  * Towards the end of the file, add a step that calls the `libfoo` composite action:
+  * Towards the end of the file, add a step that calls the `libfoo` composite action
+    (again, in alphabetical order):
 
     ```yml
     - name: 🧪 Build and run libfoo example
@@ -130,7 +132,7 @@ as the following requirements are met:
       uses: ./.github/actions/examples/libfoo
     ```
 
-Now create a PR with these changs and (hopefully) you will observe that a new
+Now create a PR with these changes and (hopefully) you will observe that a new
 job is run that tests the new example project.
 
 ### System-library mode (optional)

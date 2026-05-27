@@ -61,7 +61,7 @@ jobs:
       if: ${{ env.comprehensive == 'false' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          # default
+          # default (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
@@ -81,7 +81,7 @@ jobs:
       if: ${{ env.comprehensive == 'true' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          # default
+          # first the default tests, same as above (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
@@ -92,13 +92,13 @@ jobs:
           # on that runner (but kept in the matrix for cache-key uniqueness).
           echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "14"     , "example": "feature-tests"},'
           echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "bundled", "example": "feature-tests"},'
-          # comprehensive
+          # then the remaining ones, which we only run for the comprehensive check (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "botan"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-minisat"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-qrcode"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rogueutil"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rpm"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "libpcap"},'
           echo EOF
         } >> "$GITHUB_ENV"
@@ -304,6 +304,10 @@ jobs:
         echo '### Resolve (clang)'
         cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
 
+    - name: 🧪 Build and run blocktest example
+      if: ${{ matrix.example == 'blocktest' }}
+      uses: ./.github/actions/examples/blocktest
+
     - name: 🧪 Build and run botan example
       if: ${{ matrix.example == 'botan' }}
       uses: ./.github/actions/examples/botan
@@ -312,38 +316,34 @@ jobs:
       if: ${{ matrix.example == 'bundled-c' }}
       uses: ./.github/actions/examples/bundled-c
 
-    - name: 🧪 Build and run cef example
-      if: ${{ matrix.example == 'cef' }}
-      uses: ./.github/actions/examples/cef
-
     - name: 🧪 Build and run c-minisat example
       if: ${{ matrix.example == 'c-minisat' }}
       uses: ./.github/actions/examples/c-minisat
-
-    - name: 🧪 Build and run libpcap example
-      if: ${{ matrix.example == 'libpcap' }}
-      uses: ./.github/actions/examples/libpcap
 
     - name: 🧪 Build and run c-qrcode example
       if: ${{ matrix.example == 'c-qrcode' }}
       uses: ./.github/actions/examples/c-qrcode
 
-    - name: 🧪 Build and run blocktest example
-      if: ${{ matrix.example == 'blocktest' }}
-      uses: ./.github/actions/examples/blocktest
-
     - name: 🧪 Build and run c-rogueutil example
       if: ${{ matrix.example == 'c-rogueutil' }}
       uses: ./.github/actions/examples/c-rogueutil
-
-    - name: 🧪 Build and run constructor-import-issue example
-      if: ${{ matrix.example == 'constructor-import-issue' }}
-      uses: ./.github/actions/examples/constructor-import-issue
 
     - name: 🧪 Build and run c-rpm example
       if: ${{ matrix.example == 'c-rpm' }}
       uses: ./.github/actions/examples/c-rpm
 
+    - name: 🧪 Build and run cef example
+      if: ${{ matrix.example == 'cef' }}
+      uses: ./.github/actions/examples/cef
+
+    - name: 🧪 Build and run constructor-import-issue example
+      if: ${{ matrix.example == 'constructor-import-issue' }}
+      uses: ./.github/actions/examples/constructor-import-issue
+
     - name: 🧪 Build and run feature-tests example
       if: ${{ matrix.example == 'feature-tests' }}
       uses: ./.github/actions/examples/feature-tests
+
+    - name: 🧪 Build and run libpcap example
+      if: ${{ matrix.example == 'libpcap' }}
+      uses: ./.github/actions/examples/libpcap
