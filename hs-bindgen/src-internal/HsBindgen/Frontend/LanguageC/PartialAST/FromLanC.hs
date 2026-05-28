@@ -224,11 +224,11 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
             Just name ->
               return $ CDeclName (mkCName name) (CNameKindTagged cTagKind)
             Nothing ->
-              unsupported $ "Anonymous " ++ show cTagKind
+              skipped $ "Anonymous " ++ show cTagKind
 
       checkNoDef :: String -> Maybe def -> FromLanC ()
       checkNoDef _   Nothing  = return ()
-      checkNoDef err (Just _) = unsupported err
+      checkNoDef err (Just _) = skipped err
 
 instance Apply (LanC.CTypeQualifier a) PartialType where
   apply qual = \case

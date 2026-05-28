@@ -300,6 +300,7 @@ prop_reparseGlobal input expectedOutput =
     removeCallstack = \case
         LanC.UpdateUnexpected _ str -> UpdateUnexpected str
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
+        LanC.UpdateSkipped str      -> UpdateSkipped str
 
     getLocation :: [Token a] -> MultiLoc
     getLocation []    = panicPure "Unexpected empty list of tokens"
@@ -314,8 +315,9 @@ type PrePass = PrepareReparse
 -- field, and 'CallStack' does not have an 'Eq' instance. So we define our own
 -- version of 'LanC.Error' without the callstack.
 data Error =
-    UpdateUnexpected String
+    UpdateUnexpected  String
   | UpdateUnsupported String
+  | UpdateSkipped     String
   deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------

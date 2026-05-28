@@ -503,7 +503,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseImplicitFieldFailed    x     -> getDefaultLogLevel x
       ParseMacroEmpty{}                 -> Info
       ParseMacroErrorParse{}            -> Info
-      ParseMacroErrorReparse{}          -> Info
+      ParseMacroErrorReparse x          -> getDefaultLogLevel x
       ParseMacroErrorReparseZip x       -> getDefaultLogLevel x
       ParseMacroReparseUnknownType{}    -> Info
       ParsePotentialDuplicateSymbol{}   -> Notice

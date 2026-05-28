@@ -1,0 +1,89 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/union_in_variable.h
+  cname: macro MyInt
+  hsname: MyInt
+- headers: macros/reparse/nesting/union_in_variable.h
+  cname: union @G1
+  hsname: G1
+- headers: macros/reparse/nesting/union_in_variable.h
+  cname: union @G2
+  hsname: G2
+- headers: macros/reparse/nesting/union_in_variable.h
+  cname: union @G3
+  hsname: G3
+hstypes:
+- hsname: G1
+  representation:
+    newtype:
+      constructor: G1
+      fields:
+      - unwrapG1
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: G2
+  representation:
+    newtype:
+      constructor: G2
+      fields:
+      - unwrapG2
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: G3
+  representation:
+    newtype:
+      constructor: G3
+      fields:
+      - unwrapG3
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - unwrapMyInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

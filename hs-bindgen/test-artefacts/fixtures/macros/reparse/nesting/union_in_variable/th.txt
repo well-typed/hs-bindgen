@@ -1,0 +1,265 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/nesting/union_in_variable.h
+-- #include <macros/reparse/nesting/union_in_variable.h>
+-- /* test_macrosreparsenestingunion_i_Example_get_G1 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_4b01ee4d60407c60 (void)
+-- {
+--   return &G1;
+-- }
+-- /* test_macrosreparsenestingunion_i_Example_get_G2 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_2290f6729b2485e1 (void)
+-- {
+--   return &G2;
+-- }
+-- /* test_macrosreparsenestingunion_i_Example_get_G3 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_1be42b84691d63f3 (void)
+-- {
+--   return &G3;
+-- }
+{-| __C declaration:__ @macro MyInt@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 1:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+newtype MyInt
+    = MyInt {unwrapMyInt :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyInt")
+instance HasCField MyInt "unwrapMyInt"
+    where type CFieldType MyInt "unwrapMyInt" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union \@G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+newtype G1 = G1 {unwrapG1 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize G1
+deriving via (SizedByteArray 4 4) instance ReadRaw G1
+deriving via (SizedByteArray 4 4) instance WriteRaw G1
+deriving via (EquivStorable G1) instance Storable G1
+{-|
+
+    __See:__ 'set_g1_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g1_x :: G1 -> MyInt
+{-|
+
+    __See:__ 'set_g1_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g1_x = getUnionPayload
+{-|
+
+    __See:__ 'get_g1_x'
+
+-}
+set_g1_x :: MyInt -> G1
+{-|
+
+    __See:__ 'get_g1_x'
+
+-}
+set_g1_x = setUnionPayload
+instance HasCField G1 "g1_x"
+    where type CFieldType G1 "g1_x" = MyInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
+    where getField = fromPtr (Proxy @"g1_x")
+{-| __C declaration:__ @union \@G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+newtype G2 = G2 {unwrapG2 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize G2
+deriving via (SizedByteArray 4 4) instance ReadRaw G2
+deriving via (SizedByteArray 4 4) instance WriteRaw G2
+deriving via (EquivStorable G2) instance Storable G2
+{-|
+
+    __See:__ 'set_g2_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g2_x :: G2 -> MyInt
+{-|
+
+    __See:__ 'set_g2_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g2_x = getUnionPayload
+{-|
+
+    __See:__ 'get_g2_x'
+
+-}
+set_g2_x :: MyInt -> G2
+{-|
+
+    __See:__ 'get_g2_x'
+
+-}
+set_g2_x = setUnionPayload
+instance HasCField G2 "g2_x"
+    where type CFieldType G2 "g2_x" = MyInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
+    where getField = fromPtr (Proxy @"g2_x")
+{-| __C declaration:__ @union \@G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+newtype G3 = G3 {unwrapG3 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize G3
+deriving via (SizedByteArray 4 4) instance ReadRaw G3
+deriving via (SizedByteArray 4 4) instance WriteRaw G3
+deriving via (EquivStorable G3) instance Storable G3
+{-|
+
+    __See:__ 'set_g3_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g3_x :: G3 -> MyInt
+{-|
+
+    __See:__ 'set_g3_x'
+
+    __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+get_g3_x = getUnionPayload
+{-|
+
+    __See:__ 'get_g3_x'
+
+-}
+set_g3_x :: MyInt -> G3
+{-|
+
+    __See:__ 'get_g3_x'
+
+-}
+set_g3_x = setUnionPayload
+instance HasCField G3 "g3_x"
+    where type CFieldType G3 "g3_x" = MyInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
+    where getField = fromPtr (Proxy @"g3_x")
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G1@
+foreign import ccall unsafe "hs_bindgen_4b01ee4d60407c60" hs_bindgen_4b01ee4d60407c60_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G1@
+hs_bindgen_4b01ee4d60407c60 :: IO (Ptr G1)
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G1@
+hs_bindgen_4b01ee4d60407c60 = fromFFIType hs_bindgen_4b01ee4d60407c60_base
+{-# NOINLINE g1 #-}
+{-| __C declaration:__ @G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g1 :: Ptr G1
+{-| __C declaration:__ @G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g1 = unsafePerformIO hs_bindgen_4b01ee4d60407c60
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G2@
+foreign import ccall unsafe "hs_bindgen_2290f6729b2485e1" hs_bindgen_2290f6729b2485e1_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G2@
+hs_bindgen_2290f6729b2485e1 :: IO (Ptr (Ptr G2))
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G2@
+hs_bindgen_2290f6729b2485e1 = fromFFIType hs_bindgen_2290f6729b2485e1_base
+{-# NOINLINE g2 #-}
+{-| __C declaration:__ @G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g2 :: Ptr (Ptr G2)
+{-| __C declaration:__ @G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g2 = unsafePerformIO hs_bindgen_2290f6729b2485e1
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G3@
+foreign import ccall unsafe "hs_bindgen_1be42b84691d63f3" hs_bindgen_1be42b84691d63f3_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G3@
+hs_bindgen_1be42b84691d63f3 :: IO (Ptr (Ptr (Ptr G3)))
+-- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G3@
+hs_bindgen_1be42b84691d63f3 = fromFFIType hs_bindgen_1be42b84691d63f3_base
+{-# NOINLINE g3 #-}
+{-| __C declaration:__ @G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g3 :: Ptr (Ptr (Ptr G3))
+{-| __C declaration:__ @G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:23@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+g3 = unsafePerformIO hs_bindgen_1be42b84691d63f3

@@ -1,0 +1,140 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: macro MyInt
+  hsname: MyInt
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: struct T1
+  hsname: T1
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: T1
+  hsname: T1
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: struct @T2_Aux
+  hsname: T2_Aux
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: T2
+  hsname: T2
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: struct @T3_Aux
+  hsname: T3_Aux
+- headers: macros/reparse/nesting/struct_in_typedef.h
+  cname: T3
+  hsname: T3
+hstypes:
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - unwrapMyInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T1
+  representation:
+    record:
+      constructor: T1
+      fields:
+      - t1_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    newtype:
+      constructor: T2
+      fields:
+      - unwrapT2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2_Aux
+  representation:
+    record:
+      constructor: T2_Aux
+      fields:
+      - t2_Aux_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3
+  representation:
+    newtype:
+      constructor: T3
+      fields:
+      - unwrapT3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3_Aux
+  representation:
+    record:
+      constructor: T3_Aux
+      fields:
+      - t3_Aux_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

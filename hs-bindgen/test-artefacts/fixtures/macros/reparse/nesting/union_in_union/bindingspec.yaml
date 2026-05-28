@@ -1,0 +1,140 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: macro MyInt
+  hsname: MyInt
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T1
+  hsname: T1
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T1_x
+  hsname: T1_x
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T2
+  hsname: T2
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T2_x
+  hsname: T2_x
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T3
+  hsname: T3
+- headers: macros/reparse/nesting/union_in_union.h
+  cname: union @T3_x
+  hsname: T3_x
+hstypes:
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - unwrapMyInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - unwrapT1
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T1_x
+  representation:
+    newtype:
+      constructor: T1_x
+      fields:
+      - unwrapT1_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    newtype:
+      constructor: T2
+      fields:
+      - unwrapT2
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2_x
+  representation:
+    newtype:
+      constructor: T2_x
+      fields:
+      - unwrapT2_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3
+  representation:
+    newtype:
+      constructor: T3
+      fields:
+      - unwrapT3
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3_x
+  representation:
+    newtype:
+      constructor: T3_x
+      fields:
+      - unwrapT3_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
