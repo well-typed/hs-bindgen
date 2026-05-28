@@ -132,6 +132,10 @@
   `Bug`-level `Unexpected cursor kind` trace on Windows for every CRT
   declaration carrying `__declspec(dllimport)`. See [issue
   #1910](https://github.com/well-typed/hs-bindgen/issues/1910).
+* Also support untagged structs, unions and enums if they are indirectly
+  referenced by global variables. For example, `struct { int x; } var;` was
+  previously supported but `struct { int x; } * var;` or `struct { int x; }
+  var[];` would cause a panic. See [PR #2017][pr-2017].
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -259,6 +263,7 @@
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 [pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
+[pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
 
 ## 0.1.0-alpha -- 2026-02-06
 

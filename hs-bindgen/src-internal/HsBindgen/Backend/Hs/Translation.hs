@@ -985,18 +985,18 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
 
     -- | The C stub return type.
     --
-    -- For anonymous types (where the struct\/enum has no valid C tag name),
-    -- we use @void *@ (structs) or the underlying type pointer (enums),
-    -- since @struct anonName@ \/ @enum anonName@ would be invalid C.
+    -- If that type references an untagged struct\/union\/enum, then the C type
+    -- can not be pretty-printed because there is no name to refer to. In such
+    -- cases we use @void *@ instead, or @const void *@ if the original type was
+    -- additionally const-qualified.
     cStubType :: C.Type Final
-    cStubType = case ty of
-        C.TypeRef ref
-          | ref.cName.isAnon
-          -> C.TypePointers 1 C.TypeVoid
-        C.TypeEnum ref
-          | ref.name.cName.isAnon
-          -> C.TypePointers 1 ref.underlying
-        _ -> stubType
+    cStubType =
+          C.TypePointers 1
+        $ if C.referencesUntagged ty
+          then if C.isErasedTypeConstQualified ty
+               then C.TypeQual C.QualConst C.TypeVoid
+               else C.TypeVoid
+          else ty
 
     prettyStub :: String
     prettyStub = concat [

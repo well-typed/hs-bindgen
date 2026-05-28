@@ -1,0 +1,156 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: globals/untagged.h
+  cname: struct @anonPoint
+  hsname: AnonPoint
+- headers: globals/untagged.h
+  cname: struct @anonPair
+  hsname: AnonPair
+- headers: globals/untagged.h
+  cname: enum @anonEnum
+  hsname: AnonEnum
+- headers: globals/untagged.h
+  cname: enum @anonEnumCoords
+  hsname: AnonEnumCoords
+- headers: globals/untagged.h
+  cname: enum @A
+  hsname: A
+- headers: globals/untagged.h
+  cname: union @B
+  hsname: B
+- headers: globals/untagged.h
+  cname: struct @C
+  hsname: C
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonEnum
+  representation:
+    newtype:
+      constructor: AnonEnum
+      fields:
+      - unwrapAnonEnum
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonEnumCoords
+  representation:
+    newtype:
+      constructor: AnonEnumCoords
+      fields:
+      - unwrapAnonEnumCoords
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonPair
+  representation:
+    record:
+      constructor: AnonPair
+      fields:
+      - anonPair_a
+      - anonPair_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonPoint
+  representation:
+    record:
+      constructor: AnonPoint
+      fields:
+      - anonPoint_x
+      - anonPoint_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: C
+  representation:
+    record:
+      constructor: C
+      fields:
+      - c_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

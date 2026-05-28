@@ -229,6 +229,7 @@ library internal
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+    HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding
     HsBindgen.Frontend.Pass.Select
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
