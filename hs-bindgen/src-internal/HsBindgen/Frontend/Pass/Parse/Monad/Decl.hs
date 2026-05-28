@@ -15,6 +15,8 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   , getCStandard
   , evalGetMainHeadersAndInclude
     -- ** "State"
+  , recordMacroDefinitionAt
+  , getMacroDefinitions
   , recordMacroExpansionAt
   , getMacroExpansions
     -- ** Logging
@@ -36,9 +38,12 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.Clang.Macros (MacroDefinition (..))
 import HsBindgen.Eff
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.LocationInfo
+import HsBindgen.Frontend.Naming (CDeclName (text))
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -109,20 +114,56 @@ evalGetMainHeadersAndInclude path = wrapEff $ \support ->
 -------------------------------------------------------------------------------}
 
 data ParseState = ParseState {
+      -- | Macro definitions
+      --
+      -- Macro definitions need to be analysed for ambiguity in the
+      -- @PrepareReparse@ pass.
+      macroDefinitions :: [MacroDefinition]
       -- | Where did Clang expand macros, and what are their names?
       --
       -- Declarations with expanded macros need to be reparsed.
       --
       -- We use a stacked map so we can lookup macro expansions in source
       -- location ranges reasonably fast.
-      macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
+    , macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
     }
   deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
-      macroExpansions = Map.empty
+      macroDefinitions = []
+    , macroExpansions = Map.empty
     }
+
+recordMacroDefinitionAt ::
+     HasCallStack
+  => PrelimDeclId
+  -> Range MultiLoc
+  -> [Token TokenSpelling]
+  -> ParseDecl ()
+recordMacroDefinitionAt declId locRange tokens = wrapEff $ \support -> do
+    modifyIORef support.state $ #macroDefinitions %~ addMacroDefinition
+  where
+    name :: Text
+    name = case declId of
+        PrelimDeclId.Named declName -> declName.text
+        PrelimDeclId.Anon{} -> panicPure "macros can not be unnamed"
+
+    macroDefinition :: MacroDefinition
+    macroDefinition = MacroDefinition {
+          name = name
+        , locRange = locRange
+        , tokens = tokens
+        }
+
+    addMacroDefinition ::
+         [MacroDefinition]
+      -> [MacroDefinition]
+    addMacroDefinition defs = macroDefinition : defs
+
+getMacroDefinitions :: ParseDecl [MacroDefinition]
+getMacroDefinitions = wrapEff $ \support -> do
+    reverse . (.macroDefinitions) <$> readIORef support.state
 
 recordMacroExpansionAt :: SingleLoc -> Text -> ParseDecl ()
 recordMacroExpansionAt loc macroName = wrapEff $ \support -> do

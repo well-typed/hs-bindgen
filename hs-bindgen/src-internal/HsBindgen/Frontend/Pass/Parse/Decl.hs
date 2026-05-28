@@ -200,8 +200,9 @@ parseDeclWith enclosing ctx parser curr = do
 macroDefinition ::
   HasCallStack => [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
 macroDefinition _enclosing _ctx info = \curr -> do
-    tokens <- getMacroTokens curr
+    (range, tokens) <- getMacroTokens curr
     cStd   <- getCStandard
+    recordMacroDefinitionAt info.id range tokens
     foldContinueWith [mkResult cStd tokens]
   where
     mkResult :: ClangCStandard -> [Token TokenSpelling] -> ParseResult Parse
@@ -218,11 +219,13 @@ macroDefinition _enclosing _ctx info = \curr -> do
             , classification = ParseResultFailure msg
             }
 
-    getMacroTokens :: CXCursor -> ParseDecl [Token TokenSpelling]
+    getMacroTokens ::
+         CXCursor
+      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
     getMacroTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
 -- | Parse an struct declaration
 --

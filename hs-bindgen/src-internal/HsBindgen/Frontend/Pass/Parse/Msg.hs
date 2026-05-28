@@ -316,6 +316,9 @@ data DelayedParseMsg =
 
   | ParseExpectedFunctionType String
 
+    -- | Failed to prepare this declaration for reparsing
+  | ParseMacroPrepareReparseFailed
+
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
@@ -451,6 +454,9 @@ instance PrettyForTrace DelayedParseMsg where
           "Expected function type, but got"
         , PP.string ty
         ]
+      ParseMacroPrepareReparseFailed -> PP.hsep [
+          "Failed to prepare this declaration for reparsing"
+        ]
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
       ParseUnexpectedCursorKind x ->
@@ -511,6 +517,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
+      ParseMacroPrepareReparseFailed{}  -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug

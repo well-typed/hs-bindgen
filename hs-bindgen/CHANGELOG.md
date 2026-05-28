@@ -48,6 +48,9 @@
   `HsBindgen.Backend.HsModule.Translation.Doxygen`.
 * Redefinitions of macros are now considered conflicting even if they are
   syntactically equal. See [PR #1983][pr-1983].
+* Support mixed uses of macro types and non-type macros. Previously, we would
+  only support type macros in bindings that do not also use non-type macros. See
+  [issue #1225][is-1225] and [PR #1892][pr-1892].
 
 ### Minor changes
 
@@ -235,6 +238,7 @@
   `MangleNames`; now they are skipped with a warning.
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
+[is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
@@ -252,6 +256,7 @@
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
 [is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
+[pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 [pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
 

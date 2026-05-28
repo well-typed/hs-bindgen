@@ -17,6 +17,7 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
+import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen (DoxygenMsg (DoxygenUnsupported, DoxygenWarning))
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
@@ -40,6 +41,8 @@ import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.PrepareReparse (prepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
@@ -70,8 +73,8 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- "HsBindgen.Frontend.Pass.Parse" traverses the @libclang@ AST, getting all
 -- information that we need from @libclang@ and constructing a pure Haskell
--- representation (see "HsBindgen.Frontend.AST.Decl").  It is the only pass
--- that runs in 'IO', to interface with @libclang@.
+-- representation (see "HsBindgen.Frontend.AST.Decl"). It runs in 'IO', to
+-- interface with @libclang@.
 --
 -- Constraints:
 --
@@ -134,11 +137,41 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- declarations, so running "HsBindgen.Frontend.Pass.AssignAnonIds" before
 -- "HsBindgen.Frontend.Pass.TypecheckMacros" is fine.
 --
+-- Constraints:
+--
 -- * Must be before "HsBindgen.Frontend.Pass.ReparseMacroExpansions", because
 --   "HsBindgen.Frontend.Pass.TypecheckMacros" typechecks macro-defined types
 --   that are required to parse declarations with macro expansions.
 --
--- == 7. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
+-- == 7. "HsBindgen.Frontend.Pass.PrepareReparse"
+--
+-- @PrepareReparse@ prepares declarations that need to be reparsed because they
+-- contain macro invocations. These declarations carry raw tokens intended to be
+-- reparsed later, and the main goal of @PrepareReparse@ is to preprocess the
+-- tokens to expand select macro invocations. If we leave macro invocations
+-- unexpanded, then declarations that contain them will very likely fail to be
+-- reparsed. In particular this is because the reparser expects its input to be
+-- preprocessed. However, we do not expand a macro invocation if its definition
+-- is identified (through parsing and typechecking) as a macro-defined type.
+-- Such definitions are instead treated by the reparser as if they are
+-- references to actual typedefs.
+--
+-- See issue #1225 for examples of how /not/ preprocessing caused problems in
+-- the past:
+--
+-- <https://github.com/well-typed/hs-bindgen/issues/1225>
+--
+-- Constraints:
+--
+-- * Must be after @TypecheckMacros@, because @PrepareReparse@ needs to know
+--   which macro definitions where identified as macro-defined types before we
+--   can decide whether to expand macro invocations.
+--
+-- * Must be before @ReparseMacroExpansions@, because @ReparseMacroExpansions@
+--   expects its reparser input to be preprocessed, which is what
+--   @PrepareReparse@ takes care of.
+--
+-- == 8. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
 --
 -- "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations that
 -- contain macro expansions.
@@ -149,7 +182,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
 --   referencing macro-defined types that may have to be adjusted.
 --
--- == 8. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 9. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -170,19 +203,19 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 9. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 10. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 10. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 11. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 11. "HsBindgen.Frontend.Pass.Select"
+-- == 12. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -206,9 +239,6 @@ runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
       setup      <- getSetup
       cStd       <- boot.cStandard
-      -- TODO <https://github.com/well-typed/hs-bindgen/pull/1892>: use the
-      -- clang executable to preprocess macro invocations
-      !_clangExe <- boot.clangExe
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
@@ -238,7 +268,7 @@ runFrontend tracer config boot = do
               , getMainHeadersAndInclude = getMainHeadersAndInclude
               , tracer                   = contramap FrontendParse tracer
               }
-        parseResults <- parseDecls parseEnv
+        (parseResults, macroDefinitions) <- parseDecls parseEnv
 
         let decls :: [C.Decl Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
@@ -252,6 +282,7 @@ runFrontend tracer config boot = do
           , isInMainHeaderDir = isInMainHeaderDir
           , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis     = usageAnalysis
+          , macroDefinitions  = macroDefinitions
           }
 
     parseMeta <- cache "parseMeta" $ do
@@ -294,10 +325,25 @@ runFrontend tracer config boot = do
       afterConstructTranslationUnit <- constructTranslationUnitPass
       pure $ typecheckMacros afterConstructTranslationUnit
 
+    prepareReparsePass <- cache "prepareReparse" $ do
+      afterParse <- parsePass
+      (afterTypecheckMacros, _, _) <- typecheckMacrosPass
+      clangExe <- boot.clangExe
+      setup <- getSetup
+      rootHeader <- getRootHeader
+      liftIO $ prepareReparse
+                  (contramap FrontendPrepareReparse tracer)
+                  clangExe
+                  setup
+                  rootHeader
+                  afterParse.macroDefinitions
+                  afterTypecheckMacros
+
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
-      (afterTypecheckMacros, knownTypes, knownMacroTypes) <- typecheckMacrosPass
+      (_, knownTypes, knownMacroTypes) <- typecheckMacrosPass
+      afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      pure $ reparseMacroExpansions cStd knownTypes knownMacroTypes afterTypecheckMacros
+      pure $ reparseMacroExpansions cStd knownTypes knownMacroTypes afterPrepareReparse
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterReparseMacroExpansions <- reparseMacroExpansionsPass
@@ -416,6 +462,7 @@ data FrontendMsg =
   | FrontendParse                    (Msg Parse)
   | FrontendSimplifyAST              (Msg SimplifyAST)
   | FrontendAssignAnonIds            (Msg AssignAnonIds)
+  | FrontendPrepareReparse           (Msg PrepareReparse)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
@@ -448,4 +495,5 @@ data ParsePassResult = ParsePassResult {
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders
     , usageAnalysis     :: AnonUsageAnalysis
+    , macroDefinitions  :: [MacroDefinition]
     }

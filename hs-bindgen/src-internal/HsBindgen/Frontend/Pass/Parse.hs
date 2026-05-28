@@ -11,6 +11,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl
@@ -24,20 +25,21 @@ import HsBindgen.Imports
   Construction
 -------------------------------------------------------------------------------}
 
-parseDecls :: ParseDecl.Env -> IO [ParseResult Parse]
+parseDecls :: ParseDecl.Env -> IO ([ParseResult Parse], [MacroDefinition])
 parseDecls parseEnv = do
     root <- clang_getTranslationUnitCursor parseEnv.unit
     ParseDecl.run parseEnv $ do
       resultsWithLocs <- HighLevel.clang_visitChildren root topLevelDecl
       let resultsOriginalOrder :: [ParseResult Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
+      macroDefinitions <- ParseDecl.getMacroDefinitions
       -- If the version of Clang is >= 20.1, we can obtain sequence order by
       -- sorting declarations by source position.
       --
       -- However, for older versions of Clang, the required API function is
       -- unavailable. Hence, we refrain from sorting declarations, and only
       -- populate the sequence order into 'DeclInfo'.
-      case clang_isBeforeInTranslationUnit of
+      (,macroDefinitions) <$> case clang_isBeforeInTranslationUnit of
         Just isBeforeInUnit -> do
           let isBefore (a, _) (b, _) = isBeforeInUnit a b
           resultsSequenceOrder :: [ParseResult Parse] <-
