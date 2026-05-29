@@ -7,6 +7,7 @@
 ## Generating low-level bindings
 
 * [Introduction](low-level/introduction.md)
+* [C names](low-level/c-names.md)
 
 ### Usage
 
