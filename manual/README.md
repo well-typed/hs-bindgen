@@ -2,11 +2,11 @@
 
 * [Design goals](design-goals.md)
 * [Installation](installation.md)
+* [Terminology](terminology.md)
 
 ## Generating low-level bindings
 
 * [Introduction](low-level/introduction.md)
-* [Terminology](low-level/terminology.md)
 
 ### Usage
 
