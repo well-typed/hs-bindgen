@@ -90,23 +90,21 @@ The following example introduces one type, which has name `macro ident`.
 #define ident int
 ```
 
-## Anonymous types
+## Untagged types
 
-An *anonymous type* is a `struct`, `union`, or `enum` type that is not given a
-tag.  One cannot refer to an anonymous type by name in C, but we need to be able
+An *untagged type* is a `struct`, `union`, or `enum` type that is not given a
+tag.  One cannot refer to an untagged type by name in C, but we need to be able
 to refer to it in binding specifications.  Special syntax is used: the `@`
 character.  Since this character cannot be used in C, it emphasizes that it is
-an `hs-bindgen` convention.  The character resembles a lowercase `a`, short for
-"anonymous."
+an `hs-bindgen` convention.
 
-Anonymous names cannot be specified in select predicates, because there is not
-much sense in selecting or excluding an anonymous type separate from its
-context.
+Untagged types cannot be specified in select predicates, because there is not
+much sense in selecting or excluding an untagged type separate from its context.
 
-Anonymous types can be declared in various places in C headers, and `hs-bindgen`
+Untagged types can be declared in various places in C headers, and `hs-bindgen`
 assigns names based on the context.
 
-### Anonymous types wrapped in a `typedef`
+### Untagged types wrapped in a `typedef`
 
 It is common to name `struct`, `union`, and `enum` types using a `typedef`,
 without specifying a tag.  In this case, we construct a name based on the name
@@ -127,29 +125,29 @@ typedef struct {
 > In this case, the `@` syntax is not used.  This is due to a limitation of
 > `libclang`.
 
-### Anonymous global types
+### Untagged global types
 
-The declaration for a global variable can use an anonymous type.  In this case,
+The declaration for a global variable can use an untagged type.  In this case,
 we construct a name based on the name of the global variable.
 
-The following example introduces one type, which has name `struct @anon_point`.
+The following example introduces one type, which has name `struct @point`.
 
 ```c
 struct {
     int x, y;
-} anon_point;
+} point;
 ```
 
-### Anonymous field types
+### Untagged field types
 
-A declaration of a field in a `struct` or `union` can use an anonymous type.
+A declaration of a field in a `struct` or `union` can use an untagged type.
 When the field has a name, we construct a name based on the names of the
 `struct` or `union` and the field.
 
 The following example introduces two types:
 
 * The outermost `struct` has name `struct s1`.
-* The anonymous `struct` has name `struct @s1_pt`.
+* The untagged `struct` has name `struct @s1_pt`.
 
 ```c
 struct s1 {
@@ -159,11 +157,11 @@ struct s1 {
 };
 ```
 
-When anonymous declarations are nested, the constructed name reflects the
+When untagged declarations are nested, the constructed name reflects the
 hierarchy.  The following example introduces three types:
 
 * The outermost `struct` has name `struct region`.
-* The anonymous `struct` use for the `bounds` field has name
+* The untagged `struct` use for the `bounds` field has name
   `struct @region_bounds`.
 * The innermost `struct` has name `struct @region_bounds_tl`.  Note that the
   first field name is used.
@@ -178,15 +176,15 @@ struct region {
 };
 ```
 
-### Anonymous implicit field types
+### Untagged implicit field types
 
 When the field does not have a name, we construct a name based on the names of
-the `struct` or `union` and the first field in the anonymous `struct`.
+the `struct` or `union` and the first field in the untagged `struct`.
 
 The following example introduces two types:
 
 * The outermost `struct` has name `struct s2`.
-* The anonymous `struct` has name `struct @s2_x`.
+* The untagged `struct` has name `struct @s2_x`.
 
 ```c
 struct s2 {

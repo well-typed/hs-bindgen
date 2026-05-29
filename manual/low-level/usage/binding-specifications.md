@@ -194,9 +194,9 @@ Details:
 
 * The `ctypes` object maps C types, provided by one or more specified headers,
   to Haskell types.  C declaration `typedef struct { ... } vector;` declares two
-  C types: an anonymous `struct` and a `vector` type alias.  This binding
+  C types: an untagged `struct` and a `vector` type alias.  This binding
   specification maps both of these types to the Haskell `Vector` type.  Note
-  that the anonymous `struct` is referred to using C name `struct vector`, using
+  that the untagged `struct` is referred to using C name `struct vector`, using
   the name of the top-level `typedef`.
 * The `hstypes` object specifies details about Haskell types.  In this case,
   `Vector` has a `record` representation, with the specified constructor and
