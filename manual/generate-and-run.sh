@@ -201,7 +201,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --unsafe '' \
     vector.h
 
-sed -i \
+sed -i.bak \
   -e '/ hsname: Vector$/s/Vector/CVector/' \
   -e '/ constructor: Vector$/s/Vector/CVector/' \
   -e '/ - vector_/s/vector_/cVector_/' \
