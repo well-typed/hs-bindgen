@@ -8,7 +8,8 @@ module Vector.Types (
   ) where
 
 import GHC.Show
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+
+import HsBindgen.Runtime.Internal.Prelude qualified as RIP
 
 -- | Vector length
 --
