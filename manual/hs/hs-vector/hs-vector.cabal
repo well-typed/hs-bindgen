@@ -28,15 +28,8 @@ library
   -- generated
   exposed-modules:
     Vector
-    Vector.FunPtr
     Vector.Length
-    Vector.Length.FunPtr
-    Vector.Length.Safe
-    Vector.Length.Unsafe
-    Vector.Rotate.FunPtr
-    Vector.Rotate.Safe
-    Vector.Rotate.Unsafe
-    Vector.Safe
-    Vector.Unsafe
+    Vector.Rotate
+    Vector1
 
   extra-libraries: vector

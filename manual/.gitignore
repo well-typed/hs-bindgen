@@ -3,7 +3,7 @@
 *.o
 *.so
 ## Binding specs
-external/
+binding-specs/
 ## Haskell files
 hs/manual/generated/**/*.hs
 hs/hs-game/generated/**/*.hs

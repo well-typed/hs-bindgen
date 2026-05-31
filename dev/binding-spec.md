@@ -54,11 +54,11 @@
 * The API exposed by `HsBindgen.BindingSpec` and `HsBindgen.BindingSpec.Gen`
   uses the maximum supported version module.  `Frontend` only uses that version.
 
-  The `--version` output is updated to also display the maximum supported
-  binding specification version.
+  CLI `hs-bindgen-cli --version` output displays the maximum supported binding
+  specification version.
 
-  (Example) The public API uses the `V3` module, and `--version` outputs
-  `binding specification 3.1`.
+  (Example) The public API uses the `V3` module, so `hs-bindgen-cli --version`
+  outputs `binding specification 3.1`.
 
 * Design goal: a change in the behavior of `hs-bindgen` (such as defaults)
   should not change the interpretation of a binding specification.
@@ -201,10 +201,10 @@
   implementation would be more difficult to reason about.
 
 * Versions are implemented in the `Aeson` representations of binding
-  specifications (`ABindingSpec`), but they are deliberately *not* included in
-  `BindingSpec` types.  One reason for this design choice is that the version
-  used to parse a binding specification should *not* be a factor in equality of
-  binding specifications.
+  specifications (`ARep v UnresolvedBindingSpec`), but they are deliberately
+  *not* included in `BindingSpec` types.  One reason for this design choice is
+  that the version used to parse a binding specification should *not* be a
+  factor in equality of binding specifications.
 
   The version used to parse a binding specification must *not* affect how the
   binding specification is used.
