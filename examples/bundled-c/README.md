@@ -44,7 +44,7 @@ bindings, then builds and runs the executable.
 
 This example also demonstrates the non-portability problem described in
 [issue #893](https://github.com/well-typed/hs-bindgen/issues/893) and the
-[Non-portability](../../manual/low-level/usage/binding-specifications.md#non-portability)
+[Non-portability](../../manual/low-level/usage/non-portability.md)
 section of the manual.
 
 ### Setup
