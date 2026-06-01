@@ -54,7 +54,8 @@ import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.HsModule.Translation.Doxygen (GroupSections,
+import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportGroupTag (..),
+                                                       ExportTags,
                                                        resolveExports)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
@@ -74,6 +75,8 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (StructNames (..),
+                                                   TypedefNames (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
@@ -222,12 +225,12 @@ getBindings :: ModuleRenderConfig -> Artefact String
 getBindings mrc = do
     name   <- ModuleBaseName
     decls  <- FinalDecls
-    groups <- getGroupSections
+    tags   <- getExportTags
     when (all nullDecls decls) $ EmitTrace $ NoBindingsSingleModule name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ render $
-      translateModuleSingle fns mrc name (resolveExports groups) decls
+      translateModuleSingle fns mrc name (resolveExports tags) decls
 
 -- | Write bindings to file.
 writeBindings ::
@@ -271,13 +274,13 @@ getBindingsMultiple :: ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
     decls  <- FinalDecls
-    groups <- getGroupSections
+    tags   <- getExportTags
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ fmap render <$>
-      translateModuleMultiple fns mrc name (resolveExports groups) decls
+      translateModuleMultiple fns mrc name (resolveExports tags) decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -435,25 +438,43 @@ nullDecls :: ([a], [b]) -> Bool
 nullDecls (xs, ys) = null xs && null ys
 
 {-------------------------------------------------------------------------------
-  Group sections
+  Export tags
 -------------------------------------------------------------------------------}
 
--- | Fetch doxygen data and final C declarations, then compute group sections.
-getGroupSections :: Artefact GroupSections
-getGroupSections = do
+-- | Fetch doxygen data and final C declarations, then precompute export tags.
+getExportTags :: Artefact ExportTags
+getExportTags = do
     doxy  <- DoxygenA
     final <- FrontendPassA FinalPass
-    pure $ computeGroupSections doxy final.decls
+    pure $ computeExportTags doxy final.decls
 
--- | Build a 'GroupSections' map from Doxygen metadata and the final C
+-- | Build an 'ExportTags' map from Doxygen metadata and the final C
 -- declarations.
 --
--- For each C declaration that belongs to a Doxygen @\@defgroup@, we insert
--- two keys mapping to the same group title path: one for the C name and one
--- for the Haskell name.  The dual keying is needed because backend-generated
--- declarations (e.g. @Event_callback_t_Aux@) have a Haskell name that
--- differs from the originating C name (@event_callback_t@) — the C-name key
--- lets the consumer-side fallback ('sdeclOriginCName') find the group.
+-- The resulting map is keyed by Haskell name. 'resolveExports' performs a single
+-- lookup with no fallbacks.
+--
+-- For each 'C.Decl Final':
+--
+--  * If the originating C name belongs to a @\@defgroup@, the tag is
+--    @'Grouped' path@ (root-to-leaf section titles).
+--  * Otherwise, if the declaration is top-level (@null info.enclosing@), the
+--    tag is 'Ungrouped' and the declaration is explicitly hoisted before any
+--    section headers in the export list.
+--  * Otherwise (nested, no group), the declaration is omitted from the map.
+--    Missing keys are interpreted as 'Derived' by 'resolveExports', so the
+--    declaration inherits the preceding 'Grouped' section in source order.
+--
+-- Backend-synthesised companion declarations are inserted under their own
+-- Haskell name with the same tag as their parent:
+--
+--  * Typedef function pointers contribute an auxiliary newtype @F_Aux@ whose
+--    name comes from @typedef.names.aux@; the @_Aux@ form is delayed during
+--    Hs translation and therefore not adjacent to its parent in source
+--    order, so an entry under its own Hs name is necessary to keep it in
+--    its parent's section.
+--  * Structs with flexible array members contribute an auxiliary type whose
+--    name comes from @struct.names.flamAux@; same reasoning.
 --
 -- Example: given a C header with
 --
@@ -463,19 +484,42 @@ getGroupSections = do
 --
 -- and the Haskell name @Config_t@, this produces:
 --
--- > fromList [("config_t", ["Core Data Types"]), ("Config_t", ["Core Data Types"])]
-computeGroupSections :: Doxygen -> [C.Decl Final] -> GroupSections
-computeGroupSections doxy decls =
-    Map.fromList $ concatMap declGroupEntries decls
+-- > fromList [("Config_t", Grouped ["Core Data Types"])]
+computeExportTags :: Doxygen -> [C.Decl Final] -> ExportTags
+computeExportTags doxy decls =
+    Map.fromList $ concatMap declTagEntries decls
   where
-    declGroupEntries :: C.Decl Final -> [(Text, [Text])]
-    declGroupEntries decl = do
-      let cText  = decl.info.id.cName.name.text
-          hsText = decl.info.id.hsName.text
-      path <- toList $ groupPath cText
-      [(cText, path), (hsText, path)]
+    declTagEntries :: C.Decl Final -> [(Text, ExportGroupTag)]
+    declTagEntries decl =
+        case declTag decl of
+          Nothing  -> []
+          Just tag ->
+            (decl.info.id.hsName.text, tag) : auxEntries decl.kind tag
 
-    -- | Resolve the full group title path (root to leaf) for a C declaration.
+    -- | Compute the tag for a top-level or grouped declaration.  Returns
+    -- 'Nothing' for nested declarations without a group (those flow through
+    -- as 'Derived' by lookup miss in 'resolveExports').
+    declTag :: C.Decl Final -> Maybe ExportGroupTag
+    declTag decl =
+      case groupPath decl.info.id.cName.name.text of
+        Just path -> Just (Grouped path)
+        Nothing
+          | null decl.info.enclosing -> Just Ungrouped
+          | otherwise                -> Nothing
+
+    -- | Extra entries for backend-synthesised companion decls that share
+    -- their parent's group membership.
+    auxEntries :: C.DeclKind Final -> ExportGroupTag -> [(Text, ExportGroupTag)]
+    auxEntries kind tag = case kind of
+      C.DeclTypedef typedef
+        | Just (auxName, _) <- typedef.names.aux ->
+            [(auxName.text, tag)]
+      C.DeclStruct struct
+        | Just auxName <- struct.names.flamAux ->
+            [(auxName.text, tag)]
+      _ -> []
+
+    -- | Resolve the full group title path (root to leaf) for a C name.
     --
     -- Walks the Doxygen group hierarchy upward from the declaration's
     -- immediate group to the root, collecting titles along the way.

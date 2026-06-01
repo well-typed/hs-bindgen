@@ -67,6 +67,9 @@
   #1715][is-1715] and [PR #1917][pr-1917].
 * Function-like macro parameters are now resolved to de Bruijn indices at
   parse time and correctly propagated through the backend.
+* Doxygen-driven export grouping now precomputes per-declaration tags at the
+  C-declaration level instead of rediscovering them from the generated Haskell
+  AST.
 
 ### Bug fixes
 
