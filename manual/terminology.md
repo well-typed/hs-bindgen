@@ -146,5 +146,5 @@ represented in `libclang` internally as implicit fields.
 <!-- sources and references -->
 
 [issue:1893]: https://github.com/well-typed/hs-bindgen/issues/1893
-[manual:structs/nesting-example-e]: translation/structs/nesting.md#example-e
-[manual:unions/nesting-example-e]: translation/unions/nesting.md#example-e
+[manual:structs/nesting-example-e]: low-level/translation/structs/nesting.md#example-e
+[manual:unions/nesting-example-e]: low-level/translation/unions/nesting.md#example-e
