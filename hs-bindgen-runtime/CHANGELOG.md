@@ -1,5 +1,12 @@
 # Revision history for hs-bindgen-runtime
 
+## Unreleased
+
+### New features
+
+* Add a combinator library for hand-writing high-level wrappers over the
+  generated low-level FFI bindings.
+
 ## 0.1.0-alpha2 -- 2026-03-27
 
 ### Breaking changes

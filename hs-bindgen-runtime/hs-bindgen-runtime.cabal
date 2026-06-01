@@ -77,7 +77,10 @@ library
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
-    HsBindgen.Runtime.HighLevel.Refine
+    HsBindgen.Runtime.HighLevel.ToHighLevel
+    HsBindgen.Runtime.HighLevel.ToHighLevel.Defaults
+    HsBindgen.Runtime.HighLevel.ToHighLevel.Errors
+    HsBindgen.Runtime.HighLevel.ToHighLevel.Marshallers
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.Internal.Bitfield
     HsBindgen.Runtime.Internal.ByteArray
@@ -130,7 +133,8 @@ test-suite test-hs-bindgen-runtime
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.HsBindgen.Runtime.ConstantArray
-    Test.HsBindgen.Runtime.HighLevel.RefineSmoke
+    Test.HsBindgen.Runtime.HighLevel.CoreDump
+    Test.HsBindgen.Runtime.HighLevel.Test
     Test.HsBindgen.Runtime.IncompleteArray
     Test.HsBindgen.Runtime.SizedByteArray
     Test.Util.Orphans

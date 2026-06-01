@@ -2,7 +2,7 @@
 
 module Main where
 
-import Control.Monad (guard)
+import Control.Monad (when)
 import Data.Bool (bool)
 import Data.Foldable (for_)
 import Data.Word (Word8)
@@ -46,15 +46,15 @@ printQr qrCode = do
 -- }
 basicDemo :: IO ()
 basicDemo = do
-  ((), (qrCode, ok)) <- HL.encodeText
-                          "Hello, world!"
+  (qrCode, ok) <- HL.encodeText
+                    "Hello, world!"
                           QR.Qrcodegen_Ecc_LOW
                           (fromIntegral QR.qrcodegen_VERSION_MIN)
                           (fromIntegral QR.qrcodegen_VERSION_MAX)
                           QR.Qrcodegen_Mask_AUTO
                           True
-  guard ok
-  printQr qrCode
+  -- Mirror the C original's `if (ok) printQr(qrcode);` — silently skip on failure.
+  when ok $ printQr qrCode
 
 main :: IO ()
 main = basicDemo
