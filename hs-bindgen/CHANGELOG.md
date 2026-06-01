@@ -214,6 +214,9 @@
   errors. This is useful when `hs-bindgen` is used in a CI pipeline.
 * Multi-character literal macros (e.g. `#define X 'ab'`) are no longer
   supported, as their value is implementation-defined.
+* Doxygen-driven export grouping now precomputes per-declaration tags at the
+  C-declaration level instead of rediscovering them from the generated Haskell
+  AST.
 
 ### Bug fixes
 
