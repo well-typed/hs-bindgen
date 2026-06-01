@@ -26,12 +26,13 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -98,7 +99,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRootsIndex :: DeclIndex
-        selectionRootsIndex = selectDeclIndex unit.ann.declUseGraph match index
+        selectionRootsIndex = selectDeclIndex unit.meta.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -108,9 +109,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
         -- Identifiers of transitive dependencies including selection roots.
         rootAndTransDepIds :: Set DeclId
-        rootAndTransDepIds =
-          UseDeclGraph.getTransitiveDeps useDeclGraph $
-            Set.toList rootIds
+        rootAndTransDepIds = UseDeclGraph.getTransitiveDeps useDeclGraph rootIds
 
         -- Identifiers of transitive dependencies excluding selection roots.
         strictTransDepIds :: Set DeclId
@@ -138,7 +137,10 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | otherwise                   = TransitivelyUnselectable unusabilityReasons
           where
             transDeps :: Set DeclId
-            transDeps = UseDeclGraph.getStrictTransitiveDeps useDeclGraph [x]
+            transDeps =
+              UseDeclGraph.getStrictTransitiveDeps
+                useDeclGraph
+                (Set.singleton x)
 
             unusables :: Map DeclId Unselectable
             unusables =
@@ -197,7 +199,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         unitSelect = C.TranslationUnit {
                 decls        = selectedUnitDecls
               , includeGraph = unit.includeGraph
-              , ann          = unit.ann
+              , meta         = unit.meta
               }
 
         -- If there were no predicate matches we issue a warning to the user.
@@ -225,10 +227,10 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         )
   where
     index :: DeclIndex
-    index = unit.ann.declIndex
+    index = unit.meta.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unit.ann.useDeclGraph
+    useDeclGraph = unit.meta.useDeclGraph
 
     match :: Match
     match name loc availability =

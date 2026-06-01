@@ -4,18 +4,17 @@
 -- @test/fixtures/macros.h@, feed the token streams to 'parseMacro', and
 -- compare the results against the golden file @test/fixtures/macros.golden@.
 --
--- To regenerate the golden file, delete it and re-run the test suite.
+-- Golden file can be regenerated using the @--accept@ CLI option.
 module Test.CExpr.Parse.Golden (tests) where
 
-import Control.Monad (filterM, unless)
 import Data.Bifunctor (Bifunctor (..))
 import Data.ByteString.Lazy.Char8 qualified as LBS
 import Data.Text (Text)
 import Data.Text qualified as Text
-import System.Directory (doesDirectoryExist, doesFileExist)
 import System.FilePath ((</>))
+import System.IO.Unsafe (unsafePerformIO)
 import Test.Tasty (TestName, TestTree, testGroup)
-import Test.Tasty.HUnit (assertFailure, testCase)
+import Test.Tasty.Golden (goldenVsString)
 
 import C.Expr.Parse
 import C.Expr.Syntax
@@ -29,6 +28,8 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 import Clang.Version
+
+import Paths_c_expr_dsl (getDataDir)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -57,28 +58,14 @@ tests = testGroup "Parse.Golden" $ [goldenWith CExprC17] ++ mbC23
 goldenWith :: TestCStandard -> TestTree
 goldenWith testCStd =
     goldenDynamic ("macros-" <> show cStd)
-        (findFixturesDir >>= \dir ->
-          pure $ dir </> "macros." <> show cStd <> ".golden")
-        (findFixturesDir >>= \dir ->
-          parseMacrosFixture testCStd (dir </> "macros.h"))
+      (datadir </> "macros." <> show cStd <> ".golden")
+      (parseMacrosFixture testCStd (datadir </> "macros.h"))
   where
     cStd = testCStandardToCStandard testCStd
 
--- | Find the fixtures directory, trying locations relative to the repo root
--- (when the test is run by @cabal test@ from the project root) and relative to
--- the package directory (when the test binary is run directly).
-findFixturesDir :: IO FilePath
-findFixturesDir = do
-    let candidates = [
-            "c-expr-dsl" </> "test" </> "fixtures"  -- from repo root
-          , "test" </> "fixtures"                    -- from package root
-          ]
-    found <- filterM doesDirectoryExist candidates
-    case found of
-      (d : _) -> return d
-      []      -> ioError $ userError $ unlines $
-                   "Cannot find fixtures directory; tried:" :
-                   map ("  " ++) candidates
+{-# NOINLINE datadir #-}
+datadir :: FilePath
+datadir = unsafePerformIO getDataDir
 
 -- | Minimal golden test using an 'IO' action to resolve the golden file path.
 --
@@ -88,27 +75,10 @@ findFixturesDir = do
 -- about how to regenerate the file.
 goldenDynamic ::
      TestName
-  -> IO FilePath        -- ^ path to the golden file (resolved at runtime)
+  -> FilePath           -- ^ path to the golden file
   -> IO LBS.ByteString  -- ^ action producing the actual output
   -> TestTree
-goldenDynamic name getGoldenPath getActual =
-    testCase name $ do
-        goldenPath <- getGoldenPath
-        actual     <- getActual
-        exists     <- doesFileExist goldenPath
-        if exists
-          then do
-            expected <- LBS.readFile goldenPath
-            unless (actual == expected) $
-              assertFailure $ unlines [
-                  "Output differs from golden file " ++ goldenPath ++ "."
-                , "Delete the golden file and re-run to regenerate it."
-                ]
-          else do
-            LBS.writeFile goldenPath actual
-            assertFailure $
-              "Golden file did not exist; created " ++ goldenPath ++
-              ".\nRe-run the test suite to verify."
+goldenDynamic name goldenPath getActual = goldenVsString name goldenPath getActual
 
 {-------------------------------------------------------------------------------
   Run the parser on all macros in the fixture file

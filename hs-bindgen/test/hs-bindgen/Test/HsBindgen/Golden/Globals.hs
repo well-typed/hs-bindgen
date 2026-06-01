@@ -15,6 +15,7 @@ import Test.HsBindgen.Golden.Infra.TestCase
 testCases :: [TestCase]
 testCases = [
       test_globals_globals
+    , test_globals_untagged
     ]
 
 {-------------------------------------------------------------------------------
@@ -49,8 +50,7 @@ test_globals_globals =
         , "some_global_struct"
         , "streamBinary_len"
         , "streamBinary"
-        , "anonPoint"
-        , "anonPair"
-        , "anonEnum"
-        , "anonEnumCoords"
         ]
+
+test_globals_untagged :: TestCase
+test_globals_untagged = defaultTest "globals/untagged"

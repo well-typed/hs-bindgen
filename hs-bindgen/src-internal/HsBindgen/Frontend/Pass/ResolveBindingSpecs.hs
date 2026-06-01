@@ -19,17 +19,18 @@ import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -64,23 +65,23 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             extSpecs
             pSpec'
             unit.includeGraph
-            unit.ann.declIndex
+            unit.meta.declIndex
             (resolveDecls unit.decls)
-        useDeclGraph =
-            UseDeclGraph.deleteRevDeps (Map.keys state.extTypes)
-          . UseDeclGraph.deleteDeps (Set.toList state.opqTypes)
-          $ unit.ann.useDeclGraph
+        declUseGraph =
+            DeclUseGraph.deleteRevDeps (Map.keysSet state.extTypes)
+          . DeclUseGraph.deleteDeps state.opqTypes
+          $ unit.meta.declUseGraph
         notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
-    in  ( reconstruct decls useDeclGraph state
+    in  ( reconstruct decls declUseGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
     reconstruct ::
          [C.Decl ResolveBindingSpecs]
-      -> UseDeclGraph
+      -> DeclUseGraph
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reconstruct decls' useDeclGraph state =
+    reconstruct decls' declUseGraph state =
       let externalIds :: Set DeclId
           externalIds = Map.keysSet state.extTypes
 
@@ -88,19 +89,19 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
               . DeclIndex.registerOmittedDeclarations state.omitTypes
-              $ unit.ann.declIndex
+              $ unit.meta.declIndex
 
-          unitAnn' :: DeclMeta
-          unitAnn' = DeclMeta {
+          unitMeta' :: DeclMeta
+          unitMeta' = DeclMeta {
                 declIndex    = index'
-              , useDeclGraph = useDeclGraph
-              , declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
+              , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
+              , declUseGraph = declUseGraph
               }
 
       in C.TranslationUnit{
              decls        = decls'
            , includeGraph = unit.includeGraph
-           , ann          = unitAnn'
+           , meta         = unitMeta'
            }
 
 {-------------------------------------------------------------------------------

@@ -35,10 +35,10 @@ jobs:
         uses: actions/checkout@v6
 
       - name: 🛠️ Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: 🐳 Build Alpine dev image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: dev/alpine
           file: dev/alpine/Dockerfile
@@ -55,7 +55,7 @@ jobs:
       # failed PR push.
       - name: 💾 Restore cabal store cache
         id: cache-cabal
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: .cabal-store
           key: alpine-cabal-${{ hashFiles('cabal.project*', '**/*.cabal') }}
@@ -124,7 +124,7 @@ jobs:
       # when the exact key already hit (no new dependencies pulled).
       - name: 💾 Save cabal store cache
         if: always() && steps.cache-cabal.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: .cabal-store
           key: ${{ steps.cache-cabal.outputs.cache-primary-key }}

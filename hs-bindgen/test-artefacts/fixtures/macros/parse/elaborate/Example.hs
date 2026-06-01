@@ -14,9 +14,9 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.oUTER_A
+    ( Example.iNNER_B
+    , Example.oUTER_A
     , Example.iNNER_A
-    , Example.iNNER_B
     , Example.Outer_int(..)
     , Example.Inner_int(..)
     , Example.oUTER_B
@@ -27,6 +27,15 @@ module Example
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
+
+{-| __C declaration:__ @macro INNER_B@
+
+    __defined at:__ @elaborate_inner.h 2:9@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+iNNER_B :: RIP.CInt
+iNNER_B = (2 :: RIP.CInt)
 
 {-| __C declaration:__ @macro OUTER_A@
 
@@ -45,15 +54,6 @@ oUTER_A = (1 :: RIP.CInt)
 -}
 iNNER_A :: RIP.CInt
 iNNER_A = oUTER_A
-
-{-| __C declaration:__ @macro INNER_B@
-
-    __defined at:__ @elaborate_inner.h 2:9@
-
-    __exported by:__ @macros\/parse\/elaborate.h@
--}
-iNNER_B :: RIP.CInt
-iNNER_B = (2 :: RIP.CInt)
 
 {-| __C declaration:__ @outer_int@
 

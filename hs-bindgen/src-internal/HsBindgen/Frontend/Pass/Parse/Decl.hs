@@ -54,12 +54,12 @@ topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
     handleParseExceptions ::
          CXCursor
       -> SomeException
-      -> ParseDecl (Maybe (CXSourceLocation, [ParseResult Parse]))
+      -> ParseDecl (HandlerResult (Maybe (CXSourceLocation, [ParseResult Parse])))
     handleParseExceptions curr err
       | Just e <- fromException @(ExceptionInCtx DelayedParseMsg) err = do
           loc <- clang_getCursorLocation curr
-          Just . (loc,) <$> parseFailNoInfo e.ctx e.exception curr
-      | otherwise = liftIO $ throwIO err
+          HandlerResult . Just . (loc,) <$> parseFailNoInfo e.ctx e.exception curr
+      | otherwise = return HandlerRethrow
 
 {-------------------------------------------------------------------------------
   Functions for each kind of declaration
@@ -113,6 +113,11 @@ parseDecl' enclosing mCtx = withCursorKindNoCtx $ \case
       -- @visibility@ attributes. The visibility itself the value could be
       -- obtained using 'getCursorVisibility'.
       Right CXCursor_VisibilityAttr     -> \_curr -> foldContinue
+      -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@ attributes.
+      -- These do not affect the generated Haskell bindings: foreign imports
+      -- are resolved by the linker regardless of the DLL annotation.
+      Right CXCursor_DLLImport          -> \_curr -> foldContinue
+      Right CXCursor_DLLExport          -> \_curr -> foldContinue
 
       -- Report error for declarations we don't recognize
       eKind -> case mCtx of
@@ -195,8 +200,9 @@ parseDeclWith enclosing ctx parser curr = do
 macroDefinition ::
   HasCallStack => [C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser
 macroDefinition _enclosing _ctx info = \curr -> do
-    tokens <- getMacroTokens curr
+    (range, tokens) <- getMacroTokens curr
     cStd   <- getCStandard
+    recordMacroDefinitionAt info.id range tokens
     foldContinueWith [mkResult cStd tokens]
   where
     mkResult :: ClangCStandard -> [Token TokenSpelling] -> ParseResult Parse
@@ -213,11 +219,13 @@ macroDefinition _enclosing _ctx info = \curr -> do
             , classification = ParseResultFailure msg
             }
 
-    getMacroTokens :: CXCursor -> ParseDecl [Token TokenSpelling]
+    getMacroTokens ::
+         CXCursor
+      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
     getMacroTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
 -- | Parse an struct declaration
 --
@@ -475,6 +483,10 @@ enumDecl _enclosing ctx info = \curr -> do
                   -- @visibility@ attributes. The visibility itself the value can be
                   -- obtained using 'getCursorVisibility'.
                   Right CXCursor_VisibilityAttr -> foldContinue
+                  -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
+                  -- These don't affect the generated Haskell bindings.
+                  Right CXCursor_DLLImport -> foldContinue
+                  Right CXCursor_DLLExport -> foldContinue
                   unexpectedKind -> foldContinueWith
                     (Left $ ParseUnexpectedCursorKind unexpectedKind)
 
@@ -644,6 +656,11 @@ functionDecl enclosing ctx info =
           -- obtained using 'getCursorVisibility'.
           Right CXCursor_VisibilityAttr -> foldContinue
 
+          -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
+          -- attributes. These do not affect the generated Haskell bindings.
+          Right CXCursor_DLLImport -> foldContinue
+          Right CXCursor_DLLExport -> foldContinue
+
           -- Attributes we (probably?) want to ignore
           Right CXCursor_WarnUnusedResultAttr -> foldContinue
 
@@ -778,6 +795,11 @@ varDecl enclosing ctx info = do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           CXCursor_VisibilityAttr -> skip
+
+          -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
+          -- attributes. These do not affect the generated Haskell bindings.
+          CXCursor_DLLImport -> skip
+          CXCursor_DLLExport -> skip
 
           -- We are not interested in assembler labels.
           CXCursor_AsmLabelAttr -> skip

@@ -1,6 +1,5 @@
 module HsBindgen.Backend.SHs.Translation.Common (
     translateElimStruct
-  , toNameHint
   , eAppMany
   , appMany
   , appManyExpr
@@ -16,8 +15,6 @@ import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.NameHint (NameHint (..))
 
 {-------------------------------------------------------------------------------
   Structs
@@ -27,14 +24,9 @@ translateElimStruct ::
      (forall ctx'. t ctx' -> SExpr ctx')
   -> Hs.ElimStruct t ctx
   -> SExpr ctx
-translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
+translateElimStruct f (Hs.ElimStruct x constr hints add k) = ECase
     (EBound x)
-    [SAlt struct.constr add hints (f k)]
-  where
-    hints = fmap (toNameHint . (.name)) struct.fields
-
-toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
-toNameHint = NameHint . Hs.nameToStr
+    [SAlt constr add hints (f k)]
 
 {-------------------------------------------------------------------------------
 -  Internal auxiliary: derived functionality

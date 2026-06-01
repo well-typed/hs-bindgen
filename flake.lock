@@ -38,17 +38,17 @@
     "libclang-bindings-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1778673321,
-        "narHash": "sha256-33M7uwqgEStJkAxlUkqqix97BtvHowGnv92b/SqAWqY=",
+        "lastModified": 1779428609,
+        "narHash": "sha256-e/if9oauLLOQ0KSwsuEkTHhVKpWVs/ta+Ey5Oqh0BCo=",
         "owner": "well-typed",
         "repo": "libclang-bindings",
-        "rev": "821b62535af96353be6a30baf45a0adcd08770c0",
+        "rev": "51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84",
         "type": "github"
       },
       "original": {
         "owner": "well-typed",
         "repo": "libclang-bindings",
-        "rev": "821b62535af96353be6a30baf45a0adcd08770c0",
+        "rev": "51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84",
         "type": "github"
       }
     },

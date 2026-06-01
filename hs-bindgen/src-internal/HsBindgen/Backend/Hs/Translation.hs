@@ -9,7 +9,6 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Vec.Lazy qualified as Vec
 import DeBruijn (Add (..), Idx (..), pattern I2)
 
 import HsBindgen.Backend.Category
@@ -347,11 +346,13 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
         ++ typedefFieldDecls nt
         ++ valueDecls
       where
-        hsStruct :: Hs.Struct (S Z)
+        -- Singleton field: 'InstanceCEnum' and its siblings rely on this
+        -- struct having exactly one field (the underlying enum integer).
+        hsStruct :: Hs.Struct
         hsStruct = Hs.Struct {
               name      = nt.name
             , constr    = nt.constr
-            , fields    = Vec.singleton nt.field
+            , fields    = [nt.field]
             , instances = nt.instances
             , origin    = Nothing
             , comment   = Nothing
@@ -380,7 +381,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
               , instanceDecl =
                   Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
                       writeRaw = Hs.Lambda (NameHint "ptr") $ Hs.Lambda (NameHint "s") $
-                        Hs.ElimStruct IZ hsStruct (AS AZ) $
+                        Hs.ElimStruct IZ hsStruct.constr (toNameHint nt.field.name ::: VNil) (AS AZ) $
                           Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
                     }
               }
@@ -984,18 +985,18 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
 
     -- | The C stub return type.
     --
-    -- For anonymous types (where the struct\/enum has no valid C tag name),
-    -- we use @void *@ (structs) or the underlying type pointer (enums),
-    -- since @struct anonName@ \/ @enum anonName@ would be invalid C.
+    -- If that type references an untagged struct\/union\/enum, then the C type
+    -- can not be pretty-printed because there is no name to refer to. In such
+    -- cases we use @void *@ instead, or @const void *@ if the original type was
+    -- additionally const-qualified.
     cStubType :: C.Type Final
-    cStubType = case ty of
-        C.TypeRef ref
-          | ref.cName.isAnon
-          -> C.TypePointers 1 C.TypeVoid
-        C.TypeEnum ref
-          | ref.name.cName.isAnon
-          -> C.TypePointers 1 ref.underlying
-        _ -> stubType
+    cStubType =
+          C.TypePointers 1
+        $ if C.referencesUntagged ty
+          then if C.isErasedTypeConstQualified ty
+               then C.TypeQual C.QualConst C.TypeVoid
+               else C.TypeVoid
+          else ty
 
     prettyStub :: String
     prettyStub = concat [

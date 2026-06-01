@@ -13,8 +13,9 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding (ResolvedExtBinding (..),
+                                                                       extDeclIdPair)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -38,9 +39,8 @@ type ResolveBindingSpecs :: Pass
 data ResolveBindingSpecs a
 
 type family AnnResolveBindingSpecs ix where
-  AnnResolveBindingSpecs "TranslationUnit" = DeclMeta
-  AnnResolveBindingSpecs "Decl"            = PrescriptiveDeclSpec
-  AnnResolveBindingSpecs _                 = NoAnn
+  AnnResolveBindingSpecs "Decl" = PrescriptiveDeclSpec
+  AnnResolveBindingSpecs _      = NoAnn
 
 instance IsPass ResolveBindingSpecs where
   type MacroBody   ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
@@ -69,27 +69,6 @@ data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
     , hsSpec :: Maybe BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Generic)
-
-data ResolvedExtBinding = ResolvedExtBinding{
-      -- | C declaration for which we are using this binding
-      cName :: DeclId
-
-      -- | The Haskell type which will be used
-    , hsName :: Hs.ExtRef
-
-      -- | Additional information about the C type
-    , cSpec :: BindingSpec.CTypeSpec
-
-      -- | Additional information about the Haskell type
-    , hsSpec :: BindingSpec.HsTypeSpec
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
-extDeclIdPair :: ResolvedExtBinding -> DeclIdPair
-extDeclIdPair ext = DeclIdPair{
-      cName  = ext.cName
-    , hsName = Hs.demoteNs ext.hsName.name
-    }
 
 {-------------------------------------------------------------------------------
   Trace messages

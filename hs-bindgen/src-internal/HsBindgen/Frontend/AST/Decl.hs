@@ -4,9 +4,8 @@
 --
 -- > import HsBindgen.Frontend.AST.Decl qualified as C
 module HsBindgen.Frontend.AST.Decl (
-    TranslationUnit(..)
     -- * Declarations
-  , Decl(..)
+    Decl(..)
   , Availability(..)
   , EnclosingRef(..)
   , DeclInfo(..)
@@ -37,7 +36,6 @@ import Prelude qualified as P
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -53,40 +51,6 @@ import Doxygen.Parser.Types qualified as Doxy
   NOTE: Struct and union fields, as well as enum constants, have their /own/
   'SingleLoc' (in addition to the 'SingleLoc' of the enclosing declaration).
 -------------------------------------------------------------------------------}
-
-data TranslationUnit p = TranslationUnit{
-      -- | Declarations in the unit
-      --
-      -- Declarations from all headers that we have processed. Passes may remove
-      -- some declarations. For example,
-      --
-      -- * The 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse' pass filters out declarations not matching the selection
-      --   predicate (without program slicing).
-      --
-      -- * If program slicing is enabled, the @Select@ pass filters selected
-      --   declarations and their transitive dependencies.
-      --
-      -- * The 'HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass.ResolveBindingSpecs' pass removes declarations for which we have
-      --   existing external bindings, as well as declarations omitted by a
-      --   prescriptive binding specification.
-      decls :: [Decl p]
-
-      -- | Include graph
-      --
-      -- This is used to declare TH dependencies.
-      --
-      -- It can also be useful for users to see this graph, as it may provide
-      -- insight into the binding generation process. For example, suppose we
-      -- have a large library (say Gtk), with a few main entry points (for which
-      -- we should generate separate Haskell modules) and a core of "common"
-      -- definitions; it may be quite useful to look at the include graph to
-      -- figure out what this set of "core" headers is.
-    , includeGraph :: IncludeGraph
-
-      -- | Pass-specific annotation
-    , ann :: Ann "TranslationUnit" p
-    }
-  deriving stock (Generic)
 
 data Decl p = Decl {
       info :: DeclInfo p
@@ -407,7 +371,6 @@ deriving stock instance IsPass p => Show (FunctionArg      p)
 deriving stock instance IsPass p => Show (Global           p)
 deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Struct           p)
 deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (StructField      p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (TranslationUnit  p)
 deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Union            p)
 deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (UnionField       p)

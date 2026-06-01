@@ -66,6 +66,12 @@ jobs:
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          # feature-tests is also exercised on macOS and Windows (#1912).
+          # macOS uses LLVM 14, matching the haskell.yml convention.
+          # Windows uses the LLVM bundled with GHC, so llvm-version is unused
+          # on that runner (but kept in the matrix for cache-key uniqueness).
+          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "14"     , "example": "feature-tests"},'
+          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "bundled", "example": "feature-tests"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -80,6 +86,12 @@ jobs:
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          # feature-tests is also exercised on macOS and Windows (#1912).
+          # macOS uses LLVM 14, matching the haskell.yml convention.
+          # Windows uses the LLVM bundled with GHC, so llvm-version is unused
+          # on that runner (but kept in the matrix for cache-key uniqueness).
+          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "14"     , "example": "feature-tests"},'
+          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "bundled", "example": "feature-tests"},'
           # comprehensive
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "botan"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
@@ -174,6 +186,17 @@ jobs:
       cache-reset-number: 0
 
     steps:
+    - name: 🛠️ Set git to use LF
+      # Required for the Windows runner: prevents autocrlf from rewriting
+      # shell scripts and breaking them.  Harmless on Linux/macOS.
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+
+    - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
+      if: ${{ runner.os == 'macOS' }}
+      run: echo "/usr/bin" >> "$GITHUB_PATH"
+
     - name: 📥 Checkout repository
       uses: actions/checkout@v6
 
@@ -185,9 +208,18 @@ jobs:
         cabal-version: ${{ matrix.cabal-version }}
 
     - name: 🛠️ Setup LLVM/Clang
+      if: ${{ runner.os != 'Windows' }}
       uses: ./.github/actions/setup-llvm
       with:
         version: ${{ matrix.llvm-version }}
+
+    - name: 🛠️ Setup LLVM/Clang (Windows)
+      # On Windows we use the Clang bundled with GHC instead of a separate
+      # LLVM install (matching `.github/workflows/windows.yml`).
+      if: ${{ runner.os == 'Windows' }}
+      uses: ./.github/actions/setup-llvm-windows
+      with:
+        ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
 
     - name: 🛠️ Install doxygen
       uses: ./.github/actions/setup-doxygen

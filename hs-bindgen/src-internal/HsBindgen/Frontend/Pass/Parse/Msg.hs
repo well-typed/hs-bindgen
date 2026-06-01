@@ -24,6 +24,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align.Error qualified as Align
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -133,6 +134,12 @@ data DelayedParseMsg =
 
     -- | We could not reparse a fragment of C (to recover macro use sites)
   | ParseMacroErrorReparse LanC.Error
+
+    -- | We could not align the C AST before reparsing with the C AST after
+    -- reparsing
+  | ParseMacroErrorReparseAlign
+      -- | Error that occurred during alignment
+      Align.Error
 
     -- | While reparsing a declaration with a macro expansion, we do not know
     --   the type of an expanded macro.
@@ -309,6 +316,9 @@ data DelayedParseMsg =
 
   | ParseExpectedFunctionType String
 
+    -- | Failed to prepare this declaration for reparsing
+  | ParseMacroPrepareReparseFailed
+
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
@@ -362,6 +372,11 @@ instance PrettyForTrace DelayedParseMsg where
       ParseMacroErrorReparse x -> PP.hsep [
           "Failed to reparse: "
         , prettyForTrace x
+        ]
+      ParseMacroErrorReparseAlign err -> PP.hsep [
+          "Failed to align the C AST before reparsing with"
+        , "the C AST after reparsing: "
+        , prettyForTrace err
         ]
       ParseMacroReparseUnknownType x -> PP.hsep [
           "During reparse:"
@@ -439,6 +454,9 @@ instance PrettyForTrace DelayedParseMsg where
           "Expected function type, but got"
         , PP.string ty
         ]
+      ParseMacroPrepareReparseFailed -> PP.hsep [
+          "Failed to prepare this declaration for reparsing"
+        ]
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
       ParseUnexpectedCursorKind x ->
@@ -477,6 +495,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroEmpty{}                 -> Info
       ParseMacroErrorParse{}            -> Info
       ParseMacroErrorReparse{}          -> Info
+      ParseMacroErrorReparseAlign x     -> getDefaultLogLevel x
       ParseMacroReparseUnknownType{}    -> Info
       ParsePotentialDuplicateSymbol{}   -> Notice
       ParseDeclarationNotVisible{}      -> Warning
@@ -498,6 +517,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
+      ParseMacroPrepareReparseFailed{}  -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug
@@ -510,6 +530,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroEmpty{}              -> "parse-macro"
       ParseMacroErrorParse{}         -> "parse-macro"
       ParseMacroErrorReparse{}       -> "parse-macro"
+      ParseMacroErrorReparseAlign e  -> getTraceId e
       ParseMacroReparseUnknownType{} -> "parse-macro"
       _ -> "parse"
 

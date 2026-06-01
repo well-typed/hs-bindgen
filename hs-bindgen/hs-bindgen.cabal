@@ -81,8 +81,7 @@ library internal
 
   -- Internal modules.
   exposed-modules:
-    Data.DynGraph
-    Data.DynGraph.Labelled
+    Data.Digraph
     HsBindgen
     HsBindgen.Artefact
     HsBindgen.ArtefactM
@@ -141,12 +140,15 @@ library internal
     HsBindgen.Boot
     HsBindgen.Cache
     HsBindgen.Clang
-    HsBindgen.Clang.BuiltinIncDir
     HsBindgen.Clang.CompareVersions
     HsBindgen.Clang.CStandard
+    HsBindgen.Clang.Discover
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
+    HsBindgen.Clang.Macros
+    HsBindgen.Clang.Macros.Floating
     HsBindgen.Clang.Sizeof
+    HsBindgen.Clang.Tokens
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.Internal
     HsBindgen.Config.MangleCandidate
@@ -159,17 +161,19 @@ library internal
     HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclUseGraph
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
+    HsBindgen.Frontend.Analysis.DeclUseGraph.Query
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UseDeclGraph
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Construction
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Definition
-    HsBindgen.Frontend.Analysis.UseDeclGraph.Query
     HsBindgen.Frontend.AST.Coerce
     HsBindgen.Frontend.AST.Decl
     HsBindgen.Frontend.AST.Deps
     HsBindgen.Frontend.AST.PrettyPrinter
+    HsBindgen.Frontend.AST.TranslationUnit
     HsBindgen.Frontend.AST.Type
+    HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad
@@ -207,10 +211,25 @@ library internal
     HsBindgen.Frontend.Pass.Parse.PrelimDeclId
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
+    HsBindgen.Frontend.Pass.PrepareReparse
+    HsBindgen.Frontend.Pass.PrepareReparse.AST
+    HsBindgen.Frontend.Pass.PrepareReparse.Flatten
+    HsBindgen.Frontend.Pass.PrepareReparse.IsPass
+    HsBindgen.Frontend.Pass.PrepareReparse.Lexer
+    HsBindgen.Frontend.Pass.PrepareReparse.Parser
+    HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor
+    HsBindgen.Frontend.Pass.PrepareReparse.Printer
+    HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util
+    HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
+    HsBindgen.Frontend.Pass.PrepareReparse.Tracer
+    HsBindgen.Frontend.Pass.PrepareReparse.Update
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align.Error
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+    HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding
     HsBindgen.Frontend.Pass.Select
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
@@ -278,11 +297,13 @@ library internal
     , language-c          >=0.9        && <0.11
     , mtl                 >=2.2        && <2.4
     , optics-core         >=0.4        && <0.5
+    , parsec              >=3.1        && <3.2
     , pretty              >=1.1.3.6    && <1.2
     , process             >=1.6        && <1.7
     , regex-pcre-builtin  >=0.95       && <0.96
     , some                >=1.0.6      && <1.1
     , template-haskell    >=2.18       && <2.25
+    , temporary           >=1.3        && <1.4
     , text                >=1.2        && <2.2
     , time                >=1.11       && <1.16
     , transformers        >=0.5        && <0.7
@@ -435,6 +456,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Fixtures.TestCases
     Test.HsBindgen.Fixtures.Utils
     Test.HsBindgen.Frontend.LanguageC
+    Test.HsBindgen.Frontend.Pass.PrepareReparse
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Arrays
     Test.HsBindgen.Golden.Attributes
@@ -452,6 +474,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.Check.TH
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Macros
+    Test.HsBindgen.Golden.Macros.Reparse
     Test.HsBindgen.Golden.ProgramAnalysis
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
@@ -466,6 +489,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
@@ -485,10 +509,12 @@ test-suite test-hs-bindgen
     , filepath
     , mtl
     , optics-core
+    , parsec
     , process
     , tasty
     , tasty-hunit
     , template-haskell
+    , temporary
     , text
     , utf8-string
 
@@ -497,7 +523,6 @@ test-suite test-hs-bindgen
     , async             >=2.2     && <2.3
     , syb               >=0.7.2.4 && <0.8
     , tasty-quickcheck  >=0.11    && <0.12
-    , temporary         >=1.3     && <1.4
 
   -- Build tools needed for integration tests
   build-tool-depends: hs-bindgen:hs-bindgen-cli

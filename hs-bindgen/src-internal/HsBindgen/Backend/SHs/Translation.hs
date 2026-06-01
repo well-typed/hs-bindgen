@@ -7,9 +7,7 @@ module HsBindgen.Backend.SHs.Translation (
     translateType,
 ) where
 
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
@@ -148,7 +146,7 @@ translateDefineInstanceDecl defInst =
                       ]
           }
 
-translateDeclData :: Hs.Struct n -> SDecl
+translateDeclData :: Hs.Struct -> SDecl
 translateDeclData struct = DRecord Record{
       typ     = struct.name
     , con     = struct.constr
@@ -164,7 +162,7 @@ translateDeclData struct = DRecord Record{
             , origin  = f.origin
             , comment = f.comment
             }
-        | f <- toList struct.fields
+        | f <- struct.fields
         ]
     }
 
@@ -312,7 +310,7 @@ translateType = \case
 -------------------------------------------------------------------------------}
 
 translateStaticSizeInstance ::
-     Hs.Struct n
+     Hs.Struct
   -> Hs.StaticSizeInstance
   -> Maybe HsDoc.Comment
   -> Instance
@@ -329,7 +327,7 @@ translateStaticSizeInstance struct inst mbComment = Instance{
     }
 
 translateReadRawInstance ::
-     Hs.Struct n
+     Hs.Struct
   -> Hs.ReadRawInstance
   -> Maybe HsDoc.Comment
   -> Instance
@@ -345,7 +343,7 @@ translateReadRawInstance struct inst mbComment = Instance{
     readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
 
 translateWriteRawInstance ::
-     Hs.Struct n
+     Hs.Struct
   -> Hs.WriteRawInstance
   -> Maybe HsDoc.Comment
   -> Instance
@@ -433,7 +431,7 @@ translatePrimType = \case
 -------------------------------------------------------------------------------}
 
 translateStorableInstance ::
-     Hs.Struct n
+     Hs.Struct
   -> Hs.StorableInstance
   -> Maybe HsDoc.Comment
   -> Instance
@@ -623,7 +621,7 @@ translateDeclVar var = DBinding Binding{
 -------------------------------------------------------------------------------}
 
 translateCEnumInstance ::
-     Hs.Struct (S Z)
+     Hs.Struct
   -> HsType
   -> Map Integer (NonEmpty String)
   -> Bool
@@ -651,7 +649,9 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     dconStrE = EString $ Hs.nameToStr struct.constr
 
     fname :: Hs.Name Hs.NsVar
-    fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
+    fname = case struct.fields of
+        (f : _) -> f.name
+        []      -> panicPure "translateCEnumInstance: empty fields"
 
     fnameStr :: String
     fnameStr = Hs.nameToStr fname
@@ -683,7 +683,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
       | otherwise = []
 
 translateSequentialCEnum ::
-     Hs.Struct (S Z)
+     Hs.Struct
   -> Hs.Name Hs.NsConstr
   -> Hs.Name Hs.NsConstr
   -> Maybe HsDoc.Comment
@@ -704,7 +704,7 @@ translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
     tcon = TCon struct.name
 
 translateCEnumInstanceShow ::
-     Hs.Struct (S Z)
+     Hs.Struct
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceShow struct mbComment = Instance {
@@ -720,7 +720,7 @@ translateCEnumInstanceShow struct mbComment = Instance {
     tcon = TCon struct.name
 
 translateCEnumInstanceRead ::
-     Hs.Struct (S Z)
+     Hs.Struct
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceRead struct mbComment = Instance {

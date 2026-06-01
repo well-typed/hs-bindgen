@@ -34,7 +34,6 @@ import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
-import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
@@ -61,7 +60,6 @@ import HsBindgen.Util.Tracer
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
-  | TraceBuiltinIncDir BuiltinIncDirMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
@@ -94,6 +92,16 @@ data CustomLogLevelSetting =
     -- implementations. Using this custom log level setting, users make them
     -- 'Warning' instead.
   | EnableMacroWarnings
+
+    -- | Set the log level of squashed-typedef traces (trace id
+    -- @select-mangle-names-squashed@) to 'Info'.
+    --
+    -- By default, the 'Select' pass reports squashed typedefs at log level
+    -- 'Notice', which is visible at the default verbosity. Headers that
+    -- chain many typedefs can produce a lot of these messages; this setting
+    -- demotes them to 'Info' so they are hidden at default verbosity but
+    -- still visible with @-v3@.
+  | MakeMangleNamesSquashedInfo
   deriving stock (Eq, Show, Ord)
 
 -- | Get a custom log level function from a set of available settings.
@@ -113,13 +121,16 @@ fromSetting ::
   -> CustomLogLevel Level TraceMsg
 fromSetting = \case
     -- Generic setters.
-    MakeTrace level traceId -> makeTrace level traceId
+    MakeTrace level traceId     -> makeTrace level traceId
     -- Generic modifiers.
-    MakeWarningsErrors      -> makeLevelErrors Warning
+    MakeWarningsErrors          -> makeLevelErrors Warning
     -- Generic modifiers.
-    MakeBugsErrors          -> makeLevelErrors Bug
+    MakeBugsErrors              -> makeLevelErrors Bug
     -- Specific setters.
-    EnableMacroWarnings     -> enableMacroWarnings
+    EnableMacroWarnings         -> enableMacroWarnings
+    -- Trace id defined at
+    -- 'HsBindgen.Frontend.Pass.Select.IsPass.SelectMangleNamesSquashed'.
+    MakeMangleNamesSquashedInfo -> makeTrace Info "select-mangle-names-squashed"
   where
     makeTrace :: Level -> TraceId -> CustomLogLevel Level TraceMsg
     makeTrace desiredLevel traceId = CustomLogLevel $ \trace actualLevel ->

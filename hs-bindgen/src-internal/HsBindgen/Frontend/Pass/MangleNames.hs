@@ -28,11 +28,12 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
@@ -62,17 +63,17 @@ mangleNames fieldNaming unit = (
          C.TranslationUnit{
            decls        = decls2
          , includeGraph = unit.includeGraph
-         , ann          = updateDeclMeta
+         , meta         = updateDeclMeta
                             nameMap
                             (failures1 ++ failures2)
                             squashes
-                            unit.ann
+                            unit.meta
         }
     , msgs1 ++ msgs2
     )
   where
     typedefAnalysis :: TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.ann.declUseGraph unit.decls
+    typedefAnalysis = TypedefAnalysis.fromDecls unit.meta.declUseGraph unit.decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault

@@ -26,6 +26,11 @@ module HsBindgen.Frontend.AST.Type (
   , TypeFunArg
   , TypeFunArgF (..)
   , TypeQual(..)
+
+    -- * References
+  , EnumRef
+  , MacroRef
+  , TypedefRef
   , Ref (..)
 
     -- * Normal forms
@@ -36,6 +41,7 @@ module HsBindgen.Frontend.AST.Type (
   , depsOfType
   , depsOfTypeFunArg
   , hasUnsupportedType
+  , referencesUntagged
 
     -- * Classification
   , isVoid
@@ -50,6 +56,7 @@ module HsBindgen.Frontend.AST.Type (
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding (ResolvedExtBinding (cName))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -556,6 +563,67 @@ hasUnsupportedType = aux . getCanonicalType
       CNameKindTagged CTagKindUnion  -> True
       CNameKindTagged CTagKindEnum   -> panicPure "Unexpected CTagKindEnum"
       CNameKindMacro                 -> panicPure "Unexpected CNameKindMacro"
+
+-- | Does the C type reference an untagged struct\/union\/enum?
+--
+-- If so, then the C type can not be pretty-printed because there is no name to
+-- refer to.
+--
+-- This function looks trough macro references. Macro invocations are expanded
+-- by the C compiler, so whatever a macro invocation expands to (i.e., its
+-- underlying type) should also not reference untagged structs\/unions\/enums.
+--
+referencesUntagged ::
+     forall p. (
+       HasCallStack
+     , Id p ~ DeclIdPair
+     , MacroId p ~ DeclIdPair
+     , ExtBinding p ~ ResolvedExtBinding
+     )
+  => Type p
+  -> Bool
+referencesUntagged = go
+  where
+    go :: Type p -> Bool
+    go = \case
+        TypePrim _pty -> False
+        TypeComplex _pty -> False
+        TypeRef ref ->
+          -- a struct or union can be untagged
+          ref.cName.isAnon
+        TypeEnum ref ->
+          -- an enum can be untagged
+          ref.name.cName.isAnon
+        TypeMacro ref
+          | ref.name.cName.isAnon
+          -> panicPure "macros can not be unnamed"
+          -- NOTE: macros are expanded by the C preprocessor, so if pretty-print
+          -- a macro name then we should make sure that it does not expand to a
+          -- type that references an untagged type
+          | go ref.underlying
+          -> panicPure "macros can not expand to types that reference untagged types"
+          | otherwise
+          -> False
+        TypeTypedef ref
+          | ref.name.cName.isAnon
+          -> panicPure "typedefs can not be unnamed"
+          | otherwise
+          -> False
+        TypeUnsafePointer ty -> go ty
+        TypeConstArray _n ty -> go ty
+        TypeIncompleteArray ty -> go ty
+        TypeFun args res ->
+          any goTypeFunArg args || go res
+        TypeVoid -> False
+        TypeBlock ty -> go ty
+        TypeQual _qual ty -> go ty
+        TypeExtBinding ref ->
+          -- an external binding reference can wrap references to untagged
+          -- types
+          ref.name.cName.isAnon
+
+    goTypeFunArg :: TypeFunArg p -> Bool
+    goTypeFunArg arg = go arg.typ
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers

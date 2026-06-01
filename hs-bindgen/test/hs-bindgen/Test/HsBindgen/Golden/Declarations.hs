@@ -24,7 +24,6 @@ testCases = [
       defaultTest "declarations/declarations_required_for_scoping"
     , defaultTest "declarations/forward_declaration"
     , defaultTest "declarations/opaque_declaration"
-    , defaultTest "declarations/redeclaration_identical"
       -- Bespoke tests
     , test_declarations_declaration_unselected_b
     , test_declarations_definitions
@@ -32,6 +31,7 @@ testCases = [
     , test_declarations_name_collision
     , test_declarations_redeclaration
     , test_declarations_redeclaration_different
+    , test_declarations_redeclaration_identical
     , test_declarations_select_scoping
     , test_declarations_tentative_definitions
     ]
@@ -109,6 +109,22 @@ test_declarations_redeclaration_different =
         Just $ Tolerated
       MatchNoDeclarations ->
         Just $ Tolerated
+      _otherwise ->
+        Nothing
+
+test_declarations_redeclaration_identical :: TestCase
+test_declarations_redeclaration_identical =
+    defaultTest "declarations/redeclaration_identical"
+      & #cStandard      .~ c11
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["macro A"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchSelect name@"macro A" SelectConflict{} ->
+        Just $ Expected name
       _otherwise ->
         Nothing
 

@@ -1,13 +1,15 @@
 {-# LANGUAGE CPP #-}
 
-module HsBindgen.Clang.BuiltinIncDir (
+module HsBindgen.Clang.Discover (
     -- * Types
-    BuiltinIncDir
+    Paths(..)
+  , ClangExe
+  , BuiltinIncDir
     -- * Trace messages
-  , BuiltinIncDirMsg(..)
+  , DiscoverMsg(..)
     -- * API
-  , getBuiltinIncDir
-  , applyBuiltinIncDir
+  , getPaths
+  , applyPaths
   ) where
 
 import Control.Applicative ((<|>), asum)
@@ -40,113 +42,114 @@ import Text.SimplePrettyPrint qualified as PP
   Types
 -------------------------------------------------------------------------------}
 
--- | Builtin include directory
+-- | Discovered path information
+data Paths = Paths {
+    clangExe :: Maybe ClangExe
+  , builtinIncDir :: Maybe BuiltinIncDir
+  }
+
+-- | Path to the @clang@ executable
+type ClangExe = FilePath
+
+-- | Path to the builtin include directory
 type BuiltinIncDir = FilePath
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
-data BuiltinIncDirMsg =
-    BuiltinIncDirEnvNone
-  | BuiltinIncDirEnvSet BuiltinIncDirConfig
-  | BuiltinIncDirEnvInvalid String
-  | BuiltinIncDirLlvmPathNotFound FilePath
-  | BuiltinIncDirLlvmConfigEnvNotFound FilePath
-  | BuiltinIncDirLlvmConfigEnvFound FilePath
-  | BuiltinIncDirLlvmConfigPathFound FilePath
-  | BuiltinIncDirLlvmConfigPrefixUnexpected String
-  | BuiltinIncDirLlvmConfigPrefixIOError IOError
-  | BuiltinIncDirClangNotFound
-  | BuiltinIncDirClangVersionMismatch Text Text
-  | BuiltinIncDirClangIncDirNotFound BuiltinIncDir
-  | BuiltinIncDirClangIncDirFound BuiltinIncDir
-  | BuiltinIncDirLlvmPathClangExeNotFound FilePath
-  | BuiltinIncDirLlvmPathClangExeFound FilePath
-  | BuiltinIncDirLlvmConfigClangExeNotFound FilePath
-  | BuiltinIncDirLlvmConfigClangExeFound FilePath
-  | BuiltinIncDirClangPathFound FilePath
-  | BuiltinIncDirClangVersionUnexpected String
-  | BuiltinIncDirClangVersionIOError IOError
-  | BuiltinIncDirClangPrintResourceDirUnexpected String
-  | BuiltinIncDirClangPrintResourceDirIOError IOError
+data DiscoverMsg =
+    DiscoverEnvNone
+  | DiscoverEnvSet BuiltinIncDirConfig
+  | DiscoverEnvInvalid String
+  | DiscoverLlvmPathNotFound FilePath
+  | DiscoverLlvmConfigPathFound FilePath
+  | DiscoverLlvmConfigPrefixUnexpected String
+  | DiscoverLlvmConfigPrefixIOError IOError
+  | DiscoverClangNotFound
+  | DiscoverClangVersionMismatch Text Text
+  | DiscoverClangIncDirNotFound BuiltinIncDir
+  | DiscoverClangIncDirFound BuiltinIncDir
+  | DiscoverLlvmPathClangExeNotFound FilePath
+  | DiscoverLlvmPathClangExeFound FilePath
+  | DiscoverLlvmConfigClangExeNotFound FilePath
+  | DiscoverLlvmConfigClangExeFound FilePath
+  | DiscoverClangPathFound FilePath
+  | DiscoverClangVersionUnexpected String
+  | DiscoverClangVersionIOError IOError
+  | DiscoverClangPrintResourceDirUnexpected String
+  | DiscoverClangPrintResourceDirIOError IOError
   deriving stock (Show)
 
-instance PrettyForTrace BuiltinIncDirMsg where
+instance PrettyForTrace DiscoverMsg where
   prettyForTrace = \case
-    BuiltinIncDirEnvNone ->
+    DiscoverEnvNone ->
       PP.string envName <+> "not set"
-    BuiltinIncDirEnvSet config ->
+    DiscoverEnvSet config ->
       PP.string envName <+> "set:" <+> PP.string (show config)
-    BuiltinIncDirEnvInvalid s ->
+    DiscoverEnvInvalid s ->
       PP.string envName <+> "invalid:" <+> PP.string (show s) <+> "(ignored)"
-    BuiltinIncDirLlvmPathNotFound path ->
+    DiscoverLlvmPathNotFound path ->
       "$LLVM_PATH path not found or not directory (skipping):" <+> string path
-    BuiltinIncDirLlvmConfigEnvNotFound path ->
-      "$LLVM_CONFIG path not found or not file (skipping):" <+> string path
-    BuiltinIncDirLlvmConfigEnvFound path ->
-      "llvm-config found using $LLVM_CONFIG:" <+> string path
-    BuiltinIncDirLlvmConfigPathFound path ->
+    DiscoverLlvmConfigPathFound path ->
       "llvm-config found using $PATH:" <+> string path
-    BuiltinIncDirLlvmConfigPrefixUnexpected s ->
+    DiscoverLlvmConfigPrefixUnexpected s ->
       "llvm-config --prefix output is unexpected:" <+> string (show s)
-    BuiltinIncDirLlvmConfigPrefixIOError e ->
+    DiscoverLlvmConfigPrefixIOError e ->
       "IO error calling llvm-config --prefix:" <+> string (displayException e)
-    BuiltinIncDirClangNotFound ->
+    DiscoverClangNotFound ->
       "clang not found"
-    BuiltinIncDirClangVersionMismatch libclangVersion clangVersion ->
+    DiscoverClangVersionMismatch libclangVersion clangVersion ->
       PP.hangs' "clang version mismatch:" 2 [
           "libclang version:" <+> PP.text libclangVersion
         , "clang version:   " <+> PP.text clangVersion
         ]
-    BuiltinIncDirClangIncDirNotFound path ->
+    DiscoverClangIncDirNotFound path ->
       "builtin include directory not found using clang:" <+> string path
-    BuiltinIncDirClangIncDirFound path ->
+    DiscoverClangIncDirFound path ->
       "builtin include directory found using clang:" <+> string path
-    BuiltinIncDirLlvmPathClangExeNotFound path ->
+    DiscoverLlvmPathClangExeNotFound path ->
       "clang not found using $LLVM_PATH:" <+> string path
-    BuiltinIncDirLlvmPathClangExeFound path ->
+    DiscoverLlvmPathClangExeFound path ->
       "clang found using $LLVM_PATH:" <+> string path
-    BuiltinIncDirLlvmConfigClangExeNotFound path ->
+    DiscoverLlvmConfigClangExeNotFound path ->
       "clang not found using llvm-config:" <+> string path
-    BuiltinIncDirLlvmConfigClangExeFound path ->
+    DiscoverLlvmConfigClangExeFound path ->
       "clang found using llvm-config:" <+> string path
-    BuiltinIncDirClangPathFound path ->
+    DiscoverClangPathFound path ->
       "clang found using $PATH:" <+> string path
-    BuiltinIncDirClangVersionUnexpected s ->
+    DiscoverClangVersionUnexpected s ->
       "clang --version output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangVersionIOError e ->
+    DiscoverClangVersionIOError e ->
       "IO error calling clang --version:" <+> string (displayException e)
-    BuiltinIncDirClangPrintResourceDirUnexpected s ->
+    DiscoverClangPrintResourceDirUnexpected s ->
       "clang -print-resource-dir output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangPrintResourceDirIOError e ->
+    DiscoverClangPrintResourceDirIOError e ->
       "IO error calling clang -print-resource-dir:"
         <+> string (displayException e)
 
-instance IsTrace Level BuiltinIncDirMsg where
+instance IsTrace Level DiscoverMsg where
   getDefaultLogLevel = \case
-    BuiltinIncDirEnvNone                           -> Debug
-    BuiltinIncDirEnvSet{}                          -> Info
-    BuiltinIncDirEnvInvalid{}                      -> Warning
-    BuiltinIncDirLlvmPathNotFound{}                -> Warning
-    BuiltinIncDirLlvmConfigEnvNotFound{}           -> Warning
-    BuiltinIncDirLlvmConfigEnvFound{}              -> Debug
-    BuiltinIncDirLlvmConfigPathFound{}             -> Debug
-    BuiltinIncDirLlvmConfigPrefixUnexpected{}      -> Warning
-    BuiltinIncDirLlvmConfigPrefixIOError{}         -> Warning
-    BuiltinIncDirClangNotFound                     -> Debug
-    BuiltinIncDirClangVersionMismatch _ _          -> Warning
-    BuiltinIncDirClangIncDirNotFound _             -> Warning
-    BuiltinIncDirClangIncDirFound{}                -> Info
-    BuiltinIncDirLlvmPathClangExeNotFound{}        -> Debug
-    BuiltinIncDirLlvmPathClangExeFound{}           -> Debug
-    BuiltinIncDirLlvmConfigClangExeNotFound{}      -> Debug
-    BuiltinIncDirLlvmConfigClangExeFound{}         -> Debug
-    BuiltinIncDirClangPathFound{}                  -> Debug
-    BuiltinIncDirClangVersionUnexpected _          -> Warning
-    BuiltinIncDirClangVersionIOError _             -> Warning
-    BuiltinIncDirClangPrintResourceDirUnexpected _ -> Warning
-    BuiltinIncDirClangPrintResourceDirIOError _    -> Warning
+    DiscoverEnvNone                           -> Debug
+    DiscoverEnvSet{}                          -> Info
+    DiscoverEnvInvalid{}                      -> Warning
+    DiscoverLlvmPathNotFound{}                -> Warning
+    DiscoverLlvmConfigPathFound{}             -> Debug
+    DiscoverLlvmConfigPrefixUnexpected{}      -> Warning
+    DiscoverLlvmConfigPrefixIOError{}         -> Warning
+    DiscoverClangNotFound                     -> Debug
+    DiscoverClangVersionMismatch _ _          -> Warning
+    DiscoverClangIncDirNotFound _             -> Warning
+    DiscoverClangIncDirFound{}                -> Info
+    DiscoverLlvmPathClangExeNotFound{}        -> Debug
+    DiscoverLlvmPathClangExeFound{}           -> Debug
+    DiscoverLlvmConfigClangExeNotFound{}      -> Debug
+    DiscoverLlvmConfigClangExeFound{}         -> Debug
+    DiscoverClangPathFound{}                  -> Debug
+    DiscoverClangVersionUnexpected _          -> Warning
+    DiscoverClangVersionIOError _             -> Warning
+    DiscoverClangPrintResourceDirUnexpected _ -> Warning
+    DiscoverClangPrintResourceDirIOError _    -> Warning
 
   getSource  = const HsBindgen
 
@@ -156,30 +159,48 @@ instance IsTrace Level BuiltinIncDirMsg where
   Global state
 -------------------------------------------------------------------------------}
 
--- | Builtin include directory state
-data BuiltinIncDirState =
-    BuiltinIncDirInitial
-  | BuiltinIncDirCached (Maybe BuiltinIncDir)
+data DiscoverState =
+    DiscoverStateInitial
+  | DiscoverStateCached Paths
 
--- | Builtin include directory global state
+-- | Global state for caching discovered paths
 --
--- The builtin include directory should only be determined a single time.
--- Calling 'getBuiltinIncDir' stores the result in this global state, and any
--- subsequent calls simply returns the cached value.
-builtinIncDirState :: IORef BuiltinIncDirState
-builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
-{-# NOINLINE builtinIncDirState #-}
+-- Paths should only be discovered a single time. Calling 'getPaths' stores the
+-- result in this global state, and any subsequent calls simply returns the
+-- cached value.
+discoverState :: IORef DiscoverState
+discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
+{-# NOINLINE discoverState #-}
 
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
--- | Try to get the builtin include directory
+-- | Try to discover paths for the @clang@ executable, and the builtin include
+-- directory
+--
+-- Discovered paths should should only be determined a single time. Calling
+-- 'getPaths' caches the result, and any subsequent call simply returns the
+-- cached value.
+--
+-- === Clang executable
+--
+-- The @clang@ executable is run to discover the builtin include directory, and it
+-- is run by the @hs-bingen@ frontend to preprocess macro invocations.
+--
+-- This function tries to determine the path to the @clang@ executable by using
+-- the first successful result of the following strategies:
+--
+-- 1. @${LLVM_PATH}/bin/clang@
+-- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
+-- 3. @clang@ (clang is found using PATH)
+--
+-- === Builtin include directory
 --
 -- LLVM/Clang determines the builtin include directory based on the path of the
--- executable being run.  When using @libclang@, there is not enough information
--- to determine the absolute builtin include directory.  @hs-bindgen@ can
--- attempt to determine and configure the builtin include directory
+-- @clang@ executable being run. When using @libclang@, there is not enough
+-- information to determine the absolute builtin include directory. @hs-bindgen@
+-- can attempt to determine and configure the builtin include directory
 -- automatically so that users do not have to do so manually.
 --
 -- Upstream issues:
@@ -191,41 +212,43 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- contains the executables, headers, and libraries used by the Clang compiler.
 --
 -- When 'BuiltinIncDirClang' is used, this function tries to determine the
--- builtin include directory using the first successful result of the following
--- strategies:
---
--- 1. @$(${LLVM_PATH}/bin/clang -print-resource-dir)/include@
--- 2. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include@
--- 3. @$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include@
--- 4. @$(clang -print-resource-dir)/include@
---
--- The builtin include directory should only be determined a single time.
--- Calling 'getBuiltinIncDir' caches the result, and any subsequent calls simply
--- returns the cached value.
-getBuiltinIncDir ::
-     Tracer BuiltinIncDirMsg
+-- builtin include directory using the @clang@ executable discovered as
+-- described above, using @$(clang -print-resource-dir)/include@.
+getPaths ::
+     Tracer DiscoverMsg
   -> BuiltinIncDirConfig
-  -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDir tracer config =
-    IORef.readIORef builtinIncDirState >>= \case
-      BuiltinIncDirCached mBuiltinIncDir -> return mBuiltinIncDir
-      BuiltinIncDirInitial -> do
+  -> IO Paths
+getPaths tracer config =
+    IORef.readIORef discoverState >>= \case
+      DiscoverStateCached paths -> return paths
+      DiscoverStateInitial -> do
+        mClangExe <- runMaybeT $ findClangExe tracer
         mEnvConfig <- getEnvConfig tracer
         mBuiltinIncDir <- case fromMaybe config mEnvConfig of
           BuiltinIncDirDisable -> return Nothing
-          BuiltinIncDirClang -> runMaybeT $ getBuiltinIncDirWithClang tracer
-        IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
-        return mBuiltinIncDir
+          BuiltinIncDirClang -> runMaybeT $
+            getBuiltinIncDirWithClang tracer (myHoistMaybe mClangExe)
+        let paths = Paths {
+                clangExe = mClangExe
+              , builtinIncDir = mBuiltinIncDir
+              }
+        IORef.writeIORef discoverState (DiscoverStateCached paths)
+        return paths
+  where
+    -- | hoistMaybe was only added in transformers-0.6.0.0
+    myHoistMaybe :: Maybe a -> MaybeT IO a
+    myHoistMaybe = MaybeT . pure
 
--- | Apply the builtin include directory to 'Clang.Args.ClangArgs'
+-- | Apply the discovered paths to 'Clang.Args.ClangArgs'
 --
 -- When configured, the builtin include directory is passed with @-isystem@ as
 -- the last argument.  This ensures that it is prioritized as close to the
 -- default include directories as possible.
-applyBuiltinIncDir ::
-     Maybe BuiltinIncDir
-  -> ClangArgsConfig path -> ClangArgsConfig path
-applyBuiltinIncDir = \case
+applyPaths ::
+     Paths
+  -> ClangArgsConfig path
+  -> ClangArgsConfig path
+applyPaths paths = case paths.builtinIncDir of
     Nothing            -> id
     Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
 
@@ -238,75 +261,77 @@ envName :: String
 envName = "BINDGEN_BUILTIN_INCLUDE_DIR"
 
 -- | Load configuration from system environment, when available
-getEnvConfig :: Tracer BuiltinIncDirMsg -> IO (Maybe BuiltinIncDirConfig)
+getEnvConfig :: Tracer DiscoverMsg -> IO (Maybe BuiltinIncDirConfig)
 getEnvConfig tracer = Env.lookupEnv envName >>= \case
-    Nothing        -> Nothing <$ traceWith tracer (withCallStack BuiltinIncDirEnvNone)
+    Nothing        -> Nothing <$ traceWith tracer (withCallStack DiscoverEnvNone)
     Just "disable" -> aux BuiltinIncDirDisable
     Just "clang"   -> aux BuiltinIncDirClang
-    Just s         -> Nothing <$ traceWith tracer (withCallStack $ BuiltinIncDirEnvInvalid s)
+    Just s         -> Nothing <$ traceWith tracer (withCallStack $ DiscoverEnvInvalid s)
   where
     aux :: BuiltinIncDirConfig -> IO (Maybe BuiltinIncDirConfig)
-    aux config = Just config <$ traceWith tracer (withCallStack $ BuiltinIncDirEnvSet config)
+    aux config = Just config <$ traceWith tracer (withCallStack $ DiscoverEnvSet config)
 
 -- | Get the builtin include directory using @clang@
 --
 -- @clang -print-file-name=include@ is called to get the builtin include
 -- directory.
-getBuiltinIncDirWithClang :: Tracer BuiltinIncDirMsg -> MaybeT IO BuiltinIncDir
-getBuiltinIncDirWithClang tracer = do
-    exe <- findClangExe tracer <|> do
-      traceWith tracer (withCallStack BuiltinIncDirClangNotFound)
+getBuiltinIncDirWithClang ::
+     Tracer DiscoverMsg
+  -> MaybeT IO ClangExe
+  -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithClang tracer getExe = do
+    exe <- getExe <|> do
+      traceWith tracer (withCallStack DiscoverClangNotFound)
       MaybeT $ return Nothing
     clangVersionString <- getClangVersion tracer exe
     let clangVersion = parseClangVersion clangVersionString
     unless (isCompatibleClangVersion runtimeClangVersion clangVersion) $ do
       traceWith tracer . withCallStack $
-        BuiltinIncDirClangVersionMismatch
+        DiscoverClangVersionMismatch
           runtimeClangVersionString
           clangVersionString
       MaybeT $ return Nothing
     resourceDir <- getClangResourceDir tracer exe
     ifM
      tracer
-     BuiltinIncDirClangIncDirNotFound
-     BuiltinIncDirClangIncDirFound
+     DiscoverClangIncDirNotFound
+     DiscoverClangIncDirFound
      Dir.doesDirectoryExist
      (FilePath.joinPath [resourceDir, "include"])
 
 -- | Find the @clang@ executable
 --
 -- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
--- 3. @$(llvm-config --prefix)/bin/clang@
--- 4. Search @${PATH}@
-findClangExe :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
+-- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
+-- 3. @clang@ (clang is found using PATH)
+findClangExe :: Tracer DiscoverMsg -> MaybeT IO ClangExe
 findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
   where
-    auxLlvmPath :: MaybeT IO FilePath
+    auxLlvmPath :: MaybeT IO ClangExe
     auxLlvmPath = do
       prefix <- lookupLlvmPath tracer
       ifM
         tracer
-        BuiltinIncDirLlvmPathClangExeNotFound
-        BuiltinIncDirLlvmPathClangExeFound
+        DiscoverLlvmPathClangExeNotFound
+        DiscoverLlvmPathClangExeFound
         Dir.doesFileExist
         (FilePath.joinPath [prefix, "bin", clangExe])
 
-    auxLlvmConfig :: MaybeT IO FilePath
+    auxLlvmConfig :: MaybeT IO ClangExe
     auxLlvmConfig = do
       exe <- findLlvmConfigExe tracer
       prefix <- getLlvmConfigPrefix tracer exe
       ifM
         tracer
-        BuiltinIncDirLlvmConfigClangExeNotFound
-        BuiltinIncDirLlvmConfigClangExeFound
+        DiscoverLlvmConfigClangExeNotFound
+        DiscoverLlvmConfigClangExeFound
         Dir.doesFileExist
         (FilePath.joinPath [prefix, "bin", clangExe])
 
-    auxPath :: MaybeT IO FilePath
+    auxPath :: MaybeT IO ClangExe
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable clangExe
-      traceWith tracer (withCallStack $ BuiltinIncDirClangPathFound exe)
+      traceWith tracer (withCallStack $ DiscoverClangPathFound exe)
       return exe
 
 -- | @clang@ executable name for the current platform
@@ -319,37 +344,21 @@ clangExe =
 #endif
 
 -- | Lookup @LLVM_PATH@ environment variable
-lookupLlvmPath :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
+lookupLlvmPath :: Tracer DiscoverMsg -> MaybeT IO FilePath
 lookupLlvmPath tracer = do
     prefix <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_PATH"
     MaybeT $ Dir.doesDirectoryExist prefix >>= \case
       True  -> return (Just prefix)
       False -> do
-        traceWith tracer (withCallStack $ BuiltinIncDirLlvmPathNotFound prefix)
+        traceWith tracer (withCallStack $ DiscoverLlvmPathNotFound prefix)
         return Nothing
 
--- | Find the @llvm-config@ executable
---
--- 1. @${LLVM_CONFIG}@
--- 2. Search @${PATH}@
-findLlvmConfigExe :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
-findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
-  where
-    auxLlvmConfigEnv :: MaybeT IO FilePath
-    auxLlvmConfigEnv = do
-      exe <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_CONFIG"
-      ifM
-        tracer
-        BuiltinIncDirLlvmConfigEnvNotFound
-        BuiltinIncDirLlvmConfigEnvFound
-        Dir.doesFileExist
-        exe
-
-    auxPath :: MaybeT IO FilePath
-    auxPath = do
-      exe <- MaybeT $ Dir.findExecutable llvmConfigExe
-      traceWith tracer (withCallStack $ BuiltinIncDirLlvmConfigPathFound exe)
-      return exe
+-- | Find the @llvm-config@ executable using @PATH@
+findLlvmConfigExe :: Tracer DiscoverMsg -> MaybeT IO FilePath
+findLlvmConfigExe tracer = do
+    exe <- MaybeT $ Dir.findExecutable llvmConfigExe
+    traceWith tracer (withCallStack $ DiscoverLlvmConfigPathFound exe)
+    return exe
 
 -- | @llvm-config@ executable name for the current platform
 llvmConfigExe :: FilePath
@@ -364,14 +373,14 @@ llvmConfigExe =
 --
 -- This function calls @llvm-config --prefix@ and captures the output.
 getLlvmConfigPrefix ::
-     Tracer BuiltinIncDirMsg
+     Tracer DiscoverMsg
   -> FilePath  -- ^ @llvm-config@ path
   -> MaybeT IO FilePath
 getLlvmConfigPrefix tracer exe = MaybeT $
     checkOutput
       tracer
-      BuiltinIncDirLlvmConfigPrefixUnexpected
-      BuiltinIncDirLlvmConfigPrefixIOError
+      DiscoverLlvmConfigPrefixUnexpected
+      DiscoverLlvmConfigPrefixIOError
       (fmap normWinPath . parseSingleLine)
       (readProcess exe ["--prefix"] "")
 
@@ -380,14 +389,14 @@ getLlvmConfigPrefix tracer exe = MaybeT $
 -- This function calls @clang --version@ and captures the output.  The full
 -- version string in the first line is returned.
 getClangVersion ::
-     Tracer BuiltinIncDirMsg
+     Tracer DiscoverMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO Text
 getClangVersion tracer exe = MaybeT $
     checkOutput
       tracer
-      BuiltinIncDirClangVersionUnexpected
-      BuiltinIncDirClangVersionIOError
+      DiscoverClangVersionUnexpected
+      DiscoverClangVersionIOError
       (fmap Text.pack . parseFirstLine)
       (readProcess exe ["--version"] "")
 
@@ -395,14 +404,14 @@ getClangVersion tracer exe = MaybeT $
 --
 -- This function calls @clang -print-resource-dir@ and captures the output.
 getClangResourceDir ::
-     Tracer BuiltinIncDirMsg
+     Tracer DiscoverMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO FilePath
 getClangResourceDir tracer exe = MaybeT $
     checkOutput
       tracer
-      BuiltinIncDirClangPrintResourceDirUnexpected
-      BuiltinIncDirClangPrintResourceDirIOError
+      DiscoverClangPrintResourceDirUnexpected
+      DiscoverClangPrintResourceDirIOError
       (fmap normWinPath . parseSingleLine)
       (readProcess exe ["-print-resource-dir"] "")
 
@@ -434,9 +443,9 @@ normWinPath = id
 
 -- | Return a path only if it passes a predicate, tracing result
 ifM ::
-     Tracer BuiltinIncDirMsg
-  -> (FilePath -> BuiltinIncDirMsg)  -- ^ not found constructor
-  -> (FilePath -> BuiltinIncDirMsg)  -- ^ found constructor
+     Tracer DiscoverMsg
+  -> (FilePath -> DiscoverMsg)  -- ^ not found constructor
+  -> (FilePath -> DiscoverMsg)  -- ^ found constructor
   -> (FilePath -> IO Bool)           -- ^ predicate
   -> FilePath                        -- ^ path
   -> MaybeT IO FilePath

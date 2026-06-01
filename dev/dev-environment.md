@@ -9,7 +9,7 @@ All platforms require (last updated October 9, 2025):
 
 - GHC 9.4.8 or greater (or compatible version)
 - Cabal (latest version)
-- LLVM/Clang (version 14 - 21)
+- LLVM/Clang (version 14 - 22)
 
 ## Linux (Ubuntu)
 
@@ -27,14 +27,25 @@ sudo apt-get install llvm-16 clang-16
 
 ### Environment Variables
 
-Make sure the following environment variables are correctly set after
-installing LLVM and Clang, otherwise set them as follows:
+Make sure that the `llvm-config` for the version of LLVM/Clang that you want
+to use is available.
 
 ```bash
-# Point to your LLVM installation
+llvm-config --version
+```
+
+If the command is not found or is for a different version, prepend the `bin`
+for the LLVM/Clang version that you want to use to your `PATH`.
+
+```
+export PATH="/usr/lib/llvm-16/bin:${PATH}"  # Adjust version as needed
+```
+
+If `llvm-config` is not included in your installation, use the `LLVM_PATH`
+environment variable instead.
+
+```
 export LLVM_PATH=/usr/lib/llvm-16  # Adjust version as needed
-export LLVM_CONFIG=$LLVM_PATH/bin/llvm-config
-export LIBCLANG_PATH=$LLVM_PATH/lib/
 ```
 
 ## NixOS
@@ -63,12 +74,10 @@ brew install llvm@16
 
 ### Environment Setup
 
-1. **Set LLVM paths**:
+1. **Path configuration**:
 
    ```bash
-   export LLVM_PATH=/opt/homebrew/opt/llvm@16  # Adjust for your installation
-   export LLVM_CONFIG=$LLVM_PATH/bin/llvm-config
-   export LIBCLANG_PATH=$LLVM_PATH/lib/
+   export PATH="/opt/homebrew/opt/llvm@16/bin:${PATH}"  # Adjust for your installation
    ```
 
 2. **SDK configuration**:
@@ -92,12 +101,10 @@ and Clang, so no separate LLVM installation is needed.
 
 ### Environment Setup
 
-1. Set LLVM paths (PowerShell):
+1. Set LLVM path (PowerShell):
 
    ```powershell
-   $env:LLVM_PATH = "C:\ghcup\ghc\9.12.2\mingw"
-   $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
-   $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
+   $env:PATH = "C:\ghcup\ghc\9.12.2\mingw\bin;" + $env:PATH
    ```
 
 2. Library paths:

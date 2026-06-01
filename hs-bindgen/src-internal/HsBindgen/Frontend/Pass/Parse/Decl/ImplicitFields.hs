@@ -34,7 +34,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming (CScopedName (CScopedName, text))
 import HsBindgen.Frontend.Pass (IsPass (ScopedName))
 import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (..), Parse,
-                                             ReparseInfo (..))
+                                             ReparseInfo (..), Tokens)
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOrigin (..),
                                                                  FieldOrigin (..),
                                                                  ImplicitFieldOrigin (..))
@@ -367,7 +367,7 @@ data Target = Target {
   Field
 -------------------------------------------------------------------------------}
 
-class ( HasField "ann" (Field field) (ReparseInfo, Origin.FieldOrigin)
+class ( HasField "ann" (Field field) (ReparseInfo Tokens, Origin.FieldOrigin)
       , HasField "info" (Field field) (C.FieldInfo Parse)
       , HasField "width" (Field field) (Maybe Int)
       , HasField "offset" (Field field) Int
@@ -379,7 +379,7 @@ instance IsField C.UnionField
 
 newtype Field field = Field { unwrap :: field Parse }
 
-instance HasField "ann" (Field C.StructField) (ReparseInfo, Origin.FieldOrigin) where
+instance HasField "ann" (Field C.StructField) (ReparseInfo Tokens, Origin.FieldOrigin) where
   getField x = getField @"ann" x.unwrap
 
 instance HasField "info" (Field C.StructField) (C.FieldInfo Parse) where
@@ -391,7 +391,7 @@ instance HasField "width" (Field C.StructField) (Maybe Int) where
 instance HasField "offset" (Field C.StructField) Int where
   getField x = getField @"offset" x.unwrap
 
-instance HasField "ann" (Field C.UnionField) (ReparseInfo, Origin.FieldOrigin) where
+instance HasField "ann" (Field C.UnionField) (ReparseInfo Tokens, Origin.FieldOrigin) where
   getField x = getField @"ann" x.unwrap
 
 instance HasField "info" (Field C.UnionField) (C.FieldInfo Parse) where

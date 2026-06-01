@@ -4,8 +4,17 @@
 
 ### Breaking changes
 
+* The `LLVM_CONFIG` environment variable is no longer used to locate
+  `llvm-config`.  Configure `PATH` so that the desired `llvm-config` is found
+  instead.
+
 ### New features
 
+* A new CLI option `--log-squashed-as-info` (and matching
+  `CustomLogLevelSetting` constructor `MakeMangleNamesSquashedInfo`) demotes
+  the `select-mangle-names-squashed` trace from `Notice` to `Info`, so the
+  per-typedef squash messages no longer appear at the default verbosity.
+  See [#1574](https://github.com/well-typed/hs-bindgen/issues/1574).
 * When using the Template Haskell backend, external types referenced via
   external binding specifications that are not in scope now produce a helpful
   compile error suggesting the missing import.
@@ -37,6 +46,11 @@
   Haddock `*`-depth derived from tree depth. Doxygen-specific export
   resolution lives in the new internal module
   `HsBindgen.Backend.HsModule.Translation.Doxygen`.
+* Redefinitions of macros are now considered conflicting even if they are
+  syntactically equal. See [PR #1983][pr-1983].
+* Support mixed uses of macro types and non-type macros. Previously, we would
+  only support type macros in bindings that do not also use non-type macros. See
+  [issue #1225][is-1225] and [PR #1892][pr-1892].
 
 ### Minor changes
 
@@ -70,6 +84,12 @@
 * Doxygen-driven export grouping now precomputes per-declaration tags at the
   C-declaration level instead of rediscovering them from the generated Haskell
   AST.
+* Trace messages from frontend passes now capture callstacks at the point where
+  messages are created (in pure code), rather than at the IO emission site.
+  This makes `--log-show-call-stack` output useful for debugging which pass and
+  function produced a given message.
+* A new CLI option `--log-as-error-bugs` changes bug-level trace message to be
+  errors. This is useful when `hs-bindgen` is used in a CI pipeline.
 
 ### Bug fixes
 
@@ -115,6 +135,31 @@
   declarations carrying macro expansions and attribute specifier sequences
   failed to reparse and silently fell back to the un-reparsed type, dropping
   macro typedef names from generated bindings. See [PR #1955][pr-1955].
+* Silently ignore `__declspec(dllimport)` and `__declspec(dllexport)` attribute
+  cursors (`CXCursor_DLLImport` / `CXCursor_DLLExport`) when parsing function,
+  variable, and enum declarations. Previously, these cursors triggered a
+  `Bug`-level `Unexpected cursor kind` trace on Windows for every CRT
+  declaration carrying `__declspec(dllimport)`. See [issue
+  #1910](https://github.com/well-typed/hs-bindgen/issues/1910).
+* Also support untagged structs, unions and enums if they are indirectly
+  referenced by global variables. For example, `struct { int x; } var;` was
+  previously supported but `struct { int x; } * var;` or `struct { int x; }
+  var[];` would cause a panic. See [PR #2017][pr-2017].
+
+[is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
+[is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
+[is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
+[is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
+[is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
+[is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
+[pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
+[pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
+[pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
+[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
+[pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
+[pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
+[pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
+[pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
@@ -164,7 +209,7 @@
   after the global variable. Extern anonymous declarations
   (e.g., `extern struct { .. } config;`) are rejected as unusable.
 * Generate an `IsArray` instance for each newtype of a type with an `IsArray`
-* Support unnamed bit-fields, used for padding.
+* Support unnamed bit-field declarations, used for padding.
 * Generate bindings for nested struct and union declarations even if we failed
   to generate bindings for the enclosing struct or union. See [PR
   #1849][pr-1849].
@@ -181,12 +226,6 @@
   `primitive` are not required by `hs-bindgen` generated code anymore.
 * Improve and disambiguate delayed parse trace messages.
 * Improve error handling in `hs-bindgen` frontend, see [issue #1009][is-1009]
-* Trace messages from frontend passes now capture callstacks at the point where
-  messages are created (in pure code), rather than at the IO emission site.
-  This makes `--log-show-call-stack` output useful for debugging which pass and
-  function produced a given message.
-* A new CLI option `--log-as-error-bugs` changes bug-level trace message to be
-  errors. This is useful when `hs-bindgen` is used in a CI pipeline.
 
 ### Bug fixes
 
@@ -221,24 +260,14 @@
   `MangleNames`; now they are skipped with a warning.
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
-[is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
-[is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
-[is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
 [is-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
-[is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
-[is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
-[pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
-[pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
-[pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
-[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
-[pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 
 ## 0.1.0-alpha -- 2026-02-06
 

@@ -1,5 +1,7 @@
+{-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE ViewPatterns    #-}
+{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE ViewPatterns #-}
 
 module Vector.Types (
     Length(UnsafeWrap, Length)
@@ -7,10 +9,14 @@ module Vector.Types (
 
 import GHC.Show
 
+import HsBindgen.Runtime.Internal.Prelude qualified as RIP
+
 -- | Vector length
 --
 -- Invariant: must be non-negative.
 newtype Length = UnsafeWrap { unwrap :: Double }
+  deriving stock (Eq, Ord)
+  deriving newtype (RIP.HasFFIType)
 
 instance Show Length where
   showsPrec p (UnsafeWrap x) = showParen (p >= appPrec1) $
@@ -23,4 +29,3 @@ pattern Length x <- (unwrap -> x)
     Length x
       | x < 0     = error "Length must be non-negative"
       | otherwise = UnsafeWrap x
-

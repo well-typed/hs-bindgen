@@ -150,6 +150,7 @@ instance IsTrace Level UniqueIdMsg where
     UniqueIdEmpty     -> Warning
   getSource  = const HsBindgen
   getTraceId = const "unique-id"
+
 checkUniqueId :: Tracer UniqueIdMsg -> UniqueId -> IO ()
 checkUniqueId tracer (UniqueId val) = do
   when (null val) $

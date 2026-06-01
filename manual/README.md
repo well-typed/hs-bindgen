@@ -2,11 +2,12 @@
 
 * [Design goals](design-goals.md)
 * [Installation](installation.md)
+* [Terminology](terminology.md)
 
 ## Generating low-level bindings
 
 * [Introduction](low-level/introduction.md)
-* [Terminology](low-level/terminology.md)
+* [C names](low-level/c-names.md)
 
 ### Usage
 
@@ -16,6 +17,7 @@
 * [Includes](low-level/usage/includes.md)
 * [Selecting and program slicing](low-level/usage/selecting-and-program-slicing.md)
 * [Binding specifications](low-level/usage/binding-specifications.md)
+* [Non-portability](low-level/usage/non-portability.md)
 * [Test generation](low-level/usage/test-generation.md)
 * [Cross-compilation](low-level/usage/cross-compilation.md)
 

@@ -38,7 +38,7 @@ runs reuse the layer cache.
   version pinned by the rest of CI)
 - musl-dev, gcc, gmp, ncurses, zlib (with static archives), libpcap-dev,
   libdispatch-dev (for the blocktest example)
-- `LIBCLANG_PATH=/usr/lib`, `LLVM_CONFIG=/usr/lib/llvm19/bin/llvm-config`
+- `/usr/lib/llvm19/bin` is prepended to the `PATH`
 
 The cabal store inside the container lives in a Docker volume
 (`hs-bindgen-alpine-cabal-store`), separate from the host store. This avoids

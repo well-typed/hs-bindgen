@@ -4,6 +4,7 @@ import Data.Sequence qualified as Seq
 import Test.Tasty
 
 import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
+import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
@@ -12,6 +13,7 @@ import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.THFixtures qualified as THFixtures
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
+import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
@@ -25,8 +27,10 @@ main = defaultMain $
     withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
         Frontend.LanguageC.tests
+      , Frontend.Pass.PrepareReparse.tests
       , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
+          , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
           , Unit.Tracer.tests
           , Unit.Pretty.tests

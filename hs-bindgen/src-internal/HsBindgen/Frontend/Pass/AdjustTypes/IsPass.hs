@@ -9,7 +9,6 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -23,7 +22,6 @@ type AdjustTypes :: Pass
 data AdjustTypes a
 
 type family AnnAdjustTypes ix where
-  AnnAdjustTypes "TranslationUnit"  = DeclMeta
   AnnAdjustTypes "Decl"             = PrescriptiveDeclSpec
   AnnAdjustTypes "Struct"           = StructNames
   AnnAdjustTypes "Union"            = NewtypeNames

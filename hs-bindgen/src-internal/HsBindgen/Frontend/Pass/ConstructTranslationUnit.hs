@@ -10,7 +10,8 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.TranslationUnit qualified as C
+import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
@@ -27,11 +28,11 @@ constructTranslationUnit ::
   -> C.TranslationUnit ConstructTranslationUnit
 constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
       decls        = map coercePass $
-                           UseDeclGraph.toDecls
+                           DeclUseGraph.toDecls
                              declMeta.declIndex
-                             declMeta.useDeclGraph
+                             declMeta.declUseGraph
     , includeGraph = includeGraph
-    , ann          = declMeta
+    , meta         = declMeta
     }
   where
     declMeta :: DeclMeta
@@ -50,8 +51,8 @@ mkDeclMeta parseResults includeGraph = DeclMeta{
     declIndex :: DeclIndex
     declIndex = DeclIndex.fromParseResults parseResults
 
-    useDeclGraph :: UseDeclGraph
-    useDeclGraph = UseDeclGraph.fromDecls includeGraph declIndex
-
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
+    declUseGraph = DeclUseGraph.fromDecls includeGraph declIndex
+
+    useDeclGraph :: UseDeclGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

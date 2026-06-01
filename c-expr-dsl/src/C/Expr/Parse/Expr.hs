@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedRecordDot #-}
+
 module C.Expr.Parse.Expr (parseMacro, parseMacroType) where
 
 import Control.Monad
@@ -42,9 +44,14 @@ import Clang.LowLevel.Core
 -- value expressions.
 parseMacro :: ClangCStandard -> Parser Macro
 parseMacro cStd = do
-    (macroLoc, macroName) <- parseLocName
-    let functionLike :: Parser Macro
+    (macroLocRange, macroName) <- parseLocName
+    let
+        macroLoc :: MultiLoc
+        macroLoc = macroLocRange.rangeStart
+
+        functionLike :: Parser Macro
         functionLike = do
+          noWhitespace macroLocRange
           paramNames <- formalParams
           Vec.reifyList (reverse paramNames) $ \macroParams -> do
             macroExpr <- bodyExpr macroParams
@@ -73,6 +80,28 @@ lookupParam _ VNil    = Nothing
 lookupParam n (m ::: vec)
   | n == m    = Just IZ
   | otherwise = IS <$> lookupParam n vec
+
+-- | Check that there is no whitespace between the previous token and the current
+-- token
+--
+-- Function-like macros are only function-like if there is /no/ whitespace
+-- between the macro name and the opening parenthesis of the parameter list.
+--
+-- We used to not check whitespace, which was the source of a bug. See issue
+-- #1903: <https://github.com/well-typed/hs-bindgen/issues/1903>
+noWhitespace ::
+     -- | Source range for the previous token
+     Range MultiLoc
+  -> Parser ()
+noWhitespace prevRange = lookAhead $ do
+    tok <- anyToken
+    let prev    = prevRange.rangeEnd.multiLocExpansion
+        current = tok.tokenExtent.rangeStart.multiLocExpansion
+        p       = prev.singleLocPath   == current.singleLocPath &&
+                  prev.singleLocLine   == current.singleLocLine &&
+                  prev.singleLocColumn == current.singleLocColumn
+    unless p $
+      parserFail "unexpected whitespace"
 
 {-------------------------------------------------------------------------------
   Types
