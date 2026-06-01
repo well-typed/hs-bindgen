@@ -450,18 +450,23 @@ typedefDecl _enclosing ctx info = \curr -> do
 
 macroExpansion :: Parser l
 macroExpansion = \curr -> do
-    range <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
-    let loc = range.rangeStart
-    unit <- getTranslationUnit
-    tokens <- HighLevel.clang_tokenize unit range
+    (range, tokens) <- getTokens curr
     case getMacroName tokens of
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1554>
       --
       -- Attach failed macroName message to declaration.
       Nothing -> traceImmediateGlobal ParseMacroExpansionNoMacroName
-      Just macroName -> recordMacroExpansionAt loc macroName
+      Just macroName -> recordMacroExpansionAt macroName range
     foldContinue
   where
+    getTokens ::
+         CXCursor
+      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+    getTokens curr' = do
+        unit'  <- getTranslationUnit
+        range  <- HighLevel.clang_getCursorExtent curr'
+        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+
     getMacroName :: [Token TokenSpelling] -> Maybe Text
     getMacroName []    = Nothing
     -- The spelling of function macros includes the function parameters. For

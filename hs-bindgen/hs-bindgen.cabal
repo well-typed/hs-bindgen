@@ -203,6 +203,7 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Decl.Members
     HsBindgen.Frontend.Pass.Parse.IsPass
     HsBindgen.Frontend.Pass.Parse.Monad.Decl
+    HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap
     HsBindgen.Frontend.Pass.Parse.Monad.Type
     HsBindgen.Frontend.Pass.Parse.Msg
     HsBindgen.Frontend.Pass.Parse.PrelimDeclId
