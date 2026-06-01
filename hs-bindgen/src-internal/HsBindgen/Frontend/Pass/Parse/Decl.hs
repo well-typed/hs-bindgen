@@ -217,10 +217,15 @@ macroDefinition ::
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse -> Parser l
-macroDefinition macroLang _enclosing _ctx info = \curr -> do
+macroDefinition macroLang _enclosing ctx info = \curr -> do
     (range, tokens) <- getMacroTokens curr
-    recordMacroDefinitionAt info.id range tokens
-    foldContinueWith [mkResult tokens]
+    case getMacroName info.id of
+      Nothing -> do
+        failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
+        foldContinueWith failures
+      Just macroName -> do
+        recordMacroDefinitionAt macroName range tokens
+        foldContinueWith [mkResult tokens]
   where
     mkResult :: [Token TokenSpelling] -> ParseResult l Parse
     mkResult tokens =
@@ -243,6 +248,11 @@ macroDefinition macroLang _enclosing _ctx info = \curr -> do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
         (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+
+    getMacroName :: PrelimDeclId -> Maybe Text
+    getMacroName = \case
+        PrelimDeclId.Named declName -> Just declName.text
+        PrelimDeclId.Anon{}          -> Nothing
 
 -- | Parse an struct declaration
 --
