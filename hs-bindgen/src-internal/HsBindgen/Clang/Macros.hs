@@ -1,5 +1,6 @@
 module HsBindgen.Clang.Macros (
     MacroDefinition (..)
+  , MacroInvocation (..)
   ) where
 
 import Data.Text (Text)
@@ -11,3 +12,10 @@ data MacroDefinition = MacroDefinition {
   , locRange :: Range MultiLoc
   , tokens   :: [Token TokenSpelling]
   }
+
+data MacroInvocation = MacroInvocation {
+    name     :: Text
+  , locRange :: Range MultiLoc
+  , tokens   :: [Token TokenSpelling]
+  }
+  deriving stock (Show, Eq, Ord)

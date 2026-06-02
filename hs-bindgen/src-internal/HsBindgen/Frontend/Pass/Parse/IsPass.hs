@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Macros
   , ReparseInfo(..)
+  , invokedMacros
   , Tokens
     -- * Fields
   , FieldOrigin(..)
@@ -11,9 +12,12 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , IsAnon(..)
   ) where
 
+import Data.Set qualified as Set
+
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.Clang.Macros (MacroInvocation (name))
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -64,12 +68,16 @@ data ReparseInfo tokens =
     ReparseNeeded
       tokens
       -- ^ Original tokens of declaration without macro expansions
-      (Set Text)
-      -- ^ Names of expanded macros
+      (NonEmpty MacroInvocation)
+      -- ^ Expanded macros
 
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded
   deriving stock (Show, Eq, Ord)
+
+-- | Names of expanded macros
+invokedMacros :: NonEmpty MacroInvocation -> Set Text
+invokedMacros = foldl' (\acc inv -> Set.insert inv.name acc) Set.empty
 
 type Tokens = [Token TokenSpelling]
 

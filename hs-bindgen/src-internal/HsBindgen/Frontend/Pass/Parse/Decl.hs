@@ -456,7 +456,7 @@ macroExpansion = \curr -> do
       --
       -- Attach failed macroName message to declaration.
       Nothing -> traceImmediateGlobal ParseMacroExpansionNoMacroName
-      Just macroName -> recordMacroExpansionAt macroName range
+      Just macroName -> recordMacroExpansionAt macroName range tokens
     foldContinue
   where
     getTokens ::

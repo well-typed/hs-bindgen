@@ -439,9 +439,12 @@ reparseWith ::
 reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
     ReparseNotNeeded ->
       pure fallback
-    ReparseNeeded tokens usedMacros -> do
+    ReparseNeeded tokens macroInvs -> do
       env <- ask
-      let usedKnownMacros :: Set LanC.CName
+      let
+          usedMacros :: Set Text
+          usedMacros = invokedMacros macroInvs
+          usedKnownMacros :: Set LanC.CName
           usedKnownMacros = Set.intersection env.knownMacros usedMacros
           usedUnknownMacros :: Set LanC.CName
           usedUnknownMacros = Set.difference usedMacros env.knownMacros

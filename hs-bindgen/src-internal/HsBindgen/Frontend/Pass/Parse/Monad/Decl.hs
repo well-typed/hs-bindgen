@@ -27,15 +27,13 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   ) where
 
 import Data.IORef
-import Data.List.NonEmpty qualified as NE
-import Data.Set qualified as Set
 
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Clang.Macros (MacroDefinition (..))
+import HsBindgen.Clang.Macros (MacroDefinition (..), MacroInvocation (..))
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.LocationInfo
@@ -118,7 +116,7 @@ data ParseState = ParseState {
       -- | Where did Clang expand macros, and what are their names?
       --
       -- Declarations with expanded macros need to be reparsed.
-    , macroExpansions :: SourceRangeMap Text
+    , macroExpansions :: SourceRangeMap MacroInvocation
     }
   deriving (Generic)
 
@@ -140,7 +138,7 @@ recordMacroDefinitionAt ::
   -> [Token TokenSpelling]
   -> ParseDecl ()
 recordMacroDefinitionAt macroName locRange tokens =
-    modifyParseState $ #macroDefinitions %~ addMacroDefinition
+    modifyParseState $ #macroDefinitions %~ (macroDefinition:)
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
@@ -149,25 +147,28 @@ recordMacroDefinitionAt macroName locRange tokens =
         , tokens = tokens
         }
 
-    addMacroDefinition ::
-         [MacroDefinition]
-      -> [MacroDefinition]
-    addMacroDefinition defs = macroDefinition : defs
-
 getMacroDefinitions :: ParseDecl [MacroDefinition]
 getMacroDefinitions = reverse . (.macroDefinitions) <$> getParseState
 
 recordMacroExpansionAt ::
      Text
   -> Range MultiLoc
+  -> [Token TokenSpelling]
   -> ParseDecl ()
-recordMacroExpansionAt macroName locRange =
-    modifyParseState $ #macroExpansions %~ recordAt loc macroName
+recordMacroExpansionAt macroName locRange tokens =
+    modifyParseState $ #macroExpansions %~ recordAt loc macroInvocation
   where
+    macroInvocation :: MacroInvocation
+    macroInvocation = MacroInvocation {
+          name = macroName
+        , locRange = locRange
+        , tokens = tokens
+        }
+
     loc :: SingleLoc
     loc = locRange.rangeStart.multiLocExpansion
 
-getMacroExpansions :: Range SingleLoc -> ParseDecl (Set Text)
+getMacroExpansions :: Range SingleLoc -> ParseDecl (Maybe (NonEmpty MacroInvocation))
 getMacroExpansions range = do
     macroExpansions <- (.macroExpansions) <$> getParseState
     case lookupRange range macroExpansions of
@@ -175,10 +176,11 @@ getMacroExpansions range = do
       -- multiple files.
       LookupErrorMultipleFiles -> do
         traceImmediateGlobal (ParseGetMacroExpansionsMultipleFiles range)
-        pure Set.empty
+        pure Nothing
       LookupNotFound ->
-        pure Set.empty
-      LookupFound macroNames -> pure $ Set.fromList $ NE.toList macroNames
+        pure Nothing
+      LookupFound macroInvocations ->
+        pure $ Just macroInvocations
 
 {-------------------------------------------------------------------------------
   Logging
