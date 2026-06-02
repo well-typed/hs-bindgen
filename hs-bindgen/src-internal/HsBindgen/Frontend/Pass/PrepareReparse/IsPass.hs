@@ -31,8 +31,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (..),
                                                        TypecheckMacros)
 import HsBindgen.Imports (Star, Symbol)
 import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Info, Warning),
-                              PrettyForTrace (..), Source (HsBindgen),
-                              WithCallStack)
+                              PrettyForTrace (..), Source (HsBindgen))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -53,7 +52,7 @@ type family AnnPrepareReparse (ix :: Symbol) :: Star where
 instance IsPass PrepareReparse where
   type MacroBody   PrepareReparse = CheckedMacro PrepareReparse
   type Ann ix      PrepareReparse = AnnPrepareReparse ix
-  type Msg         PrepareReparse = WithCallStack PrepareReparseMsg
+  type Msg         PrepareReparse = PrepareReparseMsg
   type MacroId     PrepareReparse = Id PrepareReparse
   type CommentDecl PrepareReparse = Maybe (C.Comment PrepareReparse)
   macroIdId _ = id
