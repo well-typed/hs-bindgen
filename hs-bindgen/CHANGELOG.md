@@ -68,8 +68,17 @@
 * Redefinitions of macros are now considered conflicting even if they are
   syntactically equal. See [PR #1983][pr-1983].
 * Support mixed uses of macro types and non-type macros. Previously, we would
-  only support type macros in bindings that do not also use non-type macros. See
-  [issue #1225][is-1225] and [PR #1892][pr-1892].
+  only support type macros in bindings that do not also use non-type macros. Now
+  we support mixed uses as long as there are no macros that are defined more
+  than once in the same translation unit. See [issue #1225][is-1225] and [PR
+  #1892][pr-1892].
+* Increase the number of cases where we can successfully support mixed uses of
+  macro types and non-type macros. Now we support mixed uses as long as the
+  expansion of macros is unique across the translation unit. Moreover, we detect
+  this condition on a per-declaration basis: mixed uses may be supported for
+  some declarations and not for others. Previously we would only support mixed
+  uses for the whole translation unit or not at all. See [issue #2012][is-2012]
+  and [PR #2034][pr-2034].
 
 ### Minor changes
 
@@ -173,17 +182,19 @@
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
+[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
 [is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
 [is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
+[is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
+[pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
-[is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
-[pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 [pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
 [pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
 [pr-2021]: https://github.com/well-typed/hs-bindgen/pull/2021
+[pr-2034]: https://github.com/well-typed/hs-bindgen/pull/2034
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

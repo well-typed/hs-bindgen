@@ -17,7 +17,6 @@ import Text.Parsec (ParseError)
 import HsBindgen.Clang (ClangSetup)
 import HsBindgen.Clang.Discover (ClangExe)
 import HsBindgen.Clang.Macros (MacroDefinition)
-import HsBindgen.Clang.Macros.Floating (invocationCanFloatInwards)
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass (IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
@@ -51,13 +50,7 @@ prepareReparse ::
   -> [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> IO (C.TranslationUnit l PrepareReparse)
-prepareReparse tr clangExeMay setup root macroDefs unit
-  | invocationCanFloatInwards macroDefs
-  = do
-      traceImmediate tr PrepareReparseInvocationsNotFloatable
-      pure fallback
-  | otherwise
-  = do
+prepareReparse tr clangExeMay setup root macroDefs unit = do
     case clangExeMay of
       -- When we can't find the @clang@ executable, return the fallback value.
       Nothing -> do
@@ -103,11 +96,11 @@ prepareReparse tr clangExeMay setup root macroDefs unit
                       traceImmediate tr $ PrepareReparseParsePreprocessorOutputFailed e
                       pure fallback
                     Right postHeader -> do
-                      pure $ runUpdater postHeader unit
+                      pure $ runUpdater macroDefs postHeader unit
   where
     -- | Default to flattening tokens without expanding macro invocations.
     fallback :: C.TranslationUnit l PrepareReparse
-    fallback = update Nothing unit
+    fallback = update Nothing [] unit
 
 {-------------------------------------------------------------------------------
   Cut
@@ -142,10 +135,11 @@ runParser :: [Token] -> Either ParseError PostHeader
 runParser = parse
 
 runUpdater ::
-     PostHeader
+    [MacroDefinition]
+  -> PostHeader
   -> C.TranslationUnit l TypecheckMacros
   -> C.TranslationUnit l PrepareReparse
-runUpdater header unit = update (Just mapping) unit
+runUpdater macroDefs header unit = update (Just mapping) macroDefs unit
   where
     mapping :: Map Tag Decl
     mapping = Map.fromList [

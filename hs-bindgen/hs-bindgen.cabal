@@ -143,7 +143,6 @@ library internal
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
     HsBindgen.Clang.Macros
-    HsBindgen.Clang.Macros.Floating
     HsBindgen.Clang.Macros.UniqueExpansion
     HsBindgen.Clang.Macros.UniqueExpansion.Parse
     HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra

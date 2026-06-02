@@ -10,7 +10,7 @@ module HsBindgen.Clang.Macros.UniqueExpansion (
 import Control.Monad.Except (MonadError (throwError))
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
-import Data.List (foldl')
+import Data.Foldable qualified as Foldable
 import Data.Maybe (mapMaybe)
 import Data.Set (Set)
 import Data.Set qualified as Set
@@ -160,10 +160,10 @@ newtype Ambig = Ambig { unwrap :: Set Name }
 type DependentsGraph = Digraph () Name
 
 mkDependentsGraph :: [Definition] -> DependentsGraph
-mkDependentsGraph defs = foldl' addDefinition Digraph.empty defs
+mkDependentsGraph defs = Foldable.foldl' addDefinition Digraph.empty defs
 
 addDefinition :: DependentsGraph -> Definition -> DependentsGraph
-addDefinition g0 d = foldl' f g0 deps
+addDefinition g0 d = Foldable.foldl' f g0 deps
   where
     deps = getDependencies d
 
