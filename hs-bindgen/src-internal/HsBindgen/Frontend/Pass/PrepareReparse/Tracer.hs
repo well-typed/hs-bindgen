@@ -8,14 +8,15 @@
 --
 module HsBindgen.Frontend.Pass.PrepareReparse.Tracer (
     traceImmediate
+  , traceBelated
   ) where
 
-import HsBindgen.Frontend.Pass (IsPass (Msg))
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse,
-                                                      PrepareReparseMsg)
-import HsBindgen.Util.Tracer (Contravariant (contramap), Tracer, traceWith,
-                              withCallStack)
+import HsBindgen.Frontend.Pass (AMsg, IsPass (Msg))
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Util.Tracer (Tracer, traceWith, withCallStack)
 
-traceImmediate :: Tracer (Msg PrepareReparse) -> PrepareReparseMsg -> IO ()
-traceImmediate tracer msg = traceWith (contramap withCallStack tracer) $
-    withCallStack msg
+traceImmediate :: Tracer (Msg PrepareReparse) -> Msg PrepareReparse -> IO ()
+traceImmediate tracer msg = traceWith tracer $ withCallStack msg
+
+traceBelated :: Tracer (Msg PrepareReparse) -> AMsg PrepareReparse -> IO ()
+traceBelated tracer amsg = traceWith tracer amsg
