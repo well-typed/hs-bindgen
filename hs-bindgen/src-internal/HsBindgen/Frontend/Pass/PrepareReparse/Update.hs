@@ -28,10 +28,10 @@ import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports (Map)
@@ -58,7 +58,7 @@ update mapping unit = unit'{
     declIndex' =
       -- We use @foldr@ here to establish the original order of messages
       foldr
-        DeclIndex.registerDelayedParseMsg
+        DeclIndex.registerDelayedPrepareReparseMsg
         unit.meta.declIndex
         msgs
 
@@ -79,7 +79,7 @@ class Update a where
   Update: monad
 -------------------------------------------------------------------------------}
 
-runM :: Env -> M a -> (a, [(DeclId, DelayedParseMsg)])
+runM :: Env -> M a -> (a, [(DeclId, DelayedPrepareReparseMsg)])
 runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
 
 newtype M a = M (ReaderT Env (State St) a)
@@ -96,7 +96,7 @@ newtype Env = Env {
   }
 
 newtype St = St {
-    messages :: [(DeclId, DelayedParseMsg)]
+    messages :: [(DeclId, DelayedPrepareReparseMsg)]
   }
 
 {-------------------------------------------------------------------------------
@@ -234,11 +234,11 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
         flatten <-
           case env.map of
             -- If this is 'Nothing', we have already traced a reason why (see
-            -- 'PrepareReparseMsg').
+            -- 'DelayedPrepareReparseMsg').
             Nothing -> pure fallback
             Just mapping -> case Map.lookup tag mapping of
               Nothing -> do
-                addMessage info.id ParseMacroPrepareReparseFailed
+                addMessage info.id PrepareReparseFailed
                 pure fallback
               Just (Decl dec) -> pure dec
         let flatTokens = FlatTokens {
@@ -255,7 +255,7 @@ getLocation :: [Clang.Token a] -> Clang.MultiLoc
 getLocation []    = panicPure "Unexpected empty list of tokens"
 getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
 
-addMessage :: DeclId -> DelayedParseMsg -> M ()
+addMessage :: DeclId -> DelayedPrepareReparseMsg -> M ()
 addMessage did msg = modify $ \st -> st {
       messages = (did, msg) : st.messages
     }

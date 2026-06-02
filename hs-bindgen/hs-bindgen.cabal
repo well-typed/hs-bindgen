@@ -212,6 +212,7 @@ library internal
     HsBindgen.Frontend.Pass.PrepareReparse.AST
     HsBindgen.Frontend.Pass.PrepareReparse.Flatten
     HsBindgen.Frontend.Pass.PrepareReparse.IsPass
+    HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
     HsBindgen.Frontend.Pass.PrepareReparse.Lexer
     HsBindgen.Frontend.Pass.PrepareReparse.Parser
     HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor
