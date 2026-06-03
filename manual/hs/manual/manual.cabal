@@ -42,6 +42,7 @@ executable run-manual
   hs-source-dirs:  app generated
   extra-libraries:
     example
+    macro
     structs
     globals
     arrays
@@ -59,7 +60,9 @@ executable run-manual
     , optics
 
   -- External.
-  build-depends:   vector
+  build-depends:
+    , bytestring
+    , vector
 
   if impl(ghc <9.4)
     build-depends: data-array-byte
@@ -83,6 +86,8 @@ executable run-manual
     FunctionPointers.Safe
     Globals
     Globals.Global
+    Macro
+    Macro.Unsafe
     Manual.Tools
     OmitFieldPrefixes
     PointerManipulation

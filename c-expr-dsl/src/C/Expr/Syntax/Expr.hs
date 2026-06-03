@@ -26,7 +26,7 @@ import Data.Vec.Lazy qualified as Vec
 import DeBruijn (Ctx, Idx)
 import GHC.Generics (Generic)
 
-import C.Expr.Syntax.Literals
+import C.Expr.Syntax.Literal
 import C.Expr.Syntax.Name
 import C.Expr.Syntax.TTG
 import C.Expr.Syntax.Type

@@ -354,24 +354,20 @@ term cStd macroParams =
 -- | Parse integer literal
 literalInteger :: Parser IntegerLiteral
 literalInteger = do
-  (txt, (val, ty)) <-
-    parseTokenOfKind CXToken_Literal parseLiteralInteger
+  (val, ty) <- parseTokenOfKind CXToken_Literal parseLiteralInteger
   return $
     IntegerLiteral
-      { integerLiteralText  = txt
-      , integerLiteralType  = ty
+      { integerLiteralType  = ty
       , integerLiteralValue = val
       }
 
 -- | Parse floating point literal
 literalFloat :: Parser FloatingLiteral
 literalFloat = do
-  (txt, (fltVal, dblVal, ty)) <-
-    parseTokenOfKind CXToken_Literal parseLiteralFloating
+  (fltVal, dblVal, ty) <- parseTokenOfKind CXToken_Literal parseLiteralFloating
   return $
     FloatingLiteral
-      { floatingLiteralText = txt
-      , floatingLiteralType = ty
+      { floatingLiteralType = ty
       , floatingLiteralFloatValue = fltVal
       , floatingLiteralDoubleValue = dblVal
       }
@@ -379,24 +375,14 @@ literalFloat = do
 -- | Parse character literal
 literalChar :: Parser CharLiteral
 literalChar = do
-  (txt, val) <-
-    parseTokenOfKind CXToken_Literal parseLiteralChar
-  return $
-    CharLiteral
-      { charLiteralText  = txt
-      , charLiteralValue = val
-      }
+  val <- parseTokenOfKind CXToken_Literal parseLiteralChar
+  return $ CharLiteral val
 
 -- | Parse string literal
 literalString :: Parser StringLiteral
 literalString = do
-  (txt, val) <-
-    parseTokenOfKind CXToken_Literal parseLiteralString
-  return $
-    StringLiteral
-      { stringLiteralText  = txt
-      , stringLiteralValue = val
-      }
+  val <- parseTokenOfKind CXToken_Literal parseLiteralString
+  return $ StringLiteral val
 
 actualArgs :: ClangCStandard -> Vec ctx Name -> Parser [Expr ctx Ps]
 actualArgs cStd macroParams = parens $ expr cStd macroParams `sepBy` comma

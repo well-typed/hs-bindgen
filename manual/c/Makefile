@@ -28,6 +28,7 @@ endif
 
 default: \
 	libexample${TARGET_EXT} \
+	libmacro${TARGET_EXT} \
 	libvector${TARGET_EXT} \
 	libgame${TARGET_EXT} \
 	libglobals${TARGET_EXT} \
@@ -50,6 +51,12 @@ libexample${TARGET_EXT}: manual_examples.o
 
 manual_examples.o: manual_examples.c manual_examples.h
 	clang ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
+
+libmacro${TARGET_EXT}: macro.o
+	clang ${EXTRAFLAGS} -Wall -shared -o libmacro${TARGET_EXT} macro.o
+
+macro.o: macro.c macro.h
+	clang ${EXTRAFLAGS} -Wall -o macro.o -c -fPIC macro.c
 
 
 libglobals${TARGET_EXT}: globals.o

@@ -24,6 +24,11 @@
 * Some macros that were previously erroneously parsed as function-like are now
   parsed as object-like. See [PR #1990][pr-1990].
 * Remove the `sameMacro` function. See [PR #1983][pr-1983].
+* `CharLiteral.charLiteralValue` is now `CChar`; multi-character constants and
+  numeric escapes wider than a single byte are rejected during parsing.
+* `StringLiteral.stringLiteralValue` is now a strict `ByteString` holding the
+  UTF-8 execution-encoding bytes (previously `[CharValue]`, then `ByteArray`).
+* Rename `C.Expr.Syntax.Literals` to `C.Expr.Syntax.Literal`.
 
 ### New features
 
@@ -41,7 +46,8 @@
 
 ### Minor changes
 
-None
+* New unit test suite `Test.CExpr.Parse.Literal` covering all character and
+  string literal forms, escape sequences, and rejection cases.
 
 ### Bug fixes
 

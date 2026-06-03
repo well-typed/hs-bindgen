@@ -41,6 +41,9 @@ data Comment = Comment {
     -- | Original C name reference
   , origin :: Maybe Text
 
+    -- | C literal representation (for character and string macro literals)
+  , literal :: Maybe Text
+
     -- | The source location of the original C name reference
   , location :: Maybe SingleLoc
 
@@ -59,6 +62,7 @@ instance Semigroup Comment where
   a <> b = Comment {
         title      = combine (.title)      (<>)
       , origin     = combine (.origin)     getFirst
+      , literal    = combine (.literal)    getFirst
       , location   = combine (.location)   getFirst
       , headerInfo = combine (.headerInfo) getFirst
       , unique     = combine (.unique)     getFirst
@@ -77,6 +81,7 @@ instance Monoid Comment where
   mempty = Comment {
         title      = Nothing
       , origin     = Nothing
+      , literal    = Nothing
       , location   = Nothing
       , headerInfo = Nothing
       , unique     = Nothing

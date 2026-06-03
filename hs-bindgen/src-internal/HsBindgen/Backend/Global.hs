@@ -19,19 +19,12 @@ module HsBindgen.Backend.Global (
   , cExprGlobalType
   , CExprGlobalTerm(..)
   , cExprGlobalTerm
-
-    -- ** Specific to char literals
-  , charLitToHsImport
-  , CharLitGlobalType(..)
-  , charLitGlobalType
-  , CharLitGlobalTerm(..)
-  , charLitGlobalTerm
   ) where
 
+import Data.ByteString qualified as BS
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 
-import C.Char qualified
 import C.Expr.HostPlatform qualified
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
@@ -97,6 +90,8 @@ data BindgenImport =
     -- | Qualified import from other modules in @hs-bindgen-runtime@ with a
     --   corresponding abbreviation ("qualified as").
   | IRuntimeModule String
+    -- | Qualified import from "Data.ByteString" as @BS@.
+  | IDataByteString
   deriving stock (Eq, Ord, Show)
 
 -- We avoid full Template Haskell name resolution, because we want to depend on
@@ -109,6 +104,8 @@ bindgenToHsImport n = \case
       Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude" (Just "RIP")
     IRuntimeModule as ->
       Hs.QualifiedImport unsafeModuleName (Just as)
+    IDataByteString ->
+      Hs.QualifiedImport "Data.ByteString" (Just "BS")
   where
     unsafeModuleName :: Hs.ModuleName
     unsafeModuleName = case TH.nameModule n of
@@ -202,6 +199,9 @@ data BindgenGlobalType =
   | CDouble_type
   | CStringLen_type
   | CPtrdiff_type
+
+    -- ByteString
+  | ByteString_type
   deriving stock (Eq, Ord, Show)
 
 data BindgenGlobalTerm =
@@ -332,6 +332,9 @@ data BindgenGlobalTerm =
   | CEnum_readPrecWrappedUndeclared
   | CEnum_seqIsDeclared
   | CEnum_seqMkDeclared
+
+    -- ByteString
+  | ByteString_pack
   deriving stock (Eq, Ord, Show)
 
 bindgenGlobalType :: BindgenGlobalType -> Global LvlType
@@ -414,6 +417,9 @@ bindgenGlobalType = globalType . \case
     CDouble_type    -> (IRuntimeInternalPrelude, ''RIP.CDouble)
     CStringLen_type -> (IRuntimeInternalPrelude, ''RIP.CStringLen)
     CPtrdiff_type   -> (IRuntimeInternalPrelude, ''RIP.CPtrdiff)
+
+    -- ByteString
+    ByteString_type -> (IDataByteString, ''BS.ByteString)
 
 typeClassGlobal :: Inst.TypeClass -> Global LvlType
 typeClassGlobal = globalType . \case
@@ -583,6 +589,9 @@ bindgenGlobalTerm = globalExpr . \case
     CEnum_seqIsDeclared              -> (IRuntimeModule "CEnum", GVar, 'CEnum.seqIsDeclared)
     CEnum_seqMkDeclared              -> (IRuntimeModule "CEnum", GVar, 'CEnum.seqMkDeclared)
 
+    -- ByteString
+    ByteString_pack -> (IDataByteString, GVar, 'BS.pack)
+
 {-------------------------------------------------------------------------------
   Globals specific to C expressions
 -------------------------------------------------------------------------------}
@@ -700,32 +709,3 @@ cExprGlobalTerm = aux . \case
     aux :: (GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
     aux (c, n) =
       CustomGlobal n c cExprToHsImport
-
-{-------------------------------------------------------------------------------
-  Globals specific to char literals
--------------------------------------------------------------------------------}
-
-charLitToHsImport :: Hs.Import
-charLitToHsImport = Hs.QualifiedImport "C.Char" Nothing
-
-data CharLitGlobalType =
-    CharValue_type
-
-data CharLitGlobalTerm =
-    CharValue_constructor
-  | CharValue_fromAddr
-
-charLitGlobalType :: CharLitGlobalType -> Global LvlType
-charLitGlobalType = aux . \case
-    CharValue_type -> ''C.Char.CharValue
-  where
-    aux :: TH.Name -> Global LvlType
-    aux n = CustomGlobal n GTyp charLitToHsImport
-
-charLitGlobalTerm :: CharLitGlobalTerm -> Global LvlTerm
-charLitGlobalTerm = aux . \case
-    CharValue_constructor -> (GCon, 'C.Char.CharValue)
-    CharValue_fromAddr    -> (GVar, 'C.Char.charValueFromAddr)
-  where
-    aux :: (GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
-    aux (c, n) = CustomGlobal n c charLitToHsImport

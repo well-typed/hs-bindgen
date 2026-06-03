@@ -125,9 +125,9 @@ exprExtensions = \case
     ECon{} -> mempty
     EIntegral{} -> mempty
     EUnboxedIntegral{} -> mempty
-    EChar {} -> mempty
+    ECChar {} -> mempty
     EString {} -> mempty
-    ECString {} -> Set.singleton TH.MagicHash
+    ECString {} -> mempty
     EFloat{} -> mempty
     EDouble{} -> mempty
     EApp f x -> exprExtensions f <> exprExtensions x

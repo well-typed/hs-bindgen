@@ -43,6 +43,16 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
+    -I c/ \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.macro \
+    --hs-output-dir hs/manual/generated \
+    --module Macro \
+    macro.h
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
     -I c \
     --create-output-dirs \
     --overwrite-files \

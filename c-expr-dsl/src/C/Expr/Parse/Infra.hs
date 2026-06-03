@@ -148,7 +148,7 @@ removeMultilines = \case
 
 type TokenParser = Parsec Text ()
 
-parseTokenOfKind :: CXTokenKind -> TokenParser a -> Parser (Text, a)
-parseTokenOfKind kind p = tokenOfKind kind $ \str -> fmap (str,) $
+parseTokenOfKind :: CXTokenKind -> TokenParser a -> Parser a
+parseTokenOfKind kind p = tokenOfKind kind $ \str ->
     either (const Nothing) Just $
       Parsec.parse (p <* Parsec.eof) "" str

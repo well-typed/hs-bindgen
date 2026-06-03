@@ -44,18 +44,42 @@ instance (~) ty CDouble => HasField "pt_y" (Ptr Pt) (Ptr ty)
     where getField = fromPtr (Proxy @"pt_y")
 {-| __C declaration:__ @macro CHILD_HEADER@
 
+    __C literal:__ @\"include_macro_child.h\"@
+
     __defined at:__ @edge-cases\/include_macro_parent.h 4:9@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
-cHILD_HEADER :: (Ptr CChar, Int)
+cHILD_HEADER :: ByteString
 {-| __C declaration:__ @macro CHILD_HEADER@
 
+    __C literal:__ @\"include_macro_child.h\"@
+
     __defined at:__ @edge-cases\/include_macro_parent.h 4:9@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
-cHILD_HEADER = (Ptr "include_macro_child.h"#, 21) :: CStringLen
+cHILD_HEADER = pack [105,
+                     110,
+                     99,
+                     108,
+                     117,
+                     100,
+                     101,
+                     95,
+                     109,
+                     97,
+                     99,
+                     114,
+                     111,
+                     95,
+                     99,
+                     104,
+                     105,
+                     108,
+                     100,
+                     46,
+                     104]
 {-| __C declaration:__ @struct rect@
 
     __defined at:__ @edge-cases\/include_macro_parent.h 7:8@

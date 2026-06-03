@@ -15,6 +15,8 @@
 * The `LLVM_CONFIG` environment variable is no longer used to locate
   `llvm-config`.  Configure `PATH` so that the desired `llvm-config` is found
   instead.
+* `EChar` is renamed to `ECChar` in `HsBindgen.Backend.SHs.AST.Expr`.
+* `ECString` now carries a `ByteString` instead of a `ByteArray`.
 
 ### New features
 
@@ -118,6 +120,8 @@
   function produced a given message.
 * A new CLI option `--log-as-error-bugs` changes bug-level trace message to be
   errors. This is useful when `hs-bindgen` is used in a CI pipeline.
+* Multi-character literal macros (e.g. `#define X 'ab'`) are no longer
+  supported, as their value is implementation-defined.
 
 ### Bug fixes
 

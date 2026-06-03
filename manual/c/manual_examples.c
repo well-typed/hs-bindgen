@@ -38,14 +38,6 @@ average average_triple(triple* triple) {
 }
 
 /**
- * Macros
- */
-
-YEAR getYear(date* d) {
-    return d->year;
-}
-
-/**
  * Unions
  */
 

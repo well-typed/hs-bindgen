@@ -73,7 +73,6 @@ library
   import:          common
   hs-source-dirs:  core lib
   exposed-modules:
-    C.Char
     C.Expr.HostPlatform
     C.Operator.Classes
     C.Operator.GenInstances

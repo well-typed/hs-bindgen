@@ -61,7 +61,7 @@ library
     C.Expr.Parse.Literal
     C.Expr.Parse.Name
     C.Expr.Syntax.Expr
-    C.Expr.Syntax.Literals
+    C.Expr.Syntax.Literal
     C.Expr.Syntax.Name
     C.Expr.Syntax.TTG
     C.Expr.Syntax.TTG.Parse
@@ -77,6 +77,7 @@ library
 
   -- external dependencies
   build-depends:
+    , bytestring           >=0.10  && <0.13
     , containers           >=0.6   && <0.9
     , debruijn             >=0.3.1 && <0.4
     , fin                  >=0.3.2 && <0.4
@@ -99,6 +100,7 @@ test-suite test-c-expr-dsl
     Test.CExpr.Parse
     Test.CExpr.Parse.Golden
     Test.CExpr.Parse.Infra
+    Test.CExpr.Parse.Literal
     Test.CExpr.Parse.Macro
     Test.CExpr.Parse.Type
     Test.CExpr.Typecheck
