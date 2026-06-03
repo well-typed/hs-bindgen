@@ -24,6 +24,8 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   Existential wrapper
@@ -31,7 +33,7 @@ import HsBindgen.Imports
 
 -- | Existential wrapper pairing 'FrontendPass' with a 'Show' constraint.
 data SomeFrontendPass where
-  SomeFrontendPass :: Show result => FrontendPass result -> SomeFrontendPass
+  SomeFrontendPass :: Show result => FrontendPass CExpr result -> SomeFrontendPass
 
 -- | Parse a frontend pass name (inverse of 'frontendPassName').
 --
@@ -52,6 +54,7 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk ConstructTranslationUnitPass
         , mk TypecheckMacrosPass
         , mk ReparseMacroExpansionsPass
+        , mk ZipPass
         , mk ResolveBindingSpecsPass
         , mk MangleNamesPass
         , mk AdjustTypesPass
@@ -59,11 +62,11 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk FinalPass
         ]
 
-    mk :: Show result => FrontendPass result -> (String, SomeFrontendPass)
+    mk :: Show result => FrontendPass CExpr result -> (String, SomeFrontendPass)
     mk d = (frontendPassName d, SomeFrontendPass d)
 
 -- Ensure that we handle all 'FrontendPass' constructors.
-frontendPassName :: FrontendPass result -> String
+frontendPassName :: FrontendPass CExpr result -> String
 frontendPassName = \case
   ParsePass                    -> "parse"
   SimplifyASTPass              -> "simplify-ast"
@@ -72,6 +75,7 @@ frontendPassName = \case
   ConstructTranslationUnitPass -> "construct-translation-unit"
   TypecheckMacrosPass          -> "typecheck-macros"
   ReparseMacroExpansionsPass   -> "reparse-macro-expansions"
+  ZipPass                      -> "zip"
   ResolveBindingSpecsPass      -> "resolve-binding-specs"
   MangleNamesPass              -> "mangle-names"
   AdjustTypesPass              -> "adjust-types"
@@ -134,7 +138,7 @@ exec global opts = do
           opts.inputs
           (artefact pass)
   where
-    artefact :: Show result => FrontendPass result -> Artefact ()
+    artefact :: Show result => FrontendPass CExpr result -> Artefact CExpr ()
     artefact pass = do
         result <- FrontendPassA pass
         Lift $ delay . WriteToStdOut . StringContent $ show result

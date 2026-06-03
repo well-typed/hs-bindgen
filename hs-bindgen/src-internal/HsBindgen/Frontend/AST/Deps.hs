@@ -1,5 +1,5 @@
 module HsBindgen.Frontend.AST.Deps (
-    DepsOfDecl(..)
+    depsOfDecl
     -- * Structs and unions
   , depsOfStruct
   , depsOfUnion
@@ -8,59 +8,29 @@ module HsBindgen.Frontend.AST.Deps (
   , depsOfDeclParsedMacro
   ) where
 
-import Data.Maybe
-import Data.Set qualified as Set
 import GHC.Records
-
-import C.Expr.Syntax qualified as CExpr
-import C.Expr.Typecheck qualified as CExpr
-import C.Expr.Typecheck.Interface.Type qualified as T
-import C.Expr.Typecheck.Interface.Value qualified as V
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type (ValOrRef (..), depsOfType, depsOfTypeFunArg)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Get all dependencies
 -------------------------------------------------------------------------------}
 
--- | Get all dependencies of a declaration
---
--- Disclaimer: For a specific declaration, we can only determine the full set of
--- dependencies after we have reparsed this declaration, because it may contain
--- macro expansions. This step happens in the 'ReparseMacroExpansions' pass.
---
--- Before reparsing, that is, when @p@ is 'TypecheckMacros' or earlier, the
--- dependencies of declarations with macro expansions can only refer to the
--- /underlying types/ of the expanded macros. We do not provide instance of
--- 'DepsOfDecl' for early passes.
---
--- The primary use case of 'DepsOfDecl' is in the 'ReparseMacroExpansions' pass,
--- where we first reparse the declaration, and afterwards update the dependency
--- graphs using this class.
-class DepsOfDecl p where
-  depsOfDecl :: IsPass p => C.DeclKind p -> [(ValOrRef, Id p)]
-
-instance DepsOfDecl ReparseMacroExpansions where depsOfDecl = depsOfDeclTcMacro
-instance DepsOfDecl ResolveBindingSpecs    where depsOfDecl = depsOfDeclTcMacro
-instance DepsOfDecl MangleNames            where depsOfDecl = depsOfDeclTcMacro
-instance DepsOfDecl AdjustTypes            where depsOfDecl = depsOfDeclTcMacro
-instance DepsOfDecl Select                 where depsOfDecl = depsOfDeclTcMacro
 
 depsOfDeclWith ::
-     forall p. IsPass p
-  => (MacroBody p -> [(ValOrRef, Id p)]) -> C.DeclKind p -> [(ValOrRef, Id p)]
+     forall l p. IsPass p
+  => (MacroBody p l -> [(ValOrRef, Id p)])
+  -> C.DeclKind l p
+  -> [(ValOrRef, Id p)]
 depsOfDeclWith depsOfMacro = \case
     (C.DeclStruct struct)      -> depsOfStruct struct
     (C.DeclUnion union)        -> depsOfUnion union
@@ -74,49 +44,80 @@ depsOfDeclWith depsOfMacro = \case
       concatMap (\arg -> depsOfTypeFunArg arg.argTyp) function.args
     (C.DeclGlobal global)      -> depsOfType global.typ
 
+{-------------------------------------------------------------------------------
+  Dependencies of declarations with parsed macros only
+-------------------------------------------------------------------------------}
+
+-- | For parsed macros that have not been typechecked yet, we need to resolve
+--   names, using all available declaration IDs
+depsOfDeclParsedMacro ::
+     forall l p.
+     ( IsPass p
+     , MacroBody p ~ ParsedMacroBody
+     , Id p ~ DeclId )
+  => MacroLang l
+  -> Set DeclId
+  -> C.DeclKind l p
+  -> [(ValOrRef, Id p)]
+depsOfDeclParsedMacro macroLang allDeclIds = depsOfDeclWith depsOfParsedMacro
+  where
+    depsOfParsedMacro :: ParsedMacroBody l -> [(ValOrRef, DeclId)]
+    depsOfParsedMacro body = macroLang.parsedMacroDeps allDeclIds body
+
+{-------------------------------------------------------------------------------
+  Dependencies of declaration after @ReparseMacroExpansions@ and 'Zip'
+-------------------------------------------------------------------------------}
+
+-- | Get all dependencies of a declaration in the 'Zip' pass
+--
+-- Disclaimer: For a specific declaration, we can only determine the full set of
+-- dependencies after we have reparsed this declaration, because it may contain
+-- macro expansions. This step happens in the @ReparseMacroExpansions@ and 'Zip'
+-- passes.
+--
+-- Before reparsing, that is, when @p@ is 'TypecheckMacros' or earlier, the
+-- dependencies of declarations with macro expansions can only refer to the
+-- /underlying types/ of the expanded macros.
+--
+-- We use 'depsOfDecl' after reconciling the pre- and post-reparse ASTs in the
+-- 'Zip' pass, updating the dependency graphs.
+depsOfDecl ::
+     HasMacroTypes l
+  => MacroLang l
+  -> C.DeclKind l Zip
+  -> [(ValOrRef, DeclId)]
+depsOfDecl = depsOfDeclTcMacro
+
 depsOfDeclTcMacro ::
-     forall p. (IsPass p, MacroBody p ~ CheckedMacro p)
-  => C.DeclKind p -> [(ValOrRef, Id p)]
-depsOfDeclTcMacro = depsOfDeclWith (depsOfTcMacro (Proxy @p))
+     forall l. (HasMacroTypes l)
+  => MacroLang l -> C.DeclKind l Zip -> [(ValOrRef, DeclId)]
+depsOfDeclTcMacro macroLang = depsOfDeclWith (typecheckedMacroDeps macroLang)
 
 -- | Dependencies of typechecked macro declarations
-depsOfTcMacro ::
-     forall p. (MacroBody p ~ CheckedMacro p)
-  => Proxy p -> MacroBody p -> [(ValOrRef, Id p)]
-depsOfTcMacro proxy = \case
-    MacroType  typ -> maybeToList $ depsOfMacroType typ.typ
-    MacroValue val -> depsOfMacroValue val.val
+typecheckedMacroDeps ::
+     forall l. HasMacroTypes l
+  => MacroLang l
+  -> TypecheckedMacro Zip l
+  -> [(ValOrRef, DeclId)]
+typecheckedMacroDeps macroLang = \case
+    MacroType  typ ->
+      macroLang.typecheckedMacroTypeDeps $ fmap fromMacroTypeBodyVar typ.body
+    MacroValue val ->
+      typecheckedMacroValueDeps val.body
   where
-    -- 'T.Expr' is a linear chain of 'App' constructors ending in a single
-    -- 'TypeLit' or 'Var' leaf, so there is at most one non-external dependency.
-    depsOfMacroType ::
-         CExpr.CheckedMacroTypeExpr (MacroTypeBodyVar p)
-      -> Maybe (ValOrRef, Id p)
-    depsOfMacroType x = go ByValue x.macroTypeBody
-      where
-        go :: ValOrRef -> T.Expr (MacroTypeBodyVar p) -> Maybe (ValOrRef, Id p)
-        go depTy = \case
-          T.TypeLit{}          -> Nothing
-          -- Pointer: switch the dependency type to 'ByRef'.
-          T.App T.Pointer expr         -> go ByRef expr
-          T.App T.Const   expr         -> go depTy expr
-          T.Var MacroTypeExtBinding{}  -> Nothing
-          T.Var (MacroTypeBodyVar var) -> Just (depTy, var)
-
-    depsOfMacroValue :: CExpr.CheckedMacroValueExpr (Id p) -> [(ValOrRef, Id p)]
-    depsOfMacroValue  = \case
-      CExpr.CheckedMacroValueExpr _ body _ -> depsOfVExpr proxy body
+    fromMacroTypeBodyVar :: MacroTypeBodyVar Zip -> DeclId
+    fromMacroTypeBodyVar = \case
+      MacroTypeExtBinding      x -> absurd x
+      MacroTypeBodyVar    declId -> declId
 
     -- Collect value-level dependencies from a checked macro body. Local
-    -- arguments (lambda-bound ids) are excluded.
+    -- arguments (lambda-bound IDs) are excluded.
     --
     -- On the value-level, all dependencies must be 'ByValue'.
-    depsOfVExpr ::
-         forall ctx.
-         Proxy p
-      -> V.Expr ctx (Id p)
-      -> [(ValOrRef, Id p)]
-    depsOfVExpr _ = map (ByValue,) . toList
+    typecheckedMacroValueDeps ::
+         TypecheckedMacroValueBody l DeclId
+      -> [(ValOrRef, DeclId)]
+    typecheckedMacroValueDeps = map (ByValue,) . toList
 
 {-------------------------------------------------------------------------------
   Structs and unions
@@ -143,97 +144,3 @@ depsOfField field = depsOfType field.typ
 
 depsOfTypedef :: IsPass p => C.Typedef p -> [(ValOrRef, Id p)]
 depsOfTypedef typedef = depsOfType typedef.typ
-
-{-------------------------------------------------------------------------------
-  Dependencies of declarations with parsed macros only
--------------------------------------------------------------------------------}
-
--- | For parsed macros that have not been typechecked yet, we need to resolve
---   bare names (see 'MacroNameResolver').
-depsOfDeclParsedMacro ::
-     forall p. (IsPass p, MacroBody p ~ ParsedMacro, Id p ~ DeclId)
-  => Set DeclId -> C.DeclKind p -> [(ValOrRef, Id p)]
-depsOfDeclParsedMacro allDeclIds = depsOfDeclWith depsOfParsedMacro
-  where
-    depsOfParsedMacro :: ParsedMacro -> [(ValOrRef, DeclId)]
-    depsOfParsedMacro (ParsedMacro m) = depsOfCExprMacro allDeclIds m
-
--- | Collect all external (i.e., non-local) references in a macro body
-depsOfCExprMacro ::
-     Set DeclId
-  -> CExpr.Macro
-  -> [(ValOrRef, DeclId)]
-depsOfCExprMacro allDeclIds (CExpr.Macro _ _ _ macroExpr) =
-    goExpr ByValue macroExpr
-  where
-    goExpr :: ValOrRef -> CExpr.Expr ctx CExpr.Ps -> [(ValOrRef, DeclId)]
-    goExpr depTy = \case
-      CExpr.Term  term             -> goTerm depTy term
-      -- Pointer: switch the dependency type to 'ByRef'.
-      CExpr.TyApp CExpr.Pointer xs -> concatMap (goExpr ByRef) xs
-      CExpr.TyApp CExpr.Const   xs -> concatMap (goExpr depTy) xs
-      CExpr.VaApp _ _ xs           -> concatMap (goExpr depTy) xs
-
-    goTerm :: ValOrRef -> CExpr.Term ctx CExpr.Ps -> [(ValOrRef, DeclId)]
-    goTerm depTy = \case
-      CExpr.Literal lit ->
-        goLit depTy lit
-      CExpr.LocalParam{} ->
-        []
-      -- Variable / function call. A bare identifier is always parsed as Var;
-      -- the typechecker decides whether it is a type or value reference.
-      -- We use the resolver to emit a dep of the correct kind, or skip the
-      -- name entirely if it is not a known declaration (e.g. a built-in type).
-      CExpr.Var _ nm callArgs
-        | Just declId <- resolveMacroTypedef nm.getName ->
-            (depTy, declId) : concatMap (goExpr depTy) callArgs
-        | otherwise ->
-            concatMap (goExpr depTy) callArgs
-
-    goLit :: ValOrRef -> CExpr.Literal -> [(ValOrRef, DeclId)]
-    goLit depTy = \case
-      -- Named type specifier using an elaborated tag: struct/union/enum.
-      CExpr.TypeTagged tag nm
-        | Just declId <- resolveTaggedType (convertTagKind tag) nm.getName ->
-            [(depTy, declId)]
-        | otherwise ->
-            []
-      -- Other built-in type specifiers (int, char, etc.) have no dependencies.
-      CExpr.TypeLit{}  -> []
-      -- Value literals have no dependencies.
-      CExpr.ValueLit{} -> []
-
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1952>
-    --
-    -- We should only resolve the declaration IDs of macro dependencies once.
-    -- Now we resolve them twice: when we get the dependencies of parsed macros,
-    -- and when we typecheck macros.
-
-    -- | Resolves a bare name found in a parsed macro body
-    --
-    -- Result:
-    --
-    -- - @'Just' 'CNameKind'@: This bare name refers to another declaration that is in
-    --   the 'DeclIndex'. For example, a macro, or a @typedef@.
-    --
-    -- - @'Nothing'@: This bare name is not in the set of known declarations. It
-    --   may simply be non-existent, or refer to a built-in type or a system
-    --   @typedef@ not present in the 'DeclIndex'. In this case, we /do not
-    --   generate/ a dependency.
-    resolveMacroTypedef :: Text -> Maybe DeclId
-    resolveMacroTypedef nm
-      | macroId   `Set.member` allDeclIds = Just macroId
-      | typedefId `Set.member` allDeclIds = Just typedefId
-      | otherwise                         = Nothing
-      where
-        macroId, typedefId :: DeclId
-        macroId   = DeclId (CDeclName nm CNameKindMacro)    False
-        typedefId = DeclId (CDeclName nm CNameKindOrdinary) False
-
-    resolveTaggedType :: CTagKind -> Text -> Maybe DeclId
-    resolveTaggedType tag nm
-      | taggedId `Set.member` allDeclIds = Just taggedId
-      | otherwise                        = Nothing
-      where
-        taggedId :: DeclId
-        taggedId = DeclId (CDeclName nm $ CNameKindTagged tag) False

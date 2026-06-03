@@ -134,10 +134,10 @@ conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
   Analysis proper
 -------------------------------------------------------------------------------}
 
-fromDecls :: DeclUseGraph -> [C.Decl ResolveBindingSpecs] -> TypedefAnalysis
+fromDecls :: DeclUseGraph -> [C.Decl l ResolveBindingSpecs] -> TypedefAnalysis
 fromDecls declUseGraph = mconcat . map aux
   where
-     aux :: C.Decl ResolveBindingSpecs -> TypedefAnalysis
+     aux :: C.Decl l ResolveBindingSpecs -> TypedefAnalysis
      aux decl =
          case decl.kind of
            C.DeclTypedef typedef ->

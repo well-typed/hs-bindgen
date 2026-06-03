@@ -25,6 +25,8 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IO
+import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -103,7 +105,7 @@ exec global opts = do
         qualifiedStyle = opts.configCLI.qualifiedStyle
       }
 
-    artefact :: Artefact ()
+    artefact :: Artefact CExpr ()
     artefact = do
       case opts.configCLI.outputOptions of
         OutputOptions (SingleFile _) ->

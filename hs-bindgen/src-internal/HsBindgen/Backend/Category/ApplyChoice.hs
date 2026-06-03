@@ -20,12 +20,12 @@ applyTypes = \case
   IncludeTypeCategory -> id
 
 -- The list of declarations should only contain terms ('LvlTerm').
-applyTerms :: Choice LvlTerm -> [Hs.Decl] -> [Hs.Decl]
+applyTerms :: Choice LvlTerm -> [Hs.Decl l] -> [Hs.Decl l]
 applyTerms = \case
     ExcludeCategory                    -> const []
     IncludeTermCategory (RenameTerm f) -> map (renameHsDeclWith f)
   where
-    renameHsDeclWith :: (Text -> Text) -> Hs.Decl -> Hs.Decl
+    renameHsDeclWith :: (Text -> Text) -> Hs.Decl l -> Hs.Decl l
     renameHsDeclWith f d = case d of
         Hs.DeclTypSyn{}                   -> p
         Hs.DeclData{}                     -> p
@@ -66,12 +66,12 @@ applyTerms = \case
 -- | categories.
 applyBindingCategoryChoice ::
      ByCategory Choice
-  -> ByCategory_ [Hs.Decl]
-  -> ByCategory_ [Hs.Decl]
+  -> ByCategory_ [Hs.Decl l]
+  -> ByCategory_ [Hs.Decl l]
 applyBindingCategoryChoice choice =
     mapWithCategory_ aux
   where
-    aux :: Category -> [Hs.Decl] -> [Hs.Decl]
+    aux :: Category -> [Hs.Decl l] -> [Hs.Decl l]
     aux = \case
       CType     -> applyTypes choice.cType
       CTerm cat -> applyTerms (view (lensForTermCategory cat) choice)

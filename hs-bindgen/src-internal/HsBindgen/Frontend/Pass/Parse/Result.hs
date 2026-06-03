@@ -22,6 +22,7 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -32,37 +33,47 @@ import HsBindgen.Util.Tracer
 --
 -- NOTE: This does /NOT/ depend on the @Parse@ pass specifically: we transform
 -- these results in the @AssignAnonIds@ pass.
-data ParseResult p = ParseResult{
+type ParseResult :: Star -> Pass -> Star
+data ParseResult l p = ParseResult{
       id             :: Id p
     , loc            :: SingleLoc
-    , classification :: ParseClassification p
+    , classification :: ParseClassification l p
     }
     deriving (Generic)
 
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseResult p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (ParseResult l p)
 
-data ParseClassification p =
-    ParseResultSuccess      (ParseSuccess p)
+data ParseClassification l p =
+    ParseResultSuccess      (ParseSuccess l p)
   | ParseResultNotAttempted ParseNotAttempted
   | ParseResultFailure      DelayedParseMsg
   deriving stock (Generic)
 
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseClassification p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (ParseClassification l p)
 
-instance PrettyForTrace (ParseClassification p) where
+instance PrettyForTrace (ParseClassification l p) where
   prettyForTrace = \case
     ParseResultSuccess      x -> prettyForTrace x
     ParseResultNotAttempted x -> prettyForTrace x
     ParseResultFailure msg    -> PP.hang "Parse failure:" 2 $
       prettyForTrace msg
 
-data ParseSuccess p = ParseSuccess {
-      decl             :: C.Decl p
+data ParseSuccess l p = ParseSuccess {
+      decl             :: C.Decl l p
     , delayedParseMsgs :: [DelayedParseMsg]
     }
   deriving stock (Generic)
 
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (ParseSuccess p)
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (ParseSuccess l p)
 
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttempted =
@@ -75,14 +86,14 @@ data ParseNotAttempted =
   Pretty-printing
 -------------------------------------------------------------------------------}
 
-instance IsPass p => PrettyForTrace (ParseResult p) where
+instance IsPass p => PrettyForTrace (ParseResult l p) where
   prettyForTrace result =
       prettyForTrace $ WithLocationInfo{
           loc = idLocationInfo (Proxy @p) result.id [result.loc]
         , msg = result.classification
         }
 
-instance PrettyForTrace (ParseSuccess p) where
+instance PrettyForTrace (ParseSuccess l p) where
   prettyForTrace success =
       if null success.delayedParseMsgs then
         "Parse success"
@@ -100,11 +111,11 @@ instance PrettyForTrace ParseNotAttempted where
 -------------------------------------------------------------------------------}
 
 -- | Assemble a parse success
-parseSucceed :: C.Decl p -> ParseResult p
+parseSucceed :: C.Decl l p -> ParseResult l p
 parseSucceed = parseSucceedWith []
 
 -- | Assemble a parse success with delayed parse messages
-parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
+parseSucceedWith :: [DelayedParseMsg] -> C.Decl l p -> ParseResult l p
 parseSucceedWith msgs decl = ParseResult{
      id             = decl.info.id
    , loc            = decl.info.loc
@@ -115,7 +126,7 @@ parseSucceedWith msgs decl = ParseResult{
     }
 
 -- | Assemble a "parse not attempted" with a reason
-parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p
+parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult l p
 parseDoNotAttempt info reason = ParseResult{
       id              = info.id
     , loc             = info.loc
@@ -126,12 +137,12 @@ parseDoNotAttempt info reason = ParseResult{
   Query
 -------------------------------------------------------------------------------}
 
-getParseResultMaybeDecl :: ParseResult p -> Maybe (C.Decl p)
+getParseResultMaybeDecl :: ParseResult l p -> Maybe (C.Decl l p)
 getParseResultMaybeDecl result =
     case result.classification of
       ParseResultSuccess success -> Just $ success.decl
       _other                     -> Nothing
 
-getParseResultEitherDecl :: ParseResult p -> Either (ParseResult p) (C.Decl p)
+getParseResultEitherDecl :: ParseResult l p -> Either (ParseResult l p) (C.Decl l p)
 getParseResultEitherDecl result =
     maybe (Left result) Right $ getParseResultMaybeDecl result

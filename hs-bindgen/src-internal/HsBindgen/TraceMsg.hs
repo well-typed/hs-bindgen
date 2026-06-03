@@ -14,8 +14,6 @@ module HsBindgen.TraceMsg (
   , ImmediateAssignAnonIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
-  , CExpr.MacroParseError(..)
-  , CExpr.MacroTcError(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
   , SelectMsg(..)
@@ -25,9 +23,6 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Data.List qualified as List
-
-import C.Expr.Parse qualified as CExpr
-import C.Expr.Typecheck qualified as CExpr
 
 import Clang.HighLevel.Types (Diagnostic (..))
 

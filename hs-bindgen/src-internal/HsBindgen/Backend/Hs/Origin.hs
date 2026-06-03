@@ -51,12 +51,13 @@ data Struct =
   deriving stock (Generic, Show)
 
 data Newtype =
-    Enum    (C.Enum           Final)
-  | Typedef (C.Typedef        Final)
-  | Union   (C.Union          Final)
-  | Aux     (C.Typedef        Final)
-  | Macro   (CheckedMacroType Final)
-  deriving stock (Generic, Show)
+    Enum    (C.Enum                         Final)
+  | Typedef (C.Typedef                      Final)
+  | Union   (C.Union                        Final)
+  | Aux     (C.Typedef                      Final)
+  | forall l. Macro (TypecheckedMacroType l Final)
+
+deriving stock instance Show Newtype
 
 data EmptyData =
     Opaque CNameKind

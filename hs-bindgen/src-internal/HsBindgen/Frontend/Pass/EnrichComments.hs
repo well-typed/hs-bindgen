@@ -111,7 +111,10 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 -- | Enrich parsed declarations with doxygen comments
-enrichComments :: Doxygen -> [ParseResult AssignAnonIds] -> [ParseResult EnrichComments]
+enrichComments ::
+     forall l. Doxygen
+  -> [ParseResult l AssignAnonIds ]
+  -> [ParseResult l EnrichComments]
 enrichComments doxy results =
     map enrichOne coerced
   where
@@ -120,10 +123,10 @@ enrichComments doxy results =
     -- is @()@ and 'CommentDecl EnrichComments' is @Maybe (Comment EnrichComments)@)
     -- via 'CoercePassCommentDecl'. We then fill in comments by looking up the
     -- doxygen state.
-    coerced :: [ParseResult EnrichComments]
+    coerced :: [ParseResult l EnrichComments]
     coerced = map coercePass results
 
-    enrichOne :: ParseResult EnrichComments -> ParseResult EnrichComments
+    enrichOne :: ParseResult l EnrichComments -> ParseResult l EnrichComments
     enrichOne pr = case pr.classification of
       ParseResultSuccess success ->
         let decl' = enrichDecl doxy success.decl
@@ -138,8 +141,8 @@ enrichComments doxy results =
 
 enrichDecl ::
      Doxygen
-  -> C.Decl EnrichComments
-  -> C.Decl EnrichComments
+  -> C.Decl l EnrichComments
+  -> C.Decl l EnrichComments
 enrichDecl doxy decl =
     decl & #info %~ enrichDeclInfo doxy
          & #kind %~ enrichDeclKind doxy effectiveEnclosing
@@ -176,8 +179,8 @@ lookupCommentForId doxy info
 enrichDeclKind ::
      Doxygen
   -> Text  -- ^ Declaration C name (enclosing for field lookups)
-  -> C.DeclKind EnrichComments
-  -> C.DeclKind EnrichComments
+  -> C.DeclKind l EnrichComments
+  -> C.DeclKind l EnrichComments
 enrichDeclKind doxy name = \case
     C.DeclStruct struct -> C.DeclStruct $ enrichStruct doxy name struct
     C.DeclUnion  union  -> C.DeclUnion  $ enrichUnion  doxy name union

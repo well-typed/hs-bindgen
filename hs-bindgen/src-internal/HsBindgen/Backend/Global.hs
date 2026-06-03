@@ -19,6 +19,13 @@ module HsBindgen.Backend.Global (
   , cExprGlobalType
   , CExprGlobalTerm(..)
   , cExprGlobalTerm
+
+    -- ** Specific to char literals
+  , charLitToHsImport
+  , CharLitGlobalType(..)
+  , charLitGlobalType
+  , CharLitGlobalTerm(..)
+  , charLitGlobalTerm
   ) where
 
 import Data.Text qualified as Text
@@ -580,28 +587,13 @@ bindgenGlobalTerm = globalExpr . \case
   Globals specific to C expressions
 -------------------------------------------------------------------------------}
 
--- | Import specific to @c-expr-runtime@
---
--- Internal!
-data CExprImport =
-    -- | Qualified import from "C.Char".
-    ICChar
-    -- | Qualified import from "C.Expr.HostPlatform".
-  | ICExprHostPlatform
-  deriving stock (Eq, Ord, Show)
-
 -- We avoid full Template Haskell name resolution, because we want to depend on
 -- the intermediate runtime modules.
-cExprToHsImport :: CExprImport -> Hs.Import
-cExprToHsImport = \case
-    ICChar ->
-      Hs.QualifiedImport "C.Char" Nothing
-    ICExprHostPlatform ->
-      Hs.QualifiedImport "C.Expr.HostPlatform" Nothing
+cExprToHsImport :: Hs.Import
+cExprToHsImport = Hs.QualifiedImport "C.Expr.HostPlatform" Nothing
 
 data CExprGlobalType =
-    CharValue_type
-  | Not_class
+    Not_class
   | Logical_class
   | RelEq_class
   | RelOrd_class
@@ -627,9 +619,7 @@ data CExprGlobalType =
   | Shift_resTyCon
 
 data CExprGlobalTerm =
-    CharValue_constructor
-  | CharValue_fromAddr
-  | Not_not
+    Not_not
   | Logical_and
   | Logical_or
   | RelEq_eq
@@ -654,62 +644,88 @@ data CExprGlobalTerm =
 
 cExprGlobalType :: CExprGlobalType -> Global LvlType
 cExprGlobalType = aux . \case
-    CharValue_type      -> (ICChar,             ''C.Char.CharValue)
-    Not_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Not)
-    Logical_class       -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Logical)
-    RelEq_class         -> (ICExprHostPlatform, ''C.Expr.HostPlatform.RelEq)
-    RelOrd_class        -> (ICExprHostPlatform, ''C.Expr.HostPlatform.RelOrd)
-    Plus_class          -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Plus)
-    Plus_resTyCon       -> (ICExprHostPlatform, ''C.Expr.HostPlatform.PlusRes)
-    Minus_class         -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Minus)
-    Minus_resTyCon      -> (ICExprHostPlatform, ''C.Expr.HostPlatform.MinusRes)
-    Add_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Add)
-    Add_resTyCon        -> (ICExprHostPlatform, ''C.Expr.HostPlatform.AddRes)
-    Sub_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Sub)
-    Sub_resTyCon        -> (ICExprHostPlatform, ''C.Expr.HostPlatform.SubRes)
-    Mult_class          -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Mult)
-    Mult_resTyCon       -> (ICExprHostPlatform, ''C.Expr.HostPlatform.MultRes)
-    Div_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Div)
-    Div_resTyCon        -> (ICExprHostPlatform, ''C.Expr.HostPlatform.DivRes)
-    Rem_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Rem)
-    Rem_resTyCon        -> (ICExprHostPlatform, ''C.Expr.HostPlatform.RemRes)
-    Complement_class    -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Complement)
-    Complement_resTyCon -> (ICExprHostPlatform, ''C.Expr.HostPlatform.ComplementRes)
-    Bitwise_class       -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Bitwise)
-    Bitwise_resTyCon    -> (ICExprHostPlatform, ''C.Expr.HostPlatform.BitsRes)
-    Shift_class         -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Shift)
-    Shift_resTyCon      -> (ICExprHostPlatform, ''C.Expr.HostPlatform.ShiftRes)
+    Not_class           -> (GTyp, ''C.Expr.HostPlatform.Not)
+    Logical_class       -> (GTyp, ''C.Expr.HostPlatform.Logical)
+    RelEq_class         -> (GTyp, ''C.Expr.HostPlatform.RelEq)
+    RelOrd_class        -> (GTyp, ''C.Expr.HostPlatform.RelOrd)
+    Plus_class          -> (GTyp, ''C.Expr.HostPlatform.Plus)
+    Plus_resTyCon       -> (GTyp, ''C.Expr.HostPlatform.PlusRes)
+    Minus_class         -> (GTyp, ''C.Expr.HostPlatform.Minus)
+    Minus_resTyCon      -> (GTyp, ''C.Expr.HostPlatform.MinusRes)
+    Add_class           -> (GTyp, ''C.Expr.HostPlatform.Add)
+    Add_resTyCon        -> (GTyp, ''C.Expr.HostPlatform.AddRes)
+    Sub_class           -> (GTyp, ''C.Expr.HostPlatform.Sub)
+    Sub_resTyCon        -> (GTyp, ''C.Expr.HostPlatform.SubRes)
+    Mult_class          -> (GTyp, ''C.Expr.HostPlatform.Mult)
+    Mult_resTyCon       -> (GTyp, ''C.Expr.HostPlatform.MultRes)
+    Div_class           -> (GTyp, ''C.Expr.HostPlatform.Div)
+    Div_resTyCon        -> (GTyp, ''C.Expr.HostPlatform.DivRes)
+    Rem_class           -> (GTyp, ''C.Expr.HostPlatform.Rem)
+    Rem_resTyCon        -> (GTyp, ''C.Expr.HostPlatform.RemRes)
+    Complement_class    -> (GTyp, ''C.Expr.HostPlatform.Complement)
+    Complement_resTyCon -> (GTyp, ''C.Expr.HostPlatform.ComplementRes)
+    Bitwise_class       -> (GTyp, ''C.Expr.HostPlatform.Bitwise)
+    Bitwise_resTyCon    -> (GTyp, ''C.Expr.HostPlatform.BitsRes)
+    Shift_class         -> (GTyp, ''C.Expr.HostPlatform.Shift)
+    Shift_resTyCon      -> (GTyp, ''C.Expr.HostPlatform.ShiftRes)
   where
-    aux :: (CExprImport, TH.Name) -> Global LvlType
-    aux (i, n) = CustomGlobal n GTyp (cExprToHsImport i)
+    aux :: (GlobalCat LvlType, TH.Name) -> Global LvlType
+    aux (c, n) = CustomGlobal n c cExprToHsImport
 
 cExprGlobalTerm :: CExprGlobalTerm -> Global LvlTerm
 cExprGlobalTerm = aux . \case
-    CharValue_constructor -> (ICChar,             GCon,  'C.Char.CharValue)
-    CharValue_fromAddr    -> (ICChar,             GVar,  'C.Char.charValueFromAddr)
-    Not_not               -> (ICExprHostPlatform, GVar,  'C.Expr.HostPlatform.not)
-    Logical_and           -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.&&))
-    Logical_or            -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.||))
-    RelEq_eq              -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.==))
-    RelEq_uneq            -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.!=))
-    RelOrd_lt             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.<))
-    RelOrd_le             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.<=))
-    RelOrd_gt             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.>))
-    RelOrd_ge             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.>=))
-    Plus_plus             -> (ICExprHostPlatform, GVar,  'C.Expr.HostPlatform.plus)
-    Minus_negate          -> (ICExprHostPlatform, GVar,  'C.Expr.HostPlatform.negate)
-    Add_add               -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.+))
-    Sub_minus             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.-))
-    Mult_mult             -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.*))
-    Div_div               -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform./))
-    Rem_rem               -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.%))
-    Complement_complement -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform..~))
-    Bitwise_and           -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform..&.))
-    Bitwise_or            -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform..|.))
-    Bitwise_xor           -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform..^.))
-    Shift_shiftL          -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.<<))
-    Shift_shiftR          -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.>>))
+    Not_not               -> (GVar,  'C.Expr.HostPlatform.not)
+    Logical_and           -> (GVar, '(C.Expr.HostPlatform.&&))
+    Logical_or            -> (GVar, '(C.Expr.HostPlatform.||))
+    RelEq_eq              -> (GVar, '(C.Expr.HostPlatform.==))
+    RelEq_uneq            -> (GVar, '(C.Expr.HostPlatform.!=))
+    RelOrd_lt             -> (GVar, '(C.Expr.HostPlatform.<))
+    RelOrd_le             -> (GVar, '(C.Expr.HostPlatform.<=))
+    RelOrd_gt             -> (GVar, '(C.Expr.HostPlatform.>))
+    RelOrd_ge             -> (GVar, '(C.Expr.HostPlatform.>=))
+    Plus_plus             -> (GVar,  'C.Expr.HostPlatform.plus)
+    Minus_negate          -> (GVar,  'C.Expr.HostPlatform.negate)
+    Add_add               -> (GVar, '(C.Expr.HostPlatform.+))
+    Sub_minus             -> (GVar, '(C.Expr.HostPlatform.-))
+    Mult_mult             -> (GVar, '(C.Expr.HostPlatform.*))
+    Div_div               -> (GVar, '(C.Expr.HostPlatform./))
+    Rem_rem               -> (GVar, '(C.Expr.HostPlatform.%))
+    Complement_complement -> (GVar, '(C.Expr.HostPlatform..~))
+    Bitwise_and           -> (GVar, '(C.Expr.HostPlatform..&.))
+    Bitwise_or            -> (GVar, '(C.Expr.HostPlatform..|.))
+    Bitwise_xor           -> (GVar, '(C.Expr.HostPlatform..^.))
+    Shift_shiftL          -> (GVar, '(C.Expr.HostPlatform.<<))
+    Shift_shiftR          -> (GVar, '(C.Expr.HostPlatform.>>))
   where
-    aux :: (CExprImport, GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
-    aux (i, c, n) =
-      CustomGlobal n c (cExprToHsImport i)
+    aux :: (GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
+    aux (c, n) =
+      CustomGlobal n c cExprToHsImport
+
+{-------------------------------------------------------------------------------
+  Globals specific to char literals
+-------------------------------------------------------------------------------}
+
+charLitToHsImport :: Hs.Import
+charLitToHsImport = Hs.QualifiedImport "C.Char" Nothing
+
+data CharLitGlobalType =
+    CharValue_type
+
+data CharLitGlobalTerm =
+    CharValue_constructor
+  | CharValue_fromAddr
+
+charLitGlobalType :: CharLitGlobalType -> Global LvlType
+charLitGlobalType = aux . \case
+    CharValue_type -> ''C.Char.CharValue
+  where
+    aux :: TH.Name -> Global LvlType
+    aux n = CustomGlobal n GTyp charLitToHsImport
+
+charLitGlobalTerm :: CharLitGlobalTerm -> Global LvlTerm
+charLitGlobalTerm = aux . \case
+    CharValue_constructor -> (GCon, 'C.Char.CharValue)
+    CharValue_fromAddr    -> (GVar, 'C.Char.charValueFromAddr)
+  where
+    aux :: (GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
+    aux (c, n) = CustomGlobal n c charLitToHsImport

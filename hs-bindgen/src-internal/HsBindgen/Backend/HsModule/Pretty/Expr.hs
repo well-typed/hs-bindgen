@@ -67,7 +67,7 @@ prettyRolledExpr env prec expr = case expr of
     EIntegral i (Just t) ->
       PP.parens $ PP.hcat [PP.show i, " :: ", prettyType EmptyEnv 0 t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
-      prettyExpr env 0 (EGlobal $ cExprGlobalTerm CharValue_fromAddr)
+      prettyExpr env 0 (EGlobal $ charLitGlobalTerm CharValue_fromAddr)
         <+> PP.string str
         <+> PP.string (show len)
         <+> case mbUnicode of

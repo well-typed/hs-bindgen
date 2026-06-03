@@ -85,7 +85,7 @@ data Context =
   Top-level API
 -------------------------------------------------------------------------------}
 
-fromDecls :: [C.Decl Parse] -> AnonUsageAnalysis
+fromDecls :: [C.Decl l Parse] -> AnonUsageAnalysis
 fromDecls decls = AnonUsageAnalysis{
       map = Map.fromListWithKey resolveConflicts $
              concatMap analyseDecl decls
@@ -169,7 +169,7 @@ resolveConflicts anonId new old =
 -- NOTE: Anonymous declarations that appear in function signatures and
 -- global variables are unusable, and so we do not assign a name to them
 -- (this will cause them to be removed from the list of declarations).
-analyseDecl :: C.Decl Parse -> [(AnonId, Context)]
+analyseDecl :: C.Decl l Parse -> [(AnonId, Context)]
 analyseDecl decl =
     case decl.kind of
       C.DeclStruct           x -> analyseStruct  decl.info x

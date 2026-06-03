@@ -8,6 +8,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type MacroBody   ConstructTranslationUnit = ParsedMacro
+  type MacroBody   ConstructTranslationUnit = ParsedMacroBody
   type ExtBinding  ConstructTranslationUnit = Void
   type Ann ix      ConstructTranslationUnit = AnnConstructTranslationUnit ix
   type Msg         ConstructTranslationUnit = NoMsg Level
@@ -41,6 +42,7 @@ instance IsPass ConstructTranslationUnit where
 instance CoercePassMacroBody          EnrichComments ConstructTranslationUnit
 instance CoercePassId                 EnrichComments ConstructTranslationUnit
 instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
+instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 
 instance CoercePassAnn "TypeFunArg"   EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "StructField"  EnrichComments ConstructTranslationUnit

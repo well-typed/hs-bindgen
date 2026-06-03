@@ -13,6 +13,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ type family AnnSimplifyAST (ix :: Symbol) where
 
 instance IsPass SimplifyAST where
   type Id          SimplifyAST = PrelimDeclId
-  type MacroBody   SimplifyAST = ParsedMacro
+  type MacroBody   SimplifyAST = ParsedMacroBody
   type ExtBinding  SimplifyAST = Void
   type Ann ix      SimplifyAST = AnnSimplifyAST ix
   type Msg         SimplifyAST = SimplifyASTMsg
@@ -45,9 +46,10 @@ instance IsPass SimplifyAST where
   idSourceName   _ = PrelimDeclId.sourceName
   idLocationInfo _ = prelimDeclIdLocationInfo
 
-instance CoercePassId               Parse SimplifyAST
-instance CoercePassMacroBody        Parse SimplifyAST
-instance CoercePassMacroId          Parse SimplifyAST
+instance CoercePassId                Parse SimplifyAST
+instance CoercePassMacroBody         Parse SimplifyAST
+instance CoercePassMacroId           Parse SimplifyAST
+instance CoercePassMacroUnderlying   Parse SimplifyAST
 
 instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
 instance CoercePassAnn "Global"     Parse SimplifyAST

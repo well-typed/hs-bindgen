@@ -32,7 +32,7 @@ import HsBindgen.Imports
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: DeclIndex -> DeclUseGraph -> [C.Decl EnrichComments]
+toDecls :: DeclIndex l -> DeclUseGraph -> [C.Decl l EnrichComments]
 toDecls index declUseGraph =
     -- NOTE: There might be dependencies in the 'DeclUseGraph' on declarations
     -- without a corresponding entry in the 'DeclIndex'.  For example, this can

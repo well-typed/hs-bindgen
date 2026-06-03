@@ -5,7 +5,8 @@
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 
 module HsBindgen.TH (
-    TH.withHsBindgen
+    withHsBindgen
+  , TH.withHsBindgenMacroLang
   , TH.hashInclude
 
     -- * Configuration
@@ -64,6 +65,7 @@ module HsBindgen.TH (
   ) where
 
 import Data.Default qualified as Default
+import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Runtime.Internal.Deriving qualified as Deriving
 
@@ -74,6 +76,18 @@ import HsBindgen.Config qualified as Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
+import HsBindgen.Macro
 import HsBindgen.TH.Internal qualified as TH
 import HsBindgen.TraceMsg as TraceMsg
 import HsBindgen.Util.Tracer as Tracer
+
+-- | Generate bindings for given C headers at compile-time using the default C
+-- macro language.
+--
+-- Use 'TH.withHsBindgenMacroLang' to supply a different macro-language backend.
+withHsBindgen ::
+     TH.Config
+  -> Config.ConfigTH
+  -> TH.BindgenM
+  -> TH.Q [TH.Dec]
+withHsBindgen = TH.withHsBindgenMacroLang (pure . cExprLang)

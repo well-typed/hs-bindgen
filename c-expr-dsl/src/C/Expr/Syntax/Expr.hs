@@ -23,7 +23,7 @@ import Data.Type.Nat (SNatI)
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
-import DeBruijn (Idx, Ctx)
+import DeBruijn (Ctx, Idx)
 import GHC.Generics (Generic)
 
 import C.Expr.Syntax.Literals

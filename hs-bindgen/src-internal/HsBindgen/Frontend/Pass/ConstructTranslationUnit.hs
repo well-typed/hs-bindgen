@@ -15,6 +15,8 @@ import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Construction
@@ -23,10 +25,12 @@ import HsBindgen.Frontend.Pass.Parse.Result
 type PreviousPass = EnrichComments
 
 constructTranslationUnit ::
-     [ParseResult PreviousPass]
+     forall l. HasMacroTypes l
+  => MacroLang l
+  -> [ParseResult l PreviousPass]
   -> IncludeGraph
-  -> C.TranslationUnit ConstructTranslationUnit
-constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
+  -> C.TranslationUnit l ConstructTranslationUnit
+constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit{
       decls        = map coercePass $
                            DeclUseGraph.toDecls
                              declMeta.declIndex
@@ -35,24 +39,26 @@ constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
     , meta         = declMeta
     }
   where
-    declMeta :: DeclMeta
-    declMeta = mkDeclMeta parseResults includeGraph
+    declMeta :: DeclMeta l
+    declMeta = mkDeclMeta macroLang parseResults includeGraph
 
 mkDeclMeta ::
-     [ParseResult PreviousPass]
+     forall l. HasMacroTypes l
+  => MacroLang l
+  -> [ParseResult l PreviousPass]
   -> IncludeGraph
-  -> DeclMeta
-mkDeclMeta parseResults includeGraph = DeclMeta{
+  -> DeclMeta l
+mkDeclMeta macroLang parseResults includeGraph = DeclMeta{
       declIndex    = declIndex
     , declUseGraph = declUseGraph
     , useDeclGraph = useDeclGraph
     }
   where
-    declIndex :: DeclIndex
+    declIndex :: DeclIndex l
     declIndex = DeclIndex.fromParseResults parseResults
 
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.fromDecls includeGraph declIndex
+    declUseGraph = DeclUseGraph.fromDecls macroLang includeGraph declIndex
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

@@ -6,6 +6,8 @@ module HsBindgen.Frontend (
   ) where
 
 
+import Prelude hiding (zip)
+
 import Control.Exception (catch)
 import Data.List.NonEmpty qualified as NE
 
@@ -13,27 +15,27 @@ import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Backend.Category (Category (..))
+import HsBindgen.Backend.Category
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
-import HsBindgen.Clang.Macros (MacroDefinition)
+import HsBindgen.Clang.Macros
 import HsBindgen.Config.Internal
-import HsBindgen.Doxygen (DoxygenMsg (DoxygenUnsupported, DoxygenWarning))
+import HsBindgen.Doxygen
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AdjustTypes (adjustTypes)
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
+import HsBindgen.Frontend.Pass.AdjustTypes
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.EnrichComments (enrichComments)
-import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
+import HsBindgen.Frontend.Pass.EnrichComments
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -41,8 +43,8 @@ import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.PrepareReparse (prepareReparse)
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
@@ -53,11 +55,14 @@ import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.Zip
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
@@ -182,7 +187,25 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
 --   referencing macro-defined types that may have to be adjusted.
 --
--- == 9. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 9. "HsBindgen.Frontend.Pass.Zip"
+--
+-- "HsBindgen.Frontend.Pass.Zip" reconciles each reparsed declaration with
+-- its pre-reparse representation, producing a single zipped C AST. It also
+-- updates the 'DeclUseGraph' to replace dependencies that pointed to
+-- underlying types (as seen before reparsing) with references to the
+-- macro-defined types discovered during reparsing. For example, if a
+-- declaration depends on @A@ before reparsing, but after reparsing it is
+-- known to depend on the macro-defined type @B@ (which expands to @A@), the
+-- dependency on @A@ is replaced by a dependency on @B@.
+--
+-- Constraints:
+--
+-- * Must be after "HsBindgen.Frontend.Pass.ReparseMacroExpansions", because
+--   the zip takes the reparsed translation unit as input.
+-- * Must be before the remaining passes, because they consume the zipped C
+--   AST and updated 'DeclUseGraph'.
+--
+-- == 10. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -203,19 +226,19 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 10. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 11. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 11. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 12. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 12. "HsBindgen.Frontend.Pass.Select"
+-- == 13. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -230,15 +253,15 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   that the unusable declaration /and all of its dependencies/ will not be
 --   selected.
 runFrontend ::
-     HasCallStack
+     forall l. (HasMacroTypes l, HasCallStack)
   => Tracer FrontendMsg
   -> FrontendConfig
-  -> BootArtefact
-  -> IO FrontendArtefact
+  -> BootArtefact l
+  -> IO (FrontendArtefact l)
 runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
-      setup      <- getSetup
-      cStd       <- boot.cStandard
+      setup     <- getSetup
+      macroLang <- boot.macroLang
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
@@ -264,13 +287,12 @@ runFrontend tracer config boot = do
         let parseEnv :: ParseDecl.Env
             parseEnv = ParseDecl.Env{
                 unit                     = unit
-              , cStandard                = cStd
               , getMainHeadersAndInclude = getMainHeadersAndInclude
               , tracer                   = contramap FrontendParse tracer
               }
-        (parseResults, macroDefinitions) <- parseDecls parseEnv
+        (parseResults, macroDefinitions) <- parseDecls macroLang parseEnv
 
-        let decls :: [C.Decl Parse]
+        let decls :: [C.Decl l Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
             usageAnalysis = AnonUsageAnalysis.fromDecls decls
 
@@ -300,7 +322,7 @@ runFrontend tracer config boot = do
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
-      afterParse <- parsePass
+      afterParse       <- parsePass
       afterSimplifyAST <- simplifyASTPass
       let (afterAssignAnonIds, msgsAssignAnonIds) =
             assignAnonIds afterParse.usageAnalysis afterSimplifyAST
@@ -308,22 +330,25 @@ runFrontend tracer config boot = do
       pure afterAssignAnonIds
 
     enrichCommentsPass <- cache "enrichComments" $ do
-      afterParse <- parsePass
+      afterParse         <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       pure $ enrichComments afterParse.doxygen afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
+      macroLang  <- boot.macroLang
       afterParse <- parsePass
       afterEnrichComments <- enrichCommentsPass
       let afterConstructTranslationUnit =
             constructTranslationUnit
+              macroLang
               afterEnrichComments
               afterParse.includeGraph
       pure afterConstructTranslationUnit
 
     typecheckMacrosPass <- cache "typecheckMacros" $ do
+      macroLang                     <- boot.macroLang
       afterConstructTranslationUnit <- constructTranslationUnitPass
-      pure $ typecheckMacros afterConstructTranslationUnit
+      pure $ typecheckMacros macroLang afterConstructTranslationUnit
 
     prepareReparsePass <- cache "prepareReparse" $ do
       afterParse <- parsePass
@@ -340,13 +365,18 @@ runFrontend tracer config boot = do
                   afterTypecheckMacros
 
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
-      (_, knownTypes, knownMacroTypes) <- typecheckMacrosPass
+      (_, knownTypes, knownMacros) <- typecheckMacrosPass
       afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      pure $ reparseMacroExpansions cStd knownTypes knownMacroTypes afterPrepareReparse
+      pure $ reparseMacroExpansions cStd knownTypes knownMacros afterPrepareReparse
+
+    zipPass <- cache "zip" $ do
+      macroLang                   <- boot.macroLang
+      afterReparseMacroExpansions <- reparseMacroExpansionsPass
+      pure $ zip macroLang afterReparseMacroExpansions
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterReparseMacroExpansions <- reparseMacroExpansionsPass
+      afterZip <- zipPass
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- boot.prescriptiveBindingSpec
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
@@ -354,7 +384,7 @@ runFrontend tracer config boot = do
               (fromBaseModuleName boot.baseModule (Just CType))
               extSpecs
               pSpec
-              afterReparseMacroExpansions
+              afterZip
       forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
       pure afterResolveBindingSpecs
 
@@ -393,6 +423,7 @@ runFrontend tracer config boot = do
       , constructTranslationUnit = constructTranslationUnitPass
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
       , reparseMacroExpansions   = reparseMacroExpansionsPass
+      , zip                      = zipPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
@@ -432,22 +463,23 @@ runFrontend tracer config boot = do
   Artefact
 -------------------------------------------------------------------------------}
 
-data FrontendArtefact = FrontendArtefact {
+data FrontendArtefact l = FrontendArtefact {
       parseMeta                :: Cached ParseInfo
 
-    , parse                    :: Cached [ParseResult Parse]
+    , parse                    :: Cached [ParseResult       l Parse]
     , doxygen                  :: Cached Doxygen
-    , simplifyAST              :: Cached [ParseResult SimplifyAST]
-    , assignAnonIds            :: Cached [ParseResult AssignAnonIds]
-    , enrichComments           :: Cached [ParseResult EnrichComments]
-    , constructTranslationUnit :: Cached (C.TranslationUnit ConstructTranslationUnit)
-    , typecheckMacros          :: Cached (C.TranslationUnit TypecheckMacros)
-    , reparseMacroExpansions   :: Cached (C.TranslationUnit ReparseMacroExpansions)
-    , resolveBindingSpecs      :: Cached (C.TranslationUnit ResolveBindingSpecs)
-    , mangleNames              :: Cached (C.TranslationUnit MangleNames)
-    , adjustTypes              :: Cached (C.TranslationUnit AdjustTypes)
-    , select                   :: Cached (C.TranslationUnit Select)
-    , final                    :: Cached (C.TranslationUnit Final)
+    , simplifyAST              :: Cached [ParseResult       l SimplifyAST]
+    , assignAnonIds            :: Cached [ParseResult       l AssignAnonIds]
+    , enrichComments           :: Cached [ParseResult       l EnrichComments]
+    , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
+    , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
+    , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
+    , zip                      :: Cached (C.TranslationUnit l Zip)
+    , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
+    , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
+    , adjustTypes              :: Cached (C.TranslationUnit l AdjustTypes)
+    , select                   :: Cached (C.TranslationUnit l Select)
+    , final                    :: Cached (C.TranslationUnit l Final)
     }
 
 {-------------------------------------------------------------------------------
@@ -487,8 +519,8 @@ data ParseInfo = ParseInfo {
   Internal helpers
 -------------------------------------------------------------------------------}
 
-data ParsePassResult = ParsePassResult {
-      results           :: [ParseResult Parse]
+data ParsePassResult l = ParsePassResult {
+      results           :: [ParseResult l Parse]
     , doxygen           :: Doxygen
     , includeGraph      :: IncludeGraph
     , isMainHeader      :: IsMainHeader

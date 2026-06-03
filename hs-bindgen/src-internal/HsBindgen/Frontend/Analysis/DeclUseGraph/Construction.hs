@@ -26,22 +26,29 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Type (ValOrRef)
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-fromDecls :: HasCallStack => IncludeGraph -> DeclIndex -> DeclUseGraph
-fromDecls includeGraph declIndex = DeclUseGraph $
+fromDecls ::
+     forall l. HasCallStack
+  => MacroLang l
+  -> IncludeGraph
+  -> DeclIndex l
+  -> DeclUseGraph
+fromDecls macroLang includeGraph declIndex = DeclUseGraph $
     foldl'
       (flip insertDepsOfDeclParsedMacro)
       verticesGraph
       sortedSuccessfulDecls
   where
-    successfulDecls, sortedSuccessfulDecls :: [C.Decl EnrichComments]
+    successfulDecls, sortedSuccessfulDecls :: [C.Decl l EnrichComments]
     successfulDecls       = DeclIndex.getDecls declIndex
     sortedSuccessfulDecls = List.sortOn (annSortKey orderMap) successfulDecls
 
@@ -65,11 +72,11 @@ fromDecls includeGraph declIndex = DeclUseGraph $
     -- macros yet.  Instead, we must provide a "resolver" for bare names (see
     -- below).
     insertDepsOfDeclParsedMacro ::
-         C.Decl EnrichComments
+         C.Decl l EnrichComments
       -> Digraph ValOrRef DeclId
       -> Digraph ValOrRef DeclId
     insertDepsOfDeclParsedMacro decl =
-      insertDeps decl.info.id (depsOfDeclParsedMacro allDeclIds decl.kind)
+      insertDeps decl.info.id (depsOfDeclParsedMacro macroLang allDeclIds decl.kind)
 
 insertDeps ::
      (HasCallStack)
@@ -93,12 +100,13 @@ insertDeps source = flip (foldl' aux)
 
 -- | Inserts dependency edges of provided declaration.
 insertDepsOfDecl ::
-     (IsPass p, Id p ~ DeclId, DepsOfDecl p, HasCallStack)
-  => C.Decl p
+     (HasMacroTypes l, HasCallStack)
+  => MacroLang l
+  -> C.Decl l Zip
   -> DeclUseGraph
   -> DeclUseGraph
-insertDepsOfDecl decl declUseGraph = DeclUseGraph $
-    insertDeps (decl.info.id) (depsOfDecl decl.kind) declUseGraph.graph
+insertDepsOfDecl macroLang decl declUseGraph = DeclUseGraph $
+    insertDeps (decl.info.id) (depsOfDecl macroLang decl.kind) declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Deletion
@@ -133,7 +141,7 @@ data SortKey = SortKey{
     }
   deriving (Eq, Ord, Show)
 
-annSortKey :: Map SourcePath Int -> C.Decl p -> SortKey
+annSortKey :: Map SourcePath Int -> C.Decl l p -> SortKey
 annSortKey sourceMap decl = SortKey{
       sortPathIx = sortPathIx
     , sortLineNo = singleLocLine   decl.info.loc

@@ -11,6 +11,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -34,40 +35,46 @@ data PassSimulatedOpenKind
   Associated type families
 -------------------------------------------------------------------------------}
 
+-- | Class alias; limitation of quantified constraints
+class    (Show (MacroBody p l), Eq (MacroBody p l)) => ValidMacroBody p l
+instance (Show (MacroBody p l), Eq (MacroBody p l)) => ValidMacroBody p l
+
 -- | Pass definition
 class (
-
         -- 'Show' constraints for debugging
-        Show (ExtBinding p)
-      , Show (Id         p)
-      , Show (MacroBody  p)
-      , Show (ScopedName p)
-      , Show (MacroId    p)
 
-      , Show (Ann "CheckedMacroType" p)
-      , Show (Ann "Decl"             p)
-      , Show (Ann "Enum"             p)
-      , Show (Ann "Function"         p)
-      , Show (Ann "Global"           p)
-      , Show (Ann "Struct"           p)
-      , Show (Ann "StructField"      p)
-      , Show (Ann "TranslationUnit"  p)
-      , Show (Ann "Typedef"          p)
-      , Show (Ann "TypeFunArg"       p)
-      , Show (Ann "Union"            p)
-      , Show (Ann "UnionField"       p)
+        Show (ExtBinding      p)
+      , Show (Id              p)
+      , Show (ScopedName      p)
+      , Show (MacroId         p)
+      , Show (MacroUnderlying p)
+
+      , Show (Ann "TypecheckedMacroType" p)
+      , Show (Ann "Decl"                 p)
+      , Show (Ann "Enum"                 p)
+      , Show (Ann "Function"             p)
+      , Show (Ann "Global"               p)
+      , Show (Ann "Struct"               p)
+      , Show (Ann "StructField"          p)
+      , Show (Ann "TranslationUnit"      p)
+      , Show (Ann "Typedef"              p)
+      , Show (Ann "TypeFunArg"           p)
+      , Show (Ann "Union"                p)
+      , Show (Ann "UnionField"           p)
 
         -- 'Ord' constraints for identifiers (which we often store in maps)
 
-      , Ord (Id         p)
-      , Ord (ScopedName p)
-      , Ord (MacroId    p)
+      , Ord (Id              p)
+      , Ord (ScopedName      p)
+      , Ord (MacroId         p)
+      , Ord (MacroUnderlying p)
+
 
         -- 'Ord' constraint' on 'ExtBinding' and @'Ann' "TypeFunArg"@ is
-        -- necessary for de-dupping types.
+        -- necessary for de-duplicating types.
 
       , Ord (ExtBinding p)
-      , Ord (Ann "TypeFunArg"       p)
+      , Ord (Ann "TypeFunArg" p)
 
         -- 'Eq'
         --
@@ -76,22 +83,26 @@ class (
         -- identical). All other 'Eq' constraints we provide are in order to
         -- support this equality.
 
-      , Eq (ExtBinding p)
-      , Eq (MacroBody  p)
-      , Eq (ScopedName p)
-      , Eq (MacroId    p)
+      , Eq (ExtBinding      p)
+      , Eq (ScopedName      p)
+      , Eq (MacroId         p)
+      , Eq (MacroUnderlying p)
 
-      , Eq (Ann "CheckedMacroType" p)
-      , Eq (Ann "Enum"             p)
-      , Eq (Ann "Function"         p)
-      , Eq (Ann "Global"           p)
-      , Eq (Ann "Struct"           p)
-      , Eq (Ann "StructField"      p)
-      , Eq (Ann "Typedef"          p)
-      , Eq (Ann "TypeFunArg"       p)
-      , Eq (Ann "Union"            p)
-      , Eq (Ann "UnionField"       p)
+      , Eq (Ann "TypecheckedMacroType" p)
+      , Eq (Ann "Enum"                 p)
+      , Eq (Ann "Function"             p)
+      , Eq (Ann "Global"               p)
+      , Eq (Ann "Struct"               p)
+      , Eq (Ann "StructField"          p)
+      , Eq (Ann "Typedef"              p)
+      , Eq (Ann "TypeFunArg"           p)
+      , Eq (Ann "Union"                p)
+      , Eq (Ann "UnionField"           p)
 
+        -- A "valid" macro language comes equipped with 'Show', and 'Eq'
+        -- instances.
+
+      , forall l. HasMacroTypes l => ValidMacroBody p l
       ) => IsPass (p :: Pass) where
   -- | Declaration identifier
   --
@@ -117,10 +128,25 @@ class (
   -- | Macro body
   --
   -- Typechecking macros is non-trivial, and requires knowledge of other types
-  -- and macros in scope. Therefore we only parse macros with @c-expr-dsl@
-  -- during parsing of the clang AST. 'TypecheckMacros' then does the actual
-  -- typechecking, instantiating this to 'CheckedMacro'.
-  type MacroBody p :: Star
+  -- and macros in scope. Therefore we only parse (and not typecheck) macros
+  -- while parsing the clang AST. 'TypecheckMacros' then does the actual
+  -- typechecking, instantiating this to 'TypecheckedMacro'.
+  type MacroBody p :: Star -> Star
+
+  -- | The underlying type stored in a macro reference.
+  --
+  -- * Default: 'Void'. Pre-"HsBindgen.Frontend.Pass.TypecheckMacros" passes
+  --   have 'MacroId p ~ Void' — no macro reference can exist yet.
+  --
+  -- * "HsBindgen.Frontend.Pass.ReparseMacroExpansions": @()@. The reparser
+  --   produces 'MacroRef' values with a placeholder underlying, recording \"a
+  --   macro is referenced here, underlying not yet known\".
+  --
+  -- * "HsBindgen.Frontend.Pass.Zip" and every downstream pass:
+  --   @'HsBindgen.Frontend.AST.Type.Type' p@. 'Zip' fills the underlying in
+  --   from the pre-reparse tree.
+  type MacroUnderlying p :: Star
+  type MacroUnderlying p = Void
 
   -- | Representation of external bindings
   --

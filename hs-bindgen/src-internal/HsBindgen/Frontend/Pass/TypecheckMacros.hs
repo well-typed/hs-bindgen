@@ -20,9 +20,11 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
 import HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 
-type Pre  = ConstructTranslationUnit
-type Post = TypecheckMacros
+type In  = ConstructTranslationUnit
+type Out = TypecheckMacros
 
 -- | We perform two traversals:
 --
@@ -35,29 +37,34 @@ type Post = TypecheckMacros
 --
 -- Register macro typecheck failures in @DeclMeta@.
 typecheckMacros ::
-     C.TranslationUnit Pre
-  -> ( C.TranslationUnit Post
+     HasMacroTypes l
+  => MacroLang l
+  -> C.TranslationUnit l In
+  -> ( C.TranslationUnit l Out
      , Map LanC.CName (C.Type ReparseMacroExpansions)
-     , Map LanC.CName (C.Type ReparseMacroExpansions)
+     , Set LanC.CName
      )
-typecheckMacros unit =
-    let (typedefTypes, taggedTypes) =
+typecheckMacros macroLang unit =
+    let knownTypes =
           collectKnownTypes unit.decls
-        (tcRes, resolvedMacroTypes) =
-          typecheckDecls typedefTypes taggedTypes unit.decls
+        (tcRes, resolvedMacros) =
+          typecheckDecls macroLang knownTypes unit.decls
         (failedMacros, typecheckedDecls) =
           partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
-        ,    Map.map coercePass $ typedefTypes
-          <> Map.mapKeys renderCDeclNameC taggedTypes
-        , Map.map coercePass resolvedMacroTypes
+        , Map.fromList [
+              (n, coercePass v)
+            | (declId, v) <- Map.toList knownTypes
+            , Just n <- [renderNonAnonDeclId declId]
+            ]
+        , resolvedMacros
         )
 
 reconstructAfterTypecheck ::
-     C.TranslationUnit Pre
+     C.TranslationUnit l In
   -> [FailedMacro]
-  -> [C.Decl Post]
-  -> C.TranslationUnit Post
+  -> [C.Decl l Out]
+  -> C.TranslationUnit l Out
 reconstructAfterTypecheck unit failedMacros decls =
     C.TranslationUnit{
         decls        = decls

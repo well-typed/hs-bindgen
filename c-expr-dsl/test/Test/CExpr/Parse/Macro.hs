@@ -14,20 +14,20 @@ module Test.CExpr.Parse.Macro (tests) where
 
 import Data.Either (isLeft, isRight)
 import Data.Nat (Nat (..))
-import Data.Type.Equality ((:~:)(..))
+import Data.Type.Equality ((:~:) (..))
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
-import DeBruijn (Idx(..))
+import DeBruijn (Idx (..))
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Clang.CStandard
-
 import C.Expr.Syntax
 
-import Test.CExpr.Parse.Infra
+import Clang.CStandard
 import Clang.HighLevel.Types
+
+import Test.CExpr.Parse.Infra
 
 {-------------------------------------------------------------------------------
   Top-level

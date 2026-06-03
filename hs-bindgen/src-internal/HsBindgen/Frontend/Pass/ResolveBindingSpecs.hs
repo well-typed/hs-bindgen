@@ -10,8 +10,6 @@ import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import C.Expr.Typecheck qualified as CExpr
-
 import Clang.HighLevel.Types
 import Clang.Paths
 
@@ -31,11 +29,12 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Type
 import HsBindgen.Util.Monad (mapMaybeM)
 import HsBindgen.Util.Tracer (withCallStack)
 
@@ -43,15 +42,15 @@ import HsBindgen.Util.Tracer (withCallStack)
   Top-level
 -------------------------------------------------------------------------------}
 
-type PreviousPass = ReparseMacroExpansions
+type PreviousPass = Zip
 
 resolveBindingSpecs ::
-     HasCallStack
+     forall l. HasCallStack
   => Hs.ModuleName
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
-  -> C.TranslationUnit PreviousPass
-  -> (C.TranslationUnit ResolveBindingSpecs, [AMsg ResolveBindingSpecs])
+  -> C.TranslationUnit l PreviousPass
+  -> (C.TranslationUnit l ResolveBindingSpecs, [AMsg ResolveBindingSpecs])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
@@ -77,21 +76,21 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
         )
   where
     reconstruct ::
-         [C.Decl ResolveBindingSpecs]
+         [C.Decl l ResolveBindingSpecs]
       -> DeclUseGraph
       -> MState
-      -> C.TranslationUnit ResolveBindingSpecs
+      -> C.TranslationUnit l ResolveBindingSpecs
     reconstruct decls' declUseGraph state =
       let externalIds :: Set DeclId
           externalIds = Map.keysSet state.extTypes
 
-          index' :: DeclIndex
+          index' :: DeclIndex l
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
               . DeclIndex.registerOmittedDeclarations state.omitTypes
               $ unit.meta.declIndex
 
-          unitMeta' :: DeclMeta
+          unitMeta' :: DeclMeta l
           unitMeta' = DeclMeta {
                 declIndex    = index'
               , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
@@ -108,12 +107,12 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
   Internal: monad
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM (ReaderT MEnv (State MState) a)
+newtype M l a = WrapM (ReaderT (MEnv l) (State MState) a)
   deriving newtype (
       Applicative
     , Functor
     , Monad
-    , MonadReader MEnv
+    , MonadReader (MEnv l)
     , MonadState MState
     )
 
@@ -121,8 +120,8 @@ runM ::
      MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> IncludeGraph
-  -> DeclIndex
-  -> M a
+  -> DeclIndex l
+  -> M l a
   -> (a, MState)
 runM extSpecs pSpec includeGraph declIndex (WrapM m) =
     let env    = MEnv extSpecs pSpec includeGraph declIndex
@@ -133,13 +132,14 @@ runM extSpecs pSpec includeGraph declIndex (WrapM m) =
   Internal: monad reader
 -------------------------------------------------------------------------------}
 
-data MEnv = MEnv {
+data MEnv l = MEnv {
       extSpecs     :: MergedBindingSpecs
     , pSpec        :: PrescriptiveBindingSpec
     , includeGraph :: IncludeGraph
-    , declIndex    :: DeclIndex
+    , declIndex    :: DeclIndex l
     }
-  deriving (Show)
+
+deriving stock instance HasMacroTypes l => Show (MEnv l)
 
 {-------------------------------------------------------------------------------
   Internal: monad state
@@ -193,7 +193,10 @@ insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 -------------------------------------------------------------------------------}
 
 -- Resolve declarations, in two passes
-resolveDecls :: HasCallStack => [C.Decl PreviousPass] -> M [C.Decl ResolveBindingSpecs]
+resolveDecls ::
+     HasCallStack
+  => [C.Decl l PreviousPass]
+  -> M l [C.Decl l ResolveBindingSpecs]
 resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 
 -- Pass one: top-level
@@ -208,10 +211,10 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- specification when applicable.
 resolveTop ::
      HasCallStack
-  => C.Decl PreviousPass
-  -> M
+  => C.Decl l PreviousPass
+  -> M l
        ( Maybe
-           ( C.Decl PreviousPass
+           ( C.Decl l PreviousPass
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
@@ -248,13 +251,13 @@ resolveTop decl = Reader.ask >>= \env -> do
 --
 -- Type specifications that do not match declarations may themselves be mutated.
 applyPrescriptive ::
-     HasCallStack
-  => C.Decl PreviousPass
+     forall l. HasCallStack
+  => C.Decl l PreviousPass
   -> BindingSpec.CTypeSpec
   -> Maybe BindingSpec.HsTypeSpec
-  -> M
+  -> M l
        ( Maybe
-           ( C.Decl PreviousPass
+           ( C.Decl l PreviousPass
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
@@ -276,7 +279,7 @@ applyPrescriptive decl cTypeSpec = \case
   where
     auxRecord ::
          BindingSpec.HsRecordRep
-      -> M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
+      -> M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxRecord recordRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate the record type and number of fields.
@@ -284,13 +287,13 @@ applyPrescriptive decl cTypeSpec = \case
 
     auxNewtype ::
          BindingSpec.HsNewtypeRep
-      -> M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
+      -> M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxNewtype newtypeRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate enum, typedef, or macro type
       return (decl, Just (BindingSpec.HsTypeRepNewtype newtypeRep))
 
-    auxEmptyData :: M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
+    auxEmptyData :: M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxEmptyData = do
       let isValid = case decl.kind of
             C.DeclStruct{}    -> True
@@ -319,7 +322,7 @@ applyPrescriptive decl cTypeSpec = \case
             insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
           return (decl, Nothing)
 
-    auxTypeAlias :: M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
+    auxTypeAlias :: M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxTypeAlias =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate types.
@@ -331,10 +334,9 @@ applyPrescriptive decl cTypeSpec = \case
 -- Types within the declaration are resolved, and it is reconstructed for the
 -- current pass.
 resolveDeep ::
-     HasCallStack
-  => C.Decl PreviousPass
+     C.Decl l PreviousPass
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
-  -> M (C.Decl ResolveBindingSpecs)
+  -> M l (C.Decl l ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
     declKind' <- resolve decl.info.id decl.kind
     return C.Decl {
@@ -354,14 +356,21 @@ resolveDeep decl (cSpec, hsSpec) = do
 -- We do not need to handle references to omitted declarations here since
 -- declarations depending on unavailable declarations will be removed in the
 -- @Select@ pass.
-class Resolve a where
+class Resolve a l where
   resolve ::
        HasCallStack
     => DeclId -- context declaration
     -> a PreviousPass
-    -> M (a ResolveBindingSpecs)
+    -> M l (a ResolveBindingSpecs)
 
-instance Resolve C.DeclKind where
+resolveFlip ::
+     Resolve (Flip f n) l
+  => DeclId
+  -> f PreviousPass n
+  -> M l (f ResolveBindingSpecs n)
+resolveFlip declId = flipM (resolve declId)
+
+instance Resolve (C.DeclKind l) l where
   resolve ctx = \case
       C.DeclStruct struct                  -> C.DeclStruct           <$> resolve ctx struct
       C.DeclUnion union                    -> C.DeclUnion            <$> resolve ctx union
@@ -369,11 +378,11 @@ instance Resolve C.DeclKind where
       C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
       C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
       C.DeclOpaque                         -> return C.DeclOpaque
-      C.DeclMacro macro                    -> C.DeclMacro            <$> resolve ctx macro
+      C.DeclMacro macro                    -> C.DeclMacro            <$> resolveFlip ctx macro
       C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
       C.DeclGlobal ty                      -> C.DeclGlobal           <$> resolve ctx ty
 
-instance Resolve C.Struct where
+instance Resolve C.Struct l where
   resolve ctx struct =
       reconstruct
         <$> mapM (resolve ctx) struct.fields
@@ -391,7 +400,7 @@ instance Resolve C.Struct where
           , ann       = struct.ann
           }
 
-instance Resolve C.StructField where
+instance Resolve C.StructField l where
   resolve ctx field =
       reconstruct <$> resolve ctx field.typ
     where
@@ -406,7 +415,7 @@ instance Resolve C.StructField where
         , ann    = field.ann
         }
 
-instance Resolve C.Union where
+instance Resolve C.Union l where
   resolve ctx union =
       reconstruct <$> mapM (resolve ctx) union.fields
     where
@@ -420,7 +429,7 @@ instance Resolve C.Union where
         , ann       = union.ann
         }
 
-instance Resolve C.UnionField where
+instance Resolve C.UnionField l where
   resolve ctx field =
       reconstruct <$> resolve ctx field.typ
     where
@@ -432,7 +441,7 @@ instance Resolve C.UnionField where
         , ann  = field.ann
         }
 
-instance Resolve C.Enum where
+instance Resolve C.Enum l where
   resolve ctx enum =
       reconstruct <$> resolve ctx enum.typ
     where
@@ -445,7 +454,7 @@ instance Resolve C.Enum where
         , ann       = enum.ann
         }
 
-instance Resolve C.Typedef where
+instance Resolve C.Typedef l where
   resolve ctx typedef =
       reconstruct <$> resolve ctx typedef.typ
     where
@@ -455,7 +464,7 @@ instance Resolve C.Typedef where
           , ann = typedef.ann
           }
 
-instance Resolve C.Function where
+instance Resolve C.Function l where
   resolve ctx function =
     reconstruct
       <$> mapM (resolve ctx) function.args
@@ -472,7 +481,7 @@ instance Resolve C.Function where
         , ann   = function.ann
         }
 
-instance Resolve C.Global where
+instance Resolve C.Global l where
   resolve ctx global =
       reconstruct <$> resolve ctx global.typ
     where
@@ -482,7 +491,7 @@ instance Resolve C.Global where
           , ann = global.ann
           }
 
-instance Resolve C.FunctionArg where
+instance Resolve C.FunctionArg l where
   resolve ctx functionArg =
     reconstruct
       <$> pure functionArg.name
@@ -497,18 +506,19 @@ instance Resolve C.FunctionArg where
           , argTyp = argTyp'
           }
 
-instance Resolve CheckedMacro where
-  resolve ctx = \case
+instance Resolve (Flip TypecheckedMacro l) l where
+  resolve ctx (Flip m) = Flip <$> case m of
     MacroType  typ -> MacroType  <$> resolve ctx typ
     MacroValue val -> MacroValue <$> pure (coercePass val)
 
-instance Resolve CheckedMacroType where
-  resolve ctx (CheckedMacroType (CExpr.CheckedMacroTypeExpr body typ) ann) = do
-      body' <- traverse resolveVar body
-      pure CheckedMacroType{
-          typ = CExpr.CheckedMacroTypeExpr body' typ
-        , ann = ann
-        }
+instance Resolve (TypecheckedMacroType l) l where
+  resolve ctx = \case
+      (TypecheckedMacroType body ann) -> do
+        body' <- traverse resolveVar body
+        pure TypecheckedMacroType{
+            body = body'
+          , ann  = ann
+          }
     where
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1969>
       --
@@ -516,8 +526,8 @@ instance Resolve CheckedMacroType where
       -- of 'DeclId'. Maybe we can directly refer to external bindings from
       -- 'DeclId'?
       resolveVar ::
-           MacroTypeBodyVar ReparseMacroExpansions
-        -> M (MacroTypeBodyVar ResolveBindingSpecs)
+           MacroTypeBodyVar Zip
+        -> M l (MacroTypeBodyVar ResolveBindingSpecs)
       resolveVar (MacroTypeExtBinding   x) = absurd x
       resolveVar (MacroTypeBodyVar declId) = do
           mExt <- auxExt ctx declId
@@ -525,7 +535,7 @@ instance Resolve CheckedMacroType where
             Just ext -> MacroTypeExtBinding ext
             Nothing  -> MacroTypeBodyVar declId
 
-instance Resolve C.Type where
+instance Resolve C.Type l where
   resolve ctx = \case
       C.TypeRef uid -> do
         mResolved <- aux uid
@@ -543,7 +553,7 @@ instance Resolve C.Type where
       C.TypeMacro ref -> do
         mResolved <- aux ref.name
         underlying' <- resolve ctx ref.underlying
-        let macro' = C.TypeMacro (C.Ref ref.name underlying')
+        let macro' = C.TypeMacro (C.MacroRef ref.name underlying')
         case mResolved of
           Just r  -> return $ r macro'
           Nothing -> return macro'
@@ -569,12 +579,15 @@ instance Resolve C.Type where
       C.TypeVoid           -> return (C.TypeVoid)
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
-      aux :: HasCallStack => DeclId -> M (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
+      aux ::
+           HasCallStack
+        => DeclId
+        -> M l (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
       aux cDeclId = fmap reconstruct <$> auxExt ctx cDeclId
         where
           reconstruct ty uTy = C.TypeExtBinding $ C.Ref ty uTy
 
-instance Resolve C.TypeFunArg where
+instance Resolve C.TypeFunArg l where
   resolve ctx arg = do
       typ' <- resolve ctx arg.typ
       pure C.TypeFunArgF {
@@ -586,7 +599,7 @@ auxExt ::
      HasCallStack
   => DeclId
   -> DeclId
-  -> M (Maybe ResolvedExtBinding)
+  -> M l (Maybe ResolvedExtBinding)
 auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
     case Map.lookup cDeclId state.extTypes of
       Just ty -> do
@@ -620,7 +633,7 @@ resolveExtBinding ::
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe (AMsg ResolveBindingSpecs)
-  -> M (Maybe ResolvedExtBinding)
+  -> M l (Maybe ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of

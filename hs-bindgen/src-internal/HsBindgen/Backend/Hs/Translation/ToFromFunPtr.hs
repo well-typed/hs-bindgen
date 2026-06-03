@@ -42,7 +42,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 forFunction ::
      C.Sizeofs
   -> ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 forFunction sizeofs (args, res) =
     instancesFor
       sizeofs
@@ -67,7 +67,7 @@ forNewtype ::
      C.Sizeofs
   -> Hs.Newtype
   -> ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 forNewtype sizeofs newtyp (args, res) =
     instancesFor
       sizeofs
@@ -96,7 +96,7 @@ instancesFor ::
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> HsType       -- ^ Corresponding Haskell type
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 instancesFor sizeofs nameTo nameFrom funC funHs = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec

@@ -4,11 +4,12 @@
 {-# LANGUAGE TypeAbstractions #-}
 #endif
 
+-- | Public entry point for typechecking macros.
 module C.Expr.Typecheck (
     tcMacros
-  , TypeSource(..)
-  , CheckedMacroTypeExpr(..)
-  , CheckedMacroValueExpr(..)
+  , CTypeSource(..)
+  , TypecheckedMacroTypeExpr(..)
+  , TypecheckedMacroValueExpr(..)
   , MacroTcResult(..)
 
     -- * Errors
@@ -32,60 +33,7 @@ import C.Expr.Typecheck.Expr
 import C.Expr.Typecheck.Interface.Type qualified as T
 import C.Expr.Typecheck.Interface.Value qualified as V
 import C.Expr.Typecheck.Type
-import C.Expr.Util.Panic (panicPure)
-
-{-------------------------------------------------------------------------------
-  Typechecking macros: public entry point
--------------------------------------------------------------------------------}
-
--- | Source of a type-position name: either a @typedef@ or a type-like macro.
---
--- Passed to the @injectType@ callback of 'tcMacros' so that the caller can
--- distinguish the two without maintaining its own state.
-data TypeSource =
-    -- | A C @typedef@ name (an ordinary type alias).
-    TypeSourceTypedef
-    -- | A macro that expands to a type expression (e.g. @\#define T int@).
-  | TypeSourceMacroType
-  deriving stock (Eq, Ord, Show, Generic)
-
--- | The macro is a C type expression (e.g., @#define FOO int@).
-data CheckedMacroTypeExpr var = CheckedMacroTypeExpr{
-      macroTypeBody :: T.Expr var
-    , macroTypeType :: Quant (FunValue, Type Ty)
-    }
-  deriving stock (Eq, Show, Generic, Functor)
-
--- | The macro is a value expression (e.g., @#define BAR 1@).
-data CheckedMacroValueExpr var = forall ctx. CheckedMacroValueExpr{
-      macroValueParams :: Vec ctx Name
-    , macroValueBody   :: V.Expr ctx var
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1950>
-      --
-      -- We should not require 'FunValue's for value-like expressions.
-    , macroValueType   :: Quant (FunValue, Type Ty)
-    }
-instance Eq var => Eq (CheckedMacroValueExpr var) where
-  (CheckedMacroValueExpr @_ @c1 p1 b1 t1) == (CheckedMacroValueExpr @_ @c2 p2 b2 t2) =
-    t1 == t2 && (
-      Vec.withDict p1 $ Vec.withDict p2 $
-        case Nat.eqNat @c1 @c2 of
-          Just Refl -> p1 == p2 && b1 == b2
-          Nothing   -> False
-    )
-deriving stock instance Show var => Show (CheckedMacroValueExpr var)
-
--- | The result of typechecking a single macro.
-data MacroTcResult err var =
-    MacroTcTypeExpr    (CheckedMacroTypeExpr  var)
-  | MacroTcValueExpr   (CheckedMacroValueExpr var)
-  -- | The caller's @injectTaggedType@ callback signalled a domain-level failure.
-  | MacroTcInjectError err
-  -- | The @c-expr-dsl@ typechecker rejected the macro ('MacroTcCheckError').
-  | MacroTcError       MacroTcError
-
-deriving stock instance (Show err, Show var) => Show (MacroTcResult err var)
-deriving stock instance (Eq   err, Eq   var) => Eq   (MacroTcResult err var)
+import C.Expr.Util.Panic
 
 -- | Batch-typecheck a sequence of macros
 --
@@ -97,7 +45,7 @@ deriving stock instance (Eq   err, Eq   var) => Eq   (MacroTcResult err var)
 -- The three callbacks @injectType@, @injectTaggedType@, and @injectValue@ are
 -- invoked while traversing each macro's typechecked body to translate
 -- referenced names to the caller's @var@ type. The @injectType@ callback
--- receives a 'TypeSource' so the caller can distinguish @typedef@ references
+-- receives a 'CTypeSource' so the caller can distinguish @typedef@ references
 -- from references to previously-defined type-like macros without maintaining
 -- its own state.
 --
@@ -110,30 +58,30 @@ deriving stock instance (Eq   err, Eq   var) => Eq   (MacroTcResult err var)
 -- 'MacroTcInjectError'.
 tcMacros ::
      forall var err.
-     Set Name                               -- ^ known typedef names
-  -> (TypeSource -> Name -> var)            -- ^ inject type name
-  -> (Name               -> var)            -- ^ inject value name
-  -> (TagKind    -> Name -> Except err var) -- ^ inject tagged type name
+     Set Name                                -- ^ known typedef names
+  -> (CTypeSource -> Name -> var)            -- ^ inject type name
+  -> (Name                -> var)            -- ^ inject value name
+  -> (TagKind     -> Name -> Except err var) -- ^ inject tagged type name
   -> [Macro]
   -> Map Name (MacroTcResult err var)
 tcMacros typedefs injectType injectValue injectTaggedType macros =
     let (_, _, tcRs) = Foldable.foldl' step initEnv macros
     in  tcRs
   where
-    initTypeSources :: Map Name TypeSource
-    initTypeSources = Map.fromSet (const TypeSourceTypedef) typedefs
+    initCTypeSources :: Map Name CTypeSource
+    initCTypeSources = Map.fromSet (const FromTypedef) typedefs
 
-    initEnv :: (TypeEnv, Map Name TypeSource, Map Name a)
-    initEnv = (buildTypedefEnv typedefs, initTypeSources, Map.empty)
+    initEnv :: (TypeEnv, Map Name CTypeSource, Map Name a)
+    initEnv = (buildTypedefEnv typedefs, initCTypeSources, Map.empty)
 
     step ::
-         (TypeEnv, Map Name TypeSource, Map Name (MacroTcResult err var))
+         (TypeEnv, Map Name CTypeSource, Map Name (MacroTcResult err var))
       -> Macro
-      -> (TypeEnv, Map Name TypeSource, Map Name (MacroTcResult err var))
+      -> (TypeEnv, Map Name CTypeSource, Map Name (MacroTcResult err var))
     step (env, typeSources, acc) (Macro _loc name params body) =
       let injectTypeWithSource :: Name -> var
           injectTypeWithSource nm =
-            injectType (lookupTypeSource typeSources nm) nm
+            injectType (lookupCTypeSource typeSources nm) nm
           eRes =
             runExcept $
               tcMacroOne env
@@ -148,7 +96,7 @@ tcMacros typedefs injectType injectValue injectTaggedType macros =
           (env', typeSources') = case result of
             MacroTcTypeExpr cmt ->
               ( Map.insert name (macroTypeType  cmt) env
-              , Map.insert name TypeSourceMacroType typeSources )
+              , Map.insert name FromMacroType typeSources )
             MacroTcValueExpr cmv ->
               ( Map.insert name (macroValueType cmv) env
               , typeSources )
@@ -158,12 +106,61 @@ tcMacros typedefs injectType injectValue injectTaggedType macros =
               (env, typeSources)
       in  (env', typeSources', Map.insert name result acc)
 
-    -- Resolve the 'TypeSource' of a type-position name. A missing entry means
+    -- Resolve the 'CTypeSource' of a type-position name. A missing entry means
     -- the name is value-like or unknown, indicating a bug in the type checker.
-    lookupTypeSource :: Map Name TypeSource -> Name -> TypeSource
-    lookupTypeSource typeSources nm = case Map.lookup nm typeSources of
+    lookupCTypeSource :: Map Name CTypeSource -> Name -> CTypeSource
+    lookupCTypeSource typeSources nm = case Map.lookup nm typeSources of
       Just k  -> k
       Nothing -> panicPure $ "tcMacros: unavailable type source: " <> show nm
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+-- | Where a type-position name originates from.
+data CTypeSource = FromTypedef | FromMacroType
+  deriving stock (Eq, Ord, Show, Generic)
+
+-- | The macro is a C type expression (e.g., @#define FOO int@).
+data TypecheckedMacroTypeExpr var = TypecheckedMacroTypeExpr{
+      macroTypeBody :: T.Expr var
+    , macroTypeType :: Quant (FunValue, Type Ty)
+    }
+  deriving stock (Eq, Show, Generic, Functor, Foldable, Traversable)
+
+-- | The macro is a value expression (e.g., @#define BAR 1@).
+data TypecheckedMacroValueExpr var = forall ctx. TypecheckedMacroValueExpr{
+      macroValueParams :: Vec ctx Name
+    , macroValueBody   :: V.Expr ctx var
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1950>
+      --
+      -- We should not require 'FunValue's for value-like expressions.
+    , macroValueType   :: Quant (FunValue, Type Ty)
+    }
+instance Eq var => Eq (TypecheckedMacroValueExpr var) where
+  (TypecheckedMacroValueExpr @_ @c1 p1 b1 t1) == (TypecheckedMacroValueExpr @_ @c2 p2 b2 t2) =
+    t1 == t2 && (
+      Vec.withDict p1 $ Vec.withDict p2 $
+        case Nat.eqNat @c1 @c2 of
+          Just Refl -> p1 == p2 && b1 == b2
+          Nothing   -> False
+    )
+deriving stock instance Show var => Show (TypecheckedMacroValueExpr var)
+deriving stock instance Functor     TypecheckedMacroValueExpr
+deriving stock instance Foldable    TypecheckedMacroValueExpr
+deriving stock instance Traversable TypecheckedMacroValueExpr
+
+-- | The result of typechecking a single macro.
+data MacroTcResult err var =
+    MacroTcTypeExpr    (TypecheckedMacroTypeExpr  var)
+  | MacroTcValueExpr   (TypecheckedMacroValueExpr var)
+  -- | The caller's @injectTaggedType@ callback signalled a domain-level failure.
+  | MacroTcInjectError err
+  -- | The @c-expr-dsl@ typechecker rejected the macro ('MacroTcCheckError').
+  | MacroTcError       MacroTcError
+
+deriving stock instance (Show err, Show var) => Show (MacroTcResult err var)
+deriving stock instance (Eq   err, Eq   var) => Eq   (MacroTcResult err var)
 
 {-------------------------------------------------------------------------------
   Internal: typecheck a single macro against a given 'TypeEnv'.
@@ -203,12 +200,12 @@ tcMacroOne tyEnv injectType injectValue injectTaggedType name params expr =
             if isIncompleteType texpr then
               MacroTcError $ TcIncompleteTypeMacro name
             else
-              MacroTcTypeExpr $ CheckedMacroTypeExpr texpr quant
+              MacroTcTypeExpr $ TypecheckedMacroTypeExpr texpr quant
           ) <$> T.fromExpr injectType injectTaggedType expr
       (_, quant) ->
         pure $
           (\vexpr -> MacroTcValueExpr $
-            CheckedMacroValueExpr params vexpr quant) $
+            TypecheckedMacroValueExpr params vexpr quant) $
               V.fromExpr injectValue expr
 
     -- | An incomplete type at the top level of a type-like macro: 'void' or

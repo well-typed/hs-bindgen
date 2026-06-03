@@ -44,6 +44,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -294,15 +295,16 @@ runTestHsBindgen ::
     (String -> IO ())
   -> IO TestResources
   -> TestCase
-  -> Artefact a
+  -> Artefact CExpr a
   -> IO (Either BindgenError a)
 runTestHsBindgen report getTestResources test artefacts = do
     bootConfig <- getTestBootConfig test <$> getTestResources
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
-    withTestTraceConfig report test $ \traceConfigUnsafe ->
-      hsBindgenE
+    withTestTraceConfig report test $ \traceConfigUnsafe -> do
+      hsBindgenEMacroLang
+        (pure . cExprLang)
         traceConfigUnsafe
         quietTracerConfig
         bindgenConfig
@@ -313,7 +315,7 @@ runTestHsBindgenSuccess ::
      (String -> IO ())
   -> IO TestResources
   -> TestCase
-  -> Artefact b
+  -> Artefact CExpr b
   -> IO b
 runTestHsBindgenSuccess report getTestResources test artefacts = do
     eRes <- runTestHsBindgen report getTestResources test artefacts

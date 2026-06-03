@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -30,24 +31,25 @@ type MangleNames :: Pass
 data MangleNames a
 
 type family AnnMangleNames ix where
-  AnnMangleNames "Decl"             = PrescriptiveDeclSpec
-  AnnMangleNames "Struct"           = StructNames
-  AnnMangleNames "Union"            = NewtypeNames
-  AnnMangleNames "UnionField"       = UnionFieldNames
-  AnnMangleNames "Enum"             = NewtypeNames
-  AnnMangleNames "Typedef"          = TypedefNames
-  AnnMangleNames "CheckedMacroType" = NewtypeNames
-  AnnMangleNames _                  = NoAnn
+  AnnMangleNames "Decl"                 = PrescriptiveDeclSpec
+  AnnMangleNames "Struct"               = StructNames
+  AnnMangleNames "Union"                = NewtypeNames
+  AnnMangleNames "UnionField"           = UnionFieldNames
+  AnnMangleNames "Enum"                 = NewtypeNames
+  AnnMangleNames "Typedef"              = TypedefNames
+  AnnMangleNames "TypecheckedMacroType" = NewtypeNames
+  AnnMangleNames _                      = NoAnn
 
 instance IsPass MangleNames where
-  type Id          MangleNames = DeclIdPair
-  type ScopedName  MangleNames = ScopedNamePair
-  type MacroBody   MangleNames = CheckedMacro MangleNames
-  type ExtBinding  MangleNames = ResolvedExtBinding
-  type Ann ix      MangleNames = AnnMangleNames ix
-  type Msg         MangleNames = WithLocationInfo MangleNamesMsg
-  type MacroId     MangleNames = Id MangleNames
-  type CommentDecl MangleNames = Maybe (C.Comment MangleNames)
+  type Id              MangleNames = DeclIdPair
+  type ScopedName      MangleNames = ScopedNamePair
+  type MacroBody       MangleNames = TypecheckedMacro MangleNames
+  type ExtBinding      MangleNames = ResolvedExtBinding
+  type Ann ix          MangleNames = AnnMangleNames ix
+  type Msg             MangleNames = WithLocationInfo MangleNamesMsg
+  type MacroId         MangleNames = Id MangleNames
+  type CommentDecl     MangleNames = Maybe (C.Comment MangleNames)
+  type MacroUnderlying MangleNames = C.Type MangleNames
 
   idNameKind     _ namePair   = namePair.cName.name.kind
   idSourceName   _ namePair   = declIdSourceName namePair.cName

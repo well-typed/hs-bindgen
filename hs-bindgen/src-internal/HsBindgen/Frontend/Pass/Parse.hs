@@ -20,17 +20,22 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-parseDecls :: ParseDecl.Env -> IO ([ParseResult Parse], [MacroDefinition])
-parseDecls parseEnv = do
+parseDecls ::
+     forall l.
+     MacroLang l
+  -> ParseDecl.Env
+  -> IO ([ParseResult l Parse], [MacroDefinition])
+parseDecls macroLang parseEnv = do
     root <- clang_getTranslationUnitCursor parseEnv.unit
     ParseDecl.run parseEnv $ do
-      resultsWithLocs <- HighLevel.clang_visitChildren root topLevelDecl
-      let resultsOriginalOrder :: [ParseResult Parse]
+      resultsWithLocs <- HighLevel.clang_visitChildren root (topLevelDecl macroLang)
+      let resultsOriginalOrder :: [ParseResult l Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
       macroDefinitions <- ParseDecl.getMacroDefinitions
       -- If the version of Clang is >= 20.1, we can obtain sequence order by
@@ -42,7 +47,7 @@ parseDecls parseEnv = do
       (,macroDefinitions) <$> case clang_isBeforeInTranslationUnit of
         Just isBeforeInUnit -> do
           let isBefore (a, _) (b, _) = isBeforeInUnit a b
-          resultsSequenceOrder :: [ParseResult Parse] <-
+          resultsSequenceOrder :: [ParseResult l Parse] <-
             liftIO $ concatMap snd <$> sortByM isBefore resultsWithLocs
           let -- The map is keyed on @('Id' 'Parse', 'SingleLoc')@ rather than
               -- just @'Id' 'Parse'@ to handle forward declarations at different
@@ -96,8 +101,8 @@ sortByM isBefore = go
 --   'ParseResult'
 setSeqNr ::
      Map (Id Parse, SingleLoc) Natural
-  -> ParseResult Parse
-  -> ParseResult Parse
+  -> ParseResult l Parse
+  -> ParseResult l Parse
 setSeqNr seqNrMap result =
     result
       &  #classification % #_ParseResultSuccess % #decl % #info % #seqNr

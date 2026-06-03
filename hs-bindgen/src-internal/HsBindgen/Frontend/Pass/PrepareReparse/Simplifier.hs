@@ -18,26 +18,19 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (
 
 import Prelude hiding (print)
 
-import Data.Either (partitionEithers)
-import Data.Foldable (Foldable (toList))
-import Data.Kind (Type)
+import Data.Either
+import Data.Kind
 
-import Clang.HighLevel.Types (Token, TokenSpelling)
+import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (ReparseNeeded, ReparseNotNeeded))
-import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Include (..),
-                                                   MacroName (MacroName),
-                                                   PreHeader (..), Tag (..),
-                                                   TagName (TagName),
-                                                   TagType (Field, Function, Typedef, Variable),
-                                                   Target (..), Undef (..))
-import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault,
-                                                       flattenFunction)
+import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.PrepareReparse.AST
+import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (CheckedMacro (..),
-                                                       TypecheckMacros)
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -61,20 +54,21 @@ class Simplify a where
   Instances
 -------------------------------------------------------------------------------}
 
-instance Simplify C.TranslationUnit where
-  type Ctx C.TranslationUnit = ()
-  type Simple C.TranslationUnit = (Include -> PreHeader)
-  simplifyIt _ unit = \include -> PreHeader {
+instance Simplify (C.TranslationUnit l) where
+  type Ctx    (C.TranslationUnit l) = ()
+  type Simple (C.TranslationUnit l) = (Include -> PreHeader)
+  simplifyIt _ (unit) = \include -> PreHeader {
         include = include
-      , undefs = undefs
+      , undefs  = undefs
       , targets = targets
       }
     where
-      (undefs, targets) = partitionEithers $ concatMap recurse unit.decls
+      (undefs, targets) =
+        partitionEithers $ concatMap recurse unit.decls
       recurse = simplifyIt ()
 
-instance Simplify C.Decl where
-  type Ctx C.Decl = ()
+instance Simplify (C.Decl l) where
+  type Ctx (C.Decl l) = ()
   simplifyIt _ decl = case decl.kind of
       C.DeclStruct struct      -> recurse struct
       C.DeclUnion union        -> recurse union
@@ -82,7 +76,7 @@ instance Simplify C.Decl where
       C.DeclEnum enum          -> recurse enum
       C.DeclAnonEnumConstant c -> recurse c
       C.DeclOpaque             -> nothing
-      C.DeclMacro macro        -> recurse macro
+      C.DeclMacro macro        -> recurse $ Flip macro
       C.DeclFunction function  -> recurse function
       C.DeclGlobal global      -> recurse global
     where
@@ -95,7 +89,7 @@ instance Simplify C.Decl where
 instance Simplify C.Struct where
   simplifyIt info struct =
       concatMap (simplifyIt info) struct.fields ++
-      concatMap (simplifyIt info) (toList struct.flam)
+      concatMap (simplifyIt info) struct.flam
 
 instance Simplify C.StructField where
   simplifyIt info field = case field.ann of
@@ -124,9 +118,9 @@ instance Simplify C.Enum where
 instance Simplify C.AnonEnumConstant where
   simplifyIt _ _ = nothing
 
-instance Simplify CheckedMacro where
-  simplifyIt info = \case
-    MacroType{} -> singleUndef $ Undef (MacroName (P.name info ""))
+instance Simplify (Flip TypecheckedMacro l) where
+  simplifyIt info (Flip m) = case m of
+    MacroType{}  -> singleUndef $ Undef (MacroName (P.name info ""))
     MacroValue{} -> nothing
 
 instance Simplify C.Function where

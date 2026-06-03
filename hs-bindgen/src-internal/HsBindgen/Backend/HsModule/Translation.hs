@@ -348,10 +348,10 @@ resolveExprImports = \case
     EIntegral _ t -> maybe mempty resolveTypeImports t
     EUnboxedIntegral _ -> mempty
     EChar {} -> mconcat $
-      map (resolveGlobalImports . cExprGlobalType) [
+      map (resolveGlobalImports . charLitGlobalType) [
           CharValue_type
         ] ++
-      map (resolveGlobalImports . cExprGlobalTerm) [
+      map (resolveGlobalImports . charLitGlobalTerm) [
           CharValue_constructor
         , CharValue_fromAddr
         ] ++

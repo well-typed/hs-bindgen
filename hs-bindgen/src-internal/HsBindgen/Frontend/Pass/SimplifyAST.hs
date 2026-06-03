@@ -34,15 +34,18 @@ import HsBindgen.Util.Tracer (withCallStack)
 simplifyAST ::
      HasCallStack
   => AnonUsageAnalysis
-  -> [ParseResult Parse]
-  -> ([ParseResult SimplifyAST], [AMsg SimplifyAST])
+  -> [ParseResult l Parse]
+  -> ([ParseResult l SimplifyAST], [AMsg SimplifyAST])
 simplifyAST usage parseResults = (results, msgs)
   where
     processedResults = map processResult parseResults
     results = concatMap fst processedResults
     msgs = concatMap snd processedResults
 
-    processResult :: HasCallStack => ParseResult Parse -> ([ParseResult SimplifyAST], [AMsg SimplifyAST])
+    processResult ::
+         HasCallStack
+      => ParseResult l Parse
+      -> ([ParseResult l SimplifyAST], [AMsg SimplifyAST])
     processResult result =
       case result.classification of
         ParseResultSuccess success ->

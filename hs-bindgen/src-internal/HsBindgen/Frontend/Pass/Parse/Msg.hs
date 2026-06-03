@@ -13,8 +13,6 @@ import Foreign.C (CInt)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
-import C.Expr.Parse qualified as CExpr
-
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -24,8 +22,9 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Align.Error qualified as Align
+import HsBindgen.Frontend.Pass.Zip.Error
 import HsBindgen.Imports
+import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -130,16 +129,28 @@ data DelayedParseMsg =
   | ParseMacroEmpty PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
-  | ParseMacroErrorParse CExpr.MacroParseError
+  | ParseMacroErrorParse MacroLangParseError
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
+    --
+    -- 'ParseMacroErrorReparse' should be a delayed reparse message.
 
     -- | We could not reparse a fragment of C (to recover macro use sites)
   | ParseMacroErrorReparse LanC.Error
 
-    -- | We could not align the C AST before reparsing with the C AST after
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
+    --
+    -- 'ParseMacroErrorReparseZip' should be a delayed zip message.
+
+    -- | We could not zip the C AST before reparsing with the C AST after
     -- reparsing
-  | ParseMacroErrorReparseAlign
-      -- | Error that occurred during alignment
-      Align.Error
+  | ParseMacroErrorReparseZip
+      -- | Error that occurred during zipping
+      ZipError
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
+    --
+    -- 'ParseMacroReparseUnknownType' should be a delayed reparse message.
 
     -- | While reparsing a declaration with a macro expansion, we do not know
     --   the type of an expanded macro.
@@ -367,14 +378,15 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseMacroErrorParse err -> PP.vcat [
           "Could not parse macro:"
-        , PP.nest 2 $ prettyMacroParseError err
+        , PP.nest 2 $
+            PP.renderedLines $ \_maxWidth -> lines err.macroParseError
         ]
       ParseMacroErrorReparse x -> PP.hsep [
           "Failed to reparse: "
         , prettyForTrace x
         ]
-      ParseMacroErrorReparseAlign err -> PP.hsep [
-          "Failed to align the C AST before reparsing with"
+      ParseMacroErrorReparseZip err -> PP.hsep [
+          "Failed to zip the C AST before reparsing with"
         , "the C AST after reparsing: "
         , prettyForTrace err
         ]
@@ -484,9 +496,6 @@ instance PrettyForTrace DelayedParseMsg where
           , PP.string pleaseReport
           ]
 
-      prettyMacroParseError :: CExpr.MacroParseError -> PP.CtxDoc
-      prettyMacroParseError err = PP.renderedLines $ \_maxWidth -> lines err.parseError
-
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
@@ -495,7 +504,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroEmpty{}                 -> Info
       ParseMacroErrorParse{}            -> Info
       ParseMacroErrorReparse{}          -> Info
-      ParseMacroErrorReparseAlign x     -> getDefaultLogLevel x
+      ParseMacroErrorReparseZip x       -> getDefaultLogLevel x
       ParseMacroReparseUnknownType{}    -> Info
       ParsePotentialDuplicateSymbol{}   -> Notice
       ParseDeclarationNotVisible{}      -> Warning
@@ -530,7 +539,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroEmpty{}              -> "parse-macro"
       ParseMacroErrorParse{}         -> "parse-macro"
       ParseMacroErrorReparse{}       -> "parse-macro"
-      ParseMacroErrorReparseAlign e  -> getTraceId e
+      ParseMacroErrorReparseZip e    -> getTraceId e
       ParseMacroReparseUnknownType{} -> "parse-macro"
       _ -> "parse"
 

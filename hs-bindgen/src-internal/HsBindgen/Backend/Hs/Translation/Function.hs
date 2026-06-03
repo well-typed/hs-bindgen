@@ -91,7 +91,7 @@ functionDecs ::
   -> C.DeclInfo Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spec =
     concat [
         foreignImport
@@ -119,7 +119,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     primParams :: [PassArgBy]
     primParams = map (\arg -> classifyArgPassingMethod (arg.argTyp)) origCFun.args
 
-    foreignImport :: [Hs.Decl]
+    foreignImport :: [Hs.Decl l]
     foreignImport =
         HsFI.foreignImportDec
           sizeofs
@@ -190,7 +190,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
               hsType   = mbHsIO $ toPrimitiveType Type.FunRes passBy
             }
 
-    restoreOrigSignature :: Hs.Decl
+    restoreOrigSignature :: Hs.Decl l
     restoreOrigSignature =
         getRestoreOrigSignatureDecl
           origHsName
@@ -483,7 +483,7 @@ getRestoreOrigSignatureDecl ::
   -> [Hs.FunctionParameter] -- ^ Haskell function parameters
   -> C.Function Final       -- ^ original C function
   -> Maybe HsDoc.Comment    -- ^ function comment
-  -> Hs.Decl
+  -> Hs.Decl l
 getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParams cFunc mbComment =
     Hs.DeclFunction $ Hs.FunctionDecl{
         name       = hiName

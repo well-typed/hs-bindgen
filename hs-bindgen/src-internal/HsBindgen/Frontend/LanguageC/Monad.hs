@@ -18,18 +18,19 @@ module HsBindgen.Frontend.LanguageC.Monad (
   , optionally
   ) where
 
-import Control.Applicative
 import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.Except qualified as Except
 import Control.Monad.Reader (Reader)
 import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
+import Data.Set qualified as Set
 import GHC.Stack
 
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 
@@ -58,15 +59,12 @@ data ReparseEnv = ReparseEnv {
     knownTypes      :: Map CName (C.Type ReparseMacroExpansions)
     -- | Known type-like macros
     --
-    -- We store macros in a separate field, because in the future we may not
-    -- translate macros to their full C types anymore.
+    -- We store macros in a separate field, because we do not translate macros
+    -- to their full C types.
     --
     -- Furthermore, we only add the macros /expanded in the reparsed
     -- declaration/ to the environment.
-    --
-    -- At the moment, we translate to C.Type using @addNewMacroTypeToReparseEnv@
-    -- in @TypecheckMacros@.
-  , knownMacroTypes :: Map CName (C.Type ReparseMacroExpansions)
+  , knownMacros :: Set CName
   }
   deriving (Show, Eq)
 
@@ -79,13 +77,25 @@ getReparseEnv :: FromLanC ReparseEnv
 getReparseEnv = WrapFromLanC Reader.ask
 
 getKnownTypes :: ReparseEnv -> Set CName
-getKnownTypes env = Map.keysSet env.knownTypes <> Map.keysSet env.knownMacroTypes
+getKnownTypes env = Map.keysSet env.knownTypes <> env.knownMacros
 
 lookupType :: CName -> ReparseEnv -> Maybe (C.Type ReparseMacroExpansions)
 lookupType nm env =
-    -- Macro types take priority: a typedef and a type-like macro may share the
-    -- same bare name (e.g. 'bool' from stdbool.h alongside a typedef 'bool').
-    Map.lookup nm env.knownMacroTypes <|> Map.lookup nm env.knownTypes
+    case (Set.member nm env.knownMacros, Map.lookup nm env.knownTypes) of
+      -- Macro types take priority: a typedef and a type-like macro may share the
+      -- same bare name (e.g. 'bool' from stdbool.h alongside a typedef 'bool').
+      --
+      -- The underlying type '()' is a placeholder. The 'Zip' pass fills it in
+      -- by consulting the annotation carrying information from pre-reparse
+      -- 'TypecheckMacros'.
+      (True,  _)            -> Just (C.TypeMacro (C.MacroRef macroId ()))
+      (False, mTypedefType) -> mTypedefType
+  where
+    macroId :: DeclId
+    macroId = DeclId{
+        name   = CDeclName nm CNameKindMacro
+      , isAnon = False
+      }
 
 {-------------------------------------------------------------------------------
   Throwing errors

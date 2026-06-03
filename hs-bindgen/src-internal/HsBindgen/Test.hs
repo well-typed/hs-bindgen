@@ -24,7 +24,7 @@ import HsBindgen.Test.Readme (genTestsReadme)
 -- | Generate test suite
 genTests ::
      [HashIncludeArg]
-  -> ByCategory_ [Hs.Decl]
+  -> ByCategory_ [Hs.Decl l]
   -> BaseModuleName -- ^ Generated Haskell module name
   -> FilePath       -- ^ Test suite directory path
   -> IO ()

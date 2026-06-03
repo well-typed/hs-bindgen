@@ -57,11 +57,11 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
 
 hasFFITypeDecs ::
      Hs.Newtype
-  -> [Hs.Decl]
+  -> [Hs.Decl l]
 hasFFITypeDecs nt =
     [mk | Inst.HasFFIType `elem` nt.instances]
   where
-    mk :: Hs.Decl
+    mk :: Hs.Decl l
     mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
           strategy = Hs.DeriveNewtype
         , clss     = Inst.HasFFIType

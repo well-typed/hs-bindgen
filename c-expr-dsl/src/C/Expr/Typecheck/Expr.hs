@@ -83,7 +83,7 @@ import C.Type qualified as Runtime
 
 import C.Expr.Syntax
 import C.Expr.Typecheck.Type
-import C.Expr.Util.TestEquality (equals2)
+import C.Expr.Util.TestEquality
 
 import C.Operators qualified as Runtime
 

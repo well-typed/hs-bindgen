@@ -18,32 +18,40 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Type
 import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-translateDecls :: ByCategory_ [Hs.Decl] -> ByCategory_ ([CWrapper], [SDecl])
-translateDecls = fmap go
+translateDecls ::
+     forall l. HasMacroTypes l
+  => MacroLang l
+  -> ByCategory_ [Hs.Decl l]
+  -> ByCategory_ ([CWrapper], [SDecl])
+translateDecls macroLang = fmap go
   where
-    go :: [Hs.Decl] -> ([CWrapper], [SDecl])
-    go decls = (wrappers, map translateDecl decls)
+    go :: [Hs.Decl l] -> ([CWrapper], [SDecl])
+    go decls = (wrappers, map (translateDecl macroLang) decls)
       where
         wrappers = getCWrappers decls
 
 -- Find and assemble C sources required by foreign imports.
-getCWrappers :: [Hs.Decl] -> [CWrapper]
+getCWrappers :: [Hs.Decl l] -> [CWrapper]
 getCWrappers decls = mapMaybe getCWrapper decls
   where
-    getCWrapper :: Hs.Decl -> Maybe CWrapper
+    getCWrapper :: Hs.Decl l -> Maybe CWrapper
     getCWrapper = \case
       Hs.DeclForeignImport importDecl ->
         case importDecl.callConv of
@@ -51,23 +59,23 @@ getCWrappers decls = mapMaybe getCWrapper decls
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
 
-translateDecl :: Hs.Decl -> SDecl
-translateDecl = \case
-  Hs.DeclTypSyn               x -> translateDeclTypSyn           x
-  Hs.DeclData                 x -> translateDeclData             x
-  Hs.DeclEmpty                x -> translateDeclEmpty            x
-  Hs.DeclNewtype              x -> translateNewtype              x
-  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl   x
-  Hs.DeclDeriveInstance       x -> translateDeriveInstance       x
-  Hs.DeclMacroValue           x -> translateMacroValue           x
-  Hs.DeclForeignImport        x -> translateForeignImportDecl    x
-  Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper x
-  Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic x
-  Hs.DeclFunction             x -> translateFunctionDecl         x
-  Hs.DeclPatSyn               x -> translatePatSyn               x
-  Hs.DeclUnionGetter          x -> translateUnionGetter          x
-  Hs.DeclUnionSetter          x -> translateUnionSetter          x
-  Hs.DeclVar                  x -> translateDeclVar              x
+translateDecl :: HasMacroTypes l => MacroLang l -> Hs.Decl l -> SDecl
+translateDecl macroLang = \case
+  Hs.DeclTypSyn               x -> translateDeclTypSyn            x
+  Hs.DeclData                 x -> translateDeclData              x
+  Hs.DeclEmpty                x -> translateDeclEmpty             x
+  Hs.DeclNewtype              x -> translateNewtype               x
+  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl    x
+  Hs.DeclDeriveInstance       x -> translateDeriveInstance        x
+  Hs.DeclMacroValue           x -> translateMacroValue' macroLang x
+  Hs.DeclForeignImport        x -> translateForeignImportDecl     x
+  Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper  x
+  Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic  x
+  Hs.DeclFunction             x -> translateFunctionDecl          x
+  Hs.DeclPatSyn               x -> translatePatSyn                x
+  Hs.DeclUnionGetter          x -> translateUnionGetter           x
+  Hs.DeclUnionSetter          x -> translateUnionSetter           x
+  Hs.DeclVar                  x -> translateDeclVar               x
 
 translateDeclTypSyn :: Hs.TypSyn -> SDecl
 translateDeclTypSyn d = DTypSyn $ TypeSynonym {
@@ -194,6 +202,17 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
     , typ      = TApp (TClass deriv.clss) (TCon deriv.name)
     , comment  = deriv.comment
     }
+
+translateMacroValue' :: HasMacroTypes l => MacroLang l -> Hs.MacroValue l -> SDecl
+translateMacroValue' macroLang macro = DBinding $
+    macroLang.translateMacroValue
+      macro.name
+      (fmap macroIdToHsName macro.expr.body)
+      macro.comment
+  where
+    macroIdToHsName :: Id Final -> Hs.TermName
+    macroIdToHsName namePair =
+        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{

@@ -27,15 +27,16 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl)
+import HsBindgen.Macro.Type
 
 -- NOTE: this is a copy of 'HsBindgen.Frontend.Pass.Parse.Decl.Parser' for
 -- internal use to prevent cyclic module dependencies
-type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
+type Parser l = CXCursor -> ParseDecl (Next ParseDecl [ParseResult l Parse])
 
 -- | The result of parsing the members of a struct\/union
-data ParseMembersResult field = ParseMembersResult {
+data ParseMembersResult field l = ParseMembersResult {
       -- | Nested object declarations (i.e., structs and unions)
-      declMembers  :: [ParseResult Parse]
+      declMembers  :: [ParseResult l Parse]
       -- | Field declarations
       --
       -- Returns 'Left' if any nested struct\/union declarations or field
@@ -43,7 +44,8 @@ data ParseMembersResult field = ParseMembersResult {
     , fieldMembers :: Either DelayedParseMsg [field Parse]
     }
 
-deriving stock instance Show (field Parse) => Show (ParseMembersResult field)
+deriving stock instance (Show (field Parse), HasMacroTypes l)
+  => Show (ParseMembersResult field l)
 
 -- | Parse the members of a struct
 parseStructMembersWith ::
@@ -52,9 +54,9 @@ parseStructMembersWith ::
   -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
-  -> (ParseCtx -> Parser)
+  -> (ParseCtx -> Parser l)
       -- | How to continue with the result of parsing members
-  -> (ParseMembersResult C.StructField -> ParseDecl a)
+  -> (ParseMembersResult C.StructField l -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
 parseStructMembersWith ty ctx parseObject k =
     parseMembersWith ty ctx structFieldDecl parseObject k
@@ -66,9 +68,9 @@ parseUnionMembersWith ::
   -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
-  -> (ParseCtx -> Parser)
+  -> (ParseCtx -> Parser l)
       -- | How to continue with the result of parsing members
-  -> (ParseMembersResult C.UnionField -> ParseDecl a)
+  -> (ParseMembersResult C.UnionField l -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
 parseUnionMembersWith ty ctx parseObject k =
     parseMembersWith ty ctx unionFieldDecl parseObject k
@@ -85,9 +87,9 @@ parseMembersWith ::
   -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
-  -> (ParseCtx -> Parser)
+  -> (ParseCtx -> Parser l)
      -- | How to continue with the result of parsing members
-  -> (ParseMembersResult field -> ParseDecl a)
+  -> (ParseMembersResult field l -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
 parseMembersWith ty ctx parseField parseObject k =
     foldRecurseWith (parseMember ctx parseField parseObject) $ \xs -> do
@@ -143,17 +145,17 @@ parseMembersWith ty ctx parseField parseObject k =
                     }
 
 -- | The result of parsing a single member of a struct\/union
-data ParseMemberResult field =
+data ParseMemberResult field l =
     ParseMemberResultFoldException (FoldException (ExceptionInCtx DelayedParseMsg))
-  | ParseMemberResultDecls [ParseResult Parse]
+  | ParseMemberResultDecls [ParseResult l Parse]
   | ParseMemberResultField (field Parse)
 
 partitionParseMemberResults ::
-     [ParseMemberResult field]
+     [ParseMemberResult field l]
   -> ( [FoldException (ExceptionInCtx DelayedParseMsg)]
-     , [ParseResult Parse]  -- ^ All parse results
-     , [ParseResult Parse]  -- ^ Only parse failures
-     , IFields.Inputs field -- ^ Only parse successes
+     , [ParseResult l Parse]  -- ^ All parse results
+     , [ParseResult l Parse]  -- ^ Only parse failures
+     , IFields.Inputs field l -- ^ Only parse successes
      )
 partitionParseMemberResults = mconcat . fmap f
   where
@@ -177,8 +179,8 @@ parseMember ::
   -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
-  -> (ParseCtx -> Parser)
-  -> Fold ParseDecl (ParseMemberResult field)
+  -> (ParseCtx -> Parser l)
+  -> Fold ParseDecl (ParseMemberResult field l)
 parseMember ctx parseField parseObject =
     fmap flatten $
     foldTry $ \curr -> do
@@ -194,8 +196,8 @@ parseMember ctx parseField parseObject =
           fmap ParseMemberResultDecls <$> parseObject ctx curr
   where
     flatten ::
-         Either (FoldException (ExceptionInCtx DelayedParseMsg)) (ParseMemberResult field)
-      -> ParseMemberResult field
+         Either (FoldException (ExceptionInCtx DelayedParseMsg)) (ParseMemberResult field l)
+      -> ParseMemberResult field l
     flatten = \case
         Left e -> ParseMemberResultFoldException e
         Right x -> x

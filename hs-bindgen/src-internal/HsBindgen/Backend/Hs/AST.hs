@@ -99,7 +99,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
-import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -244,24 +244,24 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -------------------------------------------------------------------------------}
 
 -- | Top-level declaration
-type Decl :: Star
-data Decl where
-    DeclTypSyn               :: TypSyn               -> Decl
-    DeclData                 :: Struct               -> Decl
-    DeclEmpty                :: EmptyData            -> Decl
-    DeclNewtype              :: Newtype              -> Decl
-    DeclPatSyn               :: PatSyn               -> Decl
-    DeclDefineInstance       :: DefineInstance       -> Decl
-    DeclDeriveInstance       :: DeriveInstance       -> Decl
-    DeclForeignImport        :: ForeignImportDecl    -> Decl
-    DeclForeignImportDynamic :: ForeignImportDynamic -> Decl
-    DeclForeignImportWrapper :: ForeignImportWrapper -> Decl
-    DeclFunction             :: FunctionDecl         -> Decl
-    DeclMacroValue           :: MacroValue           -> Decl
-    DeclUnionGetter          :: UnionGetter          -> Decl
-    DeclUnionSetter          :: UnionSetter          -> Decl
-    DeclVar                  :: Var                  -> Decl
-deriving instance Show Decl
+type Decl :: Star -> Star
+data Decl l where
+    DeclTypSyn               :: TypSyn               -> Decl l
+    DeclData                 :: Struct               -> Decl l
+    DeclEmpty                :: EmptyData            -> Decl l
+    DeclNewtype              :: Newtype              -> Decl l
+    DeclPatSyn               :: PatSyn               -> Decl l
+    DeclDefineInstance       :: DefineInstance       -> Decl l
+    DeclDeriveInstance       :: DeriveInstance       -> Decl l
+    DeclForeignImport        :: ForeignImportDecl    -> Decl l
+    DeclForeignImportDynamic :: ForeignImportDynamic -> Decl l
+    DeclForeignImportWrapper :: ForeignImportWrapper -> Decl l
+    DeclFunction             :: FunctionDecl         -> Decl l
+    DeclMacroValue           :: MacroValue l         -> Decl l
+    DeclUnionGetter          :: UnionGetter          -> Decl l
+    DeclUnionSetter          :: UnionSetter          -> Decl l
+    DeclVar                  :: Var                  -> Decl l
+deriving stock instance Show (Decl l)
 
 data DefineInstance = DefineInstance{
       instanceDecl :: InstanceDecl
@@ -293,12 +293,12 @@ data InstanceDecl where
 deriving instance Show InstanceDecl
 
 -- | Macro expression
-type MacroValue :: Star
-data MacroValue = MacroValue {
+type MacroValue :: Star -> Star
+data MacroValue l = MacroValue {
     -- | Name of variable/function.
       name    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , expr    :: CheckedMacroValue Final
+    , expr    :: TypecheckedMacroValue l Final
     -- | RHS of variable/function.
     , comment :: Maybe HsDoc.Comment
     }

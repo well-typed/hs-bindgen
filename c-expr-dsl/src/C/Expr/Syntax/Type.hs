@@ -13,7 +13,7 @@ module C.Expr.Syntax.Type (
   , FloatSize(..)
   ) where
 
-import GHC.Generics (Generic)
+import GHC.Generics
 
 {-------------------------------------------------------------------------------
   Definition

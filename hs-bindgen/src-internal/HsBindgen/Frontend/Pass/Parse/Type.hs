@@ -12,7 +12,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass (NoAnn (..))
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Type (ParseType)
@@ -228,6 +228,7 @@ function hasProto = \ty -> do
                  clang_getArgType ty (fromIntegral i) >>= cxtype
       pure $ C.TypeFun (map mkTypeFunArg args) res
   where
+    mkTypeFunArg :: C.TypeF tag Parse -> C.TypeFunArgF tag Parse
     mkTypeFunArg ty = C.TypeFunArgF {
           typ = ty
         , ann = NoAnn
