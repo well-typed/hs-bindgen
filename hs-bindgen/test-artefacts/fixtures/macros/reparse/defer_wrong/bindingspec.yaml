@@ -1,0 +1,84 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/defer_wrong.h
+  cname: struct S
+  hsname: S
+- headers: macros/reparse/defer_wrong.h
+  cname: macro T
+  hsname: T
+- headers: macros/reparse/defer_wrong.h
+  cname: foo
+  hsname: Foo
+- headers: macros/reparse/defer_wrong.h
+  cname: bar
+  hsname: Bar
+hstypes:
+- hsname: Bar
+  representation:
+    newtype:
+      constructor: Bar
+      fields:
+      - unwrapBar
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - unwrapFoo
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

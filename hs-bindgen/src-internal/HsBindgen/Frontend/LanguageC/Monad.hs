@@ -11,6 +11,7 @@ module HsBindgen.Frontend.LanguageC.Monad (
     -- * Throwing errors
   , unexpected
   , unsupported
+  , skipped
   , nodeOmitted
   , unexpectedF
     -- * Util
@@ -106,6 +107,9 @@ unexpected = throwError . UpdateUnexpected callStack
 
 unsupported :: String -> FromLanC x
 unsupported = throwError . UpdateUnsupported
+
+skipped :: String -> FromLanC x
+skipped = throwError . UpdateSkipped
 
 data NodeOmitted = NodeOmitted
   deriving (Show)

@@ -161,8 +161,15 @@
   referenced by global variables. For example, `struct { int x; } var;` was
   previously supported but `struct { int x; } * var;` or `struct { int x; }
   var[];` would cause a panic. See [PR #2017][pr-2017].
+* Prevent confusing info-level messages for reparse errors involving
+  declarations that contain nested declarations. For example, for a nested
+  declaration such as `typedef struct { MyInt x; } * foo;` where `MyInt` is a
+  macro type, a message would be traced that the `foo` could not be reparsed,
+  even though the struct field `x` is still reparsed successfully. See [issue
+  #1382][is-1382] and [PR #2021][pr-2021].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
+[is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
@@ -176,6 +183,7 @@
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
 [pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
 [pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
+[pr-2021]: https://github.com/well-typed/hs-bindgen/pull/2021
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

@@ -1,0 +1,95 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/struct_in_variable.h
+  cname: macro MyInt
+  hsname: MyInt
+- headers: macros/reparse/nesting/struct_in_variable.h
+  cname: struct @G1
+  hsname: G1
+- headers: macros/reparse/nesting/struct_in_variable.h
+  cname: struct @G2
+  hsname: G2
+- headers: macros/reparse/nesting/struct_in_variable.h
+  cname: struct @G3
+  hsname: G3
+hstypes:
+- hsname: G1
+  representation:
+    record:
+      constructor: G1
+      fields:
+      - g1_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: G2
+  representation:
+    record:
+      constructor: G2
+      fields:
+      - g2_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: G3
+  representation:
+    record:
+      constructor: G3
+      fields:
+      - g3_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - unwrapMyInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

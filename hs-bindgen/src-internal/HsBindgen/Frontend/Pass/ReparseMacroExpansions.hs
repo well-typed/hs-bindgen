@@ -291,17 +291,8 @@ processTypedef ::
   -> C.Typedef PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
 processTypedef info typedef = do
-    -- If the @typedef@ refers to another type, we do not reparse the
-    -- typedef, but instead defer reparsing to that other type.
-    -- See https://github.com/well-typed/hs-bindgen/issues/707.
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
-    -- We should allow for pointers.
-    let reparseInfo = case typedef.typ of
-          C.TypeRef _ -> ReparseNotNeeded
-          _otherwise  -> typedef.ann
     reparsedType :: CType <-
-      reparseWith info.id LanC.reparseTypedef reparseInfo
+      reparseWith info.id LanC.reparseTypedef typedef.ann
         (coercePass typedef.typ)
         pure
     pure C.Decl{
