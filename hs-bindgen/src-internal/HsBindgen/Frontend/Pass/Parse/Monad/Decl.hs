@@ -38,10 +38,8 @@ import Clang.Paths
 
 import HsBindgen.Clang.Macros (MacroDefinition (..))
 import HsBindgen.Eff
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming (CDeclName (text))
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -130,22 +128,16 @@ initParseState = ParseState{
     }
 
 recordMacroDefinitionAt ::
-     HasCallStack
-  => PrelimDeclId
+     Text
   -> Range MultiLoc
   -> [Token TokenSpelling]
   -> ParseDecl ()
-recordMacroDefinitionAt declId locRange tokens = wrapEff $ \support -> do
+recordMacroDefinitionAt macroName locRange tokens = wrapEff $ \support -> do
     modifyIORef support.state $ #macroDefinitions %~ addMacroDefinition
   where
-    name :: Text
-    name = case declId of
-        PrelimDeclId.Named declName -> declName.text
-        PrelimDeclId.Anon{} -> panicPure "macros can not be unnamed"
-
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
-          name = name
+          name = macroName
         , locRange = locRange
         , tokens = tokens
         }

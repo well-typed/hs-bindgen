@@ -327,6 +327,9 @@ data DelayedParseMsg =
 
   | ParseExpectedFunctionType String
 
+    -- | A macro definition has no name, even though macros can not be unnamed
+  | ParseMacroDefinitionNoMacroName
+
     -- | Failed to prepare this declaration for reparsing
   | ParseMacroPrepareReparseFailed
 
@@ -466,6 +469,8 @@ instance PrettyForTrace DelayedParseMsg where
           "Expected function type, but got"
         , PP.string ty
         ]
+      ParseMacroDefinitionNoMacroName ->
+        "A macro definition has no name, even though macros can not be unnamed"
       ParseMacroPrepareReparseFailed -> PP.hsep [
           "Failed to prepare this declaration for reparsing"
         ]
@@ -526,6 +531,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
+      ParseMacroDefinitionNoMacroName{} -> Bug
       ParseMacroPrepareReparseFailed{}  -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
@@ -535,12 +541,13 @@ instance IsTrace Level DelayedParseMsg where
       ParseNoMainHeadersException{}     -> Error
   getSource  = const HsBindgen
   getTraceId = \case
-      ParseImplicitFieldFailed x     -> "parse-" <> getTraceId x
-      ParseMacroEmpty{}              -> "parse-macro"
-      ParseMacroErrorParse{}         -> "parse-macro"
-      ParseMacroErrorReparse{}       -> "parse-macro"
-      ParseMacroErrorReparseZip e    -> getTraceId e
-      ParseMacroReparseUnknownType{} -> "parse-macro"
+      ParseImplicitFieldFailed x        -> "parse-" <> getTraceId x
+      ParseMacroDefinitionNoMacroName{} -> "parse-macro"
+      ParseMacroEmpty{}                 -> "parse-macro"
+      ParseMacroErrorParse{}            -> "parse-macro"
+      ParseMacroErrorReparse{}          -> "parse-macro"
+      ParseMacroErrorReparseZip e       -> getTraceId e
+      ParseMacroReparseUnknownType{}    -> "parse-macro"
       _ -> "parse"
 
 {-------------------------------------------------------------------------------
