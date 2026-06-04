@@ -27,8 +27,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   ) where
 
 import Data.IORef
-import Data.List.NonEmpty qualified as NonEmpty
-import Data.Map.Strict qualified as Map
+import Data.List.NonEmpty qualified as NE
 import Data.Set qualified as Set
 
 import Clang.HighLevel qualified as HighLevel
@@ -43,6 +42,11 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (LookupResult (..),
+                                                           SourceRangeMap,
+                                                           initSourceRangeMap,
+                                                           lookupRange,
+                                                           recordAt)
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
@@ -114,26 +118,29 @@ data ParseState = ParseState {
       -- | Where did Clang expand macros, and what are their names?
       --
       -- Declarations with expanded macros need to be reparsed.
-      --
-      -- We use a stacked map so we can lookup macro expansions in source
-      -- location ranges reasonably fast.
-    , macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
+    , macroExpansions :: SourceRangeMap Text
     }
   deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
       macroDefinitions = []
-    , macroExpansions = Map.empty
+    , macroExpansions = initSourceRangeMap
     }
+
+getParseState :: ParseDecl ParseState
+getParseState = wrapEff $ \support -> readIORef support.state
+
+modifyParseState :: (ParseState -> ParseState) -> ParseDecl ()
+modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 
 recordMacroDefinitionAt ::
      Text
   -> Range MultiLoc
   -> [Token TokenSpelling]
   -> ParseDecl ()
-recordMacroDefinitionAt macroName locRange tokens = wrapEff $ \support -> do
-    modifyIORef support.state $ #macroDefinitions %~ addMacroDefinition
+recordMacroDefinitionAt macroName locRange tokens =
+    modifyParseState $ #macroDefinitions %~ addMacroDefinition
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
@@ -148,53 +155,30 @@ recordMacroDefinitionAt macroName locRange tokens = wrapEff $ \support -> do
     addMacroDefinition defs = macroDefinition : defs
 
 getMacroDefinitions :: ParseDecl [MacroDefinition]
-getMacroDefinitions = wrapEff $ \support -> do
-    reverse . (.macroDefinitions) <$> readIORef support.state
+getMacroDefinitions = reverse . (.macroDefinitions) <$> getParseState
 
-recordMacroExpansionAt :: SingleLoc -> Text -> ParseDecl ()
-recordMacroExpansionAt loc macroName = wrapEff $ \support -> do
-    modifyIORef support.state $ #macroExpansions %~ addMacro
+recordMacroExpansionAt ::
+     Text
+  -> Range MultiLoc
+  -> ParseDecl ()
+recordMacroExpansionAt macroName locRange =
+    modifyParseState $ #macroExpansions %~ recordAt loc macroName
   where
-    addMacro ::
-         Map SourcePath (Map Int (NonEmpty Text))
-      -> Map SourcePath (Map Int (NonEmpty Text))
-    addMacro = Map.alter addMacroAtFile loc.singleLocPath
-
-    addMacroAtFile ::
-         Maybe (Map Int (NonEmpty Text))
-      -> Maybe (Map Int (NonEmpty Text))
-    addMacroAtFile = Just . \case
-      Nothing ->
-        Map.singleton loc.singleLocLine $ NonEmpty.singleton macroName
-      Just lineMap ->
-        Map.alter addMacroAtLine loc.singleLocLine lineMap
-
-    addMacroAtLine :: Maybe (NonEmpty Text) -> Maybe (NonEmpty Text)
-    addMacroAtLine = Just . \case
-      Nothing     -> NonEmpty.singleton macroName
-      Just macros -> NonEmpty.cons      macroName macros
+    loc :: SingleLoc
+    loc = locRange.rangeStart.multiLocExpansion
 
 getMacroExpansions :: Range SingleLoc -> ParseDecl (Set Text)
-getMacroExpansions range
-  -- We do not support getting macro expansions for declarations spanning
-  -- multiple files.
-  | range.rangeStart.singleLocPath /= range.rangeEnd.singleLocPath = do
-      traceImmediateGlobal (ParseGetMacroExpansionsMultipleFiles range)
-      pure $ Set.empty
-  | otherwise = do
-    wrapEff $ \support ->
-      aux . (.macroExpansions) <$> readIORef support.state
-  where
-    sourcePath :: SourcePath
-    sourcePath = range.rangeStart.singleLocPath
-
-    aux :: Map SourcePath (Map Int (NonEmpty Text)) -> Set Text
-    aux fileMap = case Map.lookup sourcePath fileMap of
-      Nothing      -> Set.empty
-      Just lineMap ->
-        Set.fromList $ concatMap NonEmpty.toList $ Map.elems $
-          Map.takeWhileAntitone (range.rangeEnd.singleLocLine >=) $
-            Map.dropWhileAntitone (range.rangeStart.singleLocLine >) lineMap
+getMacroExpansions range = do
+    macroExpansions <- (.macroExpansions) <$> getParseState
+    case lookupRange range macroExpansions of
+      -- We do not support getting macro expansions for declarations spanning
+      -- multiple files.
+      LookupErrorMultipleFiles -> do
+        traceImmediateGlobal (ParseGetMacroExpansionsMultipleFiles range)
+        pure Set.empty
+      LookupNotFound ->
+        pure Set.empty
+      LookupFound macroNames -> pure $ Set.fromList $ NE.toList macroNames
 
 {-------------------------------------------------------------------------------
   Logging
