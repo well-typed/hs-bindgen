@@ -198,8 +198,8 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
         let tagKind = case su of
                         LanC.CStructTag -> CTagKindStruct
                         LanC.CUnionTag  -> CTagKindUnion
-        name <- checkNotAnon mTag tagKind
         checkNoDef "struct or union definition" mDef
+        name <- checkNotAnon mTag tagKind
         notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
         name <- checkNotAnon mTag CTagKindEnum
