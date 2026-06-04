@@ -9,6 +9,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     -- * Entry
   , Usable(..)
   , Unusable(..)
+  , Success(..)
   , Squashed(..)
   , Entry(..)
   , entryToLoc
@@ -34,6 +35,8 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     -- * Support for macro failures
   , registerMacroTypecheckFailure
   , registerDelayedParseMsg
+    -- * Support for the @PrepareReparse@ pass
+  , registerDelayedPrepareReparseMsg
     -- * Support for binding specifications
   , registerOmittedDeclarations
   , registerExternalDeclarations
@@ -57,12 +60,14 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass (IsPass (CommentDecl))
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
@@ -143,7 +148,7 @@ data DeclIndex l = DeclIndex {
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable l =
-      UsableSuccess (ParseSuccess l EnrichComments)
+      UsableSuccess (Success l EnrichComments)
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
       -- This should have a SingleLoc.
     | UsableExternal
@@ -204,6 +209,18 @@ unusableToLoc = \case
     UnusableMangleNamesFailure loc _   -> [loc]
     UnusableTypecheckMacrosError loc _ -> [loc]
     UnusableOmitted loc                -> [loc]
+
+data Success l p = Success {
+    decl                      :: C.Decl l p
+  , delayedParseMsgs          :: [DelayedParseMsg]
+  , delayedPrepareReparseMsgs :: [DelayedPrepareReparseMsg]
+  }
+  deriving stock (Generic)
+
+deriving stock instance ( IsPass p
+                        , Show (CommentDecl p)
+                        , HasMacroTypes l
+                        ) => Show (Success l p)
 
 data Squashed = Squashed {
     -- | The location of the squashed typedef (i.e., _not_ the target)
@@ -332,11 +349,18 @@ fromParseResults results = flip execState empty $ mapM_ aux results
     parseResultToEntry :: ParseResult l EnrichComments -> Entry l
     parseResultToEntry result = case result.classification of
       ParseResultSuccess r ->
-        UsableE $ UsableSuccess r
+        UsableE $ UsableSuccess (parseSuccessToSuccess r)
       ParseResultNotAttempted r ->
         UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
       ParseResultFailure r ->
         UnusableE $ UnusableParseFailure result.loc r
+
+    parseSuccessToSuccess :: ParseSuccess l EnrichComments -> Success l EnrichComments
+    parseSuccessToSuccess success = Success {
+          decl = success.decl
+        , delayedParseMsgs = success.delayedParseMsgs
+        , delayedPrepareReparseMsgs = []
+        }
 
 {-------------------------------------------------------------------------------
   Filter
@@ -451,8 +475,9 @@ registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableE (UsableSuccess ps)) =
-      UsableE $ UsableSuccess ps{
-          delayedParseMsgs = ps.delayedParseMsgs ++ [msg]
+      UsableE $ UsableSuccess ps {
+          HsBindgen.Frontend.Analysis.DeclIndex.delayedParseMsgs =
+            ps.delayedParseMsgs ++ [msg]
         }
     addMsg entry = entry
 
@@ -464,6 +489,28 @@ registerMacroTypecheckFailure
   :: (DeclId, SingleLoc, MacroTypecheckError) -> DeclIndex l -> DeclIndex l
 registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
     Map.insert declId (UnusableE $ UnusableTypecheckMacrosError loc err) i
+
+{-------------------------------------------------------------------------------
+  Support for @PrepareReparse@ pass
+-------------------------------------------------------------------------------}
+
+-- | Append a delayed @PrepareReparse@ message to an existing 'UsableSuccess'
+-- entry.
+--
+-- Has no effect if the declaration is not a success
+registerDelayedPrepareReparseMsg ::
+     (DeclId, DelayedPrepareReparseMsg)
+  -> DeclIndex l
+  -> DeclIndex l
+registerDelayedPrepareReparseMsg (declId, msg) (DeclIndex i) = DeclIndex $
+    Map.adjust addMsg declId i
+  where
+    addMsg :: Entry l -> Entry l
+    addMsg (UsableE (UsableSuccess ps)) =
+      UsableE $ UsableSuccess ps{
+          delayedPrepareReparseMsgs = ps.delayedPrepareReparseMsgs ++ [msg]
+        }
+    addMsg entry = entry
 
 {-------------------------------------------------------------------------------
   Support for binding specifications

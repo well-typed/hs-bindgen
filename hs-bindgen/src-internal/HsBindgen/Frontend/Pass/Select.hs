@@ -16,7 +16,8 @@ import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..),
-                                              Unusable (..), Usable (..))
+                                              Success (..), Unusable (..),
+                                              Usable (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -33,7 +34,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
-import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -390,19 +391,29 @@ getSelectMsgsDeclId
   Delayed traces
 -------------------------------------------------------------------------------}
 
+mkSuccessMessages :: HasCallStack => DeclId -> Success l EnrichComments -> [AMsg Select]
+mkSuccessMessages declId success = concat [
+      fmap (mkAMsg . SelectDelayedParseMsg)
+        delayedParseMsgs
+    , fmap (mkAMsg . SelectDelayedPrepareReparseMsg)
+        delayedPrepareReparseMsgs
+    ]
+  where
+    DeclIndex.Success _ delayedParseMsgs delayedPrepareReparseMsgs = success
+
+    mkAMsg :: HasCallStack => SelectMsg -> AMsg Select
+    mkAMsg msg = withCallStack WithLocationInfo{
+          loc = declIdLocationInfo declId [success.decl.info.loc]
+        , msg = msg
+        }
+
 getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex l -> [AMsg Select]
 getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
   where
     aux :: HasCallStack => DeclId -> Entry l -> [AMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success ->
-          [ withCallStack WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.info.loc]
-              , msg = SelectDelayedParseMsg x
-              }
-          | x <- success.delayedParseMsgs
-          ]
+        UsableSuccess success -> mkSuccessMessages declId success
         UsableExternal   -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
@@ -445,13 +456,7 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
     aux :: HasCallStack => DeclId -> Entry l -> [AMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success ->
-          [ withCallStack WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.info.loc]
-              , msg = SelectDelayedParseMsg x
-              }
-          | x <- success.delayedParseMsgs
-          ]
+        UsableSuccess success -> mkSuccessMessages declId success
         UsableExternal   -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
@@ -475,13 +480,8 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
-          [ withCallStack WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.info.loc]
-              , msg = SelectDelayedParseMsg x
-              }
-          | x <- success.delayedParseMsgs
-          , getDefaultLogLevel x == Bug
-          ]
+          let isBugLevel x = getDefaultLogLevel x == Bug
+          in  filter isBugLevel $ mkSuccessMessages declId success
         UsableExternal -> []
         UsableSquashed{} -> []
       UnusableE e -> case e of

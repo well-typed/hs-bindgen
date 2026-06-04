@@ -330,9 +330,6 @@ data DelayedParseMsg =
     -- | A macro definition has no name, even though macros can not be unnamed
   | ParseMacroDefinitionNoMacroName
 
-    -- | Failed to prepare this declaration for reparsing
-  | ParseMacroPrepareReparseFailed
-
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
@@ -471,9 +468,6 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseMacroDefinitionNoMacroName ->
         "A macro definition has no name, even though macros can not be unnamed"
-      ParseMacroPrepareReparseFailed -> PP.hsep [
-          "Failed to prepare this declaration for reparsing"
-        ]
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
       ParseUnexpectedCursorKind x ->
@@ -532,7 +526,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
       ParseMacroDefinitionNoMacroName{} -> Bug
-      ParseMacroPrepareReparseFailed{}  -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug

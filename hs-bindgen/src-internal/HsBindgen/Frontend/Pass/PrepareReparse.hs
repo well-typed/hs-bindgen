@@ -24,8 +24,8 @@ import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
                                                    PostHeader (targets),
                                                    PreHeader, Tag,
                                                    Target (Target))
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse,
-                                                      PrepareReparseMsg (..))
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.Lexer (Token, lex)
 import HsBindgen.Frontend.Pass.PrepareReparse.Parser (parse)
 import HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor (preprocess)

@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
@@ -162,6 +163,8 @@ data SelectMsg =
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroTypecheckFailure MacroTypecheckError
+    -- | Delayed @PrepareReparse@ message
+  | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -193,6 +196,8 @@ instance PrettyForTrace SelectMsg where
         ]
       SelectMacroTypecheckFailure x ->
         couldNotSelect $ prettyForTrace x
+      SelectDelayedPrepareReparseMsg x ->
+        PP.hang "During prepare-reparse:" 2 (prettyForTrace x)
       SelectNoDeclarationsMatched ->
         "No declarations matched the select predicate"
     where
@@ -212,30 +217,32 @@ instance PrettyForTrace SelectMsg where
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectStatusInfo{}              -> Info
-    TransitiveDependenciesMissing{} -> Warning
-    SelectDeprecated{}              -> Notice
-    SelectDelayedParseMsg x         -> getDefaultLogLevel x
-    SelectParseNotAttempted{}       -> Warning
-    SelectParseFailure x            -> getDefaultLogLevel x
-    SelectConflict{}                -> Warning
-    SelectMangleNamesFailure{}      -> Warning
-    SelectMangleNamesSquashed{}     -> Notice
-    SelectMacroTypecheckFailure x   -> getDefaultLogLevel x
-    SelectNoDeclarationsMatched     -> Warning
+    SelectStatusInfo{}               -> Info
+    TransitiveDependenciesMissing{}  -> Warning
+    SelectDeprecated{}               -> Notice
+    SelectDelayedParseMsg x          -> getDefaultLogLevel x
+    SelectParseNotAttempted{}        -> Warning
+    SelectParseFailure x             -> getDefaultLogLevel x
+    SelectConflict{}                 -> Warning
+    SelectMangleNamesFailure{}       -> Warning
+    SelectMangleNamesSquashed{}      -> Notice
+    SelectMacroTypecheckFailure x    -> getDefaultLogLevel x
+    SelectDelayedPrepareReparseMsg x -> getDefaultLogLevel x
+    SelectNoDeclarationsMatched      -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectStatusInfo{}              -> "select"
-    TransitiveDependenciesMissing{} -> "select"
-    SelectDeprecated{}              -> "select"
-    SelectDelayedParseMsg x         -> "select-" <> getTraceId x
-    SelectParseNotAttempted{}       -> "select-parse"
-    SelectParseFailure x            -> "select-" <> getTraceId x
-    SelectConflict{}                -> "select"
-    SelectMangleNamesFailure{}      -> "select-mangle-names-failure"
-    SelectMangleNamesSquashed{}     -> "select-mangle-names-squashed"
-    SelectMacroTypecheckFailure x   -> "select-" <> getTraceId x
-    SelectNoDeclarationsMatched     -> "select"
+    SelectStatusInfo{}               -> "select"
+    TransitiveDependenciesMissing{}  -> "select"
+    SelectDeprecated{}               -> "select"
+    SelectDelayedParseMsg x          -> "select-" <> getTraceId x
+    SelectParseNotAttempted{}        -> "select-parse"
+    SelectParseFailure x             -> "select-" <> getTraceId x
+    SelectConflict{}                 -> "select"
+    SelectMangleNamesFailure{}       -> "select-mangle-names-failure"
+    SelectMangleNamesSquashed{}      -> "select-mangle-names-squashed"
+    SelectMacroTypecheckFailure x    -> "select-" <> getTraceId x
+    SelectDelayedPrepareReparseMsg x -> "select-" <> getTraceId x
+    SelectNoDeclarationsMatched      -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass
