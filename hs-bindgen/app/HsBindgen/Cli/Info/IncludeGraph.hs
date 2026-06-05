@@ -25,7 +25,6 @@ import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.IO
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------

@@ -276,7 +276,6 @@ library internal
 
   -- Internal dependencies
   build-depends:
-    , c-expr-runtime
     , doxygen-parser
     , hs-bindgen-runtime
 
@@ -326,12 +325,18 @@ library
   import:             lang
   hs-source-dirs:     src
   exposed-modules:
-    HsBindgen.IO
     HsBindgen.Macro
+    HsBindgen.Macro.CExpr
+    HsBindgen.Macro.Global
+    HsBindgen.Macro.Parse
+    HsBindgen.Macro.Translation.Type
+    HsBindgen.Macro.Translation.Value
+    HsBindgen.Macro.Typecheck
     HsBindgen.TH
 
   other-modules:
   reexported-modules:
+  other-extensions:   TemplateHaskellQuotes
 
   -- Internal dependencies
   build-depends:

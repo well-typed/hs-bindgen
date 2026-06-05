@@ -23,7 +23,6 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.IO
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------

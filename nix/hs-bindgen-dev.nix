@@ -4,7 +4,6 @@
   llvmPackages,
   #
   additionalPackages ? [ ],
-  appendToShellHook ? "",
 }:
 
 let
