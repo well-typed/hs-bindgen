@@ -16,6 +16,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -102,7 +103,10 @@ data TypedefNames = TypedefNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesAssignedName Hs.SomeName
+    MangleNamesAssignedName       Hs.SomeName
+  | MangleNamesReusedAssignedName Hs.SomeName
+  | MangleNamesNameMap            NameMap
+  | MangleNamesNameRegistry       String NameRegistry
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
@@ -111,11 +115,31 @@ instance PrettyForTrace MangleNamesMsg where
           "Assigned name"
         , PP.text newName.text
         ]
+      MangleNamesReusedAssignedName newName -> PP.hsep [
+          "Reused assigned name"
+        , PP.text newName.text
+        ]
+      MangleNamesNameMap nm -> PP.hsep [
+          "The name map is:"
+        , PP.show nm
+        ]
+      MangleNamesNameRegistry cmt rg -> PP.hcat [
+          "The name registry is ("
+        , PP.string cmt
+        , ") "
+        , PP.show rg
+        ]
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesAssignedName{} -> Info
+      MangleNamesAssignedName{}       -> Info
+      MangleNamesReusedAssignedName{} -> Info
+      MangleNamesNameMap{}            -> Debug
+      MangleNamesNameRegistry{}       -> Debug
 
   getSource  = const HsBindgen
   getTraceId = \case
-    MangleNamesAssignedName{} -> "mangle-names-assigned-name"
+    MangleNamesAssignedName{}       -> "mangle-names-assigned-name"
+    MangleNamesReusedAssignedName{} -> "mangle-names-reused-assigned-name"
+    MangleNamesNameMap{}            -> "mangle-names-name-map"
+    MangleNamesNameRegistry{}       -> "mangle-names-name-registry"

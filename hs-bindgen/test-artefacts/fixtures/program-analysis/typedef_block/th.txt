@@ -1,0 +1,92 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/typedef_block.h
+{-| __C declaration:__ @struct blk@
+
+    __defined at:__ @program-analysis\/typedef_block.h 13:8@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
+data Blk_struct
+    = Blk_struct {blk_struct_x :: CInt
+                  {- ^ __C declaration:__ @x@
+
+                       __defined at:__ @program-analysis\/typedef_block.h 13:18@
+
+                       __exported by:__ @program-analysis\/typedef_block.h@
+                  -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Blk_struct
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Blk_struct
+    where readRaw = \ptr_0 -> pure Blk_struct <*> readRaw (Proxy @"blk_struct_x") ptr_0
+instance WriteRaw Blk_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Blk_struct blk_struct_x_2 -> writeRaw (Proxy @"blk_struct_x") ptr_0 blk_struct_x_2
+deriving via (EquivStorable Blk_struct) instance Storable Blk_struct
+instance HasCField Blk_struct "blk_struct_x"
+    where type CFieldType Blk_struct "blk_struct_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "blk_struct_x" (Ptr Blk_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"blk_struct_x")
+{-| __C declaration:__ @blk@
+
+    __defined at:__ @program-analysis\/typedef_block.h 14:22@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
+newtype Blk
+    = Blk {unwrapBlk :: (Block (IO Blk_struct))}
+    deriving stock Generic
+instance (~) ty (Block (IO Blk_struct)) =>
+         HasField "unwrapBlk" (Ptr Blk) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBlk")
+instance HasCField Blk "unwrapBlk"
+    where type CFieldType Blk "unwrapBlk" = Block (IO Blk_struct)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct blkarg@
+
+    __defined at:__ @program-analysis\/typedef_block.h 17:8@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
+data Blkarg_struct
+    = Blkarg_struct {blkarg_struct_y :: CInt
+                     {- ^ __C declaration:__ @y@
+
+                          __defined at:__ @program-analysis\/typedef_block.h 17:21@
+
+                          __exported by:__ @program-analysis\/typedef_block.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Blkarg_struct
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Blkarg_struct
+    where readRaw = \ptr_0 -> pure Blkarg_struct <*> readRaw (Proxy @"blkarg_struct_y") ptr_0
+instance WriteRaw Blkarg_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Blkarg_struct blkarg_struct_y_2 -> writeRaw (Proxy @"blkarg_struct_y") ptr_0 blkarg_struct_y_2
+deriving via (EquivStorable Blkarg_struct) instance Storable Blkarg_struct
+instance HasCField Blkarg_struct "blkarg_struct_y"
+    where type CFieldType Blkarg_struct "blkarg_struct_y" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "blkarg_struct_y" (Ptr Blkarg_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"blkarg_struct_y")
+{-| __C declaration:__ @blkarg@
+
+    __defined at:__ @program-analysis\/typedef_block.h 18:15@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
+newtype Blkarg
+    = Blkarg {unwrapBlkarg :: (Block (Blkarg_struct -> IO CInt))}
+    deriving stock Generic
+instance (~) ty (Block (Blkarg_struct -> IO CInt)) =>
+         HasField "unwrapBlkarg" (Ptr Blkarg) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBlkarg")
+instance HasCField Blkarg "unwrapBlkarg"
+    where type CFieldType Blkarg
+                          "unwrapBlkarg" = Block (Blkarg_struct -> IO CInt)
+          offset# = \_ -> \_ -> 0

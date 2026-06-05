@@ -4,7 +4,6 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -14,10 +13,9 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.U(..)
-    , Example.get_u_x
-    , Example.set_u_x
-    , Example.T(..)
+    ( Example.T(..)
+    , Example.get_t_x
+    , Example.set_t_x
     )
   where
 
@@ -31,22 +29,22 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-newtype U = U
-  { unwrapU :: RIP.ByteArray
+newtype T = T
+  { unwrapT :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize T
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw T
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T
 
-deriving via Marshal.EquivStorable U instance RIP.Storable U
+deriving via Marshal.EquivStorable T instance RIP.Storable T
 
 {-|
 
-    __See:__ 'set_u_x'
+    __See:__ 'set_t_x'
 
     __C declaration:__ @x@
 
@@ -54,54 +52,27 @@ deriving via Marshal.EquivStorable U instance RIP.Storable U
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-get_u_x ::
-     U
+get_t_x ::
+     T
   -> RIP.CInt
-get_u_x = RIP.getUnionPayload
+get_t_x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_u_x'
+    __See:__ 'get_t_x'
 
 -}
-set_u_x ::
+set_t_x ::
      RIP.CInt
-  -> U
-set_u_x = RIP.setUnionPayload
+  -> T
+set_t_x = RIP.setUnionPayload
 
-instance HasCField.HasCField U "u_x" where
+instance HasCField.HasCField T "t_x" where
 
-  type CFieldType U "u_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
-
-{-| __C declaration:__ @T@
-
-    __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
-
-    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
--}
-newtype T = T
-  { unwrapT :: U
-  }
-  deriving stock (RIP.Generic)
-  deriving newtype
-    ( Marshal.ReadRaw
-    , Marshal.StaticSize
-    , RIP.Storable
-    , Marshal.WriteRaw
-    )
-
-instance (ty ~ U) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
-
-instance HasCField.HasCField T "unwrapT" where
-
-  type CFieldType T "unwrapT" = U
+  type CFieldType T "t_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t_x")

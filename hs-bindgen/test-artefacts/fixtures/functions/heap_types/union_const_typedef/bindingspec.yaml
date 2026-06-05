@@ -5,7 +5,7 @@ hsmodule: Example
 ctypes:
 - headers: functions/heap_types/union_const_typedef.h
   cname: union U
-  hsname: U
+  hsname: T
 - headers: functions/heap_types/union_const_typedef.h
   cname: T
   hsname: T
@@ -16,20 +16,6 @@ hstypes:
       constructor: T
       fields:
       - unwrapT
-  instances:
-  - Generic
-  - HasCField
-  - HasField
-  - ReadRaw
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: U
-  representation:
-    newtype:
-      constructor: U
-      fields:
-      - unwrapU
   instances:
   - Generic
   - HasCField

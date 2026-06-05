@@ -1,7 +1,7 @@
 -- addDependentFile test-artefacts/headers/golden/program-analysis/typedef_analysis.h
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 7:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 41:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -17,7 +17,7 @@ instance WriteRaw Struct1_t
 deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 11:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 45:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -33,21 +33,21 @@ instance WriteRaw Struct2_t
 deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 14:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 49:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct3_t
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 18:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 53:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct4_t
 {-| __C declaration:__ @struct struct5@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 21:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 56:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -63,7 +63,7 @@ instance WriteRaw Struct5
 deriving via (EquivStorable Struct5) instance Storable Struct5
 {-| __C declaration:__ @struct5_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 22:25@
+    __defined at:__ @program-analysis\/typedef_analysis.h 57:25@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -81,47 +81,83 @@ instance (~) ty (Ptr Struct5) =>
 instance HasCField Struct5_t "unwrapStruct5_t"
     where type CFieldType Struct5_t "unwrapStruct5_t" = Ptr Struct5
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @struct struct6@
+{-| __C declaration:__ @struct struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 25:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 60:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
-data Struct6_Aux
-    = Struct6_Aux {}
+data Struct6a_struct
+    = Struct6a_struct {}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Struct6_Aux
+instance StaticSize Struct6a_struct
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
-instance ReadRaw Struct6_Aux
-    where readRaw = \ptr_0 -> pure Struct6_Aux
-instance WriteRaw Struct6_Aux
+instance ReadRaw Struct6a_struct
+    where readRaw = \ptr_0 -> pure Struct6a_struct
+instance WriteRaw Struct6a_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct6_Aux -> return ()
-deriving via (EquivStorable Struct6_Aux) instance Storable Struct6_Aux
-{-| __C declaration:__ @struct6@
+                                       Struct6a_struct -> return ()
+deriving via (EquivStorable Struct6a_struct) instance Storable Struct6a_struct
+{-| __C declaration:__ @struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 25:28@
+    __defined at:__ @program-analysis\/typedef_analysis.h 61:4@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
-newtype Struct6
-    = Struct6 {unwrapStruct6 :: (Ptr Struct6_Aux)}
+newtype Struct6a
+    = Struct6a {unwrapStruct6a :: (Ptr Struct6a_struct)}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr Struct6_Aux) =>
-         HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrapStruct6")
-instance HasCField Struct6 "unwrapStruct6"
-    where type CFieldType Struct6 "unwrapStruct6" = Ptr Struct6_Aux
+instance (~) ty (Ptr Struct6a_struct) =>
+         HasField "unwrapStruct6a" (Ptr Struct6a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct6a")
+instance HasCField Struct6a "unwrapStruct6a"
+    where type CFieldType Struct6a
+                          "unwrapStruct6a" = Ptr Struct6a_struct
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct struct6b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 68:16@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Struct6b_struct
+    = Struct6b_struct {}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Struct6b_struct
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct6b_struct
+    where readRaw = \ptr_0 -> pure Struct6b_struct
+instance WriteRaw Struct6b_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct6b_struct -> return ()
+deriving via (EquivStorable Struct6b_struct) instance Storable Struct6b_struct
+{-| __C declaration:__ @struct6b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 69:3@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Struct6b
+    = Struct6b {unwrapStruct6b :: (ConstantArray 50 Struct6b_struct)}
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 50 Struct6b_struct) =>
+         HasField "unwrapStruct6b" (Ptr Struct6b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct6b")
+instance HasCField Struct6b "unwrapStruct6b"
+    where type CFieldType Struct6b "unwrapStruct6b" = ConstantArray 50
+                                                                    Struct6b_struct
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct7@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 28:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 72:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -137,7 +173,7 @@ instance WriteRaw Struct7
 deriving via (EquivStorable Struct7) instance Storable Struct7
 {-| __C declaration:__ @struct7a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 29:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 73:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -153,7 +189,7 @@ instance HasCField Struct7a "unwrapStruct7a"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct7b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 30:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 74:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -169,7 +205,7 @@ instance HasCField Struct7b "unwrapStruct7b"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct8@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 33:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 77:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -185,7 +221,7 @@ instance WriteRaw Struct8
 deriving via (EquivStorable Struct8) instance Storable Struct8
 {-| __C declaration:__ @struct8b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 35:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 79:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -201,7 +237,7 @@ instance HasCField Struct8b "unwrapStruct8b"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct9@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 38:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 82:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -217,7 +253,7 @@ instance WriteRaw Struct9
 deriving via (EquivStorable Struct9) instance Storable Struct9
 {-| __C declaration:__ @struct9_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 40:17@
+    __defined at:__ @program-analysis\/typedef_analysis.h 84:17@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -233,7 +269,7 @@ instance HasCField Struct9_t "unwrapStruct9_t"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct10@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 46:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 90:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -249,7 +285,7 @@ instance WriteRaw Struct10_t
 deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
 {-| __C declaration:__ @struct10_t_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 48:20@
+    __defined at:__ @program-analysis\/typedef_analysis.h 92:20@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -266,7 +302,7 @@ instance HasCField Struct10_t_t "unwrapStruct10_t_t"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct11@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 51:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 95:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -274,14 +310,14 @@ data Struct11_t
     = Struct11_t {struct11_t_x :: CInt
                   {- ^ __C declaration:__ @x@
 
-                       __defined at:__ @program-analysis\/typedef_analysis.h 52:7@
+                       __defined at:__ @program-analysis\/typedef_analysis.h 96:7@
 
                        __exported by:__ @program-analysis\/typedef_analysis.h@
                   -},
                   struct11_t_self :: (Ptr Struct11_t)
                   {- ^ __C declaration:__ @self@
 
-                       __defined at:__ @program-analysis\/typedef_analysis.h 53:20@
+                       __defined at:__ @program-analysis\/typedef_analysis.h 97:20@
 
                        __exported by:__ @program-analysis\/typedef_analysis.h@
                   -}}
@@ -310,7 +346,7 @@ instance (~) ty (Ptr Struct11_t) =>
     where getField = fromPtr (Proxy @"struct11_t_self")
 {-| __C declaration:__ @struct struct12@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 60:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 104:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -318,14 +354,14 @@ data Struct12_t
     = Struct12_t {struct12_t_x :: CInt
                   {- ^ __C declaration:__ @x@
 
-                       __defined at:__ @program-analysis\/typedef_analysis.h 61:7@
+                       __defined at:__ @program-analysis\/typedef_analysis.h 105:7@
 
                        __exported by:__ @program-analysis\/typedef_analysis.h@
                   -},
                   struct12_t_self :: (Ptr Struct12_t)
                   {- ^ __C declaration:__ @self@
 
-                       __defined at:__ @program-analysis\/typedef_analysis.h 62:15@
+                       __defined at:__ @program-analysis\/typedef_analysis.h 106:15@
 
                        __exported by:__ @program-analysis\/typedef_analysis.h@
                   -}}
@@ -354,7 +390,7 @@ instance (~) ty (Ptr Struct12_t) =>
     where getField = fromPtr (Proxy @"struct12_t_self")
 {-| __C declaration:__ @struct use_sites@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 66:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 110:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -362,126 +398,140 @@ data Use_sites
     = Use_sites {use_sites_useTypedef_struct1_t :: Struct1_t
                  {- ^ __C declaration:__ @useTypedef_struct1_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 68:13@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 112:13@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct2_t :: Struct2_t
                  {- ^ __C declaration:__ @useTypedef_struct2_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 71:13@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 115:13@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct3_t :: (Ptr Struct3_t)
                  {- ^ __C declaration:__ @useTypedef_struct3_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 74:14@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 118:14@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct4_t :: (Ptr Struct4_t)
                  {- ^ __C declaration:__ @useTypedef_struct4_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 75:14@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useStruct_struct5 :: Struct5
                  {- ^ __C declaration:__ @useStruct_struct5@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 78:18@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 122:18@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct5_t :: Struct5_t
                  {- ^ __C declaration:__ @useTypedef_struct5_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 79:13@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 123:13@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
-                 use_sites_useStruct_struct6 :: Struct6_Aux
-                 {- ^ __C declaration:__ @useStruct_struct6@
+                 use_sites_useStruct_struct6a :: Struct6a_struct
+                 {- ^ __C declaration:__ @useStruct_struct6a@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 82:18@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 126:19@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
-                 use_sites_useTypedef_struct6 :: Struct6
-                 {- ^ __C declaration:__ @useTypedef_struct6@
+                 use_sites_useTypedef_struct6a :: Struct6a
+                 {- ^ __C declaration:__ @useTypedef_struct6a@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 83:11@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 127:12@
+
+                      __exported by:__ @program-analysis\/typedef_analysis.h@
+                 -},
+                 use_sites_useStruct_struct6b :: Struct6b_struct
+                 {- ^ __C declaration:__ @useStruct_struct6b@
+
+                      __defined at:__ @program-analysis\/typedef_analysis.h 130:19@
+
+                      __exported by:__ @program-analysis\/typedef_analysis.h@
+                 -},
+                 use_sites_useTypedef_struct6b :: Struct6b
+                 {- ^ __C declaration:__ @useTypedef_struct6b@
+
+                      __defined at:__ @program-analysis\/typedef_analysis.h 131:12@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct7a :: Struct7a
                  {- ^ __C declaration:__ @useTypedef_struct7a@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 86:12@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 134:12@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct7b :: Struct7b
                  {- ^ __C declaration:__ @useTypedef_struct7b@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 87:12@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct8 :: Struct8
                  {- ^ __C declaration:__ @useTypedef_struct8@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 91:11@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 139:11@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct8b :: Struct8b
                  {- ^ __C declaration:__ @useTypedef_struct8b@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 92:12@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 140:12@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct9 :: Struct9
                  {- ^ __C declaration:__ @useTypedef_struct9@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 96:11@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 144:11@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct9_t :: Struct9_t
                  {- ^ __C declaration:__ @useTypedef_struct9_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 97:13@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 145:13@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct10_t :: Struct10_t
                  {- ^ __C declaration:__ @useTypedef_struct10_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 98:14@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 146:14@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct10_t_t :: Struct10_t_t
                  {- ^ __C declaration:__ @useTypedef_struct10_t_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 99:16@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 147:16@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct11_t :: Struct11_t
                  {- ^ __C declaration:__ @useTypedef_struct11_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 102:14@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 150:14@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -},
                  use_sites_useTypedef_struct12_t :: Struct12_t
                  {- ^ __C declaration:__ @useTypedef_struct12_t@
 
-                      __defined at:__ @program-analysis\/typedef_analysis.h 103:14@
+                      __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
 
                       __exported by:__ @program-analysis\/typedef_analysis.h@
                  -}}
@@ -490,7 +540,7 @@ instance StaticSize Use_sites
     where staticSizeOf = \_ -> 64 :: Int
           staticAlignment = \_ -> 8 :: Int
 instance ReadRaw Use_sites
-    where readRaw = \ptr_0 -> (((((((((((((((((pure Use_sites <*> readRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct5") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct6") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct6") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0
+    where readRaw = \ptr_0 -> (((((((((((((((((((pure Use_sites <*> readRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct5") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct6a") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct6a") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct6b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct6b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0
 instance WriteRaw Use_sites
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Use_sites use_sites_useTypedef_struct1_t_2
@@ -499,18 +549,20 @@ instance WriteRaw Use_sites
                                                  use_sites_useTypedef_struct4_t_5
                                                  use_sites_useStruct_struct5_6
                                                  use_sites_useTypedef_struct5_t_7
-                                                 use_sites_useStruct_struct6_8
-                                                 use_sites_useTypedef_struct6_9
-                                                 use_sites_useTypedef_struct7a_10
-                                                 use_sites_useTypedef_struct7b_11
-                                                 use_sites_useTypedef_struct8_12
-                                                 use_sites_useTypedef_struct8b_13
-                                                 use_sites_useTypedef_struct9_14
-                                                 use_sites_useTypedef_struct9_t_15
-                                                 use_sites_useTypedef_struct10_t_16
-                                                 use_sites_useTypedef_struct10_t_t_17
-                                                 use_sites_useTypedef_struct11_t_18
-                                                 use_sites_useTypedef_struct12_t_19 -> writeRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0 use_sites_useTypedef_struct1_t_2 >> (writeRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0 use_sites_useTypedef_struct2_t_3 >> (writeRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0 use_sites_useTypedef_struct3_t_4 >> (writeRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0 use_sites_useTypedef_struct4_t_5 >> (writeRaw (Proxy @"use_sites_useStruct_struct5") ptr_0 use_sites_useStruct_struct5_6 >> (writeRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0 use_sites_useTypedef_struct5_t_7 >> (writeRaw (Proxy @"use_sites_useStruct_struct6") ptr_0 use_sites_useStruct_struct6_8 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6") ptr_0 use_sites_useTypedef_struct6_9 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0 use_sites_useTypedef_struct7a_10 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0 use_sites_useTypedef_struct7b_11 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0 use_sites_useTypedef_struct8_12 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0 use_sites_useTypedef_struct8b_13 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0 use_sites_useTypedef_struct9_14 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0 use_sites_useTypedef_struct9_t_15 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0 use_sites_useTypedef_struct10_t_16 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0 use_sites_useTypedef_struct10_t_t_17 >> (writeRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0 use_sites_useTypedef_struct11_t_18 >> writeRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0 use_sites_useTypedef_struct12_t_19))))))))))))))))
+                                                 use_sites_useStruct_struct6a_8
+                                                 use_sites_useTypedef_struct6a_9
+                                                 use_sites_useStruct_struct6b_10
+                                                 use_sites_useTypedef_struct6b_11
+                                                 use_sites_useTypedef_struct7a_12
+                                                 use_sites_useTypedef_struct7b_13
+                                                 use_sites_useTypedef_struct8_14
+                                                 use_sites_useTypedef_struct8b_15
+                                                 use_sites_useTypedef_struct9_16
+                                                 use_sites_useTypedef_struct9_t_17
+                                                 use_sites_useTypedef_struct10_t_18
+                                                 use_sites_useTypedef_struct10_t_t_19
+                                                 use_sites_useTypedef_struct11_t_20
+                                                 use_sites_useTypedef_struct12_t_21 -> writeRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0 use_sites_useTypedef_struct1_t_2 >> (writeRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0 use_sites_useTypedef_struct2_t_3 >> (writeRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0 use_sites_useTypedef_struct3_t_4 >> (writeRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0 use_sites_useTypedef_struct4_t_5 >> (writeRaw (Proxy @"use_sites_useStruct_struct5") ptr_0 use_sites_useStruct_struct5_6 >> (writeRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0 use_sites_useTypedef_struct5_t_7 >> (writeRaw (Proxy @"use_sites_useStruct_struct6a") ptr_0 use_sites_useStruct_struct6a_8 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6a") ptr_0 use_sites_useTypedef_struct6a_9 >> (writeRaw (Proxy @"use_sites_useStruct_struct6b") ptr_0 use_sites_useStruct_struct6b_10 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6b") ptr_0 use_sites_useTypedef_struct6b_11 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0 use_sites_useTypedef_struct7a_12 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0 use_sites_useTypedef_struct7b_13 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0 use_sites_useTypedef_struct8_14 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0 use_sites_useTypedef_struct8b_15 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0 use_sites_useTypedef_struct9_16 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0 use_sites_useTypedef_struct9_t_17 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0 use_sites_useTypedef_struct10_t_18 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0 use_sites_useTypedef_struct10_t_t_19 >> (writeRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0 use_sites_useTypedef_struct11_t_20 >> writeRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0 use_sites_useTypedef_struct12_t_21))))))))))))))))))
 deriving via (EquivStorable Use_sites) instance Storable Use_sites
 instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
     where type CFieldType Use_sites
@@ -554,20 +606,34 @@ instance HasCField Use_sites "use_sites_useTypedef_struct5_t"
 instance (~) ty Struct5_t =>
          HasField "use_sites_useTypedef_struct5_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct5_t")
-instance HasCField Use_sites "use_sites_useStruct_struct6"
+instance HasCField Use_sites "use_sites_useStruct_struct6a"
     where type CFieldType Use_sites
-                          "use_sites_useStruct_struct6" = Struct6_Aux
+                          "use_sites_useStruct_struct6a" = Struct6a_struct
           offset# = \_ -> \_ -> 24
-instance (~) ty Struct6_Aux =>
-         HasField "use_sites_useStruct_struct6" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useStruct_struct6")
-instance HasCField Use_sites "use_sites_useTypedef_struct6"
+instance (~) ty Struct6a_struct =>
+         HasField "use_sites_useStruct_struct6a" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useStruct_struct6a")
+instance HasCField Use_sites "use_sites_useTypedef_struct6a"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct6" = Struct6
+                          "use_sites_useTypedef_struct6a" = Struct6a
           offset# = \_ -> \_ -> 24
-instance (~) ty Struct6 =>
-         HasField "use_sites_useTypedef_struct6" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6")
+instance (~) ty Struct6a =>
+         HasField "use_sites_useTypedef_struct6a" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6a")
+instance HasCField Use_sites "use_sites_useStruct_struct6b"
+    where type CFieldType Use_sites
+                          "use_sites_useStruct_struct6b" = Struct6b_struct
+          offset# = \_ -> \_ -> 32
+instance (~) ty Struct6b_struct =>
+         HasField "use_sites_useStruct_struct6b" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useStruct_struct6b")
+instance HasCField Use_sites "use_sites_useTypedef_struct6b"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct6b" = Struct6b
+          offset# = \_ -> \_ -> 32
+instance (~) ty Struct6b =>
+         HasField "use_sites_useTypedef_struct6b" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6b")
 instance HasCField Use_sites "use_sites_useTypedef_struct7a"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct7a" = Struct7a
@@ -640,3 +706,291 @@ instance HasCField Use_sites "use_sites_useTypedef_struct12_t"
 instance (~) ty Struct12_t =>
          HasField "use_sites_useTypedef_struct12_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct12_t")
+{-| __C declaration:__ @struct foo@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 163:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Foo_struct
+    = Foo_struct {foo_struct_x :: CInt
+                  {- ^ __C declaration:__ @x@
+
+                       __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
+
+                       __exported by:__ @program-analysis\/typedef_analysis.h@
+                  -},
+                  foo_struct_y :: CInt
+                  {- ^ __C declaration:__ @y@
+
+                       __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
+
+                       __exported by:__ @program-analysis\/typedef_analysis.h@
+                  -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo_struct
+    where readRaw = \ptr_0 -> (pure Foo_struct <*> readRaw (Proxy @"foo_struct_x") ptr_0) <*> readRaw (Proxy @"foo_struct_y") ptr_0
+instance WriteRaw Foo_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_struct foo_struct_x_2
+                                                  foo_struct_y_3 -> writeRaw (Proxy @"foo_struct_x") ptr_0 foo_struct_x_2 >> writeRaw (Proxy @"foo_struct_y") ptr_0 foo_struct_y_3
+deriving via (EquivStorable Foo_struct) instance Storable Foo_struct
+instance HasCField Foo_struct "foo_struct_x"
+    where type CFieldType Foo_struct "foo_struct_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "foo_struct_x" (Ptr Foo_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_struct_x")
+instance HasCField Foo_struct "foo_struct_y"
+    where type CFieldType Foo_struct "foo_struct_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "foo_struct_y" (Ptr Foo_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_struct_y")
+{-| Auxiliary type used by 'Foo'
+
+    __C declaration:__ @foo@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 167:22@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Foo_Aux
+    = Foo_Aux {unwrapFoo_Aux :: (IO Foo_struct)}
+    deriving stock Generic
+instance (~) ty (IO Foo_struct) =>
+         HasField "unwrapFoo_Aux" (Ptr Foo_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo_Aux")
+instance HasCField Foo_Aux "unwrapFoo_Aux"
+    where type CFieldType Foo_Aux "unwrapFoo_Aux" = IO Foo_struct
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 167:22@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Foo
+    = Foo {unwrapFoo :: (FunPtr Foo_Aux)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (FunPtr Foo_Aux) =>
+         HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo")
+instance HasCField Foo "unwrapFoo"
+    where type CFieldType Foo "unwrapFoo" = FunPtr Foo_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct bar@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 171:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Bar_struct
+    = Bar_struct {bar_struct_a :: CInt
+                  {- ^ __C declaration:__ @a@
+
+                       __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
+
+                       __exported by:__ @program-analysis\/typedef_analysis.h@
+                  -},
+                  bar_struct_b :: CInt
+                  {- ^ __C declaration:__ @b@
+
+                       __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
+
+                       __exported by:__ @program-analysis\/typedef_analysis.h@
+                  -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Bar_struct
+    where readRaw = \ptr_0 -> (pure Bar_struct <*> readRaw (Proxy @"bar_struct_a") ptr_0) <*> readRaw (Proxy @"bar_struct_b") ptr_0
+instance WriteRaw Bar_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar_struct bar_struct_a_2
+                                                  bar_struct_b_3 -> writeRaw (Proxy @"bar_struct_a") ptr_0 bar_struct_a_2 >> writeRaw (Proxy @"bar_struct_b") ptr_0 bar_struct_b_3
+deriving via (EquivStorable Bar_struct) instance Storable Bar_struct
+instance HasCField Bar_struct "bar_struct_a"
+    where type CFieldType Bar_struct "bar_struct_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "bar_struct_a" (Ptr Bar_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_struct_a")
+instance HasCField Bar_struct "bar_struct_b"
+    where type CFieldType Bar_struct "bar_struct_b" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "bar_struct_b" (Ptr Bar_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_struct_b")
+{-| Auxiliary type used by 'Bar'
+
+    __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 175:22@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Bar_Aux
+    = Bar_Aux {unwrapBar_Aux :: (Bar_struct -> IO Foo_struct)}
+    deriving stock Generic
+instance (~) ty (Bar_struct -> IO Foo_struct) =>
+         HasField "unwrapBar_Aux" (Ptr Bar_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBar_Aux")
+instance HasCField Bar_Aux "unwrapBar_Aux"
+    where type CFieldType Bar_Aux "unwrapBar_Aux" = Bar_struct ->
+                                                    IO Foo_struct
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 175:22@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Bar
+    = Bar {unwrapBar :: (FunPtr Bar_Aux)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (FunPtr Bar_Aux) =>
+         HasField "unwrapBar" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBar")
+instance HasCField Bar "unwrapBar"
+    where type CFieldType Bar "unwrapBar" = FunPtr Bar_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct struct15@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 182:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Struct15 = Struct15 {} deriving stock (Eq, Generic, Show)
+instance StaticSize Struct15
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct15
+    where readRaw = \ptr_0 -> pure Struct15
+instance WriteRaw Struct15
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct15 -> return ()
+deriving via (EquivStorable Struct15) instance Storable Struct15
+{-| __C declaration:__ @struct struct16@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 191:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Struct16_struct
+    = Struct16_struct {}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Struct16_struct
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct16_struct
+    where readRaw = \ptr_0 -> pure Struct16_struct
+instance WriteRaw Struct16_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct16_struct -> return ()
+deriving via (EquivStorable Struct16_struct) instance Storable Struct16_struct
+{-| __C declaration:__ @struct16@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 192:32@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+newtype Struct16
+    = Struct16 {unwrapStruct16 :: (Ptr Struct16_struct)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr Struct16_struct) =>
+         HasField "unwrapStruct16" (Ptr Struct16) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct16")
+instance HasCField Struct16 "unwrapStruct16"
+    where type CFieldType Struct16
+                          "unwrapStruct16" = Ptr Struct16_struct
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct use_sites_qual@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 195:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Use_sites_qual
+    = Use_sites_qual {use_sites_qual_useTypedef_struct15 :: Struct15
+                      {- ^ __C declaration:__ @useTypedef_struct15@
+
+                           __defined at:__ @program-analysis\/typedef_analysis.h 197:12@
+
+                           __exported by:__ @program-analysis\/typedef_analysis.h@
+                      -},
+                      use_sites_qual_useStruct_struct16 :: Struct16_struct
+                      {- ^ __C declaration:__ @useStruct_struct16@
+
+                           __defined at:__ @program-analysis\/typedef_analysis.h 200:19@
+
+                           __exported by:__ @program-analysis\/typedef_analysis.h@
+                      -},
+                      use_sites_qual_useTypedef_struct16 :: Struct16
+                      {- ^ __C declaration:__ @useTypedef_struct16@
+
+                           __defined at:__ @program-analysis\/typedef_analysis.h 201:12@
+
+                           __exported by:__ @program-analysis\/typedef_analysis.h@
+                      -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Use_sites_qual
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Use_sites_qual
+    where readRaw = \ptr_0 -> ((pure Use_sites_qual <*> readRaw (Proxy @"use_sites_qual_useTypedef_struct15") ptr_0) <*> readRaw (Proxy @"use_sites_qual_useStruct_struct16") ptr_0) <*> readRaw (Proxy @"use_sites_qual_useTypedef_struct16") ptr_0
+instance WriteRaw Use_sites_qual
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Use_sites_qual use_sites_qual_useTypedef_struct15_2
+                                                      use_sites_qual_useStruct_struct16_3
+                                                      use_sites_qual_useTypedef_struct16_4 -> writeRaw (Proxy @"use_sites_qual_useTypedef_struct15") ptr_0 use_sites_qual_useTypedef_struct15_2 >> (writeRaw (Proxy @"use_sites_qual_useStruct_struct16") ptr_0 use_sites_qual_useStruct_struct16_3 >> writeRaw (Proxy @"use_sites_qual_useTypedef_struct16") ptr_0 use_sites_qual_useTypedef_struct16_4)
+deriving via (EquivStorable Use_sites_qual) instance Storable Use_sites_qual
+instance HasCField Use_sites_qual
+                   "use_sites_qual_useTypedef_struct15"
+    where type CFieldType Use_sites_qual
+                          "use_sites_qual_useTypedef_struct15" = Struct15
+          offset# = \_ -> \_ -> 0
+instance (~) ty Struct15 =>
+         HasField "use_sites_qual_useTypedef_struct15"
+                  (Ptr Use_sites_qual)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_qual_useTypedef_struct15")
+instance HasCField Use_sites_qual
+                   "use_sites_qual_useStruct_struct16"
+    where type CFieldType Use_sites_qual
+                          "use_sites_qual_useStruct_struct16" = Struct16_struct
+          offset# = \_ -> \_ -> 0
+instance (~) ty Struct16_struct =>
+         HasField "use_sites_qual_useStruct_struct16"
+                  (Ptr Use_sites_qual)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_qual_useStruct_struct16")
+instance HasCField Use_sites_qual
+                   "use_sites_qual_useTypedef_struct16"
+    where type CFieldType Use_sites_qual
+                          "use_sites_qual_useTypedef_struct16" = Struct16
+          offset# = \_ -> \_ -> 0
+instance (~) ty Struct16 =>
+         HasField "use_sites_qual_useTypedef_struct16"
+                  (Ptr Use_sites_qual)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_qual_useTypedef_struct16")

@@ -12,6 +12,7 @@ import Data.Foldable qualified as Foldable
 import Data.Function
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map qualified as Map
+import Data.Maybe (maybeToList)
 import Data.Proxy
 import Data.Set qualified as Set
 
@@ -34,6 +35,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -42,6 +44,9 @@ import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 import Doxygen.Parser.Types qualified as Doxy
+
+-- TODO-D: Three traversals/passes? Mangle names (top-level and within
+-- declarations), clash detection, assign names in declarations.
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -68,7 +73,11 @@ mangleNames fieldNaming unit = (
                             squashes
                             unit.meta
         }
-    , msgs1 ++ msgs2
+    , msgs1 ++ [
+          debugMsg $ MangleNamesNameMap nameMap
+        , debugMsg $ MangleNamesNameRegistry "Pass 1" registry1
+        , debugMsg $ MangleNamesNameRegistry "Pass 2" registry2
+        ]
     )
   where
     typedefAnalysis :: TypedefAnalysis
@@ -77,29 +86,48 @@ mangleNames fieldNaming unit = (
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
 
-    -- Pass 1.
+    -- Pass 1: choose top-level names, detect top-level collisions (sweep 1), and
+    -- seed the name registry with the surviving names.
     nameMap   :: NameMap
+    registry1 :: NameRegistry
     failures1 :: [MangleNamesFailure]
     msgs1     :: [AMsg MangleNames]
-    (decls1, nameMap, failures1, msgs1) =
+    (decls1, nameMap, registry1, failures1, msgs1) =
       chooseNames typedefAnalysis mangleCandidateConfig unit.decls
 
-    -- Pass 2.
+    -- Pass 2: apply the name map and mint derived names (recorded in the
+    -- registry, seeded with the surviving pass 1 names).
     env :: Env
     env = Env{
           typedefAnalysis     = typedefAnalysis
         , mangleCandidate     = mangleCandidateConfig
         , nameMap             = nameMap
         , fieldNamingStrategy = fieldNaming
+        , currentDecl         = Nothing
         }
 
     mangleDeclResults :: [MangleDeclResult l]
-    msgs2             :: [AMsg MangleNames]
-    (mangleDeclResults, msgs2) = runM env $ mapM mangleDecl decls1
+    registry2         :: NameRegistry
+    (mangleDeclResults, registry2) = runM env registry1 $ mapM mangleDecl decls1
+
+    mangleFailures :: [MangleNamesFailure]
+    squashes       :: [MangleNamesSquash]
+    mangledDecls   :: [C.Decl l MangleNames]
+    (mangleFailures, squashes, mangledDecls) = partitionResults mangleDeclResults
+
+    -- Sweep 2: collisions involving names minted in pass 2 (derived vs. derived,
+    -- or derived vs. a surviving pass 1 name).
+    collisionFailures2 :: [MangleNamesFailure]
+    collisionFailures2 = collisionFailures (collisions registry2)
+
+    collidingIds2 :: Set DeclId
+    collidingIds2 = Set.fromList $ map (.id) collisionFailures2
 
     failures2 :: [MangleNamesFailure]
-    squashes  :: [MangleNamesSquash]
-    (failures2, squashes, decls2) = partitionResults mangleDeclResults
+    failures2 = mangleFailures ++ collisionFailures2
+
+    decls2 :: [C.Decl l MangleNames]
+    decls2 = filter (\d -> Set.notMember d.info.id.cName collidingIds2) mangledDecls
 
     partitionResults ::
          [MangleDeclResult l]
@@ -150,7 +178,12 @@ chooseNames ::
   => TypedefAnalysis
   -> MangleCandidate Maybe
   -> [C.Decl l ResolveBindingSpecs]
-  -> ([C.Decl l ResolveBindingSpecs], NameMap, [MangleNamesFailure], [AMsg MangleNames])
+  -> ( [C.Decl l ResolveBindingSpecs]
+     , NameMap
+     , NameRegistry
+     , [MangleNamesFailure]
+     , [AMsg MangleNames]
+     )
 chooseNames td mc decls =
     let specifiedNames :: Map DeclId (Hs.Name Hs.NsTypeConstr)
         specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
@@ -171,31 +204,57 @@ chooseNames td mc decls =
         nameInfosOriginal :: [NameInfo]
         nameInfosOriginal = filter (not . (.squashed)) nameInfos
 
-        collisions :: Map Hs.SomeName [(DeclId, SingleLoc)]
-        collisions = getDuplicates $ Map.fromList $
-          map (\n -> ((n.cName, n.loc), n.hsName)) nameInfosOriginal
+        -- Sweep 1: collisions among top-level names.
+        sweepRegistry :: NameRegistry
+        sweepRegistry = registerInfos nameInfosOriginal
 
-        collisionFailures :: [MangleNamesFailure]
-        collisionFailures = concatMap getCollisionFailures $ Map.toList collisions
+        collisionFs :: [MangleNamesFailure]
+        collisionFs = collisionFailures (collisions sweepRegistry)
 
         collidingDeclIds :: Set DeclId
-        collidingDeclIds = Set.fromList $ map (.id) collisionFailures
+        collidingDeclIds = Set.fromList $ map (.id) collisionFs
 
         okDecls :: [C.Decl l ResolveBindingSpecs]
         okDecls = filter (\x -> Set.notMember x.info.id collidingDeclIds) decls
 
-    in  (okDecls, nameMap, failures ++ collisionFailures, messages)
+        -- Seed the pass 2 registry with the surviving (non-colliding) top-level
+        -- names, so derived names can be checked against them in sweep 2.
+        registry1 :: NameRegistry
+        registry1 = registerInfos $
+          filter (\n -> Set.notMember n.cName collidingDeclIds) nameInfosOriginal
+
+    in  (okDecls, nameMap, registry1, failures ++ collisionFs, messages)
   where
     getSpecifiedName ::
       C.Decl l ResolveBindingSpecs -> Maybe (DeclId, Hs.Name Hs.NsTypeConstr)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
-getCollisionFailures :: (Hs.SomeName, [(DeclId, SingleLoc)]) -> [MangleNamesFailure]
-getCollisionFailures (i, xs) =
-    [ MangleNamesFailure d l $ MangleNamesCollision i idsWithLocs | (d, l) <- xs ]
+    registerInfos :: [NameInfo] -> NameRegistry
+    registerInfos = Foldable.foldl'
+      (\r n -> registerSomeName Declaration n.cName n.loc n.hsName r)
+      emptyNameRegistry
+
+-- | Turn registry collisions into per-declaration failures
+--
+-- Shared by both collision sweeps.
+collisionFailures :: [Collision] -> [MangleNamesFailure]
+collisionFailures = concatMap getCollisionFailures
   where
-    idsWithLocs :: [WithLocationInfo DeclId]
-    idsWithLocs = map (\(d, l) -> WithLocationInfo (declIdLocationInfo d [l]) d) xs
+    getCollisionFailures :: Collision -> [MangleNamesFailure]
+    getCollisionFailures c =
+        [ MangleNamesFailure o.owner o.loc (MangleNamesCollision c.name idsWithLocs)
+        | o <- origins
+        ]
+      where
+        -- One failure per distinct declaration.
+        origins :: [NameOrigin]
+        origins = Map.elems $ Map.fromList $ map (\o -> (o.owner, o)) c.origins
+
+        idsWithLocs :: [WithLocationInfo DeclId]
+        idsWithLocs =
+          [ WithLocationInfo (declIdLocationInfo o.owner [o.loc]) o.owner
+          | o <- origins
+          ]
 
 -- | Internal.
 data NameInfo = NameInfo {
@@ -216,6 +275,7 @@ nameForDecl ::
   -> C.Decl l ResolveBindingSpecs
   -> (Either MangleNamesFailure NameInfo, [AMsg MangleNames])
 nameForDecl td mc specifiedNames decl =
+    second toMs $
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleCandidate' :: Text -> Either MangleNamesError (Hs.Name ns)
           mangleCandidate' d = runExcept $ mangleCandidate mc nsProxy d
@@ -247,20 +307,19 @@ nameForDecl td mc specifiedNames decl =
                 Left err -> failWith err
                 Right hsNm ->
                   ( Right $ NameInfo declId (Hs.demoteNs hsNm) loc False
-                  , (toMs [MangleNamesAssignedName (Hs.demoteNs hsNm)])
-                  )
+                  , [MangleNamesAssignedName (Hs.demoteNs hsNm)] )
             Just (TypedefAnalysis.UseNameOf declId') ->
               case Map.lookup declId' specifiedNames of
                 Just hsNm ->
                   ( Right $ NameInfo declId (Hs.demoteNs hsNm) loc False
-                  , [] )
+                  , [ MangleNamesReusedAssignedName (Hs.demoteNs hsNm) ] )
                 Nothing ->
                   mangleCandidate' declId'.name.text & \case
                     Left err -> failWith err
                     Right hsNm ->
                       ( Right $ NameInfo declId (Hs.demoteNs hsNm) loc False
-                      , toMs [ MangleNamesAssignedName (Hs.demoteNs hsNm)
-                             | declId.name.text /= declId'.name.text ] )
+                      , [ MangleNamesAssignedName (Hs.demoteNs hsNm)
+                        | declId.name.text /= declId'.name.text ] )
             Just (TypedefAnalysis.Squash s) ->
               case Map.lookup s.targetId specifiedNames of
                 Just hsNm ->
@@ -282,7 +341,7 @@ nameForDecl td mc specifiedNames decl =
     loc :: SingleLoc
     loc = decl.info.loc
 
-    failWith :: MangleNamesError -> (Either MangleNamesFailure a, [AMsg MangleNames])
+    failWith :: MangleNamesError -> (Either MangleNamesFailure a, [MangleNamesMsg])
     failWith err = (Left $ toFailure info err, [])
 
     toMs :: HasCallStack => [a] -> [WithCallStack (WithLocationInfo a)]
@@ -310,13 +369,14 @@ mangleCandidate mc _ cName =
 type E m a = ExceptT MangleNamesError m a
 
 newtype M a = WrapM (
-      StateT [AMsg MangleNames] (Reader Env) a
+      StateT NameRegistry (Reader Env) a
     )
   deriving newtype (
       Functor
     , Applicative
     , Monad
     , MonadReader Env
+    , MonadState NameRegistry
     )
 
 data MangleNamesFailure = MangleNamesFailure {
@@ -340,11 +400,14 @@ data Env = Env{
     , nameMap             :: NameMap
     , mangleCandidate     :: MangleCandidate Maybe
     , fieldNamingStrategy :: FieldNamingStrategy
+      -- | The declaration currently being mangled, to blame for any derived
+      -- names minted while processing it. Set by 'mangleDecl'.
+    , currentDecl         :: Maybe (DeclId, SingleLoc)
     }
   deriving stock (Generic)
 
-runM :: Env -> M a -> (a, [AMsg MangleNames])
-runM env (WrapM ma) = second reverse . flip runReader env $ runStateT ma mempty
+runM :: Env -> NameRegistry -> M a -> (a, NameRegistry)
+runM env reg0 (WrapM ma) = flip runReader env $ runStateT ma reg0
 
 checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)
 checkTypedefAnalysis declId = do
@@ -352,36 +415,12 @@ checkTypedefAnalysis declId = do
     return $ Map.lookup declId td.map
 
 {-------------------------------------------------------------------------------
-  Name map
+  Name map: resolving references
+
+  The 'NameMap' itself (and the registry used for collision detection) lives in
+  "HsBindgen.Frontend.Pass.MangleNames.Names"; here we provide the 'E M'
+  wrappers that resolve references against it.
 -------------------------------------------------------------------------------}
-
-data NameMap = NameMap {
-      typeConstrs :: Map DeclId (Hs.Name Hs.NsTypeConstr)
-    , dataConstrs :: Map DeclId (Hs.Name Hs.NsConstr)
-    , vars        :: Map DeclId (Hs.Name Hs.NsVar)
-    }
-  deriving stock (Show, Eq, Generic)
-
-emptyNameMap :: NameMap
-emptyNameMap = NameMap Map.empty Map.empty Map.empty
-
-fromDeclIdPairs :: [DeclIdPair] -> NameMap
-fromDeclIdPairs = Foldable.foldl' aux emptyNameMap
-  where
-    aux :: NameMap -> DeclIdPair -> NameMap
-    aux nameMap pair = case pair.hsName.ns of
-      Hs.NsTypeConstr ->
-        nameMap & #typeConstrs %~
-          Map.insert pair.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName)
-      Hs.NsConstr ->
-        nameMap & #dataConstrs %~
-          Map.insert pair.cName (Hs.assertNs (Proxy @Hs.NsConstr) pair.hsName)
-      Hs.NsVar ->
-        nameMap & #vars %~
-          Map.insert pair.cName (Hs.assertNs (Proxy @Hs.NsVar) pair.hsName)
-
-lookupType :: DeclId -> NameMap -> Maybe (Hs.Name Hs.NsTypeConstr)
-lookupType declId nameMap = Map.lookup declId nameMap.typeConstrs
 
 lookupTypeE :: DeclId -> E M (Hs.Name Hs.NsTypeConstr)
 lookupTypeE declId = do
@@ -401,9 +440,6 @@ lookupTypePair declId = do
         , hsName = Hs.demoteNs hsName
       }
 
-lookupData :: DeclId -> NameMap -> Maybe (Hs.Name Hs.NsConstr)
-lookupData declId nameMap = Map.lookup declId nameMap.dataConstrs
-
 lookupDataE :: DeclId -> E M (Hs.Name Hs.NsConstr)
 lookupDataE declId = do
     nameMap <- asks (.nameMap)
@@ -413,9 +449,6 @@ lookupDataE declId = do
           MangleNamesUnderlyingDeclNotMangled declId (NonEmpty.singleton Hs.NsConstr)
       Just hsNm ->
         pure hsNm
-
-lookupVar :: DeclId -> NameMap -> Maybe (Hs.Name Hs.NsVar)
-lookupVar declId nameMap = Map.lookup declId nameMap.vars
 
 lookupVarE :: DeclId -> E M (Hs.Name Hs.NsVar)
 lookupVarE declId = do
@@ -435,13 +468,13 @@ lookupVarPair declId = lookupVarE declId >>= \hsName -> pure $ DeclIdPair{
 
 {-------------------------------------------------------------------------------
   Pass 2: Apply NameMap
--------------------------------------------------------------------------------}
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1432>
---
--- Names created in this second pass are not checked for duplicates! For
--- example, the name of the auxiliary @typedef@ for @struct@s containing a FLAM
--- could clash with another type constructor name.
+  Every name minted here (via 'mintName') is recorded in the 'NameRegistry'
+  under the declaration currently being mangled, so that 'mangleNames' can
+  detect collisions in sweep 2 (see issue #1432). Names that are not emitted as
+  top-level Haskell identifiers (function arguments, the intermediate base used
+  to build union accessors) are minted with 'mkIdentifier' and not recorded.
+-------------------------------------------------------------------------------}
 
 class Mangle a where
   mangle ::
@@ -464,7 +497,9 @@ data MangleDeclResult l =
     | MdrMangled (C.Decl l MangleNames)
 
 mangleDecl :: HasMacroTypes l => C.Decl l ResolveBindingSpecs -> M (MangleDeclResult l)
-mangleDecl decl = do
+mangleDecl decl =
+    -- Blame any derived names minted below on this declaration.
+    local ( #currentDecl .~ Just (decl.info.id, decl.info.loc) ) $ do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
       Just (TypedefAnalysis.Squash s) ->
@@ -472,6 +507,9 @@ mangleDecl decl = do
         -- `Select` pass.
         pure $ MdrSquashed $ MangleNamesSquash decl.info.id s
       _otherwise -> withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) -> do
+        -- Snapshot the registry so a failed declaration does not leave its
+        -- partially-minted names behind to cause spurious sweep 2 collisions.
+        registryBefore <- get
         eDecl' <- runExceptT $ do
           (hsName, info') <- mangleDeclInfo nsProxy decl.info
           let hsId :: Text
@@ -491,21 +529,71 @@ mangleDecl decl = do
             , kind = kind'
             , ann  = decl.ann
             }
-        pure $ case eDecl' of
-          Left err    -> MdrFailure $ toFailure decl.info err
-          Right decl' -> MdrMangled decl'
+        case eDecl' of
+          Left err -> do
+            put registryBefore
+            pure $ MdrFailure $ toFailure decl.info err
+          Right decl' ->
+            pure $ MdrMangled decl'
 
 {-------------------------------------------------------------------------------
   Scoped names
 -------------------------------------------------------------------------------}
 
 -- | Apply Haskell naming rules
+--
+-- This does /not/ record the name in the registry; use it only for names that
+-- are not emitted as top-level Haskell identifiers.
 mkIdentifier ::
      Hs.SingNamespace ns
   => Proxy ns -> Text -> E M (Hs.Name ns)
 mkIdentifier ns candidate = do
     mc <- asks (.mangleCandidate)
     liftEither . runExcept $ mangleCandidate mc ns candidate
+
+-- | Record a minted name in the registry, blaming the current declaration
+recordName :: Hs.SingNamespace ns => NameRole -> Hs.Name ns -> E M ()
+recordName role name = do
+    mDecl <- asks (.currentDecl)
+    case mDecl of
+      -- Only happens outside of 'mangleDecl', where there is nothing to blame.
+      Nothing           -> pure ()
+      Just (owner, loc) -> modify' (registerName role owner loc name)
+
+-- | Mint a name and record it in the registry under the given 'NameRole'
+mintName ::
+     Hs.SingNamespace ns
+  => NameRole -> Proxy ns -> Text -> E M (Hs.Name ns)
+mintName role ns candidate = do
+    name <- mkIdentifier ns candidate
+    recordName role name
+    pure name
+
+-- | Mint a record field name
+--
+-- Under 'OmitFieldPrefixes' the generated code enables @DuplicateRecordFields@,
+-- so duplicate field selectors are legal and we do /not/ record them for
+-- collision detection. Under 'AddFieldPrefixes' field selectors are ordinary
+-- top-level names and must be unique, so we record them.
+mintFieldName :: FieldNamingStrategy -> Text -> E M (Hs.Name Hs.NsVar)
+mintFieldName strategy candidate = case strategy of
+    AddFieldPrefixes  -> mintName Field (Proxy @Hs.NsVar) candidate
+    OmitFieldPrefixes -> mkIdentifier   (Proxy @Hs.NsVar) candidate
+
+-- | Detect within-record duplicate field names after mangling.
+--
+-- Under 'AddFieldPrefixes' field names are injective, so this never fires.
+-- Under 'OmitFieldPrefixes' two C fields can mangle to the same Haskell name
+-- (e.g. @Bar@ and @bar@ both become @bar@), producing uncompilable Haskell.
+checkDuplicateFieldNames :: [C.StructField MangleNames] -> E M ()
+checkDuplicateFieldNames fields =
+    case Map.toList duplicates of
+      []         -> pure ()
+      (n, ls):_  -> throwError $ MangleNamesDuplicateFieldName n ls
+  where
+    duplicates :: Map Hs.SomeName [SingleLoc]
+    duplicates = Map.filter (\ls -> length ls >= 2) $
+        Map.fromListWith (++) [ (f.info.name.hsName, [f.info.loc]) | f <- fields ]
 
 mangleFieldName ::
      Text
@@ -519,7 +607,7 @@ mangleFieldName hsName fieldCName = do
             hsName <> "_" <> fieldCName.text
           OmitFieldPrefixes ->
             fieldCName.text
-    name <- mkIdentifier (Proxy @Hs.NsVar) candidate
+    name <- mintFieldName strategy candidate
     return ScopedNamePair{
         cName  = fieldCName
       , hsName = Hs.demoteNs name
@@ -543,8 +631,27 @@ mangleAccessorName hsName fieldCName =
 mangleEnumConstant ::
      CScopedName
   -> E M ScopedNamePair
-mangleEnumConstant cName = do
-    name <- mkIdentifier (Proxy @Hs.NsConstr) cName.text
+mangleEnumConstant = mangleEnumConstantWith $
+    mintName Constructor (Proxy @Hs.NsConstr)
+
+-- | Mangle an /anonymous/ (top-level) enum constant name
+--
+-- Unlike the constants of a named enum, an anonymous enum constant is a
+-- top-level declaration in its own right: its name was already chosen and
+-- registered as a 'Declaration' in pass 1. We must therefore /not/ record it
+-- again here, or the declaration would appear to collide with itself.
+mangleAnonEnumConstant ::
+     CScopedName
+  -> E M ScopedNamePair
+mangleAnonEnumConstant = mangleEnumConstantWith $
+    mkIdentifier (Proxy @Hs.NsConstr)
+
+mangleEnumConstantWith ::
+     (Text -> E M (Hs.Name Hs.NsConstr))
+  -> CScopedName
+  -> E M ScopedNamePair
+mangleEnumConstantWith mint cName = do
+    name <- mint cName.text
     return ScopedNamePair{
         cName  = cName
       , hsName = Hs.demoteNs name
@@ -571,11 +678,11 @@ mangleArgumentName argName = do
 
 mkStructNames :: Maybe a -> Text -> E M StructNames
 mkStructNames mFlam name = do
-    constrName <- mkIdentifier (Proxy @Hs.NsConstr) name
+    constrName <- mintName Constructor (Proxy @Hs.NsConstr) name
     let auxName = name <> "_Aux"
     mFlamAux <- case mFlam of
       Nothing -> pure Nothing
-      Just _  -> Just <$> mkIdentifier (Proxy @Hs.NsTypeConstr) auxName
+      Just _  -> Just <$> mintName AuxType (Proxy @Hs.NsTypeConstr) auxName
     pure StructNames{
         constr  = constrName
       , flamAux = mFlamAux
@@ -583,7 +690,7 @@ mkStructNames mFlam name = do
 
 mkFieldName ::
   FieldNamingStrategy -> Text -> E M (Hs.Name Hs.NsVar)
-mkFieldName strategy name = mkIdentifier (Proxy @Hs.NsVar) $ case strategy of
+mkFieldName strategy name = mintFieldName strategy $ case strategy of
     AddFieldPrefixes  -> "unwrap" <> name
     OmitFieldPrefixes -> "unwrap"
 
@@ -591,7 +698,7 @@ mkFieldName strategy name = mkIdentifier (Proxy @Hs.NsVar) $ case strategy of
 mkNewtypeNames ::
   FieldNamingStrategy -> Text -> E M NewtypeNames
 mkNewtypeNames strategy name = do
-    constrName <- mkIdentifier (Proxy @Hs.NsConstr) name
+    constrName <- mintName Constructor (Proxy @Hs.NsConstr) name
     fieldName  <- mkFieldName strategy name
     pure $ NewtypeNames{
       dataConstr = constrName
@@ -622,7 +729,7 @@ mkTypedefNames mFunPtr strategy name = do
     aux  <- case mFunPtr of
       Nothing -> pure Nothing
       Just _  -> do
-        auxName  <- mkIdentifier (Proxy @Hs.NsTypeConstr) $ name <> "_Aux"
+        auxName  <- mintName AuxType (Proxy @Hs.NsTypeConstr) $ name <> "_Aux"
         auxNames <- mkNewtypeNames strategy auxName.text
         pure $ Just (auxName, auxNames)
     pure TypedefNames{
@@ -707,6 +814,7 @@ instance MangleWithDeclName C.Struct where
   mangleWithDeclName hsName struct = do
       fields <- mapM (mangleWithDeclName hsName) struct.fields
       flam   <- mapM (mangleWithDeclName hsName) struct.flam
+      checkDuplicateFieldNames (fields ++ maybeToList flam)
       names  <- mkStructNames struct.flam hsName
       pure $ reconstruct fields flam names
     where
@@ -768,8 +876,8 @@ instance MangleWithDeclName C.UnionField where
       fieldType    <- mangle field.typ
       fieldComment <- mapM mangle field.info.comment
       accessorName <- mangleAccessorName hsName field.info.name
-      getterName   <- mkIdentifier (Proxy @Hs.NsVar) $ "get_" <> accessorName.text
-      setterName   <- mkIdentifier (Proxy @Hs.NsVar) $ "set_" <> accessorName.text
+      getterName   <- mintName Accessor (Proxy @Hs.NsVar) $ "get_" <> accessorName.text
+      setterName   <- mintName Accessor (Proxy @Hs.NsVar) $ "set_" <> accessorName.text
       pure $
         C.UnionField {
             info = C.FieldInfo {
@@ -807,7 +915,7 @@ instance MangleWithDeclName C.Enum where
 
 instance Mangle C.AnonEnumConstant where
   mangle (C.AnonEnumConstant primTyp constant') = do
-      reconstruct <$> mangle constant'
+      reconstruct <$> mangleEnumConstantDecl mangleAnonEnumConstant constant'
     where
       reconstruct :: C.EnumConstant MangleNames -> C.AnonEnumConstant MangleNames
       reconstruct enumConstants' = C.AnonEnumConstant{
@@ -816,9 +924,18 @@ instance Mangle C.AnonEnumConstant where
           }
 
 instance Mangle C.EnumConstant where
-  mangle constant = do
+  mangle = mangleEnumConstantDecl mangleEnumConstant
+
+-- | Mangle an enum constant declaration, choosing its name with the given
+-- mangling action (recording or non-recording, see 'mangleEnumConstant' and
+-- 'mangleAnonEnumConstant').
+mangleEnumConstantDecl ::
+     (CScopedName -> E M ScopedNamePair)
+  -> C.EnumConstant ResolveBindingSpecs
+  -> E M (C.EnumConstant MangleNames)
+mangleEnumConstantDecl mangleName constant =
       reconstruct
-        <$> mangleEnumConstant constant.info.name
+        <$> mangleName constant.info.name
         <*> mapM mangle constant.info.comment
     where
       reconstruct ::
@@ -1060,23 +1177,9 @@ withDeclLoc info msg = WithLocationInfo{
     , msg = msg
     }
 
-invert :: Ord v => Map k v -> Map v [k]
-invert = Map.foldlWithKey' aux Map.empty
-  where
-    aux :: Ord a => Map a [b] -> b -> a -> Map a [b]
-    aux acc k v = Map.alter (insertOrPrepend k) v acc
-
-    insertOrPrepend :: k -> Maybe [k] -> Maybe [k]
-    insertOrPrepend k Nothing   = Just [k]
-    insertOrPrepend k (Just ks) = Just $ k : ks
-
-getDuplicates :: forall k v. (Ord v) => Map k v -> Map v [k]
-getDuplicates = Map.filter isDup . invert
-  where
-    isDup :: [a] -> Bool
-    isDup (_:_:_) = True
-    isDup _       = False
-
 -- The function 'tryError' is only available in `mtl` versions 2.3 and newer.
 tryError :: MonadError e m => m a -> m (Either e a)
 tryError action = (Right <$> action) `catchError` (pure . Left)
+
+debugMsg :: MangleNamesMsg -> AMsg MangleNames
+debugMsg = withCallStack . WithLocationInfo LocationUnavailable

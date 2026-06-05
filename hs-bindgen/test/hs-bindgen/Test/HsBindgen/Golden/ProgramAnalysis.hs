@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.Error
@@ -48,6 +49,8 @@ testCases = [
     , test_programAnalysis_selection_squash
       -- * Typedef analysis
     , test_programAnalysis_typedef_analysis
+    , test_programAnalysis_typedef_block
+    , test_programAnalysis_typedef_name_clash
     ]
 
 {-------------------------------------------------------------------------------
@@ -468,6 +471,11 @@ test_programAnalysis_selection_squash =
   Typedef analysis
 -------------------------------------------------------------------------------}
 
+-- | Locally resolvable typedef/tag clashes: squashing and suffixing.
+--
+-- See also 'test_programAnalysis_typedef_block' (the @-fblocks@ path) and
+-- 'test_programAnalysis_typedef_name_clash' (clashes that are /not/ locally
+-- resolvable and are reported as failures).
 test_programAnalysis_typedef_analysis :: TestCase
 test_programAnalysis_typedef_analysis =
     testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
@@ -488,7 +496,8 @@ test_programAnalysis_typedef_analysis =
         , ("struct3_t"       , Nothing)
         , ("struct struct4"  , Just "Struct4_t")
         , ("struct4_t"       , Nothing)
-        , ("struct struct6"  , Just "Struct6_Aux")
+        , ("struct struct6a" , Just "Struct6a_struct")
+        , ("struct struct6b" , Just "Struct6b_struct")
         , ("struct8"         , Nothing)
         , ("struct9"         , Nothing)
         , ("struct struct10" , Just "Struct10_t")
@@ -497,4 +506,62 @@ test_programAnalysis_typedef_analysis =
         , ("struct11_t"      , Nothing)
         , ("struct struct12" , Just "Struct12_t")
         , ("struct12_t"      , Nothing)
+          -- Tagged types referenced (and clashing by name) inside a
+          -- function-pointer typedef: suffixed via the return type ('foo') and
+          -- via an argument type ('bar').
+        , ("struct foo"      , Just "Foo_struct")
+        , ("struct bar"      , Just "Bar_struct")
+          -- A 'const' qualifier is transparent: the tagged type underneath
+          -- keeps its directness. Example 15 is a same-name direct alias and is
+          -- squashed (like example 8); in example 16 the qualifier wraps a
+          -- pointer, so the eponymous tag is reached through indirection and
+          -- suffixed (like example 6a).
+        , ("struct15"        , Nothing)
+        , ("struct struct16" , Just "Struct16_struct")
+        ]
+
+-- | Exercise the 'C.TypeBlock' path in 'taggedPayloads'.
+--
+-- Kept separate from 'test_programAnalysis_typedef_analysis' because this
+-- header requires @-fblocks@.
+test_programAnalysis_typedef_block :: TestCase
+test_programAnalysis_typedef_block =
+    testTraceMulti "program-analysis/typedef_block" declsWithMsgs (\case
+          MatchMangle name (MangleNamesAssignedName new) ->
+            Just $ Expected (name, new.text)
+          _otherwise ->
+            Nothing
+        )
+      & #onBoot .~ ( #clangArgs % #enableBlocks .~ True )
+  where
+    declsWithMsgs :: [(CDeclName, Text)]
+    declsWithMsgs = [
+          ("struct blk"    , "Blk_struct")
+        , ("struct blkarg" , "Blkarg_struct")
+        ]
+
+-- | Clash cases that the typedef analysis deliberately does NOT resolve
+-- locally; both colliding declarations are deselected via 'MangleNamesCollision'.
+--
+-- Complements 'test_programAnalysis_typedef_analysis', which covers the cases
+-- that /are/ locally resolvable.
+test_programAnalysis_typedef_name_clash :: TestCase
+test_programAnalysis_typedef_name_clash =
+    testTraceMulti "program-analysis/typedef_name_clash" declsWithMsgs $ \case
+      MatchSelect name (SelectMangleNamesFailure MangleNamesCollision{}) ->
+        Just $ Expected (name, "collision")
+      MatchSelect name (TransitiveDependenciesMissing{}) ->
+        Just $ Expected (name, "transitivity")
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs = [
+          ("struct a_unrelated" , "collision")
+        , ("a_unrelated"        , "collision")
+        , ("struct a_fun"       , "collision")
+        , ("a_fun"              , "collision")
+        , ("struct b_clash"     , "collision")
+        , ("struct b_other"     , "collision")
+        , ("b_clash"            , "transitivity")
         ]

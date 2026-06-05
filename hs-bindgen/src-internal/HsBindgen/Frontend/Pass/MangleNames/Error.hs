@@ -6,6 +6,8 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint qualified as PP
 
+import Clang.HighLevel.Types
+
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
@@ -17,6 +19,11 @@ data MangleNamesError =
   | MangleNamesCouldNotMangle               Text
   | MangleNamesCouldNotMangleSpecifiedName  Text
   | MangleNamesUnderlyingDeclNotMangled     DeclId (NonEmpty Hs.Namespace)
+    -- | Two fields in the same struct mangle to the same Haskell name.
+    --
+    -- Only fires under 'OmitFieldPrefixes'; under 'AddFieldPrefixes' mangling
+    -- is injective within a record.
+  | MangleNamesDuplicateFieldName           Hs.SomeName [SingleLoc]
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace MangleNamesError where
@@ -43,3 +50,10 @@ instance PrettyForTrace MangleNamesError where
         , "not mangled:"
         , prettyForTrace declId
         ]
+      MangleNamesDuplicateFieldName x locs ->
+        let intro = PP.hcat [
+                "Duplicate record field name "
+              , prettyForTrace x
+              , ":"
+              ]
+        in  PP.hang intro 2 $ PP.vcat $ map PP.show locs
