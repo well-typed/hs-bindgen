@@ -4,7 +4,6 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -14,8 +13,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.S(..)
-    , Example.T(..)
+    ( Example.T(..)
     )
   where
 
@@ -30,8 +28,8 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
-data S = S
-  { s_x :: RIP.CInt
+data T = T
+  { t_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/heap_types\/struct_const_typedef.h 4:7@
@@ -41,74 +39,41 @@ data S = S
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize S where
+instance Marshal.StaticSize T where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw S where
+instance Marshal.ReadRaw T where
 
   readRaw =
     \ptr0 ->
-          pure S
-      <*> HasCField.readRaw (RIP.Proxy @"s_x") ptr0
+          pure T
+      <*> HasCField.readRaw (RIP.Proxy @"t_x") ptr0
 
-instance Marshal.WriteRaw S where
+instance Marshal.WriteRaw T where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S s_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_x") ptr0 s_x2
+          T t_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"t_x") ptr0 t_x2
 
-deriving via Marshal.EquivStorable S instance RIP.Storable S
+deriving via Marshal.EquivStorable T instance RIP.Storable T
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s_x" S ty where
-
-  hasField =
-    \x0 -> (\y1 -> S {s_x = y1}, RIP.getField @"s_x" x0)
-
-instance (ty ~ RIP.CInt) => RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s_x")
-
-instance HasCField.HasCField S "s_x" where
-
-  type CFieldType S "s_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-{-| __C declaration:__ @T@
-
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
-
-    __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
--}
-newtype T = T
-  { unwrapT :: S
-  }
-  deriving stock (Eq, RIP.Generic, Show)
-  deriving newtype
-    ( Marshal.ReadRaw
-    , Marshal.StaticSize
-    , RIP.Storable
-    , Marshal.WriteRaw
-    )
-
-instance (ty ~ S) => RIP.CompatHasField.HasField "unwrapT" T ty where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
 
   hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+    \x0 -> (\y1 -> T {t_x = y1}, RIP.getField @"t_x" x0)
 
-instance (ty ~ S) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
+  getField = HasCField.fromPtr (RIP.Proxy @"t_x")
 
-instance HasCField.HasCField T "unwrapT" where
+instance HasCField.HasCField T "t_x" where
 
-  type CFieldType T "unwrapT" = S
+  type CFieldType T "t_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0

@@ -1,0 +1,80 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/typedef_block.h
+  cname: struct blk
+  hsname: Blk_struct
+- headers: program-analysis/typedef_block.h
+  cname: blk
+  hsname: Blk
+- headers: program-analysis/typedef_block.h
+  cname: struct blkarg
+  hsname: Blkarg_struct
+- headers: program-analysis/typedef_block.h
+  cname: blkarg
+  hsname: Blkarg
+hstypes:
+- hsname: Blk
+  representation:
+    newtype:
+      constructor: Blk
+      fields:
+      - unwrapBlk
+  instances:
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+- hsname: Blk_struct
+  representation:
+    record:
+      constructor: Blk_struct
+      fields:
+      - blk_struct_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Blkarg
+  representation:
+    newtype:
+      constructor: Blkarg
+      fields:
+      - unwrapBlkarg
+  instances:
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+- hsname: Blkarg_struct
+  representation:
+    record:
+      constructor: Blkarg_struct
+      fields:
+      - blkarg_struct_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

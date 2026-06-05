@@ -28,38 +28,20 @@
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-newtype U = U {unwrapU :: ByteArray} deriving stock Generic
-deriving via (SizedByteArray 4 4) instance StaticSize U
-deriving via (SizedByteArray 4 4) instance ReadRaw U
-deriving via (SizedByteArray 4 4) instance WriteRaw U
-deriving via (EquivStorable U) instance Storable U
-deriving via (SizedByteArray 4 4) instance IsUnion U
-instance (~) ty CInt => HasField "u_x" U ty
+newtype T = T {unwrapT :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize T
+deriving via (SizedByteArray 4 4) instance ReadRaw T
+deriving via (SizedByteArray 4 4) instance WriteRaw T
+deriving via (EquivStorable T) instance Storable T
+deriving via (SizedByteArray 4 4) instance IsUnion T
+instance (~) ty CInt => HasField "t_x" T ty
     where getField = getUnionPayload
-instance (~) ty CInt => HasField "u_x" U ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"u_x" x_0)
-instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
-    where getField = fromPtr (Proxy @"u_x")
-instance HasCField U "u_x"
-    where type CFieldType U "u_x" = CInt
-          offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @T@
-
-    __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
-
-    __exported by:__ @functions\/heap_types\/union_const_typedef.h@
--}
-newtype T
-    = T {unwrapT :: U}
-    deriving stock Generic
-    deriving newtype (IsUnion, ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty U => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
-instance (~) ty U => HasField "unwrapT" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrapT")
-instance HasCField T "unwrapT"
-    where type CFieldType T "unwrapT" = U
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t_x" x_0)
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"t_x")
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::

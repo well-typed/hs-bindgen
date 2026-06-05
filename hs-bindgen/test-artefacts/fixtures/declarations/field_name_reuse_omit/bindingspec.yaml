@@ -1,0 +1,48 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: declarations/field_name_reuse_omit.h
+  cname: struct S
+  hsname: S
+- headers: declarations/field_name_reuse_omit.h
+  cname: struct T
+  hsname: T
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - foo
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - bar
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

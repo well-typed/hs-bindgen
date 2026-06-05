@@ -413,11 +413,11 @@ instance Resolve C.Struct l where
   resolve ctx struct =
       reconstruct
         <$> mapM (resolve ctx) struct.fields
-        <*> mapM (resolve ctx) struct.flam
+        <*> C.traverseFlamField (resolve ctx) struct.flam
     where
       reconstruct ::
            [C.StructField ResolveBindingSpecs]
-        -> Maybe (C.StructField ResolveBindingSpecs)
+        -> C.Flam ResolveBindingSpecs
         -> C.Struct ResolveBindingSpecs
       reconstruct structFields' structFlam' = C.Struct {
             fields    = structFields'

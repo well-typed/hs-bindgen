@@ -149,45 +149,88 @@ analyseTypedef ::
   -> C.Typedef ResolveBindingSpecs
   -> TypedefAnalysis
 analyseTypedef declUseGraph typedefInfo typedef =
-    case taggedPayload typedef.typ of
-      Nothing      -> mempty
-      Just payload ->
-        typedefOfTagged typedefInfo payload $
-          DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.id
-
--- | Typedef around tagged payload
-typedefOfTagged ::
-     C.DeclInfo ResolveBindingSpecs      -- ^ Typedef info
-  -> TaggedPayload                       -- ^ Payload
-  -> [(C.DeclId, usage)]                 -- ^ Use sites of the payload
-  -> TypedefAnalysis
-typedefOfTagged typedefInfo payload useSites
-  | shouldSquash
-  = mconcat [
-        conclude typedefInfo.id $ Squash $ SquashTypedef {
-            typedefLoc = typedefInfo.loc
-          , targetId   = payload.id
-          }
-      , conclude payload.id $ UseNameOf typedefInfo.id
-      ]
-
-  | shouldAddSuffix
-  = conclude payload.id $ AddSuffix "_Aux"
-
-  | otherwise
-  = mempty
-  where
-    shouldSquash, shouldAddSuffix :: Bool
-    shouldSquash = and [
-          payload.isDirect
-        , or [ typedefInfo.id.name.text == payload.id.name.text
-             , length useSites == 1
+    case directPayload of
+      -- The typedef is a direct alias of a tagged type: a candidate for
+      -- squashing.
+      Just payload
+        | shouldSquash payload
+        -> mconcat [
+               conclude typedefInfo.id $ Squash $ SquashTypedef {
+                   typedefLoc = typedefInfo.loc
+                 , targetId   = payload.id
+                 }
+             , conclude payload.id $ UseNameOf typedefInfo.id
              ]
+
+      -- Otherwise, suffix every tagged type that is referenced /within/ the
+      -- typedef's own type and that would mangle to the same Haskell name as the
+      -- typedef itself.
+      --
+      -- This is a purely /local/ decision: it depends only on this typedef's
+      -- name and its own type structure, never on which other declarations
+      -- happen to be in scope. We can only resolve a name clash here when the
+      -- clashing tagged type is syntactically referenced by the typedef; clashes
+      -- with unrelated declarations of the same name are detected (and reported)
+      -- by the collision check in "HsBindgen.Frontend.Pass.MangleNames".
+      _otherwise ->
+        foldMap suffixClashingPayload clashingPayloads
+  where
+    typedefName :: Text
+    typedefName = typedefInfo.id.name.text
+
+    -- All tagged types referenced anywhere within the typedef's type.
+    payloads :: [TaggedPayload]
+    payloads = taggedPayloads typedef.typ
+
+    -- The tagged type the typedef is a direct alias of (the head of the type,
+    -- reached without any indirection), if any.
+    directPayload :: Maybe TaggedPayload
+    directPayload = case [ p | p <- payloads, p.isDirect ] of
+        p : _      -> Just p
+        _otherwise -> Nothing
+
+    -- Tagged types referenced /through indirection/ within the typedef's type
+    -- whose name clashes with the typedef itself.
+    --
+    -- A single typedef can reference the same tagged type more than once (e.g. a
+    -- function-pointer typedef with several arguments of that type), so we
+    -- deduplicate by 'C.DeclId': each clashing tag must yield exactly one
+    -- 'AddSuffix' conclusion, otherwise the 'TypedefAnalysis' '<>' would panic on
+    -- the duplicate key.
+    clashingPayloads :: [TaggedPayload]
+    clashingPayloads = Map.elems $ Map.fromList [
+          (p.id, p)
+        | p <- payloads
+        , not p.isDirect
+        , p.id.name.text == typedefName
         ]
-    shouldAddSuffix = and [
-          not payload.isDirect
-        , typedefInfo.id.name.text == payload.id.name.text
+
+    shouldSquash :: TaggedPayload -> Bool
+    shouldSquash payload = or [
+          payload.id.name.text == typedefName
+        , length useSites == 1
         ]
+      where
+        useSites :: [(C.DeclId, C.ValOrRef)]
+        useSites = DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.id
+
+    suffixClashingPayload :: TaggedPayload -> TypedefAnalysis
+    suffixClashingPayload payload =
+        conclude payload.id $ AddSuffix $ tagSuffix payload.id.name.kind
+
+-- | The (deterministic) suffix used to disambiguate a tagged type from a
+-- same-named typedef.
+--
+-- We suffix the /tagged/ type (and not the typedef) because C code refers to a
+-- typedef by its bare name, but to a tagged type via its @struct@\/@union@\/
+-- @enum@ keyword; the suffix mirrors that keyword.
+tagSuffix :: C.NameKind -> Text
+tagSuffix = \case
+    C.NameKindTagged C.TagKindStruct -> "_struct"
+    C.NameKindTagged C.TagKindUnion  -> "_union"
+    C.NameKindTagged C.TagKindEnum   -> "_enum"
+    -- Only tagged types are ever suffixed (see 'taggedPayloads').
+    _otherwise                     -> "_Aux"
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: typedefs around "tagged" decls (structs, unions, enums)
@@ -202,27 +245,67 @@ data TaggedPayload = TaggedPayload{
     , id       :: C.DeclId
     }
 
--- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
-taggedPayload :: C.Type ResolveBindingSpecs -> Maybe TaggedPayload
-taggedPayload = go True
+-- | All tagged declarations (struct, union, enum) referenced within a type.
+--
+-- The 'isDirect' flag is 'True' only for a tagged type that the typedef is a
+-- direct alias of, i.e. one reached without going through any indirection
+-- (pointer, array, function, block). A qualifier (such as @const@) is
+-- transparent: it changes neither the Haskell representation nor the mangled
+-- name, so a tagged type underneath it stays direct.
+--
+-- Any layer of indirection means the tagged type and the typedef are
+-- /different/ types that nonetheless mangle to the same Haskell name, so the
+-- tagged type must be given a suffix. This covers
+--
+-- > typedef struct {..} * foo;
+-- > typedef struct {..} foo[10];
+-- > typedef struct foo (*foo)(struct bar arg);
+-- > typedef const struct foo * foo;
+--
+-- See <https://github.com/well-typed/hs-bindgen/issues/1445>. Note that we
+-- recurse into /function/ types (both the result and the argument types), so a
+-- tagged type referenced there is detected as well.
+taggedPayloads :: C.Type ResolveBindingSpecs -> [TaggedPayload]
+taggedPayloads = go True
   where
-    go :: Bool -> C.Type ResolveBindingSpecs -> Maybe TaggedPayload
+    go :: Bool -> C.Type ResolveBindingSpecs -> [TaggedPayload]
     go direct = \case
-        C.TypeRef declId     -> typeRef direct declId
-        C.TypeEnum ref       -> typeRef direct ref.name
-        C.TypePointers _n ty -> go False ty
-        _otherwise ->
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1445>
-          -- This is wrong. This deals with
-          --
-          -- > typedef struct {..} * foo;
-          --
-          -- but not, for example
-          --
-          -- > typedef struct {..} foo[10];
-          Nothing
+        C.TypeRef declId         -> typeRef direct declId
+        C.TypeEnum ref           -> typeRef direct ref.name
 
-    typeRef :: Bool -> C.DeclId -> Maybe TaggedPayload
-    typeRef isDirect declId = do
-        void $ C.checkIsTagged declId.name.kind
-        return TaggedPayload{isDirect = isDirect, id = declId}
+        -- A qualifier (e.g. @const@) is transparent: it changes neither the
+        -- Haskell representation nor the mangled name, so the tagged type
+        -- underneath is reached with the /same/ directness.
+        C.TypeQual _qual ty      -> go direct ty
+
+        -- Indirection: the tagged type underneath is a /different/ type that
+        -- merely mangles to the same name, so it is no longer direct.
+        C.TypePointers _n ty     -> go False ty
+        C.TypeConstArray _n ty   -> go False ty
+        C.TypeIncompleteArray ty -> go False ty
+        C.TypeBlock ty           -> go False ty
+        C.TypeFun args res       ->
+          concatMap (go False . (.typ)) args ++ go False res
+
+        -- No tagged type to find.
+        C.TypePrim{}             -> []
+        C.TypeComplex{}          -> []
+        C.TypeVoid               -> []
+
+        -- A macro type and another typedef each have their own name; the tagged
+        -- type they may wrap is not /syntactically/ referenced by this typedef,
+        -- so resolving such a clash is out of scope for this local analysis.
+        C.TypeMacro{}            -> []
+        C.TypeTypedef{}          -> []
+        C.TypeExtBinding{}       -> []
+
+    typeRef :: Bool -> C.DeclId -> [TaggedPayload]
+    typeRef isDirect declId =
+        case C.checkIsTagged declId.name.kind of
+          Nothing -> []
+          Just _  -> [TaggedPayload{isDirect = isDirect, id = declId}]
+
+-- TODO-D: Check assumption of locality. How does this come together with
+-- squashing and the statement from above:
+--
+-- 2. The typedef is the /only/ reference to the underlying decl:

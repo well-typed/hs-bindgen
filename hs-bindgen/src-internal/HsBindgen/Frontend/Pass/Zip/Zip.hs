@@ -151,7 +151,7 @@ zipEither x =
 instance ZipReparsed C.Struct where
   zipReparsed struct = do
       fields' <- mapM zipReparsed struct.fields
-      mFlam'  <- mapM zipReparsed struct.flam
+      mFlam'  <- C.traverseFlamField zipReparsed struct.flam
       success C.Struct{
         sizeof    = struct.sizeof
       , alignment = struct.alignment

@@ -20,7 +20,6 @@ import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
-import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
@@ -40,8 +39,10 @@ structDecs ::
   -> HsM [Hs.Decl l]
 structDecs info struct spec = do
     case struct.flam of
-      Nothing   -> getDeclsRegular   spec info struct
-      Just flam -> getDeclsFlam flam spec info struct
+      C.NoFlam ->
+        getDeclsRegular spec info struct
+      C.Flam flam flamNames ->
+        getDeclsFlam flam flamNames.aux spec info struct
 
 getDeclsRegular ::
      HasCallStack
@@ -66,11 +67,12 @@ getDeclsRegular spec info struct = do
 getDeclsFlam ::
      HasCallStack
   => C.StructField Final
+  -> Hs.Name Hs.NsTypeConstr -- ^ Auxiliary type-constructor name
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> HsM [Hs.Decl l]
-getDeclsFlam flam spec info struct = do
+getDeclsFlam flam auxName spec info struct = do
     env <- Reader.ask
     let supInsts = env.supportedInstances.struct
     insts <-
@@ -83,11 +85,6 @@ getDeclsFlam flam spec info struct = do
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
-
-    auxName :: Hs.Name Hs.NsTypeConstr
-    auxName = case struct.names.flamAux of
-        Just n -> n
-        Nothing -> panicPure "name of auxiliary declaration unavailable"
 
     getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl l
     getHasFlamInstanceDecl hsStruct =

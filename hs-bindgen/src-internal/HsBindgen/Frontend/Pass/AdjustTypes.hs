@@ -72,7 +72,7 @@ processStruct :: C.Struct MangleNames -> C.Struct AdjustTypes
 processStruct struct =
     C.Struct {
         fields    = map processStructField struct.fields
-      , flam      = processStructField <$> struct.flam
+      , flam      = C.mapFlamField processStructField struct.flam
       , sizeof    = struct.sizeof
       , alignment = struct.alignment
       , ann       = struct.ann
