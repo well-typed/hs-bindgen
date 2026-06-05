@@ -25,6 +25,7 @@ import HsBindgen.IR.Pass.Definition
 class (
       -- For @Eq DeclKind@ in @DeclIndex@ construction
       Eq   (Ann "Enum"                 p)
+    , Eq   (Ann "Flam"                 p)
     , Eq   (Ann "Function"             p)
     , Eq   (Ann "Global"               p)
     , Eq   (Ann "Struct"               p)
@@ -41,6 +42,7 @@ class (
       -- For debugging
     , Show (Ann "Decl"                 p)
     , Show (Ann "Enum"                 p)
+    , Show (Ann "Flam"                 p)
     , Show (Ann "Function"             p)
     , Show (Ann "Global"               p)
     , Show (Ann "Struct"               p)

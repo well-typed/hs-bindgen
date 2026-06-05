@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/typedef_suffix_clash.h

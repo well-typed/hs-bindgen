@@ -239,9 +239,7 @@ data Squashed = Squashed {
     -- | The location of the squashed typedef (i.e., _not_ the target)
     typedefLoc   :: SingleLoc
   , targetNameC  :: C.DeclId
-    -- | 'Nothing' if target declaration is not in the list of declarations
-    -- (e.g., it was not parsed).
-  , targetNameHs :: Maybe (Hs.Name Hs.NsTypeConstr)
+  , targetNameHs :: Hs.Name Hs.NsTypeConstr
   }
   deriving stock (Show, Generic)
 
@@ -566,9 +564,10 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
       -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
       UsableE (UsableSquashed e) ->
-        case (e.targetNameHs, Set.member e.targetNameC targets) of
-          (Just nameHs, True) -> Just (e.typedefLoc.singleLocPath, nameHs)
-          _otherwise          -> Nothing
+        if Set.member e.targetNameC targets then
+          Just (e.typedefLoc.singleLocPath, e.targetNameHs)
+        else
+          Nothing
       _otherwise  -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.

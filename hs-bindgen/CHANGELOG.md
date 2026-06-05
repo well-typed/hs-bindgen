@@ -40,6 +40,27 @@
   and supply the new `resolve` field. Error types are consolidated in
   `HsBindgen.Macro.Error`; `MacroTypecheckResult` is renamed `TypecheckResult`
   with shortened constructors.
+* Tagged types that would clash with the name of an enclosing typedef are now
+  disambiguated with a `_struct`/`_union`/`_enum` suffix (mirroring the C
+  keyword) instead of the previous `_Aux`. Clash detection now also covers
+  arrays, blocks, and function types (argument and result types), not just
+  pointers, so e.g. `typedef struct {…} foo[10];` no longer produces clashing
+  names. Qualifiers (e.g. `const`) are treated as transparent, so
+  `typedef const struct {…} foo;` is now squashed like its unqualified
+  counterpart. This renames affected generated identifiers. See
+  [#1445](https://github.com/well-typed/hs-bindgen/issues/1445).
+* The `MangleNames` pass now checks names minted in its second pass (data
+  constructors, record-field selectors, union getters/setters, enum constants,
+  and `_Aux` types for FLAMs and function pointers) for collisions. A
+  declaration whose derived names collide is now deselected with a warning
+  instead of producing uncompilable Haskell. Relatedly, under
+  `OmitFieldPrefixes`, a struct with two fields that mangle to the same Haskell
+  name is now deselected (`DetectClashesDuplicateFieldName`). See
+  [#1432](https://github.com/well-typed/hs-bindgen/issues/1432).
+* Modules generated under `OmitFieldPrefixes` now enable `NoFieldSelectors` (in
+  addition to `DuplicateRecordFields`). No top-level field selector is emitted,
+  so an unprefixed field name can no longer clash with a non-field declaration
+  of the same name; fields are accessed via `HasField`/record-dot as before.
 
 ### New features
 

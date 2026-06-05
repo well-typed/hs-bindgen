@@ -1,0 +1,172 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/field_name_reuse_omit.h
+-- #include <declarations/field_name_reuse_omit.h>
+-- void hs_bindgen_1a3fb33e9aadacd9 (void)
+-- {
+--   (bar)();
+-- }
+-- void hs_bindgen_b64ebb06c53fc1b3 (void)
+-- {
+--   (bar)();
+-- }
+-- /* test_declarationsfield_name_reuse__Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_2b628f8ea7c448cd (void)) (void)
+-- {
+--   return &bar;
+-- }
+-- /* test_declarationsfield_name_reuse__Example_get_foo */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_8612ede7c1c9d541 (void)
+-- {
+--   return &foo;
+-- }
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 22:8@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+data S
+    = S {foo :: CInt
+         {- ^ __C declaration:__ @foo@
+
+              __defined at:__ @declarations\/field_name_reuse_omit.h 22:16@
+
+              __exported by:__ @declarations\/field_name_reuse_omit.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"foo") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S foo_2 -> writeRaw (Proxy @"foo") ptr_0 foo_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty CInt => HasField "foo" S ty
+    where hasField = \x_0 -> (\y_1 -> S{foo = y_1},
+                              getField @"foo" x_0)
+instance (~) ty CInt => HasField "foo" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo")
+instance HasCField S "foo"
+    where type CFieldType S "foo" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct T@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 27:8@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+data T
+    = T {bar :: CInt
+         {- ^ __C declaration:__ @bar@
+
+              __defined at:__ @declarations\/field_name_reuse_omit.h 27:16@
+
+              __exported by:__ @declarations\/field_name_reuse_omit.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T
+    where readRaw = \ptr_0 -> pure T <*> readRaw (Proxy @"bar") ptr_0
+instance WriteRaw T
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T bar_2 -> writeRaw (Proxy @"bar") ptr_0 bar_2
+deriving via (EquivStorable T) instance Storable T
+instance (~) ty CInt => HasField "bar" T ty
+    where hasField = \x_0 -> (\y_1 -> T{bar = y_1},
+                              getField @"bar" x_0)
+instance (~) ty CInt => HasField "bar" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar")
+instance HasCField T "bar"
+    where type CFieldType T "bar" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_1a3fb33e9aadacd9" hs_bindgen_1a3fb33e9aadacd9_base ::
+    IO ()
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
+hs_bindgen_1a3fb33e9aadacd9 :: IO ()
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
+hs_bindgen_1a3fb33e9aadacd9 = fromFFIType hs_bindgen_1a3fb33e9aadacd9_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_safe :: IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_safe = hs_bindgen_1a3fb33e9aadacd9
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_b64ebb06c53fc1b3" hs_bindgen_b64ebb06c53fc1b3_base ::
+    IO ()
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
+hs_bindgen_b64ebb06c53fc1b3 :: IO ()
+-- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
+hs_bindgen_b64ebb06c53fc1b3 = fromFFIType hs_bindgen_b64ebb06c53fc1b3_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_unsafe :: IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_unsafe = hs_bindgen_b64ebb06c53fc1b3
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_2b628f8ea7c448cd" hs_bindgen_2b628f8ea7c448cd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
+hs_bindgen_2b628f8ea7c448cd :: IO (FunPtr (IO ()))
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
+hs_bindgen_2b628f8ea7c448cd = fromFFIType hs_bindgen_2b628f8ea7c448cd_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_funptr :: FunPtr (IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_2b628f8ea7c448cd
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_8612ede7c1c9d541" hs_bindgen_8612ede7c1c9d541_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
+hs_bindgen_8612ede7c1c9d541 :: IO (Ptr CInt)
+-- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
+hs_bindgen_8612ede7c1c9d541 = fromFFIType hs_bindgen_8612ede7c1c9d541_base
+{-# NOINLINE foo #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 23:12@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+foo :: Ptr CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/field_name_reuse_omit.h 23:12@
+
+    __exported by:__ @declarations\/field_name_reuse_omit.h@
+-}
+foo = unsafePerformIO hs_bindgen_8612ede7c1c9d541

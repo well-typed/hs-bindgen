@@ -72,7 +72,6 @@ import HsBindgen.IR.Pass.Definition
 import HsBindgen.IR.Pass.ExtBinding
 import HsBindgen.IR.Pass.Id
 import HsBindgen.IR.Pass.Macro
-import HsBindgen.IR.Pass.ScopedName
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -835,12 +834,15 @@ isErasedTypeConstQualified ty =
   CoercePass instances
 -------------------------------------------------------------------------------}
 
+-- NOTE: types do not contain 'ScopedName's, so unlike most other 'CoercePass'
+-- instances this one carries no @ScopedName p ~ ScopedName p'@ constraint. This
+-- lets us reindex types across passes that change 'ScopedName' (e.g.
+-- 'HsBindgen.Frontend.Pass.MangleNames.IsPass.CreateNames').
 instance (
       CoercePassId p p'
     , CoercePassMacroId p p'
     , CoercePassMacroUnderlying p p'
     , CoercePassAnn "TypeFunArg" p p'
-    , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
   coercePass = \case
@@ -868,12 +870,13 @@ instance (
       goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
       goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
 
+-- NOTE: see the 'CoercePass Type' instance for why there is no
+-- @ScopedName p ~ ScopedName p'@ constraint here.
 instance (
       CoercePassId p p'
     , CoercePassMacroId p p'
     , CoercePassMacroUnderlying p p'
     , CoercePassAnn "TypeFunArg" p p'
-    , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass TypeFunArg p p' where
   coercePass arg = TypeFunArgF {

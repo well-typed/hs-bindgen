@@ -191,11 +191,11 @@ instance UpdateUseSites C.Struct where
   updateUseSites struct =
       reconstruct
         <$> mapM updateUseSites struct.fields
-        <*> mapM updateUseSites struct.flam
+        <*> C.traverseFlamField updateUseSites struct.flam
     where
       reconstruct ::
            [C.StructField AssignAnonIds]
-        -> Maybe (C.StructField AssignAnonIds)
+        -> C.Flam AssignAnonIds
         -> C.Struct AssignAnonIds
       reconstruct structFields' structFlam' = C.Struct {
             fields    = structFields'

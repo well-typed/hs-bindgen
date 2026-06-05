@@ -101,7 +101,13 @@ recordExtensions :: Record -> Set TH.Extension
 recordExtensions record = foldMap fieldExtensions record.fields
 
 -- | Extensions required when using 'OmitFieldPrefixes' or the
--- | "--omit-field-prefixes" flag.
+-- "--omit-field-prefixes" flag.
+--
+-- Note that 'OmitFieldPrefixes' /also/ requires @NoFieldSelectors@, but that
+-- is a /disabled/ extension (the negation of the default-on @FieldSelectors@)
+-- and so cannot be represented in the positive 'TH.Extension' set. It is emitted
+-- as a module pragma directly; see 'omitFieldPrefixesPragmas' in
+-- "HsBindgen.Backend.HsModule.Translation".
 omitFieldPrefixesExtensions :: FieldNamingStrategy -> Set TH.Extension
 omitFieldPrefixesExtensions = \case
     AddFieldPrefixes  -> mempty

@@ -18,6 +18,10 @@ module HsBindgen.IR.C.Decl (
   , DeclKind(..)
   , OpaqueSize(..)
   , Struct(..)
+  , Flam(..)
+  , flamStructField
+  , traverseFlamField
+  , mapFlamField
   , StructField(..)
   , Union(..)
   , UnionField(..)
@@ -181,10 +185,54 @@ data Struct (p :: Pass) = Struct {
       sizeof    :: Int
     , alignment :: Int
     , fields    :: [StructField p]
-    , flam      :: Maybe (StructField p) -- ^ FLAM element type, if any
+    , flam      :: Flam p
     , ann       :: Ann "Struct" p
     }
   deriving stock (Generic)
+
+-- | The flexible array member (FLAM) of a struct, if any
+--
+-- A C struct may end in a flexible array member, e.g.
+--
+-- > struct foo { size_t len; char data[]; };
+--
+-- When a FLAM is present we generate an auxiliary type for the struct, and the
+-- 'Flam' constructor bundles the element-type field together with the auxiliary
+-- type-constructor name that code generation requires. That name is only
+-- available once the name mangler has run (it is 'NoAnn' at earlier passes), so
+-- carrying it /inside/ the constructor ties name creation to the FLAM itself:
+-- the backend can never disagree with the name mangler over whether a name was
+-- minted (see <https://github.com/well-typed/hs-bindgen/issues/1925>).
+data Flam (p :: Pass) =
+    NoFlam
+  | Flam (StructField p) (Ann "Flam" p)
+  deriving stock (Generic)
+
+-- | The element-type field of a FLAM, if present
+flamStructField :: Flam p -> Maybe (StructField p)
+flamStructField = \case
+    NoFlam   -> Nothing
+    Flam f _ -> Just f
+
+-- | Traverse the element-type field of a FLAM, preserving its annotation
+traverseFlamField ::
+     (Applicative f, Ann "Flam" p ~ Ann "Flam" p')
+  => (StructField p -> f (StructField p'))
+  -> Flam p
+  -> f (Flam p')
+traverseFlamField f = \case
+    NoFlam       -> pure NoFlam
+    Flam fld ann -> (\fld' -> Flam fld' ann) <$> f fld
+
+-- | Map over the element-type field of a FLAM, preserving its annotation
+mapFlamField ::
+     (Ann "Flam" p ~ Ann "Flam" p')
+  => (StructField p -> StructField p')
+  -> Flam p
+  -> Flam p'
+mapFlamField f = \case
+    NoFlam       -> NoFlam
+    Flam fld ann -> Flam (f fld) ann
 
 data StructField (p :: Pass) = StructField {
       info   :: FieldInfo p
@@ -388,6 +436,7 @@ deriving stock instance IsPass p => Eq (Function         p)
 deriving stock instance IsPass p => Eq (FunctionArg      p)
 deriving stock instance IsPass p => Eq (Global           p)
 deriving stock instance IsPass p => Eq (Struct           p)
+deriving stock instance IsPass p => Eq (Flam             p)
 deriving stock instance IsPass p => Eq (StructField      p)
 deriving stock instance IsPass p => Eq (Typedef          p)
 deriving stock instance IsPass p => Eq (Union            p)
@@ -404,6 +453,7 @@ deriving stock instance IsPass p => Show (Function         p)
 deriving stock instance IsPass p => Show (FunctionArg      p)
 deriving stock instance IsPass p => Show (Global           p)
 deriving stock instance IsPass p => Show (Struct           p)
+deriving stock instance IsPass p => Show (Flam             p)
 deriving stock instance IsPass p => Show (StructField      p)
 deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance IsPass p => Show (Union            p)
@@ -483,15 +533,24 @@ instance (
 
 instance (
       CoercePass StructField p p'
+    , CoercePass Flam p p'
     , Ann "Struct" p ~ Ann "Struct" p'
     ) => CoercePass Struct p p' where
   coercePass struct = Struct{
         fields    = coercePass <$> struct.fields
-      , flam      = coercePass <$> struct.flam
+      , flam      = coercePass struct.flam
       , sizeof    = struct.sizeof
       , alignment = struct.alignment
       , ann       = struct.ann
       }
+
+instance (
+      CoercePass StructField p p'
+    , Ann "Flam" p ~ Ann "Flam" p'
+    ) => CoercePass Flam p p' where
+  coercePass = \case
+    NoFlam       -> NoFlam
+    Flam fld ann -> Flam (coercePass fld) ann
 
 instance (
       CoercePass C.Type p p'

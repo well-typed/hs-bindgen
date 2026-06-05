@@ -192,7 +192,7 @@ enrichDeclKind doxy name = \case
 enrichStruct :: Doxygen -> Text -> C.Struct EnrichComments -> C.Struct EnrichComments
 enrichStruct doxy name struct = struct
     & #fields %~ map (enrichStructField doxy name)
-    & #flam   %~ fmap (enrichStructField doxy name)
+    & #flam   %~ C.mapFlamField (enrichStructField doxy name)
 
 enrichUnion :: Doxygen -> Text -> C.Union EnrichComments -> C.Union EnrichComments
 enrichUnion doxy name union = union

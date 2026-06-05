@@ -194,7 +194,7 @@ data SomeName = UnsafeSomeName {
 
 instance PrettyForTrace SomeName where
   prettyForTrace x = PP.hsep [
-      PP.text x.text
+      "'" >< PP.text x.text >< "'"
     , "(" >< prettyForTrace x.ns >< ")"
     ]
 

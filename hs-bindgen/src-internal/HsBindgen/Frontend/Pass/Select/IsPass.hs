@@ -19,11 +19,11 @@ import Clang.HighLevel.Types
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError)
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
@@ -43,6 +43,7 @@ data Select a
 type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
   AnnSelect "Struct"               = StructNames
+  AnnSelect "Flam"                 = FlamNames
   AnnSelect "Union"                = NewtypeNames
   AnnSelect "Enum"                 = NewtypeNames
   AnnSelect "Typedef"              = TypedefNames
@@ -242,7 +243,9 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}        -> Warning
     SelectParseFailure x             -> getDefaultLogLevel x
     SelectConflict{}                 -> Warning
-    SelectMangleNamesFailure{}       -> Warning
+    SelectMangleNamesFailure x       -> case x of
+      MangleNamesCreationError CreateNamesSquashMustBeTypeConstr{} -> Bug
+      _                                                            -> Warning
     SelectMangleNamesSquashed{}      -> Notice
     SelectMacroTypecheckFailure x    -> getDefaultLogLevel x
     SelectMacroResolutionFailure x   -> getDefaultLogLevel x
