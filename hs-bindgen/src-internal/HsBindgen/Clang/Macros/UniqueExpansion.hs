@@ -3,13 +3,21 @@
 -- Intended for unqualified import.
 module HsBindgen.Clang.Macros.UniqueExpansion (
     isExpansionUnique
-  , isExpansionUnique'
+    -- * Parse
+  , ParseResult
+  , isFailure
+  , liftDefinition
+  , liftInvocation
+  , parseDefinition
+  , parseInvocation
   ) where
 
 
 import Control.Monad.Except (MonadError (throwError))
+import Data.Bifunctor (Bifunctor (first))
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
+import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Maybe (mapMaybe)
 import Data.Set (Set)
@@ -19,25 +27,39 @@ import Text.Parsec (eof)
 
 import HsBindgen.Clang.Macros (MacroDefinition (name, tokens),
                                MacroInvocation (name, tokens))
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse (parseDefinition,
-                                                     parseInvocation)
+import HsBindgen.Clang.Macros.UniqueExpansion.Parse qualified as P
 import HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra (MacroParseError,
                                                            runParser)
 import HsBindgen.Clang.Macros.UniqueExpansion.Types
-import HsBindgen.Errors (panicPure)
-
 
 {-------------------------------------------------------------------------------
-  Local types
+  Parse
 -------------------------------------------------------------------------------}
+
+data ParseResult a = ParseResult {
+    macroName :: Name
+  , result    :: Either Error a
+  }
+
+isFailure :: ParseResult a -> Maybe Text
+isFailure pres =
+    either (const (Just pres.macroName.unwrap)) (const Nothing) pres.result
+
+liftDefinition :: Definition -> ParseResult Definition
+liftDefinition def = ParseResult def.name (Right def)
+
+liftInvocation :: Invocation -> ParseResult Invocation
+liftInvocation inv = ParseResult inv.name (Right inv)
 
 data Error =
     ParseError MacroParseError
   | NameMismatch Text Text
   deriving stock Show
 
-toDefinition :: MacroDefinition -> Either Error Definition
-toDefinition def = case runParser (parseDefinition <* eof) def.tokens of
+parseDefinition :: MacroDefinition -> ParseResult Definition
+parseDefinition def =
+    ParseResult (Name def.name) $
+    case runParser (P.parseDefinition <* eof) def.tokens of
       Left e -> throwError $ ParseError e
       Right def'
         | def.name == def'.name.unwrap
@@ -45,9 +67,10 @@ toDefinition def = case runParser (parseDefinition <* eof) def.tokens of
         | otherwise
         -> throwError $ NameMismatch def.name def'.name.unwrap
 
-
-toInvocation :: MacroInvocation -> Either Error Invocation
-toInvocation inv = case runParser (parseInvocation <* eof) inv.tokens of
+parseInvocation :: MacroInvocation -> ParseResult Invocation
+parseInvocation inv =
+    ParseResult (Name inv.name) $
+    case runParser (P.parseInvocation <* eof) inv.tokens of
       Left e -> throwError $ ParseError e
       Right inv'
         | inv.name == inv'.name.unwrap
@@ -64,15 +87,15 @@ toInvocation inv = case runParser (parseInvocation <* eof) inv.tokens of
 -- A macro invocation has a /unique/ expansion if it can be moved to any
 -- location further down the source file without changing the expansion result.
 --
--- This true as long as the macro referenced by an invocation is not captured by
--- a new macro definition. Such capturing would cause the expansion of the macro
--- invocation to change. A macro invocation has a unique expansion if all these
--- conditions are met:
+-- This true as long as a macro (transitively) referenced by an invocation is
+-- not captured by a new macro definition. Such capturing would cause the
+-- expansion of the macro invocation to change. A macro invocation has a unique
+-- expansion if all these conditions are met:
 --
--- * The macro referenced only has a single definition in the translation unit
--- * The body of the referenced macro only invokes macros that have a unique
+-- * The invoked macro only has a single definition in the translation unit
+-- * The body of the invoked macro only invokes macros that have a unique
 --   expansion
--- * If the referenced macro is function-like, then any parameters to the
+-- * If the invoked macro is function-like, then any parameters to the
 --   invocation should also only invoke macros that have a unique expansion
 --
 -- These conditions give rise to a recursive algorithm: to check whether a macro
@@ -81,28 +104,19 @@ toInvocation inv = case runParser (parseInvocation <* eof) inv.tokens of
 -- parameters to the invocation.
 --
 isExpansionUnique ::
-     [MacroDefinition]
-  -> MacroInvocation
+     [ParseResult Definition]
+  -> ParseResult Invocation
   -> Bool
-isExpansionUnique = \defs inv -> isExpansionUnique' (map toDef defs) (toInv inv)
+isExpansionUnique defs pInv =
+    case pInv.result of
+      Left _ -> False
+      Right inv ->
+        not $
+        or
+          [ inv.name `Set.member` ambig
+          , any (`Set.member` ambig) inv.args
+          ]
   where
-    toDef :: MacroDefinition -> Definition
-    toDef = either (panicPure . show) id . toDefinition
-
-    toInv :: MacroInvocation -> Invocation
-    toInv = either (panicPure . show) id . toInvocation
-
-isExpansionUnique' ::
-     [Definition]
-  -> Invocation
-  -> Bool
-isExpansionUnique' defs inv = not $
-    or
-      [ inv.name `Set.member` ambig
-      , any (`Set.member` ambig) inv.args
-      ]
-  where
-    ambig :: Set Name
     ambig = ambiguityAnalysis defs
 
 {-------------------------------------------------------------------------------
@@ -112,11 +126,19 @@ isExpansionUnique' defs inv = not $
 -- | Collect the names of all macros that are defined more than once, and all
 -- macros that (transitively) depend on macros that are defined more than once.
 --
-ambiguityAnalysis :: [Definition] -> Set Name
-ambiguityAnalysis defs = go (Seen Set.empty) (Ambig Set.empty) defs
+ambiguityAnalysis :: [ParseResult Definition] -> Set Name
+ambiguityAnalysis defs =
+    go (Seen Set.empty) (Ambig $ Set.fromList parseFailures) parseSuccesses
   where
+    fromParseResult :: forall a. ParseResult a -> Either Name a
+    fromParseResult pres = first (const pres.macroName) pres.result
+
+    parseFailures :: [Name]
+    parseSuccesses :: [Definition]
+    (parseFailures, parseSuccesses) = partitionEithers $ fmap fromParseResult defs
+
     graph :: DependentsGraph
-    graph = mkDependentsGraph defs
+    graph = mkDependentsGraph parseSuccesses
 
     go :: Seen -> Ambig -> [Definition] -> Set Name
     go _seen ambig [] = ambig.unwrap

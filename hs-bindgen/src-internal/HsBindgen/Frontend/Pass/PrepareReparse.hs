@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.PrepareReparse (
 
 import Prelude hiding (lex, print)
 
+import Control.Monad (forM_)
 import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
@@ -18,7 +19,7 @@ import HsBindgen.Clang (ClangSetup)
 import HsBindgen.Clang.Discover (ClangExe)
 import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.Pass (IsPass (Msg))
+import HsBindgen.Frontend.Pass (AMsg, IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
                                                    PostHeader (targets),
                                                    PreHeader, Tag,
@@ -30,7 +31,8 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Parser (parse)
 import HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor (preprocess)
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer (print)
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (simplify)
-import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceImmediate)
+import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceBelated,
+                                                      traceImmediate)
 import HsBindgen.Frontend.Pass.PrepareReparse.Update (update)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -55,7 +57,7 @@ prepareReparse tr clangExeMay setup root macroDefs unit = do
       -- When we can't find the @clang@ executable, return the fallback value.
       Nothing -> do
         traceImmediate tr PrepareReparseClangExeNotFound
-        pure fallback
+        returnFallback
       Just clangExe -> do
         withSystemTempDirectory "hs-bindgen_prepare-reparse" $ \dir -> do
           -- The root header contents are written to a temporary root header
@@ -79,14 +81,14 @@ prepareReparse tr clangExeMay setup root macroDefs unit = do
             -- When the preprocessor failed to run, return the fallback value.
             Left _e -> do
               traceImmediate tr PrepareReparsePreprocessorFailed
-              pure fallback
+              returnFallback
             Right preprocessedContents -> do
               case cut headerPath preprocessedContents of
                 -- When we can't single out the interesting lines of code from
                 -- the preprocessor output, return the fallback value.
                 Nothing -> do
                   traceImmediate tr PrepareReparseInterpretPreprocessorOutputFailed
-                  pure fallback
+                  returnFallback
                 Just cutContents -> do
                   traceImmediate tr $ PrepareReparseTempHeaderCutContents cutContents
                   case runLexer cutContents >>= runParser of
@@ -94,13 +96,19 @@ prepareReparse tr clangExeMay setup root macroDefs unit = do
                     -- fallback value.
                     Left e -> do
                       traceImmediate tr $ PrepareReparseParsePreprocessorOutputFailed e
-                      pure fallback
+                      returnFallback
                     Right postHeader -> do
-                      pure $ runUpdater macroDefs postHeader unit
+                      let (unit', msgs) = runUpdater macroDefs postHeader unit
+                      forM_ msgs $ traceBelated tr
+                      pure unit'
   where
     -- | Default to flattening tokens without expanding macro invocations.
-    fallback :: C.TranslationUnit l PrepareReparse
-    fallback = update Nothing [] unit
+    returnFallback :: IO (C.TranslationUnit l PrepareReparse)
+    returnFallback = do
+        forM_ msgs $ traceBelated tr
+        pure unit'
+      where
+        (unit', msgs) = update Nothing [] unit
 
 {-------------------------------------------------------------------------------
   Cut
@@ -138,7 +146,9 @@ runUpdater ::
     [MacroDefinition]
   -> PostHeader
   -> C.TranslationUnit l TypecheckMacros
-  -> C.TranslationUnit l PrepareReparse
+  -> ( C.TranslationUnit l PrepareReparse
+     , [AMsg PrepareReparse]
+     )
 runUpdater macroDefs header unit = update (Just mapping) macroDefs unit
   where
     mapping :: Map Tag Decl

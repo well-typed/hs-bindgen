@@ -12,15 +12,20 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Update (
 
 import Prelude hiding (lex, print)
 
-import Control.Monad.Reader
-import Control.Monad.State
+import Control.Monad (forM_)
+import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
+import Control.Monad.State (MonadState, State, modify, runState)
 import Data.Kind
+import Data.List.NonEmpty qualified as NE
 import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Clang.Macros (MacroDefinition)
-import HsBindgen.Clang.Macros.UniqueExpansion (isExpansionUnique)
+import HsBindgen.Clang.Macros.UniqueExpansion (ParseResult, isExpansionUnique,
+                                               isFailure, parseDefinition,
+                                               parseInvocation)
+import HsBindgen.Clang.Macros.UniqueExpansion.Types (Definition)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -29,6 +34,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass (AMsg)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -36,8 +42,9 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Imports (Map)
+import HsBindgen.Imports (Map, mapMaybe)
 import HsBindgen.Macro.Type
+import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -48,14 +55,22 @@ update ::
      Maybe (Map Tag Decl)
   -> [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
-  -> C.TranslationUnit l PrepareReparse
-update mapping macroDefs unit = unit' {
-      C.meta = unit'.meta {
+  -> ( C.TranslationUnit l PrepareReparse
+     , [AMsg PrepareReparse]
+     )
+update mapping macroDefs unit =
+    ( unit'
+    , msgs
+    )
+  where
+    (unitUpdated, delayedMsgs) = runM env $ updateIt () unit
+
+    unit' = unitUpdated {
+          C.meta = meta'
+        }
+    meta' = unitUpdated.meta {
           declIndex = declIndex'
         }
-    }
-  where
-    (unit', msgs) = runM env $ updateIt () unit
 
     declIndex' ::  DeclIndex l
     declIndex' =
@@ -63,12 +78,19 @@ update mapping macroDefs unit = unit' {
       foldr
         DeclIndex.registerDelayedPrepareReparseMsg
         unit.meta.declIndex
-        msgs
+        delayedMsgs
 
-    env = Env {
-        map       = mapping
-      , macroDefs = macroDefs
-      }
+    env :: Env
+    msgs :: [WithCallStack PrepareReparseMsg]
+    (env, msgs) = mkEnv mapping macroDefs
+
+mkEnv :: Maybe (Map Tag Decl) -> [MacroDefinition] -> (Env, [AMsg PrepareReparse])
+mkEnv mapping macroDefs =  (Env mapping parseResults, msgs)
+  where
+    parseResults = map parseDefinition macroDefs
+    msgs = case NE.nonEmpty $ mapMaybe isFailure parseResults of
+        Nothing -> []
+        Just failures -> [withCallStack (PrepareReparseMacroDefinitionParseFailures failures)]
 
 {-------------------------------------------------------------------------------
   Update: class
@@ -97,7 +119,7 @@ data Env = Env {
     -- variety of reasons). We default to just flattening tokens at this
     -- point.
     map       :: Maybe (Map Tag Decl)
-  , macroDefs :: [MacroDefinition]
+  , macroDefs :: [ParseResult Definition]
   }
 
 newtype St = St {
@@ -233,7 +255,11 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
       ReparseNeeded tokens macroInvs -> do
-        let uniqueExp = all (isExpansionUnique env.macroDefs) macroInvs
+        let parseResults = fmap parseInvocation macroInvs
+        let failuresMay = NE.nonEmpty $ mapMaybe isFailure $ NE.toList parseResults
+        forM_ failuresMay $ \failures ->
+                  addMessage info.id (PrepareReparseMacroInvocationParseFailures failures)
+        let uniqueExp = all (isExpansionUnique env.macroDefs) parseResults
         let fallback = case typ of
               Function -> flattenFunction tokens
               _        -> flattenDefault tokens
