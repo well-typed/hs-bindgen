@@ -33,7 +33,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Printer (print)
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (simplify)
 import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceBelated,
                                                       traceImmediate)
-import HsBindgen.Frontend.Pass.PrepareReparse.Update (update)
+import HsBindgen.Frontend.Pass.PrepareReparse.Update (UpdateMode (..), update)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
@@ -108,7 +108,7 @@ prepareReparse tr clangExeMay setup root macroDefs unit = do
         forM_ msgs $ traceBelated tr
         pure unit'
       where
-        (unit', msgs) = update Nothing [] unit
+        (unit', msgs) = update UpdateOnlyFlatten unit
 
 {-------------------------------------------------------------------------------
   Cut
@@ -149,10 +149,11 @@ runUpdater ::
   -> ( C.TranslationUnit l PrepareReparse
      , [AMsg PrepareReparse]
      )
-runUpdater macroDefs header unit = update (Just mapping) macroDefs unit
+runUpdater macroDefs header unit = update mode unit
   where
-    mapping :: Map Tag Decl
-    mapping = Map.fromList [
+    mode = UpdatePreprocessAndFlatten preprocessedMap macroDefs
+    preprocessedMap :: Map Tag Decl
+    preprocessedMap = Map.fromList [
           (tag, decl)
         | Target tag decl <- header.targets
         ]

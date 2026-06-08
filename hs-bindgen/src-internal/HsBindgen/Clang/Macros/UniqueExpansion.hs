@@ -10,6 +10,10 @@ module HsBindgen.Clang.Macros.UniqueExpansion (
   , liftInvocation
   , parseDefinition
   , parseInvocation
+    -- * Cached
+  , Cache
+  , precomputeIsExpansionUnique
+  , cachedIsExpansionUnique
   ) where
 
 
@@ -107,17 +111,39 @@ isExpansionUnique ::
      [ParseResult Definition]
   -> ParseResult Invocation
   -> Bool
-isExpansionUnique defs pInv =
+isExpansionUnique defs inv =
+    cachedIsExpansionUnique (precomputeIsExpansionUnique defs) inv
+
+{-------------------------------------------------------------------------------
+  Cached
+-------------------------------------------------------------------------------}
+
+newtype Cache = Cache {
+    -- | Names of ambiguous macros
+    --
+    -- Ambiguous macros are macros that are either defined more than once, or
+    -- macros that (transitively) refer to ambiguous macros in their definition
+    ambiguous :: Set Name
+  }
+
+-- | Precompute the majority of 'isExpansionUnique' as a cache, which can then
+-- be passed to 'cachedIsExpansionUnique'.
+precomputeIsExpansionUnique :: [ParseResult Definition] -> Cache
+precomputeIsExpansionUnique defs = Cache {
+      ambiguous = ambiguityAnalysis defs
+    }
+
+-- | Use a precomputed cache to run 'isExpansionUnique'.
+cachedIsExpansionUnique :: Cache -> ParseResult Invocation -> Bool
+cachedIsExpansionUnique cache pInv =
     case pInv.result of
       Left _ -> False
       Right inv ->
         not $
         or
-          [ inv.name `Set.member` ambig
-          , any (`Set.member` ambig) inv.args
+          [ inv.name `Set.member` cache.ambiguous
+          , any (`Set.member` cache.ambiguous) inv.args
           ]
-  where
-    ambig = ambiguityAnalysis defs
 
 {-------------------------------------------------------------------------------
   Ambiguity analysis

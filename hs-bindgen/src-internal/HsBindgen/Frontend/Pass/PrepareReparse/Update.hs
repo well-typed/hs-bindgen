@@ -7,7 +7,8 @@
 -- > import HsBindgen.Frontend.Pass.PrepareReparse.Update
 --
 module HsBindgen.Frontend.Pass.PrepareReparse.Update (
-    update
+    UpdateMode (..)
+  , update
   ) where
 
 import Prelude hiding (lex, print)
@@ -16,16 +17,14 @@ import Control.Monad (forM_)
 import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
 import Control.Monad.State (MonadState, State, modify, runState)
 import Data.Kind
+import Data.List.NonEmpty (NonEmpty)
 import Data.List.NonEmpty qualified as NE
 import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
-import HsBindgen.Clang.Macros (MacroDefinition)
-import HsBindgen.Clang.Macros.UniqueExpansion (ParseResult, isExpansionUnique,
-                                               isFailure, parseDefinition,
-                                               parseInvocation)
-import HsBindgen.Clang.Macros.UniqueExpansion.Types (Definition)
+import HsBindgen.Clang.Macros (MacroDefinition, MacroInvocation)
+import HsBindgen.Clang.Macros.UniqueExpansion
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -50,15 +49,18 @@ import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
   Top-level
 -------------------------------------------------------------------------------}
 
+data UpdateMode a =
+    UpdateOnlyFlatten
+  | UpdatePreprocessAndFlatten (Map Tag Decl) a
+
 update ::
      forall l.
-     Maybe (Map Tag Decl)
-  -> [MacroDefinition]
+     UpdateMode [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> ( C.TranslationUnit l PrepareReparse
      , [AMsg PrepareReparse]
      )
-update mapping macroDefs unit =
+update mode unit =
     ( unit'
     , msgs
     )
@@ -82,15 +84,26 @@ update mapping macroDefs unit =
 
     env :: Env
     msgs :: [WithCallStack PrepareReparseMsg]
-    (env, msgs) = mkEnv mapping macroDefs
+    (env, msgs) = mkEnv mode
 
-mkEnv :: Maybe (Map Tag Decl) -> [MacroDefinition] -> (Env, [AMsg PrepareReparse])
-mkEnv mapping macroDefs =  (Env mapping parseResults, msgs)
+mkCache :: [MacroDefinition] -> (Cache, [WithCallStack PrepareReparseMsg])
+mkCache macroDefs = (cache, msgs)
   where
     parseResults = map parseDefinition macroDefs
+    cache = precomputeIsExpansionUnique parseResults
     msgs = case NE.nonEmpty $ mapMaybe isFailure parseResults of
         Nothing -> []
         Just failures -> [withCallStack (PrepareReparseMacroDefinitionParseFailures failures)]
+
+mkEnv :: UpdateMode [MacroDefinition] -> (Env, [WithCallStack PrepareReparseMsg])
+mkEnv = \case
+    UpdateOnlyFlatten ->
+      (Env UpdateOnlyFlatten, [])
+    UpdatePreprocessAndFlatten preprocessedMap macroDefs ->
+      let (cache, msgs) = mkCache macroDefs
+      in  ( Env (UpdatePreprocessAndFlatten preprocessedMap cache)
+          , msgs
+          )
 
 {-------------------------------------------------------------------------------
   Update: class
@@ -114,12 +127,8 @@ newtype M a = M (ReaderT Env (State St) a)
 deriving newtype instance MonadReader Env M
 deriving newtype instance MonadState St M
 
-data Env = Env {
-    -- 'Nothing' means we could not expand macro invocations (for any of a
-    -- variety of reasons). We default to just flattening tokens at this
-    -- point.
-    map       :: Maybe (Map Tag Decl)
-  , macroDefs :: [ParseResult Definition]
+newtype Env = Env {
+    updateMode :: UpdateMode Cache
   }
 
 newtype St = St {
@@ -251,39 +260,46 @@ updateReparseInfo ::
   -> ReparseInfo Tokens
   -> M (ReparseInfo FlatTokens)
 updateReparseInfo info tag@(Tag typ _) reparseInfo = do
-    env <- ask
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
-      ReparseNeeded tokens macroInvs -> do
-        let parseResults = fmap parseInvocation macroInvs
-        let failuresMay = NE.nonEmpty $ mapMaybe isFailure $ NE.toList parseResults
-        forM_ failuresMay $ \failures ->
-                  addMessage info.id (PrepareReparseMacroInvocationParseFailures failures)
-        let uniqueExp = all (isExpansionUnique env.macroDefs) parseResults
-        let fallback = case typ of
-              Function -> flattenFunction tokens
-              _        -> flattenDefault tokens
-        flatten <-
-          case env.map of
-            -- If this is 'Nothing', we have already traced a reason why (see
-            -- 'DelayedPrepareReparseMsg').
-            Nothing -> pure fallback
-            Just mapping
-              | uniqueExp
-              -> case Map.lookup tag mapping of
-                    Nothing -> do
-                      addMessage info.id PrepareReparseFailed
-                      pure fallback
-                    Just (Decl dec) -> pure dec
-              | otherwise
-              -> do
-                  addMessage info.id PrepareReparseExpansionNotUnique
+      ReparseNeeded tokens macroInvs -> goReparseNeeded tokens macroInvs
+  where
+    goReparseNeeded :: Tokens -> NonEmpty MacroInvocation -> M (ReparseInfo FlatTokens)
+    goReparseNeeded tokens macroInvs = do
+        env <- ask
+        case env.updateMode of
+          UpdateOnlyFlatten -> pure fallback
+          UpdatePreprocessAndFlatten preprocessedMap cache -> do
+            forM_ failuresMay $ \failures ->
+              addMessage info.id (PrepareReparseMacroInvocationParseFailures failures)
+            if isExpUniq cache then do
+              case Map.lookup tag preprocessedMap of
+                Nothing -> do
+                  addMessage info.id PrepareReparseNoPreprocessorOutput
                   pure fallback
-        let flatTokens = FlatTokens {
-                flatten = flatten
-              , locStart = getLocation tokens
-              }
-        pure $ ReparseNeeded flatTokens macroInvs
+                Just (Decl preppedTokens) ->
+                  pure $ ReparseNeeded (mkFlatTokens preppedTokens) macroInvs
+            else do
+              addMessage info.id PrepareReparseExpansionNotUnique
+              pure fallback
+      where
+        fallback :: ReparseInfo FlatTokens
+        fallback = mkReparseNeeded $ mkFlatTokens $ case typ of
+            Function -> flattenFunction tokens
+            _        -> flattenDefault tokens
+
+        mkReparseNeeded :: FlatTokens -> ReparseInfo FlatTokens
+        mkReparseNeeded flatTokens = ReparseNeeded flatTokens macroInvs
+
+        mkFlatTokens :: String -> FlatTokens
+        mkFlatTokens flatten = FlatTokens {
+              flatten = flatten
+            , locStart = getLocation tokens
+            }
+
+        parseResults = fmap parseInvocation macroInvs
+        failuresMay = NE.nonEmpty $ mapMaybe isFailure $ NE.toList parseResults
+        isExpUniq cache = all (cachedIsExpansionUnique cache) parseResults
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

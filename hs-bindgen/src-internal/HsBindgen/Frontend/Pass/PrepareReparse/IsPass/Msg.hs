@@ -168,10 +168,10 @@ data DelayedPrepareReparseMsg =
     -- | Can not expand macro invocations in the given declaration because we
     -- can not do so unambiguously. This may cause reparsing to fail.
     PrepareReparseExpansionNotUnique
-    -- | Failed to prepare this declaration for reparsing
-  | PrepareReparseFailed
     -- | Failed to parse the structure of some macro invocations
   | PrepareReparseMacroInvocationParseFailures (NonEmpty Text)
+    -- | There was no preprocessor output for this declaration
+  | PrepareReparseNoPreprocessorOutput
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedPrepareReparseMsg where
@@ -180,18 +180,17 @@ instance PrettyForTrace DelayedPrepareReparseMsg where
         "Can not expand macro invocations in the given declaration because we"
       , "can not do so unambiguously. This may cause reparsing to fail."
       ]
-    PrepareReparseFailed -> PP.hsep [
-        "Failed to prepare this declaration for reparsing"
-      ]
     PrepareReparseMacroInvocationParseFailures failures -> PP.hsep [
         "Failed to parse the structure of these macro invocations: "
       , PP.string (show failures)
       ]
+    PrepareReparseNoPreprocessorOutput ->
+      "There was no preprocessor output for this declaration"
 
 instance IsTrace Level DelayedPrepareReparseMsg where
   getDefaultLogLevel = \case
       PrepareReparseExpansionNotUnique{} -> Info
-      PrepareReparseFailed{} -> Bug
       PrepareReparseMacroInvocationParseFailures{} -> Bug
+      PrepareReparseNoPreprocessorOutput{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"
