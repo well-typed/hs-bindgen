@@ -3,6 +3,7 @@ module Main (main) where
 import Data.Sequence qualified as Seq
 import Test.Tasty
 
+import Test.HsBindgen.Clang.Macros.UniqueExpansion qualified as Clang.Macros.UniqueExpansion
 import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
@@ -26,7 +27,8 @@ main :: IO ()
 main = defaultMain $
     withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
-        Frontend.LanguageC.tests
+        Clang.Macros.UniqueExpansion.tests
+      , Frontend.LanguageC.tests
       , Frontend.Pass.PrepareReparse.tests
       , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
