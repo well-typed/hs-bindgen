@@ -7,7 +7,7 @@ module Test.HsBindgen.Clang.Macros.UniqueExpansion (
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck
 
-import HsBindgen.Clang.Macros.UniqueExpansion (isExpansionUnique')
+import HsBindgen.Clang.Macros.UniqueExpansion
 import HsBindgen.Clang.Macros.UniqueExpansion.Types
 
 {-------------------------------------------------------------------------------
@@ -40,7 +40,8 @@ tests = testGroup "Test.HsBindgen.Clang.Macros.UniqueExpansion" [
 -------------------------------------------------------------------------------}
 
 propIsExpansionUnique :: Bool -> [Definition] -> Invocation -> Property
-propIsExpansionUnique expected defs inv = expected === isExpansionUnique' defs inv
+propIsExpansionUnique expected defs inv =
+    expected === isExpansionUnique (fmap liftDefinition defs) (liftInvocation inv)
 
 {-------------------------------------------------------------------------------
   Unit tests

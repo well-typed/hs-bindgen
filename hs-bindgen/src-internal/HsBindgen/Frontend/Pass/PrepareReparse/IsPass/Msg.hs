@@ -8,6 +8,8 @@ module HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (
   , DelayedPrepareReparseMsg (..)
   ) where
 
+import Data.List.NonEmpty (NonEmpty)
+import Data.Text (Text)
 import GHC.Generics (Generic)
 import System.Exit (ExitCode)
 import Text.Parsec.Error qualified as Parsec
@@ -72,6 +74,8 @@ data PrepareReparseMsg =
     --
     -- This is likely a bug in @hs-bindgen@.
   | PrepareReparseParsePreprocessorOutputFailed Parsec.ParseError
+    -- | Failed to parse the structure of some macro definitions
+  | PrepareReparseMacroDefinitionParseFailures (NonEmpty Text)
   deriving stock Show
 
 instance PrettyForTrace PrepareReparseMsg where
@@ -132,6 +136,10 @@ instance PrettyForTrace PrepareReparseMsg where
           "We failed to parse the preprocessor output:"
         , PP.string (show e)
         ]
+      PrepareReparseMacroDefinitionParseFailures failures -> PP.hsep [
+          "Failed to parse the structure of these macro definitions: "
+        , PP.string (show failures)
+        ]
 
 instance IsTrace Level PrepareReparseMsg where
   getDefaultLogLevel = \case
@@ -148,6 +156,7 @@ instance IsTrace Level PrepareReparseMsg where
       PrepareReparsePreprocessorFailed{} -> Bug
       PrepareReparseInterpretPreprocessorOutputFailed{} -> Bug
       PrepareReparseParsePreprocessorOutputFailed{} -> Bug
+      PrepareReparseMacroDefinitionParseFailures{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"
 
@@ -161,6 +170,8 @@ data DelayedPrepareReparseMsg =
     PrepareReparseExpansionNotUnique
     -- | Failed to prepare this declaration for reparsing
   | PrepareReparseFailed
+    -- | Failed to parse the structure of some macro invocations
+  | PrepareReparseMacroInvocationParseFailures (NonEmpty Text)
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedPrepareReparseMsg where
@@ -172,10 +183,15 @@ instance PrettyForTrace DelayedPrepareReparseMsg where
     PrepareReparseFailed -> PP.hsep [
         "Failed to prepare this declaration for reparsing"
       ]
+    PrepareReparseMacroInvocationParseFailures failures -> PP.hsep [
+        "Failed to parse the structure of these macro invocations: "
+      , PP.string (show failures)
+      ]
 
 instance IsTrace Level DelayedPrepareReparseMsg where
   getDefaultLogLevel = \case
       PrepareReparseExpansionNotUnique{} -> Info
       PrepareReparseFailed{} -> Bug
+      PrepareReparseMacroInvocationParseFailures{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"
