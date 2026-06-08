@@ -112,4 +112,8 @@ multiTracePredicate_nesting expected predicate = multiTracePredicate expected pr
           Just Unexpected
         MatchDelayed _info ParseMacroErrorReparseZip{} ->
           Just Unexpected
+        MatchImmediatePrepareReparse _ ->
+          Just Unexpected
+        MatchDelayedPrepareReparse _info _ ->
+          Just Unexpected
         _ -> Nothing
