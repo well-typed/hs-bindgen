@@ -94,7 +94,7 @@ instance Simplify C.Struct where
 instance Simplify C.StructField where
   simplifyIt info field = case field.ann of
       ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _usedMacros -> singleTarget $
+      ReparseNeeded tokens _macroInvs -> singleTarget $
         Target (fieldTag info field.info) (defaultDecl tokens)
 
 instance Simplify C.Union where
@@ -103,13 +103,13 @@ instance Simplify C.Union where
 instance Simplify C.UnionField where
   simplifyIt info field = case field.ann of
       ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _usedMacros -> singleTarget $
+      ReparseNeeded tokens _macroInvs -> singleTarget $
         Target (fieldTag info field.info) (defaultDecl tokens)
 
 instance Simplify C.Typedef where
   simplifyIt info typedef = case typedef.ann of
       ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _usedMacros -> singleTarget $
+      ReparseNeeded tokens _macroInvs -> singleTarget $
         Target (typedefTag info) (defaultDecl tokens)
 
 instance Simplify C.Enum where
@@ -126,13 +126,13 @@ instance Simplify (Flip TypecheckedMacro l) where
 instance Simplify C.Function where
   simplifyIt info function = case function.ann of
       ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _usedMacros -> singleTarget $
+      ReparseNeeded tokens _macroInvs -> singleTarget $
         Target (functionTag info) (functionDecl tokens)
 
 instance Simplify C.Global where
   simplifyIt info global = case global.ann of
       ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _usedMacros -> singleTarget $
+      ReparseNeeded tokens _macroInvs -> singleTarget $
         Target (variableTag info) (defaultDecl tokens)
 
 {-------------------------------------------------------------------------------

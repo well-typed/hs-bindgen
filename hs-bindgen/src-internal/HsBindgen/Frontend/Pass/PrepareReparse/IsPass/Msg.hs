@@ -31,12 +31,6 @@ data PrepareReparseMsg =
     -- result.
     PrepareReparseClangExeNotFound
 
-    -- * Info
-
-    -- | There are macro invocations that are not inwards floatable, so we can
-    -- not expand them.
-  | PrepareReparseInvocationsNotFloatable
-
 
     -- * Debug
 
@@ -96,13 +90,6 @@ instance PrettyForTrace PrepareReparseMsg where
             ]
         ]
 
-      -- * Info
-
-      PrepareReparseInvocationsNotFloatable -> PP.hsep [
-          "There are macro invocations that are not inwards floatable, so we can"
-        , "not expand them."
-        ]
-
       -- * Debug
 
       PrepareReparseWriteTempHeader path contents -> PP.hsep [
@@ -150,8 +137,6 @@ instance IsTrace Level PrepareReparseMsg where
   getDefaultLogLevel = \case
       -- * Warning
       PrepareReparseClangExeNotFound{} -> Warning
-      -- * Info
-      PrepareReparseInvocationsNotFloatable{} -> Info
       -- * Debug
       PrepareReparseWriteTempHeader{} -> Debug
       PrepareReparsePreprocessorCommand{} -> Debug
@@ -171,18 +156,26 @@ instance IsTrace Level PrepareReparseMsg where
 -------------------------------------------------------------------------------}
 
 data DelayedPrepareReparseMsg =
+    -- | Can not expand macro invocations in the given declaration because we
+    -- can not do so unambiguously. This may cause reparsing to fail.
+    PrepareReparseExpansionNotUnique
     -- | Failed to prepare this declaration for reparsing
-    PrepareReparseFailed
+  | PrepareReparseFailed
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedPrepareReparseMsg where
   prettyForTrace = \case
+    PrepareReparseExpansionNotUnique -> PP.hsep [
+        "Can not expand macro invocations in the given declaration because we"
+      , "can not do so unambiguously. This may cause reparsing to fail."
+      ]
     PrepareReparseFailed -> PP.hsep [
         "Failed to prepare this declaration for reparsing"
       ]
 
 instance IsTrace Level DelayedPrepareReparseMsg where
   getDefaultLogLevel = \case
+      PrepareReparseExpansionNotUnique{} -> Info
       PrepareReparseFailed{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"

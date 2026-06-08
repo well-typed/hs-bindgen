@@ -19,6 +19,8 @@ import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
+import HsBindgen.Clang.Macros (MacroDefinition)
+import HsBindgen.Clang.Macros.UniqueExpansion (isExpansionUnique)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -44,10 +46,11 @@ import HsBindgen.Macro.Type
 update ::
      forall l.
      Maybe (Map Tag Decl)
+  -> [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> C.TranslationUnit l PrepareReparse
-update mapping unit = unit'{
-      C.meta = unit'.meta{
+update mapping macroDefs unit = unit' {
+      C.meta = unit'.meta {
           declIndex = declIndex'
         }
     }
@@ -63,7 +66,8 @@ update mapping unit = unit'{
         msgs
 
     env = Env {
-        map = mapping
+        map       = mapping
+      , macroDefs = macroDefs
       }
 
 {-------------------------------------------------------------------------------
@@ -88,11 +92,12 @@ newtype M a = M (ReaderT Env (State St) a)
 deriving newtype instance MonadReader Env M
 deriving newtype instance MonadState St M
 
-newtype Env = Env {
+data Env = Env {
     -- 'Nothing' means we could not expand macro invocations (for any of a
     -- variety of reasons). We default to just flattening tokens at this
     -- point.
-    map :: Maybe (Map Tag Decl)
+    map       :: Maybe (Map Tag Decl)
+  , macroDefs :: [MacroDefinition]
   }
 
 newtype St = St {
@@ -227,7 +232,8 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
     env <- ask
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
-      ReparseNeeded tokens usedMacros -> do
+      ReparseNeeded tokens macroInvs -> do
+        let uniqueExp = all (isExpansionUnique env.macroDefs) macroInvs
         let fallback = case typ of
               Function -> flattenFunction tokens
               _        -> flattenDefault tokens
@@ -236,16 +242,22 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
             -- If this is 'Nothing', we have already traced a reason why (see
             -- 'DelayedPrepareReparseMsg').
             Nothing -> pure fallback
-            Just mapping -> case Map.lookup tag mapping of
-              Nothing -> do
-                addMessage info.id PrepareReparseFailed
-                pure fallback
-              Just (Decl dec) -> pure dec
+            Just mapping
+              | uniqueExp
+              -> case Map.lookup tag mapping of
+                    Nothing -> do
+                      addMessage info.id PrepareReparseFailed
+                      pure fallback
+                    Just (Decl dec) -> pure dec
+              | otherwise
+              -> do
+                  addMessage info.id PrepareReparseExpansionNotUnique
+                  pure fallback
         let flatTokens = FlatTokens {
                 flatten = flatten
               , locStart = getLocation tokens
               }
-        pure $ ReparseNeeded flatTokens usedMacros
+        pure $ ReparseNeeded flatTokens macroInvs
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
