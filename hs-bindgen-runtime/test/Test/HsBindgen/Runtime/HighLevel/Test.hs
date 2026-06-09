@@ -15,20 +15,17 @@ import Foreign.Storable (peek, poke)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 
-import HsBindgen.Runtime.HighLevel.ToHighLevel (OutMarshaller, discardRes,
-                                                input, optionalIn, output,
-                                                peekOutPure, pureIn, resultPure,
-                                                scratchArray, throwOn,
-                                                throwOnNonZero, throwOnOut,
-                                                toHighLevel)
-import HsBindgen.Runtime.HighLevel.ToHighLevel.Defaults (DefInArrow,
-                                                         DefaultIn (..),
-                                                         defaultRes)
-import HsBindgen.Runtime.HighLevel.ToHighLevel.Marshallers (funPtrIn,
-                                                            peekCStringOut,
-                                                            peekIncompleteArrayOut,
-                                                            useAsByteStringLenIn,
-                                                            withCStringIn)
+import HsBindgen.Runtime.HighLevel (discardResult, input, output, resultIO,
+                                    resultPure, scratchArray, throwOn,
+                                    throwOnNonZero, throwOnOut, toHighLevel)
+import HsBindgen.Runtime.HighLevel.Defaults (DefInArrow, DefaultIn (..), auto,
+                                             defaultOut, defaultRes)
+import HsBindgen.Runtime.HighLevel.Marshaller (Unmarshaller, marshalOptional,
+                                               scalar, unmarshalOutPure)
+import HsBindgen.Runtime.HighLevel.Marshaller.Utils (funPtrIn, peekCStringOut,
+                                                     peekIncompleteArrayOut,
+                                                     useAsByteStringLenIn,
+                                                     withCStringIn)
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
@@ -61,29 +58,15 @@ hsStrncmpMixed = toHighLevel ( input  withCStringIn
                              ) c_strncmp
 
 {-------------------------------------------------------------------------------
-  Two-output fixture
+  Shared scalar-output helper
 -------------------------------------------------------------------------------}
 
-sampleOut :: Ptr CInt -> Ptr CInt -> IO CInt
-sampleOut p p' = do
-  poke p  42
-  poke p' 42
-  pure 0
-
-peekIntOut :: OutMarshaller (Ptr CInt) Int
-peekIntOut = peekOutPure (\(CInt n) -> fromIntegral n)
-
--- | Two outputs + 'discardRes': flat @IO (a, b)@, the discarded result leaving
--- no trailing @()@.
-hsSampleOutDiscard :: IO (Int, Int)
-hsSampleOutDiscard = toHighLevel ( output peekIntOut
-                                 $ output peekIntOut
-                                 $ discardRes
-                                 ) sampleOut
+peekIntOut :: Unmarshaller (Ptr CInt) Int
+peekIntOut = unmarshalOutPure (\(CInt n) -> fromIntegral n)
 
 {-------------------------------------------------------------------------------
-  Six-output fixture: exercises the widest flat-tuple builder (a sixth output
-  fills the 6-tuple; a seventh is a 'TooManyOutputs' compile error).
+  Six-output fixture: many outputs flatten into one wide tuple, with 'discardResult'
+  leaving a trailing @()@ (the result tops out at eight components).
 -------------------------------------------------------------------------------}
 
 sixOut :: Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt
@@ -92,10 +75,10 @@ sixOut p1 p2 p3 p4 p5 p6 = do
   poke p1 1; poke p2 2; poke p3 3; poke p4 4; poke p5 5; poke p6 6
   pure 0
 
-hsSixOut :: IO (Int, Int, Int, Int, Int, Int)
+hsSixOut :: IO (Int, Int, Int, Int, Int, Int, ())
 hsSixOut = toHighLevel ( output peekIntOut $ output peekIntOut $ output peekIntOut
                        $ output peekIntOut $ output peekIntOut $ output peekIntOut
-                       $ discardRes
+                       $ discardResult
                        ) sixOut
 
 {-------------------------------------------------------------------------------
@@ -110,14 +93,10 @@ interleaved pOut1 (CInt n) pOut2 = do
 
 hsInterleaved :: Int -> IO (Int, Int, Int)
 hsInterleaved = toHighLevel ( output peekIntOut
-                            $ input  (pureIn (CInt . fromIntegral))
+                            $ input  (scalar (CInt . fromIntegral))
                             $ output peekIntOut
                             $ resultPure fromIntegral
                             ) interleaved
-
--- | All-default chain: 'String' input and 'CSize' -> 'Int' result, no annotations.
-hsStrlenAuto :: String -> IO Int
-hsStrlenAuto = toHighLevel (input defaultIn $ defaultRes) c_strlen
 
 -- | All-default with /two/ scalar inputs (each @Int -> CInt@) and an @Int@ result.
 hsAddAuto :: Int -> Int -> IO Int
@@ -125,6 +104,17 @@ hsAddAuto = toHighLevel (input defaultIn $ input defaultIn $ defaultRes) cAdd
   where
     cAdd :: CInt -> CInt -> IO CInt
     cAdd a b = pure (a + b)
+
+-- | The same C function closed by 'auto', but the wrapper keeps every generated C
+-- type: two identity @CInt@ inputs and an identity @CInt@ result, no hand-written
+-- marshaller. Writing @IO CInt@ (not @IO Int@) selects the identity result default;
+-- 'hsAddAuto' closes the same function to 'Int'. This exercises the result default
+-- being chosen by the written signature, like an input or an output.
+hsAddAutoRaw :: CInt -> CInt -> IO CInt
+hsAddAutoRaw = toHighLevel auto cAddRaw
+  where
+    cAddRaw :: CInt -> CInt -> IO CInt
+    cAddRaw a b = pure (a + b)
 
 -- | All-default where one Haskell argument fills /two/ C arguments: a 'ByteString'
 -- becomes the @(const char *, size_t)@ pair, exercising a default that consumes
@@ -146,7 +136,7 @@ newtype Handle = Handle CInt
 
 instance DefaultIn Handle where
   type DefInArrow Handle lo = CInt -> lo
-  defaultIn = pureIn (\(Handle h) -> h)
+  defaultIn = scalar (\(Handle h) -> h)
 
 hsHandleAuto :: Handle -> IO Int
 hsHandleAuto = toHighLevel (input defaultIn $ defaultRes) cHandle
@@ -155,7 +145,7 @@ hsHandleAuto = toHighLevel (input defaultIn $ defaultRes) cHandle
     cHandle h = pure (h + 1)
 
 {-------------------------------------------------------------------------------
-  Optional inputs via 'optionalIn': one C arg (Maybe String) and N C args
+  Optional inputs via 'marshalOptional': one C arg (Maybe String) and N C args
   (Maybe ByteString), both with the single gap-filler combinator.
 -------------------------------------------------------------------------------}
 
@@ -170,12 +160,12 @@ nullCharPtr = PtrConst.unsafeFromPtr nullPtr
 -- | One C argument: 'Nothing' supplies the null @const char *@ via the
 -- @('$' nullCharPtr)@ filler.
 hsCheckPresent :: Maybe String -> IO Bool
-hsCheckPresent = toHighLevel ( input  (optionalIn ($ nullCharPtr) withCStringIn)
+hsCheckPresent = toHighLevel ( input  (marshalOptional ($ nullCharPtr) withCStringIn)
                              $ resultPure (/= 0)
                              ) checkPresent
 
 -- | Two C arguments from one optional value: 'Nothing' fills /both/ the pointer
--- and the length, exercising 'optionalIn' on an N-to-1 marshaller with the same
+-- and the length, exercising 'marshalOptional' on an N-to-1 marshaller with the same
 -- combinator (the case a single-@c@ default could not express).
 checkLen :: PtrConst CChar -> CSize -> IO CInt
 checkLen p n
@@ -184,7 +174,7 @@ checkLen p n
 
 hsCheckLen :: Maybe ByteString -> IO Int
 hsCheckLen = toHighLevel
-  ( input  (optionalIn (\lo -> lo nullCharPtr 0) useAsByteStringLenIn)
+  ( input  (marshalOptional (\lo -> lo nullCharPtr 0) useAsByteStringLenIn)
   $ resultPure fromIntegral
   ) checkLen
 
@@ -202,7 +192,7 @@ callOnce fp = callCallback fp 42
 
 hsCallOnce :: Callback -> IO ()
 hsCallOnce = toHighLevel ( input  funPtrIn
-                         $ discardRes
+                         $ discardResult
                          ) callOnce
 
 {-------------------------------------------------------------------------------
@@ -259,7 +249,7 @@ hsWriteBuffers = toHighLevel
   $ resultPure fromIntegral
   ) writeBuffers
   where
-    intArrOut :: OutMarshaller (Ptr CInt) (IA.IncompleteArray CInt)
+    intArrOut :: Unmarshaller (Ptr CInt) (IA.IncompleteArray CInt)
     intArrOut = peekIncompleteArrayOut 3
 
 {-------------------------------------------------------------------------------
@@ -275,7 +265,7 @@ instance Exception SampleErr
 
 hsCheckStatus :: CInt -> IO ()
 hsCheckStatus = toHighLevel
-  ( input  (pureIn id)
+  ( input  (scalar id)
   $ throwOnNonZero SampleErr
   ) returnsStatus
 
@@ -283,7 +273,7 @@ hsCheckStatus = toHighLevel
 -- exercising @hs /= hs'@ in 'throwOn'.
 hsThrowOnNegBool :: CInt -> IO Bool
 hsThrowOnNegBool = toHighLevel
-  ( input  (pureIn id)
+  ( input  (scalar id)
   $ throwOn classify (resultPure fromIntegral)
   ) returnsStatus
   where
@@ -303,11 +293,11 @@ writeOutCode code outp = poke outp code >> pure 0
 -- | The error lives in the out-parameter, not the return value, so the check
 -- sits at the output via 'throwOnOut'. A negative code throws; otherwise the
 -- value is kept and the (zero) return is discarded.
-hsCheckOut :: CInt -> IO Int
+hsCheckOut :: CInt -> IO (Int, ())
 hsCheckOut = toHighLevel
-  ( input  (pureIn id)
+  ( input  (scalar id)
   $ output (throwOnOut classify)
-  $ discardRes
+  $ discardResult
   ) writeOutCode
   where
     classify :: CInt -> Either SampleErr Int
@@ -330,6 +320,51 @@ hsReadFirstInt :: IA.IncompleteArray CInt -> IO Int
 hsReadFirstInt = toHighLevel (input defaultIn $ defaultRes) readFirstInt
 
 {-------------------------------------------------------------------------------
+  'auto': one combinator filling the mundane positions from the signature
+-------------------------------------------------------------------------------}
+
+-- | 'auto' as the whole spec: fills the 'String' input and the @CSize -> Int@
+-- closer from the signature, with no combinators written at all.
+hsStrlenAutoBare :: String -> IO Int
+hsStrlenAutoBare = toHighLevel auto c_strlen
+
+-- | 'auto' after an explicit 'output' (the headline shape): the 'output' is kept;
+-- 'auto' fills the trailing scalar input and the closer.
+outThenIn :: Ptr CInt -> CInt -> IO CInt
+outThenIn pOut (CInt n) = poke pOut (CInt (n * 10)) >> pure (CInt n)
+
+hsOutThenInAuto :: Int -> IO (Int, Int)
+hsOutThenInAuto = toHighLevel (output peekIntOut $ auto) outThenIn
+
+-- | Multi-C-argument 'auto': a 'ByteString' filling the @(const char *, size_t)@
+-- pair is reached by 'auto', not only by explicit @'input' 'defaultIn'@.
+cBsLenAuto :: PtrConst CChar -> CSize -> IO CInt
+cBsLenAuto _ n = pure (fromIntegral n)
+
+hsBsLenAutoBare :: ByteString -> IO Int
+hsBsLenAutoBare = toHighLevel auto cBsLenAuto
+
+{-------------------------------------------------------------------------------
+  defaultOut and resultIO: the two closers not exercised above
+-------------------------------------------------------------------------------}
+
+-- | Writes 99 into the out-parameter and returns 7.
+outAndStatus :: Ptr CInt -> IO CInt
+outAndStatus p = poke p 99 >> pure 7
+
+-- | 'output' 'defaultOut': the scalar out-parameter coerces @Ptr CInt -> Int@
+-- through the default, with no explicit output marshaller.
+hsDefaultOut :: IO (Int, Int)
+hsDefaultOut = toHighLevel (output defaultOut $ defaultRes) outAndStatus
+
+-- | 'resultIO': the C return value is converted in 'IO' (here, doubled).
+hsResultIO :: CInt -> IO Int
+hsResultIO = toHighLevel
+  ( input    (scalar id)
+  $ resultIO (\(CInt n) -> pure (fromIntegral n * 2))
+  ) returnsStatus
+
+{-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
@@ -339,14 +374,9 @@ tests = testGroup "HighLevel.ToHighLevel"
       r <- hsStrncmpMixed "hello world" "hello"
       r @?= 0
 
-  , testCase "two outputs + discardRes peek both out-params, drop status" $ do
-      (a, b) <- hsSampleOutDiscard
-      a @?= 42
-      b @?= 42
-
-  , testCase "six outputs build a flat 6-tuple (widest builder)" $ do
+  , testCase "six outputs + discardResult build a wide flat tuple with trailing ()" $ do
       r <- hsSixOut
-      r @?= (1, 2, 3, 4, 5, 6)
+      r @?= (1, 2, 3, 4, 5, 6, ())
 
   , testCase "interleaved out-in-out: outputs sandwich an input" $ do
       (a, b, status) <- hsInterleaved 7
@@ -354,12 +384,25 @@ tests = testGroup "HighLevel.ToHighLevel"
       b      @?= 14
       status @?= 0
 
-  , testCase "all-default chain: String input + result" $ do
-      n <- hsStrlenAuto "hello"
+  , testCase "auto (bare): fills the String input and the CSize result" $ do
+      n <- hsStrlenAutoBare "hello"
+      n @?= 5
+
+  , testCase "auto after output: output kept, auto fills the input + closer" $ do
+      (out, status) <- hsOutThenInAuto 5
+      out    @?= 50
+      status @?= 5
+
+  , testCase "auto (multi-C-arg): a ByteString fills (ptr, len) via auto" $ do
+      n <- hsBsLenAutoBare "hello"
       n @?= 5
 
   , testCase "all-default chain: two scalar inputs + result" $ do
       n <- hsAddAuto 3 4
+      n @?= 7
+
+  , testCase "auto over an all-raw-C wrapper: identity inputs and identity result" $ do
+      n <- hsAddAutoRaw 3 4
       n @?= 7
 
   , testCase "all-default chain: one ByteString fills a (ptr, len) C pair" $ do
@@ -374,19 +417,19 @@ tests = testGroup "HighLevel.ToHighLevel"
       n <- hsReadFirstInt (IA.fromList [CInt 7, CInt 8, CInt 9])
       n @?= 7
 
-  , testCase "optionalIn (1 C arg): Nothing maps to a NULL pointer" $ do
+  , testCase "marshalOptional (1 C arg): Nothing maps to a NULL pointer" $ do
       r <- hsCheckPresent Nothing
       r @?= False
 
-  , testCase "optionalIn (1 C arg): Just \"x\" maps to a non-NULL pointer" $ do
+  , testCase "marshalOptional (1 C arg): Just \"x\" maps to a non-NULL pointer" $ do
       r <- hsCheckPresent (Just "x")
       r @?= True
 
-  , testCase "optionalIn (2 C args): Nothing fills both pointer and length" $ do
+  , testCase "marshalOptional (2 C args): Nothing fills both pointer and length" $ do
       r <- hsCheckLen Nothing
       r @?= (-1)
 
-  , testCase "optionalIn (2 C args): Just fills both from the ByteString" $ do
+  , testCase "marshalOptional (2 C args): Just fills both from the ByteString" $ do
       r <- hsCheckLen (Just "hello")
       r @?= 5
 
@@ -429,12 +472,21 @@ tests = testGroup "HighLevel.ToHighLevel"
         Right _            -> fail "expected exception"
 
   , testCase "throwOnOut: non-negative out-param value flows through" $ do
-      n <- hsCheckOut 7
+      (n, ()) <- hsCheckOut 7
       n @?= 7
 
   , testCase "throwOnOut: negative out-param value throws" $ do
-      e <- try (hsCheckOut (-2)) :: IO (Either SampleErr Int)
+      e <- try (hsCheckOut (-2)) :: IO (Either SampleErr (Int, ()))
       case e of
         Left (SampleErr n) -> n @?= (-2)
         Right _            -> fail "expected exception"
+
+  , testCase "output defaultOut: scalar out-param coerces via the default" $ do
+      (out, status) <- hsDefaultOut
+      out    @?= 99
+      status @?= 7
+
+  , testCase "resultIO: the C return value is converted in IO" $ do
+      n <- hsResultIO 21
+      n @?= 42
   ]

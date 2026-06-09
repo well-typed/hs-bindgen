@@ -10,29 +10,28 @@ module HighLevel (
 import Control.Exception (Exception, throwIO)
 import Control.Monad (when)
 import Foreign.C.String qualified as C
-import Foreign.C.Types (CInt)
-import Foreign.Marshal.Alloc (alloca)
+import Foreign.C.Types (CChar, CInt)
+import Foreign.Marshal.Alloc (alloca, allocaBytes)
 import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel.ToHighLevel (OutMarshaller, mkOut, output,
-                                                resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.ToHighLevel.Marshallers (peekCStringOut)
+import HsBindgen.Runtime.HighLevel (output, resultIO, scratch, toHighLevel)
+import HsBindgen.Runtime.HighLevel.Marshaller (Unmarshaller, unmarshalOutWith)
 
 import Generated.Pcap qualified as Pcap
 import Generated.Pcap.Safe qualified as Pcap
 
 -- | Thrown by 'findAllDevNames' when @pcap_findalldevs@ reports failure.
 --
-data PcapError = PcapError { msg :: String, code :: CInt }
+data PcapError = PcapError { msg :: String, code :: Int }
   deriving stock (Show)
 instance Exception PcapError
 
 -- | Allocate a @pcap_if_t **@, walk the linked list after the call, free it.
 --
 peekPcapDeviceNames
-  :: OutMarshaller (Ptr (Ptr Pcap.Pcap_if_t)) [String]
-peekPcapDeviceNames = mkOut alloca $ \pp -> do
+  :: Unmarshaller (Ptr (Ptr Pcap.Pcap_if_t)) [String]
+peekPcapDeviceNames = unmarshalOutWith alloca $ \pp -> do
   headPtr <- peek pp
   names   <- collect [] headPtr
   Pcap.pcap_freealldevs headPtr
@@ -45,16 +44,24 @@ peekPcapDeviceNames = mkOut alloca $ \pp -> do
           name <- C.peekCString (Pcap.pcap_if_t_name dev)
           collect (name : acc) (Pcap.pcap_if_t_next dev)
 
--- | Collect the names of all devices visible to libpcap. The status check
--- runs after the spec rather than inside a 'throwOn' because the error
--- buffer lives in a separate output position.
+-- | Collect the names of all devices visible to libpcap. @pcap_findalldevs@
+-- signals failure with a non-zero status and writes a message into a separate
+-- error buffer. The buffer is pre-allocated and passed as 'scratch', so the
+-- 'resultIO' closer can read it and throw on failure, keeping the check inside
+-- the spec.
 --
 findAllDevNames :: IO [String]
-findAllDevNames = do
-  (names, errMsg, status) <- toHighLevel
-    ( output peekPcapDeviceNames
-    $ output (peekCStringOut (fromIntegral Pcap.pCAP_ERRBUF_SIZE))
-    $ resultPure id
-    ) Pcap.pcap_findalldevs
-  when (status /= 0) $ throwIO (PcapError errMsg status)
-  pure names
+findAllDevNames =
+  allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errbuf -> do
+    (names, ()) <- toHighLevel
+      ( output peekPcapDeviceNames        -- pcap_if_t ** : device names (kept)
+      $ scratch (\k -> k errbuf)          -- char *       : pre-allocated errbuf
+      $ resultIO (throwOnStatus errbuf)   -- int          : throw on failure
+      ) Pcap.pcap_findalldevs
+    pure names
+  where
+    throwOnStatus :: Ptr CChar -> CInt -> IO ()
+    throwOnStatus errbuf status =
+      when (status /= 0) $ do
+        errMsg <- C.peekCString errbuf
+        throwIO (PcapError errMsg (fromIntegral status))

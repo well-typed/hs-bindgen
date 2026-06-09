@@ -6,7 +6,7 @@ import Test.HsBindgen.Runtime.Bitfield qualified
 import Test.HsBindgen.Runtime.CBool qualified
 import Test.HsBindgen.Runtime.CEnum qualified
 import Test.HsBindgen.Runtime.ConstantArray qualified
-import Test.HsBindgen.Runtime.HighLevel.CoreDump qualified
+import Test.HsBindgen.Runtime.HighLevel.Struct qualified
 import Test.HsBindgen.Runtime.HighLevel.Test qualified
 import Test.HsBindgen.Runtime.IncompleteArray qualified
 import Test.HsBindgen.Runtime.SizedByteArray qualified
@@ -21,7 +21,7 @@ main = defaultMain $ testGroup "test-runtime" [
     , Test.HsBindgen.Runtime.CBool.tests
     , Test.HsBindgen.Runtime.CEnum.tests
     , Test.HsBindgen.Runtime.ConstantArray.tests
-    , Test.HsBindgen.Runtime.HighLevel.CoreDump.tests
+    , Test.HsBindgen.Runtime.HighLevel.Struct.tests
     , Test.HsBindgen.Runtime.HighLevel.Test.tests
     , Test.HsBindgen.Runtime.IncompleteArray.tests
     , Test.HsBindgen.Runtime.SizedByteArray.tests
