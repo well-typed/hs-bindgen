@@ -8,6 +8,9 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchImmediate
   , pattern MatchDelayed
   , pattern MatchDelayedImplicitField
+    -- * PrepareReparse
+  , pattern MatchImmediatePrepareReparse
+  , pattern MatchDelayedPrepareReparse
     -- * ResolveBindingSpecs
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
@@ -30,6 +33,8 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
+                                                          PrepareReparseMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -82,6 +87,23 @@ pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
 pattern MatchDelayedImplicitField :: CDeclName -> ParseImplicitFieldsMsg -> TraceMsg
 pattern MatchDelayedImplicitField name x <- MatchDelayed name (ParseImplicitFieldFailed x)
+
+{-------------------------------------------------------------------------------
+  PrepareReparse
+-------------------------------------------------------------------------------}
+
+pattern MatchImmediatePrepareReparse :: PrepareReparseMsg -> TraceMsg
+pattern MatchImmediatePrepareReparse x <- TraceFrontend (
+      FrontendPrepareReparse x
+    )
+
+pattern MatchDelayedPrepareReparse :: CDeclName -> DelayedPrepareReparseMsg -> TraceMsg
+pattern MatchDelayedPrepareReparse name x <- MatchSelect name (matchDelayedPrepareReparse -> Just x)
+
+matchDelayedPrepareReparse :: SelectMsg -> Maybe DelayedPrepareReparseMsg
+matchDelayedPrepareReparse = \case
+    SelectDelayedPrepareReparseMsg x -> Just x
+    _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
   ResolveBindingSpecs

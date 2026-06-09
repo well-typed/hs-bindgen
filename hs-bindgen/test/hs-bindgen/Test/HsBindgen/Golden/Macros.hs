@@ -44,10 +44,6 @@ testCases = [
     , test_macros_parse_intermittent_include
     , test_macros_parse_intermittent_include_conditional
     , test_macros_parse_macro_typedef_scope_multiple
-    , test_macros_redeclaration_def_undef_def
-    , test_macros_redeclaration_different
-    , test_macros_redeclaration_identical_semantics
-    , test_macros_redeclaration_identical_syntax
     , test_macros_wrong_source_location
     ]
 
@@ -187,72 +183,6 @@ test_macros_parse_macro_typedef_scope_multiple =
       & #onFrontend .~ (\cfg -> cfg
           & #selectPredicate .~ BTrue
           )
-
-test_macros_redeclaration_def_undef_def :: TestCase
-test_macros_redeclaration_def_undef_def =
-    defaultTest "macros/redeclaration/def_undef_def"
-      & #tracePredicate .~ multiTracePredicate expected trace
-  where
-    expected :: [CDeclName]
-    expected = ["macro T"]
-
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
-    trace = \case
-      MatchSelect name@"macro T" SelectConflict{} ->
-        Just $ Expected name
-      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
-        Just $ Tolerated
-      _otherwise ->
-        Nothing
-
-test_macros_redeclaration_different :: TestCase
-test_macros_redeclaration_different =
-    defaultTest "macros/redeclaration/different"
-      & #tracePredicate .~ multiTracePredicate expected trace
-  where
-    expected :: [CDeclName]
-    expected = ["macro T"]
-
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
-    trace = \case
-      MatchSelect name@"macro T" SelectConflict{} ->
-        Just $ Expected name
-      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
-        Just $ Tolerated
-      _otherwise ->
-        Nothing
-
-test_macros_redeclaration_identical_semantics :: TestCase
-test_macros_redeclaration_identical_semantics =
-    defaultTest "macros/redeclaration/identical_semantics"
-      & #tracePredicate .~ multiTracePredicate expected trace
-  where
-    expected :: [CDeclName]
-    expected = ["macro T"]
-
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
-    trace = \case
-      MatchSelect name@"macro T" SelectConflict{} ->
-        Just $ Expected name
-      _otherwise ->
-        Nothing
-
-test_macros_redeclaration_identical_syntax :: TestCase
-test_macros_redeclaration_identical_syntax =
-    defaultTest "macros/redeclaration/identical_syntax"
-      & #tracePredicate .~ multiTracePredicate expected trace
-  where
-    expected :: [CDeclName]
-    expected = ["macro A", "macro T"]
-
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
-    trace = \case
-      MatchSelect name@"macro A" SelectConflict{} ->
-        Just $ Expected name
-      MatchSelect name@"macro T" SelectConflict{} ->
-        Just $ Expected name
-      _otherwise ->
-        Nothing
 
 test_macros_wrong_source_location :: TestCase
 test_macros_wrong_source_location =

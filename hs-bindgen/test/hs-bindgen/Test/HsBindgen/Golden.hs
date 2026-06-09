@@ -19,6 +19,7 @@ import Test.HsBindgen.Golden.Globals qualified as Globals
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Golden.Infra.TestCaseTree
 import Test.HsBindgen.Golden.Macros qualified as Macros
+import Test.HsBindgen.Golden.Macros.Redeclaration qualified as Macros.Redeclaration
 import Test.HsBindgen.Golden.Macros.Reparse qualified as Macros.Reparse
 import Test.HsBindgen.Golden.ProgramAnalysis qualified as ProgramAnalysis
 import Test.HsBindgen.Golden.Types qualified as Types
@@ -44,8 +45,9 @@ testCaseTree =
       , TestCases "functions"       Functions.testCases
       , TestCases "globals"         Globals.testCases
       , TestCaseSection "macros" $ concat [
-           TestCaseLeafs Macros.testCases
-          , Macros.Reparse.testCases
+            TestCaseLeafs Macros.testCases
+          , [ TestCaseSection "redeclaration" Macros.Redeclaration.testCases ]
+          , [ TestCaseSection "reparse"       Macros.Reparse.testCases ]
           ]
       , TestCases "programAnalysis" ProgramAnalysis.testCases
       , TestCases "types"           Types.testCases
