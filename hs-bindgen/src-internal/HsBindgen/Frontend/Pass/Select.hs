@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
+import Data.Foldable qualified as Foldable
 import Data.List (sortBy)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
@@ -354,16 +355,19 @@ getSelectMsgsDeclId
         , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
         ]
 
-    loc :: [SingleLoc]
-    loc = DeclIndex.entryToLoc entry
-
     withLoc :: HasCallStack => a -> WithCallStack (WithLocationInfo a)
     withLoc x = withCallStack WithLocationInfo{
-                  loc = declIdLocationInfo declId loc
+                  loc = declIdLocationInfo declId $
+                          NonEmpty.toList $
+                            DeclIndex.entryToLoc entry
                 , msg = x
                 }
 
-    getUnavailMsg :: HasCallStack => SelectReason -> Map DeclId Unselectable -> Maybe (AMsg Select)
+    getUnavailMsg ::
+         HasCallStack
+      => SelectReason
+      -> Map DeclId Unselectable
+      -> Maybe (AMsg Select)
     getUnavailMsg selectReason unavailReasons =
         if null msgs then
           Nothing
@@ -373,15 +377,13 @@ getSelectMsgsDeclId
         msgs = [
                case r of
                  Unselectable u ->
-                   TransitiveDependencyUnusable
-                     i
-                     u
-                     (DeclIndex.lookupLoc i declIndex)
+                   TransitiveDependencyUnusable i u
                  UnselectableNotSelected ->
-                   TransitiveDependencyNotSelected
-                     i
-                     (DeclIndex.lookupLoc i declIndex)
+                   TransitiveDependencyNotSelected i locs
              | (i, r) <- Map.toList unavailReasons
+             , let locs = case DeclIndex.lookupLoc i declIndex of
+                     Nothing -> []
+                     Just xs -> NonEmpty.toList xs
              ]
 
     isDeprecated :: Bool
@@ -413,8 +415,9 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
     aux :: HasCallStack => DeclId -> Entry l -> [AMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success -> mkSuccessMessages declId success
-        UsableExternal   -> []
+        UsableSuccess success ->
+          mkSuccessMessages declId success
+        UsableExternal{} -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
@@ -431,24 +434,27 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
               }
           | x <- NonEmpty.toList xs
           ]
-        UnusableParseFailure loc x -> List.singleton $ withCallStack WithLocationInfo{
-            loc = declIdLocationInfo declId [loc]
-          , msg = SelectParseFailure x
-          }
-        UnusableConflict x -> List.singleton $ withCallStack WithLocationInfo{
-            loc = declIdLocationInfo declId (Conflict.toList x)
-          , msg = SelectConflict
-          }
-        UnusableMangleNamesFailure loc x -> List.singleton $ withCallStack WithLocationInfo{
-            loc = declIdLocationInfo declId [loc]
-          , msg = SelectMangleNamesFailure x
-          }
-        UnusableTypecheckMacrosError loc err -> List.singleton$ withCallStack WithLocationInfo{
-            loc = declIdLocationInfo declId [loc]
-          , msg = SelectMacroTypecheckFailure err
-          }
-        UnusableOmitted{} ->
-          []
+        UnusableParseFailure loc x ->
+          List.singleton $ withCallStack WithLocationInfo{
+              loc = declIdLocationInfo declId [loc]
+            , msg = SelectParseFailure x
+            }
+        UnusableConflict x ->
+          List.singleton $ withCallStack WithLocationInfo{
+              loc = declIdLocationInfo declId $ NonEmpty.toList $ Conflict.toList x
+            , msg = SelectConflict
+            }
+        UnusableMangleNamesFailure loc x ->
+          List.singleton $ withCallStack WithLocationInfo{
+              loc = declIdLocationInfo declId [loc]
+            , msg = SelectMangleNamesFailure x
+            }
+        UnusableTypecheckMacrosError loc err ->
+          List.singleton$ withCallStack WithLocationInfo{
+              loc = declIdLocationInfo declId [loc]
+            , msg = SelectMacroTypecheckFailure err
+            }
+        UnusableOmitted{} -> []
 
 getDelayedMsgsAdditionalSelectedTransDeps :: HasCallStack => DeclIndex l -> [AMsg Select]
 getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
@@ -456,8 +462,9 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
     aux :: HasCallStack => DeclId -> Entry l -> [AMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success -> mkSuccessMessages declId success
-        UsableExternal   -> []
+        UsableSuccess success ->
+          mkSuccessMessages declId success
+        UsableExternal{} -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
@@ -482,7 +489,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
         UsableSuccess success ->
           let isBugLevel x = getDefaultLogLevel x == Bug
           in  filter isBugLevel $ mkSuccessMessages declId success
-        UsableExternal -> []
+        UsableExternal{} -> []
         UsableSquashed{} -> []
       UnusableE e -> case e of
         UnusableParseNotAttempted{} -> []
@@ -553,7 +560,7 @@ type Match = CDeclName -> SingleLoc -> C.Availability -> Bool
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.
 selectDeclIndex :: DeclUseGraph -> Match -> DeclIndex l -> DeclIndex l
-selectDeclIndex declUseGraph p declIndex =
+selectDeclIndex declUseGraph predicate declIndex =
     DeclIndex.filter matchEntry declIndex
   where
     matchEntry :: DeclId -> Entry l -> Bool
@@ -566,7 +573,9 @@ selectDeclIndex declUseGraph p declIndex =
           Just (locs, availability) ->
             if declId.isAnon
               then matchAnon declId
-              else or [p declId.name loc availability| loc <- locs]
+              else Foldable.any
+                     (\loc -> predicate declId.name loc availability)
+                     locs
 
     matchDeclId :: DeclId -> Bool
     matchDeclId declId =
@@ -579,27 +588,27 @@ selectDeclIndex declUseGraph p declIndex =
     -- Returns 'Nothing' for external or omitted declarations.
     -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
-    entryInfo :: Entry l -> Maybe ([SingleLoc], C.Availability)
+    entryInfo :: Entry l -> Maybe (NonEmpty SingleLoc, C.Availability)
     entryInfo = \case
         UsableE e -> case e of
           UsableSuccess success ->
             let info = success.decl.info
-            in Just ([info.loc], info.availability)
-          UsableExternal ->
+            in Just (NonEmpty.singleton info.loc, info.availability)
+          UsableExternal{} ->
             Nothing
           UsableSquashed x ->
-            Just ([x.typedefLoc], C.Available)
+            Just (NonEmpty.singleton x.typedefLoc, C.Available)
         UnusableE e -> case e of
           UnusableParseNotAttempted loc _ ->
-            Just ([loc], C.Available)
+            Just (NonEmpty.singleton loc, C.Available)
           UnusableParseFailure loc _ ->
-            Just ([loc], C.Available)
+            Just (NonEmpty.singleton loc, C.Available)
           UnusableConflict conflict ->
             Just (Conflict.toList conflict, C.Available)
           UnusableMangleNamesFailure loc _ ->
-            Just ([loc], C.Available)
+            Just (NonEmpty.singleton loc, C.Available)
           UnusableTypecheckMacrosError loc _ ->
-            Just ([loc], C.Available)
+            Just (NonEmpty.singleton loc, C.Available)
           UnusableOmitted{} ->
             Nothing
 

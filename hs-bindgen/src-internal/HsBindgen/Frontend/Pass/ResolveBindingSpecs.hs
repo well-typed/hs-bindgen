@@ -7,6 +7,7 @@ import Control.Monad.Reader (MonadReader, ReaderT, runReaderT)
 import Control.Monad.Reader qualified as Reader
 import Control.Monad.State (MonadState, State, runState)
 import Control.Monad.State qualified as State
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -81,12 +82,12 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       -> MState
       -> C.TranslationUnit l ResolveBindingSpecs
     reconstruct decls' declUseGraph state =
-      let externalIds :: Set DeclId
-          externalIds = Map.keysSet state.extTypes
+      let externals :: [(DeclId, NonEmpty SingleLoc)]
+          externals = map (second (.locs)) $ Map.toList state.extTypes
 
           index' :: DeclIndex l
           index' =
-                DeclIndex.registerExternalDeclarations externalIds
+                DeclIndex.registerExternalDeclarations externals
               . DeclIndex.registerOmittedDeclarations state.omitTypes
               $ unit.meta.declIndex
 
@@ -222,7 +223,11 @@ resolveTop decl = Reader.ask >>= \env -> do
     let sourcePath = singleLocPath decl.info.loc
         declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
-    isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
+    isExt <- isJust <$>
+      resolveExtBinding
+        decl.info.id
+        (NonEmpty.singleton decl.info.loc)
+        declPaths mMsg
     if isExt
       then do
         State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.info.id)
@@ -607,13 +612,13 @@ auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
         pure (Just ty)
       Nothing ->
         case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
-          []   -> pure Nothing
-          locs -> do
+          Nothing -> pure Nothing
+          Just locs -> do
             let declPaths =
                   foldMap
                     (IncludeGraph.reaches env.includeGraph . singleLocPath)
                     locs
-            mTy <- resolveExtBinding cDeclId declPaths Nothing
+            mTy <- resolveExtBinding cDeclId locs declPaths Nothing
             case mTy of
               Just ty -> do
                 State.modify' $
@@ -630,11 +635,12 @@ auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
 resolveExtBinding ::
      HasCallStack
   => DeclId
+  -> NonEmpty SingleLoc
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe (AMsg ResolveBindingSpecs)
   -> M l (Maybe ResolvedExtBinding)
-resolveExtBinding cDeclId declPaths mMsg = do
+resolveExtBinding cDeclId locs declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
@@ -642,6 +648,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
           (Just hsName, Just hsTypeSpec) -> do
             let resolved = ResolvedExtBinding {
                     cName  = cDeclId
+                  , locs   = locs
                   , hsName = Hs.ExtRef hsModuleName hsName
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
