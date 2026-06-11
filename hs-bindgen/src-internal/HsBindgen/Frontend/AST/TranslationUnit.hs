@@ -16,6 +16,14 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Macro.Type
 
+-- | Information we collect from a C translation unit.
+--
+-- The macro language parameter @l@ describes how C macros are parsed,
+-- typechecked, and translated (see "HsBindgen.Macro.Type" and
+-- "HsBindgen.Macro.Interface").
+--
+-- The pass parameter @p@ describes how the data types evolve along passes in
+-- the frontend in a "trees that grow" (TTG) style.
 data TranslationUnit l p = TranslationUnit{
       -- | Declarations in the unit
       --

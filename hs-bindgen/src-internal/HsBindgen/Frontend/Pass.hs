@@ -40,6 +40,10 @@ class    (Show (MacroBody p l), Eq (MacroBody p l)) => ValidMacroBody p l
 instance (Show (MacroBody p l), Eq (MacroBody p l)) => ValidMacroBody p l
 
 -- | Pass definition
+--
+-- The macro language parameter @l@ describes how C macros are parsed,
+-- typechecked, and translated (see "HsBindgen.Macro.Type" and
+-- "HsBindgen.Macro.Interface").
 class (
         -- 'Show' constraints for debugging
 
