@@ -243,6 +243,7 @@ library internal
     HsBindgen.Frontend.Pass.Zip.IsPass
     HsBindgen.Frontend.Pass.Zip.Zip
     HsBindgen.Frontend.Predicate
+    HsBindgen.Frontend.PrettyC
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader
     HsBindgen.Guasi
@@ -254,7 +255,6 @@ library internal
     HsBindgen.Macro.Type
     HsBindgen.NameHint
     HsBindgen.Orphans
-    HsBindgen.PrettyC
     HsBindgen.Resolve
     HsBindgen.Test
     HsBindgen.Test.C
