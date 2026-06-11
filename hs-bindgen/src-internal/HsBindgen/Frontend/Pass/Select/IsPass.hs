@@ -17,7 +17,9 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (Entry (..), Squashed (..),
+                                              Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -131,17 +133,19 @@ data SelectStatus =
 
 data TransitiveDependencyMissing =
     -- | Transitive dependency is 'Unusable'.
-    TransitiveDependencyUnusable C.DeclId Unusable [SingleLoc]
+    TransitiveDependencyUnusable C.DeclId Unusable
     -- | Transitive dependency is not selected.
   | TransitiveDependencyNotSelected C.DeclId [SingleLoc]
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
   prettyForTrace = \case
-      TransitiveDependencyUnusable i r ls ->
+      TransitiveDependencyUnusable i r ->
         let intro = "Transitive dependency unusable:"
         in  PP.hang intro 2 $ prettyForTrace $ C.WithLocationInfo{
-                loc = C.declIdLocationInfo i ls
+                loc = C.declIdLocationInfo i $
+                        C.declLocsToList $
+                          DeclIndex.entryToLoc (UnusableE r)
               , msg = r
               }
       TransitiveDependencyNotSelected i ls ->

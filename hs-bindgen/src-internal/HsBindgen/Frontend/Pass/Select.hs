@@ -2,8 +2,10 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
+import Data.Foldable qualified as Foldable
 import Data.List (sortBy)
 import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Ord (comparing)
@@ -216,7 +218,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               selectMsgs
             , getDelayedMsgsSelectionRoots selectionRootsIndex
             , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
-            , getDelayedMsgsNotSelected notSelectedIndex
+            , getBugMsgsNotSelected notSelectedIndex
             , noDeclarationsMatchedMsg
             ]
 
@@ -355,19 +357,19 @@ getSelectMsgsDeclId
         , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
         ]
 
-    loc :: [SingleLoc]
-    loc = DeclIndex.entryToLoc entry
-
     withLoc :: HasCallStack => a -> WithCallStack (C.WithLocationInfo a)
     withLoc x = withCallStack C.WithLocationInfo{
-                  loc = C.declIdLocationInfo declId loc
+                  loc = C.declIdLocationInfo declId $
+                          C.declLocsToList $
+                            DeclIndex.entryToLoc entry
                 , msg = x
                 }
 
     getUnavailMsg ::
          HasCallStack
       => SelectReason
-      -> Map C.DeclId Unselectable -> Maybe (AnnMsg Select)
+      -> Map C.DeclId Unselectable
+      -> Maybe (AnnMsg Select)
     getUnavailMsg selectReason unavailReasons =
         if null msgs then
           Nothing
@@ -377,15 +379,13 @@ getSelectMsgsDeclId
         msgs = [
                case r of
                  Unselectable u ->
-                   TransitiveDependencyUnusable
-                     i
-                     u
-                     (DeclIndex.lookupLoc i declIndex)
+                   TransitiveDependencyUnusable i u
                  UnselectableNotSelected ->
-                   TransitiveDependencyNotSelected
-                     i
-                     (DeclIndex.lookupLoc i declIndex)
+                   TransitiveDependencyNotSelected i locs
              | (i, r) <- Map.toList unavailReasons
+             , let locs = case DeclIndex.lookupLoc i declIndex of
+                     Nothing -> []
+                     Just xs -> C.declLocsToList xs
              ]
 
     isDeprecated :: Bool
@@ -430,8 +430,9 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
       -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success -> mkSuccessMessages declId success
-        UsableExternal   -> []
+        UsableSuccess success ->
+          mkSuccessMessages declId success
+        UsableExternal{} -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
@@ -452,7 +453,7 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
             }
         UnusableConflict x ->
           List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId (Conflict.toList x)
+              loc = C.declIdLocationInfo declId $ NonEmpty.toList $ Conflict.toList x
             , msg = SelectConflict
             }
         UnusableMangleNamesFailure loc x ->
@@ -486,8 +487,9 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
       -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
-        UsableSuccess success -> mkSuccessMessages declId success
-        UsableExternal   -> []
+        UsableSuccess success ->
+          mkSuccessMessages declId success
+        UsableExternal{} -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
@@ -503,8 +505,8 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
 -- parse messages are emitted for all declarations also in the future.
-getDelayedMsgsNotSelected :: HasCallStack => DeclIndex l -> [AnnMsg Select]
-getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
+getBugMsgsNotSelected :: HasCallStack => DeclIndex l -> [AnnMsg Select]
+getBugMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
   where
     aux ::
          HasCallStack
@@ -516,7 +518,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
         UsableSuccess success ->
           let isBugLevel x = getDefaultLogLevel x == Bug
           in  filter isBugLevel $ mkSuccessMessages declId success
-        UsableExternal -> []
+        UsableExternal{} -> []
         UsableSquashed{} -> []
       UnusableE e -> case e of
         UnusableParseUnavailable{} -> []
@@ -594,7 +596,7 @@ type Match = C.DeclName -> SingleLoc -> C.Availability -> Bool
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.
 selectDeclIndex :: DeclUseGraph -> Match -> DeclIndex l -> DeclIndex l
-selectDeclIndex declUseGraph p declIndex =
+selectDeclIndex declUseGraph predicate declIndex =
     DeclIndex.filter matchEntry declIndex
   where
     matchEntry :: C.DeclId -> Entry l -> Bool
@@ -607,7 +609,9 @@ selectDeclIndex declUseGraph p declIndex =
           Just (locs, availability) ->
             if declId.isAnon
               then matchAnon declId
-              else or [p declId.name loc availability| loc <- locs]
+              else Foldable.any
+                     (\loc -> predicate declId.name loc availability)
+                     (C.declLocsToList locs)
 
     matchDeclId :: C.DeclId -> Bool
     matchDeclId declId =
@@ -620,31 +624,14 @@ selectDeclIndex declUseGraph p declIndex =
     -- Returns 'Nothing' for external or omitted declarations.
     -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
-    entryInfo :: Entry l -> Maybe ([SingleLoc], C.Availability)
-    entryInfo = \case
-        UsableE e -> case e of
-          UsableSuccess success ->
-            let info = success.decl.info
-            in Just ([info.loc], info.availability)
-          UsableExternal ->
-            Nothing
-          UsableSquashed x ->
-            Just ([x.typedefLoc], C.Available)
-        UnusableE e -> case e of
-          UnusableParseUnavailable loc ->
-            Just ([loc], C.Available)
-          UnusableParseFailure loc _ ->
-            Just ([loc], C.Available)
-          UnusableConflict conflict ->
-            Just (Conflict.toList conflict, C.Available)
-          UnusableMangleNamesFailure loc _ ->
-            Just ([loc], C.Available)
-          UnusableTypecheckMacrosError loc _ ->
-            Just ([loc], C.Available)
-          UnusableMacroResolutionFailure loc _ ->
-            Just ([loc], C.Available)
-          UnusableOmitted{} ->
-            Nothing
+    entryInfo :: Entry l -> Maybe (C.DeclLocs, C.Availability)
+    entryInfo entry = case entry of
+        UsableE UsableExternal{} ->
+          Nothing
+        UnusableE UnusableOmitted{} ->
+          Nothing
+        _otherwise ->
+          Just (DeclIndex.entryToLoc entry, DeclIndex.entryToAvailability entry)
 
     -- We match anonymous declarations based on their use sites.
     --

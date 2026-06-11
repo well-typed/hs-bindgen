@@ -17,9 +17,15 @@ module HsBindgen.IR.C.LocationInfo (
     -- ** Query
   , locationInfoName
   , locationInfoLocs
+    -- * Declaration locations
+  , DeclLocs(..)
+  , declLocsMin
+  , declLocsToList
   ) where
 
-import Text.SimplePrettyPrint ((><))
+import Data.List.NonEmpty (NonEmpty)
+import Data.List.NonEmpty qualified as NonEmpty
+import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
@@ -66,6 +72,9 @@ data LocationInfo =
     -- | Message about an anonymous declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
+    --
+    -- Usually we expect the list of locations to be a singleton: the location
+    -- of the declaration.
   | LocationDeclAnon (Maybe C.DeclName) [SingleLoc]
 
     -- | No location information
@@ -74,32 +83,29 @@ data LocationInfo =
 
 instance PrettyForTrace LocationInfo where
   prettyForTrace = \case
-      LocationDeclNamed name [] -> PP.hsep [
-          prettyForTrace name
-        , "(location unavailable)"
-        ]
-      LocationDeclNamed name [loc] -> PP.hsep [
-          prettyForTrace name
-        , "at"
-        , PP.show loc
-        ]
       LocationDeclNamed name locs -> PP.hsep [
           prettyForTrace name
         , "at"
-        , PP.hlist "(" ")" (map PP.show locs)
+        , prettyLocs locs
         ]
-      LocationDeclAnon (Just name) loc -> PP.hsep [
+      LocationDeclAnon (Just name) locs -> PP.hsep [
           "anonymous declaration"
         , prettyForTrace name
         , "at"
-        , PP.show loc
+        , prettyLocs locs
         ]
-      LocationDeclAnon Nothing loc -> PP.hsep [
+      LocationDeclAnon Nothing locs -> PP.hsep [
           "anonymous declaration at"
-        , PP.show loc
+        , prettyLocs locs
         ]
       LocationUnavailable ->
         "location unavailable"
+    where
+      prettyLocs :: Show a => [a] -> CtxDoc
+      prettyLocs = \case
+        []    -> "(source location unavailable)"
+        [loc] -> PP.show loc
+        locs  -> PP.hlist "(" ")" (map PP.show locs)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -132,3 +138,33 @@ locationInfoLocs = \case
     LocationDeclNamed _ locs -> locs
     LocationDeclAnon _ locs  -> locs
     LocationUnavailable      -> []
+
+{-------------------------------------------------------------------------------
+  Declaration locations
+-------------------------------------------------------------------------------}
+
+-- | Source location(s) of a declaration.
+--
+-- Most declarations have a single source location; only conflicting
+-- declarations carry more than one.
+data DeclLocs =
+    -- | The declaration has a single source location.
+    DeclLoc SingleLoc
+    -- | Conflicting declarations, each with its own source location.
+  | DeclLocsConflict (NonEmpty SingleLoc)
+  deriving stock (Eq, Ord, Show)
+
+-- | Attempts to get the “minimum” location.
+--
+-- This is only meaningful if the locations share the same source path.
+-- Comparisons across source paths happen in lexicographical order.
+declLocsMin :: DeclLocs -> SingleLoc
+declLocsMin = \case
+  DeclLoc x           -> x
+  DeclLocsConflict xs -> minimum xs
+
+-- | All source locations, discarding the single\/conflict distinction.
+declLocsToList :: DeclLocs -> [SingleLoc]
+declLocsToList = \case
+    DeclLoc          loc  -> [loc]
+    DeclLocsConflict locs -> NonEmpty.toList locs
