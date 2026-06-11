@@ -8,8 +8,8 @@ The determination of which C declarations to translate is a complex problem. In
    declarations therein, and transitive dependencies. `hs-bindgen` parses and
    reifies these declarations.
 
-3. Given the set of declarations parsed and reified by `hs-bindgen`, [_select
-   predicates_][t:select-predicates] dictate which declarations to generate
+3. Given the set of declarations parsed and reified by `hs-bindgen`, [_selection
+   predicates_][t:selection-predicates] dictate which declarations to generate
    bindings for.
 
 4. Now we have the set of selected declarations to generate bindings for. If
@@ -32,20 +32,19 @@ dependencies.
 > The manual section [Includes][manual:includes] describes how headers are
 > resolved.
 
-## Select predicates
-[t:select-predicates]: #select-predicates
+## Selection predicates
+[t:selection-predicates]: #selection-predicates
 
 After parsing and reifying the declarations, the frontend of `hs-bindgen` sorts
 the declarations, handles macros, [provides names to
 declarations][manual:generated-names] and resolves and applies [binding
-specifications][manual:binding-specifications]. Then, it matches a
-_select predicate_, further reducing the number of declarations to be
-translated.
+specifications][manual:binding-specifications]. Then, it matches a _selection
+predicate_, further reducing the number of declarations to be translated.
 
-_Select predicates_ allow fine-grained control about which declarations to
-select for translation. For example, select predicates allow matching against
+_Selection predicates_ allow fine-grained control about which declarations to
+select for translation. For example, selection predicates allow matching against
 the qualified C names of declarations. In particular, the command-line arguments
-to specify select predicates are (excerpt of `hs-bindgen-cli preprocess
+to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
 --help`):
 
 ```text
@@ -68,15 +67,15 @@ to specify select predicates are (excerpt of `hs-bindgen-cli preprocess
 ```
 
 > [!NOTE]
-> For anonymous declarations, the select predicate matches against the
+> For anonymous declarations, the selection predicate matches against the
 > _use-sites_ of the anonymous declarations. For example, to select an anonymous
 > inner `struct` together with the named outer `struct`, match against the name
-> of the outer `struct`. In particular, select predicates do not support the `@`
+> of the outer `struct`. In particular, selection predicates do not support the `@`
 > syntax for specifying anonymous declarations like binding specifications do.
 
 > [!NOTE]
-> Select predicates, just like binding specifications, match against the
-> (qualified) names used in the C code. In particular, select predicates do not
+> Selection predicates, just like binding specifications, match against the
+> (qualified) names used in the C code. In particular, selection predicates do not
 > match against the Haskell names possibly assigned by prescriptive binding
 > specifications.
 
@@ -102,7 +101,7 @@ slicing_ determines and selects the corresponding transitive dependencies.
 
 > [!NOTE]
 > Program slicing can cause declarations to be included even if they are
-> explicitly deselected by a select predicate.
+> explicitly deselected by a selection predicate.
 
 ## Notes and examples
 [t:notes-and-examples]: #notes-and-examples
@@ -119,7 +118,7 @@ hs-bindgen-cli preprocess -I /path/to/simple main.h
 By default, `hs-bindgen` the command-line client uses the following configuration:
 
 - Main header: `main.h`.
-- Select predicate: Match all declarations in the main header(s); corresponding
+- Selection predicate: Match all declarations in the main header(s); corresponding
   to `main.h`.
 - Program slicing: Do not select transitive dependencies.
 

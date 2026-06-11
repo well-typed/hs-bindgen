@@ -189,7 +189,7 @@ parseConfig :: Parser Config
 parseConfig = Config
     <$> parseClangArgsConfig
     <*> parseBindingSpec
-    <*> parseSelectPredicate
+    <*> parseSelectionPredicate
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
     <*> parsePathStyle
@@ -330,8 +330,8 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
-parseSelectPredicate :: Parser (Boolean SelectPredicate)
-parseSelectPredicate = fmap aux . many . asum $ [
+parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
+parseSelectionPredicate = fmap aux . many . asum $ [
       flag' (Right BTrue) $ mconcat [
           long "select-all"
         , help "Select all declarations"
@@ -374,8 +374,8 @@ parseSelectPredicate = fmap aux . many . asum $ [
     ]
   where
     aux ::
-         [Either (Boolean SelectPredicate) (Boolean SelectPredicate)]
-      -> (Boolean SelectPredicate)
+         [Either (Boolean SelectionPredicate) (Boolean SelectionPredicate)]
+      -> (Boolean SelectionPredicate)
     aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
 
     applyDefault :: Default a => [a] -> [a]
@@ -389,10 +389,10 @@ parseProgramSlicing =
         long "enable-program-slicing"
       , help $ concat [
             "Enable program slicing:"
-          , " Select declarations using the select predicate,"
+          , " Select declarations using the selection predicate,"
           , " and also select their transitive dependencies;"
           , " program slicing can cause declarations to be included"
-          , " even if they are explicitly deselected by a select predicate"
+          , " even if they are explicitly deselected by a selection predicate"
           ]
       ]
 

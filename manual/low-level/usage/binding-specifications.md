@@ -621,11 +621,11 @@ only generate bindings for declarations in the `game_internal.hs` header.
 Note that bindings for all declarations in that header are generated.
 
 If you would like to instead only generate bindings for declarations in the
-internal header that are needed, `--select-by-decl-name` select predicates may
-be used.  In the following example, two predicates are specified to emphasize
-that names are matched using regular expressions.  A single predicate with
-regular expression `game_state` would match both of these declarations, but
-that could obfuscate the details.
+internal header that are needed, `--select-by-decl-name` selection predicates
+may be used. In the following example, two predicates are specified to emphasize
+that names are matched using regular expressions. A single predicate with
+regular expression `game_state` would match both of these declarations, but that
+could obfuscate the details.
 
 ```
 hs-bindgen-cli preprocess \

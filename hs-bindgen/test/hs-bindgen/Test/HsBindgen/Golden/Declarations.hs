@@ -132,7 +132,7 @@ test_declarations_select_scoping :: TestCase
 test_declarations_select_scoping =
     defaultTest "declarations/select_scoping"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->

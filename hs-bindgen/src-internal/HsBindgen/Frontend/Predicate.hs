@@ -7,7 +7,7 @@ module HsBindgen.Frontend.Predicate (
     -- * Predicates
   , HeaderPathPredicate (..)
   , DeclPredicate (..)
-  , SelectPredicate (..)
+  , SelectionPredicate (..)
   , Regex -- opaque
   , matchTest
     -- * Execution (internal API)
@@ -84,18 +84,18 @@ data DeclPredicate =
 
 -- | Predicates for the @Select@ pass
 --
--- Select predicates match against header file paths or the declarations
+-- Selection predicates match against header file paths or the declarations
 -- themselves.
 --
--- The select predicate dictates which declarations `hs-bindgen` generates
+-- The selection predicate dictates which declarations `hs-bindgen` generates
 -- bindings for. For details, please see the @hs-bindgen@ manual section on
 -- predicates and program slicing.
-data SelectPredicate =
+data SelectionPredicate =
     SelectHeader HeaderPathPredicate
   | SelectDecl   DeclPredicate
   deriving stock (Show, Eq, Generic)
 
-instance Default SelectPredicate where
+instance Default SelectionPredicate where
   def = SelectHeader FromMainHeaders
 
 {-------------------------------------------------------------------------------
@@ -133,14 +133,14 @@ mkIsInMainHeaderDir paths path =
     mainDirs = map FilePath.splitDirectories . Set.toList $
       Set.map (FilePath.takeDirectory . getSourcePath) paths
 
--- | Match 'SelectPredicate' predicates
+-- | Match 'SelectionPredicate' predicates
 matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SourcePath
   -> CDeclName
   -> C.Availability
-  -> Boolean SelectPredicate
+  -> Boolean SelectionPredicate
   -> Bool
 matchSelect isMainHeader isInMainHeaderDir path cDeclName availability = eval $ \case
     SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p

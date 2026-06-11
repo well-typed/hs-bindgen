@@ -35,9 +35,9 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "decl-deprecated"       prop_selectDeclMatchDeprecated
         ]
     , testGroup "mergeBooleans" [
-          testProperty "select/false"     (prop_mergeFalse @SelectPredicate)
-        , testProperty "select/add/true"  (prop_mergeAddTrue @SelectPredicate)
-        , testProperty "select/add/false" (prop_mergeAddFalse @SelectPredicate)
+          testProperty "select/false"     (prop_mergeFalse    @SelectionPredicate)
+        , testProperty "select/add/true"  (prop_mergeAddTrue  @SelectionPredicate)
+        , testProperty "select/add/false" (prop_mergeAddFalse @SelectionPredicate)
         , testCase     "true/pos"         mergeTruePos
         , testCase     "true/neg"         mergeTrueNeg
         , testCase     "deselect/one"     mergeDeselectOne
@@ -60,7 +60,7 @@ prop_selectFalse path name availability =
 prop_selectAnd
   :: Fun SourcePath Bool -> Fun SourcePath Bool
   -> SourcePath -> CDeclName -> C.Availability
-  -> Boolean SelectPredicate -> Boolean SelectPredicate -> Bool
+  -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
 prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
         p2Res = matchSelect isMainHeader isInMainHeaderDir path name availability p2
@@ -71,7 +71,7 @@ prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p
 prop_selectOr
   :: Fun SourcePath Bool -> Fun SourcePath Bool
   -> SourcePath -> CDeclName -> C.Availability
-  -> Boolean SelectPredicate -> Boolean SelectPredicate -> Bool
+  -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
 prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
         p2Res = matchSelect isMainHeader isInMainHeaderDir path name availability p2
@@ -82,7 +82,7 @@ prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1
 prop_selectNot
   :: Fun SourcePath Bool -> Fun SourcePath Bool
   -> SourcePath -> CDeclName -> C.Availability
-  -> Boolean SelectPredicate -> Property
+  -> Boolean SelectionPredicate -> Property
 prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p =
       matchSelect isMainHeader isInMainHeaderDir path name availability p
   =/= matchSelect isMainHeader isInMainHeaderDir path name availability (BNot p)
@@ -161,13 +161,13 @@ mergeTrueNeg =
 mergeDeselectOne :: Assertion
 mergeDeselectOne = mergeBooleans [p] [BTrue] @?= BNot p
   where
-    p :: Boolean SelectPredicate
+    p :: Boolean SelectionPredicate
     p = BIf $ SelectDecl (DeclNameMatches "a")
 
 mergeDeselectTwo :: Assertion
 mergeDeselectTwo = mergeBooleans [pa, pb] [BTrue] @?= BAnd (BNot pa) (BNot pb)
   where
-    pa, pb :: Boolean SelectPredicate
+    pa, pb :: Boolean SelectionPredicate
     pa = BIf $ SelectDecl (DeclNameMatches "a")
     pb = BIf $ SelectDecl (DeclNameMatches "b")
 
@@ -205,7 +205,7 @@ instance Arbitrary a => Arbitrary (Boolean a) where
     , BIf <$> arbitrary
     ]
 
-instance Arbitrary SelectPredicate where
+instance Arbitrary SelectionPredicate where
   arbitrary = oneof [
       pure (SelectHeader FromMainHeaders)
     , pure (SelectHeader FromMainHeaderDirs)

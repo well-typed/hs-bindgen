@@ -139,28 +139,28 @@ test_macros_parse_simple :: TestCase
 test_macros_parse_simple =
     defaultTest "macros/parse/simple"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BTrue
+          & #selectionPredicate .~ BTrue
           )
 
 test_macros_parse_elaborate :: TestCase
 test_macros_parse_elaborate =
     defaultTest "macros/parse/elaborate"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BTrue
+          & #selectionPredicate .~ BTrue
           )
 
 test_macros_parse_intermittent_include :: TestCase
 test_macros_parse_intermittent_include =
     defaultTest "macros/parse/intermittent_include"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BTrue
+          & #selectionPredicate .~ BTrue
           )
 
 test_macros_parse_intermittent_include_conditional :: TestCase
 test_macros_parse_intermittent_include_conditional =
     defaultTest "macros/parse/intermittent_include_conditional"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BTrue
+          & #selectionPredicate .~ BTrue
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDiagnosticCategory "Lexical or Preprocessor Issue" ->
@@ -181,7 +181,7 @@ test_macros_parse_macro_typedef_scope_multiple :: TestCase
 test_macros_parse_macro_typedef_scope_multiple =
     defaultTest "macros/parse/macro_typedef_scope_multiple"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BTrue
+          & #selectionPredicate .~ BTrue
           )
 
 test_macros_wrong_source_location :: TestCase

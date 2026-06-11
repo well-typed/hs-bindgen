@@ -97,7 +97,7 @@ selectDecls ::
   -> C.TranslationUnit l AdjustTypes
   -> (C.TranslationUnit l Select, [AMsg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
-    let -- Directly match the select predicate on the 'DeclIndex', obtaining
+    let -- Directly match the selection predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRootsIndex :: DeclIndex l
         selectionRootsIndex = selectDeclIndex unit.meta.declUseGraph match index
@@ -241,7 +241,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         (singleLocPath loc)
         name
         availability
-        config.selectPredicate
+        config.selectionPredicate
 
 {-------------------------------------------------------------------------------
   Filter list of declarations

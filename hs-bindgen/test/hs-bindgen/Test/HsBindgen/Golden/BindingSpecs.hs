@@ -81,7 +81,7 @@ test_bindingSpecs_trans_dep_macro_trans_dep_missing =
           [ "test-artefacts/headers/golden/binding-specs/trans_dep/macro_trans_dep_missing.yaml"
           ]
       & #onFrontend .~
-          #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
+          #selectionPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
       -- Macros should not fail to parse.
       & #tracePredicate .~
           multiTracePredicateCustomLogLevel @()
@@ -96,7 +96,7 @@ test_bindingSpecs_trans_dep_typedef_trans_dep_missing =
           [ "test-artefacts/headers/golden/binding-specs/trans_dep/typedef_trans_dep_missing.yaml"
           ]
       & #onFrontend .~
-          #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
+          #selectionPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
 
 {-------------------------------------------------------------------------------
   Naming types
@@ -167,7 +167,7 @@ test_bindingSpecs_rep_emptydata_struct =
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/struct_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
           )
 
@@ -181,7 +181,7 @@ test_bindingSpecs_rep_emptydata_typedef =
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/typedef_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
           )
 
@@ -197,7 +197,7 @@ test_bindingSpecs_rep_emptydata_union =
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/union_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing
           )
 
@@ -274,11 +274,11 @@ test_bindingSpecs_fun_arg_typedef path =
           [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
           ]
       & #onFrontend .~
-          #selectPredicate .~ test_bindingSpecs_fun_arg_typedef_selectPredicate
+          #selectionPredicate .~ test_bindingSpecs_fun_arg_typedef_selectionPredicate
 
--- | Select predicate for 'test_bindingSpecs_fun_arg_typedef' tests
-test_bindingSpecs_fun_arg_typedef_selectPredicate :: Boolean SelectPredicate
-test_bindingSpecs_fun_arg_typedef_selectPredicate =
+-- | Selection predicate for 'test_bindingSpecs_fun_arg_typedef' tests
+test_bindingSpecs_fun_arg_typedef_selectionPredicate :: Boolean SelectionPredicate
+test_bindingSpecs_fun_arg_typedef_selectionPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
 
@@ -355,15 +355,15 @@ test_bindingSpecs_fun_arg_macro path =
           [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
           ]
       & #onFrontend .~
-          #selectPredicate .~ test_bindingSpecs_fun_arg_macro_selectPredicate
+          #selectionPredicate .~ test_bindingSpecs_fun_arg_macro_selectionPredicate
       -- Macros should not fail to parse.
       & #tracePredicate .~
           multiTracePredicateCustomLogLevel @()
             (getCustomLogLevel [EnableMacroWarnings]) [] (const Nothing)
 
--- | Select predicate for 'test_bindingSpecs_fun_arg_macro' tests
-test_bindingSpecs_fun_arg_macro_selectPredicate :: Boolean SelectPredicate
-test_bindingSpecs_fun_arg_macro_selectPredicate =
+-- | Selection predicate for 'test_bindingSpecs_fun_arg_macro' tests
+test_bindingSpecs_fun_arg_macro_selectionPredicate :: Boolean SelectionPredicate
+test_bindingSpecs_fun_arg_macro_selectionPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
 

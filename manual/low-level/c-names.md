@@ -98,7 +98,7 @@ to refer to it in binding specifications.  Special syntax is used: the `@`
 character.  Since this character cannot be used in C, it emphasizes that it is
 an `hs-bindgen` convention.
 
-Untagged types cannot be specified in select predicates, because there is not
+Untagged types cannot be specified in selection predicates, because there is not
 much sense in selecting or excluding an untagged type separate from its context.
 
 Untagged types can be declared in various places in C headers, and `hs-bindgen`

@@ -76,7 +76,7 @@ instance IsPass Select where
 
 -- | Select transitive dependencies?
 data ProgramSlicing =
-    -- | Select declarations using the select predicate /and/ their transitive
+    -- | Select declarations using the selection predicate /and/ their transitive
     -- dependencies.
     EnableProgramSlicing
   | DisableProgramSlicing
@@ -87,8 +87,8 @@ instance Default ProgramSlicing where
   def = DisableProgramSlicing
 
 data SelectConfig = SelectConfig {
-      programSlicing  :: ProgramSlicing
-    , selectPredicate :: Boolean SelectPredicate
+      programSlicing     :: ProgramSlicing
+    , selectionPredicate :: Boolean SelectionPredicate
     }
   deriving stock (Show, Eq)
 
@@ -106,7 +106,7 @@ data SelectReason =
 
 instance PrettyForTrace SelectReason where
   prettyForTrace = \case
-    SelectionRoot        -> "direct select predicate match"
+    SelectionRoot        -> "direct selection predicate match"
     TransitiveDependency -> "transitive dependency"
 
 data SelectStatus =
@@ -133,7 +133,7 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
                 prettyForTrace $ declIdLocationInfo i ls
-              , "Adjust the select predicate or enable program slicing"
+              , "Adjust the selection predicate or enable program slicing"
               ]
 
 -- | Select trace messages
@@ -165,7 +165,7 @@ data SelectMsg =
   | SelectMacroTypecheckFailure MacroTypecheckError
     -- | Delayed @PrepareReparse@ message
   | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
-    -- | Inform the user that no declarations matched the select predicate.
+    -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
 
@@ -199,7 +199,7 @@ instance PrettyForTrace SelectMsg where
       SelectDelayedPrepareReparseMsg x ->
         PP.hang "During prepare-reparse:" 2 (prettyForTrace x)
       SelectNoDeclarationsMatched ->
-        "No declarations matched the select predicate"
+        "No declarations matched the selection predicate"
     where
       couldNotSelectStr :: CtxDoc
       couldNotSelectStr = "Could not select declaration"
