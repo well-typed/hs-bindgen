@@ -114,7 +114,7 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       Right CXCursor_UnionDecl  -> parseDeclWith enclosing (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) (unionDecl macroLang)
       Right CXCursor_EnumDecl   -> parseDeclWith enclosing (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
 
-      -- Process macro expansions independent of any select predicates
+      -- Process macro expansions independent of any selection predicates
       Right CXCursor_MacroExpansion -> macroExpansion
 
       -- Kinds that we skip over

@@ -19,7 +19,7 @@ import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
-import HsBindgen.Frontend.Predicate (Boolean, SelectPredicate)
+import HsBindgen.Frontend.Predicate (Boolean, SelectionPredicate)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -78,7 +78,7 @@ instance Default BootConfig where
 --
 -- The frontend parses the C code and reifies the C declarations.
 data FrontendConfig = FrontendConfig {
-      selectPredicate     :: Boolean SelectPredicate
+      selectionPredicate  :: Boolean SelectionPredicate
     , programSlicing      :: ProgramSlicing
     , fieldNamingStrategy :: FieldNamingStrategy
     , doxygenConfig       :: Doxygen.Config
@@ -87,7 +87,7 @@ data FrontendConfig = FrontendConfig {
 
 instance Default FrontendConfig where
   def = FrontendConfig {
-      selectPredicate     = def
+      selectionPredicate  = def
     , programSlicing      = def
     , fieldNamingStrategy = def
     , doxygenConfig       = Doxygen.defaultConfig

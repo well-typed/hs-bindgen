@@ -57,7 +57,7 @@ testCases = [
 test_programAnalysis_delay_traces :: TestCase
 test_programAnalysis_delay_traces =
     defaultTest "program-analysis/delay_traces"
-      & #onFrontend .~ ( #selectPredicate .~
+      & #onFrontend .~ ( #selectionPredicate .~
             -- NOTE: Matching for name kind is not good practice, but we want to
             -- check if nested, but deselected declarations are correctly
             -- assigned name kinds.
@@ -176,7 +176,7 @@ test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
     defaultTest "program-analysis/program_slicing_selection"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BOr
+          & #selectionPredicate .~ BOr
               (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
               (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
           & #programSlicing .~ EnableProgramSlicing
@@ -203,7 +203,7 @@ test_programAnalysis_program_slicing_simple :: TestCase
 test_programAnalysis_program_slicing_simple =
     defaultTest "program-analysis/program_slicing_simple"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing  .~ EnableProgramSlicing
           )
       & #specStdlib .~ BindingSpec.DisableStdlibBindingSpec
@@ -269,7 +269,7 @@ test_programAnalysis_selection_fail =
 test_programAnalysis_selection_fail_variant_1 :: TestCase
 test_programAnalysis_selection_fail_variant_1 =
     testVariant "program-analysis/selection_fail" "1.deselect_failed"
-      & #onFrontend .~ ( #selectPredicate .~  BAnd
+      & #onFrontend .~ ( #selectionPredicate .~  BAnd
             (       BIf $ SelectHeader   FromMainHeaders)
             (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
           )
@@ -298,7 +298,7 @@ test_programAnalysis_selection_fail_variant_2 :: TestCase
 test_programAnalysis_selection_fail_variant_2 =
     testVariant "program-analysis/selection_fail" "2.program_slicing"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BAnd
+          & #selectionPredicate .~ BAnd
               (       BIf $ SelectHeader   FromMainHeaders)
               (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
           & #programSlicing .~ EnableProgramSlicing
@@ -328,7 +328,7 @@ test_programAnalysis_selection_fail_variant_3 :: TestCase
 test_programAnalysis_selection_fail_variant_3 =
     testVariant "program-analysis/selection_fail" "3.select_ok"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BAnd
+          & #selectionPredicate .~ BAnd
               (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
               (BNot $ BIf $ SelectDecl $ DeclNameMatches "struct Fail")
           & #programSlicing .~ EnableProgramSlicing
@@ -360,9 +360,9 @@ test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =
     testVariant "program-analysis/selection_matches_c_names" "1.positive_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
+      & #onFrontend .~ ( #selectionPredicate .~ predicate )
   where
-    predicate :: Boolean SelectPredicate
+    predicate :: Boolean SelectionPredicate
     predicate =
             BOr
               (BIf (SelectDecl $ DeclNameMatches "FunctionWithAssignedHaskellNameByNameMangler"))
@@ -372,7 +372,7 @@ test_programAnalysis_selection_matches_c_names_2 :: TestCase
 test_programAnalysis_selection_matches_c_names_2 =
     testVariant "program-analysis/selection_matches_c_names" "2.negative_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
+      & #onFrontend .~ ( #selectionPredicate .~ predicate )
       & #tracePredicate .~ singleTracePredicate (\case
             MatchNoDeclarations ->
               Just $ Expected ()
@@ -380,7 +380,7 @@ test_programAnalysis_selection_matches_c_names_2 =
               Nothing
           )
   where
-    predicate :: Boolean SelectPredicate
+    predicate :: Boolean SelectionPredicate
     predicate =
             BOr
               (BIf (SelectDecl $ DeclNameMatches "functionWithAssignedHaskellNameByNameMangler"))
@@ -389,14 +389,14 @@ test_programAnalysis_selection_matches_c_names_2 =
 test_programAnalysis_selection_merge_traces :: TestCase
 test_programAnalysis_selection_merge_traces =
     defaultTest "program-analysis/selection_merge_traces"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
+      & #onFrontend .~ ( #selectionPredicate .~ predicate )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [_, _]) -> Just $ Expected name
             _otherwise ->
               Nothing
           )
   where
-    predicate :: Boolean SelectPredicate
+    predicate :: Boolean SelectionPredicate
     predicate =
             BAnd
               (BIf (SelectHeader FromMainHeaders)) $

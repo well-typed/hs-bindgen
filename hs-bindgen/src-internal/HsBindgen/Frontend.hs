@@ -452,8 +452,8 @@ runFrontend tracer config boot = do
 
     selectConfig :: SelectConfig
     selectConfig = SelectConfig{
-          programSlicing  = config.programSlicing
-        , selectPredicate = config.selectPredicate
+          programSlicing     = config.programSlicing
+        , selectionPredicate = config.selectionPredicate
         }
 
     cache :: String -> Cached a -> IO (Cached a)

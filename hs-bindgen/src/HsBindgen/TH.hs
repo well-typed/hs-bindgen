@@ -29,8 +29,8 @@ module HsBindgen.TH (
   , Predicate.HeaderPathPredicate(..)
   , Predicate.Regex
 
-    -- *** Select predicates and program slicing
-  , Predicate.SelectPredicate(..)
+    -- *** Selection predicates and program slicing
+  , Predicate.SelectionPredicate(..)
   , Predicate.DeclPredicate(..)
   , Select.ProgramSlicing(..)
 

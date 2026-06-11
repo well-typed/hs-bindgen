@@ -47,7 +47,7 @@ test_attributes_attributes =
 test_attributes_deprecated :: TestCase
 test_attributes_deprecated =
   defaultTest "attributes/deprecated"
-    & #onFrontend .~ ( #selectPredicate .~
+    & #onFrontend .~ ( #selectionPredicate .~
           BAnd
             (BIf (SelectHeader FromMainHeaders))
             (BNot (BIf (SelectDecl DeclDeprecated)))

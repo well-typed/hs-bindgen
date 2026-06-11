@@ -4,6 +4,9 @@
 
 ### Breaking changes
 
+* The `SelectPredicate` type has been renamed to `SelectionPredicate`, and the
+  `selectPredicate` field of `FrontendConfig` has been renamed to
+  `selectionPredicate`. Update any code that references these names.
 * `hsBindgen` and `hsBindgenE` now take a `MacroLang l` as their first
   argument; the `Artefact` type gained an `l` type parameter.  Callers should
   use the convenience wrappers `HsBindgen.IO.hsBindgen` (IO mode) or

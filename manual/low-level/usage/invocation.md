@@ -55,7 +55,7 @@ Options configuring `libclang`:
 See [Clang options][manual:clang-options] for details about the order in which
 options are passed to Clang.
 
-#### Select predicates
+#### Selection predicates
 
 Options determining which parsed declarations are included in the generated
 bindings:
@@ -278,8 +278,8 @@ The `Config` type configures binding generation.  Common fields:
   - `Rel "path"` - Relative path (relative to module directory)
 - `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
 - `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
-- `#select` - Select predicates and program slicing
-- `#backend % #safety` - Safety (`Safe`, `Unsafe`, or `GenerateBoth`)
+- `#selectionPredicate` - Select a subset of declarations
+- `#programSlicing`     - Use or do not use program slicing
 
 See the `HsBindgen.TH` module documentation for all configuration options.
 

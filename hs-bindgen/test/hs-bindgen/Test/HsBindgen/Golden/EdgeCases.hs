@@ -78,7 +78,7 @@ test_edgeCases_duplicate :: TestCase
 test_edgeCases_duplicate =
     defaultTest "edge-cases/duplicate"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BOr
+          & #selectionPredicate .~ BOr
               (BIf $ SelectDecl (DeclNameMatches "function"))
               (BIf $ SelectDecl (DeclNameMatches "duplicate"))
           & #programSlicing .~ EnableProgramSlicing
@@ -120,7 +120,7 @@ test_edgeCases_headers =
 test_edgeCases_include_macro :: TestCase
 test_edgeCases_include_macro =
     defaultTest "edge-cases/include_macro_parent"
-      & #onFrontend .~ ( #selectPredicate .~ BTrue )
+      & #onFrontend .~ ( #selectionPredicate .~ BTrue )
 
 test_edgeCases_iterator :: TestCase
 test_edgeCases_iterator =
@@ -132,12 +132,12 @@ test_edgeCases_iterator =
 test_edgeCases_ordinary_anon :: TestCase
 test_edgeCases_ordinary_anon =
     defaultTest "edge-cases/ordinary_anon_parent"
-      & #onFrontend .~ ( #selectPredicate .~ BTrue )
+      & #onFrontend .~ ( #selectionPredicate .~ BTrue )
 
 test_edgeCases_select_no_match :: TestCase
 test_edgeCases_select_no_match =
     defaultTest "edge-cases/select_no_match"
-      & #onFrontend .~ ( #selectPredicate .~
+      & #onFrontend .~ ( #selectionPredicate .~
             BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
           )
       & #tracePredicate .~ singleTracePredicate (\case
