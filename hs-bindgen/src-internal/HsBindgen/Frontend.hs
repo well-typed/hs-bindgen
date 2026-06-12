@@ -15,7 +15,6 @@ import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Backend.Category
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
@@ -62,6 +61,7 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
@@ -379,12 +379,9 @@ runFrontend tracer config boot = do
       afterZip <- zipPass
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- boot.prescriptiveBindingSpec
-      let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
-            resolveBindingSpecs
-              (fromBaseModuleName boot.baseModule (Just CType))
-              extSpecs
-              pSpec
-              afterZip
+      let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
+          (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
+            resolveBindingSpecs moduleName extSpecs pSpec afterZip
       forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
       pure afterResolveBindingSpecs
 

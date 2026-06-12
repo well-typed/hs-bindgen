@@ -34,12 +34,12 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports hiding (def)
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
-import HsBindgen.PrettyC qualified as PC
 
 -- | Bind to a C function
 --

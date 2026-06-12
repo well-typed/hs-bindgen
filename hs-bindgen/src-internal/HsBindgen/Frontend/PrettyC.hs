@@ -2,7 +2,7 @@
 --
 -- Used for generating C wrappers in userland-capi approach.
 -- It's cleaner to generate AST than glueing string-of-code together.
-module HsBindgen.PrettyC (
+module HsBindgen.Frontend.PrettyC (
     FunDefn (..),
     Args,
     withArgs,
