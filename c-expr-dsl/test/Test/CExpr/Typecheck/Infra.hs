@@ -24,7 +24,6 @@ import Data.Map (Map)
 import Data.Map qualified as Map
 import Data.Nat (Nat (..))
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import Data.Vec.Lazy (Vec (..))
 import Data.Void (Void)
 import DeBruijn (Idx (..))
@@ -110,7 +109,6 @@ ptrOf e = TyApp Pointer (e ::: VNil)
 intLit :: Integer -> Expr ctx Ps
 intLit n = Term $ Literal $ ValueLit $ ValueInt $
     IntegerLiteral
-      (Text.pack (show n))
       (Runtime.Int Runtime.Signed)
       n
 

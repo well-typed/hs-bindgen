@@ -1,31 +1,24 @@
-{-# LANGUAGE MagicHash       #-}
-
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module HsBindgen.Backend.HsModule.Pretty.Expr (
     prettyExpr
   ) where
 
+import Data.ByteString qualified as BS
 import Data.Char qualified
 import Data.List qualified as List
 import Data.Word
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
-import GHC.Exts (Int (..), sizeofByteArray#)
-import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Text.SimplePrettyPrint (CtxDoc, Pretty (..), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
-
-import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Pretty.Common
 import HsBindgen.Backend.HsModule.Pretty.Type
-import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
-import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Util.Rational (canBeRepresentedAsRational)
 
@@ -66,26 +59,14 @@ prettyRolledExpr env prec expr = case expr of
       PP.parens $ PP.hcat [PP.show i, "#"]
     EIntegral i (Just t) ->
       PP.parens $ PP.hcat [PP.show i, " :: ", prettyType EmptyEnv 0 t]
-    EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
-      prettyExpr env 0 (EGlobal $ charLitGlobalTerm CharValue_fromAddr)
-        <+> PP.string str
-        <+> PP.string (show len)
-        <+> case mbUnicode of
-            { Nothing -> pretty (resolveBindgenGlobalTerm Maybe_nothing)
-            ; Just c -> PP.parens (pretty (resolveBindgenGlobalTerm Maybe_just) <+> PP.string (show c))
-            }
-      where
-        (str, len) = addrLiteral ba
+    ECChar c -> PP.show c
     EString s -> PP.show s
     ECString bs ->
-      -- Use unboxed Addr# literals to turn a PP.string literal into a
-      -- value of type CStringLen.
-      let (str, len) = addrLiteral bs
-      in PP.parens $ PP.hcat
-        [ PP.parens $ prettyExpr env 0 (eBindgenGlobal Foreign_Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
-        , " :: "
-        , prettyTypeGlobal $ bindgenGlobalType CStringLen_type
-        ]
+      let
+        bytes   = BS.unpack bs
+        bsList  = PP.string $ "[" ++ List.intercalate ", " (map showHexByte bytes) ++ "]"
+        packApp = prettyExpr env 3 (eBindgenGlobal ByteString_pack) <+> bsList
+      in PP.parensWhen (prec > 3) packApp
 
     EFloat f t -> PP.parens $ PP.hcat [
         if canBeRepresentedAsRational f then
@@ -210,51 +191,11 @@ prettyRolledExpr env prec expr = case expr of
       PP.parensWhen (prec > 3) $
         prettyExpr env 3 f <+> "@" >< prettyType EmptyEnv 4 t
 
-prettyTypeGlobal :: Global LvlType -> CtxDoc
-prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
-
--- | Returns the unboxed @Addr#@ literal for the given 'Data.Array.Byte.ByteArray', together
--- with its length.
-addrLiteral :: ByteArray -> (String, Int)
-addrLiteral ba@(ByteArray ba#) =
-  let
-    go :: Bool -> [Word8] -> String
-    go _ [] = ""
-    go prevHex (b:bs)
-      | Just s <- escapeHsChar_maybe c
-      = s ++ go False bs
-      | b <= 0x7F
-      , Data.Char.isPrint c
-      = ( if prevHex then ( "\\&" ++ ) else id ) $
-          c : go False bs
-      | otherwise
-      = "\\x" ++ map Data.Char.toUpper (showHex b "") ++ go True bs
-      where
-        c = Data.Char.chr $ fromIntegral b
-    lit :: String
-    lit = "\"" <> go False (IsList.toList ba) <> "\"#"
-  in (lit, I# (sizeofByteArray# ba#))
-
-escapeHsChar_maybe :: Char -> Maybe String
-escapeHsChar_maybe c =
-  case lookup c hsEscapes of
-    Nothing -> Nothing
-    Just e -> Just ['\\', e]
-
-hsEscapes :: [(Char, Char)]
-hsEscapes =
-  [ ( '\''  , '\'' ) -- single quote
-  , ( '\"'  , '\"' ) -- double quote
-  , ( '\\'  , '\\' ) -- backslash
-  , ( '\f'  , 'f'  ) -- form feed - new page
-  , ( '\t'  , 't'  ) -- horizontal tab
-  , ( '\v'  , 'v'  ) -- vertical tab
-  , ( '\a'  , 'a'  ) -- audible bell
-  , ( '\b'  , 'b'  ) -- backspace
-  , ( '\n'  , 'n'  ) -- line feed - new line
-  , ( '\r'  , 'r'  ) -- carriage return
-  , ( '\NUL', '0'  ) -- null character
-  ]
+-- | Format a byte as a two-digit uppercase hex literal, e.g. @0x00@, @0xE3@.
+showHexByte :: Word8 -> String
+showHexByte w = "0x" ++ map Data.Char.toUpper (pad2 (showHex w ""))
+  where
+    pad2 s = if length s == 1 then '0' : s else s
 
 getInfixSpecialCase :: forall ctx. Env ctx CtxDoc -> SExpr ctx -> Maybe [CtxDoc]
 getInfixSpecialCase env = \case
@@ -307,9 +248,6 @@ getInfixSpecialCase env = \case
 unsnoc :: [a] -> Maybe ([a], a)
 unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
 {-# INLINABLE unsnoc #-}
-
-resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
-resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
 -- | Pretty-print a 'HsBindgen.Backend.HsModule.Names.ResolvedName' in infix notation
 --

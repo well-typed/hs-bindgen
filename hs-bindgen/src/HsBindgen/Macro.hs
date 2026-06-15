@@ -15,7 +15,6 @@ import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy qualified as Vec
 import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
-import C.Char qualified as CChar
 import C.Type qualified as Runtime
 
 import C.Expr.Parse qualified as CExpr
@@ -361,6 +360,8 @@ typeTy :: forall n. (Text -> Idx n) -> CExpr.Type CExpr.Ty -> SType n
 typeTy env = go
   where
     go :: CExpr.Type CExpr.Ty -> SType n
+    go CExpr.String =
+        tBindgenGlobal ByteString_type
     go (CExpr.TyVarTy tv) =
         TBound (env (CExpr.tyVarName tv))
     go (CExpr.FunTy as r) =
@@ -402,7 +403,7 @@ dataTyCon = \case
     CExpr.PrimIntInfoTyCon tc              -> tBindgenGlobal $ dslIntegral tc
     CExpr.PrimFloatInfoTyCon tc            -> tBindgenGlobal $ runtimeFloating tc
     CExpr.PtrTyCon                         -> tBindgenGlobal Foreign_Ptr_type
-    CExpr.CharLitTyCon                     -> TGlobal $ charLitGlobalType CharValue_type
+    CExpr.CharLitTyCon                     -> tBindgenGlobal CChar_type
     CExpr.IntLikeTyCon   -> panicPure "translateMacroValue: should have been handled by simpleTyConApp: IntLikeTyCon"
     CExpr.FloatLikeTyCon -> panicPure "translateMacroValue: should have been handled by simpleTyConApp: FloatLikeTyCon"
     CExpr.MacroTypeTyCon -> panicPure "translateMacroValue: unexpected type (kind): type"
@@ -543,11 +544,10 @@ integerLiteral lit =
         runtimeIntegral $ Runtime.IntLike (CExpr.integerLiteralType lit)
 
 charLiteral :: CExpr.CharLiteral -> SExpr ctx
-charLiteral lit = EChar (CExpr.charLiteralValue lit)
+charLiteral lit = ECChar (CExpr.charLiteralValue lit)
 
 stringLiteral :: CExpr.StringLiteral -> SExpr ctx
-stringLiteral lit =
-    ECString $ foldMap CChar.charValue (CExpr.stringLiteralValue lit)
+stringLiteral lit = ECString (CExpr.stringLiteralValue lit)
 
 floatingLiteral :: CExpr.FloatingLiteral -> SExpr ctx
 floatingLiteral lit =

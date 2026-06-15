@@ -7,7 +7,10 @@ module HsBindgen.Backend.SHs.Translation (
     translateType,
 ) where
 
+import Data.ByteString qualified as BS
+import Data.Char qualified
 import Data.Map.Strict qualified as Map
+import Data.Text qualified as Text
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
@@ -205,6 +208,7 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
 
 translateMacroValue' :: HasMacroTypes l => MacroLang l -> Hs.MacroValue l -> SDecl
 translateMacroValue' macroLang macro = DBinding $
+    withCLiteralComment $
     macroLang.translateMacroValue
       macro.name
       (fmap macroIdToHsName macro.expr.body)
@@ -213,6 +217,21 @@ translateMacroValue' macroLang macro = DBinding $
     macroIdToHsName :: Id Final -> Hs.TermName
     macroIdToHsName namePair =
         Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName
+
+-- | Augment a macro binding's Haddock comment with the C literal representation
+-- when the binding body is a character or string literal.
+withCLiteralComment :: Binding -> Binding
+withCLiteralComment binding =
+    case cLiteralText binding.body of
+      Nothing  -> binding
+      Just lit -> binding
+        & #comment .~ Just ((fromMaybe mempty binding.comment) & #literal .~ Just lit)
+
+cLiteralText :: ClosedExpr -> Maybe Text
+cLiteralText = \case
+    ECChar c    -> Just $ Text.pack $ show (Data.Char.chr (fromIntegral c))
+    ECString bs -> Just $ Text.pack $ show (map (Data.Char.chr . fromIntegral) (BS.unpack bs))
+    _           -> Nothing
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{

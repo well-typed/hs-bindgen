@@ -24,10 +24,10 @@ module HsBindgen.Backend.SHs.AST.Expr (
   , Pragma(..)
   ) where
 
+import Data.ByteString (ByteString)
 import Data.Type.Nat (Nat1)
 import DeBruijn (Add, Ctx, EmptyCtx, Idx)
-
-import C.Char qualified as CExpr.Runtime
+import Foreign.C (CChar)
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -55,9 +55,14 @@ data SExpr ctx =
   | EIntegral Integer (Maybe ClosedType)
   | EFloat Float ClosedType
   | EDouble Double ClosedType
-  | EChar CExpr.Runtime.CharValue
+  | ECChar CChar
   | EString String
-  | ECString ByteArray
+  | ECString ByteString
+    -- ^ C string literal, represented as its execution-encoding bytes.
+    --
+    -- The bytes are bit-for-bit identical to what a C compiler would embed for
+    -- this literal. This is required because the generated binding may be
+    -- passed directly to a C function that expects the same byte sequence.
   | EApp (SExpr ctx) (SExpr ctx)
   | EInfix InfixOp (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))

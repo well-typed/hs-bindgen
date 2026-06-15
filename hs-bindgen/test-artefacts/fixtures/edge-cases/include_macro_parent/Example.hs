@@ -20,6 +20,7 @@ module Example
     )
   where
 
+import qualified Data.ByteString as BS
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
@@ -98,13 +99,15 @@ instance ( ty ~ RIP.CDouble
 
 {-| __C declaration:__ @macro CHILD_HEADER@
 
+    __C literal:__ @\"include_macro_child.h\"@
+
     __defined at:__ @edge-cases\/include_macro_parent.h 4:9@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
-cHILD_HEADER :: (RIP.Ptr RIP.CChar, Int)
+cHILD_HEADER :: BS.ByteString
 cHILD_HEADER =
-  ((RIP.Ptr "include_macro_child.h"#, 21) :: RIP.CStringLen)
+  BS.pack [0x69, 0x6E, 0x63, 0x6C, 0x75, 0x64, 0x65, 0x5F, 0x6D, 0x61, 0x63, 0x72, 0x6F, 0x5F, 0x63, 0x68, 0x69, 0x6C, 0x64, 0x2E, 0x68]
 
 {-| __C declaration:__ @struct rect@
 

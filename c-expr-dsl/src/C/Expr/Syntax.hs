@@ -44,7 +44,7 @@ import Data.Vec.Lazy (Vec, withDict)
 import DeBruijn (Ctx)
 
 import C.Expr.Syntax.Expr
-import C.Expr.Syntax.Literals
+import C.Expr.Syntax.Literal
 import C.Expr.Syntax.Name
 import C.Expr.Syntax.TTG
 import C.Expr.Syntax.TTG.Parse

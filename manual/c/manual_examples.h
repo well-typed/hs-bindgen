@@ -42,27 +42,6 @@ sum sum_triple(triple* triple);
 average average_triple(triple* triple);
 
 /**
- * Some simple macros
- */
-
-#define FIELD_OFFSET 4
-#define EPSILON 0.1
-
-#define PTR_TO_FIELD(ptr) ptr + 4
-
-#define YEAR  int
-#define MONTH int
-#define DAY   int
-
-typedef struct date {
-    YEAR  year;
-    MONTH month;
-    DAY   day;
-} date;
-
-YEAR getYear(date* d);
-
-/**
  * Unions
  */
 

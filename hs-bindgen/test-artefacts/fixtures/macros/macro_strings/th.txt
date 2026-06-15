@@ -1,379 +1,415 @@
 -- addDependentFile test-artefacts/headers/golden/macros/macro_strings.h
 {-| __C declaration:__ @macro C1@
 
+    __C literal:__ @\'a\'@
+
     __defined at:__ @macros\/macro_strings.h 4:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c1 :: CharValue
+c1 :: CChar
 {-| __C declaration:__ @macro C1@
 
+    __C literal:__ @\'a\'@
+
     __defined at:__ @macros\/macro_strings.h 4:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c1 = CharValue (addrToByteArray 1 "<binary data>") (Just 'a')
+c1 = CChar 97
 {-| __C declaration:__ @macro C2@
+
+    __C literal:__ @\'\"\'@
 
     __defined at:__ @macros\/macro_strings.h 5:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c2 :: CharValue
+c2 :: CChar
 {-| __C declaration:__ @macro C2@
+
+    __C literal:__ @\'\"\'@
 
     __defined at:__ @macros\/macro_strings.h 5:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c2 = CharValue (addrToByteArray 1 "<binary data>") (Just '"')
+c2 = CChar 34
 {-| __C declaration:__ @macro C3@
+
+    __C literal:__ @\'\\t\'@
 
     __defined at:__ @macros\/macro_strings.h 6:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c3 :: CharValue
+c3 :: CChar
 {-| __C declaration:__ @macro C3@
+
+    __C literal:__ @\'\\t\'@
 
     __defined at:__ @macros\/macro_strings.h 6:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c3 = CharValue (addrToByteArray 1 "<binary data>") (Just '\t')
+c3 = CChar 9
 {-| __C declaration:__ @macro C4@
+
+    __C literal:__ @\'\\NUL\'@
 
     __defined at:__ @macros\/macro_strings.h 7:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c4 :: CharValue
+c4 :: CChar
 {-| __C declaration:__ @macro C4@
+
+    __C literal:__ @\'\\NUL\'@
 
     __defined at:__ @macros\/macro_strings.h 7:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c4 = CharValue (addrToByteArray 1 "<binary data>") (Just '\NUL')
+c4 = CChar 0
 {-| __C declaration:__ @macro C5@
+
+    __C literal:__ @\'\\\'\'@
 
     __defined at:__ @macros\/macro_strings.h 8:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c5 :: CharValue
+c5 :: CChar
 {-| __C declaration:__ @macro C5@
+
+    __C literal:__ @\'\\\'\'@
 
     __defined at:__ @macros\/macro_strings.h 8:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c5 = CharValue (addrToByteArray 1 "<binary data>") (Just '\'')
+c5 = CChar 39
 {-| __C declaration:__ @macro C6@
+
+    __C literal:__ @\'?\'@
 
     __defined at:__ @macros\/macro_strings.h 9:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c6 :: CharValue
+c6 :: CChar
 {-| __C declaration:__ @macro C6@
+
+    __C literal:__ @\'?\'@
 
     __defined at:__ @macros\/macro_strings.h 9:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c6 = CharValue (addrToByteArray 1 "<binary data>") (Just '?')
+c6 = CChar 63
 {-| __C declaration:__ @macro C7@
+
+    __C literal:__ @\'S\'@
 
     __defined at:__ @macros\/macro_strings.h 10:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c7 :: CharValue
+c7 :: CChar
 {-| __C declaration:__ @macro C7@
+
+    __C literal:__ @\'S\'@
 
     __defined at:__ @macros\/macro_strings.h 10:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c7 = CharValue (addrToByteArray 1 "<binary data>") Nothing
+c7 = CChar 83
 {-| __C declaration:__ @macro C8@
+
+    __C literal:__ @\'S\'@
 
     __defined at:__ @macros\/macro_strings.h 11:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c8 :: CharValue
+c8 :: CChar
 {-| __C declaration:__ @macro C8@
+
+    __C literal:__ @\'S\'@
 
     __defined at:__ @macros\/macro_strings.h 11:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c8 = CharValue (addrToByteArray 1 "<binary data>") Nothing
-{-| __C declaration:__ @macro D@
-
-    __defined at:__ @macros\/macro_strings.h 13:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-d :: CharValue
-{-| __C declaration:__ @macro D@
-
-    __defined at:__ @macros\/macro_strings.h 13:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-d = CharValue (addrToByteArray 2 "<binary data>") Nothing
-{-| __C declaration:__ @macro J1@
-
-    __defined at:__ @macros\/macro_strings.h 15:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j1 :: CharValue
-{-| __C declaration:__ @macro J1@
-
-    __defined at:__ @macros\/macro_strings.h 15:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j1 = CharValue (addrToByteArray 3 "<binary data>") (Just '\12354')
-{-| __C declaration:__ @macro J2@
-
-    __defined at:__ @macros\/macro_strings.h 16:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j2 :: CharValue
-{-| __C declaration:__ @macro J2@
-
-    __defined at:__ @macros\/macro_strings.h 16:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j2 = CharValue (addrToByteArray 3 "<binary data>") (Just '\12354')
-{-| __C declaration:__ @macro J3@
-
-    __defined at:__ @macros\/macro_strings.h 17:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j3 :: CharValue
-{-| __C declaration:__ @macro J3@
-
-    __defined at:__ @macros\/macro_strings.h 17:9@
-
-    __exported by:__ @macros\/macro_strings.h@
--}
-j3 = CharValue (addrToByteArray 3 "<binary data>") Nothing
+c8 = CChar 83
 {-| __C declaration:__ @macro S1@
+
+    __C literal:__ @\"a\"@
 
     __defined at:__ @macros\/macro_strings.h 20:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: (Ptr CChar, Int)
+s1 :: ByteString
 {-| __C declaration:__ @macro S1@
+
+    __C literal:__ @\"a\"@
 
     __defined at:__ @macros\/macro_strings.h 20:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 = (Ptr "a"#, 1) :: CStringLen
+s1 = pack [97]
 {-| __C declaration:__ @macro S2@
+
+    __C literal:__ @\"\'\"@
 
     __defined at:__ @macros\/macro_strings.h 21:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: (Ptr CChar, Int)
+s2 :: ByteString
 {-| __C declaration:__ @macro S2@
+
+    __C literal:__ @\"\'\"@
 
     __defined at:__ @macros\/macro_strings.h 21:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 = (Ptr "'"#, 1) :: CStringLen
+s2 = pack [39]
 {-| __C declaration:__ @macro S3@
+
+    __C literal:__ @\"\\t\"@
 
     __defined at:__ @macros\/macro_strings.h 22:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: (Ptr CChar, Int)
+s3 :: ByteString
 {-| __C declaration:__ @macro S3@
+
+    __C literal:__ @\"\\t\"@
 
     __defined at:__ @macros\/macro_strings.h 22:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 = (Ptr "\t"#, 1) :: CStringLen
+s3 = pack [9]
 {-| __C declaration:__ @macro S4@
+
+    __C literal:__ @\"\\NUL\"@
 
     __defined at:__ @macros\/macro_strings.h 23:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: (Ptr CChar, Int)
+s4 :: ByteString
 {-| __C declaration:__ @macro S4@
+
+    __C literal:__ @\"\\NUL\"@
 
     __defined at:__ @macros\/macro_strings.h 23:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 = (Ptr "\NUL"#, 1) :: CStringLen
+s4 = pack [0]
 {-| __C declaration:__ @macro S5@
+
+    __C literal:__ @\"\'\"@
 
     __defined at:__ @macros\/macro_strings.h 24:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: (Ptr CChar, Int)
+s5 :: ByteString
 {-| __C declaration:__ @macro S5@
+
+    __C literal:__ @\"\'\"@
 
     __defined at:__ @macros\/macro_strings.h 24:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 = (Ptr "'"#, 1) :: CStringLen
+s5 = pack [39]
 {-| __C declaration:__ @macro S6@
+
+    __C literal:__ @\"?\"@
 
     __defined at:__ @macros\/macro_strings.h 25:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: (Ptr CChar, Int)
+s6 :: ByteString
 {-| __C declaration:__ @macro S6@
+
+    __C literal:__ @\"?\"@
 
     __defined at:__ @macros\/macro_strings.h 25:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 = (Ptr "?"#, 1) :: CStringLen
+s6 = pack [63]
 {-| __C declaration:__ @macro S7@
+
+    __C literal:__ @\"S\"@
 
     __defined at:__ @macros\/macro_strings.h 26:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: (Ptr CChar, Int)
+s7 :: ByteString
 {-| __C declaration:__ @macro S7@
+
+    __C literal:__ @\"S\"@
 
     __defined at:__ @macros\/macro_strings.h 26:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 = (Ptr "S"#, 1) :: CStringLen
+s7 = pack [83]
 {-| __C declaration:__ @macro S8@
+
+    __C literal:__ @\"S\"@
 
     __defined at:__ @macros\/macro_strings.h 27:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: (Ptr CChar, Int)
+s8 :: ByteString
 {-| __C declaration:__ @macro S8@
+
+    __C literal:__ @\"S\"@
 
     __defined at:__ @macros\/macro_strings.h 27:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 = (Ptr "S"#, 1) :: CStringLen
+s8 = pack [83]
 {-| __C declaration:__ @macro T1@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 29:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: (Ptr CChar, Int)
+t1 :: ByteString
 {-| __C declaration:__ @macro T1@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 29:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 = (Ptr "\227\129\130"#, 3) :: CStringLen
+t1 = pack [227, 129, 130]
 {-| __C declaration:__ @macro T2@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 30:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: (Ptr CChar, Int)
+t2 :: ByteString
 {-| __C declaration:__ @macro T2@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 30:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 = (Ptr "\227\129\130"#, 3) :: CStringLen
+t2 = pack [227, 129, 130]
 {-| __C declaration:__ @macro T3@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 31:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: (Ptr CChar, Int)
+t3 :: ByteString
 {-| __C declaration:__ @macro T3@
+
+    __C literal:__ @\"\\227\\129\\130\"@
 
     __defined at:__ @macros\/macro_strings.h 31:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 = (Ptr "\227\129\130"#, 3) :: CStringLen
+t3 = pack [227, 129, 130]
 {-| __C declaration:__ @macro U@
+
+    __C literal:__ @\"\\SOH\\255\\SOH\\255\\SOH\\255\\SOH\\255\"@
 
     __defined at:__ @macros\/macro_strings.h 33:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: (Ptr CChar, Int)
+u :: ByteString
 {-| __C declaration:__ @macro U@
+
+    __C literal:__ @\"\\SOH\\255\\SOH\\255\\SOH\\255\\SOH\\255\"@
 
     __defined at:__ @macros\/macro_strings.h 33:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u = (Ptr "\SOH\255\SOH\255\SOH\255\SOH\255"#, 8) :: CStringLen
+u = pack [1, 255, 1, 255, 1, 255, 1, 255]
 {-| __C declaration:__ @macro V@
+
+    __C literal:__ @\"\\SOH\\STX\\ETX\\EOT\\ENQ\\ACK\"@
 
     __defined at:__ @macros\/macro_strings.h 34:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: (Ptr CChar, Int)
+v :: ByteString
 {-| __C declaration:__ @macro V@
+
+    __C literal:__ @\"\\SOH\\STX\\ETX\\EOT\\ENQ\\ACK\"@
 
     __defined at:__ @macros\/macro_strings.h 34:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v = (Ptr "\SOH\STX\ETX\EOT\ENQ\ACK"#, 6) :: CStringLen
+v = pack [1, 2, 3, 4, 5, 6]
 {-| __C declaration:__ @macro W1@
+
+    __C literal:__ @\"hij\\NUL\"@
 
     __defined at:__ @macros\/macro_strings.h 36:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: (Ptr CChar, Int)
+w1 :: ByteString
 {-| __C declaration:__ @macro W1@
+
+    __C literal:__ @\"hij\\NUL\"@
 
     __defined at:__ @macros\/macro_strings.h 36:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 = (Ptr "hij\NUL"#, 4) :: CStringLen
+w1 = pack [104, 105, 106, 0]
 {-| __C declaration:__ @macro W2@
+
+    __C literal:__ @\"abc\\NULdef\\NULg\"@
 
     __defined at:__ @macros\/macro_strings.h 37:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: (Ptr CChar, Int)
+w2 :: ByteString
 {-| __C declaration:__ @macro W2@
+
+    __C literal:__ @\"abc\\NULdef\\NULg\"@
 
     __defined at:__ @macros\/macro_strings.h 37:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 = (Ptr "abc\NULdef\NULg"#, 9) :: CStringLen
+w2 = pack [97, 98, 99, 0, 100, 101, 102, 0, 103]

@@ -6,16 +6,15 @@ module HsBindgen.Backend.TH.Translation (
 ) where
 
 import Control.Monad (liftM2)
+import Data.ByteString qualified as BS
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
+import Foreign.C (CChar (..))
 import Foreign.C.Types qualified
 import GHC.Base qualified
-import GHC.Exts (Int (..), sizeofByteArray#)
-import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
                   castWord64ToDouble)
-import GHC.Ptr (Ptr (Ptr))
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
@@ -88,19 +87,12 @@ mkRolledExpr env expr = case expr of
             else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
         )
         (mkType EmptyEnv t)
-    EChar c -> [| c |]
+    ECChar (CChar i) -> [| CChar $(TH.lift i) |]
     EString s -> [| s |]
-    ECString ba@(ByteArray ba#) ->
-      let
-        len :: Integer
-        len = fromIntegral (I# (sizeofByteArray# ba#))
-      in
-        TH.sigE
-          ( TH.tupE [ TH.conE 'GHC.Ptr.Ptr `TH.appE` TH.litE (TH.StringPrimL $ IsList.toList ba)
-                    , TH.litE (TH.integerL len)
-                    ]
-          )
-        (TH.conT $ (.name) $ bindgenGlobalType CStringLen_type)
+    ECString bs ->
+      TH.appE
+        (mkGlobalExpr (bindgenGlobalTerm ByteString_pack))
+        (TH.listE $ map (\w -> TH.litE (TH.IntegerL (fromIntegral w))) (BS.unpack bs))
     EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
     EInfix op x y -> TH.infixE
                        (Just $ mkExpr env x)

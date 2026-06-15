@@ -7,21 +7,28 @@ module C.Expr.Parse.Literal (
   ) where
 
 import Control.Applicative (asum)
-import Control.Monad
-import Data.Char
+import Control.Monad (replicateM, void)
+import Data.Bits (shiftR, (.&.))
+import Data.ByteString (ByteString)
+import Data.ByteString qualified as BS
+import Data.ByteString.Builder qualified as Builder
+import Data.ByteString.Lazy qualified as BSL
+import Data.Char (chr, ord, toLower)
+import Data.List (unfoldr)
 import Data.Maybe (catMaybes, fromMaybe, mapMaybe)
 import Data.Scientific qualified as Scientific
-import GHC.Exts qualified as IsList (IsList (..))
-import GHC.Generics
-import Numeric.Natural
-import Text.Parsec
+import Data.Word (Word8)
+import Foreign.C (CChar)
+import GHC.Generics (Generic)
+import Numeric.Natural (Natural)
+import Text.Parsec (ParsecT, Stream, char, choice, many, many1, option,
+                    optionMaybe, satisfy, tokenPrim, try, unexpected)
 import Text.Parsec.Pos (updatePosChar)
 
-import C.Char qualified as Runtime
 import C.Type qualified as Runtime
 
-import C.Expr.Parse.Infra
-import C.Expr.Util.Parsec
+import C.Expr.Parse.Infra (TokenParser)
+import C.Expr.Util.Parsec (caseInsensitive', satisfyWith)
 
 {-------------------------------------------------------------------------------
   Parser for integer literals
@@ -234,90 +241,82 @@ digitChar Separator = Nothing
   Reference: <https://en.cppreference.com/w/c/language/character_constant>
 -------------------------------------------------------------------------------}
 
--- | Re-parse a character literal.
+-- | Re-parse a character literal into a single byte.
+--
+-- Only single-byte character literals are supported: the result is the byte
+-- value that a C compiler would assign to the literal.  This is the value
+-- embedded in the generated Haskell binding, which may be passed directly to
+-- C code expecting that same byte.
+--
+-- The libclang token text is a 'String' of Unicode code points (UTF-8-decoded).
+-- We parse the C escape syntax and verify the resulting code point fits in one
+-- byte (see 'parseLiteralString' for the analogous three-layer approach).
 --
 -- Note that, in C, character literals have type @int@, **not** @char@!
-parseLiteralChar :: TokenParser Runtime.CharValue
+--
+-- We reject wide literals (@L@\/@u@\/@U@\/@u8@ prefix), multi-character
+-- constants, code points above @0xFF@, and numeric escapes that overflow a byte.
+parseLiteralChar :: TokenParser CChar
 parseLiteralChar = do
-  let forbidden = [ '\'' ]
   prefix <- parseCharPrefix
-  void $ char '\''
-  let charSequence = if charPrefixAllowsSequence prefix
-                     then many1
-                     else fmap (:[])
-  chars <- charSequence $ choice [ nonEscapedChar forbidden, escapedChar ]
-  void $ char '\''
   case prefix of
     Just {} ->
-      -- TODO: support other prefixes.
-      unexpected "unsupported character literal prefix"
-    Nothing ->
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2039>
+      -- Support prefixed character literals.
+      unexpected "wide character literals are not supported"
+    Nothing -> do
+      void $ char '\''
+      chars <- many1 $ choice [nonEscapedChar ['\''], escapedChar]
+      void $ char '\''
       case chars of
-        [c] -> return c
+        [c] ->
+          if ord c <= 0xFF
+            then return (fromIntegral (ord c))
+            else unexpected "character literal value does not fit in a byte"
         _ ->
-          -- NB (https://en.cppreference.com/w/c/language/character_constant):
-          --
-          -- Multicharacter constants were inherited by C from the B programming language.
-          -- Although not specified by the C standard, most compilers (MSVC is a notable exception)
-          -- implement multicharacter constants as specified in B: the values of each char
-          -- in the constant initialize successive bytes of the resulting integer, in big-endian
-          -- zero-padded right-adjusted order, e.g. the value of '\1' is 0x00000001
-          -- and the value of '\1\2\3\4' is 0x01020304.
-          case traverse Runtime.utf8SingleByteCodeUnit chars of
-            Nothing ->
-              unexpected "multi-character literal contains a character wider than a byte"
-            Just bs
-              | length bs > 4
-              -> unexpected "multi-character literal contains more than 4 characters"
-              | otherwise
-              -> return $
-                   Runtime.CharValue
-                     { Runtime.charValue = IsList.fromList bs
-                     , Runtime.unicodeCodePoint = Nothing
-                     }
+          unexpected "multi-character literal"
 
-charPrefixAllowsSequence :: Maybe CharPrefix -> Bool
-charPrefixAllowsSequence = \case
-  Nothing -> True
-  Just p ->
-    case p of
-      Prefix_u8 -> False
-      Prefix_u  -> False -- removed in C23
-      Prefix_U  -> False -- removed in C23
-      Prefix_L  -> True
-
-nonEscapedChar :: [Char] -> TokenParser Runtime.CharValue
+-- | Parse a single unescaped source character.
+nonEscapedChar :: [Char] -> TokenParser Char
 nonEscapedChar forbidden =
-  Runtime.fromHaskellChar <$>
-    satisfy ( not . ( `elem` '\n' : '\\' : forbidden ) )
+  satisfy ( not . ( `elem` '\n' : '\\' : forbidden ) )
 
 data CharPrefix = Prefix_u8 | Prefix_u | Prefix_U | Prefix_L
 
 parseCharPrefix :: TokenParser ( Maybe CharPrefix )
 parseCharPrefix = choice
   [ do { c 'u' ; c '8'; return (Just Prefix_u8) }
-  , do { c 'u'; return (Just Prefix_u) }
-  , do { c 'U'; return (Just Prefix_U) }
-  , do { c 'L'; return (Just Prefix_L) }
+  , do { c 'u';         return (Just Prefix_u) }
+  , do { c 'U';         return (Just Prefix_U) }
+  , do { c 'L';         return (Just Prefix_L) }
   , return Nothing
   ]
   where
     c = void . char
 
-escapedChar :: TokenParser Runtime.CharValue
+-- | Parse a single escaped character.
+--
+-- Numeric escapes that do not fit in a single byte are rejected, as they have
+-- an implementation-defined value in C (see 'parseLiteralChar').
+escapedChar :: TokenParser Char
 escapedChar = do
   void $ char '\\'
   choice
     [ basicEscapedChar
-    , hexCodeUnitChar
-    , octalCodeUnitChar
-    , universalEscapedChar
+    , numericCodeUnit hexCodeUnit
+    , numericCodeUnit octalCodeUnit
+    , chr . fromIntegral <$> universalCodePoint
     ]
+  where
+    numericCodeUnit p = do
+      codeUnit <- p
+      if codeUnit <= 0xFF
+        then return $ chr ( fromIntegral codeUnit )
+        else unexpected "character literal with implementation-defined value"
 
-basicEscapedChar :: TokenParser Runtime.CharValue
+basicEscapedChar :: TokenParser Char
 basicEscapedChar =
-  Runtime.fromHaskellChar <$>
-    satisfyM ( `lookup` ( basicSourceEscapedChars ++ executionEscapedChars ) )
+  satisfyM ( `lookup` ( basicSourceEscapedChars ++ executionEscapedChars ) )
 
 -- | Like 'Text.Parsec.satisfy' but takes a @Char -> Maybe a@ predicate.
 satisfyM :: Stream s m Char => (Char -> Maybe a) -> ParsecT s u m a
@@ -344,22 +343,29 @@ basicSourceEscapedChars =
 -- | Escape sequences of execution characters.
 --
 -- See https://en.cppreference.com/w/c/language/charset.
+--
+-- Note: @\\0@ is NOT listed here. It is an octal escape (value 0) and is
+-- handled by 'octalCodeUnit'. Listing it here would cause @\\00@ / @\\000@
+-- to be mis-parsed: the named escape would consume only the first @0@, leaving
+-- the remaining digits to be interpreted as ordinary characters.
 executionEscapedChars :: [(Char, Char)]
 executionEscapedChars =
-  [ ( '0', '\NUL' ) -- null (actually just the octal escaped character \0)
-  , ( 'a', '\a'   ) -- audible bell
+  [ ( 'a', '\a'   ) -- audible bell
   , ( 'b', '\b'   ) -- backspace
   , ( 'n', '\n'   ) -- line feed - new line
   , ( 'r', '\r'   ) -- carriage return
   ]
 
-hexCodeUnitChar, octalCodeUnitChar :: TokenParser Runtime.CharValue
-hexCodeUnitChar = do
+-- | Parse the value of a hexadecimal escape sequence (@\\xH...@).
+hexCodeUnit :: TokenParser Natural
+hexCodeUnit = do
   void $ char 'x'
   digs <- many1 (digitInBase False BaseHex)
-  let codeUnit = readInBase BaseHex digs
-  return $ Runtime.charValueFromCodeUnit codeUnit
-octalCodeUnitChar = do
+  return $ readInBase BaseHex digs
+
+-- | Parse the value of an octal escape sequence (@\\N@, @\\NN@ or @\\NNN@).
+octalCodeUnit :: TokenParser Natural
+octalCodeUnit = do
   -- NB (https://en.cppreference.com/w/c/language/escape):
   --
   -- Octal escape sequences have a length limit of three octal digits,
@@ -371,11 +377,12 @@ octalCodeUnitChar = do
   let
     digs :: [Digit]
     digs = dig1 : catMaybes [dig2, dig3]
-    codeUnit = readInBase BaseOct digs
-  return $ Runtime.charValueFromCodeUnit codeUnit
+  return $ readInBase BaseOct digs
 
-universalEscapedChar :: TokenParser Runtime.CharValue
-universalEscapedChar = do
+-- | Parse and validate a universal character name (@\\uHHHH@ or
+-- @\\UHHHHHHHH@), returning its Unicode code point.
+universalCodePoint :: TokenParser Natural
+universalCodePoint = do
   nbChars <- choice [4 <$ char 'u', 8 <$ char 'U']
   digs <- replicateM nbChars (digitInBase False BaseHex)
   let codePoint = readInBase BaseHex digs
@@ -389,7 +396,7 @@ universalEscapedChar = do
      | codePoint >= 0x10FFFF
      -> unexpected $ "universal character name is not a valid Unicode code point (" ++ showCodePoint ++ ")"
      | otherwise
-     -> return $ Runtime.charValueFromCodePoint codePoint
+     -> return codePoint
 
 {-------------------------------------------------------------------------------
   Parser for string literals
@@ -397,17 +404,76 @@ universalEscapedChar = do
   Reference: <https://en.cppreference.com/w/c/language/string_literal>
 -------------------------------------------------------------------------------}
 
--- | Re-parse a string literal.
-parseLiteralString :: TokenParser [Runtime.CharValue]
+-- | Re-parse a string literal into its execution-encoding bytes.
+--
+-- The result is /bit-for-bit accurate/: the returned 'ByteString' contains
+-- exactly the bytes that a C compiler targeting a UTF-8 execution charset would
+-- store for this literal.  This matters because the generated Haskell bindings
+-- may be passed directly to C functions that expect that same byte sequence.
+--
+-- The libclang token text is a 'String' of Unicode code points (UTF-8-decoded).
+-- We apply a three-layer translation, e.g. for @\"你\\x41\"@:
+--
+--   1. /C source/ (UTF-8): raw byte sequence from the source file.
+--   2. /Decoded/ ('String'): @['你', '\\\\', 'x', '4', '1']@ between the quotes.
+--   3. /Execution encoding/ ('ByteString'): @[\<UTF-8 for 你\>, 0x41]@
+--
+-- Plain code points (including @\\uXXXX@) are UTF-8-encoded.  Numeric escapes
+-- (@\\xNN@, @\\NNN@) contribute their raw code-unit bytes directly — they are
+-- /not/ re-encoded as UTF-8.  This is what makes the output bit-for-bit
+-- accurate: @\"\\xE3\\x81\\x82\"@ and @\"あ\"@ both yield the same three
+-- bytes @[0xE3, 0x81, 0x82]@.
+parseLiteralString :: TokenParser ByteString
 parseLiteralString = do
-  let forbidden = [ '\"' ]
   prefix <- parseCharPrefix
-  void $ char '\"'
-  cs <- many $ choice [ nonEscapedChar forbidden, escapedChar ]
-  void $ char '\"'
   case prefix of
     Just {} ->
-      -- TODO: support other prefixes.
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2039>
+      -- Support prefixed string literals.
       unexpected "unsupported string literal prefix"
-    Nothing ->
-      return cs
+    Nothing -> do
+      void $ char '\"'
+      cs <- many $ choice [nonEscapedByte ['\"'], escapedByte]
+      void $ char '\"'
+      return $ BS.pack $ concat cs
+
+-- | Parse a single unescaped source character, as its UTF-8 bytes.
+nonEscapedByte :: [Char] -> TokenParser [Word8]
+nonEscapedByte forbidden = utf8EncodeChar <$> nonEscapedChar forbidden
+
+-- | Parse a single escaped character, as its UTF-8 bytes.
+escapedByte :: TokenParser [Word8]
+escapedByte = do
+  void $ char '\\'
+  choice
+    [ utf8EncodeChar      <$> basicEscapedChar
+    , codeUnitBytes       <$> hexCodeUnit
+    , codeUnitBytes       <$> octalCodeUnit
+    , utf8EncodeCodePoint <$> universalCodePoint
+    ]
+
+{-------------------------------------------------------------------------------
+  Character encoding
+-------------------------------------------------------------------------------}
+
+-- | UTF-8-encode a 'Char'.
+utf8EncodeChar :: Char -> [Word8]
+utf8EncodeChar = BSL.unpack . Builder.toLazyByteString . Builder.charUtf8
+
+-- | UTF-8-encode a Unicode code point.
+--
+-- The code point must be valid (@<= 0x10FFFF@); 'universalCodePoint' is the
+-- only producer and validates this.
+utf8EncodeCodePoint :: Natural -> [Word8]
+utf8EncodeCodePoint = utf8EncodeChar . chr . fromIntegral
+
+-- | The big-endian bytes of a numeric code unit value, e.g. the value of
+-- @\\1\\2\\3\\4@ is @0x01020304@. The zero value produces a single null byte.
+--
+-- This is C numeric-escape semantics, not a UTF-8 encoding.
+codeUnitBytes :: Natural -> [Word8]
+codeUnitBytes 0 = [0]
+codeUnitBytes n = reverse . unfoldr step $ n
+  where
+    step 0 = Nothing
+    step x = Just (fromIntegral (x .&. 0xFF), x `shiftR` 8)

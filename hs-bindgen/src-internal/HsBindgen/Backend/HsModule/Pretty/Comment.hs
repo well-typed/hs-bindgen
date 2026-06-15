@@ -77,6 +77,9 @@ instance Pretty CommentKind where
             (\n -> "__C declaration:__ @"
                 >< PP.text (escapeMidLine n)
                 >< "@") <$> comment.origin
+          , (\lit -> "__C literal:__ @"
+                >< PP.text (escapeMidLine lit)
+                >< "@") <$> comment.literal
           , (\p -> "__defined at:__ @"
                 >< uncurry prettyHashIncludeArgLoc p
                 >< "@"

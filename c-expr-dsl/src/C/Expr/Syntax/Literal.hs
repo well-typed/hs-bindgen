@@ -1,4 +1,4 @@
-module C.Expr.Syntax.Literals (
+module C.Expr.Syntax.Literal (
     IntegerLiteral(..)
   , FloatingLiteral(..)
   , CharLiteral(..)
@@ -7,10 +7,10 @@ module C.Expr.Syntax.Literals (
   , canBeRepresentedAsRational
   ) where
 
-import Data.Text (Text)
+import Data.ByteString (ByteString)
+import Foreign.C (CChar)
 import GHC.Generics (Generic)
 
-import C.Char qualified as Runtime
 import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
@@ -20,15 +20,8 @@ import C.Type qualified as Runtime
 -- | Integer literal
 data IntegerLiteral =
   IntegerLiteral {
-      -- | The representation of the literal in the original source
-      --
-      -- We include this to generate better bindings and better documentation.
-      -- For example, flags specified in hexadecimal would become quite
-      -- unreadable in decimal.
-      integerLiteralText  :: Text
-
       -- | The type of the integer literal, as determined from suffixes.
-    , integerLiteralType  :: Runtime.IntLikeType
+      integerLiteralType  :: Runtime.IntLikeType
 
       -- | The (parsed) value of the literal
     , integerLiteralValue :: Integer
@@ -38,13 +31,8 @@ data IntegerLiteral =
 -- | Floating-point literal
 data FloatingLiteral =
   FloatingLiteral {
-      -- | The representation of the literal in the original source
-      --
-      -- We include this to generate better bindings and better documentation.
-      floatingLiteralText  :: Text
-
       -- | The type of the floating-point literal, as determined from suffixes.
-    , floatingLiteralType  :: Runtime.FloatingType
+      floatingLiteralType  :: Runtime.FloatingType
 
       -- | The (parsed) value of the literal, when parsed as a single precision
       -- floating-point value.
@@ -56,21 +44,25 @@ data FloatingLiteral =
     }
   deriving stock ( Eq, Ord, Show, Generic )
 
--- | A C character literal, with the original source text.
+-- | A C character literal.
 --
--- See 'C.Char.CharValue'.
-data CharLiteral =
-  CharLiteral
-    { charLiteralText :: Text
-    , charLiteralValue :: Runtime.CharValue
-    }
+-- The value is represented as a 'CChar'. Wide character literals (prefixed
+-- with @L@, @u@, @U@, or @u8@) and characters whose value does not fit in a
+-- single byte are rejected during parsing (see
+-- 'C.Expr.Parse.Literal.parseLiteralChar').
+newtype CharLiteral = CharLiteral { charLiteralValue :: CChar }
   deriving stock ( Eq, Ord, Show, Generic )
 
-data StringLiteral =
-  StringLiteral
-    { stringLiteralText :: Text
-    , stringLiteralValue :: [ Runtime.CharValue ]
-    }
+-- | A C string literal.
+--
+-- 'stringLiteralValue' holds the /execution-encoding bytes/ of the literal,
+-- assuming a UTF-8 execution character set.  The representation is
+-- /bit-for-bit accurate/: the bytes are exactly what a C compiler targeting a
+-- UTF-8 execution charset would embed in the object file.  This property is
+-- required because the generated Haskell bindings may be passed directly to C
+-- functions that expect the same byte sequence (see
+-- 'C.Expr.Parse.Literal.parseLiteralString' for the encoding rules).
+newtype StringLiteral = StringLiteral { stringLiteralValue :: ByteString }
   deriving stock ( Eq, Ord, Show, Generic )
 
 {-------------------------------------------------------------------------------
