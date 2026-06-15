@@ -32,7 +32,6 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.IO
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
