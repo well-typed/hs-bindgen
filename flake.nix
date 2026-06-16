@@ -8,6 +8,10 @@
       url = "github:well-typed/libclang-bindings?rev=51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84";
       flake = false;
     };
+    c-expr-src = {
+      url = "github:well-typed/c-expr?rev=68960ab9683d7e156d9aa329a6cff98ad08d64dc";
+      flake = false;
+    };
     doxygen-parser-src = {
       url = "github:well-typed/doxygen-parser?rev=33b5074eb5122062ac41fa8b9ed0596d39913b63";
       flake = false;
@@ -20,6 +24,7 @@
       nixpkgs,
       #
       libclang-bindings-src,
+      c-expr-src,
       doxygen-parser-src,
       ...
     }:
@@ -37,7 +42,12 @@
         "x86_64-darwin"
       ];
       perSystem = import ./nix/hs-bindgen.nix {
-        inherit nixpkgs libclang-bindings-src doxygen-parser-src;
+        inherit
+          nixpkgs
+          libclang-bindings-src
+          c-expr-src
+          doxygen-parser-src
+          ;
       };
       flake.overlays = overlays;
     };

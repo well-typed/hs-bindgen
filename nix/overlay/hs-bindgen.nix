@@ -8,8 +8,6 @@ let
   llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
   hlib = final.haskell.lib.compose;
   hsBindgenPkgNames = [
-    "c-expr-dsl"
-    "c-expr-runtime"
     "hs-bindgen"
     "hs-bindgen-runtime"
     "hs-bindgen-test-runtime"
@@ -26,11 +24,6 @@ in
       in
       {
         inherit (hsBindgenPkgs) hs-bindgen-runtime hs-bindgen-test-runtime;
-        # TODO: The documentation fails to build.
-        c-expr-dsl = hlib.dontHaddock hsBindgenPkgs.c-expr-dsl;
-        # TODO: The test of `c-expr-runtime` requires `musl` headers, but
-        # providing `musl` as test system dependency causes other build errors.
-        c-expr-runtime = hlib.dontCheck hsBindgenPkgs.c-expr-runtime;
         hs-bindgen = hlib.overrideCabal (drv: {
           # TODO: Test of `hs-bindgen` fails because it runs `hs-bindgen-cli`
           # which is a build output of `hs-bindgen` (chicken-egg problem).

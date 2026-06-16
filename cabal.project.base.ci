@@ -1,9 +1,6 @@
 import: ./cabal.project.base
 import: ./cabal.project.base.dev
 
-package c-expr-dsl
-  ghc-options: -Werror
-
 package hs-bindgen
   ghc-options: -Werror
 

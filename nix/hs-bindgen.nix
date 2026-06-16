@@ -1,6 +1,7 @@
 {
   nixpkgs,
   libclang-bindings-src,
+  c-expr-src,
   doxygen-parser-src,
 }:
 
@@ -35,7 +36,13 @@ let
       inherit system;
       overlays = [
         (import ./overlay {
-          inherit lib libclang-bindings-src doxygen-parser-src maybeLlvmPackages;
+          inherit
+            lib
+            libclang-bindings-src
+            c-expr-src
+            doxygen-parser-src
+            maybeLlvmPackages
+            ;
         }).default
         (final: prev: {
           haskellPackages =

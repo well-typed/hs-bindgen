@@ -87,6 +87,12 @@
 
 ### Minor changes
 
+* The `c-expr-dsl` and `c-expr-runtime` libraries have been extracted into their
+  own repository ([well-typed/c-expr](https://github.com/well-typed/c-expr)) and
+  are no longer published as part of the `hs-bindgen` source tree. The packages
+  and their APIs are unchanged. Downstream consumers that previously depended on
+  `c-expr-dsl` or `c-expr-runtime` as local packages should depend on the new
+  repository instead.
 * The `doxygen-parser` library has been extracted into its own repository
   ([well-typed/doxygen-parser](https://github.com/well-typed/doxygen-parser))
   and is no longer published as part of the `hs-bindgen` source tree. The

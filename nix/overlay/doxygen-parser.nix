@@ -4,7 +4,7 @@
 
 final: prev:
 let
-  doxygen-parser = import ../doxygen-parser.nix {
+  doxygen-parser = import ../extern/doxygen-parser.nix {
     inherit doxygen-parser-src;
   };
 in
