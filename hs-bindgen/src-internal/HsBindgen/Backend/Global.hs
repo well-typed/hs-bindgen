@@ -122,7 +122,6 @@ data BindgenGlobalType =
       -- Arrays
   | ConstantArray_type
   | IncompleteArray_type
-  | IsArray_class
   | IsArray_Elem
 
     -- EquivStorable
@@ -140,16 +139,11 @@ data BindgenGlobalType =
     -- HasCBitfield
   | HasCBitfield_CBitfieldType
 
-    -- Proxy
-  | Proxy_type
-
     -- PtrConst
   | PtrConst_type
 
     -- C enumerations
   | CEnumZ_type
-  | AsCEnum_type
-  | AsSequentialCEnum_type
 
     -- Arrays
   | ByteArray_type
@@ -189,7 +183,6 @@ data BindgenGlobalType =
   | CBool_type
   | CFloat_type
   | CDouble_type
-  | CStringLen_type
   | CPtrdiff_type
 
     -- ByteString
@@ -199,8 +192,6 @@ data BindgenGlobalType =
 data BindgenGlobalTerm =
     Applicative_pure
   | Applicative_seq
-  | Maybe_just
-  | Maybe_nothing
   | Monad_return
   | Monad_seq
 
@@ -209,8 +200,6 @@ data BindgenGlobalTerm =
   | FromFunPtr_fromFunPtr
 
     -- Foreign function interface
-  | Foreign_Ptr_constructor
-  | Foreign_plusPtr
   | ByteArray_setUnionPayload
   | ByteArray_getUnionPayload
   | Capi_with
@@ -274,20 +263,7 @@ data BindgenGlobalTerm =
 
     -- PtrConst
   | PtrConst_unsafeFromPtr
-  | PtrConst_unsafeToPtr
   | PtrConst_peek
-
-    -- Primitive
-  | Prim_sizeOf#
-  | Prim_alignment#
-  | Prim_indexByteArray#
-  | Prim_readByteArray#
-  | Prim_writeByteArray#
-  | Prim_indexOffAddr#
-  | Prim_readOffAddr#
-  | Prim_writeOffAddr#
-  | Prim_add#
-  | Prim_mul#
 
     -- Other type classes
   | Read_readPrec
@@ -340,7 +316,6 @@ bindgenGlobalType = globalType . \case
       -- Arrays
     ConstantArray_type     -> (IRuntimeModule "CA",     ''CA.ConstantArray)
     IncompleteArray_type   -> (IRuntimeModule "IA",     ''IA.IncompleteArray)
-    IsArray_class          -> (IRuntimeModule "IsA",    ''IsA.IsArray)
     IsArray_Elem           -> (IRuntimeModule "IsA",    ''IsA.Elem)
 
     -- EquivStorable
@@ -358,16 +333,11 @@ bindgenGlobalType = globalType . \case
     -- HasCBitfield
     HasCBitfield_CBitfieldType -> (IRuntimeModule "HasCBitfield", ''HasCBitfield.CBitfieldType)
 
-    -- Proxy
-    Proxy_type -> (IRuntimeInternalPrelude, ''RIP.Proxy)
-
     -- PtrConst
     PtrConst_type -> (IRuntimeModule "PtrConst", ''PtrConst.PtrConst)
 
     -- C enumerations
     CEnumZ_type            -> (IRuntimeModule "CEnum", ''CEnum.CEnumZ)
-    AsCEnum_type           -> (IRuntimeModule "CEnum", ''CEnum.AsCEnum)
-    AsSequentialCEnum_type -> (IRuntimeModule "CEnum", ''CEnum.AsSequentialCEnum)
 
     -- Arrays
     ByteArray_type      -> (IRuntimeInternalPrelude,  ''RIP.ByteArray)
@@ -407,7 +377,6 @@ bindgenGlobalType = globalType . \case
     CBool_type      -> (IRuntimeInternalPrelude, ''RIP.CBool)
     CFloat_type     -> (IRuntimeInternalPrelude, ''RIP.CFloat)
     CDouble_type    -> (IRuntimeInternalPrelude, ''RIP.CDouble)
-    CStringLen_type -> (IRuntimeInternalPrelude, ''RIP.CStringLen)
     CPtrdiff_type   -> (IRuntimeInternalPrelude, ''RIP.CPtrdiff)
 
     -- ByteString
@@ -455,8 +424,6 @@ bindgenGlobalTerm = globalExpr . \case
     -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
     Applicative_pure    -> (IHaskellPrelude, GVar, 'pure)
     Applicative_seq     -> (IHaskellPrelude, GVar, '(<*>))
-    Maybe_just          -> (IHaskellPrelude, GVar, 'Just)
-    Maybe_nothing       -> (IHaskellPrelude, GVar, 'Nothing)
     Monad_return        -> (IHaskellPrelude, GVar, 'return)
     Monad_seq           -> (IHaskellPrelude, GVar, '(>>))
 
@@ -465,8 +432,6 @@ bindgenGlobalTerm = globalExpr . \case
     FromFunPtr_fromFunPtr -> (IRuntimeInternalPrelude, GVar, 'RIP.fromFunPtr)
 
     -- Foreign function interface
-    Foreign_Ptr_constructor   -> (IRuntimeInternalPrelude, GCon, 'RIP.Ptr)
-    Foreign_plusPtr           -> (IRuntimeInternalPrelude, GVar, 'RIP.plusPtr)
     ByteArray_getUnionPayload -> (IRuntimeInternalPrelude, GVar, 'RIP.getUnionPayload)
     ByteArray_setUnionPayload -> (IRuntimeInternalPrelude, GVar, 'RIP.setUnionPayload)
     Capi_with                 -> (IRuntimeInternalPrelude, GVar, 'RIP.with)
@@ -530,20 +495,7 @@ bindgenGlobalTerm = globalExpr . \case
 
     -- PtrConst
     PtrConst_unsafeFromPtr -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.unsafeFromPtr)
-    PtrConst_unsafeToPtr   -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.unsafeToPtr)
     PtrConst_peek          -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.peek)
-
-    -- Primitive
-    Prim_sizeOf#         -> (IRuntimeInternalPrelude, GVar,  'RIP.sizeOf#)
-    Prim_alignment#      -> (IRuntimeInternalPrelude, GVar,  'RIP.alignment#)
-    Prim_indexByteArray# -> (IRuntimeInternalPrelude, GVar,  'RIP.indexByteArray#)
-    Prim_readByteArray#  -> (IRuntimeInternalPrelude, GVar,  'RIP.readByteArray#)
-    Prim_writeByteArray# -> (IRuntimeInternalPrelude, GVar,  'RIP.writeByteArray#)
-    Prim_indexOffAddr#   -> (IRuntimeInternalPrelude, GVar,  'RIP.indexOffAddr#)
-    Prim_readOffAddr#    -> (IRuntimeInternalPrelude, GVar,  'RIP.readOffAddr#)
-    Prim_writeOffAddr#   -> (IRuntimeInternalPrelude, GVar,  'RIP.writeOffAddr#)
-    Prim_add#            -> (IRuntimeInternalPrelude, GVar, '(RIP.+#))
-    Prim_mul#            -> (IRuntimeInternalPrelude, GVar, '(RIP.*#))
 
     -- Other type classes
     Read_readPrec            -> (IRuntimeInternalPrelude, GVar,  'RIP.readPrec)
