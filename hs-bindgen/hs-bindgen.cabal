@@ -22,6 +22,8 @@ tested-with:
 extra-source-files:
   bootstrap/*.h
   musl-include/**/*.h
+  musl-include/COPYRIGHT
+  musl-include/VERSION
   test-artefacts/fixtures/**/*.hs
   test-artefacts/fixtures/**/*.txt
   test-artefacts/fixtures/**/*.yaml
