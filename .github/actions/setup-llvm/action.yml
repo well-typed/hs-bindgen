@@ -1,5 +1,5 @@
 name: Setup LLVM
-description: Build and install LLVM
+description: Install LLVM/Clang for the host platform
 
 inputs:
   version:
@@ -9,60 +9,60 @@ inputs:
 runs:
   using: composite
   steps:
-  # `clang` version 18 fails to find `libtinfo5`.
-  # https://askubuntu.com/questions/1531760/how-to-install-libtinfo5-on-ubuntu24-04
-  - name: Ubuntu LLVM 18 quirks - Install libtinfo5
-    shell: bash
-    if: ${{ runner.os == 'Linux' && inputs.version == '18' }}
-    run: |
-      wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.2_amd64.deb
-      sudo apt install ./libtinfo5_6.3-2ubuntu0.2_amd64.deb
-
-  - name: Windows quirks - Filter MSVC LLVM from PATH
-    shell: powershell
-    if: ${{ runner.os == 'Windows' }}
-    run: |
-      $oldPathDirs = ($env:PATH).Split(';')
-      $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
-      $newPath = $newPathDirs -join ';'
-      echo "PATH=$newPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
-
-  - name: Install LLVM/Clang
-    uses: KyleMayes/install-llvm-action@v2.0.8
-    with:
-      version: ${{ inputs.version }}
-      directory: ${{ runner.temp }}/llvm
-      env: false
-
-  - name: Windows quirks - Configure environment variables
-    shell: bash
-    if: ${{ runner.os == 'Windows' }}
-    run: |
-      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config.exe" | tee -a "$GITHUB_ENV"
-      echo "LIBCLANG_PATH=$LLVM_PATH/lib" | tee -a "$GITHUB_ENV"
-
-  - name: macOS quirks - Configure environment variables
-    shell: bash
-    if: ${{ runner.os == 'MacOS' }}
-    run: |
-      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" | tee -a "$GITHUB_ENV"
-      echo "LIBCLANG_PATH=$LLVM_PATH/lib" | tee -a "$GITHUB_ENV"
-      # hs-bindgen automatically sets SDKROOT, but we still need to to build
-      # shared libraries with Clang.
-      SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
-      echo "SDKROOT=$SDKROOT" | tee -a "$GITHUB_ENV"
-
-  - name: Remove tarballs from temporary directory (Linux)
+  # Linux: install from apt. Ubuntu noble ships clang/llvm 14-19 in its own repos;
+  # newer versions come from apt.llvm.org (its noble repo covers >= 17, used here
+  # for >= 20). Both sources install to /usr/lib/llvm-N with an unversioned bin/
+  # (clang, llvm-config), so the environment setup is uniform.
+  - name: Install LLVM/Clang (Linux)
     shell: bash
     if: ${{ runner.os == 'Linux' }}
     run: |
-        cd ${{ runner.temp }} || exit 1
-        pwd
-        echo "--- Temporary directory size BEFORE REMOVAL ---"
-        du -sh .
-        find . -maxdepth 1 -type f -exec rm -v {} +
-        echo "--- Temporary directory size AFTER REMOVAL ---"
-        du -sh .
+      version="${{ inputs.version }}"
+      if [ "$version" -le 19 ]; then
+        sudo apt-get update
+        sudo apt-get install -y \
+          "clang-$version" "libclang-$version-dev" "llvm-$version-dev"
+      else
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh "$version" all
+      fi
+      echo "LLVM_PATH=/usr/lib/llvm-$version" | tee -a "$GITHUB_ENV"
+      echo "/usr/lib/llvm-$version/bin"        | tee -a "$GITHUB_PATH"
+
+  # macOS: install from the official LLVM release tarballs (arm64). The asset
+  # naming differs per release, so the URLs are pinned per version; --strip-
+  # components=1 normalises the differing top-level directory names into $dest.
+  - name: Install LLVM/Clang (macOS)
+    shell: bash
+    if: ${{ runner.os == 'macOS' }}
+    run: |
+      version="${{ inputs.version }}"
+      base="https://github.com/llvm/llvm-project/releases/download"
+      case "$version" in
+        14) url="$base/llvmorg-14.0.6/clang+llvm-14.0.6-arm64-apple-darwin22.3.0.tar.xz" ;;
+        16) url="$base/llvmorg-16.0.5/clang+llvm-16.0.5-arm64-apple-darwin22.0.tar.xz" ;;
+        18) url="$base/llvmorg-18.1.8/clang+llvm-18.1.8-arm64-apple-macos11.tar.xz" ;;
+        20) url="$base/llvmorg-20.1.8/LLVM-20.1.8-macOS-ARM64.tar.xz" ;;
+        22) url="$base/llvmorg-22.1.8/LLVM-22.1.8-macOS-ARM64.tar.xz" ;;
+        *)  echo "::error::No pinned macOS LLVM tarball for version $version; add its URL" ; exit 1 ;;
+      esac
+      dest="$RUNNER_TEMP/llvm"
+      mkdir -p "$dest"
+      curl -fL "$url" | tar -xJ --strip-components=1 -C "$dest"
+      # The official macOS tarball ships libclang.dylib with install name
+      # @rpath/libclang.dylib. A configure conftest (libclang-bindings) links
+      # it without an rpath, so dyld cannot resolve @rpath at runtime. Rewrite
+      # the install name to an absolute path so anything linking libclang finds
+      # it with no rpath/DYLD_LIBRARY_PATH needed.
+      install_name_tool -id "$dest/lib/libclang.dylib" "$dest/lib/libclang.dylib"
+      echo "LLVM_PATH=$dest"                   | tee -a "$GITHUB_ENV"
+      echo "LLVM_CONFIG=$dest/bin/llvm-config" | tee -a "$GITHUB_ENV"
+      echo "LIBCLANG_PATH=$dest/lib"           | tee -a "$GITHUB_ENV"
+      echo "$dest/bin"                         | tee -a "$GITHUB_PATH"
+      # hs-bindgen automatically sets SDKROOT, but we still need it to build
+      # shared libraries with Clang.
+      echo "SDKROOT=$(xcrun --sdk macosx --show-sdk-path)" | tee -a "$GITHUB_ENV"
 
   - name: Debug (LLVM/Clang)
     shell: bash
