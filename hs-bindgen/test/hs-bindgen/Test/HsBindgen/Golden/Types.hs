@@ -1,6 +1,7 @@
 -- | Golden tests: types
 module Test.HsBindgen.Golden.Types (testCases) where
 
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (UnsupportedEmptyAnon))
@@ -53,7 +54,11 @@ testCases = [
     , defaultTest "types/structs/recursive_struct"
     , defaultTest "types/structs/simple_structs"
     , defaultTest "types/structs/struct_arg"
-    , defaultTest "types/typedefs/multi_level_function_pointer"
+    , defaultTest "types/typedefs/auxiliary/function-pointer/array"
+    , defaultTest "types/typedefs/auxiliary/function-pointer/direct"
+    , defaultTest "types/typedefs/auxiliary/function-pointer/multi_level"
+    , defaultTest "types/typedefs/auxiliary/function-pointer/pointer"
+    , defaultTest "types/typedefs/auxiliary/function-pointer/qual"
     , defaultTest "types/typedefs/typedef_vs_macro"
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
@@ -73,6 +78,7 @@ testCases = [
     , test_types_structs_omit_field_prefixes
     , test_types_structs_post_qualified
     , test_types_structs_unnamed_struct
+    , test_types_typedefs_auxiliary_function_pointer_block
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
     ]
@@ -204,6 +210,13 @@ test_types_structs_unnamed_struct =
         Just $ Tolerated
       _otherwise ->
         Nothing
+
+test_types_typedefs_auxiliary_function_pointer_block :: TestCase
+test_types_typedefs_auxiliary_function_pointer_block =
+    defaultTest "types/typedefs/auxiliary/function-pointer/block"
+      & #clangVersion .~ Just (>= (15, 0, 0))
+      & #cStandard    .~ c23
+      & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
 test_types_typedefs_typedefs :: TestCase
 test_types_typedefs_typedefs =

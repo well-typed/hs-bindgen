@@ -1,0 +1,38 @@
+-- addDependentFile test-artefacts/headers/golden/types/typedefs/auxiliary/function-pointer/direct.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/direct.h 1:14@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/direct.h@
+-}
+newtype T
+    = T {unwrapT :: (CInt -> IO ())}
+    deriving stock Generic
+    deriving newtype HasFFIType
+-- __unique:__ @toT@
+foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @toT@
+hs_bindgen_b8534912f6256492 :: T -> IO (FunPtr T)
+-- __unique:__ @toT@
+hs_bindgen_b8534912f6256492 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b8534912f6256492_base (toFFIType fun_0))
+-- __unique:__ @fromT@
+foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @fromT@
+hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T
+-- __unique:__ @fromT@
+hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> fromFFIType (hs_bindgen_8f830eadb43a6fe4_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr T
+    where toFunPtr = hs_bindgen_b8534912f6256492
+instance FromFunPtr T
+    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0

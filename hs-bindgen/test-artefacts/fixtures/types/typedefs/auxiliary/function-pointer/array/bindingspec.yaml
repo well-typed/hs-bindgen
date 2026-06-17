@@ -1,0 +1,42 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/typedefs/auxiliary/function-pointer/array.h
+  cname: T
+  hsname: T
+- headers: types/typedefs/auxiliary/function-pointer/array.h
+  cname: U
+  hsname: U
+hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - IsArray
+  - Show
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrapU
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - IsArray
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

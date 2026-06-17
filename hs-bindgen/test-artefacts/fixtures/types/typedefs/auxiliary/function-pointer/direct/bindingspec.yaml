@@ -1,0 +1,22 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/typedefs/auxiliary/function-pointer/direct.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - FromFunPtr
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - ToFunPtr

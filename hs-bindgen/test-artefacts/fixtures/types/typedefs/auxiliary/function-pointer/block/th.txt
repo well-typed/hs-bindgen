@@ -1,0 +1,17 @@
+-- addDependentFile test-artefacts/headers/golden/types/typedefs/auxiliary/function-pointer/block.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 1:16@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
+-}
+newtype T
+    = T {unwrapT :: (Block (CInt -> IO ()))}
+    deriving stock Generic
+    deriving newtype HasFFIType
+instance (~) ty (Block (CInt -> IO ())) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = Block (CInt -> IO ())
+          offset# = \_ -> \_ -> 0

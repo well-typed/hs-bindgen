@@ -1,0 +1,20 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/typedefs/auxiliary/function-pointer/block.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField

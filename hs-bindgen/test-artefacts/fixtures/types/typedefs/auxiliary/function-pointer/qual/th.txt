@@ -1,0 +1,21 @@
+-- addDependentFile test-artefacts/headers/golden/types/typedefs/auxiliary/function-pointer/qual.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h 1:23@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h@
+-}
+newtype T
+    = T {unwrapT :: (FunPtr (CInt -> IO ()))}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (FunPtr (CInt -> IO ())) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = FunPtr (CInt -> IO ())
+          offset# = \_ -> \_ -> 0
