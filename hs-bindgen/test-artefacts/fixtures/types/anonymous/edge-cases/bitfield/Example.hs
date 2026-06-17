@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -76,8 +74,7 @@ instance HasCBitfield.HasCBitfield S1_y "s1_y_y" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s1_y_y" (RIP.Ptr S1_y) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "s1_y_y" (RIP.Ptr S1_y) (BitfieldPtr.BitfieldPtr RIP.CChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"s1_y_y")
 
@@ -137,7 +134,7 @@ instance HasCField.HasCField S1 "s1_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ S1_y) => RIP.HasField "s1_y" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance RIP.HasField "s1_y" (RIP.Ptr S1) (RIP.Ptr S1_y) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_y")
 
@@ -147,7 +144,7 @@ instance HasCField.HasCField S1 "s1_x" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_x")
 
@@ -200,8 +197,7 @@ instance HasCBitfield.HasCBitfield S2_y_y "s2_y_y_y" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s2_y_y_y" (RIP.Ptr S2_y_y) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "s2_y_y_y" (RIP.Ptr S2_y_y) (BitfieldPtr.BitfieldPtr RIP.CChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"s2_y_y_y")
 
@@ -261,8 +257,7 @@ instance HasCField.HasCField S2_y "s2_y_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ S2_y_y
-         ) => RIP.HasField "s2_y_y" (RIP.Ptr S2_y) (RIP.Ptr ty) where
+instance RIP.HasField "s2_y_y" (RIP.Ptr S2_y) (RIP.Ptr S2_y_y) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_y_y")
 
@@ -272,8 +267,7 @@ instance HasCField.HasCField S2_y "s2_y_x" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_y_x" (RIP.Ptr S2_y) (RIP.Ptr ty) where
+instance RIP.HasField "s2_y_x" (RIP.Ptr S2_y) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_y_x")
 
@@ -324,6 +318,6 @@ instance HasCField.HasCField S2 "s2_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ S2_y) => RIP.HasField "s2_y" (RIP.Ptr S2) (RIP.Ptr ty) where
+instance RIP.HasField "s2_y" (RIP.Ptr S2) (RIP.Ptr S2_y) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_y")

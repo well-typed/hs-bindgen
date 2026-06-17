@@ -77,14 +77,12 @@ deriving via (EquivStorable AnonPoint) instance Storable AnonPoint
 instance HasCField AnonPoint "anonPoint_x"
     where type CFieldType AnonPoint "anonPoint_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "anonPoint_x" (Ptr AnonPoint) (Ptr ty)
+instance HasField "anonPoint_x" (Ptr AnonPoint) (Ptr CInt)
     where getField = fromPtr (Proxy @"anonPoint_x")
 instance HasCField AnonPoint "anonPoint_y"
     where type CFieldType AnonPoint "anonPoint_y" = CInt
           offset# = \_ -> \_ -> 4
-instance (~) ty CInt =>
-         HasField "anonPoint_y" (Ptr AnonPoint) (Ptr ty)
+instance HasField "anonPoint_y" (Ptr AnonPoint) (Ptr CInt)
     where getField = fromPtr (Proxy @"anonPoint_y")
 {-| __C declaration:__ @struct \@anonPair@
 
@@ -121,14 +119,12 @@ deriving via (EquivStorable AnonPair) instance Storable AnonPair
 instance HasCField AnonPair "anonPair_a"
     where type CFieldType AnonPair "anonPair_a" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "anonPair_a" (Ptr AnonPair) (Ptr ty)
+instance HasField "anonPair_a" (Ptr AnonPair) (Ptr CInt)
     where getField = fromPtr (Proxy @"anonPair_a")
 instance HasCField AnonPair "anonPair_b"
     where type CFieldType AnonPair "anonPair_b" = CInt
           offset# = \_ -> \_ -> 4
-instance (~) ty CInt =>
-         HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
+instance HasField "anonPair_b" (Ptr AnonPair) (Ptr CInt)
     where getField = fromPtr (Proxy @"anonPair_b")
 {-| __C declaration:__ @enum \@anonEnum@
 
@@ -170,8 +166,7 @@ instance Read AnonEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt =>
-         HasField "unwrapAnonEnum" (Ptr AnonEnum) (Ptr ty)
+instance HasField "unwrapAnonEnum" (Ptr AnonEnum) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapAnonEnum")
 instance HasCField AnonEnum "unwrapAnonEnum"
     where type CFieldType AnonEnum "unwrapAnonEnum" = CUInt
@@ -227,8 +222,9 @@ instance Read AnonEnumCoords
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt =>
-         HasField "unwrapAnonEnumCoords" (Ptr AnonEnumCoords) (Ptr ty)
+instance HasField "unwrapAnonEnumCoords"
+                  (Ptr AnonEnumCoords)
+                  (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapAnonEnumCoords")
 instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
     where type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" = CUInt
@@ -295,7 +291,7 @@ instance Read A
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CUInt
@@ -356,7 +352,7 @@ set_b_x = setUnionPayload
 instance HasCField B "b_x"
     where type CFieldType B "b_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "b_x" (Ptr B) (Ptr ty)
+instance HasField "b_x" (Ptr B) (Ptr CInt)
     where getField = fromPtr (Proxy @"b_x")
 {-| __C declaration:__ @struct \@C@
 
@@ -385,7 +381,7 @@ deriving via (EquivStorable C) instance Storable C
 instance HasCField C "c_x"
     where type CFieldType C "c_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "c_x" (Ptr C) (Ptr ty)
+instance HasField "c_x" (Ptr C) (Ptr CInt)
     where getField = fromPtr (Proxy @"c_x")
 -- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
 foreign import ccall unsafe "hs_bindgen_6629eeb3c2ffd60b" hs_bindgen_6629eeb3c2ffd60b_base ::

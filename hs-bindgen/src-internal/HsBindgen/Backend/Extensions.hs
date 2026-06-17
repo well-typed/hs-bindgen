@@ -115,7 +115,8 @@ typeClassExtensions = \case
     Inst.HasField     -> Set.singleton TH.UndecidableInstances
     Inst.HasFFIType   -> Set.singleton TH.UndecidableInstances
     Inst.Prim         -> Set.fromList [TH.MagicHash, TH.UnboxedTuples]
-    _ -> mempty
+    Inst.IsArray      -> Set.singleton TH.FlexibleContexts
+    _                 -> Set.empty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension
 exprExtensions = \case

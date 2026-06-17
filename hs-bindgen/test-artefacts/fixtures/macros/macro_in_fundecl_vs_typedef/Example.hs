@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -57,8 +55,7 @@ newtype MC = MC
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapMC" (RIP.Ptr MC) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMC" (RIP.Ptr MC) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapMC")
 
@@ -96,8 +93,7 @@ newtype TC = TC
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapTC" (RIP.Ptr TC) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTC" (RIP.Ptr TC) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTC")
 
@@ -154,8 +150,7 @@ instance HasCField.HasCField Struct1 "struct1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct1_a" (RIP.Ptr Struct1) (RIP.Ptr ty) where
+instance RIP.HasField "struct1_a" (RIP.Ptr Struct1) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct1_a")
 
@@ -206,8 +201,7 @@ instance HasCField.HasCField Struct2 "struct2_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct2_a" (RIP.Ptr Struct2) (RIP.Ptr ty) where
+instance RIP.HasField "struct2_a" (RIP.Ptr Struct2) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct2_a")
 
@@ -258,8 +252,7 @@ instance HasCField.HasCField Struct3 "struct3_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr ty) where
+instance RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct3_a")
 
@@ -280,8 +273,7 @@ newtype Struct3_t = Struct3_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ Struct3
-         ) => RIP.HasField "unwrapStruct3_t" (RIP.Ptr Struct3_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStruct3_t" (RIP.Ptr Struct3_t) (RIP.Ptr Struct3) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStruct3_t")
@@ -339,7 +331,6 @@ instance HasCField.HasCField Struct4 "struct4_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr ty) where
+instance RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct4_a")

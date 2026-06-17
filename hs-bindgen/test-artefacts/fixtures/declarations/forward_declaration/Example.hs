@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -69,8 +67,7 @@ instance HasCField.HasCField S1_t "s1_t_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s1_t_a" (RIP.Ptr S1_t) (RIP.Ptr ty) where
+instance RIP.HasField "s1_t_a" (RIP.Ptr S1_t) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_t_a")
 
@@ -121,6 +118,6 @@ instance HasCField.HasCField S2 "s2_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr ty) where
+instance RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_a")

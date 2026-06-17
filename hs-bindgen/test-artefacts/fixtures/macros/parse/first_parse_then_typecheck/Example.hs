@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -71,8 +69,7 @@ newtype TypeA = TypeA
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapTypeA" (RIP.Ptr TypeA) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTypeA" (RIP.Ptr TypeA) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTypeA")
@@ -111,8 +108,7 @@ newtype TypeB = TypeB
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ TypeA
-         ) => RIP.HasField "unwrapTypeB" (RIP.Ptr TypeB) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTypeB" (RIP.Ptr TypeB) (RIP.Ptr TypeA) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTypeB")

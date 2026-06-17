@@ -170,8 +170,9 @@ newtype Matrix
     = Matrix {unwrapMatrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
-         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+instance HasField "unwrapMatrix"
+                  (Ptr Matrix)
+                  (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
@@ -188,8 +189,9 @@ newtype Triplets
                                                                   CInt))}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
-instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
-         HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)
+instance HasField "unwrapTriplets"
+                  (Ptr Triplets)
+                  (Ptr (IncompleteArray (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapTriplets")
 instance HasCField Triplets "unwrapTriplets"
     where type CFieldType Triplets

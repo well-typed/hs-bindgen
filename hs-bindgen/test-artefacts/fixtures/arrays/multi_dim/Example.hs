@@ -8,7 +8,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -42,8 +41,7 @@ newtype Matrix = Matrix
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMatrix")
@@ -67,8 +65,7 @@ newtype Triplets = Triplets
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapTriplets" (RIP.Ptr Triplets) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTriplets" (RIP.Ptr Triplets) (RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTriplets")

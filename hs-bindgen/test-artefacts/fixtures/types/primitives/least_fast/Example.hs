@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -65,8 +63,7 @@ newtype Int_fast16_t = Int_fast16_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "unwrapInt_fast16_t" (RIP.Ptr Int_fast16_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_fast16_t" (RIP.Ptr Int_fast16_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_fast16_t")
@@ -106,8 +103,7 @@ newtype Int_fast32_t = Int_fast32_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "unwrapInt_fast32_t" (RIP.Ptr Int_fast32_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_fast32_t" (RIP.Ptr Int_fast32_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_fast32_t")
@@ -147,8 +143,7 @@ newtype Uint_fast16_t = Uint_fast16_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapUint_fast16_t" (RIP.Ptr Uint_fast16_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_fast16_t" (RIP.Ptr Uint_fast16_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_fast16_t")
@@ -188,8 +183,7 @@ newtype Uint_fast32_t = Uint_fast32_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapUint_fast32_t" (RIP.Ptr Uint_fast32_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_fast32_t" (RIP.Ptr Uint_fast32_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_fast32_t")
@@ -229,8 +223,7 @@ newtype Int_fast8_t = Int_fast8_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int8
-         ) => RIP.HasField "unwrapInt_fast8_t" (RIP.Ptr Int_fast8_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_fast8_t" (RIP.Ptr Int_fast8_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_fast8_t")
@@ -270,8 +263,7 @@ newtype Int_fast64_t = Int_fast64_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int64
-         ) => RIP.HasField "unwrapInt_fast64_t" (RIP.Ptr Int_fast64_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_fast64_t" (RIP.Ptr Int_fast64_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_fast64_t")
@@ -311,8 +303,7 @@ newtype Int_least8_t = Int_least8_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int8
-         ) => RIP.HasField "unwrapInt_least8_t" (RIP.Ptr Int_least8_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_least8_t" (RIP.Ptr Int_least8_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_least8_t")
@@ -352,8 +343,7 @@ newtype Int_least16_t = Int_least16_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int16
-         ) => RIP.HasField "unwrapInt_least16_t" (RIP.Ptr Int_least16_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_least16_t" (RIP.Ptr Int_least16_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_least16_t")
@@ -393,8 +383,7 @@ newtype Int_least32_t = Int_least32_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "unwrapInt_least32_t" (RIP.Ptr Int_least32_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_least32_t" (RIP.Ptr Int_least32_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_least32_t")
@@ -434,8 +423,7 @@ newtype Int_least64_t = Int_least64_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int64
-         ) => RIP.HasField "unwrapInt_least64_t" (RIP.Ptr Int_least64_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt_least64_t" (RIP.Ptr Int_least64_t) (RIP.Ptr HsBindgen.Runtime.LibC.Int64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt_least64_t")
@@ -475,8 +463,7 @@ newtype Uint_fast8_t = Uint_fast8_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "unwrapUint_fast8_t" (RIP.Ptr Uint_fast8_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_fast8_t" (RIP.Ptr Uint_fast8_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_fast8_t")
@@ -516,8 +503,7 @@ newtype Uint_fast64_t = Uint_fast64_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "unwrapUint_fast64_t" (RIP.Ptr Uint_fast64_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_fast64_t" (RIP.Ptr Uint_fast64_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_fast64_t")
@@ -557,8 +543,7 @@ newtype Uint_least8_t = Uint_least8_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "unwrapUint_least8_t" (RIP.Ptr Uint_least8_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_least8_t" (RIP.Ptr Uint_least8_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_least8_t")
@@ -598,8 +583,7 @@ newtype Uint_least16_t = Uint_least16_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "unwrapUint_least16_t" (RIP.Ptr Uint_least16_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_least16_t" (RIP.Ptr Uint_least16_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_least16_t")
@@ -639,8 +623,7 @@ newtype Uint_least32_t = Uint_least32_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapUint_least32_t" (RIP.Ptr Uint_least32_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_least32_t" (RIP.Ptr Uint_least32_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_least32_t")
@@ -680,8 +663,7 @@ newtype Uint_least64_t = Uint_least64_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "unwrapUint_least64_t" (RIP.Ptr Uint_least64_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint_least64_t" (RIP.Ptr Uint_least64_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint_least64_t")

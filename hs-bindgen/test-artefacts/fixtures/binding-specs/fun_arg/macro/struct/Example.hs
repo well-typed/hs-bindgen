@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -73,8 +71,7 @@ instance HasCField.HasCField MyStruct "myStruct_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (RIP.Ptr ty) where
+instance RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"myStruct_x")
@@ -96,8 +93,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ MyStruct
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr MyStruct) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -124,7 +120,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr A) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -145,7 +141,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr M.C) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

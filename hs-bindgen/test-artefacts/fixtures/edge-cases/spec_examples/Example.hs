@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -59,8 +57,7 @@ newtype Int16_T = Int16_T
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "unwrapInt16_T" (RIP.Ptr Int16_T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt16_T" (RIP.Ptr Int16_T) (RIP.Ptr RIP.CShort) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt16_T")
@@ -99,8 +96,7 @@ newtype Int32_T = Int32_T
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapInt32_T" (RIP.Ptr Int32_T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt32_T" (RIP.Ptr Int32_T) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt32_T")
@@ -139,8 +135,7 @@ newtype Int64_T = Int64_T
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "unwrapInt64_T" (RIP.Ptr Int64_T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt64_T" (RIP.Ptr Int64_T) (RIP.Ptr RIP.CLLong) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt64_T")
@@ -207,8 +202,7 @@ instance HasCField.HasCField Cint16_T "cint16_T_re" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Int16_T
-         ) => RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
+instance RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr Int16_T) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"cint16_T_re")
@@ -219,8 +213,7 @@ instance HasCField.HasCField Cint16_T "cint16_T_im" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( ty ~ Int16_T
-         ) => RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
+instance RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr Int16_T) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"cint16_T_im")
@@ -338,7 +331,7 @@ instance HasCField.HasCField A "a_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CDouble) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr RIP.CDouble) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_x")
 
@@ -348,8 +341,7 @@ instance HasCField.HasCField A "a_label" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr (RIP.Ptr RIP.CChar)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_label")
 
@@ -360,8 +352,7 @@ instance HasCField.HasCField A "a_samples" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ty ~ CA.ConstantArray 128 RIP.CChar
-         ) => RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr (CA.ConstantArray 128 RIP.CChar)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
 
@@ -371,7 +362,7 @@ instance HasCField.HasCField A "a_b" where
 
   offset# = \_ -> \_ -> 144
 
-instance (ty ~ B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr B) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_b")
 
@@ -381,7 +372,7 @@ instance HasCField.HasCField A "a_c" where
 
   offset# = \_ -> \_ -> 144
 
-instance (ty ~ RIP.Ptr C) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr (RIP.Ptr C)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_c")
 

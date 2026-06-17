@@ -51,7 +51,7 @@ newtype TypeA
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapTypeA" (Ptr TypeA) (Ptr ty)
+instance HasField "unwrapTypeA" (Ptr TypeA) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapTypeA")
 instance HasCField TypeA "unwrapTypeA"
     where type CFieldType TypeA "unwrapTypeA" = CInt
@@ -80,8 +80,7 @@ newtype TypeB
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty TypeA =>
-         HasField "unwrapTypeB" (Ptr TypeB) (Ptr ty)
+instance HasField "unwrapTypeB" (Ptr TypeB) (Ptr TypeA)
     where getField = fromPtr (Proxy @"unwrapTypeB")
 instance HasCField TypeB "unwrapTypeB"
     where type CFieldType TypeB "unwrapTypeB" = TypeA

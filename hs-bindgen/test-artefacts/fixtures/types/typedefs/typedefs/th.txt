@@ -23,7 +23,7 @@ newtype Myint
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapMyint" (Ptr Myint) (Ptr ty)
+instance HasField "unwrapMyint" (Ptr Myint) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyint")
 instance HasCField Myint "unwrapMyint"
     where type CFieldType Myint "unwrapMyint" = CInt
@@ -42,8 +42,7 @@ newtype Intptr
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr CInt) =>
-         HasField "unwrapIntptr" (Ptr Intptr) (Ptr ty)
+instance HasField "unwrapIntptr" (Ptr Intptr) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"unwrapIntptr")
 instance HasCField Intptr "unwrapIntptr"
     where type CFieldType Intptr "unwrapIntptr" = Ptr CInt
@@ -79,8 +78,9 @@ instance ToFunPtr Int2int
     where toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
-instance (~) ty (CInt -> IO CInt) =>
-         HasField "unwrapInt2int" (Ptr Int2int) (Ptr ty)
+instance HasField "unwrapInt2int"
+                  (Ptr Int2int)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapInt2int")
 instance HasCField Int2int "unwrapInt2int"
     where type CFieldType Int2int "unwrapInt2int" = CInt -> IO CInt
@@ -119,10 +119,9 @@ instance ToFunPtr FunctionPointer_Function_Aux
     where toFunPtr = hs_bindgen_b171c028cdc0781d
 instance FromFunPtr FunctionPointer_Function_Aux
     where fromFunPtr = hs_bindgen_4c3da8240a31e036
-instance (~) ty (IO ()) =>
-         HasField "unwrapFunctionPointer_Function_Aux"
+instance HasField "unwrapFunctionPointer_Function_Aux"
                   (Ptr FunctionPointer_Function_Aux)
-                  (Ptr ty)
+                  (Ptr (IO ()))
     where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function_Aux")
 instance HasCField FunctionPointer_Function_Aux
                    "unwrapFunctionPointer_Function_Aux"
@@ -143,10 +142,9 @@ newtype FunctionPointer_Function
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr FunctionPointer_Function_Aux) =>
-         HasField "unwrapFunctionPointer_Function"
+instance HasField "unwrapFunctionPointer_Function"
                   (Ptr FunctionPointer_Function)
-                  (Ptr ty)
+                  (Ptr (FunPtr FunctionPointer_Function_Aux))
     where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function")
 instance HasCField FunctionPointer_Function
                    "unwrapFunctionPointer_Function"
@@ -187,10 +185,9 @@ instance ToFunPtr NonFunctionPointer_Function
     where toFunPtr = hs_bindgen_766ae751d60365e9
 instance FromFunPtr NonFunctionPointer_Function
     where fromFunPtr = hs_bindgen_36c7108d046bcbc3
-instance (~) ty (CInt -> IO CInt) =>
-         HasField "unwrapNonFunctionPointer_Function"
+instance HasField "unwrapNonFunctionPointer_Function"
                   (Ptr NonFunctionPointer_Function)
-                  (Ptr ty)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapNonFunctionPointer_Function")
 instance HasCField NonFunctionPointer_Function
                    "unwrapNonFunctionPointer_Function"
@@ -229,8 +226,7 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance (~) ty (IO ()) =>
-         HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
+instance HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr (IO ()))
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
     where type CFieldType F1_Aux "unwrapF1_Aux" = IO ()
@@ -249,8 +245,7 @@ newtype F1
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr F1_Aux) =>
-         HasField "unwrapF1" (Ptr F1) (Ptr ty)
+instance HasField "unwrapF1" (Ptr F1) (Ptr (FunPtr F1_Aux))
     where getField = fromPtr (Proxy @"unwrapF1")
 instance HasCField F1 "unwrapF1"
     where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
@@ -285,7 +280,7 @@ instance ToFunPtr G1
     where toFunPtr = hs_bindgen_fa5806570b682579
 instance FromFunPtr G1
     where fromFunPtr = hs_bindgen_8405c8e75aa78be5
-instance (~) ty (IO ()) => HasField "unwrapG1" (Ptr G1) (Ptr ty)
+instance HasField "unwrapG1" (Ptr G1) (Ptr (IO ()))
     where getField = fromPtr (Proxy @"unwrapG1")
 instance HasCField G1 "unwrapG1"
     where type CFieldType G1 "unwrapG1" = IO ()
@@ -304,8 +299,7 @@ newtype G2
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr G1) =>
-         HasField "unwrapG2" (Ptr G2) (Ptr ty)
+instance HasField "unwrapG2" (Ptr G2) (Ptr (FunPtr G1))
     where getField = fromPtr (Proxy @"unwrapG2")
 instance HasCField G2 "unwrapG2"
     where type CFieldType G2 "unwrapG2" = FunPtr G1
@@ -340,7 +334,7 @@ instance ToFunPtr H1
     where toFunPtr = hs_bindgen_ffae0d1234ed018f
 instance FromFunPtr H1
     where fromFunPtr = hs_bindgen_1a33688324e1924f
-instance (~) ty (IO ()) => HasField "unwrapH1" (Ptr H1) (Ptr ty)
+instance HasField "unwrapH1" (Ptr H1) (Ptr (IO ()))
     where getField = fromPtr (Proxy @"unwrapH1")
 instance HasCField H1 "unwrapH1"
     where type CFieldType H1 "unwrapH1" = IO ()
@@ -355,7 +349,7 @@ newtype H2
     = H2 {unwrapH2 :: H1}
     deriving stock Generic
     deriving newtype HasFFIType
-instance (~) ty H1 => HasField "unwrapH2" (Ptr H2) (Ptr ty)
+instance HasField "unwrapH2" (Ptr H2) (Ptr H1)
     where getField = fromPtr (Proxy @"unwrapH2")
 instance HasCField H2 "unwrapH2"
     where type CFieldType H2 "unwrapH2" = H1
@@ -374,8 +368,7 @@ newtype H3
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr H2) =>
-         HasField "unwrapH3" (Ptr H3) (Ptr ty)
+instance HasField "unwrapH3" (Ptr H3) (Ptr (FunPtr H2))
     where getField = fromPtr (Proxy @"unwrapH3")
 instance HasCField H3 "unwrapH3"
     where type CFieldType H3 "unwrapH3" = FunPtr H2

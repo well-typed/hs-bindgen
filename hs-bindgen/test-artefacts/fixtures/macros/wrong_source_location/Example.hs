@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -78,8 +76,7 @@ instance HasCField.HasCField UU1_fieldY "uU1_fieldY_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU1_fieldY_fieldX" (RIP.Ptr UU1_fieldY) (RIP.Ptr ty) where
+instance RIP.HasField "uU1_fieldY_fieldX" (RIP.Ptr UU1_fieldY) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU1_fieldY_fieldX")
@@ -131,8 +128,7 @@ instance HasCField.HasCField UU1 "uU1_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ UU1_fieldY
-         ) => RIP.HasField "uU1_fieldY" (RIP.Ptr UU1) (RIP.Ptr ty) where
+instance RIP.HasField "uU1_fieldY" (RIP.Ptr UU1) (RIP.Ptr UU1_fieldY) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU1_fieldY")
@@ -185,8 +181,7 @@ instance HasCField.HasCField UU2_fieldY "uU2_fieldY_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU2_fieldY_fieldX" (RIP.Ptr UU2_fieldY) (RIP.Ptr ty) where
+instance RIP.HasField "uU2_fieldY_fieldX" (RIP.Ptr UU2_fieldY) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU2_fieldY_fieldX")
@@ -238,8 +233,7 @@ instance HasCField.HasCField UU2 "uU2_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ UU2_fieldY
-         ) => RIP.HasField "uU2_fieldY" (RIP.Ptr UU2) (RIP.Ptr ty) where
+instance RIP.HasField "uU2_fieldY" (RIP.Ptr UU2) (RIP.Ptr UU2_fieldY) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU2_fieldY")
@@ -291,8 +285,7 @@ instance HasCField.HasCField VV1_fieldA "vV1_fieldA_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldA_a" (RIP.Ptr VV1_fieldA) (RIP.Ptr ty) where
+instance RIP.HasField "vV1_fieldA_a" (RIP.Ptr VV1_fieldA) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldA_a")
@@ -344,8 +337,7 @@ instance HasCField.HasCField VV1_fieldB "vV1_fieldB_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldB_b" (RIP.Ptr VV1_fieldB) (RIP.Ptr ty) where
+instance RIP.HasField "vV1_fieldB_b" (RIP.Ptr VV1_fieldB) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldB_b")
@@ -406,8 +398,7 @@ instance HasCField.HasCField VV1 "vV1_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ VV1_fieldA
-         ) => RIP.HasField "vV1_fieldA" (RIP.Ptr VV1) (RIP.Ptr ty) where
+instance RIP.HasField "vV1_fieldA" (RIP.Ptr VV1) (RIP.Ptr VV1_fieldA) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldA")
@@ -418,8 +409,7 @@ instance HasCField.HasCField VV1 "vV1_fieldB" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ VV1_fieldB
-         ) => RIP.HasField "vV1_fieldB" (RIP.Ptr VV1) (RIP.Ptr ty) where
+instance RIP.HasField "vV1_fieldB" (RIP.Ptr VV1) (RIP.Ptr VV1_fieldB) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldB")
@@ -471,8 +461,7 @@ instance HasCField.HasCField VV2_fieldA "vV2_fieldA_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldA_a" (RIP.Ptr VV2_fieldA) (RIP.Ptr ty) where
+instance RIP.HasField "vV2_fieldA_a" (RIP.Ptr VV2_fieldA) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldA_a")
@@ -524,8 +513,7 @@ instance HasCField.HasCField VV2_fieldB "vV2_fieldB_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldB_b" (RIP.Ptr VV2_fieldB) (RIP.Ptr ty) where
+instance RIP.HasField "vV2_fieldB_b" (RIP.Ptr VV2_fieldB) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldB_b")
@@ -586,8 +574,7 @@ instance HasCField.HasCField VV2 "vV2_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ VV2_fieldA
-         ) => RIP.HasField "vV2_fieldA" (RIP.Ptr VV2) (RIP.Ptr ty) where
+instance RIP.HasField "vV2_fieldA" (RIP.Ptr VV2) (RIP.Ptr VV2_fieldA) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldA")
@@ -598,8 +585,7 @@ instance HasCField.HasCField VV2 "vV2_fieldB" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ VV2_fieldB
-         ) => RIP.HasField "vV2_fieldB" (RIP.Ptr VV2) (RIP.Ptr ty) where
+instance RIP.HasField "vV2_fieldB" (RIP.Ptr VV2) (RIP.Ptr VV2_fieldB) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldB")

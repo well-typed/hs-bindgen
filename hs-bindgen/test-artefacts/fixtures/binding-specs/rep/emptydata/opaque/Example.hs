@@ -3,14 +3,12 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -78,7 +76,6 @@ instance HasCField.HasCField Bar "bar_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Foo
-         ) => RIP.HasField "bar_a" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance RIP.HasField "bar_a" (RIP.Ptr Bar) (RIP.Ptr (RIP.Ptr Foo)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_a")

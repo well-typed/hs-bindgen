@@ -25,7 +25,7 @@ newtype M1
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapM1" (Ptr M1) (Ptr ty)
+instance HasField "unwrapM1" (Ptr M1) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapM1")
 instance HasCField M1 "unwrapM1"
     where type CFieldType M1 "unwrapM1" = CInt
@@ -54,7 +54,7 @@ newtype T2
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty M1 => HasField "unwrapT2" (Ptr T2) (Ptr ty)
+instance HasField "unwrapT2" (Ptr T2) (Ptr M1)
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = M1
@@ -83,7 +83,7 @@ newtype M3
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty T2 => HasField "unwrapM3" (Ptr M3) (Ptr ty)
+instance HasField "unwrapM3" (Ptr M3) (Ptr T2)
     where getField = fromPtr (Proxy @"unwrapM3")
 instance HasCField M3 "unwrapM3"
     where type CFieldType M3 "unwrapM3" = T2
@@ -112,7 +112,7 @@ newtype T4
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty M3 => HasField "unwrapT4" (Ptr T4) (Ptr ty)
+instance HasField "unwrapT4" (Ptr T4) (Ptr M3)
     where getField = fromPtr (Proxy @"unwrapT4")
 instance HasCField T4 "unwrapT4"
     where type CFieldType T4 "unwrapT4" = M3

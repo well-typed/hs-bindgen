@@ -24,10 +24,9 @@ newtype OUTER_BEFORE_CIRCULAR_INCLUDE
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE"
+instance HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE"
                   (Ptr OUTER_BEFORE_CIRCULAR_INCLUDE)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapOUTER_BEFORE_CIRCULAR_INCLUDE")
 instance HasCField OUTER_BEFORE_CIRCULAR_INCLUDE
                    "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE"
@@ -58,10 +57,9 @@ newtype OUTER_AFTER_CIRCULAR_INCLUDE
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE"
+instance HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE"
                   (Ptr OUTER_AFTER_CIRCULAR_INCLUDE)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapOUTER_AFTER_CIRCULAR_INCLUDE")
 instance HasCField OUTER_AFTER_CIRCULAR_INCLUDE
                    "unwrapOUTER_AFTER_CIRCULAR_INCLUDE"

@@ -8,7 +8,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -36,8 +35,7 @@ newtype A = A
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr (IA.IncompleteArray RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -60,7 +58,7 @@ newtype B = B
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr A) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -81,7 +79,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr M.C) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

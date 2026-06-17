@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -84,8 +82,7 @@ instance HasCField.HasCField Banner_point "banner_point_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "banner_point_x" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
+instance RIP.HasField "banner_point_x" (RIP.Ptr Banner_point) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"banner_point_x")
@@ -97,8 +94,7 @@ instance HasCField.HasCField Banner_point "banner_point_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "banner_point_y" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
+instance RIP.HasField "banner_point_y" (RIP.Ptr Banner_point) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"banner_point_y")

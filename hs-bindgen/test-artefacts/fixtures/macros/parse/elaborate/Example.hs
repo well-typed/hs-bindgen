@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -83,8 +81,7 @@ newtype Outer_int = Outer_int
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapOuter_int" (RIP.Ptr Outer_int) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapOuter_int" (RIP.Ptr Outer_int) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapOuter_int")
@@ -124,8 +121,7 @@ newtype Inner_int = Inner_int
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ Outer_int
-         ) => RIP.HasField "unwrapInner_int" (RIP.Ptr Inner_int) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInner_int" (RIP.Ptr Inner_int) (RIP.Ptr Outer_int) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInner_int")

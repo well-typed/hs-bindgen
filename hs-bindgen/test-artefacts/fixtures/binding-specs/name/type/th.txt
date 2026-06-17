@@ -23,8 +23,7 @@ newtype MySym
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CChar =>
-         HasField "unwrapMySym" (Ptr MySym) (Ptr ty)
+instance HasField "unwrapMySym" (Ptr MySym) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapMySym")
 instance HasCField MySym "unwrapMySym"
     where type CFieldType MySym "unwrapMySym" = CChar

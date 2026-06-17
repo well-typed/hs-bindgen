@@ -23,7 +23,7 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -55,7 +55,7 @@ deriving via (EquivStorable T2) instance Storable T2
 instance HasCField T2 "t2_x"
     where type CFieldType T2 "t2_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t2_x" (Ptr T2) (Ptr ty)
+instance HasField "t2_x" (Ptr T2) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t2_x")
 {-| __C declaration:__ @struct TS3@
 
@@ -84,7 +84,7 @@ deriving via (EquivStorable T3) instance Storable T3
 instance HasCField T3 "t3_x"
     where type CFieldType T3 "t3_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t3_x" (Ptr T3) (Ptr ty)
+instance HasField "t3_x" (Ptr T3) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t3_x")
 {-| __C declaration:__ @struct T4@
 
@@ -113,5 +113,5 @@ deriving via (EquivStorable T4) instance Storable T4
 instance HasCField T4 "t4_x"
     where type CFieldType T4 "t4_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t4_x" (Ptr T4) (Ptr ty)
+instance HasField "t4_x" (Ptr T4) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t4_x")

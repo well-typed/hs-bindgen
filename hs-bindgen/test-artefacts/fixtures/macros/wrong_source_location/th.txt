@@ -26,8 +26,7 @@ deriving via (EquivStorable UU1_fieldY) instance Storable UU1_fieldY
 instance HasCField UU1_fieldY "uU1_fieldY_fieldX"
     where type CFieldType UU1_fieldY "uU1_fieldY_fieldX" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "uU1_fieldY_fieldX" (Ptr UU1_fieldY) (Ptr ty)
+instance HasField "uU1_fieldY_fieldX" (Ptr UU1_fieldY) (Ptr CInt)
     where getField = fromPtr (Proxy @"uU1_fieldY_fieldX")
 {-| __C declaration:__ @struct UU1@
 
@@ -56,8 +55,7 @@ deriving via (EquivStorable UU1) instance Storable UU1
 instance HasCField UU1 "uU1_fieldY"
     where type CFieldType UU1 "uU1_fieldY" = UU1_fieldY
           offset# = \_ -> \_ -> 0
-instance (~) ty UU1_fieldY =>
-         HasField "uU1_fieldY" (Ptr UU1) (Ptr ty)
+instance HasField "uU1_fieldY" (Ptr UU1) (Ptr UU1_fieldY)
     where getField = fromPtr (Proxy @"uU1_fieldY")
 {-| __C declaration:__ @struct \@UU2_fieldY@
 
@@ -86,8 +84,7 @@ deriving via (EquivStorable UU2_fieldY) instance Storable UU2_fieldY
 instance HasCField UU2_fieldY "uU2_fieldY_fieldX"
     where type CFieldType UU2_fieldY "uU2_fieldY_fieldX" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "uU2_fieldY_fieldX" (Ptr UU2_fieldY) (Ptr ty)
+instance HasField "uU2_fieldY_fieldX" (Ptr UU2_fieldY) (Ptr CInt)
     where getField = fromPtr (Proxy @"uU2_fieldY_fieldX")
 {-| __C declaration:__ @struct UU2@
 
@@ -116,8 +113,7 @@ deriving via (EquivStorable UU2) instance Storable UU2
 instance HasCField UU2 "uU2_fieldY"
     where type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
           offset# = \_ -> \_ -> 0
-instance (~) ty UU2_fieldY =>
-         HasField "uU2_fieldY" (Ptr UU2) (Ptr ty)
+instance HasField "uU2_fieldY" (Ptr UU2) (Ptr UU2_fieldY)
     where getField = fromPtr (Proxy @"uU2_fieldY")
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
@@ -146,8 +142,7 @@ deriving via (EquivStorable VV1_fieldA) instance Storable VV1_fieldA
 instance HasCField VV1_fieldA "vV1_fieldA_a"
     where type CFieldType VV1_fieldA "vV1_fieldA_a" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV1_fieldA_a" (Ptr VV1_fieldA) (Ptr ty)
+instance HasField "vV1_fieldA_a" (Ptr VV1_fieldA) (Ptr CInt)
     where getField = fromPtr (Proxy @"vV1_fieldA_a")
 {-| __C declaration:__ @struct \@VV1_fieldB@
 
@@ -176,8 +171,7 @@ deriving via (EquivStorable VV1_fieldB) instance Storable VV1_fieldB
 instance HasCField VV1_fieldB "vV1_fieldB_b"
     where type CFieldType VV1_fieldB "vV1_fieldB_b" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV1_fieldB_b" (Ptr VV1_fieldB) (Ptr ty)
+instance HasField "vV1_fieldB_b" (Ptr VV1_fieldB) (Ptr CInt)
     where getField = fromPtr (Proxy @"vV1_fieldB_b")
 {-| __C declaration:__ @struct VV1@
 
@@ -214,14 +208,12 @@ deriving via (EquivStorable VV1) instance Storable VV1
 instance HasCField VV1 "vV1_fieldA"
     where type CFieldType VV1 "vV1_fieldA" = VV1_fieldA
           offset# = \_ -> \_ -> 0
-instance (~) ty VV1_fieldA =>
-         HasField "vV1_fieldA" (Ptr VV1) (Ptr ty)
+instance HasField "vV1_fieldA" (Ptr VV1) (Ptr VV1_fieldA)
     where getField = fromPtr (Proxy @"vV1_fieldA")
 instance HasCField VV1 "vV1_fieldB"
     where type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
           offset# = \_ -> \_ -> 4
-instance (~) ty VV1_fieldB =>
-         HasField "vV1_fieldB" (Ptr VV1) (Ptr ty)
+instance HasField "vV1_fieldB" (Ptr VV1) (Ptr VV1_fieldB)
     where getField = fromPtr (Proxy @"vV1_fieldB")
 {-| __C declaration:__ @struct \@VV2_fieldA@
 
@@ -250,8 +242,7 @@ deriving via (EquivStorable VV2_fieldA) instance Storable VV2_fieldA
 instance HasCField VV2_fieldA "vV2_fieldA_a"
     where type CFieldType VV2_fieldA "vV2_fieldA_a" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV2_fieldA_a" (Ptr VV2_fieldA) (Ptr ty)
+instance HasField "vV2_fieldA_a" (Ptr VV2_fieldA) (Ptr CInt)
     where getField = fromPtr (Proxy @"vV2_fieldA_a")
 {-| __C declaration:__ @struct \@VV2_fieldB@
 
@@ -280,8 +271,7 @@ deriving via (EquivStorable VV2_fieldB) instance Storable VV2_fieldB
 instance HasCField VV2_fieldB "vV2_fieldB_b"
     where type CFieldType VV2_fieldB "vV2_fieldB_b" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV2_fieldB_b" (Ptr VV2_fieldB) (Ptr ty)
+instance HasField "vV2_fieldB_b" (Ptr VV2_fieldB) (Ptr CInt)
     where getField = fromPtr (Proxy @"vV2_fieldB_b")
 {-| __C declaration:__ @struct VV2@
 
@@ -318,12 +308,10 @@ deriving via (EquivStorable VV2) instance Storable VV2
 instance HasCField VV2 "vV2_fieldA"
     where type CFieldType VV2 "vV2_fieldA" = VV2_fieldA
           offset# = \_ -> \_ -> 0
-instance (~) ty VV2_fieldA =>
-         HasField "vV2_fieldA" (Ptr VV2) (Ptr ty)
+instance HasField "vV2_fieldA" (Ptr VV2) (Ptr VV2_fieldA)
     where getField = fromPtr (Proxy @"vV2_fieldA")
 instance HasCField VV2 "vV2_fieldB"
     where type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
           offset# = \_ -> \_ -> 4
-instance (~) ty VV2_fieldB =>
-         HasField "vV2_fieldB" (Ptr VV2) (Ptr ty)
+instance HasField "vV2_fieldB" (Ptr VV2) (Ptr VV2_fieldB)
     where getField = fromPtr (Proxy @"vV2_fieldB")

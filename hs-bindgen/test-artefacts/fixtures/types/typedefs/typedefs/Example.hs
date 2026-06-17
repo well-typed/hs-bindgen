@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -61,8 +59,7 @@ newtype Myint = Myint
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyint" (RIP.Ptr Myint) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyint" (RIP.Ptr Myint) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyint")
@@ -91,8 +88,7 @@ newtype Intptr = Intptr
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrapIntptr" (RIP.Ptr Intptr) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapIntptr" (RIP.Ptr Intptr) (RIP.Ptr (RIP.Ptr RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapIntptr")
@@ -150,8 +146,7 @@ instance RIP.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapInt2int" (RIP.Ptr Int2int) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapInt2int" (RIP.Ptr Int2int) (RIP.Ptr (RIP.CInt -> IO RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapInt2int")
@@ -211,8 +206,7 @@ instance RIP.FromFunPtr FunctionPointer_Function_Aux where
 
   fromFunPtr = hs_bindgen_4c3da8240a31e036
 
-instance ( ty ~ IO ()
-         ) => RIP.HasField "unwrapFunctionPointer_Function_Aux" (RIP.Ptr FunctionPointer_Function_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFunctionPointer_Function_Aux" (RIP.Ptr FunctionPointer_Function_Aux) (RIP.Ptr (IO ())) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFunctionPointer_Function_Aux")
@@ -242,8 +236,7 @@ newtype FunctionPointer_Function = FunctionPointer_Function
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr FunctionPointer_Function_Aux
-         ) => RIP.HasField "unwrapFunctionPointer_Function" (RIP.Ptr FunctionPointer_Function) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFunctionPointer_Function" (RIP.Ptr FunctionPointer_Function) (RIP.Ptr (RIP.FunPtr FunctionPointer_Function_Aux)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFunctionPointer_Function")
@@ -301,8 +294,7 @@ instance RIP.FromFunPtr NonFunctionPointer_Function where
 
   fromFunPtr = hs_bindgen_36c7108d046bcbc3
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapNonFunctionPointer_Function" (RIP.Ptr NonFunctionPointer_Function) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapNonFunctionPointer_Function" (RIP.Ptr NonFunctionPointer_Function) (RIP.Ptr (RIP.CInt -> IO RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapNonFunctionPointer_Function")
@@ -362,8 +354,7 @@ instance RIP.FromFunPtr F1_Aux where
 
   fromFunPtr = hs_bindgen_ddeb5206e8192425
 
-instance ( ty ~ IO ()
-         ) => RIP.HasField "unwrapF1_Aux" (RIP.Ptr F1_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapF1_Aux" (RIP.Ptr F1_Aux) (RIP.Ptr (IO ())) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapF1_Aux")
@@ -392,8 +383,7 @@ newtype F1 = F1
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr F1_Aux
-         ) => RIP.HasField "unwrapF1" (RIP.Ptr F1) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapF1" (RIP.Ptr F1) (RIP.Ptr (RIP.FunPtr F1_Aux)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF1")
 
@@ -449,7 +439,7 @@ instance RIP.FromFunPtr G1 where
 
   fromFunPtr = hs_bindgen_8405c8e75aa78be5
 
-instance (ty ~ IO ()) => RIP.HasField "unwrapG1" (RIP.Ptr G1) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapG1" (RIP.Ptr G1) (RIP.Ptr (IO ())) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapG1")
 
@@ -477,8 +467,7 @@ newtype G2 = G2
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr G1
-         ) => RIP.HasField "unwrapG2" (RIP.Ptr G2) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapG2" (RIP.Ptr G2) (RIP.Ptr (RIP.FunPtr G1)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapG2")
 
@@ -534,7 +523,7 @@ instance RIP.FromFunPtr H1 where
 
   fromFunPtr = hs_bindgen_1a33688324e1924f
 
-instance (ty ~ IO ()) => RIP.HasField "unwrapH1" (RIP.Ptr H1) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapH1" (RIP.Ptr H1) (RIP.Ptr (IO ())) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapH1")
 
@@ -556,7 +545,7 @@ newtype H2 = H2
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance (ty ~ H1) => RIP.HasField "unwrapH2" (RIP.Ptr H2) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapH2" (RIP.Ptr H2) (RIP.Ptr H1) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapH2")
 
@@ -584,8 +573,7 @@ newtype H3 = H3
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr H2
-         ) => RIP.HasField "unwrapH3" (RIP.Ptr H3) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapH3" (RIP.Ptr H3) (RIP.Ptr (RIP.FunPtr H2)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapH3")
 

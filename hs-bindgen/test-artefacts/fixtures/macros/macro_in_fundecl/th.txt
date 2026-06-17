@@ -335,7 +335,7 @@ newtype I
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
+instance HasField "unwrapI" (Ptr I) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
@@ -364,7 +364,7 @@ newtype C
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
+instance HasField "unwrapC" (Ptr C) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapC")
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CChar
@@ -391,7 +391,7 @@ newtype F
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
+instance HasField "unwrapF" (Ptr F) (Ptr CFloat)
     where getField = fromPtr (Proxy @"unwrapF")
 instance HasCField F "unwrapF"
     where type CFieldType F "unwrapF" = CFloat
@@ -420,7 +420,7 @@ newtype L
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
+instance HasField "unwrapL" (Ptr L) (Ptr CLong)
     where getField = fromPtr (Proxy @"unwrapL")
 instance HasCField L "unwrapL"
     where type CFieldType L "unwrapL" = CLong
@@ -449,7 +449,7 @@ newtype S
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
+instance HasField "unwrapS" (Ptr S) (Ptr CShort)
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort

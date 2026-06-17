@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -102,8 +100,7 @@ instance Read Uint8_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "unwrapUint8_enum" (RIP.Ptr Uint8_enum) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint8_enum" (RIP.Ptr Uint8_enum) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint8_enum")

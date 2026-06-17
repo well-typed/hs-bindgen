@@ -23,7 +23,7 @@ newtype FILE
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapFILE" (Ptr FILE) (Ptr ty)
+instance HasField "unwrapFILE" (Ptr FILE) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapFILE")
 instance HasCField FILE "unwrapFILE"
     where type CFieldType FILE "unwrapFILE" = CInt

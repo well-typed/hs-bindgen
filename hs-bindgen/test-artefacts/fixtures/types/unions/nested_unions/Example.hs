@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -107,8 +105,7 @@ instance HasCField.HasCField UnionA "unionA_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
+instance RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
 
@@ -118,8 +115,7 @@ instance HasCField.HasCField UnionA "unionA_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
+instance RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
 
@@ -170,8 +166,7 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ UnionA
-         ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
+instance RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr UnionA) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
@@ -252,8 +247,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_a")
@@ -265,8 +259,7 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr RIP.CChar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_b")
@@ -318,8 +311,7 @@ instance HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+instance RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ExB_fieldB1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")

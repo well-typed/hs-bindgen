@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -52,8 +50,7 @@ newtype MY_TYPE = MY_TYPE
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMY_TYPE" (RIP.Ptr MY_TYPE) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMY_TYPE" (RIP.Ptr MY_TYPE) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMY_TYPE")
@@ -120,8 +117,7 @@ instance HasCField.HasCField Bar "bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance RIP.HasField "bar_x" (RIP.Ptr Bar) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_x")
 
@@ -131,6 +127,6 @@ instance HasCField.HasCField Bar "bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ MY_TYPE) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr MY_TYPE) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_y")

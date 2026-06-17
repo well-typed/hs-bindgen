@@ -107,7 +107,7 @@ deriving via (EquivStorable T) instance Storable T
 instance HasCField T "t_x"
     where type CFieldType T "t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+instance HasField "t_x" (Ptr T) (Ptr CInt)
     where getField = fromPtr (Proxy @"t_x")
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_underscore@
 foreign import ccall safe "hs_bindgen_32fb10fccaa5c64b" hs_bindgen_32fb10fccaa5c64b_base ::

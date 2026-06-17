@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -44,8 +42,7 @@ newtype PtrToVoid = PtrToVoid
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "unwrapPtrToVoid" (RIP.Ptr PtrToVoid) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPtrToVoid" (RIP.Ptr PtrToVoid) (RIP.Ptr (RIP.Ptr RIP.Void)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPtrToVoid")
@@ -75,8 +72,7 @@ newtype PtrToConstVoidL = PtrToConstVoidL
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.HasField "unwrapPtrToConstVoidL" (RIP.Ptr PtrToConstVoidL) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPtrToConstVoidL" (RIP.Ptr PtrToConstVoidL) (RIP.Ptr (PtrConst.PtrConst RIP.Void)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstVoidL")
@@ -106,8 +102,7 @@ newtype PtrToConstVoidR = PtrToConstVoidR
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.HasField "unwrapPtrToConstVoidR" (RIP.Ptr PtrToConstVoidR) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPtrToConstVoidR" (RIP.Ptr PtrToConstVoidR) (RIP.Ptr (PtrConst.PtrConst RIP.Void)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstVoidR")
@@ -137,8 +132,7 @@ newtype PtrToConstIntL = PtrToConstIntL
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.HasField "unwrapPtrToConstIntL" (RIP.Ptr PtrToConstIntL) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPtrToConstIntL" (RIP.Ptr PtrToConstIntL) (RIP.Ptr (PtrConst.PtrConst RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstIntL")
@@ -168,8 +162,7 @@ newtype PtrToConstIntR = PtrToConstIntR
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.HasField "unwrapPtrToConstIntR" (RIP.Ptr PtrToConstIntR) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPtrToConstIntR" (RIP.Ptr PtrToConstIntR) (RIP.Ptr (PtrConst.PtrConst RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstIntR")
@@ -199,8 +192,7 @@ newtype ConstPtrToInt = ConstPtrToInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrapConstPtrToInt" (RIP.Ptr ConstPtrToInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapConstPtrToInt" (RIP.Ptr ConstPtrToInt) (RIP.Ptr (RIP.Ptr RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapConstPtrToInt")

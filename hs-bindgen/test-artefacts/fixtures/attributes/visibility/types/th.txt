@@ -61,7 +61,7 @@ deriving via (EquivStorable S5) instance Storable S5
 instance HasCField S5 "s5_x"
     where type CFieldType S5 "s5_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s5_x" (Ptr S5) (Ptr ty)
+instance HasField "s5_x" (Ptr S5) (Ptr CInt)
     where getField = fromPtr (Proxy @"s5_x")
 {-| __C declaration:__ @struct S6@
 
@@ -90,7 +90,7 @@ deriving via (EquivStorable S6) instance Storable S6
 instance HasCField S6 "s6_x"
     where type CFieldType S6 "s6_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s6_x" (Ptr S6) (Ptr ty)
+instance HasField "s6_x" (Ptr S6) (Ptr CInt)
     where getField = fromPtr (Proxy @"s6_x")
 {-| __C declaration:__ @struct S7@
 
@@ -119,7 +119,7 @@ deriving via (EquivStorable S7) instance Storable S7
 instance HasCField S7 "s7_x"
     where type CFieldType S7 "s7_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s7_x" (Ptr S7) (Ptr ty)
+instance HasField "s7_x" (Ptr S7) (Ptr CInt)
     where getField = fromPtr (Proxy @"s7_x")
 {-| __C declaration:__ @struct S8@
 
@@ -148,7 +148,7 @@ deriving via (EquivStorable S8) instance Storable S8
 instance HasCField S8 "s8_x"
     where type CFieldType S8 "s8_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s8_x" (Ptr S8) (Ptr ty)
+instance HasField "s8_x" (Ptr S8) (Ptr CInt)
     where getField = fromPtr (Proxy @"s8_x")
 {-| __C declaration:__ @struct S9@
 
@@ -177,7 +177,7 @@ deriving via (EquivStorable S9) instance Storable S9
 instance HasCField S9 "s9_x"
     where type CFieldType S9 "s9_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s9_x" (Ptr S9) (Ptr ty)
+instance HasField "s9_x" (Ptr S9) (Ptr CInt)
     where getField = fromPtr (Proxy @"s9_x")
 {-| __C declaration:__ @struct S10@
 
@@ -206,7 +206,7 @@ deriving via (EquivStorable S10) instance Storable S10
 instance HasCField S10 "s10_x"
     where type CFieldType S10 "s10_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s10_x" (Ptr S10) (Ptr ty)
+instance HasField "s10_x" (Ptr S10) (Ptr CInt)
     where getField = fromPtr (Proxy @"s10_x")
 {-| __C declaration:__ @struct S11@
 
@@ -235,7 +235,7 @@ deriving via (EquivStorable S11) instance Storable S11
 instance HasCField S11 "s11_x"
     where type CFieldType S11 "s11_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s11_x" (Ptr S11) (Ptr ty)
+instance HasField "s11_x" (Ptr S11) (Ptr CInt)
     where getField = fromPtr (Proxy @"s11_x")
 {-| __C declaration:__ @struct S12@
 
@@ -264,7 +264,7 @@ deriving via (EquivStorable S12) instance Storable S12
 instance HasCField S12 "s12_x"
     where type CFieldType S12 "s12_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s12_x" (Ptr S12) (Ptr ty)
+instance HasField "s12_x" (Ptr S12) (Ptr CInt)
     where getField = fromPtr (Proxy @"s12_x")
 {-| __C declaration:__ @struct S13@
 
@@ -293,7 +293,7 @@ deriving via (EquivStorable S13) instance Storable S13
 instance HasCField S13 "s13_x"
     where type CFieldType S13 "s13_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s13_x" (Ptr S13) (Ptr ty)
+instance HasField "s13_x" (Ptr S13) (Ptr CInt)
     where getField = fromPtr (Proxy @"s13_x")
 {-| __C declaration:__ @struct S14@
 
@@ -322,7 +322,7 @@ deriving via (EquivStorable S14) instance Storable S14
 instance HasCField S14 "s14_x"
     where type CFieldType S14 "s14_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s14_x" (Ptr S14) (Ptr ty)
+instance HasField "s14_x" (Ptr S14) (Ptr CInt)
     where getField = fromPtr (Proxy @"s14_x")
 {-| __C declaration:__ @struct S15@
 
@@ -351,7 +351,7 @@ deriving via (EquivStorable S15) instance Storable S15
 instance HasCField S15 "s15_x"
     where type CFieldType S15 "s15_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s15_x" (Ptr S15) (Ptr ty)
+instance HasField "s15_x" (Ptr S15) (Ptr CInt)
     where getField = fromPtr (Proxy @"s15_x")
 {-| __C declaration:__ @struct S16@
 
@@ -380,7 +380,7 @@ deriving via (EquivStorable S16) instance Storable S16
 instance HasCField S16 "s16_x"
     where type CFieldType S16 "s16_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s16_x" (Ptr S16) (Ptr ty)
+instance HasField "s16_x" (Ptr S16) (Ptr CInt)
     where getField = fromPtr (Proxy @"s16_x")
 {-| __C declaration:__ @struct S17@
 
@@ -409,7 +409,7 @@ deriving via (EquivStorable S17) instance Storable S17
 instance HasCField S17 "s17_x"
     where type CFieldType S17 "s17_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s17_x" (Ptr S17) (Ptr ty)
+instance HasField "s17_x" (Ptr S17) (Ptr CInt)
     where getField = fromPtr (Proxy @"s17_x")
 {-| __C declaration:__ @struct S18@
 
@@ -438,7 +438,7 @@ deriving via (EquivStorable S18) instance Storable S18
 instance HasCField S18 "s18_x"
     where type CFieldType S18 "s18_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s18_x" (Ptr S18) (Ptr ty)
+instance HasField "s18_x" (Ptr S18) (Ptr CInt)
     where getField = fromPtr (Proxy @"s18_x")
 {-| __C declaration:__ @struct S19@
 
@@ -467,7 +467,7 @@ deriving via (EquivStorable S19) instance Storable S19
 instance HasCField S19 "s19_x"
     where type CFieldType S19 "s19_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s19_x" (Ptr S19) (Ptr ty)
+instance HasField "s19_x" (Ptr S19) (Ptr CInt)
     where getField = fromPtr (Proxy @"s19_x")
 {-| __C declaration:__ @union U0@
 
@@ -552,7 +552,7 @@ set_u5_x = setUnionPayload
 instance HasCField U5 "u5_x"
     where type CFieldType U5 "u5_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u5_x" (Ptr U5) (Ptr ty)
+instance HasField "u5_x" (Ptr U5) (Ptr CInt)
     where getField = fromPtr (Proxy @"u5_x")
 {-| __C declaration:__ @union U6@
 
@@ -602,7 +602,7 @@ set_u6_x = setUnionPayload
 instance HasCField U6 "u6_x"
     where type CFieldType U6 "u6_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u6_x" (Ptr U6) (Ptr ty)
+instance HasField "u6_x" (Ptr U6) (Ptr CInt)
     where getField = fromPtr (Proxy @"u6_x")
 {-| __C declaration:__ @union U7@
 
@@ -652,7 +652,7 @@ set_u7_x = setUnionPayload
 instance HasCField U7 "u7_x"
     where type CFieldType U7 "u7_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u7_x" (Ptr U7) (Ptr ty)
+instance HasField "u7_x" (Ptr U7) (Ptr CInt)
     where getField = fromPtr (Proxy @"u7_x")
 {-| __C declaration:__ @union U8@
 
@@ -702,7 +702,7 @@ set_u8_x = setUnionPayload
 instance HasCField U8 "u8_x"
     where type CFieldType U8 "u8_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u8_x" (Ptr U8) (Ptr ty)
+instance HasField "u8_x" (Ptr U8) (Ptr CInt)
     where getField = fromPtr (Proxy @"u8_x")
 {-| __C declaration:__ @union U9@
 
@@ -752,7 +752,7 @@ set_u9_x = setUnionPayload
 instance HasCField U9 "u9_x"
     where type CFieldType U9 "u9_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u9_x" (Ptr U9) (Ptr ty)
+instance HasField "u9_x" (Ptr U9) (Ptr CInt)
     where getField = fromPtr (Proxy @"u9_x")
 {-| __C declaration:__ @union U10@
 
@@ -802,7 +802,7 @@ set_u10_x = setUnionPayload
 instance HasCField U10 "u10_x"
     where type CFieldType U10 "u10_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u10_x" (Ptr U10) (Ptr ty)
+instance HasField "u10_x" (Ptr U10) (Ptr CInt)
     where getField = fromPtr (Proxy @"u10_x")
 {-| __C declaration:__ @union U11@
 
@@ -852,7 +852,7 @@ set_u11_x = setUnionPayload
 instance HasCField U11 "u11_x"
     where type CFieldType U11 "u11_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u11_x" (Ptr U11) (Ptr ty)
+instance HasField "u11_x" (Ptr U11) (Ptr CInt)
     where getField = fromPtr (Proxy @"u11_x")
 {-| __C declaration:__ @union U12@
 
@@ -902,7 +902,7 @@ set_u12_x = setUnionPayload
 instance HasCField U12 "u12_x"
     where type CFieldType U12 "u12_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u12_x" (Ptr U12) (Ptr ty)
+instance HasField "u12_x" (Ptr U12) (Ptr CInt)
     where getField = fromPtr (Proxy @"u12_x")
 {-| __C declaration:__ @union U13@
 
@@ -952,7 +952,7 @@ set_u13_x = setUnionPayload
 instance HasCField U13 "u13_x"
     where type CFieldType U13 "u13_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u13_x" (Ptr U13) (Ptr ty)
+instance HasField "u13_x" (Ptr U13) (Ptr CInt)
     where getField = fromPtr (Proxy @"u13_x")
 {-| __C declaration:__ @union U14@
 
@@ -1002,7 +1002,7 @@ set_u14_x = setUnionPayload
 instance HasCField U14 "u14_x"
     where type CFieldType U14 "u14_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u14_x" (Ptr U14) (Ptr ty)
+instance HasField "u14_x" (Ptr U14) (Ptr CInt)
     where getField = fromPtr (Proxy @"u14_x")
 {-| __C declaration:__ @union U15@
 
@@ -1052,7 +1052,7 @@ set_u15_x = setUnionPayload
 instance HasCField U15 "u15_x"
     where type CFieldType U15 "u15_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u15_x" (Ptr U15) (Ptr ty)
+instance HasField "u15_x" (Ptr U15) (Ptr CInt)
     where getField = fromPtr (Proxy @"u15_x")
 {-| __C declaration:__ @union U16@
 
@@ -1102,7 +1102,7 @@ set_u16_x = setUnionPayload
 instance HasCField U16 "u16_x"
     where type CFieldType U16 "u16_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u16_x" (Ptr U16) (Ptr ty)
+instance HasField "u16_x" (Ptr U16) (Ptr CInt)
     where getField = fromPtr (Proxy @"u16_x")
 {-| __C declaration:__ @union U17@
 
@@ -1152,7 +1152,7 @@ set_u17_x = setUnionPayload
 instance HasCField U17 "u17_x"
     where type CFieldType U17 "u17_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u17_x" (Ptr U17) (Ptr ty)
+instance HasField "u17_x" (Ptr U17) (Ptr CInt)
     where getField = fromPtr (Proxy @"u17_x")
 {-| __C declaration:__ @union U18@
 
@@ -1202,7 +1202,7 @@ set_u18_x = setUnionPayload
 instance HasCField U18 "u18_x"
     where type CFieldType U18 "u18_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u18_x" (Ptr U18) (Ptr ty)
+instance HasField "u18_x" (Ptr U18) (Ptr CInt)
     where getField = fromPtr (Proxy @"u18_x")
 {-| __C declaration:__ @union U19@
 
@@ -1252,7 +1252,7 @@ set_u19_x = setUnionPayload
 instance HasCField U19 "u19_x"
     where type CFieldType U19 "u19_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u19_x" (Ptr U19) (Ptr ty)
+instance HasField "u19_x" (Ptr U19) (Ptr CInt)
     where getField = fromPtr (Proxy @"u19_x")
 {-| __C declaration:__ @enum E0@
 
@@ -1327,7 +1327,7 @@ instance Read E5
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE5" (Ptr E5) (Ptr ty)
+instance HasField "unwrapE5" (Ptr E5) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE5")
 instance HasCField E5 "unwrapE5"
     where type CFieldType E5 "unwrapE5" = CUInt
@@ -1378,7 +1378,7 @@ instance Read E6
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE6" (Ptr E6) (Ptr ty)
+instance HasField "unwrapE6" (Ptr E6) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE6")
 instance HasCField E6 "unwrapE6"
     where type CFieldType E6 "unwrapE6" = CUInt
@@ -1429,7 +1429,7 @@ instance Read E7
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE7" (Ptr E7) (Ptr ty)
+instance HasField "unwrapE7" (Ptr E7) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE7")
 instance HasCField E7 "unwrapE7"
     where type CFieldType E7 "unwrapE7" = CUInt
@@ -1480,7 +1480,7 @@ instance Read E8
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE8" (Ptr E8) (Ptr ty)
+instance HasField "unwrapE8" (Ptr E8) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE8")
 instance HasCField E8 "unwrapE8"
     where type CFieldType E8 "unwrapE8" = CUInt
@@ -1531,7 +1531,7 @@ instance Read E9
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE9" (Ptr E9) (Ptr ty)
+instance HasField "unwrapE9" (Ptr E9) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE9")
 instance HasCField E9 "unwrapE9"
     where type CFieldType E9 "unwrapE9" = CUInt
@@ -1583,7 +1583,7 @@ instance Read E10
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE10" (Ptr E10) (Ptr ty)
+instance HasField "unwrapE10" (Ptr E10) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE10")
 instance HasCField E10 "unwrapE10"
     where type CFieldType E10 "unwrapE10" = CUInt
@@ -1635,7 +1635,7 @@ instance Read E11
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE11" (Ptr E11) (Ptr ty)
+instance HasField "unwrapE11" (Ptr E11) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE11")
 instance HasCField E11 "unwrapE11"
     where type CFieldType E11 "unwrapE11" = CUInt
@@ -1687,7 +1687,7 @@ instance Read E12
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE12" (Ptr E12) (Ptr ty)
+instance HasField "unwrapE12" (Ptr E12) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE12")
 instance HasCField E12 "unwrapE12"
     where type CFieldType E12 "unwrapE12" = CUInt
@@ -1739,7 +1739,7 @@ instance Read E13
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE13" (Ptr E13) (Ptr ty)
+instance HasField "unwrapE13" (Ptr E13) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE13")
 instance HasCField E13 "unwrapE13"
     where type CFieldType E13 "unwrapE13" = CUInt
@@ -1791,7 +1791,7 @@ instance Read E14
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE14" (Ptr E14) (Ptr ty)
+instance HasField "unwrapE14" (Ptr E14) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE14")
 instance HasCField E14 "unwrapE14"
     where type CFieldType E14 "unwrapE14" = CUInt
@@ -1843,7 +1843,7 @@ instance Read E15
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE15" (Ptr E15) (Ptr ty)
+instance HasField "unwrapE15" (Ptr E15) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE15")
 instance HasCField E15 "unwrapE15"
     where type CFieldType E15 "unwrapE15" = CUInt
@@ -1895,7 +1895,7 @@ instance Read E16
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE16" (Ptr E16) (Ptr ty)
+instance HasField "unwrapE16" (Ptr E16) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE16")
 instance HasCField E16 "unwrapE16"
     where type CFieldType E16 "unwrapE16" = CUInt
@@ -1947,7 +1947,7 @@ instance Read E17
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE17" (Ptr E17) (Ptr ty)
+instance HasField "unwrapE17" (Ptr E17) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE17")
 instance HasCField E17 "unwrapE17"
     where type CFieldType E17 "unwrapE17" = CUInt
@@ -1999,7 +1999,7 @@ instance Read E18
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE18" (Ptr E18) (Ptr ty)
+instance HasField "unwrapE18" (Ptr E18) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE18")
 instance HasCField E18 "unwrapE18"
     where type CFieldType E18 "unwrapE18" = CUInt
@@ -2051,7 +2051,7 @@ instance Read E19
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty CUInt => HasField "unwrapE19" (Ptr E19) (Ptr ty)
+instance HasField "unwrapE19" (Ptr E19) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE19")
 instance HasCField E19 "unwrapE19"
     where type CFieldType E19 "unwrapE19" = CUInt

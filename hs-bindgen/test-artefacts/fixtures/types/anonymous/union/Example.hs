@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -99,8 +97,7 @@ instance HasCField.HasCField Has_implicit_fields_x2_1 "has_implicit_fields_x2_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x2_1_x2_1" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x2_1_x2_1" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x2_1_x2_1")
@@ -112,8 +109,7 @@ instance HasCField.HasCField Has_implicit_fields_x2_1 "has_implicit_fields_x2_1_
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x2_1_x2_2" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x2_1_x2_2" (RIP.Ptr Has_implicit_fields_x2_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x2_1_x2_2")
@@ -177,8 +173,7 @@ instance HasCField.HasCField Has_implicit_fields_x4_1 "has_implicit_fields_x4_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x4_1_x4_1" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x4_1_x4_1" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x4_1_x4_1")
@@ -190,8 +185,7 @@ instance HasCField.HasCField Has_implicit_fields_x4_1 "has_implicit_fields_x4_1_
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x4_1_x4_2" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x4_1_x4_2" (RIP.Ptr Has_implicit_fields_x4_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x4_1_x4_2")
@@ -276,8 +270,7 @@ instance HasCField.HasCField Has_implicit_fields_x5_1 "has_implicit_fields_x5_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x5_1_x5_1" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x5_1_x5_1" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x5_1_x5_1")
@@ -289,8 +282,7 @@ instance HasCField.HasCField Has_implicit_fields_x5_1 "has_implicit_fields_x5_1_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x5_1_x5_2" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x5_1_x5_2" (RIP.Ptr Has_implicit_fields_x5_1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x5_1_x5_2")
@@ -471,8 +463,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x1")
@@ -484,8 +475,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x2_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Has_implicit_fields_x2_1
-         ) => RIP.HasField "has_implicit_fields_x2_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x2_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr Has_implicit_fields_x2_1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x2_1")
@@ -497,8 +487,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x3" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x3" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x3" (RIP.Ptr Has_implicit_fields) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x3")
@@ -510,8 +499,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x4_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Has_implicit_fields_x4_1
-         ) => RIP.HasField "has_implicit_fields_x4_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x4_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr Has_implicit_fields_x4_1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x4_1")
@@ -523,8 +511,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5_1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Has_implicit_fields_x5_1
-         ) => RIP.HasField "has_implicit_fields_x5_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x5_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr Has_implicit_fields_x5_1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x5_1")
@@ -536,8 +523,7 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "has_implicit_fields_x5" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
+instance RIP.HasField "has_implicit_fields_x5" (RIP.Ptr Has_implicit_fields) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_x5")

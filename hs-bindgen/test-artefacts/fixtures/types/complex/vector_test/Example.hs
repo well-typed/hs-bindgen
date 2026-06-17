@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -77,8 +75,7 @@ instance HasCField.HasCField Vector "vector_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr ty) where
+instance RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr RIP.CDouble) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
 
@@ -88,7 +85,6 @@ instance HasCField.HasCField Vector "vector_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
+instance RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr RIP.CDouble) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_y")

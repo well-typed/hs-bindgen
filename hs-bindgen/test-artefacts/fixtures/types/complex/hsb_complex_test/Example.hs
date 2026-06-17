@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -90,8 +88,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Complex RIP.CFloat
-         ) => RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr (RIP.Complex RIP.CFloat)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_velocity")
@@ -103,8 +100,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Complex RIP.CDouble
-         ) => RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr (RIP.Complex RIP.CDouble)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_position")
@@ -116,8 +112,7 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_id")

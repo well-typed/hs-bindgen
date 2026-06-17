@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -79,8 +77,7 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+instance RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_x")
@@ -92,8 +89,7 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr Linked_list_A_t
-         ) => RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+instance RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr (RIP.Ptr Linked_list_A_t)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_next")
@@ -155,8 +151,7 @@ instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+instance RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_x")
@@ -168,8 +163,7 @@ instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr Linked_list_B_t
-         ) => RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+instance RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr (RIP.Ptr Linked_list_B_t)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_next")

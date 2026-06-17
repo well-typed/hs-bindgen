@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -34,8 +32,7 @@ newtype Toggle = Toggle
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ty ~ Block.Block (IO RIP.CBool)
-         ) => RIP.HasField "unwrapToggle" (RIP.Ptr Toggle) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapToggle" (RIP.Ptr Toggle) (RIP.Ptr (Block.Block (IO RIP.CBool))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapToggle")
@@ -59,8 +56,7 @@ newtype Counter = Counter
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ty ~ Block.Block (IO RIP.CInt)
-         ) => RIP.HasField "unwrapCounter" (RIP.Ptr Counter) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapCounter" (RIP.Ptr Counter) (RIP.Ptr (Block.Block (IO RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapCounter")
@@ -84,8 +80,7 @@ newtype VarCounter = VarCounter
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
-instance ( ty ~ Block.Block (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapVarCounter" (RIP.Ptr VarCounter) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapVarCounter" (RIP.Ptr VarCounter) (RIP.Ptr (Block.Block (RIP.CInt -> IO RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapVarCounter")

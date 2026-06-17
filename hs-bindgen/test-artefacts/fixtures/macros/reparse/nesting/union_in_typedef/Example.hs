@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -62,8 +60,7 @@ newtype MyInt = MyInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
@@ -124,7 +121,7 @@ instance HasCField.HasCField T1 "t1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
+instance RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
 
@@ -178,8 +175,7 @@ instance HasCField.HasCField T2_Aux "t2_Aux_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ MyInt
-         ) => RIP.HasField "t2_Aux_x" (RIP.Ptr T2_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "t2_Aux_x" (RIP.Ptr T2_Aux) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_Aux_x")
 
@@ -201,8 +197,7 @@ newtype T2 = T2
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr T2_Aux
-         ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr (RIP.Ptr T2_Aux)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
 
@@ -262,8 +257,7 @@ instance HasCField.HasCField T3_Aux "t3_Aux_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ MyInt
-         ) => RIP.HasField "t3_Aux_x" (RIP.Ptr T3_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "t3_Aux_x" (RIP.Ptr T3_Aux) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_Aux_x")
 
@@ -285,8 +279,7 @@ newtype T3 = T3
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr (RIP.Ptr T3_Aux)
-         ) => RIP.HasField "unwrapT3" (RIP.Ptr T3) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT3" (RIP.Ptr T3) (RIP.Ptr (RIP.Ptr (RIP.Ptr T3_Aux))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT3")
 

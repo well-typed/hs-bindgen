@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -12,7 +11,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -107,8 +105,7 @@ instance HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "another_typedef_struct_t_foo" (RIP.Ptr Another_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "another_typedef_struct_t_foo" (RIP.Ptr Another_typedef_struct_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"another_typedef_struct_t_foo")
@@ -120,8 +117,7 @@ instance HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "another_typedef_struct_t_bar" (RIP.Ptr Another_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "another_typedef_struct_t_bar" (RIP.Ptr Another_typedef_struct_t) (RIP.Ptr RIP.CChar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"another_typedef_struct_t_bar")
@@ -205,8 +201,7 @@ instance Read Another_typedef_enum_e where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapAnother_typedef_enum_e" (RIP.Ptr Another_typedef_enum_e) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapAnother_typedef_enum_e" (RIP.Ptr Another_typedef_enum_e) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapAnother_typedef_enum_e")
@@ -291,8 +286,7 @@ newtype A_type_t = A_type_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapA_type_t" (RIP.Ptr A_type_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA_type_t" (RIP.Ptr A_type_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapA_type_t")
@@ -331,8 +325,7 @@ newtype Var_t = Var_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapVar_t" (RIP.Ptr Var_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapVar_t" (RIP.Ptr Var_t) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapVar_t")
@@ -492,8 +485,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_0" whe
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "a_typedef_struct_t_field_0" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_0" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr RIP.CBool) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_0")
@@ -505,8 +497,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_1" whe
 
   offset# = \_ -> \_ -> 1
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "a_typedef_struct_t_field_1" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_1" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_1")
@@ -518,8 +509,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_2" whe
 
   offset# = \_ -> \_ -> 2
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "a_typedef_struct_t_field_2" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_2" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_2")
@@ -531,8 +521,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_3" whe
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "a_typedef_struct_t_field_3" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_3" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_3")
@@ -544,8 +533,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_4" whe
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ Another_typedef_struct_t
-         ) => RIP.HasField "a_typedef_struct_t_field_4" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_4" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr Another_typedef_struct_t) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_4")
@@ -557,8 +545,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_5" whe
 
   offset# = \_ -> \_ -> 16
 
-instance ( ty ~ RIP.Ptr Another_typedef_struct_t
-         ) => RIP.HasField "a_typedef_struct_t_field_5" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_5" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr (RIP.Ptr Another_typedef_struct_t)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_5")
@@ -570,8 +557,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_6" whe
 
   offset# = \_ -> \_ -> 24
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "a_typedef_struct_t_field_6" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_6" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr (RIP.Ptr RIP.Void)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_6")
@@ -583,8 +569,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_7" whe
 
   offset# = \_ -> \_ -> 32
 
-instance ( ty ~ CA.ConstantArray 7 HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "a_typedef_struct_t_field_7" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_7" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr (CA.ConstantArray 7 HsBindgen.Runtime.LibC.Word32)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_7")
@@ -596,8 +581,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_8" whe
 
   offset# = \_ -> \_ -> 60
 
-instance ( ty ~ Another_typedef_enum_e
-         ) => RIP.HasField "a_typedef_struct_t_field_8" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_8" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr Another_typedef_enum_e) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_8")
@@ -609,8 +593,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_9" whe
 
   offset# = \_ -> \_ -> 64
 
-instance ( ty ~ CA.ConstantArray 4 Another_typedef_enum_e
-         ) => RIP.HasField "a_typedef_struct_t_field_9" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_9" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr (CA.ConstantArray 4 Another_typedef_enum_e)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_9")
@@ -622,8 +605,7 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_10" wh
 
   offset# = \_ -> \_ -> 80
 
-instance ( ty ~ CA.ConstantArray 5 (CA.ConstantArray 3 Another_typedef_enum_e)
-         ) => RIP.HasField "a_typedef_struct_t_field_10" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
+instance RIP.HasField "a_typedef_struct_t_field_10" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr (CA.ConstantArray 5 (CA.ConstantArray 3 Another_typedef_enum_e))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_10")
@@ -746,8 +728,7 @@ instance Read A_typedef_enum_e where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUChar
-         ) => RIP.HasField "unwrapA_typedef_enum_e" (RIP.Ptr A_typedef_enum_e) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA_typedef_enum_e" (RIP.Ptr A_typedef_enum_e) (RIP.Ptr RIP.CUChar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapA_typedef_enum_e")
@@ -843,8 +824,7 @@ instance RIP.FromFunPtr Callback_t_Aux where
 
   fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 
-instance ( ty ~ (RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
-         ) => RIP.HasField "unwrapCallback_t_Aux" (RIP.Ptr Callback_t_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapCallback_t_Aux" (RIP.Ptr Callback_t_Aux) (RIP.Ptr (RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapCallback_t_Aux")
@@ -874,8 +854,7 @@ newtype Callback_t = Callback_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Callback_t_Aux
-         ) => RIP.HasField "unwrapCallback_t" (RIP.Ptr Callback_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapCallback_t" (RIP.Ptr Callback_t) (RIP.Ptr (RIP.FunPtr Callback_t_Aux)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapCallback_t")

@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -12,7 +11,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -66,8 +64,7 @@ newtype Uint = Uint
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Uint) (RIP.Ptr ty) where
+instance RIP.HasField "unwrap" (RIP.Ptr Uint) (RIP.Ptr RIP.CUInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
 
@@ -105,8 +102,7 @@ newtype Size_t = Size_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CULong
-         ) => RIP.HasField "unwrap" (RIP.Ptr Size_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrap" (RIP.Ptr Size_t) (RIP.Ptr RIP.CULong) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
 
@@ -253,8 +249,7 @@ instance HasCField.HasCField Bar1_t "a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "a" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "a" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.Ptr RIP.Void)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
@@ -264,7 +259,7 @@ instance HasCField.HasCField Bar1_t "b" where
 
   offset# = \_ -> \_ -> 8
 
-instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "b" (RIP.Ptr Bar1_t) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
 
@@ -274,8 +269,7 @@ instance HasCField.HasCField Bar1_t "c" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "c" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "c" (RIP.Ptr Bar1_t) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"c")
 
@@ -285,8 +279,7 @@ instance HasCField.HasCField Bar1_t "d" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "d" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "d" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.Ptr RIP.CChar)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"d")
 
@@ -297,8 +290,7 @@ instance HasCField.HasCField Bar1_t "e" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
-         ) => RIP.HasField "e" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "e" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.FunPtr (IO (RIP.Ptr RIP.CChar)))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"e")
 
@@ -309,8 +301,7 @@ instance HasCField.HasCField Bar1_t "f" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
-         ) => RIP.HasField "f" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "f" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.FunPtr (RIP.Ptr RIP.Void -> IO ()))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"f")
 
@@ -321,8 +312,7 @@ instance HasCField.HasCField Bar1_t "g" where
 
   offset# = \_ -> \_ -> 40
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
-         ) => RIP.HasField "g" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "g" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt)))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"g")
 
@@ -333,8 +323,7 @@ instance HasCField.HasCField Bar1_t "h" where
 
   offset# = \_ -> \_ -> 48
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
-         ) => RIP.HasField "h" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "h" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt))))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"h")
 
@@ -345,8 +334,7 @@ instance HasCField.HasCField Bar1_t "i" where
 
   offset# = \_ -> \_ -> 56
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
-         ) => RIP.HasField "i" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "i" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt)))))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"i")
 
@@ -357,8 +345,7 @@ instance HasCField.HasCField Bar1_t "j" where
 
   offset# = \_ -> \_ -> 64
 
-instance ( ty ~ CA.ConstantArray 2 RIP.CChar
-         ) => RIP.HasField "j" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "j" (RIP.Ptr Bar1_t) (RIP.Ptr (CA.ConstantArray 2 RIP.CChar)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"j")
 
@@ -368,8 +355,7 @@ instance HasCField.HasCField Bar1_t "k" where
 
   offset# = \_ -> \_ -> 72
 
-instance ( ty ~ RIP.Ptr Bar1_t
-         ) => RIP.HasField "k" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+instance RIP.HasField "k" (RIP.Ptr Bar1_t) (RIP.Ptr (RIP.Ptr Bar1_t)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"k")
 
@@ -420,7 +406,7 @@ instance HasCField.HasCField Bar2_t "a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar2_t) (RIP.Ptr ty) where
+instance RIP.HasField "a" (RIP.Ptr Bar2_t) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
@@ -471,7 +457,7 @@ instance HasCField.HasCField Bar3_t "a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar3_t) (RIP.Ptr ty) where
+instance RIP.HasField "a" (RIP.Ptr Bar3_t) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
@@ -562,8 +548,7 @@ instance Read Baz2_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Baz2_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrap" (RIP.Ptr Baz2_t) (RIP.Ptr RIP.CUInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
 
@@ -660,8 +645,7 @@ instance Read Baz3_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Baz3_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrap" (RIP.Ptr Baz3_t) (RIP.Ptr RIP.CUInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
 
@@ -758,8 +742,7 @@ instance Read Baz4_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Baz4_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrap" (RIP.Ptr Baz4_t) (RIP.Ptr RIP.CUInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
 

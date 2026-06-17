@@ -10,8 +10,9 @@
 newtype FunPtr_Aux
     = FunPtr_Aux {unwrapFunPtr_Aux :: (Foo -> IO ())}
     deriving stock Generic
-instance (~) ty (Foo -> IO ()) =>
-         HasField "unwrapFunPtr_Aux" (Ptr FunPtr_Aux) (Ptr ty)
+instance HasField "unwrapFunPtr_Aux"
+                  (Ptr FunPtr_Aux)
+                  (Ptr (Foo -> IO ()))
     where getField = fromPtr (Proxy @"unwrapFunPtr_Aux")
 instance HasCField FunPtr_Aux "unwrapFunPtr_Aux"
     where type CFieldType FunPtr_Aux "unwrapFunPtr_Aux" = Foo -> IO ()
@@ -30,8 +31,9 @@ newtype FunPtr
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr FunPtr_Aux) =>
-         HasField "unwrapFunPtr" (Ptr FunPtr) (Ptr ty)
+instance HasField "unwrapFunPtr"
+                  (Ptr FunPtr)
+                  (Ptr (FunPtr FunPtr_Aux))
     where getField = fromPtr (Proxy @"unwrapFunPtr")
 instance HasCField FunPtr "unwrapFunPtr"
     where type CFieldType FunPtr "unwrapFunPtr" = FunPtr FunPtr_Aux
@@ -71,10 +73,10 @@ deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_x"
     where type CFieldType Foo "foo_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "foo_x" (Ptr Foo) (Ptr ty)
+instance HasField "foo_x" (Ptr Foo) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_x")
 instance HasCField Foo "foo_y"
     where type CFieldType Foo "foo_y" = CInt
           offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "foo_y" (Ptr Foo) (Ptr ty)
+instance HasField "foo_y" (Ptr Foo) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_y")

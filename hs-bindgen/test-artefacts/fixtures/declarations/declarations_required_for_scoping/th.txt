@@ -46,8 +46,9 @@ newtype A
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty HsBindgen.Runtime.LibC.CSize =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA"
+                  (Ptr A)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = HsBindgen.Runtime.LibC.CSize

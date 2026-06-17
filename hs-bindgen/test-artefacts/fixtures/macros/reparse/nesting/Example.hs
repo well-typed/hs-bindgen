@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -54,8 +52,7 @@ newtype MyInt = MyInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
@@ -113,7 +110,7 @@ instance HasCField.HasCField T2 "t2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
 
@@ -164,7 +161,7 @@ instance HasCField.HasCField T3 "t3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
+instance RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
 
@@ -215,6 +212,6 @@ instance HasCField.HasCField T4 "t4_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t4_x" (RIP.Ptr T4) (RIP.Ptr ty) where
+instance RIP.HasField "t4_x" (RIP.Ptr T4) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t4_x")

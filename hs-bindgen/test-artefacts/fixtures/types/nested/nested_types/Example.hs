@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -82,8 +80,7 @@ instance HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_i" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_i" (RIP.Ptr Foo) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_i")
 
@@ -93,8 +90,7 @@ instance HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_c")
 
@@ -154,7 +150,7 @@ instance HasCField.HasCField Bar "bar_foo1" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ Foo) => RIP.HasField "bar_foo1" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance RIP.HasField "bar_foo1" (RIP.Ptr Bar) (RIP.Ptr Foo) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_foo1")
 
@@ -164,7 +160,7 @@ instance HasCField.HasCField Bar "bar_foo2" where
 
   offset# = \_ -> \_ -> 8
 
-instance (ty ~ Foo) => RIP.HasField "bar_foo2" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance RIP.HasField "bar_foo2" (RIP.Ptr Bar) (RIP.Ptr Foo) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_foo2")
 
@@ -225,8 +221,7 @@ instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ex3_ex3_struct_ex3_a" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
+instance RIP.HasField "ex3_ex3_struct_ex3_a" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_a")
@@ -238,8 +233,7 @@ instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "ex3_ex3_struct_ex3_b" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
+instance RIP.HasField "ex3_ex3_struct_ex3_b" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr RIP.CChar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_b")
@@ -300,8 +294,7 @@ instance HasCField.HasCField Ex3 "ex3_ex3_struct" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Ex3_ex3_struct
-         ) => RIP.HasField "ex3_ex3_struct" (RIP.Ptr Ex3) (RIP.Ptr ty) where
+instance RIP.HasField "ex3_ex3_struct" (RIP.Ptr Ex3) (RIP.Ptr Ex3_ex3_struct) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct")
@@ -312,8 +305,7 @@ instance HasCField.HasCField Ex3 "ex3_ex3_c" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "ex3_ex3_c" (RIP.Ptr Ex3) (RIP.Ptr ty) where
+instance RIP.HasField "ex3_ex3_c" (RIP.Ptr Ex3) (RIP.Ptr RIP.CFloat) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"ex3_ex3_c")
 
@@ -373,8 +365,7 @@ instance HasCField.HasCField Ex4_odd "ex4_odd_value" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ex4_odd_value" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
+instance RIP.HasField "ex4_odd_value" (RIP.Ptr Ex4_odd) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_odd_value")
@@ -386,8 +377,7 @@ instance HasCField.HasCField Ex4_odd "ex4_odd_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr Ex4_even
-         ) => RIP.HasField "ex4_odd_next" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
+instance RIP.HasField "ex4_odd_next" (RIP.Ptr Ex4_odd) (RIP.Ptr (RIP.Ptr Ex4_even)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_odd_next")
@@ -449,8 +439,7 @@ instance HasCField.HasCField Ex4_even "ex4_even_value" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "ex4_even_value" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
+instance RIP.HasField "ex4_even_value" (RIP.Ptr Ex4_even) (RIP.Ptr RIP.CDouble) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_even_value")
@@ -462,8 +451,7 @@ instance HasCField.HasCField Ex4_even "ex4_even_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr Ex4_odd
-         ) => RIP.HasField "ex4_even_next" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
+instance RIP.HasField "ex4_even_next" (RIP.Ptr Ex4_even) (RIP.Ptr (RIP.Ptr Ex4_odd)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_even_next")

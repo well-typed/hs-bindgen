@@ -35,12 +35,12 @@ deriving via (EquivStorable Pt) instance Storable Pt
 instance HasCField Pt "pt_x"
     where type CFieldType Pt "pt_x" = CDouble
           offset# = \_ -> \_ -> 0
-instance (~) ty CDouble => HasField "pt_x" (Ptr Pt) (Ptr ty)
+instance HasField "pt_x" (Ptr Pt) (Ptr CDouble)
     where getField = fromPtr (Proxy @"pt_x")
 instance HasCField Pt "pt_y"
     where type CFieldType Pt "pt_y" = CDouble
           offset# = \_ -> \_ -> 8
-instance (~) ty CDouble => HasField "pt_y" (Ptr Pt) (Ptr ty)
+instance HasField "pt_y" (Ptr Pt) (Ptr CDouble)
     where getField = fromPtr (Proxy @"pt_y")
 {-| __C declaration:__ @macro CHILD_HEADER@
 
@@ -115,10 +115,10 @@ deriving via (EquivStorable Rect) instance Storable Rect
 instance HasCField Rect "rect_tl"
     where type CFieldType Rect "rect_tl" = Pt
           offset# = \_ -> \_ -> 0
-instance (~) ty Pt => HasField "rect_tl" (Ptr Rect) (Ptr ty)
+instance HasField "rect_tl" (Ptr Rect) (Ptr Pt)
     where getField = fromPtr (Proxy @"rect_tl")
 instance HasCField Rect "rect_br"
     where type CFieldType Rect "rect_br" = Pt
           offset# = \_ -> \_ -> 16
-instance (~) ty Pt => HasField "rect_br" (Ptr Rect) (Ptr ty)
+instance HasField "rect_br" (Ptr Rect) (Ptr Pt)
     where getField = fromPtr (Proxy @"rect_br")

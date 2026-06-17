@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -69,8 +67,7 @@ instance HasCField.HasCField OkBefore "okBefore_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
+instance RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"okBefore_x")
@@ -122,7 +119,6 @@ instance HasCField.HasCField OkAfter "okAfter_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr ty) where
+instance RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"okAfter_x")

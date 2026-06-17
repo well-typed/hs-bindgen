@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -90,8 +88,7 @@ instance HasCBitfield.HasCBitfield Foo "foo_a" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_a" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "foo_a" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr RIP.CSChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_a")
 
@@ -103,8 +100,7 @@ instance HasCBitfield.HasCBitfield Foo "foo_b" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_b" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "foo_b" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr RIP.CSChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_b")
 
@@ -116,8 +112,7 @@ instance HasCBitfield.HasCBitfield Foo "foo_c" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "foo_c" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr RIP.CSChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_c")
 
@@ -179,8 +174,7 @@ instance HasCBitfield.HasCBitfield Bar "bar_x" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "bar_x" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr RIP.CSChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"bar_x")
 
@@ -192,7 +186,6 @@ instance HasCBitfield.HasCBitfield Bar "bar_y" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "bar_y" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "bar_y" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr RIP.CSChar) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"bar_y")

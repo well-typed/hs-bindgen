@@ -42,7 +42,7 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -95,7 +95,7 @@ set_g1_x = setUnionPayload
 instance HasCField G1 "g1_x"
     where type CFieldType G1 "g1_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
+instance HasField "g1_x" (Ptr G1) (Ptr MyInt)
     where getField = fromPtr (Proxy @"g1_x")
 {-| __C declaration:__ @union \@G2@
 
@@ -145,7 +145,7 @@ set_g2_x = setUnionPayload
 instance HasCField G2 "g2_x"
     where type CFieldType G2 "g2_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
+instance HasField "g2_x" (Ptr G2) (Ptr MyInt)
     where getField = fromPtr (Proxy @"g2_x")
 {-| __C declaration:__ @union \@G3@
 
@@ -195,7 +195,7 @@ set_g3_x = setUnionPayload
 instance HasCField G3 "g3_x"
     where type CFieldType G3 "g3_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
+instance HasField "g3_x" (Ptr G3) (Ptr MyInt)
     where getField = fromPtr (Proxy @"g3_x")
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G1@
 foreign import ccall unsafe "hs_bindgen_4b01ee4d60407c60" hs_bindgen_4b01ee4d60407c60_base ::

@@ -66,8 +66,7 @@ newtype Outer_int
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapOuter_int" (Ptr Outer_int) (Ptr ty)
+instance HasField "unwrapOuter_int" (Ptr Outer_int) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapOuter_int")
 instance HasCField Outer_int "unwrapOuter_int"
     where type CFieldType Outer_int "unwrapOuter_int" = CInt
@@ -96,8 +95,7 @@ newtype Inner_int
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty Outer_int =>
-         HasField "unwrapInner_int" (Ptr Inner_int) (Ptr ty)
+instance HasField "unwrapInner_int" (Ptr Inner_int) (Ptr Outer_int)
     where getField = fromPtr (Proxy @"unwrapInner_int")
 instance HasCField Inner_int "unwrapInner_int"
     where type CFieldType Inner_int "unwrapInner_int" = Outer_int

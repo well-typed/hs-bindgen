@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -73,8 +71,7 @@ instance RIP.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapRunDriver_Aux" (RIP.Ptr RunDriver_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapRunDriver_Aux" (RIP.Ptr RunDriver_Aux) (RIP.Ptr (RIP.Ptr Driver -> IO RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapRunDriver_Aux")
@@ -104,8 +101,7 @@ newtype RunDriver = RunDriver
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr RunDriver_Aux
-         ) => RIP.HasField "unwrapRunDriver" (RIP.Ptr RunDriver) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapRunDriver" (RIP.Ptr RunDriver) (RIP.Ptr (RIP.FunPtr RunDriver_Aux)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapRunDriver")
@@ -164,8 +160,7 @@ instance HasCField.HasCField Driver "driver_run" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RunDriver
-         ) => RIP.HasField "driver_run" (RIP.Ptr Driver) (RIP.Ptr ty) where
+instance RIP.HasField "driver_run" (RIP.Ptr Driver) (RIP.Ptr RunDriver) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"driver_run")
@@ -218,8 +213,7 @@ instance HasCField.HasCField Bare "bare_callback" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
-         ) => RIP.HasField "bare_callback" (RIP.Ptr Bare) (RIP.Ptr ty) where
+instance RIP.HasField "bare_callback" (RIP.Ptr Bare) (RIP.Ptr (RIP.FunPtr (RIP.CInt -> IO ()))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"bare_callback")

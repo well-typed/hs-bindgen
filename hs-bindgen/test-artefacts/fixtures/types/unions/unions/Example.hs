@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -97,8 +95,7 @@ instance HasCField.HasCField Dim2 "dim2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim2_x" (RIP.Ptr Dim2) (RIP.Ptr ty) where
+instance RIP.HasField "dim2_x" (RIP.Ptr Dim2) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim2_x")
 
@@ -108,8 +105,7 @@ instance HasCField.HasCField Dim2 "dim2_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim2_y" (RIP.Ptr Dim2) (RIP.Ptr ty) where
+instance RIP.HasField "dim2_y" (RIP.Ptr Dim2) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim2_y")
 
@@ -178,8 +174,7 @@ instance HasCField.HasCField Dim3 "dim3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_x" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance RIP.HasField "dim3_x" (RIP.Ptr Dim3) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_x")
 
@@ -189,8 +184,7 @@ instance HasCField.HasCField Dim3 "dim3_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_y" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance RIP.HasField "dim3_y" (RIP.Ptr Dim3) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_y")
 
@@ -200,8 +194,7 @@ instance HasCField.HasCField Dim3 "dim3_z" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_z" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance RIP.HasField "dim3_z" (RIP.Ptr Dim3) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_z")
 
@@ -280,8 +273,7 @@ instance HasCField.HasCField DimPayload "dimPayload_dim2" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayload_dim2" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
+instance RIP.HasField "dimPayload_dim2" (RIP.Ptr DimPayload) (RIP.Ptr Dim2) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimPayload_dim2")
@@ -292,8 +284,7 @@ instance HasCField.HasCField DimPayload "dimPayload_dim3" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayload_dim3" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
+instance RIP.HasField "dimPayload_dim3" (RIP.Ptr DimPayload) (RIP.Ptr Dim2) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimPayload_dim3")
@@ -354,8 +345,7 @@ instance HasCField.HasCField Dim "dim_tag" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim_tag" (RIP.Ptr Dim) (RIP.Ptr ty) where
+instance RIP.HasField "dim_tag" (RIP.Ptr Dim) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim_tag")
 
@@ -365,8 +355,7 @@ instance HasCField.HasCField Dim "dim_payload" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ DimPayload
-         ) => RIP.HasField "dim_payload" (RIP.Ptr Dim) (RIP.Ptr ty) where
+instance RIP.HasField "dim_payload" (RIP.Ptr Dim) (RIP.Ptr DimPayload) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dim_payload")
@@ -446,8 +435,7 @@ instance HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayloadB_dim2" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
+instance RIP.HasField "dimPayloadB_dim2" (RIP.Ptr DimPayloadB) (RIP.Ptr Dim2) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim2")
@@ -458,8 +446,7 @@ instance HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayloadB_dim3" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
+instance RIP.HasField "dimPayloadB_dim3" (RIP.Ptr DimPayloadB) (RIP.Ptr Dim2) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim3")
@@ -520,8 +507,7 @@ instance HasCField.HasCField DimB "dimB_tag" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dimB_tag" (RIP.Ptr DimB) (RIP.Ptr ty) where
+instance RIP.HasField "dimB_tag" (RIP.Ptr DimB) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dimB_tag")
 
@@ -531,8 +517,7 @@ instance HasCField.HasCField DimB "dimB_payload" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ DimPayloadB
-         ) => RIP.HasField "dimB_payload" (RIP.Ptr DimB) (RIP.Ptr ty) where
+instance RIP.HasField "dimB_payload" (RIP.Ptr DimB) (RIP.Ptr DimPayloadB) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimB_payload")
@@ -593,8 +578,7 @@ instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_xy_x" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_xy_x" (RIP.Ptr AnonA_xy) (RIP.Ptr RIP.CDouble) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_xy_x")
@@ -605,8 +589,7 @@ instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_xy_y" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_xy_y" (RIP.Ptr AnonA_xy) (RIP.Ptr RIP.CDouble) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_xy_y")
@@ -668,8 +651,7 @@ instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_polar_r" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_polar_r" (RIP.Ptr AnonA_polar) (RIP.Ptr RIP.CDouble) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_polar_r")
@@ -681,8 +663,7 @@ instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_polar_p" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_polar_p" (RIP.Ptr AnonA_polar) (RIP.Ptr RIP.CDouble) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_polar_p")
@@ -762,8 +743,7 @@ instance HasCField.HasCField AnonA "anonA_xy" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ AnonA_xy
-         ) => RIP.HasField "anonA_xy" (RIP.Ptr AnonA) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_xy" (RIP.Ptr AnonA) (RIP.Ptr AnonA_xy) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"anonA_xy")
 
@@ -773,8 +753,7 @@ instance HasCField.HasCField AnonA "anonA_polar" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ AnonA_polar
-         ) => RIP.HasField "anonA_polar" (RIP.Ptr AnonA) (RIP.Ptr ty) where
+instance RIP.HasField "anonA_polar" (RIP.Ptr AnonA) (RIP.Ptr AnonA_polar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_polar")

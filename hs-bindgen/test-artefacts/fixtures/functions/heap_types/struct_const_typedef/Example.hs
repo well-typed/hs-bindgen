@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -70,7 +68,7 @@ instance HasCField.HasCField S "s_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr ty) where
+instance RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_x")
 
@@ -91,7 +89,7 @@ newtype T = T
     , Marshal.WriteRaw
     )
 
-instance (ty ~ S) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr S) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
 

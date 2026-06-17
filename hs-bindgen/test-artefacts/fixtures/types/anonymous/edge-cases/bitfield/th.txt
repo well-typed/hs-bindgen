@@ -27,8 +27,7 @@ instance HasCBitfield S1_y "s1_y_y"
     where type CBitfieldType S1_y "s1_y_y" = CChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "s1_y_y" (Ptr S1_y) (BitfieldPtr ty)
+instance HasField "s1_y_y" (Ptr S1_y) (BitfieldPtr CChar)
     where getField = toPtr (Proxy @"s1_y_y")
 {-| __C declaration:__ @struct S1@
 
@@ -65,12 +64,12 @@ deriving via (EquivStorable S1) instance Storable S1
 instance HasCField S1 "s1_y"
     where type CFieldType S1 "s1_y" = S1_y
           offset# = \_ -> \_ -> 0
-instance (~) ty S1_y => HasField "s1_y" (Ptr S1) (Ptr ty)
+instance HasField "s1_y" (Ptr S1) (Ptr S1_y)
     where getField = fromPtr (Proxy @"s1_y")
 instance HasCField S1 "s1_x"
     where type CFieldType S1 "s1_x" = CInt
           offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "s1_x" (Ptr S1) (Ptr ty)
+instance HasField "s1_x" (Ptr S1) (Ptr CInt)
     where getField = fromPtr (Proxy @"s1_x")
 {-| __C declaration:__ @struct \@S2_y_y@
 
@@ -100,8 +99,7 @@ instance HasCBitfield S2_y_y "s2_y_y_y"
     where type CBitfieldType S2_y_y "s2_y_y_y" = CChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "s2_y_y_y" (Ptr S2_y_y) (BitfieldPtr ty)
+instance HasField "s2_y_y_y" (Ptr S2_y_y) (BitfieldPtr CChar)
     where getField = toPtr (Proxy @"s2_y_y_y")
 {-| __C declaration:__ @struct \@S2_y@
 
@@ -138,12 +136,12 @@ deriving via (EquivStorable S2_y) instance Storable S2_y
 instance HasCField S2_y "s2_y_y"
     where type CFieldType S2_y "s2_y_y" = S2_y_y
           offset# = \_ -> \_ -> 0
-instance (~) ty S2_y_y => HasField "s2_y_y" (Ptr S2_y) (Ptr ty)
+instance HasField "s2_y_y" (Ptr S2_y) (Ptr S2_y_y)
     where getField = fromPtr (Proxy @"s2_y_y")
 instance HasCField S2_y "s2_y_x"
     where type CFieldType S2_y "s2_y_x" = CInt
           offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "s2_y_x" (Ptr S2_y) (Ptr ty)
+instance HasField "s2_y_x" (Ptr S2_y) (Ptr CInt)
     where getField = fromPtr (Proxy @"s2_y_x")
 {-| __C declaration:__ @struct S2@
 
@@ -172,5 +170,5 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_y"
     where type CFieldType S2 "s2_y" = S2_y
           offset# = \_ -> \_ -> 0
-instance (~) ty S2_y => HasField "s2_y" (Ptr S2) (Ptr ty)
+instance HasField "s2_y" (Ptr S2) (Ptr S2_y)
     where getField = fromPtr (Proxy @"s2_y")

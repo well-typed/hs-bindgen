@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -110,8 +108,7 @@ instance Read EnumA where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapEnumA")
@@ -187,8 +184,7 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ EnumA
-         ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
+instance RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr EnumA) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
@@ -271,8 +267,7 @@ instance Read ExB_fieldB1 where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapExB_fieldB1" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapExB_fieldB1" (RIP.Ptr ExB_fieldB1) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapExB_fieldB1")
@@ -349,8 +344,7 @@ instance HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+instance RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ExB_fieldB1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")

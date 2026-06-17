@@ -26,7 +26,7 @@ deriving via (EquivStorable S_y_x) instance Storable S_y_x
 instance HasCField S_y_x "s_y_x_x"
     where type CFieldType S_y_x "s_y_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s_y_x_x" (Ptr S_y_x) (Ptr ty)
+instance HasField "s_y_x_x" (Ptr S_y_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"s_y_x_x")
 {-| __C declaration:__ @struct \@S_y@
 
@@ -55,7 +55,7 @@ deriving via (EquivStorable S_y) instance Storable S_y
 instance HasCField S_y "s_y_x"
     where type CFieldType S_y "s_y_x" = S_y_x
           offset# = \_ -> \_ -> 0
-instance (~) ty S_y_x => HasField "s_y_x" (Ptr S_y) (Ptr ty)
+instance HasField "s_y_x" (Ptr S_y) (Ptr S_y_x)
     where getField = fromPtr (Proxy @"s_y_x")
 {-| __C declaration:__ @struct S@
 
@@ -84,5 +84,5 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_y"
     where type CFieldType S "s_y" = S_y
           offset# = \_ -> \_ -> 0
-instance (~) ty S_y => HasField "s_y" (Ptr S) (Ptr ty)
+instance HasField "s_y" (Ptr S) (Ptr S_y)
     where getField = fromPtr (Proxy @"s_y")

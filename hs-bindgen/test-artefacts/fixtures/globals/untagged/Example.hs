@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -95,8 +93,7 @@ instance HasCField.HasCField AnonPoint "anonPoint_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+instance RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPoint_x")
@@ -107,8 +104,7 @@ instance HasCField.HasCField AnonPoint "anonPoint_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+instance RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPoint_y")
@@ -169,8 +165,7 @@ instance HasCField.HasCField AnonPair "anonPair_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+instance RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPair_a")
@@ -181,8 +176,7 @@ instance HasCField.HasCField AnonPair "anonPair_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+instance RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPair_b")
@@ -265,8 +259,7 @@ instance Read AnonEnum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapAnonEnum" (RIP.Ptr AnonEnum) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapAnonEnum" (RIP.Ptr AnonEnum) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnum")
@@ -363,8 +356,7 @@ instance Read AnonEnumCoords where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapAnonEnumCoords" (RIP.Ptr AnonEnumCoords) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapAnonEnumCoords" (RIP.Ptr AnonEnumCoords) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnumCoords")
@@ -480,8 +472,7 @@ instance Read A where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr RIP.CUInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -550,7 +541,7 @@ instance HasCField.HasCField B "b_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "b_x" (RIP.Ptr B) (RIP.Ptr ty) where
+instance RIP.HasField "b_x" (RIP.Ptr B) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b_x")
 
@@ -601,6 +592,6 @@ instance HasCField.HasCField C "c_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "c_x" (RIP.Ptr C) (RIP.Ptr ty) where
+instance RIP.HasField "c_x" (RIP.Ptr C) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"c_x")

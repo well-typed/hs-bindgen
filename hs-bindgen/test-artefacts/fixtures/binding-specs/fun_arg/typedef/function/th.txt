@@ -283,8 +283,7 @@ instance ToFunPtr A
     where toFunPtr = hs_bindgen_0c7d4776a632d026
 instance FromFunPtr A
     where fromFunPtr = hs_bindgen_0cf9a6d50f563441
-instance (~) ty (CInt -> IO CInt) =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt -> IO CInt
@@ -299,7 +298,7 @@ newtype B
     = B {unwrapB :: A}
     deriving stock Generic
     deriving newtype HasFFIType
-instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -311,7 +310,7 @@ instance HasCField B "unwrapB"
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 newtype E = E {unwrapE :: M.C} deriving stock Generic
-instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
+instance HasField "unwrapE" (Ptr E) (Ptr M.C)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

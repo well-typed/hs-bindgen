@@ -10,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -48,8 +47,7 @@ newtype Triplet = Triplet
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")
@@ -73,8 +71,7 @@ newtype List = List
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.HasField "unwrapList" (RIP.Ptr List) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapList" (RIP.Ptr List) (RIP.Ptr (IA.IncompleteArray RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapList")
@@ -104,8 +101,7 @@ newtype Matrix = Matrix
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMatrix")
@@ -129,8 +125,7 @@ newtype Tripletlist = Tripletlist
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapTripletlist" (RIP.Ptr Tripletlist) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTripletlist" (RIP.Ptr Tripletlist) (RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTripletlist")
@@ -199,8 +194,7 @@ instance HasCField.HasCField Example "example_triple" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "example_triple" (RIP.Ptr Example) (RIP.Ptr ty) where
+instance RIP.HasField "example_triple" (RIP.Ptr Example) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_triple")
@@ -212,8 +206,7 @@ instance HasCField.HasCField Example "example_sudoku" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "example_sudoku" (RIP.Ptr Example) (RIP.Ptr ty) where
+instance RIP.HasField "example_sudoku" (RIP.Ptr Example) (RIP.Ptr (CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt))) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_sudoku")
@@ -238,8 +231,7 @@ newtype Sudoku = Sudoku
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 Triplet
-         ) => RIP.HasField "unwrapSudoku" (RIP.Ptr Sudoku) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapSudoku" (RIP.Ptr Sudoku) (RIP.Ptr (CA.ConstantArray 3 Triplet)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapSudoku")

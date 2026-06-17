@@ -23,7 +23,7 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -76,7 +76,7 @@ set_t1_x = setUnionPayload
 instance HasCField T1 "t1_x"
     where type CFieldType T1 "t1_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t1_x" (Ptr T1) (Ptr ty)
+instance HasField "t1_x" (Ptr T1) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t1_x")
 {-| __C declaration:__ @union \@T2_Aux@
 
@@ -128,7 +128,7 @@ set_t2_Aux_x = setUnionPayload
 instance HasCField T2_Aux "t2_Aux_x"
     where type CFieldType T2_Aux "t2_Aux_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t2_Aux_x" (Ptr T2_Aux) (Ptr ty)
+instance HasField "t2_Aux_x" (Ptr T2_Aux) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t2_Aux_x")
 {-| __C declaration:__ @T2@
 
@@ -144,8 +144,7 @@ newtype T2
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr T2_Aux) =>
-         HasField "unwrapT2" (Ptr T2) (Ptr ty)
+instance HasField "unwrapT2" (Ptr T2) (Ptr (Ptr T2_Aux))
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = Ptr T2_Aux
@@ -200,7 +199,7 @@ set_t3_Aux_x = setUnionPayload
 instance HasCField T3_Aux "t3_Aux_x"
     where type CFieldType T3_Aux "t3_Aux_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t3_Aux_x" (Ptr T3_Aux) (Ptr ty)
+instance HasField "t3_Aux_x" (Ptr T3_Aux) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t3_Aux_x")
 {-| __C declaration:__ @T3@
 
@@ -216,8 +215,7 @@ newtype T3
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr (Ptr T3_Aux)) =>
-         HasField "unwrapT3" (Ptr T3) (Ptr ty)
+instance HasField "unwrapT3" (Ptr T3) (Ptr (Ptr (Ptr T3_Aux)))
     where getField = fromPtr (Proxy @"unwrapT3")
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = Ptr (Ptr T3_Aux)

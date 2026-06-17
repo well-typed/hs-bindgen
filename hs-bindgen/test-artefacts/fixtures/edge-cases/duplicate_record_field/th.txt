@@ -26,7 +26,7 @@ deriving via (EquivStorable A) instance Storable A
 instance HasCField A "dup"
     where type CFieldType A "dup" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dup" (Ptr A) (Ptr ty)
+instance HasField "dup" (Ptr A) (Ptr CInt)
     where getField = fromPtr (Proxy @"dup")
 {-| __C declaration:__ @struct B@
 
@@ -55,5 +55,5 @@ deriving via (EquivStorable B) instance Storable B
 instance HasCField B "dup"
     where type CFieldType B "dup" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dup" (Ptr B) (Ptr ty)
+instance HasField "dup" (Ptr B) (Ptr CInt)
     where getField = fromPtr (Proxy @"dup")

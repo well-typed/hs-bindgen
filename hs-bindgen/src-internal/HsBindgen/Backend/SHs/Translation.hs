@@ -578,7 +578,7 @@ translateHasFieldInstance inst mbComment = Instance{
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
     , comment = mbComment
-    , super   = [ TApp (TApp TEq tyTypeVar) field ]
+    , super   = [ ]
     , decs    = [ ( bindgenGlobalTerm HasField_getField
                   , eBindgenGlobal ptrToFieldGlobal `EApp`
                       (eBindgenGlobal Proxy_constructor `ETypeApp` fieldLit)
@@ -590,21 +590,17 @@ translateHasFieldInstance inst mbComment = Instance{
       case inst.deriveVia of
         Hs.ViaHasCField -> (
             HasCField_fromPtr
-          , tBindgenGlobal Foreign_Ptr_type `TApp` tyTypeVar
+          , tBindgenGlobal Foreign_Ptr_type `TApp` field
           )
         Hs.ViaHasCBitfield -> (
             HasCBitfield_toPtr
-          , tBindgenGlobal HasCBitfield_BitfieldPtr_type `TApp` tyTypeVar
+          , tBindgenGlobal HasCBitfield_BitfieldPtr_type `TApp` field
           )
 
     parent    = translateType inst.parentType
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
     field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
-
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
-    -- This is not actually a free type variable.
-    tyTypeVar = TFree $ Hs.UnsafeName "ty"
 
 {-------------------------------------------------------------------------------
   Unions

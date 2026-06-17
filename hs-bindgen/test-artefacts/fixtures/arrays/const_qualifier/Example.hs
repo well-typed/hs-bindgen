@@ -8,7 +8,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -40,8 +39,7 @@ newtype S = S
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr (IA.IncompleteArray RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapS")
 
@@ -64,8 +62,7 @@ newtype T = T
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr (IA.IncompleteArray RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
 
@@ -94,8 +91,7 @@ newtype U = U
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapU" (RIP.Ptr U) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapU" (RIP.Ptr U) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapU")
 
@@ -124,8 +120,7 @@ newtype V = V
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapV" (RIP.Ptr V) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapV" (RIP.Ptr V) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapV")
 
@@ -154,8 +149,7 @@ newtype W = W
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapW" (RIP.Ptr W) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapW" (RIP.Ptr W) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapW")
 
@@ -184,8 +178,7 @@ newtype X = X
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapX" (RIP.Ptr X) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapX" (RIP.Ptr X) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapX")
 

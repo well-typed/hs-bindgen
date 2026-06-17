@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -56,8 +54,7 @@ newtype MyInt = MyInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
@@ -96,8 +93,7 @@ newtype MyUInt = MyUInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyUInt")
@@ -136,8 +132,7 @@ newtype MyLong = MyLong
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr RIP.CLong) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyLong")
@@ -215,8 +210,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( ty ~ MyInt
-         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr MyInt) where
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
@@ -229,8 +223,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   bitfieldWidth# = \_ -> \_ -> 4
 
-instance ( ty ~ MyUInt
-         ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr MyUInt) where
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
@@ -243,8 +236,7 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( ty ~ MyLong
-         ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+instance RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr MyLong) where
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")

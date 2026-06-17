@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -107,8 +105,7 @@ instance Read Foo_enum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFoo_enum")

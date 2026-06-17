@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -57,8 +55,7 @@ newtype MyInt = MyInt
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
@@ -116,7 +113,7 @@ instance HasCField.HasCField T1_x "t1_x_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
+instance RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x_x")
 
@@ -167,7 +164,7 @@ instance HasCField.HasCField T1 "t1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ T1_x) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
+instance RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr T1_x) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
 
@@ -218,8 +215,7 @@ instance HasCField.HasCField T2 "t2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr T2_x
-         ) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr (RIP.Ptr T2_x)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
 
@@ -270,7 +266,7 @@ instance HasCField.HasCField T2_x "t2_x_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
+instance RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x_x")
 
@@ -321,8 +317,7 @@ instance HasCField.HasCField T3 "t3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
-         ) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
+instance RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr (RIP.Ptr (RIP.Ptr T3_x))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
 
@@ -373,6 +368,6 @@ instance HasCField.HasCField T3_x "t3_x_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
+instance RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr MyInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x_x")

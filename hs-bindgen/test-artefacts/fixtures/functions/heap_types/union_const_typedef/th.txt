@@ -70,7 +70,7 @@ set_u_x = setUnionPayload
 instance HasCField U "u_x"
     where type CFieldType U "u_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+instance HasField "u_x" (Ptr U) (Ptr CInt)
     where getField = fromPtr (Proxy @"u_x")
 {-| __C declaration:__ @T@
 
@@ -82,7 +82,7 @@ newtype T
     = T {unwrapT :: U}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty U => HasField "unwrapT" (Ptr T) (Ptr ty)
+instance HasField "unwrapT" (Ptr T) (Ptr U)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = U

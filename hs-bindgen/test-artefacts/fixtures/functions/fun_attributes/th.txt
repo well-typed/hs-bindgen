@@ -469,8 +469,7 @@ newtype Size_t
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapSize_t" (Ptr Size_t) (Ptr ty)
+instance HasField "unwrapSize_t" (Ptr Size_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapSize_t")
 instance HasCField Size_t "unwrapSize_t"
     where type CFieldType Size_t "unwrapSize_t" = CInt

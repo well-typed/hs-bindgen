@@ -13,8 +13,9 @@ newtype PtrToVoid
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr Void) =>
-         HasField "unwrapPtrToVoid" (Ptr PtrToVoid) (Ptr ty)
+instance HasField "unwrapPtrToVoid"
+                  (Ptr PtrToVoid)
+                  (Ptr (Ptr Void))
     where getField = fromPtr (Proxy @"unwrapPtrToVoid")
 instance HasCField PtrToVoid "unwrapPtrToVoid"
     where type CFieldType PtrToVoid "unwrapPtrToVoid" = Ptr Void
@@ -33,8 +34,9 @@ newtype PtrToConstVoidL
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (PtrConst Void) =>
-         HasField "unwrapPtrToConstVoidL" (Ptr PtrToConstVoidL) (Ptr ty)
+instance HasField "unwrapPtrToConstVoidL"
+                  (Ptr PtrToConstVoidL)
+                  (Ptr (PtrConst Void))
     where getField = fromPtr (Proxy @"unwrapPtrToConstVoidL")
 instance HasCField PtrToConstVoidL "unwrapPtrToConstVoidL"
     where type CFieldType PtrToConstVoidL
@@ -54,8 +56,9 @@ newtype PtrToConstVoidR
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (PtrConst Void) =>
-         HasField "unwrapPtrToConstVoidR" (Ptr PtrToConstVoidR) (Ptr ty)
+instance HasField "unwrapPtrToConstVoidR"
+                  (Ptr PtrToConstVoidR)
+                  (Ptr (PtrConst Void))
     where getField = fromPtr (Proxy @"unwrapPtrToConstVoidR")
 instance HasCField PtrToConstVoidR "unwrapPtrToConstVoidR"
     where type CFieldType PtrToConstVoidR
@@ -75,8 +78,9 @@ newtype PtrToConstIntL
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (PtrConst CInt) =>
-         HasField "unwrapPtrToConstIntL" (Ptr PtrToConstIntL) (Ptr ty)
+instance HasField "unwrapPtrToConstIntL"
+                  (Ptr PtrToConstIntL)
+                  (Ptr (PtrConst CInt))
     where getField = fromPtr (Proxy @"unwrapPtrToConstIntL")
 instance HasCField PtrToConstIntL "unwrapPtrToConstIntL"
     where type CFieldType PtrToConstIntL
@@ -96,8 +100,9 @@ newtype PtrToConstIntR
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (PtrConst CInt) =>
-         HasField "unwrapPtrToConstIntR" (Ptr PtrToConstIntR) (Ptr ty)
+instance HasField "unwrapPtrToConstIntR"
+                  (Ptr PtrToConstIntR)
+                  (Ptr (PtrConst CInt))
     where getField = fromPtr (Proxy @"unwrapPtrToConstIntR")
 instance HasCField PtrToConstIntR "unwrapPtrToConstIntR"
     where type CFieldType PtrToConstIntR
@@ -117,8 +122,9 @@ newtype ConstPtrToInt
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (Ptr CInt) =>
-         HasField "unwrapConstPtrToInt" (Ptr ConstPtrToInt) (Ptr ty)
+instance HasField "unwrapConstPtrToInt"
+                  (Ptr ConstPtrToInt)
+                  (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"unwrapConstPtrToInt")
 instance HasCField ConstPtrToInt "unwrapConstPtrToInt"
     where type CFieldType ConstPtrToInt

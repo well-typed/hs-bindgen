@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -79,8 +77,7 @@ instance HasCField.HasCField Some_struct_field1 "some_struct_field1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "some_struct_field1_x" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
+instance RIP.HasField "some_struct_field1_x" (RIP.Ptr Some_struct_field1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1_x")
@@ -92,8 +89,7 @@ instance HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "some_struct_field1_y" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
+instance RIP.HasField "some_struct_field1_y" (RIP.Ptr Some_struct_field1) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1_y")
@@ -164,8 +160,7 @@ instance HasCField.HasCField Some_struct "some_struct_field1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field1" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+instance RIP.HasField "some_struct_field1" (RIP.Ptr Some_struct) (RIP.Ptr Some_struct_field1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1")
@@ -177,8 +172,7 @@ instance HasCField.HasCField Some_struct "some_struct_field2" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field2" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+instance RIP.HasField "some_struct_field2" (RIP.Ptr Some_struct) (RIP.Ptr Some_struct_field1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field2")
@@ -190,8 +184,7 @@ instance HasCField.HasCField Some_struct "some_struct_field3" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field3" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+instance RIP.HasField "some_struct_field3" (RIP.Ptr Some_struct) (RIP.Ptr Some_struct_field1) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field3")

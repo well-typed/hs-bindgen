@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -80,8 +78,7 @@ newtype Stdlib_CBool = Stdlib_CBool
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr RIP.CBool) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CBool")
@@ -121,8 +118,7 @@ newtype Stdlib_Int8 = Stdlib_Int8
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int8
-         ) => RIP.HasField "unwrapStdlib_Int8" (RIP.Ptr Stdlib_Int8) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Int8" (RIP.Ptr Stdlib_Int8) (RIP.Ptr HsBindgen.Runtime.LibC.Int8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Int8")
@@ -162,8 +158,7 @@ newtype Stdlib_Int16 = Stdlib_Int16
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int16
-         ) => RIP.HasField "unwrapStdlib_Int16" (RIP.Ptr Stdlib_Int16) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Int16" (RIP.Ptr Stdlib_Int16) (RIP.Ptr HsBindgen.Runtime.LibC.Int16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Int16")
@@ -203,8 +198,7 @@ newtype Stdlib_Int32 = Stdlib_Int32
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "unwrapStdlib_Int32" (RIP.Ptr Stdlib_Int32) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Int32" (RIP.Ptr Stdlib_Int32) (RIP.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Int32")
@@ -244,8 +238,7 @@ newtype Stdlib_Int64 = Stdlib_Int64
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Int64
-         ) => RIP.HasField "unwrapStdlib_Int64" (RIP.Ptr Stdlib_Int64) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Int64" (RIP.Ptr Stdlib_Int64) (RIP.Ptr HsBindgen.Runtime.LibC.Int64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Int64")
@@ -285,8 +278,7 @@ newtype Stdlib_Word8 = Stdlib_Word8
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "unwrapStdlib_Word8" (RIP.Ptr Stdlib_Word8) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Word8" (RIP.Ptr Stdlib_Word8) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Word8")
@@ -326,8 +318,7 @@ newtype Stdlib_Word16 = Stdlib_Word16
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "unwrapStdlib_Word16" (RIP.Ptr Stdlib_Word16) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Word16" (RIP.Ptr Stdlib_Word16) (RIP.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Word16")
@@ -367,8 +358,7 @@ newtype Stdlib_Word32 = Stdlib_Word32
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapStdlib_Word32" (RIP.Ptr Stdlib_Word32) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Word32" (RIP.Ptr Stdlib_Word32) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Word32")
@@ -408,8 +398,7 @@ newtype Stdlib_Word64 = Stdlib_Word64
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "unwrapStdlib_Word64" (RIP.Ptr Stdlib_Word64) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_Word64" (RIP.Ptr Stdlib_Word64) (RIP.Ptr HsBindgen.Runtime.LibC.Word64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_Word64")
@@ -449,8 +438,7 @@ newtype Stdlib_CIntMax = Stdlib_CIntMax
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CIntMax
-         ) => RIP.HasField "unwrapStdlib_CIntMax" (RIP.Ptr Stdlib_CIntMax) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CIntMax" (RIP.Ptr Stdlib_CIntMax) (RIP.Ptr HsBindgen.Runtime.LibC.CIntMax) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CIntMax")
@@ -490,8 +478,7 @@ newtype Stdlib_CUIntMax = Stdlib_CUIntMax
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CUIntMax
-         ) => RIP.HasField "unwrapStdlib_CUIntMax" (RIP.Ptr Stdlib_CUIntMax) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CUIntMax" (RIP.Ptr Stdlib_CUIntMax) (RIP.Ptr HsBindgen.Runtime.LibC.CUIntMax) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CUIntMax")
@@ -531,8 +518,7 @@ newtype Stdlib_CIntPtr = Stdlib_CIntPtr
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CIntPtr
-         ) => RIP.HasField "unwrapStdlib_CIntPtr" (RIP.Ptr Stdlib_CIntPtr) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CIntPtr" (RIP.Ptr Stdlib_CIntPtr) (RIP.Ptr HsBindgen.Runtime.LibC.CIntPtr) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CIntPtr")
@@ -572,8 +558,7 @@ newtype Stdlib_CUIntPtr = Stdlib_CUIntPtr
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CUIntPtr
-         ) => RIP.HasField "unwrapStdlib_CUIntPtr" (RIP.Ptr Stdlib_CUIntPtr) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CUIntPtr" (RIP.Ptr Stdlib_CUIntPtr) (RIP.Ptr HsBindgen.Runtime.LibC.CUIntPtr) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CUIntPtr")
@@ -596,8 +581,7 @@ newtype Stdlib_CFenvT = Stdlib_CFenvT
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CFenvT
-         ) => RIP.HasField "unwrapStdlib_CFenvT" (RIP.Ptr Stdlib_CFenvT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CFenvT" (RIP.Ptr Stdlib_CFenvT) (RIP.Ptr HsBindgen.Runtime.LibC.CFenvT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CFenvT")
@@ -620,8 +604,7 @@ newtype Stdlib_CFexceptT = Stdlib_CFexceptT
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CFexceptT
-         ) => RIP.HasField "unwrapStdlib_CFexceptT" (RIP.Ptr Stdlib_CFexceptT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CFexceptT" (RIP.Ptr Stdlib_CFexceptT) (RIP.Ptr HsBindgen.Runtime.LibC.CFexceptT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CFexceptT")
@@ -661,8 +644,7 @@ newtype Stdlib_CSize = Stdlib_CSize
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "unwrapStdlib_CSize" (RIP.Ptr Stdlib_CSize) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CSize" (RIP.Ptr Stdlib_CSize) (RIP.Ptr HsBindgen.Runtime.LibC.CSize) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CSize")
@@ -702,8 +684,7 @@ newtype Stdlib_CPtrdiff = Stdlib_CPtrdiff
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
-         ) => RIP.HasField "unwrapStdlib_CPtrdiff" (RIP.Ptr Stdlib_CPtrdiff) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CPtrdiff" (RIP.Ptr Stdlib_CPtrdiff) (RIP.Ptr HsBindgen.Runtime.LibC.CPtrdiff) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CPtrdiff")
@@ -726,8 +707,7 @@ newtype Stdlib_CJmpBuf = Stdlib_CJmpBuf
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CJmpBuf
-         ) => RIP.HasField "unwrapStdlib_CJmpBuf" (RIP.Ptr Stdlib_CJmpBuf) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CJmpBuf" (RIP.Ptr Stdlib_CJmpBuf) (RIP.Ptr HsBindgen.Runtime.LibC.CJmpBuf) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CJmpBuf")
@@ -767,8 +747,7 @@ newtype Stdlib_CWchar = Stdlib_CWchar
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CWchar
-         ) => RIP.HasField "unwrapStdlib_CWchar" (RIP.Ptr Stdlib_CWchar) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CWchar" (RIP.Ptr Stdlib_CWchar) (RIP.Ptr HsBindgen.Runtime.LibC.CWchar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CWchar")
@@ -808,8 +787,7 @@ newtype Stdlib_CWintT = Stdlib_CWintT
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CWintT
-         ) => RIP.HasField "unwrapStdlib_CWintT" (RIP.Ptr Stdlib_CWintT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CWintT" (RIP.Ptr Stdlib_CWintT) (RIP.Ptr HsBindgen.Runtime.LibC.CWintT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CWintT")
@@ -832,8 +810,7 @@ newtype Stdlib_CMbstateT = Stdlib_CMbstateT
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CMbstateT
-         ) => RIP.HasField "unwrapStdlib_CMbstateT" (RIP.Ptr Stdlib_CMbstateT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CMbstateT" (RIP.Ptr Stdlib_CMbstateT) (RIP.Ptr HsBindgen.Runtime.LibC.CMbstateT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CMbstateT")
@@ -864,8 +841,7 @@ newtype Stdlib_CWctransT = Stdlib_CWctransT
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CWctransT
-         ) => RIP.HasField "unwrapStdlib_CWctransT" (RIP.Ptr Stdlib_CWctransT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CWctransT" (RIP.Ptr Stdlib_CWctransT) (RIP.Ptr HsBindgen.Runtime.LibC.CWctransT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CWctransT")
@@ -896,8 +872,7 @@ newtype Stdlib_CWctypeT = Stdlib_CWctypeT
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CWctypeT
-         ) => RIP.HasField "unwrapStdlib_CWctypeT" (RIP.Ptr Stdlib_CWctypeT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CWctypeT" (RIP.Ptr Stdlib_CWctypeT) (RIP.Ptr HsBindgen.Runtime.LibC.CWctypeT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CWctypeT")
@@ -937,8 +912,7 @@ newtype Stdlib_CChar16T = Stdlib_CChar16T
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CChar16T
-         ) => RIP.HasField "unwrapStdlib_CChar16T" (RIP.Ptr Stdlib_CChar16T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CChar16T" (RIP.Ptr Stdlib_CChar16T) (RIP.Ptr HsBindgen.Runtime.LibC.CChar16T) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CChar16T")
@@ -978,8 +952,7 @@ newtype Stdlib_CChar32T = Stdlib_CChar32T
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CChar32T
-         ) => RIP.HasField "unwrapStdlib_CChar32T" (RIP.Ptr Stdlib_CChar32T) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CChar32T" (RIP.Ptr Stdlib_CChar32T) (RIP.Ptr HsBindgen.Runtime.LibC.CChar32T) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CChar32T")
@@ -1012,8 +985,7 @@ newtype Stdlib_CTime = Stdlib_CTime
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CTime
-         ) => RIP.HasField "unwrapStdlib_CTime" (RIP.Ptr Stdlib_CTime) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CTime" (RIP.Ptr Stdlib_CTime) (RIP.Ptr HsBindgen.Runtime.LibC.CTime) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CTime")
@@ -1046,8 +1018,7 @@ newtype Stdlib_CClock = Stdlib_CClock
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CClock
-         ) => RIP.HasField "unwrapStdlib_CClock" (RIP.Ptr Stdlib_CClock) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CClock" (RIP.Ptr Stdlib_CClock) (RIP.Ptr HsBindgen.Runtime.LibC.CClock) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CClock")
@@ -1071,8 +1042,7 @@ newtype Stdlib_CTm = Stdlib_CTm
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (Marshal.ReadRaw, Marshal.StaticSize)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CTm
-         ) => RIP.HasField "unwrapStdlib_CTm" (RIP.Ptr Stdlib_CTm) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CTm" (RIP.Ptr Stdlib_CTm) (RIP.Ptr HsBindgen.Runtime.LibC.CTm) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CTm")
@@ -1095,8 +1065,7 @@ newtype Stdlib_CFile = Stdlib_CFile
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CFile
-         ) => RIP.HasField "unwrapStdlib_CFile" (RIP.Ptr Stdlib_CFile) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CFile" (RIP.Ptr Stdlib_CFile) (RIP.Ptr HsBindgen.Runtime.LibC.CFile) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CFile")
@@ -1119,8 +1088,7 @@ newtype Stdlib_CFpos = Stdlib_CFpos
   }
   deriving stock (RIP.Generic)
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CFpos
-         ) => RIP.HasField "unwrapStdlib_CFpos" (RIP.Ptr Stdlib_CFpos) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CFpos" (RIP.Ptr Stdlib_CFpos) (RIP.Ptr HsBindgen.Runtime.LibC.CFpos) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CFpos")
@@ -1160,8 +1128,7 @@ newtype Stdlib_CSigAtomic = Stdlib_CSigAtomic
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CSigAtomic
-         ) => RIP.HasField "unwrapStdlib_CSigAtomic" (RIP.Ptr Stdlib_CSigAtomic) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapStdlib_CSigAtomic" (RIP.Ptr Stdlib_CSigAtomic) (RIP.Ptr HsBindgen.Runtime.LibC.CSigAtomic) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CSigAtomic")

@@ -39,8 +39,9 @@ instance Read Uint8_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
-         HasField "unwrapUint8_enum" (Ptr Uint8_enum) (Ptr ty)
+instance HasField "unwrapUint8_enum"
+                  (Ptr Uint8_enum)
+                  (Ptr HsBindgen.Runtime.LibC.Word8)
     where getField = fromPtr (Proxy @"unwrapUint8_enum")
 instance HasCField Uint8_enum "unwrapUint8_enum"
     where type CFieldType Uint8_enum

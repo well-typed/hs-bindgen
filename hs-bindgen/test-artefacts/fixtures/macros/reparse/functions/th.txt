@@ -98,8 +98,7 @@ newtype MY_INT
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapMY_INT" (Ptr MY_INT) (Ptr ty)
+instance HasField "unwrapMY_INT" (Ptr MY_INT) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMY_INT")
 instance HasCField MY_INT "unwrapMY_INT"
     where type CFieldType MY_INT "unwrapMY_INT" = CInt
@@ -128,8 +127,7 @@ newtype My_int_t
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty MY_INT =>
-         HasField "unwrapMy_int_t" (Ptr My_int_t) (Ptr ty)
+instance HasField "unwrapMy_int_t" (Ptr My_int_t) (Ptr MY_INT)
     where getField = fromPtr (Proxy @"unwrapMy_int_t")
 instance HasCField My_int_t "unwrapMy_int_t"
     where type CFieldType My_int_t "unwrapMy_int_t" = MY_INT

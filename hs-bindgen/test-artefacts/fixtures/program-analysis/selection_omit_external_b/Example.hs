@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -70,8 +68,7 @@ instance HasCField.HasCField Omitted "omitted_n" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
+instance RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
 
@@ -123,8 +120,7 @@ instance HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Omitted
-         ) => RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr ty) where
+instance RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr Omitted) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
@@ -177,8 +173,7 @@ instance HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmit
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ DirectlyDependsOnOmitted
-         ) => RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr ty) where
+instance RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr DirectlyDependsOnOmitted) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")

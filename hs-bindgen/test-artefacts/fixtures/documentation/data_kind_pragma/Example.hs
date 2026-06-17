@@ -8,7 +8,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -40,8 +39,7 @@ newtype Triplet = Triplet
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr (CA.ConstantArray 3 RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")

@@ -23,8 +23,9 @@ newtype Stdlib_CBool
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CBool =>
-         HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
+instance HasField "unwrapStdlib_CBool"
+                  (Ptr Stdlib_CBool)
+                  (Ptr CBool)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
     where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool

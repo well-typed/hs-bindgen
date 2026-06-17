@@ -42,7 +42,7 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -74,7 +74,7 @@ deriving via (EquivStorable T1_x) instance Storable T1_x
 instance HasCField T1_x "t1_x_x"
     where type CFieldType T1_x "t1_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
+instance HasField "t1_x_x" (Ptr T1_x) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t1_x_x")
 {-| __C declaration:__ @union \@T1@
 
@@ -124,7 +124,7 @@ set_t1_x = setUnionPayload
 instance HasCField T1 "t1_x"
     where type CFieldType T1 "t1_x" = T1_x
           offset# = \_ -> \_ -> 0
-instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
+instance HasField "t1_x" (Ptr T1) (Ptr T1_x)
     where getField = fromPtr (Proxy @"t1_x")
 {-| __C declaration:__ @union \@T2@
 
@@ -174,7 +174,7 @@ set_t2_x = setUnionPayload
 instance HasCField T2 "t2_x"
     where type CFieldType T2 "t2_x" = Ptr T2_x
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
+instance HasField "t2_x" (Ptr T2) (Ptr (Ptr T2_x))
     where getField = fromPtr (Proxy @"t2_x")
 {-| __C declaration:__ @struct \@T2_x@
 
@@ -203,7 +203,7 @@ deriving via (EquivStorable T2_x) instance Storable T2_x
 instance HasCField T2_x "t2_x_x"
     where type CFieldType T2_x "t2_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
+instance HasField "t2_x_x" (Ptr T2_x) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t2_x_x")
 {-| __C declaration:__ @union \@T3@
 
@@ -253,8 +253,7 @@ set_t3_x = setUnionPayload
 instance HasCField T3 "t3_x"
     where type CFieldType T3 "t3_x" = Ptr (Ptr T3_x)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr T3_x)) =>
-         HasField "t3_x" (Ptr T3) (Ptr ty)
+instance HasField "t3_x" (Ptr T3) (Ptr (Ptr (Ptr T3_x)))
     where getField = fromPtr (Proxy @"t3_x")
 {-| __C declaration:__ @struct \@T3_x@
 
@@ -283,7 +282,7 @@ deriving via (EquivStorable T3_x) instance Storable T3_x
 instance HasCField T3_x "t3_x_x"
     where type CFieldType T3_x "t3_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
+instance HasField "t3_x_x" (Ptr T3_x) (Ptr MyInt)
     where getField = fromPtr (Proxy @"t3_x_x")
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_T1@
 foreign import ccall unsafe "hs_bindgen_2ac02abef90be65b" hs_bindgen_2ac02abef90be65b_base ::

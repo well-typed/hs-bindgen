@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -108,8 +106,7 @@ instance Read MyEnum where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyEnum")
@@ -148,7 +145,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance (ty ~ MyEnum) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr MyEnum) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -177,7 +174,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr A) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -198,7 +195,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr M.C) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

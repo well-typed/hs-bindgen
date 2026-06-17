@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -88,7 +86,7 @@ instance HasCField.HasCField S1 "s1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s1_a" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance RIP.HasField "s1_a" (RIP.Ptr S1) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_a")
 
@@ -98,7 +96,7 @@ instance HasCField.HasCField S1 "s1_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s1_b" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance RIP.HasField "s1_b" (RIP.Ptr S1) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_b")
 
@@ -167,8 +165,7 @@ instance HasCField.HasCField S2_t "s2_t_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s2_t_a" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance RIP.HasField "s2_t_a" (RIP.Ptr S2_t) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_t_a")
 
@@ -178,8 +175,7 @@ instance HasCField.HasCField S2_t "s2_t_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_t_b" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance RIP.HasField "s2_t_b" (RIP.Ptr S2_t) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_t_b")
 
@@ -189,8 +185,7 @@ instance HasCField.HasCField S2_t "s2_t_c" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "s2_t_c" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance RIP.HasField "s2_t_c" (RIP.Ptr S2_t) (RIP.Ptr RIP.CFloat) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_t_c")
 
@@ -241,8 +236,7 @@ instance HasCField.HasCField S3_t "s3_t_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s3_t_a" (RIP.Ptr S3_t) (RIP.Ptr ty) where
+instance RIP.HasField "s3_t_a" (RIP.Ptr S3_t) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s3_t_a")
 
@@ -311,7 +305,7 @@ instance HasCField.HasCField S4 "s4_b" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s4_b" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance RIP.HasField "s4_b" (RIP.Ptr S4) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s4_b")
 
@@ -321,7 +315,7 @@ instance HasCField.HasCField S4 "s4_a" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s4_a" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance RIP.HasField "s4_a" (RIP.Ptr S4) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s4_a")
 
@@ -331,8 +325,7 @@ instance HasCField.HasCField S4 "s4_c" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "s4_c" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance RIP.HasField "s4_c" (RIP.Ptr S4) (RIP.Ptr (RIP.Ptr RIP.CInt)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s4_c")
 
@@ -392,7 +385,7 @@ instance HasCField.HasCField S5 "s5_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s5_a" (RIP.Ptr S5) (RIP.Ptr ty) where
+instance RIP.HasField "s5_a" (RIP.Ptr S5) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s5_a")
 
@@ -402,7 +395,7 @@ instance HasCField.HasCField S5 "s5_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s5_b" (RIP.Ptr S5) (RIP.Ptr ty) where
+instance RIP.HasField "s5_b" (RIP.Ptr S5) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s5_b")
 
@@ -462,7 +455,7 @@ instance HasCField.HasCField S6 "s6_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s6_a" (RIP.Ptr S6) (RIP.Ptr ty) where
+instance RIP.HasField "s6_a" (RIP.Ptr S6) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s6_a")
 
@@ -472,7 +465,7 @@ instance HasCField.HasCField S6 "s6_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s6_b" (RIP.Ptr S6) (RIP.Ptr ty) where
+instance RIP.HasField "s6_b" (RIP.Ptr S6) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s6_b")
 
@@ -532,8 +525,7 @@ instance HasCField.HasCField S7a_Aux "s7a_Aux_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s7a_Aux_a" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "s7a_Aux_a" (RIP.Ptr S7a_Aux) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_a")
 
@@ -543,8 +535,7 @@ instance HasCField.HasCField S7a_Aux "s7a_Aux_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s7a_Aux_b" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "s7a_Aux_b" (RIP.Ptr S7a_Aux) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_b")
 
@@ -566,8 +557,7 @@ newtype S7a = S7a
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr S7a_Aux
-         ) => RIP.HasField "unwrapS7a" (RIP.Ptr S7a) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapS7a" (RIP.Ptr S7a) (RIP.Ptr (RIP.Ptr S7a_Aux)) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7a")
 
@@ -633,8 +623,7 @@ instance HasCField.HasCField S7b_Aux "s7b_Aux_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s7b_Aux_a" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "s7b_Aux_a" (RIP.Ptr S7b_Aux) (RIP.Ptr RIP.CChar) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_a")
 
@@ -644,8 +633,7 @@ instance HasCField.HasCField S7b_Aux "s7b_Aux_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s7b_Aux_b" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "s7b_Aux_b" (RIP.Ptr S7b_Aux) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_b")
 
@@ -667,8 +655,7 @@ newtype S7b = S7b
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
-         ) => RIP.HasField "unwrapS7b" (RIP.Ptr S7b) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapS7b" (RIP.Ptr S7b) (RIP.Ptr (RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux)))) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7b")
 

@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -50,8 +48,7 @@ newtype OUTER_BEFORE_CIRCULAR_INCLUDE = OUTER_BEFORE_CIRCULAR_INCLUDE
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_BEFORE_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_BEFORE_CIRCULAR_INCLUDE) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapOUTER_BEFORE_CIRCULAR_INCLUDE")
@@ -91,8 +88,7 @@ newtype OUTER_AFTER_CIRCULAR_INCLUDE = OUTER_AFTER_CIRCULAR_INCLUDE
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_AFTER_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_AFTER_CIRCULAR_INCLUDE) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapOUTER_AFTER_CIRCULAR_INCLUDE")

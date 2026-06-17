@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -72,8 +70,7 @@ instance RIP.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
-         ) => RIP.HasField "unwrapFun_ptr_Aux" (RIP.Ptr Fun_ptr_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFun_ptr_Aux" (RIP.Ptr Fun_ptr_Aux) (RIP.Ptr (RIP.Ptr Forward_declaration -> IO ())) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFun_ptr_Aux")
@@ -103,8 +100,7 @@ newtype Fun_ptr = Fun_ptr
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
-         ) => RIP.HasField "unwrapFun_ptr" (RIP.Ptr Fun_ptr) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFun_ptr" (RIP.Ptr Fun_ptr) (RIP.Ptr (RIP.FunPtr Fun_ptr_Aux)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFun_ptr")
@@ -164,8 +160,7 @@ instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Fun_ptr
-         ) => RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr ty) where
+instance RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr Fun_ptr) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"forward_declaration_f")

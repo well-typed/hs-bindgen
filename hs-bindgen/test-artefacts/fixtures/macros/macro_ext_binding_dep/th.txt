@@ -27,7 +27,7 @@
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
 newtype B = B {unwrapB :: M.A} deriving stock Generic
-instance (~) ty M.A => HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr M.A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = M.A

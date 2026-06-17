@@ -33,7 +33,7 @@ deriving via (EquivStorable Baz) instance Storable Baz
 instance HasCField Baz "baz_x3_1"
     where type CFieldType Baz "baz_x3_1" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "baz_x3_1" (Ptr Baz) (Ptr ty)
+instance HasField "baz_x3_1" (Ptr Baz) (Ptr CInt)
     where getField = fromPtr (Proxy @"baz_x3_1")
 -- __unique:__ @test_typesscopingwide_nesting_Example_get_X@
 foreign import ccall unsafe "hs_bindgen_a295757aed8ccce9" hs_bindgen_a295757aed8ccce9_base ::

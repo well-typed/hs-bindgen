@@ -43,22 +43,19 @@ instance HasCBitfield Foo "foo_a"
     where type CBitfieldType Foo "foo_a" = CSChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CSChar =>
-         HasField "foo_a" (Ptr Foo) (BitfieldPtr ty)
+instance HasField "foo_a" (Ptr Foo) (BitfieldPtr CSChar)
     where getField = toPtr (Proxy @"foo_a")
 instance HasCBitfield Foo "foo_b"
     where type CBitfieldType Foo "foo_b" = CSChar
           bitfieldOffset# = \_ -> \_ -> 3
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CSChar =>
-         HasField "foo_b" (Ptr Foo) (BitfieldPtr ty)
+instance HasField "foo_b" (Ptr Foo) (BitfieldPtr CSChar)
     where getField = toPtr (Proxy @"foo_b")
 instance HasCBitfield Foo "foo_c"
     where type CBitfieldType Foo "foo_c" = CSChar
           bitfieldOffset# = \_ -> \_ -> 8
           bitfieldWidth# = \_ -> \_ -> 2
-instance (~) ty CSChar =>
-         HasField "foo_c" (Ptr Foo) (BitfieldPtr ty)
+instance HasField "foo_c" (Ptr Foo) (BitfieldPtr CSChar)
     where getField = toPtr (Proxy @"foo_c")
 {-| __C declaration:__ @struct bar@
 
@@ -96,13 +93,11 @@ instance HasCBitfield Bar "bar_x"
     where type CBitfieldType Bar "bar_x" = CSChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CSChar =>
-         HasField "bar_x" (Ptr Bar) (BitfieldPtr ty)
+instance HasField "bar_x" (Ptr Bar) (BitfieldPtr CSChar)
     where getField = toPtr (Proxy @"bar_x")
 instance HasCBitfield Bar "bar_y"
     where type CBitfieldType Bar "bar_y" = CSChar
           bitfieldOffset# = \_ -> \_ -> 6
           bitfieldWidth# = \_ -> \_ -> 2
-instance (~) ty CSChar =>
-         HasField "bar_y" (Ptr Bar) (BitfieldPtr ty)
+instance HasField "bar_y" (Ptr Bar) (BitfieldPtr CSChar)
     where getField = toPtr (Proxy @"bar_y")

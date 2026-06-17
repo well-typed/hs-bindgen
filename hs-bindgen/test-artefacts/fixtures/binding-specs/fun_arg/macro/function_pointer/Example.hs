@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -73,8 +71,7 @@ instance RIP.FromFunPtr MyFunctionPointer_Aux where
 
   fromFunPtr = hs_bindgen_5738272f94a589e2
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapMyFunctionPointer_Aux" (RIP.Ptr MyFunctionPointer_Aux) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyFunctionPointer_Aux" (RIP.Ptr MyFunctionPointer_Aux) (RIP.Ptr (RIP.CInt -> IO RIP.CInt)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyFunctionPointer_Aux")
@@ -104,8 +101,7 @@ newtype MyFunctionPointer = MyFunctionPointer
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr MyFunctionPointer_Aux
-         ) => RIP.HasField "unwrapMyFunctionPointer" (RIP.Ptr MyFunctionPointer) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMyFunctionPointer" (RIP.Ptr MyFunctionPointer) (RIP.Ptr (RIP.FunPtr MyFunctionPointer_Aux)) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMyFunctionPointer")
@@ -135,8 +131,7 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ MyFunctionPointer
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr MyFunctionPointer) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
@@ -164,7 +159,7 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr A) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
@@ -185,7 +180,7 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr M.C) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 

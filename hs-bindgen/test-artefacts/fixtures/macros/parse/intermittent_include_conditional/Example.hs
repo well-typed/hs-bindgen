@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -51,8 +49,7 @@ newtype T2 = T2
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr RIP.CFloat) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
 
@@ -88,8 +85,7 @@ newtype T4 = T4
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "unwrapT4" (RIP.Ptr T4) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT4" (RIP.Ptr T4) (RIP.Ptr RIP.CDouble) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT4")
 
@@ -127,8 +123,7 @@ newtype T1 = T1
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
 
@@ -166,8 +161,7 @@ newtype T3 = T3
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT3" (RIP.Ptr T3) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT3" (RIP.Ptr T3) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT3")
 
@@ -205,8 +199,7 @@ newtype T5 = T5
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT5" (RIP.Ptr T5) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapT5" (RIP.Ptr T5) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT5")
 

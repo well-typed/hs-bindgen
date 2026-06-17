@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -61,8 +59,7 @@ newtype MY_INT = MY_INT
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMY_INT" (RIP.Ptr MY_INT) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMY_INT" (RIP.Ptr MY_INT) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMY_INT")
@@ -101,8 +98,7 @@ newtype My_int_t = My_int_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ MY_INT
-         ) => RIP.HasField "unwrapMy_int_t" (RIP.Ptr My_int_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapMy_int_t" (RIP.Ptr My_int_t) (RIP.Ptr MY_INT) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapMy_int_t")

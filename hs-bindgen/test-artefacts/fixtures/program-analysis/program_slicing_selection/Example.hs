@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -107,8 +105,7 @@ instance Read FileOperationStatus where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFileOperationStatus")
@@ -233,8 +230,7 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" wh
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ FileOperationStatus
-         ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+instance RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr FileOperationStatus) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
@@ -246,8 +242,7 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_proc
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+instance RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr HsBindgen.Runtime.LibC.CSize) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")

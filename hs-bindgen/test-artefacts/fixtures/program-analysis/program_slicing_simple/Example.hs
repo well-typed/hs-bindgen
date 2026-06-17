@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -51,8 +49,7 @@ newtype Uint32_t = Uint32_t
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapUint32_t" (RIP.Ptr Uint32_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapUint32_t" (RIP.Ptr Uint32_t) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapUint32_t")
@@ -113,8 +110,7 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Foreign.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr Foreign.Word64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
@@ -125,8 +121,7 @@ instance HasCField.HasCField Foo "foo_thirty_two" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ Uint32_t
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr Uint32_t) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")

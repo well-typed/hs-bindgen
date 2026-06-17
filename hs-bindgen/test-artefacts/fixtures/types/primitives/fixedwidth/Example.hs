@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -79,8 +77,7 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr HsBindgen.Runtime.LibC.Word64) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
@@ -92,8 +89,7 @@ instance HasCField.HasCField Foo "foo_thirty_two" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")

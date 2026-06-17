@@ -47,7 +47,7 @@ set_u_x = setUnionPayload
 instance HasCField U "u_x"
     where type CFieldType U "u_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+instance HasField "u_x" (Ptr U) (Ptr CInt)
     where getField = fromPtr (Proxy @"u_x")
 {-| __C declaration:__ @struct S@
 
@@ -76,5 +76,5 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_y"
     where type CFieldType S "s_y" = U
           offset# = \_ -> \_ -> 0
-instance (~) ty U => HasField "s_y" (Ptr S) (Ptr ty)
+instance HasField "s_y" (Ptr S) (Ptr U)
     where getField = fromPtr (Proxy @"s_y")

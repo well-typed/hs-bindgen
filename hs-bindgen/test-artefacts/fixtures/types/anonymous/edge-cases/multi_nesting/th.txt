@@ -26,7 +26,7 @@ deriving via (EquivStorable SSS_x_x) instance Storable SSS_x_x
 instance HasCField SSS_x_x "sSS_x_x_x"
     where type CFieldType SSS_x_x "sSS_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "sSS_x_x_x" (Ptr SSS_x_x) (Ptr ty)
+instance HasField "sSS_x_x_x" (Ptr SSS_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"sSS_x_x_x")
 {-| __C declaration:__ @struct \@SSS_x@
 
@@ -55,7 +55,7 @@ deriving via (EquivStorable SSS_x) instance Storable SSS_x
 instance HasCField SSS_x "sSS_x_x"
     where type CFieldType SSS_x "sSS_x_x" = SSS_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SSS_x_x => HasField "sSS_x_x" (Ptr SSS_x) (Ptr ty)
+instance HasField "sSS_x_x" (Ptr SSS_x) (Ptr SSS_x_x)
     where getField = fromPtr (Proxy @"sSS_x_x")
 {-| __C declaration:__ @struct SSS@
 
@@ -84,7 +84,7 @@ deriving via (EquivStorable SSS) instance Storable SSS
 instance HasCField SSS "sSS_x"
     where type CFieldType SSS "sSS_x" = SSS_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SSS_x => HasField "sSS_x" (Ptr SSS) (Ptr ty)
+instance HasField "sSS_x" (Ptr SSS) (Ptr SSS_x)
     where getField = fromPtr (Proxy @"sSS_x")
 {-| __C declaration:__ @struct \@USS_x_x@
 
@@ -113,7 +113,7 @@ deriving via (EquivStorable USS_x_x) instance Storable USS_x_x
 instance HasCField USS_x_x "uSS_x_x_x"
     where type CFieldType USS_x_x "uSS_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uSS_x_x_x" (Ptr USS_x_x) (Ptr ty)
+instance HasField "uSS_x_x_x" (Ptr USS_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"uSS_x_x_x")
 {-| __C declaration:__ @struct \@USS_x@
 
@@ -142,7 +142,7 @@ deriving via (EquivStorable USS_x) instance Storable USS_x
 instance HasCField USS_x "uSS_x_x"
     where type CFieldType USS_x "uSS_x_x" = USS_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty USS_x_x => HasField "uSS_x_x" (Ptr USS_x) (Ptr ty)
+instance HasField "uSS_x_x" (Ptr USS_x) (Ptr USS_x_x)
     where getField = fromPtr (Proxy @"uSS_x_x")
 {-| __C declaration:__ @union USS@
 
@@ -192,7 +192,7 @@ set_uSS_x = setUnionPayload
 instance HasCField USS "uSS_x"
     where type CFieldType USS "uSS_x" = USS_x
           offset# = \_ -> \_ -> 0
-instance (~) ty USS_x => HasField "uSS_x" (Ptr USS) (Ptr ty)
+instance HasField "uSS_x" (Ptr USS) (Ptr USS_x)
     where getField = fromPtr (Proxy @"uSS_x")
 {-| __C declaration:__ @struct \@SUS_x_x@
 
@@ -221,7 +221,7 @@ deriving via (EquivStorable SUS_x_x) instance Storable SUS_x_x
 instance HasCField SUS_x_x "sUS_x_x_x"
     where type CFieldType SUS_x_x "sUS_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "sUS_x_x_x" (Ptr SUS_x_x) (Ptr ty)
+instance HasField "sUS_x_x_x" (Ptr SUS_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"sUS_x_x_x")
 {-| __C declaration:__ @union \@SUS_x@
 
@@ -273,7 +273,7 @@ set_sUS_x_x = setUnionPayload
 instance HasCField SUS_x "sUS_x_x"
     where type CFieldType SUS_x "sUS_x_x" = SUS_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUS_x_x => HasField "sUS_x_x" (Ptr SUS_x) (Ptr ty)
+instance HasField "sUS_x_x" (Ptr SUS_x) (Ptr SUS_x_x)
     where getField = fromPtr (Proxy @"sUS_x_x")
 {-| __C declaration:__ @struct SUS@
 
@@ -302,7 +302,7 @@ deriving via (EquivStorable SUS) instance Storable SUS
 instance HasCField SUS "sUS_x"
     where type CFieldType SUS "sUS_x" = SUS_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUS_x => HasField "sUS_x" (Ptr SUS) (Ptr ty)
+instance HasField "sUS_x" (Ptr SUS) (Ptr SUS_x)
     where getField = fromPtr (Proxy @"sUS_x")
 {-| __C declaration:__ @struct \@UUS_x_x@
 
@@ -331,7 +331,7 @@ deriving via (EquivStorable UUS_x_x) instance Storable UUS_x_x
 instance HasCField UUS_x_x "uUS_x_x_x"
     where type CFieldType UUS_x_x "uUS_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uUS_x_x_x" (Ptr UUS_x_x) (Ptr ty)
+instance HasField "uUS_x_x_x" (Ptr UUS_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"uUS_x_x_x")
 {-| __C declaration:__ @union \@UUS_x@
 
@@ -383,7 +383,7 @@ set_uUS_x_x = setUnionPayload
 instance HasCField UUS_x "uUS_x_x"
     where type CFieldType UUS_x "uUS_x_x" = UUS_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUS_x_x => HasField "uUS_x_x" (Ptr UUS_x) (Ptr ty)
+instance HasField "uUS_x_x" (Ptr UUS_x) (Ptr UUS_x_x)
     where getField = fromPtr (Proxy @"uUS_x_x")
 {-| __C declaration:__ @union UUS@
 
@@ -433,7 +433,7 @@ set_uUS_x = setUnionPayload
 instance HasCField UUS "uUS_x"
     where type CFieldType UUS "uUS_x" = UUS_x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUS_x => HasField "uUS_x" (Ptr UUS) (Ptr ty)
+instance HasField "uUS_x" (Ptr UUS) (Ptr UUS_x)
     where getField = fromPtr (Proxy @"uUS_x")
 {-| __C declaration:__ @union \@SSU_x_x@
 
@@ -485,7 +485,7 @@ set_sSU_x_x_x = setUnionPayload
 instance HasCField SSU_x_x "sSU_x_x_x"
     where type CFieldType SSU_x_x "sSU_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "sSU_x_x_x" (Ptr SSU_x_x) (Ptr ty)
+instance HasField "sSU_x_x_x" (Ptr SSU_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"sSU_x_x_x")
 {-| __C declaration:__ @struct \@SSU_x@
 
@@ -514,7 +514,7 @@ deriving via (EquivStorable SSU_x) instance Storable SSU_x
 instance HasCField SSU_x "sSU_x_x"
     where type CFieldType SSU_x "sSU_x_x" = SSU_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SSU_x_x => HasField "sSU_x_x" (Ptr SSU_x) (Ptr ty)
+instance HasField "sSU_x_x" (Ptr SSU_x) (Ptr SSU_x_x)
     where getField = fromPtr (Proxy @"sSU_x_x")
 {-| __C declaration:__ @struct SSU@
 
@@ -543,7 +543,7 @@ deriving via (EquivStorable SSU) instance Storable SSU
 instance HasCField SSU "sSU_x"
     where type CFieldType SSU "sSU_x" = SSU_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SSU_x => HasField "sSU_x" (Ptr SSU) (Ptr ty)
+instance HasField "sSU_x" (Ptr SSU) (Ptr SSU_x)
     where getField = fromPtr (Proxy @"sSU_x")
 {-| __C declaration:__ @union \@USU_x_x@
 
@@ -595,7 +595,7 @@ set_uSU_x_x_x = setUnionPayload
 instance HasCField USU_x_x "uSU_x_x_x"
     where type CFieldType USU_x_x "uSU_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uSU_x_x_x" (Ptr USU_x_x) (Ptr ty)
+instance HasField "uSU_x_x_x" (Ptr USU_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"uSU_x_x_x")
 {-| __C declaration:__ @struct \@USU_x@
 
@@ -624,7 +624,7 @@ deriving via (EquivStorable USU_x) instance Storable USU_x
 instance HasCField USU_x "uSU_x_x"
     where type CFieldType USU_x "uSU_x_x" = USU_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty USU_x_x => HasField "uSU_x_x" (Ptr USU_x) (Ptr ty)
+instance HasField "uSU_x_x" (Ptr USU_x) (Ptr USU_x_x)
     where getField = fromPtr (Proxy @"uSU_x_x")
 {-| __C declaration:__ @union USU@
 
@@ -674,7 +674,7 @@ set_uSU_x = setUnionPayload
 instance HasCField USU "uSU_x"
     where type CFieldType USU "uSU_x" = USU_x
           offset# = \_ -> \_ -> 0
-instance (~) ty USU_x => HasField "uSU_x" (Ptr USU) (Ptr ty)
+instance HasField "uSU_x" (Ptr USU) (Ptr USU_x)
     where getField = fromPtr (Proxy @"uSU_x")
 {-| __C declaration:__ @union \@SUU_x_x@
 
@@ -726,7 +726,7 @@ set_sUU_x_x_x = setUnionPayload
 instance HasCField SUU_x_x "sUU_x_x_x"
     where type CFieldType SUU_x_x "sUU_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "sUU_x_x_x" (Ptr SUU_x_x) (Ptr ty)
+instance HasField "sUU_x_x_x" (Ptr SUU_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"sUU_x_x_x")
 {-| __C declaration:__ @union \@SUU_x@
 
@@ -778,7 +778,7 @@ set_sUU_x_x = setUnionPayload
 instance HasCField SUU_x "sUU_x_x"
     where type CFieldType SUU_x "sUU_x_x" = SUU_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUU_x_x => HasField "sUU_x_x" (Ptr SUU_x) (Ptr ty)
+instance HasField "sUU_x_x" (Ptr SUU_x) (Ptr SUU_x_x)
     where getField = fromPtr (Proxy @"sUU_x_x")
 {-| __C declaration:__ @struct SUU@
 
@@ -807,7 +807,7 @@ deriving via (EquivStorable SUU) instance Storable SUU
 instance HasCField SUU "sUU_x"
     where type CFieldType SUU "sUU_x" = SUU_x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUU_x => HasField "sUU_x" (Ptr SUU) (Ptr ty)
+instance HasField "sUU_x" (Ptr SUU) (Ptr SUU_x)
     where getField = fromPtr (Proxy @"sUU_x")
 {-| __C declaration:__ @union \@UUU_x_x@
 
@@ -859,7 +859,7 @@ set_uUU_x_x_x = setUnionPayload
 instance HasCField UUU_x_x "uUU_x_x_x"
     where type CFieldType UUU_x_x "uUU_x_x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uUU_x_x_x" (Ptr UUU_x_x) (Ptr ty)
+instance HasField "uUU_x_x_x" (Ptr UUU_x_x) (Ptr CInt)
     where getField = fromPtr (Proxy @"uUU_x_x_x")
 {-| __C declaration:__ @union \@UUU_x@
 
@@ -911,7 +911,7 @@ set_uUU_x_x = setUnionPayload
 instance HasCField UUU_x "uUU_x_x"
     where type CFieldType UUU_x "uUU_x_x" = UUU_x_x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUU_x_x => HasField "uUU_x_x" (Ptr UUU_x) (Ptr ty)
+instance HasField "uUU_x_x" (Ptr UUU_x) (Ptr UUU_x_x)
     where getField = fromPtr (Proxy @"uUU_x_x")
 {-| __C declaration:__ @union UUU@
 
@@ -961,5 +961,5 @@ set_uUU_x = setUnionPayload
 instance HasCField UUU "uUU_x"
     where type CFieldType UUU "uUU_x" = UUU_x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUU_x => HasField "uUU_x" (Ptr UUU) (Ptr ty)
+instance HasField "uUU_x" (Ptr UUU) (Ptr UUU_x)
     where getField = fromPtr (Proxy @"uUU_x")

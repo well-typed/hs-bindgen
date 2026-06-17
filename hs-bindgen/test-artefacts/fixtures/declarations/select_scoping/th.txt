@@ -24,10 +24,9 @@ newtype ParsedAndSelected1
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt =>
-         HasField "unwrapParsedAndSelected1"
+instance HasField "unwrapParsedAndSelected1"
                   (Ptr ParsedAndSelected1)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapParsedAndSelected1")
 instance HasCField ParsedAndSelected1 "unwrapParsedAndSelected1"
     where type CFieldType ParsedAndSelected1

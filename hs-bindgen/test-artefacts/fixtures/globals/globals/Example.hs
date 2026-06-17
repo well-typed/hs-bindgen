@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
@@ -82,8 +80,7 @@ instance HasCField.HasCField Config "config_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
+instance RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_x")
 
@@ -93,8 +90,7 @@ instance HasCField.HasCField Config "config_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
+instance RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr RIP.CInt) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_y")
 
@@ -155,8 +151,7 @@ instance HasCField.HasCField Inline_struct "inline_struct_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+instance RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
@@ -168,8 +163,7 @@ instance HasCField.HasCField Inline_struct "inline_struct_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+instance RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
@@ -240,8 +234,7 @@ instance HasCField.HasCField Version_t "version_t_major" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+instance RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_major")
@@ -253,8 +246,7 @@ instance HasCField.HasCField Version_t "version_t_minor" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+instance RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_minor")
@@ -266,8 +258,7 @@ instance HasCField.HasCField Version_t "version_t_patch" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+instance RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_patch")
@@ -338,8 +329,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
@@ -350,8 +340,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr RIP.CBool) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
@@ -363,8 +352,7 @@ instance HasCField.HasCField Struct1_t "struct1_t_version" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ Version_t
-         ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr Version_t) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
@@ -417,8 +405,7 @@ instance HasCField.HasCField Struct2_t "struct2_t_field1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ Struct1_t
-         ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
+instance RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr Struct1_t) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")

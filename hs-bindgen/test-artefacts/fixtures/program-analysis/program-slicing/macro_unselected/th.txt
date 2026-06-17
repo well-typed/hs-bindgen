@@ -45,7 +45,7 @@ newtype U
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
+instance HasField "unwrapU" (Ptr U) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = CInt

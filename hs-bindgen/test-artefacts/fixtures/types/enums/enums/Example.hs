@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -132,8 +130,7 @@ instance Read First where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapFirst" (RIP.Ptr First) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapFirst" (RIP.Ptr First) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapFirst")
@@ -243,8 +240,7 @@ instance Read Second where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapSecond" (RIP.Ptr Second) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapSecond" (RIP.Ptr Second) (RIP.Ptr RIP.CInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapSecond")
@@ -359,8 +355,7 @@ instance Read Same where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapSame" (RIP.Ptr Same) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapSame" (RIP.Ptr Same) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapSame")
@@ -460,8 +455,7 @@ instance Read Nonseq where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapNonseq" (RIP.Ptr Nonseq) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapNonseq" (RIP.Ptr Nonseq) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapNonseq")
@@ -580,8 +574,7 @@ instance Read Packed where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUChar
-         ) => RIP.HasField "unwrapPacked" (RIP.Ptr Packed) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapPacked" (RIP.Ptr Packed) (RIP.Ptr RIP.CUChar) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapPacked")
@@ -697,8 +690,7 @@ instance Read EnumA where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapEnumA")
@@ -805,8 +797,7 @@ instance Read EnumB where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumB" (RIP.Ptr EnumB) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapEnumB" (RIP.Ptr EnumB) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapEnumB")
@@ -913,8 +904,7 @@ instance Read EnumC where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumC" (RIP.Ptr EnumC) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapEnumC" (RIP.Ptr EnumC) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapEnumC")
@@ -1021,8 +1011,7 @@ instance Read EnumD_t where
 
   readListPrec = RIP.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumD_t" (RIP.Ptr EnumD_t) (RIP.Ptr ty) where
+instance RIP.HasField "unwrapEnumD_t" (RIP.Ptr EnumD_t) (RIP.Ptr RIP.CUInt) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unwrapEnumD_t")
