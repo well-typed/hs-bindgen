@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "c-expr-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781690273,
+        "narHash": "sha256-NUiRunXhIf+PEsU7XWqUNM4taml7MWQqEcelLyYF61A=",
+        "owner": "well-typed",
+        "repo": "c-expr",
+        "rev": "68960ab9683d7e156d9aa329a6cff98ad08d64dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "well-typed",
+        "repo": "c-expr",
+        "rev": "68960ab9683d7e156d9aa329a6cff98ad08d64dc",
+        "type": "github"
+      }
+    },
     "doxygen-parser-src": {
       "flake": false,
       "locked": {
@@ -85,6 +102,7 @@
     },
     "root": {
       "inputs": {
+        "c-expr-src": "c-expr-src",
         "doxygen-parser-src": "doxygen-parser-src",
         "flake-parts": "flake-parts",
         "libclang-bindings-src": "libclang-bindings-src",

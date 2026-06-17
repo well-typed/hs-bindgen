@@ -5,9 +5,10 @@
 
 final: prev:
 let
+  hlib = final.haskell.lib.compose;
   llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
-  libclang-bindings = import ../libclang-bindings.nix {
-    haskellLib = final.haskell.lib;
+  libclang-bindings = import ../extern/libclang-bindings.nix {
+    inherit hlib;
     inherit libclang-bindings-src;
   };
 in

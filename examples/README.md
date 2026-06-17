@@ -75,7 +75,6 @@ as the following requirements are met:
     ```cabal
     import: ../../../cabal.project.base
     packages: .
-              ../../../c-expr-runtime
               ../../../hs-bindgen-runtime
     ```
 

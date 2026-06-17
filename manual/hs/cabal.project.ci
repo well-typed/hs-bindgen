@@ -4,5 +4,4 @@ packages:
   hs-vector
   hs-game
   manual
-  ../../c-expr-runtime
   ../../hs-bindgen-runtime

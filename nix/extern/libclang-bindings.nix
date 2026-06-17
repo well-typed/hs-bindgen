@@ -1,5 +1,5 @@
 {
-  haskellLib,
+  hlib,
   libclang-bindings-src,
 }:
 
@@ -11,7 +11,7 @@ let
   libclang-bindings-base =
     callCabal2nix "libclang-bindings" "${libclang-bindings-src}/libclang-bindings"
       { };
-  libclang-bindings = haskellLib.compose.addBuildDepends [
+  libclang-bindings = hlib.addBuildDepends [
     llvmPackages.libclang
     llvmPackages.llvm
   ] libclang-bindings-base;

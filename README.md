@@ -70,10 +70,6 @@ Examples include:
 
 ## Packages in this repository
 
-* [`c-expr-dsl`](c-expr-dsl), a library that provides a DSL for the language
-  support by `c-expr-runtime`
-* [`c-expr-runtime`](c-expr-runtime), a library that provides a Haskell DSL for
-  simple C arithmetic expressions
 * [`hs-bindgen`](hs-bindgen), a utility that automatically generates Haskell
   bindings from C headers
 * [`hs-bindgen-runtime`](hs-bindgen-runtime), a library that provides runtime
