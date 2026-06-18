@@ -63,7 +63,7 @@ processDeclKind kind =
       C.DeclTypedef typedef                -> C.DeclTypedef          $ processTypedef typedef
       C.DeclEnum enum                      -> C.DeclEnum             $ processEnum enum
       C.DeclAnonEnumConstant anonEnumConst -> C.DeclAnonEnumConstant $ processAnonEnumConstant anonEnumConst
-      C.DeclOpaque                         -> C.DeclOpaque
+      C.DeclOpaque mSize                   -> C.DeclOpaque mSize
       C.DeclMacro macro                    -> C.DeclMacro            $ processMacro macro
       C.DeclFunction function              -> C.DeclFunction         $ processFunction function
       C.DeclGlobal global                  -> C.DeclGlobal           $ processGlobal global

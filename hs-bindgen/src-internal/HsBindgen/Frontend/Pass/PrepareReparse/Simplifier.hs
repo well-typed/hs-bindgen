@@ -75,7 +75,7 @@ instance Simplify (C.Decl l) where
       C.DeclTypedef typedef    -> recurse typedef
       C.DeclEnum enum          -> recurse enum
       C.DeclAnonEnumConstant c -> recurse c
-      C.DeclOpaque             -> nothing
+      C.DeclOpaque{}           -> nothing
       C.DeclMacro macro        -> recurse $ Flip macro
       C.DeclFunction function  -> recurse function
       C.DeclGlobal global      -> recurse global

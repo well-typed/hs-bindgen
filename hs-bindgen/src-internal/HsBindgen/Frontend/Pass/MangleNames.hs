@@ -487,7 +487,7 @@ mangleDecl decl = do
             C.DeclFunction x         -> C.DeclFunction         <$> mangle x
             C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclNameFlip hsId x
             C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle x
-            C.DeclOpaque             -> pure C.DeclOpaque
+            C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
           pure $ C.Decl{
               info = info'
             , kind = kind'
@@ -703,7 +703,7 @@ instance HasMacroTypes l => MangleWithDeclName (C.DeclKind l) where
       C.DeclFunction x         -> C.DeclFunction         <$> mangle x
       C.DeclMacro    x         -> C.DeclMacro            <$> mangleWithDeclNameFlip hsName x
       C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle x
-      C.DeclOpaque             -> pure C.DeclOpaque
+      C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
 
 instance MangleWithDeclName C.Struct where
   mangleWithDeclName hsName struct = do

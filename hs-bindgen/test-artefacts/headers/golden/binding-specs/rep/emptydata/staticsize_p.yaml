@@ -1,0 +1,51 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: struct point2d
+  hsname: Point2d
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: union value
+  hsname: Value
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: enum color
+  hsname: Color
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: td_struct
+  hsname: TdStruct
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: td_chain
+  hsname: TdChain
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: td_union
+  hsname: TdUnion
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: counter
+  hsname: Counter
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: struct opaque_fwd
+  hsname: OpaqueFwd
+- headers: binding-specs/rep/emptydata/staticsize.h
+  cname: macro macro_ptr
+  hsname: MacroPtr
+hstypes:
+- hsname: Point2d
+  representation: emptydata
+- hsname: Value
+  representation: emptydata
+- hsname: Color
+  representation: emptydata
+- hsname: TdStruct
+  representation: emptydata
+- hsname: TdChain
+  representation: emptydata
+- hsname: TdUnion
+  representation: emptydata
+- hsname: Counter
+  representation: emptydata
+- hsname: OpaqueFwd
+  representation: emptydata
+- hsname: MacroPtr
+  representation: emptydata

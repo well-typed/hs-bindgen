@@ -185,7 +185,7 @@ instance UpdateUseSites (C.DeclKind l) where
       C.DeclFunction x         -> C.DeclFunction <$> updateUseSites x
       C.DeclGlobal   x         -> C.DeclGlobal   <$> updateUseSites x
       C.DeclMacro    x         -> return $ C.DeclMacro x
-      C.DeclOpaque             -> return $ C.DeclOpaque
+      C.DeclOpaque mSize       -> return $ C.DeclOpaque mSize
 
 instance UpdateUseSites C.Struct where
   updateUseSites struct =

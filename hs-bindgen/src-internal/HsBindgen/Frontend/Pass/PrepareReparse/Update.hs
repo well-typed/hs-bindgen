@@ -164,7 +164,7 @@ instance Update (C.DeclKind l) where
       C.DeclTypedef typedef    -> C.DeclTypedef          <$> recurse typedef
       C.DeclEnum enum          -> C.DeclEnum             <$> recurse enum
       C.DeclAnonEnumConstant c -> C.DeclAnonEnumConstant <$> recurse c
-      C.DeclOpaque             -> pure C.DeclOpaque
+      C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
       C.DeclMacro macro        -> C.DeclMacro            <$> (flipM recurse) macro
       C.DeclFunction function  -> C.DeclFunction         <$> recurse function
       C.DeclGlobal global      -> C.DeclGlobal           <$> recurse global

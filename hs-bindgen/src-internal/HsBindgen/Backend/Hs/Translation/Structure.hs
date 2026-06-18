@@ -202,7 +202,7 @@ getDecls supInsts hCfg spec structName info struct insts =
                 Hs.DeclDefineInstance Hs.DefineInstance{
                     comment      = Nothing
                   , instanceDecl =
-                      Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                      Hs.InstanceStaticSize structName Hs.StaticSizeInstance{
                           staticSizeOf    = struct.sizeof
                         , staticAlignment = struct.alignment
                         }

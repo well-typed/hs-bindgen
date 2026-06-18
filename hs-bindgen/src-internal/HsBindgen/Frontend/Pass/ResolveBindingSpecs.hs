@@ -292,16 +292,23 @@ applyPrescriptive decl cTypeSpec = \case
 
     auxEmptyData :: M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxEmptyData = do
-      let isValid = case decl.kind of
-            C.DeclStruct{}    -> True
-            C.DeclUnion{}     -> True
-            C.DeclEnum{}      -> True
-            C.DeclTypedef{}   -> True
-            C.DeclOpaque{}    -> True
+      declIndex <- Reader.asks (.declIndex)
+      -- A complete C type keeps its size and alignment, so that a 'StaticSize'
+      -- instance can be generated for the empty data type.  Structs, unions, and
+      -- enums carry the layout directly; a typedef is followed to its underlying
+      -- type.  Types that are genuinely opaque in C, primitives and pointers
+      -- (whose size is not available at this pass), and macro types keep
+      -- 'Nothing'.
+      let (isValid, mSize) = case decl.kind of
+            C.DeclStruct s    -> (True, Just (C.OpaqueSize s.sizeof s.alignment))
+            C.DeclUnion  u    -> (True, Just (C.OpaqueSize u.sizeof u.alignment))
+            C.DeclEnum   e    -> (True, Just (C.OpaqueSize e.sizeof e.alignment))
+            C.DeclTypedef td  -> (True, underlyingOpaqueSize declIndex td.typ)
+            C.DeclOpaque m    -> (True, m)
             C.DeclMacro macro -> case macro of
-              MacroType{}  -> True
-              MacroValue{} -> False
-            _otherwise        -> False
+              MacroType{}  -> (True,  Nothing)
+              MacroValue{} -> (False, Nothing)
+            _otherwise        -> (False, Nothing)
       if isValid
         then do
           State.modify' $
@@ -310,7 +317,7 @@ applyPrescriptive decl cTypeSpec = \case
           -- Cannot use record update because 'C.kind' is ambiguous
           let decl' = C.Decl{
                   C.info = decl.info
-                , C.kind = C.DeclOpaque
+                , C.kind = C.DeclOpaque mSize
                 , C.ann  = decl.ann
                 }
           return (decl', Just BindingSpec.HsTypeRepEmptyData)
@@ -325,6 +332,28 @@ applyPrescriptive decl cTypeSpec = \case
       -- We should validate types.
       -- Return different decl?
       return (decl, Just BindingSpec.HsTypeRepTypeAlias)
+
+-- | Size and alignment of an @emptydata@ type's underlying C type, when it can
+-- be determined at this pass.
+--
+-- 'C.getCanonicalType' resolves typedef and macro-type references and strips
+-- qualifiers, so a typedef to a struct or union surfaces as a 'C.TypeRef' to its
+-- declaration, whose layout we recover via the declaration index.  Primitives,
+-- pointers, and enums canonicalise to a type with no such reference and yield
+-- 'Nothing', since their sizes are not available in this frontend pass.
+underlyingOpaqueSize ::
+     DeclIndex l
+  -> C.Type PreviousPass
+  -> Maybe C.OpaqueSize
+underlyingOpaqueSize declIndex ty =
+    case C.getCanonicalType ty of
+      C.TypeRef declId -> do
+        decl <- DeclIndex.lookup declId declIndex
+        case decl.kind of
+          C.DeclStruct s -> pure (C.OpaqueSize s.sizeof s.alignment)
+          C.DeclUnion  u -> pure (C.OpaqueSize u.sizeof u.alignment)
+          _otherwise     -> Nothing
+      _otherwise       -> Nothing
 
 -- Pass two: deep
 --
@@ -374,7 +403,7 @@ instance Resolve (C.DeclKind l) l where
       C.DeclTypedef typedef                -> C.DeclTypedef          <$> resolve ctx typedef
       C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
       C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
-      C.DeclOpaque                         -> return C.DeclOpaque
+      C.DeclOpaque mSize                   -> return (C.DeclOpaque mSize)
       C.DeclMacro macro                    -> C.DeclMacro            <$> resolveFlip ctx macro
       C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
       C.DeclGlobal ty                      -> C.DeclGlobal           <$> resolve ctx ty

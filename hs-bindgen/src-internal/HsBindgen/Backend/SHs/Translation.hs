@@ -91,8 +91,8 @@ translateDeclTypSyn d = DTypSyn $ TypeSynonym {
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl defInst =
     case defInst.instanceDecl of
-      Hs.InstanceStaticSize struct i ->
-        DInst $ translateStaticSizeInstance struct i defInst.comment
+      Hs.InstanceStaticSize name i ->
+        DInst $ translateStaticSizeInstance name i defInst.comment
       Hs.InstanceReadRaw struct i ->
         DInst $ translateReadRawInstance struct i defInst.comment
       Hs.InstanceWriteRaw struct i ->
@@ -348,13 +348,13 @@ translateType = \case
 -------------------------------------------------------------------------------}
 
 translateStaticSizeInstance ::
-     Hs.Struct
+     Hs.Name Hs.NsTypeConstr
   -> Hs.StaticSizeInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateStaticSizeInstance struct inst mbComment = Instance{
+translateStaticSizeInstance name inst mbComment = Instance{
       clss    = Inst.StaticSize
-    , args    = [TCon struct.name]
+    , args    = [TCon name]
     , super   = []
     , types   = []
     , comment = mbComment

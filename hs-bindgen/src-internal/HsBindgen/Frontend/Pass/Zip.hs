@@ -115,7 +115,7 @@ zipDecl decl = reconstruct $ case decl.kind of
     C.DeclTypedef          x -> C.DeclTypedef          <$> zipEither x
     C.DeclEnum             x -> C.DeclEnum             <$> zipEither x
     C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> zipEither x
-    C.DeclOpaque             -> Right C.DeclOpaque
+    C.DeclOpaque mSize       -> Right (C.DeclOpaque mSize)
     C.DeclMacro            x -> C.DeclMacro            <$> flipM zipEither x
     C.DeclFunction         x -> C.DeclFunction         <$> zipEither x
     C.DeclGlobal           x -> C.DeclGlobal           <$> zipEither x
