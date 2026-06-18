@@ -45,7 +45,144 @@ ctypes:
 - headers: functions/callbacks.h
   cname: foo2
   hsname: Foo2
+- headers: functions/callbacks.h
+  cname: A
+  hsname: A
+- headers: functions/callbacks.h
+  cname: B
+  hsname: B
+- headers: functions/callbacks.h
+  cname: struct S
+  hsname: S
+- headers: functions/callbacks.h
+  cname: C
+  hsname: C
+- headers: functions/callbacks.h
+  cname: union U
+  hsname: U
+- headers: functions/callbacks.h
+  cname: D
+  hsname: D
+- headers: functions/callbacks.h
+  cname: T
+  hsname: T
 hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: C
+  representation:
+    newtype:
+      constructor: C
+      fields:
+      - unwrapC
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: D
+  representation:
+    newtype:
+      constructor: D
+      fields:
+      - unwrapD
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: DataPipeline
   representation:
     record:
@@ -298,6 +435,22 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_fn
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: SampleBufferFull
   representation:
     newtype:
@@ -313,6 +466,33 @@ hstypes:
   - Ord
   - ReadRaw
   - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - FromFunPtr
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - ToFunPtr
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrapU
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
   - StaticSize
   - Storable
   - WriteRaw

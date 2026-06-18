@@ -45,6 +45,15 @@ module Example
     , Example.Processor(..)
     , Example.Foo(..)
     , Example.Foo2(..)
+    , Example.A(..)
+    , Example.B(..)
+    , Example.S(..)
+    , Example.C(..)
+    , Example.U(..)
+    , Example.get_u_fn
+    , Example.set_u_fn
+    , Example.D(..)
+    , Example.T(..)
     )
   where
 
@@ -1262,6 +1271,396 @@ instance HasCField.HasCField Foo2 "unwrapFoo2" where
   type CFieldType Foo2 "unwrapFoo2" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @A@
+
+    __defined at:__ @functions\/callbacks.h 102:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype A = A
+  { unwrapA :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+
+instance HasCField.HasCField A "unwrapA" where
+
+  type CFieldType A "unwrapA" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @B@
+
+    __defined at:__ @functions\/callbacks.h 108:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype B = B
+  { unwrapB :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
+
+instance HasCField.HasCField B "unwrapB" where
+
+  type CFieldType B "unwrapB" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/callbacks.h 109:8@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+data S = S
+  { s_fn :: RIP.FunPtr (B -> IO ())
+    {- ^ __C declaration:__ @fn@
+
+         __defined at:__ @functions\/callbacks.h 110:17@
+
+         __exported by:__ @functions\/callbacks.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize S where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (8 :: Int)
+
+instance Marshal.ReadRaw S where
+
+  readRaw =
+    \ptr0 ->
+          pure S
+      <*> HasCField.readRaw (RIP.Proxy @"s_fn") ptr0
+
+instance Marshal.WriteRaw S where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S s_fn2 ->
+            HasCField.writeRaw (RIP.Proxy @"s_fn") ptr0 s_fn2
+
+deriving via Marshal.EquivStorable S instance RIP.Storable S
+
+instance HasCField.HasCField S "s_fn" where
+
+  type CFieldType S "s_fn" = RIP.FunPtr (B -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr (B -> IO ())
+         ) => RIP.HasField "s_fn" (RIP.Ptr S) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s_fn")
+
+{-| __C declaration:__ @C@
+
+    __defined at:__ @functions\/callbacks.h 116:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype C = C
+  { unwrapC :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unwrapC" (RIP.Ptr C) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapC")
+
+instance HasCField.HasCField C "unwrapC" where
+
+  type CFieldType C "unwrapC" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @functions\/callbacks.h 117:7@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype U = U
+  { unwrapU :: RIP.ByteArray
+  }
+  deriving stock (RIP.Generic)
+
+deriving via RIP.SizedByteArray 24 8 instance Marshal.StaticSize U
+
+deriving via RIP.SizedByteArray 24 8 instance Marshal.ReadRaw U
+
+deriving via RIP.SizedByteArray 24 8 instance Marshal.WriteRaw U
+
+deriving via Marshal.EquivStorable U instance RIP.Storable U
+
+{-|
+
+    __See:__ 'set_u_fn'
+
+    __C declaration:__ @fn@
+
+    __defined at:__ @functions\/callbacks.h 118:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+get_u_fn ::
+     U
+  -> CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+get_u_fn = RIP.getUnionPayload
+
+{-|
+
+    __See:__ 'get_u_fn'
+
+-}
+set_u_fn ::
+     CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+  -> U
+set_u_fn = RIP.setUnionPayload
+
+instance HasCField.HasCField U "u_fn" where
+
+  type CFieldType U "u_fn" =
+    CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+         ) => RIP.HasField "u_fn" (RIP.Ptr U) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"u_fn")
+
+{-| __C declaration:__ @D@
+
+    __defined at:__ @functions\/callbacks.h 124:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype D = D
+  { unwrapD :: RIP.CInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving newtype
+    ( RIP.Bitfield
+    , RIP.Bits
+    , Bounded
+    , Enum
+    , RIP.FiniteBits
+    , RIP.HasFFIType
+    , Integral
+    , RIP.Ix
+    , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unwrapD" (RIP.Ptr D) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapD")
+
+instance HasCField.HasCField D "unwrapD" where
+
+  type CFieldType D "unwrapD" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/callbacks.h 125:15@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype T = T
+  { unwrapT :: RIP.FunPtr (D -> IO ()) -> IO ()
+  }
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
+
+-- __unique:__ @toT@
+foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
+     (RIP.FunPtr RIP.Void -> IO ())
+  -> IO (RIP.FunPtr (RIP.FunPtr RIP.Void -> IO ()))
+
+-- __unique:__ @toT@
+hs_bindgen_b8534912f6256492 ::
+     T
+  -> IO (RIP.FunPtr T)
+hs_bindgen_b8534912f6256492 =
+  \fun0 ->
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_b8534912f6256492_base (RIP.toFFIType fun0))
+
+-- __unique:__ @fromT@
+foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
+     RIP.FunPtr (RIP.FunPtr RIP.Void -> IO ())
+  -> RIP.FunPtr RIP.Void -> IO ()
+
+-- __unique:__ @fromT@
+hs_bindgen_8f830eadb43a6fe4 ::
+     RIP.FunPtr T
+  -> T
+hs_bindgen_8f830eadb43a6fe4 =
+  \funPtr0 ->
+    RIP.fromFFIType (hs_bindgen_8f830eadb43a6fe4_base (RIP.castFunPtrToFFIType funPtr0))
+
+instance RIP.ToFunPtr T where
+
+  toFunPtr = hs_bindgen_b8534912f6256492
+
+instance RIP.FromFunPtr T where
+
+  fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+
+instance ( ty ~ (RIP.FunPtr (D -> IO ()) -> IO ())
+         ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
+
+instance HasCField.HasCField T "unwrapT" where
+
+  type CFieldType T "unwrapT" =
+    RIP.FunPtr (D -> IO ()) -> IO ()
+
+  offset# = \_ -> \_ -> 0
+
+-- __unique:__ @instance ToFunPtr (B -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_ca9230f035bf19b1_base ::
+     (RIP.Int32 -> IO ())
+  -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
+
+-- __unique:__ @instance ToFunPtr (B -> IO ())@
+hs_bindgen_ca9230f035bf19b1 ::
+     (B -> IO ())
+  -> IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_ca9230f035bf19b1 =
+  \fun0 ->
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_ca9230f035bf19b1_base (RIP.toFFIType fun0))
+
+-- __unique:__ @instance FromFunPtr (B -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_05635addcbfd7dd4_base ::
+     RIP.FunPtr (RIP.Int32 -> IO ())
+  -> RIP.Int32 -> IO ()
+
+-- __unique:__ @instance FromFunPtr (B -> IO ())@
+hs_bindgen_05635addcbfd7dd4 ::
+     RIP.FunPtr (B -> IO ())
+  -> B -> IO ()
+hs_bindgen_05635addcbfd7dd4 =
+  \funPtr0 ->
+    RIP.fromFFIType (hs_bindgen_05635addcbfd7dd4_base (RIP.castFunPtrToFFIType funPtr0))
+
+instance RIP.ToFunPtr (B -> IO ()) where
+
+  toFunPtr = hs_bindgen_ca9230f035bf19b1
+
+instance RIP.FromFunPtr (B -> IO ()) where
+
+  fromFunPtr = hs_bindgen_05635addcbfd7dd4
+
+-- __unique:__ @instance ToFunPtr (C -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_151c4eb8866d683f_base ::
+     (RIP.Int32 -> IO ())
+  -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
+
+-- __unique:__ @instance ToFunPtr (C -> IO ())@
+hs_bindgen_151c4eb8866d683f ::
+     (C -> IO ())
+  -> IO (RIP.FunPtr (C -> IO ()))
+hs_bindgen_151c4eb8866d683f =
+  \fun0 ->
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_151c4eb8866d683f_base (RIP.toFFIType fun0))
+
+-- __unique:__ @instance FromFunPtr (C -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_f9f9dcb4f8267450_base ::
+     RIP.FunPtr (RIP.Int32 -> IO ())
+  -> RIP.Int32 -> IO ()
+
+-- __unique:__ @instance FromFunPtr (C -> IO ())@
+hs_bindgen_f9f9dcb4f8267450 ::
+     RIP.FunPtr (C -> IO ())
+  -> C -> IO ()
+hs_bindgen_f9f9dcb4f8267450 =
+  \funPtr0 ->
+    RIP.fromFFIType (hs_bindgen_f9f9dcb4f8267450_base (RIP.castFunPtrToFFIType funPtr0))
+
+instance RIP.ToFunPtr (C -> IO ()) where
+
+  toFunPtr = hs_bindgen_151c4eb8866d683f
+
+instance RIP.FromFunPtr (C -> IO ()) where
+
+  fromFunPtr = hs_bindgen_f9f9dcb4f8267450
 
 -- __unique:__ @instance ToFunPtr (Foo -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::

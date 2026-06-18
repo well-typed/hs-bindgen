@@ -422,6 +422,14 @@
 -- {
 --   return &f2;
 -- }
+-- /* test_functionscallbacks_Example_get_globalVar */
+-- __attribute__ ((const))
+-- void (*(*hs_bindgen_a370a6faf1531caa (void))[3]) (
+--   A arg1
+-- )
+-- {
+--   return &globalVar;
+-- }
 {-| Auxiliary type used by 'FileOpenedNotification'
 
     __C declaration:__ @FileOpenedNotification@
@@ -1318,6 +1326,285 @@ instance (~) ty CInt => HasField "unwrapFoo2" (Ptr Foo2) (Ptr ty)
 instance HasCField Foo2 "unwrapFoo2"
     where type CFieldType Foo2 "unwrapFoo2" = CInt
           offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @A@
+
+    __defined at:__ @functions\/callbacks.h 102:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype A
+    = A {unwrapA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @B@
+
+    __defined at:__ @functions\/callbacks.h 108:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype B
+    = B {unwrapB :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapB" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapB")
+instance HasCField B "unwrapB"
+    where type CFieldType B "unwrapB" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/callbacks.h 109:8@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+data S
+    = S {s_fn :: (FunPtr (B -> IO ()))
+         {- ^ __C declaration:__ @fn@
+
+              __defined at:__ @functions\/callbacks.h 110:17@
+
+              __exported by:__ @functions\/callbacks.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_fn") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_fn_2 -> writeRaw (Proxy @"s_fn") ptr_0 s_fn_2
+deriving via (EquivStorable S) instance Storable S
+instance HasCField S "s_fn"
+    where type CFieldType S "s_fn" = FunPtr (B -> IO ())
+          offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr (B -> IO ())) =>
+         HasField "s_fn" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_fn")
+{-| __C declaration:__ @C@
+
+    __defined at:__ @functions\/callbacks.h 116:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype C
+    = C {unwrapC :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapC" (Ptr C) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapC")
+instance HasCField C "unwrapC"
+    where type CFieldType C "unwrapC" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @functions\/callbacks.h 117:7@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype U = U {unwrapU :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 24 8) instance StaticSize U
+deriving via (SizedByteArray 24 8) instance ReadRaw U
+deriving via (SizedByteArray 24 8) instance WriteRaw U
+deriving via (EquivStorable U) instance Storable U
+{-|
+
+    __See:__ 'set_u_fn'
+
+    __C declaration:__ @fn@
+
+    __defined at:__ @functions\/callbacks.h 118:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+get_u_fn :: U -> ConstantArray 3 (FunPtr (C -> IO ()))
+{-|
+
+    __See:__ 'set_u_fn'
+
+    __C declaration:__ @fn@
+
+    __defined at:__ @functions\/callbacks.h 118:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+get_u_fn = getUnionPayload
+{-|
+
+    __See:__ 'get_u_fn'
+
+-}
+set_u_fn :: ConstantArray 3 (FunPtr (C -> IO ())) -> U
+{-|
+
+    __See:__ 'get_u_fn'
+
+-}
+set_u_fn = setUnionPayload
+instance HasCField U "u_fn"
+    where type CFieldType U "u_fn" = ConstantArray 3
+                                                   (FunPtr (C -> IO ()))
+          offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
+         HasField "u_fn" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_fn")
+{-| __C declaration:__ @D@
+
+    __defined at:__ @functions\/callbacks.h 124:13@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype D
+    = D {unwrapD :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapD" (Ptr D) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapD")
+instance HasCField D "unwrapD"
+    where type CFieldType D "unwrapD" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/callbacks.h 125:15@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+newtype T
+    = T {unwrapT :: (FunPtr (D -> IO ()) -> IO ())}
+    deriving stock Generic
+    deriving newtype HasFFIType
+-- __unique:__ @toT@
+foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
+    FunPtr Void -> IO ()
+ -> IO (FunPtr (FunPtr Void -> IO ()))
+-- __unique:__ @toT@
+hs_bindgen_b8534912f6256492 :: T -> IO (FunPtr T)
+-- __unique:__ @toT@
+hs_bindgen_b8534912f6256492 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b8534912f6256492_base (toFFIType fun_0))
+-- __unique:__ @fromT@
+foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
+    FunPtr (FunPtr Void -> IO ())
+ -> FunPtr Void
+ -> IO ()
+-- __unique:__ @fromT@
+hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T
+-- __unique:__ @fromT@
+hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> fromFFIType (hs_bindgen_8f830eadb43a6fe4_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr T
+    where toFunPtr = hs_bindgen_b8534912f6256492
+instance FromFunPtr T
+    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = FunPtr (D -> IO ()) -> IO ()
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (B -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_ca9230f035bf19b1_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @instance ToFunPtr (B -> IO ())@
+hs_bindgen_ca9230f035bf19b1 :: (B -> IO ()) ->
+                               IO (FunPtr (B -> IO ()))
+-- __unique:__ @instance ToFunPtr (B -> IO ())@
+hs_bindgen_ca9230f035bf19b1 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_ca9230f035bf19b1_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (B -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_05635addcbfd7dd4_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (B -> IO ())@
+hs_bindgen_05635addcbfd7dd4 :: FunPtr (B -> IO ()) -> B -> IO ()
+-- __unique:__ @instance FromFunPtr (B -> IO ())@
+hs_bindgen_05635addcbfd7dd4 = \funPtr_0 -> fromFFIType (hs_bindgen_05635addcbfd7dd4_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr (B -> IO ())
+    where toFunPtr = hs_bindgen_ca9230f035bf19b1
+instance FromFunPtr (B -> IO ())
+    where fromFunPtr = hs_bindgen_05635addcbfd7dd4
+-- __unique:__ @instance ToFunPtr (C -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_151c4eb8866d683f_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @instance ToFunPtr (C -> IO ())@
+hs_bindgen_151c4eb8866d683f :: (C -> IO ()) ->
+                               IO (FunPtr (C -> IO ()))
+-- __unique:__ @instance ToFunPtr (C -> IO ())@
+hs_bindgen_151c4eb8866d683f = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_151c4eb8866d683f_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (C -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_f9f9dcb4f8267450_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (C -> IO ())@
+hs_bindgen_f9f9dcb4f8267450 :: FunPtr (C -> IO ()) -> C -> IO ()
+-- __unique:__ @instance FromFunPtr (C -> IO ())@
+hs_bindgen_f9f9dcb4f8267450 = \funPtr_0 -> fromFFIType (hs_bindgen_f9f9dcb4f8267450_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr (C -> IO ())
+    where toFunPtr = hs_bindgen_151c4eb8866d683f
+instance FromFunPtr (C -> IO ())
+    where fromFunPtr = hs_bindgen_f9f9dcb4f8267450
 -- __unique:__ @instance ToFunPtr (Foo -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::
     Int32 -> IO ()
@@ -2754,3 +3041,26 @@ f2_funptr :: FunPtr (FunPtr (Foo2 -> IO ()) -> IO ())
     __exported by:__ @functions\/callbacks.h@
 -}
 f2_funptr = unsafePerformIO hs_bindgen_81fde2984e04c791
+-- __unique:__ @test_functionscallbacks_Example_get_globalVar@
+foreign import ccall unsafe "hs_bindgen_a370a6faf1531caa" hs_bindgen_a370a6faf1531caa_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_functionscallbacks_Example_get_globalVar@
+hs_bindgen_a370a6faf1531caa :: IO (Ptr (ConstantArray 3
+                                                      (FunPtr (A -> IO ()))))
+-- __unique:__ @test_functionscallbacks_Example_get_globalVar@
+hs_bindgen_a370a6faf1531caa = fromFFIType hs_bindgen_a370a6faf1531caa_base
+{-# NOINLINE globalVar #-}
+{-| __C declaration:__ @globalVar@
+
+    __defined at:__ @functions\/callbacks.h 103:15@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+globalVar :: Ptr (ConstantArray 3 (FunPtr (A -> IO ())))
+{-| __C declaration:__ @globalVar@
+
+    __defined at:__ @functions\/callbacks.h 103:15@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+globalVar = unsafePerformIO hs_bindgen_a370a6faf1531caa
