@@ -64,7 +64,7 @@ module Example
     , Example.Deep_mid_anon_field(..)
     , Example.Deep_mid(..)
     , Example.Deep_outer(..)
-    , Example.Unnamed_field_t_ua(..)
+    , Example.Unnamed_field_t_anon'ua(..)
     , Example.Unnamed_field_t(..)
     )
   where
@@ -2038,14 +2038,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"deep_outer_o")
 
-{-| __C declaration:__ @struct \@unnamed_field_t_ua@
+{-| __C declaration:__ @struct \@unnamed_field_t_anon\'ua@
 
     __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Unnamed_field_t_ua = Unnamed_field_t_ua
-  { unnamed_field_t_ua_ua :: RIP.CInt
+data Unnamed_field_t_anon'ua = Unnamed_field_t_anon'ua
+  { unnamed_field_t_anon'ua_ua :: RIP.CInt
     {- ^ Unnamed inner a
 
          __C declaration:__ @ua@
@@ -2054,7 +2054,7 @@ data Unnamed_field_t_ua = Unnamed_field_t_ua
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , unnamed_field_t_ua_ub :: RIP.CInt
+  , unnamed_field_t_anon'ua_ub :: RIP.CInt
     {- ^ Unnamed inner b
 
          __C declaration:__ @ub@
@@ -2066,57 +2066,59 @@ data Unnamed_field_t_ua = Unnamed_field_t_ua
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize Unnamed_field_t_ua where
+instance Marshal.StaticSize Unnamed_field_t_anon'ua where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw Unnamed_field_t_ua where
+instance Marshal.ReadRaw Unnamed_field_t_anon'ua where
 
   readRaw =
     \ptr0 ->
-          pure Unnamed_field_t_ua
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua_ua") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua_ub") ptr0
+          pure Unnamed_field_t_anon'ua
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ua") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ub") ptr0
 
-instance Marshal.WriteRaw Unnamed_field_t_ua where
+instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Unnamed_field_t_ua unnamed_field_t_ua_ua2 unnamed_field_t_ua_ub3 ->
-               HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua_ua") ptr0 unnamed_field_t_ua_ua2
-            >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua_ub") ptr0 unnamed_field_t_ua_ub3
+          Unnamed_field_t_anon'ua
+            unnamed_field_t_anon'ua_ua2
+            unnamed_field_t_anon'ua_ub3 ->
+                 HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ua") ptr0 unnamed_field_t_anon'ua_ua2
+              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ub") ptr0 unnamed_field_t_anon'ua_ub3
 
-deriving via Marshal.EquivStorable Unnamed_field_t_ua instance RIP.Storable Unnamed_field_t_ua
+deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance RIP.Storable Unnamed_field_t_anon'ua
 
-instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ua" where
+instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" where
 
-  type CFieldType Unnamed_field_t_ua "unnamed_field_t_ua_ua" =
+  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" =
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_ua_ua" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
+         ) => RIP.HasField "unnamed_field_t_anon'ua_ua" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua_ua")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ua")
 
-instance HasCField.HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ub" where
+instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" where
 
-  type CFieldType Unnamed_field_t_ua "unnamed_field_t_ua_ub" =
+  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" =
     RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_ua_ub" (RIP.Ptr Unnamed_field_t_ua) (RIP.Ptr ty) where
+         ) => RIP.HasField "unnamed_field_t_anon'ua_ub" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua_ub")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ub")
 
 {-| Struct with unnamed anonymous field.
 
@@ -2138,10 +2140,8 @@ data Unnamed_field_t = Unnamed_field_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , unnamed_field_t_ua :: Unnamed_field_t_ua
-    {- ^ Unnamed inner a
-
-         __C declaration:__ @ua@
+  , unnamed_field_t_anon'ua :: Unnamed_field_t_anon'ua
+    {- ^ __C declaration:__ @anon\'ua@
 
          __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
@@ -2171,7 +2171,7 @@ instance Marshal.ReadRaw Unnamed_field_t where
     \ptr0 ->
           pure Unnamed_field_t
       <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_before") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_ua") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua") ptr0
       <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_after") ptr0
 
 instance Marshal.WriteRaw Unnamed_field_t where
@@ -2182,10 +2182,10 @@ instance Marshal.WriteRaw Unnamed_field_t where
         case s1 of
           Unnamed_field_t
             unnamed_field_t_before2
-            unnamed_field_t_ua3
+            unnamed_field_t_anon'ua3
             unnamed_field_t_after4 ->
                  HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_before") ptr0 unnamed_field_t_before2
-              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_ua") ptr0 unnamed_field_t_ua3
+              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua") ptr0 unnamed_field_t_anon'ua3
               >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_after") ptr0 unnamed_field_t_after4
 
 deriving via Marshal.EquivStorable Unnamed_field_t instance RIP.Storable Unnamed_field_t
@@ -2203,18 +2203,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_before")
 
-instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_ua" where
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
 
-  type CFieldType Unnamed_field_t "unnamed_field_t_ua" =
-    Unnamed_field_t_ua
+  type CFieldType Unnamed_field_t "unnamed_field_t_anon'ua" =
+    Unnamed_field_t_anon'ua
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ Unnamed_field_t_ua
-         ) => RIP.HasField "unnamed_field_t_ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+instance ( ty ~ Unnamed_field_t_anon'ua
+         ) => RIP.HasField "unnamed_field_t_anon'ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_ua")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua")
 
 instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
 

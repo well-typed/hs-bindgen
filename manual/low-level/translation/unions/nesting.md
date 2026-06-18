@@ -188,7 +188,12 @@ struct shapeE {
 
 In this case, we generate a Haskell name for both the unnamed union and the
 unnamed field. First, the unnamed field is named after the first field of the
-anonymous union. Informally, this transforms the C code to:
+anonymous union. The field name is also prefixed with "anon'" to highlight that
+the field is created for an anonymous struct/union. The tick ensures that this
+name can not clash with any existing C fields because ticks are not allowed in C
+identifiers.
+
+Informally, this transforms the C code to:
 
 ```c
 struct shapeE {
@@ -196,7 +201,7 @@ struct shapeE {
   union {
     float radius;
     int length;
-  } radius;
+  } anon'radius;
 };
 ```
 
@@ -205,15 +210,15 @@ for the unnamed union based on the name of the parent object (i.e., struct) and
 the *newly assigned* field name. This leads to the following Haskell bindings:
 
 ```hs
-newtype ShapeE_radius
-get_shapeE_radius_radius :: ShapedD_size -> CFloat
-set_shapeE_radius_radius :: CFloat       -> ShapedD_size
-get_shapeE_radius_length :: ShapedD_size -> CInt
-set_shapeE_radius_length :: CInt         -> ShapedD_size
+newtype ShapeE_anon'radius
+get_shapeE_anon'radius_radius :: ShapeE_anon'radius -> CFloat
+set_shapeE_anon'radius_radius :: CFloat             -> ShapeE_anon'radius
+get_shapeE_anon'radius_length :: ShapeE_anon'radius -> CInt
+set_shapeE_anon'radius_length :: CInt               -> ShapeE_anon'radius
 
 data ShapeE = ShapeE
-  { shapeE_tag    :: Shape_tag
-  , shapeE_radius :: ShapeE_radius
+  { shapeE_tag         :: Shape_tag
+  , shapeE_anon'radius :: ShapeE_anon'radius
   }
 ```
 
@@ -223,7 +228,8 @@ and we work our way upwards from there. The naming of unnamed unions then
 follows the usual rules.
 
 If these generated names are too unwieldy, they can always be customised using
-[prescriptive binding specifications][manual:usage/binding-specs].
+[prescriptive binding specifications][manual:usage/binding-specs]. Moreover,
+they can be shortened considerably by omitting field prefixes.
 
 ### Limitations
 

@@ -10,8 +10,8 @@ ctypes:
   cname: struct @S_y
   hsname: S_y
 - headers: types/anonymous/edge-cases/anon_in_nonanon.h
-  cname: struct @S_y_x
-  hsname: S_y_x
+  cname: struct @S_y_anon'x
+  hsname: S_y_anon'x
 hstypes:
 - hsname: S
   representation:
@@ -34,7 +34,7 @@ hstypes:
     record:
       constructor: S_y
       fields:
-      - s_y_x
+      - s_y_anon'x
   instances:
   - Eq
   - Generic
@@ -45,12 +45,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: S_y_x
+- hsname: S_y_anon'x
   representation:
     record:
-      constructor: S_y_x
+      constructor: S_y_anon'x
       fields:
-      - s_y_x_x
+      - s_y_anon'x_x
   instances:
   - Eq
   - Generic

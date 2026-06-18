@@ -1,33 +1,34 @@
 -- addDependentFile test-artefacts/headers/golden/types/anonymous/edge-cases/anon_in_nonanon.h
-{-| __C declaration:__ @struct \@S_y_x@
+{-| __C declaration:__ @struct \@S_y_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 15:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
 -}
-data S_y_x
-    = S_y_x {s_y_x_x :: CInt
-             {- ^ __C declaration:__ @x@
+data S_y_anon'x
+    = S_y_anon'x {s_y_anon'x_x :: CInt
+                  {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 16:11@
+                       __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 16:11@
 
-                  __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
-             -}}
+                       __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
+                  -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize S_y_x
+instance StaticSize S_y_anon'x
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw S_y_x
-    where readRaw = \ptr_0 -> pure S_y_x <*> readRaw (Proxy @"s_y_x_x") ptr_0
-instance WriteRaw S_y_x
+instance ReadRaw S_y_anon'x
+    where readRaw = \ptr_0 -> pure S_y_anon'x <*> readRaw (Proxy @"s_y_anon'x_x") ptr_0
+instance WriteRaw S_y_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       S_y_x s_y_x_x_2 -> writeRaw (Proxy @"s_y_x_x") ptr_0 s_y_x_x_2
-deriving via (EquivStorable S_y_x) instance Storable S_y_x
-instance HasCField S_y_x "s_y_x_x"
-    where type CFieldType S_y_x "s_y_x_x" = CInt
+                                       S_y_anon'x s_y_anon'x_x_2 -> writeRaw (Proxy @"s_y_anon'x_x") ptr_0 s_y_anon'x_x_2
+deriving via (EquivStorable S_y_anon'x) instance Storable S_y_anon'x
+instance HasCField S_y_anon'x "s_y_anon'x_x"
+    where type CFieldType S_y_anon'x "s_y_anon'x_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s_y_x_x" (Ptr S_y_x) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y_x_x")
+instance (~) ty CInt =>
+         HasField "s_y_anon'x_x" (Ptr S_y_anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_anon'x_x")
 {-| __C declaration:__ @struct \@S_y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 14:3@
@@ -35,8 +36,8 @@ instance (~) ty CInt => HasField "s_y_x_x" (Ptr S_y_x) (Ptr ty)
     __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
 -}
 data S_y
-    = S_y {s_y_x :: S_y_x
-           {- ^ __C declaration:__ @x@
+    = S_y {s_y_anon'x :: S_y_anon'x
+           {- ^ __C declaration:__ @anon\'x@
 
                 __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 15:5@
 
@@ -47,16 +48,17 @@ instance StaticSize S_y
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw S_y
-    where readRaw = \ptr_0 -> pure S_y <*> readRaw (Proxy @"s_y_x") ptr_0
+    where readRaw = \ptr_0 -> pure S_y <*> readRaw (Proxy @"s_y_anon'x") ptr_0
 instance WriteRaw S_y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       S_y s_y_x_2 -> writeRaw (Proxy @"s_y_x") ptr_0 s_y_x_2
+                                       S_y s_y_anon'x_2 -> writeRaw (Proxy @"s_y_anon'x") ptr_0 s_y_anon'x_2
 deriving via (EquivStorable S_y) instance Storable S_y
-instance HasCField S_y "s_y_x"
-    where type CFieldType S_y "s_y_x" = S_y_x
+instance HasCField S_y "s_y_anon'x"
+    where type CFieldType S_y "s_y_anon'x" = S_y_anon'x
           offset# = \_ -> \_ -> 0
-instance (~) ty S_y_x => HasField "s_y_x" (Ptr S_y) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y_x")
+instance (~) ty S_y_anon'x =>
+         HasField "s_y_anon'x" (Ptr S_y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_anon'x")
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 13:8@

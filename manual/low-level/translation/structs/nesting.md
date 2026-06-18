@@ -162,14 +162,19 @@ struct roomE {
 
 In this case, we generate a Haskell name for both the unnamed struct and the
 unnamed field. First, the unnamed field is named after the first field of the
-anonymous struct. Informally, this transforms the C code to:
+anonymous struct. The field name is also prefixed with "anon'" to highlight that
+the field is created for an anonymous struct/union. The tick ensures that this
+name can not clash with any existing C fields because ticks are not allowed in C
+identifiers.
+
+Informally, this transforms the C code to:
 
 ```c
 struct roomE {
   struct {
     float height;
     float width;
-  } height;
+  } anon'height;
 };
 ```
 
@@ -178,13 +183,13 @@ for the unnamed struct based on the name of the parent object (i.e., struct) and
 the *newly assigned* field name. This leads to the following Haskell bindings:
 
 ```haskell
-data RoomE_height = RoomE_height
-  { RoomE_height_height :: CFloat
-  , RoomE_height_width  :: CFloat
+data RoomE_anon'height = RoomE_anon'height
+  { RoomE_anon'height_height :: CFloat
+  , RoomE_anon'height_width  :: CFloat
   }
 
 data RoomE = RoomE
-  { roomE_height :: RoomE_height
+  { roomE_anon'height :: RoomE_anon'height
   }
 ```
 
@@ -194,7 +199,8 @@ and we work our way upwards from there. The naming of unnamed structs then
 follows the usual rules.
 
 If these generated names are too unwieldy, they can always be customised using
-[prescriptive binding specifications][manual:usage/binding-specs].
+[prescriptive binding specifications][manual:usage/binding-specs]. Moreover,
+they can be shortened considerably by omitting field prefixes.
 
 ### Limitations
 

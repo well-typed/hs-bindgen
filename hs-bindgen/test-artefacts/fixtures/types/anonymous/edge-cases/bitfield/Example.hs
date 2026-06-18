@@ -13,10 +13,10 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.S1_y(..)
+    ( Example.S1_anon'y(..)
     , Example.S1(..)
-    , Example.S2_y_y(..)
-    , Example.S2_y(..)
+    , Example.S2_anon'anon'y_anon'y(..)
+    , Example.S2_anon'anon'y(..)
     , Example.S2(..)
     )
   where
@@ -27,14 +27,14 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @struct \@S1_y@
+{-| __C declaration:__ @struct \@S1_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
-data S1_y = S1_y
-  { s1_y_y :: RIP.CChar
+data S1_anon'y = S1_anon'y
+  { s1_anon'y_y :: RIP.CChar
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:10@
@@ -44,42 +44,44 @@ data S1_y = S1_y
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize S1_y where
+instance Marshal.StaticSize S1_anon'y where
 
   staticSizeOf = \_ -> (1 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance Marshal.ReadRaw S1_y where
+instance Marshal.ReadRaw S1_anon'y where
 
   readRaw =
     \ptr0 ->
-          pure S1_y
-      <*> HasCBitfield.peek (RIP.Proxy @"s1_y_y") ptr0
+          pure S1_anon'y
+      <*> HasCBitfield.peek (RIP.Proxy @"s1_anon'y_y") ptr0
 
-instance Marshal.WriteRaw S1_y where
+instance Marshal.WriteRaw S1_anon'y where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S1_y s1_y_y2 ->
-            HasCBitfield.poke (RIP.Proxy @"s1_y_y") ptr0 s1_y_y2
+          S1_anon'y s1_anon'y_y2 ->
+            HasCBitfield.poke (RIP.Proxy @"s1_anon'y_y") ptr0 s1_anon'y_y2
 
-deriving via Marshal.EquivStorable S1_y instance RIP.Storable S1_y
+deriving via Marshal.EquivStorable S1_anon'y instance RIP.Storable S1_anon'y
 
-instance HasCBitfield.HasCBitfield S1_y "s1_y_y" where
+instance HasCBitfield.HasCBitfield S1_anon'y "s1_anon'y_y" where
 
-  type CBitfieldType S1_y "s1_y_y" = RIP.CChar
+  type CBitfieldType S1_anon'y "s1_anon'y_y" =
+    RIP.CChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
 
 instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s1_y_y" (RIP.Ptr S1_y) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "s1_anon'y_y" (RIP.Ptr S1_anon'y) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"s1_y_y")
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"s1_anon'y_y")
 
 {-| __C declaration:__ @struct S1@
 
@@ -88,8 +90,8 @@ instance ( ty ~ RIP.CChar
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
 data S1 = S1
-  { s1_y :: S1_y
-    {- ^ __C declaration:__ @y@
+  { s1_anon'y :: S1_anon'y
+    {- ^ __C declaration:__ @anon\'y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:3@
 
@@ -116,7 +118,7 @@ instance Marshal.ReadRaw S1 where
   readRaw =
     \ptr0 ->
           pure S1
-      <*> HasCField.readRaw (RIP.Proxy @"s1_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s1_anon'y") ptr0
       <*> HasCField.readRaw (RIP.Proxy @"s1_x") ptr0
 
 instance Marshal.WriteRaw S1 where
@@ -125,21 +127,22 @@ instance Marshal.WriteRaw S1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S1 s1_y2 s1_x3 ->
-               HasCField.writeRaw (RIP.Proxy @"s1_y") ptr0 s1_y2
+          S1 s1_anon'y2 s1_x3 ->
+               HasCField.writeRaw (RIP.Proxy @"s1_anon'y") ptr0 s1_anon'y2
             >> HasCField.writeRaw (RIP.Proxy @"s1_x") ptr0 s1_x3
 
 deriving via Marshal.EquivStorable S1 instance RIP.Storable S1
 
-instance HasCField.HasCField S1 "s1_y" where
+instance HasCField.HasCField S1 "s1_anon'y" where
 
-  type CFieldType S1 "s1_y" = S1_y
+  type CFieldType S1 "s1_anon'y" = S1_anon'y
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ S1_y) => RIP.HasField "s1_y" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance ( ty ~ S1_anon'y
+         ) => RIP.HasField "s1_anon'y" (RIP.Ptr S1) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_anon'y")
 
 instance HasCField.HasCField S1 "s1_x" where
 
@@ -151,14 +154,14 @@ instance (ty ~ RIP.CInt) => RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_x")
 
-{-| __C declaration:__ @struct \@S2_y_y@
+{-| __C declaration:__ @struct \@S2_anon\'anon\'y_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
-data S2_y_y = S2_y_y
-  { s2_y_y_y :: RIP.CChar
+data S2_anon'anon'y_anon'y = S2_anon'anon'y_anon'y
+  { s2_anon'anon'y_anon'y_y :: RIP.CChar
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
@@ -168,58 +171,60 @@ data S2_y_y = S2_y_y
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize S2_y_y where
+instance Marshal.StaticSize S2_anon'anon'y_anon'y where
 
   staticSizeOf = \_ -> (1 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance Marshal.ReadRaw S2_y_y where
+instance Marshal.ReadRaw S2_anon'anon'y_anon'y where
 
   readRaw =
     \ptr0 ->
-          pure S2_y_y
-      <*> HasCBitfield.peek (RIP.Proxy @"s2_y_y_y") ptr0
+          pure S2_anon'anon'y_anon'y
+      <*> HasCBitfield.peek (RIP.Proxy @"s2_anon'anon'y_anon'y_y") ptr0
 
-instance Marshal.WriteRaw S2_y_y where
+instance Marshal.WriteRaw S2_anon'anon'y_anon'y where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2_y_y s2_y_y_y2 ->
-            HasCBitfield.poke (RIP.Proxy @"s2_y_y_y") ptr0 s2_y_y_y2
+          S2_anon'anon'y_anon'y s2_anon'anon'y_anon'y_y2 ->
+            HasCBitfield.poke (RIP.Proxy @"s2_anon'anon'y_anon'y_y") ptr0 s2_anon'anon'y_anon'y_y2
 
-deriving via Marshal.EquivStorable S2_y_y instance RIP.Storable S2_y_y
+deriving via Marshal.EquivStorable S2_anon'anon'y_anon'y instance RIP.Storable S2_anon'anon'y_anon'y
 
-instance HasCBitfield.HasCBitfield S2_y_y "s2_y_y_y" where
+instance HasCBitfield.HasCBitfield S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" where
 
-  type CBitfieldType S2_y_y "s2_y_y_y" = RIP.CChar
+  type CBitfieldType S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" =
+    RIP.CChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
 
 instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s2_y_y_y" (RIP.Ptr S2_y_y) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "s2_anon'anon'y_anon'y_y" (RIP.Ptr S2_anon'anon'y_anon'y) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"s2_y_y_y")
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"s2_anon'anon'y_anon'y_y")
 
-{-| __C declaration:__ @struct \@S2_y@
+{-| __C declaration:__ @struct \@S2_anon\'anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
-data S2_y = S2_y
-  { s2_y_y :: S2_y_y
-    {- ^ __C declaration:__ @y@
+data S2_anon'anon'y = S2_anon'anon'y
+  { s2_anon'anon'y_anon'y :: S2_anon'anon'y_anon'y
+    {- ^ __C declaration:__ @anon\'y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
 
          __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
     -}
-  , s2_y_x :: RIP.CInt
+  , s2_anon'anon'y_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
@@ -229,53 +234,57 @@ data S2_y = S2_y
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize S2_y where
+instance Marshal.StaticSize S2_anon'anon'y where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw S2_y where
+instance Marshal.ReadRaw S2_anon'anon'y where
 
   readRaw =
     \ptr0 ->
-          pure S2_y
-      <*> HasCField.readRaw (RIP.Proxy @"s2_y_y") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s2_y_x") ptr0
+          pure S2_anon'anon'y
+      <*> HasCField.readRaw (RIP.Proxy @"s2_anon'anon'y_anon'y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s2_anon'anon'y_x") ptr0
 
-instance Marshal.WriteRaw S2_y where
+instance Marshal.WriteRaw S2_anon'anon'y where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2_y s2_y_y2 s2_y_x3 ->
-               HasCField.writeRaw (RIP.Proxy @"s2_y_y") ptr0 s2_y_y2
-            >> HasCField.writeRaw (RIP.Proxy @"s2_y_x") ptr0 s2_y_x3
+          S2_anon'anon'y s2_anon'anon'y_anon'y2 s2_anon'anon'y_x3 ->
+               HasCField.writeRaw (RIP.Proxy @"s2_anon'anon'y_anon'y") ptr0 s2_anon'anon'y_anon'y2
+            >> HasCField.writeRaw (RIP.Proxy @"s2_anon'anon'y_x") ptr0 s2_anon'anon'y_x3
 
-deriving via Marshal.EquivStorable S2_y instance RIP.Storable S2_y
+deriving via Marshal.EquivStorable S2_anon'anon'y instance RIP.Storable S2_anon'anon'y
 
-instance HasCField.HasCField S2_y "s2_y_y" where
+instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y" where
 
-  type CFieldType S2_y "s2_y_y" = S2_y_y
+  type CFieldType S2_anon'anon'y "s2_anon'anon'y_anon'y" =
+    S2_anon'anon'y_anon'y
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ S2_y_y
-         ) => RIP.HasField "s2_y_y" (RIP.Ptr S2_y) (RIP.Ptr ty) where
+instance ( ty ~ S2_anon'anon'y_anon'y
+         ) => RIP.HasField "s2_anon'anon'y_anon'y" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_y_y")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_anon'y")
 
-instance HasCField.HasCField S2_y "s2_y_x" where
+instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_x" where
 
-  type CFieldType S2_y "s2_y_x" = RIP.CInt
+  type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_y_x" (RIP.Ptr S2_y) (RIP.Ptr ty) where
+         ) => RIP.HasField "s2_anon'anon'y_x" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_y_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_x")
 
 {-| __C declaration:__ @struct S2@
 
@@ -284,8 +293,8 @@ instance ( ty ~ RIP.CInt
     __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
 -}
 data S2 = S2
-  { s2_y :: S2_y
-    {- ^ __C declaration:__ @y@
+  { s2_anon'anon'y :: S2_anon'anon'y
+    {- ^ __C declaration:__ @anon\'anon\'y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
 
@@ -305,7 +314,7 @@ instance Marshal.ReadRaw S2 where
   readRaw =
     \ptr0 ->
           pure S2
-      <*> HasCField.readRaw (RIP.Proxy @"s2_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s2_anon'anon'y") ptr0
 
 instance Marshal.WriteRaw S2 where
 
@@ -313,17 +322,19 @@ instance Marshal.WriteRaw S2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2 s2_y2 ->
-            HasCField.writeRaw (RIP.Proxy @"s2_y") ptr0 s2_y2
+          S2 s2_anon'anon'y2 ->
+            HasCField.writeRaw (RIP.Proxy @"s2_anon'anon'y") ptr0 s2_anon'anon'y2
 
 deriving via Marshal.EquivStorable S2 instance RIP.Storable S2
 
-instance HasCField.HasCField S2 "s2_y" where
+instance HasCField.HasCField S2 "s2_anon'anon'y" where
 
-  type CFieldType S2 "s2_y" = S2_y
+  type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ S2_y) => RIP.HasField "s2_y" (RIP.Ptr S2) (RIP.Ptr ty) where
+instance ( ty ~ S2_anon'anon'y
+         ) => RIP.HasField "s2_anon'anon'y" (RIP.Ptr S2) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_y")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y")

@@ -13,54 +13,54 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.SSS_x_x(..)
-    , Example.SSS_x(..)
+    ( Example.SSS_anon'anon'x_anon'x(..)
+    , Example.SSS_anon'anon'x(..)
     , Example.SSS(..)
-    , Example.USS_x_x(..)
-    , Example.USS_x(..)
+    , Example.USS_anon'anon'x_anon'x(..)
+    , Example.USS_anon'anon'x(..)
     , Example.USS(..)
-    , Example.get_uSS_x
-    , Example.set_uSS_x
-    , Example.SUS_x_x(..)
-    , Example.SUS_x(..)
-    , Example.get_sUS_x_x
-    , Example.set_sUS_x_x
+    , Example.get_uSS_anon'anon'x
+    , Example.set_uSS_anon'anon'x
+    , Example.SUS_anon'anon'x_anon'x(..)
+    , Example.SUS_anon'anon'x(..)
+    , Example.get_sUS_anon'anon'x_anon'x
+    , Example.set_sUS_anon'anon'x_anon'x
     , Example.SUS(..)
-    , Example.UUS_x_x(..)
-    , Example.UUS_x(..)
-    , Example.get_uUS_x_x
-    , Example.set_uUS_x_x
+    , Example.UUS_anon'anon'x_anon'x(..)
+    , Example.UUS_anon'anon'x(..)
+    , Example.get_uUS_anon'anon'x_anon'x
+    , Example.set_uUS_anon'anon'x_anon'x
     , Example.UUS(..)
-    , Example.get_uUS_x
-    , Example.set_uUS_x
-    , Example.SSU_x_x(..)
-    , Example.get_sSU_x_x_x
-    , Example.set_sSU_x_x_x
-    , Example.SSU_x(..)
+    , Example.get_uUS_anon'anon'x
+    , Example.set_uUS_anon'anon'x
+    , Example.SSU_anon'anon'x_anon'x(..)
+    , Example.get_sSU_anon'anon'x_anon'x_x
+    , Example.set_sSU_anon'anon'x_anon'x_x
+    , Example.SSU_anon'anon'x(..)
     , Example.SSU(..)
-    , Example.USU_x_x(..)
-    , Example.get_uSU_x_x_x
-    , Example.set_uSU_x_x_x
-    , Example.USU_x(..)
+    , Example.USU_anon'anon'x_anon'x(..)
+    , Example.get_uSU_anon'anon'x_anon'x_x
+    , Example.set_uSU_anon'anon'x_anon'x_x
+    , Example.USU_anon'anon'x(..)
     , Example.USU(..)
-    , Example.get_uSU_x
-    , Example.set_uSU_x
-    , Example.SUU_x_x(..)
-    , Example.get_sUU_x_x_x
-    , Example.set_sUU_x_x_x
-    , Example.SUU_x(..)
-    , Example.get_sUU_x_x
-    , Example.set_sUU_x_x
+    , Example.get_uSU_anon'anon'x
+    , Example.set_uSU_anon'anon'x
+    , Example.SUU_anon'anon'x_anon'x(..)
+    , Example.get_sUU_anon'anon'x_anon'x_x
+    , Example.set_sUU_anon'anon'x_anon'x_x
+    , Example.SUU_anon'anon'x(..)
+    , Example.get_sUU_anon'anon'x_anon'x
+    , Example.set_sUU_anon'anon'x_anon'x
     , Example.SUU(..)
-    , Example.UUU_x_x(..)
-    , Example.get_uUU_x_x_x
-    , Example.set_uUU_x_x_x
-    , Example.UUU_x(..)
-    , Example.get_uUU_x_x
-    , Example.set_uUU_x_x
+    , Example.UUU_anon'anon'x_anon'x(..)
+    , Example.get_uUU_anon'anon'x_anon'x_x
+    , Example.set_uUU_anon'anon'x_anon'x_x
+    , Example.UUU_anon'anon'x(..)
+    , Example.get_uUU_anon'anon'x_anon'x
+    , Example.set_uUU_anon'anon'x_anon'x
     , Example.UUU(..)
-    , Example.get_uUU_x
-    , Example.set_uUU_x
+    , Example.get_uUU_anon'anon'x
+    , Example.set_uUU_anon'anon'x
     )
   where
 
@@ -68,14 +68,14 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @struct \@SSS_x_x@
+{-| __C declaration:__ @struct \@SSS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 17:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data SSS_x_x = SSS_x_x
-  { sSS_x_x_x :: RIP.CInt
+data SSS_anon'anon'x_anon'x = SSS_anon'anon'x_anon'x
+  { sSS_anon'anon'x_anon'x_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
@@ -85,50 +85,52 @@ data SSS_x_x = SSS_x_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize SSS_x_x where
+instance Marshal.StaticSize SSS_anon'anon'x_anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw SSS_x_x where
+instance Marshal.ReadRaw SSS_anon'anon'x_anon'x where
 
   readRaw =
     \ptr0 ->
-          pure SSS_x_x
-      <*> HasCField.readRaw (RIP.Proxy @"sSS_x_x_x") ptr0
+          pure SSS_anon'anon'x_anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"sSS_anon'anon'x_anon'x_x") ptr0
 
-instance Marshal.WriteRaw SSS_x_x where
+instance Marshal.WriteRaw SSS_anon'anon'x_anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          SSS_x_x sSS_x_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sSS_x_x_x") ptr0 sSS_x_x_x2
+          SSS_anon'anon'x_anon'x sSS_anon'anon'x_anon'x_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sSS_anon'anon'x_anon'x_x") ptr0 sSS_anon'anon'x_anon'x_x2
 
-deriving via Marshal.EquivStorable SSS_x_x instance RIP.Storable SSS_x_x
+deriving via Marshal.EquivStorable SSS_anon'anon'x_anon'x instance RIP.Storable SSS_anon'anon'x_anon'x
 
-instance HasCField.HasCField SSS_x_x "sSS_x_x_x" where
+instance HasCField.HasCField SSS_anon'anon'x_anon'x "sSS_anon'anon'x_anon'x_x" where
 
-  type CFieldType SSS_x_x "sSS_x_x_x" = RIP.CInt
+  type CFieldType SSS_anon'anon'x_anon'x "sSS_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "sSS_x_x_x" (RIP.Ptr SSS_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "sSS_anon'anon'x_anon'x_x" (RIP.Ptr SSS_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSS_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @struct \@SSS_x@
+{-| __C declaration:__ @struct \@SSS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data SSS_x = SSS_x
-  { sSS_x_x :: SSS_x_x
-    {- ^ __C declaration:__ @x@
+data SSS_anon'anon'x = SSS_anon'anon'x
+  { sSS_anon'anon'x_anon'x :: SSS_anon'anon'x_anon'x
+    {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 17:5@
 
@@ -137,40 +139,42 @@ data SSS_x = SSS_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize SSS_x where
+instance Marshal.StaticSize SSS_anon'anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw SSS_x where
+instance Marshal.ReadRaw SSS_anon'anon'x where
 
   readRaw =
     \ptr0 ->
-          pure SSS_x
-      <*> HasCField.readRaw (RIP.Proxy @"sSS_x_x") ptr0
+          pure SSS_anon'anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"sSS_anon'anon'x_anon'x") ptr0
 
-instance Marshal.WriteRaw SSS_x where
+instance Marshal.WriteRaw SSS_anon'anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          SSS_x sSS_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sSS_x_x") ptr0 sSS_x_x2
+          SSS_anon'anon'x sSS_anon'anon'x_anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sSS_anon'anon'x_anon'x") ptr0 sSS_anon'anon'x_anon'x2
 
-deriving via Marshal.EquivStorable SSS_x instance RIP.Storable SSS_x
+deriving via Marshal.EquivStorable SSS_anon'anon'x instance RIP.Storable SSS_anon'anon'x
 
-instance HasCField.HasCField SSS_x "sSS_x_x" where
+instance HasCField.HasCField SSS_anon'anon'x "sSS_anon'anon'x_anon'x" where
 
-  type CFieldType SSS_x "sSS_x_x" = SSS_x_x
+  type CFieldType SSS_anon'anon'x "sSS_anon'anon'x_anon'x" =
+    SSS_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ SSS_x_x
-         ) => RIP.HasField "sSS_x_x" (RIP.Ptr SSS_x) (RIP.Ptr ty) where
+instance ( ty ~ SSS_anon'anon'x_anon'x
+         ) => RIP.HasField "sSS_anon'anon'x_anon'x" (RIP.Ptr SSS_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSS_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @struct SSS@
 
@@ -179,8 +183,8 @@ instance ( ty ~ SSS_x_x
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 data SSS = SSS
-  { sSS_x :: SSS_x
-    {- ^ __C declaration:__ @x@
+  { sSS_anon'anon'x :: SSS_anon'anon'x
+    {- ^ __C declaration:__ @anon\'anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
 
@@ -200,7 +204,7 @@ instance Marshal.ReadRaw SSS where
   readRaw =
     \ptr0 ->
           pure SSS
-      <*> HasCField.readRaw (RIP.Proxy @"sSS_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"sSS_anon'anon'x") ptr0
 
 instance Marshal.WriteRaw SSS where
 
@@ -208,29 +212,32 @@ instance Marshal.WriteRaw SSS where
     \ptr0 ->
       \s1 ->
         case s1 of
-          SSS sSS_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sSS_x") ptr0 sSS_x2
+          SSS sSS_anon'anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sSS_anon'anon'x") ptr0 sSS_anon'anon'x2
 
 deriving via Marshal.EquivStorable SSS instance RIP.Storable SSS
 
-instance HasCField.HasCField SSS "sSS_x" where
+instance HasCField.HasCField SSS "sSS_anon'anon'x" where
 
-  type CFieldType SSS "sSS_x" = SSS_x
+  type CFieldType SSS "sSS_anon'anon'x" =
+    SSS_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ SSS_x) => RIP.HasField "sSS_x" (RIP.Ptr SSS) (RIP.Ptr ty) where
+instance ( ty ~ SSS_anon'anon'x
+         ) => RIP.HasField "sSS_anon'anon'x" (RIP.Ptr SSS) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSS_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x")
 
-{-| __C declaration:__ @struct \@USS_x_x@
+{-| __C declaration:__ @struct \@USS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data USS_x_x = USS_x_x
-  { uSS_x_x_x :: RIP.CInt
+data USS_anon'anon'x_anon'x = USS_anon'anon'x_anon'x
+  { uSS_anon'anon'x_anon'x_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
@@ -240,50 +247,52 @@ data USS_x_x = USS_x_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize USS_x_x where
+instance Marshal.StaticSize USS_anon'anon'x_anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw USS_x_x where
+instance Marshal.ReadRaw USS_anon'anon'x_anon'x where
 
   readRaw =
     \ptr0 ->
-          pure USS_x_x
-      <*> HasCField.readRaw (RIP.Proxy @"uSS_x_x_x") ptr0
+          pure USS_anon'anon'x_anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"uSS_anon'anon'x_anon'x_x") ptr0
 
-instance Marshal.WriteRaw USS_x_x where
+instance Marshal.WriteRaw USS_anon'anon'x_anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          USS_x_x uSS_x_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"uSS_x_x_x") ptr0 uSS_x_x_x2
+          USS_anon'anon'x_anon'x uSS_anon'anon'x_anon'x_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"uSS_anon'anon'x_anon'x_x") ptr0 uSS_anon'anon'x_anon'x_x2
 
-deriving via Marshal.EquivStorable USS_x_x instance RIP.Storable USS_x_x
+deriving via Marshal.EquivStorable USS_anon'anon'x_anon'x instance RIP.Storable USS_anon'anon'x_anon'x
 
-instance HasCField.HasCField USS_x_x "uSS_x_x_x" where
+instance HasCField.HasCField USS_anon'anon'x_anon'x "uSS_anon'anon'x_anon'x_x" where
 
-  type CFieldType USS_x_x "uSS_x_x_x" = RIP.CInt
+  type CFieldType USS_anon'anon'x_anon'x "uSS_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uSS_x_x_x" (RIP.Ptr USS_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "uSS_anon'anon'x_anon'x_x" (RIP.Ptr USS_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSS_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSS_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @struct \@USS_x@
+{-| __C declaration:__ @struct \@USS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data USS_x = USS_x
-  { uSS_x_x :: USS_x_x
-    {- ^ __C declaration:__ @x@
+data USS_anon'anon'x = USS_anon'anon'x
+  { uSS_anon'anon'x_anon'x :: USS_anon'anon'x_anon'x
+    {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
 
@@ -292,40 +301,42 @@ data USS_x = USS_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize USS_x where
+instance Marshal.StaticSize USS_anon'anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw USS_x where
+instance Marshal.ReadRaw USS_anon'anon'x where
 
   readRaw =
     \ptr0 ->
-          pure USS_x
-      <*> HasCField.readRaw (RIP.Proxy @"uSS_x_x") ptr0
+          pure USS_anon'anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"uSS_anon'anon'x_anon'x") ptr0
 
-instance Marshal.WriteRaw USS_x where
+instance Marshal.WriteRaw USS_anon'anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          USS_x uSS_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"uSS_x_x") ptr0 uSS_x_x2
+          USS_anon'anon'x uSS_anon'anon'x_anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"uSS_anon'anon'x_anon'x") ptr0 uSS_anon'anon'x_anon'x2
 
-deriving via Marshal.EquivStorable USS_x instance RIP.Storable USS_x
+deriving via Marshal.EquivStorable USS_anon'anon'x instance RIP.Storable USS_anon'anon'x
 
-instance HasCField.HasCField USS_x "uSS_x_x" where
+instance HasCField.HasCField USS_anon'anon'x "uSS_anon'anon'x_anon'x" where
 
-  type CFieldType USS_x "uSS_x_x" = USS_x_x
+  type CFieldType USS_anon'anon'x "uSS_anon'anon'x_anon'x" =
+    USS_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ USS_x_x
-         ) => RIP.HasField "uSS_x_x" (RIP.Ptr USS_x) (RIP.Ptr ty) where
+instance ( ty ~ USS_anon'anon'x_anon'x
+         ) => RIP.HasField "uSS_anon'anon'x_anon'x" (RIP.Ptr USS_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSS_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSS_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @union USS@
 
@@ -348,47 +359,50 @@ deriving via Marshal.EquivStorable USS instance RIP.Storable USS
 
 {-|
 
-    __See:__ 'set_uSS_x'
+    __See:__ 'set_uSS_anon'anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uSS_x ::
+get_uSS_anon'anon'x ::
      USS
-  -> USS_x
-get_uSS_x = RIP.getUnionPayload
+  -> USS_anon'anon'x
+get_uSS_anon'anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uSS_x'
+    __See:__ 'get_uSS_anon'anon'x'
 
 -}
-set_uSS_x ::
-     USS_x
+set_uSS_anon'anon'x ::
+     USS_anon'anon'x
   -> USS
-set_uSS_x = RIP.setUnionPayload
+set_uSS_anon'anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField USS "uSS_x" where
+instance HasCField.HasCField USS "uSS_anon'anon'x" where
 
-  type CFieldType USS "uSS_x" = USS_x
+  type CFieldType USS "uSS_anon'anon'x" =
+    USS_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ USS_x) => RIP.HasField "uSS_x" (RIP.Ptr USS) (RIP.Ptr ty) where
+instance ( ty ~ USS_anon'anon'x
+         ) => RIP.HasField "uSS_anon'anon'x" (RIP.Ptr USS) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSS_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSS_anon'anon'x")
 
-{-| __C declaration:__ @struct \@SUS_x_x@
+{-| __C declaration:__ @struct \@SUS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data SUS_x_x = SUS_x_x
-  { sUS_x_x_x :: RIP.CInt
+data SUS_anon'anon'x_anon'x = SUS_anon'anon'x_anon'x
+  { sUS_anon'anon'x_anon'x_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
@@ -398,95 +412,99 @@ data SUS_x_x = SUS_x_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize SUS_x_x where
+instance Marshal.StaticSize SUS_anon'anon'x_anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw SUS_x_x where
+instance Marshal.ReadRaw SUS_anon'anon'x_anon'x where
 
   readRaw =
     \ptr0 ->
-          pure SUS_x_x
-      <*> HasCField.readRaw (RIP.Proxy @"sUS_x_x_x") ptr0
+          pure SUS_anon'anon'x_anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"sUS_anon'anon'x_anon'x_x") ptr0
 
-instance Marshal.WriteRaw SUS_x_x where
+instance Marshal.WriteRaw SUS_anon'anon'x_anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          SUS_x_x sUS_x_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sUS_x_x_x") ptr0 sUS_x_x_x2
+          SUS_anon'anon'x_anon'x sUS_anon'anon'x_anon'x_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sUS_anon'anon'x_anon'x_x") ptr0 sUS_anon'anon'x_anon'x_x2
 
-deriving via Marshal.EquivStorable SUS_x_x instance RIP.Storable SUS_x_x
+deriving via Marshal.EquivStorable SUS_anon'anon'x_anon'x instance RIP.Storable SUS_anon'anon'x_anon'x
 
-instance HasCField.HasCField SUS_x_x "sUS_x_x_x" where
+instance HasCField.HasCField SUS_anon'anon'x_anon'x "sUS_anon'anon'x_anon'x_x" where
 
-  type CFieldType SUS_x_x "sUS_x_x_x" = RIP.CInt
+  type CFieldType SUS_anon'anon'x_anon'x "sUS_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "sUS_x_x_x" (RIP.Ptr SUS_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "sUS_anon'anon'x_anon'x_x" (RIP.Ptr SUS_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUS_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUS_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @union \@SUS_x@
+{-| __C declaration:__ @union \@SUS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype SUS_x = SUS_x
-  { unwrapSUS_x :: RIP.ByteArray
+newtype SUS_anon'anon'x = SUS_anon'anon'x
+  { unwrapSUS_anon'anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUS_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUS_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUS_anon'anon'x
 
-deriving via Marshal.EquivStorable SUS_x instance RIP.Storable SUS_x
+deriving via Marshal.EquivStorable SUS_anon'anon'x instance RIP.Storable SUS_anon'anon'x
 
 {-|
 
-    __See:__ 'set_sUS_x_x'
+    __See:__ 'set_sUS_anon'anon'x_anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_sUS_x_x ::
-     SUS_x
-  -> SUS_x_x
-get_sUS_x_x = RIP.getUnionPayload
+get_sUS_anon'anon'x_anon'x ::
+     SUS_anon'anon'x
+  -> SUS_anon'anon'x_anon'x
+get_sUS_anon'anon'x_anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_sUS_x_x'
+    __See:__ 'get_sUS_anon'anon'x_anon'x'
 
 -}
-set_sUS_x_x ::
-     SUS_x_x
-  -> SUS_x
-set_sUS_x_x = RIP.setUnionPayload
+set_sUS_anon'anon'x_anon'x ::
+     SUS_anon'anon'x_anon'x
+  -> SUS_anon'anon'x
+set_sUS_anon'anon'x_anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField SUS_x "sUS_x_x" where
+instance HasCField.HasCField SUS_anon'anon'x "sUS_anon'anon'x_anon'x" where
 
-  type CFieldType SUS_x "sUS_x_x" = SUS_x_x
+  type CFieldType SUS_anon'anon'x "sUS_anon'anon'x_anon'x" =
+    SUS_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ SUS_x_x
-         ) => RIP.HasField "sUS_x_x" (RIP.Ptr SUS_x) (RIP.Ptr ty) where
+instance ( ty ~ SUS_anon'anon'x_anon'x
+         ) => RIP.HasField "sUS_anon'anon'x_anon'x" (RIP.Ptr SUS_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUS_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUS_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @struct SUS@
 
@@ -495,8 +513,8 @@ instance ( ty ~ SUS_x_x
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 data SUS = SUS
-  { sUS_x :: SUS_x
-    {- ^ __C declaration:__ @x@
+  { sUS_anon'anon'x :: SUS_anon'anon'x
+    {- ^ __C declaration:__ @anon\'anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
 
@@ -516,7 +534,7 @@ instance Marshal.ReadRaw SUS where
   readRaw =
     \ptr0 ->
           pure SUS
-      <*> HasCField.readRaw (RIP.Proxy @"sUS_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"sUS_anon'anon'x") ptr0
 
 instance Marshal.WriteRaw SUS where
 
@@ -524,29 +542,32 @@ instance Marshal.WriteRaw SUS where
     \ptr0 ->
       \s1 ->
         case s1 of
-          SUS sUS_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sUS_x") ptr0 sUS_x2
+          SUS sUS_anon'anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sUS_anon'anon'x") ptr0 sUS_anon'anon'x2
 
 deriving via Marshal.EquivStorable SUS instance RIP.Storable SUS
 
-instance HasCField.HasCField SUS "sUS_x" where
+instance HasCField.HasCField SUS "sUS_anon'anon'x" where
 
-  type CFieldType SUS "sUS_x" = SUS_x
+  type CFieldType SUS "sUS_anon'anon'x" =
+    SUS_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ SUS_x) => RIP.HasField "sUS_x" (RIP.Ptr SUS) (RIP.Ptr ty) where
+instance ( ty ~ SUS_anon'anon'x
+         ) => RIP.HasField "sUS_anon'anon'x" (RIP.Ptr SUS) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUS_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUS_anon'anon'x")
 
-{-| __C declaration:__ @struct \@UUS_x_x@
+{-| __C declaration:__ @struct \@UUS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data UUS_x_x = UUS_x_x
-  { uUS_x_x_x :: RIP.CInt
+data UUS_anon'anon'x_anon'x = UUS_anon'anon'x_anon'x
+  { uUS_anon'anon'x_anon'x_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
@@ -556,95 +577,99 @@ data UUS_x_x = UUS_x_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize UUS_x_x where
+instance Marshal.StaticSize UUS_anon'anon'x_anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw UUS_x_x where
+instance Marshal.ReadRaw UUS_anon'anon'x_anon'x where
 
   readRaw =
     \ptr0 ->
-          pure UUS_x_x
-      <*> HasCField.readRaw (RIP.Proxy @"uUS_x_x_x") ptr0
+          pure UUS_anon'anon'x_anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"uUS_anon'anon'x_anon'x_x") ptr0
 
-instance Marshal.WriteRaw UUS_x_x where
+instance Marshal.WriteRaw UUS_anon'anon'x_anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          UUS_x_x uUS_x_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"uUS_x_x_x") ptr0 uUS_x_x_x2
+          UUS_anon'anon'x_anon'x uUS_anon'anon'x_anon'x_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"uUS_anon'anon'x_anon'x_x") ptr0 uUS_anon'anon'x_anon'x_x2
 
-deriving via Marshal.EquivStorable UUS_x_x instance RIP.Storable UUS_x_x
+deriving via Marshal.EquivStorable UUS_anon'anon'x_anon'x instance RIP.Storable UUS_anon'anon'x_anon'x
 
-instance HasCField.HasCField UUS_x_x "uUS_x_x_x" where
+instance HasCField.HasCField UUS_anon'anon'x_anon'x "uUS_anon'anon'x_anon'x_x" where
 
-  type CFieldType UUS_x_x "uUS_x_x_x" = RIP.CInt
+  type CFieldType UUS_anon'anon'x_anon'x "uUS_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uUS_x_x_x" (RIP.Ptr UUS_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "uUS_anon'anon'x_anon'x_x" (RIP.Ptr UUS_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUS_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUS_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @union \@UUS_x@
+{-| __C declaration:__ @union \@UUS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype UUS_x = UUS_x
-  { unwrapUUS_x :: RIP.ByteArray
+newtype UUS_anon'anon'x = UUS_anon'anon'x
+  { unwrapUUS_anon'anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUS_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUS_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUS_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUS_anon'anon'x
 
-deriving via Marshal.EquivStorable UUS_x instance RIP.Storable UUS_x
+deriving via Marshal.EquivStorable UUS_anon'anon'x instance RIP.Storable UUS_anon'anon'x
 
 {-|
 
-    __See:__ 'set_uUS_x_x'
+    __See:__ 'set_uUS_anon'anon'x_anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uUS_x_x ::
-     UUS_x
-  -> UUS_x_x
-get_uUS_x_x = RIP.getUnionPayload
+get_uUS_anon'anon'x_anon'x ::
+     UUS_anon'anon'x
+  -> UUS_anon'anon'x_anon'x
+get_uUS_anon'anon'x_anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uUS_x_x'
+    __See:__ 'get_uUS_anon'anon'x_anon'x'
 
 -}
-set_uUS_x_x ::
-     UUS_x_x
-  -> UUS_x
-set_uUS_x_x = RIP.setUnionPayload
+set_uUS_anon'anon'x_anon'x ::
+     UUS_anon'anon'x_anon'x
+  -> UUS_anon'anon'x
+set_uUS_anon'anon'x_anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField UUS_x "uUS_x_x" where
+instance HasCField.HasCField UUS_anon'anon'x "uUS_anon'anon'x_anon'x" where
 
-  type CFieldType UUS_x "uUS_x_x" = UUS_x_x
+  type CFieldType UUS_anon'anon'x "uUS_anon'anon'x_anon'x" =
+    UUS_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ UUS_x_x
-         ) => RIP.HasField "uUS_x_x" (RIP.Ptr UUS_x) (RIP.Ptr ty) where
+instance ( ty ~ UUS_anon'anon'x_anon'x
+         ) => RIP.HasField "uUS_anon'anon'x_anon'x" (RIP.Ptr UUS_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUS_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUS_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @union UUS@
 
@@ -667,61 +692,64 @@ deriving via Marshal.EquivStorable UUS instance RIP.Storable UUS
 
 {-|
 
-    __See:__ 'set_uUS_x'
+    __See:__ 'set_uUS_anon'anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uUS_x ::
+get_uUS_anon'anon'x ::
      UUS
-  -> UUS_x
-get_uUS_x = RIP.getUnionPayload
+  -> UUS_anon'anon'x
+get_uUS_anon'anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uUS_x'
+    __See:__ 'get_uUS_anon'anon'x'
 
 -}
-set_uUS_x ::
-     UUS_x
+set_uUS_anon'anon'x ::
+     UUS_anon'anon'x
   -> UUS
-set_uUS_x = RIP.setUnionPayload
+set_uUS_anon'anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField UUS "uUS_x" where
+instance HasCField.HasCField UUS "uUS_anon'anon'x" where
 
-  type CFieldType UUS "uUS_x" = UUS_x
+  type CFieldType UUS "uUS_anon'anon'x" =
+    UUS_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ UUS_x) => RIP.HasField "uUS_x" (RIP.Ptr UUS) (RIP.Ptr ty) where
+instance ( ty ~ UUS_anon'anon'x
+         ) => RIP.HasField "uUS_anon'anon'x" (RIP.Ptr UUS) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUS_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUS_anon'anon'x")
 
-{-| __C declaration:__ @union \@SSU_x_x@
+{-| __C declaration:__ @union \@SSU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype SSU_x_x = SSU_x_x
-  { unwrapSSU_x_x :: RIP.ByteArray
+newtype SSU_anon'anon'x_anon'x = SSU_anon'anon'x_anon'x
+  { unwrapSSU_anon'anon'x_anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SSU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SSU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SSU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SSU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SSU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SSU_anon'anon'x_anon'x
 
-deriving via Marshal.EquivStorable SSU_x_x instance RIP.Storable SSU_x_x
+deriving via Marshal.EquivStorable SSU_anon'anon'x_anon'x instance RIP.Storable SSU_anon'anon'x_anon'x
 
 {-|
 
-    __See:__ 'set_sSU_x_x_x'
+    __See:__ 'set_sSU_anon'anon'x_anon'x_x'
 
     __C declaration:__ @x@
 
@@ -729,41 +757,43 @@ deriving via Marshal.EquivStorable SSU_x_x instance RIP.Storable SSU_x_x
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_sSU_x_x_x ::
-     SSU_x_x
+get_sSU_anon'anon'x_anon'x_x ::
+     SSU_anon'anon'x_anon'x
   -> RIP.CInt
-get_sSU_x_x_x = RIP.getUnionPayload
+get_sSU_anon'anon'x_anon'x_x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_sSU_x_x_x'
+    __See:__ 'get_sSU_anon'anon'x_anon'x_x'
 
 -}
-set_sSU_x_x_x ::
+set_sSU_anon'anon'x_anon'x_x ::
      RIP.CInt
-  -> SSU_x_x
-set_sSU_x_x_x = RIP.setUnionPayload
+  -> SSU_anon'anon'x_anon'x
+set_sSU_anon'anon'x_anon'x_x = RIP.setUnionPayload
 
-instance HasCField.HasCField SSU_x_x "sSU_x_x_x" where
+instance HasCField.HasCField SSU_anon'anon'x_anon'x "sSU_anon'anon'x_anon'x_x" where
 
-  type CFieldType SSU_x_x "sSU_x_x_x" = RIP.CInt
+  type CFieldType SSU_anon'anon'x_anon'x "sSU_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "sSU_x_x_x" (RIP.Ptr SSU_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "sSU_anon'anon'x_anon'x_x" (RIP.Ptr SSU_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSU_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSU_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @struct \@SSU_x@
+{-| __C declaration:__ @struct \@SSU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data SSU_x = SSU_x
-  { sSU_x_x :: SSU_x_x
-    {- ^ __C declaration:__ @x@
+data SSU_anon'anon'x = SSU_anon'anon'x
+  { sSU_anon'anon'x_anon'x :: SSU_anon'anon'x_anon'x
+    {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
 
@@ -772,40 +802,42 @@ data SSU_x = SSU_x
   }
   deriving stock (RIP.Generic)
 
-instance Marshal.StaticSize SSU_x where
+instance Marshal.StaticSize SSU_anon'anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw SSU_x where
+instance Marshal.ReadRaw SSU_anon'anon'x where
 
   readRaw =
     \ptr0 ->
-          pure SSU_x
-      <*> HasCField.readRaw (RIP.Proxy @"sSU_x_x") ptr0
+          pure SSU_anon'anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"sSU_anon'anon'x_anon'x") ptr0
 
-instance Marshal.WriteRaw SSU_x where
+instance Marshal.WriteRaw SSU_anon'anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          SSU_x sSU_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sSU_x_x") ptr0 sSU_x_x2
+          SSU_anon'anon'x sSU_anon'anon'x_anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sSU_anon'anon'x_anon'x") ptr0 sSU_anon'anon'x_anon'x2
 
-deriving via Marshal.EquivStorable SSU_x instance RIP.Storable SSU_x
+deriving via Marshal.EquivStorable SSU_anon'anon'x instance RIP.Storable SSU_anon'anon'x
 
-instance HasCField.HasCField SSU_x "sSU_x_x" where
+instance HasCField.HasCField SSU_anon'anon'x "sSU_anon'anon'x_anon'x" where
 
-  type CFieldType SSU_x "sSU_x_x" = SSU_x_x
+  type CFieldType SSU_anon'anon'x "sSU_anon'anon'x_anon'x" =
+    SSU_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ SSU_x_x
-         ) => RIP.HasField "sSU_x_x" (RIP.Ptr SSU_x) (RIP.Ptr ty) where
+instance ( ty ~ SSU_anon'anon'x_anon'x
+         ) => RIP.HasField "sSU_anon'anon'x_anon'x" (RIP.Ptr SSU_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSU_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSU_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @struct SSU@
 
@@ -814,8 +846,8 @@ instance ( ty ~ SSU_x_x
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 data SSU = SSU
-  { sSU_x :: SSU_x
-    {- ^ __C declaration:__ @x@
+  { sSU_anon'anon'x :: SSU_anon'anon'x
+    {- ^ __C declaration:__ @anon\'anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
 
@@ -835,7 +867,7 @@ instance Marshal.ReadRaw SSU where
   readRaw =
     \ptr0 ->
           pure SSU
-      <*> HasCField.readRaw (RIP.Proxy @"sSU_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"sSU_anon'anon'x") ptr0
 
 instance Marshal.WriteRaw SSU where
 
@@ -843,43 +875,46 @@ instance Marshal.WriteRaw SSU where
     \ptr0 ->
       \s1 ->
         case s1 of
-          SSU sSU_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sSU_x") ptr0 sSU_x2
+          SSU sSU_anon'anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sSU_anon'anon'x") ptr0 sSU_anon'anon'x2
 
 deriving via Marshal.EquivStorable SSU instance RIP.Storable SSU
 
-instance HasCField.HasCField SSU "sSU_x" where
+instance HasCField.HasCField SSU "sSU_anon'anon'x" where
 
-  type CFieldType SSU "sSU_x" = SSU_x
+  type CFieldType SSU "sSU_anon'anon'x" =
+    SSU_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ SSU_x) => RIP.HasField "sSU_x" (RIP.Ptr SSU) (RIP.Ptr ty) where
+instance ( ty ~ SSU_anon'anon'x
+         ) => RIP.HasField "sSU_anon'anon'x" (RIP.Ptr SSU) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sSU_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sSU_anon'anon'x")
 
-{-| __C declaration:__ @union \@USU_x_x@
+{-| __C declaration:__ @union \@USU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype USU_x_x = USU_x_x
-  { unwrapUSU_x_x :: RIP.ByteArray
+newtype USU_anon'anon'x_anon'x = USU_anon'anon'x_anon'x
+  { unwrapUSU_anon'anon'x_anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize USU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize USU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw USU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw USU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw USU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw USU_anon'anon'x_anon'x
 
-deriving via Marshal.EquivStorable USU_x_x instance RIP.Storable USU_x_x
+deriving via Marshal.EquivStorable USU_anon'anon'x_anon'x instance RIP.Storable USU_anon'anon'x_anon'x
 
 {-|
 
-    __See:__ 'set_uSU_x_x_x'
+    __See:__ 'set_uSU_anon'anon'x_anon'x_x'
 
     __C declaration:__ @x@
 
@@ -887,41 +922,43 @@ deriving via Marshal.EquivStorable USU_x_x instance RIP.Storable USU_x_x
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uSU_x_x_x ::
-     USU_x_x
+get_uSU_anon'anon'x_anon'x_x ::
+     USU_anon'anon'x_anon'x
   -> RIP.CInt
-get_uSU_x_x_x = RIP.getUnionPayload
+get_uSU_anon'anon'x_anon'x_x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uSU_x_x_x'
+    __See:__ 'get_uSU_anon'anon'x_anon'x_x'
 
 -}
-set_uSU_x_x_x ::
+set_uSU_anon'anon'x_anon'x_x ::
      RIP.CInt
-  -> USU_x_x
-set_uSU_x_x_x = RIP.setUnionPayload
+  -> USU_anon'anon'x_anon'x
+set_uSU_anon'anon'x_anon'x_x = RIP.setUnionPayload
 
-instance HasCField.HasCField USU_x_x "uSU_x_x_x" where
+instance HasCField.HasCField USU_anon'anon'x_anon'x "uSU_anon'anon'x_anon'x_x" where
 
-  type CFieldType USU_x_x "uSU_x_x_x" = RIP.CInt
+  type CFieldType USU_anon'anon'x_anon'x "uSU_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uSU_x_x_x" (RIP.Ptr USU_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "uSU_anon'anon'x_anon'x_x" (RIP.Ptr USU_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSU_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSU_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @struct \@USU_x@
+{-| __C declaration:__ @struct \@USU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-data USU_x = USU_x
-  { uSU_x_x :: USU_x_x
-    {- ^ __C declaration:__ @x@
+data USU_anon'anon'x = USU_anon'anon'x
+  { uSU_anon'anon'x_anon'x :: USU_anon'anon'x_anon'x
+    {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
 
@@ -930,40 +967,42 @@ data USU_x = USU_x
   }
   deriving stock (RIP.Generic)
 
-instance Marshal.StaticSize USU_x where
+instance Marshal.StaticSize USU_anon'anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw USU_x where
+instance Marshal.ReadRaw USU_anon'anon'x where
 
   readRaw =
     \ptr0 ->
-          pure USU_x
-      <*> HasCField.readRaw (RIP.Proxy @"uSU_x_x") ptr0
+          pure USU_anon'anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"uSU_anon'anon'x_anon'x") ptr0
 
-instance Marshal.WriteRaw USU_x where
+instance Marshal.WriteRaw USU_anon'anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          USU_x uSU_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"uSU_x_x") ptr0 uSU_x_x2
+          USU_anon'anon'x uSU_anon'anon'x_anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"uSU_anon'anon'x_anon'x") ptr0 uSU_anon'anon'x_anon'x2
 
-deriving via Marshal.EquivStorable USU_x instance RIP.Storable USU_x
+deriving via Marshal.EquivStorable USU_anon'anon'x instance RIP.Storable USU_anon'anon'x
 
-instance HasCField.HasCField USU_x "uSU_x_x" where
+instance HasCField.HasCField USU_anon'anon'x "uSU_anon'anon'x_anon'x" where
 
-  type CFieldType USU_x "uSU_x_x" = USU_x_x
+  type CFieldType USU_anon'anon'x "uSU_anon'anon'x_anon'x" =
+    USU_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ USU_x_x
-         ) => RIP.HasField "uSU_x_x" (RIP.Ptr USU_x) (RIP.Ptr ty) where
+instance ( ty ~ USU_anon'anon'x_anon'x
+         ) => RIP.HasField "uSU_anon'anon'x_anon'x" (RIP.Ptr USU_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSU_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSU_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @union USU@
 
@@ -986,61 +1025,64 @@ deriving via Marshal.EquivStorable USU instance RIP.Storable USU
 
 {-|
 
-    __See:__ 'set_uSU_x'
+    __See:__ 'set_uSU_anon'anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uSU_x ::
+get_uSU_anon'anon'x ::
      USU
-  -> USU_x
-get_uSU_x = RIP.getUnionPayload
+  -> USU_anon'anon'x
+get_uSU_anon'anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uSU_x'
+    __See:__ 'get_uSU_anon'anon'x'
 
 -}
-set_uSU_x ::
-     USU_x
+set_uSU_anon'anon'x ::
+     USU_anon'anon'x
   -> USU
-set_uSU_x = RIP.setUnionPayload
+set_uSU_anon'anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField USU "uSU_x" where
+instance HasCField.HasCField USU "uSU_anon'anon'x" where
 
-  type CFieldType USU "uSU_x" = USU_x
+  type CFieldType USU "uSU_anon'anon'x" =
+    USU_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ USU_x) => RIP.HasField "uSU_x" (RIP.Ptr USU) (RIP.Ptr ty) where
+instance ( ty ~ USU_anon'anon'x
+         ) => RIP.HasField "uSU_anon'anon'x" (RIP.Ptr USU) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uSU_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uSU_anon'anon'x")
 
-{-| __C declaration:__ @union \@SUU_x_x@
+{-| __C declaration:__ @union \@SUU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype SUU_x_x = SUU_x_x
-  { unwrapSUU_x_x :: RIP.ByteArray
+newtype SUU_anon'anon'x_anon'x = SUU_anon'anon'x_anon'x
+  { unwrapSUU_anon'anon'x_anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUU_anon'anon'x_anon'x
 
-deriving via Marshal.EquivStorable SUU_x_x instance RIP.Storable SUU_x_x
+deriving via Marshal.EquivStorable SUU_anon'anon'x_anon'x instance RIP.Storable SUU_anon'anon'x_anon'x
 
 {-|
 
-    __See:__ 'set_sUU_x_x_x'
+    __See:__ 'set_sUU_anon'anon'x_anon'x_x'
 
     __C declaration:__ @x@
 
@@ -1048,86 +1090,90 @@ deriving via Marshal.EquivStorable SUU_x_x instance RIP.Storable SUU_x_x
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_sUU_x_x_x ::
-     SUU_x_x
+get_sUU_anon'anon'x_anon'x_x ::
+     SUU_anon'anon'x_anon'x
   -> RIP.CInt
-get_sUU_x_x_x = RIP.getUnionPayload
+get_sUU_anon'anon'x_anon'x_x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_sUU_x_x_x'
+    __See:__ 'get_sUU_anon'anon'x_anon'x_x'
 
 -}
-set_sUU_x_x_x ::
+set_sUU_anon'anon'x_anon'x_x ::
      RIP.CInt
-  -> SUU_x_x
-set_sUU_x_x_x = RIP.setUnionPayload
+  -> SUU_anon'anon'x_anon'x
+set_sUU_anon'anon'x_anon'x_x = RIP.setUnionPayload
 
-instance HasCField.HasCField SUU_x_x "sUU_x_x_x" where
+instance HasCField.HasCField SUU_anon'anon'x_anon'x "sUU_anon'anon'x_anon'x_x" where
 
-  type CFieldType SUU_x_x "sUU_x_x_x" = RIP.CInt
+  type CFieldType SUU_anon'anon'x_anon'x "sUU_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "sUU_x_x_x" (RIP.Ptr SUU_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "sUU_anon'anon'x_anon'x_x" (RIP.Ptr SUU_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUU_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUU_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @union \@SUU_x@
+{-| __C declaration:__ @union \@SUU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype SUU_x = SUU_x
-  { unwrapSUU_x :: RIP.ByteArray
+newtype SUU_anon'anon'x = SUU_anon'anon'x
+  { unwrapSUU_anon'anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize SUU_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw SUU_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SUU_anon'anon'x
 
-deriving via Marshal.EquivStorable SUU_x instance RIP.Storable SUU_x
+deriving via Marshal.EquivStorable SUU_anon'anon'x instance RIP.Storable SUU_anon'anon'x
 
 {-|
 
-    __See:__ 'set_sUU_x_x'
+    __See:__ 'set_sUU_anon'anon'x_anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_sUU_x_x ::
-     SUU_x
-  -> SUU_x_x
-get_sUU_x_x = RIP.getUnionPayload
+get_sUU_anon'anon'x_anon'x ::
+     SUU_anon'anon'x
+  -> SUU_anon'anon'x_anon'x
+get_sUU_anon'anon'x_anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_sUU_x_x'
+    __See:__ 'get_sUU_anon'anon'x_anon'x'
 
 -}
-set_sUU_x_x ::
-     SUU_x_x
-  -> SUU_x
-set_sUU_x_x = RIP.setUnionPayload
+set_sUU_anon'anon'x_anon'x ::
+     SUU_anon'anon'x_anon'x
+  -> SUU_anon'anon'x
+set_sUU_anon'anon'x_anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField SUU_x "sUU_x_x" where
+instance HasCField.HasCField SUU_anon'anon'x "sUU_anon'anon'x_anon'x" where
 
-  type CFieldType SUU_x "sUU_x_x" = SUU_x_x
+  type CFieldType SUU_anon'anon'x "sUU_anon'anon'x_anon'x" =
+    SUU_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ SUU_x_x
-         ) => RIP.HasField "sUU_x_x" (RIP.Ptr SUU_x) (RIP.Ptr ty) where
+instance ( ty ~ SUU_anon'anon'x_anon'x
+         ) => RIP.HasField "sUU_anon'anon'x_anon'x" (RIP.Ptr SUU_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUU_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUU_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @struct SUU@
 
@@ -1136,8 +1182,8 @@ instance ( ty ~ SUU_x_x
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
 data SUU = SUU
-  { sUU_x :: SUU_x
-    {- ^ __C declaration:__ @x@
+  { sUU_anon'anon'x :: SUU_anon'anon'x
+    {- ^ __C declaration:__ @anon\'anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
 
@@ -1157,7 +1203,7 @@ instance Marshal.ReadRaw SUU where
   readRaw =
     \ptr0 ->
           pure SUU
-      <*> HasCField.readRaw (RIP.Proxy @"sUU_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"sUU_anon'anon'x") ptr0
 
 instance Marshal.WriteRaw SUU where
 
@@ -1165,43 +1211,46 @@ instance Marshal.WriteRaw SUU where
     \ptr0 ->
       \s1 ->
         case s1 of
-          SUU sUU_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"sUU_x") ptr0 sUU_x2
+          SUU sUU_anon'anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"sUU_anon'anon'x") ptr0 sUU_anon'anon'x2
 
 deriving via Marshal.EquivStorable SUU instance RIP.Storable SUU
 
-instance HasCField.HasCField SUU "sUU_x" where
+instance HasCField.HasCField SUU "sUU_anon'anon'x" where
 
-  type CFieldType SUU "sUU_x" = SUU_x
+  type CFieldType SUU "sUU_anon'anon'x" =
+    SUU_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ SUU_x) => RIP.HasField "sUU_x" (RIP.Ptr SUU) (RIP.Ptr ty) where
+instance ( ty ~ SUU_anon'anon'x
+         ) => RIP.HasField "sUU_anon'anon'x" (RIP.Ptr SUU) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sUU_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sUU_anon'anon'x")
 
-{-| __C declaration:__ @union \@UUU_x_x@
+{-| __C declaration:__ @union \@UUU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype UUU_x_x = UUU_x_x
-  { unwrapUUU_x_x :: RIP.ByteArray
+newtype UUU_anon'anon'x_anon'x = UUU_anon'anon'x_anon'x
+  { unwrapUUU_anon'anon'x_anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUU_anon'anon'x_anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUU_x_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUU_anon'anon'x_anon'x
 
-deriving via Marshal.EquivStorable UUU_x_x instance RIP.Storable UUU_x_x
+deriving via Marshal.EquivStorable UUU_anon'anon'x_anon'x instance RIP.Storable UUU_anon'anon'x_anon'x
 
 {-|
 
-    __See:__ 'set_uUU_x_x_x'
+    __See:__ 'set_uUU_anon'anon'x_anon'x_x'
 
     __C declaration:__ @x@
 
@@ -1209,86 +1258,90 @@ deriving via Marshal.EquivStorable UUU_x_x instance RIP.Storable UUU_x_x
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uUU_x_x_x ::
-     UUU_x_x
+get_uUU_anon'anon'x_anon'x_x ::
+     UUU_anon'anon'x_anon'x
   -> RIP.CInt
-get_uUU_x_x_x = RIP.getUnionPayload
+get_uUU_anon'anon'x_anon'x_x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uUU_x_x_x'
+    __See:__ 'get_uUU_anon'anon'x_anon'x_x'
 
 -}
-set_uUU_x_x_x ::
+set_uUU_anon'anon'x_anon'x_x ::
      RIP.CInt
-  -> UUU_x_x
-set_uUU_x_x_x = RIP.setUnionPayload
+  -> UUU_anon'anon'x_anon'x
+set_uUU_anon'anon'x_anon'x_x = RIP.setUnionPayload
 
-instance HasCField.HasCField UUU_x_x "uUU_x_x_x" where
+instance HasCField.HasCField UUU_anon'anon'x_anon'x "uUU_anon'anon'x_anon'x_x" where
 
-  type CFieldType UUU_x_x "uUU_x_x_x" = RIP.CInt
+  type CFieldType UUU_anon'anon'x_anon'x "uUU_anon'anon'x_anon'x_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uUU_x_x_x" (RIP.Ptr UUU_x_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "uUU_anon'anon'x_anon'x_x" (RIP.Ptr UUU_anon'anon'x_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUU_x_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUU_anon'anon'x_anon'x_x")
 
-{-| __C declaration:__ @union \@UUU_x@
+{-| __C declaration:__ @union \@UUU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-newtype UUU_x = UUU_x
-  { unwrapUUU_x :: RIP.ByteArray
+newtype UUU_anon'anon'x = UUU_anon'anon'x
+  { unwrapUUU_anon'anon'x :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UUU_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UUU_anon'anon'x
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUU_x
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UUU_anon'anon'x
 
-deriving via Marshal.EquivStorable UUU_x instance RIP.Storable UUU_x
+deriving via Marshal.EquivStorable UUU_anon'anon'x instance RIP.Storable UUU_anon'anon'x
 
 {-|
 
-    __See:__ 'set_uUU_x_x'
+    __See:__ 'set_uUU_anon'anon'x_anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uUU_x_x ::
-     UUU_x
-  -> UUU_x_x
-get_uUU_x_x = RIP.getUnionPayload
+get_uUU_anon'anon'x_anon'x ::
+     UUU_anon'anon'x
+  -> UUU_anon'anon'x_anon'x
+get_uUU_anon'anon'x_anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uUU_x_x'
+    __See:__ 'get_uUU_anon'anon'x_anon'x'
 
 -}
-set_uUU_x_x ::
-     UUU_x_x
-  -> UUU_x
-set_uUU_x_x = RIP.setUnionPayload
+set_uUU_anon'anon'x_anon'x ::
+     UUU_anon'anon'x_anon'x
+  -> UUU_anon'anon'x
+set_uUU_anon'anon'x_anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField UUU_x "uUU_x_x" where
+instance HasCField.HasCField UUU_anon'anon'x "uUU_anon'anon'x_anon'x" where
 
-  type CFieldType UUU_x "uUU_x_x" = UUU_x_x
+  type CFieldType UUU_anon'anon'x "uUU_anon'anon'x_anon'x" =
+    UUU_anon'anon'x_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ UUU_x_x
-         ) => RIP.HasField "uUU_x_x" (RIP.Ptr UUU_x) (RIP.Ptr ty) where
+instance ( ty ~ UUU_anon'anon'x_anon'x
+         ) => RIP.HasField "uUU_anon'anon'x_anon'x" (RIP.Ptr UUU_anon'anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUU_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUU_anon'anon'x_anon'x")
 
 {-| __C declaration:__ @union UUU@
 
@@ -1311,35 +1364,38 @@ deriving via Marshal.EquivStorable UUU instance RIP.Storable UUU
 
 {-|
 
-    __See:__ 'set_uUU_x'
+    __See:__ 'set_uUU_anon'anon'x'
 
-    __C declaration:__ @x@
+    __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
 
     __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
 -}
-get_uUU_x ::
+get_uUU_anon'anon'x ::
      UUU
-  -> UUU_x
-get_uUU_x = RIP.getUnionPayload
+  -> UUU_anon'anon'x
+get_uUU_anon'anon'x = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_uUU_x'
+    __See:__ 'get_uUU_anon'anon'x'
 
 -}
-set_uUU_x ::
-     UUU_x
+set_uUU_anon'anon'x ::
+     UUU_anon'anon'x
   -> UUU
-set_uUU_x = RIP.setUnionPayload
+set_uUU_anon'anon'x = RIP.setUnionPayload
 
-instance HasCField.HasCField UUU "uUU_x" where
+instance HasCField.HasCField UUU "uUU_anon'anon'x" where
 
-  type CFieldType UUU "uUU_x" = UUU_x
+  type CFieldType UUU "uUU_anon'anon'x" =
+    UUU_anon'anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ UUU_x) => RIP.HasField "uUU_x" (RIP.Ptr UUU) (RIP.Ptr ty) where
+instance ( ty ~ UUU_anon'anon'x
+         ) => RIP.HasField "uUU_anon'anon'x" (RIP.Ptr UUU) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"uUU_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uUU_anon'anon'x")

@@ -7,24 +7,24 @@ ctypes:
   cname: struct S1
   hsname: S1
 - headers: types/anonymous/edge-cases/bitfield.h
-  cname: struct @S1_y
-  hsname: S1_y
+  cname: struct @S1_anon'y
+  hsname: S1_anon'y
 - headers: types/anonymous/edge-cases/bitfield.h
   cname: struct S2
   hsname: S2
 - headers: types/anonymous/edge-cases/bitfield.h
-  cname: struct @S2_y
-  hsname: S2_y
+  cname: struct @S2_anon'anon'y
+  hsname: S2_anon'anon'y
 - headers: types/anonymous/edge-cases/bitfield.h
-  cname: struct @S2_y_y
-  hsname: S2_y_y
+  cname: struct @S2_anon'anon'y_anon'y
+  hsname: S2_anon'anon'y_anon'y
 hstypes:
 - hsname: S1
   representation:
     record:
       constructor: S1
       fields:
-      - s1_y
+      - s1_anon'y
       - s1_x
   instances:
   - Eq
@@ -36,12 +36,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: S1_y
+- hsname: S1_anon'y
   representation:
     record:
-      constructor: S1_y
+      constructor: S1_anon'y
       fields:
-      - s1_y_y
+      - s1_anon'y_y
   instances:
   - Eq
   - Generic
@@ -57,7 +57,7 @@ hstypes:
     record:
       constructor: S2
       fields:
-      - s2_y
+      - s2_anon'anon'y
   instances:
   - Eq
   - Generic
@@ -68,13 +68,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: S2_y
+- hsname: S2_anon'anon'y
   representation:
     record:
-      constructor: S2_y
+      constructor: S2_anon'anon'y
       fields:
-      - s2_y_y
-      - s2_y_x
+      - s2_anon'anon'y_anon'y
+      - s2_anon'anon'y_x
   instances:
   - Eq
   - Generic
@@ -85,12 +85,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: S2_y_y
+- hsname: S2_anon'anon'y_anon'y
   representation:
     record:
-      constructor: S2_y_y
+      constructor: S2_anon'anon'y_anon'y
       fields:
-      - s2_y_y_y
+      - s2_anon'anon'y_anon'y_y
   instances:
   - Eq
   - Generic
