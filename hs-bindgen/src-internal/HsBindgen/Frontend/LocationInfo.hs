@@ -11,7 +11,7 @@ module HsBindgen.Frontend.LocationInfo (
   , locationInfoLocs
   ) where
 
-import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
@@ -51,6 +51,9 @@ data LocationInfo =
     -- | Message about an anonymous declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
+    --
+    -- Usually we expect the list of locations to be a singleton: the location
+    -- of the declaration.
   | LocationDeclAnon (Maybe CDeclName) [SingleLoc]
 
     -- | No location information
@@ -64,14 +67,14 @@ data LocationInfo =
 prelimDeclIdLocationInfo :: PrelimDeclId -> [SingleLoc] -> LocationInfo
 prelimDeclIdLocationInfo prelimDeclId knownLocs =
     case prelimDeclId of
-      PrelimDeclId.Named name -> LocationDeclNamed name knownLocs
-      PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing [anon.loc]
+      PrelimDeclId.Named name -> LocationDeclNamed name    knownLocs
+      PrelimDeclId.Anon anon  -> LocationDeclAnon  Nothing [anon.loc]
 
 declIdLocationInfo :: DeclId -> [SingleLoc] -> LocationInfo
 declIdLocationInfo declId knownLocs =
     if not declId.isAnon
-      then LocationDeclNamed declId.name knownLocs
-      else LocationDeclAnon (Just declId.name) knownLocs
+      then LocationDeclNamed declId.name        knownLocs
+      else LocationDeclAnon  (Just declId.name) knownLocs
 
 {-------------------------------------------------------------------------------
   Query 'LocationInfo'
@@ -86,7 +89,7 @@ locationInfoName = \case
 locationInfoLocs :: LocationInfo -> [SingleLoc]
 locationInfoLocs = \case
     LocationDeclNamed _ locs -> locs
-    LocationDeclAnon _ locs  -> locs
+    LocationDeclAnon  _ locs -> locs
     LocationUnavailable      -> []
 
 {-------------------------------------------------------------------------------
@@ -104,29 +107,26 @@ instance PrettyForTrace a => PrettyForTrace (WithLocationInfo a) where
 
 instance PrettyForTrace LocationInfo where
   prettyForTrace = \case
-      LocationDeclNamed name [] -> PP.hsep [
-          prettyForTrace name
-        , "(location unavailable)"
-        ]
-      LocationDeclNamed name [loc] -> PP.hsep [
-          prettyForTrace name
-        , "at"
-        , PP.show loc
-        ]
       LocationDeclNamed name locs -> PP.hsep [
           prettyForTrace name
         , "at"
-        , PP.hlist "(" ")" (map PP.show locs)
+        , prettyLocs locs
         ]
-      LocationDeclAnon (Just name) loc -> PP.hsep [
+      LocationDeclAnon (Just name) locs -> PP.hsep [
           "anonymous declaration"
         , prettyForTrace name
         , "at"
-        , PP.show loc
+        , prettyLocs locs
         ]
-      LocationDeclAnon Nothing loc -> PP.hsep [
+      LocationDeclAnon Nothing locs -> PP.hsep [
           "anonymous declaration at"
-        , PP.show loc
+        , prettyLocs locs
         ]
       LocationUnavailable ->
         "location unavailable"
+    where
+      prettyLocs :: Show a => [a] -> CtxDoc
+      prettyLocs = \case
+        []    -> "(source location unavailable)"
+        [loc] -> PP.show loc
+        locs  -> PP.hlist "(" ")" (map PP.show locs)

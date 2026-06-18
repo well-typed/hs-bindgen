@@ -5,7 +5,7 @@
 -- > import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 -- > import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
-    Conflict(..)
+    Conflict
     -- * Construction
   , between
   , insert
@@ -14,6 +14,7 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
   , getMinimumLoc
   ) where
 
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Set qualified as Set
 import Text.SimplePrettyPrint qualified as PP
 
@@ -48,11 +49,13 @@ insert (Conflict xs) x = Conflict $ Set.insert x xs
   Query
 -------------------------------------------------------------------------------}
 
-toList :: Conflict -> [SingleLoc]
-toList conflict = Set.toList conflict.locs
+toList :: Conflict -> NonEmpty SingleLoc
+ -- 'NonEmpty.fromList' safe due to invariant.
+toList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 
 getMinimumLoc :: Conflict -> SingleLoc
-getMinimumLoc conflict = minimum conflict.locs -- safe due to invariant
+ -- 'minimum' safe due to invariant.
+getMinimumLoc conflict = minimum conflict.locs
 
 {-------------------------------------------------------------------------------
   Tracing

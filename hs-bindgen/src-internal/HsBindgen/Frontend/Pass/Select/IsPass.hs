@@ -10,13 +10,15 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectMsg(..)
   ) where
 
-import Data.Default (Default (def))
+import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (Entry (..), Squashed (..),
+                                              Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
@@ -32,6 +34,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Imports
 import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
@@ -116,17 +119,18 @@ data SelectStatus =
 
 data TransitiveDependencyMissing =
     -- | Transitive dependency is 'Unusable'.
-    TransitiveDependencyUnusable DeclId Unusable [SingleLoc]
+    TransitiveDependencyUnusable DeclId Unusable
     -- | Transitive dependency is not selected.
   | TransitiveDependencyNotSelected DeclId [SingleLoc]
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
   prettyForTrace = \case
-      TransitiveDependencyUnusable i r ls ->
+      TransitiveDependencyUnusable i r ->
         let intro = "Transitive dependency unusable:"
         in  PP.hang intro 2 $ prettyForTrace $ WithLocationInfo{
-                loc = declIdLocationInfo i ls
+                loc = declIdLocationInfo i $ NonEmpty.toList $
+                        DeclIndex.entryToLoc (UnusableE r)
               , msg = r
               }
       TransitiveDependencyNotSelected i ls ->

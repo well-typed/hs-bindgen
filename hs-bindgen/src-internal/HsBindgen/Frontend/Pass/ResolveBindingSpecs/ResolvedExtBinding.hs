@@ -4,15 +4,19 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding (
   , extDeclIdPair
   ) where
 
-import GHC.Generics (Generic)
+import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Naming (DeclId, DeclIdPair (..))
+import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding
       cName :: DeclId
+
+      -- | Source location of C declaration for which we are using this binding
+    , locs :: NonEmpty SingleLoc
 
       -- | The Haskell type which will be used
     , hsName :: Hs.ExtRef
