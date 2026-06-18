@@ -14,9 +14,9 @@ import GHC.IO.Exception (ExitCode (ExitFailure, ExitSuccess))
 import System.Process (readProcessWithExitCode, showCommandForUser)
 
 import Clang.Args (ClangArgs (unClangArgs))
+import Clang.Discover (ClangExe)
 
 import HsBindgen.Clang (ClangSetup (args))
-import HsBindgen.Clang.Discover (ClangExe)
 import HsBindgen.Frontend.Pass (IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg (..))

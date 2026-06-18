@@ -4,11 +4,9 @@ module HsBindgen.Util.Process (
   , cmdSpecPrettyForTrace
   , checkOutput
   , parseSingleLine
-  , parseFirstLine
   , parseNonEmpty
   ) where
 
-import Data.Maybe (listToMaybe)
 import System.IO.Error (tryIOError)
 import System.Process qualified as Proc
 import Text.SimplePrettyPrint qualified as PP
@@ -57,10 +55,6 @@ parseSingleLine :: String -> Maybe String
 parseSingleLine s = case lines s of
     [s'] -> Just s'
     _    -> Nothing
-
--- | Parse the first line of output
-parseFirstLine :: String -> Maybe String
-parseFirstLine = listToMaybe . lines
 
 -- | Parse non-empty output
 parseNonEmpty :: String -> Maybe String

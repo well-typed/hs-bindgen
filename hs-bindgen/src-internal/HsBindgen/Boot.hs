@@ -143,7 +143,7 @@ getClangArtefacts tracer config0 = do
     cStandard' <- getClangCStandard' tracer clangArgs'
     return ClangArtefacts{
         cStandard = cStandard'
-      , clangExe  = paths.clangExe
+      , clangExe  = paths.pClangExe
       , clangArgs = clangArgs'
       }
   where

@@ -5,11 +5,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     libclang-bindings-src = {
-      url = "github:well-typed/libclang-bindings?rev=51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84";
+      url = "github:well-typed/libclang-bindings?rev=ef67437045c45a32d7d1aa7166043937c1259d7f";
       flake = false;
     };
     c-expr-src = {
-      url = "github:well-typed/c-expr?rev=68960ab9683d7e156d9aa329a6cff98ad08d64dc";
+      url = "github:well-typed/c-expr?rev=c789b4ab20cc13696a96bf4e508a5af95d523ce0";
       flake = false;
     };
     doxygen-parser-src = {

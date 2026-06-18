@@ -9,6 +9,7 @@ module HsBindgen.Config.ClangArgs (
   ) where
 
 import Clang.Args
+import Clang.Discover
 
 import HsBindgen.Imports
 
@@ -86,7 +87,7 @@ data ClangArgsConfig path = ClangArgsConfig {
 
 instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
-      builtinIncDir    = def
+      builtinIncDir    = BuiltinIncDirClang
     , extraIncludeDirs = []
     , defineMacros     = []
     , enableBlocks     = False
@@ -94,23 +95,6 @@ instance Default (ClangArgsConfig path) where
     , argsInner        = []
     , argsAfter        = []
     }
-
-{-------------------------------------------------------------------------------
-  Builtin include directory
--------------------------------------------------------------------------------}
-
--- | Configure builtin include directory automatic configuration
-data BuiltinIncDirConfig =
-    -- | Do not configure the builtin include directory
-    BuiltinIncDirDisable
-
-    -- | Configure the builtin include directory using the resource directory
-    -- from @clang@
-  | BuiltinIncDirClang
-  deriving (Eq, Show)
-
-instance Default BuiltinIncDirConfig where
-  def = BuiltinIncDirClang
 
 {-------------------------------------------------------------------------------
   Translation
