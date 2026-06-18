@@ -17,10 +17,11 @@ module HsBindgen.App.Output (
   ) where
 
 import Data.Default (Default (..))
-import Data.List.NonEmpty (NonEmpty (..), some1)
+import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Options.Applicative
+import Options.Applicative.NonEmpty (some1)
 
 import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
                                    RenameTerm (..))
