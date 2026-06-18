@@ -23,8 +23,8 @@ import HsBindgen.Backend.Category
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ data Opts = Opts {
     , predicate      :: Boolean Regex
     , showPaths      :: Bool
     , output         :: Maybe FilePath
-    , inputs         :: [UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
     , dirPolicy      :: DirPolicy
     }

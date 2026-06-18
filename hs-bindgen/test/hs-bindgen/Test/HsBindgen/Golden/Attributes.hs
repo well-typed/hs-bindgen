@@ -2,10 +2,10 @@
 module Test.HsBindgen.Golden.Attributes (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -81,7 +81,7 @@ test_attributes_visibility_functions =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- Problematic non-public visibility
           "f2" , "f3" , "f4"
@@ -106,7 +106,7 @@ test_attributes_visibility_variables =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- Problematic non-public visibility
           "i12", "i13", "i14"

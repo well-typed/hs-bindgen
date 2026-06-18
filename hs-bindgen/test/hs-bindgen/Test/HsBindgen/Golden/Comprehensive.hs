@@ -10,8 +10,8 @@ module Test.HsBindgen.Golden.Comprehensive (testCases) where
 
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen (DoxygenMsg (..))
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -42,7 +42,7 @@ test_comprehensive_c2hsc =
     defaultTest "comprehensive/c2hsc"
       & #tracePredicate .~ multiTracePredicate expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = [
         "ordinary_long_double"
       , "ordinary_long_double_pointer"
@@ -54,7 +54,7 @@ test_comprehensive_c2hsc =
       , "struct ordinary_long_double_pointer_array_struct"
       ]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchDelayed name ParseUnsupportedLongDouble ->
         Just $ Expected name

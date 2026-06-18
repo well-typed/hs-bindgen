@@ -31,7 +31,7 @@ import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Errors
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ data Lit = Lit {
     , baseModuleName :: BaseModuleName
     , qualifiedStyle :: QualifiedStyle
     , outputOptions  :: OutputOptions
-    , inputs         :: [UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit

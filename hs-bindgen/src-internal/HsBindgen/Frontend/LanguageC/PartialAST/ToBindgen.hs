@@ -10,12 +10,12 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
   , fromKnownType
   ) where
 
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
-import HsBindgen.Frontend.Pass (NoAnn (..))
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass (NoAnn (..))
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------

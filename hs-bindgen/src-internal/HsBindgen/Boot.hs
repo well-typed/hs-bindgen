@@ -26,8 +26,8 @@ import HsBindgen.Clang.Sizeof (getSizeofs)
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C (Sizeofs)
 import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
@@ -43,7 +43,7 @@ runBoot ::
      Tracer BootMsg
   -> (ClangCStandard -> IO (MacroLang l))
   -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
+  -> [C.UncheckedHashIncludeArg]
   -> IO (BootArtefact l)
 runBoot tracer mkMacroLang config uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart config
@@ -55,7 +55,7 @@ runBoot tracer mkMacroLang config uncheckedHashIncludeArgs = do
     getHashIncludeArgs <- cache "hashIncludeArgs" $ Cached $ do
       let tracer' = contramap BootHashIncludeArg tracer
       withTrace BootStatusHashIncludeArgs $
-        mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
+        mapM (C.hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
     getClangArtefacts' <- cache "clangArtefacts" $ Cached $
       getClangArtefacts tracer config.boot.clangArgs
@@ -189,7 +189,7 @@ data BootArtefact l = BootArtefact {
     , clangExe                :: Cached (Maybe ClangExe)
     , clangArgs               :: Cached ClangArgs
     , macroLang               :: Cached (MacroLang l)
-    , hashIncludeArgs         :: Cached [HashIncludeArg]
+    , hashIncludeArgs         :: Cached [C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
     , sizeofs                 :: Cached Sizeofs
@@ -204,7 +204,7 @@ data BootStatusMsg =
   | BootStatusCStandard               ClangCStandard
   | BootStatusClangExe                (Maybe ClangExe)
   | BootStatusClangArgs               ClangArgs
-  | BootStatusHashIncludeArgs         [HashIncludeArg]
+  | BootStatusHashIncludeArgs         [C.HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
   | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
   deriving stock (Show, Generic)
@@ -257,7 +257,7 @@ data BootMsg =
   | BootClang                ClangMsg
   | BootCStandard            BootCStandardMsg
   | BootExtraClangArgs       ExtraClangArgsMsg
-  | BootHashIncludeArg       HashIncludeArgMsg
+  | BootHashIncludeArg       C.HashIncludeArgMsg
   | BootCompareClangVersions CompareVersionsMsg
   | BootStatus               BootStatusMsg
   | BootCache                (SafeTrace CacheMsg)

@@ -18,11 +18,9 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -32,7 +30,7 @@ import HsBindgen.Imports
 --
 -- See 'Conclusion' for detailed discussion.
 data TypedefAnalysis = TypedefAnalysis{
-      map :: Map DeclId Conclusion
+      map :: Map C.DeclId Conclusion
     }
   deriving stock (Show)
 
@@ -41,7 +39,7 @@ instance Semigroup TypedefAnalysis where
         map = Map.unionWithKey unexpectedOverlap a.map b.map
       }
     where
-      unexpectedOverlap :: DeclId -> Conclusion -> Conclusion -> Conclusion
+      unexpectedOverlap :: C.DeclId -> Conclusion -> Conclusion -> Conclusion
       unexpectedOverlap declId conclusion1 conclusion2 =
           panicPure $ concat [
               "Unexpected overlap for "
@@ -57,7 +55,7 @@ instance Monoid TypedefAnalysis where
 
 data Squash = SquashTypedef {
       typedefLoc :: SingleLoc
-    , targetId   :: DeclId
+    , targetId   :: C.DeclId
     }
   deriving stock (Eq, Show, Generic)
 
@@ -124,10 +122,10 @@ data Conclusion =
     -- Useful in conjunction with 'HsBindgen.Frontend.Analysis.Typedefs.Squash'. That is, the C typedef is squashed,
     -- and the squash target is assigned the name of the typedef with
     -- 'UseNameOf'.
-  | UseNameOf DeclId
+  | UseNameOf C.DeclId
   deriving stock (Show)
 
-conclude :: DeclId -> Conclusion -> TypedefAnalysis
+conclude :: C.DeclId -> Conclusion -> TypedefAnalysis
 conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
 
 {-------------------------------------------------------------------------------
@@ -159,9 +157,9 @@ analyseTypedef declUseGraph typedefInfo typedef =
 
 -- | Typedef around tagged payload
 typedefOfTagged ::
-     C.DeclInfo ResolveBindingSpecs    -- ^ Typedef info
-  -> TaggedPayload                     -- ^ Payload
-  -> [(DeclId, usage)]                 -- ^ Use sites of the payload
+     C.DeclInfo ResolveBindingSpecs      -- ^ Typedef info
+  -> TaggedPayload                       -- ^ Payload
+  -> [(C.DeclId, usage)]                 -- ^ Use sites of the payload
   -> TypedefAnalysis
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash
@@ -201,7 +199,7 @@ typedefOfTagged typedefInfo payload useSites
 
 data TaggedPayload = TaggedPayload{
       isDirect :: Bool
-    , id       :: DeclId
+    , id       :: C.DeclId
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
@@ -224,7 +222,7 @@ taggedPayload = go True
           -- > typedef struct {..} foo[10];
           Nothing
 
-    typeRef :: Bool -> DeclId -> Maybe TaggedPayload
+    typeRef :: Bool -> C.DeclId -> Maybe TaggedPayload
     typeRef isDirect declId = do
-        void $ checkIsTagged declId.name.kind
+        void $ C.checkIsTagged declId.name.kind
         return TaggedPayload{isDirect = isDirect, id = declId}

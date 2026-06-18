@@ -22,7 +22,6 @@ import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -37,8 +36,9 @@ import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.Pass.Zip.IsPass
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Util.Tracer
 
 import Doxygen.Parser (Doxygen)
@@ -86,7 +86,7 @@ data FrontendPass (l :: Star) (result :: Star) where
 -- | Build artefact.
 data Artefact l (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact l [HashIncludeArg]
+  HashIncludeArgs :: Artefact l [C.HashIncludeArg]
   ModuleBaseName  :: Artefact l BaseModuleName
   -- * Frontend
   ParseInfoA      :: Artefact l ParseInfo

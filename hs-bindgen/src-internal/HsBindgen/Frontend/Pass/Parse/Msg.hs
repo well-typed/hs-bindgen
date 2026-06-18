@@ -20,10 +20,9 @@ import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Zip.Error
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
@@ -120,13 +119,13 @@ instance IsTrace Level ImmediateParseMsg where
 data DelayedParseMsg =
     -- | Recursive case; we failed to parse the target of a @typedef@ with a
     --   delayed parse message.
-    ParseUnderlyingTypeFailed PrelimDeclId DelayedParseMsg
+    ParseUnderlyingTypeFailed C.PrelimDeclId DelayedParseMsg
 
     -- | We tried to parse an implicit field for a struct or union object, but
     -- it was unsuccessful
   | ParseImplicitFieldFailed ParseImplicitFieldsMsg
 
-  | ParseMacroEmpty PrelimDeclId [Token TokenSpelling]
+  | ParseMacroEmpty C.PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
   | ParseMacroErrorParse MacroLangParseError
@@ -178,7 +177,7 @@ data DelayedParseMsg =
     -- @void f(struct foo* arg);@
     --
     -- Might indicate a missing @#include@ in the header.
-  | ParseDeclarationNotVisible CTagKind Text
+  | ParseDeclarationNotVisible C.TagKind Text
 
     -- | A function declaration was encountered where the type of the function
     -- is typedef reference. This is not yet supported by hs-bindgen.
@@ -323,7 +322,7 @@ data DelayedParseMsg =
     -- @AssignAnonIds@). We record the identifier of the anonymous declaration
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
-  | ParseUnusableAnonDecl AnonId
+  | ParseUnusableAnonDecl C.AnonId
 
   | ParseExpectedFunctionType String
 
@@ -457,7 +456,7 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseDeclarationNotVisible kind name -> PP.hcat [
             "Declaration of '"
-          , PP.text (cTagKindPrefix kind)
+          , PP.text (C.tagKindPrefix kind)
           , " "
           , PP.text name
           , "' will not be visible outside of this function"

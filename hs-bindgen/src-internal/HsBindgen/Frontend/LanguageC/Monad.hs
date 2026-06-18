@@ -28,12 +28,11 @@ import Data.Map qualified as Map
 import Data.Set qualified as Set
 import GHC.Stack
 
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -92,9 +91,9 @@ lookupType nm env =
       (True,  _)            -> Just (C.TypeMacro (C.MacroRef macroId ()))
       (False, mTypedefType) -> mTypedefType
   where
-    macroId :: DeclId
-    macroId = DeclId{
-        name   = CDeclName nm CNameKindMacro
+    macroId :: C.DeclId
+    macroId = C.DeclId{
+        name   = C.DeclName nm C.NameKindMacro
       , isAnon = False
       }
 

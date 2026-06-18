@@ -8,18 +8,15 @@ import Data.Map qualified as Map
 
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-type ChosenNames = Map AnonId DeclId
+type ChosenNames = Map C.AnonId C.DeclId
 
 -- | Choose names for anonymous declarations
 chooseNames :: AnonUsageAnalysis -> ChosenNames
@@ -32,16 +29,16 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- Name for the given 'C.AnonId'
     --
     -- Returns 'Nothing' if we fail to assign a name.
-    nameFor :: AnonId -> Memoize (Maybe DeclId)
+    nameFor :: C.AnonId -> Memoize (Maybe C.DeclId)
     nameFor = memoize $ \anonId ->
         case Map.lookup anonId usageAnalysis of
           Nothing    -> return Nothing      -- Unused (or unusable) anon decl
           Just usage -> nameForUsage anonId usage
 
     nameForUsage ::
-         AnonId
+         C.AnonId
       -> AnonUsageAnalysis.Context
-      -> Memoize (Maybe DeclId)
+      -> Memoize (Maybe C.DeclId)
     nameForUsage anonId = \case
         AnonUsageAnalysis.Field declInfo fieldInfo ->
           fmap (nameForField anonId fieldInfo) <$> declName declInfo.id
@@ -52,17 +49,17 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
         AnonUsageAnalysis.GlobalVar declInfo ->
           fmap (nameForGlobalVar anonId) <$> declName declInfo.id
 
-    declName :: PrelimDeclId -> Memoize (Maybe DeclId)
+    declName :: C.PrelimDeclId -> Memoize (Maybe C.DeclId)
     declName = \case
-        PrelimDeclId.Named name@CDeclName{} ->
-          return $ Just DeclId{name = name, isAnon = False}
-        PrelimDeclId.Anon anonId ->
+        C.PrelimDeclIdNamed name@C.DeclName{} ->
+          return $ Just C.DeclId{name = name, isAnon = False}
+        C.PrelimDeclIdAnon anonId ->
           nameFor anonId
 
-    nameForField :: AnonId -> C.FieldInfo Parse -> DeclId -> DeclId
-    nameForField anonId field outerStruct = DeclId{
+    nameForField :: C.AnonId -> C.FieldInfo Parse -> C.DeclId -> C.DeclId
+    nameForField anonId field outerStruct = C.DeclId{
           isAnon = True
-        , name   = CDeclName{
+        , name   = C.DeclName{
               text = outerStruct.name.text <> "_" <> field.name.text
             , kind = anonId.kind
             }
@@ -78,10 +75,10 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     --
     -- Consequently we are unable to detect that @foo@ is anonymous in this
     -- case. To emulate this behaviour older clang, we set @isAnon@ to @False@.
-    nameForTypedefDirect :: AnonId -> DeclId -> DeclId
-    nameForTypedefDirect anonId typedef = DeclId{
+    nameForTypedefDirect :: C.AnonId -> C.DeclId -> C.DeclId
+    nameForTypedefDirect anonId typedef = C.DeclId{
           isAnon = False -- 'False' instead of 'True'!
-        , name   = CDeclName{
+        , name   = C.DeclName{
               text = typedef.name.text
             , kind = anonId.kind
             }
@@ -92,10 +89,10 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- Fortunately, clang does not assign a name to the struct in this situation
     -- (or rather, it assigns a name such as "(unnamed struct at ..)", so we can
     -- detect this case.
-    nameForTypedefIndirect :: AnonId -> DeclId -> DeclId
-    nameForTypedefIndirect anonId typedef = DeclId{
+    nameForTypedefIndirect :: C.AnonId -> C.DeclId -> C.DeclId
+    nameForTypedefIndirect anonId typedef = C.DeclId{
           isAnon = True
-        , name   = CDeclName{
+        , name   = C.DeclName{
               text = typedef.name.text <> "_Aux"
             , kind = anonId.kind
             }
@@ -114,10 +111,10 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- any C type name — the struct remains anonymous from C's perspective.
     -- We set @isAnon@ to @True@ so that the backend can detect this and avoid
     -- generating invalid C types like @struct anonPoint *@.
-    nameForGlobalVar :: AnonId -> DeclId -> DeclId
-    nameForGlobalVar anonId globalVar = DeclId{
+    nameForGlobalVar :: C.AnonId -> C.DeclId -> C.DeclId
+    nameForGlobalVar anonId globalVar = C.DeclId{
           isAnon = True
-        , name   = CDeclName{
+        , name   = C.DeclName{
               text = globalVar.name.text
             , kind = anonId.kind
             }
@@ -131,20 +128,20 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
 -------------------------------------------------------------------------------}
 
 data AssignedId =
-    AssignedId DeclId
+    AssignedId C.DeclId
   | FailedToAssignId
   deriving stock (Show)
 
-assignedName :: AssignedId -> Maybe DeclId
+assignedName :: AssignedId -> Maybe C.DeclId
 assignedName = \case
     AssignedId name  -> Just name
     FailedToAssignId -> Nothing
 
-type Memoize = State (Map AnonId AssignedId)
+type Memoize = State (Map C.AnonId AssignedId)
 
 memoize ::
-     (AnonId -> Memoize (Maybe DeclId))
-  -> (AnonId -> Memoize (Maybe DeclId))
+     (C.AnonId -> Memoize (Maybe C.DeclId))
+  -> (C.AnonId -> Memoize (Maybe C.DeclId))
 memoize f anonId = state $ \acc ->
     case Map.lookup anonId acc of
       Just memoized -> (assignedName memoized, acc)

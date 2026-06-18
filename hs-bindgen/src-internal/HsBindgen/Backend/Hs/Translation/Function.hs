@@ -28,15 +28,12 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports hiding (def)
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -225,7 +222,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     mbIoComment :: Maybe HsDoc.Comment
     mbIoComment = ioComment origCFun.attrs.purity
 
-getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
+getMainHashIncludeArg :: C.DeclInfo Final -> C.HashIncludeArg
 getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 
 {-------------------------------------------------------------------------------

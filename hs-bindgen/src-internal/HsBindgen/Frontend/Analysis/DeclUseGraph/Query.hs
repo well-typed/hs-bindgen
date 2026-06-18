@@ -15,11 +15,9 @@ import Data.Set qualified as Set
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type (ValOrRef (..))
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Query
@@ -38,13 +36,13 @@ toDecls index declUseGraph =
     -- without a corresponding entry in the 'DeclIndex'.  For example, this can
     -- happen when we are using external binding specifications.
     mapMaybe (`DeclIndex.lookup` index) . Digraph.sort $
-      Digraph.filterEdges (== ByValue) declUseGraph.graph
+      Digraph.filterEdges (== C.ByValue) declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Transitive usage
 -------------------------------------------------------------------------------}
 
-getUseSitesTransitively :: DeclUseGraph -> Set DeclId -> Set DeclId
+getUseSitesTransitively :: DeclUseGraph -> Set C.DeclId -> Set C.DeclId
 getUseSitesTransitively declUseGraph declIds =
     Digraph.reaches declIds declUseGraph.graph
 
@@ -52,20 +50,23 @@ getUseSitesTransitively declUseGraph declIds =
   Direct usage
 -------------------------------------------------------------------------------}
 
-getUseSites :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
+getUseSites :: DeclUseGraph -> C.DeclId -> [(C.DeclId, C.ValOrRef)]
 getUseSites declUseGraph declId =
     aux $ Digraph.neighbors declId declUseGraph.graph
   where
-    aux :: Map DeclId (Set ValOrRef) -> [(DeclId, ValOrRef)]
+    aux :: Map C.DeclId (Set C.ValOrRef) -> [(C.DeclId, C.ValOrRef)]
     aux m = [
         (declId', edge)
       | (declId', edges) <- Map.toList m
       , edge <- Set.elems edges
       ]
 
-getUseSitesNoSelfReferences :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
+getUseSitesNoSelfReferences ::
+     DeclUseGraph
+  -> C.DeclId
+  -> [(C.DeclId, C.ValOrRef)]
 getUseSitesNoSelfReferences graph declId =
   filter (not . isSelfReference) $ getUseSites graph declId
     where
-      isSelfReference :: (DeclId, ValOrRef) -> Bool
+      isSelfReference :: (C.DeclId, C.ValOrRef) -> Bool
       isSelfReference (declId', _usage) = declId == declId'

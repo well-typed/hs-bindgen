@@ -28,14 +28,12 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -114,7 +112,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       , hsTypes = Map.empty
       }
 
-    getMainHeaders' :: SourcePath -> Set HashIncludeArg
+    getMainHeaders' :: SourcePath -> Set C.HashIncludeArg
     getMainHeaders' =
         either
           (\s -> panicPure ("Could not get main headers: " ++ s))
@@ -249,7 +247,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           , (hsNewtype.name, hsTypeSpec)
           )
 
-    getHeaders :: C.DeclInfo Final -> Set HashIncludeArg
+    getHeaders :: C.DeclInfo Final -> Set C.HashIncludeArg
     getHeaders info = getMainHeaders' $ singleLocPath info.loc
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1766>

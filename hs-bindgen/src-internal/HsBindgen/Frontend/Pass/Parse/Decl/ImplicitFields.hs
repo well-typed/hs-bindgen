@@ -28,11 +28,7 @@ import GHC.Records (HasField (getField))
 import Clang.HighLevel.Types (SingleLoc)
 import Clang.LowLevel.Core (CXType, CallFailed, clang_Type_getOffsetOf)
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Deps (depsOfField, depsOfStruct, depsOfUnion)
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming (CScopedName (CScopedName, text))
-import HsBindgen.Frontend.Pass (IsPass (ScopedName))
+import HsBindgen.Frontend.Analysis.Deps (depsOfField, depsOfStruct, depsOfUnion)
 import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (..), Parse,
                                              ReparseInfo (..), Tokens)
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOrigin (..),
@@ -40,6 +36,8 @@ import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOr
                                                                  ImplicitFieldOrigin (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
 import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass (PassScopedName (ScopedName))
 
 {-------------------------------------------------------------------------------
   Inputs
@@ -327,10 +325,10 @@ getImplicitField encObj decl = do
     mkOrigin ::
          Target
       -> Origin.ImplicitFieldOrigin
-    mkOrigin target = Origin.ImplicitFieldOrigin encObj.typ (CScopedName target.originName.text)
+    mkOrigin target = Origin.ImplicitFieldOrigin encObj.typ (C.ScopedName target.originName.text)
 
     mkScopedName :: Target -> ScopedName Parse
-    mkScopedName target = CScopedName target.fieldName.text
+    mkScopedName target = C.ScopedName target.fieldName.text
 
 -- | When the field is implicit and we want to ask for its offset using its
 -- name, then we should ask for the offset to an explicit field of the

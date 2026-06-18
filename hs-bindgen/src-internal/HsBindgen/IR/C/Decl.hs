@@ -1,9 +1,13 @@
--- | Internal AST as it is constructed step by step in the frontend
+-- | C declarations
 --
--- Intended for qualified import.
+-- This module should only be used within the @HsBindgen.IR@ hierarchy.  From
+-- outside the @HsBindgen.IR@ hierarchy, "HsBindgen.IR.C" should be used.
 --
--- > import HsBindgen.Frontend.AST.Decl qualified as C
-module HsBindgen.Frontend.AST.Decl (
+-- Within @HsBindgen.IR@, all modules aside from "HsBindgen.IR.C" should import
+-- this module qualified for consistency.
+--
+-- > import HsBindgen.IR.C.Decl qualified as C
+module HsBindgen.IR.C.Decl (
     -- * Declarations
     Decl(..)
   , Availability(..)
@@ -36,11 +40,11 @@ import Prelude qualified as P
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.IR.C.HashIncludeArg qualified as C
+import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.C.Type qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type
 
@@ -53,7 +57,7 @@ import Doxygen.Parser.Types qualified as Doxy
   'SingleLoc' (in addition to the 'SingleLoc' of the enclosing declaration).
 -------------------------------------------------------------------------------}
 
-data Decl l p = Decl {
+data Decl l (p :: Pass) = Decl {
       info :: DeclInfo p
     , kind :: DeclKind l p
     , ann  :: Ann "Decl" p
@@ -64,24 +68,24 @@ data Decl l p = Decl {
 --
 -- See 'Clang.LowLevel.Core.CXAvailabilityKind'.
 data Availability =
-    -- | Available and recommended for use.
+    -- | Available and recommended for use
     Available
-    -- | Available but deprecated; may result in compilation error.
+    -- | Available but deprecated; may result in compilation error
   | Deprecated
-    -- | Unavailable or unaccessible; results in compilation error.
+    -- | Unavailable or unaccessible; results in compilation error
   | Unavailable
-  deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
+  deriving stock (Bounded, Eq, Generic, Ord, P.Enum, Show)
 
 -- | Reference to enclosing declaration
 data EnclosingRef p =
     EnclosingRef (Id p)
-  | UnusableEnclosingRef DeclId
+  | UnusableEnclosingRef C.DeclId
 
-deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 deriving stock instance (Eq   (Id p)) => Eq   (EnclosingRef p)
 deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
+deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 
-data DeclInfo p = DeclInfo{
+data DeclInfo (p :: Pass) = DeclInfo{
       loc           :: SingleLoc
     , id            :: Id p
     -- | Sequence number
@@ -116,18 +120,18 @@ data HeaderInfo = HeaderInfo{
       --
       -- Note that the declaration may not be in this header directly, but in
       -- one of its (transitive) includes.
-      mainHeaders :: NonEmpty HashIncludeArg
+      mainHeaders :: NonEmpty C.HashIncludeArg
 
       -- | @#include@ argument used to include the file where the declaration is
       -- actually declared
-    , includeArg :: HashIncludeArg
+    , includeArg :: C.HashIncludeArg
 
       -- | Raw macro used as a @#include@ argument, when applicable
     , includeMacroArg :: Maybe Text
     }
   deriving stock (Show, Eq, Generic)
 
-data FieldInfo p = FieldInfo {
+data FieldInfo (p :: Pass) = FieldInfo {
       loc     :: SingleLoc
     , name    :: ScopedName p
     , comment :: CommentDecl p
@@ -155,7 +159,7 @@ data DeclKind l p =
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal (Global p)
 
-data Struct p = Struct {
+data Struct (p :: Pass) = Struct {
       sizeof    :: Int
     , alignment :: Int
     , fields    :: [StructField p]
@@ -164,7 +168,7 @@ data Struct p = Struct {
     }
   deriving stock (Generic)
 
-data StructField p = StructField {
+data StructField (p :: Pass) = StructField {
       info   :: FieldInfo p
     , typ    :: C.Type p
     , offset :: Int     -- ^ Offset in bits
@@ -173,7 +177,7 @@ data StructField p = StructField {
     }
   deriving stock (Generic)
 
-data Union p = Union {
+data Union (p :: Pass) = Union {
       sizeof    :: Int
     , alignment :: Int
     , fields    :: [UnionField p]
@@ -181,20 +185,20 @@ data Union p = Union {
     }
   deriving stock (Generic)
 
-data UnionField p = UnionField {
+data UnionField (p :: Pass) = UnionField {
       info :: FieldInfo p
     , typ  :: C.Type p
     , ann  :: Ann "UnionField" p
     }
   deriving stock (Generic)
 
-data Typedef p = Typedef {
+data Typedef (p :: Pass) = Typedef {
       typ :: C.Type p
     , ann :: Ann "Typedef" p
     }
   deriving stock (Generic)
 
-data Enum p = Enum {
+data Enum (p :: Pass) = Enum {
       typ       :: C.Type p
     , sizeof    :: Int
     , alignment :: Int
@@ -203,7 +207,7 @@ data Enum p = Enum {
     }
   deriving stock (Generic)
 
-data EnumConstant p = EnumConstant {
+data EnumConstant (p :: Pass) = EnumConstant {
       info  :: FieldInfo p
     , value :: Integer
     }
@@ -213,17 +217,13 @@ data EnumConstant p = EnumConstant {
 --
 -- This represents an anonymous enum constant (e.g., from @enum { FOO, BAR }@)
 -- that will be rendered as a pattern synonym in Haskell (e.g., @pattern fOO :: CUInt@)
---
-data AnonEnumConstant p = AnonEnumConstant{
+data AnonEnumConstant (p :: Pass) = AnonEnumConstant {
       typ       :: PrimType
     , constant  :: EnumConstant p
     }
   deriving stock (Generic)
 
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (AnonEnumConstant p)
-deriving stock instance (IsPass p, Eq   (CommentDecl p)) => Eq   (AnonEnumConstant p)
-
-data Function p = Function {
+data Function (p :: Pass) = Function {
       args  :: [FunctionArg p]
     , res   :: C.Type p
     , attrs :: FunctionAttributes
@@ -231,19 +231,13 @@ data Function p = Function {
     }
   deriving stock (Generic)
 
-data FunctionArg p = FunctionArg {
+data FunctionArg (p :: Pass) = FunctionArg {
       name   :: Maybe (ScopedName p)
     , argTyp :: C.TypeFunArg p
     }
     deriving stock (Generic)
 
-data Global p = Global {
-      typ :: C.Type p
-    , ann :: Ann "Global" p
-    }
-  deriving stock (Generic)
-
--- | Function attributes specify properties for C functions.
+-- | Function attributes specify properties for C functions
 --
 -- Function attributes may help the C compiler. In addition, @hs-bindgen@ can in
 -- some cases modify the bindings it generates based on these function
@@ -256,7 +250,7 @@ data Global p = Global {
 data FunctionAttributes = FunctionAttributes {
       purity :: FunctionPurity
     }
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Eq, Generic, Ord, Show)
 
 -- | The diagnosed purity of a C function determines whether to include 'IO' in
 -- its foreign import.
@@ -319,7 +313,7 @@ data FunctionPurity =
     --
     -- <https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-pure-function-attribute>
   | CPureFunction
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Eq, Generic, Ord, Show)
 
 decideFunctionPurity :: [FunctionPurity] -> FunctionPurity
 decideFunctionPurity = foldr prefer ImpureFunction
@@ -338,6 +332,12 @@ decideFunctionPurity = foldr prefer ImpureFunction
       HaskellPureFunction -> ()
       CPureFunction -> ()
 
+data Global (p :: Pass) = Global {
+      typ :: C.Type p
+    , ann :: Ann "Global" p
+    }
+  deriving stock (Generic)
+
 {-------------------------------------------------------------------------------
   Comments
 -------------------------------------------------------------------------------}
@@ -349,53 +349,49 @@ newtype Comment p = Comment{
 
 -- | Cross-reference in a Doxygen comment
 --
--- The 'Doxy.RefKind' from the Doxygen XML @kindref@ attribute narrows the search
--- in 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames': compounds (struct\/union) are looked up in the type
--- constructor namespace, members (function\/typedef\/macro) in the variable
--- and type constructor namespaces.
+-- The 'Doxy.RefKind' from the Doxygen XML @kindref@ attribute narrows the
+-- search in 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames': compounds
+-- (struct\/union) are looked up in the type constructor namespace, members
+-- (function\/typedef\/macro) in the variable and type constructor namespaces.
 data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
-deriving stock instance IsPass p => Show (Comment p)
-deriving stock instance IsPass p => Show (CommentRef p)
-deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
-                        , HasMacroTypes l
-                        ) => Show (Decl l p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (DeclInfo p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (FieldInfo p)
-deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
-                        , HasMacroTypes l
-                        ) => Show (DeclKind l p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Enum p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (EnumConstant p)
-deriving stock instance IsPass p => Show (Function p)
-deriving stock instance IsPass p => Show (FunctionArg p)
-deriving stock instance IsPass p => Show (Global p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Struct p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (StructField p)
-deriving stock instance IsPass p => Show (Typedef p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (Union p)
-deriving stock instance (IsPass p, Show (CommentDecl p)) => Show (UnionField p)
+deriving stock instance IsPass p => Eq (AnonEnumConstant p)
+deriving stock instance IsPass p => Eq (Comment          p)
+deriving stock instance IsPass p => Eq (CommentRef       p)
+deriving stock instance IsPass p => Eq (DeclInfo         p)
+deriving stock instance IsPass p => Eq (Enum             p)
+deriving stock instance IsPass p => Eq (EnumConstant     p)
+deriving stock instance IsPass p => Eq (FieldInfo        p)
+deriving stock instance IsPass p => Eq (Function         p)
+deriving stock instance IsPass p => Eq (FunctionArg      p)
+deriving stock instance IsPass p => Eq (Global           p)
+deriving stock instance IsPass p => Eq (Struct           p)
+deriving stock instance IsPass p => Eq (StructField      p)
+deriving stock instance IsPass p => Eq (Typedef          p)
+deriving stock instance IsPass p => Eq (Union            p)
+deriving stock instance IsPass p => Eq (UnionField       p)
 
-deriving stock instance IsPass p => Eq (Comment p)
-deriving stock instance IsPass p => Eq (CommentRef p)
-deriving stock instance ( IsPass p
-                        , Eq (CommentDecl p)
-                        , HasMacroTypes l
-                        ) => Eq (DeclKind l p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Enum p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (EnumConstant p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (FieldInfo p)
-deriving stock instance IsPass p => Eq (Function p)
-deriving stock instance IsPass p => Eq (FunctionArg p)
-deriving stock instance IsPass p => Eq (Global p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Struct p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (StructField p)
-deriving stock instance IsPass p => Eq (Typedef p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (Union p)
-deriving stock instance (IsPass p, Eq (CommentDecl p)) => Eq (UnionField p)
+deriving stock instance IsPass p => Show (AnonEnumConstant p)
+deriving stock instance IsPass p => Show (Comment          p)
+deriving stock instance IsPass p => Show (CommentRef       p)
+deriving stock instance IsPass p => Show (DeclInfo         p)
+deriving stock instance IsPass p => Show (Enum             p)
+deriving stock instance IsPass p => Show (EnumConstant     p)
+deriving stock instance IsPass p => Show (FieldInfo        p)
+deriving stock instance IsPass p => Show (Function         p)
+deriving stock instance IsPass p => Show (FunctionArg      p)
+deriving stock instance IsPass p => Show (Global           p)
+deriving stock instance IsPass p => Show (Struct           p)
+deriving stock instance IsPass p => Show (StructField      p)
+deriving stock instance IsPass p => Show (Typedef          p)
+deriving stock instance IsPass p => Show (Union            p)
+deriving stock instance IsPass p => Show (UnionField       p)
+
+deriving stock instance (HasMacroTypes l, IsPass p) => Eq (DeclKind l p)
+
+deriving stock instance (HasMacroTypes l, IsPass p) => Show (Decl     l p)
+deriving stock instance (HasMacroTypes l, IsPass p) => Show (DeclKind l p)

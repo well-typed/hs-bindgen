@@ -11,9 +11,8 @@ import C.Expr.Syntax qualified as CExpr
 import Clang.CStandard
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.AST.Type
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.CExpr
 import HsBindgen.Macro.Interface
 
@@ -27,32 +26,32 @@ parseMacroBody cStd tokens =
       Left  err   -> Left  (MacroLangParseError err.parseError)
 
 parsedMacroDeps ::
-     Set DeclId
+     Set C.DeclId
   -> ParsedMacroBody CExpr
-  -> [(ValOrRef, DeclId)]
+  -> [(C.ValOrRef, C.DeclId)]
 parsedMacroDeps declIds (ParsedMacroBodyCExpr macro) =
     case macro of
-      CExpr.Macro _ _ _ expr -> goExpr ByValue expr
+      CExpr.Macro _ _ _ expr -> goExpr C.ByValue expr
   where
-    goExpr :: ValOrRef -> CExpr.Expr ctx CExpr.Ps -> [(ValOrRef, DeclId)]
+    goExpr :: C.ValOrRef -> CExpr.Expr ctx CExpr.Ps -> [(C.ValOrRef, C.DeclId)]
     goExpr depTy = \case
-      CExpr.Term term               -> goTerm depTy term
+      CExpr.Term term              -> goTerm depTy term
       -- Pointer: switch the dependency type to 'ByRef'.
-      CExpr.TyApp CExpr.Pointer xs  -> concatMap (goExpr ByRef)  xs
-      CExpr.TyApp CExpr.Const   xs  -> concatMap (goExpr depTy)  xs
-      CExpr.VaApp _ _ xs            -> concatMap (goExpr depTy)  xs
+      CExpr.TyApp CExpr.Pointer xs -> concatMap (goExpr C.ByRef) xs
+      CExpr.TyApp CExpr.Const   xs -> concatMap (goExpr depTy)   xs
+      CExpr.VaApp _ _ xs           -> concatMap (goExpr depTy)   xs
 
-    goTerm :: ValOrRef -> CExpr.Term ctx CExpr.Ps -> [(ValOrRef, DeclId)]
+    goTerm :: C.ValOrRef -> CExpr.Term ctx CExpr.Ps -> [(C.ValOrRef, C.DeclId)]
     goTerm depTy = \case
-      CExpr.Literal lit   -> goLit depTy lit
-      CExpr.LocalParam{}  -> []
+      CExpr.Literal lit  -> goLit depTy lit
+      CExpr.LocalParam{} -> []
       CExpr.Var _ nm args
         | Just x <- resolveBare nm.getName ->
             (depTy, x) : concatMap (goExpr depTy) args
         | otherwise ->
             concatMap (goExpr depTy) args
 
-    goLit :: ValOrRef -> CExpr.Literal -> [(ValOrRef, DeclId)]
+    goLit :: C.ValOrRef -> CExpr.Literal -> [(C.ValOrRef, C.DeclId)]
     goLit depTy = \case
       CExpr.TypeTagged tag nm
         | Just a <- resolveTagged (convertTagKind tag) nm.getName -> [(depTy, a)]
@@ -77,20 +76,20 @@ parsedMacroDeps declIds (ParsedMacroBodyCExpr macro) =
     --   may simply be non-existent, or refer to a built-in type or a system
     --   @typedef@ not present in the 'DeclIndex'. In this case, we /do not
     --   generate/ a dependency.
-    resolveBare :: Text -> Maybe DeclId
+    resolveBare :: Text -> Maybe C.DeclId
     resolveBare nm
       | macroId   `Set.member` declIds = Just macroId
       | typedefId `Set.member` declIds = Just typedefId
       | otherwise                         = Nothing
       where
-        macroId, typedefId :: DeclId
-        macroId   = DeclId (CDeclName nm CNameKindMacro)    False
-        typedefId = DeclId (CDeclName nm CNameKindOrdinary) False
+        macroId, typedefId :: C.DeclId
+        macroId   = C.DeclId (C.DeclName nm C.NameKindMacro)    False
+        typedefId = C.DeclId (C.DeclName nm C.NameKindOrdinary) False
 
-    resolveTagged :: CTagKind -> Text -> Maybe DeclId
+    resolveTagged :: C.TagKind -> Text -> Maybe C.DeclId
     resolveTagged tag nm
       | taggedId `Set.member` declIds = Just taggedId
-      | otherwise                        = Nothing
+      | otherwise                     = Nothing
       where
-        taggedId :: DeclId
-        taggedId = DeclId (CDeclName nm $ CNameKindTagged tag) False
+        taggedId :: C.DeclId
+        taggedId = C.DeclId (C.DeclName nm $ C.NameKindTagged tag) False

@@ -11,20 +11,17 @@ import Clang.CStandard (ClangCStandard)
 
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -97,7 +94,7 @@ reparseDecl decl = case decl.kind of
     C.DeclGlobal global                  -> processGlobal           info' global
   where
     info' :: C.DeclInfo ReparseMacroExpansions
-    info' = coercePass decl.info
+    info' = C.coercePass decl.info
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -112,7 +109,7 @@ processMacro info macro =
     pure C.Decl{
         info = info
       , ann  = NoAnn
-      , kind = C.DeclMacro (coercePassParam macro)
+      , kind = C.DeclMacro (C.coercePassParam macro)
       }
 
 processStruct ::
@@ -149,13 +146,13 @@ mkFieldInfo ::
   -> Maybe Text
   -> C.FieldInfo ReparseMacroExpansions
 mkFieldInfo info mName = C.FieldInfo{
-      name    = maybe info.name CScopedName mName
-    , comment = fmap coercePass info.comment
+      name    = maybe info.name C.ScopedName mName
+    , comment = fmap C.coercePass info.comment
     , loc     = info.loc
     }
 
 processStructField ::
-     DeclId
+     C.DeclId
   -> C.StructField PrepareReparse
   -> M (C.StructField ReparseMacroExpansions)
 processStructField declId field =
@@ -163,7 +160,7 @@ processStructField declId field =
   where
     withoutReparse :: C.StructField ReparseMacroExpansions
     withoutReparse = C.StructField{
-          typ    = coercePass field.typ
+          typ    = C.coercePass field.typ
         , ann    = BeforeReparse field
         , offset = field.offset
         , width  = field.width
@@ -201,7 +198,7 @@ processUnion info union = do
         }
 
 processUnionField ::
-     DeclId
+     C.DeclId
   -> C.UnionField PrepareReparse
   -> M (C.UnionField ReparseMacroExpansions)
 processUnionField declId field =
@@ -209,7 +206,7 @@ processUnionField declId field =
   where
     withoutReparse :: C.UnionField ReparseMacroExpansions
     withoutReparse = C.UnionField{
-          typ  = coercePass field.typ
+          typ  = C.coercePass field.typ
         , ann  = BeforeReparse field
         , info = mkFieldInfo field.info Nothing
         }
@@ -246,7 +243,7 @@ processEnum info enum =
           info = info
         , ann  = NoAnn
         , kind = C.DeclEnum C.Enum{
-              typ       = coercePass enum.typ
+              typ       = C.coercePass enum.typ
             , constants = enumerators
             , sizeof    = enum.sizeof
             , alignment = enum.alignment
@@ -280,7 +277,7 @@ processEnumConstant constant =
     pure C.EnumConstant{
         value = constant.value
       , info  = C.FieldInfo{
-            comment = fmap coercePass constant.info.comment
+            comment = fmap C.coercePass constant.info.comment
           , name    = constant.info.name
           , loc     = constant.info.loc
           }
@@ -293,7 +290,7 @@ processTypedef ::
 processTypedef info typedef = do
     reparsedType :: CType <-
       reparseWith info.id LanC.reparseTypedef typedef.ann
-        (coercePass typedef.typ)
+        (C.coercePass typedef.typ)
         pure
     pure C.Decl{
         info = info
@@ -318,8 +315,8 @@ processFunction info function = do
   where
     withoutReparse :: C.Function ReparseMacroExpansions
     withoutReparse = C.Function{
-          args  = map coercePass function.args
-        , res   = coercePass function.res
+          args  = map C.coercePass function.args
+        , res   = C.coercePass function.res
         , attrs = function.attrs
         , ann   = BeforeReparse function
         }
@@ -336,7 +333,7 @@ processFunction info function = do
 
     mkFunctionArg :: Maybe Text -> CType -> C.FunctionArg ReparseMacroExpansions
     mkFunctionArg mname typ = C.FunctionArg{
-          name   = CScopedName <$> mname
+          name   = C.ScopedName <$> mname
         , argTyp = C.TypeFunArgF typ NoAnn
         }
 
@@ -355,7 +352,7 @@ processGlobal info global = do
   where
     withoutReparse :: C.Global ReparseMacroExpansions
     withoutReparse = C.Global{
-          typ = coercePass global.typ
+          typ = C.coercePass global.typ
         , ann = BeforeReparse global
         }
 
@@ -392,7 +389,7 @@ data ReparseState = ReparseState {
       -- | Delayed parse messages collected during reparse
       --
       -- Stored in reverse order.
-      reparseWarnings :: [(DeclId, DelayedParseMsg)]
+      reparseWarnings :: [(C.DeclId, DelayedParseMsg)]
     }
   deriving stock (Generic)
 
@@ -430,7 +427,7 @@ runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
 -- 'HsBindgen.Frontend.Pass.Zip.Zip' pass; on parser success we always return
 -- the reparsed value.
 reparseWith ::
-     DeclId
+     C.DeclId
   -> LanC.Parser a
   -> ReparseInfo FlatTokens
   -> r

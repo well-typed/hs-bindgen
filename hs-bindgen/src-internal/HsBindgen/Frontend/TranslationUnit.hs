@@ -1,19 +1,17 @@
 -- Intended for qualified import
 --
 -- @
--- import HsBindgen.Frontend.AST.TranslationUnit qualified as C
+-- import HsBindgen.Frontend.TranslationUnit qualified as C
 -- @
-module HsBindgen.Frontend.AST.TranslationUnit (
+module HsBindgen.Frontend.TranslationUnit (
     TranslationUnit(..)
-
   ) where
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 
 -- | Information we collect from a C translation unit.
@@ -59,16 +57,15 @@ data TranslationUnit l p = TranslationUnit{
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
                         , HasMacroTypes l
                         ) => Show (TranslationUnit l p)
 
 instance (
-      CoercePass (C.Decl l) p p'
+      C.CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass (TranslationUnit l) p p' where
+    ) => C.CoercePass (TranslationUnit l) p p' where
   coercePass unit = TranslationUnit{
-        decls        = map coercePass unit.decls
+        decls        = map C.coercePass unit.decls
       , includeGraph = unit.includeGraph
       , meta         = unit.meta
       }

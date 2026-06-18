@@ -11,7 +11,7 @@ module HsBindgen.Backend.Hs.CallConv (
 
 import GHC.Generics (Generic)
 
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 import Witherable (ordNub)
@@ -24,7 +24,7 @@ import Witherable (ordNub)
 -- corresponding import.
 data CWrapper = CWrapper {
       definition     :: String
-    , hashIncludeArg :: HashIncludeArg
+    , hashIncludeArg :: C.HashIncludeArg
     }
   deriving (Show, Generic)
 

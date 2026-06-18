@@ -27,10 +27,8 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util (
 import Data.Text qualified as Text
 import GHC.Show (showSpace)
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming (CDeclName (text), CScopedName (text),
-                                  DeclId (name))
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Combinators

@@ -27,13 +27,11 @@ module HsBindgen.Backend.Hs.Origin (
   , Field(..)
   ) where
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -60,7 +58,7 @@ data Newtype =
 deriving stock instance Show Newtype
 
 data EmptyData =
-    Opaque CNameKind
+    Opaque C.NameKind
   deriving stock (Generic, Show)
 
 data ForeignImport =

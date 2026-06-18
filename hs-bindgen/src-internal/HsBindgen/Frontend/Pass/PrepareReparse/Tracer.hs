@@ -11,8 +11,8 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Tracer (
   , traceBelated
   ) where
 
-import HsBindgen.Frontend.Pass (AMsg, IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.IR.Pass (AMsg, PassMsg (Msg))
 import HsBindgen.Util.Tracer (Tracer, traceWith, withCallStack)
 
 traceImmediate :: Tracer (Msg PrepareReparse) -> Msg PrepareReparse -> IO ()

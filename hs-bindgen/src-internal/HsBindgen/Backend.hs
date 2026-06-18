@@ -17,11 +17,11 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 

@@ -40,14 +40,12 @@ import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
 import Clang.Paths (SourcePath (SourcePath))
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
-import HsBindgen.Frontend.AST.PrettyPrinter (showsVariableType)
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (FlatTokens, flatten, locStart),
                                                       PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -90,8 +88,8 @@ tests = testGroup "Test.HsBindgen.Frontend.LanguageC" [
 prop_reparseGlobal_type_roundtripCanonical :: CanonicalType -> Property
 prop_reparseGlobal_type_roundtripCanonical ty =
     prop_reparseGlobal
-      (\var -> showsVariableType (showString var) ty.unwrap)
-      (Right (coercePass ty.unwrap))
+      (\var -> C.showsVariableType (showString var) ty.unwrap)
+      (Right (C.coercePass ty.unwrap))
 
 -- | Variant of 'prop_reparseGlobal_type_roundtripCanonical' for /primitive/ C
 -- types
@@ -174,7 +172,7 @@ prop_reparseGlobal_type_nonCanonicalToCanonical :: NonCanonicalType -> Property
 prop_reparseGlobal_type_nonCanonicalToCanonical ty =
     prop_reparseGlobal
       ty.representation
-      (Right (coercePass ty.canonical))
+      (Right (C.coercePass ty.canonical))
 
 -- | Variant of 'prop_reparseGlobal_type_nonCanonicalToCanonical' for
 -- /primitive/ C types

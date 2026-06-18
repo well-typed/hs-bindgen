@@ -22,9 +22,8 @@ import Data.Set qualified as Set
 
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition qualified as DeclUseGraph
-import HsBindgen.Frontend.AST.Type (ValOrRef)
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -35,7 +34,7 @@ import HsBindgen.Imports
 -- Whenever declaration @A@ uses (depends on) declaration @B@, there is an edge
 -- from @A@ to @B@ in this graph.
 data UseDeclGraph = UseDeclGraph {
-      graph :: Digraph ValOrRef DeclId
+      graph :: Digraph C.ValOrRef C.DeclId
     }
   deriving stock (Show, Eq)
 
@@ -52,10 +51,10 @@ fromDeclUseGraph declUseGraph = UseDeclGraph{
   Query
 -------------------------------------------------------------------------------}
 
-getTransitiveDeps :: UseDeclGraph -> Set DeclId -> Set DeclId
+getTransitiveDeps :: UseDeclGraph -> Set C.DeclId -> Set C.DeclId
 getTransitiveDeps useDeclGraph decls = Digraph.reaches decls useDeclGraph.graph
 
-getStrictTransitiveDeps :: UseDeclGraph -> Set DeclId -> Set DeclId
+getStrictTransitiveDeps :: UseDeclGraph -> Set C.DeclId -> Set C.DeclId
 getStrictTransitiveDeps graph decls = getTransitiveDeps graph decls Set.\\ decls
 
 {-------------------------------------------------------------------------------
@@ -65,7 +64,7 @@ getStrictTransitiveDeps graph decls = getTransitiveDeps graph decls Set.\\ decls
 renderMermaid :: UseDeclGraph -> String
 renderMermaid useDeclGraph = Digraph.renderMermaid opts useDeclGraph.graph
   where
-    opts :: Digraph.VisOptions ValOrRef DeclId
+    opts :: Digraph.VisOptions C.ValOrRef C.DeclId
     opts = Digraph.VisOptions{
         visVertex = \v -> Digraph.VisVertex{
             label = Just (show v)

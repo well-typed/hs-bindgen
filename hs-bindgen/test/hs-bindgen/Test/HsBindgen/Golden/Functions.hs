@@ -3,11 +3,10 @@ module Test.HsBindgen.Golden.Functions (testCases) where
 
 import HsBindgen.Backend.Category
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -59,7 +58,7 @@ test_functions_decls_in_signature =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f1", "f2", "f3", "f4", "f5"]
 
 test_functions_fun_attributes :: TestCase
@@ -81,7 +80,7 @@ test_functions_fun_attributes =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "my_printf"
         , "i"
@@ -98,7 +97,7 @@ test_functions_fun_attributes_conflict =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = []
 
 test_functions_not_visible_decl :: TestCase
@@ -113,7 +112,7 @@ test_functions_not_visible_decl =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f", "g", "h"]
 
 test_functions_simple_func :: TestCase
@@ -140,12 +139,12 @@ test_functions_varargs =
         Just $ Expected name
       MatchDelayed name (
         ParseUnderlyingTypeFailed
-          (PrelimDeclId.Named (CDeclName "va_list" CNameKindOrdinary))
+          (C.PrelimDeclIdNamed (C.DeclName "va_list" C.NameKindOrdinary))
           (ParseUnsupportedBuiltin "__builtin_va_list")
         ) ->
         Just $ Expected name
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f", "g"]

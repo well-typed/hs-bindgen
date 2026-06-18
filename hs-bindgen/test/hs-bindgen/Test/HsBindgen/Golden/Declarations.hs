@@ -2,11 +2,11 @@
 module Test.HsBindgen.Golden.Declarations (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -48,7 +48,7 @@ test_declarations_declaration_unselected_b =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
 test_declarations_definitions :: TestCase
@@ -59,7 +59,7 @@ test_declarations_definitions =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo", "n"]
 
 test_declarations_failing_tentative_definitions_linkage :: TestCase
@@ -81,7 +81,7 @@ test_declarations_name_collision =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["union y", "union Y"]
 
 test_declarations_redeclaration :: TestCase
@@ -90,10 +90,10 @@ test_declarations_redeclaration =
       & #cStandard      .~ c11
       & #tracePredicate .~ multiTracePredicate expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["x"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
@@ -118,10 +118,10 @@ test_declarations_redeclaration_identical =
       & #cStandard      .~ c11
       & #tracePredicate .~ multiTracePredicate expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["macro A"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
@@ -141,7 +141,7 @@ test_declarations_select_scoping =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
@@ -157,5 +157,5 @@ test_declarations_tentative_definitions =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["i1", "i2", "i3"]

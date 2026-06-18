@@ -4,14 +4,12 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
 
 import Numeric.Natural (Natural)
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 -- | Adjust function argument types
 --
@@ -52,7 +50,7 @@ adjustTypes unit =
 processDecl :: C.Decl l MangleNames -> C.Decl l AdjustTypes
 processDecl decl =
     C.Decl {
-        info = coercePass decl.info
+        info = C.coercePass decl.info
       , ann  = decl.ann
       , kind = processDeclKind decl.kind
       }
@@ -83,7 +81,7 @@ processStruct struct =
 processStructField :: C.StructField MangleNames -> C.StructField AdjustTypes
 processStructField field =
     C.StructField {
-        info   = coercePass field.info
+        info   = C.coercePass field.info
       , typ    = processType field.typ
       , offset = field.offset
       , width  = field.width
@@ -102,7 +100,7 @@ processUnion union =
 processUnionField :: C.UnionField MangleNames -> C.UnionField AdjustTypes
 processUnionField field =
     C.UnionField {
-        info = coercePass field.info
+        info = C.coercePass field.info
       , typ  = processType field.typ
       , ann  = field.ann
       }
@@ -127,7 +125,7 @@ processEnum enum =
 processEnumConstant :: C.EnumConstant MangleNames -> C.EnumConstant AdjustTypes
 processEnumConstant enumConstant =
     C.EnumConstant {
-        info  = coercePass enumConstant.info
+        info  = C.coercePass enumConstant.info
       , value = enumConstant.value
       }
 
@@ -150,13 +148,13 @@ processMacro macro =
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
 processMacroType :: TypecheckedMacroType l MangleNames -> TypecheckedMacroType l AdjustTypes
-processMacroType macroType = coercePass macroType
+processMacroType macroType = C.coercePass macroType
 
 -- NOTE: currently value-like macro expressions don't support array or function
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
 processMacroExpr :: TypecheckedMacroValue l MangleNames -> TypecheckedMacroValue l AdjustTypes
-processMacroExpr macroExpr = coercePass macroExpr
+processMacroExpr macroExpr = C.coercePass macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =

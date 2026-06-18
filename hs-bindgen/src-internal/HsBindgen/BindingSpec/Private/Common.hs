@@ -48,9 +48,8 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Resolve (ResolveHeaderMsg)
 import HsBindgen.Util.Tracer
@@ -69,10 +68,10 @@ data BindingSpecReadMsg =
   | BindingSpecReadModuleMismatch FilePath Hs.ModuleName Hs.ModuleName
   | BindingSpecReadModuleNotSpecified FilePath
   | BindingSpecReadInvalidCName FilePath Text
-  | BindingSpecReadCTypeConflict FilePath DeclId HashIncludeArg
+  | BindingSpecReadCTypeConflict FilePath C.DeclId C.HashIncludeArg
   | BindingSpecReadHsTypeNameNoRef FilePath (Hs.Name Hs.NsTypeConstr)
   | BindingSpecReadHsTypeConflict FilePath (Hs.Name Hs.NsTypeConstr)
-  | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
+  | BindingSpecReadHashIncludeArg FilePath C.HashIncludeArgMsg
   | BindingSpecReadConvertVersion FilePath BindingSpecVersion BindingSpecVersion
   deriving stock (Show)
 
@@ -184,7 +183,7 @@ instance PrettyForTrace BindingSpecReadMsg where
 data BindingSpecResolveMsg =
     BindingSpecResolveExternalHeader     ResolveHeaderMsg
   | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
-  | BindingSpecResolveTypeDropped        DeclId
+  | BindingSpecResolveTypeDropped        C.DeclId
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecResolveMsg where
@@ -228,7 +227,7 @@ instance PrettyForTrace BindingSpecResolveMsg where
 
 -- | Merge binding specification trace messages
 newtype BindingSpecMergeMsg =
-    BindingSpecMergeConflict DeclId
+    BindingSpecMergeConflict C.DeclId
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecMergeMsg where

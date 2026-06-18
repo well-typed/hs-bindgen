@@ -3,11 +3,11 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 
@@ -79,7 +79,7 @@ test_programAnalysis_delay_traces =
                Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "long_double_function"
         , "var_arg_function"
@@ -114,7 +114,7 @@ test_programAnalysis_circular_macro =
                   Nothing
               )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("macro A", "typecheck")
       , ("macro A", "transitive")
@@ -146,7 +146,7 @@ test_programAnalysis_program_slicing_macro_unselected =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_typedef_selected :: TestCase
@@ -169,7 +169,7 @@ test_programAnalysis_program_slicing_typedef_unselected =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_selection :: TestCase
@@ -190,7 +190,7 @@ test_programAnalysis_program_slicing_selection =
               Nothing
           )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
           ("struct FileOperationRecord" , "root")
         , ("read_file_chunk"            , "root")
@@ -217,7 +217,7 @@ test_programAnalysis_program_slicing_simple =
               Nothing
           )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
           ("struct foo" , "root")
         , ("bar"        , "root")
@@ -237,7 +237,7 @@ test_programAnalysis_selection_bad =
         Nothing
   where
     -- @f@ depends on user-defined @size_t@, which is not selected
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
 test_programAnalysis_selection_fail :: TestCase
@@ -254,7 +254,7 @@ test_programAnalysis_selection_fail =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct Fail"
         , "struct Fail"
@@ -284,7 +284,7 @@ test_programAnalysis_selection_fail_variant_1 =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
         , "struct DependOnFailByValue"
@@ -314,7 +314,7 @@ test_programAnalysis_selection_fail_variant_2 =
              Nothing
          )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
         , "struct DependOnFailByValue"
@@ -340,7 +340,7 @@ test_programAnalysis_selection_fail_variant_3 =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct OkBefore"]
 
 test_programAnalysis_selection_foo :: TestCase
@@ -353,7 +353,7 @@ test_programAnalysis_selection_foo =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["macro A", "f"]
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
@@ -404,7 +404,7 @@ test_programAnalysis_selection_merge_traces =
               (BNot (BIf (SelectDecl $ DeclNameMatches "struct X")))
               (BNot (BIf (SelectDecl $ DeclNameMatches "struct Y")))
 
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["dependsOnXAndY"]
 
 test_programAnalysis_selection_omit_external_a :: TestCase
@@ -419,7 +419,7 @@ test_programAnalysis_selection_omit_external_a =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct Omitted"]
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1361>
@@ -444,7 +444,7 @@ test_programAnalysis_selection_omit_prescriptive =
               Nothing
           )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
           ("struct DirectlyDependsOnOmitted",   "mangle")
         , ("struct DirectlyDependsOnOmitted",   "select")
@@ -461,7 +461,7 @@ test_programAnalysis_selection_squash =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
 
 {-------------------------------------------------------------------------------
@@ -478,7 +478,7 @@ test_programAnalysis_typedef_analysis =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [(CDeclName, Maybe Text)]
+    declsWithMsgs :: [(C.DeclName, Maybe Text)]
     declsWithMsgs = [
           ("struct struct1"  , Just "Struct1_t")
         , ("struct1_t"       , Nothing)

@@ -1,37 +1,42 @@
--- | AST: C types (at use sites)
+-- | C types (use sites)
 --
--- Intended for qualified import.
+-- This module should only be used within the @HsBindgen.IR@ hierarchy.  From
+-- outside the @HsBindgen.IR@ hierarchy, "HsBindgen.IR.C" should be used.
 --
--- > import HsBindgen.Frontend.AST.Type (ValOrRef (..))
--- > import HsBindgen.Frontend.AST.Type qualified as C
-module HsBindgen.Frontend.AST.Type (
-    -- * Types
+-- Within @HsBindgen.IR@, all modules aside from "HsBindgen.IR.C" should import
+-- this module qualified for consistency.
+--
+-- > import HsBindgen.IR.C.Type qualified as C
+module HsBindgen.IR.C.Type (
+    -- * Definition
     Type
   , TypeF(
        TypePrim
+     , TypeComplex
      , TypeRef
      , TypeEnum
      , TypeMacro
      , TypeTypedef
-     , TypeFun
-     , TypeVoid
+     , TypePointers
      , TypeConstArray
      , TypeIncompleteArray
+     , TypeFun
+     , TypeVoid
      , TypeBlock
      , TypeQual
      , TypeExtBinding
-     , TypeComplex
-     , TypePointers
      )
   , TypeFunArg
   , TypeFunArgF(..)
+
+    -- ** Qualifiers
   , TypeQual(..)
 
-    -- * References
+    -- ** References
+  , Ref(..)
   , EnumRef
   , MacroRef(..)
   , TypedefRef
-  , Ref(..)
 
     -- * Normal forms
   , Normalize(..)
@@ -41,7 +46,6 @@ module HsBindgen.Frontend.AST.Type (
   , depsOfType
   , depsOfTypeFunArg
   , hasUnsupportedType
-  , referencesUntagged
 
     -- * Classification
   , isVoid
@@ -54,19 +58,24 @@ module HsBindgen.Frontend.AST.Type (
   ) where
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding (ResolvedExtBinding (cName))
 import HsBindgen.Imports
+import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.Pass.Ann
+import HsBindgen.IR.Pass.Definition
+import HsBindgen.IR.Pass.ExtBinding
+import HsBindgen.IR.Pass.Id
+import HsBindgen.IR.Pass.Macro
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | C types (use sites)
-data TypeF tag p =
-    -- | Primitive types
+type Type = FullType
+
+-- | C type (use site)
+data TypeF (tag :: TypeTag) (p :: Pass) =
+    -- | Primitive type
     TypePrim C.PrimType
 
     -- | Complex type (such as @float complex@)
@@ -83,16 +92,17 @@ data TypeF tag p =
 
     -- | Reference to a macro type
     --
-    -- During 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.ReparseMacroExpansions'
-    -- the underlying field of the 'MacroRef' is a placeholder (@()@);
-    -- 'HsBindgen.Frontend.Pass.Zip.Zip' fills it in with the actual type
+    -- During
+    -- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
+    -- the underlying field of the 'MacroRef' is a placeholder (@()@).
+    -- 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip' fills it in with the actual type
     -- and every downstream pass sees a fully populated 'MacroRef'.
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypeMacroRefF tag p ~ Void@.
   | TypeMacro !(TypeMacroRefF tag p)
 
-    -- | Reference to @typedef@
+    -- | Reference to a @typedef@
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag p ~ Void@.
@@ -100,7 +110,7 @@ data TypeF tag p =
 
     -- | Pointer
     --
-    -- This is /one/ layer of indirection; see also 'TypePointers'
+    -- This is /one/ layer of indirection.  See also 'TypePointers'.
   | TypeUnsafePointer (TypeF tag p)
 
     -- | Array of constant size
@@ -150,19 +160,21 @@ data TypeF tag p =
   | TypeExtBinding !(TypeExtBindingRefF tag p)
   deriving stock Generic
 
-deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
 deriving stock instance ValidTypeTag tag p => Eq   (TypeF tag p)
 deriving stock instance ValidTypeTag tag p => Ord  (TypeF tag p)
+deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
+
+type TypeFunArg = TypeFunArgF Full
 
 -- | C types in function argument positions
-data TypeFunArgF tag p = TypeFunArgF {
+data TypeFunArgF (tag :: TypeTag) (p :: Pass) = TypeFunArgF {
     typ :: TypeF tag p
   , ann :: Ann "TypeFunArg" p
   }
   deriving stock (Generic)
 
-deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Eq   (TypeFunArgF tag p)
+deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Ord  (TypeFunArgF tag p)
 
 -- | Map 'TypeF's from one tag to another
@@ -184,6 +196,7 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
     go :: TypeF tag p -> TypeF tag' p
     go ty = case ty of
       TypePrim pt           -> TypePrim pt
+      TypeComplex pt        -> TypeComplex pt
       TypeRef declId        -> TypeRef declId
       TypeEnum ref          -> fEnumRef ref
       TypeMacro ref         -> fMacroRef ref
@@ -196,7 +209,6 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
       TypeBlock t           -> TypeBlock (go t)
       TypeQual q t          -> fQual q t
       TypeExtBinding ref    -> fExtBindingRef ref
-      TypeComplex pt        -> TypeComplex pt
 
     goTypeFunArg :: TypeFunArgF tag p -> TypeFunArgF tag' p
     goTypeFunArg arg = TypeFunArgF {
@@ -210,81 +222,13 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
 
 data TypeQual =
     QualConst
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
   References
 -------------------------------------------------------------------------------}
 
--- |
---
--- For example, if we have this C code:
---
--- > typedef int T;
--- > extern T x;
---
--- The type of the global variable @x@ is roughly:
---
--- > Ref { name = "T", underlying = TypePrim int }
---
-type TypedefRef p = Ref (Id p) p
-
--- |
---
--- For example, if we have this C code:
---
--- > struct S {};
--- > extern S x;
---
--- The type of the global variable @x@ is roughly:
---
--- > Ref { name = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
---
-type ExtBindingRef p = Ref (ExtBinding p) p
-
--- | A reference to a macro use site.
---
--- Structurally similar to 'Ref' but the 'underlying' field is driven by the
--- 'MacroUnderlying' associated type family, so it can be a placeholder (@()@)
--- during 'ReparseMacroExpansions' and the real @'Type' p@ from 'Zip' onwards.
---
--- For example, if we have this C code:
---
--- > #define T int
--- > extern T x;
---
--- The type of the global variable @x@ is roughly:
---
--- > MacroRef { name = macroIdOfT, underlying = TypePrim int }
---
-data MacroRef p = MacroRef {
-    name       :: !(MacroId p)
-  , underlying :: !(MacroUnderlying p)
-  }
-  deriving stock (Generic)
-
-deriving stock instance
-     (Show (MacroId p), Show (MacroUnderlying p))
-  => Show (MacroRef p)
-deriving stock instance
-     (Eq (MacroId p), Eq (MacroUnderlying p))
-  => Eq (MacroRef p)
-deriving stock instance
-     (Ord (MacroId p), Ord (MacroUnderlying p))
-  => Ord (MacroRef p)
-
--- |
---
--- > enum E : u_int { e };
--- > extern enum E x;
---
--- The type of the global variable @x@ is roughly:
---
--- > Ref { ref = "E", underlying = TypePrim u_int }
---
-type EnumRef p = Ref (Id p) p
-
--- | A reference (by name) to another type, annotated with an underlying type.
+-- | A reference (by name) to another type, annotated with an underlying type
 --
 -- Reference types include:
 --
@@ -296,8 +240,7 @@ type EnumRef p = Ref (Id p) p
 -- * external binding reference
 --
 -- See 'TypedefRef' and 'ExtBindingRef' for examples.
---
-data Ref a p = Ref {
+data Ref a (p :: Pass) = Ref {
     -- | The reference type: a name
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
@@ -307,10 +250,77 @@ data Ref a p = Ref {
     --
     -- NOTE: the underlying type can arbitrarily reference other types,
     -- including references that we have not parsed, mangled, modified, resolved
-    -- (binding specs), etc. Use the underlying type with care!
+    -- (binding specs), etc.  Use the underlying type with care!
   , underlying :: Type p
   }
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Eq, Generic, Ord, Show)
+
+-- | @enum@ reference
+--
+-- > enum E : u_int { e };
+-- > extern enum E x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { ref = "E", underlying = TypePrim u_int }
+type EnumRef p = Ref (Id p) p
+
+-- | A reference to a macro use site.
+--
+-- Structurally similar to 'Ref' but the 'underlying' field is driven by the
+-- 'MacroUnderlying' associated type family, so it can be a placeholder (@()@)
+-- during
+-- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions'
+-- and the real @'Type' p@ from 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip'
+-- onwards.
+--
+-- For example, if we have this C code:
+--
+-- > #define T int
+-- > extern T x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > MacroRef { name = macroIdOfT, underlying = TypePrim int }
+data MacroRef p = MacroRef {
+    name       :: !(MacroId p)
+  , underlying :: !(MacroUnderlying p)
+  }
+  deriving stock (Generic)
+
+deriving stock instance
+     (Eq (MacroId p), Eq (MacroUnderlying p))
+  => Eq (MacroRef p)
+deriving stock instance
+     (Ord (MacroId p), Ord (MacroUnderlying p))
+  => Ord (MacroRef p)
+deriving stock instance
+     (Show (MacroId p), Show (MacroUnderlying p))
+  => Show (MacroRef p)
+
+-- | @typedef@ reference
+--
+-- For example, if we have this C code:
+--
+-- > typedef int T;
+-- > extern T x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { name = "T", underlying = TypePrim int }
+type TypedefRef p = Ref (Id p) p
+
+-- | External binding reference
+--
+-- For example, if we have this C code:
+--
+-- > struct S {};
+-- > extern S x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { name = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
+type ExtBindingRef p = Ref (ExtBinding p) p
 
 {-------------------------------------------------------------------------------
   Normal forms
@@ -321,16 +331,31 @@ data Ref a p = Ref {
 -------------------------------------------------------------------------------}
 
 data TypeTag =
-    -- | A full C type includes all C type constructs.
+    -- | Full C type, includes all C type constructs
     Full
     -- | No @typedef@s, external binding specification references, macro-defined
-    -- types, and @enum@s.
+    -- types, or @enum@s
   | Erased
-    -- | All sugar (typedefs and qualifiers like @const@) removed.
+    -- | All sugar (typedefs and qualifiers like @const@) removed
   | Canonical
 
+type FullType      = TypeF Full
+type ErasedType    = TypeF Erased
+type CanonicalType = TypeF Canonical
+
 -- | Normal forms of types
-class ( IsPass p
+class ( PassAnn        p
+      , PassExtBinding p
+      , PassId         p
+      , PassMacro      p
+
+      , Show (TypeEnumRefF tag p)
+      , Eq   (TypeEnumRefF tag p)
+      , Ord  (TypeEnumRefF tag p)
+
+      , Show (TypeMacroRefF tag p)
+      , Eq   (TypeMacroRefF tag p)
+      , Ord  (TypeMacroRefF tag p)
 
       , Show (TypedefRefF tag p)
       , Eq   (TypedefRefF tag p)
@@ -343,48 +368,48 @@ class ( IsPass p
       , Show (TypeExtBindingRefF tag p)
       , Eq   (TypeExtBindingRefF tag p)
       , Ord  (TypeExtBindingRefF tag p)
-
-      , Show (TypeMacroRefF tag p)
-      , Eq   (TypeMacroRefF tag p)
-      , Ord  (TypeMacroRefF tag p)
-
-      , Show (TypeEnumRefF tag p)
-      , Eq   (TypeEnumRefF tag p)
-      , Ord  (TypeEnumRefF tag p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
+  type family TypeEnumRefF       tag p :: Star
+  type family TypeMacroRefF      tag p :: Star
   type family TypedefRefF        tag p :: Star
   type family TypeQualifierF     tag p :: Star
   type family TypeExtBindingRefF tag p :: Star
-  type family TypeMacroRefF      tag p :: Star
-  type family TypeEnumRefF       tag p :: Star
 
-instance IsPass p => ValidTypeTag Full p where
+instance (
+      PassAnn        p
+    , PassExtBinding p
+    , PassId         p
+    , PassMacro      p
+    ) => ValidTypeTag Full p where
+  type instance TypeEnumRefF       Full p = EnumRef p
+  type instance TypeMacroRefF      Full p = MacroRef p
   type instance TypedefRefF        Full p = TypedefRef p
   type instance TypeQualifierF     Full p = TypeQual
   type instance TypeExtBindingRefF Full p = ExtBindingRef p
-  type instance TypeMacroRefF      Full p = MacroRef p
-  type instance TypeEnumRefF       Full p = EnumRef p
 
-instance IsPass p => ValidTypeTag Erased p where
+instance (
+      PassAnn        p
+    , PassExtBinding p
+    , PassId         p
+    , PassMacro      p
+    ) => ValidTypeTag Erased p where
+  type instance TypeEnumRefF       Erased p = Void
+  type instance TypeMacroRefF      Erased p = Void
   type instance TypedefRefF        Erased p = Void
   type instance TypeQualifierF     Erased p = TypeQual
   type instance TypeExtBindingRefF Erased p = Void
-  type instance TypeMacroRefF      Erased p = Void
-  type instance TypeEnumRefF       Erased p = Void
 
-instance IsPass p => ValidTypeTag Canonical p where
+instance (
+      PassAnn        p
+    , PassExtBinding p
+    , PassId         p
+    , PassMacro      p
+    ) => ValidTypeTag Canonical p where
+  type instance TypeEnumRefF       Canonical p = Void
+  type instance TypeMacroRefF      Canonical p = Void
   type instance TypedefRefF        Canonical p = Void
   type instance TypeQualifierF     Canonical p = Void
   type instance TypeExtBindingRefF Canonical p = Void
-  type instance TypeMacroRefF      Canonical p = Void
-  type instance TypeEnumRefF       Canonical p = Void
-
-type Type          = FullType
-type FullType      = TypeF Full
-type ErasedType    = TypeF Erased
-type CanonicalType = TypeF Canonical
-
-type TypeFunArg    = TypeFunArgF Full
 
 {-------------------------------------------------------------------------------
   Pattern synonyms for safe pointer handling
@@ -409,10 +434,10 @@ pattern TypePointers n inner <- (stripPointersF -> Just (n, inner))
   where
     TypePointers n inner = buildPointersF n inner
 
--- | Helper for TypePointers pattern synonym (matching direction)
+-- | Helper for 'TypePointers' pattern synonym (matching direction)
 --
--- Strips all pointer layers and returns the count and inner type.
--- Returns Nothing if there are no pointer layers.
+-- Strips all pointer layers and returns the count and inner type.  Returns
+-- 'Nothing' if there are no pointer layers.
 stripPointersF :: TypeF tag p -> Maybe (Int, TypeF tag p)
 stripPointersF = go 0
   where
@@ -422,7 +447,7 @@ stripPointersF = go 0
       | n > 0     = Just (n, inner)
       | otherwise = Nothing
 
--- | Helper for TypePointers pattern synonym (construction direction)
+-- | Helper for 'TypePointers' pattern synonym (construction direction)
 --
 -- Builds N layers of pointers around an inner type.
 buildPointersF :: Int -> TypeF tag p -> TypeF tag p
@@ -433,7 +458,7 @@ buildPointersF n inner
 -- | COMPLETE pragma to ensure exhaustiveness checking works
 --
 -- This tells GHC that pattern matching on these patterns (instead of the raw
--- TypeUnsafePointer) is complete and exhaustive.
+-- @TypeUnsafePointer@) is complete and exhaustive.
 {-# COMPLETE
        TypePrim
      , TypeComplex
@@ -475,29 +500,33 @@ _completePragmaCoversAllCases = \case
 -- | Normal-form computation.
 --
 -- The 'MacroUnderlying p ~ Type p' constraint excludes
--- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.ReparseMacroExpansions',
+-- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
 -- the only pass where the underlying of a 'MacroRef' is unresolved (@()@).
 -- Normalization recurses into 'MacroRef.underlying', which only makes sense
--- once 'HsBindgen.Frontend.Pass.Zip.Zip' has filled the underlying in.
+-- once 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip' has filled the underlying in.
 class Normalize tag tag' where
-  normalize :: (IsPass p, MacroUnderlying p ~ Type p)
-            => TypeF tag p -> TypeF tag' p
+  normalize :: (
+      MacroUnderlying p ~ Type p
+    -- , IsPass p
+    ) => TypeF tag p -> TypeF tag' p
 
 instance Normalize tag tag where
   normalize = id
 
 -- | Erase @typedef@s
 --
--- Note: the algorithm to erase @typedef@s is simple. Replace any references to
--- @typedef@s we find by the definitions of these @typedef@s. The @typedef@
+-- The algorithm to erase @typedef@s is simple.  Replace any references to
+-- @typedef@s we find by the definitions of these @typedef@s.  The @typedef@
 -- definitions that we inline this way can contain references to other
 -- @typedef@s, but they can not construct infinitely long types, so this
--- algorithm will terminate sooner or later. In practice, @typedef@ "chains" are
--- probably not that long, so we do not expect this algorithm to have
+-- algorithm will terminate sooner or later.  In practice, @typedef@ \"chains\"
+-- are probably not that long, so we do not expect this algorithm to have
 -- problematic performance.
 instance Normalize Full Erased where
-  normalize :: forall p. (IsPass p, MacroUnderlying p ~ Type p)
-            => TypeF Full p -> TypeF Erased p
+  normalize :: forall p.
+       MacroUnderlying p ~ Type p
+    => TypeF Full p
+    -> TypeF Erased p
   normalize = mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef
     where
       fTypedefRef :: TypedefRef p -> TypeF Erased p
@@ -519,7 +548,7 @@ instance Normalize Erased Canonical where
   normalize = mapTypeF absurd fQual absurd absurd absurd
     where
       fQual ::
-           (IsPass p, MacroUnderlying p ~ Type p)
+           MacroUnderlying p ~ Type p
         => TypeQual
         -> TypeF Erased p
         -> TypeF Canonical p
@@ -529,13 +558,13 @@ instance Normalize Full Canonical where
   normalize = getCanonicalType . getErasedType
 
 getCanonicalType ::
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Canonical, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> CanonicalType p
 getCanonicalType = normalize
 
 getErasedType ::
-     (Normalize tag Erased, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Erased, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> ErasedType p
 getErasedType = normalize
@@ -545,17 +574,20 @@ getErasedType = normalize
 -------------------------------------------------------------------------------}
 
 data ValOrRef = ByValue | ByRef
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Eq, Ord, Show)
 
 -- | The declarations this type depends on (direct dependencies only)
 --
 -- We also report whether this dependence is through a pointer or not.
-depsOfType :: forall p. IsPass p => Type p -> [(ValOrRef, Id p)]
+depsOfType :: forall p.
+     PassMacro p
+  => Type p
+  -> [(ValOrRef, Id p)]
 depsOfType = \case
     -- Primitive types
     TypePrim _    -> []
-    TypeVoid      -> []
     TypeComplex _ -> []
+    TypeVoid      -> []
 
     -- Interesting cases
     TypeRef ref         -> [(ByValue, ref)]
@@ -580,13 +612,17 @@ depsOfType = \case
     TypeQual _          t -> depsOfType t
     TypeFun args res      -> concatMap depsOfTypeFunArg args <> depsOfType res
 
-depsOfTypeFunArg :: IsPass p => TypeFunArgF Full p -> [(ValOrRef, Id p)]
+depsOfTypeFunArg ::
+     PassMacro p
+  => TypeFunArgF Full p
+  -> [(ValOrRef, Id p)]
 depsOfTypeFunArg arg = depsOfType arg.typ
 
 -- | Checks if a type is unsupported by Haskell's FFI
 hasUnsupportedType :: forall tag p.
-     (IsPass p, Normalize tag Canonical, MacroUnderlying p ~ Type p)
-  => TypeF tag p -> Bool
+     (Normalize tag Canonical, PassId p, MacroUnderlying p ~ Type p)
+  => TypeF tag p
+  -> Bool
 hasUnsupportedType = aux . getCanonicalType
   where
     aux :: CanonicalType p -> Bool
@@ -601,75 +637,13 @@ hasUnsupportedType = aux . getCanonicalType
     aux TypeBlock{}           = False
 
     -- 'Normalize Full Erased' erases @typedef@s, @enum@s, and type macros.
-    auxRef :: CNameKind -> Bool
+    auxRef :: C.NameKind -> Bool
     auxRef = \case
-      CNameKindOrdinary              -> panicPure "Unexpected CNameKindOrdinary"
-      CNameKindTagged CTagKindStruct -> True
-      CNameKindTagged CTagKindUnion  -> True
-      CNameKindTagged CTagKindEnum   -> panicPure "Unexpected CTagKindEnum"
-      CNameKindMacro                 -> panicPure "Unexpected CNameKindMacro"
-
--- | Does the C type reference an untagged struct\/union\/enum?
---
--- If so, then the C type can not be pretty-printed because there is no name to
--- refer to.
---
--- This function looks trough macro references. Macro invocations are expanded
--- by the C compiler, so whatever a macro invocation expands to (i.e., its
--- underlying type) should also not reference untagged structs\/unions\/enums.
---
-referencesUntagged ::
-     forall p. (
-       HasCallStack
-     , Id p ~ DeclIdPair
-     , MacroId p ~ DeclIdPair
-     , ExtBinding p ~ ResolvedExtBinding
-     , MacroUnderlying p ~ Type p
-     )
-  => Type p
-  -> Bool
-referencesUntagged = go
-  where
-    go :: Type p -> Bool
-    go = \case
-        TypePrim _pty -> False
-        TypeComplex _pty -> False
-        TypeRef ref ->
-          -- a struct or union can be untagged
-          ref.cName.isAnon
-        TypeEnum ref ->
-          -- an enum can be untagged
-          ref.name.cName.isAnon
-        TypeMacro ref
-          | ref.name.cName.isAnon
-          -> panicPure "macros can not be unnamed"
-          -- NOTE: macros are expanded by the C preprocessor, so if pretty-print
-          -- a macro name then we should make sure that it does not expand to a
-          -- type that references an untagged type
-          | go ref.underlying
-          -> panicPure "macros can not expand to types that reference untagged types"
-          | otherwise
-          -> False
-        TypeTypedef ref
-          | ref.name.cName.isAnon
-          -> panicPure "typedefs can not be unnamed"
-          | otherwise
-          -> False
-        TypeUnsafePointer ty -> go ty
-        TypeConstArray _n ty -> go ty
-        TypeIncompleteArray ty -> go ty
-        TypeFun args res ->
-          any goTypeFunArg args || go res
-        TypeVoid -> False
-        TypeBlock ty -> go ty
-        TypeQual _qual ty -> go ty
-        TypeExtBinding ref ->
-          -- an external binding reference can wrap references to untagged
-          -- types
-          ref.name.cName.isAnon
-
-    goTypeFunArg :: TypeFunArg p -> Bool
-    goTypeFunArg arg = go arg.typ
+      C.NameKindOrdinary               -> panicPure "Unexpected NameKindOrdinary"
+      C.NameKindTagged C.TagKindStruct -> True
+      C.NameKindTagged C.TagKindUnion  -> True
+      C.NameKindTagged C.TagKindEnum   -> panicPure "Unexpected TagKindEnum"
+      C.NameKindMacro                  -> panicPure "Unexpected NameKindMacro"
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers
@@ -681,7 +655,7 @@ isVoid _        = False
 
 -- | Is the canonical type a complex type?
 isCanonicalTypeComplex ::
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Canonical, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isCanonicalTypeComplex ty =
@@ -691,7 +665,7 @@ isCanonicalTypeComplex ty =
 
 -- | Is the canonical type a function type?
 isCanonicalTypeFunction ::
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Canonical, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isCanonicalTypeFunction ty =
@@ -701,25 +675,38 @@ isCanonicalTypeFunction ty =
 
 -- | Is the canonical type a struct type?
 isCanonicalTypeStruct :: forall tag p.
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Canonical, PassId p, MacroUnderlying p ~ Type p)
   => TypeF tag p -> Bool
 isCanonicalTypeStruct ty =
     case getCanonicalType ty of
-      TypeRef ref -> idNameKind (Proxy @p) ref == CNameKindTagged CTagKindStruct
+      TypeRef ref ->
+        idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindStruct
       _otherwise  -> False
 
 -- | Is the canonical type a union type?
 isCanonicalTypeUnion :: forall tag p.
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Canonical, PassId p, MacroUnderlying p ~ Type p)
   => TypeF tag p -> Bool
 isCanonicalTypeUnion ty =
     case getCanonicalType ty of
-      TypeRef ref -> idNameKind (Proxy @p) ref == CNameKindTagged CTagKindUnion
+      TypeRef ref ->
+        idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindUnion
       _otherwise  -> False
+
+-- | Is the canonical type an array type?
+isCanonicalTypeArray ::
+     (Normalize tag Canonical, MacroUnderlying p ~ Type p)
+  => TypeF tag p
+  -> Bool
+isCanonicalTypeArray ty =
+    case getCanonicalType ty of
+      TypeConstArray{}   -> True
+      TypeIncompleteArray{} -> True
+      _                     -> False
 
 -- | Is the erased type @const@-qualified?
 isErasedTypeConstQualified ::
-     (Normalize tag Erased, IsPass p, MacroUnderlying p ~ Type p)
+     (Normalize tag Erased, MacroUnderlying p ~ Type p)
   => TypeF tag p
   -> Bool
 isErasedTypeConstQualified ty =
@@ -735,14 +722,3 @@ isErasedTypeConstQualified ty =
 
       -- And otherwise, the type is not considered to be @const@-qualified.
       _ -> False
-
--- | Is the canonical type an array type?
-isCanonicalTypeArray ::
-     (Normalize tag Canonical, IsPass p, MacroUnderlying p ~ Type p)
-  => TypeF tag p
-  -> Bool
-isCanonicalTypeArray ty =
-    case getCanonicalType ty of
-      TypeConstArray{}   -> True
-      TypeIncompleteArray{} -> True
-      _                     -> False

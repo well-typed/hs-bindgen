@@ -48,7 +48,7 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -60,7 +60,7 @@ hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
+  -> [C.UncheckedHashIncludeArg]
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . cExprLang)
@@ -510,7 +510,7 @@ parseGenTestsOutput = strOption $ mconcat [
 --
 -- This uses standard syntax for one or more arguments, which
 -- @optparse-applicative@ does not get right when just using 'Control.Applicative.some'.
-parseInputs :: Parser [UncheckedHashIncludeArg]
+parseInputs :: Parser [C.UncheckedHashIncludeArg]
 parseInputs = some . strArgument $ mconcat [
       metavar "HEADER..."
     , help "Input C header(s), relative to an include path directory"

@@ -36,8 +36,6 @@ import Clang.Paths
 import HsBindgen.Clang.Macros (MacroDefinition (..), MacroInvocation (..))
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (LookupResult (..),
@@ -46,12 +44,11 @@ import HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (LookupResult (..),
                                                            lookupRange,
                                                            recordAt)
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -97,7 +94,7 @@ evalGetMainHeadersAndInclude ::
      SourcePath
   -> ParseDecl
       (Either DelayedParseMsg
-        (NonEmpty HashIncludeArg, IncludeGraph.Include))
+        (NonEmpty C.HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
     pure $
       first (\err -> ParseNoMainHeadersException err path) $
@@ -189,14 +186,14 @@ getMacroExpansions range = do
 -- | Immediately emit a parse trace message with location information
 traceImmediate ::
      HasCallStack
-  => PrelimDeclId
+  => C.PrelimDeclId
   -> SingleLoc
   -> ImmediateParseMsg
   -> ParseDecl ()
 traceImmediate declId declLoc msg = wrapEff $ \support ->
     traceWith support.env.tracer $
-      withCallStack WithLocationInfo{
-        loc = prelimDeclIdLocationInfo declId [declLoc]
+      withCallStack C.WithLocationInfo{
+        loc = C.prelimDeclIdLocationInfo declId [declLoc]
       , msg = msg
       }
 
@@ -204,8 +201,8 @@ traceImmediate declId declLoc msg = wrapEff $ \support ->
 traceImmediateGlobal :: HasCallStack => ImmediateParseMsg -> ParseDecl ()
 traceImmediateGlobal msg = wrapEff $ \support ->
     traceWith support.env.tracer $
-      withCallStack WithLocationInfo{
-        loc = LocationUnavailable
+      withCallStack C.WithLocationInfo{
+        loc = C.LocationUnavailable
       , msg = msg
       }
 
@@ -220,7 +217,7 @@ traceImmediateGlobal msg = wrapEff $ \support ->
 -- emitted directly.
 parseFail ::
      ParseCtx
-  -> PrelimDeclId
+  -> C.PrelimDeclId
   -> SingleLoc
   -> DelayedParseMsg
   -> ParseDecl [ParseResult l Parse]
@@ -249,9 +246,9 @@ parseFailNoInfo ctx msg curr = do
     -- The declaration ID and the location are not always available while
     -- parsing, and so are not part of the declaration context. We have to
     -- obtain them again here.
-    getDeclInfoForTrace :: ParseDecl (PrelimDeclId, SingleLoc)
+    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc)
     getDeclInfoForTrace = do
-      declId  <- PrelimDeclId.atCursor curr ctx.outer.kind
+      declId  <- C.prelimDeclIdAtCursor curr ctx.outer.kind
       declLoc <- HighLevel.clang_getCursorLocation' curr
       pure (declId, declLoc)
 
@@ -260,7 +257,7 @@ parseFailNoInfo ctx msg curr = do
 -- Ideally we'd only emit the trace when we /use/ the declaration that
 -- we fail to parse.
 maybeEmitScopingMsg ::
-  RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseDecl ()
+  RequiredForScoping -> C.PrelimDeclId -> SingleLoc -> ParseDecl ()
 maybeEmitScopingMsg scoping declId declLoc = case scoping of
     RequiredForScoping ->
       traceImmediate declId declLoc $

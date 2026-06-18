@@ -45,9 +45,9 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST.Expr
 import HsBindgen.Backend.SHs.AST.Type
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ data ForeignImport = ForeignImport{
       name       :: Hs.TermName
     , parameters :: [Parameter]
     , result     :: Result
-    , origName   :: CDeclName
+    , origName   :: C.DeclName
     , callConv   :: CallConv
     , origin     :: Origin.ForeignImport
     , comment    :: Maybe HsDoc.Comment

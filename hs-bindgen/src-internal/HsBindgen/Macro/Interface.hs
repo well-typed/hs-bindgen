@@ -24,9 +24,8 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST.Expr
-import HsBindgen.Frontend.AST.Type
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
@@ -51,22 +50,22 @@ data MacroLang (l :: Star) = MacroLang {
     -- The caller supplies name resolvers; the implementation walks the macro
     -- AST.
   , parsedMacroDeps ::
-         Set DeclId
+         Set C.DeclId
          -- ^ Declarations in scope
       -> ParsedMacroBody l
-      -> [(ValOrRef, DeclId)]
+      -> [(C.ValOrRef, C.DeclId)]
 
     -- | Batch-typecheck a sequence of macros.
   , typecheckMacroBodies ::
-         Set DeclId
+         Set C.DeclId
          -- ^ Declarations in scope
       -> [ParsedMacroBody l]
       -> Map Text (MacroTypecheckResult l)
 
     -- | Get dependencies of a typechecked type-like macro body.
   , typecheckedMacroTypeDeps ::
-         TypecheckedMacroTypeBody l DeclId
-      -> [(ValOrRef, DeclId)]
+         TypecheckedMacroTypeBody l C.DeclId
+      -> [(C.ValOrRef, C.DeclId)]
 
     -- | Translate a checked type-like macro body to an 'HsType'.
     --
@@ -93,8 +92,8 @@ data MacroLang (l :: Star) = MacroLang {
 -- @l@ is the macro-language tag, @var@ is the variable type used to represent
 -- macro dependencies.
 data MacroTypecheckResult l
-  = MacroTypecheckType  (TypecheckedMacroTypeBody  l DeclId)
-  | MacroTypecheckValue (TypecheckedMacroValueBody l DeclId)
+  = MacroTypecheckType  (TypecheckedMacroTypeBody  l C.DeclId)
+  | MacroTypecheckValue (TypecheckedMacroValueBody l C.DeclId)
   | MacroTypecheckError MacroTypecheckError
 
 deriving stock instance HasMacroTypes l => Show (MacroTypecheckResult l)
@@ -106,7 +105,7 @@ deriving stock instance HasMacroTypes l => Eq   (MacroTypecheckResult l)
 
 data MacroTypecheckError =
     MacroTypecheckTypecheckError       MacroLangTypecheckError
-  | MacroTypecheckUnresolvedTaggedType DeclId
+  | MacroTypecheckUnresolvedTaggedType C.DeclId
   deriving stock (Show, Eq)
 
 instance PrettyForTrace MacroTypecheckError where

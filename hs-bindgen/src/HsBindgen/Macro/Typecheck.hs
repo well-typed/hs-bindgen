@@ -12,14 +12,13 @@ import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Interface.Type qualified as T
 
-import HsBindgen.Frontend.AST.Type
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.CExpr
 import HsBindgen.Macro.Interface
 
 typecheckMacroBodies ::
-     Set DeclId
+     Set C.DeclId
   -> [ParsedMacroBody CExpr]
   -> Map Text (MacroTypecheckResult CExpr)
 typecheckMacroBodies declsInScope bodies =
@@ -34,10 +33,10 @@ typecheckMacroBodies declsInScope bodies =
     typedefs :: Set CExpr.Name
     typedefs = Set.fromList $ [ (CExpr.Name declId.name.text)
                               | declId <- Set.toList declsInScope
-                              , declId.name.kind == CNameKindOrdinary ]
+                              , declId.name.kind == C.NameKindOrdinary ]
 
     convertResult ::
-         CExpr.MacroTcResult MacroTypecheckError DeclId
+         CExpr.MacroTcResult MacroTypecheckError C.DeclId
       -> MacroTypecheckResult CExpr
     convertResult = \case
       CExpr.MacroTcTypeExpr x ->
@@ -54,48 +53,49 @@ typecheckMacroBodies declsInScope bodies =
     injectTypeName ::
          CExpr.CTypeSource
       -> CExpr.Name
-      -> DeclId
+      -> C.DeclId
     injectTypeName = \case
         CExpr.FromTypedef ->
-          \n -> DeclId (CDeclName n.getName CNameKindOrdinary) False
+          \n -> C.DeclId (C.DeclName n.getName C.NameKindOrdinary) False
         CExpr.FromMacroType ->
-          \n -> DeclId (CDeclName n.getName CNameKindMacro) False
+          \n -> C.DeclId (C.DeclName n.getName C.NameKindMacro) False
 
-    injectValueName :: CExpr.Name -> DeclId
+    injectValueName :: CExpr.Name -> C.DeclId
     injectValueName (CExpr.Name n) =
-        let dn = CDeclName{text = n , kind = CNameKindMacro}
-        in  DeclId dn False
+        let dn = C.DeclName{text = n , kind = C.NameKindMacro}
+        in  C.DeclId dn False
 
     injectNonAnonTaggedTypeName ::
          CExpr.TagKind
       -> CExpr.Name
-      -> Except MacroTypecheckError DeclId
+      -> Except MacroTypecheckError C.DeclId
     injectNonAnonTaggedTypeName k n =
         if Set.member declId declsInScope then
           pure declId
         else
           throwError  $ MacroTypecheckUnresolvedTaggedType declId
       where
-        declId :: DeclId
-        declId = DeclId{
-            name = CDeclName{
+        declId :: C.DeclId
+        declId = C.DeclId{
+            name = C.DeclName{
               text = n.getName
-            , kind = CNameKindTagged (convertTagKind k)
+            , kind = C.NameKindTagged (convertTagKind k)
             }
           , isAnon = False
           }
 
 typecheckedMacroTypeDeps ::
-     TypecheckedMacroTypeBody CExpr DeclId -> [(ValOrRef, DeclId)]
+     TypecheckedMacroTypeBody CExpr C.DeclId
+  -> [(C.ValOrRef, C.DeclId)]
 typecheckedMacroTypeDeps (TypecheckedMacroTypeBodyCExpr tcExpr) =
     -- 'T.Expr' is a unary type-application tree, so it carries at most one variable.
-    case go ByValue tcExpr.macroTypeBody of
+    case go C.ByValue tcExpr.macroTypeBody of
       Nothing -> []
       Just x  -> [x]
   where
-    go :: ValOrRef -> T.Expr DeclId -> Maybe (ValOrRef, DeclId)
+    go :: C.ValOrRef -> T.Expr C.DeclId -> Maybe (C.ValOrRef, C.DeclId)
     go depTy = \case
       T.TypeLit{}       -> Nothing
-      T.App T.Pointer e -> go ByRef e
+      T.App T.Pointer e -> go C.ByRef e
       T.App T.Const   e -> go depTy e
       T.Var v           -> Just (depTy, v)

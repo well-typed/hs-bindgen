@@ -26,9 +26,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (Include, IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Process includes.
@@ -45,14 +44,14 @@ import HsBindgen.Imports
   > #include <b.h>
 
   These paths must be interpreted with respect to the @C_INCLUDE_PATH@, the @-I@
-  command line options, etc.; we use 'HashIncludeArg' for this concept.
+  command line options, etc.; we use 'C.HashIncludeArg' for this concept.
 
   == Selecting declarations
 
   When we see a declaration in the @clang@ AST, we might need to check if this
   declaration is from one of these main headers (as opposed to a header
   /included by/ one of the main headers). Unfortunately, @clang@ does not
-  give us a 'HashIncludeArg' for the declaration, but rather a 'SourcePath'.
+  give us a 'C.HashIncludeArg' for the declaration, but rather a 'SourcePath'.
   The exact nature of this 'SourcePath' is a @clang@ internal detail, but it
   might for example be @/the/full/path/to/b.h@.
 
@@ -63,7 +62,7 @@ import HsBindgen.Imports
   and @internal/b.h@ exist in the library (or indeed, this particular @b.h@
   might be from a different library altogether).
 
-  Therefore we need a /mapping/ from 'HashIncludeArg' to 'SourcePath', at
+  Therefore we need a /mapping/ from 'C.HashIncludeArg' to 'SourcePath', at
   least for the includes in the root header. The only reliable way that we found
   to get this mapping is by looking at how @clang@ resolves these headers as it
   parses the root header (there is an API specifically for resolving header
@@ -79,7 +78,7 @@ import HsBindgen.Imports
   When we see a function declaration, we must associate that function
   declaration with one of the main headers (so that we can generate the correct
   @#include@ when producing code for that function). It's not entirely obvious
-  if we should use a 'HashIncludeArg' or a 'SourcePath' for this purpose;
+  if we should use a 'C.HashIncludeArg' or a 'SourcePath' for this purpose;
   we currently choose the former, so that we can generate the somewhat cleaner
   lookling
 
@@ -98,14 +97,14 @@ import HsBindgen.Imports
   its /location/ as an index into the root header.
 
   (Note that we cannot really build a map from 'SourcePath' to
-  'HashIncludeArg': multiple 'HashIncludeArg's in the root header could
+  'C.HashIncludeArg': multiple 'C.HashIncludeArg's in the root header could
   in principle resolve to the /same/ 'SourcePath.')
 -------------------------------------------------------------------------------}
 
 -- | Function to get the main headers that (transitively) include a source path,
 -- as well as the @#include@ argument used to include the source path
 type GetMainHeadersAndInclude =
-   SourcePath -> Either String (NonEmpty HashIncludeArg, Include)
+   SourcePath -> Either String (NonEmpty C.HashIncludeArg, Include)
 
 -- | Process includes
 --
@@ -137,14 +136,14 @@ processIncludes unit = do
         includeGraph = IncludeGraph.fromList $
           map (\incDir -> (incDir.from, incDir.include, incDir.to)) includes
 
-        mainPathPairs :: [(SourcePath, HashIncludeArg)]
+        mainPathPairs :: [(SourcePath, C.HashIncludeArg)]
         mainPathPairs = [
             (incDir.to, IncludeGraph.getIncludeArg incDir.include)
           | incDir <- includes
           , incDir.inRoot
           ]
 
-        mainPathMap :: Map SourcePath HashIncludeArg
+        mainPathMap :: Map SourcePath C.HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
 
         mainPaths :: Set SourcePath
@@ -178,7 +177,7 @@ processIncludes unit = do
       )
 
 -- | Function to get the main headers that (transitively) include a source path
-type GetMainHeaders = SourcePath -> Either String (NonEmpty HashIncludeArg)
+type GetMainHeaders = SourcePath -> Either String (NonEmpty C.HashIncludeArg)
 
 toGetMainHeaders :: GetMainHeadersAndInclude -> GetMainHeaders
 toGetMainHeaders f = fmap fst . f
@@ -272,7 +271,7 @@ parseInclude path = \case
         guard $ cL == '"'
         (s', cR) <- unsnoc s1
         guard $ cR == '"'
-        let (_, arg) = RootHeader.hashIncludeArg s'
+        let (_, arg) = C.hashIncludeArg s'
         return $
           if isIncludeNext
             then IncludeGraph.QuoteIncludeNext arg
@@ -287,7 +286,7 @@ parseInclude path = \case
         (ts, tR) <- unsnoc ts3
         guard $ isPunctuation tR && tR `hasSpelling` ">"
         -- ts may contain many token kinds, not just identifier/punctuation
-        let (_, arg) = RootHeader.hashIncludeArg $
+        let (_, arg) = C.hashIncludeArg $
               concatMap (Text.unpack . getTokenSpelling . tokenSpelling) ts
         return $
           if isIncludeNext
@@ -300,7 +299,7 @@ parseInclude path = \case
       -- Macro include should have at least one argument
       [] -> Nothing
       ts -> do
-        let (_, arg) = RootHeader.hashIncludeArg $
+        let (_, arg) = C.hashIncludeArg $
               Posix.takeFileName (getSourcePath path)
             macroArg = mconcat $ map (getTokenSpelling . tokenSpelling) ts
         return $

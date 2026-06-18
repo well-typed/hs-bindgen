@@ -11,14 +11,12 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -40,22 +38,38 @@ type family AnnMangleNames ix where
   AnnMangleNames "TypecheckedMacroType" = NewtypeNames
   AnnMangleNames _                      = NoAnn
 
-instance IsPass MangleNames where
-  type Id              MangleNames = DeclIdPair
-  type ScopedName      MangleNames = ScopedNamePair
-  type MacroBody       MangleNames = TypecheckedMacro MangleNames
-  type ExtBinding      MangleNames = ResolvedExtBinding
-  type Ann ix          MangleNames = AnnMangleNames ix
-  type Msg             MangleNames = WithLocationInfo MangleNamesMsg
+instance IsPass MangleNames
+
+instance PassId MangleNames where
+  type Id MangleNames = C.DeclIdPair
+
+  idNameKind     _ namePair = namePair.cName.name.kind
+  idSourceName   _ namePair = C.declIdSourceName namePair.cName
+  idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
+
+instance PassScopedName MangleNames where
+  type ScopedName MangleNames = C.ScopedNamePair
+
+instance PassMacro MangleNames where
   type MacroId         MangleNames = Id MangleNames
-  type CommentDecl     MangleNames = Maybe (C.Comment MangleNames)
+  type MacroBody       MangleNames = TypecheckedMacro MangleNames
   type MacroUnderlying MangleNames = C.Type MangleNames
 
-  idNameKind     _ namePair   = namePair.cName.name.kind
-  idSourceName   _ namePair   = declIdSourceName namePair.cName
-  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
-  extBindingId   _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
+
+instance PassExtBinding MangleNames where
+  type ExtBinding MangleNames = BindingSpec.ResolvedExtBinding
+
+  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+
+instance PassCommentDecl MangleNames where
+  type CommentDecl MangleNames = Maybe (C.Comment MangleNames)
+
+instance PassAnn MangleNames where
+  type Ann ix MangleNames = AnnMangleNames ix
+
+instance PassMsg MangleNames where
+  type Msg MangleNames = C.WithLocationInfo MangleNamesMsg
 
 {-------------------------------------------------------------------------------
   Additional names required for Haskell code generation

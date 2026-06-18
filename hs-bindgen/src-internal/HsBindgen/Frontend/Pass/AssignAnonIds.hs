@@ -9,18 +9,14 @@ import Data.Map qualified as Map
 import Data.Tuple
 
 import HsBindgen.Frontend.Analysis.AnonUsage
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
@@ -63,7 +59,7 @@ updateParseResult chosenNames result =
   where
     auxSuccess ::
          ParseSuccess l SimplifyAST
-      -> DeclId
+      -> C.DeclId
       -> ParseResult l AssignAnonIds
     auxSuccess success declId' =
         case runM chosenNames updated of
@@ -93,7 +89,7 @@ updateParseResult chosenNames result =
 
     auxNotAttempted ::
          ParseNotAttempted
-      -> DeclId
+      -> C.DeclId
       -> ParseResult l AssignAnonIds
     auxNotAttempted notAttempted declId' = ParseResult{
           id             = declId'
@@ -103,7 +99,7 @@ updateParseResult chosenNames result =
 
     auxFailure ::
          DelayedParseMsg
-      -> DeclId
+      -> C.DeclId
       -> ParseResult l AssignAnonIds
     auxFailure failure declId' = ParseResult{
           id             = declId'
@@ -124,7 +120,7 @@ updateDefSite chosenNames =
     first (withCallStack . AssignAnonIdsSkippedDecl) . fromPrelimDeclId chosenNames
 
 updateDeclInfo ::
-     DeclId
+     C.DeclId
   -> C.DeclInfo SimplifyAST
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info = do
@@ -166,7 +162,7 @@ newtype M a = WrapM (
 -- that if we then try to /update/ those use sites, that will fail.
 --
 -- This is an internal type; the external equivalent is 'ParseUnusableAnonDecl'.
-data UnusableAnonDecl = UnusableAnonDecl AnonId
+data UnusableAnonDecl = UnusableAnonDecl C.AnonId
   deriving stock (Show)
 
 runM :: ChosenNames -> M a -> Either UnusableAnonDecl a
@@ -362,7 +358,7 @@ instance UpdateUseSites C.TypeFunArg where
         , ann = arg.ann
         }
 
-updateDeclId :: PrelimDeclId -> M DeclId
+updateDeclId :: C.PrelimDeclId -> M C.DeclId
 updateDeclId prelimDeclId = WrapM $ do
     chosenNames <- ask
     case fromPrelimDeclId chosenNames prelimDeclId of
@@ -404,13 +400,13 @@ instance UpdateUseSites C.AnonEnumConstant where
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Construct 'HsBindgen.Frontend.Naming.DeclId' from 'C.PrelimDeclId'
+-- | Construct 'C.DeclId' from 'C.PrelimDeclId'
 --
 -- Returns 'Left' an 'C.AnonId' if the 'C.PrelimDeclId' is anonymous and we have
 -- assigned no name.
-fromPrelimDeclId :: ChosenNames -> PrelimDeclId -> Either AnonId DeclId
+fromPrelimDeclId :: ChosenNames -> C.PrelimDeclId -> Either C.AnonId C.DeclId
 fromPrelimDeclId chosenNames = \case
-    PrelimDeclId.Named name ->
-      Right DeclId{name = name, isAnon = False}
-    PrelimDeclId.Anon anonId ->
+    C.PrelimDeclIdNamed name ->
+      Right C.DeclId{name = name, isAnon = False}
+    C.PrelimDeclIdAnon anonId ->
       maybe (Left anonId) Right $ Map.lookup anonId chosenNames

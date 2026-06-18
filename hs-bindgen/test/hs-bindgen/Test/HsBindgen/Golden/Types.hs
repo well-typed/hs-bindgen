@@ -2,11 +2,11 @@
 module Test.HsBindgen.Golden.Types (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (UnsupportedEmptyAnon))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -91,7 +91,7 @@ test_types_anonymous_edge_cases_empty_anon =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct S1", "struct S2"]
 
 test_types_long_double :: TestCase
@@ -137,7 +137,7 @@ test_types_scoping_deep_nesting =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo", "struct bar"]
 
 test_types_scoping_nesting :: TestCase
@@ -148,7 +148,7 @@ test_types_scoping_nesting =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
 test_types_scoping_wide_nesting :: TestCase
@@ -161,7 +161,7 @@ test_types_scoping_wide_nesting =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo", "struct bar"]
 
 test_types_special_parse_failure_long_double :: TestCase
@@ -172,7 +172,7 @@ test_types_special_parse_failure_long_double =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["fun1", "struct struct1"]
 
 test_types_structs_named_vs_anon :: TestCase
@@ -213,7 +213,7 @@ test_types_typedefs_typedefs =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
 -- This tests https://github.com/well-typed/hs-bindgen/issues/1389.
@@ -225,5 +225,5 @@ test_types_typedefs_typenames =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["enum foo", "foo"]

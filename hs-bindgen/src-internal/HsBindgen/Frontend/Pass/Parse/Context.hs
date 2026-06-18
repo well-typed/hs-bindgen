@@ -17,8 +17,8 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Typeable (Typeable)
 import GHC.Records (HasField (..))
 
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 -- | We always need to parse declarations required for scoping as they may
 --   affect other declarations
@@ -28,7 +28,7 @@ data RequiredForScoping =
   deriving stock (Show, Eq, Ord)
 
 data DeclCtx = DeclCtx {
-     kind    :: CNameKind
+     kind    :: C.NameKind
    , scoping :: RequiredForScoping
    }
   deriving stock (Show, Eq, Ord)

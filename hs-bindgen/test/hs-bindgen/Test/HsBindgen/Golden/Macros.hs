@@ -2,10 +2,10 @@
 module Test.HsBindgen.Golden.Macros (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Interface
 import HsBindgen.TraceMsg
 
@@ -74,7 +74,7 @@ test_macros_macro_type_unresolved_tagged =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("struct Unparsable",        "select-parse-failure")
       , ("macro PTR_UNPARSABLE",     "select-transitive-dependencies-missing")
@@ -91,7 +91,7 @@ test_macros_macro_in_fundecl =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- Duplicate symbols
           "bar1", "bar2", "bar3", "bar4"
@@ -109,7 +109,7 @@ test_macros_macro_in_fundecl_vs_typedef =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["quux1", "quux2", "wam1", "wam2"]
 
 test_macros_macro_redefines_global :: TestCase
@@ -120,7 +120,7 @@ test_macros_macro_redefines_global =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
         "stdin"
       , "macro stdin"
@@ -171,7 +171,7 @@ test_macros_parse_intermittent_include_conditional =
               Nothing
           )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("FOO", "redefinition")
       , ("macro FOO", "conflict")

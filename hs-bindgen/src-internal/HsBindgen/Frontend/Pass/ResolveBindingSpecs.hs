@@ -22,17 +22,14 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Monad (mapMaybeM)
@@ -81,7 +78,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       -> MState
       -> C.TranslationUnit l ResolveBindingSpecs
     reconstruct decls' declUseGraph state =
-      let externalIds :: Set DeclId
+      let externalIds :: Set C.DeclId
           externalIds = Map.keysSet state.extTypes
 
           index' :: DeclIndex l
@@ -147,10 +144,10 @@ deriving stock instance HasMacroTypes l => Show (MEnv l)
 
 data MState = MState {
       traces    :: [AMsg ResolveBindingSpecs] -- ^ reverse order
-    , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
-    , noPTypes  :: Map DeclId [Set SourcePath]
-    , omitTypes :: Map DeclId SingleLoc
-    , opqTypes  :: Set DeclId -- ^ opaqued types
+    , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
+    , noPTypes  :: Map C.DeclId [Set SourcePath]
+    , omitTypes :: Map C.DeclId SingleLoc
+    , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
 
@@ -166,13 +163,13 @@ initMState pSpec = MState {
 insertTrace :: AMsg ResolveBindingSpecs -> MState -> MState
 insertTrace msg = #traces %~ (msg :)
 
-insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
+insertExtType :: C.DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 
-insertOpaquedType :: DeclId -> MState -> MState
+insertOpaquedType :: C.DeclId -> MState -> MState
 insertOpaquedType cDeclId = #opqTypes %~ Set.insert cDeclId
 
-deleteNoPType :: DeclId -> SourcePath -> MState -> MState
+deleteNoPType :: C.DeclId -> SourcePath -> MState -> MState
 deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
   where
     aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
@@ -185,7 +182,7 @@ deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: DeclId -> SingleLoc -> MState -> MState
+insertOmittedType :: C.DeclId -> SingleLoc -> MState -> MState
 insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 
 {-------------------------------------------------------------------------------
@@ -340,7 +337,7 @@ resolveDeep ::
 resolveDeep decl (cSpec, hsSpec) = do
     declKind' <- resolve decl.info.id decl.kind
     return C.Decl {
-        info = coercePass decl.info
+        info = C.coercePass decl.info
       , kind = declKind'
       , ann  = PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
       }
@@ -359,13 +356,13 @@ resolveDeep decl (cSpec, hsSpec) = do
 class Resolve a l where
   resolve ::
        HasCallStack
-    => DeclId -- context declaration
+    => C.DeclId -- context declaration
     -> a PreviousPass
     -> M l (a ResolveBindingSpecs)
 
 resolveFlip ::
      Resolve (Flip f n) l
-  => DeclId
+  => C.DeclId
   -> f PreviousPass n
   -> M l (f ResolveBindingSpecs n)
 resolveFlip declId = flipM (resolve declId)
@@ -376,7 +373,7 @@ instance Resolve (C.DeclKind l) l where
       C.DeclUnion union                    -> C.DeclUnion            <$> resolve ctx union
       C.DeclTypedef typedef                -> C.DeclTypedef          <$> resolve ctx typedef
       C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
-      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
+      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (C.coercePass anonEnumConst)
       C.DeclOpaque                         -> return C.DeclOpaque
       C.DeclMacro macro                    -> C.DeclMacro            <$> resolveFlip ctx macro
       C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
@@ -409,7 +406,7 @@ instance Resolve C.StructField l where
         -> C.StructField ResolveBindingSpecs
       reconstruct structFieldType' = C.StructField {
           typ    = structFieldType'
-        , info   = coercePass field.info
+        , info   = C.coercePass field.info
         , offset = field.offset
         , width  = field.width
         , ann    = field.ann
@@ -437,7 +434,7 @@ instance Resolve C.UnionField l where
                  -> C.UnionField ResolveBindingSpecs
       reconstruct unionFieldType' = C.UnionField {
           typ  = unionFieldType'
-        , info = coercePass field.info
+        , info = C.coercePass field.info
         , ann  = field.ann
         }
 
@@ -448,7 +445,7 @@ instance Resolve C.Enum l where
       reconstruct :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
       reconstruct enumType' = C.Enum {
           typ       = enumType'
-        , constants = map coercePass enum.constants
+        , constants = map C.coercePass enum.constants
         , sizeof    = enum.sizeof
         , alignment = enum.alignment
         , ann       = enum.ann
@@ -509,7 +506,7 @@ instance Resolve C.FunctionArg l where
 instance Resolve (Flip TypecheckedMacro l) l where
   resolve ctx (Flip m) = Flip <$> case m of
     MacroType  typ -> MacroType  <$> resolve ctx typ
-    MacroValue val -> MacroValue <$> pure (coercePass val)
+    MacroValue val -> MacroValue <$> pure (C.coercePass val)
 
 instance Resolve (TypecheckedMacroType l) l where
   resolve ctx = \case
@@ -523,8 +520,8 @@ instance Resolve (TypecheckedMacroType l) l where
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1969>
       --
       -- Usage of 'MacroTypeBodyVar' hints at possible drawbacks of our design
-      -- of 'DeclId'. Maybe we can directly refer to external bindings from
-      -- 'DeclId'?
+      -- of 'C.DeclId'. Maybe we can directly refer to external bindings from
+      -- 'C.DeclId'?
       resolveVar ::
            MacroTypeBodyVar Zip
         -> M l (MacroTypeBodyVar ResolveBindingSpecs)
@@ -581,7 +578,7 @@ instance Resolve C.Type l where
     where
       aux ::
            HasCallStack
-        => DeclId
+        => C.DeclId
         -> M l (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
       aux cDeclId = fmap reconstruct <$> auxExt ctx cDeclId
         where
@@ -597,9 +594,9 @@ instance Resolve C.TypeFunArg l where
 
 auxExt ::
      HasCallStack
-  => DeclId
-  -> DeclId
-  -> M l (Maybe ResolvedExtBinding)
+  => C.DeclId
+  -> C.DeclId
+  -> M l (Maybe BindingSpec.ResolvedExtBinding)
 auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
     case Map.lookup cDeclId state.extTypes of
       Just ty -> do
@@ -629,18 +626,18 @@ auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
 -- | Lookup qualified name in the 'HsBindgen.BindingSpec.Private.V1.ResolvedBindingSpec'
 resolveExtBinding ::
      HasCallStack
-  => DeclId
+  => C.DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe (AMsg ResolveBindingSpecs)
-  -> M l (Maybe ResolvedExtBinding)
+  -> M l (Maybe BindingSpec.ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
         case (cTypeSpec.hsName, mHsTypeSpec) of
           (Just hsName, Just hsTypeSpec) -> do
-            let resolved = ResolvedExtBinding {
+            let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
                   , hsName = Hs.ExtRef hsModuleName hsName
                   , cSpec  = cTypeSpec

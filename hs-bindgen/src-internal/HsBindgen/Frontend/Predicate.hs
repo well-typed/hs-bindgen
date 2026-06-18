@@ -27,9 +27,8 @@ import Text.Regex.PCRE.Text ()
 
 import Clang.Paths
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -138,7 +137,7 @@ matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SourcePath
-  -> CDeclName
+  -> C.DeclName
   -> C.Availability
   -> Boolean SelectionPredicate
   -> Bool
@@ -222,9 +221,9 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
     HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: CDeclName -> C.Availability -> DeclPredicate -> Bool
+matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool
 matchDecl cDeclName availability = \case
-    DeclNameMatches re -> matchTest re $ renderCDeclName cDeclName
+    DeclNameMatches re -> matchTest re $ C.renderDeclName cDeclName
     DeclDeprecated     -> isDeprecated
   where
     isDeprecated = case availability of

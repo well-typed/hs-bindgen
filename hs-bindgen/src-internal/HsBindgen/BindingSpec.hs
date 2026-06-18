@@ -9,6 +9,7 @@ module HsBindgen.BindingSpec (
     BindingSpec -- opaque
   , ExternalBindingSpec
   , PrescriptiveBindingSpec
+  , ResolvedExtBinding(..)
     -- ** Configuration
   , EnableStdlibBindingSpec(..)
   , BindingSpecConfig(..)
@@ -44,6 +45,7 @@ module HsBindgen.BindingSpec (
   , getCTypes
   , lookupCTypeSpec
   , lookupHsTypeSpec
+  , extDeclIdPair
     -- ** Merging
   , BindingSpec.MergedBindingSpecs
   , BindingSpec.lookupMergedBindingSpecs
@@ -59,8 +61,8 @@ import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
@@ -95,6 +97,22 @@ type ExternalBindingSpec = BindingSpec
 --
 -- This type alias is just used as documentation.
 type PrescriptiveBindingSpec = BindingSpec
+
+-- | Resolved external binding
+data ResolvedExtBinding = ResolvedExtBinding{
+      -- | C declaration for which we are using this binding
+      cName :: C.DeclId
+
+      -- | The Haskell type which will be used
+    , hsName :: Hs.ExtRef
+
+      -- | Additional information about the C type
+    , cSpec :: BindingSpec.CTypeSpec
+
+      -- | Additional information about the Haskell type
+    , hsSpec :: BindingSpec.HsTypeSpec
+    }
+  deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
   Public API: Configuration
@@ -256,8 +274,8 @@ loadBindingSpecs tracer args hsModuleName config =
 encode :: Common.Format -> BindingSpec -> ByteString
 encode format spec = BindingSpec.encode defCompareCDeclId format spec.unresolved
   where
-    defCompareCDeclId :: DeclId -> DeclId -> Ordering
-    defCompareCDeclId = Ord.comparing renderDeclId
+    defCompareCDeclId :: C.DeclId -> C.DeclId -> Ordering
+    defCompareCDeclId = Ord.comparing C.renderDeclId
 
 {-------------------------------------------------------------------------------
   Internal API
@@ -279,13 +297,13 @@ moduleName spec = spec.unresolved.moduleName
 -------------------------------------------------------------------------------}
 
 -- | Get the C types in a binding specification
-getCTypes :: BindingSpec -> Map DeclId [Set SourcePath]
+getCTypes :: BindingSpec -> Map C.DeclId [Set SourcePath]
 getCTypes spec = BindingSpec.getCTypes spec.resolved
 
 -- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
 -- type
 lookupCTypeSpec ::
-     DeclId
+     C.DeclId
   -> Set SourcePath
   -> BindingSpec
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
@@ -299,3 +317,10 @@ lookupHsTypeSpec ::
   -> Maybe BindingSpec.HsTypeSpec
 lookupHsTypeSpec hsIdentifier spec =
     BindingSpec.lookupHsTypeSpec hsIdentifier spec.resolved
+
+-- | Get the 'C.DeclIdPair' for a 'ResolvedExtBinding'
+extDeclIdPair :: ResolvedExtBinding -> C.DeclIdPair
+extDeclIdPair ext = C.DeclIdPair{
+      cName  = ext.cName
+    , hsName = Hs.demoteNs ext.hsName.name
+    }

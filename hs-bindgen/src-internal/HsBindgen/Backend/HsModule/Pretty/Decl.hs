@@ -20,8 +20,8 @@ import HsBindgen.Backend.HsModule.Pretty.Comment
 import HsBindgen.Backend.HsModule.Pretty.Expr ()
 import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Frontend.Naming
 import HsBindgen.Instances as Inst
+import HsBindgen.IR.C qualified as C
 
 instance Pretty SDecl where
   pretty = \case

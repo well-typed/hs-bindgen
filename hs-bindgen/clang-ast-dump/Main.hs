@@ -26,7 +26,7 @@ import Clang.Paths
 
 import HsBindgen.Clang
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Resolve (resolveHeaders)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -39,7 +39,7 @@ data Options = Options {
       builtin         :: Bool
     , comments        :: Bool
     , extents         :: Bool
-    , file            :: HashIncludeArg
+    , file            :: C.HashIncludeArg
     , kind            :: Bool
     , includePath     :: [FilePath]
     , clangArgsInner  :: [String]
@@ -500,8 +500,8 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       , OA.help "Pass option to clang"
       ]
 
-    fileArgument :: OA.Parser HashIncludeArg
-    fileArgument = fmap HashIncludeArg . OA.strArgument $ mconcat
+    fileArgument :: OA.Parser C.HashIncludeArg
+    fileArgument = fmap C.HashIncludeArg . OA.strArgument $ mconcat
       [ OA.metavar "FILE"
       , OA.help "C (header) file to parse"
       ]

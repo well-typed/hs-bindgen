@@ -7,14 +7,12 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   , MacroTypeBodyVar(..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -35,13 +33,27 @@ type family AnnTypecheckMacros (ix :: Symbol) :: Star where
   AnnTypecheckMacros "Global"          = ReparseInfo Tokens
   AnnTypecheckMacros _                 = NoAnn
 
-instance IsPass TypecheckMacros where
-  type MacroBody   TypecheckMacros = TypecheckedMacro TypecheckMacros
-  type Ann ix      TypecheckMacros = AnnTypecheckMacros ix
-  type Msg         TypecheckMacros = NoMsg Level
-  type MacroId     TypecheckMacros = Id TypecheckMacros
-  type CommentDecl TypecheckMacros = Maybe (C.Comment TypecheckMacros)
+instance IsPass TypecheckMacros
+
+instance PassId TypecheckMacros
+
+instance PassScopedName TypecheckMacros
+
+instance PassMacro TypecheckMacros where
+  type MacroId   TypecheckMacros = Id TypecheckMacros
+  type MacroBody TypecheckMacros = TypecheckedMacro TypecheckMacros
+
   macroIdId _ = id
+
+instance PassExtBinding TypecheckMacros
+
+instance PassCommentDecl TypecheckMacros where
+  type CommentDecl TypecheckMacros = Maybe (C.Comment TypecheckMacros)
+
+instance PassAnn TypecheckMacros where
+  type Ann ix TypecheckMacros = AnnTypecheckMacros ix
+
+instance PassMsg TypecheckMacros
 
 {-------------------------------------------------------------------------------
   Checked macros
@@ -85,53 +97,53 @@ deriving stock instance IsPass p => Show (MacroTypeBodyVar p)
 -------------------------------------------------------------------------------}
 
 instance (
-      CoercePassId p p'
+      C.CoercePassId p p'
     , ExtBinding p ~ ExtBinding p'
     , Ann "TypecheckedMacroType" p ~ Ann "TypecheckedMacroType" p'
-    ) => CoercePassParam TypecheckedMacro p p' where
+    ) => C.CoercePassParam TypecheckedMacro p p' where
   coercePassParam = \case
-    MacroType  typ -> MacroType  (coercePass typ)
-    MacroValue val -> MacroValue (coercePass val)
+    MacroType  typ -> MacroType  (C.coercePass typ)
+    MacroValue val -> MacroValue (C.coercePass val)
 
 instance (
-      CoercePassId p p'
+      C.CoercePassId p p'
     , ExtBinding p ~ ExtBinding p'
-    ) => CoercePass MacroTypeBodyVar p p' where
+    ) => C.CoercePass MacroTypeBodyVar p p' where
   coercePass = \case
     MacroTypeExtBinding x -> MacroTypeExtBinding x
-    MacroTypeBodyVar    x -> MacroTypeBodyVar (coercePassId (Proxy @'(p, p')) x)
+    MacroTypeBodyVar    x -> MacroTypeBodyVar (C.coercePassId (Proxy @'(p, p')) x)
 
 instance (
-      CoercePassId p p'
+      C.CoercePassId p p'
     , ExtBinding p ~ ExtBinding p'
     , Ann "TypecheckedMacroType" p ~ Ann "TypecheckedMacroType" p'
-    ) => CoercePass (TypecheckedMacroType l) p p' where
+    ) => C.CoercePass (TypecheckedMacroType l) p p' where
   coercePass (TypecheckedMacroType body ann) =
     TypecheckedMacroType{
-        body = fmap coercePass body
+        body = fmap C.coercePass body
       , ann  = ann
       }
 
-instance CoercePassId p p' => CoercePass (TypecheckedMacroValue l) p p' where
+instance C.CoercePassId p p' => C.CoercePass (TypecheckedMacroValue l) p p' where
   coercePass (TypecheckedMacroValue body) =
     TypecheckedMacroValue{
-        body = fmap (coercePassId (Proxy @'(p, p'))) body
+        body = fmap (C.coercePassId (Proxy @'(p, p'))) body
       }
 
 {-------------------------------------------------------------------------------
   CoercePass: ConstructTranslationUnit → TypecheckMacros
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               ConstructTranslationUnit TypecheckMacros
-instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros where
+instance C.CoercePassId               ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassMacroId          ConstructTranslationUnit TypecheckMacros where
     coercePassMacroId _ = absurd
-instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
 
-instance CoercePassAnn "TypeFunArg"  ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "StructField" ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "UnionField"  ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "Typedef"     ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "Function"    ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "Global"      ConstructTranslationUnit TypecheckMacros
-instance CoercePassCommentDecl       ConstructTranslationUnit TypecheckMacros where
-  coercePassCommentDecl _ = fmap coercePass
+instance C.CoercePassAnn "TypeFunArg"  ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassAnn "StructField" ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassAnn "UnionField"  ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassAnn "Typedef"     ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassAnn "Function"    ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassAnn "Global"      ConstructTranslationUnit TypecheckMacros
+instance C.CoercePassCommentDecl       ConstructTranslationUnit TypecheckMacros where
+  coercePassCommentDecl _ = fmap C.coercePass

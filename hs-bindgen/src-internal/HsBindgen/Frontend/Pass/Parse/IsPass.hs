@@ -18,13 +18,10 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Clang.Macros (MacroInvocation (name))
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------
@@ -44,17 +41,29 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse "Global"      = ReparseInfo Tokens
   AnnParse _             = NoAnn
 
-instance IsPass Parse where
-  type Id          Parse = PrelimDeclId
-  type MacroBody   Parse = ParsedMacroBody
-  type ExtBinding  Parse = Void
-  type Ann ix      Parse = AnnParse ix
-  type Msg         Parse = WithLocationInfo ImmediateParseMsg
-  type CommentDecl Parse = ()
+instance IsPass Parse
 
-  idNameKind     _ = PrelimDeclId.nameKind
-  idSourceName   _ = PrelimDeclId.sourceName
-  idLocationInfo _ = prelimDeclIdLocationInfo
+instance PassId Parse where
+  type Id Parse = C.PrelimDeclId
+
+  idNameKind     _ = C.prelimDeclIdNameKind
+  idSourceName   _ = C.prelimDeclIdSourceName
+  idLocationInfo _ = C.prelimDeclIdLocationInfo
+
+instance PassScopedName Parse
+
+instance PassMacro Parse where
+  type MacroBody Parse = ParsedMacroBody
+
+instance PassExtBinding Parse
+
+instance PassCommentDecl Parse
+
+instance PassAnn Parse where
+  type Ann ix Parse = AnnParse ix
+
+instance PassMsg Parse where
+  type Msg Parse = C.WithLocationInfo ImmediateParseMsg
 
 {-------------------------------------------------------------------------------
   Macros
@@ -113,7 +122,7 @@ data ImplicitFieldOrigin = ImplicitFieldOrigin {
     -- equal to the offset from the enclosing object to the first field of the
     -- anonymous struct or union. The first field can also be an indirect field
     -- if there are multiple levels of nested anonymous structs/unions.
-  , field :: CScopedName
+  , field :: C.ScopedName
   }
   deriving stock (Show, Eq, Ord)
 

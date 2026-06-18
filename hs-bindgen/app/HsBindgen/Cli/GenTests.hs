@@ -20,7 +20,7 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ data Opts = Opts {
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
     , output         :: FilePath
-    , inputs         :: [UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts

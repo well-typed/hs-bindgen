@@ -20,15 +20,13 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
+import HsBindgen.Frontend.Analysis.Deps
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Deps
-import HsBindgen.Frontend.AST.Type (ValOrRef)
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -55,7 +53,7 @@ fromDecls macroLang includeGraph declIndex = DeclUseGraph $
     orderMap :: Map SourcePath Int
     orderMap = IncludeGraph.toOrderMap includeGraph
 
-    allDeclIds, successfulDeclIds, failedDeclIds :: Set DeclId
+    allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
     allDeclIds        = DeclIndex.keysSet declIndex
     successfulDeclIds = Set.fromList $ map (.info.id) successfulDecls
     failedDeclIds = allDeclIds Set.\\ successfulDeclIds
@@ -64,7 +62,7 @@ fromDecls macroLang includeGraph declIndex = DeclUseGraph $
     -- For successfully parsed declarations, we do this in source order.  This
     -- ensures that we preserve source order as much as possible in 'toDecls'
     -- (modulo dependencies).
-    verticesGraph :: Digraph ValOrRef DeclId
+    verticesGraph :: Digraph C.ValOrRef C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
       map (.info.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
 
@@ -73,23 +71,23 @@ fromDecls macroLang includeGraph declIndex = DeclUseGraph $
     -- below).
     insertDepsOfDeclParsedMacro ::
          C.Decl l EnrichComments
-      -> Digraph ValOrRef DeclId
-      -> Digraph ValOrRef DeclId
+      -> Digraph C.ValOrRef C.DeclId
+      -> Digraph C.ValOrRef C.DeclId
     insertDepsOfDeclParsedMacro decl =
       insertDeps decl.info.id (depsOfDeclParsedMacro macroLang allDeclIds decl.kind)
 
 insertDeps ::
      (HasCallStack)
-  => DeclId
-  -> [(ValOrRef, DeclId)]
-  -> Digraph ValOrRef DeclId
-  -> Digraph ValOrRef DeclId
+  => C.DeclId
+  -> [(C.ValOrRef, C.DeclId)]
+  -> Digraph C.ValOrRef C.DeclId
+  -> Digraph C.ValOrRef C.DeclId
 insertDeps source = flip (foldl' aux)
   where
     aux ::
-         Digraph ValOrRef DeclId
-      -> (ValOrRef, DeclId)
-      -> Digraph ValOrRef DeclId
+         Digraph C.ValOrRef C.DeclId
+      -> (C.ValOrRef, C.DeclId)
+      -> Digraph C.ValOrRef C.DeclId
     aux graph (edge, target) =
       case Digraph.insertEdgeIfVerticesExist target edge source graph of
         Digraph.InsertEdgeSuccess graph' -> graph'
@@ -116,7 +114,7 @@ insertDepsOfDecl macroLang decl declUseGraph = DeclUseGraph $
 --
 -- This function is used when a type is opaqued, in which case the type no
 -- longer has dependencies.
-deleteDeps :: Set DeclId -> DeclUseGraph -> DeclUseGraph
+deleteDeps :: Set C.DeclId -> DeclUseGraph -> DeclUseGraph
 deleteDeps depIds declUseGraph = DeclUseGraph{
       graph = Digraph.deleteEdgesTo depIds declUseGraph.graph
     }
@@ -125,7 +123,7 @@ deleteDeps depIds declUseGraph = DeclUseGraph{
 --
 -- This function is used when a type is replaced with an external reference, in
 -- which case all uses of the type no longer directly depend on the type.
-deleteRevDeps :: Set DeclId -> DeclUseGraph -> DeclUseGraph
+deleteRevDeps :: Set C.DeclId -> DeclUseGraph -> DeclUseGraph
 deleteRevDeps depIds declUseGraph = DeclUseGraph{
       graph = Digraph.deleteEdgesFrom depIds declUseGraph.graph
     }

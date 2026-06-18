@@ -15,10 +15,7 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.Decl.Field
 import HsBindgen.Frontend.Pass.Parse.Decl.Macro
@@ -26,12 +23,11 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Members
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
@@ -104,15 +100,15 @@ parseDecl' ::
   -> Parser l
 parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       -- Ordinary kinds that we parse
-      Right CXCursor_FunctionDecl    -> parseDeclWith enclosing (push CNameKindOrdinary NotRequiredForScoping) (functionDecl macroLang)
-      Right CXCursor_VarDecl         -> parseDeclWith enclosing (push CNameKindOrdinary NotRequiredForScoping) (varDecl macroLang)
-      Right CXCursor_TypedefDecl     -> parseDeclWith enclosing (push CNameKindOrdinary RequiredForScoping)    typedefDecl
-      Right CXCursor_MacroDefinition -> parseDeclWith enclosing (push CNameKindMacro    NotRequiredForScoping) (macroDefinition macroLang)
+      Right CXCursor_FunctionDecl    -> parseDeclWith enclosing (push C.NameKindOrdinary NotRequiredForScoping) (functionDecl macroLang)
+      Right CXCursor_VarDecl         -> parseDeclWith enclosing (push C.NameKindOrdinary NotRequiredForScoping) (varDecl macroLang)
+      Right CXCursor_TypedefDecl     -> parseDeclWith enclosing (push C.NameKindOrdinary RequiredForScoping)    typedefDecl
+      Right CXCursor_MacroDefinition -> parseDeclWith enclosing (push C.NameKindMacro    NotRequiredForScoping) (macroDefinition macroLang)
 
       -- Tagged kinds that we parse
-      Right CXCursor_StructDecl -> parseDeclWith enclosing (push (CNameKindTagged CTagKindStruct) NotRequiredForScoping) (structDecl macroLang)
-      Right CXCursor_UnionDecl  -> parseDeclWith enclosing (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) (unionDecl macroLang)
-      Right CXCursor_EnumDecl   -> parseDeclWith enclosing (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
+      Right CXCursor_StructDecl -> parseDeclWith enclosing (push (C.NameKindTagged C.TagKindStruct) NotRequiredForScoping) (structDecl macroLang)
+      Right CXCursor_UnionDecl  -> parseDeclWith enclosing (push (C.NameKindTagged C.TagKindUnion)  NotRequiredForScoping) (unionDecl macroLang)
+      Right CXCursor_EnumDecl   -> parseDeclWith enclosing (push (C.NameKindTagged C.TagKindEnum)   NotRequiredForScoping) enumDecl
 
       -- Process macro expansions independent of any selection predicates
       Right CXCursor_MacroExpansion -> macroExpansion
@@ -141,7 +137,7 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
         Just ctx ->
           failUnrecognizedKind ctx eKind >=> foldContinueWith
   where
-    push :: CNameKind -> RequiredForScoping -> ParseCtx
+    push :: C.NameKind -> RequiredForScoping -> ParseCtx
     push kind scoping =
       let ctx = DeclCtx kind scoping
       in  case mCtx of
@@ -196,7 +192,7 @@ parseDeclWith ::
   -> ([C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser l)
   -> Parser l
 parseDeclWith enclosing ctx parser curr = do
-    mBuiltin <- PrelimDeclId.checkIsBuiltin curr
+    mBuiltin <- checkIsBuiltin curr
     case mBuiltin of
       Just _name -> foldContinue
       Nothing    -> withDeclInfo enclosing ctx parseExplicitDecl curr
@@ -249,10 +245,10 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         range  <- HighLevel.clang_getCursorExtent curr'
         (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
-    getMacroName :: PrelimDeclId -> Maybe Text
+    getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case
-        PrelimDeclId.Named declName -> Just declName.text
-        PrelimDeclId.Anon{}          -> Nothing
+        C.PrelimDeclIdNamed declName -> Just declName.text
+        C.PrelimDeclIdAnon{}         -> Nothing
 
 -- | Parse an struct declaration
 --
@@ -668,7 +664,7 @@ functionDecl macroLang enclosing ctx info =
               let mbArgName =
                     if Text.null argName
                        then Nothing
-                       else Just (CScopedName argName)
+                       else Just (C.ScopedName argName)
 
               return C.FunctionArg {
                   name = mbArgName
@@ -925,7 +921,7 @@ withDeclInfo ::
   -> (C.DeclInfo Parse -> Parser l)
   -> Parser l
 withDeclInfo enclosing ctx k = \curr -> do
-    declId          <- PrelimDeclId.atCursor curr ctx.inner.kind
+    declId          <- C.prelimDeclIdAtCursor curr ctx.inner.kind
     declLoc         <- HighLevel.clang_getCursorLocation' curr
     (withHeaderInfo ctx declId declLoc $ \headerInfo ->
       withAvailability ctx declId declLoc $ \availability curr' -> do
@@ -949,7 +945,7 @@ withDeclInfo enclosing ctx k = \curr -> do
 -- The continuation is only called when the availability can be determined.
 withAvailability ::
      ParseCtx
-  -> PrelimDeclId
+  -> C.PrelimDeclId
   -> SingleLoc
   -> (C.Availability -> Parser l)
   -> Parser l
@@ -980,7 +976,7 @@ withAvailability ctx declId declLoc k = \curr -> do
 -- The continuation is only called when the header information can be determined.
 withHeaderInfo ::
      ParseCtx
-  -> PrelimDeclId
+  -> C.PrelimDeclId
   -> SingleLoc
   -> (C.HeaderInfo -> Parser l)
   -> Parser l
@@ -993,7 +989,7 @@ withHeaderInfo ctx declId declLoc k = \curr -> do
     Right res ->
       k (uncurry aux res) curr
   where
-    aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
+    aux :: NonEmpty C.HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
     aux mainHeaders include = C.HeaderInfo{
         mainHeaders     = mainHeaders
       , includeArg      = IncludeGraph.getIncludeArg      include
@@ -1104,9 +1100,9 @@ partitionAnonDecls ::
 partitionAnonDecls =
     List.partition $ \decl -> declIdIsAnon decl.info.id
   where
-    declIdIsAnon :: PrelimDeclId -> Bool
-    declIdIsAnon PrelimDeclId.Anon{} = True
-    declIdIsAnon _otherwise          = False
+    declIdIsAnon :: C.PrelimDeclId -> Bool
+    declIdIsAnon C.PrelimDeclIdAnon{} = True
+    declIdIsAnon _otherwise           = False
 
 -- | Parse macro tokens
 --
@@ -1115,7 +1111,7 @@ partitionAnonDecls =
 -- expression typechecking happen later in 'TypecheckMacros'.
 parseMacroTokens ::
      MacroLang l
-  -> PrelimDeclId
+  -> C.PrelimDeclId
   -> [Token TokenSpelling]
   -> Either DelayedParseMsg (ParsedMacroBody l)
 parseMacroTokens macroLang name = \case

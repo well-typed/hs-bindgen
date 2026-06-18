@@ -9,18 +9,15 @@ import GHC.Stack
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST.Decl qualified as C ()
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Type (ParseType)
 import HsBindgen.Frontend.Pass.Parse.Monad.Type qualified as ParseType
 import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -115,7 +112,7 @@ pointer = clang_getPointeeType >=> fmap (C.TypePointers 1) . cxtype
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl     <- clang_getTypeDeclaration ty
-    mBuiltin <- PrelimDeclId.checkIsBuiltin decl
+    mBuiltin <- checkIsBuiltin decl
     case mBuiltin of
       Just builtin ->
         -- Built-in types don't have a corresponding declaration; if we want
@@ -124,18 +121,18 @@ fromDecl ty = do
         throwError $ ParseUnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeEnum decl
-        CXCursor_StructDecl -> checkVisibleDecl decl CTagKindStruct
-                            >> typeRef decl CTagKindStruct
-        CXCursor_UnionDecl  -> checkVisibleDecl decl CTagKindUnion
-                            >> typeRef decl CTagKindUnion
+        CXCursor_StructDecl -> checkVisibleDecl decl C.TagKindStruct
+                            >> typeRef decl C.TagKindStruct
+        CXCursor_UnionDecl  -> checkVisibleDecl decl C.TagKindUnion
+                            >> typeRef decl C.TagKindUnion
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
         kind -> throwError $ ParseUnexpectedCursorKind (Right kind)
 
-typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
+typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
 typeRef decl kind =
-    C.TypeRef <$> PrelimDeclId.atCursor decl (CNameKindTagged kind)
+    C.TypeRef <$> C.prelimDeclIdAtCursor decl (C.NameKindTagged kind)
 
 -- | Check that a struct/union declaration is visible outside a function
 -- prototype.
@@ -156,7 +153,7 @@ typeRef decl kind =
 -- void k(struct { int x; char c; } arg); -- rejected: parent is FunctionDecl
 -- @
 --
-checkVisibleDecl :: CXCursor -> CTagKind -> ParseType ()
+checkVisibleDecl :: CXCursor -> C.TagKind -> ParseType ()
 checkVisibleDecl decl kind = do
     parent     <- clang_getCursorSemanticParent decl
     parentKind <- fromSimpleEnum <$> clang_getCursorKind parent
@@ -166,10 +163,10 @@ checkVisibleDecl decl kind = do
 
 typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeEnum decl = do
-    declId <- PrelimDeclId.atCursor decl (CNameKindTagged CTagKindEnum)
+    declId <- C.prelimDeclIdAtCursor decl (C.NameKindTagged C.TagKindEnum)
     -- Enums can be anonymous. In such cases, we bypass the cache and parse the
     -- enum type directly.
-    let mDeclName = PrelimDeclId.sourceName declId
+    let mDeclName = C.prelimDeclIdSourceName declId
     ParseType.cachedMaybe mDeclName $ do
       underlying <- handle (addUnderlyingTypeContextHandler declId)
                       (cxtype =<< clang_getEnumDeclIntegerType decl)
@@ -180,10 +177,10 @@ typeEnum decl = do
 
 typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeTypedef curr = do
-    declId <- PrelimDeclId.atCursor curr CNameKindOrdinary
+    declId <- C.prelimDeclIdAtCursor curr C.NameKindOrdinary
     -- Typedefs can not be anonymous, but we use 'cachedMaybe' for safety
     -- anyway
-    let mDeclName = PrelimDeclId.sourceName declId
+    let mDeclName = C.prelimDeclIdSourceName declId
     ParseType.cachedMaybe mDeclName $ do
         underlying <- handle (addUnderlyingTypeContextHandler declId) $
                         getUnderlyingType curr
@@ -257,7 +254,10 @@ blockPointer ty = do
   Underlying types
 -------------------------------------------------------------------------------}
 
-addUnderlyingTypeContextHandler :: PrelimDeclId -> SomeException -> ParseType a
+addUnderlyingTypeContextHandler ::
+     C.PrelimDeclId
+  -> SomeException
+  -> ParseType a
 addUnderlyingTypeContextHandler n e
   | Just e' <- (fromException @DelayedParseMsg e)
   = throwM (ParseUnderlyingTypeFailed n e')

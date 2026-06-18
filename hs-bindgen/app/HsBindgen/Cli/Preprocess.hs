@@ -23,8 +23,8 @@ import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
 import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ data ConfigCLI = ConfigCLI {
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs            :: [UncheckedHashIncludeArg]
+    , inputs            :: [C.UncheckedHashIncludeArg]
     }
   deriving (Generic)
 

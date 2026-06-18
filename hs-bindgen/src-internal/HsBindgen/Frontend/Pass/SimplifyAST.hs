@@ -9,16 +9,12 @@ import GHC.Stack (HasCallStack)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (..))
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (withCallStack)
 
@@ -52,7 +48,7 @@ simplifyAST usage parseResults = (results, msgs)
           case success.decl of
             -- Found anonymous enum: check if it has use sites
             C.Decl{info, kind = C.DeclEnum enum}
-              | Anon anonId <- info.id
+              | C.PrelimDeclIdAnon anonId <- info.id
               , Map.notMember anonId usage.map ->
                 ( [ result {
                      id = newId
@@ -61,17 +57,17 @@ simplifyAST usage parseResults = (results, msgs)
                               info = newInfo
                             , kind = C.DeclAnonEnumConstant C.AnonEnumConstant{
                                      typ      = extractPrimType enum.typ
-                                   , constant = coercePass constant
+                                   , constant = C.coercePass constant
                                    }
                             , ann = NoAnn
                             }
                                           }
                    }
                  | constant <- enum.constants
-                 , let CScopedName nameText = constant.info.name
-                       newId = Named (CDeclName nameText CNameKindOrdinary)
+                 , let C.ScopedName nameText = constant.info.name
+                       newId = C.PrelimDeclIdNamed (C.DeclName nameText C.NameKindOrdinary)
                        newInfo :: C.DeclInfo SimplifyAST
-                       newInfo = (coercePass info :: C.DeclInfo SimplifyAST)
+                       newInfo = (C.coercePass info :: C.DeclInfo SimplifyAST)
                                    { C.id = newId }
                  ]
                 , [withCallStack (SimplifyASTAnonymousEnum anonId)]
@@ -81,8 +77,8 @@ simplifyAST usage parseResults = (results, msgs)
                     , loc = result.loc
                     , classification = ParseResultSuccess success {
                         decl = C.Decl{
-                          info = coercePass decl.info
-                        , kind = coercePass decl.kind
+                          info = C.coercePass decl.info
+                        , kind = C.coercePass decl.kind
                         , ann = NoAnn
                         }
                       }

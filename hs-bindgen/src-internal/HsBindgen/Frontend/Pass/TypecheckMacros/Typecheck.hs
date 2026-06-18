@@ -10,14 +10,11 @@ import Data.Set qualified as Set
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -25,7 +22,7 @@ type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
 type CType = C.Type Out
 
-type FailedMacro = (DeclId, SingleLoc, MacroTypecheckError)
+type FailedMacro = (C.DeclId, SingleLoc, MacroTypecheckError)
 
 {-------------------------------------------------------------------------------
   Traversal 2: Typecheck macros
@@ -46,7 +43,7 @@ type FailedMacro = (DeclId, SingleLoc, MacroTypecheckError)
 typecheckDecls ::
      forall l. HasMacroTypes l
   => MacroLang l
-  -> Map DeclId CType
+  -> Map C.DeclId CType
   -> [C.Decl l In]
   -> ([Either FailedMacro (C.Decl l Out)], Set Text)
 typecheckDecls macroLang knownTypes decls =
@@ -77,17 +74,17 @@ coerceDecl ::
   -> CoerceResult l
 coerceDecl decl = case decl.kind of
     C.DeclMacro            _ -> Macro info'
-    C.DeclTypedef          k -> nonMacro $ C.DeclTypedef          $ coercePass k
-    C.DeclStruct           k -> nonMacro $ C.DeclStruct           $ coercePass k
-    C.DeclUnion            k -> nonMacro $ C.DeclUnion            $ coercePass k
-    C.DeclEnum             k -> nonMacro $ C.DeclEnum             $ coercePass k
-    C.DeclAnonEnumConstant k -> nonMacro $ C.DeclAnonEnumConstant $ coercePass k
+    C.DeclTypedef          k -> nonMacro $ C.DeclTypedef          $ C.coercePass k
+    C.DeclStruct           k -> nonMacro $ C.DeclStruct           $ C.coercePass k
+    C.DeclUnion            k -> nonMacro $ C.DeclUnion            $ C.coercePass k
+    C.DeclEnum             k -> nonMacro $ C.DeclEnum             $ C.coercePass k
+    C.DeclAnonEnumConstant k -> nonMacro $ C.DeclAnonEnumConstant $ C.coercePass k
     C.DeclOpaque             -> nonMacro $ C.DeclOpaque
-    C.DeclFunction         k -> nonMacro $ C.DeclFunction         $ coercePass k
-    C.DeclGlobal           k -> nonMacro $ C.DeclGlobal           $ coercePass k
+    C.DeclFunction         k -> nonMacro $ C.DeclFunction         $ C.coercePass k
+    C.DeclGlobal           k -> nonMacro $ C.DeclGlobal           $ C.coercePass k
   where
     info' :: C.DeclInfo Out
-    info' = coercePass decl.info
+    info' = C.coercePass decl.info
 
     nonMacro :: C.DeclKind l Out -> CoerceResult l
     nonMacro kind' = NonMacro (C.Decl info' kind' decl.ann)

@@ -11,7 +11,7 @@ module HsBindgen.Macro.CExpr (
 import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck qualified as CExpr
 
-import HsBindgen.Frontend.Naming
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type
 
 -- | Tag for the default C macro language, backed by @c-expr-dsl@.
@@ -46,8 +46,8 @@ deriving stock instance Traversable (TypecheckedMacroValueBody CExpr)
   Internal helpers
 -------------------------------------------------------------------------------}
 
-convertTagKind :: CExpr.TagKind -> CTagKind
+convertTagKind :: CExpr.TagKind -> C.TagKind
 convertTagKind = \case
-  CExpr.TagStruct -> CTagKindStruct
-  CExpr.TagUnion  -> CTagKindUnion
-  CExpr.TagEnum   -> CTagKindEnum
+  CExpr.TagStruct -> C.TagKindStruct
+  CExpr.TagUnion  -> C.TagKindUnion
+  CExpr.TagEnum   -> C.TagKindEnum

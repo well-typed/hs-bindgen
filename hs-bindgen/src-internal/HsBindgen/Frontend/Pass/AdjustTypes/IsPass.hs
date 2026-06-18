@@ -3,16 +3,12 @@ module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
   , AdjustedFrom (..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Util.Tracer
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -32,22 +28,37 @@ type family AnnAdjustTypes ix where
   AnnAdjustTypes "TypeFunArg"           = AdjustedFrom AdjustTypes
   AnnAdjustTypes _                      = NoAnn
 
-instance IsPass AdjustTypes where
-  type Id              AdjustTypes = DeclIdPair
-  type ScopedName      AdjustTypes = ScopedNamePair
-  type MacroBody       AdjustTypes = TypecheckedMacro AdjustTypes
-  type ExtBinding      AdjustTypes = ResolvedExtBinding
-  type Ann ix          AdjustTypes = AnnAdjustTypes ix
-  type Msg             AdjustTypes = NoMsg Level
-  type MacroId         AdjustTypes = Id AdjustTypes
-  type CommentDecl     AdjustTypes = Maybe (C.Comment AdjustTypes)
-  type MacroUnderlying AdjustTypes = C.Type AdjustTypes
+instance IsPass AdjustTypes
+
+instance PassId AdjustTypes where
+  type Id AdjustTypes = C.DeclIdPair
 
   idNameKind     _ namePair = namePair.cName.name.kind
-  idSourceName   _ namePair = declIdSourceName namePair.cName
-  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
-  extBindingId _ extBinding = extDeclIdPair extBinding
+  idSourceName   _ namePair = C.declIdSourceName namePair.cName
+  idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
+
+instance PassScopedName AdjustTypes where
+  type ScopedName AdjustTypes = C.ScopedNamePair
+
+instance PassMacro AdjustTypes where
+  type MacroId         AdjustTypes = Id AdjustTypes
+  type MacroBody       AdjustTypes = TypecheckedMacro AdjustTypes
+  type MacroUnderlying AdjustTypes = C.Type AdjustTypes
+
   macroIdId _ = id
+
+instance PassExtBinding AdjustTypes where
+  type ExtBinding AdjustTypes = BindingSpec.ResolvedExtBinding
+
+  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+
+instance PassCommentDecl AdjustTypes where
+  type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)
+
+instance PassAnn AdjustTypes where
+  type Ann ix AdjustTypes = AnnAdjustTypes ix
+
+instance PassMsg AdjustTypes
 
 {-------------------------------------------------------------------------------
   Annotations
@@ -63,8 +74,8 @@ data AdjustedFrom p =
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId      MangleNames AdjustTypes
-instance CoercePassMacroId MangleNames AdjustTypes
+instance C.CoercePassId      MangleNames AdjustTypes
+instance C.CoercePassMacroId MangleNames AdjustTypes
 
-instance CoercePassCommentDecl MangleNames AdjustTypes where
-  coercePassCommentDecl _ = fmap coercePass
+instance C.CoercePassCommentDecl MangleNames AdjustTypes where
+  coercePassCommentDecl _ = fmap C.coercePass

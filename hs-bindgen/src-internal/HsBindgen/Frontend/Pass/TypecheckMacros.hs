@@ -7,19 +7,16 @@ import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
 import HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -53,9 +50,9 @@ typecheckMacros macroLang unit =
           partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
         , Map.fromList [
-              (n, coercePass v)
+              (n, C.coercePass v)
             | (declId, v) <- Map.toList knownTypes
-            , Just n <- [renderNonAnonDeclId declId]
+            , Just n <- [C.renderNonAnonDeclId declId]
             ]
         , resolvedMacros
         )

@@ -29,10 +29,10 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Config (FieldNamingStrategy)
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Instances as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Util.Rational (canBeRepresentedAsRational)
