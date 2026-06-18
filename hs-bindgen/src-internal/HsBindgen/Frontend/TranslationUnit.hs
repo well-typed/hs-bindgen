@@ -61,11 +61,11 @@ deriving stock instance ( IsPass p
                         ) => Show (TranslationUnit l p)
 
 instance (
-      C.CoercePass (C.Decl l) p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => C.CoercePass (TranslationUnit l) p p' where
+    ) => CoercePass (TranslationUnit l) p p' where
   coercePass unit = TranslationUnit{
-        decls        = map C.coercePass unit.decls
+        decls        = map coercePass unit.decls
       , includeGraph = unit.includeGraph
       , meta         = unit.meta
       }

@@ -356,7 +356,7 @@ newtype Comment p = Comment{
 data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 
 {-------------------------------------------------------------------------------
-  Instances
+  Eq and Show instances
 -------------------------------------------------------------------------------}
 
 deriving stock instance IsPass p => Eq (AnonEnumConstant p)
@@ -395,3 +395,218 @@ deriving stock instance (HasMacroTypes l, IsPass p) => Eq (DeclKind l p)
 
 deriving stock instance (HasMacroTypes l, IsPass p) => Show (Decl     l p)
 deriving stock instance (HasMacroTypes l, IsPass p) => Show (DeclKind l p)
+
+{-------------------------------------------------------------------------------
+  CoercePass instances
+-------------------------------------------------------------------------------}
+
+instance (
+      CoercePass DeclInfo p p'
+    , CoercePass (DeclKind l) p p'
+    , Ann "Decl" p ~ Ann "Decl" p'
+    ) => CoercePass (Decl l) p p' where
+  coercePass decl = Decl{
+        info = coercePass decl.info
+      , kind = coercePass decl.kind
+      , ann  = decl.ann
+      }
+
+instance (CoercePassId p p') => CoercePass EnclosingRef p p' where
+    coercePass = \case
+      EnclosingRef x ->
+        EnclosingRef (coercePassId (Proxy @'(p, p')) x)
+      UnusableEnclosingRef x ->
+        UnusableEnclosingRef x
+
+instance (
+      CoercePassId p p'
+    , CoercePassCommentDecl p p'
+    ) => CoercePass DeclInfo p p' where
+  coercePass info = DeclInfo{
+        loc          = info.loc
+      , id           = coercePassId (Proxy @'(p, p')) info.id
+      , seqNr        = info.seqNr
+      , headerInfo   = info.headerInfo
+      , availability = info.availability
+      , comment      = coercePassCommentDecl (Proxy @'(p, p')) info.comment
+      , enclosing    = map coercePass info.enclosing
+      }
+
+instance (
+      CoercePassCommentDecl p p'
+    , ScopedName p ~ ScopedName p'
+    ) => CoercePass FieldInfo p p' where
+  coercePass info = FieldInfo{
+        comment = coercePassCommentDecl (Proxy @'(p, p')) info.comment
+      , name    = info.name
+      , loc     = info.loc
+      }
+
+instance (
+       CoercePass Struct   p p'
+     , CoercePass Enum     p p'
+     , CoercePass Union    p p'
+     , CoercePass Typedef  p p'
+     , CoercePass Function p p'
+     , CoercePass Global   p p'
+     , CoercePass AnonEnumConstant p p'
+     , CoercePassMacroBody p p'
+     ) => CoercePass (DeclKind l) p p' where
+  coercePass = \case
+      DeclStruct           x -> DeclStruct           $ coercePass x
+      DeclUnion            x -> DeclUnion            $ coercePass x
+      DeclTypedef          x -> DeclTypedef          $ coercePass x
+      DeclEnum             x -> DeclEnum             $ coercePass x
+      DeclAnonEnumConstant x -> DeclAnonEnumConstant $ coercePass x
+      DeclFunction         x -> DeclFunction         $ coercePass x
+      DeclGlobal           x -> DeclGlobal           $ coercePass x
+      DeclMacro            x -> DeclMacro            $ coercePassMacroBody (Proxy @'(p, p')) x
+      DeclOpaque             -> DeclOpaque
+
+instance (
+      CoercePass StructField p p'
+    , Ann "Struct" p ~ Ann "Struct" p'
+    ) => CoercePass Struct p p' where
+  coercePass struct = Struct{
+        fields    = coercePass <$> struct.fields
+      , flam      = coercePass <$> struct.flam
+      , sizeof    = struct.sizeof
+      , alignment = struct.alignment
+      , ann       = struct.ann
+      }
+
+instance (
+      CoercePass C.Type p p'
+    , CoercePassCommentDecl p p'
+    , ScopedName p ~ ScopedName p'
+    , Ann "StructField" p ~ Ann "StructField" p'
+    ) => CoercePass StructField p p' where
+  coercePass field = StructField{
+        info   = coercePass field.info
+      , typ    = coercePass field.typ
+      , offset = field.offset
+      , width  = field.width
+      , ann    = field.ann
+      }
+
+instance (
+      CoercePass UnionField p p'
+    , Ann "Union" p ~ Ann "Union" p'
+    ) => CoercePass Union p p' where
+  coercePass union = Union{
+        fields    = coercePass <$> union.fields
+      , sizeof    = union.sizeof
+      , alignment = union.alignment
+      , ann       = union.ann
+      }
+
+instance (
+      CoercePass C.Type p p'
+    , CoercePassCommentDecl p p'
+    , ScopedName p ~ ScopedName p'
+    , Ann "UnionField" p ~ Ann "UnionField" p'
+    ) => CoercePass UnionField p p' where
+  coercePass field = UnionField{
+        info = coercePass field.info
+      , typ  = coercePass field.typ
+      , ann  = field.ann
+      }
+
+instance (
+      CoercePass C.Type p p'
+    , Ann "Typedef" p ~ Ann "Typedef" p'
+    ) => CoercePass Typedef p p' where
+  coercePass typedef = Typedef{
+        typ = coercePass typedef.typ
+      , ann = typedef.ann
+      }
+
+instance (
+       CoercePass C.Type p p'
+     , CoercePass EnumConstant p p'
+     , Ann "Enum" p ~ Ann "Enum" p'
+     ) => CoercePass Enum p p' where
+  coercePass enum = Enum{
+        typ       = coercePass enum.typ
+      , constants = coercePass <$> enum.constants
+      , sizeof    = enum.sizeof
+      , alignment = enum.alignment
+      , ann       = enum.ann
+      }
+
+instance (
+      CoercePassCommentDecl p p'
+    , ScopedName p ~ ScopedName p'
+    ) => CoercePass EnumConstant p p' where
+  coercePass constant = EnumConstant{
+        info  = coercePass constant.info
+      , value = constant.value
+      }
+
+instance (
+       CoercePass EnumConstant p p'
+     , Ann "PatternSynonym" p ~ Ann "PatternSynonym" p'
+     ) => CoercePass AnonEnumConstant p p' where
+  coercePass (AnonEnumConstant typ' constant') = AnonEnumConstant{
+        typ      = typ'
+      , constant = coercePass constant'
+      }
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , Ann "Function" p ~ Ann "Function" p'
+    ) => CoercePass Function p p' where
+  coercePass function = Function{
+        args  = map coercePass function.args
+      , res   = coercePass function.res
+      , attrs = function.attrs
+      , ann   = function.ann
+      }
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass FunctionArg p p' where
+  coercePass functionArg = FunctionArg{
+        name   = functionArg.name
+      , argTyp = coercePass functionArg.argTyp
+      }
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , Ann "Global" p ~ Ann "Global" p'
+    ) => CoercePass Global p p' where
+  coercePass global = Global{
+        typ = coercePass global.typ
+      , ann = global.ann
+      }
+
+instance (
+      CoercePass Doxy.Comment (CommentRef p) (CommentRef p')
+    ) => CoercePass Comment p p' where
+  coercePass (Comment c) = Comment (coercePass c)
+
+instance (
+      CoercePassId p p'
+    ) => CoercePass Doxy.Comment (CommentRef p) (CommentRef p') where
+  coercePass comment = fmap coercePass comment
+
+instance (
+      CoercePassId p p'
+    ) => CoercePass CommentRef p p' where
+  coercePass (CommentRef c hs k) =
+      CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs) k

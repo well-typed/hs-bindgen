@@ -57,7 +57,7 @@ simplifyAST usage parseResults = (results, msgs)
                               info = newInfo
                             , kind = C.DeclAnonEnumConstant C.AnonEnumConstant{
                                      typ      = extractPrimType enum.typ
-                                   , constant = C.coercePass constant
+                                   , constant = coercePass constant
                                    }
                             , ann = NoAnn
                             }
@@ -67,7 +67,7 @@ simplifyAST usage parseResults = (results, msgs)
                  , let C.ScopedName nameText = constant.info.name
                        newId = C.PrelimDeclIdNamed (C.DeclName nameText C.NameKindOrdinary)
                        newInfo :: C.DeclInfo SimplifyAST
-                       newInfo = (C.coercePass info :: C.DeclInfo SimplifyAST)
+                       newInfo = (coercePass info :: C.DeclInfo SimplifyAST)
                                    { C.id = newId }
                  ]
                 , [withCallStack (SimplifyASTAnonymousEnum anonId)]
@@ -77,8 +77,8 @@ simplifyAST usage parseResults = (results, msgs)
                     , loc = result.loc
                     , classification = ParseResultSuccess success {
                         decl = C.Decl{
-                          info = C.coercePass decl.info
-                        , kind = C.coercePass decl.kind
+                          info = coercePass decl.info
+                        , kind = coercePass decl.kind
                         , ann = NoAnn
                         }
                       }

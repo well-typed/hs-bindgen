@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -50,7 +51,7 @@ typecheckMacros macroLang unit =
           partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
         , Map.fromList [
-              (n, C.coercePass v)
+              (n, coercePass v)
             | (declId, v) <- Map.toList knownTypes
             , Just n <- [C.renderNonAnonDeclId declId]
             ]

@@ -65,6 +65,7 @@ import HsBindgen.IR.Pass.Definition
 import HsBindgen.IR.Pass.ExtBinding
 import HsBindgen.IR.Pass.Id
 import HsBindgen.IR.Pass.Macro
+import HsBindgen.IR.Pass.ScopedName
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -722,3 +723,53 @@ isErasedTypeConstQualified ty =
 
       -- And otherwise, the type is not considered to be @const@-qualified.
       _ -> False
+
+{-------------------------------------------------------------------------------
+  CoercePass instances
+-------------------------------------------------------------------------------}
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass Type p p' where
+  coercePass = \case
+      TypePrim prim           -> TypePrim prim
+      TypeRef uid             -> TypeRef (goId uid)
+      TypeEnum ref            -> TypeEnum (Ref (goId ref.name) (coercePass ref.underlying))
+      TypeMacro ref           -> TypeMacro (MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
+      TypeTypedef ref         -> TypeTypedef (Ref (goId ref.name) (coercePass ref.underlying))
+      TypePointers n typ      -> TypePointers n (coercePass typ)
+      TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
+      TypeVoid                -> TypeVoid
+      TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
+      TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
+      TypeExtBinding ref      -> TypeExtBinding (Ref ref.name (coercePass ref.underlying))
+      TypeBlock typ           -> TypeBlock (coercePass typ)
+      TypeQual qual typ       -> TypeQual qual (coercePass typ)
+      TypeComplex prim        -> TypeComplex prim
+    where
+      goId :: Id p -> Id p'
+      goId = coercePassId (Proxy @'(p, p'))
+
+      goMacroId :: MacroId p -> MacroId p'
+      goMacroId = coercePassMacroId (Proxy @'(p, p'))
+
+      goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
+      goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass TypeFunArg p p' where
+  coercePass arg = TypeFunArgF {
+        typ = coercePass arg.typ
+      , ann = coercePassAnn (Proxy @'("TypeFunArg", p, p')) arg.ann
+      }

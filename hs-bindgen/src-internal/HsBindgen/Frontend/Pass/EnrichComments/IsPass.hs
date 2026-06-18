@@ -54,12 +54,12 @@ instance PassMsg EnrichComments
   @CommentDecl EnrichComments = Maybe (Comment EnrichComments)@).
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId               AssignAnonIds EnrichComments
-instance C.CoercePassMacroBody        AssignAnonIds EnrichComments
-instance C.CoercePassMacroId          AssignAnonIds EnrichComments
-instance C.CoercePassMacroUnderlying  AssignAnonIds EnrichComments
-instance C.CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
-instance C.CoercePassAnn "Global"     AssignAnonIds EnrichComments
+instance CoercePassId               AssignAnonIds EnrichComments
+instance CoercePassMacroBody        AssignAnonIds EnrichComments
+instance CoercePassMacroId          AssignAnonIds EnrichComments
+instance CoercePassMacroUnderlying  AssignAnonIds EnrichComments
+instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
+instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
 
-instance C.CoercePassCommentDecl AssignAnonIds EnrichComments where
+instance CoercePassCommentDecl AssignAnonIds EnrichComments where
   coercePassCommentDecl _ () = Nothing

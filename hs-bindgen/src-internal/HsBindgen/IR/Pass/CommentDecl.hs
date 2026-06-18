@@ -9,6 +9,8 @@
 module HsBindgen.IR.Pass.CommentDecl (
     -- * Associated type families
     PassCommentDecl(..)
+    -- * Coercion
+  , CoercePassCommentDecl(..)
   ) where
 
 import HsBindgen.Imports
@@ -32,3 +34,15 @@ class (
   --   this is @'Maybe' ('HsBindgen.IR.C.Decl.Comment' p)@.
   type CommentDecl p :: Star
   type CommentDecl p = ()
+
+{-------------------------------------------------------------------------------
+  Coercion
+-------------------------------------------------------------------------------}
+
+class CoercePassCommentDecl (p :: Pass) (p' :: Pass) where
+  coercePassCommentDecl :: Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
+
+  default coercePassCommentDecl ::
+       (CommentDecl p ~ CommentDecl p')
+    => Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
+  coercePassCommentDecl _ = id

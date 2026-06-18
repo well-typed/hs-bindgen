@@ -55,8 +55,8 @@ checkEqCoerce ::
      forall a. (
          Eq (a Zip)
        , Show (a Zip)
-       , C.CoercePass a Out Zip
-       , C.CoercePass a In Zip
+       , CoercePass a Out Zip
+       , CoercePass a In Zip
        )
   => a In
   -> a Out
@@ -68,8 +68,8 @@ checkEqCoerce lhs rhs =
       failure $ zipErrorNotEqual lhsA rhsA
   where
     lhsA, rhsA :: a Zip
-    lhsA = C.coercePass lhs
-    rhsA = C.coercePass rhs
+    lhsA = coercePass lhs
+    rhsA = coercePass rhs
 
 {-------------------------------------------------------------------------------
   Class
@@ -223,7 +223,7 @@ instance ZipReparsed C.Enum where
           typ       = coerceNonMacroType enum.typ
         , sizeof    = enum.sizeof
         , alignment = enum.alignment
-        , constants = map C.coercePass enum.constants
+        , constants = map coercePass enum.constants
         , ann       = NoAnn
         }
 
@@ -231,11 +231,11 @@ instance ZipReparsed C.AnonEnumConstant where
   zipReparsed enum =
       success C.AnonEnumConstant{
           typ      = enum.typ
-        , constant = C.coercePass enum.constant
+        , constant = coercePass enum.constant
         }
 
 instance ZipReparsed (Flip TypecheckedMacro l) where
-  zipReparsed (Flip body) = Flip <$> success (C.coercePassParam body)
+  zipReparsed (Flip body) = Flip <$> success (coercePassParam body)
 
 instance ZipReparsed C.Function where
   zipReparsed fun = do

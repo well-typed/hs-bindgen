@@ -9,6 +9,8 @@
 module HsBindgen.IR.Pass.Ann (
     -- * Associated type families
     PassAnn(..)
+    -- * Coercion
+  , CoercePassAnn(..)
     -- * Defaults
   , NoAnn(..)
   ) where
@@ -57,6 +59,18 @@ class (
   -- datatype.  For multi-constructor datatypes, it should be @Type.Constr@ (or
   -- simply @Constr@ if that is unambiguous).
   type Ann (ix :: Symbol) p :: Star
+
+{-------------------------------------------------------------------------------
+  Coercion
+-------------------------------------------------------------------------------}
+
+class CoercePassAnn ix p p' where
+  coercePassAnn :: Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
+
+  default coercePassAnn ::
+       (Ann ix p ~ Ann ix p')
+    => Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
+  coercePassAnn _ = id
 
 {-------------------------------------------------------------------------------
   Defaults

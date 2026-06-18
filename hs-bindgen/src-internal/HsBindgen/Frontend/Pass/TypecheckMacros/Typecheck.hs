@@ -74,17 +74,17 @@ coerceDecl ::
   -> CoerceResult l
 coerceDecl decl = case decl.kind of
     C.DeclMacro            _ -> Macro info'
-    C.DeclTypedef          k -> nonMacro $ C.DeclTypedef          $ C.coercePass k
-    C.DeclStruct           k -> nonMacro $ C.DeclStruct           $ C.coercePass k
-    C.DeclUnion            k -> nonMacro $ C.DeclUnion            $ C.coercePass k
-    C.DeclEnum             k -> nonMacro $ C.DeclEnum             $ C.coercePass k
-    C.DeclAnonEnumConstant k -> nonMacro $ C.DeclAnonEnumConstant $ C.coercePass k
+    C.DeclTypedef          k -> nonMacro $ C.DeclTypedef          $ coercePass k
+    C.DeclStruct           k -> nonMacro $ C.DeclStruct           $ coercePass k
+    C.DeclUnion            k -> nonMacro $ C.DeclUnion            $ coercePass k
+    C.DeclEnum             k -> nonMacro $ C.DeclEnum             $ coercePass k
+    C.DeclAnonEnumConstant k -> nonMacro $ C.DeclAnonEnumConstant $ coercePass k
     C.DeclOpaque             -> nonMacro $ C.DeclOpaque
-    C.DeclFunction         k -> nonMacro $ C.DeclFunction         $ C.coercePass k
-    C.DeclGlobal           k -> nonMacro $ C.DeclGlobal           $ C.coercePass k
+    C.DeclFunction         k -> nonMacro $ C.DeclFunction         $ coercePass k
+    C.DeclGlobal           k -> nonMacro $ C.DeclGlobal           $ coercePass k
   where
     info' :: C.DeclInfo Out
-    info' = C.coercePass decl.info
+    info' = coercePass decl.info
 
     nonMacro :: C.DeclKind l Out -> CoerceResult l
     nonMacro kind' = NonMacro (C.Decl info' kind' decl.ann)

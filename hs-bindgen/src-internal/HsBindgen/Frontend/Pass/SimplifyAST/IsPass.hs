@@ -55,14 +55,14 @@ instance PassAnn SimplifyAST where
 instance PassMsg SimplifyAST where
   type Msg SimplifyAST = SimplifyASTMsg
 
-instance C.CoercePassId                Parse SimplifyAST
-instance C.CoercePassMacroBody         Parse SimplifyAST
-instance C.CoercePassMacroId           Parse SimplifyAST
-instance C.CoercePassMacroUnderlying   Parse SimplifyAST
+instance CoercePassId                Parse SimplifyAST
+instance CoercePassMacroBody         Parse SimplifyAST
+instance CoercePassMacroId           Parse SimplifyAST
+instance CoercePassMacroUnderlying   Parse SimplifyAST
 
-instance C.CoercePassAnn "TypeFunArg" Parse SimplifyAST
-instance C.CoercePassAnn "Global"     Parse SimplifyAST
-instance C.CoercePassCommentDecl      Parse SimplifyAST
+instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
+instance CoercePassAnn "Global"     Parse SimplifyAST
+instance CoercePassCommentDecl      Parse SimplifyAST
 
 {-------------------------------------------------------------------------------
   Trace messages

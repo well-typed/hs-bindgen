@@ -8,6 +8,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
@@ -48,10 +49,10 @@ getKnownType decl = case decl.kind of
     declId = info.id
 
     getKnownTypedef :: C.Typedef In -> CType
-    getKnownTypedef typedef = C.TypeTypedef $ C.Ref info.id $ C.coercePass typedef.typ
+    getKnownTypedef typedef = C.TypeTypedef $ C.Ref info.id $ coercePass typedef.typ
 
     knownStructOrUnion :: CType
     knownStructOrUnion = C.TypeRef info.id
 
     getKnownEnum :: C.Enum In -> CType
-    getKnownEnum enum = C.TypeEnum $ C.Ref info.id $ C.coercePass enum.typ
+    getKnownEnum enum = C.TypeEnum $ C.Ref info.id $ coercePass enum.typ

@@ -9,6 +9,8 @@
 module HsBindgen.IR.Pass.Id (
     -- * Associated type families
     PassId(..)
+    -- * Coercion
+  , CoercePassId(..)
   ) where
 
 import Clang.HighLevel.Types
@@ -57,3 +59,15 @@ class (
        Id p ~ C.DeclId
     => Proxy p -> Id p -> [SingleLoc] -> C.LocationInfo
   idLocationInfo _ = C.declIdLocationInfo
+
+{-------------------------------------------------------------------------------
+  Coercion
+-------------------------------------------------------------------------------}
+
+class CoercePassId (p :: Pass) (p' :: Pass) where
+  coercePassId :: Proxy '(p, p') -> Id p -> Id p'
+
+  default coercePassId ::
+       (Id p ~ Id p')
+    => Proxy '(p, p') -> Id p -> Id p'
+  coercePassId _ = id

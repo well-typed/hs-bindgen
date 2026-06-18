@@ -14,7 +14,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.TranslationUnit qualified as C
-import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -31,7 +31,7 @@ constructTranslationUnit ::
   -> IncludeGraph
   -> C.TranslationUnit l ConstructTranslationUnit
 constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit{
-      decls        = map C.coercePass $
+      decls        = map coercePass $
                            DeclUseGraph.toDecls
                              declMeta.declIndex
                              declMeta.declUseGraph

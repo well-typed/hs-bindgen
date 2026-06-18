@@ -148,30 +148,30 @@ getParseResultEitherDecl result =
 -------------------------------------------------------------------------------}
 
 instance (
-      C.CoercePassId p p'
-    , C.CoercePass (C.Decl l) p p'
+      CoercePassId p p'
+    , CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => C.CoercePass (ParseResult l) p p' where
+    ) => CoercePass (ParseResult l) p p' where
   coercePass pr = ParseResult{
-        id             = C.coercePassId (Proxy @'(p, p')) pr.id
+        id             = coercePassId (Proxy @'(p, p')) pr.id
       , loc            = pr.loc
-      , classification = C.coercePass pr.classification
+      , classification = coercePass pr.classification
       }
 
 instance (
-      C.CoercePass (C.Decl l) p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => C.CoercePass (ParseClassification l) p p' where
+    ) => CoercePass (ParseClassification l) p p' where
   coercePass = \case
-    ParseResultSuccess s      -> ParseResultSuccess (C.coercePass s)
+    ParseResultSuccess s      -> ParseResultSuccess (coercePass s)
     ParseResultNotAttempted x -> ParseResultNotAttempted x
     ParseResultFailure x      -> ParseResultFailure x
 
 instance (
-      C.CoercePass (C.Decl l) p p'
+      CoercePass (C.Decl l) p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => C.CoercePass (ParseSuccess l) p p' where
+    ) => CoercePass (ParseSuccess l) p p' where
   coercePass ps = ParseSuccess{
-        decl = C.coercePass ps.decl
+        decl = coercePass ps.decl
       , delayedParseMsgs = ps.delayedParseMsgs
       }

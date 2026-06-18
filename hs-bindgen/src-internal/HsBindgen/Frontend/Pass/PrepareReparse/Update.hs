@@ -39,7 +39,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports (Map, mapMaybe)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (AMsg)
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
@@ -152,7 +152,7 @@ instance Update (C.Decl l) where
   updateIt _ decl = do
       kind' <- (updateIt decl.info) decl.kind
       pure C.Decl {
-          info = C.coercePass decl.info
+          info = coercePass decl.info
         , kind = kind'
         , ann  = decl.ann
         }
@@ -191,8 +191,8 @@ instance Update C.StructField where
   updateIt info field = do
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.StructField {
-          info   = C.coercePass field.info
-        , typ    = C.coercePass field.typ
+          info   = coercePass field.info
+        , typ    = coercePass field.typ
         , offset = field.offset
         , width  = field.width
         , ann    = ann'
@@ -212,8 +212,8 @@ instance Update C.UnionField where
   updateIt info field = do
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
       pure C.UnionField {
-          info = C.coercePass field.info
-        , typ  = C.coercePass field.typ
+          info = coercePass field.info
+        , typ  = coercePass field.typ
         , ann  = ann'
         }
 
@@ -221,25 +221,25 @@ instance Update C.Typedef where
   updateIt info typedef = do
       ann' <- updateReparseInfo info (typedefTag info) typedef.ann
       pure C.Typedef {
-          typ = C.coercePass typedef.typ
+          typ = coercePass typedef.typ
         , ann = ann'
         }
 
 instance Update C.Enum where
-  updateIt _ enum = pure $ C.coercePass enum
+  updateIt _ enum = pure $ coercePass enum
 
 instance Update C.AnonEnumConstant where
-  updateIt _ constant = pure $ C.coercePass constant
+  updateIt _ constant = pure $ coercePass constant
 
 instance Update (Flip TypecheckedMacro l) where
-  updateIt _info (Flip macro) = pure $ Flip $ C.coercePassParam macro
+  updateIt _info (Flip macro) = pure $ Flip $ coercePassParam macro
 
 instance Update C.Function where
   updateIt info function = do
       ann' <- updateReparseInfo info (functionTag info) function.ann
       pure C.Function {
-          args = map C.coercePass function.args
-        , res = C.coercePass function.res
+          args = map coercePass function.args
+        , res = coercePass function.res
         , attrs = function.attrs
         , ann = ann'
         }
@@ -248,7 +248,7 @@ instance Update C.Global where
   updateIt info global = do
       ann' <- updateReparseInfo info (variableTag info) global.ann
       pure C.Global {
-          typ = C.coercePass global.typ
+          typ = coercePass global.typ
         , ann = ann'
         }
 

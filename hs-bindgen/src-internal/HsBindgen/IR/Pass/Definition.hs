@@ -9,6 +9,9 @@
 module HsBindgen.IR.Pass.Definition (
     -- * Definition
     Pass
+    -- * Coercion
+  , CoercePass(..)
+  , CoercePassParam(..)
   ) where
 
 import HsBindgen.Imports
@@ -30,3 +33,13 @@ type Pass = PassSimulatedOpenKind -> Star
 
 -- | Internal type used only to simulate an open kind. Not exported.
 data PassSimulatedOpenKind
+
+{-------------------------------------------------------------------------------
+  Coercion
+-------------------------------------------------------------------------------}
+
+class CoercePass a p p' where
+  coercePass :: a p -> a p'
+
+class CoercePassParam a p p' where
+  coercePassParam :: a p l -> a p' l

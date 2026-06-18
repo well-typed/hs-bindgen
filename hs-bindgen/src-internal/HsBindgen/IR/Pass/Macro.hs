@@ -9,6 +9,10 @@
 module HsBindgen.IR.Pass.Macro (
     -- * Associated type families
     PassMacro(..)
+    -- * Coercion
+  , CoercePassMacroId(..)
+  , CoercePassMacroBody(..)
+  , CoercePassMacroUnderlying(..)
   ) where
 
 import HsBindgen.Imports
@@ -72,3 +76,32 @@ class (
 -- | Class alias; limitation of quantified constraints
 class    (Eq (MacroBody p l), Show (MacroBody p l)) => ValidMacroBody p l
 instance (Eq (MacroBody p l), Show (MacroBody p l)) => ValidMacroBody p l
+
+{-------------------------------------------------------------------------------
+  Coercion
+-------------------------------------------------------------------------------}
+
+class CoercePassMacroId (p :: Pass) (p' :: Pass) where
+  coercePassMacroId :: Proxy '(p, p') -> MacroId p -> MacroId p'
+
+  default coercePassMacroId ::
+       (MacroId p ~ MacroId p')
+    => Proxy '(p, p') -> MacroId p -> MacroId p'
+  coercePassMacroId _ = id
+
+class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
+  coercePassMacroBody :: Proxy '(p, p') -> MacroBody p l -> MacroBody p' l
+
+  default coercePassMacroBody ::
+       (MacroBody p ~ MacroBody p' )
+    => Proxy '(p, p') -> MacroBody p l -> MacroBody p' l
+  coercePassMacroBody _ = id
+
+class CoercePassMacroUnderlying (p :: Pass) (p' :: Pass) where
+  coercePassMacroUnderlying ::
+    Proxy '(p, p') -> MacroUnderlying p -> MacroUnderlying p'
+
+  default coercePassMacroUnderlying ::
+       (MacroUnderlying p ~ MacroUnderlying p')
+    => Proxy '(p, p') -> MacroUnderlying p -> MacroUnderlying p'
+  coercePassMacroUnderlying _ = id

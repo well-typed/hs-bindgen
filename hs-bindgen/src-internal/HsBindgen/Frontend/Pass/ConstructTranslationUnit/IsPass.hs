@@ -49,16 +49,16 @@ instance PassMsg ConstructTranslationUnit
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassMacroBody          EnrichComments ConstructTranslationUnit
-instance C.CoercePassId                 EnrichComments ConstructTranslationUnit
-instance C.CoercePassMacroId            EnrichComments ConstructTranslationUnit
-instance C.CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
+instance CoercePassMacroBody          EnrichComments ConstructTranslationUnit
+instance CoercePassId                 EnrichComments ConstructTranslationUnit
+instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
+instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 
-instance C.CoercePassAnn "TypeFunArg"   EnrichComments ConstructTranslationUnit
-instance C.CoercePassAnn "StructField"  EnrichComments ConstructTranslationUnit
-instance C.CoercePassAnn "UnionField"   EnrichComments ConstructTranslationUnit
-instance C.CoercePassAnn "Typedef"      EnrichComments ConstructTranslationUnit
-instance C.CoercePassAnn "Function"     EnrichComments ConstructTranslationUnit
-instance C.CoercePassAnn "Global"       EnrichComments ConstructTranslationUnit
-instance C.CoercePassCommentDecl        EnrichComments ConstructTranslationUnit where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassAnn "TypeFunArg"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "StructField"  EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "UnionField"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Typedef"      EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Function"     EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Global"       EnrichComments ConstructTranslationUnit
+instance CoercePassCommentDecl        EnrichComments ConstructTranslationUnit where
+  coercePassCommentDecl _ = fmap coercePass

@@ -130,7 +130,7 @@ zipDecl decl = reconstruct $ case decl.kind of
       Right kind' ->
         let decl' :: C.Decl l Zip
             decl' = C.Decl{
-                 info = C.coercePass decl.info
+                 info = coercePass decl.info
                , kind = kind'
                , ann  = NoAnn
               }

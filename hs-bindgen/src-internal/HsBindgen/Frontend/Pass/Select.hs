@@ -180,7 +180,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             getTransitiveSelectability
 
         unitDecls :: [Decl l]
-        unitDecls = map C.coercePass unit.decls
+        unitDecls = map coercePass unit.decls
 
         selectedUnitDecls  :: [Decl l]
         selectedUnitDecls = mapMaybe selectDecl unitDecls

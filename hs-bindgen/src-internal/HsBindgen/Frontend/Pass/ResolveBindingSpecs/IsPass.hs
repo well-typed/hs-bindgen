@@ -158,9 +158,9 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId               Zip ResolveBindingSpecs
-instance C.CoercePassMacroId          Zip ResolveBindingSpecs
-instance C.CoercePassAnn "TypeFunArg" Zip ResolveBindingSpecs
+instance CoercePassId               Zip ResolveBindingSpecs
+instance CoercePassMacroId          Zip ResolveBindingSpecs
+instance CoercePassAnn "TypeFunArg" Zip ResolveBindingSpecs
 
-instance C.CoercePassCommentDecl Zip ResolveBindingSpecs where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassCommentDecl Zip ResolveBindingSpecs where
+  coercePassCommentDecl _ = fmap coercePass

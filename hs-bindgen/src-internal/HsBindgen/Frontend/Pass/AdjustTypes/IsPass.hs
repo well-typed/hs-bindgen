@@ -74,8 +74,8 @@ data AdjustedFrom p =
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId      MangleNames AdjustTypes
-instance C.CoercePassMacroId MangleNames AdjustTypes
+instance CoercePassId      MangleNames AdjustTypes
+instance CoercePassMacroId MangleNames AdjustTypes
 
-instance C.CoercePassCommentDecl MangleNames AdjustTypes where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassCommentDecl MangleNames AdjustTypes where
+  coercePassCommentDecl _ = fmap coercePass

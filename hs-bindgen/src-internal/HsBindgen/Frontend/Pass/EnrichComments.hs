@@ -100,6 +100,7 @@ import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 import Doxygen.Parser (Doxygen, DoxygenKey (..), lookupComment)
 import Doxygen.Parser.Types qualified as Doxy
@@ -122,7 +123,7 @@ enrichComments doxy results =
     -- via 'CoercePassCommentDecl'. We then fill in comments by looking up the
     -- doxygen state.
     coerced :: [ParseResult l EnrichComments]
-    coerced = map C.coercePass results
+    coerced = map coercePass results
 
     enrichOne :: ParseResult l EnrichComments -> ParseResult l EnrichComments
     enrichOne pr = case pr.classification of

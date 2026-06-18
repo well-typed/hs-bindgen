@@ -50,7 +50,7 @@ adjustTypes unit =
 processDecl :: C.Decl l MangleNames -> C.Decl l AdjustTypes
 processDecl decl =
     C.Decl {
-        info = C.coercePass decl.info
+        info = coercePass decl.info
       , ann  = decl.ann
       , kind = processDeclKind decl.kind
       }
@@ -81,7 +81,7 @@ processStruct struct =
 processStructField :: C.StructField MangleNames -> C.StructField AdjustTypes
 processStructField field =
     C.StructField {
-        info   = C.coercePass field.info
+        info   = coercePass field.info
       , typ    = processType field.typ
       , offset = field.offset
       , width  = field.width
@@ -100,7 +100,7 @@ processUnion union =
 processUnionField :: C.UnionField MangleNames -> C.UnionField AdjustTypes
 processUnionField field =
     C.UnionField {
-        info = C.coercePass field.info
+        info = coercePass field.info
       , typ  = processType field.typ
       , ann  = field.ann
       }
@@ -125,7 +125,7 @@ processEnum enum =
 processEnumConstant :: C.EnumConstant MangleNames -> C.EnumConstant AdjustTypes
 processEnumConstant enumConstant =
     C.EnumConstant {
-        info  = C.coercePass enumConstant.info
+        info  = coercePass enumConstant.info
       , value = enumConstant.value
       }
 
@@ -148,13 +148,13 @@ processMacro macro =
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
 processMacroType :: TypecheckedMacroType l MangleNames -> TypecheckedMacroType l AdjustTypes
-processMacroType macroType = C.coercePass macroType
+processMacroType macroType = coercePass macroType
 
 -- NOTE: currently value-like macro expressions don't support array or function
 -- constructors. If they do in the future, then we might have to recurse into
 -- the macro expression.
 processMacroExpr :: TypecheckedMacroValue l MangleNames -> TypecheckedMacroValue l AdjustTypes
-processMacroExpr macroExpr = C.coercePass macroExpr
+processMacroExpr macroExpr = coercePass macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =

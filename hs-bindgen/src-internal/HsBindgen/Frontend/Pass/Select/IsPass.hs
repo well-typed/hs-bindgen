@@ -261,19 +261,19 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId        AdjustTypes Select
-instance C.CoercePassMacroId   AdjustTypes Select
-instance C.CoercePassMacroUnderlying AdjustTypes Select where
-  coercePassMacroUnderlying _ = C.coercePass
+instance CoercePassId        AdjustTypes Select
+instance CoercePassMacroId   AdjustTypes Select
+instance CoercePassMacroUnderlying AdjustTypes Select where
+  coercePassMacroUnderlying _ = coercePass
 
-instance C.CoercePassMacroBody AdjustTypes Select where
-  coercePassMacroBody _ = C.coercePassParam
+instance CoercePassMacroBody AdjustTypes Select where
+  coercePassMacroBody _ = coercePassParam
 
-instance C.CoercePassAnn "TypeFunArg" AdjustTypes Select where
+instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
   coercePassAnn _ = \case
-      AdjustedFromArray ty    -> AdjustedFromArray (C.coercePass ty)
-      AdjustedFromFunction ty -> AdjustedFromFunction (C.coercePass ty)
+      AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
+      AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
       NotAdjusted             -> NotAdjusted
 
-instance C.CoercePassCommentDecl AdjustTypes Select where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassCommentDecl AdjustTypes Select where
+  coercePassCommentDecl _ = fmap coercePass

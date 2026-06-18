@@ -22,6 +22,15 @@ module HsBindgen.IR.Pass (
   , PassAnn(..)
   , PassMsg(..)
   , AMsg
+    -- * Coercion
+  , CoercePass(..)
+  , CoercePassParam(..)
+  , CoercePassId(..)
+  , CoercePassMacroId(..)
+  , CoercePassMacroBody(..)
+  , CoercePassMacroUnderlying(..)
+  , CoercePassCommentDecl(..)
+  , CoercePassAnn(..)
     -- * Defaults
   , NoAnn(..)
   , NoMsg

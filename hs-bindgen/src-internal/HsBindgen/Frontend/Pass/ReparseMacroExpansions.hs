@@ -94,7 +94,7 @@ reparseDecl decl = case decl.kind of
     C.DeclGlobal global                  -> processGlobal           info' global
   where
     info' :: C.DeclInfo ReparseMacroExpansions
-    info' = C.coercePass decl.info
+    info' = coercePass decl.info
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -109,7 +109,7 @@ processMacro info macro =
     pure C.Decl{
         info = info
       , ann  = NoAnn
-      , kind = C.DeclMacro (C.coercePassParam macro)
+      , kind = C.DeclMacro (coercePassParam macro)
       }
 
 processStruct ::
@@ -147,7 +147,7 @@ mkFieldInfo ::
   -> C.FieldInfo ReparseMacroExpansions
 mkFieldInfo info mName = C.FieldInfo{
       name    = maybe info.name C.ScopedName mName
-    , comment = fmap C.coercePass info.comment
+    , comment = fmap coercePass info.comment
     , loc     = info.loc
     }
 
@@ -160,7 +160,7 @@ processStructField declId field =
   where
     withoutReparse :: C.StructField ReparseMacroExpansions
     withoutReparse = C.StructField{
-          typ    = C.coercePass field.typ
+          typ    = coercePass field.typ
         , ann    = BeforeReparse field
         , offset = field.offset
         , width  = field.width
@@ -206,7 +206,7 @@ processUnionField declId field =
   where
     withoutReparse :: C.UnionField ReparseMacroExpansions
     withoutReparse = C.UnionField{
-          typ  = C.coercePass field.typ
+          typ  = coercePass field.typ
         , ann  = BeforeReparse field
         , info = mkFieldInfo field.info Nothing
         }
@@ -243,7 +243,7 @@ processEnum info enum =
           info = info
         , ann  = NoAnn
         , kind = C.DeclEnum C.Enum{
-              typ       = C.coercePass enum.typ
+              typ       = coercePass enum.typ
             , constants = enumerators
             , sizeof    = enum.sizeof
             , alignment = enum.alignment
@@ -277,7 +277,7 @@ processEnumConstant constant =
     pure C.EnumConstant{
         value = constant.value
       , info  = C.FieldInfo{
-            comment = fmap C.coercePass constant.info.comment
+            comment = fmap coercePass constant.info.comment
           , name    = constant.info.name
           , loc     = constant.info.loc
           }
@@ -290,7 +290,7 @@ processTypedef ::
 processTypedef info typedef = do
     reparsedType :: CType <-
       reparseWith info.id LanC.reparseTypedef typedef.ann
-        (C.coercePass typedef.typ)
+        (coercePass typedef.typ)
         pure
     pure C.Decl{
         info = info
@@ -315,8 +315,8 @@ processFunction info function = do
   where
     withoutReparse :: C.Function ReparseMacroExpansions
     withoutReparse = C.Function{
-          args  = map C.coercePass function.args
-        , res   = C.coercePass function.res
+          args  = map coercePass function.args
+        , res   = coercePass function.res
         , attrs = function.attrs
         , ann   = BeforeReparse function
         }
@@ -352,7 +352,7 @@ processGlobal info global = do
   where
     withoutReparse :: C.Global ReparseMacroExpansions
     withoutReparse = C.Global{
-          typ = C.coercePass global.typ
+          typ = coercePass global.typ
         , ann = BeforeReparse global
         }
 

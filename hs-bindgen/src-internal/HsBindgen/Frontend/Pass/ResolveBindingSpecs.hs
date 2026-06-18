@@ -337,7 +337,7 @@ resolveDeep ::
 resolveDeep decl (cSpec, hsSpec) = do
     declKind' <- resolve decl.info.id decl.kind
     return C.Decl {
-        info = C.coercePass decl.info
+        info = coercePass decl.info
       , kind = declKind'
       , ann  = PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
       }
@@ -373,7 +373,7 @@ instance Resolve (C.DeclKind l) l where
       C.DeclUnion union                    -> C.DeclUnion            <$> resolve ctx union
       C.DeclTypedef typedef                -> C.DeclTypedef          <$> resolve ctx typedef
       C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
-      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (C.coercePass anonEnumConst)
+      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
       C.DeclOpaque                         -> return C.DeclOpaque
       C.DeclMacro macro                    -> C.DeclMacro            <$> resolveFlip ctx macro
       C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
@@ -406,7 +406,7 @@ instance Resolve C.StructField l where
         -> C.StructField ResolveBindingSpecs
       reconstruct structFieldType' = C.StructField {
           typ    = structFieldType'
-        , info   = C.coercePass field.info
+        , info   = coercePass field.info
         , offset = field.offset
         , width  = field.width
         , ann    = field.ann
@@ -434,7 +434,7 @@ instance Resolve C.UnionField l where
                  -> C.UnionField ResolveBindingSpecs
       reconstruct unionFieldType' = C.UnionField {
           typ  = unionFieldType'
-        , info = C.coercePass field.info
+        , info = coercePass field.info
         , ann  = field.ann
         }
 
@@ -445,7 +445,7 @@ instance Resolve C.Enum l where
       reconstruct :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
       reconstruct enumType' = C.Enum {
           typ       = enumType'
-        , constants = map C.coercePass enum.constants
+        , constants = map coercePass enum.constants
         , sizeof    = enum.sizeof
         , alignment = enum.alignment
         , ann       = enum.ann
@@ -506,7 +506,7 @@ instance Resolve C.FunctionArg l where
 instance Resolve (Flip TypecheckedMacro l) l where
   resolve ctx (Flip m) = Flip <$> case m of
     MacroType  typ -> MacroType  <$> resolve ctx typ
-    MacroValue val -> MacroValue <$> pure (C.coercePass val)
+    MacroValue val -> MacroValue <$> pure (coercePass val)
 
 instance Resolve (TypecheckedMacroType l) l where
   resolve ctx = \case

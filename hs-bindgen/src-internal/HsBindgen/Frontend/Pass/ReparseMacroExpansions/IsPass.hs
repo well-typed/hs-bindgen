@@ -61,26 +61,26 @@ newtype BeforeReparse a = BeforeReparse { unwrap :: a }
   CoercePass: TypecheckMacros → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId               TypecheckMacros ReparseMacroExpansions
-instance C.CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
-instance C.CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
-instance C.CoercePassCommentDecl      TypecheckMacros ReparseMacroExpansions where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassId               TypecheckMacros ReparseMacroExpansions
+instance CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
+instance CoercePassCommentDecl      TypecheckMacros ReparseMacroExpansions where
+  coercePassCommentDecl _ = fmap coercePass
 
 {-------------------------------------------------------------------------------
   CoercePass: PrepareReparse → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance C.CoercePassId               PrepareReparse ReparseMacroExpansions
-instance C.CoercePassMacroId          PrepareReparse ReparseMacroExpansions
-instance C.CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
-instance C.CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
-  coercePassCommentDecl _ = fmap C.coercePass
+instance CoercePassId               PrepareReparse ReparseMacroExpansions
+instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
+instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
+  coercePassCommentDecl _ = fmap coercePass
 
--- instance C.CoercePassMacroBody TypecheckMacros ReparseMacroExpansions where
---   coercePassMacroBody _ = C.coercePassParam
+-- instance CoercePassMacroBody TypecheckMacros ReparseMacroExpansions where
+--   coercePassMacroBody _ = coercePassParam
 
-instance C.CoercePassMacroUnderlying TypecheckMacros ReparseMacroExpansions where
+instance CoercePassMacroUnderlying TypecheckMacros ReparseMacroExpansions where
   coercePassMacroUnderlying _ = absurd
-instance C.CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
+instance CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
   coercePassMacroUnderlying _ = absurd

@@ -46,6 +46,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (FlatTokens, fl
                                                       PrepareReparse)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -89,7 +90,7 @@ prop_reparseGlobal_type_roundtripCanonical :: CanonicalType -> Property
 prop_reparseGlobal_type_roundtripCanonical ty =
     prop_reparseGlobal
       (\var -> C.showsVariableType (showString var) ty.unwrap)
-      (Right (C.coercePass ty.unwrap))
+      (Right (coercePass ty.unwrap))
 
 -- | Variant of 'prop_reparseGlobal_type_roundtripCanonical' for /primitive/ C
 -- types
@@ -172,7 +173,7 @@ prop_reparseGlobal_type_nonCanonicalToCanonical :: NonCanonicalType -> Property
 prop_reparseGlobal_type_nonCanonicalToCanonical ty =
     prop_reparseGlobal
       ty.representation
-      (Right (C.coercePass ty.canonical))
+      (Right (coercePass ty.canonical))
 
 -- | Variant of 'prop_reparseGlobal_type_nonCanonicalToCanonical' for
 -- /primitive/ C types
