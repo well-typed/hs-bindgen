@@ -913,7 +913,7 @@ instance Mangle C.CommentRef where
 instance MangleWithDeclName C.Typedef where
   mangleWithDeclName hsName typedef = do
       strategy <- asks (.fieldNamingStrategy)
-      names    <- mkTypedefNames mFunPtr strategy hsName
+      names    <- mkTypedefNames isFunTypeIndirection strategy hsName
       reconstruct names <$> mangle typedef.typ
     where
       reconstruct :: TypedefNames -> C.Type MangleNames -> C.Typedef MangleNames
@@ -922,14 +922,10 @@ instance MangleWithDeclName C.Typedef where
           , ann = names
           }
 
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1925
-      --
-      -- Tie generation of names to the generation of the associated code. This
-      -- is especially ugly.
-      mFunPtr :: Maybe (C.Typedef ResolveBindingSpecs)
-      mFunPtr = case typedef.typ of
-        (C.TypePointers _ (C.TypeFun _ _)) -> Just typedef
-        _                                  -> Nothing
+      -- | If the typedef is a function type indirection, we will generate an
+      -- auxiliary type for the function type.
+      isFunTypeIndirection :: Maybe (C.Typedef ResolveBindingSpecs)
+      isFunTypeIndirection = typedef <$ C.getFirstFunTypeIndirection typedef.typ
 
 instance Mangle C.Function where
   mangle function = do

@@ -37,9 +37,9 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
     __C declaration:__ @f1@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 7:16@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -96,9 +96,9 @@ instance HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 7:16@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F1 = F1
   { unwrapF1 :: RIP.FunPtr F1_Aux
@@ -127,9 +127,9 @@ instance HasCField.HasCField F1 "unwrapF1" where
 
     __C declaration:__ @f2@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 10:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F2_Aux = F2_Aux
   { unwrapF2_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -186,9 +186,9 @@ instance HasCField.HasCField F2_Aux "unwrapF2_Aux" where
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 10:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F2 = F2
   { unwrapF2 :: RIP.Ptr (RIP.FunPtr F2_Aux)
@@ -218,9 +218,9 @@ instance HasCField.HasCField F2 "unwrapF2" where
 
     __C declaration:__ @f3@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 13:18@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F3_Aux = F3_Aux
   { unwrapF3_Aux :: RIP.CInt -> RIP.CInt -> IO ()
@@ -277,9 +277,9 @@ instance HasCField.HasCField F3_Aux "unwrapF3_Aux" where
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 13:18@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F3 = F3
   { unwrapF3 :: RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
@@ -309,9 +309,9 @@ instance HasCField.HasCField F3 "unwrapF3" where
 
     __C declaration:__ @f4@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 16:16@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F4_Aux = F4_Aux
   { unwrapF4_Aux :: IO RIP.CInt
@@ -367,9 +367,9 @@ instance HasCField.HasCField F4_Aux "unwrapF4_Aux" where
 
 {-| __C declaration:__ @f4@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 16:16@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F4 = F4
   { unwrapF4 :: RIP.Ptr (RIP.FunPtr F4_Aux)
@@ -399,9 +399,9 @@ instance HasCField.HasCField F4 "unwrapF4" where
 
     __C declaration:__ @f5@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 19:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F5_Aux = F5_Aux
   { unwrapF5_Aux :: IO ()
@@ -457,9 +457,9 @@ instance HasCField.HasCField F5_Aux "unwrapF5_Aux" where
 
 {-| __C declaration:__ @f5@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 19:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F5 = F5
   { unwrapF5 :: RIP.Ptr (RIP.FunPtr F5_Aux)
@@ -487,9 +487,9 @@ instance HasCField.HasCField F5 "unwrapF5" where
 
 {-| __C declaration:__ @MyInt@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 22:13@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 22:13@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype MyInt = MyInt
   { unwrapMyInt :: RIP.CInt
@@ -529,9 +529,9 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
 
     __C declaration:__ @f6@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 23:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F6_Aux = F6_Aux
   { unwrapF6_Aux :: MyInt -> IO ()
@@ -588,9 +588,9 @@ instance HasCField.HasCField F6_Aux "unwrapF6_Aux" where
 
 {-| __C declaration:__ @f6@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 23:17@
 
-    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h@
 -}
 newtype F6 = F6
   { unwrapF6 :: RIP.Ptr (RIP.FunPtr F6_Aux)

@@ -46,6 +46,9 @@ module HsBindgen.IR.C.Type (
   , depsOfType
   , depsOfTypeFunArg
   , hasUnsupportedType
+  , getAllFunTypeIndirections
+  , getAllFunTypes
+  , getFirstFunTypeIndirection
 
     -- * Classification
   , isVoid
@@ -56,6 +59,9 @@ module HsBindgen.IR.C.Type (
   , isCanonicalTypeArray
   , isErasedTypeConstQualified
   ) where
+
+import Data.Foldable qualified as Foldable
+import Data.Set qualified as Set
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
@@ -645,6 +651,106 @@ hasUnsupportedType = aux . getCanonicalType
       C.NameKindTagged C.TagKindUnion  -> True
       C.NameKindTagged C.TagKindEnum   -> panicPure "Unexpected TagKindEnum"
       C.NameKindMacro                  -> panicPure "Unexpected NameKindMacro"
+
+-- | Recursively accumulate all function types
+getAllFunTypes ::
+     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
+  => Type p
+  -> Set ([TypeFunArg p], Type p)
+getAllFunTypes =
+      Set.map (\(_, args, res) -> (args, res))
+    . getFunTypes
+
+-- | Recursively accumulate all function type indirections
+getAllFunTypeIndirections ::
+     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
+  => Type p
+  -> Set ([TypeFunArg p], Type p)
+getAllFunTypeIndirections =
+      Set.map (\(_, args, res) -> (args, res))
+    . Set.filter (\(numIndirections, _, _) -> numIndirections > 0)
+    . getFunTypes
+
+-- | Internal function: accumulate function types recursively together with the
+-- number of indirections to get to those function types.
+getFunTypes ::
+     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
+  => Type p
+  -> Set (Int, [TypeFunArg p], Type p)
+getFunTypes = go 0 Set.empty
+  where
+    go ::
+         Int
+      -> Set (Int, [TypeFunArg p], Type p)
+      -> Type p
+      -> Set (Int, [TypeFunArg p], Type p)
+    go numIndirections acc = \case
+      -- interesting case
+      TypeFun args res ->
+          let acc' = Set.insert (numIndirections, args, res) acc
+          in  Foldable.foldl' (go (numIndirections + 1)) acc' (fmap (.typ) args ++ [res])
+
+      -- recursive cases
+      TypePointers n t       -> go (numIndirections + n) acc t
+      TypeConstArray _n t    -> go (numIndirections + 1) acc t
+      TypeIncompleteArray  t -> go (numIndirections + 1) acc t
+      TypeBlock t            -> go (numIndirections + 1) acc t
+      TypeQual _q t          -> go (numIndirections + 1) acc t
+
+      -- primitive cases
+      TypePrim{} -> acc
+      TypeComplex{} -> acc
+      TypeVoid{} -> acc
+
+      -- sugar cases
+      TypeRef{} -> acc
+      TypeEnum{} -> acc
+      TypeMacro{} -> acc
+      TypeTypedef{} -> acc
+      TypeExtBinding{} -> acc
+
+-- | Get the first function type indirection
+getFirstFunTypeIndirection ::
+     forall p.
+     Type p
+  -> Maybe ( [TypeFunArg p]
+           , Type p
+           , Type p -> Type p -- ^ zipper: how to reconstruct the original type
+           )
+getFirstFunTypeIndirection = go 0 id
+  where
+    go ::
+         Int
+      -> (Type p -> Type p)
+      -> Type p
+      -> Maybe ( [TypeFunArg p]
+               , Type p
+               , Type p -> Type p
+               )
+    go numIndirections reconstruct = \case
+      -- interesting case
+      TypeFun args res
+        | numIndirections <= 0 -> Nothing
+        | otherwise ->  Just (args, res, reconstruct)
+
+      -- recursive cases
+      TypePointers n t        -> go (numIndirections + n) (reconstruct . TypePointers n) t
+      TypeConstArray n t      -> go (numIndirections + 1) (reconstruct . TypeConstArray n) t
+      TypeIncompleteArray  t  -> go (numIndirections + 1) (reconstruct . TypeIncompleteArray) t
+      TypeBlock t             -> go (numIndirections + 1) (reconstruct . TypeBlock) t
+      TypeQual q t            -> go (numIndirections + 1) (reconstruct . TypeQual q) t
+
+      -- primitive cases
+      TypePrim{} -> Nothing
+      TypeComplex{} -> Nothing
+      TypeVoid{} -> Nothing
+
+      -- sugar cases
+      TypeRef{} -> Nothing
+      TypeEnum{} -> Nothing
+      TypeMacro{} -> Nothing
+      TypeTypedef{} -> Nothing
+      TypeExtBinding{} -> Nothing
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers

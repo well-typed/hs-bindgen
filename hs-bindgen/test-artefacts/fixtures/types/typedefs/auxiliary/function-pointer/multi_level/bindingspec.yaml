@@ -3,25 +3,25 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f1
   hsname: F1
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f2
   hsname: F2
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f3
   hsname: F3
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f4
   hsname: F4
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f5
   hsname: F5
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: MyInt
   hsname: MyInt
-- headers: types/typedefs/multi_level_function_pointer.h
+- headers: types/typedefs/auxiliary/function-pointer/multi_level.h
   cname: f6
   hsname: F6
 hstypes:
