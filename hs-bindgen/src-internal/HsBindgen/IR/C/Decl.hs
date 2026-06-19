@@ -127,6 +127,8 @@ data HeaderInfo = HeaderInfo{
     , includeArg :: C.HashIncludeArg
 
       -- | Raw macro used as a @#include@ argument, when applicable
+      --
+      -- For example, @#include FOO@ would record the macro text @FOO@ here.
     , includeMacroArg :: Maybe Text
     }
   deriving stock (Show, Eq, Generic)
