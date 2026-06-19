@@ -27,7 +27,6 @@ module Example
     )
   where
 
-import qualified Data.ByteString as BS
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 {-| __C declaration:__ @macro C1@
@@ -126,8 +125,8 @@ c8 = 83
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: BS.ByteString
-s1 = BS.pack [0x61]
+s1 :: RIP.ByteString
+s1 = RIP.pack [0x61]
 
 {-| __C declaration:__ @macro S2@
 
@@ -137,8 +136,8 @@ s1 = BS.pack [0x61]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: BS.ByteString
-s2 = BS.pack [0x27]
+s2 :: RIP.ByteString
+s2 = RIP.pack [0x27]
 
 {-| __C declaration:__ @macro S3@
 
@@ -148,8 +147,8 @@ s2 = BS.pack [0x27]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: BS.ByteString
-s3 = BS.pack [0x09]
+s3 :: RIP.ByteString
+s3 = RIP.pack [0x09]
 
 {-| __C declaration:__ @macro S4@
 
@@ -159,8 +158,8 @@ s3 = BS.pack [0x09]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: BS.ByteString
-s4 = BS.pack [0x00]
+s4 :: RIP.ByteString
+s4 = RIP.pack [0x00]
 
 {-| __C declaration:__ @macro S5@
 
@@ -170,8 +169,8 @@ s4 = BS.pack [0x00]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: BS.ByteString
-s5 = BS.pack [0x27]
+s5 :: RIP.ByteString
+s5 = RIP.pack [0x27]
 
 {-| __C declaration:__ @macro S6@
 
@@ -181,8 +180,8 @@ s5 = BS.pack [0x27]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: BS.ByteString
-s6 = BS.pack [0x3F]
+s6 :: RIP.ByteString
+s6 = RIP.pack [0x3F]
 
 {-| __C declaration:__ @macro S7@
 
@@ -192,8 +191,8 @@ s6 = BS.pack [0x3F]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: BS.ByteString
-s7 = BS.pack [0x53]
+s7 :: RIP.ByteString
+s7 = RIP.pack [0x53]
 
 {-| __C declaration:__ @macro S8@
 
@@ -203,8 +202,8 @@ s7 = BS.pack [0x53]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: BS.ByteString
-s8 = BS.pack [0x53]
+s8 :: RIP.ByteString
+s8 = RIP.pack [0x53]
 
 {-| __C declaration:__ @macro T1@
 
@@ -214,8 +213,8 @@ s8 = BS.pack [0x53]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: BS.ByteString
-t1 = BS.pack [0xE3, 0x81, 0x82]
+t1 :: RIP.ByteString
+t1 = RIP.pack [0xE3, 0x81, 0x82]
 
 {-| __C declaration:__ @macro T2@
 
@@ -225,8 +224,8 @@ t1 = BS.pack [0xE3, 0x81, 0x82]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: BS.ByteString
-t2 = BS.pack [0xE3, 0x81, 0x82]
+t2 :: RIP.ByteString
+t2 = RIP.pack [0xE3, 0x81, 0x82]
 
 {-| __C declaration:__ @macro T3@
 
@@ -236,8 +235,8 @@ t2 = BS.pack [0xE3, 0x81, 0x82]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: BS.ByteString
-t3 = BS.pack [0xE3, 0x81, 0x82]
+t3 :: RIP.ByteString
+t3 = RIP.pack [0xE3, 0x81, 0x82]
 
 {-| __C declaration:__ @macro U@
 
@@ -247,9 +246,9 @@ t3 = BS.pack [0xE3, 0x81, 0x82]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: BS.ByteString
+u :: RIP.ByteString
 u =
-  BS.pack [0x01, 0xFF, 0x01, 0xFF, 0x01, 0xFF, 0x01, 0xFF]
+  RIP.pack [0x01, 0xFF, 0x01, 0xFF, 0x01, 0xFF, 0x01, 0xFF]
 
 {-| __C declaration:__ @macro V@
 
@@ -259,8 +258,8 @@ u =
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: BS.ByteString
-v = BS.pack [0x01, 0x02, 0x03, 0x04, 0x05, 0x06]
+v :: RIP.ByteString
+v = RIP.pack [0x01, 0x02, 0x03, 0x04, 0x05, 0x06]
 
 {-| __C declaration:__ @macro W1@
 
@@ -270,8 +269,8 @@ v = BS.pack [0x01, 0x02, 0x03, 0x04, 0x05, 0x06]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: BS.ByteString
-w1 = BS.pack [0x68, 0x69, 0x6A, 0x00]
+w1 :: RIP.ByteString
+w1 = RIP.pack [0x68, 0x69, 0x6A, 0x00]
 
 {-| __C declaration:__ @macro W2@
 
@@ -281,6 +280,6 @@ w1 = BS.pack [0x68, 0x69, 0x6A, 0x00]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: BS.ByteString
+w2 :: RIP.ByteString
 w2 =
-  BS.pack [0x61, 0x62, 0x63, 0x00, 0x64, 0x65, 0x66, 0x00, 0x67]
+  RIP.pack [0x61, 0x62, 0x63, 0x00, 0x64, 0x65, 0x66, 0x00, 0x67]
