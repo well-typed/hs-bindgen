@@ -141,7 +141,7 @@ jobs:
         echo "/usr/bin" >> "$GITHUB_PATH"
 
     - name: 📥 Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: (Debug) Check disk usage (init)
       run: |

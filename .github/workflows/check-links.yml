@@ -21,7 +21,7 @@ jobs:
     name: Check links with lychee
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       # Initialise git submodules so that links into submodules can be checked.
       # Because we are only interested in checking links defined in our own

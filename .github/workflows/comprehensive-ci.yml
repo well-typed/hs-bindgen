@@ -46,7 +46,7 @@ jobs:
         echo "/usr/bin" >> "$GITHUB_PATH"
 
     - name: 📥 Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: 🛠️ Setup Haskell
       uses: haskell-actions/setup@v2
@@ -117,7 +117,7 @@ jobs:
         git config --global core.eol lf
 
     - name: 📥 Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: 🛠️ Setup Haskell
       id: setup-haskell
@@ -210,7 +210,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         uses: haskell-actions/setup@v2
@@ -259,7 +259,7 @@ jobs:
           echo "/usr/bin" >> "$GITHUB_PATH"
 
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         uses: haskell-actions/setup@v2
@@ -329,7 +329,7 @@ jobs:
           git config --global core.eol lf
 
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         id: setup-haskell
@@ -410,7 +410,7 @@ jobs:
           echo "/usr/bin" >> "$GITHUB_PATH"
 
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         uses: haskell-actions/setup@v2
@@ -457,7 +457,7 @@ jobs:
           git config --global core.eol lf
 
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         id: setup-haskell
@@ -498,7 +498,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🛠️ Setup Haskell
         id: setup-haskell
@@ -536,7 +536,7 @@ jobs:
 
     steps:
     - name: 📥 Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: 🛠️ Install Nix
       uses: DeterminateSystems/nix-installer-action@main
