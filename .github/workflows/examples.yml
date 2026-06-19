@@ -119,6 +119,8 @@ jobs:
     name: "Examples: Check success"
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      issues: write
 
     needs:
     - build-and-test-example
