@@ -309,7 +309,7 @@ structDecl macroLang enclosing ctx info = \curr -> do
         let decl :: C.Decl l Parse
             decl = C.Decl{
                 info = info
-              , kind = C.DeclOpaque
+              , kind = C.DeclOpaque Nothing
               , ann  = NoAnn
               }
         in  foldContinueWith [parseSucceed decl]
@@ -396,7 +396,7 @@ unionDecl macroLang enclosing ctx info = \curr -> do
         let decl :: C.Decl l Parse
             decl = C.Decl{
                 info = info
-              , kind = C.DeclOpaque
+              , kind = C.DeclOpaque Nothing
               , ann  = NoAnn
               }
         foldContinueWith [parseSucceed decl]
@@ -428,7 +428,7 @@ typedefDecl _enclosing ctx info = \curr -> do
           -- > typedef void foo
           --
           -- as the declaration of an opaque type.
-          return C.DeclOpaque
+          return (C.DeclOpaque Nothing)
         _otherwise -> do
           typedefAnn <- getReparseInfo curr
           return $ C.DeclTypedef C.Typedef{
@@ -560,7 +560,7 @@ enumDecl _enclosing ctx info = \curr -> do
         let decl :: C.Decl l Parse
             decl = C.Decl{
                 info = info
-              , kind = C.DeclOpaque
+              , kind = C.DeclOpaque Nothing
               , ann  = NoAnn
               }
         foldContinueWith [parseSucceed decl]

@@ -142,7 +142,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
         -> C.getAllFunTypeIndirections typedef.typ
       C.DeclEnum enum -> C.getAllFunTypes enum.typ
       C.DeclAnonEnumConstant{} -> Set.empty
-      C.DeclOpaque -> Set.empty
+      C.DeclOpaque{} -> Set.empty
       C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
         foldMap C.getAllFunTypes (fn.res : map (.argTyp.typ) fn.args)
@@ -187,8 +187,8 @@ generateDecs macroLang uniqueId haddockConfig moduleName sizeofs (C.Decl info ki
             typedefFunTypeIndirectionDecs supInsts.typedef haddockConfig sizeofs info (args, res, reconstruct) typedef.names spec
           Nothing ->
             State.immediateM $ typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
-      C.DeclOpaque -> withCategoryM CType $
-        State.immediateM $ opaqueDecs haddockConfig info spec
+      C.DeclOpaque mSize -> withCategoryM CType $
+        State.immediateM $ opaqueDecs haddockConfig info spec mSize
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
@@ -234,10 +234,11 @@ opaqueDecs ::
   => HaddockConfig
   -> C.DeclInfo Final
   -> PrescriptiveDeclSpec
+  -> Maybe C.OpaqueSize
   -> HsM [Hs.Decl l]
-opaqueDecs haddockConfig info spec = do
-    State.modify' $ #instanceMap %~ Map.insert name Set.empty
-    return [decl]
+opaqueDecs haddockConfig info spec mSize = do
+    State.modify' $ #instanceMap %~ Map.insert name insts
+    return $ decl : staticSizeDecls
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
@@ -252,6 +253,25 @@ opaqueDecs haddockConfig info spec = do
             , spec = spec
             }
         }
+
+    -- We generate a 'StaticSize' instance when the (otherwise opaque) C type
+    -- has a known size and alignment, that is, when a /complete/ C type was
+    -- given the @emptydata@ representation.  Its methods use proxies, so the
+    -- field-less data type can have the instance.
+    (insts, staticSizeDecls)
+      | Just (C.OpaqueSize sz al) <- mSize =
+          ( Set.singleton Inst.StaticSize
+          , [ Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl =
+                    Hs.InstanceStaticSize name Hs.StaticSizeInstance{
+                        staticSizeOf    = sz
+                      , staticAlignment = al
+                      }
+                }
+            ]
+          )
+      | otherwise = (Set.empty, [])
 
 {-------------------------------------------------------------------------------
   Enum
@@ -361,7 +381,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
             Hs.DeclDefineInstance Hs.DefineInstance{
                 comment      = Nothing
               , instanceDecl =
-                  Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                  Hs.InstanceStaticSize hsStruct.name Hs.StaticSizeInstance{
                       staticSizeOf    = enum.sizeof
                     , staticAlignment = enum.alignment
                     }

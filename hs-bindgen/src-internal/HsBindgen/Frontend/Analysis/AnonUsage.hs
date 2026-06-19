@@ -174,7 +174,7 @@ analyseDecl decl =
       C.DeclTypedef          x -> analyseTypedef decl.info x
       C.DeclEnum             _ -> []
       C.DeclAnonEnumConstant _ -> []
-      C.DeclOpaque             -> []
+      C.DeclOpaque{}           -> []
       C.DeclMacro            _ -> []
       C.DeclFunction         _ -> []
       C.DeclGlobal           x -> analyseGlobal  decl.info x.typ

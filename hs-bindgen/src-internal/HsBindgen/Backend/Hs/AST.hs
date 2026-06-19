@@ -272,7 +272,10 @@ data DefineInstance = DefineInstance{
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
-    InstanceStaticSize      :: Struct -> StaticSizeInstance -> InstanceDecl
+    -- | 'StaticSize' only needs the type's name (its methods use proxies), so
+    -- it accepts a bare name rather than a 'Struct'.  This lets field-less empty
+    -- data types (the @emptydata@ representation) carry a 'StaticSize' instance.
+    InstanceStaticSize      :: Hs.Name Hs.NsTypeConstr -> StaticSizeInstance -> InstanceDecl
     InstanceReadRaw         :: Struct -> ReadRawInstance -> InstanceDecl
     InstanceWriteRaw        :: Struct -> WriteRawInstance -> InstanceDecl
     InstanceStorable        :: Struct -> StorableInstance -> InstanceDecl

@@ -79,7 +79,7 @@ coerceDecl decl = case decl.kind of
     C.DeclUnion            k -> nonMacro $ C.DeclUnion            $ coercePass k
     C.DeclEnum             k -> nonMacro $ C.DeclEnum             $ coercePass k
     C.DeclAnonEnumConstant k -> nonMacro $ C.DeclAnonEnumConstant $ coercePass k
-    C.DeclOpaque             -> nonMacro $ C.DeclOpaque
+    C.DeclOpaque mSize       -> nonMacro $ C.DeclOpaque mSize
     C.DeclFunction         k -> nonMacro $ C.DeclFunction         $ coercePass k
     C.DeclGlobal           k -> nonMacro $ C.DeclGlobal           $ coercePass k
   where

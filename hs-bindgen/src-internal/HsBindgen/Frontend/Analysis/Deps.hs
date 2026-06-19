@@ -34,7 +34,7 @@ depsOfDeclWith depsOfMacro = \case
     (C.DeclEnum _)             -> []
     (C.DeclAnonEnumConstant _) -> []
     (C.DeclTypedef ty)         -> depsOfTypedef ty
-    C.DeclOpaque               -> []
+    C.DeclOpaque{}             -> []
     (C.DeclMacro m)            -> depsOfMacro m
     (C.DeclFunction function)  ->
       C.depsOfType function.res ++

@@ -89,7 +89,7 @@ reparseDecl decl = case decl.kind of
     C.DeclUnion union                    -> processUnion            info' union
     C.DeclEnum enum                      -> processEnum             info' enum
     C.DeclAnonEnumConstant anonEnumConst -> processAnonEnumConstant info' anonEnumConst
-    C.DeclOpaque                         -> processOpaque           info' C.DeclOpaque
+    C.DeclOpaque mSize                   -> processOpaque           info' (C.DeclOpaque mSize)
     C.DeclFunction fun                   -> processFunction         info' fun
     C.DeclGlobal global                  -> processGlobal           info' global
   where

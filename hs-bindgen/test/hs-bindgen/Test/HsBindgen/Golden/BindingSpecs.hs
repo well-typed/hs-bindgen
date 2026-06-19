@@ -29,12 +29,7 @@ testCases = [
     , test_bindingSpecs_name_squash_typedef
     , test_bindingSpecs_name_type
       -- * Representation: emptydata
-    , test_bindingSpecs_rep_emptydata_enum
-    , test_bindingSpecs_rep_emptydata_macro_type
-    , test_bindingSpecs_rep_emptydata_opaque
-    , test_bindingSpecs_rep_emptydata_struct
-    , test_bindingSpecs_rep_emptydata_typedef
-    , test_bindingSpecs_rep_emptydata_union
+    , test_bindingSpecs_rep_emptydata_staticsize
       -- * Function arguments with typedefs
     , test_bindingSpecs_fun_arg_typedef_array
     , test_bindingSpecs_fun_arg_typedef_array_known_size
@@ -134,68 +129,21 @@ test_bindingSpecs_name_type =
   Representation: emptydata
 -------------------------------------------------------------------------------}
 
--- | Making an enum type opaque
-test_bindingSpecs_rep_emptydata_enum :: TestCase
-test_bindingSpecs_rep_emptydata_enum =
-    defaultTest "binding-specs/rep/emptydata/enum"
-      & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/enum_p.yaml"
-
--- | Making a macro type opaque
-test_bindingSpecs_rep_emptydata_macro_type :: TestCase
-test_bindingSpecs_rep_emptydata_macro_type =
-    defaultTest "binding-specs/rep/emptydata/macro_type"
-      & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
-
--- | Opaque types work with representation emptydata
-test_bindingSpecs_rep_emptydata_opaque :: TestCase
-test_bindingSpecs_rep_emptydata_opaque =
-    defaultTest "binding-specs/rep/emptydata/opaque"
-      & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/opaque_p.yaml"
-
--- | Making a struct type opaque
+-- | StaticSize instances for the emptydata representation
 --
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
+-- A single header exercises every emptydata case in one place: structs, unions,
+-- and enums (whose layout is known directly), typedefs resolved to a complete
+-- underlying type (directly, through a chain, and to a union), and the cases
+-- with no size available at this pass (a typedef to a primitive, an opaque
+-- forward declaration, and a macro naming a pointer).
 --
--- This test also has tests for nested types.
-test_bindingSpecs_rep_emptydata_struct :: TestCase
-test_bindingSpecs_rep_emptydata_struct =
-    defaultTest "binding-specs/rep/emptydata/struct"
+-- The typedefs' underlying types live in an included header; program slicing
+-- keeps them out of the generated output.
+test_bindingSpecs_rep_emptydata_staticsize :: TestCase
+test_bindingSpecs_rep_emptydata_staticsize =
+    defaultTest "binding-specs/rep/emptydata/staticsize"
       & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/struct_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
--- | Making a typedef type opaque
---
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
-test_bindingSpecs_rep_emptydata_typedef :: TestCase
-test_bindingSpecs_rep_emptydata_typedef =
-    defaultTest "binding-specs/rep/emptydata/typedef"
-      & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/typedef_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
--- | Making a union type opaque
---
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
---
--- This test also tests nested types.
-test_bindingSpecs_rep_emptydata_union :: TestCase
-test_bindingSpecs_rep_emptydata_union =
-    defaultTest "binding-specs/rep/emptydata/union"
-      & #specPrescriptive .~
-          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/union_p.yaml"
+          Just "test-artefacts/headers/golden/binding-specs/rep/emptydata/staticsize_p.yaml"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing .~ EnableProgramSlicing

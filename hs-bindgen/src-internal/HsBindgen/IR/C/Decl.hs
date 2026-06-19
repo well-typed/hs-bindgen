@@ -16,6 +16,7 @@ module HsBindgen.IR.C.Decl (
   , HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
+  , OpaqueSize(..)
   , Struct(..)
   , StructField(..)
   , Union(..)
@@ -155,11 +156,26 @@ data DeclKind l p =
     -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
     -- specify any kind of type to be opaque using a prescriptive binding
     -- specification, however, including @typedef@ types.
-  | DeclOpaque
+    --
+    -- The size and alignment are retained when known (i.e. when a /complete/ C
+    -- type is given the @emptydata@ representation), and 'Nothing' when the type
+    -- is genuinely opaque in C (e.g. a forward declaration).
+  | DeclOpaque (Maybe OpaqueSize)
   | DeclMacro (MacroBody p l)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal (Global p)
+
+-- | Size and alignment of an opaque type, when known
+--
+-- A complete C type given the @emptydata@ representation retains its size and
+-- alignment here, which is what enables generating a @StaticSize@ instance for
+-- the otherwise field-less Haskell type.
+data OpaqueSize = OpaqueSize {
+      sizeof    :: Int
+    , alignment :: Int
+    }
+  deriving stock (Show, Eq, Generic)
 
 data Struct (p :: Pass) = Struct {
       sizeof    :: Int
@@ -463,7 +479,7 @@ instance (
       DeclFunction         x -> DeclFunction         $ coercePass x
       DeclGlobal           x -> DeclGlobal           $ coercePass x
       DeclMacro            x -> DeclMacro            $ coercePassMacroBody (Proxy @'(p, p')) x
-      DeclOpaque             -> DeclOpaque
+      DeclOpaque        mSize -> DeclOpaque mSize
 
 instance (
       CoercePass StructField p p'

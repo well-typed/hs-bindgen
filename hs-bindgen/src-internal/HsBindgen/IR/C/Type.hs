@@ -40,6 +40,7 @@ module HsBindgen.IR.C.Type (
 
     -- * Normal forms
   , Normalize(..)
+  , getCanonicalType
 
     -- * Queries
   , ValOrRef(..)

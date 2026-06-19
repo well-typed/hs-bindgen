@@ -94,6 +94,12 @@
   in struct fields, union fields, and function arguments/results. Now this works
   for function types nested in global variables and typedefs as well. See [PR
   #2068][pr-2068].
+* Generate a `StaticSize` instance for `emptydata` types whose underlying C type
+  is complete (a struct, union, or enum with a known size and alignment, or a
+  typedef of one), so that callers can allocate the type from Haskell even though
+  its fields are hidden. Types that are opaque in C (such as forward
+  declarations) get no instance. See
+  [#2014](https://github.com/well-typed/hs-bindgen/issues/2014).
 
 ### Minor changes
 
