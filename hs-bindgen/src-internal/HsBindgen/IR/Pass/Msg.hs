@@ -9,7 +9,7 @@
 module HsBindgen.IR.Pass.Msg (
     -- * Associated type families
     PassMsg(..)
-  , AMsg
+  , AnnMsg
     -- * Defaults
   , NoMsg
   ) where
@@ -30,8 +30,8 @@ class PassMsg (p :: Pass) where
   type Msg p = NoMsg Level
 
 -- | Trace messages with call-stack annotations
-type AMsg :: Pass -> Star
-type AMsg p = WithCallStack (Msg p)
+type AnnMsg :: Pass -> Star
+type AnnMsg p = WithCallStack (Msg p)
 
 {-------------------------------------------------------------------------------
   Defaults

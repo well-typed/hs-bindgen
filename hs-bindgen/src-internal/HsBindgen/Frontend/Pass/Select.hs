@@ -92,7 +92,7 @@ selectDecls ::
   -> IsInMainHeaderDir
   -> SelectConfig
   -> C.TranslationUnit l AdjustTypes
-  -> (C.TranslationUnit l Select, [AMsg Select])
+  -> (C.TranslationUnit l Select, [AnnMsg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
@@ -185,7 +185,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectedUnitDecls  :: [Decl l]
         selectedUnitDecls = mapMaybe selectDecl unitDecls
 
-        selectMsgs :: [AMsg Select]
+        selectMsgs :: [AnnMsg Select]
         selectMsgs =
           getSelectMsgs
             rootIds
@@ -201,7 +201,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               }
 
         -- If there were no predicate matches we issue a warning to the user.
-        noDeclarationsMatchedMsg :: [AMsg Select]
+        noDeclarationsMatchedMsg :: [AnnMsg Select]
         noDeclarationsMatchedMsg = [
             withCallStack C.WithLocationInfo{
                 loc = C.LocationUnavailable
@@ -210,7 +210,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | Set.null rootIds
           ]
 
-        msgs :: [AMsg Select]
+        msgs :: [AnnMsg Select]
         msgs =
           concat [
               selectMsgs
@@ -280,7 +280,7 @@ getSelectMsgs ::
   --   slicing is enabled).
   ->(C.DeclId -> TransitiveSelectability)
   -> DeclIndex l
-  -> [AMsg Select]
+  -> [AnnMsg Select]
 getSelectMsgs
   rootIds
   additionalSelectedTransDepIds
@@ -288,7 +288,7 @@ getSelectMsgs
   declIndex
   = concatMap (uncurry aux) $ DeclIndex.toList declIndex
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AMsg Select]
+    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
     aux =
       getSelectMsgsDeclId
         getTransitiveSelectability
@@ -307,7 +307,7 @@ getSelectMsgsDeclId ::
   -> Set C.DeclId
   -> C.DeclId
   -> Entry l
-  -> [AMsg Select]
+  -> [AnnMsg Select]
 getSelectMsgsDeclId
   getTransitiveSelectability
   declIndex
@@ -345,7 +345,7 @@ getSelectMsgsDeclId
       Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
-    getMsgsFor :: HasCallStack => SelectReason -> [AMsg Select]
+    getMsgsFor :: HasCallStack => SelectReason -> [AnnMsg Select]
     getMsgsFor selectReason = concat [
           [ withLoc $ SelectStatusInfo (Selected selectReason) ]
         , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
@@ -363,7 +363,7 @@ getSelectMsgsDeclId
     getUnavailMsg ::
          HasCallStack
       => SelectReason
-      -> Map C.DeclId Unselectable -> Maybe (AMsg Select)
+      -> Map C.DeclId Unselectable -> Maybe (AnnMsg Select)
     getUnavailMsg selectReason unavailReasons =
         if null msgs then
           Nothing
@@ -395,26 +395,26 @@ mkSuccessMessages ::
      HasCallStack
   => C.DeclId
   -> Success l EnrichComments
-  -> [AMsg Select]
+  -> [AnnMsg Select]
 mkSuccessMessages declId success = concat [
-      fmap (mkAMsg . SelectDelayedParseMsg)
+      fmap (mkAnnMsg . SelectDelayedParseMsg)
         delayedParseMsgs
-    , fmap (mkAMsg . SelectDelayedPrepareReparseMsg)
+    , fmap (mkAnnMsg . SelectDelayedPrepareReparseMsg)
         delayedPrepareReparseMsgs
     ]
   where
     DeclIndex.Success _ delayedParseMsgs delayedPrepareReparseMsgs = success
 
-    mkAMsg :: HasCallStack => SelectMsg -> AMsg Select
-    mkAMsg msg = withCallStack C.WithLocationInfo{
+    mkAnnMsg :: HasCallStack => SelectMsg -> AnnMsg Select
+    mkAnnMsg msg = withCallStack C.WithLocationInfo{
           loc = C.declIdLocationInfo declId [success.decl.info.loc]
         , msg = msg
         }
 
-getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex l -> [AMsg Select]
+getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex l -> [AnnMsg Select]
 getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AMsg Select]
+    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success -> mkSuccessMessages declId success
@@ -454,10 +454,13 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
         UnusableOmitted{} ->
           []
 
-getDelayedMsgsAdditionalSelectedTransDeps :: HasCallStack => DeclIndex l -> [AMsg Select]
+getDelayedMsgsAdditionalSelectedTransDeps ::
+     HasCallStack
+  => DeclIndex l
+  -> [AnnMsg Select]
 getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AMsg Select]
+    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success -> mkSuccessMessages declId success
@@ -477,10 +480,10 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
 -- parse messages are emitted for all declarations also in the future.
-getDelayedMsgsNotSelected :: HasCallStack => DeclIndex l -> [AMsg Select]
+getDelayedMsgsNotSelected :: HasCallStack => DeclIndex l -> [AnnMsg Select]
 getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AMsg Select]
+    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
@@ -532,7 +535,7 @@ compareSingleLocs xs x y =
     getLineCol :: SingleLoc -> (Int, Int)
     getLineCol z = (singleLocLine z, singleLocColumn z)
 
-compareMsgs :: Map SourcePath Int -> AMsg Select -> AMsg Select -> Ordering
+compareMsgs :: Map SourcePath Int -> AnnMsg Select -> AnnMsg Select -> Ordering
 compareMsgs orderMap x y =
   case (C.locationInfoLocs x.traceMsg.loc, C.locationInfoLocs y.traceMsg.loc) of
     (lx : __, ly : _) -> compareSingleLocs orderMap lx ly
@@ -540,7 +543,7 @@ compareMsgs orderMap x y =
     ([] , _ ) -> GT
     (_  , []) -> LT
 
-sortSelectMsgs :: IncludeGraph -> [AMsg Select] -> [AMsg Select]
+sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
 sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
   where
     -- Compute the order map once.

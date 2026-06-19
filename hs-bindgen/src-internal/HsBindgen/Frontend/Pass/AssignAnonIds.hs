@@ -28,7 +28,7 @@ assignAnonIds ::
      HasCallStack
   => AnonUsageAnalysis
   -> [ParseResult l SimplifyAST]
-  -> ([ParseResult l AssignAnonIds], [AMsg AssignAnonIds])
+  -> ([ParseResult l AssignAnonIds], [AnnMsg AssignAnonIds])
 assignAnonIds usage parseResults =
     swap . partitionEithers $
       map (updateParseResult chosenNames) parseResults
@@ -44,7 +44,7 @@ updateParseResult ::
      forall l. HasCallStack
   => ChosenNames
   -> ParseResult l SimplifyAST
-  -> Either (AMsg AssignAnonIds) (ParseResult l AssignAnonIds)
+  -> Either (AnnMsg AssignAnonIds) (ParseResult l AssignAnonIds)
 updateParseResult chosenNames result =
     case result.classification of
       ParseResultSuccess success -> do
@@ -115,7 +115,7 @@ updateDefSite ::
      HasCallStack
   => ChosenNames
   -> Id SimplifyAST
-  -> Either (AMsg AssignAnonIds) (Id AssignAnonIds)
+  -> Either (AnnMsg AssignAnonIds) (Id AssignAnonIds)
 updateDefSite chosenNames =
     first (withCallStack . AssignAnonIdsSkippedDecl) . fromPrelimDeclId chosenNames
 

@@ -47,7 +47,7 @@ resolveBindingSpecs ::
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit l PreviousPass
-  -> (C.TranslationUnit l ResolveBindingSpecs, [AMsg ResolveBindingSpecs])
+  -> (C.TranslationUnit l ResolveBindingSpecs, [AnnMsg ResolveBindingSpecs])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
@@ -143,7 +143,7 @@ deriving stock instance HasMacroTypes l => Show (MEnv l)
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      traces    :: [AMsg ResolveBindingSpecs] -- ^ reverse order
+      traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map C.DeclId [Set SourcePath]
     , omitTypes :: Map C.DeclId SingleLoc
@@ -160,7 +160,7 @@ initMState pSpec = MState {
     , opqTypes  = Set.empty
     }
 
-insertTrace :: AMsg ResolveBindingSpecs -> MState -> MState
+insertTrace :: AnnMsg ResolveBindingSpecs -> MState -> MState
 insertTrace msg = #traces %~ (msg :)
 
 insertExtType :: C.DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
@@ -629,7 +629,7 @@ resolveExtBinding ::
   => C.DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
-  -> Maybe (AMsg ResolveBindingSpecs)
+  -> Maybe (AnnMsg ResolveBindingSpecs)
   -> M l (Maybe BindingSpec.ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask

@@ -56,7 +56,7 @@ update ::
      UpdateMode [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> ( C.TranslationUnit l PrepareReparse
-     , [AMsg PrepareReparse]
+     , [AnnMsg PrepareReparse]
      )
 update mode unit =
     ( unit'

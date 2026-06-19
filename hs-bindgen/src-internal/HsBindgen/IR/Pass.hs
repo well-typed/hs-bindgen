@@ -21,7 +21,7 @@ module HsBindgen.IR.Pass (
   , PassCommentDecl(..)
   , PassAnn(..)
   , PassMsg(..)
-  , AMsg
+  , AnnMsg
     -- * Coercion
   , CoercePass(..)
   , CoercePassParam(..)

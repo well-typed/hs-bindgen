@@ -37,7 +37,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
-import HsBindgen.IR.Pass (AMsg, PassMsg (Msg))
+import HsBindgen.IR.Pass
 import HsBindgen.Util.Tracer (Tracer)
 
 {-------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ runUpdater ::
   -> PostHeader
   -> C.TranslationUnit l TypecheckMacros
   -> ( C.TranslationUnit l PrepareReparse
-     , [AMsg PrepareReparse]
+     , [AnnMsg PrepareReparse]
      )
 runUpdater macroDefs header unit = update mode unit
   where
