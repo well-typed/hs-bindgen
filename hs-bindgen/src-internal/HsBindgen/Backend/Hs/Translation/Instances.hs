@@ -106,8 +106,8 @@ getInstances instanceMap name = aux
           HsSizedByteArray{} ->
             let acc' = acc /\ Set.fromList [Inst.Eq, Inst.Show]
             in  aux acc' hsTypes
-          HsBlock t ->
-            aux (blockInsts /\ acc) (t:hsTypes)
+          HsBlock{} ->
+            aux (blockInsts /\ acc) (hsTypes)
           HsComplexType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/1572>

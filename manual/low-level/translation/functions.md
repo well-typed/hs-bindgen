@@ -265,6 +265,15 @@ The `_Aux` auxiliary type represents the Haskell function signature, while
 the main type wraps the `FunPtr` to that signature. This separation mirrors
 how C distinguishes between a function pointer and the function it points to.
 
+These auxiliary types are generated for any (number of) function type
+indirections. For example, we would generate the same `ProgressUpdate_Aux` type
+if  `ProgressUpdate` had been defined with multiple indirections (array, then
+const qualifer, then pointer) like so:
+
+```c
+typedef void (* const ProgressUpdate[3])(int percentComplete);
+```
+
 ### Wrapper and dynamic imports
 
 For function pointer types that are actually used by the C API, `hs-bindgen`

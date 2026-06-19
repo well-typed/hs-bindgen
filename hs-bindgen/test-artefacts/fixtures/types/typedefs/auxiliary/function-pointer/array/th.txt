@@ -1,4 +1,43 @@
 -- addDependentFile test-artefacts/headers/golden/types/typedefs/auxiliary/function-pointer/array.h
+{-| Auxiliary type used by 'T'
+
+    __C declaration:__ @T@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 1:16@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h@
+-}
+newtype T_Aux
+    = T_Aux {unwrapT_Aux :: (CInt -> IO ())}
+    deriving stock Generic
+    deriving newtype HasFFIType
+-- __unique:__ @toT_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @toT_Aux@
+hs_bindgen_5927fedc3abfa99c :: T_Aux -> IO (FunPtr T_Aux)
+-- __unique:__ @toT_Aux@
+hs_bindgen_5927fedc3abfa99c = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_5927fedc3abfa99c_base (toFFIType fun_0))
+-- __unique:__ @fromT_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @fromT_Aux@
+hs_bindgen_281617c90fa9307a :: FunPtr T_Aux -> T_Aux
+-- __unique:__ @fromT_Aux@
+hs_bindgen_281617c90fa9307a = \funPtr_0 -> fromFFIType (hs_bindgen_281617c90fa9307a_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr T_Aux
+    where toFunPtr = hs_bindgen_5927fedc3abfa99c
+instance FromFunPtr T_Aux
+    where fromFunPtr = hs_bindgen_281617c90fa9307a
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapT_Aux" (Ptr T_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT_Aux")
+instance HasCField T_Aux "unwrapT_Aux"
+    where type CFieldType T_Aux "unwrapT_Aux" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 1:16@
@@ -6,15 +45,53 @@
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h@
 -}
 newtype T
-    = T {unwrapT :: (IncompleteArray (FunPtr (CInt -> IO ())))}
+    = T {unwrapT :: (IncompleteArray (FunPtr T_Aux))}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
-instance (~) ty (IncompleteArray (FunPtr (CInt -> IO ()))) =>
+instance (~) ty (IncompleteArray (FunPtr T_Aux)) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
-    where type CFieldType T
-                          "unwrapT" = IncompleteArray (FunPtr (CInt -> IO ()))
+    where type CFieldType T "unwrapT" = IncompleteArray (FunPtr T_Aux)
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'U'
+
+    __C declaration:__ @U@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 2:16@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h@
+-}
+newtype U_Aux
+    = U_Aux {unwrapU_Aux :: (CInt -> IO ())}
+    deriving stock Generic
+    deriving newtype HasFFIType
+-- __unique:__ @toU_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_a78147e446a66171_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @toU_Aux@
+hs_bindgen_a78147e446a66171 :: U_Aux -> IO (FunPtr U_Aux)
+-- __unique:__ @toU_Aux@
+hs_bindgen_a78147e446a66171 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_a78147e446a66171_base (toFFIType fun_0))
+-- __unique:__ @fromU_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_abb428b050bb7646_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @fromU_Aux@
+hs_bindgen_abb428b050bb7646 :: FunPtr U_Aux -> U_Aux
+-- __unique:__ @fromU_Aux@
+hs_bindgen_abb428b050bb7646 = \funPtr_0 -> fromFFIType (hs_bindgen_abb428b050bb7646_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr U_Aux
+    where toFunPtr = hs_bindgen_a78147e446a66171
+instance FromFunPtr U_Aux
+    where fromFunPtr = hs_bindgen_abb428b050bb7646
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapU_Aux" (Ptr U_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapU_Aux")
+instance HasCField U_Aux "unwrapU_Aux"
+    where type CFieldType U_Aux "unwrapU_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @U@
 
@@ -23,13 +100,12 @@ instance HasCField T "unwrapT"
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h@
 -}
 newtype U
-    = U {unwrapU :: (ConstantArray 3 (FunPtr (CInt -> IO ())))}
+    = U {unwrapU :: (ConstantArray 3 (FunPtr U_Aux))}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty (ConstantArray 3 (FunPtr (CInt -> IO ()))) =>
+instance (~) ty (ConstantArray 3 (FunPtr U_Aux)) =>
          HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
-    where type CFieldType U "unwrapU" = ConstantArray 3
-                                                      (FunPtr (CInt -> IO ()))
+    where type CFieldType U "unwrapU" = ConstantArray 3 (FunPtr U_Aux)
           offset# = \_ -> \_ -> 0

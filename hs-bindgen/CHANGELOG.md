@@ -84,6 +84,16 @@
   some declarations and not for others. Previously we would only support mixed
   uses for the whole translation unit or not at all. See [issue #2012][is-2012]
   and [PR #2034][pr-2034].
+* Generate `_Aux` newtypes for function types that are indirectly referenced by
+  `typedef`s. Previously these newtypes were only generated when function types
+  were indirectly referenced through pointers. Now any type of indirection is
+  supported, such as arrays, qualifiers, and blocks. See [issue #1520][is-1520]
+  and [PR #2068][pr-2068].
+* Generate `ToFunPtr` and `FromFunPtr` instances for all nested function types.
+  Previously we were only generating these instances for function types nested
+  in struct fields, union fields, and function arguments/results. Now this works
+  for function types nested in global variables and typedefs as well. See [PR
+  #2068][pr-2068].
 
 ### Minor changes
 
@@ -192,6 +202,7 @@
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
+[is-1520]: https://github.com/well-typed/hs-bindgen/issues/1520
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685
 [is-1715]: https://github.com/well-typed/hs-bindgen/issues/1715
 [is-1790]: https://github.com/well-typed/hs-bindgen/issues/1790
@@ -208,6 +219,7 @@
 [pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
 [pr-2021]: https://github.com/well-typed/hs-bindgen/pull/2021
 [pr-2034]: https://github.com/well-typed/hs-bindgen/pull/2034
+[pr-2068]: https://github.com/well-typed/hs-bindgen/pull/2068
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

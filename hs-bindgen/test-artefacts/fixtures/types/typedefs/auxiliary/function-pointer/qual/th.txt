@@ -1,4 +1,43 @@
 -- addDependentFile test-artefacts/headers/golden/types/typedefs/auxiliary/function-pointer/qual.h
+{-| Auxiliary type used by 'T'
+
+    __C declaration:__ @T@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h 1:23@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h@
+-}
+newtype T_Aux
+    = T_Aux {unwrapT_Aux :: (CInt -> IO ())}
+    deriving stock Generic
+    deriving newtype HasFFIType
+-- __unique:__ @toT_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
+-- __unique:__ @toT_Aux@
+hs_bindgen_5927fedc3abfa99c :: T_Aux -> IO (FunPtr T_Aux)
+-- __unique:__ @toT_Aux@
+hs_bindgen_5927fedc3abfa99c = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_5927fedc3abfa99c_base (toFFIType fun_0))
+-- __unique:__ @fromT_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
+    FunPtr (Int32 -> IO ())
+ -> Int32
+ -> IO ()
+-- __unique:__ @fromT_Aux@
+hs_bindgen_281617c90fa9307a :: FunPtr T_Aux -> T_Aux
+-- __unique:__ @fromT_Aux@
+hs_bindgen_281617c90fa9307a = \funPtr_0 -> fromFFIType (hs_bindgen_281617c90fa9307a_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr T_Aux
+    where toFunPtr = hs_bindgen_5927fedc3abfa99c
+instance FromFunPtr T_Aux
+    where fromFunPtr = hs_bindgen_281617c90fa9307a
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapT_Aux" (Ptr T_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT_Aux")
+instance HasCField T_Aux "unwrapT_Aux"
+    where type CFieldType T_Aux "unwrapT_Aux" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h 1:23@
@@ -6,16 +45,16 @@
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h@
 -}
 newtype T
-    = T {unwrapT :: (FunPtr (CInt -> IO ()))}
+    = T {unwrapT :: (FunPtr T_Aux)}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty (FunPtr (CInt -> IO ())) =>
+instance (~) ty (FunPtr T_Aux) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
-    where type CFieldType T "unwrapT" = FunPtr (CInt -> IO ())
+    where type CFieldType T "unwrapT" = FunPtr T_Aux
           offset# = \_ -> \_ -> 0

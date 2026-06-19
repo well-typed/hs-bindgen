@@ -99,13 +99,12 @@ generateDeclarations' ::
   -> [WithCategory (Hs.Decl l)]
 generateDeclarations' macroLang uniqueId haddockConfig moduleName declIndex sizeofs decs =
     State.runHsM $ do
-      let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
-          -- Generate ToFunPtr/FromFunPtr instances for nested callback types
+      let scannedFunctionTypes = scanAllFunctionTypes decs
+          -- Generate ToFunPtr/FromFunPtr instances for nested function types
           -- These go in the main module to avoid orphan instances
-          --WithCategory c
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
-                   | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
+                   | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
                    , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
@@ -115,47 +114,39 @@ generateDeclarations' macroLang uniqueId haddockConfig moduleName declIndex size
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
--- pointer callback types, i.e. all function types that exist as either
--- arguments for other functions (nth-order functions), fields of structs,
--- unions and enums.
+-- types (with some exceptions).
 --
--- This explicitly excludes typedef function pointers (e.g., @typedef void (*F)()@)
--- because these are handled separately by 'typedefFunPtrDecs' in 'generateDecs'.
+-- For example: function types that exist as arguments to other functions
+-- (nth-order functions), fields of structs, fields of unions, etc.
 --
-scanAllFunctionPointerTypes :: [C.Decl l Final] -> Set (C.Type Final)
-scanAllFunctionPointerTypes = foldMap $ \decl ->
+-- This explicitly excludes typedefs that are function types (.e.g, @typedef
+-- void F()@) or function type indirections (e.g., @typedef void (*F)()@)
+-- because these are handled separately by 'typedefDecs'
+-- and'typedefFunTypeIndirectionDecs' respectively.
+--
+scanAllFunctionTypes :: [C.Decl l Final] -> Set ([C.TypeFunArg Final], C.Type Final)
+scanAllFunctionTypes = foldMap $ \decl ->
     case decl.kind of
       C.DeclStruct struct ->
-        foldMap (scanTypeForFunctionPointers . (.typ)) struct.fields
+        foldMap (C.getAllFunTypes . (.typ)) struct.fields
       C.DeclUnion union   ->
-        foldMap (scanTypeForFunctionPointers . (.typ)) union.fields
+        foldMap (C.getAllFunTypes . (.typ)) union.fields
+      C.DeclTypedef typedef
+        -- Exclude function type indirections, because they are already handled
+        -- by 'typedefFuntypeIndirectionDecs'
+        | Just (args, res, _) <- C.getFirstFunTypeIndirection typedef.typ
+        -> foldMap C.getAllFunTypes (res : map (.typ) args)
+        -- Exclude /direct/ function types, because they are already handled by
+        -- 'typedefDecs'
+        | otherwise
+        -> C.getAllFunTypeIndirections typedef.typ
+      C.DeclEnum enum -> C.getAllFunTypes enum.typ
+      C.DeclAnonEnumConstant{} -> Set.empty
+      C.DeclOpaque -> Set.empty
+      C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
-        foldMap scanTypeForFunctionPointers (fn.res : map (.argTyp.typ) fn.args)
-      _ ->
-        Set.empty
-  where
-    -- | Recursively scan a type for all function pointers, including nested ones
-    scanTypeForFunctionPointers :: C.Type Final -> Set (C.Type Final)
-    scanTypeForFunctionPointers ty = case ty of
-      -- Use TypePointers pattern to safely match N levels of indirection
-      fp@(C.TypePointers _n (C.TypeFun args res)) ->
-           Set.singleton fp
-        <> foldMap scanTypeForFunctionPointers (res : fmap (.typ) args)
-      C.TypePointers _ t        -> scanTypeForFunctionPointers t
-      C.TypeIncompleteArray  t  -> scanTypeForFunctionPointers t
-      C.TypeConstArray _ t      -> scanTypeForFunctionPointers t
-      C.TypeBlock t             -> scanTypeForFunctionPointers t
-      C.TypeQual _ t            -> scanTypeForFunctionPointers t
-
-      -- Don't scan through typedef function pointers; these are handled by
-      -- typedefFunPtrDecs (see generateDecs). Scanning would create duplicate
-      -- ToFunPtr/FromFunPtr instances. We still scan other typedefs to find
-      -- nested function pointers.
-      -- When #1520 is addressed this could should be updated.
-      C.TypeTypedef (C.Ref _ t) -> case t of
-        C.TypePointers _ (C.TypeFun _ _) -> Set.empty
-        _                                -> scanTypeForFunctionPointers t
-      _                         -> Set.empty
+        foldMap C.getAllFunTypes (fn.res : map (.argTyp.typ) fn.args)
+      C.DeclGlobal g -> C.getAllFunTypes g.typ
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
@@ -191,10 +182,10 @@ generateDecs macroLang uniqueId haddockConfig moduleName sizeofs (C.Decl info ki
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
-        case typedef.typ of
-          C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs supInsts.typedef haddockConfig sizeofs info n (args, res) typedef.names spec
-          _otherwise ->
+        case C.getFirstFunTypeIndirection typedef.typ of
+          Just (args, res, reconstruct) ->
+            typedefFunTypeIndirectionDecs supInsts.typedef haddockConfig sizeofs info (args, res, reconstruct) typedef.names spec
+          Nothing ->
             State.immediateM $ typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
         State.immediateM $ opaqueDecs haddockConfig info spec
@@ -513,19 +504,19 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
-            Inst.FromFunPtr <$ mFunPtr
+            Inst.FromFunPtr <$ isFunType
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
-          , Inst.ToFunPtr <$ mFunPtr
+          , Inst.ToFunPtr <$ isFunType
           ]
 
-        -- See comment in 'newtypeWrapper` below
-        mFunPtr :: Maybe ()
-        mFunPtr = case typedef.typ of
-          C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
-            Just ()
-          _otherwise -> Nothing
+    -- See comment in 'newtypeWrapper` below
+    isFunType :: Maybe ([C.TypeFunArg Final], C.Type Final)
+    isFunType = case typedef.typ of
+      C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
+        Just (args, res)
+      _otherwise -> Nothing
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl l]
@@ -549,27 +540,23 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
           , clss `Set.member` nt.instances
           ]
 
+      -- We need to be careful and not generate any wrappers for function
+      -- types that receive data types not supported by Haskell's FFI
+      -- (i.e. structs, unions by value).
+      --
+      -- Note that we don't want to explicitly see all the way through
+      -- typedefs here. See the following example
+      --
+      -- @
+      -- typedef void (f)(int);
+      -- typedef f g;
+      -- @
+      --
+      -- If we see all the way through the typedef this case will not be
+      -- handled correctly.
+      --
         newtypeWrapper :: [Hs.Decl l]
-        newtypeWrapper  =
-          case typedef.typ of
-            -- We need to be careful and not generate any wrappers for function
-            -- types that receive data types not supported by Haskell's FFI
-            -- (i.e. structs, unions by value).
-            --
-            -- Note that we don't want to explicitly see all the way through
-            -- typedefs here. See the following example
-            --
-            -- @
-            -- typedef void (f)(int);
-            -- typedef f g;
-            -- @
-            --
-            -- If we see all the way through the typedef this case will not be
-            -- handled correctly.
-            --
-            C.TypeFun args res | not (any C.hasUnsupportedType (res:fmap (.typ) args)) ->
-              ToFromFunPtr.forNewtype sizeofs nt (args, res)
-            _ -> []
+        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype sizeofs nt) isFunType
 
 -- | 'HsBindgen.Runtime.HasCField.HasCField', 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', and 'GHC.Records.HasField' instances for a typedef
 -- declaration.
@@ -627,9 +614,9 @@ typedefFieldDecls hsNewType = [
         , fieldOffset = 0
         }
 
--- | Typedef around function pointer
+-- | Typedef around function type indirection
 --
--- Given
+-- For example, given
 --
 -- > typedef void (*f)(int x, int y);
 --
@@ -639,18 +626,17 @@ typedefFieldDecls hsNewType = [
 -- > newtype F     = F (Ptr.FunPtr F_Aux)
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
-typedefFunPtrDecs ::
+typedefFunTypeIndirectionDecs ::
      HasCallStack
   => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
-  -> Int                                  -- ^ Number of indirections
-  -> ([C.TypeFunArg Final], C.Type Final) -- ^ Function arguments and result
+  -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
   -> MangleNames.TypedefNames
   -> PrescriptiveDeclSpec
   -> HsM (State.Action [Hs.Decl l])
-typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) names origSpec =
+typedefFunTypeIndirectionDecs supInsts haddockConfig sizeofs origInfo (args, res, reconstruct) names origSpec =
     fmap concActions $ sequence [
         State.delayM     $ typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
       , State.immediateM $ typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
@@ -721,7 +707,7 @@ typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) names or
     mainTypedef :: C.Typedef Final
     mainTypedef = C.Typedef{
           ann = names
-        , typ = C.TypePointers n $ C.TypeTypedef $ C.Ref {
+        , typ = reconstruct $ C.TypeTypedef $ C.Ref {
               name       = auxInfo.id
             , underlying = C.TypeFun args res
             }
