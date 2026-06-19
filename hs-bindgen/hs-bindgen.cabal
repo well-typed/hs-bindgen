@@ -81,7 +81,12 @@ library internal
   -- Modules containing public API.
   exposed-modules:  HsBindgen.Config
 
-  -- Internal modules.
+  -- Internal modules
+  --
+  -- Rules:
+  --
+  -- * HsBindgen.IR.* modules must not (transitively) import from Frontend or
+  --   Backend
   exposed-modules:
     Data.Digraph
     HsBindgen
