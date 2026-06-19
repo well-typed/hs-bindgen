@@ -199,6 +199,9 @@
   macro type, a message would be traced that the `foo` could not be reparsed,
   even though the struct field `x` is still reparsed successfully. See [issue
   #1382][is-1382] and [PR #2021][pr-2021].
+* Fix duplicated `--safe`, `--unsafe`, and `--pointer` options in the
+  `preprocess --help` output. See
+  [#2010](https://github.com/well-typed/hs-bindgen/issues/2010).
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
