@@ -3,13 +3,11 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (
   , BeforeReparse(..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -27,14 +25,28 @@ type family AnnReparseMacroExpansions (ix :: Symbol) :: Star where
   AnnReparseMacroExpansions "Global"          = BeforeReparse (C.Global      PrepareReparse)
   AnnReparseMacroExpansions _                 = NoAnn
 
-instance IsPass ReparseMacroExpansions where
-  type MacroBody       ReparseMacroExpansions = TypecheckedMacro ReparseMacroExpansions
-  type Ann ix          ReparseMacroExpansions = AnnReparseMacroExpansions ix
-  type Msg             ReparseMacroExpansions = NoMsg Level
+instance IsPass ReparseMacroExpansions
+
+instance PassId ReparseMacroExpansions
+
+instance PassScopedName ReparseMacroExpansions
+
+instance PassMacro ReparseMacroExpansions where
   type MacroId         ReparseMacroExpansions = Id ReparseMacroExpansions
-  type CommentDecl     ReparseMacroExpansions = Maybe (C.Comment ReparseMacroExpansions)
+  type MacroBody       ReparseMacroExpansions = TypecheckedMacro ReparseMacroExpansions
   type MacroUnderlying ReparseMacroExpansions = ()
+
   macroIdId _ = id
+
+instance PassExtBinding ReparseMacroExpansions
+
+instance PassCommentDecl ReparseMacroExpansions where
+  type CommentDecl ReparseMacroExpansions = Maybe (C.Comment ReparseMacroExpansions)
+
+instance PassAnn ReparseMacroExpansions where
+  type Ann ix ReparseMacroExpansions = AnnReparseMacroExpansions ix
+
+instance PassMsg ReparseMacroExpansions
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/2024>
 --

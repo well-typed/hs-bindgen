@@ -3,10 +3,10 @@ module Test.HsBindgen.Golden.Macros.Redeclaration (testCases) where
 
 import Control.Applicative
 
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -36,10 +36,10 @@ test_def_undef_def =
     defaultTest_custom "macros/redeclaration/def_undef_def"
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["macro T", "foo", "foo", "bar", "bar"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
@@ -61,10 +61,10 @@ test_different =
     defaultTest_custom "macros/redeclaration/different"
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["macro T", "foo", "foo", "bar", "bar"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
@@ -86,10 +86,10 @@ test_identical_semantics =
     defaultTest_custom "macros/redeclaration/identical_semantics"
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["macro T", "foo", "foo", "bar", "bar"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
@@ -109,10 +109,10 @@ test_identical_syntax =
     defaultTest_custom "macros/redeclaration/identical_syntax"
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
-    expected :: [CDeclName]
+    expected :: [C.DeclName]
     expected = ["macro A", "macro T", "foo", "foo", "bar", "bar"]
 
-    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name

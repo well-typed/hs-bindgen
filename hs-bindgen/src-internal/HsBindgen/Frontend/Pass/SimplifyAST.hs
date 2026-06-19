@@ -9,16 +9,12 @@ import GHC.Stack (HasCallStack)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (..))
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (withCallStack)
 
@@ -35,7 +31,7 @@ simplifyAST ::
      HasCallStack
   => AnonUsageAnalysis
   -> [ParseResult l Parse]
-  -> ([ParseResult l SimplifyAST], [AMsg SimplifyAST])
+  -> ([ParseResult l SimplifyAST], [AnnMsg SimplifyAST])
 simplifyAST usage parseResults = (results, msgs)
   where
     processedResults = map processResult parseResults
@@ -45,14 +41,14 @@ simplifyAST usage parseResults = (results, msgs)
     processResult ::
          HasCallStack
       => ParseResult l Parse
-      -> ([ParseResult l SimplifyAST], [AMsg SimplifyAST])
+      -> ([ParseResult l SimplifyAST], [AnnMsg SimplifyAST])
     processResult result =
       case result.classification of
         ParseResultSuccess success ->
           case success.decl of
             -- Found anonymous enum: check if it has use sites
             C.Decl{info, kind = C.DeclEnum enum}
-              | Anon anonId <- info.id
+              | C.PrelimDeclIdAnon anonId <- info.id
               , Map.notMember anonId usage.map ->
                 ( [ result {
                      id = newId
@@ -68,8 +64,8 @@ simplifyAST usage parseResults = (results, msgs)
                                           }
                    }
                  | constant <- enum.constants
-                 , let CScopedName nameText = constant.info.name
-                       newId = Named (CDeclName nameText CNameKindOrdinary)
+                 , let C.ScopedName nameText = constant.info.name
+                       newId = C.PrelimDeclIdNamed (C.DeclName nameText C.NameKindOrdinary)
                        newInfo :: C.DeclInfo SimplifyAST
                        newInfo = (coercePass info :: C.DeclInfo SimplifyAST)
                                    { C.id = newId }

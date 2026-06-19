@@ -22,8 +22,8 @@ import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang.Macos
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Resolve
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -41,7 +41,7 @@ info = progDesc "Resolve C headers to source paths"
 
 data Opts = Opts {
       clangArgsConfig :: ClangArgsConfig FilePath
-    , inputs          :: [UncheckedHashIncludeArg]
+    , inputs          :: [C.UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -99,8 +99,8 @@ exec global opts = do
     -- | Check the @#include@ arguments, emitting trace messages
     checkInputs ::
         Tracer TraceMsg
-      -> [UncheckedHashIncludeArg]
-      -> IO [HashIncludeArg]
+      -> [C.UncheckedHashIncludeArg]
+      -> IO [C.HashIncludeArg]
     checkInputs tracer = mapM $
-        hashIncludeArgWithTrace
+        C.hashIncludeArgWithTrace
           (contramap (TraceBoot . BootHashIncludeArg) tracer)

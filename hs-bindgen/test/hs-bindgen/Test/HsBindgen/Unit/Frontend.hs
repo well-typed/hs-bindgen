@@ -12,10 +12,10 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend
-import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer

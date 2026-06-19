@@ -33,9 +33,9 @@ import Data.Set qualified as Set
 
 import Clang.Paths
 
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -64,12 +64,12 @@ data IncludeGraph = IncludeGraph{
 -- In Haddock documentation, we display @stdint.h@.  In debugging output, we
 -- display @#include (stdint.h)@.
 data Include =
-    BracketInclude     HashIncludeArg           -- ^ @#include <...>@
-  | QuoteInclude       HashIncludeArg           -- ^ @#include "..."@
-  | MacroInclude       HashIncludeArg MacroArg  -- ^ Macro @#include@ argument
-  | BracketIncludeNext HashIncludeArg           -- ^ @#include_next <...>@
-  | QuoteIncludeNext   HashIncludeArg           -- ^ @#include_next "..."@
-  | MacroIncludeNext   HashIncludeArg MacroArg  -- ^ Macro @#include_next@ argument
+    BracketInclude     C.HashIncludeArg           -- ^ @#include <...>@
+  | QuoteInclude       C.HashIncludeArg           -- ^ @#include "..."@
+  | MacroInclude       C.HashIncludeArg MacroArg  -- ^ Macro @#include@ argument
+  | BracketIncludeNext C.HashIncludeArg           -- ^ @#include_next <...>@
+  | QuoteIncludeNext   C.HashIncludeArg           -- ^ @#include_next "..."@
+  | MacroIncludeNext   C.HashIncludeArg MacroArg  -- ^ Macro @#include_next@ argument
   deriving stock (Show, Eq, Ord)
 
 -- | Macro argument
@@ -77,8 +77,8 @@ data Include =
 -- This is the raw text of a macro argument to @#include@ or @#include_next@.
 type MacroArg = Text
 
--- | Get the 'HsBindgen.Frontend.RootHeader.HashIncludeArg' for an 'Include'
-getIncludeArg :: Include -> HashIncludeArg
+-- | Get the 'C.HashIncludeArg' for an 'Include'
+getIncludeArg :: Include -> C.HashIncludeArg
 getIncludeArg = \case
     BracketInclude     arg   -> arg
     QuoteInclude       arg   -> arg

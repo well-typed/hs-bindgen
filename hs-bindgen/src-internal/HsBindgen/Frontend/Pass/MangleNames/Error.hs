@@ -6,17 +6,16 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 data MangleNamesError =
-    MangleNamesCollision                    Hs.SomeName [WithLocationInfo DeclId]
+    MangleNamesCollision                    Hs.SomeName [C.WithLocationInfo C.DeclId]
   | MangleNamesCouldNotMangle               Text
   | MangleNamesCouldNotMangleSpecifiedName  Text
-  | MangleNamesUnderlyingDeclNotMangled     DeclId (NonEmpty Hs.Namespace)
+  | MangleNamesUnderlyingDeclNotMangled     C.DeclId (NonEmpty Hs.Namespace)
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace MangleNamesError where

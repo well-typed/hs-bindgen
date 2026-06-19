@@ -11,20 +11,17 @@ import Clang.CStandard (ClangCStandard)
 
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -149,13 +146,13 @@ mkFieldInfo ::
   -> Maybe Text
   -> C.FieldInfo ReparseMacroExpansions
 mkFieldInfo info mName = C.FieldInfo{
-      name    = maybe info.name CScopedName mName
+      name    = maybe info.name C.ScopedName mName
     , comment = fmap coercePass info.comment
     , loc     = info.loc
     }
 
 processStructField ::
-     DeclId
+     C.DeclId
   -> C.StructField PrepareReparse
   -> M (C.StructField ReparseMacroExpansions)
 processStructField declId field =
@@ -201,7 +198,7 @@ processUnion info union = do
         }
 
 processUnionField ::
-     DeclId
+     C.DeclId
   -> C.UnionField PrepareReparse
   -> M (C.UnionField ReparseMacroExpansions)
 processUnionField declId field =
@@ -336,7 +333,7 @@ processFunction info function = do
 
     mkFunctionArg :: Maybe Text -> CType -> C.FunctionArg ReparseMacroExpansions
     mkFunctionArg mname typ = C.FunctionArg{
-          name   = CScopedName <$> mname
+          name   = C.ScopedName <$> mname
         , argTyp = C.TypeFunArgF typ NoAnn
         }
 
@@ -392,7 +389,7 @@ data ReparseState = ReparseState {
       -- | Delayed parse messages collected during reparse
       --
       -- Stored in reverse order.
-      reparseWarnings :: [(DeclId, DelayedParseMsg)]
+      reparseWarnings :: [(C.DeclId, DelayedParseMsg)]
     }
   deriving stock (Generic)
 
@@ -430,7 +427,7 @@ runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
 -- 'HsBindgen.Frontend.Pass.Zip.Zip' pass; on parser success we always return
 -- the reparsed value.
 reparseWith ::
-     DeclId
+     C.DeclId
   -> LanC.Parser a
   -> ReparseInfo FlatTokens
   -> r

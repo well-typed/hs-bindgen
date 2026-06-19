@@ -34,13 +34,11 @@ import HsBindgen.Backend.Hs.Translation.Union
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -49,6 +47,8 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
@@ -162,7 +162,7 @@ isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
     any (isInDeclIndex . snd) . C.depsOfType
   where
-    isInDeclIndex :: DeclIdPair -> Bool
+    isInDeclIndex :: C.DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
 
 {-------------------------------------------------------------------------------
@@ -666,8 +666,8 @@ typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) names or
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
-    auxDeclIdPair :: DeclIdPair
-    auxDeclIdPair = DeclIdPair{
+    auxDeclIdPair :: C.DeclIdPair
+    auxDeclIdPair = C.DeclIdPair{
           cName  = origInfo.id.cName
           -- Still refer to the /original/ C decl...?
         , hsName = Hs.demoteNs auxName
@@ -783,7 +783,7 @@ macroDecsTypedef macroLang supInsts haddockConfig info macroType spec = do
             Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec $
               Hs.HsTypRef
                 (Hs.assertNs (Proxy @Hs.NsTypeConstr)
-                (extDeclIdPair ext).hsName)
+                (BindingSpec.extDeclIdPair ext).hsName)
                 Nothing
           MacroTypeBodyVar pair ->
             Hs.HsTypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
@@ -1013,7 +1013,7 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     cStubType :: C.Type Final
     cStubType =
           C.TypePointers 1
-        $ if C.referencesUntagged ty
+        $ if referencesUntagged ty
           then if C.isErasedTypeConstQualified ty
                then C.TypeQual C.QualConst C.TypeVoid
                else C.TypeVoid
@@ -1091,6 +1091,67 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubName
+
+-- | Does the C type reference an untagged struct\/union\/enum?
+--
+-- If so, then the C type can not be pretty-printed because there is no name to
+-- refer to.
+--
+-- This function looks trough macro references. Macro invocations are expanded
+-- by the C compiler, so whatever a macro invocation expands to (i.e., its
+-- underlying type) should also not reference untagged structs\/unions\/enums.
+referencesUntagged ::
+     forall p. (
+       HasCallStack
+     , Id p ~ C.DeclIdPair
+     , MacroId p ~ C.DeclIdPair
+     , ExtBinding p ~ BindingSpec.ResolvedExtBinding
+     , MacroUnderlying p ~ C.Type p
+     )
+  => C.Type p
+  -> Bool
+referencesUntagged = go
+  where
+    go :: C.Type p -> Bool
+    go = \case
+        C.TypePrim _pty -> False
+        C.TypeComplex _pty -> False
+        C.TypeRef ref ->
+          -- a struct or union can be untagged
+          ref.cName.isAnon
+        C.TypeEnum ref ->
+          -- an enum can be untagged
+          ref.name.cName.isAnon
+        C.TypeMacro ref
+          | ref.name.cName.isAnon
+          -> panicPure "macros can not be unnamed"
+          -- NOTE: macros are expanded by the C preprocessor, so if pretty-print
+          -- a macro name then we should make sure that it does not expand to a
+          -- type that references an untagged type
+          | go ref.underlying
+          -> panicPure "macros can not expand to types that reference untagged types"
+          | otherwise
+          -> False
+        C.TypeTypedef ref
+          | ref.name.cName.isAnon
+          -> panicPure "typedefs can not be unnamed"
+          | otherwise
+          -> False
+        C.TypePointers _n ty -> go ty
+        C.TypeConstArray _n ty -> go ty
+        C.TypeIncompleteArray ty -> go ty
+        C.TypeFun args res ->
+          any goTypeFunArg args || go res
+        C.TypeVoid -> False
+        C.TypeBlock ty -> go ty
+        C.TypeQual _qual ty -> go ty
+        C.TypeExtBinding ref ->
+          -- an external binding reference can wrap references to untagged
+          -- types
+          ref.name.cName.isAnon
+
+    goTypeFunArg :: C.TypeFunArg p -> Bool
+    goTypeFunArg arg = go arg.typ
 
 {-------------------------------------------------------------------------------
   Macro

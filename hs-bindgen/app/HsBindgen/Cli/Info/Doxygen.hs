@@ -21,8 +21,8 @@ import HsBindgen.ArtefactM
 import HsBindgen.Backend.Category
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ info = progDesc "Output the parsed doxygen state"
 data Opts = Opts {
       config     :: Config
     , output     :: Maybe FilePath
-    , inputs     :: [UncheckedHashIncludeArg]
+    , inputs     :: [C.UncheckedHashIncludeArg]
     , filePolicy :: FilePolicy
     , dirPolicy  :: DirPolicy
     }

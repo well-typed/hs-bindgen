@@ -14,13 +14,12 @@ import Language.C.Data.Ident qualified as LanC
 import Optics.Core (Lens')
 import Optics.Core qualified as Optics
 
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -196,16 +195,16 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- User-defined types
       LanC.CSUType (LanC.CStruct su mTag mDef _attrs _a) _a' -> \partial -> do
         let tagKind = case su of
-                        LanC.CStructTag -> CTagKindStruct
-                        LanC.CUnionTag  -> CTagKindUnion
+                        LanC.CStructTag -> C.TagKindStruct
+                        LanC.CUnionTag  -> C.TagKindUnion
         checkNoDef "struct or union definition" mDef
         name <- checkNotAnon mTag tagKind
         notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
-        name <- checkNotAnon mTag CTagKindEnum
+        name <- checkNotAnon mTag C.TagKindEnum
         checkNoDef "enum definition" mDef
         env <- getReparseEnv
-        case lookupType (renderCDeclNameC name) env of
+        case lookupType (C.renderDeclNameC name) env of
           Nothing  -> unexpected $ "enum reference " ++ show name
           Just typ -> notFun typ partial
       LanC.CTypeDef name _a -> \partial -> do
@@ -215,14 +214,14 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
           Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where
-      typeRef :: CDeclName -> C.Type ReparseMacroExpansions
-      typeRef name = C.TypeRef $ DeclId{name = name, isAnon = False}
+      typeRef :: C.DeclName -> C.Type ReparseMacroExpansions
+      typeRef name = C.TypeRef $ C.DeclId{name = name, isAnon = False}
 
-      checkNotAnon :: Maybe LanC.Ident -> CTagKind -> FromLanC CDeclName
+      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
       checkNotAnon mName cTagKind =
           case mName of
             Just name ->
-              return $ CDeclName (mkCName name) (CNameKindTagged cTagKind)
+              return $ C.DeclName (mkCName name) (C.NameKindTagged cTagKind)
             Nothing ->
               skipped $ "Anonymous " ++ show cTagKind
 

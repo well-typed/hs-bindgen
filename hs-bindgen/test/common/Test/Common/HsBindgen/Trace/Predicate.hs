@@ -36,8 +36,8 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Clang
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports (Default (def))
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.Trace
@@ -325,7 +325,7 @@ instance RenderLabel CtxDoc where renderLabel = id
 instance RenderLabel String where renderLabel = PP.string
 instance RenderLabel Text   where renderLabel = PP.string . Text.unpack
 
-instance RenderLabel CDeclName
+instance RenderLabel C.DeclName
 
 instance RenderLabel a => RenderLabel (Maybe a) where
   renderLabel Nothing  = ""

@@ -25,11 +25,9 @@ import Prelude hiding (lines, unlines)
 import Control.Monad.State.Strict (State, evalState, get, put)
 import DeBruijn (Env (..), Idx, lookupEnv, sizeEnv, sizeToInt, tabulateEnv)
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 type Name = String
 

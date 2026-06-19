@@ -19,9 +19,8 @@ import HsBindgen.Backend.HsModule.Translation (ExportEntry (..), ExportItem,
                                                defaultResolveExports,
                                                resolveDeclExports)
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Frontend.AST.Decl (DeclInfo (..))
-import HsBindgen.Frontend.Naming (CDeclName (..), DeclId (..), DeclIdPair (..))
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------

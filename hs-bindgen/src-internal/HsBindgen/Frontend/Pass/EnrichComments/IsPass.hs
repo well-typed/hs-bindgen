@@ -2,14 +2,11 @@ module HsBindgen.Frontend.Pass.EnrichComments.IsPass (
     EnrichComments
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -27,20 +24,32 @@ type family AnnEnrichComments ix where
   AnnEnrichComments "Global"      = ReparseInfo Tokens
   AnnEnrichComments _             = NoAnn
 
-instance IsPass EnrichComments where
-  type MacroBody   EnrichComments = ParsedMacroBody
-  type ExtBinding  EnrichComments = Void
-  type Ann ix      EnrichComments = AnnEnrichComments ix
-  type Msg         EnrichComments = NoMsg Level
+instance IsPass EnrichComments
+
+instance PassId EnrichComments
+
+instance PassScopedName EnrichComments
+
+instance PassMacro EnrichComments where
+  type MacroBody EnrichComments = ParsedMacroBody
+
+instance PassExtBinding EnrichComments
+
+instance PassCommentDecl EnrichComments where
   type CommentDecl EnrichComments = Maybe (C.Comment EnrichComments)
+
+instance PassAnn EnrichComments where
+  type Ann ix EnrichComments = AnnEnrichComments ix
+
+instance PassMsg EnrichComments
 
 {-------------------------------------------------------------------------------
   CoercePass
 
   EnrichComments has the same associated types as AssignAnonIds (same Id,
   ScopedName, MacroBody, ExtBinding, MacroId, Ann). The only difference is
-  'CommentDecl', so all trivial helpers can use the default identity, and
-  'CoercePassCommentDecl' needs a custom instance that sets the comment to
+  'C.CommentDecl', so all trivial helpers can use the default identity, and
+  'C.CoercePassCommentDecl' needs a custom instance that sets the comment to
   'Nothing' (since @CommentDecl AssignAnonIds = ()@ and
   @CommentDecl EnrichComments = Maybe (Comment EnrichComments)@).
 -------------------------------------------------------------------------------}

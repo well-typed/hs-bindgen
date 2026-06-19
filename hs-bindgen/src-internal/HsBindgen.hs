@@ -71,16 +71,14 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
-import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
@@ -99,7 +97,7 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
+  -> [C.UncheckedHashIncludeArg]
   -> Artefact l a
   -> IO a
 hsBindgenMacroLang mkMacroLang tu ts b i a = do
@@ -126,7 +124,7 @@ hsBindgenEMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
+  -> [C.UncheckedHashIncludeArg]
   -> Artefact l a
   -> IO (Either BindgenError a)
 hsBindgenEMacroLang
@@ -381,7 +379,7 @@ getUseDeclGraph = (.meta.useDeclGraph) <$> FrontendPassA FinalPass
 getDeclUseGraph :: Artefact l DeclUseGraph
 getDeclUseGraph = (.meta.declUseGraph) <$> FrontendPassA FinalPass
 
-getOmittedTypes :: Artefact l [(DeclId, SourcePath)]
+getOmittedTypes :: Artefact l [(C.DeclId, SourcePath)]
 getOmittedTypes =
     Map.toList . DeclIndex.getOmitted <$> getDeclIndex
 
@@ -390,7 +388,7 @@ getReifiedC = (.decls) <$> FrontendPassA FinalPass
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
-getSquashedTypes :: Artefact l [(DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
+getSquashedTypes :: Artefact l [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
 getSquashedTypes = do
   decls <- getReifiedC
   let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls

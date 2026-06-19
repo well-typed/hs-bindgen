@@ -1,7 +1,7 @@
 -- | Golden tests: globals
 module Test.HsBindgen.Golden.Globals (testCases) where
 
-import HsBindgen.Frontend.Naming
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -30,7 +30,7 @@ test_globals_globals =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- non-extern non-static globals
           "nesBinary"

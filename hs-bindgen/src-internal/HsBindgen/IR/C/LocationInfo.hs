@@ -1,7 +1,15 @@
 -- | Trace messages with location information
-module HsBindgen.Frontend.LocationInfo (
+--
+-- This module should only be used within the @HsBindgen.IR@ hierarchy.  From
+-- outside the @HsBindgen.IR@ hierarchy, "HsBindgen.IR.C" should be used.
+--
+-- Within @HsBindgen.IR@, all modules aside from "HsBindgen.IR.C" should import
+-- this module qualified for consistency.
+--
+-- > import HsBindgen.IR.C.LocationInfo qualified as C
+module HsBindgen.IR.C.LocationInfo (
     WithLocationInfo(..)
-    -- * Info
+    -- * Location info
   , LocationInfo(..)
     -- ** Construction
   , prelimDeclIdLocationInfo
@@ -16,9 +24,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
+import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -30,12 +36,21 @@ data WithLocationInfo a = WithLocationInfo{
       loc :: LocationInfo
     , msg :: a
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Eq, Ord, Show)
 
 instance IsTrace lvl a => IsTrace lvl (WithLocationInfo a) where
   getDefaultLogLevel x = getDefaultLogLevel x.msg
   getSource          x = getSource          x.msg
   getTraceId         x = getTraceId         x.msg
+
+instance PrettyForTrace a => PrettyForTrace (WithLocationInfo a) where
+  prettyForTrace x =
+      case x.loc of
+        LocationUnavailable ->
+          prettyForTrace x.msg
+        _otherwise ->
+          PP.hang (prettyForTrace x.loc >< ":") 2 $
+            prettyForTrace x.msg
 
 {-------------------------------------------------------------------------------
   Location info
@@ -46,61 +61,16 @@ data LocationInfo =
     --
     -- Usually we expect the list of locations to be a singleton: the location
     -- of the declaration.
-    LocationDeclNamed CDeclName [SingleLoc]
+    LocationDeclNamed C.DeclName [SingleLoc]
 
     -- | Message about an anonymous declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
-  | LocationDeclAnon (Maybe CDeclName) [SingleLoc]
+  | LocationDeclAnon (Maybe C.DeclName) [SingleLoc]
 
     -- | No location information
   | LocationUnavailable
-  deriving stock (Show, Eq, Ord)
-
-{-------------------------------------------------------------------------------
-  Construct 'LocationInfo'
--------------------------------------------------------------------------------}
-
-prelimDeclIdLocationInfo :: PrelimDeclId -> [SingleLoc] -> LocationInfo
-prelimDeclIdLocationInfo prelimDeclId knownLocs =
-    case prelimDeclId of
-      PrelimDeclId.Named name -> LocationDeclNamed name knownLocs
-      PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing [anon.loc]
-
-declIdLocationInfo :: DeclId -> [SingleLoc] -> LocationInfo
-declIdLocationInfo declId knownLocs =
-    if not declId.isAnon
-      then LocationDeclNamed declId.name knownLocs
-      else LocationDeclAnon (Just declId.name) knownLocs
-
-{-------------------------------------------------------------------------------
-  Query 'LocationInfo'
--------------------------------------------------------------------------------}
-
-locationInfoName :: LocationInfo -> Maybe CDeclName
-locationInfoName = \case
-    LocationDeclNamed name _ -> Just name
-    LocationDeclAnon mName _ -> mName
-    LocationUnavailable      -> Nothing
-
-locationInfoLocs :: LocationInfo -> [SingleLoc]
-locationInfoLocs = \case
-    LocationDeclNamed _ locs -> locs
-    LocationDeclAnon _ locs  -> locs
-    LocationUnavailable      -> []
-
-{-------------------------------------------------------------------------------
-  Pretty-printing
--------------------------------------------------------------------------------}
-
-instance PrettyForTrace a => PrettyForTrace (WithLocationInfo a) where
-  prettyForTrace x =
-      case x.loc of
-        LocationUnavailable ->
-          prettyForTrace x.msg
-        _otherwise ->
-          PP.hang (prettyForTrace x.loc >< ":") 2 $
-            prettyForTrace x.msg
+  deriving stock (Eq, Ord, Show)
 
 instance PrettyForTrace LocationInfo where
   prettyForTrace = \case
@@ -130,3 +100,35 @@ instance PrettyForTrace LocationInfo where
         ]
       LocationUnavailable ->
         "location unavailable"
+
+{-------------------------------------------------------------------------------
+  Construction
+-------------------------------------------------------------------------------}
+
+prelimDeclIdLocationInfo :: C.PrelimDeclId -> [SingleLoc] -> LocationInfo
+prelimDeclIdLocationInfo prelimDeclId knownLocs =
+    case prelimDeclId of
+      C.PrelimDeclIdNamed name -> LocationDeclNamed name knownLocs
+      C.PrelimDeclIdAnon  anon -> LocationDeclAnon Nothing [anon.loc]
+
+declIdLocationInfo :: C.DeclId -> [SingleLoc] -> LocationInfo
+declIdLocationInfo declId knownLocs =
+    if not declId.isAnon
+      then LocationDeclNamed declId.name knownLocs
+      else LocationDeclAnon (Just declId.name) knownLocs
+
+{-------------------------------------------------------------------------------
+  Query
+-------------------------------------------------------------------------------}
+
+locationInfoName :: LocationInfo -> Maybe C.DeclName
+locationInfoName = \case
+    LocationDeclNamed name _ -> Just name
+    LocationDeclAnon mName _ -> mName
+    LocationUnavailable      -> Nothing
+
+locationInfoLocs :: LocationInfo -> [SingleLoc]
+locationInfoLocs = \case
+    LocationDeclNamed _ locs -> locs
+    LocationDeclAnon _ locs  -> locs
+    LocationUnavailable      -> []

@@ -35,9 +35,9 @@ import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
+import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -119,7 +119,7 @@ getBuiltinMacroNames tracer clangArgs =
 
     visit :: Fold IO Text
     visit = simpleFold $ \curr -> do
-      mBuiltin <- PrelimDeclId.checkIsBuiltin curr
+      mBuiltin <- checkIsBuiltin curr
       case mBuiltin of
         Just name -> foldContinueWith name
         Nothing   -> foldBreak
@@ -158,9 +158,9 @@ getMacros tracer clangArgs names =
 
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr -> do
-      PrelimDeclId.atCursor curr CNameKindOrdinary >>= \case
-        PrelimDeclId.Anon{}     -> foldContinue
-        PrelimDeclId.Named name ->
+      C.prelimDeclIdAtCursor curr C.NameKindOrdinary >>= \case
+        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name.text of
               Nothing          -> foldContinue
@@ -208,9 +208,9 @@ getParamMacros tracer clangArgs names =
 
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr ->
-      PrelimDeclId.atCursor curr CNameKindOrdinary >>= \case
-        PrelimDeclId.Anon{}     -> foldContinue
-        PrelimDeclId.Named name ->
+      C.prelimDeclIdAtCursor curr C.NameKindOrdinary >>= \case
+        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name.text of
               Nothing          -> foldContinue

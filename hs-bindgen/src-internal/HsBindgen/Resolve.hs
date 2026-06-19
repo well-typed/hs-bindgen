@@ -23,8 +23,8 @@ import Clang.Paths
 
 import HsBindgen.Clang
 import HsBindgen.Errors (panicIO)
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -33,15 +33,15 @@ import HsBindgen.Util.Tracer
 
 data ResolveHeaderMsg =
     ResolveHeaderClang ClangMsg
-  | ResolveHeaderFound HashIncludeArg SourcePath
-  | ResolveHeaderNotFound HashIncludeArg
+  | ResolveHeaderFound C.HashIncludeArg SourcePath
+  | ResolveHeaderNotFound C.HashIncludeArg
 
     -- | Header not attempted to be resolved, /perhaps/ due to an error while
     -- parsing previous headers
     --
     -- NOTE: We have not been able to construct an example that causes this to
     -- happen, but we can at least detect if it happens.
-  | ResolveHeaderNotAttempted HashIncludeArg
+  | ResolveHeaderNotAttempted C.HashIncludeArg
   deriving stock (Show)
 
 instance PrettyForTrace ResolveHeaderMsg where
@@ -86,8 +86,8 @@ instance IsTrace Level ResolveHeaderMsg where
 resolveHeaders ::
      Tracer ResolveHeaderMsg
   -> ClangArgs
-  -> Set HashIncludeArg
-  -> IO (Map HashIncludeArg SourcePath)
+  -> Set C.HashIncludeArg
+  -> IO (Map C.HashIncludeArg SourcePath)
 resolveHeaders tracer args headers =
       fmap (fromMaybe Map.empty)
     . withClang' (contramap ResolveHeaderClang tracer) clangSetup
@@ -104,7 +104,7 @@ resolveHeaders tracer args headers =
               | otherwise -> ResolveHeaderNotAttempted header
         return $ Just successes
   where
-    headerList :: [HashIncludeArg]
+    headerList :: [C.HashIncludeArg]
     headerList = Set.toAscList headers
 
     rootHeaderName :: FilePath
@@ -123,7 +123,7 @@ resolveHeaders tracer args headers =
     clangSetup = defaultClangSetup args $
       ClangInputMemory rootHeaderName rootHeaderContent
 
-    visit :: Fold IO (Either HashIncludeArg (HashIncludeArg, SourcePath))
+    visit :: Fold IO (Either C.HashIncludeArg (C.HashIncludeArg, SourcePath))
     visit = simpleFold $ \curr ->
       maybe foldContinue foldContinueWith <=< runMaybeT $ do
         sloc <- HighLevel.clang_getCursorLocation' curr

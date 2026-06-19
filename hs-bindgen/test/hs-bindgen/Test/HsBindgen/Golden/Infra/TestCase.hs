@@ -42,8 +42,8 @@ import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -129,7 +129,7 @@ data TestCase = TestCase {
   Derived
 -------------------------------------------------------------------------------}
 
-testInputInclude :: TestCase -> UncheckedHashIncludeArg
+testInputInclude :: TestCase -> C.UncheckedHashIncludeArg
 testInputInclude test = test.inputHeader
 
 {-------------------------------------------------------------------------------

@@ -8,17 +8,14 @@ import Control.Monad
 import Data.Void
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.Zip.Error
 import HsBindgen.Frontend.Pass.Zip.IsPass
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.Type
 
@@ -409,7 +406,7 @@ zipRef ref1 ref2 =
 --
 -- Panics on 'TypeMacro'! Use 'zipType' instead when 'TypeMacro' may appear.
 coerceNonMacroType ::
-     forall p. (Id p ~ DeclId, ExtBinding p ~ Void)
+     forall p. (Id p ~ C.DeclId, ExtBinding p ~ Void)
   => C.Type p
   -> C.Type Zip
 coerceNonMacroType = go

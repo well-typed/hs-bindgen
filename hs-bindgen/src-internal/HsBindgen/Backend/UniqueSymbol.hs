@@ -17,8 +17,8 @@ import Data.Text qualified as Text
 import GHC.Unicode (isDigit)
 
 import HsBindgen.Config.Prelims
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Generating unique names
@@ -38,9 +38,9 @@ data UniqueSymbol = UniqueSymbol{
     }
   deriving (Show, Eq, Ord, Generic)
 
-uniqueCDeclName :: UniqueSymbol -> CDeclName
+uniqueCDeclName :: UniqueSymbol -> C.DeclName
 uniqueCDeclName uniqueSymbol =
-    CDeclName (Text.pack uniqueSymbol.unique) CNameKindOrdinary
+    C.DeclName (Text.pack uniqueSymbol.unique) C.NameKindOrdinary
 
 -- | Globally unique symbol
 --

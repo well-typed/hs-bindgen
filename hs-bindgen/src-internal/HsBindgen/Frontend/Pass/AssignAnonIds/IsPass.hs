@@ -5,10 +5,10 @@ module HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
@@ -28,12 +28,24 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds "Global"      = ReparseInfo Tokens
   AnnAssignAnonIds _             = NoAnn
 
-instance IsPass AssignAnonIds where
-  type MacroBody   AssignAnonIds = ParsedMacroBody
-  type ExtBinding  AssignAnonIds = Void
-  type Ann ix      AssignAnonIds = AnnAssignAnonIds ix
-  type Msg         AssignAnonIds = ImmediateAssignAnonIdsMsg
-  type CommentDecl AssignAnonIds = ()
+instance IsPass AssignAnonIds
+
+instance PassId AssignAnonIds
+
+instance PassScopedName AssignAnonIds
+
+instance PassMacro AssignAnonIds where
+  type MacroBody AssignAnonIds = ParsedMacroBody
+
+instance PassExtBinding AssignAnonIds
+
+instance PassCommentDecl AssignAnonIds
+
+instance PassAnn AssignAnonIds where
+  type Ann ix AssignAnonIds = AnnAssignAnonIds ix
+
+instance PassMsg AssignAnonIds where
+  type Msg AssignAnonIds = ImmediateAssignAnonIdsMsg
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -45,7 +57,7 @@ data ImmediateAssignAnonIdsMsg =
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
-    AssignAnonIdsSkippedDecl AnonId
+    AssignAnonIdsSkippedDecl C.AnonId
   deriving stock (Show, Generic)
 
 instance PrettyForTrace ImmediateAssignAnonIdsMsg where

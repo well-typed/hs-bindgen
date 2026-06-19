@@ -1,8 +1,8 @@
 -- | Golden tests: arrays
 module Test.HsBindgen.Golden.Arrays (testCases) where
 
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -47,7 +47,7 @@ test_arrays_array =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- Duplicate symbols
           "arr0"

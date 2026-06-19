@@ -1,19 +1,28 @@
 -- | Pretty-print valid C code
-module HsBindgen.Frontend.AST.PrettyPrinter (
-    showsFunctionType,
-    showsVariableType,
-    showsType,
-    showsFunctionPurity,
+--
+-- This module should only be used within the @HsBindgen.IR@ hierarchy.  From
+-- outside the @HsBindgen.IR@ hierarchy, "HsBindgen.IR.C" should be used.
+--
+-- Within @HsBindgen.IR@, all modules aside from "HsBindgen.IR.C" should import
+-- this module qualified for consistency.
+--
+-- > import HsBindgen.IR.C.PrettyPrinter qualified as C
+module HsBindgen.IR.C.PrettyPrinter (
+    -- * Pretty-printers
+    showsFunctionType
+  , showsVariableType
+  , showsType
+  , showsFunctionPurity
   ) where
 
 import Data.Text qualified as Text
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.IR.C.Decl qualified as C
+import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.C.Type qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -138,7 +147,6 @@ showsVariableType n ty = showsType variableDeclarator ty
 --    ""
 -- :}
 -- "signed int (*bar (signed int arg1))[2][3]"
---
 showsType :: forall p.
      (IsPass p, HasCallStack)
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
@@ -239,8 +247,8 @@ showsFunctionPurity pur = case pur of
       . showString s
       . showString "))"
 
--- | Print a newline after a function attribute, but only if there is an attribute.
---
+-- | Print a newline after a function attribute, but only if there is an
+-- attribute.
 showAttributeNewline :: C.FunctionPurity -> ShowS
 showAttributeNewline pur = case pur of
     C.ImpureFunction -> id
@@ -253,8 +261,8 @@ showsId p declId =
       Just name -> showsDeclName name
       Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
 
-showsDeclName :: CDeclName -> ShowS
-showsDeclName = showsText . renderCDeclNameC
+showsDeclName :: C.DeclName -> ShowS
+showsDeclName = showsText . C.renderDeclNameC
 
 showsText :: Text -> ShowS
 showsText = showString . Text.unpack

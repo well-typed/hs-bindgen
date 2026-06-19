@@ -16,10 +16,9 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 import Doxygen.Parser.Types (ParamDirection (..), ParamListKind (..),
@@ -40,7 +39,7 @@ mkHaddocks config info =
     fst $ mkHaddocksWithArgs config info Args{
         isField = False
       , loc     = info.loc
-      , cName   = renderDeclId info.id.cName
+      , cName   = C.renderDeclId info.id.cName
       , hsName  = info.id.hsName
       , comment = info.comment
       , params  = []
@@ -72,7 +71,7 @@ mkHaddocksDecorateParams config info params =
     let (mbc, xs) = mkHaddocksWithArgs config info Args{
         isField = False
       , loc     = info.loc
-      , cName   = renderDeclId info.id.cName
+      , cName   = C.renderDeclId info.id.cName
       , hsName  = info.id.hsName
       , comment = info.comment
       , params  = params

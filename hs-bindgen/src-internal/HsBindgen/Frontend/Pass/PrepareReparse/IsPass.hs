@@ -12,13 +12,12 @@ module HsBindgen.Frontend.Pass.PrepareReparse.IsPass (
 
 import Clang.HighLevel.Types (MultiLoc)
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -35,13 +34,28 @@ type family AnnPrepareReparse (ix :: Symbol) :: Star where
   AnnPrepareReparse "Global"          = ReparseInfo FlatTokens
   AnnPrepareReparse _                 = NoAnn
 
-instance IsPass PrepareReparse where
-  type MacroBody   PrepareReparse = TypecheckedMacro PrepareReparse
-  type Ann ix      PrepareReparse = AnnPrepareReparse ix
-  type Msg         PrepareReparse = PrepareReparseMsg
-  type MacroId     PrepareReparse = Id PrepareReparse
-  type CommentDecl PrepareReparse = Maybe (C.Comment PrepareReparse)
+instance IsPass PrepareReparse
+
+instance PassId PrepareReparse
+
+instance PassScopedName PrepareReparse
+
+instance PassMacro PrepareReparse where
+  type MacroId   PrepareReparse = Id PrepareReparse
+  type MacroBody PrepareReparse = TypecheckedMacro PrepareReparse
+
   macroIdId _ = id
+
+instance PassExtBinding PrepareReparse
+
+instance PassCommentDecl PrepareReparse where
+  type CommentDecl PrepareReparse = Maybe (C.Comment PrepareReparse)
+
+instance PassAnn PrepareReparse where
+  type Ann ix PrepareReparse = AnnPrepareReparse ix
+
+instance PassMsg PrepareReparse where
+  type Msg PrepareReparse = PrepareReparseMsg
 
 {-------------------------------------------------------------------------------
   Tokens
@@ -67,4 +81,4 @@ instance CoercePassAnn "TypeFunArg" TypecheckMacros PrepareReparse
 instance CoercePassCommentDecl      TypecheckMacros PrepareReparse where
   coercePassCommentDecl _ = fmap coercePass
 
-instance CoercePassMacroUnderlying  TypecheckMacros PrepareReparse
+instance CoercePassMacroUnderlying TypecheckMacros PrepareReparse

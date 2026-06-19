@@ -14,16 +14,14 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Frontend.Pass.Zip.Zip
+import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -44,7 +42,7 @@ zip macroLang unit =
 updateMeta ::
      forall l. HasMacroTypes l
   => MacroLang l
-  -> [(DeclId, [DelayedParseMsg])]
+  -> [(C.DeclId, [DelayedParseMsg])]
   -> [C.Decl l Zip]
   -> DeclMeta l
   -> DeclMeta l
@@ -105,12 +103,12 @@ updateDeps macroLang decl graph =
 zipDecls ::
      forall l.
      [C.Decl l ReparseMacroExpansions]
-  -> ([(DeclId, [DelayedParseMsg])], [C.Decl l Zip])
+  -> ([(C.DeclId, [DelayedParseMsg])], [C.Decl l Zip])
 zipDecls decls = partitionEithers $ map zipDecl decls
 
 zipDecl ::
      C.Decl l ReparseMacroExpansions
-  -> (Either (DeclId, [DelayedParseMsg]) (C.Decl l Zip))
+  -> (Either (C.DeclId, [DelayedParseMsg]) (C.Decl l Zip))
 zipDecl decl = reconstruct $ case decl.kind of
     C.DeclStruct           x -> C.DeclStruct           <$> zipEither x
     C.DeclUnion            x -> C.DeclUnion            <$> zipEither x
@@ -125,7 +123,7 @@ zipDecl decl = reconstruct $ case decl.kind of
     reconstruct ::
          forall l.
          Either [DelayedParseMsg] (C.DeclKind l Zip)
-      -> Either (DeclId, [DelayedParseMsg]) (C.Decl l Zip)
+      -> Either (C.DeclId, [DelayedParseMsg]) (C.Decl l Zip)
     reconstruct = \case
       Left xs     ->
         Left (decl.info.id, xs)

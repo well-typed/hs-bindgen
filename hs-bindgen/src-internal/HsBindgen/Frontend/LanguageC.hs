@@ -36,7 +36,6 @@ import Clang.HighLevel.Types qualified as Clang
 import Clang.Paths qualified as Clang
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
@@ -44,6 +43,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.IR.C qualified as C
 #if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
 #endif

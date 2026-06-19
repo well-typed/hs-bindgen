@@ -30,13 +30,12 @@ import Data.Text qualified as Text
 
 import HsBindgen.Doxygen (DoxygenMsg)
 import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
                                                           PrepareReparseMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 {-------------------------------------------------------------------------------
@@ -74,18 +73,21 @@ matchDiagnosticSpelling text = \case
   Parse
 -------------------------------------------------------------------------------}
 
-pattern MatchImmediate :: CDeclName -> ImmediateParseMsg -> TraceMsg
+pattern MatchImmediate :: C.DeclName -> ImmediateParseMsg -> TraceMsg
 pattern MatchImmediate name x <- TraceFrontend (
-      FrontendParse WithLocationInfo{
-          loc = locationInfoName -> Just name
+      FrontendParse C.WithLocationInfo{
+          loc = C.locationInfoName -> Just name
         , msg = x
         }
     )
 
-pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
+pattern MatchDelayed :: C.DeclName -> DelayedParseMsg -> TraceMsg
 pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
-pattern MatchDelayedImplicitField :: CDeclName -> ParseImplicitFieldsMsg -> TraceMsg
+pattern MatchDelayedImplicitField ::
+     C.DeclName
+  -> ParseImplicitFieldsMsg
+  -> TraceMsg
 pattern MatchDelayedImplicitField name x <- MatchDelayed name (ParseImplicitFieldFailed x)
 
 {-------------------------------------------------------------------------------
@@ -97,7 +99,10 @@ pattern MatchImmediatePrepareReparse x <- TraceFrontend (
       FrontendPrepareReparse x
     )
 
-pattern MatchDelayedPrepareReparse :: CDeclName -> DelayedPrepareReparseMsg -> TraceMsg
+pattern MatchDelayedPrepareReparse ::
+     C.DeclName
+  -> DelayedPrepareReparseMsg
+  -> TraceMsg
 pattern MatchDelayedPrepareReparse name x <- MatchSelect name (matchDelayedPrepareReparse -> Just x)
 
 matchDelayedPrepareReparse :: SelectMsg -> Maybe DelayedPrepareReparseMsg
@@ -125,15 +130,15 @@ pattern MatchResolveBindingSpecs x <- TraceFrontend (
 
 pattern MatchNoDeclarations :: TraceMsg
 pattern MatchNoDeclarations <- TraceFrontend (
-      FrontendSelect WithLocationInfo{
+      FrontendSelect C.WithLocationInfo{
           msg = SelectNoDeclarationsMatched
         }
     )
 
-pattern MatchSelect :: CDeclName -> SelectMsg -> TraceMsg
+pattern MatchSelect :: C.DeclName -> SelectMsg -> TraceMsg
 pattern MatchSelect name x <- TraceFrontend (
-      FrontendSelect WithLocationInfo{
-          loc = locationInfoName -> Just name
+      FrontendSelect C.WithLocationInfo{
+          loc = C.locationInfoName -> Just name
         , msg = x
         }
     )
@@ -154,10 +159,10 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x _
   MangleNames
 -------------------------------------------------------------------------------}
 
-pattern MatchMangle :: CDeclName -> MangleNamesMsg -> TraceMsg
+pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
 pattern MatchMangle name x <- TraceFrontend (
-      FrontendMangleNames WithLocationInfo{
-           loc = locationInfoName -> Just name
+      FrontendMangleNames C.WithLocationInfo{
+           loc = C.locationInfoName -> Just name
          , msg = x
         }
     )

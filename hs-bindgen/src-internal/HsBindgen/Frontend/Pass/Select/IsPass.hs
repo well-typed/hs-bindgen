@@ -16,13 +16,8 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -32,6 +27,8 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
@@ -53,22 +50,38 @@ type family AnnSelect ix where
   AnnSelect "TypeFunArg"           = AdjustedFrom Select
   AnnSelect _                      = NoAnn
 
-instance IsPass Select where
-  type Id              Select = DeclIdPair
-  type ScopedName      Select = ScopedNamePair
-  type MacroBody       Select = TypecheckedMacro Select
-  type ExtBinding      Select = ResolvedExtBinding
-  type Ann ix          Select = AnnSelect ix
-  type Msg             Select = WithLocationInfo SelectMsg
-  type MacroId         Select = Id Select
-  type CommentDecl     Select = Maybe (C.Comment Select)
-  type MacroUnderlying Select = C.Type Select
+instance IsPass Select
+
+instance PassId Select where
+  type Id Select = C.DeclIdPair
 
   idNameKind     _ namePair = namePair.cName.name.kind
-  idSourceName   _ namePair = declIdSourceName namePair.cName
-  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
-  extBindingId _ extBinding = extDeclIdPair extBinding
+  idSourceName   _ namePair = C.declIdSourceName namePair.cName
+  idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
+
+instance PassScopedName Select where
+  type ScopedName Select = C.ScopedNamePair
+
+instance PassMacro Select where
+  type MacroId Select = Id Select
+  type MacroBody       Select = TypecheckedMacro Select
+  type MacroUnderlying Select = C.Type Select
+
   macroIdId _ = id
+
+instance PassExtBinding Select where
+  type ExtBinding Select = BindingSpec.ResolvedExtBinding
+
+  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+
+instance PassCommentDecl Select where
+  type CommentDecl Select = Maybe (C.Comment Select)
+
+instance PassAnn Select where
+  type Ann ix Select = AnnSelect ix
+
+instance PassMsg Select where
+  type Msg Select = C.WithLocationInfo SelectMsg
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -116,23 +129,23 @@ data SelectStatus =
 
 data TransitiveDependencyMissing =
     -- | Transitive dependency is 'Unusable'.
-    TransitiveDependencyUnusable DeclId Unusable [SingleLoc]
+    TransitiveDependencyUnusable C.DeclId Unusable [SingleLoc]
     -- | Transitive dependency is not selected.
-  | TransitiveDependencyNotSelected DeclId [SingleLoc]
+  | TransitiveDependencyNotSelected C.DeclId [SingleLoc]
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
   prettyForTrace = \case
       TransitiveDependencyUnusable i r ls ->
         let intro = "Transitive dependency unusable:"
-        in  PP.hang intro 2 $ prettyForTrace $ WithLocationInfo{
-                loc = declIdLocationInfo i ls
+        in  PP.hang intro 2 $ prettyForTrace $ C.WithLocationInfo{
+                loc = C.declIdLocationInfo i ls
               , msg = r
               }
       TransitiveDependencyNotSelected i ls ->
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
-                prettyForTrace $ declIdLocationInfo i ls
+                prettyForTrace $ C.declIdLocationInfo i ls
               , "Adjust the selection predicate or enable program slicing"
               ]
 

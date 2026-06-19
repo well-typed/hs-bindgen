@@ -11,8 +11,8 @@ import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Config
 import HsBindgen.Config.Prelims
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Test.C (genTestsC)
 import HsBindgen.Test.Hs (genTestsHs)
 import HsBindgen.Test.Readme (genTestsReadme)
@@ -23,7 +23,7 @@ import HsBindgen.Test.Readme (genTestsReadme)
 
 -- | Generate test suite
 genTests ::
-     [HashIncludeArg]
+     [C.HashIncludeArg]
   -> ByCategory_ [Hs.Decl l]
   -> BaseModuleName -- ^ Generated Haskell module name
   -> FilePath       -- ^ Test suite directory path

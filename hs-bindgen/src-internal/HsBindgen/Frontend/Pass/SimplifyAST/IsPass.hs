@@ -6,13 +6,10 @@ module HsBindgen.Frontend.Pass.SimplifyAST.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.LocationInfo (prelimDeclIdLocationInfo)
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
@@ -34,17 +31,29 @@ type family AnnSimplifyAST (ix :: Symbol) where
   AnnSimplifyAST "Global"      = ReparseInfo Tokens
   AnnSimplifyAST _             = NoAnn
 
-instance IsPass SimplifyAST where
-  type Id          SimplifyAST = PrelimDeclId
-  type MacroBody   SimplifyAST = ParsedMacroBody
-  type ExtBinding  SimplifyAST = Void
-  type Ann ix      SimplifyAST = AnnSimplifyAST ix
-  type Msg         SimplifyAST = SimplifyASTMsg
-  type CommentDecl SimplifyAST = ()
+instance IsPass SimplifyAST
 
-  idNameKind     _ = PrelimDeclId.nameKind
-  idSourceName   _ = PrelimDeclId.sourceName
-  idLocationInfo _ = prelimDeclIdLocationInfo
+instance PassId SimplifyAST where
+  type Id SimplifyAST = C.PrelimDeclId
+
+  idNameKind     _ = C.prelimDeclIdNameKind
+  idSourceName   _ = C.prelimDeclIdSourceName
+  idLocationInfo _ = C.prelimDeclIdLocationInfo
+
+instance PassScopedName SimplifyAST
+
+instance PassMacro SimplifyAST where
+  type MacroBody SimplifyAST = ParsedMacroBody
+
+instance PassExtBinding SimplifyAST
+
+instance PassCommentDecl SimplifyAST
+
+instance PassAnn SimplifyAST where
+  type Ann ix SimplifyAST = AnnSimplifyAST ix
+
+instance PassMsg SimplifyAST where
+  type Msg SimplifyAST = SimplifyASTMsg
 
 instance CoercePassId                Parse SimplifyAST
 instance CoercePassMacroBody         Parse SimplifyAST
@@ -60,7 +69,7 @@ instance CoercePassCommentDecl      Parse SimplifyAST
 -------------------------------------------------------------------------------}
 
 data SimplifyASTMsg =
-    SimplifyASTAnonymousEnum AnonId
+    SimplifyASTAnonymousEnum C.AnonId
   deriving stock (Show, Generic)
 
 instance PrettyForTrace SimplifyASTMsg where

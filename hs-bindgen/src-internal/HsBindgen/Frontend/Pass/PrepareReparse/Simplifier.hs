@@ -23,13 +23,13 @@ import Data.Kind
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type
 
 {-------------------------------------------------------------------------------

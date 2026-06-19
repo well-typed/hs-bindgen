@@ -10,14 +10,11 @@ import Data.Set qualified as Set
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
 
@@ -25,7 +22,7 @@ type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
 type CType = C.Type Out
 
-type FailedMacro = (DeclId, SingleLoc, MacroTypecheckError)
+type FailedMacro = (C.DeclId, SingleLoc, MacroTypecheckError)
 
 {-------------------------------------------------------------------------------
   Traversal 2: Typecheck macros
@@ -46,7 +43,7 @@ type FailedMacro = (DeclId, SingleLoc, MacroTypecheckError)
 typecheckDecls ::
      forall l. HasMacroTypes l
   => MacroLang l
-  -> Map DeclId CType
+  -> Map C.DeclId CType
   -> [C.Decl l In]
   -> ([Either FailedMacro (C.Decl l Out)], Set Text)
 typecheckDecls macroLang knownTypes decls =

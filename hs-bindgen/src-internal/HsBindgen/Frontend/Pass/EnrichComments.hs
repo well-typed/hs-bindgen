@@ -95,13 +95,12 @@ module HsBindgen.Frontend.Pass.EnrichComments (enrichComments) where
 import Control.Applicative ((<|>))
 import Data.Text qualified as Text
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 import Doxygen.Parser (Doxygen, DoxygenKey (..), lookupComment)
 import Doxygen.Parser.Types qualified as Doxy
@@ -234,12 +233,12 @@ resolveQualifiedName :: C.DeclInfo EnrichComments -> Text
 resolveQualifiedName info =
     Text.intercalate "::" (map (.name.text) path)
   where
-    path :: [DeclId]
+    path :: [C.DeclId]
     path =
       filter (not . (.isAnon)) $
       reverse (map getEnclosingRef info.enclosing) ++ [info.id]
 
-    getEnclosingRef :: C.EnclosingRef EnrichComments -> DeclId
+    getEnclosingRef :: C.EnclosingRef EnrichComments -> C.DeclId
     getEnclosingRef = \case
         C.EnclosingRef         x -> x
         C.UnusableEnclosingRef x -> x

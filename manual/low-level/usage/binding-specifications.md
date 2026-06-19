@@ -652,7 +652,7 @@ examples in YAML format.
 #### `version`
 
 Description
-: Version metadata for the binding specifications
+: Version metadata for the binding specification
 
 Type
 : Object, with fixed keys
@@ -666,7 +666,7 @@ version:
 ```
 
 Key `hs_bindgen` maps to the version of `hs-bindgen` that the binding
-specifications were created for.  The value must be a string.  It can be helpful
+specification was created for.  The value must be a string.  It can be helpful
 when debugging, and it may even affect the way that the file is parsed, in order
 to implement compatibility.
 
@@ -680,17 +680,17 @@ used to implement compatibility, as follows.
   *current binding specification version*.  Run `hs-bindgen-cli --version` to
   see that version.
 * By default, `hs-bindgen` uses *strict binding specification compatibility*.
-  It can load any binding specifications that have the same major version and a
+  It can load any binding specification that has the same major version and a
   minor version that is not greater than the current minor version.  It may be
-  able to load binding specifications with a smaller major version, as
+  able to load binding a specification with a smaller major version, as
   determined by the changes between those versions.
 * Users may optionally use *allow-newer binding specification compatibility*
   instead.  CLI users can use the `--binding-spec-allow-newer` option for this.
-  It can load any binding specifications that have the same major version, even
-  if the minor version is greater than the current minor version.
+  It can load any binding specification that has the same major version, even if
+  the minor version is greater than the current minor version.
 
 In this example, the binding specification version is `3.1`.  The binding
-specifications were created using `hs-bindgen` version `0.5.2`, and it has the
+specification was created using `hs-bindgen` version `0.5.2`, and it has the
 following compatibility:
 
 * Using strict compatibility, it can be loaded by any version of `hs-bindgen`
@@ -707,7 +707,7 @@ following compatibility:
 #### `hsmodule`
 
 Description
-: Module that the binding specifications describe
+: Module that the binding specification describes
 
 Type
 : String (optional)
@@ -721,12 +721,12 @@ hsmodule: Vector
 Note that the fully-qualified module name should be specified, as used in an
 `import` declaration.
 
-When binding specifications are used as prescriptive binding specifications,
+When a binding specification is used as a prescriptive binding specification,
 to guide the generation of bindings, specifying the module is optional.  When
-used as external binding specifications, to specify imported types, specifying
+used as an external binding specification, to specify imported types, specifying
 the module is required.
 
-In this example, the binding specifications describe bindings in module
+In this example, the binding specification describes bindings in module
 `Vector`.
 
 #### `ctypes`
@@ -756,15 +756,15 @@ in a `#include` argument (without brackets or quotes).
 
 Key `cname` specifies the name of the C type, as a string.  This is generally
 the name as written in C, but special syntax is used for types that are not
-given names in C.  See the section on [C names][manual:c-names] for details.  When
-binding specifications are used as prescriptive binding specifications, to guide
-the generation of bindings, a warning is emitted if a C name is not used.
+given names in C.  See the section on [C names][manual:c-names] for details.
+When a binding specification is used as prescriptive binding specification, to
+guide the generation of bindings, a warning is emitted if a C name is not used.
 
 Key `hsname` specifies the name of the corresponding Haskell type, as a string.
 It is optional, and a Haskell name is generated based on the C name if one is
 not specified.  It is required when the Haskell type is specified in `hstypes`,
-however.  In particular, any binding specifications used as external binding
-specifications must specify `hsname`s.
+however.  In particular, any binding specification used as an external binding
+specification must specify `hsname`s.
 
 More than one C type can be mapped to the same Haskell type.  Declaration
 `typedef struct pt { int x, y; } point;` introduces two C types, which are
@@ -921,7 +921,7 @@ Instances are specified as follows:
   other instances that depend on the instance are not derived/generated, leading
   to the need to define many instances by hand.  This is avoided by generating
   instances with constraints.  Instances with constraints are only generated if
-  the instance is explicitly required in prescriptive binding specifications.
+  the instance is explicitly required in a prescriptive binding specification.
   Constraints are specified in an instance specification object, where the type
   class is specified using key `class` and the constraints are specified using
   key `constraints`, as a list of objects with the following keys.
@@ -930,9 +930,9 @@ Instances are specified as follows:
     * `hsmodule` specifies the module of the type argument, as a string.
     * `hsname` specifies the name of the type argument, as a string.
 
-  If any constraints for an instance is listed, then all of them must be listed.
-  In the following example, an instance of the `Show` type class is derived
-  using the `stock` strategy with a `Show Some.Module.Foo` constraint.
+  If any constraints for an instance are listed, then all of them must be
+  listed.  In the following example, an instance of the `Show` type class is
+  derived using the `stock` strategy with a `Show Some.Module.Foo` constraint.
 
     ```yaml
     hstypes:
@@ -946,15 +946,15 @@ Instances are specified as follows:
                 hsname: Foo
     ```
 
-When using binding specifications as prescriptive binding specifications,
+When using a binding specification as a prescriptive binding specification,
 to guide the generation of bindings, specifying instances is optional.  One
 must specify instances to deviate from defaults, and one can specify instances
 to assert that the instances are derived/generated as desired.
 
-When using binding specifications as external binding specifications, to specify
-imported types, a complete specification of instances and strategies is required
-because that information is needed to derive/generate instances for types that
-use the external bindings.
+When using a binding specification as an external binding specification, to
+specify imported types, a complete specification of instances and strategies is
+required because that information is needed to derive/generate instances for
+types that use the external bindings.
 
 
 

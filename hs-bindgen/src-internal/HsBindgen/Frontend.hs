@@ -24,9 +24,6 @@ import HsBindgen.Doxygen
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.AssignAnonIds
@@ -60,7 +57,10 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer

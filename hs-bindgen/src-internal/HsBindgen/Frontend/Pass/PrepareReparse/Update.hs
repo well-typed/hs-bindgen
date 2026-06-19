@@ -28,12 +28,7 @@ import HsBindgen.Clang.Macros.UniqueExpansion
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass (AMsg)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -41,7 +36,10 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports (Map, mapMaybe)
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
@@ -58,7 +56,7 @@ update ::
      UpdateMode [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> ( C.TranslationUnit l PrepareReparse
-     , [AMsg PrepareReparse]
+     , [AnnMsg PrepareReparse]
      )
 update mode unit =
     ( unit'
@@ -118,7 +116,7 @@ class Update a where
   Update: monad
 -------------------------------------------------------------------------------}
 
-runM :: Env -> M a -> (a, [(DeclId, DelayedPrepareReparseMsg)])
+runM :: Env -> M a -> (a, [(C.DeclId, DelayedPrepareReparseMsg)])
 runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
 
 newtype M a = M (ReaderT Env (State St) a)
@@ -132,7 +130,7 @@ newtype Env = Env {
   }
 
 newtype St = St {
-    messages :: [(DeclId, DelayedPrepareReparseMsg)]
+    messages :: [(C.DeclId, DelayedPrepareReparseMsg)]
   }
 
 {-------------------------------------------------------------------------------
@@ -309,7 +307,7 @@ getLocation :: [Clang.Token a] -> Clang.MultiLoc
 getLocation []    = panicPure "Unexpected empty list of tokens"
 getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
 
-addMessage :: DeclId -> DelayedPrepareReparseMsg -> M ()
+addMessage :: C.DeclId -> DelayedPrepareReparseMsg -> M ()
 addMessage did msg = modify $ \st -> st {
       messages = (did, msg) : st.messages
     }

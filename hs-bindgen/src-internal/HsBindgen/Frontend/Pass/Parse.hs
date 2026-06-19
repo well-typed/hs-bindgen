@@ -12,14 +12,14 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Clang.Macros (MacroDefinition)
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface
 
 {-------------------------------------------------------------------------------

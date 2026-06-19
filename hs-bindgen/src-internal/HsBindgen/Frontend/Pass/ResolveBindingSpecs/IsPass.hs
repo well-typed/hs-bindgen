@@ -1,23 +1,17 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
     ResolveBindingSpecs
   , PrescriptiveDeclSpec(..)
-  , ResolvedExtBinding(..)
   , ResolveBindingSpecsMsg(..)
-  , extDeclIdPair
   ) where
 
 import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -42,17 +36,32 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs "Decl" = PrescriptiveDeclSpec
   AnnResolveBindingSpecs _      = NoAnn
 
-instance IsPass ResolveBindingSpecs where
-  type MacroBody       ResolveBindingSpecs = TypecheckedMacro ResolveBindingSpecs
-  type ExtBinding      ResolveBindingSpecs = ResolvedExtBinding
-  type Ann ix          ResolveBindingSpecs = AnnResolveBindingSpecs ix
-  type Msg             ResolveBindingSpecs = ResolveBindingSpecsMsg
+instance IsPass ResolveBindingSpecs
+
+instance PassId ResolveBindingSpecs
+
+instance PassScopedName ResolveBindingSpecs
+
+instance PassMacro ResolveBindingSpecs where
   type MacroId         ResolveBindingSpecs = Id ResolveBindingSpecs
-  type CommentDecl     ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
+  type MacroBody       ResolveBindingSpecs = TypecheckedMacro ResolveBindingSpecs
   type MacroUnderlying ResolveBindingSpecs = C.Type ResolveBindingSpecs
 
-  extBindingId _ = (.cName)
   macroIdId _ = id
+
+instance PassExtBinding ResolveBindingSpecs where
+  type ExtBinding ResolveBindingSpecs = BindingSpec.ResolvedExtBinding
+
+  extBindingId _ = (.cName)
+
+instance PassCommentDecl ResolveBindingSpecs where
+  type CommentDecl ResolveBindingSpecs = Maybe (C.Comment ResolveBindingSpecs)
+
+instance PassAnn ResolveBindingSpecs where
+  type Ann ix ResolveBindingSpecs = AnnResolveBindingSpecs ix
+
+instance PassMsg ResolveBindingSpecs where
+  type Msg ResolveBindingSpecs = ResolveBindingSpecsMsg
 
 -- | Prescriptive binding specification for declaration
 --
@@ -77,16 +86,16 @@ data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
 
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
-  | ResolveBindingSpecsExtHsRefNoIdentifier DeclId
-  | ResolveBindingSpecsNoHsTypeSpec         DeclId
-  | ResolveBindingSpecsOmittedType          DeclId
-  | ResolveBindingSpecsTypeNotUsed          DeclId
-  | ResolveBindingSpecsExtDecl              DeclId
-  | ResolveBindingSpecsExtType              DeclId DeclId
-  | ResolveBindingSpecsPreRequire           DeclId
-  | ResolveBindingSpecsPreOmit              DeclId
-  | ResolveBindingSpecsPreEmptyData         DeclId
-  | ResolveBindingSpecsPreEmptyDataInvalid  DeclId
+  | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclId
+  | ResolveBindingSpecsNoHsTypeSpec         C.DeclId
+  | ResolveBindingSpecsOmittedType          C.DeclId
+  | ResolveBindingSpecsTypeNotUsed          C.DeclId
+  | ResolveBindingSpecsExtDecl              C.DeclId
+  | ResolveBindingSpecsExtType              C.DeclId C.DeclId
+  | ResolveBindingSpecsPreRequire           C.DeclId
+  | ResolveBindingSpecsPreOmit              C.DeclId
+  | ResolveBindingSpecsPreEmptyData         C.DeclId
+  | ResolveBindingSpecsPreEmptyDataInvalid  C.DeclId
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where

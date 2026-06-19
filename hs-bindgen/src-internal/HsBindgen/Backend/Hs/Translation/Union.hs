@@ -16,13 +16,12 @@ import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 unionDecs ::

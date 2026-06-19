@@ -25,8 +25,8 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition

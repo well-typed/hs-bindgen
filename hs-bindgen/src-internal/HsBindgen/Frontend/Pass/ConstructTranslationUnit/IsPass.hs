@@ -2,14 +2,12 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -28,12 +26,24 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit "Global"          = ReparseInfo Tokens
   AnnConstructTranslationUnit _                 = NoAnn
 
-instance IsPass ConstructTranslationUnit where
-  type MacroBody   ConstructTranslationUnit = ParsedMacroBody
-  type ExtBinding  ConstructTranslationUnit = Void
-  type Ann ix      ConstructTranslationUnit = AnnConstructTranslationUnit ix
-  type Msg         ConstructTranslationUnit = NoMsg Level
+instance IsPass ConstructTranslationUnit
+
+instance PassId ConstructTranslationUnit
+
+instance PassScopedName ConstructTranslationUnit
+
+instance PassMacro ConstructTranslationUnit where
+  type MacroBody ConstructTranslationUnit = ParsedMacroBody
+
+instance PassExtBinding ConstructTranslationUnit
+
+instance PassCommentDecl ConstructTranslationUnit where
   type CommentDecl ConstructTranslationUnit = Maybe (C.Comment ConstructTranslationUnit)
+
+instance PassAnn ConstructTranslationUnit where
+  type Ann ix ConstructTranslationUnit = AnnConstructTranslationUnit ix
+
+instance PassMsg ConstructTranslationUnit
 
 {-------------------------------------------------------------------------------
   CoercePass

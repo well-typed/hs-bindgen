@@ -17,11 +17,11 @@ import Clang.Args (ClangArgs (unClangArgs))
 import Clang.Discover (ClangExe)
 
 import HsBindgen.Clang (ClangSetup (args))
-import HsBindgen.Frontend.Pass (IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceImmediate)
 import HsBindgen.Imports (Exception)
+import HsBindgen.IR.Pass (PassMsg (Msg))
 import HsBindgen.Util.Tracer (Tracer)
 
 preprocess ::

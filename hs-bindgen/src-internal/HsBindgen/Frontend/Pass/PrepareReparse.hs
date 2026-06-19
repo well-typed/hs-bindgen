@@ -19,8 +19,6 @@ import Clang.Discover (ClangExe)
 
 import HsBindgen.Clang (ClangSetup)
 import HsBindgen.Clang.Macros (MacroDefinition)
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.Pass (AMsg, IsPass (Msg))
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
                                                    PostHeader (targets),
                                                    PreHeader, Tag,
@@ -38,6 +36,8 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Update (UpdateMode (..), update)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Util.Tracer (Tracer)
 
 {-------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ runUpdater ::
   -> PostHeader
   -> C.TranslationUnit l TypecheckMacros
   -> ( C.TranslationUnit l PrepareReparse
-     , [AMsg PrepareReparse]
+     , [AnnMsg PrepareReparse]
      )
 runUpdater macroDefs header unit = update mode unit
   where

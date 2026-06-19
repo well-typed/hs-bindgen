@@ -29,9 +29,9 @@ import HsBindgen.Backend.TH.Translation
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type (HasMacroTypes)
@@ -99,7 +99,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
         bindgenState = execState hashIncludes (BindgenState [])
 
         -- Restore original order of include directives.
-        uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
+        uncheckedHashIncludeArgs :: [C.UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
 
         artefact :: Artefact l ([SourcePath], ([CWrapper], [SHs.SDecl]))
@@ -210,7 +210,7 @@ type BindgenM = State BindgenState ()
 --
 -- Internal!
 data BindgenState = BindgenState {
-      hashIncludeArgs :: [UncheckedHashIncludeArg]
+      hashIncludeArgs :: [C.UncheckedHashIncludeArg]
     }
   deriving stock (Generic)
 

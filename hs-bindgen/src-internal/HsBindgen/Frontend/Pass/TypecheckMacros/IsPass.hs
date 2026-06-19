@@ -7,14 +7,12 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   , MacroTypeBodyVar(..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -35,13 +33,27 @@ type family AnnTypecheckMacros (ix :: Symbol) :: Star where
   AnnTypecheckMacros "Global"          = ReparseInfo Tokens
   AnnTypecheckMacros _                 = NoAnn
 
-instance IsPass TypecheckMacros where
-  type MacroBody   TypecheckMacros = TypecheckedMacro TypecheckMacros
-  type Ann ix      TypecheckMacros = AnnTypecheckMacros ix
-  type Msg         TypecheckMacros = NoMsg Level
-  type MacroId     TypecheckMacros = Id TypecheckMacros
-  type CommentDecl TypecheckMacros = Maybe (C.Comment TypecheckMacros)
+instance IsPass TypecheckMacros
+
+instance PassId TypecheckMacros
+
+instance PassScopedName TypecheckMacros
+
+instance PassMacro TypecheckMacros where
+  type MacroId   TypecheckMacros = Id TypecheckMacros
+  type MacroBody TypecheckMacros = TypecheckedMacro TypecheckMacros
+
   macroIdId _ = id
+
+instance PassExtBinding TypecheckMacros
+
+instance PassCommentDecl TypecheckMacros where
+  type CommentDecl TypecheckMacros = Maybe (C.Comment TypecheckMacros)
+
+instance PassAnn TypecheckMacros where
+  type Ann ix TypecheckMacros = AnnTypecheckMacros ix
+
+instance PassMsg TypecheckMacros
 
 {-------------------------------------------------------------------------------
   Checked macros

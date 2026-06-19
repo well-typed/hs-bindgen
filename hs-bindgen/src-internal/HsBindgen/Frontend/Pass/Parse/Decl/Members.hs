@@ -15,8 +15,6 @@ import Clang.HighLevel.Types (Fold, FoldException (exception), Next,
 import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl), CXType,
                             clang_getCursorKind)
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Parse.Context (ExceptionInCtx (exception),
                                               ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
@@ -27,6 +25,7 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl)
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type
 
 -- NOTE: this is a copy of 'HsBindgen.Frontend.Pass.Parse.Decl.Parser' for

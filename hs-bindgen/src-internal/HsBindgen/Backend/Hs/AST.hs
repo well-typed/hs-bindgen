@@ -100,11 +100,11 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
@@ -157,7 +157,7 @@ data ForeignImportDecl = ForeignImportDecl{
       name       :: Hs.TermName
     , parameters :: [FunctionParameter]
     , result     :: HsType
-    , origName   :: CDeclName
+    , origName   :: C.DeclName
     , callConv   :: CallConv
     , origin     :: Origin.ForeignImport
     , comment    :: Maybe HsDoc.Comment

@@ -14,12 +14,11 @@ import Data.Proxy (Proxy (..))
 import GHC.Stack
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 

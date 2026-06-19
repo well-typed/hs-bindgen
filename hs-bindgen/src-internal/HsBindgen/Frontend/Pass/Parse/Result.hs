@@ -17,11 +17,10 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
 
@@ -42,7 +41,6 @@ data ParseResult l p = ParseResult{
     deriving (Generic)
 
 deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
                         , HasMacroTypes l
                         ) => Show (ParseResult l p)
 
@@ -53,7 +51,6 @@ data ParseClassification l p =
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
                         , HasMacroTypes l
                         ) => Show (ParseClassification l p)
 
@@ -71,7 +68,6 @@ data ParseSuccess l p = ParseSuccess {
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , Show (CommentDecl p)
                         , HasMacroTypes l
                         ) => Show (ParseSuccess l p)
 
@@ -88,7 +84,7 @@ data ParseNotAttempted =
 
 instance IsPass p => PrettyForTrace (ParseResult l p) where
   prettyForTrace result =
-      prettyForTrace $ WithLocationInfo{
+      prettyForTrace $ C.WithLocationInfo{
           loc = idLocationInfo (Proxy @p) result.id [result.loc]
         , msg = result.classification
         }
@@ -146,3 +142,36 @@ getParseResultMaybeDecl result =
 getParseResultEitherDecl :: ParseResult l p -> Either (ParseResult l p) (C.Decl l p)
 getParseResultEitherDecl result =
     maybe (Left result) Right $ getParseResultMaybeDecl result
+
+{-------------------------------------------------------------------------------
+  CoercePass instances
+-------------------------------------------------------------------------------}
+
+instance (
+      CoercePassId p p'
+    , CoercePass (C.Decl l) p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass (ParseResult l) p p' where
+  coercePass pr = ParseResult{
+        id             = coercePassId (Proxy @'(p, p')) pr.id
+      , loc            = pr.loc
+      , classification = coercePass pr.classification
+      }
+
+instance (
+      CoercePass (C.Decl l) p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass (ParseClassification l) p p' where
+  coercePass = \case
+    ParseResultSuccess s      -> ParseResultSuccess (coercePass s)
+    ParseResultNotAttempted x -> ParseResultNotAttempted x
+    ParseResultFailure x      -> ParseResultFailure x
+
+instance (
+      CoercePass (C.Decl l) p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass (ParseSuccess l) p p' where
+  coercePass ps = ParseSuccess{
+        decl = coercePass ps.decl
+      , delayedParseMsgs = ps.delayedParseMsgs
+      }

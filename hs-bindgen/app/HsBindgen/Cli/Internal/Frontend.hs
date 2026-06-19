@@ -22,8 +22,8 @@ import HsBindgen.Artefact
 import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ data Opts = Opts {
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
     , dirPolicy      :: DirPolicy
-    , inputs         :: [UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
     }
 

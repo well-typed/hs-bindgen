@@ -4,14 +4,12 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
 
 import Numeric.Natural (Natural)
 
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 
 -- | Adjust function argument types
 --

@@ -9,7 +9,7 @@ module HsBindgen.TraceMsg (
   , ClangMsg(..)
   , Diagnostic(..)
   , FrontendMsg(..)
-  , HashIncludeArgMsg(..)
+  , C.HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
   , ImmediateAssignAnonIdsMsg (..)
   , ImmediateParseMsg(..)
@@ -30,15 +30,14 @@ import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
-import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
                                           ImmediateParseMsg (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..))
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -141,7 +140,7 @@ fromSetting = \case
         t | "macro" `List.isInfixOf` (getTraceId t).id
           -> const Warning
         -- Macro parsing requires declarations required for scoping.
-        TraceFrontend (FrontendParse WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
+        TraceFrontend (FrontendParse C.WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
           -> const Warning
         _otherTrace
           -> id

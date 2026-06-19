@@ -81,7 +81,12 @@ library internal
   -- Modules containing public API.
   exposed-modules:  HsBindgen.Config
 
-  -- Internal modules.
+  -- Internal modules
+  --
+  -- Rules:
+  --
+  -- * HsBindgen.IR.* modules must not (transitively) import from Frontend or
+  --   Backend
   exposed-modules:
     Data.Digraph
     HsBindgen
@@ -166,15 +171,10 @@ library internal
     HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
     HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
     HsBindgen.Frontend.Analysis.DeclUseGraph.Query
+    HsBindgen.Frontend.Analysis.Deps
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UseDeclGraph
-    HsBindgen.Frontend.AST.Coerce
-    HsBindgen.Frontend.AST.Decl
-    HsBindgen.Frontend.AST.Deps
-    HsBindgen.Frontend.AST.PrettyPrinter
-    HsBindgen.Frontend.AST.TranslationUnit
-    HsBindgen.Frontend.AST.Type
     HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
@@ -182,9 +182,6 @@ library internal
     HsBindgen.Frontend.LanguageC.PartialAST
     HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-    HsBindgen.Frontend.LocationInfo
-    HsBindgen.Frontend.Naming
-    HsBindgen.Frontend.Pass
     HsBindgen.Frontend.Pass.AdjustTypes
     HsBindgen.Frontend.Pass.AdjustTypes.IsPass
     HsBindgen.Frontend.Pass.AssignAnonIds
@@ -200,6 +197,7 @@ library internal
     HsBindgen.Frontend.Pass.MangleNames.Error
     HsBindgen.Frontend.Pass.MangleNames.IsPass
     HsBindgen.Frontend.Pass.Parse
+    HsBindgen.Frontend.Pass.Parse.Builtin
     HsBindgen.Frontend.Pass.Parse.Context
     HsBindgen.Frontend.Pass.Parse.Decl
     HsBindgen.Frontend.Pass.Parse.Decl.Field
@@ -211,7 +209,6 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap
     HsBindgen.Frontend.Pass.Parse.Monad.Type
     HsBindgen.Frontend.Pass.Parse.Msg
-    HsBindgen.Frontend.Pass.Parse.PrelimDeclId
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
     HsBindgen.Frontend.Pass.PrepareReparse
@@ -231,7 +228,6 @@ library internal
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-    HsBindgen.Frontend.Pass.ResolveBindingSpecs.ResolvedExtBinding
     HsBindgen.Frontend.Pass.Select
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
@@ -248,9 +244,26 @@ library internal
     HsBindgen.Frontend.PrettyC
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader
+    HsBindgen.Frontend.TranslationUnit
     HsBindgen.Guasi
     HsBindgen.Imports
     HsBindgen.Instances
+    HsBindgen.IR.C
+    HsBindgen.IR.C.Decl
+    HsBindgen.IR.C.HashIncludeArg
+    HsBindgen.IR.C.LocationInfo
+    HsBindgen.IR.C.Naming
+    HsBindgen.IR.C.PrettyPrinter
+    HsBindgen.IR.C.Type
+    HsBindgen.IR.Pass
+    HsBindgen.IR.Pass.Ann
+    HsBindgen.IR.Pass.CommentDecl
+    HsBindgen.IR.Pass.Definition
+    HsBindgen.IR.Pass.ExtBinding
+    HsBindgen.IR.Pass.Id
+    HsBindgen.IR.Pass.Macro
+    HsBindgen.IR.Pass.Msg
+    HsBindgen.IR.Pass.ScopedName
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
     HsBindgen.Macro.Interface

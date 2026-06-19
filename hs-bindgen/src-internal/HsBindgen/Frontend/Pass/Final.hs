@@ -9,10 +9,10 @@ module HsBindgen.Frontend.Pass.Final (
 
 import GHC.Records
 
-import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition

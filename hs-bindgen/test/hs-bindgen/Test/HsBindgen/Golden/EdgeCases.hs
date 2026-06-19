@@ -4,10 +4,10 @@ module Test.HsBindgen.Golden.EdgeCases (testCases) where
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -71,7 +71,7 @@ test_edgeCases_clang_generated_collision =
               Nothing
           )
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
 test_edgeCases_duplicate :: TestCase
@@ -94,7 +94,7 @@ test_edgeCases_duplicate =
                Nothing
           )
   where
-    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
           ("macro duplicate", "conflict")
         , ("duplicate",       "conflict")
@@ -167,5 +167,5 @@ test_edgeCases_unsupported_builtin =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [CDeclName]
+    declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["va_list"]

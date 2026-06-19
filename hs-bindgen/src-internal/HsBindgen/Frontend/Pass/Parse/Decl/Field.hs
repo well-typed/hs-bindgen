@@ -12,8 +12,6 @@ import Clang.LowLevel.Core (CXCursor, clang_Cursor_getOffsetOfField,
                             clang_Cursor_isBitField, clang_getCursorDisplayName,
                             clang_getCursorType, clang_getFieldDeclBitWidth)
 
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming (CScopedName (CScopedName))
 import HsBindgen.Frontend.Pass.Parse.Context (ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.IsPass (ExplicitFieldOrigin (ExplicitFieldOrigin),
@@ -21,6 +19,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (ExplicitFieldOrigin (ExplicitFieldO
                                              Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
+import HsBindgen.IR.C qualified as C
 
 structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl ctx = \curr -> do
@@ -58,11 +57,10 @@ unionFieldDecl ctx = \curr -> do
 -- | Get field info from a cursor
 --
 -- Comments are filled in later by the 'EnrichComments' pass.
---
 getFieldInfo :: MonadIO m => CXCursor -> m (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
     fieldLoc  <- HighLevel.clang_getCursorLocation' curr
-    fieldName <- CScopedName <$> clang_getCursorDisplayName curr
+    fieldName <- C.ScopedName <$> clang_getCursorDisplayName curr
     return C.FieldInfo {
         loc     = fieldLoc
       , name    = fieldName

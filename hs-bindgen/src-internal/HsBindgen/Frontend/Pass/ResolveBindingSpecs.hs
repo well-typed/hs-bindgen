@@ -22,17 +22,14 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.TranslationUnit qualified as C
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Monad (mapMaybeM)
@@ -50,7 +47,7 @@ resolveBindingSpecs ::
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit l PreviousPass
-  -> (C.TranslationUnit l ResolveBindingSpecs, [AMsg ResolveBindingSpecs])
+  -> (C.TranslationUnit l ResolveBindingSpecs, [AnnMsg ResolveBindingSpecs])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
@@ -81,7 +78,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       -> MState
       -> C.TranslationUnit l ResolveBindingSpecs
     reconstruct decls' declUseGraph state =
-      let externalIds :: Set DeclId
+      let externalIds :: Set C.DeclId
           externalIds = Map.keysSet state.extTypes
 
           index' :: DeclIndex l
@@ -146,11 +143,11 @@ deriving stock instance HasMacroTypes l => Show (MEnv l)
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      traces    :: [AMsg ResolveBindingSpecs] -- ^ reverse order
-    , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
-    , noPTypes  :: Map DeclId [Set SourcePath]
-    , omitTypes :: Map DeclId SingleLoc
-    , opqTypes  :: Set DeclId -- ^ opaqued types
+      traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
+    , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
+    , noPTypes  :: Map C.DeclId [Set SourcePath]
+    , omitTypes :: Map C.DeclId SingleLoc
+    , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
 
@@ -163,16 +160,16 @@ initMState pSpec = MState {
     , opqTypes  = Set.empty
     }
 
-insertTrace :: AMsg ResolveBindingSpecs -> MState -> MState
+insertTrace :: AnnMsg ResolveBindingSpecs -> MState -> MState
 insertTrace msg = #traces %~ (msg :)
 
-insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
+insertExtType :: C.DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 
-insertOpaquedType :: DeclId -> MState -> MState
+insertOpaquedType :: C.DeclId -> MState -> MState
 insertOpaquedType cDeclId = #opqTypes %~ Set.insert cDeclId
 
-deleteNoPType :: DeclId -> SourcePath -> MState -> MState
+deleteNoPType :: C.DeclId -> SourcePath -> MState -> MState
 deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
   where
     aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
@@ -185,7 +182,7 @@ deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: DeclId -> SingleLoc -> MState -> MState
+insertOmittedType :: C.DeclId -> SingleLoc -> MState -> MState
 insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 
 {-------------------------------------------------------------------------------
@@ -359,13 +356,13 @@ resolveDeep decl (cSpec, hsSpec) = do
 class Resolve a l where
   resolve ::
        HasCallStack
-    => DeclId -- context declaration
+    => C.DeclId -- context declaration
     -> a PreviousPass
     -> M l (a ResolveBindingSpecs)
 
 resolveFlip ::
      Resolve (Flip f n) l
-  => DeclId
+  => C.DeclId
   -> f PreviousPass n
   -> M l (f ResolveBindingSpecs n)
 resolveFlip declId = flipM (resolve declId)
@@ -523,8 +520,8 @@ instance Resolve (TypecheckedMacroType l) l where
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1969>
       --
       -- Usage of 'MacroTypeBodyVar' hints at possible drawbacks of our design
-      -- of 'DeclId'. Maybe we can directly refer to external bindings from
-      -- 'DeclId'?
+      -- of 'C.DeclId'. Maybe we can directly refer to external bindings from
+      -- 'C.DeclId'?
       resolveVar ::
            MacroTypeBodyVar Zip
         -> M l (MacroTypeBodyVar ResolveBindingSpecs)
@@ -581,7 +578,7 @@ instance Resolve C.Type l where
     where
       aux ::
            HasCallStack
-        => DeclId
+        => C.DeclId
         -> M l (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
       aux cDeclId = fmap reconstruct <$> auxExt ctx cDeclId
         where
@@ -597,9 +594,9 @@ instance Resolve C.TypeFunArg l where
 
 auxExt ::
      HasCallStack
-  => DeclId
-  -> DeclId
-  -> M l (Maybe ResolvedExtBinding)
+  => C.DeclId
+  -> C.DeclId
+  -> M l (Maybe BindingSpec.ResolvedExtBinding)
 auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
     case Map.lookup cDeclId state.extTypes of
       Just ty -> do
@@ -629,18 +626,18 @@ auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
 -- | Lookup qualified name in the 'HsBindgen.BindingSpec.Private.V1.ResolvedBindingSpec'
 resolveExtBinding ::
      HasCallStack
-  => DeclId
+  => C.DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
-  -> Maybe (AMsg ResolveBindingSpecs)
-  -> M l (Maybe ResolvedExtBinding)
+  -> Maybe (AnnMsg ResolveBindingSpecs)
+  -> M l (Maybe BindingSpec.ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
         case (cTypeSpec.hsName, mHsTypeSpec) of
           (Just hsName, Just hsTypeSpec) -> do
-            let resolved = ResolvedExtBinding {
+            let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
                   , hsName = Hs.ExtRef hsModuleName hsName
                   , cSpec  = cTypeSpec

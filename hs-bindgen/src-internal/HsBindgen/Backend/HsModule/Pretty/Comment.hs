@@ -19,9 +19,8 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.Translation
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Comment pretty-printing
