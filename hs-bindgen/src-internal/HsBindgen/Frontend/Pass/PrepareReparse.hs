@@ -15,8 +15,9 @@ import System.FilePath ((<.>), (</>))
 import System.IO.Temp (withSystemTempDirectory)
 import Text.Parsec (ParseError)
 
+import Clang.Discover (ClangExe)
+
 import HsBindgen.Clang (ClangSetup)
-import HsBindgen.Clang.Discover (ClangExe)
 import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Frontend.AST.TranslationUnit qualified as C
 import HsBindgen.Frontend.Pass (AMsg, IsPass (Msg))

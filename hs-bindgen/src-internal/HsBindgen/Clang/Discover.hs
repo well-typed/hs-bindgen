@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 module HsBindgen.Clang.Discover (
     -- * Types
     Paths(..)
@@ -12,73 +10,37 @@ module HsBindgen.Clang.Discover (
   , applyPaths
   ) where
 
-import Control.Applicative ((<|>), asum)
-import Control.Exception (Exception(displayException))
-import Control.Monad.Trans.Maybe
+import Control.Exception (Exception (displayException))
 import Data.IORef (IORef)
 import Data.IORef qualified as IORef
-import Data.Text qualified as Text
-import System.Directory qualified as Dir
+import GHC.Stack (CallStack)
 import System.Environment qualified as Env
-import System.FilePath qualified as FilePath
 import System.IO.Unsafe (unsafePerformIO)
-import System.Process (readProcess)
-
-#ifdef mingw32_HOST_OS
-import Data.Char qualified as Char
-import System.FilePath.Posix qualified as Posix
-import System.FilePath.Windows qualified as Windows
-#endif
-
-import Clang.Version
-import HsBindgen.Config.ClangArgs
-import HsBindgen.Imports
-import HsBindgen.Util.Process
-import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((<+>), string)
+import Text.SimplePrettyPrint (string, (<+>))
 import Text.SimplePrettyPrint qualified as PP
 
-{-------------------------------------------------------------------------------
-  Types
--------------------------------------------------------------------------------}
+import Clang.Discover (BuiltinIncDir, ClangExe, Paths (..))
+import Clang.Discover qualified as Discover
 
--- | Discovered path information
-data Paths = Paths {
-    clangExe :: Maybe ClangExe
-  , builtinIncDir :: Maybe BuiltinIncDir
-  }
-
--- | Path to the @clang@ executable
-type ClangExe = FilePath
-
--- | Path to the builtin include directory
-type BuiltinIncDir = FilePath
+import HsBindgen.Config.ClangArgs
+import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
+-- | Trace messages emitted during path discovery
+--
+-- The actual discovery is performed by @libclang-bindings@
+-- ('Discover.getPaths'); its trace messages are wrapped in 'DiscoverClang'. The
+-- remaining constructors cover the @hs-bindgen@-specific environment variable
+-- check (see 'getEnvConfig').
 data DiscoverMsg =
     DiscoverEnvNone
   | DiscoverEnvSet BuiltinIncDirConfig
   | DiscoverEnvInvalid String
-  | DiscoverLlvmPathNotFound FilePath
-  | DiscoverLlvmConfigPathFound FilePath
-  | DiscoverLlvmConfigPrefixUnexpected String
-  | DiscoverLlvmConfigPrefixIOError IOError
-  | DiscoverClangNotFound
-  | DiscoverClangVersionMismatch Text Text
-  | DiscoverClangIncDirNotFound BuiltinIncDir
-  | DiscoverClangIncDirFound BuiltinIncDir
-  | DiscoverLlvmPathClangExeNotFound FilePath
-  | DiscoverLlvmPathClangExeFound FilePath
-  | DiscoverLlvmConfigClangExeNotFound FilePath
-  | DiscoverLlvmConfigClangExeFound FilePath
-  | DiscoverClangPathFound FilePath
-  | DiscoverClangVersionUnexpected String
-  | DiscoverClangVersionIOError IOError
-  | DiscoverClangPrintResourceDirUnexpected String
-  | DiscoverClangPrintResourceDirIOError IOError
+  | DiscoverClang Discover.DiscoverMsg
   deriving stock (Show)
 
 instance PrettyForTrace DiscoverMsg where
@@ -89,71 +51,81 @@ instance PrettyForTrace DiscoverMsg where
       PP.string envName <+> "set:" <+> PP.string (show config)
     DiscoverEnvInvalid s ->
       PP.string envName <+> "invalid:" <+> PP.string (show s) <+> "(ignored)"
-    DiscoverLlvmPathNotFound path ->
-      "$LLVM_PATH path not found or not directory (skipping):" <+> string path
-    DiscoverLlvmConfigPathFound path ->
-      "llvm-config found using $PATH:" <+> string path
-    DiscoverLlvmConfigPrefixUnexpected s ->
-      "llvm-config --prefix output is unexpected:" <+> string (show s)
-    DiscoverLlvmConfigPrefixIOError e ->
-      "IO error calling llvm-config --prefix:" <+> string (displayException e)
-    DiscoverClangNotFound ->
-      "clang not found"
-    DiscoverClangVersionMismatch libclangVersion clangVersion ->
-      PP.hangs' "clang version mismatch:" 2 [
-          "libclang version:" <+> PP.text libclangVersion
-        , "clang version:   " <+> PP.text clangVersion
-        ]
-    DiscoverClangIncDirNotFound path ->
-      "builtin include directory not found using clang:" <+> string path
-    DiscoverClangIncDirFound path ->
-      "builtin include directory found using clang:" <+> string path
-    DiscoverLlvmPathClangExeNotFound path ->
-      "clang not found using $LLVM_PATH:" <+> string path
-    DiscoverLlvmPathClangExeFound path ->
-      "clang found using $LLVM_PATH:" <+> string path
-    DiscoverLlvmConfigClangExeNotFound path ->
-      "clang not found using llvm-config:" <+> string path
-    DiscoverLlvmConfigClangExeFound path ->
-      "clang found using llvm-config:" <+> string path
-    DiscoverClangPathFound path ->
-      "clang found using $PATH:" <+> string path
-    DiscoverClangVersionUnexpected s ->
-      "clang --version output is unexpected:" <+> string (show s)
-    DiscoverClangVersionIOError e ->
-      "IO error calling clang --version:" <+> string (displayException e)
-    DiscoverClangPrintResourceDirUnexpected s ->
-      "clang -print-resource-dir output is unexpected:" <+> string (show s)
-    DiscoverClangPrintResourceDirIOError e ->
-      "IO error calling clang -print-resource-dir:"
-        <+> string (displayException e)
+    DiscoverClang msg -> prettyDiscoverMsg msg
 
 instance IsTrace Level DiscoverMsg where
   getDefaultLogLevel = \case
-    DiscoverEnvNone                           -> Debug
-    DiscoverEnvSet{}                          -> Info
-    DiscoverEnvInvalid{}                      -> Warning
-    DiscoverLlvmPathNotFound{}                -> Warning
-    DiscoverLlvmConfigPathFound{}             -> Debug
-    DiscoverLlvmConfigPrefixUnexpected{}      -> Warning
-    DiscoverLlvmConfigPrefixIOError{}         -> Warning
-    DiscoverClangNotFound                     -> Debug
-    DiscoverClangVersionMismatch _ _          -> Warning
-    DiscoverClangIncDirNotFound _             -> Warning
-    DiscoverClangIncDirFound{}                -> Info
-    DiscoverLlvmPathClangExeNotFound{}        -> Debug
-    DiscoverLlvmPathClangExeFound{}           -> Debug
-    DiscoverLlvmConfigClangExeNotFound{}      -> Debug
-    DiscoverLlvmConfigClangExeFound{}         -> Debug
-    DiscoverClangPathFound{}                  -> Debug
-    DiscoverClangVersionUnexpected _          -> Warning
-    DiscoverClangVersionIOError _             -> Warning
-    DiscoverClangPrintResourceDirUnexpected _ -> Warning
-    DiscoverClangPrintResourceDirIOError _    -> Warning
+    DiscoverEnvNone      -> Debug
+    DiscoverEnvSet{}     -> Info
+    DiscoverEnvInvalid{} -> Warning
+    DiscoverClang msg    -> discoverMsgLevel msg
 
   getSource  = const HsBindgen
 
   getTraceId = const "builtin-include-dir"
+
+-- | Pretty-print an upstream 'Discover.DiscoverMsg'
+prettyDiscoverMsg :: Discover.DiscoverMsg -> PP.CtxDoc
+prettyDiscoverMsg = \case
+    Discover.DiscoverLlvmPathNotFound path ->
+      "$LLVM_PATH path not found or not directory (skipping):" <+> string path
+    Discover.DiscoverLlvmConfigPathFound path ->
+      "llvm-config found using $PATH:" <+> string path
+    Discover.DiscoverLlvmConfigPrefixUnexpected s ->
+      "llvm-config --prefix output is unexpected:" <+> string (show s)
+    Discover.DiscoverLlvmConfigPrefixIOError e ->
+      "IO error calling llvm-config --prefix:" <+> string (displayException e)
+    Discover.DiscoverClangNotFound ->
+      "clang not found"
+    Discover.DiscoverClangVersionMismatch libclangVersion clangVersion ->
+      PP.hangs' "clang version mismatch:" 2 [
+          "libclang version:" <+> PP.text libclangVersion
+        , "clang version:   " <+> PP.text clangVersion
+        ]
+    Discover.DiscoverClangIncDirNotFound path ->
+      "builtin include directory not found using clang:" <+> string path
+    Discover.DiscoverClangIncDirFound path ->
+      "builtin include directory found using clang:" <+> string path
+    Discover.DiscoverLlvmPathClangExeNotFound path ->
+      "clang not found using $LLVM_PATH:" <+> string path
+    Discover.DiscoverLlvmPathClangExeFound path ->
+      "clang found using $LLVM_PATH:" <+> string path
+    Discover.DiscoverLlvmConfigClangExeNotFound path ->
+      "clang not found using llvm-config:" <+> string path
+    Discover.DiscoverLlvmConfigClangExeFound path ->
+      "clang found using llvm-config:" <+> string path
+    Discover.DiscoverClangPathFound path ->
+      "clang found using $PATH:" <+> string path
+    Discover.DiscoverClangVersionUnexpected s ->
+      "clang --version output is unexpected:" <+> string (show s)
+    Discover.DiscoverClangVersionIOError e ->
+      "IO error calling clang --version:" <+> string (displayException e)
+    Discover.DiscoverClangPrintResourceDirUnexpected s ->
+      "clang -print-resource-dir output is unexpected:" <+> string (show s)
+    Discover.DiscoverClangPrintResourceDirIOError e ->
+      "IO error calling clang -print-resource-dir:"
+        <+> string (displayException e)
+
+-- | Default log level for an upstream 'Discover.DiscoverMsg'
+discoverMsgLevel :: Discover.DiscoverMsg -> Level
+discoverMsgLevel = \case
+    Discover.DiscoverLlvmPathNotFound{}                -> Warning
+    Discover.DiscoverLlvmConfigPathFound{}             -> Debug
+    Discover.DiscoverLlvmConfigPrefixUnexpected{}      -> Warning
+    Discover.DiscoverLlvmConfigPrefixIOError{}         -> Warning
+    Discover.DiscoverClangNotFound                     -> Debug
+    Discover.DiscoverClangVersionMismatch _ _          -> Warning
+    Discover.DiscoverClangIncDirNotFound _             -> Warning
+    Discover.DiscoverClangIncDirFound{}                -> Info
+    Discover.DiscoverLlvmPathClangExeNotFound{}        -> Debug
+    Discover.DiscoverLlvmPathClangExeFound{}           -> Debug
+    Discover.DiscoverLlvmConfigClangExeNotFound{}      -> Debug
+    Discover.DiscoverLlvmConfigClangExeFound{}         -> Debug
+    Discover.DiscoverClangPathFound{}                  -> Debug
+    Discover.DiscoverClangVersionUnexpected _          -> Warning
+    Discover.DiscoverClangVersionIOError _             -> Warning
+    Discover.DiscoverClangPrintResourceDirUnexpected _ -> Warning
+    Discover.DiscoverClangPrintResourceDirIOError _    -> Warning
 
 {-------------------------------------------------------------------------------
   Global state
@@ -161,7 +133,7 @@ instance IsTrace Level DiscoverMsg where
 
 data DiscoverState =
     DiscoverStateInitial
-  | DiscoverStateCached Paths
+  | DiscoverStateCached Discover.Paths
 
 -- | Global state for caching discovered paths
 --
@@ -179,65 +151,39 @@ discoverState = unsafePerformIO $ IORef.newIORef DiscoverStateInitial
 -- | Try to discover paths for the @clang@ executable, and the builtin include
 -- directory
 --
--- Discovered paths should should only be determined a single time. Calling
--- 'getPaths' caches the result, and any subsequent call simply returns the
--- cached value.
+-- This wraps 'Discover.getPaths' from @libclang-bindings@, adding two
+-- @hs-bindgen@-specific behaviours:
 --
--- === Clang executable
+-- * The @BINDGEN_BUILTIN_INCLUDE_DIR@ environment variable, when set, overrides
+--   the passed 'BuiltinIncDirConfig' (see 'getEnvConfig').
+-- * Discovered paths are cached: discovery is only performed a single time, and
+--   any subsequent call simply returns the cached value.
 --
--- The @clang@ executable is run to discover the builtin include directory, and it
--- is run by the @hs-bingen@ frontend to preprocess macro invocations.
---
--- This function tries to determine the path to the @clang@ executable by using
--- the first successful result of the following strategies:
---
--- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
--- 3. @clang@ (clang is found using PATH)
---
--- === Builtin include directory
---
--- LLVM/Clang determines the builtin include directory based on the path of the
--- @clang@ executable being run. When using @libclang@, there is not enough
--- information to determine the absolute builtin include directory. @hs-bindgen@
--- can attempt to determine and configure the builtin include directory
--- automatically so that users do not have to do so manually.
---
--- Upstream issues:
---
--- * https://github.com/llvm/llvm-project/issues/18150
--- * https://github.com/llvm/llvm-project/issues/51256
---
--- The builtin include directory is in the Clang resource directory, which
--- contains the executables, headers, and libraries used by the Clang compiler.
---
--- When 'BuiltinIncDirClang' is used, this function tries to determine the
--- builtin include directory using the @clang@ executable discovered as
--- described above, using @$(clang -print-resource-dir)/include@.
+-- See 'Discover.getPaths' for a description of the discovery strategy.
 getPaths ::
      Tracer DiscoverMsg
   -> BuiltinIncDirConfig
-  -> IO Paths
+  -> IO Discover.Paths
 getPaths tracer config =
     IORef.readIORef discoverState >>= \case
       DiscoverStateCached paths -> return paths
       DiscoverStateInitial -> do
-        mClangExe <- runMaybeT $ findClangExe tracer
         mEnvConfig <- getEnvConfig tracer
-        mBuiltinIncDir <- case fromMaybe config mEnvConfig of
-          BuiltinIncDirDisable -> return Nothing
-          BuiltinIncDirClang -> runMaybeT $
-            getBuiltinIncDirWithClang tracer (myHoistMaybe mClangExe)
-        let paths = Paths {
-                clangExe = mClangExe
-              , builtinIncDir = mBuiltinIncDir
-              }
+        paths <- toPaths <$>
+          Discover.getPaths trace (fromMaybe config mEnvConfig)
         IORef.writeIORef discoverState (DiscoverStateCached paths)
         return paths
   where
-    -- | hoistMaybe was only added in transformers-0.6.0.0
-    myHoistMaybe :: Maybe a -> MaybeT IO a
-    myHoistMaybe = MaybeT . pure
+    -- Feed upstream trace messages (paired with their callstack) into our
+    -- tracer, wrapped in 'DiscoverClang'.
+    trace :: CallStack -> Discover.DiscoverMsg -> IO ()
+    trace cs msg = traceWith tracer (WithCallStack cs (DiscoverClang msg))
+
+    toPaths :: Discover.Paths -> Discover.Paths
+    toPaths p = Discover.Paths {
+        pClangExe      = Discover.pClangExe p
+      , pBuiltinIncDir = Discover.pBuiltinIncDir p
+      }
 
 -- | Apply the discovered paths to 'Clang.Args.ClangArgs'
 --
@@ -245,10 +191,10 @@ getPaths tracer config =
 -- the last argument.  This ensures that it is prioritized as close to the
 -- default include directories as possible.
 applyPaths ::
-     Paths
+     Discover.Paths
   -> ClangArgsConfig path
   -> ClangArgsConfig path
-applyPaths paths = case paths.builtinIncDir of
+applyPaths paths = case paths.pBuiltinIncDir of
     Nothing            -> id
     Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
 
@@ -270,185 +216,3 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
   where
     aux :: BuiltinIncDirConfig -> IO (Maybe BuiltinIncDirConfig)
     aux config = Just config <$ traceWith tracer (withCallStack $ DiscoverEnvSet config)
-
--- | Get the builtin include directory using @clang@
---
--- @clang -print-file-name=include@ is called to get the builtin include
--- directory.
-getBuiltinIncDirWithClang ::
-     Tracer DiscoverMsg
-  -> MaybeT IO ClangExe
-  -> MaybeT IO BuiltinIncDir
-getBuiltinIncDirWithClang tracer getExe = do
-    exe <- getExe <|> do
-      traceWith tracer (withCallStack DiscoverClangNotFound)
-      MaybeT $ return Nothing
-    clangVersionString <- getClangVersion tracer exe
-    let clangVersion = parseClangVersion clangVersionString
-    unless (isCompatibleClangVersion runtimeClangVersion clangVersion) $ do
-      traceWith tracer . withCallStack $
-        DiscoverClangVersionMismatch
-          runtimeClangVersionString
-          clangVersionString
-      MaybeT $ return Nothing
-    resourceDir <- getClangResourceDir tracer exe
-    ifM
-     tracer
-     DiscoverClangIncDirNotFound
-     DiscoverClangIncDirFound
-     Dir.doesDirectoryExist
-     (FilePath.joinPath [resourceDir, "include"])
-
--- | Find the @clang@ executable
---
--- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(llvm-config --prefix)/bin/clang@ (llvm-config is found using PATH)
--- 3. @clang@ (clang is found using PATH)
-findClangExe :: Tracer DiscoverMsg -> MaybeT IO ClangExe
-findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
-  where
-    auxLlvmPath :: MaybeT IO ClangExe
-    auxLlvmPath = do
-      prefix <- lookupLlvmPath tracer
-      ifM
-        tracer
-        DiscoverLlvmPathClangExeNotFound
-        DiscoverLlvmPathClangExeFound
-        Dir.doesFileExist
-        (FilePath.joinPath [prefix, "bin", clangExe])
-
-    auxLlvmConfig :: MaybeT IO ClangExe
-    auxLlvmConfig = do
-      exe <- findLlvmConfigExe tracer
-      prefix <- getLlvmConfigPrefix tracer exe
-      ifM
-        tracer
-        DiscoverLlvmConfigClangExeNotFound
-        DiscoverLlvmConfigClangExeFound
-        Dir.doesFileExist
-        (FilePath.joinPath [prefix, "bin", clangExe])
-
-    auxPath :: MaybeT IO ClangExe
-    auxPath = do
-      exe <- MaybeT $ Dir.findExecutable clangExe
-      traceWith tracer (withCallStack $ DiscoverClangPathFound exe)
-      return exe
-
--- | @clang@ executable name for the current platform
-clangExe :: FilePath
-clangExe =
-#ifdef mingw32_HOST_OS
-    "clang.exe"
-#else
-    "clang"
-#endif
-
--- | Lookup @LLVM_PATH@ environment variable
-lookupLlvmPath :: Tracer DiscoverMsg -> MaybeT IO FilePath
-lookupLlvmPath tracer = do
-    prefix <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_PATH"
-    MaybeT $ Dir.doesDirectoryExist prefix >>= \case
-      True  -> return (Just prefix)
-      False -> do
-        traceWith tracer (withCallStack $ DiscoverLlvmPathNotFound prefix)
-        return Nothing
-
--- | Find the @llvm-config@ executable using @PATH@
-findLlvmConfigExe :: Tracer DiscoverMsg -> MaybeT IO FilePath
-findLlvmConfigExe tracer = do
-    exe <- MaybeT $ Dir.findExecutable llvmConfigExe
-    traceWith tracer (withCallStack $ DiscoverLlvmConfigPathFound exe)
-    return exe
-
--- | @llvm-config@ executable name for the current platform
-llvmConfigExe :: FilePath
-llvmConfigExe =
-#ifdef mingw32_HOST_OS
-    "llvm-config.exe"
-#else
-    "llvm-config"
-#endif
-
--- | Get the prefix from @llvm-config@
---
--- This function calls @llvm-config --prefix@ and captures the output.
-getLlvmConfigPrefix ::
-     Tracer DiscoverMsg
-  -> FilePath  -- ^ @llvm-config@ path
-  -> MaybeT IO FilePath
-getLlvmConfigPrefix tracer exe = MaybeT $
-    checkOutput
-      tracer
-      DiscoverLlvmConfigPrefixUnexpected
-      DiscoverLlvmConfigPrefixIOError
-      (fmap normWinPath . parseSingleLine)
-      (readProcess exe ["--prefix"] "")
-
--- | Get the Clang version from @clang@
---
--- This function calls @clang --version@ and captures the output.  The full
--- version string in the first line is returned.
-getClangVersion ::
-     Tracer DiscoverMsg
-  -> FilePath  -- ^ @clang@ path
-  -> MaybeT IO Text
-getClangVersion tracer exe = MaybeT $
-    checkOutput
-      tracer
-      DiscoverClangVersionUnexpected
-      DiscoverClangVersionIOError
-      (fmap Text.pack . parseFirstLine)
-      (readProcess exe ["--version"] "")
-
--- | Get the resource directory from @clang@
---
--- This function calls @clang -print-resource-dir@ and captures the output.
-getClangResourceDir ::
-     Tracer DiscoverMsg
-  -> FilePath  -- ^ @clang@ path
-  -> MaybeT IO FilePath
-getClangResourceDir tracer exe = MaybeT $
-    checkOutput
-      tracer
-      DiscoverClangPrintResourceDirUnexpected
-      DiscoverClangPrintResourceDirIOError
-      (fmap normWinPath . parseSingleLine)
-      (readProcess exe ["-print-resource-dir"] "")
-
---------------------------------------------------------------------------------
-
--- | Normalise Windows paths
---
--- This is just the identity function on non-Windows platforms.
-normWinPath :: FilePath -> FilePath
-#ifdef mingw32_HOST_OS
-normWinPath path
-    -- | Do not change paths with no @/@ in them
-    | '/' `notElem` path = path
-    | otherwise = case path of
-        -- Convert POSIX absolute paths specifying the Windows drive
-        '/' : drv : '/' : relPath -> Char.toUpper drv : ":\\" ++ aux relPath
-        -- Do not change other POSIX absolute paths
-        '/' : _                   -> path
-        -- Normalise hybrid paths
-        drv : ':' : '/' : relPath -> Char.toUpper drv : ":\\" ++ aux relPath
-        -- Normalise relative paths
-        relPath                   -> aux relPath
-  where
-    aux :: FilePath -> FilePath
-    aux = Windows.joinPath . Posix.splitDirectories
-#else
-normWinPath = id
-#endif
-
--- | Return a path only if it passes a predicate, tracing result
-ifM ::
-     Tracer DiscoverMsg
-  -> (FilePath -> DiscoverMsg)  -- ^ not found constructor
-  -> (FilePath -> DiscoverMsg)  -- ^ found constructor
-  -> (FilePath -> IO Bool)           -- ^ predicate
-  -> FilePath                        -- ^ path
-  -> MaybeT IO FilePath
-ifM tracer mkNotFound mkFound p path = MaybeT $ p path >>= \case
-    True  -> Just path <$ traceWith tracer (withCallStack $ mkFound    path)
-    False -> Nothing   <$ traceWith tracer (withCallStack $ mkNotFound path)

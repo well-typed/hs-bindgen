@@ -257,7 +257,7 @@ parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
       long "builtin-include-dir"
     , metavar "MODE"
     , showDefaultWith auxRender
-    , value def
+    , value BuiltinIncDirClang
     , help
         "Configure builtin include directory (supported: clang, disable)"
     ]

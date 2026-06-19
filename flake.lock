@@ -3,17 +3,17 @@
     "c-expr-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1781690273,
-        "narHash": "sha256-NUiRunXhIf+PEsU7XWqUNM4taml7MWQqEcelLyYF61A=",
+        "lastModified": 1781777019,
+        "narHash": "sha256-HDYSNHxIxegTAbYKFj2LzwYKbtihwyLJelaNZBmKYBg=",
         "owner": "well-typed",
         "repo": "c-expr",
-        "rev": "68960ab9683d7e156d9aa329a6cff98ad08d64dc",
+        "rev": "c789b4ab20cc13696a96bf4e508a5af95d523ce0",
         "type": "github"
       },
       "original": {
         "owner": "well-typed",
         "repo": "c-expr",
-        "rev": "68960ab9683d7e156d9aa329a6cff98ad08d64dc",
+        "rev": "c789b4ab20cc13696a96bf4e508a5af95d523ce0",
         "type": "github"
       }
     },
@@ -55,17 +55,17 @@
     "libclang-bindings-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1779428609,
-        "narHash": "sha256-e/if9oauLLOQ0KSwsuEkTHhVKpWVs/ta+Ey5Oqh0BCo=",
+        "lastModified": 1781767872,
+        "narHash": "sha256-yBKm3g63qVwrRdhJQsztvgBOEDzbGJ5mVCdFxLt3NgE=",
         "owner": "well-typed",
         "repo": "libclang-bindings",
-        "rev": "51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84",
+        "rev": "ef67437045c45a32d7d1aa7166043937c1259d7f",
         "type": "github"
       },
       "original": {
         "owner": "well-typed",
         "repo": "libclang-bindings",
-        "rev": "51b4b4972ea7ee8f7848f962e8524b6cd3eb4a84",
+        "rev": "ef67437045c45a32d7d1aa7166043937c1259d7f",
         "type": "github"
       }
     },
