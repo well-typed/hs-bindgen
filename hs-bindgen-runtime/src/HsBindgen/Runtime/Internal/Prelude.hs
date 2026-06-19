@@ -84,6 +84,11 @@ module HsBindgen.Runtime.Internal.Prelude (
   , ByteArray
   , SizedByteArray(SizedByteArray)
 
+    -- ByteString
+  , BS.ByteString
+  , BS.pack
+
+
     -- Complex numbers
   , Complex
 
@@ -102,6 +107,7 @@ module HsBindgen.Runtime.Internal.Prelude (
 
 import Data.Array.Byte (ByteArray)
 import Data.Bits (Bits, FiniteBits)
+import Data.ByteString qualified as BS (ByteString, pack)
 import Data.Complex (Complex)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ix (Ix)

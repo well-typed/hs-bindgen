@@ -82,8 +82,6 @@ data BindgenImport =
     -- | Qualified import from other modules in @hs-bindgen-runtime@ with a
     --   corresponding abbreviation ("qualified as").
   | IRuntimeModule String
-    -- | Qualified import from "Data.ByteString" as @BS@.
-  | IDataByteString
   deriving stock (Eq, Ord, Show)
 
 -- We avoid full Template Haskell name resolution, because we want to depend on
@@ -96,8 +94,6 @@ bindgenToHsImport n = \case
       Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude" (Just "RIP")
     IRuntimeModule as ->
       Hs.QualifiedImport unsafeModuleName (Just as)
-    IDataByteString ->
-      Hs.QualifiedImport "Data.ByteString" (Just "BS")
   where
     unsafeModuleName :: Hs.ModuleName
     unsafeModuleName = case TH.nameModule n of
@@ -380,7 +376,7 @@ bindgenGlobalType = globalType . \case
     CPtrdiff_type   -> (IRuntimeInternalPrelude, ''RIP.CPtrdiff)
 
     -- ByteString
-    ByteString_type -> (IDataByteString, ''BS.ByteString)
+    ByteString_type -> (IRuntimeInternalPrelude, ''RIP.ByteString)
 
 typeClassGlobal :: Inst.TypeClass -> Global LvlType
 typeClassGlobal = globalType . \case
@@ -534,4 +530,4 @@ bindgenGlobalTerm = globalExpr . \case
     CEnum_seqMkDeclared              -> (IRuntimeModule "CEnum", GVar, 'CEnum.seqMkDeclared)
 
     -- ByteString
-    ByteString_pack -> (IDataByteString, GVar, 'BS.pack)
+    ByteString_pack -> (IRuntimeInternalPrelude, GVar, 'BS.pack)
