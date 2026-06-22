@@ -20,6 +20,7 @@ hstypes:
       fields:
       - s1_t_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - s2_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

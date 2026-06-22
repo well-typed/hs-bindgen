@@ -18,6 +18,7 @@ hstypes:
       - hoge_x
       - hoge_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

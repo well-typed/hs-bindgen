@@ -54,6 +54,7 @@ hstypes:
       - s1_a
       - s1_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -72,6 +73,7 @@ hstypes:
       - s2_t_b
       - s2_t_c
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -88,6 +90,7 @@ hstypes:
       fields:
       - s3_t_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -106,6 +109,7 @@ hstypes:
       - s4_a
       - s4_c
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -123,6 +127,7 @@ hstypes:
       - s5_a
       - s5_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -140,6 +145,7 @@ hstypes:
       - s6_a
       - s6_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -175,6 +181,7 @@ hstypes:
       - s7a_Aux_a
       - s7a_Aux_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -210,6 +217,7 @@ hstypes:
       - s7b_Aux_a
       - s7b_Aux_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

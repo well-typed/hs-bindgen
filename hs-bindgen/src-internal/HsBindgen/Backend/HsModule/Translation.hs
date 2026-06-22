@@ -28,6 +28,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -370,6 +371,10 @@ resolveExprImports = \case
     EUnboxedTup{} -> mempty
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
+    ERecCon _con fbinds -> foldMap resolveFBindImports fbinds
+
+resolveFBindImports :: FBind ctx -> ImportAcc
+resolveFBindImports (FBind _label expr) = resolveExprImports expr
 
 -- | Resolve imports in a pattern|expression
 resolvePatExprImports :: PatExpr -> ImportAcc

@@ -17,6 +17,7 @@ hstypes:
       fields:
       - s_y
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField

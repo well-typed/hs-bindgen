@@ -39,6 +39,7 @@ hstypes:
       - point1a_x
       - point1a_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -72,6 +73,7 @@ hstypes:
       - point2a_x
       - point2a_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -125,6 +127,7 @@ hstypes:
       - point3a_Aux_x
       - point3a_Aux_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

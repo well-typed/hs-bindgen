@@ -57,6 +57,9 @@ instance HasCField T1 "t1_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t1_x" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"t1_x")
+instance (~) ty MyInt => HasField "t1_x" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
+                              getField @"t1_x" x_0)
 {-| __C declaration:__ @struct \@T2_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 4:9@
@@ -86,6 +89,9 @@ instance HasCField T2_Aux "t2_Aux_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t2_Aux_x" (Ptr T2_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_Aux_x")
+instance (~) ty MyInt => HasField "t2_Aux_x" T2_Aux ty
+    where hasField = \x_0 -> (\y_1 -> T2_Aux{t2_Aux_x = y_1},
+                              getField @"t2_Aux_x" x_0)
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 4:32@
@@ -135,6 +141,9 @@ instance HasCField T3_Aux "t3_Aux_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t3_Aux_x" (Ptr T3_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_Aux_x")
+instance (~) ty MyInt => HasField "t3_Aux_x" T3_Aux ty
+    where hasField = \x_0 -> (\y_1 -> T3_Aux{t3_Aux_x = y_1},
+                              getField @"t3_Aux_x" x_0)
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:32@

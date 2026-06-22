@@ -414,6 +414,7 @@ hstypes:
       - size
       - table
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -431,6 +432,7 @@ hstypes:
       - raw
       - val
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -470,6 +472,7 @@ hstypes:
       - d_tag
       - d_un
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -498,6 +501,7 @@ hstypes:
       fields:
       - explicit_signed_char_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -514,6 +518,7 @@ hstypes:
       fields:
       - explicit_signed_char_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -530,6 +535,7 @@ hstypes:
       fields:
       - explicit_signed_char_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -546,6 +552,7 @@ hstypes:
       fields:
       - explicit_signed_char_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -562,6 +569,7 @@ hstypes:
       fields:
       - explicit_signed_int_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -578,6 +586,7 @@ hstypes:
       fields:
       - explicit_signed_int_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -594,6 +603,7 @@ hstypes:
       fields:
       - explicit_signed_int_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -610,6 +620,7 @@ hstypes:
       fields:
       - explicit_signed_int_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -626,6 +637,7 @@ hstypes:
       fields:
       - explicit_signed_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -642,6 +654,7 @@ hstypes:
       fields:
       - explicit_signed_long_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -658,6 +671,7 @@ hstypes:
       fields:
       - explicit_signed_long_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -674,6 +688,7 @@ hstypes:
       fields:
       - explicit_signed_long_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -690,6 +705,7 @@ hstypes:
       fields:
       - explicit_signed_long_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -706,6 +722,7 @@ hstypes:
       fields:
       - explicit_signed_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -722,6 +739,7 @@ hstypes:
       fields:
       - explicit_signed_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -738,6 +756,7 @@ hstypes:
       fields:
       - explicit_signed_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -754,6 +773,7 @@ hstypes:
       fields:
       - explicit_signed_short_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -770,6 +790,7 @@ hstypes:
       fields:
       - explicit_signed_short_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -786,6 +807,7 @@ hstypes:
       fields:
       - explicit_signed_short_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -802,6 +824,7 @@ hstypes:
       fields:
       - explicit_signed_short_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -838,6 +861,7 @@ hstypes:
       fields:
       - foo_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -871,6 +895,7 @@ hstypes:
       fields:
       - listOfNames
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -889,6 +914,7 @@ hstypes:
       fields:
       - x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -905,6 +931,7 @@ hstypes:
       fields:
       - x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -941,6 +968,7 @@ hstypes:
       fields:
       - ordinary_double_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -957,6 +985,7 @@ hstypes:
       fields:
       - ordinary_double_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -973,6 +1002,7 @@ hstypes:
       fields:
       - ordinary_double_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -989,6 +1019,7 @@ hstypes:
       fields:
       - ordinary_double_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1005,6 +1036,7 @@ hstypes:
       fields:
       - ordinary_float_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1021,6 +1053,7 @@ hstypes:
       fields:
       - ordinary_float_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1037,6 +1070,7 @@ hstypes:
       fields:
       - ordinary_float_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1053,6 +1087,7 @@ hstypes:
       fields:
       - ordinary_float_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1069,6 +1104,7 @@ hstypes:
       fields:
       - ordinary_signed_char_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1085,6 +1121,7 @@ hstypes:
       fields:
       - ordinary_signed_char_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1101,6 +1138,7 @@ hstypes:
       fields:
       - ordinary_signed_char_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1117,6 +1155,7 @@ hstypes:
       fields:
       - ordinary_signed_char_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1133,6 +1172,7 @@ hstypes:
       fields:
       - ordinary_signed_int_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1149,6 +1189,7 @@ hstypes:
       fields:
       - ordinary_signed_int_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1165,6 +1206,7 @@ hstypes:
       fields:
       - ordinary_signed_int_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1181,6 +1223,7 @@ hstypes:
       fields:
       - ordinary_signed_int_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1197,6 +1240,7 @@ hstypes:
       fields:
       - ordinary_signed_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1213,6 +1257,7 @@ hstypes:
       fields:
       - ordinary_signed_long_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1229,6 +1274,7 @@ hstypes:
       fields:
       - ordinary_signed_long_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1245,6 +1291,7 @@ hstypes:
       fields:
       - ordinary_signed_long_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1261,6 +1308,7 @@ hstypes:
       fields:
       - ordinary_signed_long_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1277,6 +1325,7 @@ hstypes:
       fields:
       - ordinary_signed_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1293,6 +1342,7 @@ hstypes:
       fields:
       - ordinary_signed_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1309,6 +1359,7 @@ hstypes:
       fields:
       - ordinary_signed_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1325,6 +1376,7 @@ hstypes:
       fields:
       - ordinary_signed_short_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1341,6 +1393,7 @@ hstypes:
       fields:
       - ordinary_signed_short_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1357,6 +1410,7 @@ hstypes:
       fields:
       - ordinary_signed_short_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1373,6 +1427,7 @@ hstypes:
       fields:
       - ordinary_signed_short_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1389,6 +1444,7 @@ hstypes:
       fields:
       - ordinary_void_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1405,6 +1461,7 @@ hstypes:
       fields:
       - ordinary_void_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1421,6 +1478,7 @@ hstypes:
       fields:
       - i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1451,6 +1509,7 @@ hstypes:
       fields:
       - unsigned_char_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1467,6 +1526,7 @@ hstypes:
       fields:
       - unsigned_char_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1483,6 +1543,7 @@ hstypes:
       fields:
       - unsigned_char_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1499,6 +1560,7 @@ hstypes:
       fields:
       - unsigned_char_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1515,6 +1577,7 @@ hstypes:
       fields:
       - unsigned_int_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1531,6 +1594,7 @@ hstypes:
       fields:
       - unsigned_int_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1547,6 +1611,7 @@ hstypes:
       fields:
       - unsigned_int_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1563,6 +1628,7 @@ hstypes:
       fields:
       - unsigned_int_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1579,6 +1645,7 @@ hstypes:
       fields:
       - unsigned_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1595,6 +1662,7 @@ hstypes:
       fields:
       - unsigned_long_long_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1611,6 +1679,7 @@ hstypes:
       fields:
       - unsigned_long_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1627,6 +1696,7 @@ hstypes:
       fields:
       - unsigned_long_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1643,6 +1713,7 @@ hstypes:
       fields:
       - unsigned_long_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1659,6 +1730,7 @@ hstypes:
       fields:
       - unsigned_long_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1675,6 +1747,7 @@ hstypes:
       fields:
       - unsigned_long_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1691,6 +1764,7 @@ hstypes:
       fields:
       - unsigned_long_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1707,6 +1781,7 @@ hstypes:
       fields:
       - unsigned_short_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1723,6 +1798,7 @@ hstypes:
       fields:
       - unsigned_short_pointer_array_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1739,6 +1815,7 @@ hstypes:
       fields:
       - unsigned_short_pointer_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -1755,6 +1832,7 @@ hstypes:
       fields:
       - unsigned_short_member
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -36,6 +36,7 @@ hstypes:
       - bar_c
       - bar_i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -53,6 +54,7 @@ hstypes:
       - baz_c
       - baz_i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -71,6 +73,7 @@ hstypes:
       - fILE__w
       - fILE__close
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -88,6 +91,7 @@ hstypes:
       - foo_c
       - foo_i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -105,6 +109,7 @@ hstypes:
       - qux_c
       - qux_i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

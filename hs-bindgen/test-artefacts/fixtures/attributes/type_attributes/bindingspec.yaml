@@ -72,6 +72,7 @@ hstypes:
       - my_packed_struct_i
       - my_packed_struct_s
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -89,6 +90,7 @@ hstypes:
       - my_unpacked_struct_c
       - my_unpacked_struct_i
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -105,6 +107,7 @@ hstypes:
       fields:
       - s_f
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -121,6 +124,7 @@ hstypes:
       fields:
       - s2_f
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

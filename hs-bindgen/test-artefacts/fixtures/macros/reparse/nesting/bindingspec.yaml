@@ -61,6 +61,7 @@ hstypes:
       fields:
       - t2_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -77,6 +78,7 @@ hstypes:
       fields:
       - t3_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -93,6 +95,7 @@ hstypes:
       fields:
       - t4_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

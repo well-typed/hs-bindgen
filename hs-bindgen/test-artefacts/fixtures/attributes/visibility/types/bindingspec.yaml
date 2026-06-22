@@ -535,6 +535,7 @@ hstypes:
       fields:
       - s10_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -551,6 +552,7 @@ hstypes:
       fields:
       - s11_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -567,6 +569,7 @@ hstypes:
       fields:
       - s12_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -583,6 +586,7 @@ hstypes:
       fields:
       - s13_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -599,6 +603,7 @@ hstypes:
       fields:
       - s14_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -615,6 +620,7 @@ hstypes:
       fields:
       - s15_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -631,6 +637,7 @@ hstypes:
       fields:
       - s16_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -647,6 +654,7 @@ hstypes:
       fields:
       - s17_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -663,6 +671,7 @@ hstypes:
       fields:
       - s18_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -679,6 +688,7 @@ hstypes:
       fields:
       - s19_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -701,6 +711,7 @@ hstypes:
       fields:
       - s5_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -717,6 +728,7 @@ hstypes:
       fields:
       - s6_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -733,6 +745,7 @@ hstypes:
       fields:
       - s7_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -749,6 +762,7 @@ hstypes:
       fields:
       - s8_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -765,6 +779,7 @@ hstypes:
       fields:
       - s9_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

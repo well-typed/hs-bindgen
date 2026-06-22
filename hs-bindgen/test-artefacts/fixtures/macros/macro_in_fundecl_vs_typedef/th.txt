@@ -317,6 +317,9 @@ instance HasCField Struct1 "struct1_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "struct1_a" (Ptr Struct1) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_a")
+instance (~) ty CInt => HasField "struct1_a" Struct1 ty
+    where hasField = \x_0 -> (\y_1 -> Struct1{struct1_a = y_1},
+                              getField @"struct1_a" x_0)
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
@@ -346,6 +349,9 @@ instance HasCField Struct2 "struct2_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "struct2_a" (Ptr Struct2) (Ptr ty)
     where getField = fromPtr (Proxy @"struct2_a")
+instance (~) ty CInt => HasField "struct2_a" Struct2 ty
+    where hasField = \x_0 -> (\y_1 -> Struct2{struct2_a = y_1},
+                              getField @"struct2_a" x_0)
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
@@ -375,6 +381,9 @@ instance HasCField Struct3 "struct3_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "struct3_a" (Ptr Struct3) (Ptr ty)
     where getField = fromPtr (Proxy @"struct3_a")
+instance (~) ty CInt => HasField "struct3_a" Struct3 ty
+    where hasField = \x_0 -> (\y_1 -> Struct3{struct3_a = y_1},
+                              getField @"struct3_a" x_0)
 {-| __C declaration:__ @struct3_t@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
@@ -420,6 +429,9 @@ instance HasCField Struct4 "struct4_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "struct4_a" (Ptr Struct4) (Ptr ty)
     where getField = fromPtr (Proxy @"struct4_a")
+instance (~) ty CInt => HasField "struct4_a" Struct4 ty
+    where hasField = \x_0 -> (\y_1 -> Struct4{struct4_a = y_1},
+                              getField @"struct4_a" x_0)
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::
     Int8

@@ -188,24 +188,48 @@ instance HasCField ExampleStruct "exampleStruct_t1"
 instance (~) ty T1 =>
          HasField "exampleStruct_t1" (Ptr ExampleStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"exampleStruct_t1")
+instance (~) ty T1 => HasField "exampleStruct_t1" ExampleStruct ty
+    where hasField = \x_0 -> (\y_1 -> ExampleStruct{exampleStruct_t1 = y_1,
+                                                    exampleStruct_t2 = getField @"exampleStruct_t2" x_0,
+                                                    exampleStruct_m1 = getField @"exampleStruct_m1" x_0,
+                                                    exampleStruct_m2 = getField @"exampleStruct_m2" x_0},
+                              getField @"exampleStruct_t1" x_0)
 instance HasCField ExampleStruct "exampleStruct_t2"
     where type CFieldType ExampleStruct "exampleStruct_t2" = T2
           offset# = \_ -> \_ -> 4
 instance (~) ty T2 =>
          HasField "exampleStruct_t2" (Ptr ExampleStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"exampleStruct_t2")
+instance (~) ty T2 => HasField "exampleStruct_t2" ExampleStruct ty
+    where hasField = \x_0 -> (\y_1 -> ExampleStruct{exampleStruct_t2 = y_1,
+                                                    exampleStruct_t1 = getField @"exampleStruct_t1" x_0,
+                                                    exampleStruct_m1 = getField @"exampleStruct_m1" x_0,
+                                                    exampleStruct_m2 = getField @"exampleStruct_m2" x_0},
+                              getField @"exampleStruct_t2" x_0)
 instance HasCField ExampleStruct "exampleStruct_m1"
     where type CFieldType ExampleStruct "exampleStruct_m1" = M1
           offset# = \_ -> \_ -> 8
 instance (~) ty M1 =>
          HasField "exampleStruct_m1" (Ptr ExampleStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"exampleStruct_m1")
+instance (~) ty M1 => HasField "exampleStruct_m1" ExampleStruct ty
+    where hasField = \x_0 -> (\y_1 -> ExampleStruct{exampleStruct_m1 = y_1,
+                                                    exampleStruct_t1 = getField @"exampleStruct_t1" x_0,
+                                                    exampleStruct_t2 = getField @"exampleStruct_t2" x_0,
+                                                    exampleStruct_m2 = getField @"exampleStruct_m2" x_0},
+                              getField @"exampleStruct_m1" x_0)
 instance HasCField ExampleStruct "exampleStruct_m2"
     where type CFieldType ExampleStruct "exampleStruct_m2" = M2
           offset# = \_ -> \_ -> 12
 instance (~) ty M2 =>
          HasField "exampleStruct_m2" (Ptr ExampleStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"exampleStruct_m2")
+instance (~) ty M2 => HasField "exampleStruct_m2" ExampleStruct ty
+    where hasField = \x_0 -> (\y_1 -> ExampleStruct{exampleStruct_m2 = y_1,
+                                                    exampleStruct_t1 = getField @"exampleStruct_t1" x_0,
+                                                    exampleStruct_t2 = getField @"exampleStruct_t2" x_0,
+                                                    exampleStruct_m1 = getField @"exampleStruct_m1" x_0},
+                              getField @"exampleStruct_m2" x_0)
 {-| __C declaration:__ @macro uint64_t@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
@@ -266,3 +290,6 @@ instance HasCField Foo "foo_a"
 instance (~) ty (Ptr Uint64_t) =>
          HasField "foo_a" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_a")
+instance (~) ty (Ptr Uint64_t) => HasField "foo_a" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_a = y_1},
+                              getField @"foo_a" x_0)

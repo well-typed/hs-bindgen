@@ -18,6 +18,7 @@ hstypes:
       - vector_x
       - vector_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

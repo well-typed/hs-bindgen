@@ -36,6 +36,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @union \@outer1_anon\'fieldX@
@@ -204,6 +205,19 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer1_fieldA")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "outer1_fieldA" Outer1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer1 { outer1_fieldA = y1
+                 , outer1_anon'fieldX = RIP.getField @"outer1_anon'fieldX" x0
+                 , outer1_fieldC = RIP.getField @"outer1_fieldC" x0
+                 }
+      , RIP.getField @"outer1_fieldA" x0
+      )
+
 instance HasCField.HasCField Outer1 "outer1_anon'fieldX" where
 
   type CFieldType Outer1 "outer1_anon'fieldX" =
@@ -217,6 +231,19 @@ instance ( ty ~ Outer1_anon'fieldX
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer1_anon'fieldX")
 
+instance ( ty ~ Outer1_anon'fieldX
+         ) => RIP.CompatHasField.HasField "outer1_anon'fieldX" Outer1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer1 { outer1_anon'fieldX = y1
+                 , outer1_fieldA = RIP.getField @"outer1_fieldA" x0
+                 , outer1_fieldC = RIP.getField @"outer1_fieldC" x0
+                 }
+      , RIP.getField @"outer1_anon'fieldX" x0
+      )
+
 instance HasCField.HasCField Outer1 "outer1_fieldC" where
 
   type CFieldType Outer1 "outer1_fieldC" = RIP.CInt
@@ -228,6 +255,19 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer1_fieldC")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer1_fieldC" Outer1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer1 { outer1_fieldC = y1
+                 , outer1_fieldA = RIP.getField @"outer1_fieldA" x0
+                 , outer1_anon'fieldX = RIP.getField @"outer1_anon'fieldX" x0
+                 }
+      , RIP.getField @"outer1_fieldC" x0
+      )
 
 {-| __C declaration:__ @union \@outer2_fieldB@
 
@@ -395,6 +435,19 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer2_fieldA")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "outer2_fieldA" Outer2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer2 { outer2_fieldA = y1
+                 , outer2_fieldB = RIP.getField @"outer2_fieldB" x0
+                 , outer2_fieldC = RIP.getField @"outer2_fieldC" x0
+                 }
+      , RIP.getField @"outer2_fieldA" x0
+      )
+
 instance HasCField.HasCField Outer2 "outer2_fieldB" where
 
   type CFieldType Outer2 "outer2_fieldB" =
@@ -408,6 +461,19 @@ instance ( ty ~ Outer2_fieldB
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer2_fieldB")
 
+instance ( ty ~ Outer2_fieldB
+         ) => RIP.CompatHasField.HasField "outer2_fieldB" Outer2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer2 { outer2_fieldB = y1
+                 , outer2_fieldA = RIP.getField @"outer2_fieldA" x0
+                 , outer2_fieldC = RIP.getField @"outer2_fieldC" x0
+                 }
+      , RIP.getField @"outer2_fieldB" x0
+      )
+
 instance HasCField.HasCField Outer2 "outer2_fieldC" where
 
   type CFieldType Outer2 "outer2_fieldC" = RIP.CInt
@@ -419,6 +485,19 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer2_fieldC")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer2_fieldC" Outer2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer2 { outer2_fieldC = y1
+                 , outer2_fieldA = RIP.getField @"outer2_fieldA" x0
+                 , outer2_fieldB = RIP.getField @"outer2_fieldB" x0
+                 }
+      , RIP.getField @"outer2_fieldC" x0
+      )
 
 {-| __C declaration:__ @union inner3@
 
@@ -584,6 +663,19 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer3_fieldA")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "outer3_fieldA" Outer3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer3 { outer3_fieldA = y1
+                 , outer3_fieldB = RIP.getField @"outer3_fieldB" x0
+                 , outer3_fieldC = RIP.getField @"outer3_fieldC" x0
+                 }
+      , RIP.getField @"outer3_fieldA" x0
+      )
+
 instance HasCField.HasCField Outer3 "outer3_fieldB" where
 
   type CFieldType Outer3 "outer3_fieldB" = Inner3
@@ -596,6 +688,19 @@ instance ( ty ~ Inner3
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer3_fieldB")
 
+instance ( ty ~ Inner3
+         ) => RIP.CompatHasField.HasField "outer3_fieldB" Outer3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer3 { outer3_fieldB = y1
+                 , outer3_fieldA = RIP.getField @"outer3_fieldA" x0
+                 , outer3_fieldC = RIP.getField @"outer3_fieldC" x0
+                 }
+      , RIP.getField @"outer3_fieldB" x0
+      )
+
 instance HasCField.HasCField Outer3 "outer3_fieldC" where
 
   type CFieldType Outer3 "outer3_fieldC" = RIP.CInt
@@ -607,3 +712,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer3_fieldC")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer3_fieldC" Outer3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outer3 { outer3_fieldC = y1
+                 , outer3_fieldA = RIP.getField @"outer3_fieldA" x0
+                 , outer3_fieldB = RIP.getField @"outer3_fieldB" x0
+                 }
+      , RIP.getField @"outer3_fieldC" x0
+      )

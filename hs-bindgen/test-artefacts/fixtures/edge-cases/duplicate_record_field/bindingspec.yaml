@@ -17,6 +17,7 @@ hstypes:
       fields:
       - dup
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -33,6 +34,7 @@ hstypes:
       fields:
       - dup
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -35,6 +35,7 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct S@
@@ -89,6 +90,12 @@ instance ( ty ~ CA.ConstantArray 3 RIP.CShort
          ) => RIP.HasField "s_f" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_f")
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
+         ) => RIP.CompatHasField.HasField "s_f" S ty where
+
+  hasField =
+    \x0 -> (\y1 -> S {s_f = y1}, RIP.getField @"s_f" x0)
 
 {-| __C declaration:__ @more_aligned_int@
 
@@ -184,6 +191,13 @@ instance ( ty ~ CA.ConstantArray 3 RIP.CShort
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_f")
 
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
+         ) => RIP.CompatHasField.HasField "s2_f" S2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S2 {s2_f = y1}, RIP.getField @"s2_f" x0)
+
 {-| __C declaration:__ @struct my_unpacked_struct@
 
     __defined at:__ @attributes\/type_attributes.h 13:8@
@@ -247,6 +261,18 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_c")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "my_unpacked_struct_c" My_unpacked_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          My_unpacked_struct { my_unpacked_struct_c = y1
+                             , my_unpacked_struct_i = RIP.getField @"my_unpacked_struct_i" x0
+                             }
+      , RIP.getField @"my_unpacked_struct_c" x0
+      )
+
 instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_i" where
 
   type CFieldType My_unpacked_struct "my_unpacked_struct_i" =
@@ -259,6 +285,18 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_i")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "my_unpacked_struct_i" My_unpacked_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          My_unpacked_struct { my_unpacked_struct_i = y1
+                             , my_unpacked_struct_c = RIP.getField @"my_unpacked_struct_c" x0
+                             }
+      , RIP.getField @"my_unpacked_struct_i" x0
+      )
 
 {-| __C declaration:__ @struct my_packed_struct@
 
@@ -332,6 +370,19 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"my_packed_struct_c")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "my_packed_struct_c" My_packed_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          My_packed_struct { my_packed_struct_c = y1
+                           , my_packed_struct_i = RIP.getField @"my_packed_struct_i" x0
+                           , my_packed_struct_s = RIP.getField @"my_packed_struct_s" x0
+                           }
+      , RIP.getField @"my_packed_struct_c" x0
+      )
+
 instance HasCField.HasCField My_packed_struct "my_packed_struct_i" where
 
   type CFieldType My_packed_struct "my_packed_struct_i" =
@@ -345,6 +396,19 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"my_packed_struct_i")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "my_packed_struct_i" My_packed_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          My_packed_struct { my_packed_struct_i = y1
+                           , my_packed_struct_c = RIP.getField @"my_packed_struct_c" x0
+                           , my_packed_struct_s = RIP.getField @"my_packed_struct_s" x0
+                           }
+      , RIP.getField @"my_packed_struct_i" x0
+      )
+
 instance HasCField.HasCField My_packed_struct "my_packed_struct_s" where
 
   type CFieldType My_packed_struct "my_packed_struct_s" =
@@ -357,6 +421,19 @@ instance ( ty ~ My_unpacked_struct
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"my_packed_struct_s")
+
+instance ( ty ~ My_unpacked_struct
+         ) => RIP.CompatHasField.HasField "my_packed_struct_s" My_packed_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          My_packed_struct { my_packed_struct_s = y1
+                           , my_packed_struct_c = RIP.getField @"my_packed_struct_c" x0
+                           , my_packed_struct_i = RIP.getField @"my_packed_struct_i" x0
+                           }
+      , RIP.getField @"my_packed_struct_s" x0
+      )
 
 {-| __C declaration:__ @union wait_status_ptr_t@
 

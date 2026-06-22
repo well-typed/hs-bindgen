@@ -23,6 +23,7 @@ hstypes:
       fields:
       - g1_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -39,6 +40,7 @@ hstypes:
       fields:
       - g2_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -55,6 +57,7 @@ hstypes:
       fields:
       - g3_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

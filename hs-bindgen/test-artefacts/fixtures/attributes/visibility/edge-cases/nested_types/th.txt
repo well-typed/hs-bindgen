@@ -78,3 +78,6 @@ instance HasCField S "s_y"
           offset# = \_ -> \_ -> 0
 instance (~) ty U => HasField "s_y" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_y")
+instance (~) ty U => HasField "s_y" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_y = y_1},
+                              getField @"s_y" x_0)

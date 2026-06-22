@@ -28,6 +28,9 @@ instance HasCField S "s_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_x")
+instance (~) ty CInt => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
 {-| __C declaration:__ @macro T@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 13:9@

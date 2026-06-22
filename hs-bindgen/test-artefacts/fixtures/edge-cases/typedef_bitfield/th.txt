@@ -135,6 +135,11 @@ instance HasCBitfield MyStruct "myStruct_x"
 instance (~) ty MyInt =>
          HasField "myStruct_x" (Ptr MyStruct) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"myStruct_x")
+instance (~) ty MyInt => HasField "myStruct_x" MyStruct ty
+    where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_x = y_1,
+                                               myStruct_y = getField @"myStruct_y" x_0,
+                                               myStruct_z = getField @"myStruct_z" x_0},
+                              getField @"myStruct_x" x_0)
 instance HasCBitfield MyStruct "myStruct_y"
     where type CBitfieldType MyStruct "myStruct_y" = MyUInt
           bitfieldOffset# = \_ -> \_ -> 2
@@ -142,6 +147,11 @@ instance HasCBitfield MyStruct "myStruct_y"
 instance (~) ty MyUInt =>
          HasField "myStruct_y" (Ptr MyStruct) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"myStruct_y")
+instance (~) ty MyUInt => HasField "myStruct_y" MyStruct ty
+    where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_y = y_1,
+                                               myStruct_x = getField @"myStruct_x" x_0,
+                                               myStruct_z = getField @"myStruct_z" x_0},
+                              getField @"myStruct_y" x_0)
 instance HasCBitfield MyStruct "myStruct_z"
     where type CBitfieldType MyStruct "myStruct_z" = MyLong
           bitfieldOffset# = \_ -> \_ -> 6
@@ -149,3 +159,8 @@ instance HasCBitfield MyStruct "myStruct_z"
 instance (~) ty MyLong =>
          HasField "myStruct_z" (Ptr MyStruct) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"myStruct_z")
+instance (~) ty MyLong => HasField "myStruct_z" MyStruct ty
+    where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_z = y_1,
+                                               myStruct_x = getField @"myStruct_x" x_0,
+                                               myStruct_y = getField @"myStruct_y" x_0},
+                              getField @"myStruct_z" x_0)

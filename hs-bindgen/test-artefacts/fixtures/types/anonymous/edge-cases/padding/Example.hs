@@ -42,6 +42,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@SS_anon\'y@
@@ -96,6 +97,14 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"sS_anon'y_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "sS_anon'y_y" SS_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         SS_anon'y {sS_anon'y_y = y1}, RIP.getField @"sS_anon'y_y" x0)
 
 {-| __C declaration:__ @struct SS@
 
@@ -166,6 +175,18 @@ instance (ty ~ RIP.CChar) => RIP.HasField "sS_x" (RIP.Ptr SS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_x")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sS_x" SS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SS { sS_x = y1
+             , sS_anon'y = RIP.getField @"sS_anon'y" x0
+             , sS_z = RIP.getField @"sS_z" x0
+             }
+      , RIP.getField @"sS_x" x0
+      )
+
 instance HasCField.HasCField SS "sS_anon'y" where
 
   type CFieldType SS "sS_anon'y" = SS_anon'y
@@ -177,6 +198,15 @@ instance ( ty ~ SS_anon'y
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_anon'y")
 
+instance (ty ~ SS_anon'y) => RIP.CompatHasField.HasField "sS_anon'y" SS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SS {sS_anon'y = y1, sS_x = RIP.getField @"sS_x" x0, sS_z = RIP.getField @"sS_z" x0}
+      , RIP.getField @"sS_anon'y" x0
+      )
+
 instance HasCField.HasCField SS "sS_z" where
 
   type CFieldType SS "sS_z" = RIP.CInt
@@ -186,6 +216,18 @@ instance HasCField.HasCField SS "sS_z" where
 instance (ty ~ RIP.CInt) => RIP.HasField "sS_z" (RIP.Ptr SS) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sS_z")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sS_z" SS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SS { sS_z = y1
+             , sS_x = RIP.getField @"sS_x" x0
+             , sS_anon'y = RIP.getField @"sS_anon'y" x0
+             }
+      , RIP.getField @"sS_z" x0
+      )
 
 {-| __C declaration:__ @union \@SU_anon\'y@
 
@@ -312,6 +354,18 @@ instance (ty ~ RIP.CChar) => RIP.HasField "sU_x" (RIP.Ptr SU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_x")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sU_x" SU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SU { sU_x = y1
+             , sU_anon'y = RIP.getField @"sU_anon'y" x0
+             , sU_z = RIP.getField @"sU_z" x0
+             }
+      , RIP.getField @"sU_x" x0
+      )
+
 instance HasCField.HasCField SU "sU_anon'y" where
 
   type CFieldType SU "sU_anon'y" = SU_anon'y
@@ -323,6 +377,15 @@ instance ( ty ~ SU_anon'y
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_anon'y")
 
+instance (ty ~ SU_anon'y) => RIP.CompatHasField.HasField "sU_anon'y" SU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SU {sU_anon'y = y1, sU_x = RIP.getField @"sU_x" x0, sU_z = RIP.getField @"sU_z" x0}
+      , RIP.getField @"sU_anon'y" x0
+      )
+
 instance HasCField.HasCField SU "sU_z" where
 
   type CFieldType SU "sU_z" = RIP.CInt
@@ -332,6 +395,18 @@ instance HasCField.HasCField SU "sU_z" where
 instance (ty ~ RIP.CInt) => RIP.HasField "sU_z" (RIP.Ptr SU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"sU_z")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sU_z" SU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SU { sU_z = y1
+             , sU_x = RIP.getField @"sU_x" x0
+             , sU_anon'y = RIP.getField @"sU_anon'y" x0
+             }
+      , RIP.getField @"sU_z" x0
+      )
 
 {-| __C declaration:__ @struct \@US_anon\'y@
 
@@ -385,6 +460,14 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uS_anon'y_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uS_anon'y_y" US_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         US_anon'y {uS_anon'y_y = y1}, RIP.getField @"uS_anon'y_y" x0)
 
 {-| __C declaration:__ @union US@
 

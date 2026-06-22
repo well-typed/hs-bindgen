@@ -142,6 +142,7 @@ hstypes:
       - bitfield_t_counter
       - bitfield_t_reserved
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
@@ -184,6 +185,7 @@ hstypes:
       - config_t_callback
       - config_t_user_data
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -215,6 +217,7 @@ hstypes:
       - data_union_t_as_parts_low
       - data_union_t_as_parts_high
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -232,6 +235,7 @@ hstypes:
       - deep_mid_m
       - deep_mid_anon_field
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -248,6 +252,7 @@ hstypes:
       fields:
       - deep_mid_anon_field_deep_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -265,6 +270,7 @@ hstypes:
       - deep_outer_mid_field
       - deep_outer_o
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -283,6 +289,7 @@ hstypes:
       - dyn_array_t_size
       - dyn_array_t_capacity
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -336,6 +343,7 @@ hstypes:
       fields:
       - flexible_array_count
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
@@ -354,6 +362,7 @@ hstypes:
       - multi_anon_t_pos
       - multi_anon_t_dim
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -371,6 +380,7 @@ hstypes:
       - multi_anon_t_dim_w
       - multi_anon_t_dim_h
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -388,6 +398,7 @@ hstypes:
       - multi_anon_t_pos_x
       - multi_anon_t_pos_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -405,6 +416,7 @@ hstypes:
       - named_inner_nx
       - named_inner_ny
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -422,6 +434,7 @@ hstypes:
       - named_outer_inner_field
       - named_outer_nz
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -512,6 +525,7 @@ hstypes:
       - unnamed_field_t_anon'ua
       - unnamed_field_t_after
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -529,6 +543,7 @@ hstypes:
       - unnamed_field_t_anon'ua_ua
       - unnamed_field_t_anon'ua_ub
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

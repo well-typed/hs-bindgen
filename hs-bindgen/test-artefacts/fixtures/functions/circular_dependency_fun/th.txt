@@ -92,3 +92,7 @@ instance HasCField Forward_declaration "forward_declaration_f"
 instance (~) ty Fun_ptr =>
          HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
     where getField = fromPtr (Proxy @"forward_declaration_f")
+instance (~) ty Fun_ptr =>
+         HasField "forward_declaration_f" Forward_declaration ty
+    where hasField = \x_0 -> (\y_1 -> Forward_declaration{forward_declaration_f = y_1},
+                              getField @"forward_declaration_f" x_0)

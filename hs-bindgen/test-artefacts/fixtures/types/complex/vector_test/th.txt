@@ -61,12 +61,20 @@ instance HasCField Vector "vector_x"
 instance (~) ty CDouble =>
          HasField "vector_x" (Ptr Vector) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_x")
+instance (~) ty CDouble => HasField "vector_x" Vector ty
+    where hasField = \x_0 -> (\y_1 -> Vector{vector_x = y_1,
+                                             vector_y = getField @"vector_y" x_0},
+                              getField @"vector_x" x_0)
 instance HasCField Vector "vector_y"
     where type CFieldType Vector "vector_y" = CDouble
           offset# = \_ -> \_ -> 8
 instance (~) ty CDouble =>
          HasField "vector_y" (Ptr Vector) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_y")
+instance (~) ty CDouble => HasField "vector_y" Vector ty
+    where hasField = \x_0 -> (\y_1 -> Vector{vector_y = y_1,
+                                             vector_x = getField @"vector_x" x_0},
+                              getField @"vector_y" x_0)
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
     Double

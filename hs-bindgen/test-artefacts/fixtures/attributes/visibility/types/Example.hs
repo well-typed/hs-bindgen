@@ -128,6 +128,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct S0@
@@ -221,6 +222,12 @@ instance (ty ~ RIP.CInt) => RIP.HasField "s5_x" (RIP.Ptr S5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s5_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s5_x" S5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S5 {s5_x = y1}, RIP.getField @"s5_x" x0)
+
 {-| __C declaration:__ @struct S6@
 
     __defined at:__ @attributes\/visibility\/types.h 21:51@
@@ -271,6 +278,12 @@ instance HasCField.HasCField S6 "s6_x" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s6_x" (RIP.Ptr S6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s6_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s6_x" S6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S6 {s6_x = y1}, RIP.getField @"s6_x" x0)
 
 {-| __C declaration:__ @struct S7@
 
@@ -323,6 +336,12 @@ instance (ty ~ RIP.CInt) => RIP.HasField "s7_x" (RIP.Ptr S7) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s7_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s7_x" S7 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S7 {s7_x = y1}, RIP.getField @"s7_x" x0)
+
 {-| __C declaration:__ @struct S8@
 
     __defined at:__ @attributes\/visibility\/types.h 23:51@
@@ -374,6 +393,12 @@ instance (ty ~ RIP.CInt) => RIP.HasField "s8_x" (RIP.Ptr S8) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s8_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s8_x" S8 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S8 {s8_x = y1}, RIP.getField @"s8_x" x0)
+
 {-| __C declaration:__ @struct S9@
 
     __defined at:__ @attributes\/visibility\/types.h 24:51@
@@ -424,6 +449,12 @@ instance HasCField.HasCField S9 "s9_x" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s9_x" (RIP.Ptr S9) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s9_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s9_x" S9 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S9 {s9_x = y1}, RIP.getField @"s9_x" x0)
 
 {-| __C declaration:__ @struct S10@
 
@@ -477,6 +508,12 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s10_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s10_x" S10 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S10 {s10_x = y1}, RIP.getField @"s10_x" x0)
+
 {-| __C declaration:__ @struct S11@
 
     __defined at:__ @attributes\/visibility\/types.h 34:51@
@@ -528,6 +565,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s11_x" (RIP.Ptr S11) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s11_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s11_x" S11 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S11 {s11_x = y1}, RIP.getField @"s11_x" x0)
 
 {-| __C declaration:__ @struct S12@
 
@@ -581,6 +624,12 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s12_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s12_x" S12 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S12 {s12_x = y1}, RIP.getField @"s12_x" x0)
+
 {-| __C declaration:__ @struct S13@
 
     __defined at:__ @attributes\/visibility\/types.h 36:51@
@@ -632,6 +681,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s13_x" (RIP.Ptr S13) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s13_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s13_x" S13 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S13 {s13_x = y1}, RIP.getField @"s13_x" x0)
 
 {-| __C declaration:__ @struct S14@
 
@@ -685,6 +740,12 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s14_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s14_x" S14 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S14 {s14_x = y1}, RIP.getField @"s14_x" x0)
+
 {-| __C declaration:__ @struct S15@
 
     __defined at:__ @attributes\/visibility\/types.h 46:51@
@@ -736,6 +797,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s15_x" (RIP.Ptr S15) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s15_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s15_x" S15 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S15 {s15_x = y1}, RIP.getField @"s15_x" x0)
 
 {-| __C declaration:__ @struct S16@
 
@@ -789,6 +856,12 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s16_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s16_x" S16 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S16 {s16_x = y1}, RIP.getField @"s16_x" x0)
+
 {-| __C declaration:__ @struct S17@
 
     __defined at:__ @attributes\/visibility\/types.h 48:51@
@@ -840,6 +913,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s17_x" (RIP.Ptr S17) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s17_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s17_x" S17 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S17 {s17_x = y1}, RIP.getField @"s17_x" x0)
 
 {-| __C declaration:__ @struct S18@
 
@@ -893,6 +972,12 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s18_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s18_x" S18 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S18 {s18_x = y1}, RIP.getField @"s18_x" x0)
+
 {-| __C declaration:__ @struct S19@
 
     __defined at:__ @attributes\/visibility\/types.h 50:51@
@@ -944,6 +1029,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s19_x" (RIP.Ptr S19) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s19_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s19_x" S19 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S19 {s19_x = y1}, RIP.getField @"s19_x" x0)
 
 {-| __C declaration:__ @union U0@
 

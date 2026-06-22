@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct primitive@
@@ -345,6 +346,44 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_c")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "primitive_c" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_c = y1
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_c" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_sc" where
 
   type CFieldType Primitive "primitive_sc" = RIP.CSChar
@@ -356,6 +395,44 @@ instance ( ty ~ RIP.CSChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_sc")
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "primitive_sc" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_sc = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_sc" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_uc" where
 
@@ -369,6 +446,44 @@ instance ( ty ~ RIP.CUChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_uc")
 
+instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "primitive_uc" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_uc = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_uc" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_s" where
 
   type CFieldType Primitive "primitive_s" = RIP.CShort
@@ -380,6 +495,44 @@ instance ( ty ~ RIP.CShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_s")
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "primitive_s" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_s = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_s" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_si" where
 
@@ -393,6 +546,44 @@ instance ( ty ~ RIP.CShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_si")
 
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "primitive_si" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_si = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_si" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_ss" where
 
   type CFieldType Primitive "primitive_ss" = RIP.CShort
@@ -404,6 +595,44 @@ instance ( ty ~ RIP.CShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ss")
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "primitive_ss" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ss = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ss" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_ssi" where
 
@@ -418,6 +647,44 @@ instance ( ty ~ RIP.CShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ssi")
 
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "primitive_ssi" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ssi = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ssi" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_us" where
 
   type CFieldType Primitive "primitive_us" =
@@ -430,6 +697,44 @@ instance ( ty ~ RIP.CUShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_us")
+
+instance ( ty ~ RIP.CUShort
+         ) => RIP.CompatHasField.HasField "primitive_us" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_us = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_us" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_usi" where
 
@@ -444,6 +749,44 @@ instance ( ty ~ RIP.CUShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_usi")
 
+instance ( ty ~ RIP.CUShort
+         ) => RIP.CompatHasField.HasField "primitive_usi" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_usi = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_usi" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_i" where
 
   type CFieldType Primitive "primitive_i" = RIP.CInt
@@ -455,6 +798,44 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_i")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "primitive_i" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_i = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_i" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_s2" where
 
@@ -468,6 +849,44 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_s2")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "primitive_s2" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_s2 = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_s2" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_si2" where
 
   type CFieldType Primitive "primitive_si2" = RIP.CInt
@@ -479,6 +898,44 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_si2")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "primitive_si2" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_si2 = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_si2" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_u" where
 
@@ -492,6 +949,44 @@ instance ( ty ~ RIP.CUInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_u")
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "primitive_u" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_u = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_u" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_ui" where
 
   type CFieldType Primitive "primitive_ui" = RIP.CUInt
@@ -503,6 +998,44 @@ instance ( ty ~ RIP.CUInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ui")
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "primitive_ui" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ui = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ui" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_l" where
 
@@ -516,6 +1049,44 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_l")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "primitive_l" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_l = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_l" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_li" where
 
   type CFieldType Primitive "primitive_li" = RIP.CLong
@@ -527,6 +1098,44 @@ instance ( ty ~ RIP.CLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_li")
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "primitive_li" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_li = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_li" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_sl" where
 
@@ -540,6 +1149,44 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_sl")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "primitive_sl" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_sl = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_sl" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_sli" where
 
   type CFieldType Primitive "primitive_sli" = RIP.CLong
@@ -552,6 +1199,44 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_sli")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "primitive_sli" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_sli = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_sli" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_ul" where
 
   type CFieldType Primitive "primitive_ul" = RIP.CULong
@@ -563,6 +1248,44 @@ instance ( ty ~ RIP.CULong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ul")
+
+instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "primitive_ul" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ul = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ul" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_uli" where
 
@@ -577,6 +1300,44 @@ instance ( ty ~ RIP.CULong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_uli")
 
+instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "primitive_uli" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_uli = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_uli" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_ll" where
 
   type CFieldType Primitive "primitive_ll" = RIP.CLLong
@@ -588,6 +1349,44 @@ instance ( ty ~ RIP.CLLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ll")
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "primitive_ll" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ll = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ll" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_lli" where
 
@@ -602,6 +1401,44 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_lli")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "primitive_lli" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_lli = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_lli" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_sll" where
 
   type CFieldType Primitive "primitive_sll" =
@@ -614,6 +1451,44 @@ instance ( ty ~ RIP.CLLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_sll")
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "primitive_sll" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_sll = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_sll" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_slli" where
 
@@ -628,6 +1503,44 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_slli")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "primitive_slli" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_slli = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_slli" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_ull" where
 
   type CFieldType Primitive "primitive_ull" =
@@ -640,6 +1553,44 @@ instance ( ty ~ RIP.CULLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ull")
+
+instance ( ty ~ RIP.CULLong
+         ) => RIP.CompatHasField.HasField "primitive_ull" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ull = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ull" x0
+      )
 
 instance HasCField.HasCField Primitive "primitive_ulli" where
 
@@ -654,6 +1605,44 @@ instance ( ty ~ RIP.CULLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_ulli")
 
+instance ( ty ~ RIP.CULLong
+         ) => RIP.CompatHasField.HasField "primitive_ulli" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_ulli = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_ulli" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_f" where
 
   type CFieldType Primitive "primitive_f" = RIP.CFloat
@@ -666,6 +1655,44 @@ instance ( ty ~ RIP.CFloat
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_f")
 
+instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "primitive_f" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_f = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_d = RIP.getField @"primitive_d" x0
+                    }
+      , RIP.getField @"primitive_f" x0
+      )
+
 instance HasCField.HasCField Primitive "primitive_d" where
 
   type CFieldType Primitive "primitive_d" = RIP.CDouble
@@ -677,3 +1704,41 @@ instance ( ty ~ RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"primitive_d")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "primitive_d" Primitive ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Primitive { primitive_d = y1
+                    , primitive_c = RIP.getField @"primitive_c" x0
+                    , primitive_sc = RIP.getField @"primitive_sc" x0
+                    , primitive_uc = RIP.getField @"primitive_uc" x0
+                    , primitive_s = RIP.getField @"primitive_s" x0
+                    , primitive_si = RIP.getField @"primitive_si" x0
+                    , primitive_ss = RIP.getField @"primitive_ss" x0
+                    , primitive_ssi = RIP.getField @"primitive_ssi" x0
+                    , primitive_us = RIP.getField @"primitive_us" x0
+                    , primitive_usi = RIP.getField @"primitive_usi" x0
+                    , primitive_i = RIP.getField @"primitive_i" x0
+                    , primitive_s2 = RIP.getField @"primitive_s2" x0
+                    , primitive_si2 = RIP.getField @"primitive_si2" x0
+                    , primitive_u = RIP.getField @"primitive_u" x0
+                    , primitive_ui = RIP.getField @"primitive_ui" x0
+                    , primitive_l = RIP.getField @"primitive_l" x0
+                    , primitive_li = RIP.getField @"primitive_li" x0
+                    , primitive_sl = RIP.getField @"primitive_sl" x0
+                    , primitive_sli = RIP.getField @"primitive_sli" x0
+                    , primitive_ul = RIP.getField @"primitive_ul" x0
+                    , primitive_uli = RIP.getField @"primitive_uli" x0
+                    , primitive_ll = RIP.getField @"primitive_ll" x0
+                    , primitive_lli = RIP.getField @"primitive_lli" x0
+                    , primitive_sll = RIP.getField @"primitive_sll" x0
+                    , primitive_slli = RIP.getField @"primitive_slli" x0
+                    , primitive_ull = RIP.getField @"primitive_ull" x0
+                    , primitive_ulli = RIP.getField @"primitive_ulli" x0
+                    , primitive_f = RIP.getField @"primitive_f" x0
+                    }
+      , RIP.getField @"primitive_d" x0
+      )

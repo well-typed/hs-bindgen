@@ -29,6 +29,7 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @int16_T@
@@ -213,6 +214,16 @@ instance ( ty ~ Int16_T
   getField =
     HasCField.fromPtr (RIP.Proxy @"cint16_T_re")
 
+instance ( ty ~ Int16_T
+         ) => RIP.CompatHasField.HasField "cint16_T_re" Cint16_T ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cint16_T {cint16_T_re = y1, cint16_T_im = RIP.getField @"cint16_T_im" x0}
+      , RIP.getField @"cint16_T_re" x0
+      )
+
 instance HasCField.HasCField Cint16_T "cint16_T_im" where
 
   type CFieldType Cint16_T "cint16_T_im" = Int16_T
@@ -224,6 +235,16 @@ instance ( ty ~ Int16_T
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"cint16_T_im")
+
+instance ( ty ~ Int16_T
+         ) => RIP.CompatHasField.HasField "cint16_T_im" Cint16_T ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cint16_T {cint16_T_im = y1, cint16_T_re = RIP.getField @"cint16_T_re" x0}
+      , RIP.getField @"cint16_T_im" x0
+      )
 
 {-| __C declaration:__ @struct B@
 
@@ -342,6 +363,20 @@ instance (ty ~ RIP.CDouble) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_x")
 
+instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "a_x" A ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A { a_x = y1
+            , a_label = RIP.getField @"a_label" x0
+            , a_samples = RIP.getField @"a_samples" x0
+            , a_b = RIP.getField @"a_b" x0
+            , a_c = RIP.getField @"a_c" x0
+            }
+      , RIP.getField @"a_x" x0
+      )
+
 instance HasCField.HasCField A "a_label" where
 
   type CFieldType A "a_label" = RIP.Ptr RIP.CChar
@@ -352,6 +387,21 @@ instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_label")
+
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.CompatHasField.HasField "a_label" A ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A { a_label = y1
+            , a_x = RIP.getField @"a_x" x0
+            , a_samples = RIP.getField @"a_samples" x0
+            , a_b = RIP.getField @"a_b" x0
+            , a_c = RIP.getField @"a_c" x0
+            }
+      , RIP.getField @"a_label" x0
+      )
 
 instance HasCField.HasCField A "a_samples" where
 
@@ -365,6 +415,21 @@ instance ( ty ~ CA.ConstantArray 128 RIP.CChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
 
+instance ( ty ~ CA.ConstantArray 128 RIP.CChar
+         ) => RIP.CompatHasField.HasField "a_samples" A ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A { a_samples = y1
+            , a_x = RIP.getField @"a_x" x0
+            , a_label = RIP.getField @"a_label" x0
+            , a_b = RIP.getField @"a_b" x0
+            , a_c = RIP.getField @"a_c" x0
+            }
+      , RIP.getField @"a_samples" x0
+      )
+
 instance HasCField.HasCField A "a_b" where
 
   type CFieldType A "a_b" = B
@@ -375,6 +440,20 @@ instance (ty ~ B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_b")
 
+instance (ty ~ B) => RIP.CompatHasField.HasField "a_b" A ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A { a_b = y1
+            , a_x = RIP.getField @"a_x" x0
+            , a_label = RIP.getField @"a_label" x0
+            , a_samples = RIP.getField @"a_samples" x0
+            , a_c = RIP.getField @"a_c" x0
+            }
+      , RIP.getField @"a_b" x0
+      )
+
 instance HasCField.HasCField A "a_c" where
 
   type CFieldType A "a_c" = RIP.Ptr C
@@ -384,6 +463,20 @@ instance HasCField.HasCField A "a_c" where
 instance (ty ~ RIP.Ptr C) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a_c")
+
+instance (ty ~ RIP.Ptr C) => RIP.CompatHasField.HasField "a_c" A ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A { a_c = y1
+            , a_x = RIP.getField @"a_x" x0
+            , a_label = RIP.getField @"a_label" x0
+            , a_samples = RIP.getField @"a_samples" x0
+            , a_b = RIP.getField @"a_b" x0
+            }
+      , RIP.getField @"a_c" x0
+      )
 
 {-| __C declaration:__ @struct C@
 

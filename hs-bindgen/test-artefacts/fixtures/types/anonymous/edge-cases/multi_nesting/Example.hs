@@ -66,6 +66,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@SSS_anon\'anon\'x_anon\'x@
@@ -122,6 +123,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x_anon'x_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "sSS_anon'anon'x_anon'x_x" SSS_anon'anon'x_anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SSS_anon'anon'x_anon'x {sSS_anon'anon'x_anon'x_x = y1}
+      , RIP.getField @"sSS_anon'anon'x_anon'x_x" x0
+      )
+
 {-| __C declaration:__ @struct \@SSS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
@@ -175,6 +186,16 @@ instance ( ty ~ SSS_anon'anon'x_anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x_anon'x")
+
+instance ( ty ~ SSS_anon'anon'x_anon'x
+         ) => RIP.CompatHasField.HasField "sSS_anon'anon'x_anon'x" SSS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SSS_anon'anon'x {sSS_anon'anon'x_anon'x = y1}
+      , RIP.getField @"sSS_anon'anon'x_anon'x" x0
+      )
 
 {-| __C declaration:__ @struct SSS@
 
@@ -230,6 +251,14 @@ instance ( ty ~ SSS_anon'anon'x
   getField =
     HasCField.fromPtr (RIP.Proxy @"sSS_anon'anon'x")
 
+instance ( ty ~ SSS_anon'anon'x
+         ) => RIP.CompatHasField.HasField "sSS_anon'anon'x" SSS ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         SSS {sSS_anon'anon'x = y1}, RIP.getField @"sSS_anon'anon'x" x0)
+
 {-| __C declaration:__ @struct \@USS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
@@ -284,6 +313,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"uSS_anon'anon'x_anon'x_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uSS_anon'anon'x_anon'x_x" USS_anon'anon'x_anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          USS_anon'anon'x_anon'x {uSS_anon'anon'x_anon'x_x = y1}
+      , RIP.getField @"uSS_anon'anon'x_anon'x_x" x0
+      )
+
 {-| __C declaration:__ @struct \@USS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
@@ -337,6 +376,16 @@ instance ( ty ~ USS_anon'anon'x_anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uSS_anon'anon'x_anon'x")
+
+instance ( ty ~ USS_anon'anon'x_anon'x
+         ) => RIP.CompatHasField.HasField "uSS_anon'anon'x_anon'x" USS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          USS_anon'anon'x {uSS_anon'anon'x_anon'x = y1}
+      , RIP.getField @"uSS_anon'anon'x_anon'x" x0
+      )
 
 {-| __C declaration:__ @union USS@
 
@@ -449,6 +498,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"sUS_anon'anon'x_anon'x_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "sUS_anon'anon'x_anon'x_x" SUS_anon'anon'x_anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SUS_anon'anon'x_anon'x {sUS_anon'anon'x_anon'x_x = y1}
+      , RIP.getField @"sUS_anon'anon'x_anon'x_x" x0
+      )
+
 {-| __C declaration:__ @union \@SUS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
@@ -560,6 +619,14 @@ instance ( ty ~ SUS_anon'anon'x
   getField =
     HasCField.fromPtr (RIP.Proxy @"sUS_anon'anon'x")
 
+instance ( ty ~ SUS_anon'anon'x
+         ) => RIP.CompatHasField.HasField "sUS_anon'anon'x" SUS ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         SUS {sUS_anon'anon'x = y1}, RIP.getField @"sUS_anon'anon'x" x0)
+
 {-| __C declaration:__ @struct \@UUS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
@@ -613,6 +680,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uUS_anon'anon'x_anon'x_x")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uUS_anon'anon'x_anon'x_x" UUS_anon'anon'x_anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          UUS_anon'anon'x_anon'x {uUS_anon'anon'x_anon'x_x = y1}
+      , RIP.getField @"uUS_anon'anon'x_anon'x_x" x0
+      )
 
 {-| __C declaration:__ @union \@UUS_anon\'anon\'x@
 
@@ -839,6 +916,16 @@ instance ( ty ~ SSU_anon'anon'x_anon'x
   getField =
     HasCField.fromPtr (RIP.Proxy @"sSU_anon'anon'x_anon'x")
 
+instance ( ty ~ SSU_anon'anon'x_anon'x
+         ) => RIP.CompatHasField.HasField "sSU_anon'anon'x_anon'x" SSU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SSU_anon'anon'x {sSU_anon'anon'x_anon'x = y1}
+      , RIP.getField @"sSU_anon'anon'x_anon'x" x0
+      )
+
 {-| __C declaration:__ @struct SSU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 47:8@
@@ -892,6 +979,14 @@ instance ( ty ~ SSU_anon'anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"sSU_anon'anon'x")
+
+instance ( ty ~ SSU_anon'anon'x
+         ) => RIP.CompatHasField.HasField "sSU_anon'anon'x" SSU ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         SSU {sSU_anon'anon'x = y1}, RIP.getField @"sSU_anon'anon'x" x0)
 
 {-| __C declaration:__ @union \@USU_anon\'anon\'x_anon\'x@
 
@@ -1003,6 +1098,16 @@ instance ( ty ~ USU_anon'anon'x_anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uSU_anon'anon'x_anon'x")
+
+instance ( ty ~ USU_anon'anon'x_anon'x
+         ) => RIP.CompatHasField.HasField "uSU_anon'anon'x_anon'x" USU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          USU_anon'anon'x {uSU_anon'anon'x_anon'x = y1}
+      , RIP.getField @"uSU_anon'anon'x_anon'x" x0
+      )
 
 {-| __C declaration:__ @union USU@
 
@@ -1228,6 +1333,14 @@ instance ( ty ~ SUU_anon'anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"sUU_anon'anon'x")
+
+instance ( ty ~ SUU_anon'anon'x
+         ) => RIP.CompatHasField.HasField "sUU_anon'anon'x" SUU ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         SUU {sUU_anon'anon'x = y1}, RIP.getField @"sUU_anon'anon'x" x0)
 
 {-| __C declaration:__ @union \@UUU_anon\'anon\'x_anon\'x@
 

@@ -80,12 +80,20 @@ instance HasCField AnonPoint "anonPoint_x"
 instance (~) ty CInt =>
          HasField "anonPoint_x" (Ptr AnonPoint) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPoint_x")
+instance (~) ty CInt => HasField "anonPoint_x" AnonPoint ty
+    where hasField = \x_0 -> (\y_1 -> AnonPoint{anonPoint_x = y_1,
+                                                anonPoint_y = getField @"anonPoint_y" x_0},
+                              getField @"anonPoint_x" x_0)
 instance HasCField AnonPoint "anonPoint_y"
     where type CFieldType AnonPoint "anonPoint_y" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "anonPoint_y" (Ptr AnonPoint) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPoint_y")
+instance (~) ty CInt => HasField "anonPoint_y" AnonPoint ty
+    where hasField = \x_0 -> (\y_1 -> AnonPoint{anonPoint_y = y_1,
+                                                anonPoint_x = getField @"anonPoint_x" x_0},
+                              getField @"anonPoint_y" x_0)
 {-| __C declaration:__ @struct \@anonPair@
 
     __defined at:__ @globals\/untagged.h 14:1@
@@ -124,12 +132,20 @@ instance HasCField AnonPair "anonPair_a"
 instance (~) ty CInt =>
          HasField "anonPair_a" (Ptr AnonPair) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPair_a")
+instance (~) ty CInt => HasField "anonPair_a" AnonPair ty
+    where hasField = \x_0 -> (\y_1 -> AnonPair{anonPair_a = y_1,
+                                               anonPair_b = getField @"anonPair_b" x_0},
+                              getField @"anonPair_a" x_0)
 instance HasCField AnonPair "anonPair_b"
     where type CFieldType AnonPair "anonPair_b" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPair_b")
+instance (~) ty CInt => HasField "anonPair_b" AnonPair ty
+    where hasField = \x_0 -> (\y_1 -> AnonPair{anonPair_b = y_1,
+                                               anonPair_a = getField @"anonPair_a" x_0},
+                              getField @"anonPair_b" x_0)
 {-| __C declaration:__ @enum \@anonEnum@
 
     __defined at:__ @globals\/untagged.h 16:1@
@@ -387,6 +403,9 @@ instance HasCField C "c_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "c_x" (Ptr C) (Ptr ty)
     where getField = fromPtr (Proxy @"c_x")
+instance (~) ty CInt => HasField "c_x" C ty
+    where hasField = \x_0 -> (\y_1 -> C{c_x = y_1},
+                              getField @"c_x" x_0)
 -- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
 foreign import ccall unsafe "hs_bindgen_6629eeb3c2ffd60b" hs_bindgen_6629eeb3c2ffd60b_base ::
     IO (Ptr Void)

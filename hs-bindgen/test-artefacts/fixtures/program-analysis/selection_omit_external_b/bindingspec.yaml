@@ -20,6 +20,7 @@ hstypes:
       fields:
       - directlyDependsOnOmitted_o
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - indirectlyDependsOnOmitted_d
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -52,6 +54,7 @@ hstypes:
       fields:
       - omitted_n
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

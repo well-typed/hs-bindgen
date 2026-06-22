@@ -90,6 +90,9 @@ instance HasCField ExA "exA_fieldA1"
           offset# = \_ -> \_ -> 0
 instance (~) ty EnumA => HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
     where getField = fromPtr (Proxy @"exA_fieldA1")
+instance (~) ty EnumA => HasField "exA_fieldA1" ExA ty
+    where hasField = \x_0 -> (\y_1 -> ExA{exA_fieldA1 = y_1},
+                              getField @"exA_fieldA1" x_0)
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
     __defined at:__ @types\/enums\/nested_enums.h 9:9@
@@ -182,3 +185,6 @@ instance HasCField ExB "exB_fieldB1"
 instance (~) ty ExB_fieldB1 =>
          HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1")
+instance (~) ty ExB_fieldB1 => HasField "exB_fieldB1" ExB ty
+    where hasField = \x_0 -> (\y_1 -> ExB{exB_fieldB1 = y_1},
+                              getField @"exB_fieldB1" x_0)

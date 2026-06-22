@@ -23,6 +23,7 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -37,6 +38,7 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField

@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct pt@
@@ -85,6 +86,15 @@ instance ( ty ~ RIP.CDouble
 
   getField = HasCField.fromPtr (RIP.Proxy @"pt_x")
 
+instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_x" Pt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Pt {pt_x = y1, pt_y = RIP.getField @"pt_y" x0}
+      , RIP.getField @"pt_x" x0
+      )
+
 instance HasCField.HasCField Pt "pt_y" where
 
   type CFieldType Pt "pt_y" = RIP.CDouble
@@ -95,6 +105,15 @@ instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "pt_y" (RIP.Ptr Pt) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"pt_y")
+
+instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_y" Pt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Pt {pt_y = y1, pt_x = RIP.getField @"pt_x" x0}
+      , RIP.getField @"pt_y" x0
+      )
 
 {-| __C declaration:__ @macro CHILD_HEADER@
 
@@ -168,6 +187,15 @@ instance (ty ~ Pt) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"rect_tl")
 
+instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_tl" Rect ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Rect {rect_tl = y1, rect_br = RIP.getField @"rect_br" x0}
+      , RIP.getField @"rect_tl" x0
+      )
+
 instance HasCField.HasCField Rect "rect_br" where
 
   type CFieldType Rect "rect_br" = Pt
@@ -177,3 +205,12 @@ instance HasCField.HasCField Rect "rect_br" where
 instance (ty ~ Pt) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"rect_br")
+
+instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_br" Rect ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Rect {rect_br = y1, rect_tl = RIP.getField @"rect_tl" x0}
+      , RIP.getField @"rect_br" x0
+      )

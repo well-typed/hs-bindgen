@@ -73,8 +73,16 @@ instance HasCField Foo "foo_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "foo_x" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_x")
+instance (~) ty CInt => HasField "foo_x" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_x = y_1,
+                                          foo_y = getField @"foo_y" x_0},
+                              getField @"foo_x" x_0)
 instance HasCField Foo "foo_y"
     where type CFieldType Foo "foo_y" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "foo_y" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_y")
+instance (~) ty CInt => HasField "foo_y" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_y = y_1,
+                                          foo_x = getField @"foo_x" x_0},
+                              getField @"foo_y" x_0)

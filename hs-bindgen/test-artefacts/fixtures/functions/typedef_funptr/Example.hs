@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'RunDriver'
@@ -170,6 +171,14 @@ instance ( ty ~ RunDriver
   getField =
     HasCField.fromPtr (RIP.Proxy @"driver_run")
 
+instance ( ty ~ RunDriver
+         ) => RIP.CompatHasField.HasField "driver_run" Driver ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Driver {driver_run = y1}, RIP.getField @"driver_run" x0)
+
 {-| __C declaration:__ @struct Bare@
 
     __defined at:__ @functions\/typedef_funptr.h 20:8@
@@ -223,3 +232,11 @@ instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"bare_callback")
+
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "bare_callback" Bare ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bare {bare_callback = y1}, RIP.getField @"bare_callback" x0)

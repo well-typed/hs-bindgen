@@ -90,6 +90,9 @@ instance HasCField Vector_Aux "vector_length"
 instance (~) ty CInt =>
          HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_length")
+instance (~) ty CInt => HasField "vector_length" Vector_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Vector{vector_length = y_1},
+                              getField @"vector_length" x_0)
 instance Offset CLong Vector_Aux
     where offset = \_proxy_0 -> 8
 type Vector = WithFlam CLong Vector_Aux

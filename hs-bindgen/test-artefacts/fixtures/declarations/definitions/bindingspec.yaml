@@ -17,6 +17,7 @@ hstypes:
       fields:
       - x_n
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

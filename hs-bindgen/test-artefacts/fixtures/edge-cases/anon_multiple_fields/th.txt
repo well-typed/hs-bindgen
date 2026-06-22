@@ -38,6 +38,11 @@ instance HasCField Some_struct_field1 "some_struct_field1_x"
 instance (~) ty CInt =>
          HasField "some_struct_field1_x" (Ptr Some_struct_field1) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1_x")
+instance (~) ty CInt =>
+         HasField "some_struct_field1_x" Some_struct_field1 ty
+    where hasField = \x_0 -> (\y_1 -> Some_struct_field1{some_struct_field1_x = y_1,
+                                                         some_struct_field1_y = getField @"some_struct_field1_y" x_0},
+                              getField @"some_struct_field1_x" x_0)
 instance HasCField Some_struct_field1 "some_struct_field1_y"
     where type CFieldType Some_struct_field1
                           "some_struct_field1_y" = CInt
@@ -45,6 +50,11 @@ instance HasCField Some_struct_field1 "some_struct_field1_y"
 instance (~) ty CInt =>
          HasField "some_struct_field1_y" (Ptr Some_struct_field1) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1_y")
+instance (~) ty CInt =>
+         HasField "some_struct_field1_y" Some_struct_field1 ty
+    where hasField = \x_0 -> (\y_1 -> Some_struct_field1{some_struct_field1_y = y_1,
+                                                         some_struct_field1_x = getField @"some_struct_field1_x" x_0},
+                              getField @"some_struct_field1_y" x_0)
 {-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @edge-cases\/anon_multiple_fields.h 4:8@
@@ -92,6 +102,12 @@ instance HasCField Some_struct "some_struct_field1"
 instance (~) ty Some_struct_field1 =>
          HasField "some_struct_field1" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1")
+instance (~) ty Some_struct_field1 =>
+         HasField "some_struct_field1" Some_struct ty
+    where hasField = \x_0 -> (\y_1 -> Some_struct{some_struct_field1 = y_1,
+                                                  some_struct_field2 = getField @"some_struct_field2" x_0,
+                                                  some_struct_field3 = getField @"some_struct_field3" x_0},
+                              getField @"some_struct_field1" x_0)
 instance HasCField Some_struct "some_struct_field2"
     where type CFieldType Some_struct
                           "some_struct_field2" = Some_struct_field1
@@ -99,6 +115,12 @@ instance HasCField Some_struct "some_struct_field2"
 instance (~) ty Some_struct_field1 =>
          HasField "some_struct_field2" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field2")
+instance (~) ty Some_struct_field1 =>
+         HasField "some_struct_field2" Some_struct ty
+    where hasField = \x_0 -> (\y_1 -> Some_struct{some_struct_field2 = y_1,
+                                                  some_struct_field1 = getField @"some_struct_field1" x_0,
+                                                  some_struct_field3 = getField @"some_struct_field3" x_0},
+                              getField @"some_struct_field2" x_0)
 instance HasCField Some_struct "some_struct_field3"
     where type CFieldType Some_struct
                           "some_struct_field3" = Some_struct_field1
@@ -106,3 +128,9 @@ instance HasCField Some_struct "some_struct_field3"
 instance (~) ty Some_struct_field1 =>
          HasField "some_struct_field3" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field3")
+instance (~) ty Some_struct_field1 =>
+         HasField "some_struct_field3" Some_struct ty
+    where hasField = \x_0 -> (\y_1 -> Some_struct{some_struct_field3 = y_1,
+                                                  some_struct_field1 = getField @"some_struct_field1" x_0,
+                                                  some_struct_field2 = getField @"some_struct_field2" x_0},
+                              getField @"some_struct_field3" x_0)

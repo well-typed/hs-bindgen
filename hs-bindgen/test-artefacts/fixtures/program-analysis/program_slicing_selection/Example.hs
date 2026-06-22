@@ -30,6 +30,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -239,6 +240,18 @@ instance ( ty ~ FileOperationStatus
   getField =
     HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
 
+instance ( ty ~ FileOperationStatus
+         ) => RIP.CompatHasField.HasField "fileOperationRecord_status" FileOperationRecord ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOperationRecord { fileOperationRecord_status = y1
+                              , fileOperationRecord_bytes_processed = RIP.getField @"fileOperationRecord_bytes_processed" x0
+                              }
+      , RIP.getField @"fileOperationRecord_status" x0
+      )
+
 instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
 
   type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
@@ -251,3 +264,15 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.CompatHasField.HasField "fileOperationRecord_bytes_processed" FileOperationRecord ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOperationRecord { fileOperationRecord_bytes_processed = y1
+                              , fileOperationRecord_status = RIP.getField @"fileOperationRecord_status" x0
+                              }
+      , RIP.getField @"fileOperationRecord_bytes_processed" x0
+      )

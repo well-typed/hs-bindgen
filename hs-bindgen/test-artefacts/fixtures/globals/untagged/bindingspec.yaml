@@ -98,6 +98,7 @@ hstypes:
       - anonPair_a
       - anonPair_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -115,6 +116,7 @@ hstypes:
       - anonPoint_x
       - anonPoint_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -145,6 +147,7 @@ hstypes:
       fields:
       - c_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

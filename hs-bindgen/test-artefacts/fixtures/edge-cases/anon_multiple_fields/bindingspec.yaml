@@ -19,6 +19,7 @@ hstypes:
       - some_struct_field2
       - some_struct_field3
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       - some_struct_field1_x
       - some_struct_field1_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

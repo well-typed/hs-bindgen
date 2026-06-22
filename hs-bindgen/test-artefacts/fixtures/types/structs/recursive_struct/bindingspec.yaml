@@ -24,6 +24,7 @@ hstypes:
       - linked_list_A_t_x
       - linked_list_A_t_next
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -41,6 +42,7 @@ hstypes:
       - linked_list_B_t_x
       - linked_list_B_t_next
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

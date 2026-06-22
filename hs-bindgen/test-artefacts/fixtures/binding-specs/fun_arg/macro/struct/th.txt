@@ -150,6 +150,9 @@ instance HasCField MyStruct "myStruct_x"
 instance (~) ty CInt =>
          HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"myStruct_x")
+instance (~) ty CInt => HasField "myStruct_x" MyStruct ty
+    where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_x = y_1},
+                              getField @"myStruct_x" x_0)
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:9@

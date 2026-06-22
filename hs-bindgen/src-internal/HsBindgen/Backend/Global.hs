@@ -28,6 +28,7 @@ import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.Internal.Prelude qualified as RIP
+import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as RIP.CompatHasField
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
@@ -79,6 +80,8 @@ data BindgenImport =
     IHaskellPrelude
     -- | Qualified import from "HsBindgen.Runtime.Internal.Prelude".
   | IRuntimeInternalPrelude
+    -- | Qualified import from "HsBindgen.Runtime.Internal.Prelude.CompatHasField".
+  | IRuntimeInternalPreludeCompatHasField
     -- | Qualified import from other modules in @hs-bindgen-runtime@ with a
     --   corresponding abbreviation ("qualified as").
   | IRuntimeModule String
@@ -92,6 +95,8 @@ bindgenToHsImport n = \case
       Hs.ImplicitPrelude
     IRuntimeInternalPrelude ->
       Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude" (Just "RIP")
+    IRuntimeInternalPreludeCompatHasField ->
+      Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude.CompatHasField" (Just "RIP.CompatHasField")
     IRuntimeModule as ->
       Hs.QualifiedImport unsafeModuleName (Just as)
   where
@@ -241,6 +246,9 @@ data BindgenGlobalTerm =
 
     -- HasField
   | HasField_getField
+
+    -- CompatHasField
+  | CompatHasField_hasField
 
     -- Proxy
   | Proxy_constructor
@@ -395,6 +403,7 @@ typeClassGlobal = globalType . \case
     Inst.HasCField       -> (IRuntimeModule "HasCField",    ''HasCField.HasCField)
     Inst.HasFFIType      -> (IRuntimeInternalPrelude,       ''RIP.HasFFIType)
     Inst.HasField        -> (IRuntimeInternalPrelude,       ''RIP.HasField)
+    Inst.CompatHasField  -> (IRuntimeInternalPreludeCompatHasField, ''RIP.CompatHasField.HasField)
     Inst.Flam_Offset     -> (IRuntimeModule "FLAM",         ''FLAM.Offset)
     Inst.Integral        -> (IHaskellPrelude,               ''Integral)
     Inst.IsArray         -> (IRuntimeModule "IsA",          ''IsA.IsArray)
@@ -473,6 +482,9 @@ bindgenGlobalTerm = globalExpr . \case
 
     -- HasField
     HasField_getField -> (IRuntimeInternalPrelude, GVar, 'RIP.getField)
+
+    -- Compat.HasField
+    CompatHasField_hasField -> (IRuntimeInternalPreludeCompatHasField, GVar, 'RIP.CompatHasField.hasField)
 
     -- Proxy
     Proxy_constructor -> (IRuntimeInternalPrelude, GCon, 'RIP.Proxy)

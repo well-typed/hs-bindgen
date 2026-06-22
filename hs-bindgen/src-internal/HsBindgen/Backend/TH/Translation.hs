@@ -26,6 +26,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Config (FieldNamingStrategy)
 import HsBindgen.Errors
@@ -146,6 +147,10 @@ mkRolledExpr env expr = case expr of
         expr
     EList xs -> TH.listE $ mkExpr env <$> xs
     ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)
+    ERecCon con fs -> TH.recConE (mkHsName con) (fmap (mkFBind env) fs)
+
+mkFBind :: Guasi q => Env ctx TH.Name -> FBind ctx -> q (TH.Name, TH.Exp)
+mkFBind env (FBind label expr) = (TH.mkName label,) <$> mkExpr env expr
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case

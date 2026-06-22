@@ -26,6 +26,7 @@ import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @myInt@
@@ -221,6 +222,19 @@ instance ( ty ~ MyInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
 
+instance ( ty ~ MyInt
+         ) => RIP.CompatHasField.HasField "myStruct_x" MyStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MyStruct { myStruct_x = y1
+                   , myStruct_y = RIP.getField @"myStruct_y" x0
+                   , myStruct_z = RIP.getField @"myStruct_z" x0
+                   }
+      , RIP.getField @"myStruct_x" x0
+      )
+
 instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   type CBitfieldType MyStruct "myStruct_y" = MyUInt
@@ -235,6 +249,19 @@ instance ( ty ~ MyUInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
 
+instance ( ty ~ MyUInt
+         ) => RIP.CompatHasField.HasField "myStruct_y" MyStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MyStruct { myStruct_y = y1
+                   , myStruct_x = RIP.getField @"myStruct_x" x0
+                   , myStruct_z = RIP.getField @"myStruct_z" x0
+                   }
+      , RIP.getField @"myStruct_y" x0
+      )
+
 instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   type CBitfieldType MyStruct "myStruct_z" = MyLong
@@ -248,3 +275,16 @@ instance ( ty ~ MyLong
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")
+
+instance ( ty ~ MyLong
+         ) => RIP.CompatHasField.HasField "myStruct_z" MyStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MyStruct { myStruct_z = y1
+                   , myStruct_x = RIP.getField @"myStruct_x" x0
+                   , myStruct_y = RIP.getField @"myStruct_y" x0
+                   }
+      , RIP.getField @"myStruct_z" x0
+      )

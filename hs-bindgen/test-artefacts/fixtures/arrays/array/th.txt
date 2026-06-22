@@ -776,6 +776,11 @@ instance HasCField Example "example_triple"
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "example_triple" (Ptr Example) (Ptr ty)
     where getField = fromPtr (Proxy @"example_triple")
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "example_triple" Example ty
+    where hasField = \x_0 -> (\y_1 -> Example{example_triple = y_1,
+                                              example_sudoku = getField @"example_sudoku" x_0},
+                              getField @"example_triple" x_0)
 instance HasCField Example "example_sudoku"
     where type CFieldType Example "example_sudoku" = ConstantArray 3
                                                                    (ConstantArray 3 CInt)
@@ -783,6 +788,11 @@ instance HasCField Example "example_sudoku"
 instance (~) ty (ConstantArray 3 (ConstantArray 3 CInt)) =>
          HasField "example_sudoku" (Ptr Example) (Ptr ty)
     where getField = fromPtr (Proxy @"example_sudoku")
+instance (~) ty (ConstantArray 3 (ConstantArray 3 CInt)) =>
+         HasField "example_sudoku" Example ty
+    where hasField = \x_0 -> (\y_1 -> Example{example_sudoku = y_1,
+                                              example_triple = getField @"example_triple" x_0},
+                              getField @"example_sudoku" x_0)
 {-| Typedef-in-typedef.
 
     __C declaration:__ @sudoku@

@@ -27,6 +27,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -120,6 +121,13 @@ instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t1_x_x" T1_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1_x {t1_x_x = y1}, RIP.getField @"t1_x_x" x0)
+
 {-| __C declaration:__ @struct \@T1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 3:1@
@@ -170,6 +178,12 @@ instance HasCField.HasCField T1 "t1_x" where
 instance (ty ~ T1_x) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
+
+instance (ty ~ T1_x) => RIP.CompatHasField.HasField "t1_x" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T1 {t1_x = y1}, RIP.getField @"t1_x" x0)
 
 {-| __C declaration:__ @struct \@T2@
 
@@ -223,6 +237,12 @@ instance ( ty ~ RIP.Ptr T2_x
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
 
+instance (ty ~ RIP.Ptr T2_x) => RIP.CompatHasField.HasField "t2_x" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
+
 {-| __C declaration:__ @struct \@T2_x@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 4:10@
@@ -273,6 +293,13 @@ instance HasCField.HasCField T2_x "t2_x_x" where
 instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t2_x_x" T2_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2_x {t2_x_x = y1}, RIP.getField @"t2_x_x" x0)
 
 {-| __C declaration:__ @struct \@T3@
 
@@ -326,6 +353,13 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
 
+instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
+         ) => RIP.CompatHasField.HasField "t3_x" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T3 {t3_x = y1}, RIP.getField @"t3_x" x0)
+
 {-| __C declaration:__ @struct \@T3_x@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 5:10@
@@ -376,3 +410,10 @@ instance HasCField.HasCField T3_x "t3_x_x" where
 instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t3_x_x" T3_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T3_x {t3_x_x = y1}, RIP.getField @"t3_x_x" x0)

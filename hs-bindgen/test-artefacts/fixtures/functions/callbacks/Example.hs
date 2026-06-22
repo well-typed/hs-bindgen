@@ -61,6 +61,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -403,6 +404,18 @@ instance ( ty ~ RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"measurement_value")
 
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "measurement_value" Measurement ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Measurement { measurement_value = y1
+                      , measurement_timestamp = RIP.getField @"measurement_timestamp" x0
+                      }
+      , RIP.getField @"measurement_value" x0
+      )
+
 instance HasCField.HasCField Measurement "measurement_timestamp" where
 
   type CFieldType Measurement "measurement_timestamp" =
@@ -415,6 +428,18 @@ instance ( ty ~ RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"measurement_timestamp")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "measurement_timestamp" Measurement ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Measurement { measurement_timestamp = y1
+                      , measurement_value = RIP.getField @"measurement_value" x0
+                      }
+      , RIP.getField @"measurement_timestamp" x0
+      )
 
 {-| Auxiliary type used by 'MeasurementReceived'
 
@@ -732,6 +757,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
   getField =
     HasCField.fromPtr (RIP.Proxy @"measurementHandler_onReceived")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "measurementHandler_onReceived" MeasurementHandler ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementHandler { measurementHandler_onReceived = y1
+                             , measurementHandler_validate = RIP.getField @"measurementHandler_validate" x0
+                             , measurementHandler_onError = RIP.getField @"measurementHandler_onError" x0
+                             }
+      , RIP.getField @"measurementHandler_onReceived" x0
+      )
+
 instance HasCField.HasCField MeasurementHandler "measurementHandler_validate" where
 
   type CFieldType MeasurementHandler "measurementHandler_validate" =
@@ -745,6 +783,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
   getField =
     HasCField.fromPtr (RIP.Proxy @"measurementHandler_validate")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "measurementHandler_validate" MeasurementHandler ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementHandler { measurementHandler_validate = y1
+                             , measurementHandler_onReceived = RIP.getField @"measurementHandler_onReceived" x0
+                             , measurementHandler_onError = RIP.getField @"measurementHandler_onError" x0
+                             }
+      , RIP.getField @"measurementHandler_validate" x0
+      )
+
 instance HasCField.HasCField MeasurementHandler "measurementHandler_onError" where
 
   type CFieldType MeasurementHandler "measurementHandler_onError" =
@@ -757,6 +808,19 @@ instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"measurementHandler_onError")
+
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "measurementHandler_onError" MeasurementHandler ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementHandler { measurementHandler_onError = y1
+                             , measurementHandler_onReceived = RIP.getField @"measurementHandler_onReceived" x0
+                             , measurementHandler_validate = RIP.getField @"measurementHandler_validate" x0
+                             }
+      , RIP.getField @"measurementHandler_onError" x0
+      )
 
 {-| __C declaration:__ @struct DataPipeline@
 
@@ -833,6 +897,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
   getField =
     HasCField.fromPtr (RIP.Proxy @"dataPipeline_preProcess")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+         ) => RIP.CompatHasField.HasField "dataPipeline_preProcess" DataPipeline ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DataPipeline { dataPipeline_preProcess = y1
+                       , dataPipeline_process = RIP.getField @"dataPipeline_process" x0
+                       , dataPipeline_postProcess = RIP.getField @"dataPipeline_postProcess" x0
+                       }
+      , RIP.getField @"dataPipeline_preProcess" x0
+      )
+
 instance HasCField.HasCField DataPipeline "dataPipeline_process" where
 
   type CFieldType DataPipeline "dataPipeline_process" =
@@ -846,6 +923,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
   getField =
     HasCField.fromPtr (RIP.Proxy @"dataPipeline_process")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "dataPipeline_process" DataPipeline ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DataPipeline { dataPipeline_process = y1
+                       , dataPipeline_preProcess = RIP.getField @"dataPipeline_preProcess" x0
+                       , dataPipeline_postProcess = RIP.getField @"dataPipeline_postProcess" x0
+                       }
+      , RIP.getField @"dataPipeline_process" x0
+      )
+
 instance HasCField.HasCField DataPipeline "dataPipeline_postProcess" where
 
   type CFieldType DataPipeline "dataPipeline_postProcess" =
@@ -858,6 +948,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dataPipeline_postProcess")
+
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+         ) => RIP.CompatHasField.HasField "dataPipeline_postProcess" DataPipeline ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DataPipeline { dataPipeline_postProcess = y1
+                       , dataPipeline_preProcess = RIP.getField @"dataPipeline_preProcess" x0
+                       , dataPipeline_process = RIP.getField @"dataPipeline_process" x0
+                       }
+      , RIP.getField @"dataPipeline_postProcess" x0
+      )
 
 {-| __C declaration:__ @union ProcessorCallback@
 
@@ -1180,6 +1283,18 @@ instance ( ty ~ Processor_mode
   getField =
     HasCField.fromPtr (RIP.Proxy @"processor_mode")
 
+instance ( ty ~ Processor_mode
+         ) => RIP.CompatHasField.HasField "processor_mode" Processor ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Processor { processor_mode = y1
+                    , processor_callback = RIP.getField @"processor_callback" x0
+                    }
+      , RIP.getField @"processor_mode" x0
+      )
+
 instance HasCField.HasCField Processor "processor_callback" where
 
   type CFieldType Processor "processor_callback" =
@@ -1192,6 +1307,16 @@ instance ( ty ~ ProcessorCallback
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"processor_callback")
+
+instance ( ty ~ ProcessorCallback
+         ) => RIP.CompatHasField.HasField "processor_callback" Processor ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Processor {processor_callback = y1, processor_mode = RIP.getField @"processor_mode" x0}
+      , RIP.getField @"processor_callback" x0
+      )
 
 {-| __C declaration:__ @foo@
 
@@ -1401,6 +1526,13 @@ instance ( ty ~ RIP.FunPtr (B -> IO ())
          ) => RIP.HasField "s_fn" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_fn")
+
+instance ( ty ~ RIP.FunPtr (B -> IO ())
+         ) => RIP.CompatHasField.HasField "s_fn" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S {s_fn = y1}, RIP.getField @"s_fn" x0)
 
 {-| __C declaration:__ @C@
 

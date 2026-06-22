@@ -25,6 +25,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@S1_c@
@@ -88,6 +89,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_c_a")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_a" S1_c ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1_c {s1_c_a = y1, s1_c_b = RIP.getField @"s1_c_b" x0}
+      , RIP.getField @"s1_c_a" x0
+      )
+
 instance HasCField.HasCField S1_c "s1_c_b" where
 
   type CFieldType S1_c "s1_c_b" = RIP.CInt
@@ -98,6 +108,15 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s1_c_b" (RIP.Ptr S1_c) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_c_b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_b" S1_c ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1_c {s1_c_b = y1, s1_c_a = RIP.getField @"s1_c_a" x0}
+      , RIP.getField @"s1_c_b" x0
+      )
 
 {-| __C declaration:__ @struct S1@
 
@@ -159,6 +178,15 @@ instance (ty ~ S1_c) => RIP.HasField "s1_c" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_c")
 
+instance (ty ~ S1_c) => RIP.CompatHasField.HasField "s1_c" S1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1 {s1_c = y1, s1_d = RIP.getField @"s1_d" x0}
+      , RIP.getField @"s1_c" x0
+      )
+
 instance HasCField.HasCField S1 "s1_d" where
 
   type CFieldType S1 "s1_d" = RIP.CInt
@@ -168,6 +196,15 @@ instance HasCField.HasCField S1 "s1_d" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s1_d" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_d")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_d" S1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1 {s1_d = y1, s1_c = RIP.getField @"s1_c" x0}
+      , RIP.getField @"s1_d" x0
+      )
 
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
@@ -222,6 +259,15 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_inner_deep_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "s2_inner_deep_b" S2_inner_deep ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> S2_inner_deep {s2_inner_deep_b = y1}
+      , RIP.getField @"s2_inner_deep_b" x0
+      )
 
 {-| __C declaration:__ @struct \@S2_inner@
 
@@ -285,6 +331,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_inner_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "s2_inner_a" S2_inner ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_inner {s2_inner_a = y1, s2_inner_deep = RIP.getField @"s2_inner_deep" x0}
+      , RIP.getField @"s2_inner_a" x0
+      )
+
 instance HasCField.HasCField S2_inner "s2_inner_deep" where
 
   type CFieldType S2_inner "s2_inner_deep" =
@@ -297,6 +353,16 @@ instance ( ty ~ S2_inner_deep
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_inner_deep")
+
+instance ( ty ~ S2_inner_deep
+         ) => RIP.CompatHasField.HasField "s2_inner_deep" S2_inner ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_inner {s2_inner_deep = y1, s2_inner_a = RIP.getField @"s2_inner_a" x0}
+      , RIP.getField @"s2_inner_deep" x0
+      )
 
 {-| __C declaration:__ @struct S2@
 
@@ -359,6 +425,15 @@ instance ( ty ~ S2_inner
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_inner")
 
+instance (ty ~ S2_inner) => RIP.CompatHasField.HasField "s2_inner" S2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2 {s2_inner = y1, s2_d = RIP.getField @"s2_d" x0}
+      , RIP.getField @"s2_inner" x0
+      )
+
 instance HasCField.HasCField S2 "s2_d" where
 
   type CFieldType S2 "s2_d" = RIP.CInt
@@ -368,6 +443,15 @@ instance HasCField.HasCField S2 "s2_d" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s2_d" (RIP.Ptr S2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_d")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_d" S2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2 {s2_d = y1, s2_inner = RIP.getField @"s2_inner" x0}
+      , RIP.getField @"s2_d" x0
+      )
 
 {-| __C declaration:__ @struct S3@
 
@@ -430,6 +514,16 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
 
   getField = HasCField.fromPtr (RIP.Proxy @"s3_c")
 
+instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
+         ) => RIP.CompatHasField.HasField "s3_c" S3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S3 {s3_c = y1, s3_d = RIP.getField @"s3_d" x0}
+      , RIP.getField @"s3_c" x0
+      )
+
 instance HasCField.HasCField S3 "s3_d" where
 
   type CFieldType S3 "s3_d" = RIP.CInt
@@ -439,6 +533,15 @@ instance HasCField.HasCField S3 "s3_d" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s3_d" (RIP.Ptr S3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s3_d")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_d" S3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S3 {s3_d = y1, s3_c = RIP.getField @"s3_c" x0}
+      , RIP.getField @"s3_d" x0
+      )
 
 {-| __C declaration:__ @struct \@S3_c@
 
@@ -501,6 +604,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s3_c_a")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_a" S3_c ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S3_c {s3_c_a = y1, s3_c_b = RIP.getField @"s3_c_b" x0}
+      , RIP.getField @"s3_c_a" x0
+      )
+
 instance HasCField.HasCField S3_c "s3_c_b" where
 
   type CFieldType S3_c "s3_c_b" = RIP.CInt
@@ -511,3 +623,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "s3_c_b" (RIP.Ptr S3_c) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s3_c_b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_b" S3_c ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S3_c {s3_c_b = y1, s3_c_a = RIP.getField @"s3_c_a" x0}
+      , RIP.getField @"s3_c_b" x0
+      )

@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -87,6 +88,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "config_x" Config ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Config {config_x = y1, config_y = RIP.getField @"config_y" x0}
+      , RIP.getField @"config_x" x0
+      )
+
 instance HasCField.HasCField Config "config_y" where
 
   type CFieldType Config "config_y" = RIP.CInt
@@ -97,6 +108,16 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"config_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "config_y" Config ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Config {config_y = y1, config_x = RIP.getField @"config_x" x0}
+      , RIP.getField @"config_y" x0
+      )
 
 {-| __C declaration:__ @struct inline_struct@
 
@@ -161,6 +182,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "inline_struct_x" Inline_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Inline_struct {inline_struct_x = y1, inline_struct_y = RIP.getField @"inline_struct_y" x0}
+      , RIP.getField @"inline_struct_x" x0
+      )
+
 instance HasCField.HasCField Inline_struct "inline_struct_y" where
 
   type CFieldType Inline_struct "inline_struct_y" =
@@ -173,6 +204,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "inline_struct_y" Inline_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Inline_struct {inline_struct_y = y1, inline_struct_x = RIP.getField @"inline_struct_x" x0}
+      , RIP.getField @"inline_struct_y" x0
+      )
 
 {-| __C declaration:__ @struct version_t@
 
@@ -246,6 +287,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word8
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_major")
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "version_t_major" Version_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Version_t { version_t_major = y1
+                    , version_t_minor = RIP.getField @"version_t_minor" x0
+                    , version_t_patch = RIP.getField @"version_t_patch" x0
+                    }
+      , RIP.getField @"version_t_major" x0
+      )
+
 instance HasCField.HasCField Version_t "version_t_minor" where
 
   type CFieldType Version_t "version_t_minor" =
@@ -259,6 +313,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_minor")
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "version_t_minor" Version_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Version_t { version_t_minor = y1
+                    , version_t_major = RIP.getField @"version_t_major" x0
+                    , version_t_patch = RIP.getField @"version_t_patch" x0
+                    }
+      , RIP.getField @"version_t_minor" x0
+      )
+
 instance HasCField.HasCField Version_t "version_t_patch" where
 
   type CFieldType Version_t "version_t_patch" =
@@ -271,6 +338,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word8
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"version_t_patch")
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "version_t_patch" Version_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Version_t { version_t_patch = y1
+                    , version_t_major = RIP.getField @"version_t_major" x0
+                    , version_t_minor = RIP.getField @"version_t_minor" x0
+                    }
+      , RIP.getField @"version_t_patch" x0
+      )
 
 {-| __C declaration:__ @struct struct1_t@
 
@@ -344,6 +424,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "struct1_t_x" Struct1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Struct1_t { struct1_t_x = y1
+                    , struct1_t_y = RIP.getField @"struct1_t_y" x0
+                    , struct1_t_version = RIP.getField @"struct1_t_version" x0
+                    }
+      , RIP.getField @"struct1_t_x" x0
+      )
+
 instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
   type CFieldType Struct1_t "struct1_t_y" = RIP.CBool
@@ -355,6 +448,19 @@ instance ( ty ~ RIP.CBool
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
+
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "struct1_t_y" Struct1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Struct1_t { struct1_t_y = y1
+                    , struct1_t_x = RIP.getField @"struct1_t_x" x0
+                    , struct1_t_version = RIP.getField @"struct1_t_version" x0
+                    }
+      , RIP.getField @"struct1_t_y" x0
+      )
 
 instance HasCField.HasCField Struct1_t "struct1_t_version" where
 
@@ -368,6 +474,19 @@ instance ( ty ~ Version_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
+
+instance ( ty ~ Version_t
+         ) => RIP.CompatHasField.HasField "struct1_t_version" Struct1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Struct1_t { struct1_t_version = y1
+                    , struct1_t_x = RIP.getField @"struct1_t_x" x0
+                    , struct1_t_y = RIP.getField @"struct1_t_y" x0
+                    }
+      , RIP.getField @"struct1_t_version" x0
+      )
 
 {-| __C declaration:__ @struct struct2_t@
 
@@ -422,3 +541,12 @@ instance ( ty ~ Struct1_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
+
+instance ( ty ~ Struct1_t
+         ) => RIP.CompatHasField.HasField "struct2_t_field1" Struct2_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Struct2_t {struct2_t_field1 = y1}
+      , RIP.getField @"struct2_t_field1" x0
+      )

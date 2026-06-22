@@ -27,6 +27,7 @@ hstypes:
       - bar_ptrA
       - bar_ptrB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

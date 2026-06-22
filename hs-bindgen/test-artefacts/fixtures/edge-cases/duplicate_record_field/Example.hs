@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct A@
@@ -74,6 +75,11 @@ instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" A ty where
+
+  hasField =
+    \x0 -> (\y1 -> A {dup = y1}, RIP.getField @"dup" x0)
+
 {-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/duplicate_record_field.h 5:8@
@@ -124,3 +130,8 @@ instance HasCField.HasCField B "dup" where
 instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" B ty where
+
+  hasField =
+    \x0 -> (\y1 -> B {dup = y1}, RIP.getField @"dup" x0)

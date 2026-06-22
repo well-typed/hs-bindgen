@@ -37,6 +37,7 @@ hstypes:
       - sS_anon'y
       - sS_z
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -53,6 +54,7 @@ hstypes:
       fields:
       - sS_anon'y_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -71,6 +73,7 @@ hstypes:
       - sU_anon'y
       - sU_z
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -113,6 +116,7 @@ hstypes:
       fields:
       - uS_anon'y_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

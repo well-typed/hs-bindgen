@@ -78,6 +78,11 @@ instance (~) ty CInt =>
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"another_typedef_struct_t_foo")
+instance (~) ty CInt =>
+         HasField "another_typedef_struct_t_foo" Another_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> Another_typedef_struct_t{another_typedef_struct_t_foo = y_1,
+                                                               another_typedef_struct_t_bar = getField @"another_typedef_struct_t_bar" x_0},
+                              getField @"another_typedef_struct_t_foo" x_0)
 instance HasCField Another_typedef_struct_t
                    "another_typedef_struct_t_bar"
     where type CFieldType Another_typedef_struct_t
@@ -88,6 +93,11 @@ instance (~) ty CChar =>
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"another_typedef_struct_t_bar")
+instance (~) ty CChar =>
+         HasField "another_typedef_struct_t_bar" Another_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> Another_typedef_struct_t{another_typedef_struct_t_bar = y_1,
+                                                               another_typedef_struct_t_foo = getField @"another_typedef_struct_t_foo" x_0},
+                              getField @"another_typedef_struct_t_bar" x_0)
 {-| __C declaration:__ @enum another_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 10:9@
@@ -372,6 +382,20 @@ instance (~) ty CBool =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_0")
+instance (~) ty CBool =>
+         HasField "a_typedef_struct_t_field_0" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_0 = y_1,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_0" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_1" = HsBindgen.Runtime.LibC.Word8
@@ -381,6 +405,20 @@ instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_1")
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "a_typedef_struct_t_field_1" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_1 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_1" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_2" = HsBindgen.Runtime.LibC.Word16
@@ -390,6 +428,20 @@ instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_2")
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "a_typedef_struct_t_field_2" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_2 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_2" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_3" = HsBindgen.Runtime.LibC.Word32
@@ -399,6 +451,20 @@ instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_3")
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "a_typedef_struct_t_field_3" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_3 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_3" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_4"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_4" = Another_typedef_struct_t
@@ -408,6 +474,20 @@ instance (~) ty Another_typedef_struct_t =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_4")
+instance (~) ty Another_typedef_struct_t =>
+         HasField "a_typedef_struct_t_field_4" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_4 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_4" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_5"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_5" = Ptr Another_typedef_struct_t
@@ -417,6 +497,20 @@ instance (~) ty (Ptr Another_typedef_struct_t) =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_5")
+instance (~) ty (Ptr Another_typedef_struct_t) =>
+         HasField "a_typedef_struct_t_field_5" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_5 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_5" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_6"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_6" = Ptr Void
@@ -426,6 +520,20 @@ instance (~) ty (Ptr Void) =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_6")
+instance (~) ty (Ptr Void) =>
+         HasField "a_typedef_struct_t_field_6" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_6 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_6" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_7" = ConstantArray 7
@@ -436,6 +544,20 @@ instance (~) ty (ConstantArray 7 HsBindgen.Runtime.LibC.Word32) =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_7")
+instance (~) ty (ConstantArray 7 HsBindgen.Runtime.LibC.Word32) =>
+         HasField "a_typedef_struct_t_field_7" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_7 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_7" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_8"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_8" = Another_typedef_enum_e
@@ -445,6 +567,20 @@ instance (~) ty Another_typedef_enum_e =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_8")
+instance (~) ty Another_typedef_enum_e =>
+         HasField "a_typedef_struct_t_field_8" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_8 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_8" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_9"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_9" = ConstantArray 4
@@ -455,6 +591,20 @@ instance (~) ty (ConstantArray 4 Another_typedef_enum_e) =>
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_9")
+instance (~) ty (ConstantArray 4 Another_typedef_enum_e) =>
+         HasField "a_typedef_struct_t_field_9" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_9 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_10 = getField @"a_typedef_struct_t_field_10" x_0},
+                              getField @"a_typedef_struct_t_field_9" x_0)
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_10" = ConstantArray 5
@@ -467,6 +617,21 @@ instance (~) ty
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_10")
+instance (~) ty
+             (ConstantArray 5 (ConstantArray 3 Another_typedef_enum_e)) =>
+         HasField "a_typedef_struct_t_field_10" A_typedef_struct_t ty
+    where hasField = \x_0 -> (\y_1 -> A_typedef_struct_t{a_typedef_struct_t_field_10 = y_1,
+                                                         a_typedef_struct_t_field_0 = getField @"a_typedef_struct_t_field_0" x_0,
+                                                         a_typedef_struct_t_field_1 = getField @"a_typedef_struct_t_field_1" x_0,
+                                                         a_typedef_struct_t_field_2 = getField @"a_typedef_struct_t_field_2" x_0,
+                                                         a_typedef_struct_t_field_3 = getField @"a_typedef_struct_t_field_3" x_0,
+                                                         a_typedef_struct_t_field_4 = getField @"a_typedef_struct_t_field_4" x_0,
+                                                         a_typedef_struct_t_field_5 = getField @"a_typedef_struct_t_field_5" x_0,
+                                                         a_typedef_struct_t_field_6 = getField @"a_typedef_struct_t_field_6" x_0,
+                                                         a_typedef_struct_t_field_7 = getField @"a_typedef_struct_t_field_7" x_0,
+                                                         a_typedef_struct_t_field_8 = getField @"a_typedef_struct_t_field_8" x_0,
+                                                         a_typedef_struct_t_field_9 = getField @"a_typedef_struct_t_field_9" x_0},
+                              getField @"a_typedef_struct_t_field_10" x_0)
 {-| __C declaration:__ @macro A_DEFINE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@

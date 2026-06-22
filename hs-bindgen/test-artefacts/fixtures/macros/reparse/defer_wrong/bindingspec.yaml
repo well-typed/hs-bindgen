@@ -57,6 +57,7 @@ hstypes:
       fields:
       - s_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

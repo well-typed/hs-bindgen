@@ -20,6 +20,7 @@ hstypes:
       - outside_x
       - outside_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

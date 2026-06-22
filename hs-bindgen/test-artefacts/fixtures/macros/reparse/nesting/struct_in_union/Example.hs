@@ -33,6 +33,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -125,6 +126,13 @@ instance HasCField.HasCField T1_x "t1_x_x" where
 instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t1_x_x" T1_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1_x {t1_x_x = y1}, RIP.getField @"t1_x_x" x0)
 
 {-| __C declaration:__ @union \@T1@
 
@@ -286,6 +294,13 @@ instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t2_x_x" T2_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2_x {t2_x_x = y1}, RIP.getField @"t2_x_x" x0)
+
 {-| __C declaration:__ @union \@T3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:1@
@@ -391,3 +406,10 @@ instance HasCField.HasCField T3_x "t3_x_x" where
 instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t3_x_x" T3_x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T3_x {t3_x_x = y1}, RIP.getField @"t3_x_x" x0)

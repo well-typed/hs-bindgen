@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct S1@
@@ -74,6 +75,13 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_t_a")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_t_a" S1_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S1_t {s1_t_a = y1}, RIP.getField @"s1_t_a" x0)
+
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @declarations\/forward_declaration.h 9:8@
@@ -124,3 +132,9 @@ instance HasCField.HasCField S2 "s2_a" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s2_a")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_a" S2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S2 {s2_a = y1}, RIP.getField @"s2_a" x0)

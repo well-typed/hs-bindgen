@@ -128,6 +128,7 @@ hstypes:
       - struct11_t_x
       - struct11_t_self
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -145,6 +146,7 @@ hstypes:
       - struct12_t_x
       - struct12_t_self
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -373,6 +375,7 @@ hstypes:
       - use_sites_useTypedef_struct11_t
       - use_sites_useTypedef_struct12_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

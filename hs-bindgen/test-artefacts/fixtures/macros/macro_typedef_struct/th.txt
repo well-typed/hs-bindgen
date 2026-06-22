@@ -66,8 +66,16 @@ instance HasCField Bar "bar_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "bar_x" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_x")
+instance (~) ty CInt => HasField "bar_x" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_x = y_1,
+                                          bar_y = getField @"bar_y" x_0},
+                              getField @"bar_x" x_0)
 instance HasCField Bar "bar_y"
     where type CFieldType Bar "bar_y" = MY_TYPE
           offset# = \_ -> \_ -> 4
 instance (~) ty MY_TYPE => HasField "bar_y" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_y")
+instance (~) ty MY_TYPE => HasField "bar_y" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_y = y_1,
+                                          bar_x = getField @"bar_x" x_0},
+                              getField @"bar_y" x_0)

@@ -20,6 +20,7 @@ hstypes:
       fields:
       - s_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - s_y_anon'x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -52,6 +54,7 @@ hstypes:
       fields:
       - s_y_anon'x_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

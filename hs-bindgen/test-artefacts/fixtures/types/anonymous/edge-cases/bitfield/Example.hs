@@ -25,6 +25,7 @@ import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@S1_anon\'y@
@@ -82,6 +83,14 @@ instance ( ty ~ RIP.CChar
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"s1_anon'y_y")
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "s1_anon'y_y" S1_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S1_anon'y {s1_anon'y_y = y1}, RIP.getField @"s1_anon'y_y" x0)
 
 {-| __C declaration:__ @struct S1@
 
@@ -144,6 +153,15 @@ instance ( ty ~ S1_anon'y
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_anon'y")
 
+instance (ty ~ S1_anon'y) => RIP.CompatHasField.HasField "s1_anon'y" S1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1 {s1_anon'y = y1, s1_x = RIP.getField @"s1_x" x0}
+      , RIP.getField @"s1_anon'y" x0
+      )
+
 instance HasCField.HasCField S1 "s1_x" where
 
   type CFieldType S1 "s1_x" = RIP.CInt
@@ -153,6 +171,15 @@ instance HasCField.HasCField S1 "s1_x" where
 instance (ty ~ RIP.CInt) => RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s1_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_x" S1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S1 {s1_x = y1, s1_anon'y = RIP.getField @"s1_anon'y" x0}
+      , RIP.getField @"s1_x" x0
+      )
 
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y_anon\'y@
 
@@ -209,6 +236,16 @@ instance ( ty ~ RIP.CChar
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"s2_anon'anon'y_anon'y_y")
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_anon'anon'y_anon'y {s2_anon'anon'y_anon'y_y = y1}
+      , RIP.getField @"s2_anon'anon'y_anon'y_y" x0
+      )
 
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y@
 
@@ -273,6 +310,18 @@ instance ( ty ~ S2_anon'anon'y_anon'y
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_anon'y")
 
+instance ( ty ~ S2_anon'anon'y_anon'y
+         ) => RIP.CompatHasField.HasField "s2_anon'anon'y_anon'y" S2_anon'anon'y ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_anon'anon'y { s2_anon'anon'y_anon'y = y1
+                         , s2_anon'anon'y_x = RIP.getField @"s2_anon'anon'y_x" x0
+                         }
+      , RIP.getField @"s2_anon'anon'y_anon'y" x0
+      )
+
 instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_x" where
 
   type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" =
@@ -285,6 +334,18 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_x")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "s2_anon'anon'y_x" S2_anon'anon'y ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_anon'anon'y { s2_anon'anon'y_x = y1
+                         , s2_anon'anon'y_anon'y = RIP.getField @"s2_anon'anon'y_anon'y" x0
+                         }
+      , RIP.getField @"s2_anon'anon'y_x" x0
+      )
 
 {-| __C declaration:__ @struct S2@
 
@@ -338,3 +399,11 @@ instance ( ty ~ S2_anon'anon'y
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y")
+
+instance ( ty ~ S2_anon'anon'y
+         ) => RIP.CompatHasField.HasField "s2_anon'anon'y" S2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S2 {s2_anon'anon'y = y1}, RIP.getField @"s2_anon'anon'y" x0)

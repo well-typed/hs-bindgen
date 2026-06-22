@@ -29,6 +29,9 @@ instance HasCField SS_anon'y "sS_anon'y_y"
 instance (~) ty CInt =>
          HasField "sS_anon'y_y" (Ptr SS_anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"sS_anon'y_y")
+instance (~) ty CInt => HasField "sS_anon'y_y" SS_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> SS_anon'y{sS_anon'y_y = y_1},
+                              getField @"sS_anon'y_y" x_0)
 {-| __C declaration:__ @struct SS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 13:8@
@@ -74,16 +77,31 @@ instance HasCField SS "sS_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "sS_x" (Ptr SS) (Ptr ty)
     where getField = fromPtr (Proxy @"sS_x")
+instance (~) ty CChar => HasField "sS_x" SS ty
+    where hasField = \x_0 -> (\y_1 -> SS{sS_x = y_1,
+                                         sS_anon'y = getField @"sS_anon'y" x_0,
+                                         sS_z = getField @"sS_z" x_0},
+                              getField @"sS_x" x_0)
 instance HasCField SS "sS_anon'y"
     where type CFieldType SS "sS_anon'y" = SS_anon'y
           offset# = \_ -> \_ -> 4
 instance (~) ty SS_anon'y => HasField "sS_anon'y" (Ptr SS) (Ptr ty)
     where getField = fromPtr (Proxy @"sS_anon'y")
+instance (~) ty SS_anon'y => HasField "sS_anon'y" SS ty
+    where hasField = \x_0 -> (\y_1 -> SS{sS_anon'y = y_1,
+                                         sS_x = getField @"sS_x" x_0,
+                                         sS_z = getField @"sS_z" x_0},
+                              getField @"sS_anon'y" x_0)
 instance HasCField SS "sS_z"
     where type CFieldType SS "sS_z" = CInt
           offset# = \_ -> \_ -> 12
 instance (~) ty CInt => HasField "sS_z" (Ptr SS) (Ptr ty)
     where getField = fromPtr (Proxy @"sS_z")
+instance (~) ty CInt => HasField "sS_z" SS ty
+    where hasField = \x_0 -> (\y_1 -> SS{sS_z = y_1,
+                                         sS_x = getField @"sS_x" x_0,
+                                         sS_anon'y = getField @"sS_anon'y" x_0},
+                              getField @"sS_z" x_0)
 {-| __C declaration:__ @union \@SU_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 24:3@
@@ -182,16 +200,31 @@ instance HasCField SU "sU_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "sU_x" (Ptr SU) (Ptr ty)
     where getField = fromPtr (Proxy @"sU_x")
+instance (~) ty CChar => HasField "sU_x" SU ty
+    where hasField = \x_0 -> (\y_1 -> SU{sU_x = y_1,
+                                         sU_anon'y = getField @"sU_anon'y" x_0,
+                                         sU_z = getField @"sU_z" x_0},
+                              getField @"sU_x" x_0)
 instance HasCField SU "sU_anon'y"
     where type CFieldType SU "sU_anon'y" = SU_anon'y
           offset# = \_ -> \_ -> 4
 instance (~) ty SU_anon'y => HasField "sU_anon'y" (Ptr SU) (Ptr ty)
     where getField = fromPtr (Proxy @"sU_anon'y")
+instance (~) ty SU_anon'y => HasField "sU_anon'y" SU ty
+    where hasField = \x_0 -> (\y_1 -> SU{sU_anon'y = y_1,
+                                         sU_x = getField @"sU_x" x_0,
+                                         sU_z = getField @"sU_z" x_0},
+                              getField @"sU_anon'y" x_0)
 instance HasCField SU "sU_z"
     where type CFieldType SU "sU_z" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "sU_z" (Ptr SU) (Ptr ty)
     where getField = fromPtr (Proxy @"sU_z")
+instance (~) ty CInt => HasField "sU_z" SU ty
+    where hasField = \x_0 -> (\y_1 -> SU{sU_z = y_1,
+                                         sU_x = getField @"sU_x" x_0,
+                                         sU_anon'y = getField @"sU_anon'y" x_0},
+                              getField @"sU_z" x_0)
 {-| __C declaration:__ @struct \@US_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
@@ -222,6 +255,9 @@ instance HasCField US_anon'y "uS_anon'y_y"
 instance (~) ty CInt =>
          HasField "uS_anon'y_y" (Ptr US_anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"uS_anon'y_y")
+instance (~) ty CInt => HasField "uS_anon'y_y" US_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> US_anon'y{uS_anon'y_y = y_1},
+                              getField @"uS_anon'y_y" x_0)
 {-| __C declaration:__ @union US@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 31:7@

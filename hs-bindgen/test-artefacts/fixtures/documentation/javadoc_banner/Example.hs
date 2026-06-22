@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| A struct documented with a Javadoc banner comment.
@@ -90,6 +91,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"banner_point_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "banner_point_x" Banner_point ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Banner_point {banner_point_x = y1, banner_point_y = RIP.getField @"banner_point_y" x0}
+      , RIP.getField @"banner_point_x" x0
+      )
+
 instance HasCField.HasCField Banner_point "banner_point_y" where
 
   type CFieldType Banner_point "banner_point_y" =
@@ -102,3 +113,13 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"banner_point_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "banner_point_y" Banner_point ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Banner_point {banner_point_y = y1, banner_point_x = RIP.getField @"banner_point_x" x0}
+      , RIP.getField @"banner_point_y" x0
+      )

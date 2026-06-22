@@ -18,6 +18,7 @@ hstypes:
       - foo_x
       - foo_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

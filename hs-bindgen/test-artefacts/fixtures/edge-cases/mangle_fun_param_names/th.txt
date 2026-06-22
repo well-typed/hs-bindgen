@@ -109,6 +109,9 @@ instance HasCField T "t_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"t_x")
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (\y_1 -> T{t_x = y_1},
+                              getField @"t_x" x_0)
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_underscore@
 foreign import ccall safe "hs_bindgen_32fb10fccaa5c64b" hs_bindgen_32fb10fccaa5c64b_base ::
     Ptr Void

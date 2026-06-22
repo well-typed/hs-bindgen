@@ -41,6 +41,7 @@ hstypes:
       - primitive_f
       - primitive_d
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

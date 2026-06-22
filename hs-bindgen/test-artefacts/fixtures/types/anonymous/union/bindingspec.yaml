@@ -38,6 +38,7 @@ hstypes:
       - has_implicit_fields_anon'x2_1_x2_1
       - has_implicit_fields_anon'x2_1_x2_2
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -55,6 +56,7 @@ hstypes:
       - has_implicit_fields_anon'x4_1_x4_1
       - has_implicit_fields_anon'x4_1_x4_2
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -30,6 +30,7 @@ hstypes:
       - example_triple
       - example_sudoku
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

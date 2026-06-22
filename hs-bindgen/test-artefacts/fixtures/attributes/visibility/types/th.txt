@@ -63,6 +63,9 @@ instance HasCField S5 "s5_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s5_x" (Ptr S5) (Ptr ty)
     where getField = fromPtr (Proxy @"s5_x")
+instance (~) ty CInt => HasField "s5_x" S5 ty
+    where hasField = \x_0 -> (\y_1 -> S5{s5_x = y_1},
+                              getField @"s5_x" x_0)
 {-| __C declaration:__ @struct S6@
 
     __defined at:__ @attributes\/visibility\/types.h 21:51@
@@ -92,6 +95,9 @@ instance HasCField S6 "s6_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s6_x" (Ptr S6) (Ptr ty)
     where getField = fromPtr (Proxy @"s6_x")
+instance (~) ty CInt => HasField "s6_x" S6 ty
+    where hasField = \x_0 -> (\y_1 -> S6{s6_x = y_1},
+                              getField @"s6_x" x_0)
 {-| __C declaration:__ @struct S7@
 
     __defined at:__ @attributes\/visibility\/types.h 22:51@
@@ -121,6 +127,9 @@ instance HasCField S7 "s7_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s7_x" (Ptr S7) (Ptr ty)
     where getField = fromPtr (Proxy @"s7_x")
+instance (~) ty CInt => HasField "s7_x" S7 ty
+    where hasField = \x_0 -> (\y_1 -> S7{s7_x = y_1},
+                              getField @"s7_x" x_0)
 {-| __C declaration:__ @struct S8@
 
     __defined at:__ @attributes\/visibility\/types.h 23:51@
@@ -150,6 +159,9 @@ instance HasCField S8 "s8_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s8_x" (Ptr S8) (Ptr ty)
     where getField = fromPtr (Proxy @"s8_x")
+instance (~) ty CInt => HasField "s8_x" S8 ty
+    where hasField = \x_0 -> (\y_1 -> S8{s8_x = y_1},
+                              getField @"s8_x" x_0)
 {-| __C declaration:__ @struct S9@
 
     __defined at:__ @attributes\/visibility\/types.h 24:51@
@@ -179,6 +191,9 @@ instance HasCField S9 "s9_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s9_x" (Ptr S9) (Ptr ty)
     where getField = fromPtr (Proxy @"s9_x")
+instance (~) ty CInt => HasField "s9_x" S9 ty
+    where hasField = \x_0 -> (\y_1 -> S9{s9_x = y_1},
+                              getField @"s9_x" x_0)
 {-| __C declaration:__ @struct S10@
 
     __defined at:__ @attributes\/visibility\/types.h 33:51@
@@ -208,6 +223,9 @@ instance HasCField S10 "s10_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s10_x" (Ptr S10) (Ptr ty)
     where getField = fromPtr (Proxy @"s10_x")
+instance (~) ty CInt => HasField "s10_x" S10 ty
+    where hasField = \x_0 -> (\y_1 -> S10{s10_x = y_1},
+                              getField @"s10_x" x_0)
 {-| __C declaration:__ @struct S11@
 
     __defined at:__ @attributes\/visibility\/types.h 34:51@
@@ -237,6 +255,9 @@ instance HasCField S11 "s11_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s11_x" (Ptr S11) (Ptr ty)
     where getField = fromPtr (Proxy @"s11_x")
+instance (~) ty CInt => HasField "s11_x" S11 ty
+    where hasField = \x_0 -> (\y_1 -> S11{s11_x = y_1},
+                              getField @"s11_x" x_0)
 {-| __C declaration:__ @struct S12@
 
     __defined at:__ @attributes\/visibility\/types.h 35:51@
@@ -266,6 +287,9 @@ instance HasCField S12 "s12_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s12_x" (Ptr S12) (Ptr ty)
     where getField = fromPtr (Proxy @"s12_x")
+instance (~) ty CInt => HasField "s12_x" S12 ty
+    where hasField = \x_0 -> (\y_1 -> S12{s12_x = y_1},
+                              getField @"s12_x" x_0)
 {-| __C declaration:__ @struct S13@
 
     __defined at:__ @attributes\/visibility\/types.h 36:51@
@@ -295,6 +319,9 @@ instance HasCField S13 "s13_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s13_x" (Ptr S13) (Ptr ty)
     where getField = fromPtr (Proxy @"s13_x")
+instance (~) ty CInt => HasField "s13_x" S13 ty
+    where hasField = \x_0 -> (\y_1 -> S13{s13_x = y_1},
+                              getField @"s13_x" x_0)
 {-| __C declaration:__ @struct S14@
 
     __defined at:__ @attributes\/visibility\/types.h 37:51@
@@ -324,6 +351,9 @@ instance HasCField S14 "s14_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s14_x" (Ptr S14) (Ptr ty)
     where getField = fromPtr (Proxy @"s14_x")
+instance (~) ty CInt => HasField "s14_x" S14 ty
+    where hasField = \x_0 -> (\y_1 -> S14{s14_x = y_1},
+                              getField @"s14_x" x_0)
 {-| __C declaration:__ @struct S15@
 
     __defined at:__ @attributes\/visibility\/types.h 46:51@
@@ -353,6 +383,9 @@ instance HasCField S15 "s15_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s15_x" (Ptr S15) (Ptr ty)
     where getField = fromPtr (Proxy @"s15_x")
+instance (~) ty CInt => HasField "s15_x" S15 ty
+    where hasField = \x_0 -> (\y_1 -> S15{s15_x = y_1},
+                              getField @"s15_x" x_0)
 {-| __C declaration:__ @struct S16@
 
     __defined at:__ @attributes\/visibility\/types.h 47:51@
@@ -382,6 +415,9 @@ instance HasCField S16 "s16_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s16_x" (Ptr S16) (Ptr ty)
     where getField = fromPtr (Proxy @"s16_x")
+instance (~) ty CInt => HasField "s16_x" S16 ty
+    where hasField = \x_0 -> (\y_1 -> S16{s16_x = y_1},
+                              getField @"s16_x" x_0)
 {-| __C declaration:__ @struct S17@
 
     __defined at:__ @attributes\/visibility\/types.h 48:51@
@@ -411,6 +447,9 @@ instance HasCField S17 "s17_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s17_x" (Ptr S17) (Ptr ty)
     where getField = fromPtr (Proxy @"s17_x")
+instance (~) ty CInt => HasField "s17_x" S17 ty
+    where hasField = \x_0 -> (\y_1 -> S17{s17_x = y_1},
+                              getField @"s17_x" x_0)
 {-| __C declaration:__ @struct S18@
 
     __defined at:__ @attributes\/visibility\/types.h 49:51@
@@ -440,6 +479,9 @@ instance HasCField S18 "s18_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s18_x" (Ptr S18) (Ptr ty)
     where getField = fromPtr (Proxy @"s18_x")
+instance (~) ty CInt => HasField "s18_x" S18 ty
+    where hasField = \x_0 -> (\y_1 -> S18{s18_x = y_1},
+                              getField @"s18_x" x_0)
 {-| __C declaration:__ @struct S19@
 
     __defined at:__ @attributes\/visibility\/types.h 50:51@
@@ -469,6 +511,9 @@ instance HasCField S19 "s19_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s19_x" (Ptr S19) (Ptr ty)
     where getField = fromPtr (Proxy @"s19_x")
+instance (~) ty CInt => HasField "s19_x" S19 ty
+    where hasField = \x_0 -> (\y_1 -> S19{s19_x = y_1},
+                              getField @"s19_x" x_0)
 {-| __C declaration:__ @union U0@
 
     __defined at:__ @attributes\/visibility\/types.h 53:50@

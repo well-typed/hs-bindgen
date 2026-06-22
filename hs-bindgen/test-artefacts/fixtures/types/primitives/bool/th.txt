@@ -37,11 +37,19 @@ instance HasCField Bools1 "bools1_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CBool => HasField "bools1_x" (Ptr Bools1) (Ptr ty)
     where getField = fromPtr (Proxy @"bools1_x")
+instance (~) ty CBool => HasField "bools1_x" Bools1 ty
+    where hasField = \x_0 -> (\y_1 -> Bools1{bools1_x = y_1,
+                                             bools1_y = getField @"bools1_y" x_0},
+                              getField @"bools1_x" x_0)
 instance HasCField Bools1 "bools1_y"
     where type CFieldType Bools1 "bools1_y" = CBool
           offset# = \_ -> \_ -> 1
 instance (~) ty CBool => HasField "bools1_y" (Ptr Bools1) (Ptr ty)
     where getField = fromPtr (Proxy @"bools1_y")
+instance (~) ty CBool => HasField "bools1_y" Bools1 ty
+    where hasField = \x_0 -> (\y_1 -> Bools1{bools1_y = y_1,
+                                             bools1_x = getField @"bools1_x" x_0},
+                              getField @"bools1_y" x_0)
 {-| __C declaration:__ @struct bools2@
 
     __defined at:__ @types\/primitives\/bool.h 8:8@
@@ -79,11 +87,19 @@ instance HasCField Bools2 "bools2_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CBool => HasField "bools2_x" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_x")
+instance (~) ty CBool => HasField "bools2_x" Bools2 ty
+    where hasField = \x_0 -> (\y_1 -> Bools2{bools2_x = y_1,
+                                             bools2_y = getField @"bools2_y" x_0},
+                              getField @"bools2_x" x_0)
 instance HasCField Bools2 "bools2_y"
     where type CFieldType Bools2 "bools2_y" = CBool
           offset# = \_ -> \_ -> 1
 instance (~) ty CBool => HasField "bools2_y" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_y")
+instance (~) ty CBool => HasField "bools2_y" Bools2 ty
+    where hasField = \x_0 -> (\y_1 -> Bools2{bools2_y = y_1,
+                                             bools2_x = getField @"bools2_x" x_0},
+                              getField @"bools2_y" x_0)
 {-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @types\/primitives\/bool.h 13:9@
@@ -150,8 +166,16 @@ instance HasCField Bools3 "bools3_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty BOOL => HasField "bools3_x" (Ptr Bools3) (Ptr ty)
     where getField = fromPtr (Proxy @"bools3_x")
+instance (~) ty BOOL => HasField "bools3_x" Bools3 ty
+    where hasField = \x_0 -> (\y_1 -> Bools3{bools3_x = y_1,
+                                             bools3_y = getField @"bools3_y" x_0},
+                              getField @"bools3_x" x_0)
 instance HasCField Bools3 "bools3_y"
     where type CFieldType Bools3 "bools3_y" = BOOL
           offset# = \_ -> \_ -> 1
 instance (~) ty BOOL => HasField "bools3_y" (Ptr Bools3) (Ptr ty)
     where getField = fromPtr (Proxy @"bools3_y")
+instance (~) ty BOOL => HasField "bools3_y" Bools3 ty
+    where hasField = \x_0 -> (\y_1 -> Bools3{bools3_y = y_1,
+                                             bools3_x = getField @"bools3_x" x_0},
+                              getField @"bools3_y" x_0)

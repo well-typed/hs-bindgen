@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MY_TYPE@
@@ -125,6 +126,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "bar_x" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_x = y1, bar_y = RIP.getField @"bar_y" x0}
+      , RIP.getField @"bar_x" x0
+      )
+
 instance HasCField.HasCField Bar "bar_y" where
 
   type CFieldType Bar "bar_y" = MY_TYPE
@@ -134,3 +144,12 @@ instance HasCField.HasCField Bar "bar_y" where
 instance (ty ~ MY_TYPE) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_y")
+
+instance (ty ~ MY_TYPE) => RIP.CompatHasField.HasField "bar_y" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_y = y1, bar_x = RIP.getField @"bar_x" x0}
+      , RIP.getField @"bar_y" x0
+      )

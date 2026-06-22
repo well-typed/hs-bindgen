@@ -71,6 +71,8 @@ module HsBindgen.Backend.Hs.AST (
     -- ** 'GHC.Records.HasField'
   , HasFieldInstance(..)
   , HasFieldInstanceVia(..)
+    -- ** 'GHC.Records.Compat.HasField'
+  , CompatHasFieldInstance(..)
     -- ** 'HasFlam'
   , HasFlamInstance(..)
     -- ** 'CEnum'
@@ -282,6 +284,7 @@ data InstanceDecl where
     InstanceHasCField       :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield    :: HasCBitfieldInstance -> InstanceDecl
     InstanceHasField        :: HasFieldInstance -> InstanceDecl
+    InstanceCompatHasField  :: CompatHasFieldInstance -> InstanceDecl
     InstanceHasFlam         :: Struct -> HasFlamInstance -> InstanceDecl
     -- | The 'Struct' wraps the C enum's underlying integer field. Invariant:
     -- exactly one field. Established at 'HsBindgen.Backend.Hs.Translation'
@@ -676,10 +679,10 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
-  'HasField'
+  'GHC.Records.HasField'
 -------------------------------------------------------------------------------}
 
--- | 'GHC.Records.HasField' instance (via a 'HsBindgen.Runtime.HasCField.HasCField' or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance).
+-- | 'GHC.Records.HasField' instance
 data HasFieldInstance = HasFieldInstance {
       -- | The Haskell type of the parent C object
       parentType :: HsType
@@ -690,13 +693,37 @@ data HasFieldInstance = HasFieldInstance {
       -- | The haskell type of the (bit-)field
     , fieldType :: HsType
 
-      -- | Implement the instance via a 'HsBindgen.Runtime.HasCField.HasCField' or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance.
+      -- | Implement the instance via a 'HsBindgen.Runtime.HasCField.HasCField'
+      -- or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance.
     , deriveVia :: HasFieldInstanceVia
     }
   deriving stock (Generic, Show)
 
 -- | See the @deriveVia@ field of 'HasFieldInstance'.
 data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'GHC.Records.Compat.HasField'
+-------------------------------------------------------------------------------}
+
+-- | 'GHC.Records.Compat.HasField' instance
+data CompatHasFieldInstance = CompatHasFieldInstance {
+      -- | The Haskell type of the parent C object
+      parentType :: HsType
+
+      -- | The name of the (bit-)field we want to set/get
+    , fieldName :: Hs.Name Hs.NsVar
+
+      -- | The haskell type of the (bit-)field
+    , fieldType :: HsType
+
+      -- | The other fields of the haskell type
+    , otherFields :: [Hs.Name Hs.NsVar]
+
+      -- | The constructor of the haskell type
+    , constr :: Hs.Name Hs.NsConstr
+    }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

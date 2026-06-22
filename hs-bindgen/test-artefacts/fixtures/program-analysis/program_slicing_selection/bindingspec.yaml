@@ -18,6 +18,7 @@ hstypes:
       - fileOperationRecord_status
       - fileOperationRecord_bytes_processed
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

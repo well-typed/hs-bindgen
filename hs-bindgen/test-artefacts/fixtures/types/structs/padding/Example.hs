@@ -21,6 +21,7 @@ module Example
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo@
@@ -95,6 +96,15 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_a")
 
+instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_a" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_a = y1, foo_b = RIP.getField @"foo_b" x0, foo_c = RIP.getField @"foo_c" x0}
+      , RIP.getField @"foo_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo "foo_b" where
 
   type CBitfieldType Foo "foo_b" = RIP.CSChar
@@ -108,6 +118,15 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_b")
 
+instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_b" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_b = y1, foo_a = RIP.getField @"foo_a" x0, foo_c = RIP.getField @"foo_c" x0}
+      , RIP.getField @"foo_b" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo "foo_c" where
 
   type CBitfieldType Foo "foo_c" = RIP.CSChar
@@ -120,6 +139,15 @@ instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_c")
+
+instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_c" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_c = y1, foo_a = RIP.getField @"foo_a" x0, foo_b = RIP.getField @"foo_b" x0}
+      , RIP.getField @"foo_c" x0
+      )
 
 {-| __C declaration:__ @struct bar@
 
@@ -184,6 +212,15 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"bar_x")
 
+instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "bar_x" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_x = y1, bar_y = RIP.getField @"bar_y" x0}
+      , RIP.getField @"bar_x" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar "bar_y" where
 
   type CBitfieldType Bar "bar_y" = RIP.CSChar
@@ -196,3 +233,12 @@ instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "bar_y" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"bar_y")
+
+instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "bar_y" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_y = y1, bar_x = RIP.getField @"bar_x" x0}
+      , RIP.getField @"bar_y" x0
+      )

@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'Fun_ptr'
@@ -169,3 +170,13 @@ instance ( ty ~ Fun_ptr
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"forward_declaration_f")
+
+instance ( ty ~ Fun_ptr
+         ) => RIP.CompatHasField.HasField "forward_declaration_f" Forward_declaration ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Forward_declaration {forward_declaration_f = y1}
+      , RIP.getField @"forward_declaration_f" x0
+      )

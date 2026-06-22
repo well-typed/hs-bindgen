@@ -40,6 +40,11 @@ instance (~) ty CInt =>
                   (Ptr Outer1_anon'fieldX)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldX")
+instance (~) ty CInt =>
+         HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty
+    where hasField = \x_0 -> (\y_1 -> Outer1_anon'fieldX{outer1_anon'fieldX_fieldX = y_1,
+                                                         outer1_anon'fieldX_fieldY = getField @"outer1_anon'fieldX_fieldY" x_0},
+                              getField @"outer1_anon'fieldX_fieldX" x_0)
 instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldY"
     where type CFieldType Outer1_anon'fieldX
                           "outer1_anon'fieldX_fieldY" = CInt
@@ -49,6 +54,11 @@ instance (~) ty CInt =>
                   (Ptr Outer1_anon'fieldX)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldY")
+instance (~) ty CInt =>
+         HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty
+    where hasField = \x_0 -> (\y_1 -> Outer1_anon'fieldX{outer1_anon'fieldX_fieldY = y_1,
+                                                         outer1_anon'fieldX_fieldX = getField @"outer1_anon'fieldX_fieldX" x_0},
+                              getField @"outer1_anon'fieldX_fieldY" x_0)
 {-| __C declaration:__ @struct outer1@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 6:8@
@@ -95,6 +105,11 @@ instance HasCField Outer1 "outer1_fieldA"
 instance (~) ty CChar =>
          HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldA")
+instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
+    where hasField = \x_0 -> (\y_1 -> Outer1{outer1_fieldA = y_1,
+                                             outer1_anon'fieldX = getField @"outer1_anon'fieldX" x_0,
+                                             outer1_fieldC = getField @"outer1_fieldC" x_0},
+                              getField @"outer1_fieldA" x_0)
 instance HasCField Outer1 "outer1_anon'fieldX"
     where type CFieldType Outer1
                           "outer1_anon'fieldX" = Outer1_anon'fieldX
@@ -102,12 +117,23 @@ instance HasCField Outer1 "outer1_anon'fieldX"
 instance (~) ty Outer1_anon'fieldX =>
          HasField "outer1_anon'fieldX" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX")
+instance (~) ty Outer1_anon'fieldX =>
+         HasField "outer1_anon'fieldX" Outer1 ty
+    where hasField = \x_0 -> (\y_1 -> Outer1{outer1_anon'fieldX = y_1,
+                                             outer1_fieldA = getField @"outer1_fieldA" x_0,
+                                             outer1_fieldC = getField @"outer1_fieldC" x_0},
+                              getField @"outer1_anon'fieldX" x_0)
 instance HasCField Outer1 "outer1_fieldC"
     where type CFieldType Outer1 "outer1_fieldC" = CInt
           offset# = \_ -> \_ -> 12
 instance (~) ty CInt =>
          HasField "outer1_fieldC" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldC")
+instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
+    where hasField = \x_0 -> (\y_1 -> Outer1{outer1_fieldC = y_1,
+                                             outer1_fieldA = getField @"outer1_fieldA" x_0,
+                                             outer1_anon'fieldX = getField @"outer1_anon'fieldX" x_0},
+                              getField @"outer1_fieldC" x_0)
 {-| __C declaration:__ @struct \@outer2_fieldB@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 17:3@
@@ -146,12 +172,22 @@ instance HasCField Outer2_fieldB "outer2_fieldB_fieldX"
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldX" (Ptr Outer2_fieldB) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldB_fieldX")
+instance (~) ty CInt =>
+         HasField "outer2_fieldB_fieldX" Outer2_fieldB ty
+    where hasField = \x_0 -> (\y_1 -> Outer2_fieldB{outer2_fieldB_fieldX = y_1,
+                                                    outer2_fieldB_fieldY = getField @"outer2_fieldB_fieldY" x_0},
+                              getField @"outer2_fieldB_fieldX" x_0)
 instance HasCField Outer2_fieldB "outer2_fieldB_fieldY"
     where type CFieldType Outer2_fieldB "outer2_fieldB_fieldY" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldY" (Ptr Outer2_fieldB) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldB_fieldY")
+instance (~) ty CInt =>
+         HasField "outer2_fieldB_fieldY" Outer2_fieldB ty
+    where hasField = \x_0 -> (\y_1 -> Outer2_fieldB{outer2_fieldB_fieldY = y_1,
+                                                    outer2_fieldB_fieldX = getField @"outer2_fieldB_fieldX" x_0},
+                              getField @"outer2_fieldB_fieldY" x_0)
 {-| __C declaration:__ @struct outer2@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 15:8@
@@ -198,18 +234,33 @@ instance HasCField Outer2 "outer2_fieldA"
 instance (~) ty CChar =>
          HasField "outer2_fieldA" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldA")
+instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
+    where hasField = \x_0 -> (\y_1 -> Outer2{outer2_fieldA = y_1,
+                                             outer2_fieldB = getField @"outer2_fieldB" x_0,
+                                             outer2_fieldC = getField @"outer2_fieldC" x_0},
+                              getField @"outer2_fieldA" x_0)
 instance HasCField Outer2 "outer2_fieldB"
     where type CFieldType Outer2 "outer2_fieldB" = Outer2_fieldB
           offset# = \_ -> \_ -> 4
 instance (~) ty Outer2_fieldB =>
          HasField "outer2_fieldB" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldB")
+instance (~) ty Outer2_fieldB => HasField "outer2_fieldB" Outer2 ty
+    where hasField = \x_0 -> (\y_1 -> Outer2{outer2_fieldB = y_1,
+                                             outer2_fieldA = getField @"outer2_fieldA" x_0,
+                                             outer2_fieldC = getField @"outer2_fieldC" x_0},
+                              getField @"outer2_fieldB" x_0)
 instance HasCField Outer2 "outer2_fieldC"
     where type CFieldType Outer2 "outer2_fieldC" = CInt
           offset# = \_ -> \_ -> 12
 instance (~) ty CInt =>
          HasField "outer2_fieldC" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldC")
+instance (~) ty CInt => HasField "outer2_fieldC" Outer2 ty
+    where hasField = \x_0 -> (\y_1 -> Outer2{outer2_fieldC = y_1,
+                                             outer2_fieldA = getField @"outer2_fieldA" x_0,
+                                             outer2_fieldB = getField @"outer2_fieldB" x_0},
+                              getField @"outer2_fieldC" x_0)
 {-| __C declaration:__ @struct inner3@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 26:10@
@@ -248,12 +299,20 @@ instance HasCField Inner3 "inner3_fieldX"
 instance (~) ty CInt =>
          HasField "inner3_fieldX" (Ptr Inner3) (Ptr ty)
     where getField = fromPtr (Proxy @"inner3_fieldX")
+instance (~) ty CInt => HasField "inner3_fieldX" Inner3 ty
+    where hasField = \x_0 -> (\y_1 -> Inner3{inner3_fieldX = y_1,
+                                             inner3_fieldY = getField @"inner3_fieldY" x_0},
+                              getField @"inner3_fieldX" x_0)
 instance HasCField Inner3 "inner3_fieldY"
     where type CFieldType Inner3 "inner3_fieldY" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "inner3_fieldY" (Ptr Inner3) (Ptr ty)
     where getField = fromPtr (Proxy @"inner3_fieldY")
+instance (~) ty CInt => HasField "inner3_fieldY" Inner3 ty
+    where hasField = \x_0 -> (\y_1 -> Inner3{inner3_fieldY = y_1,
+                                             inner3_fieldX = getField @"inner3_fieldX" x_0},
+                              getField @"inner3_fieldY" x_0)
 {-| __C declaration:__ @struct outer3@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 24:8@
@@ -300,15 +359,30 @@ instance HasCField Outer3 "outer3_fieldA"
 instance (~) ty CChar =>
          HasField "outer3_fieldA" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldA")
+instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
+    where hasField = \x_0 -> (\y_1 -> Outer3{outer3_fieldA = y_1,
+                                             outer3_fieldB = getField @"outer3_fieldB" x_0,
+                                             outer3_fieldC = getField @"outer3_fieldC" x_0},
+                              getField @"outer3_fieldA" x_0)
 instance HasCField Outer3 "outer3_fieldB"
     where type CFieldType Outer3 "outer3_fieldB" = Inner3
           offset# = \_ -> \_ -> 4
 instance (~) ty Inner3 =>
          HasField "outer3_fieldB" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldB")
+instance (~) ty Inner3 => HasField "outer3_fieldB" Outer3 ty
+    where hasField = \x_0 -> (\y_1 -> Outer3{outer3_fieldB = y_1,
+                                             outer3_fieldA = getField @"outer3_fieldA" x_0,
+                                             outer3_fieldC = getField @"outer3_fieldC" x_0},
+                              getField @"outer3_fieldB" x_0)
 instance HasCField Outer3 "outer3_fieldC"
     where type CFieldType Outer3 "outer3_fieldC" = CInt
           offset# = \_ -> \_ -> 12
 instance (~) ty CInt =>
          HasField "outer3_fieldC" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldC")
+instance (~) ty CInt => HasField "outer3_fieldC" Outer3 ty
+    where hasField = \x_0 -> (\y_1 -> Outer3{outer3_fieldC = y_1,
+                                             outer3_fieldA = getField @"outer3_fieldA" x_0,
+                                             outer3_fieldB = getField @"outer3_fieldB" x_0},
+                              getField @"outer3_fieldC" x_0)

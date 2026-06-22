@@ -20,6 +20,7 @@ hstypes:
       fields:
       - bare_callback
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - driver_run
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

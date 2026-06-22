@@ -41,6 +41,13 @@ instance (~) ty CInt =>
                   (Ptr Has_implicit_fields_anon'x2_1)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"has_implicit_fields_anon'x2_1_x2_1")
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x2_1_x2_1"
+                  Has_implicit_fields_anon'x2_1
+                  ty
+    where hasField = \x_0 -> (\y_1 -> Has_implicit_fields_anon'x2_1{has_implicit_fields_anon'x2_1_x2_1 = y_1,
+                                                                    has_implicit_fields_anon'x2_1_x2_2 = getField @"has_implicit_fields_anon'x2_1_x2_2" x_0},
+                              getField @"has_implicit_fields_anon'x2_1_x2_1" x_0)
 instance HasCField Has_implicit_fields_anon'x2_1
                    "has_implicit_fields_anon'x2_1_x2_2"
     where type CFieldType Has_implicit_fields_anon'x2_1
@@ -51,6 +58,13 @@ instance (~) ty CInt =>
                   (Ptr Has_implicit_fields_anon'x2_1)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"has_implicit_fields_anon'x2_1_x2_2")
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x2_1_x2_2"
+                  Has_implicit_fields_anon'x2_1
+                  ty
+    where hasField = \x_0 -> (\y_1 -> Has_implicit_fields_anon'x2_1{has_implicit_fields_anon'x2_1_x2_2 = y_1,
+                                                                    has_implicit_fields_anon'x2_1_x2_1 = getField @"has_implicit_fields_anon'x2_1_x2_1" x_0},
+                              getField @"has_implicit_fields_anon'x2_1_x2_2" x_0)
 {-| __C declaration:__ @struct \@has_implicit_fields_anon\'x4_1@
 
     __defined at:__ @types\/anonymous\/union.h 10:3@
@@ -93,6 +107,13 @@ instance (~) ty CInt =>
                   (Ptr Has_implicit_fields_anon'x4_1)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"has_implicit_fields_anon'x4_1_x4_1")
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x4_1_x4_1"
+                  Has_implicit_fields_anon'x4_1
+                  ty
+    where hasField = \x_0 -> (\y_1 -> Has_implicit_fields_anon'x4_1{has_implicit_fields_anon'x4_1_x4_1 = y_1,
+                                                                    has_implicit_fields_anon'x4_1_x4_2 = getField @"has_implicit_fields_anon'x4_1_x4_2" x_0},
+                              getField @"has_implicit_fields_anon'x4_1_x4_1" x_0)
 instance HasCField Has_implicit_fields_anon'x4_1
                    "has_implicit_fields_anon'x4_1_x4_2"
     where type CFieldType Has_implicit_fields_anon'x4_1
@@ -103,6 +124,13 @@ instance (~) ty CInt =>
                   (Ptr Has_implicit_fields_anon'x4_1)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"has_implicit_fields_anon'x4_1_x4_2")
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x4_1_x4_2"
+                  Has_implicit_fields_anon'x4_1
+                  ty
+    where hasField = \x_0 -> (\y_1 -> Has_implicit_fields_anon'x4_1{has_implicit_fields_anon'x4_1_x4_2 = y_1,
+                                                                    has_implicit_fields_anon'x4_1_x4_1 = getField @"has_implicit_fields_anon'x4_1_x4_1" x_0},
+                              getField @"has_implicit_fields_anon'x4_1_x4_2" x_0)
 {-| __C declaration:__ @union \@has_implicit_fields_anon\'x5_1@
 
     __defined at:__ @types\/anonymous\/union.h 14:3@

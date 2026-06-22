@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct vector@
@@ -82,6 +83,16 @@ instance ( ty ~ RIP.CDouble
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
 
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "vector_x" Vector ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Vector {vector_x = y1, vector_y = RIP.getField @"vector_y" x0}
+      , RIP.getField @"vector_x" x0
+      )
+
 instance HasCField.HasCField Vector "vector_y" where
 
   type CFieldType Vector "vector_y" = RIP.CDouble
@@ -92,3 +103,13 @@ instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"vector_y")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "vector_y" Vector ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Vector {vector_y = y1, vector_x = RIP.getField @"vector_x" x0}
+      , RIP.getField @"vector_y" x0
+      )

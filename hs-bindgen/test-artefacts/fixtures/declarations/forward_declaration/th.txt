@@ -28,6 +28,9 @@ instance HasCField S1_t "s1_t_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_t_a")
+instance (~) ty CInt => HasField "s1_t_a" S1_t ty
+    where hasField = \x_0 -> (\y_1 -> S1_t{s1_t_a = y_1},
+                              getField @"s1_t_a" x_0)
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @declarations\/forward_declaration.h 9:8@
@@ -57,3 +60,6 @@ instance HasCField S2 "s2_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s2_a" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_a")
+instance (~) ty CInt => HasField "s2_a" S2 ty
+    where hasField = \x_0 -> (\y_1 -> S2{s2_a = y_1},
+                              getField @"s2_a" x_0)

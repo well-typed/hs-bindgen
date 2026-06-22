@@ -36,8 +36,16 @@ instance HasCField Piyo "piyo_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "piyo_x" (Ptr Piyo) (Ptr ty)
     where getField = fromPtr (Proxy @"piyo_x")
+instance (~) ty CInt => HasField "piyo_x" Piyo ty
+    where hasField = \x_0 -> (\y_1 -> Piyo{piyo_x = y_1,
+                                           piyo_y = getField @"piyo_y" x_0},
+                              getField @"piyo_x" x_0)
 instance HasCField Piyo "piyo_y"
     where type CFieldType Piyo "piyo_y" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "piyo_y" (Ptr Piyo) (Ptr ty)
     where getField = fromPtr (Proxy @"piyo_y")
+instance (~) ty CInt => HasField "piyo_y" Piyo ty
+    where hasField = \x_0 -> (\y_1 -> Piyo{piyo_y = y_1,
+                                           piyo_x = getField @"piyo_x" x_0},
+                              getField @"piyo_y" x_0)

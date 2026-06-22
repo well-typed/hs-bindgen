@@ -67,6 +67,7 @@ hstypes:
       fields:
       - struct1_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -83,6 +84,7 @@ hstypes:
       fields:
       - struct2_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -99,6 +101,7 @@ hstypes:
       fields:
       - struct3_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -131,6 +134,7 @@ hstypes:
       fields:
       - struct4_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

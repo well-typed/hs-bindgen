@@ -46,6 +46,7 @@ data TypeClass =
   | HasCField     -- Indicates instances for all non-bit fields
   | HasFFIType
   | HasField      -- Indicates instances for all fields
+  | CompatHasField -- Indicates instances for all fields
   | Integral
   | IsArray
   | Ix
@@ -169,18 +170,19 @@ instance Default SupportedInstances where
   def =
     SupportedInstances{
         struct = Map.fromList [
-            mkDef Eq           Dependent   Stock     []
-          , mkDef Flam_Offset  Independent HsBindgen []
-          , mkDef Generic      Independent Stock     []
-          , mkDef HasCBitfield Independent HsBindgen []
-          , mkDef HasCField    Independent HsBindgen []
-          , mkDef HasField     Independent HsBindgen []
-          , mkOpt Ord          Dependent             [Stock]
-          , mkDef ReadRaw      Dependent   HsBindgen []
-          , mkDef Show         Dependent   Stock     []
-          , mkDef StaticSize   Dependent   HsBindgen []
-          , mkDef Storable     Dependent   HsBindgen []
-          , mkDef WriteRaw     Dependent   HsBindgen []
+            mkDef Eq             Dependent   Stock     []
+          , mkDef Flam_Offset    Independent HsBindgen []
+          , mkDef Generic        Independent Stock     []
+          , mkDef HasCBitfield   Independent HsBindgen []
+          , mkDef HasCField      Independent HsBindgen []
+          , mkDef HasField       Independent HsBindgen []
+          , mkDef CompatHasField Independent HsBindgen []
+          , mkOpt Ord            Dependent             [Stock]
+          , mkDef ReadRaw        Dependent   HsBindgen []
+          , mkDef Show           Dependent   Stock     []
+          , mkDef StaticSize     Dependent   HsBindgen []
+          , mkDef Storable       Dependent   HsBindgen []
+          , mkDef WriteRaw       Dependent   HsBindgen []
           ]
       , union = Map.fromList [
             mkDef Generic      Independent Stock     []

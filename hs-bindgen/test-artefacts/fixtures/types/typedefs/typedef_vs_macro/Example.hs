@@ -28,6 +28,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @T1@
@@ -299,6 +300,20 @@ instance ( ty ~ T1
   getField =
     HasCField.fromPtr (RIP.Proxy @"exampleStruct_t1")
 
+instance ( ty ~ T1
+         ) => RIP.CompatHasField.HasField "exampleStruct_t1" ExampleStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ExampleStruct { exampleStruct_t1 = y1
+                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
+                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        }
+      , RIP.getField @"exampleStruct_t1" x0
+      )
+
 instance HasCField.HasCField ExampleStruct "exampleStruct_t2" where
 
   type CFieldType ExampleStruct "exampleStruct_t2" = T2
@@ -310,6 +325,20 @@ instance ( ty ~ T2
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exampleStruct_t2")
+
+instance ( ty ~ T2
+         ) => RIP.CompatHasField.HasField "exampleStruct_t2" ExampleStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ExampleStruct { exampleStruct_t2 = y1
+                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
+                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
+                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        }
+      , RIP.getField @"exampleStruct_t2" x0
+      )
 
 instance HasCField.HasCField ExampleStruct "exampleStruct_m1" where
 
@@ -323,6 +352,20 @@ instance ( ty ~ M1
   getField =
     HasCField.fromPtr (RIP.Proxy @"exampleStruct_m1")
 
+instance ( ty ~ M1
+         ) => RIP.CompatHasField.HasField "exampleStruct_m1" ExampleStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ExampleStruct { exampleStruct_m1 = y1
+                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
+                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        }
+      , RIP.getField @"exampleStruct_m1" x0
+      )
+
 instance HasCField.HasCField ExampleStruct "exampleStruct_m2" where
 
   type CFieldType ExampleStruct "exampleStruct_m2" = M2
@@ -334,6 +377,20 @@ instance ( ty ~ M2
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exampleStruct_m2")
+
+instance ( ty ~ M2
+         ) => RIP.CompatHasField.HasField "exampleStruct_m2" ExampleStruct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ExampleStruct { exampleStruct_m2 = y1
+                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
+                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
+                        }
+      , RIP.getField @"exampleStruct_m2" x0
+      )
 
 {-| __C declaration:__ @macro uint64_t@
 
@@ -426,3 +483,10 @@ instance ( ty ~ RIP.Ptr Uint64_t
          ) => RIP.HasField "foo_a" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_a")
+
+instance ( ty ~ RIP.Ptr Uint64_t
+         ) => RIP.CompatHasField.HasField "foo_a" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> Foo {foo_a = y1}, RIP.getField @"foo_a" x0)

@@ -19,6 +19,7 @@ hstypes:
       - complex_object_t_position
       - complex_object_t_id
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

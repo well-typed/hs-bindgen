@@ -41,6 +41,11 @@ instance HasCField Foo "foo_sixty_four"
 instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_sixty_four")
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "foo_sixty_four" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_sixty_four = y_1,
+                                          foo_thirty_two = getField @"foo_thirty_two" x_0},
+                              getField @"foo_sixty_four" x_0)
 instance HasCField Foo "foo_thirty_two"
     where type CFieldType Foo
                           "foo_thirty_two" = HsBindgen.Runtime.LibC.Word32
@@ -48,3 +53,8 @@ instance HasCField Foo "foo_thirty_two"
 instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_thirty_two")
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "foo_thirty_two" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_thirty_two = y_1,
+                                          foo_sixty_four = getField @"foo_sixty_four" x_0},
+                              getField @"foo_thirty_two" x_0)

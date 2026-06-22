@@ -14,6 +14,7 @@ hstypes:
       fields:
       - baz_x3_1
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -15,6 +15,7 @@ hstypes:
       - banner_point_x
       - banner_point_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
