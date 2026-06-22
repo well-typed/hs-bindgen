@@ -7,8 +7,8 @@ ctypes:
   cname: union outer1
   hsname: Outer1
 - headers: types/anonymous/union_in_union.h
-  cname: union @outer1_fieldX
-  hsname: Outer1_fieldX
+  cname: union @outer1_anon'fieldX
+  hsname: Outer1_anon'fieldX
 - headers: types/anonymous/union_in_union.h
   cname: union outer2
   hsname: Outer2
@@ -50,12 +50,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Outer1_fieldX
+- hsname: Outer1_anon'fieldX
   representation:
     newtype:
-      constructor: Outer1_fieldX
+      constructor: Outer1_anon'fieldX
       fields:
-      - unwrapOuter1_fieldX
+      - unwrapOuter1_anon'fieldX
   instances:
   - Generic
   - HasCField

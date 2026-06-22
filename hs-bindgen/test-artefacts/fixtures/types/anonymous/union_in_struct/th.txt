@@ -1,20 +1,23 @@
 -- addDependentFile test-artefacts/headers/golden/types/anonymous/union_in_struct.h
-{-| __C declaration:__ @union \@outer1_fieldX@
+{-| __C declaration:__ @union \@outer1_anon\'fieldX@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 8:3@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-newtype Outer1_fieldX
-    = Outer1_fieldX {unwrapOuter1_fieldX :: ByteArray}
+newtype Outer1_anon'fieldX
+    = Outer1_anon'fieldX {unwrapOuter1_anon'fieldX :: ByteArray}
     deriving stock Generic
-deriving via (SizedByteArray 4 4) instance StaticSize Outer1_fieldX
-deriving via (SizedByteArray 4 4) instance ReadRaw Outer1_fieldX
-deriving via (SizedByteArray 4 4) instance WriteRaw Outer1_fieldX
-deriving via (EquivStorable Outer1_fieldX) instance Storable Outer1_fieldX
+deriving via (SizedByteArray 4
+                             4) instance StaticSize Outer1_anon'fieldX
+deriving via (SizedByteArray 4
+                             4) instance ReadRaw Outer1_anon'fieldX
+deriving via (SizedByteArray 4
+                             4) instance WriteRaw Outer1_anon'fieldX
+deriving via (EquivStorable Outer1_anon'fieldX) instance Storable Outer1_anon'fieldX
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldX'
+    __See:__ 'set_outer1_anon'fieldX_fieldX'
 
     __C declaration:__ @fieldX@
 
@@ -22,10 +25,10 @@ deriving via (EquivStorable Outer1_fieldX) instance Storable Outer1_fieldX
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldX :: Outer1_fieldX -> CInt
+get_outer1_anon'fieldX_fieldX :: Outer1_anon'fieldX -> CInt
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldX'
+    __See:__ 'set_outer1_anon'fieldX_fieldX'
 
     __C declaration:__ @fieldX@
 
@@ -33,22 +36,22 @@ get_outer1_fieldX_fieldX :: Outer1_fieldX -> CInt
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldX = getUnionPayload
+get_outer1_anon'fieldX_fieldX = getUnionPayload
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldX'
+    __See:__ 'get_outer1_anon'fieldX_fieldX'
 
 -}
-set_outer1_fieldX_fieldX :: CInt -> Outer1_fieldX
+set_outer1_anon'fieldX_fieldX :: CInt -> Outer1_anon'fieldX
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldX'
+    __See:__ 'get_outer1_anon'fieldX_fieldX'
 
 -}
-set_outer1_fieldX_fieldX = setUnionPayload
+set_outer1_anon'fieldX_fieldX = setUnionPayload
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldY'
+    __See:__ 'set_outer1_anon'fieldX_fieldY'
 
     __C declaration:__ @fieldY@
 
@@ -56,10 +59,10 @@ set_outer1_fieldX_fieldX = setUnionPayload
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldY :: Outer1_fieldX -> CInt
+get_outer1_anon'fieldX_fieldY :: Outer1_anon'fieldX -> CInt
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldY'
+    __See:__ 'set_outer1_anon'fieldX_fieldY'
 
     __C declaration:__ @fieldY@
 
@@ -67,31 +70,37 @@ get_outer1_fieldX_fieldY :: Outer1_fieldX -> CInt
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldY = getUnionPayload
+get_outer1_anon'fieldX_fieldY = getUnionPayload
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldY'
+    __See:__ 'get_outer1_anon'fieldX_fieldY'
 
 -}
-set_outer1_fieldX_fieldY :: CInt -> Outer1_fieldX
+set_outer1_anon'fieldX_fieldY :: CInt -> Outer1_anon'fieldX
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldY'
+    __See:__ 'get_outer1_anon'fieldX_fieldY'
 
 -}
-set_outer1_fieldX_fieldY = setUnionPayload
-instance HasCField Outer1_fieldX "outer1_fieldX_fieldX"
-    where type CFieldType Outer1_fieldX "outer1_fieldX_fieldX" = CInt
+set_outer1_anon'fieldX_fieldY = setUnionPayload
+instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX"
+    where type CFieldType Outer1_anon'fieldX
+                          "outer1_anon'fieldX_fieldX" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
-         HasField "outer1_fieldX_fieldX" (Ptr Outer1_fieldX) (Ptr ty)
-    where getField = fromPtr (Proxy @"outer1_fieldX_fieldX")
-instance HasCField Outer1_fieldX "outer1_fieldX_fieldY"
-    where type CFieldType Outer1_fieldX "outer1_fieldX_fieldY" = CInt
+         HasField "outer1_anon'fieldX_fieldX"
+                  (Ptr Outer1_anon'fieldX)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldX")
+instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldY"
+    where type CFieldType Outer1_anon'fieldX
+                          "outer1_anon'fieldX_fieldY" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
-         HasField "outer1_fieldX_fieldY" (Ptr Outer1_fieldX) (Ptr ty)
-    where getField = fromPtr (Proxy @"outer1_fieldX_fieldY")
+         HasField "outer1_anon'fieldX_fieldY"
+                  (Ptr Outer1_anon'fieldX)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldY")
 {-| __C declaration:__ @struct outer1@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 6:8@
@@ -106,8 +115,8 @@ data Outer1
 
                    __exported by:__ @types\/anonymous\/union_in_struct.h@
               -},
-              outer1_fieldX :: Outer1_fieldX
-              {- ^ __C declaration:__ @fieldX@
+              outer1_anon'fieldX :: Outer1_anon'fieldX
+              {- ^ __C declaration:__ @anon\'fieldX@
 
                    __defined at:__ @types\/anonymous\/union_in_struct.h 8:3@
 
@@ -125,12 +134,12 @@ instance StaticSize Outer1
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw Outer1
-    where readRaw = \ptr_0 -> ((pure Outer1 <*> readRaw (Proxy @"outer1_fieldA") ptr_0) <*> readRaw (Proxy @"outer1_fieldX") ptr_0) <*> readRaw (Proxy @"outer1_fieldC") ptr_0
+    where readRaw = \ptr_0 -> ((pure Outer1 <*> readRaw (Proxy @"outer1_fieldA") ptr_0) <*> readRaw (Proxy @"outer1_anon'fieldX") ptr_0) <*> readRaw (Proxy @"outer1_fieldC") ptr_0
 instance WriteRaw Outer1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Outer1 outer1_fieldA_2
-                                              outer1_fieldX_3
-                                              outer1_fieldC_4 -> writeRaw (Proxy @"outer1_fieldA") ptr_0 outer1_fieldA_2 >> (writeRaw (Proxy @"outer1_fieldX") ptr_0 outer1_fieldX_3 >> writeRaw (Proxy @"outer1_fieldC") ptr_0 outer1_fieldC_4)
+                                              outer1_anon'fieldX_3
+                                              outer1_fieldC_4 -> writeRaw (Proxy @"outer1_fieldA") ptr_0 outer1_fieldA_2 >> (writeRaw (Proxy @"outer1_anon'fieldX") ptr_0 outer1_anon'fieldX_3 >> writeRaw (Proxy @"outer1_fieldC") ptr_0 outer1_fieldC_4)
 deriving via (EquivStorable Outer1) instance Storable Outer1
 instance HasCField Outer1 "outer1_fieldA"
     where type CFieldType Outer1 "outer1_fieldA" = CChar
@@ -138,12 +147,13 @@ instance HasCField Outer1 "outer1_fieldA"
 instance (~) ty CChar =>
          HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldA")
-instance HasCField Outer1 "outer1_fieldX"
-    where type CFieldType Outer1 "outer1_fieldX" = Outer1_fieldX
+instance HasCField Outer1 "outer1_anon'fieldX"
+    where type CFieldType Outer1
+                          "outer1_anon'fieldX" = Outer1_anon'fieldX
           offset# = \_ -> \_ -> 4
-instance (~) ty Outer1_fieldX =>
-         HasField "outer1_fieldX" (Ptr Outer1) (Ptr ty)
-    where getField = fromPtr (Proxy @"outer1_fieldX")
+instance (~) ty Outer1_anon'fieldX =>
+         HasField "outer1_anon'fieldX" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_anon'fieldX")
 instance HasCField Outer1 "outer1_fieldC"
     where type CFieldType Outer1 "outer1_fieldC" = CInt
           offset# = \_ -> \_ -> 8

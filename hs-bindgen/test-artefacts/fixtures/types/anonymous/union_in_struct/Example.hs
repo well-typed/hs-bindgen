@@ -13,11 +13,11 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.Outer1_fieldX(..)
-    , Example.get_outer1_fieldX_fieldX
-    , Example.set_outer1_fieldX_fieldX
-    , Example.get_outer1_fieldX_fieldY
-    , Example.set_outer1_fieldX_fieldY
+    ( Example.Outer1_anon'fieldX(..)
+    , Example.get_outer1_anon'fieldX_fieldX
+    , Example.set_outer1_anon'fieldX_fieldX
+    , Example.get_outer1_anon'fieldX_fieldY
+    , Example.set_outer1_anon'fieldX_fieldY
     , Example.Outer1(..)
     , Example.Outer2_fieldB(..)
     , Example.get_outer2_fieldB_fieldX
@@ -38,28 +38,28 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @union \@outer1_fieldX@
+{-| __C declaration:__ @union \@outer1_anon\'fieldX@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 8:3@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-newtype Outer1_fieldX = Outer1_fieldX
-  { unwrapOuter1_fieldX :: RIP.ByteArray
+newtype Outer1_anon'fieldX = Outer1_anon'fieldX
+  { unwrapOuter1_anon'fieldX :: RIP.ByteArray
   }
   deriving stock (RIP.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize Outer1_fieldX
+deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize Outer1_anon'fieldX
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw Outer1_fieldX
+deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw Outer1_anon'fieldX
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Outer1_fieldX
+deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Outer1_anon'fieldX
 
-deriving via Marshal.EquivStorable Outer1_fieldX instance RIP.Storable Outer1_fieldX
+deriving via Marshal.EquivStorable Outer1_anon'fieldX instance RIP.Storable Outer1_anon'fieldX
 
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldX'
+    __See:__ 'set_outer1_anon'fieldX_fieldX'
 
     __C declaration:__ @fieldX@
 
@@ -67,24 +67,24 @@ deriving via Marshal.EquivStorable Outer1_fieldX instance RIP.Storable Outer1_fi
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldX ::
-     Outer1_fieldX
+get_outer1_anon'fieldX_fieldX ::
+     Outer1_anon'fieldX
   -> RIP.CInt
-get_outer1_fieldX_fieldX = RIP.getUnionPayload
+get_outer1_anon'fieldX_fieldX = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldX'
+    __See:__ 'get_outer1_anon'fieldX_fieldX'
 
 -}
-set_outer1_fieldX_fieldX ::
+set_outer1_anon'fieldX_fieldX ::
      RIP.CInt
-  -> Outer1_fieldX
-set_outer1_fieldX_fieldX = RIP.setUnionPayload
+  -> Outer1_anon'fieldX
+set_outer1_anon'fieldX_fieldX = RIP.setUnionPayload
 
 {-|
 
-    __See:__ 'set_outer1_fieldX_fieldY'
+    __See:__ 'set_outer1_anon'fieldX_fieldY'
 
     __C declaration:__ @fieldY@
 
@@ -92,46 +92,46 @@ set_outer1_fieldX_fieldX = RIP.setUnionPayload
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_fieldX_fieldY ::
-     Outer1_fieldX
+get_outer1_anon'fieldX_fieldY ::
+     Outer1_anon'fieldX
   -> RIP.CInt
-get_outer1_fieldX_fieldY = RIP.getUnionPayload
+get_outer1_anon'fieldX_fieldY = RIP.getUnionPayload
 
 {-|
 
-    __See:__ 'get_outer1_fieldX_fieldY'
+    __See:__ 'get_outer1_anon'fieldX_fieldY'
 
 -}
-set_outer1_fieldX_fieldY ::
+set_outer1_anon'fieldX_fieldY ::
      RIP.CInt
-  -> Outer1_fieldX
-set_outer1_fieldX_fieldY = RIP.setUnionPayload
+  -> Outer1_anon'fieldX
+set_outer1_anon'fieldX_fieldY = RIP.setUnionPayload
 
-instance HasCField.HasCField Outer1_fieldX "outer1_fieldX_fieldX" where
+instance HasCField.HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX" where
 
-  type CFieldType Outer1_fieldX "outer1_fieldX_fieldX" =
+  type CFieldType Outer1_anon'fieldX "outer1_anon'fieldX_fieldX" =
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outer1_fieldX_fieldX" (RIP.Ptr Outer1_fieldX) (RIP.Ptr ty) where
+         ) => RIP.HasField "outer1_anon'fieldX_fieldX" (RIP.Ptr Outer1_anon'fieldX) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"outer1_fieldX_fieldX")
+    HasCField.fromPtr (RIP.Proxy @"outer1_anon'fieldX_fieldX")
 
-instance HasCField.HasCField Outer1_fieldX "outer1_fieldX_fieldY" where
+instance HasCField.HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldY" where
 
-  type CFieldType Outer1_fieldX "outer1_fieldX_fieldY" =
+  type CFieldType Outer1_anon'fieldX "outer1_anon'fieldX_fieldY" =
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outer1_fieldX_fieldY" (RIP.Ptr Outer1_fieldX) (RIP.Ptr ty) where
+         ) => RIP.HasField "outer1_anon'fieldX_fieldY" (RIP.Ptr Outer1_anon'fieldX) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"outer1_fieldX_fieldY")
+    HasCField.fromPtr (RIP.Proxy @"outer1_anon'fieldX_fieldY")
 
 {-| __C declaration:__ @struct outer1@
 
@@ -147,8 +147,8 @@ data Outer1 = Outer1
 
          __exported by:__ @types\/anonymous\/union_in_struct.h@
     -}
-  , outer1_fieldX :: Outer1_fieldX
-    {- ^ __C declaration:__ @fieldX@
+  , outer1_anon'fieldX :: Outer1_anon'fieldX
+    {- ^ __C declaration:__ @anon\'fieldX@
 
          __defined at:__ @types\/anonymous\/union_in_struct.h 8:3@
 
@@ -176,7 +176,7 @@ instance Marshal.ReadRaw Outer1 where
     \ptr0 ->
           pure Outer1
       <*> HasCField.readRaw (RIP.Proxy @"outer1_fieldA") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"outer1_fieldX") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"outer1_anon'fieldX") ptr0
       <*> HasCField.readRaw (RIP.Proxy @"outer1_fieldC") ptr0
 
 instance Marshal.WriteRaw Outer1 where
@@ -185,9 +185,9 @@ instance Marshal.WriteRaw Outer1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Outer1 outer1_fieldA2 outer1_fieldX3 outer1_fieldC4 ->
+          Outer1 outer1_fieldA2 outer1_anon'fieldX3 outer1_fieldC4 ->
                HasCField.writeRaw (RIP.Proxy @"outer1_fieldA") ptr0 outer1_fieldA2
-            >> HasCField.writeRaw (RIP.Proxy @"outer1_fieldX") ptr0 outer1_fieldX3
+            >> HasCField.writeRaw (RIP.Proxy @"outer1_anon'fieldX") ptr0 outer1_anon'fieldX3
             >> HasCField.writeRaw (RIP.Proxy @"outer1_fieldC") ptr0 outer1_fieldC4
 
 deriving via Marshal.EquivStorable Outer1 instance RIP.Storable Outer1
@@ -204,18 +204,18 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"outer1_fieldA")
 
-instance HasCField.HasCField Outer1 "outer1_fieldX" where
+instance HasCField.HasCField Outer1 "outer1_anon'fieldX" where
 
-  type CFieldType Outer1 "outer1_fieldX" =
-    Outer1_fieldX
+  type CFieldType Outer1 "outer1_anon'fieldX" =
+    Outer1_anon'fieldX
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ Outer1_fieldX
-         ) => RIP.HasField "outer1_fieldX" (RIP.Ptr Outer1) (RIP.Ptr ty) where
+instance ( ty ~ Outer1_anon'fieldX
+         ) => RIP.HasField "outer1_anon'fieldX" (RIP.Ptr Outer1) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"outer1_fieldX")
+    HasCField.fromPtr (RIP.Proxy @"outer1_anon'fieldX")
 
 instance HasCField.HasCField Outer1 "outer1_fieldC" where
 

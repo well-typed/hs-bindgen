@@ -142,9 +142,16 @@ data Outputs field =
 -- considered empty. A warning-level trace message will be emitted if these
 -- conditions are not met.
 --
--- Anonymous nested structs/unions have no name, but they need one for our Haskell
--- bindings, so they are named after their first field. Informally, the former will
--- be transformed to the latter:
+-- Anonymous nested structs/unions have no name, but they need one for our
+-- Haskell bindings, so they are named after their first field. We prefix the
+-- field name with "anon'" to highlight that the field is created for an
+-- anonymous struct/union. The tick ensures that this name can not clash with
+-- any existing C fields because ticks are not allowed in C identifiers. See
+-- issue #2064 for more information about this "anon'" prefix.
+--
+-- <https://github.com/well-typed/hs-bindgen/issues/2064>
+--
+-- Informally, the former will be transformed to the latter:
 --
 -- > struct S {
 -- >   struct {
@@ -155,7 +162,7 @@ data Outputs field =
 -- > struct S {
 -- >   struct {
 -- >     int x;
--- >   } x;
+-- >   } anon'x;
 -- > };
 --
 withImplicitFields ::
@@ -328,7 +335,7 @@ getImplicitField encObj decl = do
     mkOrigin target = Origin.ImplicitFieldOrigin encObj.typ (C.ScopedName target.originName.text)
 
     mkScopedName :: Target -> ScopedName Parse
-    mkScopedName target = C.ScopedName target.fieldName.text
+    mkScopedName target = C.ScopedName ("anon'" <> target.fieldName.text)
 
 -- | When the field is implicit and we want to ask for its offset using its
 -- name, then we should ask for the offset to an explicit field of the

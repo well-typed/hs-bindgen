@@ -1901,56 +1901,62 @@ instance HasCField Deep_outer "deep_outer_o"
 instance (~) ty CInt =>
          HasField "deep_outer_o" (Ptr Deep_outer) (Ptr ty)
     where getField = fromPtr (Proxy @"deep_outer_o")
-{-| __C declaration:__ @struct \@unnamed_field_t_ua@
+{-| __C declaration:__ @struct \@unnamed_field_t_anon\'ua@
 
     __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Unnamed_field_t_ua
-    = Unnamed_field_t_ua {unnamed_field_t_ua_ua :: CInt
-                          {- ^ Unnamed inner a
+data Unnamed_field_t_anon'ua
+    = Unnamed_field_t_anon'ua {unnamed_field_t_anon'ua_ua :: CInt
+                               {- ^ Unnamed inner a
 
-                               __C declaration:__ @ua@
+                                    __C declaration:__ @ua@
 
-                               __defined at:__ @documentation\/doxygen_docs.h 649:13@
+                                    __defined at:__ @documentation\/doxygen_docs.h 649:13@
 
-                               __exported by:__ @documentation\/doxygen_docs.h@
-                          -},
-                          unnamed_field_t_ua_ub :: CInt
-                          {- ^ Unnamed inner b
+                                    __exported by:__ @documentation\/doxygen_docs.h@
+                               -},
+                               unnamed_field_t_anon'ua_ub :: CInt
+                               {- ^ Unnamed inner b
 
-                               __C declaration:__ @ub@
+                                    __C declaration:__ @ub@
 
-                               __defined at:__ @documentation\/doxygen_docs.h 651:13@
+                                    __defined at:__ @documentation\/doxygen_docs.h 651:13@
 
-                               __exported by:__ @documentation\/doxygen_docs.h@
-                          -}}
+                                    __exported by:__ @documentation\/doxygen_docs.h@
+                               -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Unnamed_field_t_ua
+instance StaticSize Unnamed_field_t_anon'ua
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw Unnamed_field_t_ua
-    where readRaw = \ptr_0 -> (pure Unnamed_field_t_ua <*> readRaw (Proxy @"unnamed_field_t_ua_ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_ua_ub") ptr_0
-instance WriteRaw Unnamed_field_t_ua
+instance ReadRaw Unnamed_field_t_anon'ua
+    where readRaw = \ptr_0 -> (pure Unnamed_field_t_anon'ua <*> readRaw (Proxy @"unnamed_field_t_anon'ua_ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_anon'ua_ub") ptr_0
+instance WriteRaw Unnamed_field_t_anon'ua
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Unnamed_field_t_ua unnamed_field_t_ua_ua_2
-                                                          unnamed_field_t_ua_ub_3 -> writeRaw (Proxy @"unnamed_field_t_ua_ua") ptr_0 unnamed_field_t_ua_ua_2 >> writeRaw (Proxy @"unnamed_field_t_ua_ub") ptr_0 unnamed_field_t_ua_ub_3
-deriving via (EquivStorable Unnamed_field_t_ua) instance Storable Unnamed_field_t_ua
-instance HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ua"
-    where type CFieldType Unnamed_field_t_ua
-                          "unnamed_field_t_ua_ua" = CInt
+                                       Unnamed_field_t_anon'ua unnamed_field_t_anon'ua_ua_2
+                                                               unnamed_field_t_anon'ua_ub_3 -> writeRaw (Proxy @"unnamed_field_t_anon'ua_ua") ptr_0 unnamed_field_t_anon'ua_ua_2 >> writeRaw (Proxy @"unnamed_field_t_anon'ua_ub") ptr_0 unnamed_field_t_anon'ua_ub_3
+deriving via (EquivStorable Unnamed_field_t_anon'ua) instance Storable Unnamed_field_t_anon'ua
+instance HasCField Unnamed_field_t_anon'ua
+                   "unnamed_field_t_anon'ua_ua"
+    where type CFieldType Unnamed_field_t_anon'ua
+                          "unnamed_field_t_anon'ua_ua" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
-         HasField "unnamed_field_t_ua_ua" (Ptr Unnamed_field_t_ua) (Ptr ty)
-    where getField = fromPtr (Proxy @"unnamed_field_t_ua_ua")
-instance HasCField Unnamed_field_t_ua "unnamed_field_t_ua_ub"
-    where type CFieldType Unnamed_field_t_ua
-                          "unnamed_field_t_ua_ub" = CInt
+         HasField "unnamed_field_t_anon'ua_ua"
+                  (Ptr Unnamed_field_t_anon'ua)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua_ua")
+instance HasCField Unnamed_field_t_anon'ua
+                   "unnamed_field_t_anon'ua_ub"
+    where type CFieldType Unnamed_field_t_anon'ua
+                          "unnamed_field_t_anon'ua_ub" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
-         HasField "unnamed_field_t_ua_ub" (Ptr Unnamed_field_t_ua) (Ptr ty)
-    where getField = fromPtr (Proxy @"unnamed_field_t_ua_ub")
+         HasField "unnamed_field_t_anon'ua_ub"
+                  (Ptr Unnamed_field_t_anon'ua)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua_ub")
 {-| Struct with unnamed anonymous field.
 
     Tests the case where the anonymous inner struct has no field name. The inner fields are flattened directly into the parent.
@@ -1971,10 +1977,8 @@ data Unnamed_field_t
 
                             __exported by:__ @documentation\/doxygen_docs.h@
                        -},
-                       unnamed_field_t_ua :: Unnamed_field_t_ua
-                       {- ^ Unnamed inner a
-
-                            __C declaration:__ @ua@
+                       unnamed_field_t_anon'ua :: Unnamed_field_t_anon'ua
+                       {- ^ __C declaration:__ @anon\'ua@
 
                             __defined at:__ @documentation\/doxygen_docs.h 647:5@
 
@@ -1994,12 +1998,12 @@ instance StaticSize Unnamed_field_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw Unnamed_field_t
-    where readRaw = \ptr_0 -> ((pure Unnamed_field_t <*> readRaw (Proxy @"unnamed_field_t_before") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_after") ptr_0
+    where readRaw = \ptr_0 -> ((pure Unnamed_field_t <*> readRaw (Proxy @"unnamed_field_t_before") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_anon'ua") ptr_0) <*> readRaw (Proxy @"unnamed_field_t_after") ptr_0
 instance WriteRaw Unnamed_field_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unnamed_field_t unnamed_field_t_before_2
-                                                       unnamed_field_t_ua_3
-                                                       unnamed_field_t_after_4 -> writeRaw (Proxy @"unnamed_field_t_before") ptr_0 unnamed_field_t_before_2 >> (writeRaw (Proxy @"unnamed_field_t_ua") ptr_0 unnamed_field_t_ua_3 >> writeRaw (Proxy @"unnamed_field_t_after") ptr_0 unnamed_field_t_after_4)
+                                                       unnamed_field_t_anon'ua_3
+                                                       unnamed_field_t_after_4 -> writeRaw (Proxy @"unnamed_field_t_before") ptr_0 unnamed_field_t_before_2 >> (writeRaw (Proxy @"unnamed_field_t_anon'ua") ptr_0 unnamed_field_t_anon'ua_3 >> writeRaw (Proxy @"unnamed_field_t_after") ptr_0 unnamed_field_t_after_4)
 deriving via (EquivStorable Unnamed_field_t) instance Storable Unnamed_field_t
 instance HasCField Unnamed_field_t "unnamed_field_t_before"
     where type CFieldType Unnamed_field_t
@@ -2008,13 +2012,13 @@ instance HasCField Unnamed_field_t "unnamed_field_t_before"
 instance (~) ty CInt =>
          HasField "unnamed_field_t_before" (Ptr Unnamed_field_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_before")
-instance HasCField Unnamed_field_t "unnamed_field_t_ua"
+instance HasCField Unnamed_field_t "unnamed_field_t_anon'ua"
     where type CFieldType Unnamed_field_t
-                          "unnamed_field_t_ua" = Unnamed_field_t_ua
+                          "unnamed_field_t_anon'ua" = Unnamed_field_t_anon'ua
           offset# = \_ -> \_ -> 4
-instance (~) ty Unnamed_field_t_ua =>
-         HasField "unnamed_field_t_ua" (Ptr Unnamed_field_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"unnamed_field_t_ua")
+instance (~) ty Unnamed_field_t_anon'ua =>
+         HasField "unnamed_field_t_anon'ua" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua")
 instance HasCField Unnamed_field_t "unnamed_field_t_after"
     where type CFieldType Unnamed_field_t
                           "unnamed_field_t_after" = CInt

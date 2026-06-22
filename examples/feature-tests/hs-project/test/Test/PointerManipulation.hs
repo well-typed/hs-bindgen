@@ -188,9 +188,9 @@ dict_hasField_MyStructFLAM_Aux_len = Dict
 -------------------------------------------------------------------------------}
 
 dict_hasField_MyStructAnon_x :: Dict $
-     HasField "x" (Ptr Types.MyStructAnon) (Ptr Types.MyStructAnon_x)
+     HasField "anon'x" (Ptr Types.MyStructAnon) (Ptr Types.MyStructAnon_anon'x)
 dict_hasField_MyStructAnon_x = Dict
 
 dict_hasField_MyUnionAnon_x :: Dict $
-     HasField "x" (Ptr Types.MyUnionAnon) (Ptr Types.MyUnionAnon_x)
+     HasField "anon'x" (Ptr Types.MyUnionAnon) (Ptr Types.MyUnionAnon_anon'x)
 dict_hasField_MyUnionAnon_x = Dict

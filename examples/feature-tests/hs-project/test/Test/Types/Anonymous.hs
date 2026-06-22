@@ -31,28 +31,28 @@ tests = testGroup "Test.Types.Anonymous" [
 prop_offsets_structInStruct :: Property
 prop_offsets_structInStruct =
     prop_offsets
-      (Proxy @Types.SS1, Proxy @"sS1_fieldX", Global.offset_SS1_fieldX)
+      (Proxy @Types.SS1, Proxy @"sS1_anon'fieldX", Global.offset_SS1_fieldX)
       (Proxy @Types.SS2, Proxy @"sS2_fieldB", Global.offset_SS2_fieldB)
 
 -- | Test 'prop_offsets' for a union declaration nested in a struct declaration
 prop_offsets_unionInStruct :: Property
 prop_offsets_unionInStruct =
     prop_offsets
-      (Proxy @Types.SU1, Proxy @"sU1_fieldX", Global.offset_SU1_fieldX)
+      (Proxy @Types.SU1, Proxy @"sU1_anon'fieldX", Global.offset_SU1_fieldX)
       (Proxy @Types.SU2, Proxy @"sU2_fieldB", Global.offset_SU2_fieldB)
 
 -- | Test 'prop_offsets' for a struct declaration nested in a union declaration
 prop_offsets_structInUnion :: Property
 prop_offsets_structInUnion =
     prop_offsets
-      (Proxy @Types.US1, Proxy @"uS1_fieldX", Global.offset_US1_fieldX)
+      (Proxy @Types.US1, Proxy @"uS1_anon'fieldX", Global.offset_US1_fieldX)
       (Proxy @Types.US2, Proxy @"uS2_fieldB", Global.offset_US2_fieldB)
 
 -- | Test 'prop_offsets' for a union declaration nested in a union declaration
 prop_offsets_unionInUnion :: Property
 prop_offsets_unionInUnion =
     prop_offsets
-      (Proxy @Types.UU1, Proxy @"uU1_fieldX", Global.offset_UU1_fieldX)
+      (Proxy @Types.UU1, Proxy @"uU1_anon'fieldX", Global.offset_UU1_fieldX)
       (Proxy @Types.UU2, Proxy @"uU2_fieldB", Global.offset_UU2_fieldB)
 
 -- | Test that the offsets for generated implicit fields are computed correctly.

@@ -13,7 +13,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.S_y_x(..)
+    ( Example.S_y_anon'x(..)
     , Example.S_y(..)
     , Example.S(..)
     )
@@ -23,14 +23,14 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @struct \@S_y_x@
+{-| __C declaration:__ @struct \@S_y_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 16:5@
 
     __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
 -}
-data S_y_x = S_y_x
-  { s_y_x_x :: RIP.CInt
+data S_y_anon'x = S_y_anon'x
+  { s_y_anon'x_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 17:11@
@@ -40,40 +40,41 @@ data S_y_x = S_y_x
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize S_y_x where
+instance Marshal.StaticSize S_y_anon'x where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw S_y_x where
+instance Marshal.ReadRaw S_y_anon'x where
 
   readRaw =
     \ptr0 ->
-          pure S_y_x
-      <*> HasCField.readRaw (RIP.Proxy @"s_y_x_x") ptr0
+          pure S_y_anon'x
+      <*> HasCField.readRaw (RIP.Proxy @"s_y_anon'x_x") ptr0
 
-instance Marshal.WriteRaw S_y_x where
+instance Marshal.WriteRaw S_y_anon'x where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S_y_x s_y_x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_y_x_x") ptr0 s_y_x_x2
+          S_y_anon'x s_y_anon'x_x2 ->
+            HasCField.writeRaw (RIP.Proxy @"s_y_anon'x_x") ptr0 s_y_anon'x_x2
 
-deriving via Marshal.EquivStorable S_y_x instance RIP.Storable S_y_x
+deriving via Marshal.EquivStorable S_y_anon'x instance RIP.Storable S_y_anon'x
 
-instance HasCField.HasCField S_y_x "s_y_x_x" where
+instance HasCField.HasCField S_y_anon'x "s_y_anon'x_x" where
 
-  type CFieldType S_y_x "s_y_x_x" = RIP.CInt
+  type CFieldType S_y_anon'x "s_y_anon'x_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s_y_x_x" (RIP.Ptr S_y_x) (RIP.Ptr ty) where
+         ) => RIP.HasField "s_y_anon'x_x" (RIP.Ptr S_y_anon'x) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s_y_x_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
 
 {-| __C declaration:__ @struct \@S_y@
 
@@ -82,8 +83,8 @@ instance ( ty ~ RIP.CInt
     __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
 -}
 data S_y = S_y
-  { s_y_x :: S_y_x
-    {- ^ __C declaration:__ @x@
+  { s_y_anon'x :: S_y_anon'x
+    {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 16:5@
 
@@ -103,7 +104,7 @@ instance Marshal.ReadRaw S_y where
   readRaw =
     \ptr0 ->
           pure S_y
-      <*> HasCField.readRaw (RIP.Proxy @"s_y_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s_y_anon'x") ptr0
 
 instance Marshal.WriteRaw S_y where
 
@@ -111,20 +112,22 @@ instance Marshal.WriteRaw S_y where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S_y s_y_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_y_x") ptr0 s_y_x2
+          S_y s_y_anon'x2 ->
+            HasCField.writeRaw (RIP.Proxy @"s_y_anon'x") ptr0 s_y_anon'x2
 
 deriving via Marshal.EquivStorable S_y instance RIP.Storable S_y
 
-instance HasCField.HasCField S_y "s_y_x" where
+instance HasCField.HasCField S_y "s_y_anon'x" where
 
-  type CFieldType S_y "s_y_x" = S_y_x
+  type CFieldType S_y "s_y_anon'x" = S_y_anon'x
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ S_y_x) => RIP.HasField "s_y_x" (RIP.Ptr S_y) (RIP.Ptr ty) where
+instance ( ty ~ S_y_anon'x
+         ) => RIP.HasField "s_y_anon'x" (RIP.Ptr S_y) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s_y_x")
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
 
 {-| __C declaration:__ @struct S@
 

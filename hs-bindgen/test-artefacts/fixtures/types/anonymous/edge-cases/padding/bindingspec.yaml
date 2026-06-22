@@ -7,26 +7,26 @@ ctypes:
   cname: struct SS
   hsname: SS
 - headers: types/anonymous/edge-cases/padding.h
-  cname: struct @SS_y
-  hsname: SS_y
+  cname: struct @SS_anon'y
+  hsname: SS_anon'y
 - headers: types/anonymous/edge-cases/padding.h
   cname: struct SU
   hsname: SU
 - headers: types/anonymous/edge-cases/padding.h
-  cname: union @SU_y
-  hsname: SU_y
+  cname: union @SU_anon'y
+  hsname: SU_anon'y
 - headers: types/anonymous/edge-cases/padding.h
   cname: union US
   hsname: US
 - headers: types/anonymous/edge-cases/padding.h
-  cname: struct @US_y
-  hsname: US_y
+  cname: struct @US_anon'y
+  hsname: US_anon'y
 - headers: types/anonymous/edge-cases/padding.h
   cname: union UU
   hsname: UU
 - headers: types/anonymous/edge-cases/padding.h
-  cname: union @UU_y
-  hsname: UU_y
+  cname: union @UU_anon'y
+  hsname: UU_anon'y
 hstypes:
 - hsname: SS
   representation:
@@ -34,7 +34,7 @@ hstypes:
       constructor: SS
       fields:
       - sS_x
-      - sS_y
+      - sS_anon'y
       - sS_z
   instances:
   - Eq
@@ -46,12 +46,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SS_y
+- hsname: SS_anon'y
   representation:
     record:
-      constructor: SS_y
+      constructor: SS_anon'y
       fields:
-      - sS_y_y
+      - sS_anon'y_y
   instances:
   - Eq
   - Generic
@@ -68,7 +68,7 @@ hstypes:
       constructor: SU
       fields:
       - sU_x
-      - sU_y
+      - sU_anon'y
       - sU_z
   instances:
   - Generic
@@ -78,12 +78,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SU_y
+- hsname: SU_anon'y
   representation:
     newtype:
-      constructor: SU_y
+      constructor: SU_anon'y
       fields:
-      - unwrapSU_y
+      - unwrapSU_anon'y
   instances:
   - Generic
   - HasCField
@@ -106,12 +106,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: US_y
+- hsname: US_anon'y
   representation:
     record:
-      constructor: US_y
+      constructor: US_anon'y
       fields:
-      - uS_y_y
+      - uS_anon'y_y
   instances:
   - Eq
   - Generic
@@ -136,12 +136,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: UU_y
+- hsname: UU_anon'y
   representation:
     newtype:
-      constructor: UU_y
+      constructor: UU_anon'y
       fields:
-      - unwrapUU_y
+      - unwrapUU_anon'y
   instances:
   - Generic
   - HasCField

@@ -7,14 +7,14 @@ ctypes:
   cname: struct has_implicit_fields
   hsname: Has_implicit_fields
 - headers: types/anonymous/struct.h
-  cname: struct @has_implicit_fields_x2_1
-  hsname: Has_implicit_fields_x2_1
+  cname: struct @has_implicit_fields_anon'x2_1
+  hsname: Has_implicit_fields_anon'x2_1
 - headers: types/anonymous/struct.h
-  cname: struct @has_implicit_fields_x4_1
-  hsname: Has_implicit_fields_x4_1
+  cname: struct @has_implicit_fields_anon'x4_1
+  hsname: Has_implicit_fields_anon'x4_1
 - headers: types/anonymous/struct.h
-  cname: union @has_implicit_fields_x5_1
-  hsname: Has_implicit_fields_x5_1
+  cname: union @has_implicit_fields_anon'x5_1
+  hsname: Has_implicit_fields_anon'x5_1
 hstypes:
 - hsname: Has_implicit_fields
   representation:
@@ -22,10 +22,10 @@ hstypes:
       constructor: Has_implicit_fields
       fields:
       - has_implicit_fields_x1
-      - has_implicit_fields_x2_1
+      - has_implicit_fields_anon'x2_1
       - has_implicit_fields_x3
-      - has_implicit_fields_x4_1
-      - has_implicit_fields_x5_1
+      - has_implicit_fields_anon'x4_1
+      - has_implicit_fields_anon'x5_1
       - has_implicit_fields_x5
   instances:
   - Generic
@@ -35,13 +35,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Has_implicit_fields_x2_1
+- hsname: Has_implicit_fields_anon'x2_1
   representation:
     record:
-      constructor: Has_implicit_fields_x2_1
+      constructor: Has_implicit_fields_anon'x2_1
       fields:
-      - has_implicit_fields_x2_1_x2_1
-      - has_implicit_fields_x2_1_x2_2
+      - has_implicit_fields_anon'x2_1_x2_1
+      - has_implicit_fields_anon'x2_1_x2_2
   instances:
   - Eq
   - Generic
@@ -52,13 +52,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Has_implicit_fields_x4_1
+- hsname: Has_implicit_fields_anon'x4_1
   representation:
     record:
-      constructor: Has_implicit_fields_x4_1
+      constructor: Has_implicit_fields_anon'x4_1
       fields:
-      - has_implicit_fields_x4_1_x4_1
-      - has_implicit_fields_x4_1_x4_2
+      - has_implicit_fields_anon'x4_1_x4_1
+      - has_implicit_fields_anon'x4_1_x4_2
   instances:
   - Eq
   - Generic
@@ -69,12 +69,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Has_implicit_fields_x5_1
+- hsname: Has_implicit_fields_anon'x5_1
   representation:
     newtype:
-      constructor: Has_implicit_fields_x5_1
+      constructor: Has_implicit_fields_anon'x5_1
       fields:
-      - unwrapHas_implicit_fields_x5_1
+      - unwrapHas_implicit_fields_anon'x5_1
   instances:
   - Generic
   - HasCField

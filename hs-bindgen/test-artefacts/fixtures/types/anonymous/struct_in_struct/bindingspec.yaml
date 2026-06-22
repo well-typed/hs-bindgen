@@ -7,8 +7,8 @@ ctypes:
   cname: struct outer1
   hsname: Outer1
 - headers: types/anonymous/struct_in_struct.h
-  cname: struct @outer1_fieldX
-  hsname: Outer1_fieldX
+  cname: struct @outer1_anon'fieldX
+  hsname: Outer1_anon'fieldX
 - headers: types/anonymous/struct_in_struct.h
   cname: struct outer2
   hsname: Outer2
@@ -45,7 +45,7 @@ hstypes:
       constructor: Outer1
       fields:
       - outer1_fieldA
-      - outer1_fieldX
+      - outer1_anon'fieldX
       - outer1_fieldC
   instances:
   - Eq
@@ -57,13 +57,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Outer1_fieldX
+- hsname: Outer1_anon'fieldX
   representation:
     record:
-      constructor: Outer1_fieldX
+      constructor: Outer1_anon'fieldX
       fields:
-      - outer1_fieldX_fieldX
-      - outer1_fieldX_fieldY
+      - outer1_anon'fieldX_fieldX
+      - outer1_anon'fieldX_fieldY
   instances:
   - Eq
   - Generic

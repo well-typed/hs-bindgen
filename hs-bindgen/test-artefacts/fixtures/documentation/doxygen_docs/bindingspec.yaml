@@ -94,8 +94,8 @@ ctypes:
   cname: struct unnamed_field_t
   hsname: Unnamed_field_t
 - headers: documentation/doxygen_docs.h
-  cname: struct @unnamed_field_t_ua
-  hsname: Unnamed_field_t_ua
+  cname: struct @unnamed_field_t_anon'ua
+  hsname: Unnamed_field_t_anon'ua
 - headers: documentation/doxygen_docs.h
   cname: unnamed_field_t
   hsname: Unnamed_field_t
@@ -509,7 +509,7 @@ hstypes:
       constructor: Unnamed_field_t
       fields:
       - unnamed_field_t_before
-      - unnamed_field_t_ua
+      - unnamed_field_t_anon'ua
       - unnamed_field_t_after
   instances:
   - Eq
@@ -521,13 +521,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Unnamed_field_t_ua
+- hsname: Unnamed_field_t_anon'ua
   representation:
     record:
-      constructor: Unnamed_field_t_ua
+      constructor: Unnamed_field_t_anon'ua
       fields:
-      - unnamed_field_t_ua_ua
-      - unnamed_field_t_ua_ub
+      - unnamed_field_t_anon'ua_ua
+      - unnamed_field_t_anon'ua_ub
   instances:
   - Eq
   - Generic

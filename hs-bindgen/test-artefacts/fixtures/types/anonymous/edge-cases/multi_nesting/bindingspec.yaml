@@ -7,81 +7,81 @@ ctypes:
   cname: struct SSS
   hsname: SSS
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @SSS_x
-  hsname: SSS_x
+  cname: struct @SSS_anon'anon'x
+  hsname: SSS_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @SSS_x_x
-  hsname: SSS_x_x
+  cname: struct @SSS_anon'anon'x_anon'x
+  hsname: SSS_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: union USS
   hsname: USS
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @USS_x
-  hsname: USS_x
+  cname: struct @USS_anon'anon'x
+  hsname: USS_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @USS_x_x
-  hsname: USS_x_x
+  cname: struct @USS_anon'anon'x_anon'x
+  hsname: USS_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: struct SUS
   hsname: SUS
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @SUS_x
-  hsname: SUS_x
+  cname: union @SUS_anon'anon'x
+  hsname: SUS_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @SUS_x_x
-  hsname: SUS_x_x
+  cname: struct @SUS_anon'anon'x_anon'x
+  hsname: SUS_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: union UUS
   hsname: UUS
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @UUS_x
-  hsname: UUS_x
+  cname: union @UUS_anon'anon'x
+  hsname: UUS_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @UUS_x_x
-  hsname: UUS_x_x
+  cname: struct @UUS_anon'anon'x_anon'x
+  hsname: UUS_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: struct SSU
   hsname: SSU
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @SSU_x
-  hsname: SSU_x
+  cname: struct @SSU_anon'anon'x
+  hsname: SSU_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @SSU_x_x
-  hsname: SSU_x_x
+  cname: union @SSU_anon'anon'x_anon'x
+  hsname: SSU_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: union USU
   hsname: USU
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: struct @USU_x
-  hsname: USU_x
+  cname: struct @USU_anon'anon'x
+  hsname: USU_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @USU_x_x
-  hsname: USU_x_x
+  cname: union @USU_anon'anon'x_anon'x
+  hsname: USU_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: struct SUU
   hsname: SUU
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @SUU_x
-  hsname: SUU_x
+  cname: union @SUU_anon'anon'x
+  hsname: SUU_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @SUU_x_x
-  hsname: SUU_x_x
+  cname: union @SUU_anon'anon'x_anon'x
+  hsname: SUU_anon'anon'x_anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
   cname: union UUU
   hsname: UUU
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @UUU_x
-  hsname: UUU_x
+  cname: union @UUU_anon'anon'x
+  hsname: UUU_anon'anon'x
 - headers: types/anonymous/edge-cases/multi_nesting.h
-  cname: union @UUU_x_x
-  hsname: UUU_x_x
+  cname: union @UUU_anon'anon'x_anon'x
+  hsname: UUU_anon'anon'x_anon'x
 hstypes:
 - hsname: SSS
   representation:
     record:
       constructor: SSS
       fields:
-      - sSS_x
+      - sSS_anon'anon'x
   instances:
   - Eq
   - Generic
@@ -92,12 +92,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SSS_x
+- hsname: SSS_anon'anon'x
   representation:
     record:
-      constructor: SSS_x
+      constructor: SSS_anon'anon'x
       fields:
-      - sSS_x_x
+      - sSS_anon'anon'x_anon'x
   instances:
   - Eq
   - Generic
@@ -108,12 +108,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SSS_x_x
+- hsname: SSS_anon'anon'x_anon'x
   representation:
     record:
-      constructor: SSS_x_x
+      constructor: SSS_anon'anon'x_anon'x
       fields:
-      - sSS_x_x_x
+      - sSS_anon'anon'x_anon'x_x
   instances:
   - Eq
   - Generic
@@ -129,7 +129,7 @@ hstypes:
     record:
       constructor: SSU
       fields:
-      - sSU_x
+      - sSU_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -138,12 +138,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SSU_x
+- hsname: SSU_anon'anon'x
   representation:
     record:
-      constructor: SSU_x
+      constructor: SSU_anon'anon'x
       fields:
-      - sSU_x_x
+      - sSU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
@@ -152,12 +152,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SSU_x_x
+- hsname: SSU_anon'anon'x_anon'x
   representation:
     newtype:
-      constructor: SSU_x_x
+      constructor: SSU_anon'anon'x_anon'x
       fields:
-      - unwrapSSU_x_x
+      - unwrapSSU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
@@ -171,7 +171,7 @@ hstypes:
     record:
       constructor: SUS
       fields:
-      - sUS_x
+      - sUS_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -180,12 +180,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SUS_x
+- hsname: SUS_anon'anon'x
   representation:
     newtype:
-      constructor: SUS_x
+      constructor: SUS_anon'anon'x
       fields:
-      - unwrapSUS_x
+      - unwrapSUS_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -194,12 +194,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SUS_x_x
+- hsname: SUS_anon'anon'x_anon'x
   representation:
     record:
-      constructor: SUS_x_x
+      constructor: SUS_anon'anon'x_anon'x
       fields:
-      - sUS_x_x_x
+      - sUS_anon'anon'x_anon'x_x
   instances:
   - Eq
   - Generic
@@ -215,7 +215,7 @@ hstypes:
     record:
       constructor: SUU
       fields:
-      - sUU_x
+      - sUU_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -224,12 +224,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SUU_x
+- hsname: SUU_anon'anon'x
   representation:
     newtype:
-      constructor: SUU_x
+      constructor: SUU_anon'anon'x
       fields:
-      - unwrapSUU_x
+      - unwrapSUU_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -238,12 +238,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: SUU_x_x
+- hsname: SUU_anon'anon'x_anon'x
   representation:
     newtype:
-      constructor: SUU_x_x
+      constructor: SUU_anon'anon'x_anon'x
       fields:
-      - unwrapSUU_x_x
+      - unwrapSUU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
@@ -266,12 +266,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: USS_x
+- hsname: USS_anon'anon'x
   representation:
     record:
-      constructor: USS_x
+      constructor: USS_anon'anon'x
       fields:
-      - uSS_x_x
+      - uSS_anon'anon'x_anon'x
   instances:
   - Eq
   - Generic
@@ -282,12 +282,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: USS_x_x
+- hsname: USS_anon'anon'x_anon'x
   representation:
     record:
-      constructor: USS_x_x
+      constructor: USS_anon'anon'x_anon'x
       fields:
-      - uSS_x_x_x
+      - uSS_anon'anon'x_anon'x_x
   instances:
   - Eq
   - Generic
@@ -312,12 +312,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: USU_x
+- hsname: USU_anon'anon'x
   representation:
     record:
-      constructor: USU_x
+      constructor: USU_anon'anon'x
       fields:
-      - uSU_x_x
+      - uSU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
@@ -326,12 +326,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: USU_x_x
+- hsname: USU_anon'anon'x_anon'x
   representation:
     newtype:
-      constructor: USU_x_x
+      constructor: USU_anon'anon'x_anon'x
       fields:
-      - unwrapUSU_x_x
+      - unwrapUSU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
@@ -354,12 +354,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: UUS_x
+- hsname: UUS_anon'anon'x
   representation:
     newtype:
-      constructor: UUS_x
+      constructor: UUS_anon'anon'x
       fields:
-      - unwrapUUS_x
+      - unwrapUUS_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -368,12 +368,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: UUS_x_x
+- hsname: UUS_anon'anon'x_anon'x
   representation:
     record:
-      constructor: UUS_x_x
+      constructor: UUS_anon'anon'x_anon'x
       fields:
-      - uUS_x_x_x
+      - uUS_anon'anon'x_anon'x_x
   instances:
   - Eq
   - Generic
@@ -398,12 +398,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: UUU_x
+- hsname: UUU_anon'anon'x
   representation:
     newtype:
-      constructor: UUU_x
+      constructor: UUU_anon'anon'x
       fields:
-      - unwrapUUU_x
+      - unwrapUUU_anon'anon'x
   instances:
   - Generic
   - HasCField
@@ -412,12 +412,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: UUU_x_x
+- hsname: UUU_anon'anon'x_anon'x
   representation:
     newtype:
-      constructor: UUU_x_x
+      constructor: UUU_anon'anon'x_anon'x
       fields:
-      - unwrapUUU_x_x
+      - unwrapUUU_anon'anon'x_anon'x
   instances:
   - Generic
   - HasCField
