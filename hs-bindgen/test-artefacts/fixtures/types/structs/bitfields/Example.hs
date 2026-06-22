@@ -33,6 +33,7 @@ module Example
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo_8@
@@ -134,6 +135,22 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_a")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_a" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_a = y1
+                , foo_8_b = RIP.getField @"foo_8_b" x0
+                , foo_8_c = RIP.getField @"foo_8_c" x0
+                , foo_8_d = RIP.getField @"foo_8_d" x0
+                , foo_8_e = RIP.getField @"foo_8_e" x0
+                , foo_8_f = RIP.getField @"foo_8_f" x0
+                }
+      , RIP.getField @"foo_8_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_8 "foo_8_b" where
 
   type CBitfieldType Foo_8 "foo_8_b" = RIP.CSChar
@@ -146,6 +163,22 @@ instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "foo_8_b" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_b")
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_b" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_b = y1
+                , foo_8_a = RIP.getField @"foo_8_a" x0
+                , foo_8_c = RIP.getField @"foo_8_c" x0
+                , foo_8_d = RIP.getField @"foo_8_d" x0
+                , foo_8_e = RIP.getField @"foo_8_e" x0
+                , foo_8_f = RIP.getField @"foo_8_f" x0
+                }
+      , RIP.getField @"foo_8_b" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_8 "foo_8_c" where
 
@@ -160,6 +193,22 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_c")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_c" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_c = y1
+                , foo_8_a = RIP.getField @"foo_8_a" x0
+                , foo_8_b = RIP.getField @"foo_8_b" x0
+                , foo_8_d = RIP.getField @"foo_8_d" x0
+                , foo_8_e = RIP.getField @"foo_8_e" x0
+                , foo_8_f = RIP.getField @"foo_8_f" x0
+                }
+      , RIP.getField @"foo_8_c" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_8 "foo_8_d" where
 
   type CBitfieldType Foo_8 "foo_8_d" = RIP.CSChar
@@ -172,6 +221,22 @@ instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "foo_8_d" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_d")
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_d" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_d = y1
+                , foo_8_a = RIP.getField @"foo_8_a" x0
+                , foo_8_b = RIP.getField @"foo_8_b" x0
+                , foo_8_c = RIP.getField @"foo_8_c" x0
+                , foo_8_e = RIP.getField @"foo_8_e" x0
+                , foo_8_f = RIP.getField @"foo_8_f" x0
+                }
+      , RIP.getField @"foo_8_d" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_8 "foo_8_e" where
 
@@ -186,6 +251,22 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_e")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_e" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_e = y1
+                , foo_8_a = RIP.getField @"foo_8_a" x0
+                , foo_8_b = RIP.getField @"foo_8_b" x0
+                , foo_8_c = RIP.getField @"foo_8_c" x0
+                , foo_8_d = RIP.getField @"foo_8_d" x0
+                , foo_8_f = RIP.getField @"foo_8_f" x0
+                }
+      , RIP.getField @"foo_8_e" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_8 "foo_8_f" where
 
   type CBitfieldType Foo_8 "foo_8_f" = RIP.CSChar
@@ -198,6 +279,22 @@ instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "foo_8_f" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_f")
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_8_f" Foo_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_8 { foo_8_f = y1
+                , foo_8_a = RIP.getField @"foo_8_a" x0
+                , foo_8_b = RIP.getField @"foo_8_b" x0
+                , foo_8_c = RIP.getField @"foo_8_c" x0
+                , foo_8_d = RIP.getField @"foo_8_d" x0
+                , foo_8_e = RIP.getField @"foo_8_e" x0
+                }
+      , RIP.getField @"foo_8_f" x0
+      )
 
 {-| __C declaration:__ @struct foo_16@
 
@@ -298,6 +395,22 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_a")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_16_a" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_a = y1
+                 , foo_16_b = RIP.getField @"foo_16_b" x0
+                 , foo_16_c = RIP.getField @"foo_16_c" x0
+                 , foo_16_d = RIP.getField @"foo_16_d" x0
+                 , foo_16_e = RIP.getField @"foo_16_e" x0
+                 , foo_16_f = RIP.getField @"foo_16_f" x0
+                 }
+      , RIP.getField @"foo_16_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_16 "foo_16_b" where
 
   type CBitfieldType Foo_16 "foo_16_b" = RIP.CInt
@@ -310,6 +423,22 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_16_b" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_16_b" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_b = y1
+                 , foo_16_a = RIP.getField @"foo_16_a" x0
+                 , foo_16_c = RIP.getField @"foo_16_c" x0
+                 , foo_16_d = RIP.getField @"foo_16_d" x0
+                 , foo_16_e = RIP.getField @"foo_16_e" x0
+                 , foo_16_f = RIP.getField @"foo_16_f" x0
+                 }
+      , RIP.getField @"foo_16_b" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_16 "foo_16_c" where
 
@@ -324,6 +453,22 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_c")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_16_c" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_c = y1
+                 , foo_16_a = RIP.getField @"foo_16_a" x0
+                 , foo_16_b = RIP.getField @"foo_16_b" x0
+                 , foo_16_d = RIP.getField @"foo_16_d" x0
+                 , foo_16_e = RIP.getField @"foo_16_e" x0
+                 , foo_16_f = RIP.getField @"foo_16_f" x0
+                 }
+      , RIP.getField @"foo_16_c" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_16 "foo_16_d" where
 
   type CBitfieldType Foo_16 "foo_16_d" = RIP.CInt
@@ -336,6 +481,22 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_16_d" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_d")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_16_d" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_d = y1
+                 , foo_16_a = RIP.getField @"foo_16_a" x0
+                 , foo_16_b = RIP.getField @"foo_16_b" x0
+                 , foo_16_c = RIP.getField @"foo_16_c" x0
+                 , foo_16_e = RIP.getField @"foo_16_e" x0
+                 , foo_16_f = RIP.getField @"foo_16_f" x0
+                 }
+      , RIP.getField @"foo_16_d" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_16 "foo_16_e" where
 
@@ -350,6 +511,22 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_e")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_16_e" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_e = y1
+                 , foo_16_a = RIP.getField @"foo_16_a" x0
+                 , foo_16_b = RIP.getField @"foo_16_b" x0
+                 , foo_16_c = RIP.getField @"foo_16_c" x0
+                 , foo_16_d = RIP.getField @"foo_16_d" x0
+                 , foo_16_f = RIP.getField @"foo_16_f" x0
+                 }
+      , RIP.getField @"foo_16_e" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_16 "foo_16_f" where
 
   type CBitfieldType Foo_16 "foo_16_f" = RIP.CInt
@@ -362,6 +539,22 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_16_f" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_f")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_16_f" Foo_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_16 { foo_16_f = y1
+                 , foo_16_a = RIP.getField @"foo_16_a" x0
+                 , foo_16_b = RIP.getField @"foo_16_b" x0
+                 , foo_16_c = RIP.getField @"foo_16_c" x0
+                 , foo_16_d = RIP.getField @"foo_16_d" x0
+                 , foo_16_e = RIP.getField @"foo_16_e" x0
+                 }
+      , RIP.getField @"foo_16_f" x0
+      )
 
 {-| __C declaration:__ @struct foo_32@
 
@@ -471,6 +664,23 @@ instance ( ty ~ RIP.CSChar
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_a")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "foo_32_a" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_a = y1
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_b" where
 
   type CBitfieldType Foo_32 "foo_32_b" = RIP.CInt
@@ -483,6 +693,23 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_32_b" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_32_b" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_b = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_b" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_c" where
 
@@ -497,6 +724,23 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_c")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_32_c" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_c = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_c" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_d" where
 
   type CBitfieldType Foo_32 "foo_32_d" = RIP.CInt
@@ -509,6 +753,23 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_32_d" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_d")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_32_d" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_d = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_d" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_e" where
 
@@ -523,6 +784,23 @@ instance ( ty ~ RIP.CLong
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_e")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "foo_32_e" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_e = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_e" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_f" where
 
   type CBitfieldType Foo_32 "foo_32_f" = RIP.CInt
@@ -536,6 +814,23 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_f")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "foo_32_f" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_f = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_g = RIP.getField @"foo_32_g" x0
+                 }
+      , RIP.getField @"foo_32_f" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_32 "foo_32_g" where
 
   type CBitfieldType Foo_32 "foo_32_g" = RIP.CLong
@@ -548,6 +843,23 @@ instance ( ty ~ RIP.CLong
          ) => RIP.HasField "foo_32_g" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_g")
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "foo_32_g" Foo_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_32 { foo_32_g = y1
+                 , foo_32_a = RIP.getField @"foo_32_a" x0
+                 , foo_32_b = RIP.getField @"foo_32_b" x0
+                 , foo_32_c = RIP.getField @"foo_32_c" x0
+                 , foo_32_d = RIP.getField @"foo_32_d" x0
+                 , foo_32_e = RIP.getField @"foo_32_e" x0
+                 , foo_32_f = RIP.getField @"foo_32_f" x0
+                 }
+      , RIP.getField @"foo_32_g" x0
+      )
 
 {-| __C declaration:__ @struct foo_64@
 
@@ -630,6 +942,20 @@ instance ( ty ~ RIP.CLong
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_a")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "foo_64_a" Foo_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_64 { foo_64_a = y1
+                 , foo_64_b = RIP.getField @"foo_64_b" x0
+                 , foo_64_c = RIP.getField @"foo_64_c" x0
+                 , foo_64_d = RIP.getField @"foo_64_d" x0
+                 }
+      , RIP.getField @"foo_64_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_64 "foo_64_b" where
 
   type CBitfieldType Foo_64 "foo_64_b" = RIP.CLLong
@@ -642,6 +968,20 @@ instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "foo_64_b" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_b")
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "foo_64_b" Foo_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_64 { foo_64_b = y1
+                 , foo_64_a = RIP.getField @"foo_64_a" x0
+                 , foo_64_c = RIP.getField @"foo_64_c" x0
+                 , foo_64_d = RIP.getField @"foo_64_d" x0
+                 }
+      , RIP.getField @"foo_64_b" x0
+      )
 
 instance HasCBitfield.HasCBitfield Foo_64 "foo_64_c" where
 
@@ -656,6 +996,20 @@ instance ( ty ~ RIP.CLLong
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_c")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "foo_64_c" Foo_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_64 { foo_64_c = y1
+                 , foo_64_a = RIP.getField @"foo_64_a" x0
+                 , foo_64_b = RIP.getField @"foo_64_b" x0
+                 , foo_64_d = RIP.getField @"foo_64_d" x0
+                 }
+      , RIP.getField @"foo_64_c" x0
+      )
+
 instance HasCBitfield.HasCBitfield Foo_64 "foo_64_d" where
 
   type CBitfieldType Foo_64 "foo_64_d" = RIP.CLLong
@@ -668,6 +1022,20 @@ instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "foo_64_d" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_d")
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "foo_64_d" Foo_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo_64 { foo_64_d = y1
+                 , foo_64_a = RIP.getField @"foo_64_a" x0
+                 , foo_64_b = RIP.getField @"foo_64_b" x0
+                 , foo_64_c = RIP.getField @"foo_64_c" x0
+                 }
+      , RIP.getField @"foo_64_d" x0
+      )
 
 {-| __C declaration:__ @struct bar_8_8@
 
@@ -733,6 +1101,16 @@ instance ( ty ~ RIP.CSChar
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_a")
 
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "bar_8_8_a" Bar_8_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_8 {bar_8_8_a = y1, bar_8_8_b = RIP.getField @"bar_8_8_b" x0}
+      , RIP.getField @"bar_8_8_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_b" where
 
   type CBitfieldType Bar_8_8 "bar_8_8_b" = RIP.CInt
@@ -746,6 +1124,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_8_8_b" Bar_8_8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_8 {bar_8_8_b = y1, bar_8_8_a = RIP.getField @"bar_8_8_a" x0}
+      , RIP.getField @"bar_8_8_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_8_16@
 
@@ -811,6 +1199,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_8_16_a" Bar_8_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_16 {bar_8_16_a = y1, bar_8_16_b = RIP.getField @"bar_8_16_b" x0}
+      , RIP.getField @"bar_8_16_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_b" where
 
   type CBitfieldType Bar_8_16 "bar_8_16_b" = RIP.CInt
@@ -824,6 +1222,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_8_16_b" Bar_8_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_16 {bar_8_16_b = y1, bar_8_16_a = RIP.getField @"bar_8_16_a" x0}
+      , RIP.getField @"bar_8_16_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_8_32@
 
@@ -889,6 +1297,16 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_a")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "bar_8_32_a" Bar_8_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_32 {bar_8_32_a = y1, bar_8_32_b = RIP.getField @"bar_8_32_b" x0}
+      , RIP.getField @"bar_8_32_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_b" where
 
   type CBitfieldType Bar_8_32 "bar_8_32_b" = RIP.CInt
@@ -902,6 +1320,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_8_32_b" Bar_8_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_32 {bar_8_32_b = y1, bar_8_32_a = RIP.getField @"bar_8_32_a" x0}
+      , RIP.getField @"bar_8_32_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_8_64@
 
@@ -967,6 +1395,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_a")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "bar_8_64_a" Bar_8_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_64 {bar_8_64_a = y1, bar_8_64_b = RIP.getField @"bar_8_64_b" x0}
+      , RIP.getField @"bar_8_64_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_b" where
 
   type CBitfieldType Bar_8_64 "bar_8_64_b" = RIP.CInt
@@ -980,6 +1418,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_8_64_b" Bar_8_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_8_64 {bar_8_64_b = y1, bar_8_64_a = RIP.getField @"bar_8_64_a" x0}
+      , RIP.getField @"bar_8_64_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_16_16@
 
@@ -1045,6 +1493,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_16_16_a" Bar_16_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_16 {bar_16_16_a = y1, bar_16_16_b = RIP.getField @"bar_16_16_b" x0}
+      , RIP.getField @"bar_16_16_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_b" where
 
   type CBitfieldType Bar_16_16 "bar_16_16_b" = RIP.CInt
@@ -1058,6 +1516,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_16_16_b" Bar_16_16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_16 {bar_16_16_b = y1, bar_16_16_a = RIP.getField @"bar_16_16_a" x0}
+      , RIP.getField @"bar_16_16_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_16_32@
 
@@ -1124,6 +1592,16 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_a")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "bar_16_32_a" Bar_16_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_32 {bar_16_32_a = y1, bar_16_32_b = RIP.getField @"bar_16_32_b" x0}
+      , RIP.getField @"bar_16_32_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_b" where
 
   type CBitfieldType Bar_16_32 "bar_16_32_b" = RIP.CInt
@@ -1137,6 +1615,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_16_32_b" Bar_16_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_32 {bar_16_32_b = y1, bar_16_32_a = RIP.getField @"bar_16_32_a" x0}
+      , RIP.getField @"bar_16_32_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_16_64@
 
@@ -1203,6 +1691,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_a")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "bar_16_64_a" Bar_16_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_64 {bar_16_64_a = y1, bar_16_64_b = RIP.getField @"bar_16_64_b" x0}
+      , RIP.getField @"bar_16_64_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_b" where
 
   type CBitfieldType Bar_16_64 "bar_16_64_b" = RIP.CInt
@@ -1216,6 +1714,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "bar_16_64_b" Bar_16_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_16_64 {bar_16_64_b = y1, bar_16_64_a = RIP.getField @"bar_16_64_a" x0}
+      , RIP.getField @"bar_16_64_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_32_32@
 
@@ -1282,6 +1790,16 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_a")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "bar_32_32_a" Bar_32_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_32_32 {bar_32_32_a = y1, bar_32_32_b = RIP.getField @"bar_32_32_b" x0}
+      , RIP.getField @"bar_32_32_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_b" where
 
   type CBitfieldType Bar_32_32 "bar_32_32_b" =
@@ -1296,6 +1814,16 @@ instance ( ty ~ RIP.CLong
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_b")
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "bar_32_32_b" Bar_32_32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_32_32 {bar_32_32_b = y1, bar_32_32_a = RIP.getField @"bar_32_32_a" x0}
+      , RIP.getField @"bar_32_32_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_32_64@
 
@@ -1362,6 +1890,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_a")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "bar_32_64_a" Bar_32_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_32_64 {bar_32_64_a = y1, bar_32_64_b = RIP.getField @"bar_32_64_b" x0}
+      , RIP.getField @"bar_32_64_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_b" where
 
   type CBitfieldType Bar_32_64 "bar_32_64_b" =
@@ -1376,6 +1914,16 @@ instance ( ty ~ RIP.CLong
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_b")
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "bar_32_64_b" Bar_32_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_32_64 {bar_32_64_b = y1, bar_32_64_a = RIP.getField @"bar_32_64_a" x0}
+      , RIP.getField @"bar_32_64_b" x0
+      )
 
 {-| __C declaration:__ @struct bar_64_64@
 
@@ -1442,6 +1990,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_a")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "bar_64_64_a" Bar_64_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_64_64 {bar_64_64_a = y1, bar_64_64_b = RIP.getField @"bar_64_64_b" x0}
+      , RIP.getField @"bar_64_64_a" x0
+      )
+
 instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_b" where
 
   type CBitfieldType Bar_64_64 "bar_64_64_b" =
@@ -1456,3 +2014,13 @@ instance ( ty ~ RIP.CLLong
 
   getField =
     HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_b")
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "bar_64_64_b" Bar_64_64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar_64_64 {bar_64_64_b = y1, bar_64_64_a = RIP.getField @"bar_64_64_a" x0}
+      , RIP.getField @"bar_64_64_b" x0
+      )

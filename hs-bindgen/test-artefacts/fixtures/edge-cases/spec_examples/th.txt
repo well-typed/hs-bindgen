@@ -160,12 +160,20 @@ instance HasCField Cint16_T "cint16_T_re"
 instance (~) ty Int16_T =>
          HasField "cint16_T_re" (Ptr Cint16_T) (Ptr ty)
     where getField = fromPtr (Proxy @"cint16_T_re")
+instance (~) ty Int16_T => HasField "cint16_T_re" Cint16_T ty
+    where hasField = \x_0 -> (\y_1 -> Cint16_T{cint16_T_re = y_1,
+                                               cint16_T_im = getField @"cint16_T_im" x_0},
+                              getField @"cint16_T_re" x_0)
 instance HasCField Cint16_T "cint16_T_im"
     where type CFieldType Cint16_T "cint16_T_im" = Int16_T
           offset# = \_ -> \_ -> 2
 instance (~) ty Int16_T =>
          HasField "cint16_T_im" (Ptr Cint16_T) (Ptr ty)
     where getField = fromPtr (Proxy @"cint16_T_im")
+instance (~) ty Int16_T => HasField "cint16_T_im" Cint16_T ty
+    where hasField = \x_0 -> (\y_1 -> Cint16_T{cint16_T_im = y_1,
+                                               cint16_T_re = getField @"cint16_T_re" x_0},
+                              getField @"cint16_T_im" x_0)
 {-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/spec_examples.h 19:8@
@@ -243,27 +251,63 @@ instance HasCField A "a_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CDouble => HasField "a_x" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_x")
+instance (~) ty CDouble => HasField "a_x" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_x = y_1,
+                                        a_label = getField @"a_label" x_0,
+                                        a_samples = getField @"a_samples" x_0,
+                                        a_b = getField @"a_b" x_0,
+                                        a_c = getField @"a_c" x_0},
+                              getField @"a_x" x_0)
 instance HasCField A "a_label"
     where type CFieldType A "a_label" = Ptr CChar
           offset# = \_ -> \_ -> 8
 instance (~) ty (Ptr CChar) => HasField "a_label" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_label")
+instance (~) ty (Ptr CChar) => HasField "a_label" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_label = y_1,
+                                        a_x = getField @"a_x" x_0,
+                                        a_samples = getField @"a_samples" x_0,
+                                        a_b = getField @"a_b" x_0,
+                                        a_c = getField @"a_c" x_0},
+                              getField @"a_label" x_0)
 instance HasCField A "a_samples"
     where type CFieldType A "a_samples" = ConstantArray 128 CChar
           offset# = \_ -> \_ -> 16
 instance (~) ty (ConstantArray 128 CChar) =>
          HasField "a_samples" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_samples")
+instance (~) ty (ConstantArray 128 CChar) =>
+         HasField "a_samples" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_samples = y_1,
+                                        a_x = getField @"a_x" x_0,
+                                        a_label = getField @"a_label" x_0,
+                                        a_b = getField @"a_b" x_0,
+                                        a_c = getField @"a_c" x_0},
+                              getField @"a_samples" x_0)
 instance HasCField A "a_b"
     where type CFieldType A "a_b" = B
           offset# = \_ -> \_ -> 144
 instance (~) ty B => HasField "a_b" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_b")
+instance (~) ty B => HasField "a_b" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_b = y_1,
+                                        a_x = getField @"a_x" x_0,
+                                        a_label = getField @"a_label" x_0,
+                                        a_samples = getField @"a_samples" x_0,
+                                        a_c = getField @"a_c" x_0},
+                              getField @"a_b" x_0)
 instance HasCField A "a_c"
     where type CFieldType A "a_c" = Ptr C
           offset# = \_ -> \_ -> 144
 instance (~) ty (Ptr C) => HasField "a_c" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_c")
+instance (~) ty (Ptr C) => HasField "a_c" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_c = y_1,
+                                        a_x = getField @"a_x" x_0,
+                                        a_label = getField @"a_label" x_0,
+                                        a_samples = getField @"a_samples" x_0,
+                                        a_b = getField @"a_b" x_0},
+                              getField @"a_c" x_0)
 {-| __C declaration:__ @struct C@
 
     __defined at:__ @edge-cases\/spec_examples.h 28:10@

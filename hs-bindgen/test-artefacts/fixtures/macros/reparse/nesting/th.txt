@@ -57,6 +57,9 @@ instance HasCField T2 "t2_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t2_x" (Ptr T2) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_x")
+instance (~) ty MyInt => HasField "t2_x" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
+                              getField @"t2_x" x_0)
 {-| __C declaration:__ @struct TS3@
 
     __defined at:__ @macros\/reparse\/nesting.h 6:16@
@@ -86,6 +89,9 @@ instance HasCField T3 "t3_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t3_x" (Ptr T3) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_x")
+instance (~) ty MyInt => HasField "t3_x" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
+                              getField @"t3_x" x_0)
 {-| __C declaration:__ @struct T4@
 
     __defined at:__ @macros\/reparse\/nesting.h 7:9@
@@ -115,3 +121,6 @@ instance HasCField T4 "t4_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t4_x" (Ptr T4) (Ptr ty)
     where getField = fromPtr (Proxy @"t4_x")
+instance (~) ty MyInt => HasField "t4_x" T4 ty
+    where hasField = \x_0 -> (\y_1 -> T4{t4_x = y_1},
+                              getField @"t4_x" x_0)

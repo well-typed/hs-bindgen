@@ -545,6 +545,7 @@ hstypes:
       - example_struct_field2
       - example_struct_field3
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -567,6 +568,7 @@ hstypes:
       - example_struct_with_const_const_field6
       - example_struct_with_const_const_field7
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

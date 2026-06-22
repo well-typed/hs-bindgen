@@ -45,6 +45,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -113,6 +114,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"another_typedef_struct_t_foo")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "another_typedef_struct_t_foo" Another_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Another_typedef_struct_t { another_typedef_struct_t_foo = y1
+                                   , another_typedef_struct_t_bar = RIP.getField @"another_typedef_struct_t_bar" x0
+                                   }
+      , RIP.getField @"another_typedef_struct_t_foo" x0
+      )
+
 instance HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_bar" where
 
   type CFieldType Another_typedef_struct_t "another_typedef_struct_t_bar" =
@@ -125,6 +138,18 @@ instance ( ty ~ RIP.CChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"another_typedef_struct_t_bar")
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "another_typedef_struct_t_bar" Another_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Another_typedef_struct_t { another_typedef_struct_t_bar = y1
+                                   , another_typedef_struct_t_foo = RIP.getField @"another_typedef_struct_t_foo" x0
+                                   }
+      , RIP.getField @"another_typedef_struct_t_bar" x0
+      )
 
 {-| __C declaration:__ @enum another_typedef_enum_e@
 
@@ -498,6 +523,27 @@ instance ( ty ~ RIP.CBool
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_0")
 
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_0" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_0 = y1
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_0" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_1" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_1" =
@@ -510,6 +556,27 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word8
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_1")
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_1" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_1 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_1" x0
+      )
 
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_2" where
 
@@ -524,6 +591,27 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_2")
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_2" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_2 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_2" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_3" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_3" =
@@ -536,6 +624,27 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word32
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_3")
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_3" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_3 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_3" x0
+      )
 
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_4" where
 
@@ -550,6 +659,27 @@ instance ( ty ~ Another_typedef_struct_t
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_4")
 
+instance ( ty ~ Another_typedef_struct_t
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_4" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_4 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_4" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_5" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_5" =
@@ -562,6 +692,27 @@ instance ( ty ~ RIP.Ptr Another_typedef_struct_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_5")
+
+instance ( ty ~ RIP.Ptr Another_typedef_struct_t
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_5" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_5 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_5" x0
+      )
 
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_6" where
 
@@ -576,6 +727,27 @@ instance ( ty ~ RIP.Ptr RIP.Void
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_6")
 
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_6" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_6 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_6" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_7" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_7" =
@@ -588,6 +760,27 @@ instance ( ty ~ CA.ConstantArray 7 HsBindgen.Runtime.LibC.Word32
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_7")
+
+instance ( ty ~ CA.ConstantArray 7 HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_7" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_7 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_7" x0
+      )
 
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_8" where
 
@@ -602,6 +795,27 @@ instance ( ty ~ Another_typedef_enum_e
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_8")
 
+instance ( ty ~ Another_typedef_enum_e
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_8" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_8 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_8" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_9" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_9" =
@@ -615,6 +829,27 @@ instance ( ty ~ CA.ConstantArray 4 Another_typedef_enum_e
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_9")
 
+instance ( ty ~ CA.ConstantArray 4 Another_typedef_enum_e
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_9" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_9 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_10 = RIP.getField @"a_typedef_struct_t_field_10" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_9" x0
+      )
+
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_10" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_10" =
@@ -627,6 +862,27 @@ instance ( ty ~ CA.ConstantArray 5 (CA.ConstantArray 3 Another_typedef_enum_e)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_10")
+
+instance ( ty ~ CA.ConstantArray 5 (CA.ConstantArray 3 Another_typedef_enum_e)
+         ) => RIP.CompatHasField.HasField "a_typedef_struct_t_field_10" A_typedef_struct_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_struct_t { a_typedef_struct_t_field_10 = y1
+                             , a_typedef_struct_t_field_0 = RIP.getField @"a_typedef_struct_t_field_0" x0
+                             , a_typedef_struct_t_field_1 = RIP.getField @"a_typedef_struct_t_field_1" x0
+                             , a_typedef_struct_t_field_2 = RIP.getField @"a_typedef_struct_t_field_2" x0
+                             , a_typedef_struct_t_field_3 = RIP.getField @"a_typedef_struct_t_field_3" x0
+                             , a_typedef_struct_t_field_4 = RIP.getField @"a_typedef_struct_t_field_4" x0
+                             , a_typedef_struct_t_field_5 = RIP.getField @"a_typedef_struct_t_field_5" x0
+                             , a_typedef_struct_t_field_6 = RIP.getField @"a_typedef_struct_t_field_6" x0
+                             , a_typedef_struct_t_field_7 = RIP.getField @"a_typedef_struct_t_field_7" x0
+                             , a_typedef_struct_t_field_8 = RIP.getField @"a_typedef_struct_t_field_8" x0
+                             , a_typedef_struct_t_field_9 = RIP.getField @"a_typedef_struct_t_field_9" x0
+                             }
+      , RIP.getField @"a_typedef_struct_t_field_10" x0
+      )
 
 {-| __C declaration:__ @macro A_DEFINE_0@
 

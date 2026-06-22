@@ -29,6 +29,9 @@ instance HasCField S "s_f"
 instance (~) ty (ConstantArray 3 CShort) =>
          HasField "s_f" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_f")
+instance (~) ty (ConstantArray 3 CShort) => HasField "s_f" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_f = y_1},
+                              getField @"s_f" x_0)
 {-| __C declaration:__ @more_aligned_int@
 
     __defined at:__ @attributes\/type_attributes.h 9:13@
@@ -90,6 +93,9 @@ instance HasCField S2 "s2_f"
 instance (~) ty (ConstantArray 3 CShort) =>
          HasField "s2_f" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_f")
+instance (~) ty (ConstantArray 3 CShort) => HasField "s2_f" S2 ty
+    where hasField = \x_0 -> (\y_1 -> S2{s2_f = y_1},
+                              getField @"s2_f" x_0)
 {-| __C declaration:__ @struct my_unpacked_struct@
 
     __defined at:__ @attributes\/type_attributes.h 13:8@
@@ -129,6 +135,11 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_c"
 instance (~) ty CChar =>
          HasField "my_unpacked_struct_c" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_c")
+instance (~) ty CChar =>
+         HasField "my_unpacked_struct_c" My_unpacked_struct ty
+    where hasField = \x_0 -> (\y_1 -> My_unpacked_struct{my_unpacked_struct_c = y_1,
+                                                         my_unpacked_struct_i = getField @"my_unpacked_struct_i" x_0},
+                              getField @"my_unpacked_struct_c" x_0)
 instance HasCField My_unpacked_struct "my_unpacked_struct_i"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_i" = CInt
@@ -136,6 +147,11 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_i"
 instance (~) ty CInt =>
          HasField "my_unpacked_struct_i" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_i")
+instance (~) ty CInt =>
+         HasField "my_unpacked_struct_i" My_unpacked_struct ty
+    where hasField = \x_0 -> (\y_1 -> My_unpacked_struct{my_unpacked_struct_i = y_1,
+                                                         my_unpacked_struct_c = getField @"my_unpacked_struct_c" x_0},
+                              getField @"my_unpacked_struct_i" x_0)
 {-| __C declaration:__ @struct my_packed_struct@
 
     __defined at:__ @attributes\/type_attributes.h 19:37@
@@ -182,12 +198,24 @@ instance HasCField My_packed_struct "my_packed_struct_c"
 instance (~) ty CChar =>
          HasField "my_packed_struct_c" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_c")
+instance (~) ty CChar =>
+         HasField "my_packed_struct_c" My_packed_struct ty
+    where hasField = \x_0 -> (\y_1 -> My_packed_struct{my_packed_struct_c = y_1,
+                                                       my_packed_struct_i = getField @"my_packed_struct_i" x_0,
+                                                       my_packed_struct_s = getField @"my_packed_struct_s" x_0},
+                              getField @"my_packed_struct_c" x_0)
 instance HasCField My_packed_struct "my_packed_struct_i"
     where type CFieldType My_packed_struct "my_packed_struct_i" = CInt
           offset# = \_ -> \_ -> 1
 instance (~) ty CInt =>
          HasField "my_packed_struct_i" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_i")
+instance (~) ty CInt =>
+         HasField "my_packed_struct_i" My_packed_struct ty
+    where hasField = \x_0 -> (\y_1 -> My_packed_struct{my_packed_struct_i = y_1,
+                                                       my_packed_struct_c = getField @"my_packed_struct_c" x_0,
+                                                       my_packed_struct_s = getField @"my_packed_struct_s" x_0},
+                              getField @"my_packed_struct_i" x_0)
 instance HasCField My_packed_struct "my_packed_struct_s"
     where type CFieldType My_packed_struct
                           "my_packed_struct_s" = My_unpacked_struct
@@ -195,6 +223,12 @@ instance HasCField My_packed_struct "my_packed_struct_s"
 instance (~) ty My_unpacked_struct =>
          HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_s")
+instance (~) ty My_unpacked_struct =>
+         HasField "my_packed_struct_s" My_packed_struct ty
+    where hasField = \x_0 -> (\y_1 -> My_packed_struct{my_packed_struct_s = y_1,
+                                                       my_packed_struct_c = getField @"my_packed_struct_c" x_0,
+                                                       my_packed_struct_i = getField @"my_packed_struct_i" x_0},
+                              getField @"my_packed_struct_s" x_0)
 {-| __C declaration:__ @union wait_status_ptr_t@
 
     __defined at:__ @attributes\/type_attributes.h 26:9@

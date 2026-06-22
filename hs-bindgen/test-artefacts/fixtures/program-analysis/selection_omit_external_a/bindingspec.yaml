@@ -14,6 +14,7 @@ hstypes:
       fields:
       - unrelatedDeclaration_m
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

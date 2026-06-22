@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@S_y_anon\'x@
@@ -76,6 +77,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S_y_anon'x {s_y_anon'x_x = y1}, RIP.getField @"s_y_anon'x_x" x0)
+
 {-| __C declaration:__ @struct \@S_y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 15:3@
@@ -128,6 +137,14 @@ instance ( ty ~ S_y_anon'x
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
+
+instance ( ty ~ S_y_anon'x
+         ) => RIP.CompatHasField.HasField "s_y_anon'x" S_y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S_y {s_y_anon'x = y1}, RIP.getField @"s_y_anon'x" x0)
 
 {-| __C declaration:__ @struct S@
 
@@ -189,6 +206,13 @@ instance (ty ~ RIP.CULLong) => RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_x")
 
+instance (ty ~ RIP.CULLong) => RIP.CompatHasField.HasField "s_x" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S {s_x = y1, s_y = RIP.getField @"s_y" x0}, RIP.getField @"s_x" x0)
+
 instance HasCField.HasCField S "s_y" where
 
   type CFieldType S "s_y" = S_y
@@ -198,3 +222,10 @@ instance HasCField.HasCField S "s_y" where
 instance (ty ~ S_y) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_y")
+
+instance (ty ~ S_y) => RIP.CompatHasField.HasField "s_y" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S {s_y = y1, s_x = RIP.getField @"s_x" x0}, RIP.getField @"s_y" x0)

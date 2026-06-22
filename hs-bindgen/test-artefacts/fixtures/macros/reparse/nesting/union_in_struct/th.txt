@@ -128,6 +128,9 @@ instance HasCField T1 "t1_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"t1_x")
+instance (~) ty T1_x => HasField "t1_x" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
+                              getField @"t1_x" x_0)
 {-| __C declaration:__ @struct \@T2@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:1@
@@ -157,6 +160,9 @@ instance HasCField T2 "t2_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_x")
+instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
+                              getField @"t2_x" x_0)
 {-| __C declaration:__ @union \@T2_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:10@
@@ -239,6 +245,9 @@ instance HasCField T3 "t3_x"
 instance (~) ty (Ptr (Ptr T3_x)) =>
          HasField "t3_x" (Ptr T3) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_x")
+instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
+                              getField @"t3_x" x_0)
 {-| __C declaration:__ @union \@T3_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:10@

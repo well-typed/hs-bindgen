@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct opaque@
@@ -92,6 +93,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"outside_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outside_x" Outside ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outside {outside_x = y1, outside_y = RIP.getField @"outside_y" x0}
+      , RIP.getField @"outside_x" x0
+      )
+
 instance HasCField.HasCField Outside "outside_y" where
 
   type CFieldType Outside "outside_y" = RIP.CInt
@@ -102,3 +113,13 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outside_y" (RIP.Ptr Outside) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"outside_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outside_y" Outside ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Outside {outside_y = y1, outside_x = RIP.getField @"outside_x" x0}
+      , RIP.getField @"outside_y" x0
+      )

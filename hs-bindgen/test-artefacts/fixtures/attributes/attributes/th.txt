@@ -36,11 +36,19 @@ instance HasCField Foo "foo_c"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_c")
+instance (~) ty CChar => HasField "foo_c" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_c = y_1,
+                                          foo_i = getField @"foo_i" x_0},
+                              getField @"foo_c" x_0)
 instance HasCField Foo "foo_i"
     where type CFieldType Foo "foo_i" = CInt
           offset# = \_ -> \_ -> 1
 instance (~) ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_i")
+instance (~) ty CInt => HasField "foo_i" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_i = y_1,
+                                          foo_c = getField @"foo_c" x_0},
+                              getField @"foo_i" x_0)
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @attributes\/attributes.h 16:15@
@@ -78,11 +86,19 @@ instance HasCField Bar "bar_c"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "bar_c" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_c")
+instance (~) ty CChar => HasField "bar_c" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_c = y_1,
+                                          bar_i = getField @"bar_i" x_0},
+                              getField @"bar_c" x_0)
 instance HasCField Bar "bar_i"
     where type CFieldType Bar "bar_i" = CInt
           offset# = \_ -> \_ -> 1
 instance (~) ty CInt => HasField "bar_i" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_i")
+instance (~) ty CInt => HasField "bar_i" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_i = y_1,
+                                          bar_c = getField @"bar_c" x_0},
+                              getField @"bar_i" x_0)
 {-| __C declaration:__ @struct baz@
 
     __defined at:__ @attributes\/attributes.h 22:9@
@@ -120,11 +136,19 @@ instance HasCField Baz "baz_c"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "baz_c" (Ptr Baz) (Ptr ty)
     where getField = fromPtr (Proxy @"baz_c")
+instance (~) ty CChar => HasField "baz_c" Baz ty
+    where hasField = \x_0 -> (\y_1 -> Baz{baz_c = y_1,
+                                          baz_i = getField @"baz_i" x_0},
+                              getField @"baz_c" x_0)
 instance HasCField Baz "baz_i"
     where type CFieldType Baz "baz_i" = CInt
           offset# = \_ -> \_ -> 1
 instance (~) ty CInt => HasField "baz_i" (Ptr Baz) (Ptr ty)
     where getField = fromPtr (Proxy @"baz_i")
+instance (~) ty CInt => HasField "baz_i" Baz ty
+    where hasField = \x_0 -> (\y_1 -> Baz{baz_i = y_1,
+                                          baz_c = getField @"baz_c" x_0},
+                              getField @"baz_i" x_0)
 {-| __C declaration:__ @struct qux@
 
     __defined at:__ @attributes\/attributes.h 28:9@
@@ -162,11 +186,19 @@ instance HasCField Qux "qux_c"
           offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "qux_c" (Ptr Qux) (Ptr ty)
     where getField = fromPtr (Proxy @"qux_c")
+instance (~) ty CChar => HasField "qux_c" Qux ty
+    where hasField = \x_0 -> (\y_1 -> Qux{qux_c = y_1,
+                                          qux_i = getField @"qux_i" x_0},
+                              getField @"qux_c" x_0)
 instance HasCField Qux "qux_i"
     where type CFieldType Qux "qux_i" = CInt
           offset# = \_ -> \_ -> 1
 instance (~) ty CInt => HasField "qux_i" (Ptr Qux) (Ptr ty)
     where getField = fromPtr (Proxy @"qux_i")
+instance (~) ty CInt => HasField "qux_i" Qux ty
+    where hasField = \x_0 -> (\y_1 -> Qux{qux_i = y_1,
+                                          qux_c = getField @"qux_c" x_0},
+                              getField @"qux_i" x_0)
 {-| __C declaration:__ @struct __sFILE@
 
     __defined at:__ @attributes\/attributes.h 34:16@
@@ -212,11 +244,21 @@ instance HasCField FILE "fILE__r"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "fILE__r" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__r")
+instance (~) ty CInt => HasField "fILE__r" FILE ty
+    where hasField = \x_0 -> (\y_1 -> FILE{fILE__r = y_1,
+                                           fILE__w = getField @"fILE__w" x_0,
+                                           fILE__close = getField @"fILE__close" x_0},
+                              getField @"fILE__r" x_0)
 instance HasCField FILE "fILE__w"
     where type CFieldType FILE "fILE__w" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "fILE__w" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__w")
+instance (~) ty CInt => HasField "fILE__w" FILE ty
+    where hasField = \x_0 -> (\y_1 -> FILE{fILE__w = y_1,
+                                           fILE__r = getField @"fILE__r" x_0,
+                                           fILE__close = getField @"fILE__close" x_0},
+                              getField @"fILE__w" x_0)
 instance HasCField FILE "fILE__close"
     where type CFieldType FILE "fILE__close" = FunPtr (Ptr Void ->
                                                        IO CInt)
@@ -224,3 +266,9 @@ instance HasCField FILE "fILE__close"
 instance (~) ty (FunPtr (Ptr Void -> IO CInt)) =>
          HasField "fILE__close" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__close")
+instance (~) ty (FunPtr (Ptr Void -> IO CInt)) =>
+         HasField "fILE__close" FILE ty
+    where hasField = \x_0 -> (\y_1 -> FILE{fILE__close = y_1,
+                                           fILE__r = getField @"fILE__r" x_0,
+                                           fILE__w = getField @"fILE__w" x_0},
+                              getField @"fILE__close" x_0)

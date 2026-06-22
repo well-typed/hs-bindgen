@@ -27,6 +27,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MC@
@@ -159,6 +160,14 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct1_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "struct1_a" Struct1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct1 {struct1_a = y1}, RIP.getField @"struct1_a" x0)
+
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
@@ -211,6 +220,14 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct2_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "struct2_a" Struct2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct2 {struct2_a = y1}, RIP.getField @"struct2_a" x0)
+
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
@@ -262,6 +279,14 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct3_a")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "struct3_a" Struct3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct3 {struct3_a = y1}, RIP.getField @"struct3_a" x0)
 
 {-| __C declaration:__ @struct3_t@
 
@@ -343,3 +368,11 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"struct4_a")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "struct4_a" Struct4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct4 {struct4_a = y1}, RIP.getField @"struct4_a" x0)

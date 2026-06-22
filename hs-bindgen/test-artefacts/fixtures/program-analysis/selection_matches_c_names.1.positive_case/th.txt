@@ -43,6 +43,9 @@ instance HasCField NewName "newName_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "newName_x" (Ptr NewName) (Ptr ty)
     where getField = fromPtr (Proxy @"newName_x")
+instance (~) ty CInt => HasField "newName_x" NewName ty
+    where hasField = \x_0 -> (\y_1 -> NewName{newName_x = y_1},
+                              getField @"newName_x" x_0)
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::
     IO Int32

@@ -192,6 +192,7 @@ hstypes:
       - dataPipeline_process
       - dataPipeline_postProcess
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -303,6 +304,7 @@ hstypes:
       - measurement_value
       - measurement_timestamp
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -321,6 +323,7 @@ hstypes:
       - measurementHandler_validate
       - measurementHandler_onError
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -374,6 +377,7 @@ hstypes:
       - processor_mode
       - processor_callback
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -442,6 +446,7 @@ hstypes:
       fields:
       - s_fn
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -36,11 +36,19 @@ instance HasCField S1_c "s1_c_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s1_c_a" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_a")
+instance (~) ty CInt => HasField "s1_c_a" S1_c ty
+    where hasField = \x_0 -> (\y_1 -> S1_c{s1_c_a = y_1,
+                                           s1_c_b = getField @"s1_c_b" x_0},
+                              getField @"s1_c_a" x_0)
 instance HasCField S1_c "s1_c_b"
     where type CFieldType S1_c "s1_c_b" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_b")
+instance (~) ty CInt => HasField "s1_c_b" S1_c ty
+    where hasField = \x_0 -> (\y_1 -> S1_c{s1_c_b = y_1,
+                                           s1_c_a = getField @"s1_c_a" x_0},
+                              getField @"s1_c_b" x_0)
 {-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/anonymous.h 2:8@
@@ -78,11 +86,19 @@ instance HasCField S1 "s1_c"
           offset# = \_ -> \_ -> 0
 instance (~) ty S1_c => HasField "s1_c" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c")
+instance (~) ty S1_c => HasField "s1_c" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_c = y_1,
+                                         s1_d = getField @"s1_d" x_0},
+                              getField @"s1_c" x_0)
 instance HasCField S1 "s1_d"
     where type CFieldType S1 "s1_d" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "s1_d" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_d")
+instance (~) ty CInt => HasField "s1_d" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_d = y_1,
+                                         s1_c = getField @"s1_c" x_0},
+                              getField @"s1_d" x_0)
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
     __defined at:__ @types\/structs\/anonymous.h 15:5@
@@ -113,6 +129,9 @@ instance HasCField S2_inner_deep "s2_inner_deep_b"
 instance (~) ty CInt =>
          HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep_b")
+instance (~) ty CInt => HasField "s2_inner_deep_b" S2_inner_deep ty
+    where hasField = \x_0 -> (\y_1 -> S2_inner_deep{s2_inner_deep_b = y_1},
+                              getField @"s2_inner_deep_b" x_0)
 {-| __C declaration:__ @struct \@S2_inner@
 
     __defined at:__ @types\/structs\/anonymous.h 13:3@
@@ -151,12 +170,21 @@ instance HasCField S2_inner "s2_inner_a"
 instance (~) ty CInt =>
          HasField "s2_inner_a" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_a")
+instance (~) ty CInt => HasField "s2_inner_a" S2_inner ty
+    where hasField = \x_0 -> (\y_1 -> S2_inner{s2_inner_a = y_1,
+                                               s2_inner_deep = getField @"s2_inner_deep" x_0},
+                              getField @"s2_inner_a" x_0)
 instance HasCField S2_inner "s2_inner_deep"
     where type CFieldType S2_inner "s2_inner_deep" = S2_inner_deep
           offset# = \_ -> \_ -> 4
 instance (~) ty S2_inner_deep =>
          HasField "s2_inner_deep" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep")
+instance (~) ty S2_inner_deep =>
+         HasField "s2_inner_deep" S2_inner ty
+    where hasField = \x_0 -> (\y_1 -> S2_inner{s2_inner_deep = y_1,
+                                               s2_inner_a = getField @"s2_inner_a" x_0},
+                              getField @"s2_inner_deep" x_0)
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/anonymous.h 12:8@
@@ -194,11 +222,19 @@ instance HasCField S2 "s2_inner"
           offset# = \_ -> \_ -> 0
 instance (~) ty S2_inner => HasField "s2_inner" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner")
+instance (~) ty S2_inner => HasField "s2_inner" S2 ty
+    where hasField = \x_0 -> (\y_1 -> S2{s2_inner = y_1,
+                                         s2_d = getField @"s2_d" x_0},
+                              getField @"s2_inner" x_0)
 instance HasCField S2 "s2_d"
     where type CFieldType S2 "s2_d" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "s2_d" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_d")
+instance (~) ty CInt => HasField "s2_d" S2 ty
+    where hasField = \x_0 -> (\y_1 -> S2{s2_d = y_1,
+                                         s2_inner = getField @"s2_inner" x_0},
+                              getField @"s2_d" x_0)
 {-| __C declaration:__ @struct S3@
 
     __defined at:__ @types\/structs\/anonymous.h 24:8@
@@ -237,11 +273,19 @@ instance HasCField S3 "s3_c"
 instance (~) ty (Ptr (Ptr S3_c)) =>
          HasField "s3_c" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c")
+instance (~) ty (Ptr (Ptr S3_c)) => HasField "s3_c" S3 ty
+    where hasField = \x_0 -> (\y_1 -> S3{s3_c = y_1,
+                                         s3_d = getField @"s3_d" x_0},
+                              getField @"s3_c" x_0)
 instance HasCField S3 "s3_d"
     where type CFieldType S3 "s3_d" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "s3_d" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_d")
+instance (~) ty CInt => HasField "s3_d" S3 ty
+    where hasField = \x_0 -> (\y_1 -> S3{s3_d = y_1,
+                                         s3_c = getField @"s3_c" x_0},
+                              getField @"s3_d" x_0)
 {-| __C declaration:__ @struct \@S3_c@
 
     __defined at:__ @types\/structs\/anonymous.h 25:3@
@@ -279,8 +323,16 @@ instance HasCField S3_c "s3_c_a"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s3_c_a" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_a")
+instance (~) ty CInt => HasField "s3_c_a" S3_c ty
+    where hasField = \x_0 -> (\y_1 -> S3_c{s3_c_a = y_1,
+                                           s3_c_b = getField @"s3_c_b" x_0},
+                              getField @"s3_c_a" x_0)
 instance HasCField S3_c "s3_c_b"
     where type CFieldType S3_c "s3_c_b" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "s3_c_b" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_b")
+instance (~) ty CInt => HasField "s3_c_b" S3_c ty
+    where hasField = \x_0 -> (\y_1 -> S3_c{s3_c_b = y_1,
+                                           s3_c_a = getField @"s3_c_a" x_0},
+                              getField @"s3_c_b" x_0)

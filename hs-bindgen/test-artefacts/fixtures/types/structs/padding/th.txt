@@ -46,6 +46,11 @@ instance HasCBitfield Foo "foo_a"
 instance (~) ty CSChar =>
          HasField "foo_a" (Ptr Foo) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_a")
+instance (~) ty CSChar => HasField "foo_a" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_a = y_1,
+                                          foo_b = getField @"foo_b" x_0,
+                                          foo_c = getField @"foo_c" x_0},
+                              getField @"foo_a" x_0)
 instance HasCBitfield Foo "foo_b"
     where type CBitfieldType Foo "foo_b" = CSChar
           bitfieldOffset# = \_ -> \_ -> 3
@@ -53,6 +58,11 @@ instance HasCBitfield Foo "foo_b"
 instance (~) ty CSChar =>
          HasField "foo_b" (Ptr Foo) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_b")
+instance (~) ty CSChar => HasField "foo_b" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_b = y_1,
+                                          foo_a = getField @"foo_a" x_0,
+                                          foo_c = getField @"foo_c" x_0},
+                              getField @"foo_b" x_0)
 instance HasCBitfield Foo "foo_c"
     where type CBitfieldType Foo "foo_c" = CSChar
           bitfieldOffset# = \_ -> \_ -> 8
@@ -60,6 +70,11 @@ instance HasCBitfield Foo "foo_c"
 instance (~) ty CSChar =>
          HasField "foo_c" (Ptr Foo) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_c")
+instance (~) ty CSChar => HasField "foo_c" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{foo_c = y_1,
+                                          foo_a = getField @"foo_a" x_0,
+                                          foo_b = getField @"foo_b" x_0},
+                              getField @"foo_c" x_0)
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @types\/structs\/padding.h 8:8@
@@ -99,6 +114,10 @@ instance HasCBitfield Bar "bar_x"
 instance (~) ty CSChar =>
          HasField "bar_x" (Ptr Bar) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_x")
+instance (~) ty CSChar => HasField "bar_x" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_x = y_1,
+                                          bar_y = getField @"bar_y" x_0},
+                              getField @"bar_x" x_0)
 instance HasCBitfield Bar "bar_y"
     where type CBitfieldType Bar "bar_y" = CSChar
           bitfieldOffset# = \_ -> \_ -> 6
@@ -106,3 +125,7 @@ instance HasCBitfield Bar "bar_y"
 instance (~) ty CSChar =>
          HasField "bar_y" (Ptr Bar) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_y")
+instance (~) ty CSChar => HasField "bar_y" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_y = y_1,
+                                          bar_x = getField @"bar_x" x_0},
+                              getField @"bar_y" x_0)

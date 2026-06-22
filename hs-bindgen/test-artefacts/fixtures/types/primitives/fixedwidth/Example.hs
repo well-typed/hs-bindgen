@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -85,6 +86,16 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word64
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_sixty_four = y1, foo_thirty_two = RIP.getField @"foo_thirty_two" x0}
+      , RIP.getField @"foo_sixty_four" x0
+      )
+
 instance HasCField.HasCField Foo "foo_thirty_two" where
 
   type CFieldType Foo "foo_thirty_two" =
@@ -97,3 +108,13 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word32
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
+      , RIP.getField @"foo_thirty_two" x0
+      )

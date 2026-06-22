@@ -45,6 +45,7 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -61,6 +62,7 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

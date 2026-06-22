@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct complex_object_t@
@@ -96,6 +97,19 @@ instance ( ty ~ RIP.Complex RIP.CFloat
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_velocity")
 
+instance ( ty ~ RIP.Complex RIP.CFloat
+         ) => RIP.CompatHasField.HasField "complex_object_t_velocity" Complex_object_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Complex_object_t { complex_object_t_velocity = y1
+                           , complex_object_t_position = RIP.getField @"complex_object_t_position" x0
+                           , complex_object_t_id = RIP.getField @"complex_object_t_id" x0
+                           }
+      , RIP.getField @"complex_object_t_velocity" x0
+      )
+
 instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
   type CFieldType Complex_object_t "complex_object_t_position" =
@@ -109,6 +123,19 @@ instance ( ty ~ RIP.Complex RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_position")
 
+instance ( ty ~ RIP.Complex RIP.CDouble
+         ) => RIP.CompatHasField.HasField "complex_object_t_position" Complex_object_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Complex_object_t { complex_object_t_position = y1
+                           , complex_object_t_velocity = RIP.getField @"complex_object_t_velocity" x0
+                           , complex_object_t_id = RIP.getField @"complex_object_t_id" x0
+                           }
+      , RIP.getField @"complex_object_t_position" x0
+      )
+
 instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
 
   type CFieldType Complex_object_t "complex_object_t_id" =
@@ -121,3 +148,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"complex_object_t_id")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "complex_object_t_id" Complex_object_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Complex_object_t { complex_object_t_id = y1
+                           , complex_object_t_velocity = RIP.getField @"complex_object_t_velocity" x0
+                           , complex_object_t_position = RIP.getField @"complex_object_t_position" x0
+                           }
+      , RIP.getField @"complex_object_t_id" x0
+      )

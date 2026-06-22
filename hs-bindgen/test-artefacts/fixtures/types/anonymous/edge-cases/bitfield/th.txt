@@ -30,6 +30,9 @@ instance HasCBitfield S1_anon'y "s1_anon'y_y"
 instance (~) ty CChar =>
          HasField "s1_anon'y_y" (Ptr S1_anon'y) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"s1_anon'y_y")
+instance (~) ty CChar => HasField "s1_anon'y_y" S1_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S1_anon'y{s1_anon'y_y = y_1},
+                              getField @"s1_anon'y_y" x_0)
 {-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 12:8@
@@ -67,11 +70,19 @@ instance HasCField S1 "s1_anon'y"
           offset# = \_ -> \_ -> 0
 instance (~) ty S1_anon'y => HasField "s1_anon'y" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_anon'y")
+instance (~) ty S1_anon'y => HasField "s1_anon'y" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_anon'y = y_1,
+                                         s1_x = getField @"s1_x" x_0},
+                              getField @"s1_anon'y" x_0)
 instance HasCField S1 "s1_x"
     where type CFieldType S1 "s1_x" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "s1_x" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_x")
+instance (~) ty CInt => HasField "s1_x" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_x = y_1,
+                                         s1_anon'y = getField @"s1_anon'y" x_0},
+                              getField @"s1_x" x_0)
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
@@ -107,6 +118,10 @@ instance (~) ty CChar =>
                   (Ptr S2_anon'anon'y_anon'y)
                   (BitfieldPtr ty)
     where getField = toPtr (Proxy @"s2_anon'anon'y_anon'y_y")
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y_anon'y{s2_anon'anon'y_anon'y_y = y_1},
+                              getField @"s2_anon'anon'y_anon'y_y" x_0)
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
@@ -146,12 +161,22 @@ instance HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y"
 instance (~) ty S2_anon'anon'y_anon'y =>
          HasField "s2_anon'anon'y_anon'y" (Ptr S2_anon'anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_anon'anon'y_anon'y")
+instance (~) ty S2_anon'anon'y_anon'y =>
+         HasField "s2_anon'anon'y_anon'y" S2_anon'anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y{s2_anon'anon'y_anon'y = y_1,
+                                                     s2_anon'anon'y_x = getField @"s2_anon'anon'y_x" x_0},
+                              getField @"s2_anon'anon'y_anon'y" x_0)
 instance HasCField S2_anon'anon'y "s2_anon'anon'y_x"
     where type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "s2_anon'anon'y_x" (Ptr S2_anon'anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_anon'anon'y_x")
+instance (~) ty CInt =>
+         HasField "s2_anon'anon'y_x" S2_anon'anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y{s2_anon'anon'y_x = y_1,
+                                                     s2_anon'anon'y_anon'y = getField @"s2_anon'anon'y_anon'y" x_0},
+                              getField @"s2_anon'anon'y_x" x_0)
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 19:8@
@@ -182,3 +207,6 @@ instance HasCField S2 "s2_anon'anon'y"
 instance (~) ty S2_anon'anon'y =>
          HasField "s2_anon'anon'y" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_anon'anon'y")
+instance (~) ty S2_anon'anon'y => HasField "s2_anon'anon'y" S2 ty
+    where hasField = \x_0 -> (\y_1 -> S2{s2_anon'anon'y = y_1},
+                              getField @"s2_anon'anon'y" x_0)

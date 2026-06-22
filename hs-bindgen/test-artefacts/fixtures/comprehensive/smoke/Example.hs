@@ -36,6 +36,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @uint@
@@ -258,6 +259,27 @@ instance ( ty ~ RIP.Ptr RIP.Void
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.CompatHasField.HasField "a" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { a = y1
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"a" x0
+      )
+
 instance HasCField.HasCField Bar1_t "b" where
 
   type CFieldType Bar1_t "b" = RIP.CInt
@@ -267,6 +289,26 @@ instance HasCField.HasCField Bar1_t "b" where
 instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { b = y1
+                 , a = RIP.getField @"a" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"b" x0
+      )
 
 instance HasCField.HasCField Bar1_t "c" where
 
@@ -279,6 +321,26 @@ instance ( ty ~ RIP.CChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"c")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "c" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { c = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"c" x0
+      )
+
 instance HasCField.HasCField Bar1_t "d" where
 
   type CFieldType Bar1_t "d" = RIP.Ptr RIP.CChar
@@ -289,6 +351,27 @@ instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.HasField "d" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"d")
+
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.CompatHasField.HasField "d" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { d = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"d" x0
+      )
 
 instance HasCField.HasCField Bar1_t "e" where
 
@@ -302,6 +385,27 @@ instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
 
   getField = HasCField.fromPtr (RIP.Proxy @"e")
 
+instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
+         ) => RIP.CompatHasField.HasField "e" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { e = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"e" x0
+      )
+
 instance HasCField.HasCField Bar1_t "f" where
 
   type CFieldType Bar1_t "f" =
@@ -313,6 +417,27 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
          ) => RIP.HasField "f" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"f")
+
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
+         ) => RIP.CompatHasField.HasField "f" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { f = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"f" x0
+      )
 
 instance HasCField.HasCField Bar1_t "g" where
 
@@ -326,6 +451,27 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
 
   getField = HasCField.fromPtr (RIP.Proxy @"g")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
+         ) => RIP.CompatHasField.HasField "g" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { g = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"g" x0
+      )
+
 instance HasCField.HasCField Bar1_t "h" where
 
   type CFieldType Bar1_t "h" =
@@ -337,6 +483,27 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
          ) => RIP.HasField "h" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"h")
+
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
+         ) => RIP.CompatHasField.HasField "h" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { h = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"h" x0
+      )
 
 instance HasCField.HasCField Bar1_t "i" where
 
@@ -350,6 +517,27 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RI
 
   getField = HasCField.fromPtr (RIP.Proxy @"i")
 
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
+         ) => RIP.CompatHasField.HasField "i" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { i = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , j = RIP.getField @"j" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"i" x0
+      )
+
 instance HasCField.HasCField Bar1_t "j" where
 
   type CFieldType Bar1_t "j" =
@@ -362,6 +550,27 @@ instance ( ty ~ CA.ConstantArray 2 RIP.CChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"j")
 
+instance ( ty ~ CA.ConstantArray 2 RIP.CChar
+         ) => RIP.CompatHasField.HasField "j" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { j = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , k = RIP.getField @"k" x0
+                 }
+      , RIP.getField @"j" x0
+      )
+
 instance HasCField.HasCField Bar1_t "k" where
 
   type CFieldType Bar1_t "k" = RIP.Ptr Bar1_t
@@ -372,6 +581,27 @@ instance ( ty ~ RIP.Ptr Bar1_t
          ) => RIP.HasField "k" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"k")
+
+instance ( ty ~ RIP.Ptr Bar1_t
+         ) => RIP.CompatHasField.HasField "k" Bar1_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar1_t { k = y1
+                 , a = RIP.getField @"a" x0
+                 , b = RIP.getField @"b" x0
+                 , c = RIP.getField @"c" x0
+                 , d = RIP.getField @"d" x0
+                 , e = RIP.getField @"e" x0
+                 , f = RIP.getField @"f" x0
+                 , g = RIP.getField @"g" x0
+                 , h = RIP.getField @"h" x0
+                 , i = RIP.getField @"i" x0
+                 , j = RIP.getField @"j" x0
+                 }
+      , RIP.getField @"k" x0
+      )
 
 {-| __C declaration:__ @struct bar2_t@
 
@@ -424,6 +654,11 @@ instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar2_t ty where
+
+  hasField =
+    \x0 -> (\y1 -> Bar2_t {a = y1}, RIP.getField @"a" x0)
+
 {-| __C declaration:__ @struct bar3_t@
 
     __defined at:__ @comprehensive\/smoke.h 58:9@
@@ -474,6 +709,11 @@ instance HasCField.HasCField Bar3_t "a" where
 instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar3_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar3_t ty where
+
+  hasField =
+    \x0 -> (\y1 -> Bar3_t {a = y1}, RIP.getField @"a" x0)
 
 {-| __C declaration:__ @BAZ1@
 

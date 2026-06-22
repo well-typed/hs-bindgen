@@ -105,6 +105,7 @@ hstypes:
       - a_typedef_struct_t_field_9
       - a_typedef_struct_t_field_10
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -144,6 +145,7 @@ hstypes:
       - another_typedef_struct_t_foo
       - another_typedef_struct_t_bar
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

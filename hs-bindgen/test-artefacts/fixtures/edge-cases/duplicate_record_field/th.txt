@@ -28,6 +28,9 @@ instance HasCField A "dup"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "dup" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"dup")
+instance (~) ty CInt => HasField "dup" A ty
+    where hasField = \x_0 -> (\y_1 -> A{dup = y_1},
+                              getField @"dup" x_0)
 {-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/duplicate_record_field.h 5:8@
@@ -57,3 +60,6 @@ instance HasCField B "dup"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "dup" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"dup")
+instance (~) ty CInt => HasField "dup" B ty
+    where hasField = \x_0 -> (\y_1 -> B{dup = y_1},
+                              getField @"dup" x_0)

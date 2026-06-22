@@ -57,6 +57,7 @@ hstypes:
       - j
       - k
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -73,6 +74,7 @@ hstypes:
       fields:
       - a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -89,6 +91,7 @@ hstypes:
       fields:
       - a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

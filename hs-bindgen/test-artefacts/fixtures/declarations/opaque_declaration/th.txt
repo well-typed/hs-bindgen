@@ -43,11 +43,19 @@ instance HasCField Bar "bar_ptrA"
           offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Foo) => HasField "bar_ptrA" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_ptrA")
+instance (~) ty (Ptr Foo) => HasField "bar_ptrA" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_ptrA = y_1,
+                                          bar_ptrB = getField @"bar_ptrB" x_0},
+                              getField @"bar_ptrA" x_0)
 instance HasCField Bar "bar_ptrB"
     where type CFieldType Bar "bar_ptrB" = Ptr Bar
           offset# = \_ -> \_ -> 8
 instance (~) ty (Ptr Bar) => HasField "bar_ptrB" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_ptrB")
+instance (~) ty (Ptr Bar) => HasField "bar_ptrB" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{bar_ptrB = y_1,
+                                          bar_ptrA = getField @"bar_ptrA" x_0},
+                              getField @"bar_ptrB" x_0)
 {-| __C declaration:__ @struct baz@
 
     __defined at:__ @declarations\/opaque_declaration.h 9:8@

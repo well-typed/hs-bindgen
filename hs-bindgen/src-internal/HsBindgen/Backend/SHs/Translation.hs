@@ -11,6 +11,7 @@ import Data.ByteString qualified as BS
 import Data.Char qualified
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
+import DeBruijn.Idx
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
@@ -21,6 +22,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Final
@@ -105,6 +107,8 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasCBitfieldInstance i defInst.comment
       Hs.InstanceHasField i ->
         DInst $ translateHasFieldInstance i defInst.comment
+      Hs.InstanceCompatHasField i ->
+        DInst $ translateCompatHasFieldInstance i defInst.comment
       Hs.InstanceHasFlam struct i ->
         DInst Instance{
             clss    = Inst.Flam_Offset
@@ -605,6 +609,63 @@ translateHasFieldInstance inst mbComment = Instance{
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.UnsafeName "ty"
+
+{-------------------------------------------------------------------------------
+  'HasField'
+-------------------------------------------------------------------------------}
+
+translateCompatHasFieldInstance ::
+     Hs.CompatHasFieldInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateCompatHasFieldInstance inst mbComment = Instance{
+      clss   = Inst.CompatHasField
+    , args    = [fieldLit, parent, tyTypeVar]
+    , types   = []
+    , comment = mbComment
+    , super   = [ TApp (TApp TEq tyTypeVar) field ]
+    , decs    = [ ( bindgenGlobalTerm CompatHasField_hasField
+                  , ELam (NameHint "x") $ appManyExpr (EBoxedTup $ Plus2 0) [
+                        exprSetter
+                      , exprGetter
+                      ]
+                  )
+                ]
+    }
+  where
+    parent    = translateType inst.parentType
+    field     = translateType inst.fieldType
+    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
+    -- This is not actually a free type variable.
+    tyTypeVar = TFree $ Hs.UnsafeName "ty"
+
+    exprGetter :: SExpr (S Z)
+    exprGetter = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` EBound IZ
+
+    -- For the setter we use total record construction. The advantage with
+    -- record fields is that they can be used in any order regardless of the
+    -- order in which the fields were defined the datatype. This leads to a
+    -- simpler implementation compared to non-record construction. However,
+    -- because we use record fields we need total record construction instead of
+    -- a partial record update because the latter can cause warnings about
+    -- ambiguous field names. The implementation cost for record construction
+    -- compared to record update is low.
+    exprSetter :: SExpr (S Z)
+    exprSetter =
+        ELam (NameHint "y") $
+          ERecCon inst.constr $ concat [
+              [ FBind (Hs.nameToStr inst.fieldName) (EBound IZ) ]
+            , map mkFBindIdentity inst.otherFields
+            ]
+      where
+        -- An 'FBind' that leaves the original field unchanged
+        mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
+        mkFBindIdentity fieldName = FBind (Hs.nameToStr fieldName) $
+                      eBindgenGlobal HasField_getField
+            `ETypeApp` (translateType (HsStrLit (Hs.nameToStr fieldName)))
+            `EApp`      EBound (IS IZ)
 
 {-------------------------------------------------------------------------------
   Unions

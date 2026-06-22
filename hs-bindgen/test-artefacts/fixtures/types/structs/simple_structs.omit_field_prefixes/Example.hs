@@ -30,6 +30,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct S1@
@@ -92,6 +93,13 @@ instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" S1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S1 {a = y1, b = RIP.getField @"b" x0}, RIP.getField @"a" x0)
+
 instance HasCField.HasCField S1 "b" where
 
   type CFieldType S1 "b" = RIP.CChar
@@ -101,6 +109,13 @@ instance HasCField.HasCField S1 "b" where
 instance (ty ~ RIP.CChar) => RIP.HasField "b" (RIP.Ptr S1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "b" S1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S1 {b = y1, a = RIP.getField @"a" x0}, RIP.getField @"b" x0)
 
 {-| __C declaration:__ @struct S2@
 
@@ -171,6 +186,15 @@ instance (ty ~ RIP.CChar) => RIP.HasField "a" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S2_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_t {a = y1, b = RIP.getField @"b" x0, c = RIP.getField @"c" x0}
+      , RIP.getField @"a" x0
+      )
+
 instance HasCField.HasCField S2_t "b" where
 
   type CFieldType S2_t "b" = RIP.CInt
@@ -181,6 +205,15 @@ instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" S2_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_t {b = y1, a = RIP.getField @"a" x0, c = RIP.getField @"c" x0}
+      , RIP.getField @"b" x0
+      )
+
 instance HasCField.HasCField S2_t "c" where
 
   type CFieldType S2_t "c" = RIP.CFloat
@@ -190,6 +223,15 @@ instance HasCField.HasCField S2_t "c" where
 instance (ty ~ RIP.CFloat) => RIP.HasField "c" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"c")
+
+instance (ty ~ RIP.CFloat) => RIP.CompatHasField.HasField "c" S2_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S2_t {c = y1, a = RIP.getField @"a" x0, b = RIP.getField @"b" x0}
+      , RIP.getField @"c" x0
+      )
 
 {-| __C declaration:__ @struct S3_t@
 
@@ -241,6 +283,11 @@ instance HasCField.HasCField S3_t "a" where
 instance (ty ~ RIP.CChar) => RIP.HasField "a" (RIP.Ptr S3_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
+
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S3_t ty where
+
+  hasField =
+    \x0 -> (\y1 -> S3_t {a = y1}, RIP.getField @"a" x0)
 
 {-| __C declaration:__ @struct S4@
 
@@ -311,6 +358,15 @@ instance (ty ~ RIP.CChar) => RIP.HasField "b" (RIP.Ptr S4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "b" S4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S4 {b = y1, a = RIP.getField @"a" x0, c = RIP.getField @"c" x0}
+      , RIP.getField @"b" x0
+      )
+
 instance HasCField.HasCField S4 "a" where
 
   type CFieldType S4 "a" = RIP.CInt
@@ -320,6 +376,15 @@ instance HasCField.HasCField S4 "a" where
 instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr S4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" S4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S4 {a = y1, b = RIP.getField @"b" x0, c = RIP.getField @"c" x0}
+      , RIP.getField @"a" x0
+      )
 
 instance HasCField.HasCField S4 "c" where
 
@@ -331,6 +396,15 @@ instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "c" (RIP.Ptr S4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"c")
+
+instance (ty ~ RIP.Ptr RIP.CInt) => RIP.CompatHasField.HasField "c" S4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          S4 {c = y1, b = RIP.getField @"b" x0, a = RIP.getField @"a" x0}
+      , RIP.getField @"c" x0
+      )
 
 {-| __C declaration:__ @struct S5@
 
@@ -392,6 +466,13 @@ instance (ty ~ RIP.CChar) => RIP.HasField "a" (RIP.Ptr S5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S5 {a = y1, b = RIP.getField @"b" x0}, RIP.getField @"a" x0)
+
 instance HasCField.HasCField S5 "b" where
 
   type CFieldType S5 "b" = RIP.CInt
@@ -401,6 +482,13 @@ instance HasCField.HasCField S5 "b" where
 instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr S5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" S5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S5 {b = y1, a = RIP.getField @"a" x0}, RIP.getField @"b" x0)
 
 {-| __C declaration:__ @struct S6@
 
@@ -462,6 +550,13 @@ instance (ty ~ RIP.CChar) => RIP.HasField "a" (RIP.Ptr S6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S6 {a = y1, b = RIP.getField @"b" x0}, RIP.getField @"a" x0)
+
 instance HasCField.HasCField S6 "b" where
 
   type CFieldType S6 "b" = RIP.CInt
@@ -471,6 +566,13 @@ instance HasCField.HasCField S6 "b" where
 instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr S6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" S6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S6 {b = y1, a = RIP.getField @"a" x0}, RIP.getField @"b" x0)
 
 {-| __C declaration:__ @struct \@S7a_Aux@
 
@@ -533,6 +635,13 @@ instance ( ty ~ RIP.CChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S7a_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S7a_Aux {a = y1, b = RIP.getField @"b" x0}, RIP.getField @"a" x0)
+
 instance HasCField.HasCField S7a_Aux "b" where
 
   type CFieldType S7a_Aux "b" = RIP.CInt
@@ -543,6 +652,13 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "b" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" S7a_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S7a_Aux {b = y1, a = RIP.getField @"a" x0}, RIP.getField @"b" x0)
 
 {-| __C declaration:__ @S7a@
 
@@ -634,6 +750,13 @@ instance ( ty ~ RIP.CChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "a" S7b_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S7b_Aux {a = y1, b = RIP.getField @"b" x0}, RIP.getField @"a" x0)
+
 instance HasCField.HasCField S7b_Aux "b" where
 
   type CFieldType S7b_Aux "b" = RIP.CInt
@@ -644,6 +767,13 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "b" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"b")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" S7b_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S7b_Aux {b = y1, a = RIP.getField @"a" x0}, RIP.getField @"b" x0)
 
 {-| __C declaration:__ @S7b@
 

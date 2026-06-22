@@ -17,6 +17,7 @@ hstypes:
       fields:
       - forward_declaration_f
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -28,6 +28,9 @@ instance HasCField B "b_toA"
           offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr A) => HasField "b_toA" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"b_toA")
+instance (~) ty (Ptr A) => HasField "b_toA" B ty
+    where hasField = \x_0 -> (\y_1 -> B{b_toA = y_1},
+                              getField @"b_toA" x_0)
 {-| __C declaration:__ @struct a@
 
     __defined at:__ @types\/structs\/circular_dependency_struct.h 7:8@
@@ -57,3 +60,6 @@ instance HasCField A "a_toB"
           offset# = \_ -> \_ -> 0
 instance (~) ty B => HasField "a_toB" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_toB")
+instance (~) ty B => HasField "a_toB" A ty
+    where hasField = \x_0 -> (\y_1 -> A{a_toB = y_1},
+                              getField @"a_toB" x_0)

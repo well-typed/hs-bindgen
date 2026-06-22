@@ -29,6 +29,9 @@ instance HasCField UU1_fieldY "uU1_fieldY_fieldX"
 instance (~) ty CInt =>
          HasField "uU1_fieldY_fieldX" (Ptr UU1_fieldY) (Ptr ty)
     where getField = fromPtr (Proxy @"uU1_fieldY_fieldX")
+instance (~) ty CInt => HasField "uU1_fieldY_fieldX" UU1_fieldY ty
+    where hasField = \x_0 -> (\y_1 -> UU1_fieldY{uU1_fieldY_fieldX = y_1},
+                              getField @"uU1_fieldY_fieldX" x_0)
 {-| __C declaration:__ @struct UU1@
 
     __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -59,6 +62,9 @@ instance HasCField UU1 "uU1_fieldY"
 instance (~) ty UU1_fieldY =>
          HasField "uU1_fieldY" (Ptr UU1) (Ptr ty)
     where getField = fromPtr (Proxy @"uU1_fieldY")
+instance (~) ty UU1_fieldY => HasField "uU1_fieldY" UU1 ty
+    where hasField = \x_0 -> (\y_1 -> UU1{uU1_fieldY = y_1},
+                              getField @"uU1_fieldY" x_0)
 {-| __C declaration:__ @struct \@UU2_fieldY@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -89,6 +95,9 @@ instance HasCField UU2_fieldY "uU2_fieldY_fieldX"
 instance (~) ty CInt =>
          HasField "uU2_fieldY_fieldX" (Ptr UU2_fieldY) (Ptr ty)
     where getField = fromPtr (Proxy @"uU2_fieldY_fieldX")
+instance (~) ty CInt => HasField "uU2_fieldY_fieldX" UU2_fieldY ty
+    where hasField = \x_0 -> (\y_1 -> UU2_fieldY{uU2_fieldY_fieldX = y_1},
+                              getField @"uU2_fieldY_fieldX" x_0)
 {-| __C declaration:__ @struct UU2@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -119,6 +128,9 @@ instance HasCField UU2 "uU2_fieldY"
 instance (~) ty UU2_fieldY =>
          HasField "uU2_fieldY" (Ptr UU2) (Ptr ty)
     where getField = fromPtr (Proxy @"uU2_fieldY")
+instance (~) ty UU2_fieldY => HasField "uU2_fieldY" UU2 ty
+    where hasField = \x_0 -> (\y_1 -> UU2{uU2_fieldY = y_1},
+                              getField @"uU2_fieldY" x_0)
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -149,6 +161,9 @@ instance HasCField VV1_fieldA "vV1_fieldA_a"
 instance (~) ty CInt =>
          HasField "vV1_fieldA_a" (Ptr VV1_fieldA) (Ptr ty)
     where getField = fromPtr (Proxy @"vV1_fieldA_a")
+instance (~) ty CInt => HasField "vV1_fieldA_a" VV1_fieldA ty
+    where hasField = \x_0 -> (\y_1 -> VV1_fieldA{vV1_fieldA_a = y_1},
+                              getField @"vV1_fieldA_a" x_0)
 {-| __C declaration:__ @struct \@VV1_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -179,6 +194,9 @@ instance HasCField VV1_fieldB "vV1_fieldB_b"
 instance (~) ty CInt =>
          HasField "vV1_fieldB_b" (Ptr VV1_fieldB) (Ptr ty)
     where getField = fromPtr (Proxy @"vV1_fieldB_b")
+instance (~) ty CInt => HasField "vV1_fieldB_b" VV1_fieldB ty
+    where hasField = \x_0 -> (\y_1 -> VV1_fieldB{vV1_fieldB_b = y_1},
+                              getField @"vV1_fieldB_b" x_0)
 {-| __C declaration:__ @struct VV1@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -217,12 +235,20 @@ instance HasCField VV1 "vV1_fieldA"
 instance (~) ty VV1_fieldA =>
          HasField "vV1_fieldA" (Ptr VV1) (Ptr ty)
     where getField = fromPtr (Proxy @"vV1_fieldA")
+instance (~) ty VV1_fieldA => HasField "vV1_fieldA" VV1 ty
+    where hasField = \x_0 -> (\y_1 -> VV1{vV1_fieldA = y_1,
+                                          vV1_fieldB = getField @"vV1_fieldB" x_0},
+                              getField @"vV1_fieldA" x_0)
 instance HasCField VV1 "vV1_fieldB"
     where type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
           offset# = \_ -> \_ -> 4
 instance (~) ty VV1_fieldB =>
          HasField "vV1_fieldB" (Ptr VV1) (Ptr ty)
     where getField = fromPtr (Proxy @"vV1_fieldB")
+instance (~) ty VV1_fieldB => HasField "vV1_fieldB" VV1 ty
+    where hasField = \x_0 -> (\y_1 -> VV1{vV1_fieldB = y_1,
+                                          vV1_fieldA = getField @"vV1_fieldA" x_0},
+                              getField @"vV1_fieldB" x_0)
 {-| __C declaration:__ @struct \@VV2_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -253,6 +279,9 @@ instance HasCField VV2_fieldA "vV2_fieldA_a"
 instance (~) ty CInt =>
          HasField "vV2_fieldA_a" (Ptr VV2_fieldA) (Ptr ty)
     where getField = fromPtr (Proxy @"vV2_fieldA_a")
+instance (~) ty CInt => HasField "vV2_fieldA_a" VV2_fieldA ty
+    where hasField = \x_0 -> (\y_1 -> VV2_fieldA{vV2_fieldA_a = y_1},
+                              getField @"vV2_fieldA_a" x_0)
 {-| __C declaration:__ @struct \@VV2_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -283,6 +312,9 @@ instance HasCField VV2_fieldB "vV2_fieldB_b"
 instance (~) ty CInt =>
          HasField "vV2_fieldB_b" (Ptr VV2_fieldB) (Ptr ty)
     where getField = fromPtr (Proxy @"vV2_fieldB_b")
+instance (~) ty CInt => HasField "vV2_fieldB_b" VV2_fieldB ty
+    where hasField = \x_0 -> (\y_1 -> VV2_fieldB{vV2_fieldB_b = y_1},
+                              getField @"vV2_fieldB_b" x_0)
 {-| __C declaration:__ @struct VV2@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -321,9 +353,17 @@ instance HasCField VV2 "vV2_fieldA"
 instance (~) ty VV2_fieldA =>
          HasField "vV2_fieldA" (Ptr VV2) (Ptr ty)
     where getField = fromPtr (Proxy @"vV2_fieldA")
+instance (~) ty VV2_fieldA => HasField "vV2_fieldA" VV2 ty
+    where hasField = \x_0 -> (\y_1 -> VV2{vV2_fieldA = y_1,
+                                          vV2_fieldB = getField @"vV2_fieldB" x_0},
+                              getField @"vV2_fieldA" x_0)
 instance HasCField VV2 "vV2_fieldB"
     where type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
           offset# = \_ -> \_ -> 4
 instance (~) ty VV2_fieldB =>
          HasField "vV2_fieldB" (Ptr VV2) (Ptr ty)
     where getField = fromPtr (Proxy @"vV2_fieldB")
+instance (~) ty VV2_fieldB => HasField "vV2_fieldB" VV2 ty
+    where hasField = \x_0 -> (\y_1 -> VV2{vV2_fieldB = y_1,
+                                          vV2_fieldA = getField @"vV2_fieldA" x_0},
+                              getField @"vV2_fieldB" x_0)

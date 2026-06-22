@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo@
@@ -87,6 +88,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_i")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_i" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_i = y1, foo_c = RIP.getField @"foo_c" x0}
+      , RIP.getField @"foo_i" x0
+      )
+
 instance HasCField.HasCField Foo "foo_c" where
 
   type CFieldType Foo "foo_c" = RIP.CChar
@@ -97,6 +107,15 @@ instance ( ty ~ RIP.CChar
          ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_c")
+
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "foo_c" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_c = y1, foo_i = RIP.getField @"foo_i" x0}
+      , RIP.getField @"foo_c" x0
+      )
 
 {-| __C declaration:__ @struct bar@
 
@@ -158,6 +177,15 @@ instance (ty ~ Foo) => RIP.HasField "bar_foo1" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_foo1")
 
+instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo1" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_foo1 = y1, bar_foo2 = RIP.getField @"bar_foo2" x0}
+      , RIP.getField @"bar_foo1" x0
+      )
+
 instance HasCField.HasCField Bar "bar_foo2" where
 
   type CFieldType Bar "bar_foo2" = Foo
@@ -167,6 +195,15 @@ instance HasCField.HasCField Bar "bar_foo2" where
 instance (ty ~ Foo) => RIP.HasField "bar_foo2" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_foo2")
+
+instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo2" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_foo2 = y1, bar_foo1 = RIP.getField @"bar_foo1" x0}
+      , RIP.getField @"bar_foo2" x0
+      )
 
 {-| __C declaration:__ @struct \@ex3_ex3_struct@
 
@@ -231,6 +268,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "ex3_ex3_struct_ex3_a" Ex3_ex3_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex3_ex3_struct { ex3_ex3_struct_ex3_a = y1
+                         , ex3_ex3_struct_ex3_b = RIP.getField @"ex3_ex3_struct_ex3_b" x0
+                         }
+      , RIP.getField @"ex3_ex3_struct_ex3_a" x0
+      )
+
 instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b" where
 
   type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" =
@@ -243,6 +292,18 @@ instance ( ty ~ RIP.CChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_b")
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "ex3_ex3_struct_ex3_b" Ex3_ex3_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex3_ex3_struct { ex3_ex3_struct_ex3_b = y1
+                         , ex3_ex3_struct_ex3_a = RIP.getField @"ex3_ex3_struct_ex3_a" x0
+                         }
+      , RIP.getField @"ex3_ex3_struct_ex3_b" x0
+      )
 
 {-| __C declaration:__ @struct ex3@
 
@@ -306,6 +367,16 @@ instance ( ty ~ Ex3_ex3_struct
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct")
 
+instance ( ty ~ Ex3_ex3_struct
+         ) => RIP.CompatHasField.HasField "ex3_ex3_struct" Ex3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex3 {ex3_ex3_struct = y1, ex3_ex3_c = RIP.getField @"ex3_ex3_c" x0}
+      , RIP.getField @"ex3_ex3_struct" x0
+      )
+
 instance HasCField.HasCField Ex3 "ex3_ex3_c" where
 
   type CFieldType Ex3 "ex3_ex3_c" = RIP.CFloat
@@ -316,6 +387,16 @@ instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "ex3_ex3_c" (RIP.Ptr Ex3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"ex3_ex3_c")
+
+instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "ex3_ex3_c" Ex3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex3 {ex3_ex3_c = y1, ex3_ex3_struct = RIP.getField @"ex3_ex3_struct" x0}
+      , RIP.getField @"ex3_ex3_c" x0
+      )
 
 {-| __C declaration:__ @struct ex4_odd@
 
@@ -379,6 +460,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_odd_value")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "ex4_odd_value" Ex4_odd ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex4_odd {ex4_odd_value = y1, ex4_odd_next = RIP.getField @"ex4_odd_next" x0}
+      , RIP.getField @"ex4_odd_value" x0
+      )
+
 instance HasCField.HasCField Ex4_odd "ex4_odd_next" where
 
   type CFieldType Ex4_odd "ex4_odd_next" =
@@ -391,6 +482,16 @@ instance ( ty ~ RIP.Ptr Ex4_even
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_odd_next")
+
+instance ( ty ~ RIP.Ptr Ex4_even
+         ) => RIP.CompatHasField.HasField "ex4_odd_next" Ex4_odd ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex4_odd {ex4_odd_next = y1, ex4_odd_value = RIP.getField @"ex4_odd_value" x0}
+      , RIP.getField @"ex4_odd_next" x0
+      )
 
 {-| __C declaration:__ @struct ex4_even@
 
@@ -455,6 +556,16 @@ instance ( ty ~ RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_even_value")
 
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "ex4_even_value" Ex4_even ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex4_even {ex4_even_value = y1, ex4_even_next = RIP.getField @"ex4_even_next" x0}
+      , RIP.getField @"ex4_even_value" x0
+      )
+
 instance HasCField.HasCField Ex4_even "ex4_even_next" where
 
   type CFieldType Ex4_even "ex4_even_next" =
@@ -467,3 +578,13 @@ instance ( ty ~ RIP.Ptr Ex4_odd
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ex4_even_next")
+
+instance ( ty ~ RIP.Ptr Ex4_odd
+         ) => RIP.CompatHasField.HasField "ex4_even_next" Ex4_even ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ex4_even {ex4_even_next = y1, ex4_even_value = RIP.getField @"ex4_even_value" x0}
+      , RIP.getField @"ex4_even_next" x0
+      )

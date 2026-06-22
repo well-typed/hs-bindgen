@@ -45,6 +45,7 @@ hstypes:
       - outer1_anon'fieldX
       - outer1_fieldC
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -75,6 +76,7 @@ hstypes:
       - outer2_fieldB
       - outer2_fieldC
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -105,6 +107,7 @@ hstypes:
       - outer3_fieldB
       - outer3_fieldC
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField

@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Omitted@
@@ -74,6 +75,14 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "omitted_n" Omitted ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Omitted {omitted_n = y1}, RIP.getField @"omitted_n" x0)
 
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
@@ -129,6 +138,16 @@ instance ( ty ~ Omitted
   getField =
     HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
 
+instance ( ty ~ Omitted
+         ) => RIP.CompatHasField.HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DirectlyDependsOnOmitted {directlyDependsOnOmitted_o = y1}
+      , RIP.getField @"directlyDependsOnOmitted_o" x0
+      )
+
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
@@ -182,3 +201,13 @@ instance ( ty ~ DirectlyDependsOnOmitted
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")
+
+instance ( ty ~ DirectlyDependsOnOmitted
+         ) => RIP.CompatHasField.HasField "indirectlyDependsOnOmitted_d" IndirectlyDependsOnOmitted ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          IndirectlyDependsOnOmitted {indirectlyDependsOnOmitted_d = y1}
+      , RIP.getField @"indirectlyDependsOnOmitted_d" x0
+      )

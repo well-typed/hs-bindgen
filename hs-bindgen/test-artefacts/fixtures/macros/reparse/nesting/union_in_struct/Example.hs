@@ -33,6 +33,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -180,6 +181,12 @@ instance (ty ~ T1_x) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
 
+instance (ty ~ T1_x) => RIP.CompatHasField.HasField "t1_x" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T1 {t1_x = y1}, RIP.getField @"t1_x" x0)
+
 {-| __C declaration:__ @struct \@T2@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:1@
@@ -231,6 +238,12 @@ instance ( ty ~ RIP.Ptr T2_x
          ) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
+
+instance (ty ~ RIP.Ptr T2_x) => RIP.CompatHasField.HasField "t2_x" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
 
 {-| __C declaration:__ @union \@T2_x@
 
@@ -337,6 +350,13 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
          ) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
+         ) => RIP.CompatHasField.HasField "t3_x" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T3 {t3_x = y1}, RIP.getField @"t3_x" x0)
 
 {-| __C declaration:__ @union \@T3_x@
 

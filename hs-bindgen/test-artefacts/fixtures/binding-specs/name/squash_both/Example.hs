@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo@
@@ -82,6 +83,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"hoge_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_x" Hoge ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Hoge {hoge_x = y1, hoge_y = RIP.getField @"hoge_y" x0}
+      , RIP.getField @"hoge_x" x0
+      )
+
 instance HasCField.HasCField Hoge "hoge_y" where
 
   type CFieldType Hoge "hoge_y" = RIP.CInt
@@ -92,3 +102,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "hoge_y" (RIP.Ptr Hoge) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"hoge_y")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_y" Hoge ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Hoge {hoge_y = y1, hoge_x = RIP.getField @"hoge_x" x0}
+      , RIP.getField @"hoge_y" x0
+      )

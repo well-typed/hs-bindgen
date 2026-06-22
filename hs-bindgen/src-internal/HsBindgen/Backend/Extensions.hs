@@ -10,6 +10,7 @@ import Language.Haskell.TH qualified as TH
 import HsBindgen.Backend.Hs.AST (Strategy (..))
 import HsBindgen.Backend.Hs.CallConv (CallConv (..))
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -151,6 +152,10 @@ exprExtensions = \case
     EUnboxedTup{} -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
     EList xs -> foldMap exprExtensions xs
     ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
+    ERecCon _con fbinds -> foldMap fBindExtensions fbinds
+
+fBindExtensions :: FBind ctx -> Set TH.Extension
+fBindExtensions (FBind _label expr) = exprExtensions expr
 
 -- Note: We don't recognise whether we need RankNTypes.
 -- We probably don't generate such types

@@ -70,6 +70,14 @@ instance HasCBitfield Foo_8 "foo_8_a"
 instance (~) ty CSChar =>
          HasField "foo_8_a" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_a")
+instance (~) ty CSChar => HasField "foo_8_a" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_a = y_1,
+                                            foo_8_b = getField @"foo_8_b" x_0,
+                                            foo_8_c = getField @"foo_8_c" x_0,
+                                            foo_8_d = getField @"foo_8_d" x_0,
+                                            foo_8_e = getField @"foo_8_e" x_0,
+                                            foo_8_f = getField @"foo_8_f" x_0},
+                              getField @"foo_8_a" x_0)
 instance HasCBitfield Foo_8 "foo_8_b"
     where type CBitfieldType Foo_8 "foo_8_b" = CSChar
           bitfieldOffset# = \_ -> \_ -> 3
@@ -77,6 +85,14 @@ instance HasCBitfield Foo_8 "foo_8_b"
 instance (~) ty CSChar =>
          HasField "foo_8_b" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_b")
+instance (~) ty CSChar => HasField "foo_8_b" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_b = y_1,
+                                            foo_8_a = getField @"foo_8_a" x_0,
+                                            foo_8_c = getField @"foo_8_c" x_0,
+                                            foo_8_d = getField @"foo_8_d" x_0,
+                                            foo_8_e = getField @"foo_8_e" x_0,
+                                            foo_8_f = getField @"foo_8_f" x_0},
+                              getField @"foo_8_b" x_0)
 instance HasCBitfield Foo_8 "foo_8_c"
     where type CBitfieldType Foo_8 "foo_8_c" = CSChar
           bitfieldOffset# = \_ -> \_ -> 6
@@ -84,6 +100,14 @@ instance HasCBitfield Foo_8 "foo_8_c"
 instance (~) ty CSChar =>
          HasField "foo_8_c" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_c")
+instance (~) ty CSChar => HasField "foo_8_c" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_c = y_1,
+                                            foo_8_a = getField @"foo_8_a" x_0,
+                                            foo_8_b = getField @"foo_8_b" x_0,
+                                            foo_8_d = getField @"foo_8_d" x_0,
+                                            foo_8_e = getField @"foo_8_e" x_0,
+                                            foo_8_f = getField @"foo_8_f" x_0},
+                              getField @"foo_8_c" x_0)
 instance HasCBitfield Foo_8 "foo_8_d"
     where type CBitfieldType Foo_8 "foo_8_d" = CSChar
           bitfieldOffset# = \_ -> \_ -> 8
@@ -91,6 +115,14 @@ instance HasCBitfield Foo_8 "foo_8_d"
 instance (~) ty CSChar =>
          HasField "foo_8_d" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_d")
+instance (~) ty CSChar => HasField "foo_8_d" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_d = y_1,
+                                            foo_8_a = getField @"foo_8_a" x_0,
+                                            foo_8_b = getField @"foo_8_b" x_0,
+                                            foo_8_c = getField @"foo_8_c" x_0,
+                                            foo_8_e = getField @"foo_8_e" x_0,
+                                            foo_8_f = getField @"foo_8_f" x_0},
+                              getField @"foo_8_d" x_0)
 instance HasCBitfield Foo_8 "foo_8_e"
     where type CBitfieldType Foo_8 "foo_8_e" = CSChar
           bitfieldOffset# = \_ -> \_ -> 16
@@ -98,6 +130,14 @@ instance HasCBitfield Foo_8 "foo_8_e"
 instance (~) ty CSChar =>
          HasField "foo_8_e" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_e")
+instance (~) ty CSChar => HasField "foo_8_e" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_e = y_1,
+                                            foo_8_a = getField @"foo_8_a" x_0,
+                                            foo_8_b = getField @"foo_8_b" x_0,
+                                            foo_8_c = getField @"foo_8_c" x_0,
+                                            foo_8_d = getField @"foo_8_d" x_0,
+                                            foo_8_f = getField @"foo_8_f" x_0},
+                              getField @"foo_8_e" x_0)
 instance HasCBitfield Foo_8 "foo_8_f"
     where type CBitfieldType Foo_8 "foo_8_f" = CSChar
           bitfieldOffset# = \_ -> \_ -> 24
@@ -105,6 +145,14 @@ instance HasCBitfield Foo_8 "foo_8_f"
 instance (~) ty CSChar =>
          HasField "foo_8_f" (Ptr Foo_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_8_f")
+instance (~) ty CSChar => HasField "foo_8_f" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_f = y_1,
+                                            foo_8_a = getField @"foo_8_a" x_0,
+                                            foo_8_b = getField @"foo_8_b" x_0,
+                                            foo_8_c = getField @"foo_8_c" x_0,
+                                            foo_8_d = getField @"foo_8_d" x_0,
+                                            foo_8_e = getField @"foo_8_e" x_0},
+                              getField @"foo_8_f" x_0)
 {-| __C declaration:__ @struct foo_16@
 
     __defined at:__ @types\/structs\/bitfields.h 15:8@
@@ -176,6 +224,14 @@ instance HasCBitfield Foo_16 "foo_16_a"
 instance (~) ty CSChar =>
          HasField "foo_16_a" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_a")
+instance (~) ty CSChar => HasField "foo_16_a" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_a = y_1,
+                                             foo_16_b = getField @"foo_16_b" x_0,
+                                             foo_16_c = getField @"foo_16_c" x_0,
+                                             foo_16_d = getField @"foo_16_d" x_0,
+                                             foo_16_e = getField @"foo_16_e" x_0,
+                                             foo_16_f = getField @"foo_16_f" x_0},
+                              getField @"foo_16_a" x_0)
 instance HasCBitfield Foo_16 "foo_16_b"
     where type CBitfieldType Foo_16 "foo_16_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 6
@@ -183,6 +239,14 @@ instance HasCBitfield Foo_16 "foo_16_b"
 instance (~) ty CInt =>
          HasField "foo_16_b" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_b")
+instance (~) ty CInt => HasField "foo_16_b" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_b = y_1,
+                                             foo_16_a = getField @"foo_16_a" x_0,
+                                             foo_16_c = getField @"foo_16_c" x_0,
+                                             foo_16_d = getField @"foo_16_d" x_0,
+                                             foo_16_e = getField @"foo_16_e" x_0,
+                                             foo_16_f = getField @"foo_16_f" x_0},
+                              getField @"foo_16_b" x_0)
 instance HasCBitfield Foo_16 "foo_16_c"
     where type CBitfieldType Foo_16 "foo_16_c" = CInt
           bitfieldOffset# = \_ -> \_ -> 16
@@ -190,6 +254,14 @@ instance HasCBitfield Foo_16 "foo_16_c"
 instance (~) ty CInt =>
          HasField "foo_16_c" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_c")
+instance (~) ty CInt => HasField "foo_16_c" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_c = y_1,
+                                             foo_16_a = getField @"foo_16_a" x_0,
+                                             foo_16_b = getField @"foo_16_b" x_0,
+                                             foo_16_d = getField @"foo_16_d" x_0,
+                                             foo_16_e = getField @"foo_16_e" x_0,
+                                             foo_16_f = getField @"foo_16_f" x_0},
+                              getField @"foo_16_c" x_0)
 instance HasCBitfield Foo_16 "foo_16_d"
     where type CBitfieldType Foo_16 "foo_16_d" = CInt
           bitfieldOffset# = \_ -> \_ -> 32
@@ -197,6 +269,14 @@ instance HasCBitfield Foo_16 "foo_16_d"
 instance (~) ty CInt =>
          HasField "foo_16_d" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_d")
+instance (~) ty CInt => HasField "foo_16_d" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_d = y_1,
+                                             foo_16_a = getField @"foo_16_a" x_0,
+                                             foo_16_b = getField @"foo_16_b" x_0,
+                                             foo_16_c = getField @"foo_16_c" x_0,
+                                             foo_16_e = getField @"foo_16_e" x_0,
+                                             foo_16_f = getField @"foo_16_f" x_0},
+                              getField @"foo_16_d" x_0)
 instance HasCBitfield Foo_16 "foo_16_e"
     where type CBitfieldType Foo_16 "foo_16_e" = CInt
           bitfieldOffset# = \_ -> \_ -> 48
@@ -204,6 +284,14 @@ instance HasCBitfield Foo_16 "foo_16_e"
 instance (~) ty CInt =>
          HasField "foo_16_e" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_e")
+instance (~) ty CInt => HasField "foo_16_e" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_e = y_1,
+                                             foo_16_a = getField @"foo_16_a" x_0,
+                                             foo_16_b = getField @"foo_16_b" x_0,
+                                             foo_16_c = getField @"foo_16_c" x_0,
+                                             foo_16_d = getField @"foo_16_d" x_0,
+                                             foo_16_f = getField @"foo_16_f" x_0},
+                              getField @"foo_16_e" x_0)
 instance HasCBitfield Foo_16 "foo_16_f"
     where type CBitfieldType Foo_16 "foo_16_f" = CInt
           bitfieldOffset# = \_ -> \_ -> 64
@@ -211,6 +299,14 @@ instance HasCBitfield Foo_16 "foo_16_f"
 instance (~) ty CInt =>
          HasField "foo_16_f" (Ptr Foo_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_16_f")
+instance (~) ty CInt => HasField "foo_16_f" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_f = y_1,
+                                             foo_16_a = getField @"foo_16_a" x_0,
+                                             foo_16_b = getField @"foo_16_b" x_0,
+                                             foo_16_c = getField @"foo_16_c" x_0,
+                                             foo_16_d = getField @"foo_16_d" x_0,
+                                             foo_16_e = getField @"foo_16_e" x_0},
+                              getField @"foo_16_f" x_0)
 {-| __C declaration:__ @struct foo_32@
 
     __defined at:__ @types\/structs\/bitfields.h 25:8@
@@ -290,6 +386,15 @@ instance HasCBitfield Foo_32 "foo_32_a"
 instance (~) ty CSChar =>
          HasField "foo_32_a" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_a")
+instance (~) ty CSChar => HasField "foo_32_a" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_a = y_1,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_a" x_0)
 instance HasCBitfield Foo_32 "foo_32_b"
     where type CBitfieldType Foo_32 "foo_32_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 6
@@ -297,6 +402,15 @@ instance HasCBitfield Foo_32 "foo_32_b"
 instance (~) ty CInt =>
          HasField "foo_32_b" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_b")
+instance (~) ty CInt => HasField "foo_32_b" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_b = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_b" x_0)
 instance HasCBitfield Foo_32 "foo_32_c"
     where type CBitfieldType Foo_32 "foo_32_c" = CInt
           bitfieldOffset# = \_ -> \_ -> 18
@@ -304,6 +418,15 @@ instance HasCBitfield Foo_32 "foo_32_c"
 instance (~) ty CInt =>
          HasField "foo_32_c" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_c")
+instance (~) ty CInt => HasField "foo_32_c" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_c = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_c" x_0)
 instance HasCBitfield Foo_32 "foo_32_d"
     where type CBitfieldType Foo_32 "foo_32_d" = CInt
           bitfieldOffset# = \_ -> \_ -> 32
@@ -311,6 +434,15 @@ instance HasCBitfield Foo_32 "foo_32_d"
 instance (~) ty CInt =>
          HasField "foo_32_d" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_d")
+instance (~) ty CInt => HasField "foo_32_d" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_d = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_d" x_0)
 instance HasCBitfield Foo_32 "foo_32_e"
     where type CBitfieldType Foo_32 "foo_32_e" = CLong
           bitfieldOffset# = \_ -> \_ -> 64
@@ -318,6 +450,15 @@ instance HasCBitfield Foo_32 "foo_32_e"
 instance (~) ty CLong =>
          HasField "foo_32_e" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_e")
+instance (~) ty CLong => HasField "foo_32_e" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_e = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_e" x_0)
 instance HasCBitfield Foo_32 "foo_32_f"
     where type CBitfieldType Foo_32 "foo_32_f" = CInt
           bitfieldOffset# = \_ -> \_ -> 96
@@ -325,6 +466,15 @@ instance HasCBitfield Foo_32 "foo_32_f"
 instance (~) ty CInt =>
          HasField "foo_32_f" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_f")
+instance (~) ty CInt => HasField "foo_32_f" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_f = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_g = getField @"foo_32_g" x_0},
+                              getField @"foo_32_f" x_0)
 instance HasCBitfield Foo_32 "foo_32_g"
     where type CBitfieldType Foo_32 "foo_32_g" = CLong
           bitfieldOffset# = \_ -> \_ -> 102
@@ -332,6 +482,15 @@ instance HasCBitfield Foo_32 "foo_32_g"
 instance (~) ty CLong =>
          HasField "foo_32_g" (Ptr Foo_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_32_g")
+instance (~) ty CLong => HasField "foo_32_g" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_g = y_1,
+                                             foo_32_a = getField @"foo_32_a" x_0,
+                                             foo_32_b = getField @"foo_32_b" x_0,
+                                             foo_32_c = getField @"foo_32_c" x_0,
+                                             foo_32_d = getField @"foo_32_d" x_0,
+                                             foo_32_e = getField @"foo_32_e" x_0,
+                                             foo_32_f = getField @"foo_32_f" x_0},
+                              getField @"foo_32_g" x_0)
 {-| __C declaration:__ @struct foo_64@
 
     __defined at:__ @types\/structs\/bitfields.h 36:8@
@@ -387,6 +546,12 @@ instance HasCBitfield Foo_64 "foo_64_a"
 instance (~) ty CLong =>
          HasField "foo_64_a" (Ptr Foo_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_64_a")
+instance (~) ty CLong => HasField "foo_64_a" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_64{foo_64_a = y_1,
+                                             foo_64_b = getField @"foo_64_b" x_0,
+                                             foo_64_c = getField @"foo_64_c" x_0,
+                                             foo_64_d = getField @"foo_64_d" x_0},
+                              getField @"foo_64_a" x_0)
 instance HasCBitfield Foo_64 "foo_64_b"
     where type CBitfieldType Foo_64 "foo_64_b" = CLLong
           bitfieldOffset# = \_ -> \_ -> 24
@@ -394,6 +559,12 @@ instance HasCBitfield Foo_64 "foo_64_b"
 instance (~) ty CLLong =>
          HasField "foo_64_b" (Ptr Foo_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_64_b")
+instance (~) ty CLLong => HasField "foo_64_b" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_64{foo_64_b = y_1,
+                                             foo_64_a = getField @"foo_64_a" x_0,
+                                             foo_64_c = getField @"foo_64_c" x_0,
+                                             foo_64_d = getField @"foo_64_d" x_0},
+                              getField @"foo_64_b" x_0)
 instance HasCBitfield Foo_64 "foo_64_c"
     where type CBitfieldType Foo_64 "foo_64_c" = CLLong
           bitfieldOffset# = \_ -> \_ -> 64
@@ -401,6 +572,12 @@ instance HasCBitfield Foo_64 "foo_64_c"
 instance (~) ty CLLong =>
          HasField "foo_64_c" (Ptr Foo_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_64_c")
+instance (~) ty CLLong => HasField "foo_64_c" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_64{foo_64_c = y_1,
+                                             foo_64_a = getField @"foo_64_a" x_0,
+                                             foo_64_b = getField @"foo_64_b" x_0,
+                                             foo_64_d = getField @"foo_64_d" x_0},
+                              getField @"foo_64_c" x_0)
 instance HasCBitfield Foo_64 "foo_64_d"
     where type CBitfieldType Foo_64 "foo_64_d" = CLLong
           bitfieldOffset# = \_ -> \_ -> 128
@@ -408,6 +585,12 @@ instance HasCBitfield Foo_64 "foo_64_d"
 instance (~) ty CLLong =>
          HasField "foo_64_d" (Ptr Foo_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"foo_64_d")
+instance (~) ty CLLong => HasField "foo_64_d" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> Foo_64{foo_64_d = y_1,
+                                             foo_64_a = getField @"foo_64_a" x_0,
+                                             foo_64_b = getField @"foo_64_b" x_0,
+                                             foo_64_c = getField @"foo_64_c" x_0},
+                              getField @"foo_64_d" x_0)
 {-| __C declaration:__ @struct bar_8_8@
 
     __defined at:__ @types\/structs\/bitfields.h 44:32@
@@ -447,6 +630,10 @@ instance HasCBitfield Bar_8_8 "bar_8_8_a"
 instance (~) ty CSChar =>
          HasField "bar_8_8_a" (Ptr Bar_8_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_8_a")
+instance (~) ty CSChar => HasField "bar_8_8_a" Bar_8_8 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_8{bar_8_8_a = y_1,
+                                              bar_8_8_b = getField @"bar_8_8_b" x_0},
+                              getField @"bar_8_8_a" x_0)
 instance HasCBitfield Bar_8_8 "bar_8_8_b"
     where type CBitfieldType Bar_8_8 "bar_8_8_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 6
@@ -454,6 +641,10 @@ instance HasCBitfield Bar_8_8 "bar_8_8_b"
 instance (~) ty CInt =>
          HasField "bar_8_8_b" (Ptr Bar_8_8) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_8_b")
+instance (~) ty CInt => HasField "bar_8_8_b" Bar_8_8 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_8{bar_8_8_b = y_1,
+                                              bar_8_8_a = getField @"bar_8_8_a" x_0},
+                              getField @"bar_8_8_b" x_0)
 {-| __C declaration:__ @struct bar_8_16@
 
     __defined at:__ @types\/structs\/bitfields.h 50:32@
@@ -493,6 +684,10 @@ instance HasCBitfield Bar_8_16 "bar_8_16_a"
 instance (~) ty CInt =>
          HasField "bar_8_16_a" (Ptr Bar_8_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_16_a")
+instance (~) ty CInt => HasField "bar_8_16_a" Bar_8_16 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_16{bar_8_16_a = y_1,
+                                               bar_8_16_b = getField @"bar_8_16_b" x_0},
+                              getField @"bar_8_16_a" x_0)
 instance HasCBitfield Bar_8_16 "bar_8_16_b"
     where type CBitfieldType Bar_8_16 "bar_8_16_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 14
@@ -500,6 +695,10 @@ instance HasCBitfield Bar_8_16 "bar_8_16_b"
 instance (~) ty CInt =>
          HasField "bar_8_16_b" (Ptr Bar_8_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_16_b")
+instance (~) ty CInt => HasField "bar_8_16_b" Bar_8_16 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_16{bar_8_16_b = y_1,
+                                               bar_8_16_a = getField @"bar_8_16_a" x_0},
+                              getField @"bar_8_16_b" x_0)
 {-| __C declaration:__ @struct bar_8_32@
 
     __defined at:__ @types\/structs\/bitfields.h 56:32@
@@ -539,6 +738,10 @@ instance HasCBitfield Bar_8_32 "bar_8_32_a"
 instance (~) ty CLong =>
          HasField "bar_8_32_a" (Ptr Bar_8_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_32_a")
+instance (~) ty CLong => HasField "bar_8_32_a" Bar_8_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_32{bar_8_32_a = y_1,
+                                               bar_8_32_b = getField @"bar_8_32_b" x_0},
+                              getField @"bar_8_32_a" x_0)
 instance HasCBitfield Bar_8_32 "bar_8_32_b"
     where type CBitfieldType Bar_8_32 "bar_8_32_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 30
@@ -546,6 +749,10 @@ instance HasCBitfield Bar_8_32 "bar_8_32_b"
 instance (~) ty CInt =>
          HasField "bar_8_32_b" (Ptr Bar_8_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_32_b")
+instance (~) ty CInt => HasField "bar_8_32_b" Bar_8_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_32{bar_8_32_b = y_1,
+                                               bar_8_32_a = getField @"bar_8_32_a" x_0},
+                              getField @"bar_8_32_b" x_0)
 {-| __C declaration:__ @struct bar_8_64@
 
     __defined at:__ @types\/structs\/bitfields.h 62:32@
@@ -585,6 +792,10 @@ instance HasCBitfield Bar_8_64 "bar_8_64_a"
 instance (~) ty CLLong =>
          HasField "bar_8_64_a" (Ptr Bar_8_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_64_a")
+instance (~) ty CLLong => HasField "bar_8_64_a" Bar_8_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_64{bar_8_64_a = y_1,
+                                               bar_8_64_b = getField @"bar_8_64_b" x_0},
+                              getField @"bar_8_64_a" x_0)
 instance HasCBitfield Bar_8_64 "bar_8_64_b"
     where type CBitfieldType Bar_8_64 "bar_8_64_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 62
@@ -592,6 +803,10 @@ instance HasCBitfield Bar_8_64 "bar_8_64_b"
 instance (~) ty CInt =>
          HasField "bar_8_64_b" (Ptr Bar_8_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_8_64_b")
+instance (~) ty CInt => HasField "bar_8_64_b" Bar_8_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_8_64{bar_8_64_b = y_1,
+                                               bar_8_64_a = getField @"bar_8_64_a" x_0},
+                              getField @"bar_8_64_b" x_0)
 {-| __C declaration:__ @struct bar_16_16@
 
     __defined at:__ @types\/structs\/bitfields.h 68:32@
@@ -631,6 +846,10 @@ instance HasCBitfield Bar_16_16 "bar_16_16_a"
 instance (~) ty CInt =>
          HasField "bar_16_16_a" (Ptr Bar_16_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_16_a")
+instance (~) ty CInt => HasField "bar_16_16_a" Bar_16_16 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_16{bar_16_16_a = y_1,
+                                                bar_16_16_b = getField @"bar_16_16_b" x_0},
+                              getField @"bar_16_16_a" x_0)
 instance HasCBitfield Bar_16_16 "bar_16_16_b"
     where type CBitfieldType Bar_16_16 "bar_16_16_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 14
@@ -638,6 +857,10 @@ instance HasCBitfield Bar_16_16 "bar_16_16_b"
 instance (~) ty CInt =>
          HasField "bar_16_16_b" (Ptr Bar_16_16) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_16_b")
+instance (~) ty CInt => HasField "bar_16_16_b" Bar_16_16 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_16{bar_16_16_b = y_1,
+                                                bar_16_16_a = getField @"bar_16_16_a" x_0},
+                              getField @"bar_16_16_b" x_0)
 {-| __C declaration:__ @struct bar_16_32@
 
     __defined at:__ @types\/structs\/bitfields.h 74:32@
@@ -677,6 +900,10 @@ instance HasCBitfield Bar_16_32 "bar_16_32_a"
 instance (~) ty CLong =>
          HasField "bar_16_32_a" (Ptr Bar_16_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_32_a")
+instance (~) ty CLong => HasField "bar_16_32_a" Bar_16_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_32{bar_16_32_a = y_1,
+                                                bar_16_32_b = getField @"bar_16_32_b" x_0},
+                              getField @"bar_16_32_a" x_0)
 instance HasCBitfield Bar_16_32 "bar_16_32_b"
     where type CBitfieldType Bar_16_32 "bar_16_32_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 24
@@ -684,6 +911,10 @@ instance HasCBitfield Bar_16_32 "bar_16_32_b"
 instance (~) ty CInt =>
          HasField "bar_16_32_b" (Ptr Bar_16_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_32_b")
+instance (~) ty CInt => HasField "bar_16_32_b" Bar_16_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_32{bar_16_32_b = y_1,
+                                                bar_16_32_a = getField @"bar_16_32_a" x_0},
+                              getField @"bar_16_32_b" x_0)
 {-| __C declaration:__ @struct bar_16_64@
 
     __defined at:__ @types\/structs\/bitfields.h 80:32@
@@ -723,6 +954,10 @@ instance HasCBitfield Bar_16_64 "bar_16_64_a"
 instance (~) ty CLLong =>
          HasField "bar_16_64_a" (Ptr Bar_16_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_64_a")
+instance (~) ty CLLong => HasField "bar_16_64_a" Bar_16_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_64{bar_16_64_a = y_1,
+                                                bar_16_64_b = getField @"bar_16_64_b" x_0},
+                              getField @"bar_16_64_a" x_0)
 instance HasCBitfield Bar_16_64 "bar_16_64_b"
     where type CBitfieldType Bar_16_64 "bar_16_64_b" = CInt
           bitfieldOffset# = \_ -> \_ -> 56
@@ -730,6 +965,10 @@ instance HasCBitfield Bar_16_64 "bar_16_64_b"
 instance (~) ty CInt =>
          HasField "bar_16_64_b" (Ptr Bar_16_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_16_64_b")
+instance (~) ty CInt => HasField "bar_16_64_b" Bar_16_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_16_64{bar_16_64_b = y_1,
+                                                bar_16_64_a = getField @"bar_16_64_a" x_0},
+                              getField @"bar_16_64_b" x_0)
 {-| __C declaration:__ @struct bar_32_32@
 
     __defined at:__ @types\/structs\/bitfields.h 86:32@
@@ -769,6 +1008,10 @@ instance HasCBitfield Bar_32_32 "bar_32_32_a"
 instance (~) ty CLong =>
          HasField "bar_32_32_a" (Ptr Bar_32_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_32_a")
+instance (~) ty CLong => HasField "bar_32_32_a" Bar_32_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_32_32{bar_32_32_a = y_1,
+                                                bar_32_32_b = getField @"bar_32_32_b" x_0},
+                              getField @"bar_32_32_a" x_0)
 instance HasCBitfield Bar_32_32 "bar_32_32_b"
     where type CBitfieldType Bar_32_32 "bar_32_32_b" = CLong
           bitfieldOffset# = \_ -> \_ -> 30
@@ -776,6 +1019,10 @@ instance HasCBitfield Bar_32_32 "bar_32_32_b"
 instance (~) ty CLong =>
          HasField "bar_32_32_b" (Ptr Bar_32_32) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_32_b")
+instance (~) ty CLong => HasField "bar_32_32_b" Bar_32_32 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_32_32{bar_32_32_b = y_1,
+                                                bar_32_32_a = getField @"bar_32_32_a" x_0},
+                              getField @"bar_32_32_b" x_0)
 {-| __C declaration:__ @struct bar_32_64@
 
     __defined at:__ @types\/structs\/bitfields.h 92:32@
@@ -815,6 +1062,10 @@ instance HasCBitfield Bar_32_64 "bar_32_64_a"
 instance (~) ty CLLong =>
          HasField "bar_32_64_a" (Ptr Bar_32_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_64_a")
+instance (~) ty CLLong => HasField "bar_32_64_a" Bar_32_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_32_64{bar_32_64_a = y_1,
+                                                bar_32_64_b = getField @"bar_32_64_b" x_0},
+                              getField @"bar_32_64_a" x_0)
 instance HasCBitfield Bar_32_64 "bar_32_64_b"
     where type CBitfieldType Bar_32_64 "bar_32_64_b" = CLong
           bitfieldOffset# = \_ -> \_ -> 56
@@ -822,6 +1073,10 @@ instance HasCBitfield Bar_32_64 "bar_32_64_b"
 instance (~) ty CLong =>
          HasField "bar_32_64_b" (Ptr Bar_32_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_32_64_b")
+instance (~) ty CLong => HasField "bar_32_64_b" Bar_32_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_32_64{bar_32_64_b = y_1,
+                                                bar_32_64_a = getField @"bar_32_64_a" x_0},
+                              getField @"bar_32_64_b" x_0)
 {-| __C declaration:__ @struct bar_64_64@
 
     __defined at:__ @types\/structs\/bitfields.h 98:32@
@@ -861,6 +1116,10 @@ instance HasCBitfield Bar_64_64 "bar_64_64_a"
 instance (~) ty CLLong =>
          HasField "bar_64_64_a" (Ptr Bar_64_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_64_64_a")
+instance (~) ty CLLong => HasField "bar_64_64_a" Bar_64_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_64_64{bar_64_64_a = y_1,
+                                                bar_64_64_b = getField @"bar_64_64_b" x_0},
+                              getField @"bar_64_64_a" x_0)
 instance HasCBitfield Bar_64_64 "bar_64_64_b"
     where type CBitfieldType Bar_64_64 "bar_64_64_b" = CLLong
           bitfieldOffset# = \_ -> \_ -> 56
@@ -868,3 +1127,7 @@ instance HasCBitfield Bar_64_64 "bar_64_64_b"
 instance (~) ty CLLong =>
          HasField "bar_64_64_b" (Ptr Bar_64_64) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bar_64_64_b")
+instance (~) ty CLLong => HasField "bar_64_64_b" Bar_64_64 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_64_64{bar_64_64_b = y_1,
+                                                bar_64_64_a = getField @"bar_64_64_a" x_0},
+                              getField @"bar_64_64_b" x_0)

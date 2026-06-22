@@ -21,6 +21,7 @@ module Example
 import qualified Foreign
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @uint32_t@
@@ -119,6 +120,16 @@ instance ( ty ~ Foreign.Word64
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
 
+instance ( ty ~ Foreign.Word64
+         ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_sixty_four = y1, foo_thirty_two = RIP.getField @"foo_thirty_two" x0}
+      , RIP.getField @"foo_sixty_four" x0
+      )
+
 instance HasCField.HasCField Foo "foo_thirty_two" where
 
   type CFieldType Foo "foo_thirty_two" = Uint32_t
@@ -130,3 +141,13 @@ instance ( ty ~ Uint32_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+
+instance ( ty ~ Uint32_t
+         ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
+      , RIP.getField @"foo_thirty_two" x0
+      )

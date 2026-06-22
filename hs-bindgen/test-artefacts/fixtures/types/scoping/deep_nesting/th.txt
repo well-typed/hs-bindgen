@@ -35,6 +35,9 @@ instance HasCField Baz "baz_x1_2_1"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "baz_x1_2_1" (Ptr Baz) (Ptr ty)
     where getField = fromPtr (Proxy @"baz_x1_2_1")
+instance (~) ty CInt => HasField "baz_x1_2_1" Baz ty
+    where hasField = \x_0 -> (\y_1 -> Baz{baz_x1_2_1 = y_1},
+                              getField @"baz_x1_2_1" x_0)
 -- __unique:__ @test_typesscopingdeep_nesting_Example_get_X@
 foreign import ccall unsafe "hs_bindgen_d6029a840689b228" hs_bindgen_d6029a840689b228_base ::
     IO (Ptr Void)

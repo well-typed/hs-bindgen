@@ -76,6 +76,9 @@ instance HasCField T1_x "t1_x_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t1_x_x")
+instance (~) ty MyInt => HasField "t1_x_x" T1_x ty
+    where hasField = \x_0 -> (\y_1 -> T1_x{t1_x_x = y_1},
+                              getField @"t1_x_x" x_0)
 {-| __C declaration:__ @struct \@T1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 3:1@
@@ -105,6 +108,9 @@ instance HasCField T1 "t1_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"t1_x")
+instance (~) ty T1_x => HasField "t1_x" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
+                              getField @"t1_x" x_0)
 {-| __C declaration:__ @struct \@T2@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 4:1@
@@ -134,6 +140,9 @@ instance HasCField T2 "t2_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_x")
+instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
+                              getField @"t2_x" x_0)
 {-| __C declaration:__ @struct \@T2_x@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 4:10@
@@ -163,6 +172,9 @@ instance HasCField T2_x "t2_x_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_x_x")
+instance (~) ty MyInt => HasField "t2_x_x" T2_x ty
+    where hasField = \x_0 -> (\y_1 -> T2_x{t2_x_x = y_1},
+                              getField @"t2_x_x" x_0)
 {-| __C declaration:__ @struct \@T3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 5:1@
@@ -193,6 +205,9 @@ instance HasCField T3 "t3_x"
 instance (~) ty (Ptr (Ptr T3_x)) =>
          HasField "t3_x" (Ptr T3) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_x")
+instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
+                              getField @"t3_x" x_0)
 {-| __C declaration:__ @struct \@T3_x@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 5:10@
@@ -222,6 +237,9 @@ instance HasCField T3_x "t3_x_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty MyInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_x_x")
+instance (~) ty MyInt => HasField "t3_x_x" T3_x ty
+    where hasField = \x_0 -> (\y_1 -> T3_x{t3_x_x = y_1},
+                              getField @"t3_x_x" x_0)
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_T1@
 foreign import ccall unsafe "hs_bindgen_2ac02abef90be65b" hs_bindgen_2ac02abef90be65b_base ::
     IO (Ptr Void)

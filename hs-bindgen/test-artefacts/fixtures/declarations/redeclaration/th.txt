@@ -70,6 +70,9 @@ instance HasCField X "x_n"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "x_n" (Ptr X) (Ptr ty)
     where getField = fromPtr (Proxy @"x_n")
+instance (~) ty CInt => HasField "x_n" X ty
+    where hasField = \x_0 -> (\y_1 -> X{x_n = y_1},
+                              getField @"x_n" x_0)
 {-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/redeclaration.h 30:7@

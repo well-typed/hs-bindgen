@@ -41,6 +41,7 @@ hstypes:
       - diff_first
       - diff_second
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
@@ -60,6 +61,7 @@ hstypes:
       fields:
       - foo_len
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
@@ -78,6 +80,7 @@ hstypes:
       - foo_bar_x
       - foo_bar_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -96,6 +99,7 @@ hstypes:
       fields:
       - pascal_len
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
@@ -115,6 +119,7 @@ hstypes:
       fields:
       - triplets_len
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic

@@ -245,165 +245,1005 @@ instance HasCField Primitive "primitive_c"
 instance (~) ty CChar =>
          HasField "primitive_c" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_c")
+instance (~) ty CChar => HasField "primitive_c" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_c = y_1,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_c" x_0)
 instance HasCField Primitive "primitive_sc"
     where type CFieldType Primitive "primitive_sc" = CSChar
           offset# = \_ -> \_ -> 1
 instance (~) ty CSChar =>
          HasField "primitive_sc" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sc")
+instance (~) ty CSChar => HasField "primitive_sc" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_sc = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_sc" x_0)
 instance HasCField Primitive "primitive_uc"
     where type CFieldType Primitive "primitive_uc" = CUChar
           offset# = \_ -> \_ -> 2
 instance (~) ty CUChar =>
          HasField "primitive_uc" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_uc")
+instance (~) ty CUChar => HasField "primitive_uc" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_uc = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_uc" x_0)
 instance HasCField Primitive "primitive_s"
     where type CFieldType Primitive "primitive_s" = CShort
           offset# = \_ -> \_ -> 4
 instance (~) ty CShort =>
          HasField "primitive_s" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_s")
+instance (~) ty CShort => HasField "primitive_s" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_s = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_s" x_0)
 instance HasCField Primitive "primitive_si"
     where type CFieldType Primitive "primitive_si" = CShort
           offset# = \_ -> \_ -> 6
 instance (~) ty CShort =>
          HasField "primitive_si" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_si")
+instance (~) ty CShort => HasField "primitive_si" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_si = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_si" x_0)
 instance HasCField Primitive "primitive_ss"
     where type CFieldType Primitive "primitive_ss" = CShort
           offset# = \_ -> \_ -> 8
 instance (~) ty CShort =>
          HasField "primitive_ss" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ss")
+instance (~) ty CShort => HasField "primitive_ss" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ss = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ss" x_0)
 instance HasCField Primitive "primitive_ssi"
     where type CFieldType Primitive "primitive_ssi" = CShort
           offset# = \_ -> \_ -> 10
 instance (~) ty CShort =>
          HasField "primitive_ssi" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ssi")
+instance (~) ty CShort => HasField "primitive_ssi" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ssi = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ssi" x_0)
 instance HasCField Primitive "primitive_us"
     where type CFieldType Primitive "primitive_us" = CUShort
           offset# = \_ -> \_ -> 12
 instance (~) ty CUShort =>
          HasField "primitive_us" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_us")
+instance (~) ty CUShort => HasField "primitive_us" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_us = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_us" x_0)
 instance HasCField Primitive "primitive_usi"
     where type CFieldType Primitive "primitive_usi" = CUShort
           offset# = \_ -> \_ -> 14
 instance (~) ty CUShort =>
          HasField "primitive_usi" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_usi")
+instance (~) ty CUShort => HasField "primitive_usi" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_usi = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_usi" x_0)
 instance HasCField Primitive "primitive_i"
     where type CFieldType Primitive "primitive_i" = CInt
           offset# = \_ -> \_ -> 16
 instance (~) ty CInt =>
          HasField "primitive_i" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_i")
+instance (~) ty CInt => HasField "primitive_i" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_i = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_i" x_0)
 instance HasCField Primitive "primitive_s2"
     where type CFieldType Primitive "primitive_s2" = CInt
           offset# = \_ -> \_ -> 20
 instance (~) ty CInt =>
          HasField "primitive_s2" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_s2")
+instance (~) ty CInt => HasField "primitive_s2" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_s2 = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_s2" x_0)
 instance HasCField Primitive "primitive_si2"
     where type CFieldType Primitive "primitive_si2" = CInt
           offset# = \_ -> \_ -> 24
 instance (~) ty CInt =>
          HasField "primitive_si2" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_si2")
+instance (~) ty CInt => HasField "primitive_si2" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_si2 = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_si2" x_0)
 instance HasCField Primitive "primitive_u"
     where type CFieldType Primitive "primitive_u" = CUInt
           offset# = \_ -> \_ -> 28
 instance (~) ty CUInt =>
          HasField "primitive_u" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_u")
+instance (~) ty CUInt => HasField "primitive_u" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_u = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_u" x_0)
 instance HasCField Primitive "primitive_ui"
     where type CFieldType Primitive "primitive_ui" = CUInt
           offset# = \_ -> \_ -> 32
 instance (~) ty CUInt =>
          HasField "primitive_ui" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ui")
+instance (~) ty CUInt => HasField "primitive_ui" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ui = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ui" x_0)
 instance HasCField Primitive "primitive_l"
     where type CFieldType Primitive "primitive_l" = CLong
           offset# = \_ -> \_ -> 40
 instance (~) ty CLong =>
          HasField "primitive_l" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_l")
+instance (~) ty CLong => HasField "primitive_l" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_l = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_l" x_0)
 instance HasCField Primitive "primitive_li"
     where type CFieldType Primitive "primitive_li" = CLong
           offset# = \_ -> \_ -> 48
 instance (~) ty CLong =>
          HasField "primitive_li" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_li")
+instance (~) ty CLong => HasField "primitive_li" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_li = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_li" x_0)
 instance HasCField Primitive "primitive_sl"
     where type CFieldType Primitive "primitive_sl" = CLong
           offset# = \_ -> \_ -> 56
 instance (~) ty CLong =>
          HasField "primitive_sl" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sl")
+instance (~) ty CLong => HasField "primitive_sl" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_sl = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_sl" x_0)
 instance HasCField Primitive "primitive_sli"
     where type CFieldType Primitive "primitive_sli" = CLong
           offset# = \_ -> \_ -> 64
 instance (~) ty CLong =>
          HasField "primitive_sli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sli")
+instance (~) ty CLong => HasField "primitive_sli" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_sli = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_sli" x_0)
 instance HasCField Primitive "primitive_ul"
     where type CFieldType Primitive "primitive_ul" = CULong
           offset# = \_ -> \_ -> 72
 instance (~) ty CULong =>
          HasField "primitive_ul" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ul")
+instance (~) ty CULong => HasField "primitive_ul" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ul = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ul" x_0)
 instance HasCField Primitive "primitive_uli"
     where type CFieldType Primitive "primitive_uli" = CULong
           offset# = \_ -> \_ -> 80
 instance (~) ty CULong =>
          HasField "primitive_uli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_uli")
+instance (~) ty CULong => HasField "primitive_uli" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_uli = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_uli" x_0)
 instance HasCField Primitive "primitive_ll"
     where type CFieldType Primitive "primitive_ll" = CLLong
           offset# = \_ -> \_ -> 88
 instance (~) ty CLLong =>
          HasField "primitive_ll" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ll")
+instance (~) ty CLLong => HasField "primitive_ll" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ll = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ll" x_0)
 instance HasCField Primitive "primitive_lli"
     where type CFieldType Primitive "primitive_lli" = CLLong
           offset# = \_ -> \_ -> 96
 instance (~) ty CLLong =>
          HasField "primitive_lli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_lli")
+instance (~) ty CLLong => HasField "primitive_lli" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_lli = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_lli" x_0)
 instance HasCField Primitive "primitive_sll"
     where type CFieldType Primitive "primitive_sll" = CLLong
           offset# = \_ -> \_ -> 104
 instance (~) ty CLLong =>
          HasField "primitive_sll" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sll")
+instance (~) ty CLLong => HasField "primitive_sll" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_sll = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_sll" x_0)
 instance HasCField Primitive "primitive_slli"
     where type CFieldType Primitive "primitive_slli" = CLLong
           offset# = \_ -> \_ -> 112
 instance (~) ty CLLong =>
          HasField "primitive_slli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_slli")
+instance (~) ty CLLong => HasField "primitive_slli" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_slli = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_slli" x_0)
 instance HasCField Primitive "primitive_ull"
     where type CFieldType Primitive "primitive_ull" = CULLong
           offset# = \_ -> \_ -> 120
 instance (~) ty CULLong =>
          HasField "primitive_ull" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ull")
+instance (~) ty CULLong => HasField "primitive_ull" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ull = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ull" x_0)
 instance HasCField Primitive "primitive_ulli"
     where type CFieldType Primitive "primitive_ulli" = CULLong
           offset# = \_ -> \_ -> 128
 instance (~) ty CULLong =>
          HasField "primitive_ulli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ulli")
+instance (~) ty CULLong => HasField "primitive_ulli" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_ulli = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_f = getField @"primitive_f" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_ulli" x_0)
 instance HasCField Primitive "primitive_f"
     where type CFieldType Primitive "primitive_f" = CFloat
           offset# = \_ -> \_ -> 136
 instance (~) ty CFloat =>
          HasField "primitive_f" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_f")
+instance (~) ty CFloat => HasField "primitive_f" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_f = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_d = getField @"primitive_d" x_0},
+                              getField @"primitive_f" x_0)
 instance HasCField Primitive "primitive_d"
     where type CFieldType Primitive "primitive_d" = CDouble
           offset# = \_ -> \_ -> 144
 instance (~) ty CDouble =>
          HasField "primitive_d" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_d")
+instance (~) ty CDouble => HasField "primitive_d" Primitive ty
+    where hasField = \x_0 -> (\y_1 -> Primitive{primitive_d = y_1,
+                                                primitive_c = getField @"primitive_c" x_0,
+                                                primitive_sc = getField @"primitive_sc" x_0,
+                                                primitive_uc = getField @"primitive_uc" x_0,
+                                                primitive_s = getField @"primitive_s" x_0,
+                                                primitive_si = getField @"primitive_si" x_0,
+                                                primitive_ss = getField @"primitive_ss" x_0,
+                                                primitive_ssi = getField @"primitive_ssi" x_0,
+                                                primitive_us = getField @"primitive_us" x_0,
+                                                primitive_usi = getField @"primitive_usi" x_0,
+                                                primitive_i = getField @"primitive_i" x_0,
+                                                primitive_s2 = getField @"primitive_s2" x_0,
+                                                primitive_si2 = getField @"primitive_si2" x_0,
+                                                primitive_u = getField @"primitive_u" x_0,
+                                                primitive_ui = getField @"primitive_ui" x_0,
+                                                primitive_l = getField @"primitive_l" x_0,
+                                                primitive_li = getField @"primitive_li" x_0,
+                                                primitive_sl = getField @"primitive_sl" x_0,
+                                                primitive_sli = getField @"primitive_sli" x_0,
+                                                primitive_ul = getField @"primitive_ul" x_0,
+                                                primitive_uli = getField @"primitive_uli" x_0,
+                                                primitive_ll = getField @"primitive_ll" x_0,
+                                                primitive_lli = getField @"primitive_lli" x_0,
+                                                primitive_sll = getField @"primitive_sll" x_0,
+                                                primitive_slli = getField @"primitive_slli" x_0,
+                                                primitive_ull = getField @"primitive_ull" x_0,
+                                                primitive_ulli = getField @"primitive_ulli" x_0,
+                                                primitive_f = getField @"primitive_f" x_0},
+                              getField @"primitive_d" x_0)

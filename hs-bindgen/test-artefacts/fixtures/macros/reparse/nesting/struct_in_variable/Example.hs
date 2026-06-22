@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -117,6 +118,12 @@ instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g1_x" G1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> G1 {g1_x = y1}, RIP.getField @"g1_x" x0)
+
 {-| __C declaration:__ @struct \@G2@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:1@
@@ -168,6 +175,12 @@ instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g2_x" G2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> G2 {g2_x = y1}, RIP.getField @"g2_x" x0)
+
 {-| __C declaration:__ @struct \@G3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:1@
@@ -218,3 +231,9 @@ instance HasCField.HasCField G3 "g3_x" where
 instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"g3_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g3_x" G3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> G3 {g3_x = y1}, RIP.getField @"g3_x" x0)

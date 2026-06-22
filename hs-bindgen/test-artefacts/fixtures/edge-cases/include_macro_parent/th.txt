@@ -37,11 +37,19 @@ instance HasCField Pt "pt_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CDouble => HasField "pt_x" (Ptr Pt) (Ptr ty)
     where getField = fromPtr (Proxy @"pt_x")
+instance (~) ty CDouble => HasField "pt_x" Pt ty
+    where hasField = \x_0 -> (\y_1 -> Pt{pt_x = y_1,
+                                         pt_y = getField @"pt_y" x_0},
+                              getField @"pt_x" x_0)
 instance HasCField Pt "pt_y"
     where type CFieldType Pt "pt_y" = CDouble
           offset# = \_ -> \_ -> 8
 instance (~) ty CDouble => HasField "pt_y" (Ptr Pt) (Ptr ty)
     where getField = fromPtr (Proxy @"pt_y")
+instance (~) ty CDouble => HasField "pt_y" Pt ty
+    where hasField = \x_0 -> (\y_1 -> Pt{pt_y = y_1,
+                                         pt_x = getField @"pt_x" x_0},
+                              getField @"pt_y" x_0)
 {-| __C declaration:__ @macro CHILD_HEADER@
 
     __C literal:__ @\"include_macro_child.h\"@
@@ -117,8 +125,16 @@ instance HasCField Rect "rect_tl"
           offset# = \_ -> \_ -> 0
 instance (~) ty Pt => HasField "rect_tl" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"rect_tl")
+instance (~) ty Pt => HasField "rect_tl" Rect ty
+    where hasField = \x_0 -> (\y_1 -> Rect{rect_tl = y_1,
+                                           rect_br = getField @"rect_br" x_0},
+                              getField @"rect_tl" x_0)
 instance HasCField Rect "rect_br"
     where type CFieldType Rect "rect_br" = Pt
           offset# = \_ -> \_ -> 16
 instance (~) ty Pt => HasField "rect_br" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"rect_br")
+instance (~) ty Pt => HasField "rect_br" Rect ty
+    where hasField = \x_0 -> (\y_1 -> Rect{rect_br = y_1,
+                                           rect_tl = getField @"rect_tl" x_0},
+                              getField @"rect_br" x_0)

@@ -29,6 +29,9 @@ instance HasCField OkBefore "okBefore_x"
 instance (~) ty CInt =>
          HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
     where getField = fromPtr (Proxy @"okBefore_x")
+instance (~) ty CInt => HasField "okBefore_x" OkBefore ty
+    where hasField = \x_0 -> (\y_1 -> OkBefore{okBefore_x = y_1},
+                              getField @"okBefore_x" x_0)
 {-| __C declaration:__ @struct OkAfter@
 
     __defined at:__ @program-analysis\/selection_fail.h 26:8@
@@ -58,3 +61,6 @@ instance HasCField OkAfter "okAfter_x"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "okAfter_x" (Ptr OkAfter) (Ptr ty)
     where getField = fromPtr (Proxy @"okAfter_x")
+instance (~) ty CInt => HasField "okAfter_x" OkAfter ty
+    where hasField = \x_0 -> (\y_1 -> OkAfter{okAfter_x = y_1},
+                              getField @"okAfter_x" x_0)

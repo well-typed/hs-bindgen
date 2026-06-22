@@ -126,6 +126,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
@@ -215,6 +216,14 @@ instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"listOfNames")
+
+instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
+         ) => RIP.CompatHasField.HasField "listOfNames" MyCoolStruct ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyCoolStruct {listOfNames = y1}, RIP.getField @"listOfNames" x0)
 
 {-| Auxiliary type used by 'Foo'
 
@@ -358,6 +367,14 @@ instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"foo_member")
+
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "foo_member" Foo_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo_t {foo_member = y1}, RIP.getField @"foo_member" x0)
 
 {-| __C declaration:__ @struct Foo_10_@
 
@@ -514,6 +531,11 @@ instance HasCField.HasCField St "i" where
 instance (ty ~ RIP.CInt) => RIP.HasField "i" (RIP.Ptr St) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"i")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "i" St ty where
+
+  hasField =
+    \x0 -> (\y1 -> St {i = y1}, RIP.getField @"i" x0)
 
 {-| __C declaration:__ @enum e@
 
@@ -755,6 +777,13 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "x" MyStructType ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> MyStructType {x = y1}, RIP.getField @"x" x0)
+
 {-| __C declaration:__ @struct MyStructEmpty@
 
     __defined at:__ @comprehensive\/c2hsc.h 68:16@
@@ -819,6 +848,16 @@ instance ( ty ~ RIP.CFloat
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_float_member")
 
+instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "ordinary_float_member" Ordinary_float_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_float_struct {ordinary_float_member = y1}
+      , RIP.getField @"ordinary_float_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_double_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 205:8@
@@ -872,6 +911,16 @@ instance ( ty ~ RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_double_member")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "ordinary_double_member" Ordinary_double_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_double_struct {ordinary_double_member = y1}
+      , RIP.getField @"ordinary_double_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_char_struct@
 
@@ -927,6 +976,16 @@ instance ( ty ~ RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_member")
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "ordinary_signed_char_member" Ordinary_signed_char_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_char_struct {ordinary_signed_char_member = y1}
+      , RIP.getField @"ordinary_signed_char_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_char_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 209:8@
@@ -980,6 +1039,16 @@ instance ( ty ~ RIP.CSChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_member")
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "explicit_signed_char_member" Explicit_signed_char_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_char_struct {explicit_signed_char_member = y1}
+      , RIP.getField @"explicit_signed_char_member" x0
+      )
 
 {-| __C declaration:__ @struct unsigned_char_struct@
 
@@ -1035,6 +1104,16 @@ instance ( ty ~ RIP.CUChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_char_member")
 
+instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unsigned_char_member" Unsigned_char_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_char_struct {unsigned_char_member = y1}
+      , RIP.getField @"unsigned_char_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_short_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 212:8@
@@ -1088,6 +1167,16 @@ instance ( ty ~ RIP.CShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_member")
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "ordinary_signed_short_member" Ordinary_signed_short_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_short_struct {ordinary_signed_short_member = y1}
+      , RIP.getField @"ordinary_signed_short_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_short_struct@
 
@@ -1143,6 +1232,16 @@ instance ( ty ~ RIP.CShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_member")
 
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "explicit_signed_short_member" Explicit_signed_short_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_short_struct {explicit_signed_short_member = y1}
+      , RIP.getField @"explicit_signed_short_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_short_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 214:8@
@@ -1196,6 +1295,16 @@ instance ( ty ~ RIP.CUShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_short_member")
+
+instance ( ty ~ RIP.CUShort
+         ) => RIP.CompatHasField.HasField "unsigned_short_member" Unsigned_short_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_short_struct {unsigned_short_member = y1}
+      , RIP.getField @"unsigned_short_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_int_struct@
 
@@ -1251,6 +1360,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_member")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_int_struct {ordinary_signed_int_member = y1}
+      , RIP.getField @"ordinary_signed_int_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_int_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 217:8@
@@ -1304,6 +1423,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_member")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "explicit_signed_int_member" Explicit_signed_int_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_int_struct {explicit_signed_int_member = y1}
+      , RIP.getField @"explicit_signed_int_member" x0
+      )
 
 {-| __C declaration:__ @struct unsigned_int_struct@
 
@@ -1359,6 +1488,16 @@ instance ( ty ~ RIP.CUInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_int_member")
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unsigned_int_member" Unsigned_int_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_int_struct {unsigned_int_member = y1}
+      , RIP.getField @"unsigned_int_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 220:8@
@@ -1412,6 +1551,16 @@ instance ( ty ~ RIP.CLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_member")
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_member" Ordinary_signed_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_struct {ordinary_signed_long_member = y1}
+      , RIP.getField @"ordinary_signed_long_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_long_struct@
 
@@ -1467,6 +1616,16 @@ instance ( ty ~ RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_member")
 
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_member" Explicit_signed_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_struct {explicit_signed_long_member = y1}
+      , RIP.getField @"explicit_signed_long_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 222:8@
@@ -1520,6 +1679,16 @@ instance ( ty ~ RIP.CULong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_member")
+
+instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "unsigned_long_member" Unsigned_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_struct {unsigned_long_member = y1}
+      , RIP.getField @"unsigned_long_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_struct@
 
@@ -1575,6 +1744,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_member")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_member" Ordinary_signed_long_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_long_struct {ordinary_signed_long_long_member = y1}
+      , RIP.getField @"ordinary_signed_long_long_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 225:8@
@@ -1629,6 +1808,16 @@ instance ( ty ~ RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_member")
 
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_member" Explicit_signed_long_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_long_struct {explicit_signed_long_long_member = y1}
+      , RIP.getField @"explicit_signed_long_long_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 226:8@
@@ -1682,6 +1871,16 @@ instance ( ty ~ RIP.CULLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_member")
+
+instance ( ty ~ RIP.CULLong
+         ) => RIP.CompatHasField.HasField "unsigned_long_long_member" Unsigned_long_long_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_long_struct {unsigned_long_long_member = y1}
+      , RIP.getField @"unsigned_long_long_member" x0
+      )
 
 {-| Structs: pointers
 
@@ -1741,6 +1940,16 @@ instance ( ty ~ RIP.Ptr RIP.Void
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.CompatHasField.HasField "ordinary_void_pointer_member" Ordinary_void_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_void_pointer_struct {ordinary_void_pointer_member = y1}
+      , RIP.getField @"ordinary_void_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_float_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 237:8@
@@ -1794,6 +2003,16 @@ instance ( ty ~ RIP.Ptr RIP.CFloat
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CFloat
+         ) => RIP.CompatHasField.HasField "ordinary_float_pointer_member" Ordinary_float_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_float_pointer_struct {ordinary_float_pointer_member = y1}
+      , RIP.getField @"ordinary_float_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_double_pointer_struct@
 
@@ -1849,6 +2068,16 @@ instance ( ty ~ RIP.Ptr RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CDouble
+         ) => RIP.CompatHasField.HasField "ordinary_double_pointer_member" Ordinary_double_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_double_pointer_struct {ordinary_double_pointer_member = y1}
+      , RIP.getField @"ordinary_double_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 241:8@
@@ -1902,6 +2131,16 @@ instance ( ty ~ RIP.Ptr RIP.CChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_member" Ordinary_signed_char_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_char_pointer_struct {ordinary_signed_char_pointer_member = y1}
+      , RIP.getField @"ordinary_signed_char_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_char_pointer_struct@
 
@@ -1957,6 +2196,16 @@ instance ( ty ~ RIP.Ptr RIP.CSChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CSChar
+         ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_member" Explicit_signed_char_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_char_pointer_struct {explicit_signed_char_pointer_member = y1}
+      , RIP.getField @"explicit_signed_char_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_char_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 243:8@
@@ -2010,6 +2259,16 @@ instance ( ty ~ RIP.Ptr RIP.CUChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unsigned_char_pointer_member" Unsigned_char_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_char_pointer_struct {unsigned_char_pointer_member = y1}
+      , RIP.getField @"unsigned_char_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_struct@
 
@@ -2065,6 +2324,16 @@ instance ( ty ~ RIP.Ptr RIP.CShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CShort
+         ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_member" Ordinary_signed_short_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_short_pointer_struct {ordinary_signed_short_pointer_member = y1}
+      , RIP.getField @"ordinary_signed_short_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_short_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 246:8@
@@ -2118,6 +2387,16 @@ instance ( ty ~ RIP.Ptr RIP.CShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CShort
+         ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_member" Explicit_signed_short_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_short_pointer_struct {explicit_signed_short_pointer_member = y1}
+      , RIP.getField @"explicit_signed_short_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct unsigned_short_pointer_struct@
 
@@ -2173,6 +2452,16 @@ instance ( ty ~ RIP.Ptr RIP.CUShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CUShort
+         ) => RIP.CompatHasField.HasField "unsigned_short_pointer_member" Unsigned_short_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_short_pointer_struct {unsigned_short_pointer_member = y1}
+      , RIP.getField @"unsigned_short_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 249:8@
@@ -2226,6 +2515,16 @@ instance ( ty ~ RIP.Ptr RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_member" Ordinary_signed_int_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_int_pointer_struct {ordinary_signed_int_pointer_member = y1}
+      , RIP.getField @"ordinary_signed_int_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_int_pointer_struct@
 
@@ -2281,6 +2580,16 @@ instance ( ty ~ RIP.Ptr RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_member" Explicit_signed_int_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_int_pointer_struct {explicit_signed_int_pointer_member = y1}
+      , RIP.getField @"explicit_signed_int_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_int_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 251:8@
@@ -2334,6 +2643,16 @@ instance ( ty ~ RIP.Ptr RIP.CUInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unsigned_int_pointer_member" Unsigned_int_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_int_pointer_struct {unsigned_int_pointer_member = y1}
+      , RIP.getField @"unsigned_int_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_struct@
 
@@ -2389,6 +2708,16 @@ instance ( ty ~ RIP.Ptr RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_member" Ordinary_signed_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_pointer_struct {ordinary_signed_long_pointer_member = y1}
+      , RIP.getField @"ordinary_signed_long_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 254:8@
@@ -2443,6 +2772,16 @@ instance ( ty ~ RIP.Ptr RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_member" Explicit_signed_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_pointer_struct {explicit_signed_long_pointer_member = y1}
+      , RIP.getField @"explicit_signed_long_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 255:8@
@@ -2496,6 +2835,16 @@ instance ( ty ~ RIP.Ptr RIP.CULong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CULong
+         ) => RIP.CompatHasField.HasField "unsigned_long_pointer_member" Unsigned_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_pointer_struct {unsigned_long_pointer_member = y1}
+      , RIP.getField @"unsigned_long_pointer_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_struct@
 
@@ -2552,6 +2901,16 @@ instance ( ty ~ RIP.Ptr RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CLLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_member" Ordinary_signed_long_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_long_pointer_struct {ordinary_signed_long_long_pointer_member = y1}
+      , RIP.getField @"ordinary_signed_long_long_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 258:8@
@@ -2607,6 +2966,16 @@ instance ( ty ~ RIP.Ptr RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_member")
 
+instance ( ty ~ RIP.Ptr RIP.CLLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_member" Explicit_signed_long_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_long_pointer_struct {explicit_signed_long_long_pointer_member = y1}
+      , RIP.getField @"explicit_signed_long_long_pointer_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 259:8@
@@ -2660,6 +3029,16 @@ instance ( ty ~ RIP.Ptr RIP.CULLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_member")
+
+instance ( ty ~ RIP.Ptr RIP.CULLong
+         ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_member" Unsigned_long_long_pointer_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_long_pointer_struct {unsigned_long_long_pointer_member = y1}
+      , RIP.getField @"unsigned_long_long_pointer_member" x0
+      )
 
 {-| Structs: arrays
 
@@ -2717,6 +3096,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_float_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
+         ) => RIP.CompatHasField.HasField "ordinary_float_array_member" Ordinary_float_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_float_array_struct {ordinary_float_array_member = y1}
+      , RIP.getField @"ordinary_float_array_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_double_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 266:8@
@@ -2770,6 +3159,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_double_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
+         ) => RIP.CompatHasField.HasField "ordinary_double_array_member" Ordinary_double_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_double_array_struct {ordinary_double_array_member = y1}
+      , RIP.getField @"ordinary_double_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_char_array_struct@
 
@@ -2825,6 +3224,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CChar
+         ) => RIP.CompatHasField.HasField "ordinary_signed_char_array_member" Ordinary_signed_char_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_char_array_struct {ordinary_signed_char_array_member = y1}
+      , RIP.getField @"ordinary_signed_char_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_char_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 270:8@
@@ -2878,6 +3287,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
+         ) => RIP.CompatHasField.HasField "explicit_signed_char_array_member" Explicit_signed_char_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_char_array_struct {explicit_signed_char_array_member = y1}
+      , RIP.getField @"explicit_signed_char_array_member" x0
+      )
 
 {-| __C declaration:__ @struct unsigned_char_array_struct@
 
@@ -2933,6 +3352,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_char_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unsigned_char_array_member" Unsigned_char_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_char_array_struct {unsigned_char_array_member = y1}
+      , RIP.getField @"unsigned_char_array_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_short_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 273:8@
@@ -2986,6 +3415,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CShort
+         ) => RIP.CompatHasField.HasField "ordinary_signed_short_array_member" Ordinary_signed_short_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_short_array_struct {ordinary_signed_short_array_member = y1}
+      , RIP.getField @"ordinary_signed_short_array_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_short_array_struct@
 
@@ -3041,6 +3480,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CShort
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CShort
+         ) => RIP.CompatHasField.HasField "explicit_signed_short_array_member" Explicit_signed_short_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_short_array_struct {explicit_signed_short_array_member = y1}
+      , RIP.getField @"explicit_signed_short_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_short_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 275:8@
@@ -3094,6 +3543,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_short_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
+         ) => RIP.CompatHasField.HasField "unsigned_short_array_member" Unsigned_short_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_short_array_struct {unsigned_short_array_member = y1}
+      , RIP.getField @"unsigned_short_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_int_array_struct@
 
@@ -3149,6 +3608,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CInt
+         ) => RIP.CompatHasField.HasField "ordinary_signed_int_array_member" Ordinary_signed_int_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_int_array_struct {ordinary_signed_int_array_member = y1}
+      , RIP.getField @"ordinary_signed_int_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_int_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 278:8@
@@ -3202,6 +3671,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CInt
+         ) => RIP.CompatHasField.HasField "explicit_signed_int_array_member" Explicit_signed_int_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_int_array_struct {explicit_signed_int_array_member = y1}
+      , RIP.getField @"explicit_signed_int_array_member" x0
+      )
 
 {-| __C declaration:__ @struct unsigned_int_array_struct@
 
@@ -3257,6 +3736,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_int_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unsigned_int_array_member" Unsigned_int_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_int_array_struct {unsigned_int_array_member = y1}
+      , RIP.getField @"unsigned_int_array_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_signed_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 281:8@
@@ -3310,6 +3799,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_array_member" Ordinary_signed_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_array_struct {ordinary_signed_long_array_member = y1}
+      , RIP.getField @"ordinary_signed_long_array_member" x0
+      )
 
 {-| __C declaration:__ @struct explicit_signed_long_array_struct@
 
@@ -3365,6 +3864,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_array_member" Explicit_signed_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_array_struct {explicit_signed_long_array_member = y1}
+      , RIP.getField @"explicit_signed_long_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 283:8@
@@ -3418,6 +3927,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CULong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CULong
+         ) => RIP.CompatHasField.HasField "unsigned_long_array_member" Unsigned_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_array_struct {unsigned_long_array_member = y1}
+      , RIP.getField @"unsigned_long_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_array_struct@
 
@@ -3474,6 +3993,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_array_member" Ordinary_signed_long_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_long_array_struct {ordinary_signed_long_long_array_member = y1}
+      , RIP.getField @"ordinary_signed_long_long_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 286:8@
@@ -3529,6 +4058,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_array_member" Explicit_signed_long_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_long_array_struct {explicit_signed_long_long_array_member = y1}
+      , RIP.getField @"explicit_signed_long_long_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 287:8@
@@ -3582,6 +4121,16 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
+         ) => RIP.CompatHasField.HasField "unsigned_long_long_array_member" Unsigned_long_long_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_long_array_struct {unsigned_long_long_array_member = y1}
+      , RIP.getField @"unsigned_long_long_array_member" x0
+      )
 
 {-| Structs: arrays of pointers
 
@@ -3641,6 +4190,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
+         ) => RIP.CompatHasField.HasField "ordinary_void_pointer_array_member" Ordinary_void_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_void_pointer_array_struct {ordinary_void_pointer_array_member = y1}
+      , RIP.getField @"ordinary_void_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_float_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 298:8@
@@ -3695,6 +4254,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
+         ) => RIP.CompatHasField.HasField "ordinary_float_pointer_array_member" Ordinary_float_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_float_pointer_array_struct {ordinary_float_pointer_array_member = y1}
+      , RIP.getField @"ordinary_float_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct ordinary_double_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 299:8@
@@ -3748,6 +4317,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
+         ) => RIP.CompatHasField.HasField "ordinary_double_pointer_array_member" Ordinary_double_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_double_pointer_array_struct {ordinary_double_pointer_array_member = y1}
+      , RIP.getField @"ordinary_double_pointer_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_array_struct@
 
@@ -3804,6 +4383,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
+         ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_array_member" Ordinary_signed_char_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_char_pointer_array_struct {ordinary_signed_char_pointer_array_member = y1}
+      , RIP.getField @"ordinary_signed_char_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_char_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 303:8@
@@ -3859,6 +4448,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
+         ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_array_member" Explicit_signed_char_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_char_pointer_array_struct {explicit_signed_char_pointer_array_member = y1}
+      , RIP.getField @"explicit_signed_char_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_char_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 304:8@
@@ -3912,6 +4511,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
+         ) => RIP.CompatHasField.HasField "unsigned_char_pointer_array_member" Unsigned_char_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_char_pointer_array_struct {unsigned_char_pointer_array_member = y1}
+      , RIP.getField @"unsigned_char_pointer_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_array_struct@
 
@@ -3968,6 +4577,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+         ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_array_member" Ordinary_signed_short_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_short_pointer_array_struct {ordinary_signed_short_pointer_array_member = y1}
+      , RIP.getField @"ordinary_signed_short_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_short_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 307:8@
@@ -4023,6 +4642,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+         ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_array_member" Explicit_signed_short_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_short_pointer_array_struct {explicit_signed_short_pointer_array_member = y1}
+      , RIP.getField @"explicit_signed_short_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_short_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 308:8@
@@ -4076,6 +4705,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
+         ) => RIP.CompatHasField.HasField "unsigned_short_pointer_array_member" Unsigned_short_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_short_pointer_array_struct {unsigned_short_pointer_array_member = y1}
+      , RIP.getField @"unsigned_short_pointer_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_array_struct@
 
@@ -4132,6 +4771,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+         ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_array_member" Ordinary_signed_int_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_int_pointer_array_struct {ordinary_signed_int_pointer_array_member = y1}
+      , RIP.getField @"ordinary_signed_int_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_int_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 311:8@
@@ -4187,6 +4836,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+         ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_array_member" Explicit_signed_int_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_int_pointer_array_struct {explicit_signed_int_pointer_array_member = y1}
+      , RIP.getField @"explicit_signed_int_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_int_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 312:8@
@@ -4240,6 +4899,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
+         ) => RIP.CompatHasField.HasField "unsigned_int_pointer_array_member" Unsigned_int_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_int_pointer_array_struct {unsigned_int_pointer_array_member = y1}
+      , RIP.getField @"unsigned_int_pointer_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_array_struct@
 
@@ -4296,6 +4965,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_array_member" Ordinary_signed_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_pointer_array_struct {ordinary_signed_long_pointer_array_member = y1}
+      , RIP.getField @"ordinary_signed_long_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 315:8@
@@ -4351,6 +5030,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_array_member" Explicit_signed_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_pointer_array_struct {explicit_signed_long_pointer_array_member = y1}
+      , RIP.getField @"explicit_signed_long_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 316:8@
@@ -4404,6 +5093,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
+         ) => RIP.CompatHasField.HasField "unsigned_long_pointer_array_member" Unsigned_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_pointer_array_struct {unsigned_long_pointer_array_member = y1}
+      , RIP.getField @"unsigned_long_pointer_array_member" x0
+      )
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_array_struct@
 
@@ -4460,6 +5159,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
   getField =
     HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_array_member" Ordinary_signed_long_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Ordinary_signed_long_long_pointer_array_struct {ordinary_signed_long_long_pointer_array_member = y1}
+      , RIP.getField @"ordinary_signed_long_long_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 319:8@
@@ -4515,6 +5224,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
   getField =
     HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_array_member")
 
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_array_member" Explicit_signed_long_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Explicit_signed_long_long_pointer_array_struct {explicit_signed_long_long_pointer_array_member = y1}
+      , RIP.getField @"explicit_signed_long_long_pointer_array_member" x0
+      )
+
 {-| __C declaration:__ @struct unsigned_long_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 320:8@
@@ -4569,6 +5288,16 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_array_member")
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
+         ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_array_member" Unsigned_long_long_pointer_array_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Unsigned_long_long_pointer_array_struct {unsigned_long_long_pointer_array_member = y1}
+      , RIP.getField @"unsigned_long_long_pointer_array_member" x0
+      )
 
 {-| Sanity checks
 
@@ -4674,6 +5403,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"raw")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "raw" Cal_table_table ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cal_table_table {raw = y1, val = RIP.getField @"val" x0}
+      , RIP.getField @"raw" x0
+      )
+
 instance HasCField.HasCField Cal_table_table "val" where
 
   type CFieldType Cal_table_table "val" = RIP.CInt
@@ -4684,6 +5423,16 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "val" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"val")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "val" Cal_table_table ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cal_table_table {val = y1, raw = RIP.getField @"raw" x0}
+      , RIP.getField @"val" x0
+      )
 
 {-| Issues without test cases in the original test suite
 
@@ -4750,6 +5499,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"size")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "size" Cal_table ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cal_table {size = y1, table = RIP.getField @"table" x0}
+      , RIP.getField @"size" x0
+      )
+
 instance HasCField.HasCField Cal_table "table" where
 
   type CFieldType Cal_table "table" =
@@ -4761,6 +5520,16 @@ instance ( ty ~ CA.ConstantArray 32 Cal_table_table
          ) => RIP.HasField "table" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"table")
+
+instance ( ty ~ CA.ConstantArray 32 Cal_table_table
+         ) => RIP.CompatHasField.HasField "table" Cal_table ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Cal_table {table = y1, size = RIP.getField @"size" x0}
+      , RIP.getField @"table" x0
+      )
 
 {-| __C declaration:__ @union \@Elf32_External_Dyn_d_un@
 
@@ -4921,6 +5690,16 @@ instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
 
   getField = HasCField.fromPtr (RIP.Proxy @"d_tag")
 
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.CompatHasField.HasField "d_tag" Elf32_External_Dyn ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Elf32_External_Dyn {d_tag = y1, d_un = RIP.getField @"d_un" x0}
+      , RIP.getField @"d_tag" x0
+      )
+
 instance HasCField.HasCField Elf32_External_Dyn "d_un" where
 
   type CFieldType Elf32_External_Dyn "d_un" =
@@ -4932,6 +5711,16 @@ instance ( ty ~ Elf32_External_Dyn_d_un
          ) => RIP.HasField "d_un" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"d_un")
+
+instance ( ty ~ Elf32_External_Dyn_d_un
+         ) => RIP.CompatHasField.HasField "d_un" Elf32_External_Dyn ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Elf32_External_Dyn {d_un = y1, d_tag = RIP.getField @"d_tag" x0}
+      , RIP.getField @"d_un" x0
+      )
 
 {-| __C declaration:__ @bug_24@
 
@@ -5073,3 +5862,10 @@ instance ( ty ~ MyArray_27
          ) => RIP.HasField "x" (RIP.Ptr MyStruct_27) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"x")
+
+instance ( ty ~ MyArray_27
+         ) => RIP.CompatHasField.HasField "x" MyStruct_27 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> MyStruct_27 {x = y1}, RIP.getField @"x" x0)

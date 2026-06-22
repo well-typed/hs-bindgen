@@ -92,6 +92,9 @@ instance HasCField Driver "driver_run"
 instance (~) ty RunDriver =>
          HasField "driver_run" (Ptr Driver) (Ptr ty)
     where getField = fromPtr (Proxy @"driver_run")
+instance (~) ty RunDriver => HasField "driver_run" Driver ty
+    where hasField = \x_0 -> (\y_1 -> Driver{driver_run = y_1},
+                              getField @"driver_run" x_0)
 {-| __C declaration:__ @struct Bare@
 
     __defined at:__ @functions\/typedef_funptr.h 20:8@
@@ -122,3 +125,7 @@ instance HasCField Bare "bare_callback"
 instance (~) ty (FunPtr (CInt -> IO ())) =>
          HasField "bare_callback" (Ptr Bare) (Ptr ty)
     where getField = fromPtr (Proxy @"bare_callback")
+instance (~) ty (FunPtr (CInt -> IO ())) =>
+         HasField "bare_callback" Bare ty
+    where hasField = \x_0 -> (\y_1 -> Bare{bare_callback = y_1},
+                              getField @"bare_callback" x_0)

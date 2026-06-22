@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct linked_list_A_s@
@@ -85,6 +86,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "linked_list_A_t_x" Linked_list_A_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Linked_list_A_t { linked_list_A_t_x = y1
+                          , linked_list_A_t_next = RIP.getField @"linked_list_A_t_next" x0
+                          }
+      , RIP.getField @"linked_list_A_t_x" x0
+      )
+
 instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
 
   type CFieldType Linked_list_A_t "linked_list_A_t_next" =
@@ -97,6 +110,18 @@ instance ( ty ~ RIP.Ptr Linked_list_A_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_next")
+
+instance ( ty ~ RIP.Ptr Linked_list_A_t
+         ) => RIP.CompatHasField.HasField "linked_list_A_t_next" Linked_list_A_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Linked_list_A_t { linked_list_A_t_next = y1
+                          , linked_list_A_t_x = RIP.getField @"linked_list_A_t_x" x0
+                          }
+      , RIP.getField @"linked_list_A_t_next" x0
+      )
 
 {-| __C declaration:__ @struct linked_list_B_t@
 
@@ -161,6 +186,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "linked_list_B_t_x" Linked_list_B_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Linked_list_B_t { linked_list_B_t_x = y1
+                          , linked_list_B_t_next = RIP.getField @"linked_list_B_t_next" x0
+                          }
+      , RIP.getField @"linked_list_B_t_x" x0
+      )
+
 instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
 
   type CFieldType Linked_list_B_t "linked_list_B_t_next" =
@@ -173,3 +210,15 @@ instance ( ty ~ RIP.Ptr Linked_list_B_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_next")
+
+instance ( ty ~ RIP.Ptr Linked_list_B_t
+         ) => RIP.CompatHasField.HasField "linked_list_B_t_next" Linked_list_B_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Linked_list_B_t { linked_list_B_t_next = y1
+                          , linked_list_B_t_x = RIP.getField @"linked_list_B_t_x" x0
+                          }
+      , RIP.getField @"linked_list_B_t_next" x0
+      )

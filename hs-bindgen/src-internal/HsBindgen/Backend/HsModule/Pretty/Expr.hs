@@ -18,6 +18,7 @@ import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Pretty.Common
 import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.NameHint
 import HsBindgen.Util.Rational (canBeRepresentedAsRational)
@@ -190,6 +191,22 @@ prettyRolledExpr env prec expr = case expr of
     ETypeApp f t ->
       PP.parensWhen (prec > 3) $
         prettyExpr env 3 f <+> "@" >< prettyType EmptyEnv 4 t
+
+    -- NOTE: the precedence is copied from the @EApp@ case above
+    ERecCon con fs ->
+      let fsDocs = fmap (prettyFBind env) fs
+          hl = PP.hlist "{" "}" fsDocs
+          vl = PP.vlist "{" "}" fsDocs
+      in  PP.parensWhen (prec > 3) $
+            pretty con <+> PP.ifFits hl hl vl
+
+-- | Pretty-print a field binding
+--
+-- Field bindings do not have to be parenthesised in the context where they are
+-- used: record construction and record update. As such, this function does not
+-- get a precedence argument.
+prettyFBind :: Env ctx CtxDoc -> FBind ctx -> CtxDoc
+prettyFBind env (FBind label expr) = PP.string label <+> "=" <+> prettyExpr env 0 expr
 
 -- | Format a byte as a two-digit uppercase hex literal, e.g. @0x00@, @0xE3@.
 showHexByte :: Word8 -> String

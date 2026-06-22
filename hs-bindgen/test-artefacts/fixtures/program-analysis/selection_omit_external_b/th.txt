@@ -29,6 +29,9 @@ instance HasCField Omitted "omitted_n"
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "omitted_n" (Ptr Omitted) (Ptr ty)
     where getField = fromPtr (Proxy @"omitted_n")
+instance (~) ty CInt => HasField "omitted_n" Omitted ty
+    where hasField = \x_0 -> (\y_1 -> Omitted{omitted_n = y_1},
+                              getField @"omitted_n" x_0)
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 4:8@
@@ -63,6 +66,10 @@ instance (~) ty Omitted =>
                   (Ptr DirectlyDependsOnOmitted)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"directlyDependsOnOmitted_o")
+instance (~) ty Omitted =>
+         HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty
+    where hasField = \x_0 -> (\y_1 -> DirectlyDependsOnOmitted{directlyDependsOnOmitted_o = y_1},
+                              getField @"directlyDependsOnOmitted_o" x_0)
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
@@ -97,3 +104,9 @@ instance (~) ty DirectlyDependsOnOmitted =>
                   (Ptr IndirectlyDependsOnOmitted)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"indirectlyDependsOnOmitted_d")
+instance (~) ty DirectlyDependsOnOmitted =>
+         HasField "indirectlyDependsOnOmitted_d"
+                  IndirectlyDependsOnOmitted
+                  ty
+    where hasField = \x_0 -> (\y_1 -> IndirectlyDependsOnOmitted{indirectlyDependsOnOmitted_d = y_1},
+                              getField @"indirectlyDependsOnOmitted_d" x_0)

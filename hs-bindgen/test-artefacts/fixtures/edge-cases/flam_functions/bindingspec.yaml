@@ -19,6 +19,7 @@ hstypes:
       fields:
       - vector_length
   instances:
+  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic

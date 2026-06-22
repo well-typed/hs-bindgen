@@ -27,6 +27,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -205,6 +206,16 @@ instance ( ty ~ CA.ConstantArray 3 RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_triple")
 
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "example_triple" Example ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example {example_triple = y1, example_sudoku = RIP.getField @"example_sudoku" x0}
+      , RIP.getField @"example_triple" x0
+      )
+
 instance HasCField.HasCField Example "example_sudoku" where
 
   type CFieldType Example "example_sudoku" =
@@ -217,6 +228,16 @@ instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_sudoku")
+
+instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "example_sudoku" Example ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example {example_sudoku = y1, example_triple = RIP.getField @"example_triple" x0}
+      , RIP.getField @"example_sudoku" x0
+      )
 
 {-| Typedef-in-typedef.
 

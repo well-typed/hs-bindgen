@@ -38,6 +38,7 @@ hstypes:
       - exampleStruct_m1
       - exampleStruct_m2
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -54,6 +55,7 @@ hstypes:
       fields:
       - foo_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -38,6 +38,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@has_implicit_fields_anon\'x2_1@
@@ -105,6 +106,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_anon'x2_1_x2_1")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_1" Has_implicit_fields_anon'x2_1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Has_implicit_fields_anon'x2_1 { has_implicit_fields_anon'x2_1_x2_1 = y1
+                                        , has_implicit_fields_anon'x2_1_x2_2 = RIP.getField @"has_implicit_fields_anon'x2_1_x2_2" x0
+                                        }
+      , RIP.getField @"has_implicit_fields_anon'x2_1_x2_1" x0
+      )
+
 instance HasCField.HasCField Has_implicit_fields_anon'x2_1 "has_implicit_fields_anon'x2_1_x2_2" where
 
   type CFieldType Has_implicit_fields_anon'x2_1 "has_implicit_fields_anon'x2_1_x2_2" =
@@ -117,6 +130,18 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_anon'x2_1_x2_2")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_2" Has_implicit_fields_anon'x2_1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Has_implicit_fields_anon'x2_1 { has_implicit_fields_anon'x2_1_x2_2 = y1
+                                        , has_implicit_fields_anon'x2_1_x2_1 = RIP.getField @"has_implicit_fields_anon'x2_1_x2_1" x0
+                                        }
+      , RIP.getField @"has_implicit_fields_anon'x2_1_x2_2" x0
+      )
 
 {-| __C declaration:__ @struct \@has_implicit_fields_anon\'x4_1@
 
@@ -183,6 +208,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_anon'x4_1_x4_1")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_1" Has_implicit_fields_anon'x4_1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Has_implicit_fields_anon'x4_1 { has_implicit_fields_anon'x4_1_x4_1 = y1
+                                        , has_implicit_fields_anon'x4_1_x4_2 = RIP.getField @"has_implicit_fields_anon'x4_1_x4_2" x0
+                                        }
+      , RIP.getField @"has_implicit_fields_anon'x4_1_x4_1" x0
+      )
+
 instance HasCField.HasCField Has_implicit_fields_anon'x4_1 "has_implicit_fields_anon'x4_1_x4_2" where
 
   type CFieldType Has_implicit_fields_anon'x4_1 "has_implicit_fields_anon'x4_1_x4_2" =
@@ -195,6 +232,18 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"has_implicit_fields_anon'x4_1_x4_2")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_2" Has_implicit_fields_anon'x4_1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Has_implicit_fields_anon'x4_1 { has_implicit_fields_anon'x4_1_x4_2 = y1
+                                        , has_implicit_fields_anon'x4_1_x4_1 = RIP.getField @"has_implicit_fields_anon'x4_1_x4_1" x0
+                                        }
+      , RIP.getField @"has_implicit_fields_anon'x4_1_x4_2" x0
+      )
 
 {-| __C declaration:__ @union \@has_implicit_fields_anon\'x5_1@
 

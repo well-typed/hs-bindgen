@@ -664,12 +664,22 @@ instance HasCField Measurement "measurement_value"
 instance (~) ty CDouble =>
          HasField "measurement_value" (Ptr Measurement) (Ptr ty)
     where getField = fromPtr (Proxy @"measurement_value")
+instance (~) ty CDouble =>
+         HasField "measurement_value" Measurement ty
+    where hasField = \x_0 -> (\y_1 -> Measurement{measurement_value = y_1,
+                                                  measurement_timestamp = getField @"measurement_timestamp" x_0},
+                              getField @"measurement_value" x_0)
 instance HasCField Measurement "measurement_timestamp"
     where type CFieldType Measurement "measurement_timestamp" = CDouble
           offset# = \_ -> \_ -> 8
 instance (~) ty CDouble =>
          HasField "measurement_timestamp" (Ptr Measurement) (Ptr ty)
     where getField = fromPtr (Proxy @"measurement_timestamp")
+instance (~) ty CDouble =>
+         HasField "measurement_timestamp" Measurement ty
+    where hasField = \x_0 -> (\y_1 -> Measurement{measurement_timestamp = y_1,
+                                                  measurement_value = getField @"measurement_value" x_0},
+                              getField @"measurement_timestamp" x_0)
 {-| Auxiliary type used by 'MeasurementReceived'
 
     __C declaration:__ @MeasurementReceived@
@@ -907,6 +917,12 @@ instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
                   (Ptr MeasurementHandler)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"measurementHandler_onReceived")
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "measurementHandler_onReceived" MeasurementHandler ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_onReceived = y_1,
+                                                         measurementHandler_validate = getField @"measurementHandler_validate" x_0,
+                                                         measurementHandler_onError = getField @"measurementHandler_onError" x_0},
+                              getField @"measurementHandler_onReceived" x_0)
 instance HasCField MeasurementHandler "measurementHandler_validate"
     where type CFieldType MeasurementHandler
                           "measurementHandler_validate" = FunPtr (Ptr Measurement -> IO CInt)
@@ -916,6 +932,12 @@ instance (~) ty (FunPtr (Ptr Measurement -> IO CInt)) =>
                   (Ptr MeasurementHandler)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"measurementHandler_validate")
+instance (~) ty (FunPtr (Ptr Measurement -> IO CInt)) =>
+         HasField "measurementHandler_validate" MeasurementHandler ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_validate = y_1,
+                                                         measurementHandler_onReceived = getField @"measurementHandler_onReceived" x_0,
+                                                         measurementHandler_onError = getField @"measurementHandler_onError" x_0},
+                              getField @"measurementHandler_validate" x_0)
 instance HasCField MeasurementHandler "measurementHandler_onError"
     where type CFieldType MeasurementHandler
                           "measurementHandler_onError" = FunPtr (CInt -> IO ())
@@ -925,6 +947,12 @@ instance (~) ty (FunPtr (CInt -> IO ())) =>
                   (Ptr MeasurementHandler)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"measurementHandler_onError")
+instance (~) ty (FunPtr (CInt -> IO ())) =>
+         HasField "measurementHandler_onError" MeasurementHandler ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_onError = y_1,
+                                                         measurementHandler_onReceived = getField @"measurementHandler_onReceived" x_0,
+                                                         measurementHandler_validate = getField @"measurementHandler_validate" x_0},
+                              getField @"measurementHandler_onError" x_0)
 {-| __C declaration:__ @struct DataPipeline@
 
     __defined at:__ @functions\/callbacks.h 58:8@
@@ -976,6 +1004,13 @@ instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
          HasField "dataPipeline_preProcess" (Ptr DataPipeline) (Ptr ty)
     where getField = fromPtr (Proxy @"dataPipeline_preProcess")
+instance (~) ty
+             (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
+         HasField "dataPipeline_preProcess" DataPipeline ty
+    where hasField = \x_0 -> (\y_1 -> DataPipeline{dataPipeline_preProcess = y_1,
+                                                   dataPipeline_process = getField @"dataPipeline_process" x_0,
+                                                   dataPipeline_postProcess = getField @"dataPipeline_postProcess" x_0},
+                              getField @"dataPipeline_preProcess" x_0)
 instance HasCField DataPipeline "dataPipeline_process"
     where type CFieldType DataPipeline
                           "dataPipeline_process" = FunPtr (Ptr Measurement -> IO ())
@@ -983,6 +1018,12 @@ instance HasCField DataPipeline "dataPipeline_process"
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "dataPipeline_process" (Ptr DataPipeline) (Ptr ty)
     where getField = fromPtr (Proxy @"dataPipeline_process")
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "dataPipeline_process" DataPipeline ty
+    where hasField = \x_0 -> (\y_1 -> DataPipeline{dataPipeline_process = y_1,
+                                                   dataPipeline_preProcess = getField @"dataPipeline_preProcess" x_0,
+                                                   dataPipeline_postProcess = getField @"dataPipeline_postProcess" x_0},
+                              getField @"dataPipeline_process" x_0)
 instance HasCField DataPipeline "dataPipeline_postProcess"
     where type CFieldType DataPipeline
                           "dataPipeline_postProcess" = FunPtr (Ptr Measurement ->
@@ -992,6 +1033,13 @@ instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
          HasField "dataPipeline_postProcess" (Ptr DataPipeline) (Ptr ty)
     where getField = fromPtr (Proxy @"dataPipeline_postProcess")
+instance (~) ty
+             (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
+         HasField "dataPipeline_postProcess" DataPipeline ty
+    where hasField = \x_0 -> (\y_1 -> DataPipeline{dataPipeline_postProcess = y_1,
+                                                   dataPipeline_preProcess = getField @"dataPipeline_preProcess" x_0,
+                                                   dataPipeline_process = getField @"dataPipeline_process" x_0},
+                              getField @"dataPipeline_postProcess" x_0)
 {-| __C declaration:__ @union ProcessorCallback@
 
     __defined at:__ @functions\/callbacks.h 69:7@
@@ -1261,6 +1309,11 @@ instance HasCField Processor "processor_mode"
 instance (~) ty Processor_mode =>
          HasField "processor_mode" (Ptr Processor) (Ptr ty)
     where getField = fromPtr (Proxy @"processor_mode")
+instance (~) ty Processor_mode =>
+         HasField "processor_mode" Processor ty
+    where hasField = \x_0 -> (\y_1 -> Processor{processor_mode = y_1,
+                                                processor_callback = getField @"processor_callback" x_0},
+                              getField @"processor_mode" x_0)
 instance HasCField Processor "processor_callback"
     where type CFieldType Processor
                           "processor_callback" = ProcessorCallback
@@ -1268,6 +1321,11 @@ instance HasCField Processor "processor_callback"
 instance (~) ty ProcessorCallback =>
          HasField "processor_callback" (Ptr Processor) (Ptr ty)
     where getField = fromPtr (Proxy @"processor_callback")
+instance (~) ty ProcessorCallback =>
+         HasField "processor_callback" Processor ty
+    where hasField = \x_0 -> (\y_1 -> Processor{processor_callback = y_1,
+                                                processor_mode = getField @"processor_mode" x_0},
+                              getField @"processor_callback" x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @functions\/callbacks.h 94:13@
@@ -1414,6 +1472,9 @@ instance HasCField S "s_fn"
 instance (~) ty (FunPtr (B -> IO ())) =>
          HasField "s_fn" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_fn")
+instance (~) ty (FunPtr (B -> IO ())) => HasField "s_fn" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_fn = y_1},
+                              getField @"s_fn" x_0)
 {-| __C declaration:__ @C@
 
     __defined at:__ @functions\/callbacks.h 116:13@

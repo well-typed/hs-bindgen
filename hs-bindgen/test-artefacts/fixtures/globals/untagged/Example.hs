@@ -37,6 +37,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@anonPoint@
@@ -101,6 +102,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPoint_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "anonPoint_x" AnonPoint ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonPoint {anonPoint_x = y1, anonPoint_y = RIP.getField @"anonPoint_y" x0}
+      , RIP.getField @"anonPoint_x" x0
+      )
+
 instance HasCField.HasCField AnonPoint "anonPoint_y" where
 
   type CFieldType AnonPoint "anonPoint_y" = RIP.CInt
@@ -112,6 +123,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPoint_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "anonPoint_y" AnonPoint ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonPoint {anonPoint_y = y1, anonPoint_x = RIP.getField @"anonPoint_x" x0}
+      , RIP.getField @"anonPoint_y" x0
+      )
 
 {-| __C declaration:__ @struct \@anonPair@
 
@@ -175,6 +196,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPair_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "anonPair_a" AnonPair ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonPair {anonPair_a = y1, anonPair_b = RIP.getField @"anonPair_b" x0}
+      , RIP.getField @"anonPair_a" x0
+      )
+
 instance HasCField.HasCField AnonPair "anonPair_b" where
 
   type CFieldType AnonPair "anonPair_b" = RIP.CInt
@@ -186,6 +217,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonPair_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "anonPair_b" AnonPair ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonPair {anonPair_b = y1, anonPair_a = RIP.getField @"anonPair_a" x0}
+      , RIP.getField @"anonPair_b" x0
+      )
 
 {-| __C declaration:__ @enum \@anonEnum@
 
@@ -604,3 +645,8 @@ instance HasCField.HasCField C "c_x" where
 instance (ty ~ RIP.CInt) => RIP.HasField "c_x" (RIP.Ptr C) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"c_x")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "c_x" C ty where
+
+  hasField =
+    \x0 -> (\y1 -> C {c_x = y1}, RIP.getField @"c_x" x0)

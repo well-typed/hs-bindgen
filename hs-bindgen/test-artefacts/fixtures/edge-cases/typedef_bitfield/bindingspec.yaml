@@ -83,6 +83,7 @@ hstypes:
       - myStruct_y
       - myStruct_z
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield

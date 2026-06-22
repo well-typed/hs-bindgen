@@ -21,6 +21,7 @@ hstypes:
       - pt_x
       - pt_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -38,6 +39,7 @@ hstypes:
       - rect_tl
       - rect_br
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

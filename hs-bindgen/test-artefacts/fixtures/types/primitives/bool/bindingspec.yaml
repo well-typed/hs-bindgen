@@ -53,6 +53,7 @@ hstypes:
       - bools1_x
       - bools1_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -70,6 +71,7 @@ hstypes:
       - bools2_x
       - bools2_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -87,6 +89,7 @@ hstypes:
       - bools3_x
       - bools3_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

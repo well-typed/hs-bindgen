@@ -17,6 +17,7 @@ hstypes:
       fields:
       - a_toB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -33,6 +34,7 @@ hstypes:
       fields:
       - b_toA
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

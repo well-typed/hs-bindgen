@@ -17,6 +17,8 @@ module HsBindgen.Backend.SHs.AST.Expr (
   , infixOpGlobal
   , SAlt(..)
   , PatExpr(..)
+    -- * Records
+  , FBind (..)
     -- * Bindings
   , Binding(..)
   , Parameter(..)
@@ -73,6 +75,8 @@ data SExpr ctx =
   | EUnboxedTup Plus2
   | EList [SExpr ctx]
   | ETypeApp (SExpr ctx) ClosedType
+    -- | Record construction
+  | ERecCon (Hs.Name Hs.NsConstr) [FBind ctx]
   deriving stock (Show)
 
 eBindgenGlobal :: BindgenGlobalTerm -> SExpr ctx
@@ -111,6 +115,21 @@ data SAlt ctx where
       :: Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
 
 deriving stock instance Show (SAlt ctx)
+
+{-------------------------------------------------------------------------------
+  Records
+-------------------------------------------------------------------------------}
+
+-- | Field binding
+--
+-- Field bindings are used to for record construction and record updates
+--
+-- <https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-540003.15.3>
+data FBind ctx = FBind {
+    label :: String
+  , expr :: SExpr ctx
+  }
+  deriving stock Show
 
 {-------------------------------------------------------------------------------
   Bindings

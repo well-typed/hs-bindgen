@@ -21,6 +21,7 @@ module Example
 import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Vector@
@@ -75,6 +76,14 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vector_length")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "vector_length" Vector_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Vector {vector_length = y1}, RIP.getField @"vector_length" x0)
 
 instance FLAM.Offset RIP.CLong Vector_Aux where
 

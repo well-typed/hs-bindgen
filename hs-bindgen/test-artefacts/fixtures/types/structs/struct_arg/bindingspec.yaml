@@ -14,6 +14,7 @@ hstypes:
       fields:
       - thing_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

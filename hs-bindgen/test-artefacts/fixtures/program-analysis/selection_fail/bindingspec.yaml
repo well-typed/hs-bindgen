@@ -17,6 +17,7 @@ hstypes:
       fields:
       - okAfter_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -33,6 +34,7 @@ hstypes:
       fields:
       - okBefore_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

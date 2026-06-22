@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'FunPtr'
@@ -142,6 +143,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_x" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_x = y1, foo_y = RIP.getField @"foo_y" x0}
+      , RIP.getField @"foo_x" x0
+      )
+
 instance HasCField.HasCField Foo "foo_y" where
 
   type CFieldType Foo "foo_y" = RIP.CInt
@@ -152,3 +162,12 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "foo_y" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"foo_y")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_y" Foo ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Foo {foo_y = y1, foo_x = RIP.getField @"foo_x" x0}
+      , RIP.getField @"foo_y" x0
+      )

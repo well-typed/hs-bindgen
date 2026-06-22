@@ -843,6 +843,14 @@ instance HasCField Config_t "config_t_id"
 instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "config_t_id" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_id")
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "config_t_id" Config_t ty
+    where hasField = \x_0 -> (\y_1 -> Config_t{config_t_id = y_1,
+                                               config_t_name = getField @"config_t_name" x_0,
+                                               config_t_flags = getField @"config_t_flags" x_0,
+                                               config_t_callback = getField @"config_t_callback" x_0,
+                                               config_t_user_data = getField @"config_t_user_data" x_0},
+                              getField @"config_t_id" x_0)
 instance HasCField Config_t "config_t_name"
     where type CFieldType Config_t "config_t_name" = ConstantArray 64
                                                                    CChar
@@ -850,6 +858,14 @@ instance HasCField Config_t "config_t_name"
 instance (~) ty (ConstantArray 64 CChar) =>
          HasField "config_t_name" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_name")
+instance (~) ty (ConstantArray 64 CChar) =>
+         HasField "config_t_name" Config_t ty
+    where hasField = \x_0 -> (\y_1 -> Config_t{config_t_name = y_1,
+                                               config_t_id = getField @"config_t_id" x_0,
+                                               config_t_flags = getField @"config_t_flags" x_0,
+                                               config_t_callback = getField @"config_t_callback" x_0,
+                                               config_t_user_data = getField @"config_t_user_data" x_0},
+                              getField @"config_t_name" x_0)
 instance HasCField Config_t "config_t_flags"
     where type CFieldType Config_t
                           "config_t_flags" = HsBindgen.Runtime.LibC.Word32
@@ -857,6 +873,14 @@ instance HasCField Config_t "config_t_flags"
 instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "config_t_flags" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_flags")
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "config_t_flags" Config_t ty
+    where hasField = \x_0 -> (\y_1 -> Config_t{config_t_flags = y_1,
+                                               config_t_id = getField @"config_t_id" x_0,
+                                               config_t_name = getField @"config_t_name" x_0,
+                                               config_t_callback = getField @"config_t_callback" x_0,
+                                               config_t_user_data = getField @"config_t_user_data" x_0},
+                              getField @"config_t_flags" x_0)
 instance HasCField Config_t "config_t_callback"
     where type CFieldType Config_t
                           "config_t_callback" = Event_callback_t
@@ -864,12 +888,28 @@ instance HasCField Config_t "config_t_callback"
 instance (~) ty Event_callback_t =>
          HasField "config_t_callback" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_callback")
+instance (~) ty Event_callback_t =>
+         HasField "config_t_callback" Config_t ty
+    where hasField = \x_0 -> (\y_1 -> Config_t{config_t_callback = y_1,
+                                               config_t_id = getField @"config_t_id" x_0,
+                                               config_t_name = getField @"config_t_name" x_0,
+                                               config_t_flags = getField @"config_t_flags" x_0,
+                                               config_t_user_data = getField @"config_t_user_data" x_0},
+                              getField @"config_t_callback" x_0)
 instance HasCField Config_t "config_t_user_data"
     where type CFieldType Config_t "config_t_user_data" = Ptr Void
           offset# = \_ -> \_ -> 80
 instance (~) ty (Ptr Void) =>
          HasField "config_t_user_data" (Ptr Config_t) (Ptr ty)
     where getField = fromPtr (Proxy @"config_t_user_data")
+instance (~) ty (Ptr Void) =>
+         HasField "config_t_user_data" Config_t ty
+    where hasField = \x_0 -> (\y_1 -> Config_t{config_t_user_data = y_1,
+                                               config_t_id = getField @"config_t_id" x_0,
+                                               config_t_name = getField @"config_t_name" x_0,
+                                               config_t_flags = getField @"config_t_flags" x_0,
+                                               config_t_callback = getField @"config_t_callback" x_0},
+                              getField @"config_t_user_data" x_0)
 {-| Enumeration with documented values.
 
     This enum shows different status codes.
@@ -1014,6 +1054,11 @@ instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
                   (Ptr Data_union_t_as_parts)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"data_union_t_as_parts_low")
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "data_union_t_as_parts_low" Data_union_t_as_parts ty
+    where hasField = \x_0 -> (\y_1 -> Data_union_t_as_parts{data_union_t_as_parts_low = y_1,
+                                                            data_union_t_as_parts_high = getField @"data_union_t_as_parts_high" x_0},
+                              getField @"data_union_t_as_parts_low" x_0)
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_high"
     where type CFieldType Data_union_t_as_parts
@@ -1024,6 +1069,11 @@ instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
                   (Ptr Data_union_t_as_parts)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"data_union_t_as_parts_high")
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "data_union_t_as_parts_high" Data_union_t_as_parts ty
+    where hasField = \x_0 -> (\y_1 -> Data_union_t_as_parts{data_union_t_as_parts_high = y_1,
+                                                            data_union_t_as_parts_low = getField @"data_union_t_as_parts_low" x_0},
+                              getField @"data_union_t_as_parts_high" x_0)
 {-| Union with documented fields.
 
     This union demonstrates different data representations.
@@ -1281,6 +1331,12 @@ instance HasCBitfield Bitfield_t "bitfield_t_flag1"
 instance (~) ty CUInt =>
          HasField "bitfield_t_flag1" (Ptr Bitfield_t) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bitfield_t_flag1")
+instance (~) ty CUInt => HasField "bitfield_t_flag1" Bitfield_t ty
+    where hasField = \x_0 -> (\y_1 -> Bitfield_t{bitfield_t_flag1 = y_1,
+                                                 bitfield_t_flag2 = getField @"bitfield_t_flag2" x_0,
+                                                 bitfield_t_counter = getField @"bitfield_t_counter" x_0,
+                                                 bitfield_t_reserved = getField @"bitfield_t_reserved" x_0},
+                              getField @"bitfield_t_flag1" x_0)
 instance HasCBitfield Bitfield_t "bitfield_t_flag2"
     where type CBitfieldType Bitfield_t "bitfield_t_flag2" = CUInt
           bitfieldOffset# = \_ -> \_ -> 1
@@ -1288,6 +1344,12 @@ instance HasCBitfield Bitfield_t "bitfield_t_flag2"
 instance (~) ty CUInt =>
          HasField "bitfield_t_flag2" (Ptr Bitfield_t) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bitfield_t_flag2")
+instance (~) ty CUInt => HasField "bitfield_t_flag2" Bitfield_t ty
+    where hasField = \x_0 -> (\y_1 -> Bitfield_t{bitfield_t_flag2 = y_1,
+                                                 bitfield_t_flag1 = getField @"bitfield_t_flag1" x_0,
+                                                 bitfield_t_counter = getField @"bitfield_t_counter" x_0,
+                                                 bitfield_t_reserved = getField @"bitfield_t_reserved" x_0},
+                              getField @"bitfield_t_flag2" x_0)
 instance HasCBitfield Bitfield_t "bitfield_t_counter"
     where type CBitfieldType Bitfield_t "bitfield_t_counter" = CUInt
           bitfieldOffset# = \_ -> \_ -> 2
@@ -1295,6 +1357,13 @@ instance HasCBitfield Bitfield_t "bitfield_t_counter"
 instance (~) ty CUInt =>
          HasField "bitfield_t_counter" (Ptr Bitfield_t) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bitfield_t_counter")
+instance (~) ty CUInt =>
+         HasField "bitfield_t_counter" Bitfield_t ty
+    where hasField = \x_0 -> (\y_1 -> Bitfield_t{bitfield_t_counter = y_1,
+                                                 bitfield_t_flag1 = getField @"bitfield_t_flag1" x_0,
+                                                 bitfield_t_flag2 = getField @"bitfield_t_flag2" x_0,
+                                                 bitfield_t_reserved = getField @"bitfield_t_reserved" x_0},
+                              getField @"bitfield_t_counter" x_0)
 instance HasCBitfield Bitfield_t "bitfield_t_reserved"
     where type CBitfieldType Bitfield_t "bitfield_t_reserved" = CUInt
           bitfieldOffset# = \_ -> \_ -> 8
@@ -1302,6 +1371,13 @@ instance HasCBitfield Bitfield_t "bitfield_t_reserved"
 instance (~) ty CUInt =>
          HasField "bitfield_t_reserved" (Ptr Bitfield_t) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"bitfield_t_reserved")
+instance (~) ty CUInt =>
+         HasField "bitfield_t_reserved" Bitfield_t ty
+    where hasField = \x_0 -> (\y_1 -> Bitfield_t{bitfield_t_reserved = y_1,
+                                                 bitfield_t_flag1 = getField @"bitfield_t_flag1" x_0,
+                                                 bitfield_t_flag2 = getField @"bitfield_t_flag2" x_0,
+                                                 bitfield_t_counter = getField @"bitfield_t_counter" x_0},
+                              getField @"bitfield_t_reserved" x_0)
 {-| Auxiliary type used by 'Processor_fn_t'
 
     __C declaration:__ @processor_fn_t@
@@ -1433,6 +1509,10 @@ instance HasCField Flexible_array_Aux "flexible_array_count"
 instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "flexible_array_count" (Ptr Flexible_array_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"flexible_array_count")
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "flexible_array_count" Flexible_array_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Flexible_array{flexible_array_count = y_1},
+                              getField @"flexible_array_count" x_0)
 instance Offset CInt Flexible_array_Aux
     where offset = \_proxy_0 -> 8
 type Flexible_array = WithFlam CInt Flexible_array_Aux
@@ -1492,6 +1572,12 @@ instance HasCField Dyn_array_t "dyn_array_t_data"
 instance (~) ty (Ptr CInt) =>
          HasField "dyn_array_t_data" (Ptr Dyn_array_t) (Ptr ty)
     where getField = fromPtr (Proxy @"dyn_array_t_data")
+instance (~) ty (Ptr CInt) =>
+         HasField "dyn_array_t_data" Dyn_array_t ty
+    where hasField = \x_0 -> (\y_1 -> Dyn_array_t{dyn_array_t_data = y_1,
+                                                  dyn_array_t_size = getField @"dyn_array_t_size" x_0,
+                                                  dyn_array_t_capacity = getField @"dyn_array_t_capacity" x_0},
+                              getField @"dyn_array_t_data" x_0)
 instance HasCField Dyn_array_t "dyn_array_t_size"
     where type CFieldType Dyn_array_t
                           "dyn_array_t_size" = HsBindgen.Runtime.LibC.CSize
@@ -1499,6 +1585,12 @@ instance HasCField Dyn_array_t "dyn_array_t_size"
 instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "dyn_array_t_size" (Ptr Dyn_array_t) (Ptr ty)
     where getField = fromPtr (Proxy @"dyn_array_t_size")
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "dyn_array_t_size" Dyn_array_t ty
+    where hasField = \x_0 -> (\y_1 -> Dyn_array_t{dyn_array_t_size = y_1,
+                                                  dyn_array_t_data = getField @"dyn_array_t_data" x_0,
+                                                  dyn_array_t_capacity = getField @"dyn_array_t_capacity" x_0},
+                              getField @"dyn_array_t_size" x_0)
 instance HasCField Dyn_array_t "dyn_array_t_capacity"
     where type CFieldType Dyn_array_t
                           "dyn_array_t_capacity" = HsBindgen.Runtime.LibC.CSize
@@ -1506,6 +1598,12 @@ instance HasCField Dyn_array_t "dyn_array_t_capacity"
 instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "dyn_array_t_capacity" (Ptr Dyn_array_t) (Ptr ty)
     where getField = fromPtr (Proxy @"dyn_array_t_capacity")
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "dyn_array_t_capacity" Dyn_array_t ty
+    where hasField = \x_0 -> (\y_1 -> Dyn_array_t{dyn_array_t_capacity = y_1,
+                                                  dyn_array_t_data = getField @"dyn_array_t_data" x_0,
+                                                  dyn_array_t_size = getField @"dyn_array_t_size" x_0},
+                              getField @"dyn_array_t_capacity" x_0)
 {-| __C declaration:__ @struct \@multi_anon_t_pos@
 
     __defined at:__ @documentation\/doxygen_docs.h 586:5@
@@ -1549,6 +1647,11 @@ instance HasCField Multi_anon_t_pos "multi_anon_t_pos_x"
 instance (~) ty CFloat =>
          HasField "multi_anon_t_pos_x" (Ptr Multi_anon_t_pos) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_pos_x")
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_pos{multi_anon_t_pos_x = y_1,
+                                                       multi_anon_t_pos_y = getField @"multi_anon_t_pos_y" x_0},
+                              getField @"multi_anon_t_pos_x" x_0)
 instance HasCField Multi_anon_t_pos "multi_anon_t_pos_y"
     where type CFieldType Multi_anon_t_pos
                           "multi_anon_t_pos_y" = CFloat
@@ -1556,6 +1659,11 @@ instance HasCField Multi_anon_t_pos "multi_anon_t_pos_y"
 instance (~) ty CFloat =>
          HasField "multi_anon_t_pos_y" (Ptr Multi_anon_t_pos) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_pos_y")
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_pos{multi_anon_t_pos_y = y_1,
+                                                       multi_anon_t_pos_x = getField @"multi_anon_t_pos_x" x_0},
+                              getField @"multi_anon_t_pos_y" x_0)
 {-| __C declaration:__ @struct \@multi_anon_t_dim@
 
     __defined at:__ @documentation\/doxygen_docs.h 594:5@
@@ -1599,6 +1707,11 @@ instance HasCField Multi_anon_t_dim "multi_anon_t_dim_w"
 instance (~) ty CFloat =>
          HasField "multi_anon_t_dim_w" (Ptr Multi_anon_t_dim) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_dim_w")
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_dim{multi_anon_t_dim_w = y_1,
+                                                       multi_anon_t_dim_h = getField @"multi_anon_t_dim_h" x_0},
+                              getField @"multi_anon_t_dim_w" x_0)
 instance HasCField Multi_anon_t_dim "multi_anon_t_dim_h"
     where type CFieldType Multi_anon_t_dim
                           "multi_anon_t_dim_h" = CFloat
@@ -1606,6 +1719,11 @@ instance HasCField Multi_anon_t_dim "multi_anon_t_dim_h"
 instance (~) ty CFloat =>
          HasField "multi_anon_t_dim_h" (Ptr Multi_anon_t_dim) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_dim_h")
+instance (~) ty CFloat =>
+         HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_dim{multi_anon_t_dim_h = y_1,
+                                                       multi_anon_t_dim_w = getField @"multi_anon_t_dim_w" x_0},
+                              getField @"multi_anon_t_dim_h" x_0)
 {-| Struct with multiple anonymous inner structs.
 
     Tests that doxygen comment enrichment correctly associates field comments with anonymous inner structs at multiple nesting levels.
@@ -1657,6 +1775,11 @@ instance HasCField Multi_anon_t "multi_anon_t_pos"
 instance (~) ty Multi_anon_t_pos =>
          HasField "multi_anon_t_pos" (Ptr Multi_anon_t) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_pos")
+instance (~) ty Multi_anon_t_pos =>
+         HasField "multi_anon_t_pos" Multi_anon_t ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t{multi_anon_t_pos = y_1,
+                                                   multi_anon_t_dim = getField @"multi_anon_t_dim" x_0},
+                              getField @"multi_anon_t_pos" x_0)
 instance HasCField Multi_anon_t "multi_anon_t_dim"
     where type CFieldType Multi_anon_t
                           "multi_anon_t_dim" = Multi_anon_t_dim
@@ -1664,6 +1787,11 @@ instance HasCField Multi_anon_t "multi_anon_t_dim"
 instance (~) ty Multi_anon_t_dim =>
          HasField "multi_anon_t_dim" (Ptr Multi_anon_t) (Ptr ty)
     where getField = fromPtr (Proxy @"multi_anon_t_dim")
+instance (~) ty Multi_anon_t_dim =>
+         HasField "multi_anon_t_dim" Multi_anon_t ty
+    where hasField = \x_0 -> (\y_1 -> Multi_anon_t{multi_anon_t_dim = y_1,
+                                                   multi_anon_t_pos = getField @"multi_anon_t_pos" x_0},
+                              getField @"multi_anon_t_dim" x_0)
 {-| Named inner struct
 
     __C declaration:__ @struct named_inner@
@@ -1708,12 +1836,20 @@ instance HasCField Named_inner "named_inner_nx"
 instance (~) ty CInt =>
          HasField "named_inner_nx" (Ptr Named_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"named_inner_nx")
+instance (~) ty CInt => HasField "named_inner_nx" Named_inner ty
+    where hasField = \x_0 -> (\y_1 -> Named_inner{named_inner_nx = y_1,
+                                                  named_inner_ny = getField @"named_inner_ny" x_0},
+                              getField @"named_inner_nx" x_0)
 instance HasCField Named_inner "named_inner_ny"
     where type CFieldType Named_inner "named_inner_ny" = CInt
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
          HasField "named_inner_ny" (Ptr Named_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"named_inner_ny")
+instance (~) ty CInt => HasField "named_inner_ny" Named_inner ty
+    where hasField = \x_0 -> (\y_1 -> Named_inner{named_inner_ny = y_1,
+                                                  named_inner_nx = getField @"named_inner_nx" x_0},
+                              getField @"named_inner_ny" x_0)
 {-| Struct with a named inner struct.
 
     Tests that doxygen comment enrichment uses the qualified name "named_outer::named_inner" for lookups.
@@ -1759,12 +1895,21 @@ instance HasCField Named_outer "named_outer_inner_field"
 instance (~) ty Named_inner =>
          HasField "named_outer_inner_field" (Ptr Named_outer) (Ptr ty)
     where getField = fromPtr (Proxy @"named_outer_inner_field")
+instance (~) ty Named_inner =>
+         HasField "named_outer_inner_field" Named_outer ty
+    where hasField = \x_0 -> (\y_1 -> Named_outer{named_outer_inner_field = y_1,
+                                                  named_outer_nz = getField @"named_outer_nz" x_0},
+                              getField @"named_outer_inner_field" x_0)
 instance HasCField Named_outer "named_outer_nz"
     where type CFieldType Named_outer "named_outer_nz" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt =>
          HasField "named_outer_nz" (Ptr Named_outer) (Ptr ty)
     where getField = fromPtr (Proxy @"named_outer_nz")
+instance (~) ty CInt => HasField "named_outer_nz" Named_outer ty
+    where hasField = \x_0 -> (\y_1 -> Named_outer{named_outer_nz = y_1,
+                                                  named_outer_inner_field = getField @"named_outer_inner_field" x_0},
+                              getField @"named_outer_nz" x_0)
 {-| __C declaration:__ @struct \@deep_mid_anon_field@
 
     __defined at:__ @documentation\/doxygen_docs.h 629:9@
@@ -1800,6 +1945,10 @@ instance (~) ty CInt =>
                   (Ptr Deep_mid_anon_field)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"deep_mid_anon_field_deep_a")
+instance (~) ty CInt =>
+         HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty
+    where hasField = \x_0 -> (\y_1 -> Deep_mid_anon_field{deep_mid_anon_field_deep_a = y_1},
+                              getField @"deep_mid_anon_field_deep_a" x_0)
 {-| The named mid-level struct
 
     __C declaration:__ @struct deep_mid@
@@ -1844,6 +1993,10 @@ instance HasCField Deep_mid "deep_mid_m"
 instance (~) ty CInt =>
          HasField "deep_mid_m" (Ptr Deep_mid) (Ptr ty)
     where getField = fromPtr (Proxy @"deep_mid_m")
+instance (~) ty CInt => HasField "deep_mid_m" Deep_mid ty
+    where hasField = \x_0 -> (\y_1 -> Deep_mid{deep_mid_m = y_1,
+                                               deep_mid_anon_field = getField @"deep_mid_anon_field" x_0},
+                              getField @"deep_mid_m" x_0)
 instance HasCField Deep_mid "deep_mid_anon_field"
     where type CFieldType Deep_mid
                           "deep_mid_anon_field" = Deep_mid_anon_field
@@ -1851,6 +2004,11 @@ instance HasCField Deep_mid "deep_mid_anon_field"
 instance (~) ty Deep_mid_anon_field =>
          HasField "deep_mid_anon_field" (Ptr Deep_mid) (Ptr ty)
     where getField = fromPtr (Proxy @"deep_mid_anon_field")
+instance (~) ty Deep_mid_anon_field =>
+         HasField "deep_mid_anon_field" Deep_mid ty
+    where hasField = \x_0 -> (\y_1 -> Deep_mid{deep_mid_anon_field = y_1,
+                                               deep_mid_m = getField @"deep_mid_m" x_0},
+                              getField @"deep_mid_anon_field" x_0)
 {-| Deeply nested mix of named and anonymous structs.
 
     Tests the full genealogy walk through mixed named/anonymous nesting.
@@ -1895,12 +2053,21 @@ instance HasCField Deep_outer "deep_outer_mid_field"
 instance (~) ty Deep_mid =>
          HasField "deep_outer_mid_field" (Ptr Deep_outer) (Ptr ty)
     where getField = fromPtr (Proxy @"deep_outer_mid_field")
+instance (~) ty Deep_mid =>
+         HasField "deep_outer_mid_field" Deep_outer ty
+    where hasField = \x_0 -> (\y_1 -> Deep_outer{deep_outer_mid_field = y_1,
+                                                 deep_outer_o = getField @"deep_outer_o" x_0},
+                              getField @"deep_outer_mid_field" x_0)
 instance HasCField Deep_outer "deep_outer_o"
     where type CFieldType Deep_outer "deep_outer_o" = CInt
           offset# = \_ -> \_ -> 8
 instance (~) ty CInt =>
          HasField "deep_outer_o" (Ptr Deep_outer) (Ptr ty)
     where getField = fromPtr (Proxy @"deep_outer_o")
+instance (~) ty CInt => HasField "deep_outer_o" Deep_outer ty
+    where hasField = \x_0 -> (\y_1 -> Deep_outer{deep_outer_o = y_1,
+                                                 deep_outer_mid_field = getField @"deep_outer_mid_field" x_0},
+                              getField @"deep_outer_o" x_0)
 {-| __C declaration:__ @struct \@unnamed_field_t_anon\'ua@
 
     __defined at:__ @documentation\/doxygen_docs.h 647:5@
@@ -1947,6 +2114,11 @@ instance (~) ty CInt =>
                   (Ptr Unnamed_field_t_anon'ua)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua_ua")
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_anon'ua_ua" Unnamed_field_t_anon'ua ty
+    where hasField = \x_0 -> (\y_1 -> Unnamed_field_t_anon'ua{unnamed_field_t_anon'ua_ua = y_1,
+                                                              unnamed_field_t_anon'ua_ub = getField @"unnamed_field_t_anon'ua_ub" x_0},
+                              getField @"unnamed_field_t_anon'ua_ua" x_0)
 instance HasCField Unnamed_field_t_anon'ua
                    "unnamed_field_t_anon'ua_ub"
     where type CFieldType Unnamed_field_t_anon'ua
@@ -1957,6 +2129,11 @@ instance (~) ty CInt =>
                   (Ptr Unnamed_field_t_anon'ua)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua_ub")
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_anon'ua_ub" Unnamed_field_t_anon'ua ty
+    where hasField = \x_0 -> (\y_1 -> Unnamed_field_t_anon'ua{unnamed_field_t_anon'ua_ub = y_1,
+                                                              unnamed_field_t_anon'ua_ua = getField @"unnamed_field_t_anon'ua_ua" x_0},
+                              getField @"unnamed_field_t_anon'ua_ub" x_0)
 {-| Struct with unnamed anonymous field.
 
     Tests the case where the anonymous inner struct has no field name. The inner fields are flattened directly into the parent.
@@ -2012,6 +2189,12 @@ instance HasCField Unnamed_field_t "unnamed_field_t_before"
 instance (~) ty CInt =>
          HasField "unnamed_field_t_before" (Ptr Unnamed_field_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_before")
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_before" Unnamed_field_t ty
+    where hasField = \x_0 -> (\y_1 -> Unnamed_field_t{unnamed_field_t_before = y_1,
+                                                      unnamed_field_t_anon'ua = getField @"unnamed_field_t_anon'ua" x_0,
+                                                      unnamed_field_t_after = getField @"unnamed_field_t_after" x_0},
+                              getField @"unnamed_field_t_before" x_0)
 instance HasCField Unnamed_field_t "unnamed_field_t_anon'ua"
     where type CFieldType Unnamed_field_t
                           "unnamed_field_t_anon'ua" = Unnamed_field_t_anon'ua
@@ -2019,6 +2202,12 @@ instance HasCField Unnamed_field_t "unnamed_field_t_anon'ua"
 instance (~) ty Unnamed_field_t_anon'ua =>
          HasField "unnamed_field_t_anon'ua" (Ptr Unnamed_field_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_anon'ua")
+instance (~) ty Unnamed_field_t_anon'ua =>
+         HasField "unnamed_field_t_anon'ua" Unnamed_field_t ty
+    where hasField = \x_0 -> (\y_1 -> Unnamed_field_t{unnamed_field_t_anon'ua = y_1,
+                                                      unnamed_field_t_before = getField @"unnamed_field_t_before" x_0,
+                                                      unnamed_field_t_after = getField @"unnamed_field_t_after" x_0},
+                              getField @"unnamed_field_t_anon'ua" x_0)
 instance HasCField Unnamed_field_t "unnamed_field_t_after"
     where type CFieldType Unnamed_field_t
                           "unnamed_field_t_after" = CInt
@@ -2026,6 +2215,12 @@ instance HasCField Unnamed_field_t "unnamed_field_t_after"
 instance (~) ty CInt =>
          HasField "unnamed_field_t_after" (Ptr Unnamed_field_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unnamed_field_t_after")
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_after" Unnamed_field_t ty
+    where hasField = \x_0 -> (\y_1 -> Unnamed_field_t{unnamed_field_t_after = y_1,
+                                                      unnamed_field_t_before = getField @"unnamed_field_t_before" x_0,
+                                                      unnamed_field_t_anon'ua = getField @"unnamed_field_t_anon'ua" x_0},
+                              getField @"unnamed_field_t_after" x_0)
 {-| API version number (not in any group).
 
     __C declaration:__ @api_version_t@

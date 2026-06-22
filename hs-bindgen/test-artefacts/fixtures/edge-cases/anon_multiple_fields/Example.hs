@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@some_struct_field1@
@@ -85,6 +86,18 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "some_struct_field1_x" Some_struct_field1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Some_struct_field1 { some_struct_field1_x = y1
+                             , some_struct_field1_y = RIP.getField @"some_struct_field1_y" x0
+                             }
+      , RIP.getField @"some_struct_field1_x" x0
+      )
+
 instance HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
 
   type CFieldType Some_struct_field1 "some_struct_field1_y" =
@@ -97,6 +110,18 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "some_struct_field1_y" Some_struct_field1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Some_struct_field1 { some_struct_field1_y = y1
+                             , some_struct_field1_x = RIP.getField @"some_struct_field1_x" x0
+                             }
+      , RIP.getField @"some_struct_field1_y" x0
+      )
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -170,6 +195,19 @@ instance ( ty ~ Some_struct_field1
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field1")
 
+instance ( ty ~ Some_struct_field1
+         ) => RIP.CompatHasField.HasField "some_struct_field1" Some_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Some_struct { some_struct_field1 = y1
+                      , some_struct_field2 = RIP.getField @"some_struct_field2" x0
+                      , some_struct_field3 = RIP.getField @"some_struct_field3" x0
+                      }
+      , RIP.getField @"some_struct_field1" x0
+      )
+
 instance HasCField.HasCField Some_struct "some_struct_field2" where
 
   type CFieldType Some_struct "some_struct_field2" =
@@ -183,6 +221,19 @@ instance ( ty ~ Some_struct_field1
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field2")
 
+instance ( ty ~ Some_struct_field1
+         ) => RIP.CompatHasField.HasField "some_struct_field2" Some_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Some_struct { some_struct_field2 = y1
+                      , some_struct_field1 = RIP.getField @"some_struct_field1" x0
+                      , some_struct_field3 = RIP.getField @"some_struct_field3" x0
+                      }
+      , RIP.getField @"some_struct_field2" x0
+      )
+
 instance HasCField.HasCField Some_struct "some_struct_field3" where
 
   type CFieldType Some_struct "some_struct_field3" =
@@ -195,3 +246,16 @@ instance ( ty ~ Some_struct_field1
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"some_struct_field3")
+
+instance ( ty ~ Some_struct_field1
+         ) => RIP.CompatHasField.HasField "some_struct_field3" Some_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Some_struct { some_struct_field3 = y1
+                      , some_struct_field1 = RIP.getField @"some_struct_field1" x0
+                      , some_struct_field2 = RIP.getField @"some_struct_field2" x0
+                      }
+      , RIP.getField @"some_struct_field3" x0
+      )

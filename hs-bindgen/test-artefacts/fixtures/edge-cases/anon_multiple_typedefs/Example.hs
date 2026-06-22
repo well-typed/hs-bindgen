@@ -26,6 +26,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct point1a@
@@ -89,6 +90,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"point1a_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point1a_x" Point1a ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point1a {point1a_x = y1, point1a_y = RIP.getField @"point1a_y" x0}
+      , RIP.getField @"point1a_x" x0
+      )
+
 instance HasCField.HasCField Point1a "point1a_y" where
 
   type CFieldType Point1a "point1a_y" = RIP.CInt
@@ -99,6 +110,16 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point1a_y" (RIP.Ptr Point1a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point1a_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point1a_y" Point1a ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point1a {point1a_y = y1, point1a_x = RIP.getField @"point1a_x" x0}
+      , RIP.getField @"point1a_y" x0
+      )
 
 {-| __C declaration:__ @point1b@
 
@@ -190,6 +211,16 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"point2a_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point2a_x" Point2a ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point2a {point2a_x = y1, point2a_y = RIP.getField @"point2a_y" x0}
+      , RIP.getField @"point2a_x" x0
+      )
+
 instance HasCField.HasCField Point2a "point2a_y" where
 
   type CFieldType Point2a "point2a_y" = RIP.CInt
@@ -200,6 +231,16 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "point2a_y" (RIP.Ptr Point2a) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"point2a_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point2a_y" Point2a ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point2a {point2a_y = y1, point2a_x = RIP.getField @"point2a_x" x0}
+      , RIP.getField @"point2a_y" x0
+      )
 
 {-| __C declaration:__ @point2b@
 
@@ -295,6 +336,16 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"point3a_Aux_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point3a_Aux_x" Point3a_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point3a_Aux {point3a_Aux_x = y1, point3a_Aux_y = RIP.getField @"point3a_Aux_y" x0}
+      , RIP.getField @"point3a_Aux_x" x0
+      )
+
 instance HasCField.HasCField Point3a_Aux "point3a_Aux_y" where
 
   type CFieldType Point3a_Aux "point3a_Aux_y" =
@@ -307,6 +358,16 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"point3a_Aux_y")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "point3a_Aux_y" Point3a_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Point3a_Aux {point3a_Aux_y = y1, point3a_Aux_x = RIP.getField @"point3a_Aux_x" x0}
+      , RIP.getField @"point3a_Aux_y" x0
+      )
 
 {-| __C declaration:__ @point3a@
 

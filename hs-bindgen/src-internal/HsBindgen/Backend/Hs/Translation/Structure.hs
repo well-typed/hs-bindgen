@@ -261,7 +261,7 @@ getDecls supInsts hCfg spec structName info struct insts =
       ]
 
     fieldDecls :: [Hs.Decl l]
-    fieldDecls = concatMap (getFieldDecls structName) struct.fields
+    fieldDecls = concatMap (getFieldDecls structName struct hsStruct) struct.fields
 
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
@@ -272,14 +272,16 @@ getDecls supInsts hCfg spec structName info struct insts =
           then Just Inst.HasCField
           else Nothing
       , if null struct.fields then Nothing else Just Inst.HasField
+      , if null struct.fields then Nothing else Just Inst.CompatHasField
       ]
 
 {-------------------------------------------------------------------------------
   Fields
 -------------------------------------------------------------------------------}
 
--- | 'HsBindgen.Runtime.HasCField.HasCField', 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', and 'GHC.Records.HasField' instances for a field of a
--- struct declaration
+-- | 'HsBindgen.Runtime.HasCField.HasCField',
+-- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', 'GHC.Records.HasField', and
+-- 'GHC.Records.Compat.HasField' instances for a field of a struct declaration
 --
 -- Given a struct:
 --
@@ -289,21 +291,32 @@ getDecls supInsts hCfg spec structName info struct insts =
 --
 -- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
 --
+-- GHC automatically generates 'GHC.Records.HasField' instances for the the two
+-- fields.
+--
 -- Then, 'getFieldDecls' will generate roughly the following class instances
 -- for the fields @x@ and @y@ respectively:
 --
 -- > instance HasCField "myStruct_x" MyStruct where
 -- >   type CFieldType "myStruct_x" MyStruct = CInt
--- > instance HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
+-- > instance GHC.Records.HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
+-- > instance GHC.Records.Compat.HasField "myStruct_x" MyStruct CInt
 --
--- > instance HasCField "myStruct_y" MyStruct where
--- >   type CFieldType "myStruct_y" MyStruct = CChar
--- > instance HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
+-- > instance HasCField "myStruct_y" MyStruct where type CFieldType "myStruct_y"
+-- >   MyStruct = CChar instance GHC.Records.HasField "myStruct_y" (Ptr
+-- > MyStruct) (Ptr CChar) instance GHC.Records.Compat.HasField "myStruct_y"
+-- > MyStruct CChar
 --
--- This works similarly for bit-fields, but those get a 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
--- instead of a 'HsBindgen.Runtime.HasCField.HasCField' instance.
-getFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl l]
-getFieldDecls structName field = [
+-- This works similarly for bit-fields, but those get a
+-- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
+-- 'HsBindgen.Runtime.HasCField.HasCField' instance.
+getFieldDecls ::
+     Hs.Name Hs.NsTypeConstr
+  -> C.Struct Final
+  -> Hs.Struct
+  -> C.StructField Final
+  -> [Hs.Decl l]
+getFieldDecls structName cStruct hsStruct field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
@@ -316,6 +329,11 @@ getFieldDecls structName field = [
         Hs.DefineInstance {
             comment      = Nothing
           , instanceDecl = Hs.InstanceHasField hasFieldDecl
+          }
+    , Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceCompatHasField compatHasFieldDecl
           }
     ]
   where
@@ -338,6 +356,21 @@ getFieldDecls structName field = [
               Nothing -> Hs.ViaHasCField
               Just _  -> Hs.ViaHasCBitfield
         }
+
+    compatHasFieldDecl :: Hs.CompatHasFieldInstance
+    compatHasFieldDecl = Hs.CompatHasFieldInstance {
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , otherFields = otherFields
+        , constr = hsStruct.constr
+        }
+      where
+        -- All fields that are /not/ the field we are creating an instance for
+        -- should stay unmodified
+        otherFields = flip mapMaybe cStruct.fields $ \field' ->
+            let fieldName' = Hs.assertNs (Proxy @Hs.NsVar) field'.info.name.hsName in
+            if fieldName == fieldName' then Nothing else Just fieldName'
 
     hasCFieldDecl :: Hs.HasCFieldInstance
     hasCFieldDecl = Hs.HasCFieldInstance {

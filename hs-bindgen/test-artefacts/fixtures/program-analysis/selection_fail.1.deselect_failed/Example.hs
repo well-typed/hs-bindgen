@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct OkBefore@
@@ -75,6 +76,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"okBefore_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "okBefore_x" OkBefore ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         OkBefore {okBefore_x = y1}, RIP.getField @"okBefore_x" x0)
+
 {-| __C declaration:__ @struct OkAfter@
 
     __defined at:__ @program-analysis\/selection_fail.h 26:8@
@@ -126,3 +135,11 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"okAfter_x")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "okAfter_x" OkAfter ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         OkAfter {okAfter_x = y1}, RIP.getField @"okAfter_x" x0)

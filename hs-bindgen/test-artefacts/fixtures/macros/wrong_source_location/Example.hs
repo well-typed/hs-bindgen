@@ -28,6 +28,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@UU1_fieldY@
@@ -84,6 +85,15 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU1_fieldY_fieldX")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uU1_fieldY_fieldX" UU1_fieldY ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> UU1_fieldY {uU1_fieldY_fieldX = y1}
+      , RIP.getField @"uU1_fieldY_fieldX" x0
+      )
+
 {-| __C declaration:__ @struct UU1@
 
     __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -136,6 +146,14 @@ instance ( ty ~ UU1_fieldY
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU1_fieldY")
+
+instance ( ty ~ UU1_fieldY
+         ) => RIP.CompatHasField.HasField "uU1_fieldY" UU1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         UU1 {uU1_fieldY = y1}, RIP.getField @"uU1_fieldY" x0)
 
 {-| __C declaration:__ @struct \@UU2_fieldY@
 
@@ -191,6 +209,15 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU2_fieldY_fieldX")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uU2_fieldY_fieldX" UU2_fieldY ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> UU2_fieldY {uU2_fieldY_fieldX = y1}
+      , RIP.getField @"uU2_fieldY_fieldX" x0
+      )
+
 {-| __C declaration:__ @struct UU2@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -243,6 +270,14 @@ instance ( ty ~ UU2_fieldY
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU2_fieldY")
+
+instance ( ty ~ UU2_fieldY
+         ) => RIP.CompatHasField.HasField "uU2_fieldY" UU2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         UU2 {uU2_fieldY = y1}, RIP.getField @"uU2_fieldY" x0)
 
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
@@ -297,6 +332,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldA_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "vV1_fieldA_a" VV1_fieldA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         VV1_fieldA {vV1_fieldA_a = y1}, RIP.getField @"vV1_fieldA_a" x0)
+
 {-| __C declaration:__ @struct \@VV1_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -349,6 +392,14 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldB_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "vV1_fieldB_b" VV1_fieldB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         VV1_fieldB {vV1_fieldB_b = y1}, RIP.getField @"vV1_fieldB_b" x0)
 
 {-| __C declaration:__ @struct VV1@
 
@@ -412,6 +463,16 @@ instance ( ty ~ VV1_fieldA
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldA")
 
+instance ( ty ~ VV1_fieldA
+         ) => RIP.CompatHasField.HasField "vV1_fieldA" VV1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          VV1 {vV1_fieldA = y1, vV1_fieldB = RIP.getField @"vV1_fieldB" x0}
+      , RIP.getField @"vV1_fieldA" x0
+      )
+
 instance HasCField.HasCField VV1 "vV1_fieldB" where
 
   type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
@@ -423,6 +484,16 @@ instance ( ty ~ VV1_fieldB
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV1_fieldB")
+
+instance ( ty ~ VV1_fieldB
+         ) => RIP.CompatHasField.HasField "vV1_fieldB" VV1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          VV1 {vV1_fieldB = y1, vV1_fieldA = RIP.getField @"vV1_fieldA" x0}
+      , RIP.getField @"vV1_fieldB" x0
+      )
 
 {-| __C declaration:__ @struct \@VV2_fieldA@
 
@@ -477,6 +548,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldA_a")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "vV2_fieldA_a" VV2_fieldA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         VV2_fieldA {vV2_fieldA_a = y1}, RIP.getField @"vV2_fieldA_a" x0)
+
 {-| __C declaration:__ @struct \@VV2_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -529,6 +608,14 @@ instance ( ty ~ RIP.CInt
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldB_b")
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "vV2_fieldB_b" VV2_fieldB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         VV2_fieldB {vV2_fieldB_b = y1}, RIP.getField @"vV2_fieldB_b" x0)
 
 {-| __C declaration:__ @struct VV2@
 
@@ -592,6 +679,16 @@ instance ( ty ~ VV2_fieldA
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldA")
 
+instance ( ty ~ VV2_fieldA
+         ) => RIP.CompatHasField.HasField "vV2_fieldA" VV2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          VV2 {vV2_fieldA = y1, vV2_fieldB = RIP.getField @"vV2_fieldB" x0}
+      , RIP.getField @"vV2_fieldA" x0
+      )
+
 instance HasCField.HasCField VV2 "vV2_fieldB" where
 
   type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
@@ -603,3 +700,13 @@ instance ( ty ~ VV2_fieldB
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"vV2_fieldB")
+
+instance ( ty ~ VV2_fieldB
+         ) => RIP.CompatHasField.HasField "vV2_fieldB" VV2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          VV2 {vV2_fieldB = y1, vV2_fieldA = RIP.getField @"vV2_fieldA" x0}
+      , RIP.getField @"vV2_fieldB" x0
+      )

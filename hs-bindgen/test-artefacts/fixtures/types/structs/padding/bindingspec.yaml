@@ -18,6 +18,7 @@ hstypes:
       - bar_x
       - bar_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
@@ -36,6 +37,7 @@ hstypes:
       - foo_b
       - foo_c
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield

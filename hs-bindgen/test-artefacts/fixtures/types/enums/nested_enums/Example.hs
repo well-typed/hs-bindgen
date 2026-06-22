@@ -30,6 +30,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum enumA@
@@ -193,6 +194,13 @@ instance ( ty ~ EnumA
   getField =
     HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
 
+instance (ty ~ EnumA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
+
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
     __defined at:__ @types\/enums\/nested_enums.h 9:9@
@@ -354,3 +362,11 @@ instance ( ty ~ ExB_fieldB1
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
+
+instance ( ty ~ ExB_fieldB1
+         ) => RIP.CompatHasField.HasField "exB_fieldB1" ExB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         ExB {exB_fieldB1 = y1}, RIP.getField @"exB_fieldB1" x0)

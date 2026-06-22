@@ -74,6 +74,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
@@ -1058,6 +1059,19 @@ instance ( ty ~ A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_field1")
 
+instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "example_struct_field1" Example_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct { example_struct_field1 = y1
+                         , example_struct_field2 = RIP.getField @"example_struct_field2" x0
+                         , example_struct_field3 = RIP.getField @"example_struct_field3" x0
+                         }
+      , RIP.getField @"example_struct_field1" x0
+      )
+
 instance HasCField.HasCField Example_struct "example_struct_field2" where
 
   type CFieldType Example_struct "example_struct_field2" =
@@ -1071,6 +1085,19 @@ instance ( ty ~ RIP.Ptr A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_field2")
 
+instance ( ty ~ RIP.Ptr A
+         ) => RIP.CompatHasField.HasField "example_struct_field2" Example_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct { example_struct_field2 = y1
+                         , example_struct_field1 = RIP.getField @"example_struct_field1" x0
+                         , example_struct_field3 = RIP.getField @"example_struct_field3" x0
+                         }
+      , RIP.getField @"example_struct_field2" x0
+      )
+
 instance HasCField.HasCField Example_struct "example_struct_field3" where
 
   type CFieldType Example_struct "example_struct_field3" =
@@ -1083,6 +1110,19 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr A)
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_field3")
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr A)
+         ) => RIP.CompatHasField.HasField "example_struct_field3" Example_struct ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct { example_struct_field3 = y1
+                         , example_struct_field1 = RIP.getField @"example_struct_field1" x0
+                         , example_struct_field2 = RIP.getField @"example_struct_field2" x0
+                         }
+      , RIP.getField @"example_struct_field3" x0
+      )
 
 {-| __C declaration:__ @const_typedef1@
 
@@ -1436,6 +1476,23 @@ instance ( ty ~ A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field1")
 
+instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field1" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field1 = y1
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field1" x0
+      )
+
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field2" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field2" =
@@ -1448,6 +1505,23 @@ instance ( ty ~ A
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field2")
+
+instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field2" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field2 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field2" x0
+      )
 
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field3" where
 
@@ -1462,6 +1536,23 @@ instance ( ty ~ PtrConst.PtrConst A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field3")
 
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field3" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field3 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field3" x0
+      )
+
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field4" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field4" =
@@ -1474,6 +1565,23 @@ instance ( ty ~ PtrConst.PtrConst A
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field4")
+
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field4" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field4 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field4" x0
+      )
 
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field5" where
 
@@ -1488,6 +1596,23 @@ instance ( ty ~ RIP.Ptr A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field5")
 
+instance ( ty ~ RIP.Ptr A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field5" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field5 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field5" x0
+      )
+
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field6" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field6" =
@@ -1501,6 +1626,23 @@ instance ( ty ~ PtrConst.PtrConst A
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field6")
 
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field6" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field6 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field7 = RIP.getField @"example_struct_with_const_const_field7" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field6" x0
+      )
+
 instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field7" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field7" =
@@ -1513,6 +1655,23 @@ instance ( ty ~ PtrConst.PtrConst A
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field7")
+
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field7" Example_struct_with_const ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Example_struct_with_const { example_struct_with_const_const_field7 = y1
+                                    , example_struct_with_const_const_field1 = RIP.getField @"example_struct_with_const_const_field1" x0
+                                    , example_struct_with_const_const_field2 = RIP.getField @"example_struct_with_const_const_field2" x0
+                                    , example_struct_with_const_const_field3 = RIP.getField @"example_struct_with_const_const_field3" x0
+                                    , example_struct_with_const_const_field4 = RIP.getField @"example_struct_with_const_const_field4" x0
+                                    , example_struct_with_const_const_field5 = RIP.getField @"example_struct_with_const_const_field5" x0
+                                    , example_struct_with_const_const_field6 = RIP.getField @"example_struct_with_const_const_field6" x0
+                                    }
+      , RIP.getField @"example_struct_with_const_const_field7" x0
+      )
 
 {-| Auxiliary type used by 'Const_funptr1'
 

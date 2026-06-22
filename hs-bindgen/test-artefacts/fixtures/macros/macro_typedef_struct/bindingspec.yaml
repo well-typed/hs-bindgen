@@ -21,6 +21,7 @@ hstypes:
       - bar_x
       - bar_y
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

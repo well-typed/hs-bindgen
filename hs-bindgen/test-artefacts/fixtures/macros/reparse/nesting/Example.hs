@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -117,6 +118,12 @@ instance (ty ~ MyInt) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t2_x" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
+
 {-| __C declaration:__ @struct TS3@
 
     __defined at:__ @macros\/reparse\/nesting.h 6:16@
@@ -168,6 +175,12 @@ instance (ty ~ MyInt) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
 
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t3_x" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T3 {t3_x = y1}, RIP.getField @"t3_x" x0)
+
 {-| __C declaration:__ @struct T4@
 
     __defined at:__ @macros\/reparse\/nesting.h 7:9@
@@ -218,3 +231,9 @@ instance HasCField.HasCField T4 "t4_x" where
 instance (ty ~ MyInt) => RIP.HasField "t4_x" (RIP.Ptr T4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t4_x")
+
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t4_x" T4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T4 {t4_x = y1}, RIP.getField @"t4_x" x0)

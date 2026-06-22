@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct \@S_y_anon\'x@
@@ -76,6 +77,14 @@ instance ( ty ~ RIP.CInt
   getField =
     HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S_y_anon'x {s_y_anon'x_x = y1}, RIP.getField @"s_y_anon'x_x" x0)
+
 {-| __C declaration:__ @struct \@S_y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 14:3@
@@ -129,6 +138,14 @@ instance ( ty ~ S_y_anon'x
   getField =
     HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
 
+instance ( ty ~ S_y_anon'x
+         ) => RIP.CompatHasField.HasField "s_y_anon'x" S_y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S_y {s_y_anon'x = y1}, RIP.getField @"s_y_anon'x" x0)
+
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 13:8@
@@ -179,3 +196,8 @@ instance HasCField.HasCField S "s_y" where
 instance (ty ~ S_y) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_y")
+
+instance (ty ~ S_y) => RIP.CompatHasField.HasField "s_y" S ty where
+
+  hasField =
+    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)

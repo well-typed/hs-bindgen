@@ -39,6 +39,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Dim2@
@@ -102,6 +103,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim2_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim2_x" Dim2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim2 {dim2_x = y1, dim2_y = RIP.getField @"dim2_y" x0}
+      , RIP.getField @"dim2_x" x0
+      )
+
 instance HasCField.HasCField Dim2 "dim2_y" where
 
   type CFieldType Dim2 "dim2_y" = RIP.CInt
@@ -112,6 +122,15 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "dim2_y" (RIP.Ptr Dim2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim2_y")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim2_y" Dim2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim2 {dim2_y = y1, dim2_x = RIP.getField @"dim2_x" x0}
+      , RIP.getField @"dim2_y" x0
+      )
 
 {-| __C declaration:__ @struct Dim3@
 
@@ -183,6 +202,18 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_x")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_x" Dim3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim3 { dim3_x = y1
+               , dim3_y = RIP.getField @"dim3_y" x0
+               , dim3_z = RIP.getField @"dim3_z" x0
+               }
+      , RIP.getField @"dim3_x" x0
+      )
+
 instance HasCField.HasCField Dim3 "dim3_y" where
 
   type CFieldType Dim3 "dim3_y" = RIP.CInt
@@ -194,6 +225,18 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_y")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_y" Dim3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim3 { dim3_y = y1
+               , dim3_x = RIP.getField @"dim3_x" x0
+               , dim3_z = RIP.getField @"dim3_z" x0
+               }
+      , RIP.getField @"dim3_y" x0
+      )
+
 instance HasCField.HasCField Dim3 "dim3_z" where
 
   type CFieldType Dim3 "dim3_z" = RIP.CInt
@@ -204,6 +247,18 @@ instance ( ty ~ RIP.CInt
          ) => RIP.HasField "dim3_z" (RIP.Ptr Dim3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim3_z")
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_z" Dim3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim3 { dim3_z = y1
+               , dim3_x = RIP.getField @"dim3_x" x0
+               , dim3_y = RIP.getField @"dim3_y" x0
+               }
+      , RIP.getField @"dim3_z" x0
+      )
 
 {-| __C declaration:__ @union DimPayload@
 
@@ -359,6 +414,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"dim_tag")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim_tag" Dim ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim {dim_tag = y1, dim_payload = RIP.getField @"dim_payload" x0}
+      , RIP.getField @"dim_tag" x0
+      )
+
 instance HasCField.HasCField Dim "dim_payload" where
 
   type CFieldType Dim "dim_payload" = DimPayload
@@ -370,6 +434,16 @@ instance ( ty ~ DimPayload
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dim_payload")
+
+instance ( ty ~ DimPayload
+         ) => RIP.CompatHasField.HasField "dim_payload" Dim ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Dim {dim_payload = y1, dim_tag = RIP.getField @"dim_tag" x0}
+      , RIP.getField @"dim_payload" x0
+      )
 
 {-| __C declaration:__ @union DimPayloadB@
 
@@ -525,6 +599,15 @@ instance ( ty ~ RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"dimB_tag")
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dimB_tag" DimB ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DimB {dimB_tag = y1, dimB_payload = RIP.getField @"dimB_payload" x0}
+      , RIP.getField @"dimB_tag" x0
+      )
+
 instance HasCField.HasCField DimB "dimB_payload" where
 
   type CFieldType DimB "dimB_payload" = DimPayloadB
@@ -536,6 +619,16 @@ instance ( ty ~ DimPayloadB
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"dimB_payload")
+
+instance ( ty ~ DimPayloadB
+         ) => RIP.CompatHasField.HasField "dimB_payload" DimB ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DimB {dimB_payload = y1, dimB_tag = RIP.getField @"dimB_tag" x0}
+      , RIP.getField @"dimB_payload" x0
+      )
 
 {-| __C declaration:__ @struct \@AnonA_xy@
 
@@ -599,6 +692,16 @@ instance ( ty ~ RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_xy_x")
 
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "anonA_xy_x" AnonA_xy ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonA_xy {anonA_xy_x = y1, anonA_xy_y = RIP.getField @"anonA_xy_y" x0}
+      , RIP.getField @"anonA_xy_x" x0
+      )
+
 instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
 
   type CFieldType AnonA_xy "anonA_xy_y" = RIP.CDouble
@@ -610,6 +713,16 @@ instance ( ty ~ RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_xy_y")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "anonA_xy_y" AnonA_xy ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonA_xy {anonA_xy_y = y1, anonA_xy_x = RIP.getField @"anonA_xy_x" x0}
+      , RIP.getField @"anonA_xy_y" x0
+      )
 
 {-| __C declaration:__ @struct \@AnonA_polar@
 
@@ -674,6 +787,16 @@ instance ( ty ~ RIP.CDouble
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_polar_r")
 
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "anonA_polar_r" AnonA_polar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonA_polar {anonA_polar_r = y1, anonA_polar_p = RIP.getField @"anonA_polar_p" x0}
+      , RIP.getField @"anonA_polar_r" x0
+      )
+
 instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
 
   type CFieldType AnonA_polar "anonA_polar_p" =
@@ -686,6 +809,16 @@ instance ( ty ~ RIP.CDouble
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"anonA_polar_p")
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "anonA_polar_p" AnonA_polar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          AnonA_polar {anonA_polar_p = y1, anonA_polar_r = RIP.getField @"anonA_polar_r" x0}
+      , RIP.getField @"anonA_polar_p" x0
+      )
 
 {-| __C declaration:__ @union AnonA@
 

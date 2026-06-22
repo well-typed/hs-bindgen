@@ -172,6 +172,11 @@ instance (~) ty FileOperationStatus =>
                   (Ptr FileOperationRecord)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"fileOperationRecord_status")
+instance (~) ty FileOperationStatus =>
+         HasField "fileOperationRecord_status" FileOperationRecord ty
+    where hasField = \x_0 -> (\y_1 -> FileOperationRecord{fileOperationRecord_status = y_1,
+                                                          fileOperationRecord_bytes_processed = getField @"fileOperationRecord_bytes_processed" x_0},
+                              getField @"fileOperationRecord_status" x_0)
 instance HasCField FileOperationRecord
                    "fileOperationRecord_bytes_processed"
     where type CFieldType FileOperationRecord
@@ -182,6 +187,13 @@ instance (~) ty HsBindgen.Runtime.LibC.CSize =>
                   (Ptr FileOperationRecord)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"fileOperationRecord_bytes_processed")
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "fileOperationRecord_bytes_processed"
+                  FileOperationRecord
+                  ty
+    where hasField = \x_0 -> (\y_1 -> FileOperationRecord{fileOperationRecord_bytes_processed = y_1,
+                                                          fileOperationRecord_status = getField @"fileOperationRecord_status" x_0},
+                              getField @"fileOperationRecord_bytes_processed" x_0)
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
     Ptr Void

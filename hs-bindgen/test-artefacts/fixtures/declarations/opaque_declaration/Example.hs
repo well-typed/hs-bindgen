@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo@
@@ -95,6 +96,16 @@ instance ( ty ~ RIP.Ptr Foo
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrA")
 
+instance ( ty ~ RIP.Ptr Foo
+         ) => RIP.CompatHasField.HasField "bar_ptrA" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_ptrA = y1, bar_ptrB = RIP.getField @"bar_ptrB" x0}
+      , RIP.getField @"bar_ptrA" x0
+      )
+
 instance HasCField.HasCField Bar "bar_ptrB" where
 
   type CFieldType Bar "bar_ptrB" = RIP.Ptr Bar
@@ -105,6 +116,16 @@ instance ( ty ~ RIP.Ptr Bar
          ) => RIP.HasField "bar_ptrB" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrB")
+
+instance ( ty ~ RIP.Ptr Bar
+         ) => RIP.CompatHasField.HasField "bar_ptrB" Bar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bar {bar_ptrB = y1, bar_ptrA = RIP.getField @"bar_ptrA" x0}
+      , RIP.getField @"bar_ptrB" x0
+      )
 
 {-| __C declaration:__ @struct baz@
 

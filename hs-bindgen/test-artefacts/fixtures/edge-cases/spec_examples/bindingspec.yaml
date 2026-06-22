@@ -39,6 +39,7 @@ hstypes:
       - a_b
       - a_c
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -71,6 +72,7 @@ hstypes:
       - cint16_T_re
       - cint16_T_im
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

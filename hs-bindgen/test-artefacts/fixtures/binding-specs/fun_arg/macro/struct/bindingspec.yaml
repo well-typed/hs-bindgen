@@ -65,6 +65,7 @@ hstypes:
       fields:
       - myStruct_x
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

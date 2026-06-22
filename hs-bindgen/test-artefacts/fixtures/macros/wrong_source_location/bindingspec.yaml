@@ -47,6 +47,7 @@ hstypes:
       fields:
       - uU1_fieldY
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -63,6 +64,7 @@ hstypes:
       fields:
       - uU1_fieldY_fieldX
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -79,6 +81,7 @@ hstypes:
       fields:
       - uU2_fieldY
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -95,6 +98,7 @@ hstypes:
       fields:
       - uU2_fieldY_fieldX
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -112,6 +116,7 @@ hstypes:
       - vV1_fieldA
       - vV1_fieldB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -128,6 +133,7 @@ hstypes:
       fields:
       - vV1_fieldA_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -144,6 +150,7 @@ hstypes:
       fields:
       - vV1_fieldB_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -161,6 +168,7 @@ hstypes:
       - vV2_fieldA
       - vV2_fieldB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -177,6 +185,7 @@ hstypes:
       fields:
       - vV2_fieldA_a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -193,6 +202,7 @@ hstypes:
       fields:
       - vV2_fieldB_b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

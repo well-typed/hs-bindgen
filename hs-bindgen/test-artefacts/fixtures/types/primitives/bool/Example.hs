@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct bools1@
@@ -87,6 +88,16 @@ instance ( ty ~ RIP.CBool
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
 
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "bools1_x" Bools1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools1 {bools1_x = y1, bools1_y = RIP.getField @"bools1_y" x0}
+      , RIP.getField @"bools1_x" x0
+      )
+
 instance HasCField.HasCField Bools1 "bools1_y" where
 
   type CFieldType Bools1 "bools1_y" = RIP.CBool
@@ -97,6 +108,16 @@ instance ( ty ~ RIP.CBool
          ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
+
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "bools1_y" Bools1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools1 {bools1_y = y1, bools1_x = RIP.getField @"bools1_x" x0}
+      , RIP.getField @"bools1_y" x0
+      )
 
 {-| __C declaration:__ @struct bools2@
 
@@ -159,6 +180,16 @@ instance ( ty ~ RIP.CBool
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
 
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "bools2_x" Bools2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools2 {bools2_x = y1, bools2_y = RIP.getField @"bools2_y" x0}
+      , RIP.getField @"bools2_x" x0
+      )
+
 instance HasCField.HasCField Bools2 "bools2_y" where
 
   type CFieldType Bools2 "bools2_y" = RIP.CBool
@@ -169,6 +200,16 @@ instance ( ty ~ RIP.CBool
          ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
+
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "bools2_y" Bools2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools2 {bools2_y = y1, bools2_x = RIP.getField @"bools2_x" x0}
+      , RIP.getField @"bools2_y" x0
+      )
 
 {-| __C declaration:__ @macro BOOL@
 
@@ -271,6 +312,15 @@ instance ( ty ~ BOOL
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
 
+instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_x" Bools3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools3 {bools3_x = y1, bools3_y = RIP.getField @"bools3_y" x0}
+      , RIP.getField @"bools3_x" x0
+      )
+
 instance HasCField.HasCField Bools3 "bools3_y" where
 
   type CFieldType Bools3 "bools3_y" = BOOL
@@ -281,3 +331,12 @@ instance ( ty ~ BOOL
          ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")
+
+instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_y" Bools3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Bools3 {bools3_y = y1, bools3_x = RIP.getField @"bools3_x" x0}
+      , RIP.getField @"bools3_y" x0
+      )
