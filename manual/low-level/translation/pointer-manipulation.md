@@ -87,11 +87,19 @@ Since full marshalling may be undesirable, `hs-bindgen` also generates
 index C data structures. These instances roughly look like so (details omitted):
 
 ```hs
-instance ( ... ) => HasField "point_x"               (Ptr Point)     (Ptr CInt)
-instance ( ... ) => HasField "point_y"               (Ptr Point)     (Ptr CInt)
-instance ( ... ) => HasField "rectangle_topleft"     (Ptr Rectangle) (Ptr Point)
-instance ( ... ) => HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr Point)
+instance ( ty ~ CInt
+         ) => HasField "point_x" (Ptr Point) (Ptr ty) where
+instance ( ty ~ CInt
+         ) => HasField "point_y" (Ptr Point) (Ptr ty) where
+instance ( ty ~ Point
+         ) => HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty) where
+instance ( ty ~ Point
+         ) => HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty) where
 ```
+
+The use of `(~)` here is intentional: the type of a field may reference a type
+family (such as `Elem` from the `IsArray` class), and type families are not
+allowed in class instance heads. For more information, see [PR #2065][pr-2065].
 
 We can update the same field as before without full marshalling as follows:
 
@@ -108,6 +116,7 @@ infrastructure. If you prefer to avoid record-dot syntax, you can either:
 
 
 
+
 <!-- footnotes -->
 
 [^1]: Though the example only uses structs, the pointer manipulation API
@@ -115,3 +124,7 @@ infrastructure. If you prefer to avoid record-dot syntax, you can either:
     section][t:feature-list] for all supported features.
 
 [^2]: The use of lenses here is optional.
+
+<!-- sources and references -->
+
+[pr-2065]: https://github.com/well-typed/hs-bindgen/pull/2065/files
