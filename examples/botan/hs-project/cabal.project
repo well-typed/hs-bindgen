@@ -1,4 +1,4 @@
 import: ../../../cabal.project.base
 
 packages: .
-          ../../../hs-bindgen-runtime,
+          ../../../hs-bindgen-runtime
