@@ -359,7 +359,7 @@ enumDecs info enum spec = do
         ++ primDecl
         : optDecls
         ++ cEnumInstanceDecls
-        ++ typedefFieldDecls nt
+        ++ Hs.newtypeFieldDecs nt
         ++ valueDecls
       where
         -- Singleton field: 'InstanceCEnum' and its siblings rely on this
@@ -541,7 +541,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         Hs.DeclNewtype nt
         : newtypeWrapper
         ++ optDecls
-        ++ typedefFieldDecls nt
+        ++ Hs.newtypeFieldDecs nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
@@ -574,81 +574,6 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
       --
         newtypeWrapper :: [Hs.Decl l]
         newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype env.sizeofs nt) isFunType
-
--- | 'HsBindgen.Runtime.HasCField.HasCField',
--- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', 'GHC.Records.HasField', and
--- 'GHC.Records.Compat.HasField' instances for a typedef declaration.
---
--- Given a typedef:
---
--- > typedef int myInt;
---
--- We generate roughly this newtype:
---
--- > newtype MyInt = MyInt { unwrapMyInt :: CInt }
---
--- GHC automatically generates 'GHC.Records.HasField' instances for the
--- @unwrapMyInt@ field.
---
--- Then, 'typedefFieldDecls' will generate roughly the following class
--- instances.
---
--- > instance HasCField "unwrapMyInt" MyInt where
--- >   type CFieldType "unwrapMyInt" MyInt = CInt
--- > instance GHC.Records.HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
--- > instance GHC.Records.Compat.HasField "unwrapMyInt" MyInt CInt
---
--- The first two instances help eliminating newtypes from 'Foreign.Ptr.Ptr'
--- types. Naturally, newtypes can also be introduced in 'Foreign.Ptr.Ptr' types,
--- but this should be done using 'Foreign.Ptr.castPtr' or some similar function.
-typedefFieldDecls :: Hs.Newtype -> [Hs.Decl l]
-typedefFieldDecls hsNewType = [
-    -- * Eliminate newtypes
-
-      Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField hasFieldDecl
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasCField hasCFieldDecl
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceCompatHasField compatHasFieldDecl
-          }
-    ]
-  where
-    parentType :: HsType
-    parentType = Hs.HsTypRef hsNewType.name (Just hsNewType.field.typ)
-
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance{
-          parentType = parentType
-        , fieldName  = hsNewType.field.name
-        , fieldType  = hsNewType.field.typ
-        , deriveVia  = Hs.ViaHasCField
-        }
-
-    hasCFieldDecl :: Hs.HasCFieldInstance
-    hasCFieldDecl = Hs.HasCFieldInstance{
-          parentType  = parentType
-        , fieldName   = hsNewType.field.name
-        , cFieldType  = hsNewType.field.typ
-        , fieldOffset = 0
-        }
-
-    compatHasFieldDecl :: Hs.CompatHasFieldInstance
-    compatHasFieldDecl = Hs.CompatHasFieldInstance {
-          parentType = parentType
-        , fieldName  = hsNewType.field.name
-        , fieldType  = hsNewType.field.typ
-        , otherFields = []
-        , constr = hsNewType.constr
-        }
 
 -- | Typedef around function type indirection
 --
@@ -824,7 +749,7 @@ macroDecsTypedef macroLang info macroType spec = do
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
-    aux env nt = Hs.DeclNewtype nt : optDecls ++ typedefFieldDecls nt
+    aux env nt = Hs.DeclNewtype nt : optDecls ++ Hs.newtypeFieldDecs nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
