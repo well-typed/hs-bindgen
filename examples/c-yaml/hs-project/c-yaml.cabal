@@ -1,0 +1,38 @@
+cabal-version: 3.4
+name:          c-yaml
+version:       0.1.0.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Well Typed
+maintainer:    info@well-typed.com
+category:      Development
+build-type:    Simple
+synopsis:      Test `hs-bindgen` client on the `yaml` library
+
+common common
+  ghc-options:      -Wall -Wunused-packages
+  build-depends:    base >=4.16 && <4.22
+  default-language: GHC2021
+
+library
+  import:          common
+  hs-source-dirs:  src
+  exposed-modules:
+    Generated.Yaml
+    Generated.Yaml.FunPtr
+    Generated.Yaml.Safe
+    Generated.Yaml.Unsafe
+
+  autogen-modules:
+  ghc-options:
+  extra-libraries: yaml
+  build-depends:   hs-bindgen-runtime
+
+executable c-yaml-bin
+  import:         common
+  main-is:        Yaml.hs
+  hs-source-dirs: app
+  build-depends:
+    , base                >=4.7 && <5
+    , c-yaml
+    , hs-bindgen-runtime

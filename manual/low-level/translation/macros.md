@@ -20,7 +20,7 @@ is translated to a [`CChar`][hackage:base:CChar] holding the value of the
 character:
 
 ```haskell
-lETTER :: Word8
+lETTER :: CChar
 lETTER = 97
 ```
 
@@ -38,10 +38,10 @@ void greet(char lang);
 ```
 
 ```haskell
-cHINESE :: RIP.CChar
+cHINESE :: CChar
 cHINESE = 99
 
-greet :: RIP.CChar -> IO ()
+greet :: CChar -> IO ()
 greet = ...
 
 main :: IO ()

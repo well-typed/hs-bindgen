@@ -56,10 +56,24 @@ data Triple = Triple {
 
 (The capitalization is a result of candidate name _fixing_, see below.)
 
-> [!NOTE]
-> Alternatively we could take advantage of `DuplicateRecordFields` or
-> `OverloadedRecordDot`/`OverloadedRecordUpdate`.
-> <https://github.com/well-typed/hs-bindgen/issues/69>
+#### Duplicate record fields
+
+Instead of using a prefix to make field labels globally unique, we can take
+advantage of
+[`DuplicateRecordFields`](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/duplicate_record_fields.html)
+in the generated code. This behaviour can be enabled in the command line client
+using `--omit-field-prefixes`. When using Template Haskell,
+`fieldNamingStrategy` can be configured to be `OmitFieldPrefixes`.
+
+For the `struct triple` above, this will result in very short field labels:
+
+```haskell
+data Triple = Triple {
+    a :: CInt
+  , b :: CInt
+  , c :: CInt
+  }
+```
 
 ### Accessors
 
@@ -78,6 +92,15 @@ we generate
 ```haskell
 newtype Index = Index {
    unwrapIndex :: CUInt
+ }
+```
+
+If [`--omit-field-prefixes`](#duplicate-record-fields) is enabled, we simply use
+`unwrap` without any suffix:
+
+```haskell
+newtype Index = Index {
+   unwrap :: CUInt
  }
 ```
 
