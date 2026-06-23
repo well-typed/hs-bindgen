@@ -75,6 +75,9 @@ instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @macro bool@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 12:9@
@@ -104,6 +107,9 @@ instance (~) ty CInt => HasField "unwrapBool'" (Ptr Bool') (Ptr ty)
 instance HasCField Bool' "unwrapBool'"
     where type CFieldType Bool' "unwrapBool'" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapBool'" Bool' ty
+    where hasField = \x_0 -> (\y_1 -> Bool'{unwrapBool' = y_1},
+                              getField @"unwrapBool'" x_0)
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_fc2c0275afbb3c2e" hs_bindgen_fc2c0275afbb3c2e_base ::
     Int32

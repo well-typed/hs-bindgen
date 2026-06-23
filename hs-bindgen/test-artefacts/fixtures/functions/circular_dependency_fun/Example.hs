@@ -86,6 +86,15 @@ instance HasCField.HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapFun_ptr_Aux" Fun_ptr_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Fun_ptr_Aux {unwrapFun_ptr_Aux = y1}
+      , RIP.getField @"unwrapFun_ptr_Aux" x0
+      )
+
 {-| __C declaration:__ @fun_ptr@
 
     __defined at:__ @functions\/circular_dependency_fun.h 3:16@
@@ -116,6 +125,14 @@ instance HasCField.HasCField Fun_ptr "unwrapFun_ptr" where
     RIP.FunPtr Fun_ptr_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFun_ptr" Fun_ptr ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Fun_ptr {unwrapFun_ptr = y1}, RIP.getField @"unwrapFun_ptr" x0)
 
 {-| __C declaration:__ @struct forward_declaration@
 

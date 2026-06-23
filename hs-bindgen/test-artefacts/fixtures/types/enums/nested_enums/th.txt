@@ -45,6 +45,9 @@ instance (~) ty CUInt =>
 instance HasCField EnumA "unwrapEnumA"
     where type CFieldType EnumA "unwrapEnumA" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapEnumA" EnumA ty
+    where hasField = \x_0 -> (\y_1 -> EnumA{unwrapEnumA = y_1},
+                              getField @"unwrapEnumA" x_0)
 {-| __C declaration:__ @VALA_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 3:17@
@@ -139,6 +142,10 @@ instance (~) ty CUInt =>
 instance HasCField ExB_fieldB1 "unwrapExB_fieldB1"
     where type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt =>
+         HasField "unwrapExB_fieldB1" ExB_fieldB1 ty
+    where hasField = \x_0 -> (\y_1 -> ExB_fieldB1{unwrapExB_fieldB1 = y_1},
+                              getField @"unwrapExB_fieldB1" x_0)
 {-| __C declaration:__ @VALB_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 10:17@

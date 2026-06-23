@@ -311,6 +311,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -337,6 +338,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -356,6 +358,7 @@ hstypes:
       - unwrap
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -377,6 +380,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -395,6 +399,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -450,6 +455,7 @@ hstypes:
       - unwrap
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -841,6 +847,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -878,6 +885,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -948,6 +956,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

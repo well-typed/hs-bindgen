@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro I@
@@ -64,6 +65,12 @@ instance HasCField.HasCField I "unwrapI" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapI" I ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> I {unwrapI = y1}, RIP.getField @"unwrapI" x0)
+
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -103,6 +110,12 @@ instance HasCField.HasCField C "unwrapC" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapC" C ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> C {unwrapC = y1}, RIP.getField @"unwrapC" x0)
+
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
@@ -139,6 +152,12 @@ instance HasCField.HasCField F "unwrapF" where
   type CFieldType F "unwrapF" = RIP.CFloat
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CFloat) => RIP.CompatHasField.HasField "unwrapF" F ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> F {unwrapF = y1}, RIP.getField @"unwrapF" x0)
 
 {-| __C declaration:__ @macro L@
 
@@ -179,6 +198,12 @@ instance HasCField.HasCField L "unwrapL" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CLong) => RIP.CompatHasField.HasField "unwrapL" L ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> L {unwrapL = y1}, RIP.getField @"unwrapL" x0)
+
 {-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
@@ -217,6 +242,12 @@ instance HasCField.HasCField S "unwrapS" where
   type CFieldType S "unwrapS" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CShort) => RIP.CompatHasField.HasField "unwrapS" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S {unwrapS = y1}, RIP.getField @"unwrapS" x0)
 
 -- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::

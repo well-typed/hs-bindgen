@@ -109,6 +109,12 @@ instance HasCField.HasCField T "unwrapT" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ S) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 15:11@
@@ -135,6 +141,13 @@ instance HasCField.HasCField Foo "unwrapFoo" where
   type CFieldType Foo "unwrapFoo" = T
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ T) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
 
 {-| __C declaration:__ @bar@
 
@@ -164,3 +177,11 @@ instance HasCField.HasCField Bar "unwrapBar" where
   type CFieldType Bar "unwrapBar" = RIP.Ptr T
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr T
+         ) => RIP.CompatHasField.HasField "unwrapBar" Bar ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bar {unwrapBar = y1}, RIP.getField @"unwrapBar" x0)

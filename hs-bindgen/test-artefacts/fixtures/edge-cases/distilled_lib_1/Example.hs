@@ -243,6 +243,16 @@ instance HasCField.HasCField Another_typedef_enum_e "unwrapAnother_typedef_enum_
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapAnother_typedef_enum_e" Another_typedef_enum_e ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Another_typedef_enum_e {unwrapAnother_typedef_enum_e = y1}
+      , RIP.getField @"unwrapAnother_typedef_enum_e" x0
+      )
+
 {-| __C declaration:__ @FOO@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 10:16@
@@ -328,6 +338,14 @@ instance HasCField.HasCField A_type_t "unwrapA_type_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapA_type_t" A_type_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         A_type_t {unwrapA_type_t = y1}, RIP.getField @"unwrapA_type_t" x0)
+
 {-| __C declaration:__ @var_t@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 15:13@
@@ -367,6 +385,14 @@ instance HasCField.HasCField Var_t "unwrapVar_t" where
   type CFieldType Var_t "unwrapVar_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapVar_t" Var_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Var_t {unwrapVar_t = y1}, RIP.getField @"unwrapVar_t" x0)
 
 {-| __C declaration:__ @struct a_typedef_struct@
 
@@ -1015,6 +1041,16 @@ instance HasCField.HasCField A_typedef_enum_e "unwrapA_typedef_enum_e" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unwrapA_typedef_enum_e" A_typedef_enum_e ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          A_typedef_enum_e {unwrapA_typedef_enum_e = y1}
+      , RIP.getField @"unwrapA_typedef_enum_e" x0
+      )
+
 {-| __C declaration:__ @ENUM_CASE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 63:3@
@@ -1112,6 +1148,15 @@ instance HasCField.HasCField Callback_t_Aux "unwrapCallback_t_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
+         ) => RIP.CompatHasField.HasField "unwrapCallback_t_Aux" Callback_t_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Callback_t_Aux {unwrapCallback_t_Aux = y1}
+      , RIP.getField @"unwrapCallback_t_Aux" x0
+      )
+
 {-| __C declaration:__ @callback_t@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
@@ -1142,3 +1187,12 @@ instance HasCField.HasCField Callback_t "unwrapCallback_t" where
     RIP.FunPtr Callback_t_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr Callback_t_Aux
+         ) => RIP.CompatHasField.HasField "unwrapCallback_t" Callback_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Callback_t {unwrapCallback_t = y1}
+      , RIP.getField @"unwrapCallback_t" x0
+      )

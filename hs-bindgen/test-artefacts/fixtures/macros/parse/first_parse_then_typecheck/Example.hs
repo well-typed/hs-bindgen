@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro ValueA@
@@ -83,6 +84,14 @@ instance HasCField.HasCField TypeA "unwrapTypeA" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapTypeA" TypeA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TypeA {unwrapTypeA = y1}, RIP.getField @"unwrapTypeA" x0)
+
 {-| __C declaration:__ @macro TypeB@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 9:9@
@@ -122,3 +131,11 @@ instance HasCField.HasCField TypeB "unwrapTypeB" where
   type CFieldType TypeB "unwrapTypeB" = TypeA
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ TypeA
+         ) => RIP.CompatHasField.HasField "unwrapTypeB" TypeB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TypeB {unwrapTypeB = y1}, RIP.getField @"unwrapTypeB" x0)

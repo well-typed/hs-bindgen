@@ -17,6 +17,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified M
 
 {-| __C declaration:__ @macro B@
@@ -39,3 +40,9 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = M.A
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ M.A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)

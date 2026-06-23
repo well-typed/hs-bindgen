@@ -116,6 +116,12 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ MyStruct) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 12:9@
@@ -143,6 +149,12 @@ instance HasCField.HasCField B "unwrapB" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 35:9@
@@ -163,3 +175,9 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)

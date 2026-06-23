@@ -69,6 +69,14 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
 {-| __C declaration:__ @struct T1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 3:9@
@@ -214,6 +222,14 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr T2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+
 {-| __C declaration:__ @struct \@T3_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:9@
@@ -302,3 +318,11 @@ instance HasCField.HasCField T3 "unwrapT3" where
     RIP.Ptr (RIP.Ptr T3_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr T3_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapT3" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T3 {unwrapT3 = y1}, RIP.getField @"unwrapT3" x0)

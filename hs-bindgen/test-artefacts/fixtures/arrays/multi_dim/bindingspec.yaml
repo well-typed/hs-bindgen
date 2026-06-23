@@ -17,6 +17,7 @@ hstypes:
       fields:
       - unwrapMatrix
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -34,6 +35,7 @@ hstypes:
       fields:
       - unwrapTriplets
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

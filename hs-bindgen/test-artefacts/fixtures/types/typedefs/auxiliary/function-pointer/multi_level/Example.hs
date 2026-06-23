@@ -31,6 +31,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'F1'
@@ -94,6 +95,14 @@ instance HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF1_Aux" F1_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F1_Aux {unwrapF1_Aux = y1}, RIP.getField @"unwrapF1_Aux" x0)
+
 {-| __C declaration:__ @f1@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 7:16@
@@ -122,6 +131,14 @@ instance HasCField.HasCField F1 "unwrapF1" where
   type CFieldType F1 "unwrapF1" = RIP.FunPtr F1_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr F1_Aux
+         ) => RIP.CompatHasField.HasField "unwrapF1" F1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F1 {unwrapF1 = y1}, RIP.getField @"unwrapF1" x0)
 
 {-| Auxiliary type used by 'F2'
 
@@ -184,6 +201,14 @@ instance HasCField.HasCField F2_Aux "unwrapF2_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF2_Aux" F2_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F2_Aux {unwrapF2_Aux = y1}, RIP.getField @"unwrapF2_Aux" x0)
+
 {-| __C declaration:__ @f2@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 10:17@
@@ -213,6 +238,14 @@ instance HasCField.HasCField F2 "unwrapF2" where
     RIP.Ptr (RIP.FunPtr F2_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F2_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF2" F2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F2 {unwrapF2 = y1}, RIP.getField @"unwrapF2" x0)
 
 {-| Auxiliary type used by 'F3'
 
@@ -275,6 +308,14 @@ instance HasCField.HasCField F3_Aux "unwrapF3_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF3_Aux" F3_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F3_Aux {unwrapF3_Aux = y1}, RIP.getField @"unwrapF3_Aux" x0)
+
 {-| __C declaration:__ @f3@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 13:18@
@@ -304,6 +345,14 @@ instance HasCField.HasCField F3 "unwrapF3" where
     RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
+         ) => RIP.CompatHasField.HasField "unwrapF3" F3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F3 {unwrapF3 = y1}, RIP.getField @"unwrapF3" x0)
 
 {-| Auxiliary type used by 'F4'
 
@@ -365,6 +414,14 @@ instance HasCField.HasCField F4_Aux "unwrapF4_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IO RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapF4_Aux" F4_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F4_Aux {unwrapF4_Aux = y1}, RIP.getField @"unwrapF4_Aux" x0)
+
 {-| __C declaration:__ @f4@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 16:16@
@@ -394,6 +451,14 @@ instance HasCField.HasCField F4 "unwrapF4" where
     RIP.Ptr (RIP.FunPtr F4_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F4_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF4" F4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F4 {unwrapF4 = y1}, RIP.getField @"unwrapF4" x0)
 
 {-| Auxiliary type used by 'F5'
 
@@ -455,6 +520,14 @@ instance HasCField.HasCField F5_Aux "unwrapF5_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IO ()
+         ) => RIP.CompatHasField.HasField "unwrapF5_Aux" F5_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F5_Aux {unwrapF5_Aux = y1}, RIP.getField @"unwrapF5_Aux" x0)
+
 {-| __C declaration:__ @f5@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 19:17@
@@ -484,6 +557,14 @@ instance HasCField.HasCField F5 "unwrapF5" where
     RIP.Ptr (RIP.FunPtr F5_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F5_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF5" F5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F5 {unwrapF5 = y1}, RIP.getField @"unwrapF5" x0)
 
 {-| __C declaration:__ @MyInt@
 
@@ -524,6 +605,14 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| Auxiliary type used by 'F6'
 
@@ -586,6 +675,14 @@ instance HasCField.HasCField F6_Aux "unwrapF6_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (MyInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF6_Aux" F6_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F6_Aux {unwrapF6_Aux = y1}, RIP.getField @"unwrapF6_Aux" x0)
+
 {-| __C declaration:__ @f6@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 23:17@
@@ -615,3 +712,11 @@ instance HasCField.HasCField F6 "unwrapF6" where
     RIP.Ptr (RIP.FunPtr F6_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F6_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF6" F6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F6 {unwrapF6 = y1}, RIP.getField @"unwrapF6" x0)

@@ -65,6 +65,14 @@ instance HasCField.HasCField MY_TYPE "unwrapMY_TYPE" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMY_TYPE" MY_TYPE ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MY_TYPE {unwrapMY_TYPE = y1}, RIP.getField @"unwrapMY_TYPE" x0)
+
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @macros\/macro_typedef_struct.h 3:9@

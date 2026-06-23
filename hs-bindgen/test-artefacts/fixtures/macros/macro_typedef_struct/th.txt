@@ -29,6 +29,9 @@ instance (~) ty CInt =>
 instance HasCField MY_TYPE "unwrapMY_TYPE"
     where type CFieldType MY_TYPE "unwrapMY_TYPE" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMY_TYPE" MY_TYPE ty
+    where hasField = \x_0 -> (\y_1 -> MY_TYPE{unwrapMY_TYPE = y_1},
+                              getField @"unwrapMY_TYPE" x_0)
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @macros\/macro_typedef_struct.h 3:9@

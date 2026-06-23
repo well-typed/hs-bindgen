@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified M
 
@@ -85,6 +86,14 @@ instance HasCField.HasCField A_Aux "unwrapA_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapA_Aux" A_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         A_Aux {unwrapA_Aux = y1}, RIP.getField @"unwrapA_Aux" x0)
+
 {-| __C declaration:__ @A@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 6:15@
@@ -114,6 +123,13 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.FunPtr A_Aux
+         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 {-| __C declaration:__ @B@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 7:11@
@@ -142,6 +158,12 @@ instance HasCField.HasCField B "unwrapB" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 {-| __C declaration:__ @E@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 19:11@
@@ -163,3 +185,9 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)

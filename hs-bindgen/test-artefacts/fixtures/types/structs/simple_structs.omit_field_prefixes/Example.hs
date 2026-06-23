@@ -689,6 +689,13 @@ instance HasCField.HasCField S7a "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr S7a_Aux
+         ) => RIP.CompatHasField.HasField "unwrap" S7a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S7a {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @struct \@S7b_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h 35:9@
@@ -804,3 +811,10 @@ instance HasCField.HasCField S7b "unwrap" where
     RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
+         ) => RIP.CompatHasField.HasField "unwrap" S7b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S7b {unwrap = y1}, RIP.getField @"unwrap" x0)

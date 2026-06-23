@@ -163,6 +163,14 @@ instance HasCField.HasCField An_pchar "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ PtrConst.PtrConst RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrap" An_pchar ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         An_pchar {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @struct MyCoolStruct@
 
     __defined at:__ @comprehensive\/c2hsc.h 15:9@
@@ -285,6 +293,14 @@ instance HasCField.HasCField Foo_Aux "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrap" Foo_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo_Aux {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @foo@
 
     __defined at:__ @comprehensive\/c2hsc.h 20:15@
@@ -313,6 +329,13 @@ instance HasCField.HasCField Foo "unwrap" where
   type CFieldType Foo "unwrap" = RIP.FunPtr Foo_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr Foo_Aux
+         ) => RIP.CompatHasField.HasField "unwrap" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> Foo {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct foo_t@
 
@@ -473,6 +496,14 @@ instance HasCField.HasCField Bar_10 "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bar_10 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bar_10 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @BAR@
 
     __defined at:__ @comprehensive\/c2hsc.h 45:24@
@@ -625,6 +656,12 @@ instance HasCField.HasCField E "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @CONST@
 
     __defined at:__ @comprehensive\/c2hsc.h 53:3@
@@ -724,6 +761,14 @@ instance HasCField.HasCField MyType "unwrap" where
   type CFieldType MyType "unwrap" = RIP.Ptr MyTypeImpl
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr MyTypeImpl
+         ) => RIP.CompatHasField.HasField "unwrap" MyType ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyType {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct MyStruct@
 
@@ -5342,6 +5387,13 @@ instance HasCField.HasCField An_int "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrap" An_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         An_int {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @struct \@cal_table_table@
 
     __defined at:__ @comprehensive\/c2hsc.h 341:5@
@@ -5751,6 +5803,14 @@ instance HasCField.HasCField Bug_24 "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bug_24 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bug_24 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @bug_24_2@
 
     __defined at:__ @comprehensive\/c2hsc.h 359:21@
@@ -5781,6 +5841,14 @@ instance HasCField.HasCField Bug_24_2 "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ PtrConst.PtrConst RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bug_24_2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bug_24_2 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @MyArray_27@
 
     __defined at:__ @comprehensive\/c2hsc.h 364:13@
@@ -5810,6 +5878,14 @@ instance HasCField.HasCField MyArray_27 "unwrap" where
     CA.ConstantArray 20 RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 20 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" MyArray_27 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyArray_27 {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct MyStruct_27@
 

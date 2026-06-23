@@ -196,6 +196,7 @@ hstypes:
       - unwrapE10
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -218,6 +219,7 @@ hstypes:
       - unwrapE11
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -240,6 +242,7 @@ hstypes:
       - unwrapE12
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -262,6 +265,7 @@ hstypes:
       - unwrapE13
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -284,6 +288,7 @@ hstypes:
       - unwrapE14
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -306,6 +311,7 @@ hstypes:
       - unwrapE15
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -328,6 +334,7 @@ hstypes:
       - unwrapE16
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -350,6 +357,7 @@ hstypes:
       - unwrapE17
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -372,6 +380,7 @@ hstypes:
       - unwrapE18
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -394,6 +403,7 @@ hstypes:
       - unwrapE19
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -422,6 +432,7 @@ hstypes:
       - unwrapE5
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -444,6 +455,7 @@ hstypes:
       - unwrapE6
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -466,6 +478,7 @@ hstypes:
       - unwrapE7
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -488,6 +501,7 @@ hstypes:
       - unwrapE8
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -510,6 +524,7 @@ hstypes:
       - unwrapE9
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

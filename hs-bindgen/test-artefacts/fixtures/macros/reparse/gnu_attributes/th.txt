@@ -129,6 +129,9 @@ instance (~) ty CInt => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapBOOL" BOOL ty
+    where hasField = \x_0 -> (\y_1 -> BOOL{unwrapBOOL = y_1},
+                              getField @"unwrapBOOL" x_0)
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_702437d53bf7e32f" hs_bindgen_702437d53bf7e32f_base ::
     Int32

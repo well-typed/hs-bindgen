@@ -301,10 +301,10 @@ getDecls supInsts hCfg spec structName info struct insts =
 -- > instance GHC.Records.HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
 -- > instance GHC.Records.Compat.HasField "myStruct_x" MyStruct CInt
 --
--- > instance HasCField "myStruct_y" MyStruct where type CFieldType "myStruct_y"
--- >   MyStruct = CChar instance GHC.Records.HasField "myStruct_y" (Ptr
--- > MyStruct) (Ptr CChar) instance GHC.Records.Compat.HasField "myStruct_y"
--- > MyStruct CChar
+-- > instance HasCField "myStruct_y" MyStruct where
+-- >  type CFieldType "myStruct_y" MyStruct = CChar
+-- > instance GHC.Records.HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
+-- > instance GHC.Records.Compat.HasField "myStruct_y" MyStruct CChar
 --
 -- This works similarly for bit-fields, but those get a
 -- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
@@ -356,21 +356,6 @@ getFieldDecls structName cStruct hsStruct field = [
               Just _  -> Hs.ViaHasCBitfield
         }
 
-    compatHasFieldDecl :: Hs.CompatHasFieldInstance
-    compatHasFieldDecl = Hs.CompatHasFieldInstance {
-          parentType = parentType
-        , fieldName  = fieldName
-        , fieldType  = fieldType
-        , otherFields = otherFields
-        , constr = hsStruct.constr
-        }
-      where
-        -- All fields that are /not/ the field we are creating an instance for
-        -- should stay unmodified
-        otherFields = flip mapMaybe cStruct.fields $ \field' ->
-            let fieldName' = Hs.assertNs (Proxy @Hs.NsVar) field'.info.name.hsName in
-            if fieldName == fieldName' then Nothing else Just fieldName'
-
     hasCFieldDecl :: Hs.HasCFieldInstance
     hasCFieldDecl = Hs.HasCFieldInstance {
           parentType  = parentType
@@ -387,6 +372,21 @@ getFieldDecls structName cStruct hsStruct field = [
         , bitOffset     = field.offset
         , bitWidth      = w
         }
+
+    compatHasFieldDecl :: Hs.CompatHasFieldInstance
+    compatHasFieldDecl = Hs.CompatHasFieldInstance {
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , otherFields = otherFields
+        , constr = hsStruct.constr
+        }
+      where
+        -- All fields that are /not/ the field we are creating an instance for
+        -- should stay unmodified
+        otherFields = flip mapMaybe cStruct.fields $ \field' ->
+            let fieldName' = Hs.assertNs (Proxy @Hs.NsVar) field'.info.name.hsName in
+            if fieldName == fieldName' then Nothing else Just fieldName'
 
 peekField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
 peekField ptr field = case field.width of

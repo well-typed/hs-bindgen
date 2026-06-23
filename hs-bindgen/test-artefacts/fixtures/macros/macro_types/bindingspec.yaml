@@ -44,6 +44,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -73,6 +74,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -99,6 +101,7 @@ hstypes:
       fields:
       - unwrapMTy
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Floating
@@ -126,6 +129,7 @@ hstypes:
       fields:
       - unwrapPtrInt
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -144,6 +148,7 @@ hstypes:
       fields:
       - unwrapPtrPtrChar
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -165,6 +170,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -194,6 +200,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -220,6 +227,7 @@ hstypes:
       fields:
       - unwrapTty
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Floating
@@ -250,6 +258,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -279,6 +288,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

@@ -83,6 +83,10 @@ instance HasCField FileOperationStatus "unwrapFileOperationStatus"
     where type CFieldType FileOperationStatus
                           "unwrapFileOperationStatus" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapFileOperationStatus" FileOperationStatus ty
+    where hasField = \x_0 -> (\y_1 -> FileOperationStatus{unwrapFileOperationStatus = y_1},
+                              getField @"unwrapFileOperationStatus" x_0)
 {-| __C declaration:__ @SUCCESS@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@

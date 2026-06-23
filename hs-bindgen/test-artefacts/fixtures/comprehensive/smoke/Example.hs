@@ -78,6 +78,13 @@ instance HasCField.HasCField Uint "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" Uint ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Uint {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @size_t@
 
     __defined at:__ @comprehensive\/smoke.h 8:23@
@@ -116,6 +123,14 @@ instance HasCField.HasCField Size_t "unwrap" where
   type CFieldType Size_t "unwrap" = RIP.CULong
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "unwrap" Size_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct bar1_t@
 
@@ -813,6 +828,14 @@ instance HasCField.HasCField Baz2_t "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz2_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz2_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @BAZ2@
 
     __defined at:__ @comprehensive\/smoke.h 67:3@
@@ -911,6 +934,14 @@ instance HasCField.HasCField Baz3_t "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz3_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz3_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 {-| __C declaration:__ @BAZ3@
 
     __defined at:__ @comprehensive\/smoke.h 71:3@
@@ -1008,6 +1039,14 @@ instance HasCField.HasCField Baz4_t "unwrap" where
   type CFieldType Baz4_t "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz4_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz4_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @BAZ4@
 

@@ -87,6 +87,15 @@ instance HasCField.HasCField RunDriver_Aux "unwrapRunDriver_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapRunDriver_Aux" RunDriver_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> RunDriver_Aux {unwrapRunDriver_Aux = y1}
+      , RIP.getField @"unwrapRunDriver_Aux" x0
+      )
+
 {-| __C declaration:__ @RunDriver@
 
     __defined at:__ @functions\/typedef_funptr.h 12:15@
@@ -117,6 +126,14 @@ instance HasCField.HasCField RunDriver "unwrapRunDriver" where
     RIP.FunPtr RunDriver_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr RunDriver_Aux
+         ) => RIP.CompatHasField.HasField "unwrapRunDriver" RunDriver ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         RunDriver {unwrapRunDriver = y1}, RIP.getField @"unwrapRunDriver" x0)
 
 {-| __C declaration:__ @struct Driver@
 

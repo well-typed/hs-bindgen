@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @T2@
@@ -62,6 +63,13 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CFloat) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+
 {-| __C declaration:__ @T4@
 
     __defined at:__ @intermittent_include_conditional_inner.h 6:16@
@@ -98,6 +106,14 @@ instance HasCField.HasCField T4 "unwrapT4" where
   type CFieldType T4 "unwrapT4" = RIP.CDouble
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "unwrapT4" T4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T4 {unwrapT4 = y1}, RIP.getField @"unwrapT4" x0)
 
 {-| __C declaration:__ @T1@
 
@@ -138,6 +154,13 @@ instance HasCField.HasCField T1 "unwrapT1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macros\/parse\/intermittent_include_conditional.h 6:13@
@@ -177,6 +200,13 @@ instance HasCField.HasCField T3 "unwrapT3" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT3" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T3 {unwrapT3 = y1}, RIP.getField @"unwrapT3" x0)
+
 {-| __C declaration:__ @T5@
 
     __defined at:__ @macros\/parse\/intermittent_include_conditional.h 11:13@
@@ -215,3 +245,10 @@ instance HasCField.HasCField T5 "unwrapT5" where
   type CFieldType T5 "unwrapT5" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT5" T5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T5 {unwrapT5 = y1}, RIP.getField @"unwrapT5" x0)

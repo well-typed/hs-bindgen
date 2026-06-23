@@ -30,6 +30,9 @@ instance (~) ty CInt => HasField "unwrapM1" (Ptr M1) (Ptr ty)
 instance HasCField M1 "unwrapM1"
     where type CFieldType M1 "unwrapM1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapM1" M1 ty
+    where hasField = \x_0 -> (\y_1 -> M1{unwrapM1 = y_1},
+                              getField @"unwrapM1" x_0)
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macro_typedef_scope_multiple_inner1.h 2:12@
@@ -59,6 +62,9 @@ instance (~) ty M1 => HasField "unwrapT2" (Ptr T2) (Ptr ty)
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = M1
           offset# = \_ -> \_ -> 0
+instance (~) ty M1 => HasField "unwrapT2" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
+                              getField @"unwrapT2" x_0)
 {-| __C declaration:__ @macro M3@
 
     __defined at:__ @macro_typedef_scope_multiple_inner2.h 1:9@
@@ -88,6 +94,9 @@ instance (~) ty T2 => HasField "unwrapM3" (Ptr M3) (Ptr ty)
 instance HasCField M3 "unwrapM3"
     where type CFieldType M3 "unwrapM3" = T2
           offset# = \_ -> \_ -> 0
+instance (~) ty T2 => HasField "unwrapM3" M3 ty
+    where hasField = \x_0 -> (\y_1 -> M3{unwrapM3 = y_1},
+                              getField @"unwrapM3" x_0)
 {-| __C declaration:__ @T4@
 
     __defined at:__ @macro_typedef_scope_multiple_inner2.h 2:12@
@@ -117,3 +126,6 @@ instance (~) ty M3 => HasField "unwrapT4" (Ptr T4) (Ptr ty)
 instance HasCField T4 "unwrapT4"
     where type CFieldType T4 "unwrapT4" = M3
           offset# = \_ -> \_ -> 0
+instance (~) ty M3 => HasField "unwrapT4" T4 ty
+    where hasField = \x_0 -> (\y_1 -> T4{unwrapT4 = y_1},
+                              getField @"unwrapT4" x_0)

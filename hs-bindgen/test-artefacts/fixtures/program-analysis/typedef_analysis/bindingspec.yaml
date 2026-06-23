@@ -111,6 +111,7 @@ hstypes:
       fields:
       - unwrapStruct10_t_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -206,6 +207,7 @@ hstypes:
       fields:
       - unwrapStruct5_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -224,6 +226,7 @@ hstypes:
       fields:
       - unwrapStruct6
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -268,6 +271,7 @@ hstypes:
       fields:
       - unwrapStruct7a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -284,6 +288,7 @@ hstypes:
       fields:
       - unwrapStruct7b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -313,6 +318,7 @@ hstypes:
       fields:
       - unwrapStruct8b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -342,6 +348,7 @@ hstypes:
       fields:
       - unwrapStruct9_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -47,6 +47,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -74,6 +75,7 @@ hstypes:
       - unwrapA_typedef_enum_e
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -123,6 +125,7 @@ hstypes:
       - unwrapAnother_typedef_enum_e
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -162,6 +165,7 @@ hstypes:
       fields:
       - unwrapCallback_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -183,6 +187,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

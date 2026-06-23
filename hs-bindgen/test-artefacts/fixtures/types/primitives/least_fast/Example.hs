@@ -34,6 +34,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -78,6 +79,15 @@ instance HasCField.HasCField Int_fast16_t "unwrapInt_fast16_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "unwrapInt_fast16_t" Int_fast16_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_fast16_t {unwrapInt_fast16_t = y1}
+      , RIP.getField @"unwrapInt_fast16_t" x0
+      )
+
 {-| __C declaration:__ @int_fast32_t@
 
     __defined at:__ @bits\/stdint.h 2:17@
@@ -118,6 +128,15 @@ instance HasCField.HasCField Int_fast32_t "unwrapInt_fast32_t" where
     HsBindgen.Runtime.LibC.Int32
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "unwrapInt_fast32_t" Int_fast32_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_fast32_t {unwrapInt_fast32_t = y1}
+      , RIP.getField @"unwrapInt_fast32_t" x0
+      )
 
 {-| __C declaration:__ @uint_fast16_t@
 
@@ -160,6 +179,15 @@ instance HasCField.HasCField Uint_fast16_t "unwrapUint_fast16_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapUint_fast16_t" Uint_fast16_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_fast16_t {unwrapUint_fast16_t = y1}
+      , RIP.getField @"unwrapUint_fast16_t" x0
+      )
+
 {-| __C declaration:__ @uint_fast32_t@
 
     __defined at:__ @bits\/stdint.h 4:18@
@@ -200,6 +228,15 @@ instance HasCField.HasCField Uint_fast32_t "unwrapUint_fast32_t" where
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapUint_fast32_t" Uint_fast32_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_fast32_t {unwrapUint_fast32_t = y1}
+      , RIP.getField @"unwrapUint_fast32_t" x0
+      )
 
 {-| __C declaration:__ @int_fast8_t@
 
@@ -242,6 +279,15 @@ instance HasCField.HasCField Int_fast8_t "unwrapInt_fast8_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
+         ) => RIP.CompatHasField.HasField "unwrapInt_fast8_t" Int_fast8_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_fast8_t {unwrapInt_fast8_t = y1}
+      , RIP.getField @"unwrapInt_fast8_t" x0
+      )
+
 {-| __C declaration:__ @int_fast64_t@
 
     __defined at:__ @stdint.h 23:17@
@@ -282,6 +328,15 @@ instance HasCField.HasCField Int_fast64_t "unwrapInt_fast64_t" where
     HsBindgen.Runtime.LibC.Int64
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
+         ) => RIP.CompatHasField.HasField "unwrapInt_fast64_t" Int_fast64_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_fast64_t {unwrapInt_fast64_t = y1}
+      , RIP.getField @"unwrapInt_fast64_t" x0
+      )
 
 {-| __C declaration:__ @int_least8_t@
 
@@ -324,6 +379,15 @@ instance HasCField.HasCField Int_least8_t "unwrapInt_least8_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
+         ) => RIP.CompatHasField.HasField "unwrapInt_least8_t" Int_least8_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_least8_t {unwrapInt_least8_t = y1}
+      , RIP.getField @"unwrapInt_least8_t" x0
+      )
+
 {-| __C declaration:__ @int_least16_t@
 
     __defined at:__ @stdint.h 26:17@
@@ -364,6 +428,15 @@ instance HasCField.HasCField Int_least16_t "unwrapInt_least16_t" where
     HsBindgen.Runtime.LibC.Int16
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int16
+         ) => RIP.CompatHasField.HasField "unwrapInt_least16_t" Int_least16_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_least16_t {unwrapInt_least16_t = y1}
+      , RIP.getField @"unwrapInt_least16_t" x0
+      )
 
 {-| __C declaration:__ @int_least32_t@
 
@@ -406,6 +479,15 @@ instance HasCField.HasCField Int_least32_t "unwrapInt_least32_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "unwrapInt_least32_t" Int_least32_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_least32_t {unwrapInt_least32_t = y1}
+      , RIP.getField @"unwrapInt_least32_t" x0
+      )
+
 {-| __C declaration:__ @int_least64_t@
 
     __defined at:__ @stdint.h 28:17@
@@ -446,6 +528,15 @@ instance HasCField.HasCField Int_least64_t "unwrapInt_least64_t" where
     HsBindgen.Runtime.LibC.Int64
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
+         ) => RIP.CompatHasField.HasField "unwrapInt_least64_t" Int_least64_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Int_least64_t {unwrapInt_least64_t = y1}
+      , RIP.getField @"unwrapInt_least64_t" x0
+      )
 
 {-| __C declaration:__ @uint_fast8_t@
 
@@ -488,6 +579,15 @@ instance HasCField.HasCField Uint_fast8_t "unwrapUint_fast8_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapUint_fast8_t" Uint_fast8_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_fast8_t {unwrapUint_fast8_t = y1}
+      , RIP.getField @"unwrapUint_fast8_t" x0
+      )
+
 {-| __C declaration:__ @uint_fast64_t@
 
     __defined at:__ @stdint.h 31:18@
@@ -528,6 +628,15 @@ instance HasCField.HasCField Uint_fast64_t "unwrapUint_fast64_t" where
     HsBindgen.Runtime.LibC.Word64
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.CompatHasField.HasField "unwrapUint_fast64_t" Uint_fast64_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_fast64_t {unwrapUint_fast64_t = y1}
+      , RIP.getField @"unwrapUint_fast64_t" x0
+      )
 
 {-| __C declaration:__ @uint_least8_t@
 
@@ -570,6 +679,15 @@ instance HasCField.HasCField Uint_least8_t "unwrapUint_least8_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapUint_least8_t" Uint_least8_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_least8_t {unwrapUint_least8_t = y1}
+      , RIP.getField @"unwrapUint_least8_t" x0
+      )
+
 {-| __C declaration:__ @uint_least16_t@
 
     __defined at:__ @stdint.h 34:18@
@@ -610,6 +728,15 @@ instance HasCField.HasCField Uint_least16_t "unwrapUint_least16_t" where
     HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "unwrapUint_least16_t" Uint_least16_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_least16_t {unwrapUint_least16_t = y1}
+      , RIP.getField @"unwrapUint_least16_t" x0
+      )
 
 {-| __C declaration:__ @uint_least32_t@
 
@@ -652,6 +779,15 @@ instance HasCField.HasCField Uint_least32_t "unwrapUint_least32_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapUint_least32_t" Uint_least32_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_least32_t {unwrapUint_least32_t = y1}
+      , RIP.getField @"unwrapUint_least32_t" x0
+      )
+
 {-| __C declaration:__ @uint_least64_t@
 
     __defined at:__ @stdint.h 36:18@
@@ -692,3 +828,12 @@ instance HasCField.HasCField Uint_least64_t "unwrapUint_least64_t" where
     HsBindgen.Runtime.LibC.Word64
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.CompatHasField.HasField "unwrapUint_least64_t" Uint_least64_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint_least64_t {unwrapUint_least64_t = y1}
+      , RIP.getField @"unwrapUint_least64_t" x0
+      )

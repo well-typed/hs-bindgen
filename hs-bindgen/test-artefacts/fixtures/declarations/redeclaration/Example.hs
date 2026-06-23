@@ -70,6 +70,14 @@ instance HasCField.HasCField Int_t "unwrapInt_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapInt_t" Int_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int_t {unwrapInt_t = y1}, RIP.getField @"unwrapInt_t" x0)
+
 {-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/redeclaration.h 26:8@

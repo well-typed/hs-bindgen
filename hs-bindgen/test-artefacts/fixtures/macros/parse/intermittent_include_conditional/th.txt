@@ -27,6 +27,9 @@ instance (~) ty CFloat => HasField "unwrapT2" (Ptr T2) (Ptr ty)
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = CFloat
           offset# = \_ -> \_ -> 0
+instance (~) ty CFloat => HasField "unwrapT2" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
+                              getField @"unwrapT2" x_0)
 {-| __C declaration:__ @T4@
 
     __defined at:__ @intermittent_include_conditional_inner.h 6:16@
@@ -54,6 +57,9 @@ instance (~) ty CDouble => HasField "unwrapT4" (Ptr T4) (Ptr ty)
 instance HasCField T4 "unwrapT4"
     where type CFieldType T4 "unwrapT4" = CDouble
           offset# = \_ -> \_ -> 0
+instance (~) ty CDouble => HasField "unwrapT4" T4 ty
+    where hasField = \x_0 -> (\y_1 -> T4{unwrapT4 = y_1},
+                              getField @"unwrapT4" x_0)
 {-| __C declaration:__ @T1@
 
     __defined at:__ @macros\/parse\/intermittent_include_conditional.h 1:13@
@@ -83,6 +89,9 @@ instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapT1" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{unwrapT1 = y_1},
+                              getField @"unwrapT1" x_0)
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macros\/parse\/intermittent_include_conditional.h 6:13@
@@ -112,6 +121,9 @@ instance (~) ty CInt => HasField "unwrapT3" (Ptr T3) (Ptr ty)
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapT3" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{unwrapT3 = y_1},
+                              getField @"unwrapT3" x_0)
 {-| __C declaration:__ @T5@
 
     __defined at:__ @macros\/parse\/intermittent_include_conditional.h 11:13@
@@ -141,3 +153,6 @@ instance (~) ty CInt => HasField "unwrapT5" (Ptr T5) (Ptr ty)
 instance HasCField T5 "unwrapT5"
     where type CFieldType T5 "unwrapT5" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapT5" T5 ty
+    where hasField = \x_0 -> (\y_1 -> T5{unwrapT5 = y_1},
+                              getField @"unwrapT5" x_0)

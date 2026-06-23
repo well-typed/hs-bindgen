@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified M
 
@@ -86,6 +87,16 @@ instance HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux"
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapMyFunctionPointer_Aux" MyFunctionPointer_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MyFunctionPointer_Aux {unwrapMyFunctionPointer_Aux = y1}
+      , RIP.getField @"unwrapMyFunctionPointer_Aux" x0
+      )
+
 {-| __C declaration:__ @MyFunctionPointer@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
@@ -117,6 +128,16 @@ instance HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.FunPtr MyFunctionPointer_Aux
+         ) => RIP.CompatHasField.HasField "unwrapMyFunctionPointer" MyFunctionPointer ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MyFunctionPointer {unwrapMyFunctionPointer = y1}
+      , RIP.getField @"unwrapMyFunctionPointer" x0
+      )
+
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 9:9@
@@ -146,6 +167,13 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ MyFunctionPointer
+         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 10:9@
@@ -174,6 +202,12 @@ instance HasCField.HasCField B "unwrapB" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 31:9@
@@ -194,3 +228,9 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)

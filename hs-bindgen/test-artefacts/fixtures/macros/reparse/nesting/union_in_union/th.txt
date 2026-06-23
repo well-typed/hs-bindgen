@@ -47,6 +47,9 @@ instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @union \@T1_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_union.h 3:9@

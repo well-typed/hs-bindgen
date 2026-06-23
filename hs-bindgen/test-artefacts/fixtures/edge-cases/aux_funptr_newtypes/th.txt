@@ -16,6 +16,10 @@ instance (~) ty (Foo -> IO ()) =>
 instance HasCField FunPtr_Aux "unwrapFunPtr_Aux"
     where type CFieldType FunPtr_Aux "unwrapFunPtr_Aux" = Foo -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (Foo -> IO ()) =>
+         HasField "unwrapFunPtr_Aux" FunPtr_Aux ty
+    where hasField = \x_0 -> (\y_1 -> FunPtr_Aux{unwrapFunPtr_Aux = y_1},
+                              getField @"unwrapFunPtr_Aux" x_0)
 {-| __C declaration:__ @FunPtr@
 
     __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
@@ -36,6 +40,10 @@ instance (~) ty (FunPtr FunPtr_Aux) =>
 instance HasCField FunPtr "unwrapFunPtr"
     where type CFieldType FunPtr "unwrapFunPtr" = FunPtr FunPtr_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr FunPtr_Aux) =>
+         HasField "unwrapFunPtr" FunPtr ty
+    where hasField = \x_0 -> (\y_1 -> FunPtr{unwrapFunPtr = y_1},
+                              getField @"unwrapFunPtr" x_0)
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @edge-cases\/aux_funptr_newtypes.h 8:8@

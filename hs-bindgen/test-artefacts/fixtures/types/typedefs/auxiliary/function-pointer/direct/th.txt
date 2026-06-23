@@ -36,3 +36,6 @@ instance (~) ty (CInt -> IO ()) =>
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)

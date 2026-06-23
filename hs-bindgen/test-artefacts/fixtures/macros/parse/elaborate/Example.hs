@@ -26,6 +26,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro INNER_B@
@@ -96,6 +97,14 @@ instance HasCField.HasCField Outer_int "unwrapOuter_int" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapOuter_int" Outer_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Outer_int {unwrapOuter_int = y1}, RIP.getField @"unwrapOuter_int" x0)
+
 {-| __C declaration:__ @inner_int@
 
     __defined at:__ @elaborate_inner.h 3:19@
@@ -136,6 +145,14 @@ instance HasCField.HasCField Inner_int "unwrapInner_int" where
     Outer_int
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Outer_int
+         ) => RIP.CompatHasField.HasField "unwrapInner_int" Inner_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Inner_int {unwrapInner_int = y1}, RIP.getField @"unwrapInner_int" x0)
 
 {-| __C declaration:__ @macro OUTER_B@
 

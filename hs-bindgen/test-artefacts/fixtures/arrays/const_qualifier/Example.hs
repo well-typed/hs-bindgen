@@ -25,6 +25,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -52,6 +53,13 @@ instance HasCField.HasCField S "unwrapS" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapS" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S {unwrapS = y1}, RIP.getField @"unwrapS" x0)
+
 {-| __C declaration:__ @T@
 
     __defined at:__ @arrays\/const_qualifier.h 8:19@
@@ -75,6 +83,13 @@ instance HasCField.HasCField T "unwrapT" where
     IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 {-| __C declaration:__ @U@
 
@@ -106,6 +121,13 @@ instance HasCField.HasCField U "unwrapU" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapU" U ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> U {unwrapU = y1}, RIP.getField @"unwrapU" x0)
+
 {-| __C declaration:__ @V@
 
     __defined at:__ @arrays\/const_qualifier.h 19:19@
@@ -135,6 +157,13 @@ instance HasCField.HasCField V "unwrapV" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapV" V ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> V {unwrapV = y1}, RIP.getField @"unwrapV" x0)
 
 {-| __C declaration:__ @W@
 
@@ -166,6 +195,13 @@ instance HasCField.HasCField W "unwrapW" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapW" W ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> W {unwrapW = y1}, RIP.getField @"unwrapW" x0)
+
 {-| __C declaration:__ @X@
 
     __defined at:__ @arrays\/const_qualifier.h 30:19@
@@ -195,3 +231,10 @@ instance HasCField.HasCField X "unwrapX" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapX" X ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> X {unwrapX = y1}, RIP.getField @"unwrapX" x0)

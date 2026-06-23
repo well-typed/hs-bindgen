@@ -150,6 +150,14 @@ instance HasCField.HasCField Point1b "unwrapPoint1b" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ Point1a
+         ) => RIP.CompatHasField.HasField "unwrapPoint1b" Point1b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Point1b {unwrapPoint1b = y1}, RIP.getField @"unwrapPoint1b" x0)
+
 {-| __C declaration:__ @struct point2a@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:9@
@@ -272,6 +280,14 @@ instance HasCField.HasCField Point2b "unwrapPoint2b" where
     RIP.Ptr Point2a
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr Point2a
+         ) => RIP.CompatHasField.HasField "unwrapPoint2b" Point2b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Point2b {unwrapPoint2b = y1}, RIP.getField @"unwrapPoint2b" x0)
 
 {-| __C declaration:__ @struct \@point3a_Aux@
 
@@ -400,6 +416,14 @@ instance HasCField.HasCField Point3a "unwrapPoint3a" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr Point3a_Aux
+         ) => RIP.CompatHasField.HasField "unwrapPoint3a" Point3a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Point3a {unwrapPoint3a = y1}, RIP.getField @"unwrapPoint3a" x0)
+
 {-| __C declaration:__ @point3b@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
@@ -430,3 +454,11 @@ instance HasCField.HasCField Point3b "unwrapPoint3b" where
     RIP.Ptr Point3a_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr Point3a_Aux
+         ) => RIP.CompatHasField.HasField "unwrapPoint3b" Point3b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Point3b {unwrapPoint3b = y1}, RIP.getField @"unwrapPoint3b" x0)

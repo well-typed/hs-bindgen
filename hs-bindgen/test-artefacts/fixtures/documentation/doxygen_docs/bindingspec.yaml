@@ -113,6 +113,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -160,6 +161,7 @@ hstypes:
       - unwrapColor_enum
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -306,6 +308,7 @@ hstypes:
       fields:
       - unwrapEvent_callback_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -324,6 +327,7 @@ hstypes:
       fields:
       - unwrapFilename_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -455,6 +459,7 @@ hstypes:
       fields:
       - unwrapProcessor_fn_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -476,6 +481,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -503,6 +509,7 @@ hstypes:
       - unwrapStatus_code_t
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

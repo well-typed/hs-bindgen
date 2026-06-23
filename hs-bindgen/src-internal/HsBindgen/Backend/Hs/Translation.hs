@@ -340,6 +340,7 @@ enumDecs info enum spec = do
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
+          , Just Inst.CompatHasField
           , Just Inst.Prim
           , Just Inst.Read
           , Just Inst.ReadRaw
@@ -523,6 +524,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
+          , Just Inst.CompatHasField
           , Inst.ToFunPtr <$ isFunType
           ]
 
@@ -573,8 +575,9 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         newtypeWrapper :: [Hs.Decl l]
         newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype env.sizeofs nt) isFunType
 
--- | 'HsBindgen.Runtime.HasCField.HasCField', 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', and 'GHC.Records.HasField' instances for a typedef
--- declaration.
+-- | 'HsBindgen.Runtime.HasCField.HasCField',
+-- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', 'GHC.Records.HasField', and
+-- 'GHC.Records.Compat.HasField' instances for a typedef declaration.
 --
 -- Given a typedef:
 --
@@ -584,16 +587,20 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
 --
 -- > newtype MyInt = MyInt { unwrapMyInt :: CInt }
 --
+-- GHC automatically generates 'GHC.Records.HasField' instances for the
+-- @unwrapMyInt@ field.
+--
 -- Then, 'typedefFieldDecls' will generate roughly the following class
 -- instances.
 --
 -- > instance HasCField "unwrapMyInt" MyInt where
 -- >   type CFieldType "unwrapMyInt" MyInt = CInt
--- > instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
+-- > instance GHC.Records.HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
+-- > instance GHC.Records.Compat.HasField "unwrapMyInt" MyInt CInt
 --
--- These instance help eliminating newtypes from 'Foreign.Ptr.Ptr' types. Naturally,
--- newtypes can also be introduced in 'Foreign.Ptr.Ptr' types, but this should be done using
--- 'Foreign.Ptr.castPtr' or some similar function.
+-- The first two instances help eliminating newtypes from 'Foreign.Ptr.Ptr'
+-- types. Naturally, newtypes can also be introduced in 'Foreign.Ptr.Ptr' types,
+-- but this should be done using 'Foreign.Ptr.castPtr' or some similar function.
 typedefFieldDecls :: Hs.Newtype -> [Hs.Decl l]
 typedefFieldDecls hsNewType = [
     -- * Eliminate newtypes
@@ -601,32 +608,46 @@ typedefFieldDecls hsNewType = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField elimHasFieldDecl
+          , instanceDecl = Hs.InstanceHasField hasFieldDecl
           }
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl = Hs.InstanceHasCField elimHasCFieldDecl
+          , instanceDecl = Hs.InstanceHasCField hasCFieldDecl
+          }
+    , Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceCompatHasField compatHasFieldDecl
           }
     ]
   where
     parentType :: HsType
     parentType = Hs.HsTypRef hsNewType.name (Just hsNewType.field.typ)
 
-    elimHasFieldDecl :: Hs.HasFieldInstance
-    elimHasFieldDecl = Hs.HasFieldInstance{
+    hasFieldDecl :: Hs.HasFieldInstance
+    hasFieldDecl = Hs.HasFieldInstance{
           parentType = parentType
         , fieldName  = hsNewType.field.name
         , fieldType  = hsNewType.field.typ
         , deriveVia  = Hs.ViaHasCField
         }
 
-    elimHasCFieldDecl :: Hs.HasCFieldInstance
-    elimHasCFieldDecl = Hs.HasCFieldInstance{
+    hasCFieldDecl :: Hs.HasCFieldInstance
+    hasCFieldDecl = Hs.HasCFieldInstance{
           parentType  = parentType
         , fieldName   = hsNewType.field.name
         , cFieldType  = hsNewType.field.typ
         , fieldOffset = 0
+        }
+
+    compatHasFieldDecl :: Hs.CompatHasFieldInstance
+    compatHasFieldDecl = Hs.CompatHasFieldInstance {
+          parentType = parentType
+        , fieldName  = hsNewType.field.name
+        , fieldType  = hsNewType.field.typ
+        , otherFields = []
+        , constr = hsNewType.constr
         }
 
 -- | Typedef around function type indirection
@@ -794,7 +815,12 @@ macroDecsTypedef macroLang info macroType spec = do
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField, Inst.Generic]
+        knownInsts = Set.fromList [
+              Inst.HasCField
+            , Inst.HasField
+            , Inst.CompatHasField
+            , Inst.Generic
+            ]
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]

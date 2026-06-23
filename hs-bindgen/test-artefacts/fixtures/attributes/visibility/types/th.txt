@@ -1377,6 +1377,9 @@ instance (~) ty CUInt => HasField "unwrapE5" (Ptr E5) (Ptr ty)
 instance HasCField E5 "unwrapE5"
     where type CFieldType E5 "unwrapE5" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE5" E5 ty
+    where hasField = \x_0 -> (\y_1 -> E5{unwrapE5 = y_1},
+                              getField @"unwrapE5" x_0)
 {-| __C declaration:__ @x5@
 
     __defined at:__ @attributes\/visibility\/types.h 100:54@
@@ -1428,6 +1431,9 @@ instance (~) ty CUInt => HasField "unwrapE6" (Ptr E6) (Ptr ty)
 instance HasCField E6 "unwrapE6"
     where type CFieldType E6 "unwrapE6" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE6" E6 ty
+    where hasField = \x_0 -> (\y_1 -> E6{unwrapE6 = y_1},
+                              getField @"unwrapE6" x_0)
 {-| __C declaration:__ @x6@
 
     __defined at:__ @attributes\/visibility\/types.h 101:54@
@@ -1479,6 +1485,9 @@ instance (~) ty CUInt => HasField "unwrapE7" (Ptr E7) (Ptr ty)
 instance HasCField E7 "unwrapE7"
     where type CFieldType E7 "unwrapE7" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE7" E7 ty
+    where hasField = \x_0 -> (\y_1 -> E7{unwrapE7 = y_1},
+                              getField @"unwrapE7" x_0)
 {-| __C declaration:__ @x7@
 
     __defined at:__ @attributes\/visibility\/types.h 102:54@
@@ -1530,6 +1539,9 @@ instance (~) ty CUInt => HasField "unwrapE8" (Ptr E8) (Ptr ty)
 instance HasCField E8 "unwrapE8"
     where type CFieldType E8 "unwrapE8" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE8" E8 ty
+    where hasField = \x_0 -> (\y_1 -> E8{unwrapE8 = y_1},
+                              getField @"unwrapE8" x_0)
 {-| __C declaration:__ @x8@
 
     __defined at:__ @attributes\/visibility\/types.h 103:54@
@@ -1581,6 +1593,9 @@ instance (~) ty CUInt => HasField "unwrapE9" (Ptr E9) (Ptr ty)
 instance HasCField E9 "unwrapE9"
     where type CFieldType E9 "unwrapE9" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE9" E9 ty
+    where hasField = \x_0 -> (\y_1 -> E9{unwrapE9 = y_1},
+                              getField @"unwrapE9" x_0)
 {-| __C declaration:__ @x9@
 
     __defined at:__ @attributes\/visibility\/types.h 104:54@
@@ -1633,6 +1648,9 @@ instance (~) ty CUInt => HasField "unwrapE10" (Ptr E10) (Ptr ty)
 instance HasCField E10 "unwrapE10"
     where type CFieldType E10 "unwrapE10" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE10" E10 ty
+    where hasField = \x_0 -> (\y_1 -> E10{unwrapE10 = y_1},
+                              getField @"unwrapE10" x_0)
 {-| __C declaration:__ @x10@
 
     __defined at:__ @attributes\/visibility\/types.h 113:55@
@@ -1685,6 +1703,9 @@ instance (~) ty CUInt => HasField "unwrapE11" (Ptr E11) (Ptr ty)
 instance HasCField E11 "unwrapE11"
     where type CFieldType E11 "unwrapE11" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE11" E11 ty
+    where hasField = \x_0 -> (\y_1 -> E11{unwrapE11 = y_1},
+                              getField @"unwrapE11" x_0)
 {-| __C declaration:__ @x11@
 
     __defined at:__ @attributes\/visibility\/types.h 114:55@
@@ -1737,6 +1758,9 @@ instance (~) ty CUInt => HasField "unwrapE12" (Ptr E12) (Ptr ty)
 instance HasCField E12 "unwrapE12"
     where type CFieldType E12 "unwrapE12" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE12" E12 ty
+    where hasField = \x_0 -> (\y_1 -> E12{unwrapE12 = y_1},
+                              getField @"unwrapE12" x_0)
 {-| __C declaration:__ @x12@
 
     __defined at:__ @attributes\/visibility\/types.h 115:55@
@@ -1789,6 +1813,9 @@ instance (~) ty CUInt => HasField "unwrapE13" (Ptr E13) (Ptr ty)
 instance HasCField E13 "unwrapE13"
     where type CFieldType E13 "unwrapE13" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE13" E13 ty
+    where hasField = \x_0 -> (\y_1 -> E13{unwrapE13 = y_1},
+                              getField @"unwrapE13" x_0)
 {-| __C declaration:__ @x13@
 
     __defined at:__ @attributes\/visibility\/types.h 116:55@
@@ -1841,6 +1868,9 @@ instance (~) ty CUInt => HasField "unwrapE14" (Ptr E14) (Ptr ty)
 instance HasCField E14 "unwrapE14"
     where type CFieldType E14 "unwrapE14" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE14" E14 ty
+    where hasField = \x_0 -> (\y_1 -> E14{unwrapE14 = y_1},
+                              getField @"unwrapE14" x_0)
 {-| __C declaration:__ @x14@
 
     __defined at:__ @attributes\/visibility\/types.h 117:55@
@@ -1893,6 +1923,9 @@ instance (~) ty CUInt => HasField "unwrapE15" (Ptr E15) (Ptr ty)
 instance HasCField E15 "unwrapE15"
     where type CFieldType E15 "unwrapE15" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE15" E15 ty
+    where hasField = \x_0 -> (\y_1 -> E15{unwrapE15 = y_1},
+                              getField @"unwrapE15" x_0)
 {-| __C declaration:__ @x15@
 
     __defined at:__ @attributes\/visibility\/types.h 126:55@
@@ -1945,6 +1978,9 @@ instance (~) ty CUInt => HasField "unwrapE16" (Ptr E16) (Ptr ty)
 instance HasCField E16 "unwrapE16"
     where type CFieldType E16 "unwrapE16" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE16" E16 ty
+    where hasField = \x_0 -> (\y_1 -> E16{unwrapE16 = y_1},
+                              getField @"unwrapE16" x_0)
 {-| __C declaration:__ @x16@
 
     __defined at:__ @attributes\/visibility\/types.h 127:55@
@@ -1997,6 +2033,9 @@ instance (~) ty CUInt => HasField "unwrapE17" (Ptr E17) (Ptr ty)
 instance HasCField E17 "unwrapE17"
     where type CFieldType E17 "unwrapE17" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE17" E17 ty
+    where hasField = \x_0 -> (\y_1 -> E17{unwrapE17 = y_1},
+                              getField @"unwrapE17" x_0)
 {-| __C declaration:__ @x17@
 
     __defined at:__ @attributes\/visibility\/types.h 128:55@
@@ -2049,6 +2088,9 @@ instance (~) ty CUInt => HasField "unwrapE18" (Ptr E18) (Ptr ty)
 instance HasCField E18 "unwrapE18"
     where type CFieldType E18 "unwrapE18" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE18" E18 ty
+    where hasField = \x_0 -> (\y_1 -> E18{unwrapE18 = y_1},
+                              getField @"unwrapE18" x_0)
 {-| __C declaration:__ @x18@
 
     __defined at:__ @attributes\/visibility\/types.h 129:55@
@@ -2101,6 +2143,9 @@ instance (~) ty CUInt => HasField "unwrapE19" (Ptr E19) (Ptr ty)
 instance HasCField E19 "unwrapE19"
     where type CFieldType E19 "unwrapE19" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE19" E19 ty
+    where hasField = \x_0 -> (\y_1 -> E19{unwrapE19 = y_1},
+                              getField @"unwrapE19" x_0)
 {-| __C declaration:__ @x19@
 
     __defined at:__ @attributes\/visibility\/types.h 130:55@

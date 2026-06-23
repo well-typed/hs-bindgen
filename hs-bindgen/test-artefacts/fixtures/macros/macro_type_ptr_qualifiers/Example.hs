@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
@@ -57,6 +58,14 @@ instance HasCField.HasCField PtrToVoid "unwrapPtrToVoid" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.CompatHasField.HasField "unwrapPtrToVoid" PtrToVoid ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         PtrToVoid {unwrapPtrToVoid = y1}, RIP.getField @"unwrapPtrToVoid" x0)
+
 {-| __C declaration:__ @macro PtrToConstVoidL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 5:9@
@@ -87,6 +96,15 @@ instance HasCField.HasCField PtrToConstVoidL "unwrapPtrToConstVoidL" where
     PtrConst.PtrConst RIP.Void
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ PtrConst.PtrConst RIP.Void
+         ) => RIP.CompatHasField.HasField "unwrapPtrToConstVoidL" PtrToConstVoidL ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> PtrToConstVoidL {unwrapPtrToConstVoidL = y1}
+      , RIP.getField @"unwrapPtrToConstVoidL" x0
+      )
 
 {-| __C declaration:__ @macro PtrToConstVoidR@
 
@@ -119,6 +137,15 @@ instance HasCField.HasCField PtrToConstVoidR "unwrapPtrToConstVoidR" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ PtrConst.PtrConst RIP.Void
+         ) => RIP.CompatHasField.HasField "unwrapPtrToConstVoidR" PtrToConstVoidR ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> PtrToConstVoidR {unwrapPtrToConstVoidR = y1}
+      , RIP.getField @"unwrapPtrToConstVoidR" x0
+      )
+
 {-| __C declaration:__ @macro PtrToConstIntL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 11:9@
@@ -149,6 +176,15 @@ instance HasCField.HasCField PtrToConstIntL "unwrapPtrToConstIntL" where
     PtrConst.PtrConst RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ PtrConst.PtrConst RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapPtrToConstIntL" PtrToConstIntL ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> PtrToConstIntL {unwrapPtrToConstIntL = y1}
+      , RIP.getField @"unwrapPtrToConstIntL" x0
+      )
 
 {-| __C declaration:__ @macro PtrToConstIntR@
 
@@ -181,6 +217,15 @@ instance HasCField.HasCField PtrToConstIntR "unwrapPtrToConstIntR" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ PtrConst.PtrConst RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapPtrToConstIntR" PtrToConstIntR ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> PtrToConstIntR {unwrapPtrToConstIntR = y1}
+      , RIP.getField @"unwrapPtrToConstIntR" x0
+      )
+
 {-| __C declaration:__ @macro ConstPtrToInt@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 17:9@
@@ -211,3 +256,12 @@ instance HasCField.HasCField ConstPtrToInt "unwrapConstPtrToInt" where
     RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapConstPtrToInt" ConstPtrToInt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> ConstPtrToInt {unwrapConstPtrToInt = y1}
+      , RIP.getField @"unwrapConstPtrToInt" x0
+      )

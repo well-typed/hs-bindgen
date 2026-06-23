@@ -162,6 +162,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -198,6 +199,7 @@ hstypes:
       fields:
       - unwrap
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

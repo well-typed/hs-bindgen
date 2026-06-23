@@ -56,6 +56,9 @@ instance (~) ty CInt => HasField "unwrapTypeA" (Ptr TypeA) (Ptr ty)
 instance HasCField TypeA "unwrapTypeA"
     where type CFieldType TypeA "unwrapTypeA" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapTypeA" TypeA ty
+    where hasField = \x_0 -> (\y_1 -> TypeA{unwrapTypeA = y_1},
+                              getField @"unwrapTypeA" x_0)
 {-| __C declaration:__ @macro TypeB@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 9:9@
@@ -86,3 +89,6 @@ instance (~) ty TypeA =>
 instance HasCField TypeB "unwrapTypeB"
     where type CFieldType TypeB "unwrapTypeB" = TypeA
           offset# = \_ -> \_ -> 0
+instance (~) ty TypeA => HasField "unwrapTypeB" TypeB ty
+    where hasField = \x_0 -> (\y_1 -> TypeB{unwrapTypeB = y_1},
+                              getField @"unwrapTypeB" x_0)

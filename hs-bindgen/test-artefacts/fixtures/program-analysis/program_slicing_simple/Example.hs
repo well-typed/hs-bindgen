@@ -64,6 +64,14 @@ instance HasCField.HasCField Uint32_t "unwrapUint32_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapUint32_t" Uint32_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Uint32_t {unwrapUint32_t = y1}, RIP.getField @"unwrapUint32_t" x0)
+
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@

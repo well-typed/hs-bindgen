@@ -89,6 +89,9 @@ instance (~) ty Point1a =>
 instance HasCField Point1b "unwrapPoint1b"
     where type CFieldType Point1b "unwrapPoint1b" = Point1a
           offset# = \_ -> \_ -> 0
+instance (~) ty Point1a => HasField "unwrapPoint1b" Point1b ty
+    where hasField = \x_0 -> (\y_1 -> Point1b{unwrapPoint1b = y_1},
+                              getField @"unwrapPoint1b" x_0)
 {-| __C declaration:__ @struct point2a@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:9@
@@ -159,6 +162,10 @@ instance (~) ty (Ptr Point2a) =>
 instance HasCField Point2b "unwrapPoint2b"
     where type CFieldType Point2b "unwrapPoint2b" = Ptr Point2a
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Point2a) =>
+         HasField "unwrapPoint2b" Point2b ty
+    where hasField = \x_0 -> (\y_1 -> Point2b{unwrapPoint2b = y_1},
+                              getField @"unwrapPoint2b" x_0)
 {-| __C declaration:__ @struct \@point3a_Aux@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:9@
@@ -231,6 +238,10 @@ instance (~) ty (Ptr Point3a_Aux) =>
 instance HasCField Point3a "unwrapPoint3a"
     where type CFieldType Point3a "unwrapPoint3a" = Ptr Point3a_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Point3a_Aux) =>
+         HasField "unwrapPoint3a" Point3a ty
+    where hasField = \x_0 -> (\y_1 -> Point3a{unwrapPoint3a = y_1},
+                              getField @"unwrapPoint3a" x_0)
 {-| __C declaration:__ @point3b@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
@@ -251,6 +262,10 @@ instance (~) ty (Ptr Point3a_Aux) =>
 instance HasCField Point3b "unwrapPoint3b"
     where type CFieldType Point3b "unwrapPoint3b" = Ptr Point3a_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Point3a_Aux) =>
+         HasField "unwrapPoint3b" Point3b ty
+    where hasField = \x_0 -> (\y_1 -> Point3b{unwrapPoint3b = y_1},
+                              getField @"unwrapPoint3b" x_0)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
 foreign import ccall safe "hs_bindgen_c97a0d4458699ad7" hs_bindgen_c97a0d4458699ad7_base ::
     Ptr Void

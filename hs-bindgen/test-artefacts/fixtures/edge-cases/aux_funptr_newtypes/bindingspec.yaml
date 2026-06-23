@@ -35,6 +35,7 @@ hstypes:
       fields:
       - unwrapFunPtr
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

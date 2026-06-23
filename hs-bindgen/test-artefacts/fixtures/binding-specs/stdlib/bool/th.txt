@@ -29,3 +29,7 @@ instance (~) ty CBool =>
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
     where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
           offset# = \_ -> \_ -> 0
+instance (~) ty CBool =>
+         HasField "unwrapStdlib_CBool" Stdlib_CBool ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CBool{unwrapStdlib_CBool = y_1},
+                              getField @"unwrapStdlib_CBool" x_0)

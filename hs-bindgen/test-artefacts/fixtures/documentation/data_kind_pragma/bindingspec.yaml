@@ -14,6 +14,7 @@ hstypes:
       fields:
       - unwrapTriplet
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

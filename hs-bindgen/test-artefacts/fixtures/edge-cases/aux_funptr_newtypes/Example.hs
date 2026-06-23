@@ -51,6 +51,15 @@ instance HasCField.HasCField FunPtr_Aux "unwrapFunPtr_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (Foo -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapFunPtr_Aux" FunPtr_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> FunPtr_Aux {unwrapFunPtr_Aux = y1}
+      , RIP.getField @"unwrapFunPtr_Aux" x0
+      )
+
 {-| __C declaration:__ @FunPtr@
 
     __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
@@ -81,6 +90,14 @@ instance HasCField.HasCField FunPtr "unwrapFunPtr" where
     RIP.FunPtr FunPtr_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr FunPtr_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunPtr" FunPtr ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         FunPtr {unwrapFunPtr = y1}, RIP.getField @"unwrapFunPtr" x0)
 
 {-| __C declaration:__ @struct foo@
 

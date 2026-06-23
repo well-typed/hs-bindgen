@@ -108,6 +108,9 @@
   [#2014](https://github.com/well-typed/hs-bindgen/issues/2014).
 * Generate `GHC.Records.Compat.HasField` instances for struct datatypes. See
   [issue #2059][is-2059] and PR[PR #2075][pr-2075].
+* Generate `GHC.Records.Compat.HasField` instances for generated newtypes. Such
+  newtypes are generated for typedefs, enums, and macro types. See [issue
+  #2083][is-2083] and PR[PR #2087][pr-2087].
 
 ### Minor changes
 
@@ -229,6 +232,7 @@
 [is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
+[is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
@@ -241,6 +245,7 @@
 [pr-2068]: https://github.com/well-typed/hs-bindgen/pull/2068
 [pr-2070]: https://github.com/well-typed/hs-bindgen/pull/2070
 [pr-2075]: https://github.com/well-typed/hs-bindgen/pull/2075
+[pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

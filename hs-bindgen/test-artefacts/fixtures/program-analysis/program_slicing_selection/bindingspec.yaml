@@ -36,6 +36,7 @@ hstypes:
       - unwrapFileOperationStatus
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

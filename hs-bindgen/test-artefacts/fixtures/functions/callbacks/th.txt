@@ -474,6 +474,12 @@ instance HasCField FileOpenedNotification_Aux
     where type CFieldType FileOpenedNotification_Aux
                           "unwrapFileOpenedNotification_Aux" = IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (IO ()) =>
+         HasField "unwrapFileOpenedNotification_Aux"
+                  FileOpenedNotification_Aux
+                  ty
+    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification_Aux{unwrapFileOpenedNotification_Aux = y_1},
+                              getField @"unwrapFileOpenedNotification_Aux" x_0)
 {-| __C declaration:__ @FileOpenedNotification@
 
     __defined at:__ @functions\/callbacks.h 10:16@
@@ -498,6 +504,10 @@ instance HasCField FileOpenedNotification
     where type CFieldType FileOpenedNotification
                           "unwrapFileOpenedNotification" = FunPtr FileOpenedNotification_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr FileOpenedNotification_Aux) =>
+         HasField "unwrapFileOpenedNotification" FileOpenedNotification ty
+    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification{unwrapFileOpenedNotification = y_1},
+                              getField @"unwrapFileOpenedNotification" x_0)
 {-| Auxiliary type used by 'ProgressUpdate'
 
     __C declaration:__ @ProgressUpdate@
@@ -542,6 +552,10 @@ instance HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux"
     where type CFieldType ProgressUpdate_Aux
                           "unwrapProgressUpdate_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty
+    where hasField = \x_0 -> (\y_1 -> ProgressUpdate_Aux{unwrapProgressUpdate_Aux = y_1},
+                              getField @"unwrapProgressUpdate_Aux" x_0)
 {-| __C declaration:__ @ProgressUpdate@
 
     __defined at:__ @functions\/callbacks.h 11:16@
@@ -563,6 +577,10 @@ instance HasCField ProgressUpdate "unwrapProgressUpdate"
     where type CFieldType ProgressUpdate
                           "unwrapProgressUpdate" = FunPtr ProgressUpdate_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr ProgressUpdate_Aux) =>
+         HasField "unwrapProgressUpdate" ProgressUpdate ty
+    where hasField = \x_0 -> (\y_1 -> ProgressUpdate{unwrapProgressUpdate = y_1},
+                              getField @"unwrapProgressUpdate" x_0)
 {-| Auxiliary type used by 'DataValidator'
 
     __C declaration:__ @DataValidator@
@@ -605,6 +623,10 @@ instance HasCField DataValidator_Aux "unwrapDataValidator_Aux"
     where type CFieldType DataValidator_Aux
                           "unwrapDataValidator_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapDataValidator_Aux" DataValidator_Aux ty
+    where hasField = \x_0 -> (\y_1 -> DataValidator_Aux{unwrapDataValidator_Aux = y_1},
+                              getField @"unwrapDataValidator_Aux" x_0)
 {-| __C declaration:__ @DataValidator@
 
     __defined at:__ @functions\/callbacks.h 12:15@
@@ -626,6 +648,10 @@ instance HasCField DataValidator "unwrapDataValidator"
     where type CFieldType DataValidator
                           "unwrapDataValidator" = FunPtr DataValidator_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr DataValidator_Aux) =>
+         HasField "unwrapDataValidator" DataValidator ty
+    where hasField = \x_0 -> (\y_1 -> DataValidator{unwrapDataValidator = y_1},
+                              getField @"unwrapDataValidator" x_0)
 {-| __C declaration:__ @struct Measurement@
 
     __defined at:__ @functions\/callbacks.h 21:8@
@@ -726,6 +752,10 @@ instance HasCField MeasurementReceived_Aux
     where type CFieldType MeasurementReceived_Aux
                           "unwrapMeasurementReceived_Aux" = Ptr Measurement -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Measurement -> IO ()) =>
+         HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived_Aux{unwrapMeasurementReceived_Aux = y_1},
+                              getField @"unwrapMeasurementReceived_Aux" x_0)
 {-| __C declaration:__ @MeasurementReceived@
 
     __defined at:__ @functions\/callbacks.h 26:16@
@@ -749,6 +779,10 @@ instance HasCField MeasurementReceived "unwrapMeasurementReceived"
     where type CFieldType MeasurementReceived
                           "unwrapMeasurementReceived" = FunPtr MeasurementReceived_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr MeasurementReceived_Aux) =>
+         HasField "unwrapMeasurementReceived" MeasurementReceived ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived{unwrapMeasurementReceived = y_1},
+                              getField @"unwrapMeasurementReceived" x_0)
 {-| Auxiliary type used by 'MeasurementReceived2'
 
     __C declaration:__ @MeasurementReceived2@
@@ -771,6 +805,12 @@ instance HasCField MeasurementReceived2_Aux
     where type CFieldType MeasurementReceived2_Aux
                           "unwrapMeasurementReceived2_Aux" = Measurement -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (Measurement -> IO ()) =>
+         HasField "unwrapMeasurementReceived2_Aux"
+                  MeasurementReceived2_Aux
+                  ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2_Aux{unwrapMeasurementReceived2_Aux = y_1},
+                              getField @"unwrapMeasurementReceived2_Aux" x_0)
 {-| __C declaration:__ @MeasurementReceived2@
 
     __defined at:__ @functions\/callbacks.h 29:16@
@@ -795,6 +835,10 @@ instance HasCField MeasurementReceived2
     where type CFieldType MeasurementReceived2
                           "unwrapMeasurementReceived2" = FunPtr MeasurementReceived2_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr MeasurementReceived2_Aux) =>
+         HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2{unwrapMeasurementReceived2 = y_1},
+                              getField @"unwrapMeasurementReceived2" x_0)
 {-| Auxiliary type used by 'SampleBufferFull'
 
     __C declaration:__ @SampleBufferFull@
@@ -844,6 +888,10 @@ instance HasCField SampleBufferFull_Aux
                                                                                   CInt)) ->
                                                          IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr (Elem (ConstantArray 10 CInt)) -> IO ()) =>
+         HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty
+    where hasField = \x_0 -> (\y_1 -> SampleBufferFull_Aux{unwrapSampleBufferFull_Aux = y_1},
+                              getField @"unwrapSampleBufferFull_Aux" x_0)
 {-| __C declaration:__ @SampleBufferFull@
 
     __defined at:__ @functions\/callbacks.h 32:16@
@@ -865,6 +913,10 @@ instance HasCField SampleBufferFull "unwrapSampleBufferFull"
     where type CFieldType SampleBufferFull
                           "unwrapSampleBufferFull" = FunPtr SampleBufferFull_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr SampleBufferFull_Aux) =>
+         HasField "unwrapSampleBufferFull" SampleBufferFull ty
+    where hasField = \x_0 -> (\y_1 -> SampleBufferFull{unwrapSampleBufferFull = y_1},
+                              getField @"unwrapSampleBufferFull" x_0)
 {-| __C declaration:__ @struct MeasurementHandler@
 
     __defined at:__ @functions\/callbacks.h 50:8@
@@ -1247,6 +1299,10 @@ instance (~) ty CUInt =>
 instance HasCField Processor_mode "unwrapProcessor_mode"
     where type CFieldType Processor_mode "unwrapProcessor_mode" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt =>
+         HasField "unwrapProcessor_mode" Processor_mode ty
+    where hasField = \x_0 -> (\y_1 -> Processor_mode{unwrapProcessor_mode = y_1},
+                              getField @"unwrapProcessor_mode" x_0)
 {-| __C declaration:__ @MODE_SIMPLE@
 
     __defined at:__ @functions\/callbacks.h 76:10@
@@ -1355,6 +1411,9 @@ instance (~) ty CInt => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
 instance HasCField Foo "unwrapFoo"
     where type CFieldType Foo "unwrapFoo" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapFoo" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
+                              getField @"unwrapFoo" x_0)
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @functions\/callbacks.h 95:13@
@@ -1384,6 +1443,9 @@ instance (~) ty CInt => HasField "unwrapFoo2" (Ptr Foo2) (Ptr ty)
 instance HasCField Foo2 "unwrapFoo2"
     where type CFieldType Foo2 "unwrapFoo2" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapFoo2" Foo2 ty
+    where hasField = \x_0 -> (\y_1 -> Foo2{unwrapFoo2 = y_1},
+                              getField @"unwrapFoo2" x_0)
 {-| __C declaration:__ @A@
 
     __defined at:__ @functions\/callbacks.h 102:13@
@@ -1413,6 +1475,9 @@ instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @B@
 
     __defined at:__ @functions\/callbacks.h 108:13@
@@ -1442,6 +1507,9 @@ instance (~) ty CInt => HasField "unwrapB" (Ptr B) (Ptr ty)
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @functions\/callbacks.h 109:8@
@@ -1504,6 +1572,9 @@ instance (~) ty CInt => HasField "unwrapC" (Ptr C) (Ptr ty)
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapC" C ty
+    where hasField = \x_0 -> (\y_1 -> C{unwrapC = y_1},
+                              getField @"unwrapC" x_0)
 {-| __C declaration:__ @union U@
 
     __defined at:__ @functions\/callbacks.h 117:7@
@@ -1585,6 +1656,9 @@ instance (~) ty CInt => HasField "unwrapD" (Ptr D) (Ptr ty)
 instance HasCField D "unwrapD"
     where type CFieldType D "unwrapD" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapD" D ty
+    where hasField = \x_0 -> (\y_1 -> D{unwrapD = y_1},
+                              getField @"unwrapD" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/callbacks.h 125:15@
@@ -1622,6 +1696,10 @@ instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = FunPtr (D -> IO ()) -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
+         HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 -- __unique:__ @instance ToFunPtr (A -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_a46c670f88b5e6d2_base ::
     Int32 -> IO ()

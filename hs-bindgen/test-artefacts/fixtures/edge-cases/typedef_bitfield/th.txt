@@ -28,6 +28,9 @@ instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @myUInt@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 3:22@
@@ -58,6 +61,9 @@ instance (~) ty CUInt =>
 instance HasCField MyUInt "unwrapMyUInt"
     where type CFieldType MyUInt "unwrapMyUInt" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapMyUInt" MyUInt ty
+    where hasField = \x_0 -> (\y_1 -> MyUInt{unwrapMyUInt = y_1},
+                              getField @"unwrapMyUInt" x_0)
 {-| __C declaration:__ @myLong@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 4:14@
@@ -88,6 +94,9 @@ instance (~) ty CLong =>
 instance HasCField MyLong "unwrapMyLong"
     where type CFieldType MyLong "unwrapMyLong" = CLong
           offset# = \_ -> \_ -> 0
+instance (~) ty CLong => HasField "unwrapMyLong" MyLong ty
+    where hasField = \x_0 -> (\y_1 -> MyLong{unwrapMyLong = y_1},
+                              getField @"unwrapMyLong" x_0)
 {-| __C declaration:__ @struct myStruct@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 6:8@

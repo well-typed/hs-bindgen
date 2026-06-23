@@ -21,6 +21,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -55,6 +56,14 @@ instance HasCField.HasCField Matrix "unwrapMatrix" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapMatrix" Matrix ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Matrix {unwrapMatrix = y1}, RIP.getField @"unwrapMatrix" x0)
+
 {-| __C declaration:__ @triplets@
 
     __defined at:__ @arrays\/multi_dim.h 17:13@
@@ -79,3 +88,11 @@ instance HasCField.HasCField Triplets "unwrapTriplets" where
     IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapTriplets" Triplets ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Triplets {unwrapTriplets = y1}, RIP.getField @"unwrapTriplets" x0)

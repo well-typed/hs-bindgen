@@ -392,6 +392,9 @@ instance (~) ty (Ptr S7a_Aux) =>
 instance HasCField S7a "unwrapS7a"
     where type CFieldType S7a "unwrapS7a" = Ptr S7a_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr S7a_Aux) => HasField "unwrapS7a" S7a ty
+    where hasField = \x_0 -> (\y_1 -> S7a{unwrapS7a = y_1},
+                              getField @"unwrapS7a" x_0)
 {-| __C declaration:__ @struct \@S7b_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h 35:9@
@@ -463,3 +466,7 @@ instance (~) ty (Ptr (Ptr (Ptr S7b_Aux))) =>
 instance HasCField S7b "unwrapS7b"
     where type CFieldType S7b "unwrapS7b" = Ptr (Ptr (Ptr S7b_Aux))
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr (Ptr (Ptr S7b_Aux))) =>
+         HasField "unwrapS7b" S7b ty
+    where hasField = \x_0 -> (\y_1 -> S7b{unwrapS7b = y_1},
+                              getField @"unwrapS7b" x_0)

@@ -16,3 +16,7 @@ instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
                                                                   CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" Triplet ty
+    where hasField = \x_0 -> (\y_1 -> Triplet{unwrapTriplet = y_1},
+                              getField @"unwrapTriplet" x_0)

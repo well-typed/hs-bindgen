@@ -28,6 +28,9 @@ instance (~) ty CInt => HasField "unwrapMyint" (Ptr Myint) (Ptr ty)
 instance HasCField Myint "unwrapMyint"
     where type CFieldType Myint "unwrapMyint" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMyint" Myint ty
+    where hasField = \x_0 -> (\y_1 -> Myint{unwrapMyint = y_1},
+                              getField @"unwrapMyint" x_0)
 {-| __C declaration:__ @intptr@
 
     __defined at:__ @types\/typedefs\/typedefs.h 2:15@
@@ -48,6 +51,9 @@ instance (~) ty (Ptr CInt) =>
 instance HasCField Intptr "unwrapIntptr"
     where type CFieldType Intptr "unwrapIntptr" = Ptr CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr CInt) => HasField "unwrapIntptr" Intptr ty
+    where hasField = \x_0 -> (\y_1 -> Intptr{unwrapIntptr = y_1},
+                              getField @"unwrapIntptr" x_0)
 {-| __C declaration:__ @int2int@
 
     __defined at:__ @types\/typedefs\/typedefs.h 5:13@
@@ -85,6 +91,10 @@ instance (~) ty (CInt -> IO CInt) =>
 instance HasCField Int2int "unwrapInt2int"
     where type CFieldType Int2int "unwrapInt2int" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapInt2int" Int2int ty
+    where hasField = \x_0 -> (\y_1 -> Int2int{unwrapInt2int = y_1},
+                              getField @"unwrapInt2int" x_0)
 {-| Auxiliary type used by 'FunctionPointer_Function'
 
     __C declaration:__ @FunctionPointer_Function@
@@ -129,6 +139,12 @@ instance HasCField FunctionPointer_Function_Aux
     where type CFieldType FunctionPointer_Function_Aux
                           "unwrapFunctionPointer_Function_Aux" = IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (IO ()) =>
+         HasField "unwrapFunctionPointer_Function_Aux"
+                  FunctionPointer_Function_Aux
+                  ty
+    where hasField = \x_0 -> (\y_1 -> FunctionPointer_Function_Aux{unwrapFunctionPointer_Function_Aux = y_1},
+                              getField @"unwrapFunctionPointer_Function_Aux" x_0)
 {-| __C declaration:__ @FunctionPointer_Function@
 
     __defined at:__ @types\/typedefs\/typedefs.h 8:16@
@@ -153,6 +169,12 @@ instance HasCField FunctionPointer_Function
     where type CFieldType FunctionPointer_Function
                           "unwrapFunctionPointer_Function" = FunPtr FunctionPointer_Function_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr FunctionPointer_Function_Aux) =>
+         HasField "unwrapFunctionPointer_Function"
+                  FunctionPointer_Function
+                  ty
+    where hasField = \x_0 -> (\y_1 -> FunctionPointer_Function{unwrapFunctionPointer_Function = y_1},
+                              getField @"unwrapFunctionPointer_Function" x_0)
 {-| __C declaration:__ @NonFunctionPointer_Function@
 
     __defined at:__ @types\/typedefs\/typedefs.h 9:14@
@@ -197,6 +219,12 @@ instance HasCField NonFunctionPointer_Function
     where type CFieldType NonFunctionPointer_Function
                           "unwrapNonFunctionPointer_Function" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapNonFunctionPointer_Function"
+                  NonFunctionPointer_Function
+                  ty
+    where hasField = \x_0 -> (\y_1 -> NonFunctionPointer_Function{unwrapNonFunctionPointer_Function = y_1},
+                              getField @"unwrapNonFunctionPointer_Function" x_0)
 {-| Auxiliary type used by 'F1'
 
     __C declaration:__ @f1@
@@ -235,6 +263,9 @@ instance (~) ty (IO ()) =>
 instance HasCField F1_Aux "unwrapF1_Aux"
     where type CFieldType F1_Aux "unwrapF1_Aux" = IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (IO ()) => HasField "unwrapF1_Aux" F1_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F1_Aux{unwrapF1_Aux = y_1},
+                              getField @"unwrapF1_Aux" x_0)
 {-| __C declaration:__ @f1@
 
     __defined at:__ @types\/typedefs\/typedefs.h 11:16@
@@ -255,6 +286,9 @@ instance (~) ty (FunPtr F1_Aux) =>
 instance HasCField F1 "unwrapF1"
     where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr F1_Aux) => HasField "unwrapF1" F1 ty
+    where hasField = \x_0 -> (\y_1 -> F1{unwrapF1 = y_1},
+                              getField @"unwrapF1" x_0)
 {-| __C declaration:__ @g1@
 
     __defined at:__ @types\/typedefs\/typedefs.h 13:14@
@@ -290,6 +324,9 @@ instance (~) ty (IO ()) => HasField "unwrapG1" (Ptr G1) (Ptr ty)
 instance HasCField G1 "unwrapG1"
     where type CFieldType G1 "unwrapG1" = IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (IO ()) => HasField "unwrapG1" G1 ty
+    where hasField = \x_0 -> (\y_1 -> G1{unwrapG1 = y_1},
+                              getField @"unwrapG1" x_0)
 {-| __C declaration:__ @g2@
 
     __defined at:__ @types\/typedefs\/typedefs.h 14:14@
@@ -310,6 +347,9 @@ instance (~) ty (FunPtr G1) =>
 instance HasCField G2 "unwrapG2"
     where type CFieldType G2 "unwrapG2" = FunPtr G1
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr G1) => HasField "unwrapG2" G2 ty
+    where hasField = \x_0 -> (\y_1 -> G2{unwrapG2 = y_1},
+                              getField @"unwrapG2" x_0)
 {-| __C declaration:__ @h1@
 
     __defined at:__ @types\/typedefs\/typedefs.h 16:14@
@@ -345,6 +385,9 @@ instance (~) ty (IO ()) => HasField "unwrapH1" (Ptr H1) (Ptr ty)
 instance HasCField H1 "unwrapH1"
     where type CFieldType H1 "unwrapH1" = IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (IO ()) => HasField "unwrapH1" H1 ty
+    where hasField = \x_0 -> (\y_1 -> H1{unwrapH1 = y_1},
+                              getField @"unwrapH1" x_0)
 {-| __C declaration:__ @h2@
 
     __defined at:__ @types\/typedefs\/typedefs.h 17:12@
@@ -360,6 +403,9 @@ instance (~) ty H1 => HasField "unwrapH2" (Ptr H2) (Ptr ty)
 instance HasCField H2 "unwrapH2"
     where type CFieldType H2 "unwrapH2" = H1
           offset# = \_ -> \_ -> 0
+instance (~) ty H1 => HasField "unwrapH2" H2 ty
+    where hasField = \x_0 -> (\y_1 -> H2{unwrapH2 = y_1},
+                              getField @"unwrapH2" x_0)
 {-| __C declaration:__ @h3@
 
     __defined at:__ @types\/typedefs\/typedefs.h 18:14@
@@ -380,3 +426,6 @@ instance (~) ty (FunPtr H2) =>
 instance HasCField H3 "unwrapH3"
     where type CFieldType H3 "unwrapH3" = FunPtr H2
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr H2) => HasField "unwrapH3" H3 ty
+    where hasField = \x_0 -> (\y_1 -> H3{unwrapH3 = y_1},
+                              getField @"unwrapH3" x_0)

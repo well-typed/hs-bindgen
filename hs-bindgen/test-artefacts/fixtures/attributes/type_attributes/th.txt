@@ -63,6 +63,10 @@ instance HasCField More_aligned_int "unwrapMore_aligned_int"
     where type CFieldType More_aligned_int
                           "unwrapMore_aligned_int" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapMore_aligned_int" More_aligned_int ty
+    where hasField = \x_0 -> (\y_1 -> More_aligned_int{unwrapMore_aligned_int = y_1},
+                              getField @"unwrapMore_aligned_int" x_0)
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @attributes\/type_attributes.h 11:8@
@@ -363,6 +367,9 @@ instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapT1" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{unwrapT1 = y_1},
+                              getField @"unwrapT1" x_0)
 {-| __C declaration:__ @short_a@
 
     __defined at:__ @attributes\/type_attributes.h 34:46@
@@ -393,3 +400,6 @@ instance (~) ty CShort =>
 instance HasCField Short_a "unwrapShort_a"
     where type CFieldType Short_a "unwrapShort_a" = CShort
           offset# = \_ -> \_ -> 0
+instance (~) ty CShort => HasField "unwrapShort_a" Short_a ty
+    where hasField = \x_0 -> (\y_1 -> Short_a{unwrapShort_a = y_1},
+                              getField @"unwrapShort_a" x_0)

@@ -44,6 +44,7 @@ hstypes:
       fields:
       - unwrapF1
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -62,6 +63,7 @@ hstypes:
       fields:
       - unwrapFunctionPointer_Function
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -80,6 +82,7 @@ hstypes:
       fields:
       - unwrapG1
   instances:
+  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
@@ -93,6 +96,7 @@ hstypes:
       fields:
       - unwrapG2
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -111,6 +115,7 @@ hstypes:
       fields:
       - unwrapH1
   instances:
+  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
@@ -124,6 +129,7 @@ hstypes:
       fields:
       - unwrapH2
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
@@ -135,6 +141,7 @@ hstypes:
       fields:
       - unwrapH3
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -153,6 +160,7 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
@@ -166,6 +174,7 @@ hstypes:
       fields:
       - unwrapIntptr
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -187,6 +196,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -213,6 +223,7 @@ hstypes:
       fields:
       - unwrapNonFunctionPointer_Function
   instances:
+  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField

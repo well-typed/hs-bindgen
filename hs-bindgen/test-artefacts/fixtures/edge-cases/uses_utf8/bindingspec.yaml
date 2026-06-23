@@ -15,6 +15,7 @@ hstypes:
       - unwrapMyEnum
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

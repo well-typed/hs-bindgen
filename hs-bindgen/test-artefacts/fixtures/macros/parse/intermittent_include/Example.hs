@@ -26,6 +26,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @Ta@
@@ -67,6 +68,13 @@ instance HasCField.HasCField Ta "unwrapTa" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapTa" Ta ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Ta {unwrapTa = y1}, RIP.getField @"unwrapTa" x0)
+
 {-| __C declaration:__ @macro Ma@
 
     __defined at:__ @intermittent_include_inner.h 1:9@
@@ -104,6 +112,13 @@ instance HasCField.HasCField Ma "unwrapMa" where
   type CFieldType Ma "unwrapMa" = Ta
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ Ta) => RIP.CompatHasField.HasField "unwrapMa" Ma ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Ma {unwrapMa = y1}, RIP.getField @"unwrapMa" x0)
 
 {-| __C declaration:__ @T1@
 
@@ -144,6 +159,13 @@ instance HasCField.HasCField T1 "unwrapT1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+
 {-| __C declaration:__ @macro M1@
 
     __defined at:__ @macros\/parse\/intermittent_include.h 7:9@
@@ -182,6 +204,13 @@ instance HasCField.HasCField M1 "unwrapM1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ T1) => RIP.CompatHasField.HasField "unwrapM1" M1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M1 {unwrapM1 = y1}, RIP.getField @"unwrapM1" x0)
+
 {-| __C declaration:__ @macro M2@
 
     __defined at:__ @macros\/parse\/intermittent_include.h 11:9@
@@ -219,6 +248,13 @@ instance HasCField.HasCField M2 "unwrapM2" where
   type CFieldType M2 "unwrapM2" = T1
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ T1) => RIP.CompatHasField.HasField "unwrapM2" M2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M2 {unwrapM2 = y1}, RIP.getField @"unwrapM2" x0)
 
 {-| __C declaration:__ @T2@
 
@@ -259,6 +295,13 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+
 {-| __C declaration:__ @macro M3@
 
     __defined at:__ @macros\/parse\/intermittent_include.h 15:9@
@@ -297,6 +340,13 @@ instance HasCField.HasCField M3 "unwrapM3" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ T2) => RIP.CompatHasField.HasField "unwrapM3" M3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M3 {unwrapM3 = y1}, RIP.getField @"unwrapM3" x0)
+
 {-| __C declaration:__ @macro M4@
 
     __defined at:__ @macros\/parse\/intermittent_include.h 19:9@
@@ -334,3 +384,10 @@ instance HasCField.HasCField M4 "unwrapM4" where
   type CFieldType M4 "unwrapM4" = T2
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ T2) => RIP.CompatHasField.HasField "unwrapM4" M4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M4 {unwrapM4 = y1}, RIP.getField @"unwrapM4" x0)

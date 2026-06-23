@@ -38,6 +38,9 @@ instance (~) ty (CInt -> IO ()) =>
 instance HasCField T_Aux "unwrapT_Aux"
     where type CFieldType T_Aux "unwrapT_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT_Aux" T_Aux ty
+    where hasField = \x_0 -> (\y_1 -> T_Aux{unwrapT_Aux = y_1},
+                              getField @"unwrapT_Aux" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h 1:23@
@@ -58,3 +61,6 @@ instance (~) ty (FunPtr T_Aux) =>
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = FunPtr T_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr T_Aux) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)

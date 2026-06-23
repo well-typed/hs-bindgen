@@ -69,6 +69,14 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
 {-| __C declaration:__ @myUInt@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 3:22@
@@ -109,6 +117,14 @@ instance HasCField.HasCField MyUInt "unwrapMyUInt" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapMyUInt" MyUInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyUInt {unwrapMyUInt = y1}, RIP.getField @"unwrapMyUInt" x0)
+
 {-| __C declaration:__ @myLong@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 4:14@
@@ -148,6 +164,14 @@ instance HasCField.HasCField MyLong "unwrapMyLong" where
   type CFieldType MyLong "unwrapMyLong" = RIP.CLong
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "unwrapMyLong" MyLong ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyLong {unwrapMyLong = y1}, RIP.getField @"unwrapMyLong" x0)
 
 {-| __C declaration:__ @struct myStruct@
 

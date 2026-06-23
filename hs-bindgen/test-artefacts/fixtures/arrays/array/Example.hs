@@ -62,6 +62,14 @@ instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)
+
 {-| __C declaration:__ @list@
 
     __defined at:__ @arrays\/array.h 43:13@
@@ -86,6 +94,14 @@ instance HasCField.HasCField List "unwrapList" where
     IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapList" List ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         List {unwrapList = y1}, RIP.getField @"unwrapList" x0)
 
 {-| __C declaration:__ @matrix@
 
@@ -118,6 +134,14 @@ instance HasCField.HasCField Matrix "unwrapMatrix" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapMatrix" Matrix ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Matrix {unwrapMatrix = y1}, RIP.getField @"unwrapMatrix" x0)
+
 {-| __C declaration:__ @tripletlist@
 
     __defined at:__ @arrays\/array.h 47:13@
@@ -142,6 +166,15 @@ instance HasCField.HasCField Tripletlist "unwrapTripletlist" where
     IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapTripletlist" Tripletlist ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Tripletlist {unwrapTripletlist = y1}
+      , RIP.getField @"unwrapTripletlist" x0
+      )
 
 {-| __C declaration:__ @struct Example@
 
@@ -271,3 +304,11 @@ instance HasCField.HasCField Sudoku "unwrapSudoku" where
     CA.ConstantArray 3 Triplet
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 Triplet
+         ) => RIP.CompatHasField.HasField "unwrapSudoku" Sudoku ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Sudoku {unwrapSudoku = y1}, RIP.getField @"unwrapSudoku" x0)

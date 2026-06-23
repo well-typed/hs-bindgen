@@ -34,6 +34,12 @@ instance HasCField OUTER_BEFORE_CIRCULAR_INCLUDE
     where type CFieldType OUTER_BEFORE_CIRCULAR_INCLUDE
                           "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE"
+                  OUTER_BEFORE_CIRCULAR_INCLUDE
+                  ty
+    where hasField = \x_0 -> (\y_1 -> OUTER_BEFORE_CIRCULAR_INCLUDE{unwrapOUTER_BEFORE_CIRCULAR_INCLUDE = y_1},
+                              getField @"unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" x_0)
 {-| __C declaration:__ @OUTER_AFTER_CIRCULAR_INCLUDE@
 
     __defined at:__ @program-analysis\/circular_includes.h 4:13@
@@ -68,3 +74,9 @@ instance HasCField OUTER_AFTER_CIRCULAR_INCLUDE
     where type CFieldType OUTER_AFTER_CIRCULAR_INCLUDE
                           "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE"
+                  OUTER_AFTER_CIRCULAR_INCLUDE
+                  ty
+    where hasField = \x_0 -> (\y_1 -> OUTER_AFTER_CIRCULAR_INCLUDE{unwrapOUTER_AFTER_CIRCULAR_INCLUDE = y_1},
+                              getField @"unwrapOUTER_AFTER_CIRCULAR_INCLUDE" x_0)
