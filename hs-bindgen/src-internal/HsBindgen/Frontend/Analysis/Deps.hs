@@ -38,7 +38,7 @@ depsOfDeclWith depsOfMacro = \case
     (C.DeclMacro m)            -> depsOfMacro m
     (C.DeclFunction function)  ->
       C.depsOfType function.res ++
-      concatMap (\arg -> C.depsOfTypeFunArg arg.argTyp) function.args
+      concatMap (\arg -> C.depsOfType arg.typ) function.args
     (C.DeclGlobal global)      -> C.depsOfType global.typ
 
 {-------------------------------------------------------------------------------

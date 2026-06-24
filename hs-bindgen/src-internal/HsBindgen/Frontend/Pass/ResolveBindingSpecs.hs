@@ -546,16 +546,15 @@ instance Resolve C.Global l where
 instance Resolve C.FunctionArg l where
   resolve ctx functionArg =
     reconstruct
-      <$> pure functionArg.name
-      <*> resolve ctx functionArg.argTyp
+      <$> resolve ctx functionArg.typ
     where
       reconstruct ::
-           Maybe (ScopedName ResolveBindingSpecs)
-        -> C.TypeFunArg ResolveBindingSpecs
+           C.Type ResolveBindingSpecs
         -> C.FunctionArg ResolveBindingSpecs
-      reconstruct name' argTyp' = C.FunctionArg {
-            name = name'
-          , argTyp = argTyp'
+      reconstruct typ' = C.FunctionArg{
+            name = functionArg.name
+          , typ  = typ'
+          , ann  = functionArg.ann
           }
 
 instance Resolve (Flip TypecheckedMacro l) l where

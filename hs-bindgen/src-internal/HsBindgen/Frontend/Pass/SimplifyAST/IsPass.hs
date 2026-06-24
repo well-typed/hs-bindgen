@@ -55,11 +55,10 @@ instance PassAnn SimplifyAST where
 instance PassMsg SimplifyAST where
   type Msg SimplifyAST = SimplifyASTMsg
 
-instance CoercePassId                Parse SimplifyAST
-instance CoercePassMacroBody         Parse SimplifyAST
-instance CoercePassMacroId           Parse SimplifyAST
-instance CoercePassMacroUnderlying   Parse SimplifyAST
-
+instance CoercePassId               Parse SimplifyAST
+instance CoercePassMacroBody        Parse SimplifyAST
+instance CoercePassMacroId          Parse SimplifyAST
+instance CoercePassMacroUnderlying  Parse SimplifyAST
 instance CoercePassAnn "Global"     Parse SimplifyAST
 instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
 instance CoercePassCommentDecl      Parse SimplifyAST

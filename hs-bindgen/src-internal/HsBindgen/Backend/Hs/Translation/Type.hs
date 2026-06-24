@@ -103,6 +103,16 @@ instance InContext (C.TypeFunArg Final) where
       AdjustedFromFunction _origTy -> inContext ctx arg.typ
       NotAdjusted -> inContext ctx arg.typ
 
+instance InContext (C.FunctionArg Final) where
+  inContext ctx arg = case arg.ann of
+    AdjustedFromArray origTy
+      | C.isErasedTypeConstQualified origTy ->
+          Hs.PtrConstArrayElem (inContext Top origTy)
+      | otherwise ->
+          Hs.PtrArrayElem (inContext Top origTy)
+    AdjustedFromFunction _origTy -> inContext ctx arg.typ
+    NotAdjusted -> inContext ctx arg.typ
+
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}

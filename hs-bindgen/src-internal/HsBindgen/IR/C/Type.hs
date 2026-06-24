@@ -168,6 +168,16 @@ deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
 type TypeFunArg = TypeFunArgF Full
 
 -- | C types in function argument positions
+--
+-- Separate types are used to represent function arguments in declarations
+-- ('HsBindgen.IR.C.Decl.FunctionArg') and function arguments in types.
+--
+-- * An argument in a declaration may have a name, while type arguments do not
+--   have names.
+-- * We translate declaration arguments to Haskell, while recursively
+--   translating type arguments is not necessary.
+--
+-- Both of these types use the @TypeFunArg@ annotation, however.
 data TypeFunArgF (tag :: TypeTag) (p :: Pass) = TypeFunArgF {
     typ :: TypeF tag p
   , ann :: Ann "TypeFunArg" p

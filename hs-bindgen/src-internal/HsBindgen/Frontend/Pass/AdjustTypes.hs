@@ -158,7 +158,7 @@ processMacroExpr macroExpr = coercePass macroExpr
 
 processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =
-    C.Function {
+    C.Function{
         args  = map processFunctionArg function.args
       , res   = processType function.res
       , attrs = function.attrs
@@ -167,10 +167,13 @@ processFunction function =
 
 processFunctionArg :: C.FunctionArg MangleNames -> C.FunctionArg AdjustTypes
 processFunctionArg functionArg =
-    C.FunctionArg {
+    C.FunctionArg{
         name = functionArg.name
-      , argTyp = processTypeFunArg functionArg.argTyp
+      , typ  = typ'
+      , ann  = ann'
       }
+  where
+    (typ', ann') = adjustFunArg $ processType functionArg.typ
 
 processGlobal :: C.Global MangleNames -> C.Global AdjustTypes
 processGlobal global = C.Global{

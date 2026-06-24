@@ -31,6 +31,8 @@ module HsBindgen.IR.C.Decl (
   , AnonEnumConstant(..)
   , Function(..)
   , FunctionArg(..)
+  , typeOfFunction
+  , typeOfFunctionArg
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
@@ -297,11 +299,35 @@ data Function (p :: Pass) = Function {
     }
   deriving stock (Generic)
 
+-- | Function argument
+--
+-- Separate types are used to represent function arguments in declarations and
+-- function arguments in types ('HsBindgen.IR.C.Type.TypeFunArg').
+--
+-- * An argument in a declaration may have a name, while type arguments do not
+--   have names.
+-- * We translate declaration arguments to Haskell, while recursively
+--   translating type arguments is not necessary.
+--
+-- Both of these types use the @TypeFunArg@ annotation, however.
 data FunctionArg (p :: Pass) = FunctionArg {
-      name   :: Maybe (ScopedName p)
-    , argTyp :: C.TypeFunArg p
+      name :: Maybe (ScopedName p)
+    , typ  :: C.Type p
+    , ann  :: Ann "TypeFunArg" p
     }
     deriving stock (Generic)
+
+-- | Get the type of a function declaration
+typeOfFunction :: Function p -> C.Type p
+typeOfFunction fun = C.TypeFun (map typeOfFunctionArg fun.args) fun.res
+
+-- | Get the type of a function argument
+typeOfFunctionArg :: FunctionArg p -> C.TypeFunArg p
+typeOfFunctionArg functionArg =
+    C.TypeFunArgF{
+        typ = functionArg.typ
+      , ann = functionArg.ann
+      }
 
 -- | Function attributes specify properties for C functions
 --
@@ -654,8 +680,9 @@ instance (
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass FunctionArg p p' where
   coercePass functionArg = FunctionArg{
-        name   = functionArg.name
-      , argTyp = coercePass functionArg.argTyp
+        name = functionArg.name
+      , typ  = coercePass functionArg.typ
+      , ann  = coercePassAnn (Proxy @'("TypeFunArg", p, p')) functionArg.ann
       }
 
 instance (

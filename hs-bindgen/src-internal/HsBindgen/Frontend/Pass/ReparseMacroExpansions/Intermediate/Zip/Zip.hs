@@ -257,11 +257,13 @@ instance ZipReparsed C.Function where
         -> C.FunctionArg Out
         -> ZipResult (C.FunctionArg Zip)
       zipFunctionArg arg1 arg2 = do
-            name'   <- checkEq       arg1.name   arg2.name
-            argTyp' <- zipTypeFunArg arg1.argTyp arg2.argTyp
+            name' <- checkEq arg1.name arg2.name
+            typ'  <- zipType arg1.typ  arg2.typ
+            ann'  <- checkEq arg1.ann  arg2.ann
             success C.FunctionArg {
-                name   = name'
-              , argTyp = argTyp'
+                name = name'
+              , typ  = typ'
+              , ann  = ann'
               }
 
 instance ZipReparsed C.Global where

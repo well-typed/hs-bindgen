@@ -30,13 +30,13 @@ class (
     , Eq   (Ann "Global"               p)
     , Eq   (Ann "Struct"               p)
     , Eq   (Ann "StructField"          p)
-    , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
     , Eq   (Ann "Typedef"              p)
     , Eq   (Ann "Union"                p)
     , Eq   (Ann "UnionField"           p)
 
       -- For de-duplicating types
+    , Eq   (Ann "TypeFunArg"           p)
     , Ord  (Ann "TypeFunArg"           p)
 
       -- For debugging

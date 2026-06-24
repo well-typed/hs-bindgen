@@ -666,9 +666,10 @@ functionDecl macroLang enclosing ctx info =
                        then Nothing
                        else Just (C.ScopedName argName)
 
-              return C.FunctionArg {
+              return C.FunctionArg{
                   name = mbArgName
-                , argTyp = argCType
+                , typ  = argCType.typ
+                , ann  = NoAnn
                 }
             pure $ Right (args', res)
           C.TypeTypedef{} ->

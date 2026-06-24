@@ -283,12 +283,14 @@ instance Resolve C.Function where
       }
     where
       resolveArg ::
-           C.FunctionArg CreateNames -> ResolveE (C.FunctionArg MangleNames)
+           C.FunctionArg CreateNames
+        -> ResolveE (C.FunctionArg MangleNames)
       resolveArg arg = do
-        argTyp' <- resolve arg.argTyp
+        typ' <- resolve arg.typ
         pure C.FunctionArg{
-            name   = arg.name
-          , argTyp = argTyp'
+            name = arg.name
+          , typ  = typ'
+          , ann  = arg.ann
           }
 
 instance Resolve C.Global where
