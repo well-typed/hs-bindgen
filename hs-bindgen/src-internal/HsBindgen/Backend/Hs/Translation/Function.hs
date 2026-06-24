@@ -113,7 +113,7 @@ functionDecs safety info origCFun _spec = do
         primResult = classifyResPassingMethod origCFun.res
 
         primParams :: [PassArgBy]
-        primParams = map (\arg -> classifyArgPassingMethod (arg.argTyp)) origCFun.args
+        primParams = map classifyArgPassingMethod origCFun.args
 
         foreignImport :: [Hs.Decl l]
         foreignImport =
@@ -203,7 +203,7 @@ functionDecs safety info origCFun _spec = do
           let params :: [(Maybe Text, Hs.FunctionParameter)]
               params = [ ( fmap (.cName.text) arg.name
                         , Hs.FunctionParameter{
-                            typ     = toOrigType Type.FunArg (classifyArgPassingMethod arg.argTyp)
+                            typ     = toOrigType Type.FunArg (classifyArgPassingMethod arg)
                           , comment = Nothing
                           })
                         | arg <- origCFun.args
@@ -292,7 +292,7 @@ ioComment purity =
 
 -- | Classification of the type of a function argument: it is either passed by
 -- value or by address.
-type PassArgBy = PassBy (C.TypeFunArg Final) (C.Type Final)
+type PassArgBy = PassBy (C.FunctionArg Final) (C.Type Final)
 
 -- | Classification of the type of a function result: it is either passed by
 -- value or by address.
@@ -338,11 +338,11 @@ classifyResPassingMethod res
   = PassByValue res
 
 -- | Classify how a function argument is passed from Haskell to C
-classifyArgPassingMethod :: HasCallStack => C.TypeFunArg Final -> PassArgBy
+classifyArgPassingMethod :: HasCallStack => C.FunctionArg Final -> PassArgBy
 classifyArgPassingMethod arg
   -- Heap types
-  | C.isCanonicalTypeStruct arg.typ ||
-    C.isCanonicalTypeUnion arg.typ ||
+  | C.isCanonicalTypeStruct  arg.typ ||
+    C.isCanonicalTypeUnion   arg.typ ||
     C.isCanonicalTypeComplex arg.typ
   = if arg.ann == NotAdjusted
     then PassByAddress arg.typ

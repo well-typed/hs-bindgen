@@ -32,12 +32,12 @@ class (
     , Eq   (Ann "IndirectField"        p)
     , Eq   (Ann "RegularField"         p)
     , Eq   (Ann "Struct"               p)
-    , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
     , Eq   (Ann "Typedef"              p)
     , Eq   (Ann "Union"                p)
 
       -- For de-duplicating types
+    , Eq   (Ann "TypeFunArg"           p)
     , Ord  (Ann "TypeFunArg"           p)
 
       -- For debugging

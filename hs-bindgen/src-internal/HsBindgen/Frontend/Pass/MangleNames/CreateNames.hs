@@ -730,8 +730,9 @@ createFunction function = do
     createFunctionArg arg = do
       name' <- traverse createArgumentName arg.name
       pure C.FunctionArg{
-          name   = fmap (.cName) name'
-        , argTyp = coercePass arg.argTyp
+          name = fmap (.cName) name'
+        , typ  = coercePass arg.typ
+        , ann  = arg.ann
         }
 
 createGlobal ::

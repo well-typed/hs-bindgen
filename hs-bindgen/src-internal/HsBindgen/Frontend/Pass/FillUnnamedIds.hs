@@ -347,16 +347,15 @@ instance UpdateUseSites C.Function where
 instance UpdateUseSites C.FunctionArg where
   updateUseSites functionArg =
       reconstruct
-        <$> pure functionArg.name
-        <*> updateUseSites functionArg.argTyp
+        <$> updateUseSites functionArg.typ
     where
       reconstruct ::
-           Maybe (ScopedName FillUnnamedIds)
-        -> C.TypeFunArg FillUnnamedIds
+           C.Type FillUnnamedIds
         -> C.FunctionArg FillUnnamedIds
-      reconstruct name' typ' = C.FunctionArg {
-            name = name'
-          , argTyp = typ'
+      reconstruct typ' = C.FunctionArg {
+            name = functionArg.name
+          , typ  = typ'
+          , ann  = functionArg.ann
           }
 
 instance UpdateUseSites C.Type where

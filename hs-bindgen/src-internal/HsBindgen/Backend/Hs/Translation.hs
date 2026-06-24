@@ -149,7 +149,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
       C.DeclOpaque{} -> Set.empty
       C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
-        foldMap C.getAllFunTypes (fn.res : map (.argTyp.typ) fn.args)
+        foldMap C.getAllFunTypes (fn.res : map (.typ) fn.args)
       C.DeclGlobal g -> C.getAllFunTypes g.typ
   where
     scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)
@@ -198,7 +198,7 @@ generateDecs macroLang (C.Decl info kind spec) =
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety info function spec
-            funType = C.TypeFun (map (.argTyp) function.args) function.res
+            funType = C.typeOfFunction function
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst <$>
