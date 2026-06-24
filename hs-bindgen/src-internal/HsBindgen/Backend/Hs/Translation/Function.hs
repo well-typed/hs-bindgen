@@ -112,7 +112,7 @@ functionDecs safety info origCFun _spec = do
                 ]
 
         primResult :: PassResBy
-        primResult = classifyResPassingMethod origCFun.res
+        primResult = classifyResPassingMethod origCFun.res.c
 
         primParams :: [PassArgBy]
         primParams = map classifyArgPassingMethod origCFun.args
@@ -347,23 +347,23 @@ classifyResPassingMethod res
 classifyArgPassingMethod :: HasCallStack => C.FunctionArg Final -> PassArgBy
 classifyArgPassingMethod arg
   -- Heap types
-  | C.isCanonicalTypeStruct  arg.typ ||
-    C.isCanonicalTypeUnion   arg.typ ||
-    C.isCanonicalTypeComplex arg.typ
+  | C.isCanonicalTypeStruct  arg.typ.c ||
+    C.isCanonicalTypeUnion   arg.typ.c ||
+    C.isCanonicalTypeComplex arg.typ.c
   = if arg.ann == NotAdjusted
-    then PassByAddress arg.typ
+    then PassByAddress arg.typ.c
     else panicPure
           "classifyArgPassingMethod: found a function argument/result type that is \
           \a struct/union/complex with an unexpected annotation. \
           \Is there a bug in the AdjustTypes frontend pass?"
 
-  | C.isCanonicalTypeArray arg.typ
+  | C.isCanonicalTypeArray arg.typ.c
   = panicPure
       "classifyArgPassingMethod: found a function argument/result type that is an array, \
       \which is unexpected because it should have been adjusted to a pointer. \
       \Is there a bug in the AdjustTypes frontend pass?"
 
-  | C.isCanonicalTypeFunction arg.typ
+  | C.isCanonicalTypeFunction arg.typ.c
   = panicPure
       "classifyArgPassingMethod: found a function argument/result type that is a function, \
       \which is unexpected because it should have been adjusted to a pointer. \
@@ -379,7 +379,7 @@ class ToWrapperType a where
 
 instance ToWrapperType PassArgBy where
   toWrapperType = \case
-      PassByValue argTy -> argTy.typ
+      PassByValue argTy -> argTy.typ.c
       PassByAddress ty -> C.TypePointers 1 ty
 
 instance ToWrapperType PassResBy where

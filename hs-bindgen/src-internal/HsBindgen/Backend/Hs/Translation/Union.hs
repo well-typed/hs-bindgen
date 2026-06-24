@@ -220,7 +220,7 @@ hasFieldDecs st env info nt field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel field.typ.c
 
     baseHasFieldDecl :: Hs.HasFieldInstance
     baseHasFieldDecl = Hs.HasFieldInstance {
@@ -300,7 +300,7 @@ hasFieldPtrDecs nt field = concat [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel field.typ.c
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {

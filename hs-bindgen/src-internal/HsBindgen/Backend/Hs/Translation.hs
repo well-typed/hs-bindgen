@@ -134,25 +134,25 @@ scanAllFunctionTypes :: [C.Decl l Final] -> Set ([C.TypeFunArg Final], C.Type Fi
 scanAllFunctionTypes = foldMap $ \decl ->
     case decl.kind of
       C.DeclStruct struct ->
-        foldMap (C.getAllFunTypes . (.typ)) struct.fields
+        foldMap (C.getAllFunTypes . (.typ.c)) struct.fields
       C.DeclUnion union   ->
-        foldMap (C.getAllFunTypes . (.typ)) union.fields
+        foldMap (C.getAllFunTypes . (.typ.c)) union.fields
       C.DeclTypedef typedef
         -- Exclude function type indirections, because they are already handled
         -- by 'typedefFuntypeIndirectionDecs'
-        | Just (args, res, _) <- C.getFirstFunTypeIndirection typedef.typ
+        | Just (args, res, _) <- C.getFirstFunTypeIndirection typedef.typ.c
         -> foldMap C.getAllFunTypes (res : map (.typ) args)
         -- Exclude /direct/ function types, because they are already handled by
         -- 'typedefDecs'
         | otherwise
-        -> C.getAllFunTypeIndirections typedef.typ
-      C.DeclEnum enum -> C.getAllFunTypes enum.typ
+        -> C.getAllFunTypeIndirections typedef.typ.c
+      C.DeclEnum enum -> C.getAllFunTypes enum.typ.c
       C.DeclAnonEnumConstant{} -> Set.empty
       C.DeclOpaque{} -> Set.empty
       C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
-        foldMap C.getAllFunTypes (fn.res : map (.typ) fn.args)
-      C.DeclGlobal g -> C.getAllFunTypes g.typ
+        foldMap C.getAllFunTypes (fn.res.c : map (.typ.c) fn.args)
+      C.DeclGlobal g -> C.getAllFunTypes g.typ.c
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
@@ -184,7 +184,7 @@ generateDecs macroLang (C.Decl info kind spec) =
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $ do
         HsM.immediateM $ anonEnumConstantDecs info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
-        case C.getFirstFunTypeIndirection typedef.typ of
+        case C.getFirstFunTypeIndirection typedef.typ.c of
           Just (args, res, reconstruct) ->
             typedefFunTypeIndirectionDecs info (args, res, reconstruct) typedef.names spec
           Nothing ->
@@ -207,7 +207,7 @@ generateDecs macroLang (C.Decl info kind spec) =
         HsM.immediateM $ macroDecs macroLang info macro spec
       C.DeclGlobal g -> do
         withCategoryM (CTerm CGlobal) $
-          HsM.immediateM $ global info g.typ spec
+          HsM.immediateM $ global info g.typ.c spec
   where
     withCategory ::
          Category
@@ -318,7 +318,7 @@ enumDecs info enum spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = enum.names.field
-            , typ     = Type.topLevel enum.typ
+            , typ     = Type.topLevel enum.typ.c
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -518,7 +518,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = typedef.names.orig.field
-            , typ     = Type.topLevel typedef.typ
+            , typ     = Type.topLevel typedef.typ.c
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -549,7 +549,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
 
     -- See comment in 'newtypeWrapper` below
     isFunType :: Maybe ([C.TypeFunArg Final], C.Type Final)
-    isFunType = case typedef.typ of
+    isFunType = case typedef.typ.c of
       C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
         Just (args, res)
       _otherwise -> Nothing
@@ -664,7 +664,9 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 
     auxTypedef :: C.Typedef Final
     auxTypedef = C.Typedef{
-          typ = C.TypeFun args res
+          typ = TranslatedTypes{
+              c = C.TypeFun args res
+            }
         , ann = MangleNames.TypedefNames{
               orig = auxNames
             , aux  = Nothing
@@ -682,9 +684,11 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
     mainTypedef :: C.Typedef Final
     mainTypedef = C.Typedef{
           ann = names
-        , typ = reconstruct $ C.TypeTypedef $ C.Ref {
-              name       = auxInfo.id
-            , underlying = C.TypeFun args res
+        , typ = TranslatedTypes{
+              c = reconstruct $ C.TypeTypedef $ C.Ref {
+                  name       = auxInfo.id
+                , underlying = C.TypeFun args res
+                }
             }
         }
 

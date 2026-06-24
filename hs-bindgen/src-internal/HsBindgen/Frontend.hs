@@ -50,6 +50,8 @@ import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
@@ -219,7 +221,12 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 12. "HsBindgen.Frontend.Pass.Select"
+-- == 12. "HsBindgen.Frontend.Pass.TranslateTypes"
+--
+-- "HsBindgen.Frontend.Pass.TranslateTypes" translates types (use sites) to
+-- Haskell types.
+--
+-- == 13. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -373,15 +380,19 @@ runFrontend tracer config boot = do
       afterMangleNamesPass <- mangleNamesPass
       pure $ adjustTypes afterMangleNamesPass
 
+    translateTypesPass <- cache "TranslateTypes" $ do
+      afterAdjustTypesPass <- adjustTypesPass
+      pure $ translateTypes afterAdjustTypesPass
+
     selectPass <- cache "select" $ do
       afterParse <- parsePass
-      afterAdjustTypesPass <- adjustTypesPass
+      afterTranslateTypesPass <- translateTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
               afterParse.isMainHeader
               afterParse.isInMainHeaderDir
               selectConfig
-              afterAdjustTypesPass
+              afterTranslateTypesPass
       forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
       pure afterSelect
 
@@ -400,6 +411,7 @@ runFrontend tracer config boot = do
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
+      , translateTypes           = translateTypesPass
       , select                   = selectPass
       , final                    = finalPass
       }
@@ -449,6 +461,7 @@ data FrontendArtefact l = FrontendArtefact {
     , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
     , adjustTypes              :: Cached (C.TranslationUnit l AdjustTypes)
+    , translateTypes           :: Cached (C.TranslationUnit l TranslateTypes)
     , select                   :: Cached (C.TranslationUnit l Select)
     , final                    :: Cached (C.TranslationUnit l Final)
     }

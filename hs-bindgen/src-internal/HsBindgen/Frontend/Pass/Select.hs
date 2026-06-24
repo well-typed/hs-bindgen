@@ -27,9 +27,9 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -92,7 +92,7 @@ selectDecls ::
   => IsMainHeader
   -> IsInMainHeaderDir
   -> SelectConfig
-  -> C.TranslationUnit l AdjustTypes
+  -> C.TranslationUnit l TranslateTypes
   -> (C.TranslationUnit l Select, [AnnMsg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclIndex', obtaining

@@ -110,8 +110,8 @@ instance InContext (C.FunctionArg Final) where
           Hs.PtrConstArrayElem (inContext Top origTy)
       | otherwise ->
           Hs.PtrArrayElem (inContext Top origTy)
-    AdjustedFromFunction _origTy -> inContext ctx arg.typ
-    NotAdjusted -> inContext ctx arg.typ
+    AdjustedFromFunction _origTy -> inContext ctx arg.typ.c
+    NotAdjusted -> inContext ctx arg.typ.c
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

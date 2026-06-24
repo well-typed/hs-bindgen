@@ -9,11 +9,13 @@ module HsBindgen.IR.Translation (
   , extDeclIdPair
     -- * ScopedNamePair
   , ScopedNamePair(..)
+  , TranslatedTypes(..)
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -47,3 +49,24 @@ data ScopedNamePair = ScopedNamePair {
     , hsName :: Hs.SomeName
     }
   deriving stock (Eq, Generic, Ord, Show)
+
+--------------------------------------------------------------------------------
+
+-- | A t'C.Type' associated with possible Haskell type translations
+data TranslatedTypes (p :: Pass) = TranslatedTypes {
+      c :: C.Type p
+--    , hs :: Hs.Type    -- TODO
+    }
+  deriving stock (Eq, Generic, Show)
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , CoercePassMacroUnderlying p p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass TranslatedTypes p p' where
+  coercePass translatedTypes = TranslatedTypes{
+      c = coercePass translatedTypes.c
+    }

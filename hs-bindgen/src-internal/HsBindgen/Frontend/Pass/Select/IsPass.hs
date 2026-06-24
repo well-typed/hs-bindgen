@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -66,7 +67,10 @@ instance PassId Select where
 instance PassScopedName Select where
   type ScopedName Select = ScopedNamePair
 
-instance PassTypes Select
+instance PassTypes Select where
+  type Types Select = TranslatedTypes Select
+
+  cType _ translatedTypes = translatedTypes.c
 
 instance PassMacro Select where
   type MacroId Select = Id Select
@@ -286,20 +290,24 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId        AdjustTypes Select
-instance CoercePassTypes     AdjustTypes Select
-instance CoercePassMacroId   AdjustTypes Select
-instance CoercePassMacroUnderlying AdjustTypes Select where
+instance CoercePassId TranslateTypes Select
+
+instance CoercePassTypes TranslateTypes Select where
+  coercePassTypes _ = coercePass
+
+instance CoercePassMacroId TranslateTypes Select
+
+instance CoercePassMacroUnderlying TranslateTypes Select where
   coercePassMacroUnderlying _ = coercePass
 
-instance CoercePassMacroBody AdjustTypes Select where
+instance CoercePassMacroBody TranslateTypes Select where
   coercePassMacroBody _ = coercePassParam
 
-instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
+instance CoercePassAnn "TypeFunArg" TranslateTypes Select where
   coercePassAnn _ = \case
       AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
       AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
       NotAdjusted             -> NotAdjusted
 
-instance CoercePassCommentDecl AdjustTypes Select where
+instance CoercePassCommentDecl TranslateTypes Select where
   coercePassCommentDecl _ = fmap coercePass

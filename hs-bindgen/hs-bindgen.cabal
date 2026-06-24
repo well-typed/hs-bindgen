@@ -243,6 +243,8 @@ library internal
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
     HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+    HsBindgen.Frontend.Pass.TranslateTypes
+    HsBindgen.Frontend.Pass.TranslateTypes.IsPass
     HsBindgen.Frontend.Pass.TypecheckMacros
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
     HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes

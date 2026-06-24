@@ -94,7 +94,7 @@ getDeclsFlam flam auxName spec info struct = do
           , instanceDecl =
               Hs.InstanceHasFlam hsStruct $
                 Hs.HasFlamInstance
-                  (Type.topLevel flam.typ)
+                  (Type.topLevel flam.typ.c)
                   (flam.offset `div` 8)
           }
 
@@ -107,7 +107,7 @@ getDeclsFlam flam auxName spec info struct = do
             name
           , typ     =
               Hs.WithFlam
-                (Type.topLevel flam.typ)
+                (Type.topLevel flam.typ.c)
                 (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
@@ -127,7 +127,7 @@ getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.Type]
-    fieldTypes = Type.topLevel . (.typ) <$> fields
+    fieldTypes = Type.topLevel . (.typ.c) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
     candidateInsts = Hs.getCandidateInsts supInsts
@@ -153,7 +153,7 @@ getDecls supInsts hCfg spec structName info struct insts =
     getHsField field =
         Hs.Field {
             name    = fieldName field
-          , typ     = Type.topLevel field.typ
+          , typ     = Type.topLevel field.typ.c
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo hCfg info field.info
           }
@@ -319,7 +319,7 @@ hasFieldCompatDecs structName cStruct hsStruct field = [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel field.typ.c
 
     hasFieldCompatDecl :: Hs.HasFieldCompatInstance
     hasFieldCompatDecl = Hs.HasFieldCompatInstance {
@@ -397,7 +397,7 @@ hasFieldPtrDecs struct field = concat [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel field.typ.c
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
