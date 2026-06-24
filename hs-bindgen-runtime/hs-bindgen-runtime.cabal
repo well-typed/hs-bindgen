@@ -77,6 +77,12 @@ library
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
+    HsBindgen.Runtime.HighLevel
+    HsBindgen.Runtime.HighLevel.Defaults
+    HsBindgen.Runtime.HighLevel.Internal.Errors
+    HsBindgen.Runtime.HighLevel.Internal.Threading
+    HsBindgen.Runtime.HighLevel.Marshaller
+    HsBindgen.Runtime.HighLevel.Marshaller.Utils
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.Internal.Bitfield
     HsBindgen.Runtime.Internal.ByteArray
@@ -131,6 +137,8 @@ test-suite test-hs-bindgen-runtime
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.HsBindgen.Runtime.ConstantArray
+    Test.HsBindgen.Runtime.HighLevel.Struct
+    Test.HsBindgen.Runtime.HighLevel.Test
     Test.HsBindgen.Runtime.IncompleteArray
     Test.HsBindgen.Runtime.SizedByteArray
     Test.Util.Orphans
@@ -141,6 +149,7 @@ test-suite test-hs-bindgen-runtime
 
   -- External dependencies
   build-depends:
+    , bytestring              >=0.11   && <0.13
     , primitive               >=0.8    && <0.10
     , QuickCheck              >=2.14.3 && <2.18
     , tasty                   >=1.5    && <1.6

@@ -40,12 +40,13 @@ executable libpcap-bin
   import:          common
   main-is:         Pcap.hs
   hs-source-dirs:  app
-  other-modules:
+  other-modules:   HighLevel
   autogen-modules:
   ghc-options:
   extra-libraries: pcap
   build-depends:
-    , base     >=4.7 && <5
+    , base                >=4.7 && <5
+    , hs-bindgen-runtime
     , libpcap
 
   if flag(static)
