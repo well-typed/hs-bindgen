@@ -32,6 +32,8 @@ instance PassId ConstructTranslationUnit
 
 instance PassScopedName ConstructTranslationUnit
 
+instance PassTypes ConstructTranslationUnit
+
 instance PassMacro ConstructTranslationUnit where
   type MacroBody ConstructTranslationUnit = Macro.Resolved
 
@@ -50,6 +52,7 @@ instance PassMsg ConstructTranslationUnit
 -------------------------------------------------------------------------------}
 
 instance CoercePassId                 EnrichComments ConstructTranslationUnit
+instance CoercePassTypes              EnrichComments ConstructTranslationUnit
 instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 

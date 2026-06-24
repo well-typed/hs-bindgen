@@ -34,6 +34,8 @@ instance PassId AssignAnonIds
 
 instance PassScopedName AssignAnonIds
 
+instance PassTypes AssignAnonIds
+
 instance PassMacro AssignAnonIds where
   type MacroBody AssignAnonIds = Macro.Unresolved
 

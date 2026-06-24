@@ -42,6 +42,8 @@ instance PassId SimplifyAST where
 
 instance PassScopedName SimplifyAST
 
+instance PassTypes SimplifyAST
+
 instance PassMacro SimplifyAST where
   type MacroBody SimplifyAST = Macro.Unresolved
 
@@ -56,6 +58,7 @@ instance PassMsg SimplifyAST where
   type Msg SimplifyAST = SimplifyASTMsg
 
 instance CoercePassId               Parse SimplifyAST
+instance CoercePassTypes            Parse SimplifyAST
 instance CoercePassMacroBody        Parse SimplifyAST
 instance CoercePassMacroId          Parse SimplifyAST
 instance CoercePassMacroUnderlying  Parse SimplifyAST

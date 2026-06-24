@@ -16,6 +16,7 @@ module HsBindgen.IR.Pass (
   , IsPass
   , PassId(..)
   , PassScopedName(..)
+  , PassTypes(..)
   , PassMacro(..)
   , PassExtBinding(..)
   , PassCommentDecl(..)
@@ -26,6 +27,7 @@ module HsBindgen.IR.Pass (
   , CoercePass(..)
   , CoercePassParam(..)
   , CoercePassId(..)
+  , CoercePassTypes(..)
   , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
   , CoercePassMacroUnderlying(..)
@@ -44,6 +46,7 @@ import HsBindgen.IR.Pass.Id
 import HsBindgen.IR.Pass.Macro
 import HsBindgen.IR.Pass.Msg
 import HsBindgen.IR.Pass.ScopedName
+import HsBindgen.IR.Pass.Types
 
 {-------------------------------------------------------------------------------
   Associated type families
@@ -62,4 +65,5 @@ class (
     , PassMacro       p
     , PassMsg         p
     , PassScopedName  p
+    , PassTypes       p
     ) => IsPass (p :: Pass)

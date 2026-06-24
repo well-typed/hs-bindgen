@@ -40,6 +40,8 @@ instance PassId PrepareReparse
 
 instance PassScopedName PrepareReparse
 
+instance PassTypes PrepareReparse
+
 instance PassMacro PrepareReparse where
   type MacroId   PrepareReparse = Id PrepareReparse
   type MacroBody PrepareReparse = TypecheckedMacro PrepareReparse
@@ -75,6 +77,7 @@ data FlatTokens = FlatTokens {
 -------------------------------------------------------------------------------}
 
 instance CoercePassId               TypecheckMacros PrepareReparse
+instance CoercePassTypes            TypecheckMacros PrepareReparse
 instance CoercePassMacroId          TypecheckMacros PrepareReparse
 instance CoercePassAnn "TypeFunArg" TypecheckMacros PrepareReparse
 

@@ -30,6 +30,8 @@ instance PassId EnrichComments
 
 instance PassScopedName EnrichComments
 
+instance PassTypes EnrichComments
+
 instance PassMacro EnrichComments where
   type MacroBody EnrichComments = Macro.Unresolved
 
@@ -55,11 +57,12 @@ instance PassMsg EnrichComments
 -------------------------------------------------------------------------------}
 
 instance CoercePassId               AssignAnonIds EnrichComments
+instance CoercePassTypes            AssignAnonIds EnrichComments
 instance CoercePassMacroBody        AssignAnonIds EnrichComments
 instance CoercePassMacroId          AssignAnonIds EnrichComments
 instance CoercePassMacroUnderlying  AssignAnonIds EnrichComments
-instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
 instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
+instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
 
 instance CoercePassCommentDecl AssignAnonIds EnrichComments where
   coercePassCommentDecl _ () = Nothing

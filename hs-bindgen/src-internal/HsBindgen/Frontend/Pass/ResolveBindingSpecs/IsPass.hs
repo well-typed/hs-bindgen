@@ -42,6 +42,8 @@ instance PassId ResolveBindingSpecs
 
 instance PassScopedName ResolveBindingSpecs
 
+instance PassTypes ResolveBindingSpecs
+
 instance PassMacro ResolveBindingSpecs where
   type MacroId         ResolveBindingSpecs = Id ResolveBindingSpecs
   type MacroBody       ResolveBindingSpecs = TypecheckedMacro ResolveBindingSpecs

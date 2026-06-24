@@ -52,6 +52,8 @@ instance PassId MangleNames where
 instance PassScopedName MangleNames where
   type ScopedName MangleNames = ScopedNamePair
 
+instance PassTypes MangleNames
+
 instance PassMacro MangleNames where
   type MacroId         MangleNames = Id MangleNames
   type MacroBody       MangleNames = TypecheckedMacro MangleNames

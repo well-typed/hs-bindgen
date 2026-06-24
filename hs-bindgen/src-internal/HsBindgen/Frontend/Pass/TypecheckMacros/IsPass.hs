@@ -39,6 +39,8 @@ instance PassId TypecheckMacros
 
 instance PassScopedName TypecheckMacros
 
+instance PassTypes TypecheckMacros
+
 instance PassMacro TypecheckMacros where
   type MacroId   TypecheckMacros = Id TypecheckMacros
   type MacroBody TypecheckMacros = TypecheckedMacro TypecheckMacros
@@ -135,6 +137,7 @@ instance CoercePassId p p' => CoercePass (TypecheckedMacroValue l) p p' where
 -------------------------------------------------------------------------------}
 
 instance CoercePassId               ConstructTranslationUnit TypecheckMacros
+instance CoercePassTypes            ConstructTranslationUnit TypecheckMacros
 instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros where
     coercePassMacroId _ = absurd
 instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros

@@ -25,6 +25,8 @@ instance PassId Zip
 
 instance PassScopedName Zip
 
+instance PassTypes Zip
+
 instance PassMacro Zip where
   type MacroId         Zip = Id Zip
   type MacroBody       Zip = TypecheckedMacro Zip

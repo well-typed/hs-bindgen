@@ -66,6 +66,8 @@ instance PassId Select where
 instance PassScopedName Select where
   type ScopedName Select = ScopedNamePair
 
+instance PassTypes Select
+
 instance PassMacro Select where
   type MacroId Select = Id Select
   type MacroBody       Select = TypecheckedMacro Select
@@ -285,6 +287,7 @@ instance IsTrace Level SelectMsg where
 -------------------------------------------------------------------------------}
 
 instance CoercePassId        AdjustTypes Select
+instance CoercePassTypes     AdjustTypes Select
 instance CoercePassMacroId   AdjustTypes Select
 instance CoercePassMacroUnderlying AdjustTypes Select where
   coercePassMacroUnderlying _ = coercePass

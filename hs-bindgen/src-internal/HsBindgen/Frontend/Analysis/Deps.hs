@@ -37,9 +37,9 @@ depsOfDeclWith depsOfMacro = \case
     C.DeclOpaque{}             -> []
     (C.DeclMacro m)            -> depsOfMacro m
     (C.DeclFunction function)  ->
-      C.depsOfType function.res ++
-      concatMap (\arg -> C.depsOfType arg.typ) function.args
-    (C.DeclGlobal global)      -> C.depsOfType global.typ
+      C.depsOfType (cType (Proxy @p) function.res) ++
+      concatMap (\arg -> C.depsOfType (cType (Proxy @p) arg.typ)) function.args
+    (C.DeclGlobal global)      -> C.depsOfType (cType (Proxy @p) global.typ)
 
 {-------------------------------------------------------------------------------
   Dependencies of declarations with parsed macros only
@@ -126,13 +126,13 @@ depsOfUnion union = concatMap depsOfField union.fields
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.
-     (HasField "typ" (a p) (C.Type p), IsPass p)
+     (HasField "typ" (a p) (Types p), IsPass p)
   => a p -> [(C.ValOrRef, Id p)]
-depsOfField field = C.depsOfType field.typ
+depsOfField field = C.depsOfType (cType (Proxy @p) field.typ)
 
 {-------------------------------------------------------------------------------
   Typedefs
 -------------------------------------------------------------------------------}
 
-depsOfTypedef :: IsPass p => C.Typedef p -> [(C.ValOrRef, Id p)]
-depsOfTypedef typedef = C.depsOfType typedef.typ
+depsOfTypedef :: forall p. IsPass p => C.Typedef p -> [(C.ValOrRef, Id p)]
+depsOfTypedef typedef = C.depsOfType (cType (Proxy @p) typedef.typ)

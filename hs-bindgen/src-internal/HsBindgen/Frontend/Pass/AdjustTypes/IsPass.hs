@@ -41,6 +41,8 @@ instance PassId AdjustTypes where
 instance PassScopedName AdjustTypes where
   type ScopedName AdjustTypes = ScopedNamePair
 
+instance PassTypes AdjustTypes
+
 instance PassMacro AdjustTypes where
   type MacroId         AdjustTypes = Id AdjustTypes
   type MacroBody       AdjustTypes = TypecheckedMacro AdjustTypes

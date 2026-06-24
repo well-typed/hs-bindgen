@@ -238,7 +238,7 @@ mapFlamField f = \case
 
 data StructField (p :: Pass) = StructField {
       info   :: FieldInfo p
-    , typ    :: C.Type p
+    , typ    :: Types p
     , offset :: Int     -- ^ Offset in bits
     , width  :: Maybe Int
     , ann    :: Ann "StructField" p
@@ -255,19 +255,19 @@ data Union (p :: Pass) = Union {
 
 data UnionField (p :: Pass) = UnionField {
       info :: FieldInfo p
-    , typ  :: C.Type p
+    , typ  :: Types p
     , ann  :: Ann "UnionField" p
     }
   deriving stock (Generic)
 
 data Typedef (p :: Pass) = Typedef {
-      typ :: C.Type p
+      typ :: Types p
     , ann :: Ann "Typedef" p
     }
   deriving stock (Generic)
 
 data Enum (p :: Pass) = Enum {
-      typ       :: C.Type p
+      typ       :: Types p
     , sizeof    :: Int
     , alignment :: Int
     , constants :: [EnumConstant p]
@@ -293,7 +293,7 @@ data AnonEnumConstant (p :: Pass) = AnonEnumConstant {
 
 data Function (p :: Pass) = Function {
       args  :: [FunctionArg p]
-    , res   :: C.Type p
+    , res   :: Types p
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -312,20 +312,21 @@ data Function (p :: Pass) = Function {
 -- Both of these types use the @TypeFunArg@ annotation, however.
 data FunctionArg (p :: Pass) = FunctionArg {
       name :: Maybe (ScopedName p)
-    , typ  :: C.Type p
+    , typ  :: Types p
     , ann  :: Ann "TypeFunArg" p
     }
     deriving stock (Generic)
 
 -- | Get the type of a function declaration
-typeOfFunction :: Function p -> C.Type p
-typeOfFunction fun = C.TypeFun (map typeOfFunctionArg fun.args) fun.res
+typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
+typeOfFunction fun =
+    C.TypeFun (map typeOfFunctionArg fun.args) (cType (Proxy @p) fun.res)
 
 -- | Get the type of a function argument
-typeOfFunctionArg :: FunctionArg p -> C.TypeFunArg p
+typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
 typeOfFunctionArg functionArg =
     C.TypeFunArgF{
-        typ = functionArg.typ
+        typ = cType (Proxy @p) functionArg.typ
       , ann = functionArg.ann
       }
 
@@ -425,7 +426,7 @@ decideFunctionPurity = foldr prefer ImpureFunction
       CPureFunction -> ()
 
 data Global (p :: Pass) = Global {
-      typ :: C.Type p
+      typ :: Types p
     , ann :: Ann "Global" p
     }
   deriving stock (Generic)
@@ -579,14 +580,14 @@ instance (
     Flam fld ann -> Flam (coercePass fld) ann
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassTypes p p'
     , CoercePassCommentDecl p p'
     , ScopedName p ~ ScopedName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
   coercePass field = StructField{
         info   = coercePass field.info
-      , typ    = coercePass field.typ
+      , typ    = coercePassTypes (Proxy @'(p, p')) field.typ
       , offset = field.offset
       , width  = field.width
       , ann    = field.ann
@@ -604,33 +605,33 @@ instance (
       }
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassTypes p p'
     , CoercePassCommentDecl p p'
     , ScopedName p ~ ScopedName p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
   coercePass field = UnionField{
         info = coercePass field.info
-      , typ  = coercePass field.typ
+      , typ  = coercePassTypes (Proxy @'(p, p')) field.typ
       , ann  = field.ann
       }
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassTypes p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
     ) => CoercePass Typedef p p' where
   coercePass typedef = Typedef{
-        typ = coercePass typedef.typ
+        typ = coercePassTypes (Proxy @'(p, p')) typedef.typ
       , ann = typedef.ann
       }
 
 instance (
-       CoercePass C.Type p p'
+       CoercePassTypes p p'
      , CoercePass EnumConstant p p'
      , Ann "Enum" p ~ Ann "Enum" p'
      ) => CoercePass Enum p p' where
   coercePass enum = Enum{
-        typ       = coercePass enum.typ
+        typ       = coercePassTypes (Proxy @'(p, p')) enum.typ
       , constants = coercePass <$> enum.constants
       , sizeof    = enum.sizeof
       , alignment = enum.alignment
@@ -656,46 +657,35 @@ instance (
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
+      CoercePassTypes p p'
     , CoercePassAnn "TypeFunArg" p p'
     , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
         args  = map coercePass function.args
-      , res   = coercePass function.res
+      , res   = coercePassTypes (Proxy @'(p, p')) function.res
       , attrs = function.attrs
       , ann   = function.ann
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
+      CoercePassTypes p p'
     , CoercePassAnn "TypeFunArg" p p'
     , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
     ) => CoercePass FunctionArg p p' where
   coercePass functionArg = FunctionArg{
         name = functionArg.name
-      , typ  = coercePass functionArg.typ
+      , typ  = coercePassTypes (Proxy @'(p, p')) functionArg.typ
       , ann  = coercePassAnn (Proxy @'("TypeFunArg", p, p')) functionArg.ann
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
-    , CoercePassAnn "TypeFunArg" p p'
-    , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
+      CoercePassTypes p p'
     , Ann "Global" p ~ Ann "Global" p'
     ) => CoercePass Global p p' where
   coercePass global = Global{
-        typ = coercePass global.typ
+        typ = coercePassTypes (Proxy @'(p, p')) global.typ
       , ann = global.ann
       }
 
