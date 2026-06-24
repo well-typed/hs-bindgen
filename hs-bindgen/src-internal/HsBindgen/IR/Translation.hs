@@ -9,11 +9,15 @@ module HsBindgen.IR.Translation (
   , extDeclIdPair
     -- * ScopedNamePair
   , ScopedNamePair(..)
+  , TranslatedTypes(..)
+  , TranslatedAnonRef(..)
+  , translatedAnonRefType
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -47,3 +51,40 @@ data ScopedNamePair = ScopedNamePair {
     , hsName :: Hs.SomeName
     }
   deriving stock (Eq, Generic, Ord, Show)
+
+{-------------------------------------------------------------------------------
+  TranslatedTypes
+-------------------------------------------------------------------------------}
+
+-- | A t'C.Type' associated with possible Haskell type translations
+data TranslatedTypes (p :: Pass) = TranslatedTypes {
+      c :: C.Type p
+--    , hs :: Hs.Type    -- TODO
+    }
+  deriving stock (Eq, Generic, Show)
+
+instance (
+      CoercePass C.Type p p'
+    ) => CoercePass TranslatedTypes p p' where
+  coercePass translatedTypes = TranslatedTypes{
+      c = coercePass translatedTypes.c
+    }
+
+-- | A t'C.AnonRef' associated with possible Haskell type translations
+data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
+      c :: C.AnonRef p
+--    , hs :: Hs.Type    -- TODO
+    }
+  deriving stock (Eq, Generic, Show)
+
+instance (
+      CoercePass C.AnonRef p p'
+    ) => CoercePass TranslatedAnonRef p p' where
+  coercePass translatedAnonRef = TranslatedAnonRef {
+      c = coercePass translatedAnonRef.c
+    }
+
+translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
+translatedAnonRefType translatedAnonRef = TranslatedTypes {
+      c = C.anonRefType translatedAnonRef.c
+    }

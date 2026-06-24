@@ -53,9 +53,7 @@ class (
     => Proxy p
     -> AnonRef p
     -> Types p
-  anonRefTypes _ = \case
-      C.AnonRef ref -> C.TypeRef ref
-      C.AnonExtBinding ext -> C.TypeExtBinding ext
+  anonRefTypes _ = C.anonRefType
 
 {-------------------------------------------------------------------------------
   Coercion

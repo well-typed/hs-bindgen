@@ -39,6 +39,7 @@ module HsBindgen.IR.C.Type (
   , TypedefRef
   , ExtBindingRef
   , AnonRef (..)
+  , anonRefType
 
     -- * Normal forms
   , Normalize(..)
@@ -336,6 +337,11 @@ data AnonRef p =
     AnonRef (Id p)
     -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | AnonExtBinding !(ExtBindingRef p)
+
+anonRefType :: AnonRef p -> Type p
+anonRefType = \case
+    AnonRef ref -> TypeRef ref
+    AnonExtBinding ext -> TypeExtBinding ext
 
 deriving instance (Eq (Id p), Eq (ExtBindingRef p)) => Eq (AnonRef p)
 deriving instance (Show (Id p), Show (ExtBindingRef p)) => Show (AnonRef p)
