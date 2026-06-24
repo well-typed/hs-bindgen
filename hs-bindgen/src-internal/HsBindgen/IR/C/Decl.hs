@@ -43,7 +43,6 @@ module HsBindgen.IR.C.Decl (
   , elimField
   , RegularField(..)
   , ImplicitField(..)
-  , AnonRef(..)
   , IndirectField(..)
     -- ** Comments
   , Comment(..)
@@ -60,9 +59,9 @@ import Clang.HighLevel.Types
 import HsBindgen.Imports
 import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
-import HsBindgen.IR.C.Type (CoercePassExtBindingRef (coercePassExtBindingRef))
 import HsBindgen.IR.C.Type qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Pass.Types (CoercePassAnonRef (coercePassAnonRef))
 import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -257,15 +256,14 @@ data Union (p :: Pass) = Union {
     }
   deriving stock (Generic)
 
-
 data Typedef (p :: Pass) = Typedef {
-      typ :: C.Type p
+      typ :: Types p
     , ann :: Ann "Typedef" p
     }
   deriving stock (Generic)
 
 data Enum (p :: Pass) = Enum {
-      typ       :: C.Type p
+      typ       :: Types p
     , sizeof    :: Int
     , alignment :: Int
     , constants :: [EnumConstant p]
@@ -291,7 +289,7 @@ data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
 
 data Function (p :: Pass) = Function {
       args  :: [FunctionArg p]
-    , res   :: C.Type p
+    , res   :: Types p
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -310,20 +308,21 @@ data Function (p :: Pass) = Function {
 -- Both of these types use the @TypeFunArg@ annotation, however.
 data FunctionArg (p :: Pass) = FunctionArg {
       name :: Maybe (ScopedName p)
-    , typ  :: C.Type p
+    , typ  :: Types p
     , ann  :: Ann "TypeFunArg" p
     }
     deriving stock (Generic)
 
 -- | Get the type of a function declaration
-typeOfFunction :: Function p -> C.Type p
-typeOfFunction fun = C.TypeFun (map typeOfFunctionArg fun.args) fun.res
+typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
+typeOfFunction fun =
+    C.TypeFun (map typeOfFunctionArg fun.args) (cType (Proxy @p) fun.res)
 
 -- | Get the type of a function argument
-typeOfFunctionArg :: FunctionArg p -> C.TypeFunArg p
+typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
 typeOfFunctionArg functionArg =
     C.TypeFunArgF{
-        typ = functionArg.typ
+        typ = cType (Proxy @p) functionArg.typ
       , ann = functionArg.ann
       }
 
@@ -423,7 +422,7 @@ decideFunctionPurity = foldr prefer ImpureFunction
       CPureFunction -> ()
 
 data Global (p :: Pass) = Global {
-      typ :: C.Type p
+      typ :: Types p
     , ann :: Ann "Global" p
     }
   deriving stock (Generic)
@@ -440,7 +439,7 @@ data Field p =
 instance HasField "info" (Field p) (FieldInfo p) where
   getField = elimField (.info) (.info)
 
-instance HasField "typ" (Field p) (C.Type p) where
+instance (ty ~ Types p, PassTypes p) => HasField "typ" (Field p) ty where
   getField = elimField (.typ) (.typ)
 
 instance HasField "offset" (Field p) Int where
@@ -475,7 +474,7 @@ elimField f g = \case
 
 data RegularField p = RegularField {
       info   :: FieldInfo p
-    , typ    :: C.Type p
+    , typ    :: Types p
       -- | Offset in bits
     , offset :: Int
     , width  :: Maybe Int
@@ -498,19 +497,10 @@ data ImplicitField p = ImplicitField {
     }
     deriving stock (Generic)
 
--- | A reference to an anonymous struct or union
-data AnonRef p =
-    AnonRef (Id p)
-    -- NOTE: strictness annotations help GHC infer redundant pattern matches
-  | AnonExtBinding !(C.ExtBindingRef p)
-
--- | Implicit fields can only refer to anonymous structs or unions, so the type
--- of the field is always @TypeRef typRef@. Use the @typRef@ field to access the
--- reference directly.
-instance HasField "typ" (ImplicitField p) (C.Type p) where
-  getField x = case x.typRef of
-      AnonRef ref -> C.TypeRef ref
-      AnonExtBinding ext -> C.TypeExtBinding ext
+-- | Implicit fields can only refer to anonymous structs or unions. Use the
+-- @typRef@ field to access the reference directly.
+instance (ty ~ Types p, PassTypes p) => HasField "typ" (ImplicitField p) ty where
+  getField x = anonRefTypes (Proxy @p) x.typRef
 
 -- | Implicit fields can only refer to anonymous structs or unions, so they have
 -- no bit width.
@@ -521,7 +511,7 @@ instance HasField "width" (ImplicitField p) (Maybe Int) where
 -- be accessed /as if/ it were a member of the enclosing struct\/union
 data IndirectField p = IndirectField {
       info   :: FieldInfo p
-    , typ    :: C.Type p
+    , typ    :: Types p
       -- | Offset in bits
     , offset :: Int
     , width  :: Maybe Int
@@ -560,7 +550,6 @@ data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
   Eq and Show instances
 -------------------------------------------------------------------------------}
 
-deriving stock instance IsPass p => Eq (AnonRef              p)
 deriving stock instance IsPass p => Eq (Comment              p)
 deriving stock instance IsPass p => Eq (CommentRef           p)
 deriving stock instance IsPass p => Eq (DeclInfo             p)
@@ -580,7 +569,6 @@ deriving stock instance IsPass p => Eq (Typedef              p)
 deriving stock instance IsPass p => Eq (Union                p)
 deriving stock instance IsPass p => Eq (UntaggedEnumConstant p)
 
-deriving stock instance IsPass p => Show (AnonRef              p)
 deriving stock instance IsPass p => Show (Comment              p)
 deriving stock instance IsPass p => Show (CommentRef           p)
 deriving stock instance IsPass p => Show (DeclInfo             p)
@@ -714,12 +702,12 @@ instance (
 
 instance (
       CoercePass FieldInfo p p'
-    , CoercePass C.Type p p'
+    , CoercePassTypes p p'
     , Ann "RegularField" p ~ Ann "RegularField" p'
     ) => CoercePass RegularField p p' where
   coercePass field = RegularField {
         info = coercePass field.info
-      , typ = coercePass field.typ
+      , typ = coercePassTypes (Proxy @'(p, p')) field.typ
       , offset = field.offset
       , width = field.width
       , ann = field.ann
@@ -727,57 +715,49 @@ instance (
 
 instance (
       CoercePass FieldInfo p p'
-    , CoercePass AnonRef p p'
+    , CoercePassAnonRef p p'
     , CoercePass IndirectField p p'
     , Ann "ImplicitField" p ~ Ann "ImplicitField" p'
     ) => CoercePass ImplicitField p p' where
   coercePass field = ImplicitField {
         info = coercePass field.info
-      , typRef = coercePass field.typRef
+      , typRef = coercePassAnonRef (Proxy @'(p, p')) field.typRef
       , offset = field.offset
       , indirect = fmap coercePass field.indirect
       , ann = field.ann
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassExtBindingRef p p'
-    ) => CoercePass AnonRef p p' where
-  coercePass = \case
-      AnonRef ref -> AnonRef $ coercePassId (Proxy @'(p, p')) ref
-      AnonExtBinding ext -> AnonExtBinding $ coercePassExtBindingRef ext
-
-instance (
       CoercePass FieldInfo p p'
-    , CoercePass C.Type p p'
-    , CoercePass AnonRef p p'
+    , CoercePassTypes p p'
+    , CoercePassAnonRef p p'
     , CoercePassAnn "IndirectField" p p'
     ) => CoercePass IndirectField p p' where
   coercePass field = IndirectField {
         info = coercePass field.info
-      , typ = coercePass field.typ
+      , typ = coercePassTypes (Proxy @'(p, p')) field.typ
       , offset = field.offset
       , width = field.width
-      , path = fmap coercePass field.path
+      , path = fmap (coercePassAnonRef (Proxy @'(p, p'))) field.path
       , ann = coercePassAnn (Proxy @'("IndirectField", p, p')) field.ann
       }
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassTypes p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
     ) => CoercePass Typedef p p' where
   coercePass typedef = Typedef{
-        typ = coercePass typedef.typ
+        typ = coercePassTypes (Proxy @'(p, p')) typedef.typ
       , ann = typedef.ann
       }
 
 instance (
-       CoercePass C.Type p p'
+       CoercePassTypes p p'
      , CoercePass EnumConstant p p'
      , Ann "Enum" p ~ Ann "Enum" p'
      ) => CoercePass Enum p p' where
   coercePass enum = Enum{
-        typ       = coercePass enum.typ
+        typ       = coercePassTypes (Proxy @'(p, p')) enum.typ
       , constants = coercePass <$> enum.constants
       , sizeof    = enum.sizeof
       , alignment = enum.alignment
@@ -803,46 +783,35 @@ instance (
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
+      CoercePassTypes p p'
     , CoercePassAnn "TypeFunArg" p p'
     , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
         args  = map coercePass function.args
-      , res   = coercePass function.res
+      , res   = coercePassTypes (Proxy @'(p, p')) function.res
       , attrs = function.attrs
       , ann   = function.ann
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
+      CoercePassTypes p p'
     , CoercePassAnn "TypeFunArg" p p'
     , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
     ) => CoercePass FunctionArg p p' where
   coercePass functionArg = FunctionArg{
         name = functionArg.name
-      , typ  = coercePass functionArg.typ
+      , typ  = coercePassTypes (Proxy @'(p, p')) functionArg.typ
       , ann  = coercePassAnn (Proxy @'("TypeFunArg", p, p')) functionArg.ann
       }
 
 instance (
-      CoercePassId p p'
-    , CoercePassMacroId p p'
-    , CoercePassMacroUnderlying p p'
-    , CoercePassAnn "TypeFunArg" p p'
-    , ScopedName p ~ ScopedName p'
-    , ExtBinding p ~ ExtBinding p'
+      CoercePassTypes p p'
     , Ann "Global" p ~ Ann "Global" p'
     ) => CoercePass Global p p' where
   coercePass global = Global{
-        typ = coercePass global.typ
+        typ = coercePassTypes (Proxy @'(p, p')) global.typ
       , ann = global.ann
       }
 

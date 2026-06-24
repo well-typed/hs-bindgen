@@ -31,6 +31,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.IR.Translation
 import HsBindgen.Util.Tracer
 
@@ -64,6 +65,8 @@ instance PassId Select where
 
 instance PassScopedName Select where
   type ScopedName Select = ScopedNamePair
+
+instance PassTypes Select
 
 instance PassMacro Select where
   type MacroId Select = Id Select
@@ -297,7 +300,9 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
+instance CoercePassAnonRef   AdjustTypes Select
 instance CoercePassId        AdjustTypes Select
+instance CoercePassTypes     AdjustTypes Select
 instance CoercePassMacroId   AdjustTypes Select
 instance CoercePassMacroUnderlying AdjustTypes Select where
   coercePassMacroUnderlying _ = coercePass

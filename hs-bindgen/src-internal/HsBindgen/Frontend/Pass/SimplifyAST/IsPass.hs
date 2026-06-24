@@ -10,6 +10,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Util.Tracer
 
@@ -43,6 +44,8 @@ instance PassId SimplifyAST where
 
 instance PassScopedName SimplifyAST
 
+instance PassTypes SimplifyAST
+
 instance PassMacro SimplifyAST where
   type MacroBody SimplifyAST = Macro.Unresolved
 
@@ -56,10 +59,16 @@ instance PassAnn SimplifyAST where
 instance PassMsg SimplifyAST where
   type Msg SimplifyAST = SimplifyASTMsg
 
+{-------------------------------------------------------------------------------
+  CoercePass: Parse
+-------------------------------------------------------------------------------}
+
+instance CoercePassAnonRef             Parse SimplifyAST
 instance CoercePassId                  Parse SimplifyAST
 instance CoercePassMacroBody           Parse SimplifyAST
 instance CoercePassMacroId             Parse SimplifyAST
 instance CoercePassMacroUnderlying     Parse SimplifyAST
+instance CoercePassTypes               Parse SimplifyAST
 instance CoercePassAnn "Global"        Parse SimplifyAST
 instance CoercePassAnn "IndirectField" Parse SimplifyAST
 instance CoercePassAnn "TypeFunArg"    Parse SimplifyAST

@@ -21,6 +21,8 @@ instance IsPass LanC
 
 instance PassId LanC
 
+instance PassTypes LanC
+
 instance PassScopedName LanC
 
 instance PassMacro LanC where
@@ -45,6 +47,7 @@ instance PassMsg LanC
 -------------------------------------------------------------------------------}
 
 instance CoercePassId               PrepareReparse LanC
+instance CoercePassTypes            PrepareReparse LanC
 instance CoercePassMacroId          PrepareReparse LanC
 instance CoercePassAnn "TypeFunArg" PrepareReparse LanC
 instance CoercePassCommentDecl      PrepareReparse LanC where

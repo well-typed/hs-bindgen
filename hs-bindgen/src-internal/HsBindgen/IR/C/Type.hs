@@ -38,6 +38,7 @@ module HsBindgen.IR.C.Type (
   , MacroRef(..)
   , TypedefRef
   , ExtBindingRef
+  , AnonRef (..)
 
     -- * Normal forms
   , Normalize(..)
@@ -329,6 +330,15 @@ type TypedefRef p = Ref (Id p) p
 --
 -- > Ref { name = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
 type ExtBindingRef p = Ref (ExtBinding p) p
+
+-- | A reference to an anonymous struct or union
+data AnonRef p =
+    AnonRef (Id p)
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
+  | AnonExtBinding !(ExtBindingRef p)
+
+deriving instance (Eq (Id p), Eq (ExtBindingRef p)) => Eq (AnonRef p)
+deriving instance (Show (Id p), Show (ExtBindingRef p)) => Show (AnonRef p)
 
 {-------------------------------------------------------------------------------
   Normal forms
@@ -866,6 +876,14 @@ instance (
 
       goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
       goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
+
+instance (
+      CoercePassId p p'
+    , CoercePassExtBindingRef p p'
+    ) => CoercePass AnonRef p p' where
+  coercePass = \case
+      AnonRef ref -> AnonRef $ coercePassId (Proxy @'(p, p')) ref
+      AnonExtBinding ext -> AnonExtBinding $ coercePassExtBindingRef ext
 
 class CoercePassExtBindingRef p p' where
   coercePassExtBindingRef :: ExtBindingRef p -> ExtBindingRef p'

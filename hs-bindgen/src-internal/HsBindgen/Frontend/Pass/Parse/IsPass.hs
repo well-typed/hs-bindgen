@@ -50,6 +50,8 @@ instance PassId Parse where
 
 instance PassScopedName Parse
 
+instance PassTypes Parse
+
 instance PassMacro Parse where
   type MacroBody Parse = Macro.Unresolved
 

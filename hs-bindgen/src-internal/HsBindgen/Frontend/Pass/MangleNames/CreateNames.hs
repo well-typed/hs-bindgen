@@ -86,6 +86,8 @@ instance PassId CreateNames where
 instance PassScopedName CreateNames where
   type ScopedName CreateNames = C.ScopedName
 
+instance PassTypes CreateNames
+
 instance PassMacro CreateNames where
   type MacroId         CreateNames = C.DeclId
   type MacroBody       CreateNames = TypecheckedMacro CreateNames
@@ -736,7 +738,8 @@ createFunction function = do
         }
 
 createGlobal ::
-     C.Global ResolveBindingSpecs -> CreateE (C.Global CreateNames)
+     C.Global ResolveBindingSpecs
+  -> CreateE (C.Global CreateNames)
 createGlobal global = pure C.Global{
       typ = coercePass global.typ
     , ann = global.ann
