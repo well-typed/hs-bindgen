@@ -3,6 +3,7 @@ module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
   ) where
 
+import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State hiding (MonadState)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
@@ -24,9 +25,9 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
+import HsBindgen.Backend.Hs.Translation.Monad (HsM)
+import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
-import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Structure
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -74,12 +75,18 @@ generateDeclarations ::
 generateDeclarations macroLang uniqueId config name declIndex sizeofs =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang uniqueId config name declIndex sizeofs
+      generateDeclarations' macroLang env declIndex
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
     partitionBindingCategories xs (WithCategory cat decl) =
       over (lensForCategory cat) (decl :) xs
+
+    supInsts :: Inst.SupportedInstances
+    supInsts = def
+
+    env :: HsM.Env
+    env = HsM.initEnv uniqueId name config sizeofs supInsts
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
@@ -90,15 +97,12 @@ data WithCategory a = WithCategory {
 generateDeclarations' ::
      HasMacroTypes l
   => MacroLang l
-  -> UniqueId
-  -> HaddockConfig
-  -> BaseModuleName
+  -> HsM.Env
   -> DeclIndex l
-  -> C.Sizeofs
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang uniqueId haddockConfig moduleName declIndex sizeofs decs =
-    State.runHsM $ do
+generateDeclarations' macroLang env declIndex decs =
+    HsM.runHsM env $ do
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
           -- These go in the main module to avoid orphan instances
@@ -107,10 +111,10 @@ generateDeclarations' macroLang uniqueId haddockConfig moduleName declIndex size
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
                    , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
-                   , d <- ToFromFunPtr.forFunction sizeofs (args, res)
+                   , d <- ToFromFunPtr.forFunction env.sizeofs (args, res)
                    ]
-      hsDeclsAction <- mapM (generateDecs macroLang uniqueId haddockConfig moduleName sizeofs) decs
-      hsDecls <- State.runAction $ fmap concat $ sequence hsDeclsAction
+      hsDeclsAction <- mapM (generateDecs macroLang) decs
+      hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -165,65 +169,56 @@ isDefinedInCurrentModule declIndex =
 generateDecs ::
      HasMacroTypes l
   => MacroLang l
-  -> UniqueId
-  -> HaddockConfig
-  -> BaseModuleName
-  -> C.Sizeofs
   -> C.Decl l Final
-  -> HsM (State.Action [WithCategory (Hs.Decl l)])
-generateDecs macroLang uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
+  -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
+generateDecs macroLang (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        State.immediateM $ structDecs supInsts.struct haddockConfig info struct spec
+        HsM.immediateM $ structDecs info struct spec
       C.DeclUnion union -> withCategoryM CType $
-        State.immediateM $ unionDecs haddockConfig info union spec
+        HsM.immediateM $ unionDecs info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        State.immediateM $ enumDecs supInsts.enum haddockConfig info enum spec
-      C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
-        pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
+        HsM.immediateM $ enumDecs info enum spec
+      C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $ do
+        HsM.immediateM $ anonEnumConstantDecs info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ of
           Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs supInsts.typedef haddockConfig sizeofs info (args, res, reconstruct) typedef.names spec
+            typedefFunTypeIndirectionDecs info (args, res, reconstruct) typedef.names spec
           Nothing ->
-            State.immediateM $ typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
+            HsM.immediateM $ typedefDecs info Origin.Typedef typedef spec
       C.DeclOpaque mSize -> withCategoryM CType $
-        State.immediateM $ opaqueDecs haddockConfig info spec mSize
+        HsM.immediateM $ opaqueDecs info spec mSize
       C.DeclFunction function -> do
         let funDeclsWith safety =
-              functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
+              functionDecs safety info function spec
             funType = C.TypeFun (map (.argTyp) function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
-            funPtrDecls = fst $
-              addressStubDecs uniqueId haddockConfig moduleName sizeofs info funType HaskellId spec
-        pure $ do
-          safes   <- withCategory (CTerm CSafe)   (State.immediate $ funDeclsWith SHs.Safe)
-          unsafes <- withCategory (CTerm CUnsafe) (State.immediate $ funDeclsWith SHs.Unsafe)
-          funPtrs <- withCategory (CTerm CFunPtr) (State.immediate $ funPtrDecls)
-          pure (safes ++ unsafes ++ funPtrs)
+            funPtrDecls = fst <$>
+                addressStubDecs info funType HaskellId spec
+        safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
+        unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
+        funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
+        pure $ HsM.concatSequence [safes, unsafes, funPtrs]
       C.DeclMacro macro -> withCategoryM CType $
-        State.immediateM $ macroDecs macroLang supInsts.typedef haddockConfig info macro spec
+        HsM.immediateM $ macroDecs macroLang info macro spec
       C.DeclGlobal g -> do
-        transState <- State.get
-        pure $ withCategory (CTerm CGlobal) $
-          State.immediate $ global uniqueId haddockConfig moduleName transState sizeofs info g.typ spec
+        withCategoryM (CTerm CGlobal) $
+          HsM.immediateM $ global info g.typ spec
   where
     withCategory ::
          Category
-      -> State.Action [a]
-      -> State.Action [WithCategory a]
+      -> HsM.Action [a]
+      -> HsM.Action [WithCategory a]
     withCategory c = fmap (map (WithCategory c))
 
     withCategoryM ::
          Functor m
       => Category
-      -> m (State.Action [a])
-      -> m (State.Action [WithCategory a])
+      -> m (HsM.Action [a])
+      -> m (HsM.Action [WithCategory a])
     withCategoryM c = fmap (withCategory c)
-
-    supInsts :: Inst.SupportedInstances
-    supInsts = def
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -231,22 +226,23 @@ generateDecs macroLang uniqueId haddockConfig moduleName sizeofs (C.Decl info ki
 
 opaqueDecs ::
      HasCallStack
-  => HaddockConfig
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> PrescriptiveDeclSpec
   -> Maybe C.OpaqueSize
   -> HsM [Hs.Decl l]
-opaqueDecs haddockConfig info spec mSize = do
+opaqueDecs info spec mSize = do
     State.modify' $ #instanceMap %~ Map.insert name insts
+    env <- Reader.ask
+    let decl = mkDecl env
     return $ decl : staticSizeDecls
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
-    decl :: Hs.Decl l
-    decl = Hs.DeclEmpty Hs.EmptyData {
+    mkDecl :: HsM.Env -> Hs.Decl l
+    mkDecl env = Hs.DeclEmpty Hs.EmptyData {
           name   = name
-        , comment = mkHaddocks haddockConfig info
+        , comment = mkHaddocks env.haddockConfig info
         , origin = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
@@ -279,13 +275,14 @@ opaqueDecs haddockConfig info spec mSize = do
 
 enumDecs ::
      HasCallStack
-  => Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
+enumDecs info enum spec = do
+    env <- Reader.ask
+    nt <- newtypeDec env
+    pure $ aux env nt
   where
     valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
     valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
@@ -305,8 +302,8 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
       guard $ maxV - minV + 1 == fromIntegral (Map.size valueMap)
       return (NonEmpty.head minNames, NonEmpty.head maxNames)
 
-    newtypeDec :: HsM Hs.Newtype
-    newtypeDec =
+    newtypeDec :: HsM.Env -> HsM Hs.Newtype
+    newtypeDec env = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
@@ -332,10 +329,10 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks haddockConfig info
+        newtypeComment = mkHaddocks env.haddockConfig info
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Hs.getCandidateInsts supInsts
+        candidateInsts = Hs.getCandidateInsts env.supportedInstances.enum
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
@@ -354,8 +351,8 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
           ]
 
     -- everything in aux is state-dependent
-    aux :: Hs.Newtype -> [Hs.Decl l]
-    aux nt =
+    aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
+    aux env nt =
         Hs.DeclNewtype nt
         : marshalDecls
         ++ primDecl
@@ -429,7 +426,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
                 , strategy = strat
                 , comment  = Nothing
                 }
-          | (clss, supStrats) <- Map.assocs supInsts
+          | (clss, supStrats) <- Map.assocs env.supportedInstances.enum
           ]
 
         cEnumInstanceDecls :: [Hs.Decl l]
@@ -467,7 +464,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
-                , comment = mkHaddocksFieldInfo haddockConfig info constant.info
+                , comment = mkHaddocksFieldInfo env.haddockConfig info constant.info
                 }
             | constant <- enum.constants
             ]
@@ -478,20 +475,18 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
 
 typedefDecs ::
      HasCallStack
-  => Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
-  -> C.Sizeofs
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> (C.Typedef Final -> Origin.Newtype)
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
-    nt <- newtypeDec
-    pure $ aux nt
+typedefDecs info mkNewtypeOrigin typedef spec = do
+    env <- Reader.ask
+    nt <- newtypeDec env
+    pure $ aux env nt
   where
-    newtypeDec :: HsM Hs.Newtype
-    newtypeDec =
+    newtypeDec :: HsM.Env -> HsM Hs.Newtype
+    newtypeDec env = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
@@ -517,10 +512,10 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment =  mkHaddocks haddockConfig info
+        newtypeComment = mkHaddocks env.haddockConfig info
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Hs.getCandidateInsts supInsts
+        candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
@@ -539,8 +534,8 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
       _otherwise -> Nothing
 
     -- everything in aux is state-dependent
-    aux :: Hs.Newtype -> [Hs.Decl l]
-    aux nt =
+    aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
+    aux env nt =
         Hs.DeclNewtype nt
         : newtypeWrapper
         ++ optDecls
@@ -556,7 +551,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
                 , strategy = strat
                 , comment  = Nothing
                 }
-          | (clss, supStrats) <- Map.assocs supInsts
+          | (clss, supStrats) <- Map.assocs env.supportedInstances.typedef
           , clss `Set.member` nt.instances
           ]
 
@@ -576,7 +571,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
       -- handled correctly.
       --
         newtypeWrapper :: [Hs.Decl l]
-        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype sizeofs nt) isFunType
+        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype env.sizeofs nt) isFunType
 
 -- | 'HsBindgen.Runtime.HasCField.HasCField', 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', and 'GHC.Records.HasField' instances for a typedef
 -- declaration.
@@ -648,23 +643,17 @@ typedefFieldDecls hsNewType = [
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunTypeIndirectionDecs ::
      HasCallStack
-  => Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
-  -> C.Sizeofs
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
   -> MangleNames.TypedefNames
   -> PrescriptiveDeclSpec
-  -> HsM (State.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs supInsts haddockConfig sizeofs origInfo (args, res, reconstruct) names origSpec =
-    fmap concActions $ sequence [
-        State.delayM     $ typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , State.immediateM $ typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
+  -> HsM (HsM.Action [Hs.Decl l])
+typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
+    fmap HsM.concatSequence $ sequence [
+        HsM.delayM     $ typedefDecs auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , HsM.immediateM $ typedefDecs origInfo Origin.Typedef mainTypedef origSpec
       ]
   where
-    concActions :: [State.Action [Hs.Decl l]] -> State.Action [Hs.Decl l]
-    concActions = fmap concat . sequence
-
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
     -- For historical reasons we currently implement this by making a "fake" C
     -- declaration, and then translating that immediately to Haskell. We should
@@ -740,32 +729,29 @@ typedefFunTypeIndirectionDecs supInsts haddockConfig sizeofs origInfo (args, res
 macroDecs ::
      HasMacroTypes l
   => MacroLang l
-  -> Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
   -> C.DeclInfo Final
   -> TypecheckedMacro Final l
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecs macroLang supInsts haddockConfig info checkedMacro spec =
+macroDecs macroLang info checkedMacro spec =
     case checkedMacro of
-      MacroType  ty  -> macroDecsTypedef macroLang supInsts haddockConfig info ty spec
-      MacroValue val -> pure $ macroVarDecs haddockConfig info val
+      MacroType  ty  -> macroDecsTypedef macroLang info ty spec
+      MacroValue val -> macroVarDecs info val
 
 macroDecsTypedef ::
      forall l. (HasMacroTypes l, HasCallStack)
   => MacroLang l
-  -> Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
   -> C.DeclInfo Final
   -> TypecheckedMacroType l Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecsTypedef macroLang supInsts haddockConfig info macroType spec = do
-    nt <- newtypeDec
-    pure $ aux nt
+macroDecsTypedef macroLang info macroType spec = do
+    env <- Reader.ask
+    nt <- newtypeDec env
+    pure $ aux env nt
   where
-    newtypeDec :: HsM Hs.Newtype
-    newtypeDec =
+    newtypeDec :: HsM.Env -> HsM Hs.Newtype
+    newtypeDec env = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
@@ -802,17 +788,17 @@ macroDecsTypedef macroLang supInsts haddockConfig info macroType spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks haddockConfig info
+        newtypeComment = mkHaddocks env.haddockConfig info
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Hs.getCandidateInsts supInsts
+        candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList [Inst.HasCField, Inst.HasField, Inst.Generic]
 
     -- everything in aux is state-dependent
-    aux :: Hs.Newtype -> [Hs.Decl l]
-    aux nt = Hs.DeclNewtype nt : optDecls ++ typedefFieldDecls nt
+    aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
+    aux env nt = Hs.DeclNewtype nt : optDecls ++ typedefFieldDecls nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
@@ -824,7 +810,7 @@ macroDecsTypedef macroLang supInsts haddockConfig info macroType spec = do
                 , strategy = strat
                 , comment  = Nothing
                 }
-          | (clss, supStrats) <- Map.assocs supInsts
+          | (clss, supStrats) <- Map.assocs env.supportedInstances.typedef
           , clss `Set.member` nt.instances
           ]
 
@@ -881,16 +867,12 @@ macroDecsTypedef macroLang supInsts haddockConfig info macroType spec = do
 -- also generate an additional \"getter\" function in Haskell land that returns
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
-     UniqueId
-  -> HaddockConfig
-  -> BaseModuleName
-  -> TranslationState
-  -> C.Sizeofs
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> C.Type Final
   -> PrescriptiveDeclSpec
-  -> [Hs.Decl l]
-global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
+  -> HsM [Hs.Decl l]
+global info ty _spec = do
+    insts <- getInsts
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
     --
@@ -905,27 +887,27 @@ global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     --
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/993>
     -- We should check that the Storable instance has no superclass constraints.
-    | C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts =
-      let stubDecs     :: [Hs.Decl l]
-          pureStubName :: Hs.TermName
-          (stubDecs, pureStubName) = getStubDecsWith GlobalUniqueId
-          constGetterOfType :: [Hs.Decl l]
+    if C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts then do
+      (stubDecs :: [Hs.Decl l], pureStubName :: Hs.TermName) <- getStubDecsWith GlobalUniqueId
+      let constGetterOfType :: [Hs.Decl l]
           constGetterOfType = constGetter (Type.topLevel ty) info pureStubName
-      in  stubDecs ++ constGetterOfType
+      pure (stubDecs ++ constGetterOfType)
     -- Otherwise, do not generate a getter
-    | otherwise = fst $ getStubDecsWith HaskellId
+    else do
+      fst <$> getStubDecsWith HaskellId
   where
-    getStubDecsWith :: RunnerNameSpec -> ([Hs.Decl l], Hs.TermName)
+    getStubDecsWith :: RunnerNameSpec -> HsM ([Hs.Decl l], Hs.TermName)
     getStubDecsWith x =
-      addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty x _spec
+      addressStubDecs info ty x _spec
 
-    insts :: Set Inst.TypeClass
-    insts =
-      Hs.getInstances
-        transState.instanceMap
-        Nothing
-        (Set.singleton Inst.Storable)
-        [Type.topLevel ty]
+    getInsts :: HsM (Set Inst.TypeClass)
+    getInsts = do
+        st <- State.get
+        pure $ Hs.getInstances
+          st.instanceMap
+          Nothing
+          (Set.singleton Inst.Storable)
+          [Type.topLevel ty]
 
 -- | Getter for a constant (i.e., @const@) global variable
 --
@@ -980,123 +962,123 @@ data RunnerNameSpec =
 --
 -- * @pureStubName@: the identifier of the /pure/ stub.
 addressStubDecs ::
-     UniqueId
-  -> HaddockConfig
-  -> BaseModuleName
-  -> C.Sizeofs
-  -> C.DeclInfo Final -- ^ The given declaration
+     C.DeclInfo Final -- ^ The given declaration
   -> C.Type Final     -- ^ The type of the given declaration
   -> RunnerNameSpec
   -> PrescriptiveDeclSpec
-  -> ( [Hs.Decl l]
-     , Hs.TermName
-     )
-addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec _spec =
-    (foreignImport ++ runnerDecls, runnerName)
+  -> HsM ( [Hs.Decl l]
+         , Hs.TermName
+         )
+addressStubDecs info ty runnerNameSpec _spec = do
+    env <- Reader.ask
+    pure $ aux env
   where
-    -- *** Stub (impure) ***
-    stubImportType :: HsType
-    stubImportType = HsIO $ Type.topLevel stubType
+    aux :: HsM.Env -> ([Hs.Decl l],  Hs.TermName)
+    aux env = (foreignImport ++ runnerDecls, runnerName)
+      where
+        -- *** Stub (impure) ***
+        stubImportType :: HsType
+        stubImportType = HsIO $ Type.topLevel stubType
 
-    stubSymbol :: UniqueSymbol
-    stubSymbol = globallyUnique uniqueId moduleName $ "get_" ++ varName
+        stubSymbol :: UniqueSymbol
+        stubSymbol = globallyUnique env.uniqueId env.baseModuleName $ "get_" ++ varName
 
-    stubName :: Hs.TermName
-    stubName = Hs.InternalName stubSymbol
+        stubName :: Hs.TermName
+        stubName = Hs.InternalName stubSymbol
 
-    varName :: String
-    varName = Text.unpack $ info.id.cName.name.text
+        varName :: String
+        varName = Text.unpack $ info.id.cName.name.text
 
-    stubType :: C.Type Final
-    stubType = C.TypePointers 1 ty
+        stubType :: C.Type Final
+        stubType = C.TypePointers 1 ty
 
-    -- | The C stub return type.
-    --
-    -- If that type references an untagged struct\/union\/enum, then the C type
-    -- can not be pretty-printed because there is no name to refer to. In such
-    -- cases we use @void *@ instead, or @const void *@ if the original type was
-    -- additionally const-qualified.
-    cStubType :: C.Type Final
-    cStubType =
-          C.TypePointers 1
-        $ if referencesUntagged ty
-          then if C.isErasedTypeConstQualified ty
-               then C.TypeQual C.QualConst C.TypeVoid
-               else C.TypeVoid
-          else ty
+        -- | The C stub return type.
+        --
+        -- If that type references an untagged struct\/union\/enum, then the C type
+        -- can not be pretty-printed because there is no name to refer to. In such
+        -- cases we use @void *@ instead, or @const void *@ if the original type was
+        -- additionally const-qualified.
+        cStubType :: C.Type Final
+        cStubType =
+              C.TypePointers 1
+            $ if referencesUntagged ty
+              then if C.isErasedTypeConstQualified ty
+                  then C.TypeQual C.QualConst C.TypeVoid
+                  else C.TypeVoid
+              else ty
 
-    prettyStub :: String
-    prettyStub = concat [
-          "/* ", stubSymbol.source, " */\n"
-        , PC.prettyFunDefn stubDecl ""
-        ]
+        prettyStub :: String
+        prettyStub = concat [
+              "/* ", stubSymbol.source, " */\n"
+            , PC.prettyFunDefn stubDecl ""
+            ]
 
-    stubDecl :: PC.FunDefn
-    stubDecl =
-        PC.withArgs [] $ \args' ->
-          PC.FunDefn stubSymbol.unique cStubType C.HaskellPureFunction args' $
-            PC.CSList $
-            PC.CSStatement
-              (PC.ExpressionStatement $ PC.Return $ PC.Address $ PC.NamedVar varName)
-              PC.CSNil
+        stubDecl :: PC.FunDefn
+        stubDecl =
+            PC.withArgs [] $ \args' ->
+              PC.FunDefn stubSymbol.unique cStubType C.HaskellPureFunction args' $
+                PC.CSList $
+                PC.CSStatement
+                  (PC.ExpressionStatement $ PC.Return $ PC.Address $ PC.NamedVar varName)
+                  PC.CSNil
 
-    cWrapper :: CWrapper
-    cWrapper = CWrapper {
-          definition     = prettyStub
-        , hashIncludeArg = getMainHashIncludeArg info
-        }
+        cWrapper :: CWrapper
+        cWrapper = CWrapper {
+              definition     = prettyStub
+            , hashIncludeArg = getMainHashIncludeArg info
+            }
 
-    foreignImport :: [Hs.Decl l]
-    foreignImport =
-        Hs.ForeignImport.foreignImportDec
-          sizeofs
-          (Hs.ForeignImport.FunName stubSymbol)
-          []
-          (Hs.ForeignImport.FunRes stubImportType)
-          (uniqueCDeclName stubSymbol)
-          (CallConvUserlandCapi cWrapper)
-          (Origin.Global ty)
-          -- These imports can be unsafe. We're binding to simple address stubs,
-          -- so there are no callbacks into Haskell code. Moreover, they are
-          -- short running code.
-          SHs.Unsafe
+        foreignImport :: [Hs.Decl l]
+        foreignImport =
+            Hs.ForeignImport.foreignImportDec
+              env.sizeofs
+              (Hs.ForeignImport.FunName stubSymbol)
+              []
+              (Hs.ForeignImport.FunRes stubImportType)
+              (uniqueCDeclName stubSymbol)
+              (CallConvUserlandCapi cWrapper)
+              (Origin.Global ty)
+              -- These imports can be unsafe. We're binding to simple address stubs,
+              -- so there are no callbacks into Haskell code. Moreover, they are
+              -- short running code.
+              SHs.Unsafe
 
-    -- *** Stub (pure) ***
+        -- *** Stub (pure) ***
 
-    runnerDecls :: [Hs.Decl l]
-    runnerDecls = singleton runnerDecl
+        runnerDecls :: [Hs.Decl l]
+        runnerDecls = singleton runnerDecl
 
-    runnerDecl :: Hs.Decl l
-    runnerDecl = Hs.DeclVar $ Hs.Var {
-          name    = runnerName
-        , typ     = runnerType
-        , expr    = runnerExpr
-        , pragmas = [SHs.NOINLINE]
-        , comment = mbComment <> mbUniqueSymbolComment
-        }
+        runnerDecl :: Hs.Decl l
+        runnerDecl = Hs.DeclVar $ Hs.Var {
+              name    = runnerName
+            , typ     = runnerType
+            , expr    = runnerExpr
+            , pragmas = [SHs.NOINLINE]
+            , comment = mbComment <> mbUniqueSymbolComment
+            }
 
-    mbComment :: Maybe HsDoc.Comment
-    mbComment = mkHaddocks haddockConfig info
+        mbComment :: Maybe HsDoc.Comment
+        mbComment = mkHaddocks env.haddockConfig info
 
-    mbUniqueSymbolComment :: Maybe HsDoc.Comment
-    mbUniqueSymbolComment = case runnerName of
-      Hs.ExportedName _ -> Nothing
-      Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
+        mbUniqueSymbolComment :: Maybe HsDoc.Comment
+        mbUniqueSymbolComment = case runnerName of
+          Hs.ExportedName _ -> Nothing
+          Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
-    name :: Hs.SomeName
-    name = info.id.hsName
+        name :: Hs.SomeName
+        name = info.id.hsName
 
-    uniquify :: Text -> UniqueSymbol
-    uniquify = globallyUnique uniqueId moduleName . Text.unpack
+        uniquify :: Text -> UniqueSymbol
+        uniquify = globallyUnique env.uniqueId env.baseModuleName . Text.unpack
 
-    runnerName :: Hs.TermName
-    runnerName = case runnerNameSpec of
-        HaskellId      -> Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) name
-        GlobalUniqueId -> Hs.InternalName $ uniquify name.text
+        runnerName :: Hs.TermName
+        runnerName = case runnerNameSpec of
+            HaskellId      -> Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) name
+            GlobalUniqueId -> Hs.InternalName $ uniquify name.text
 
-    runnerType = SHs.translateType (Type.topLevel stubType)
-    runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
-                `SHs.EApp` SHs.EFree stubName
+        runnerType = SHs.translateType (Type.topLevel stubType)
+        runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
+                    `SHs.EApp` SHs.EFree stubName
 
 -- | Does the C type reference an untagged struct\/union\/enum?
 --
@@ -1164,18 +1146,19 @@ referencesUntagged = go
 -------------------------------------------------------------------------------}
 
 macroVarDecs ::
-     HaddockConfig
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> TypecheckedMacroValue l Final
-  -> [Hs.Decl l]
-macroVarDecs haddockConfig info macroValue = [
-      Hs.DeclMacroValue $
-        Hs.MacroValue
-          { name    = hsVarName
-          , expr    = macroValue
-          , comment = mkHaddocks haddockConfig info
-          }
-    ]
+  -> HsM [Hs.Decl l]
+macroVarDecs info macroValue = do
+    env <- Reader.ask
+    pure [
+        Hs.DeclMacroValue $
+          Hs.MacroValue
+            { name    = hsVarName
+            , expr    = macroValue
+            , comment = mkHaddocks env.haddockConfig info
+            }
+      ]
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
@@ -1186,28 +1169,32 @@ macroVarDecs haddockConfig info macroValue = [
 
 anonEnumConstantDecs ::
      HasCallStack
-  => HaddockConfig
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> C.AnonEnumConstant Final
-  -> [Hs.Decl l]
-anonEnumConstantDecs haddockConfig info anonEnumConstant =
-    let
-      patSynName :: Hs.Name Hs.NsConstr
-      patSynName =
-        Hs.assertNs
-          (Proxy @Hs.NsConstr)
-          anonEnumConstant.constant.info.name.hsName
+  -> HsM [Hs.Decl l]
+anonEnumConstantDecs info anonEnumConstant = do
+    env <- Reader.ask
+    pure $ aux env
+  where
+    aux :: HsM.Env -> [Hs.Decl l]
+    aux env =
+        let
+          patSynName :: Hs.Name Hs.NsConstr
+          patSynName =
+            Hs.assertNs
+              (Proxy @Hs.NsConstr)
+              anonEnumConstant.constant.info.name.hsName
 
-      patSynType :: HsType
-      patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
+          patSynType :: HsType
+          patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
 
-      typeSigDecl :: Hs.Decl l
-      typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{
-            name    = patSynName
-          , typ     = patSynType
-          , constr  = Nothing
-          , value   = fromInteger anonEnumConstant.constant.value
-          , origin  = Origin.EnumConstant anonEnumConstant.constant
-          , comment = mkHaddocks haddockConfig info
-          }
-  in  [typeSigDecl]
+          typeSigDecl :: Hs.Decl l
+          typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{
+                name    = patSynName
+              , typ     = patSynType
+              , constr  = Nothing
+              , value   = fromInteger anonEnumConstant.constant.value
+              , origin  = Origin.EnumConstant anonEnumConstant.constant
+              , comment = mkHaddocks env.haddockConfig info
+              }
+        in  [typeSigDecl]
