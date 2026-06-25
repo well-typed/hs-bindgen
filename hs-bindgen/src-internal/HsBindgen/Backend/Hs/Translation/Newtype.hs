@@ -8,7 +8,6 @@ import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
@@ -16,6 +15,7 @@ import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Smart constructor for creating a 'Hs.Newtype'
@@ -116,8 +116,8 @@ newtypeFieldDecs nt = concat [
       ]
     ]
   where
-    parentType :: HsType
-    parentType = Hs.HsTypRef nt.name (Just nt.field.typ)
+    parentType :: Hs.Type
+    parentType = Hs.TypRef nt.name (Just nt.field.typ)
 
     hasFieldDecl :: Hs.HasFieldInstance
     hasFieldDecl = Hs.HasFieldInstance{

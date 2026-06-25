@@ -34,6 +34,7 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
@@ -161,7 +162,7 @@ chooseNames td mc decls =
 
         nameMap :: NameMap
         nameMap = fromDeclIdPairs $
-          map (\n -> C.DeclIdPair n.cName n.hsName) nameInfos
+          map (\n -> DeclIdPair n.cName n.hsName) nameInfos
 
         -- When detecting collisions, we only use original (i.e., non-squashed)
         -- declarations.
@@ -367,10 +368,10 @@ data NameMap = NameMap {
 emptyNameMap :: NameMap
 emptyNameMap = NameMap Map.empty Map.empty Map.empty
 
-fromDeclIdPairs :: [C.DeclIdPair] -> NameMap
+fromDeclIdPairs :: [DeclIdPair] -> NameMap
 fromDeclIdPairs = Foldable.foldl' aux emptyNameMap
   where
-    aux :: NameMap -> C.DeclIdPair -> NameMap
+    aux :: NameMap -> DeclIdPair -> NameMap
     aux nameMap pair = case pair.hsName.ns of
       Hs.NsTypeConstr ->
         nameMap & #typeConstrs %~
@@ -395,10 +396,10 @@ lookupTypeE declId = do
       Just hsNm ->
         pure hsNm
 
-lookupTypePair :: C.DeclId -> E M C.DeclIdPair
+lookupTypePair :: C.DeclId -> E M DeclIdPair
 lookupTypePair declId = do
     hsName <- lookupTypeE declId
-    pure $ C.DeclIdPair{
+    pure $ DeclIdPair{
           cName  = declId
         , hsName = Hs.demoteNs hsName
       }
@@ -429,8 +430,8 @@ lookupVarE declId = do
       Just hsNm ->
         pure hsNm
 
-lookupVarPair :: C.DeclId -> E M C.DeclIdPair
-lookupVarPair declId = lookupVarE declId >>= \hsName -> pure $ C.DeclIdPair{
+lookupVarPair :: C.DeclId -> E M DeclIdPair
+lookupVarPair declId = lookupVarE declId >>= \hsName -> pure $ DeclIdPair{
         cName  = declId
       , hsName = Hs.demoteNs hsName
     }
@@ -512,7 +513,7 @@ mkIdentifier ns candidate = do
 mangleFieldName ::
      Text
   -> C.ScopedName
-  -> E M C.ScopedNamePair
+  -> E M ScopedNamePair
 mangleFieldName hsName fieldCName = do
     strategy <- asks (.fieldNamingStrategy)
     let candidate :: Text
@@ -522,7 +523,7 @@ mangleFieldName hsName fieldCName = do
           OmitFieldPrefixes ->
             fieldCName.text
     name <- mkIdentifier (Proxy @Hs.NsVar) candidate
-    return C.ScopedNamePair{
+    return ScopedNamePair{
         cName  = fieldCName
       , hsName = Hs.demoteNs name
       }
@@ -544,10 +545,10 @@ mangleAccessorName hsName fieldCName =
 -- the enclosing enum.
 mangleEnumConstant ::
      C.ScopedName
-  -> E M C.ScopedNamePair
+  -> E M ScopedNamePair
 mangleEnumConstant cName = do
     name <- mkIdentifier (Proxy @Hs.NsConstr) cName.text
-    return C.ScopedNamePair{
+    return ScopedNamePair{
         cName  = cName
       , hsName = Hs.demoteNs name
       }
@@ -559,10 +560,10 @@ mangleEnumConstant cName = do
 -- mangling.
 mangleArgumentName ::
      C.ScopedName
-  -> E M C.ScopedNamePair
+  -> E M ScopedNamePair
 mangleArgumentName argName = do
     name <- mkIdentifier (Proxy @Hs.NsVar) argName.text
-    return C.ScopedNamePair{
+    return ScopedNamePair{
         cName  = argName
       , hsName = Hs.demoteNs name
       }
@@ -666,7 +667,7 @@ mangleDeclInfo _ info = do
     enclosing' <- mapM mangleEnclosingRef info.enclosing
     let info' = C.DeclInfo{
             loc          = info.loc
-          , id           = C.DeclIdPair{
+          , id           = DeclIdPair{
               cName  = info.id
             , hsName = Hs.demoteNs hsName
             }
@@ -733,7 +734,7 @@ instance MangleWithDeclName C.StructField where
          <*> mapM mangle field.info.comment
     where
       reconstruct ::
-           C.ScopedNamePair
+           ScopedNamePair
         -> C.Type MangleNames
         -> Maybe (C.Comment MangleNames)
         -> C.StructField MangleNames
@@ -824,7 +825,7 @@ instance Mangle C.EnumConstant where
         <*> mapM mangle constant.info.comment
     where
       reconstruct ::
-            C.ScopedNamePair
+            ScopedNamePair
          -> Maybe (C.Comment MangleNames)
          -> C.EnumConstant MangleNames
       reconstruct enumConstantName' enumConstantComment' = C.EnumConstant{
@@ -855,7 +856,7 @@ instance Mangle C.CommentRef where
         -- * Compound → only tagged kinds, only 'typeConstrs' (3 lookups)
         -- * Member  → ordinary + macro kinds, 'typeConstrs' + 'vars' (4 lookups)
         -- * Nothing → all kinds, per-kind dispatch (7 lookups, fallback)
-        searchNameMap :: Text -> Maybe Doxy.RefKind -> M (Maybe C.DeclIdPair)
+        searchNameMap :: Text -> Maybe Doxy.RefKind -> M (Maybe DeclIdPair)
         searchNameMap name = \case
             Just Doxy.RefCompound ->
               searchKinds
@@ -870,7 +871,7 @@ instance Mangle C.CommentRef where
 
         -- | For each 'CNameKind', construct a 'C.DeclId' and try the
         -- appropriate sub-maps via 'lookupByKind'. Return the first match.
-        searchKinds :: [C.NameKind] -> Text -> M (Maybe C.DeclIdPair)
+        searchKinds :: [C.NameKind] -> Text -> M (Maybe DeclIdPair)
         searchKinds kinds name = do
             nameMap <- asks (.nameMap)
             pure $ asum
@@ -882,23 +883,23 @@ instance Mangle C.CommentRef where
         --
         -- Tagged names can only be type constructors; ordinary and macro
         -- names can be type constructors or variables.
-        lookupByKind :: C.NameKind -> C.DeclId -> NameMap -> Maybe C.DeclIdPair
+        lookupByKind :: C.NameKind -> C.DeclId -> NameMap -> Maybe DeclIdPair
         lookupByKind = \case
             C.NameKindTagged{} -> lookupTypeNs
             _                  -> lookupTypeOrVarNs
 
-        lookupTypeNs :: C.DeclId -> NameMap -> Maybe C.DeclIdPair
+        lookupTypeNs :: C.DeclId -> NameMap -> Maybe DeclIdPair
         lookupTypeNs declId nameMap =
-            C.DeclIdPair declId . Hs.demoteNs <$> lookupType declId nameMap
+            DeclIdPair declId . Hs.demoteNs <$> lookupType declId nameMap
 
-        lookupTypeOrVarNs :: C.DeclId -> NameMap -> Maybe C.DeclIdPair
+        lookupTypeOrVarNs :: C.DeclId -> NameMap -> Maybe DeclIdPair
         lookupTypeOrVarNs declId nameMap =
-            C.DeclIdPair declId <$> asum
+            DeclIdPair declId <$> asum
               [ Hs.demoteNs <$> lookupType declId nameMap
               , Hs.demoteNs <$> lookupVar  declId nameMap
               ]
 
-        lookupAnyPair :: C.DeclId -> E M C.DeclIdPair
+        lookupAnyPair :: C.DeclId -> E M DeclIdPair
         lookupAnyPair declId = do
             nameMap <- asks (.nameMap)
             case lookupByKind declId.name.kind declId nameMap of

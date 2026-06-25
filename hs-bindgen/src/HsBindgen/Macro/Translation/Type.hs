@@ -6,34 +6,34 @@ import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck
 import C.Expr.Typecheck.Interface.Type qualified as T
 
-import HsBindgen.Backend.Hs.AST
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.CExpr
 
 translateMacroType ::
-     TypecheckedMacroTypeBody CExpr HsType
-  -> HsType
+     TypecheckedMacroTypeBody CExpr Hs.Type
+  -> Hs.Type
 translateMacroType (TypecheckedMacroTypeBodyCExpr tcExpr) = go tcExpr.macroTypeBody
   where
-    go :: T.Expr HsType -> HsType
+    go :: T.Expr Hs.Type -> Hs.Type
     go = \case
-      T.TypeLit lit     -> HsPrimType (convertLiteral lit)
+      T.TypeLit lit     -> Hs.PrimType (convertLiteral lit)
       T.Var v           -> v
       T.App T.Pointer t -> ptrOf t
       T.App T.Const   t -> go t
 
-    ptrOf :: T.Expr HsType -> HsType
-    ptrOf (T.App T.Const t) = HsPtrConst (go t)
-    ptrOf t                 = HsPtr (go t)
+    ptrOf :: T.Expr Hs.Type -> Hs.Type
+    ptrOf (T.App T.Const t) = Hs.PtrConst (go t)
+    ptrOf t                 = Hs.Ptr (go t)
 
-    convertLiteral :: CExpr.TypeLit -> HsPrimType
+    convertLiteral :: CExpr.TypeLit -> Hs.PrimType
     convertLiteral = \case
       CExpr.TypeInt  sign size -> Type.primType $ C.PrimIntegral (convertIntSize size) (convertSign sign)
       CExpr.TypeChar sign      -> Type.primType $ C.PrimChar (convertCharSign sign)
       CExpr.TypeFloat size     -> Type.primType $ C.PrimFloating (convertFloatSize size)
       CExpr.TypeBool           -> Type.primType C.PrimBool
-      CExpr.TypeVoid           -> HsPrimVoid
+      CExpr.TypeVoid           -> Hs.PrimVoid
 
     convertSign :: Maybe CExpr.Sign -> C.PrimSign
     convertSign = \case

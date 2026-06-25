@@ -13,12 +13,13 @@ module HsBindgen.Backend.Hs.Translation.Type (
 import Data.Proxy (Proxy (..))
 import GHC.Stack
 
-import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.Translation
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -33,72 +34,72 @@ data TypeContext =
   | PtrArg  -- ^ Pointer argument
   deriving stock (Show)
 
-topLevel :: HasCallStack => C.Type Final -> Hs.HsType
+topLevel :: HasCallStack => C.Type Final -> Hs.Type
 topLevel = inContext Top
 
 class InContext a where
-  inContext :: HasCallStack => TypeContext -> a -> Hs.HsType
+  inContext :: HasCallStack => TypeContext -> a -> Hs.Type
 
 instance InContext (C.Type Final) where
   inContext ctx = go ctx
     where
-      go :: TypeContext -> C.Type Final -> Hs.HsType
+      go :: TypeContext -> C.Type Final -> Hs.Type
       go c (C.TypeMacro ref) =
-          Hs.HsTypRef
+          Hs.TypRef
             (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
             (Just $ go c ref.underlying)
       go c (C.TypeTypedef ref) =
-          Hs.HsTypRef
+          Hs.TypRef
             (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
             (Just $ go c ref.underlying)
       go _ (C.TypeRef ref) =
-          Hs.HsTypRef
+          Hs.TypRef
             (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName)
             Nothing
       go c (C.TypeEnum ref) =
-          Hs.HsTypRef
+          Hs.TypRef
             (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
             (Just $ go c ref.underlying)
       go c C.TypeVoid =
-          Hs.HsPrimType (void c)
+          Hs.PrimType (void c)
       go _ (C.TypePrim p) =
-          Hs.HsPrimType (primType p)
+          Hs.PrimType (primType p)
       go _ (C.TypePointers n t)
         -- Use a 'FunPtr' if the type is a function type. We inspect the
         -- /canonical/ type because we want to see through typedefs and type
         -- qualifiers like @const@.
         | C.isCanonicalTypeFunction t
-        = foldr ($) (Hs.HsFunPtr (go PtrArg t))
-                    (replicate (n - 1) Hs.HsPtr)
+        = foldr ($) (Hs.FunPtr (go PtrArg t))
+                    (replicate (n - 1) Hs.Ptr)
         | C.isErasedTypeConstQualified t
-        = foldr ($) (Hs.HsPtrConst (go PtrArg t))
-                    (replicate (n - 1) Hs.HsPtr)
+        = foldr ($) (Hs.PtrConst (go PtrArg t))
+                    (replicate (n - 1) Hs.Ptr)
         | otherwise
         = foldr ($) (go PtrArg t)
-                    (replicate n Hs.HsPtr)
+                    (replicate n Hs.Ptr)
       go _ (C.TypeConstArray n ty) =
-          Hs.HsConstArray n $ go Top ty
+          Hs.ConstArray n $ go Top ty
       go _ (C.TypeIncompleteArray ty) =
-          Hs.HsIncompleteArray $ go Top ty
+          Hs.IncompleteArray $ go Top ty
       go _ (C.TypeFun xs y) =
-          foldr (\x res -> Hs.HsFun (inContext FunArg x) res) (Hs.HsIO (go FunRes y)) xs
+          foldr (\x res -> Hs.Fun (inContext FunArg x) res) (Hs.IO (go FunRes y)) xs
       go _ (C.TypeBlock ty) =
-          Hs.HsBlock $ go Top ty
+          Hs.Block $ go Top ty
       go c (C.TypeExtBinding ref) =
           let ext = ref.name in
-          Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec $ go c ref.underlying
+          Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec $ go c ref.underlying
       go c (C.TypeQual C.QualConst ty) =
           go c ty
       go _ (C.TypeComplex p) =
-          Hs.HsComplexType (primType p)
+          Hs.ComplexType (primType p)
 
 instance InContext (C.TypeFunArg Final) where
   inContext ctx arg = case arg.ann of
       AdjustedFromArray origTy
           | C.isErasedTypeConstQualified origTy
-          -> Hs.HsPtrConstArrayElem (inContext Top origTy)
+          -> Hs.PtrConstArrayElem (inContext Top origTy)
           | otherwise
-          -> Hs.HsPtrArrayElem (inContext Top origTy)
+          -> Hs.PtrArrayElem (inContext Top origTy)
       AdjustedFromFunction _origTy -> inContext ctx arg.typ
       NotAdjusted -> inContext ctx arg.typ
 
@@ -106,36 +107,36 @@ instance InContext (C.TypeFunArg Final) where
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-primType :: C.PrimType -> Hs.HsPrimType
-primType C.PrimBool           = Hs.HsPrimCBool
+primType :: C.PrimType -> Hs.PrimType
+primType C.PrimBool           = Hs.PrimCBool
 primType (C.PrimIntegral i s) = integralType i s
 primType (C.PrimFloating f)   = floatingType f
 primType (C.PrimChar sign)    = primChar sign
 
-primChar :: C.PrimSignChar -> Hs.HsPrimType
-primChar (C.PrimSignImplicit _inferred)  = Hs.HsPrimCChar
-primChar (C.PrimSignExplicit C.Signed)   = Hs.HsPrimCSChar
-primChar (C.PrimSignExplicit C.Unsigned) = Hs.HsPrimCUChar
+primChar :: C.PrimSignChar -> Hs.PrimType
+primChar (C.PrimSignImplicit _inferred)  = Hs.PrimCChar
+primChar (C.PrimSignExplicit C.Signed)   = Hs.PrimCSChar
+primChar (C.PrimSignExplicit C.Unsigned) = Hs.PrimCUChar
 
 -- | Translate @void@
 --
 -- This only makes sense in non-top-level contexts.
 -- (We take special care in macro type parsing to rule out top-level @void@.)
-void :: HasCallStack => TypeContext -> Hs.HsPrimType
-void FunRes = Hs.HsPrimUnit
-void PtrArg = Hs.HsPrimVoid
+void :: HasCallStack => TypeContext -> Hs.PrimType
+void FunRes = Hs.PrimUnit
+void PtrArg = Hs.PrimVoid
 void c      = panicPure $ "Unexpected type void in context " ++ show c
 
-integralType :: C.PrimIntType -> C.PrimSign -> Hs.HsPrimType
-integralType C.PrimInt      C.Signed   = Hs.HsPrimCInt
-integralType C.PrimInt      C.Unsigned = Hs.HsPrimCUInt
-integralType C.PrimShort    C.Signed   = Hs.HsPrimCShort
-integralType C.PrimShort    C.Unsigned = Hs.HsPrimCUShort
-integralType C.PrimLong     C.Signed   = Hs.HsPrimCLong
-integralType C.PrimLong     C.Unsigned = Hs.HsPrimCULong
-integralType C.PrimLongLong C.Signed   = Hs.HsPrimCLLong
-integralType C.PrimLongLong C.Unsigned = Hs.HsPrimCULLong
+integralType :: C.PrimIntType -> C.PrimSign -> Hs.PrimType
+integralType C.PrimInt      C.Signed   = Hs.PrimCInt
+integralType C.PrimInt      C.Unsigned = Hs.PrimCUInt
+integralType C.PrimShort    C.Signed   = Hs.PrimCShort
+integralType C.PrimShort    C.Unsigned = Hs.PrimCUShort
+integralType C.PrimLong     C.Signed   = Hs.PrimCLong
+integralType C.PrimLong     C.Unsigned = Hs.PrimCULong
+integralType C.PrimLongLong C.Signed   = Hs.PrimCLLong
+integralType C.PrimLongLong C.Unsigned = Hs.PrimCULLong
 
-floatingType :: C.PrimFloatType -> Hs.HsPrimType
-floatingType C.PrimFloat  = Hs.HsPrimCFloat
-floatingType C.PrimDouble = Hs.HsPrimCDouble
+floatingType :: C.PrimFloatType -> Hs.PrimType
+floatingType C.PrimFloat  = Hs.PrimCFloat
+floatingType C.PrimDouble = Hs.PrimCDouble

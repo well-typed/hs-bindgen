@@ -35,6 +35,7 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

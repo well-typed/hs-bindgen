@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -41,14 +42,14 @@ type family AnnMangleNames ix where
 instance IsPass MangleNames
 
 instance PassId MangleNames where
-  type Id MangleNames = C.DeclIdPair
+  type Id MangleNames = DeclIdPair
 
   idNameKind     _ namePair = namePair.cName.name.kind
   idSourceName   _ namePair = C.declIdSourceName namePair.cName
   idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
 
 instance PassScopedName MangleNames where
-  type ScopedName MangleNames = C.ScopedNamePair
+  type ScopedName MangleNames = ScopedNamePair
 
 instance PassMacro MangleNames where
   type MacroId         MangleNames = Id MangleNames

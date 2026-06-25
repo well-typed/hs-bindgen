@@ -29,6 +29,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Macro.Interface
 import HsBindgen.Util.Tracer
 
@@ -53,14 +54,14 @@ type family AnnSelect ix where
 instance IsPass Select
 
 instance PassId Select where
-  type Id Select = C.DeclIdPair
+  type Id Select = DeclIdPair
 
   idNameKind     _ namePair = namePair.cName.name.kind
   idSourceName   _ namePair = C.declIdSourceName namePair.cName
   idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
 
 instance PassScopedName Select where
-  type ScopedName Select = C.ScopedNamePair
+  type ScopedName Select = ScopedNamePair
 
 instance PassMacro Select where
   type MacroId Select = Id Select

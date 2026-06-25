@@ -23,10 +23,10 @@ import Data.Semigroup qualified as Semigroup
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 
 {-------------------------------------------------------------------------------
   Definition
@@ -178,12 +178,12 @@ data CommentInlineContent
       { metadataContent   :: CommentMeta
       }
   | TypeSignature
-      { typeSignature     :: HsType
+      { typeSignature     :: Hs.Type
       }
-    -- ^ This constructor allows one to render a 'HsType'. For example, when
+    -- ^ This constructor allows one to render a 'Hs.Type'. For example, when
     -- generating FFI "wrapper" stubs it could be useful to take a 'HsBindgen.Backend.Hs.AST.Type.HsFun'
     -- type and include it in the Haddocks, however one only has access to
-    -- the 'HsType' pretty printer at rendering time.
+    -- the 'Hs.Type' pretty printer at rendering time.
   deriving (Show, Eq, Generic)
 
 -- | Special metadata that can appear in docs

@@ -79,6 +79,7 @@ import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type

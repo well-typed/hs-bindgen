@@ -11,7 +11,6 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
@@ -21,6 +20,7 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -77,7 +77,7 @@ forNewtype sizeofs newtyp (args, res) =
       funHs
   where
     funC  = C.TypeFun args res
-    funHs = HsTypRef newtyp.name (Just newtyp.field.typ)
+    funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
 
     nameWith :: String -> UniqueSymbol
     nameWith s = locallyUnique $ s <> Hs.nameToStr newtyp.name
@@ -95,7 +95,7 @@ instancesFor ::
   -> UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
-  -> HsType       -- ^ Corresponding Haskell type
+  -> Hs.Type      -- ^ Corresponding Haskell type
   -> [Hs.Decl l]
 instancesFor sizeofs nameTo nameFrom funC funHs = concat [
       -- import for @ToFunPtr@ instance
@@ -133,5 +133,5 @@ instancesFor sizeofs nameTo nameFrom funC funHs = concat [
       ]
     ]
 
-prettyHsType :: HsType -> String
+prettyHsType :: Hs.Type -> String
 prettyHsType = show . PP.pretty . SHs.translateType

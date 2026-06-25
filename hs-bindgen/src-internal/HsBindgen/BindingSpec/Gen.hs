@@ -34,6 +34,7 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------

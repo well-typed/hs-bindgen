@@ -13,9 +13,6 @@ module HsBindgen.Backend.Hs.AST (
   , Struct(..)
   , EmptyData(..)
   , Newtype(..)
-    -- * Types
-  , HsType(..)
-  , HsPrimType(..)
     -- * Variable binding
   , Lambda(..)
   , Apply(..)
@@ -95,7 +92,6 @@ import Data.Type.Nat qualified as Fin
 import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 import HsBindgen.Backend.Hs.AST.Strategy
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -107,6 +103,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
@@ -117,7 +114,7 @@ import HsBindgen.Orphans ()
 
 data Field = Field{
       name    :: Hs.Name Hs.NsVar
-    , typ     :: HsType
+    , typ     :: Hs.Type
     , origin  :: Origin.Field
     , comment :: Maybe HsDoc.Comment
     }
@@ -158,7 +155,7 @@ data Newtype = Newtype{
 data ForeignImportDecl = ForeignImportDecl{
       name       :: Hs.TermName
     , parameters :: [FunctionParameter]
-    , result     :: HsType
+    , result     :: Hs.Type
     , origName   :: C.DeclName
     , callConv   :: CallConv
     , origin     :: Origin.ForeignImport
@@ -168,7 +165,7 @@ data ForeignImportDecl = ForeignImportDecl{
   deriving stock (Generic, Show)
 
 data FunctionParameter = FunctionParameter{
-      typ     :: HsType
+      typ     :: Hs.Type
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
@@ -176,7 +173,7 @@ data FunctionParameter = FunctionParameter{
 data FunctionDecl = FunctionDecl{
       name       :: Hs.TermName
     , parameters :: [FunctionParameter]
-    , result     :: HsType
+    , result     :: Hs.Type
     , body       :: SHs.ClosedExpr
     , origin     :: Origin.ForeignImport
     , pragmas    :: [SHs.Pragma]
@@ -186,7 +183,7 @@ data FunctionDecl = FunctionDecl{
 
 data UnionGetter = UnionGetter{
       name    :: Hs.Name Hs.NsVar
-    , typ     :: HsType
+    , typ     :: Hs.Type
     , constr  :: Hs.Name Hs.NsTypeConstr
     , comment :: Maybe HsDoc.Comment
     }
@@ -194,14 +191,14 @@ data UnionGetter = UnionGetter{
 
 data UnionSetter = UnionSetter{
       name    :: Hs.Name Hs.NsVar
-    , typ     :: HsType
+    , typ     :: Hs.Type
     , constr  :: Hs.Name Hs.NsTypeConstr
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data DeriveInstance = DeriveInstance{
-      strategy :: Strategy HsType
+      strategy :: Strategy Hs.Type
     , clss     :: Inst.TypeClass
     , name     :: Hs.Name Hs.NsTypeConstr
     , comment  :: Maybe HsDoc.Comment
@@ -332,7 +329,7 @@ data MacroValue l = MacroValue {
 --
 data PatSyn = PatSyn{
       name    :: Hs.Name Hs.NsConstr
-    , typ     :: HsType
+    , typ     :: Hs.Type
     , constr  :: Maybe (Hs.Name Hs.NsConstr)
     , value   :: Integer
     , origin  :: Origin.PatSyn
@@ -346,7 +343,7 @@ data PatSyn = PatSyn{
 
 -- | 'HsBindgen.Runtime.Internal.FunPtr.Class.ToFunPtr' instance
 data ToFunPtrInstance = ToFunPtrInstance{
-      typ  :: HsType
+      typ  :: Hs.Type
     , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
@@ -360,7 +357,7 @@ data ToFunPtrInstance = ToFunPtrInstance{
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportWrapper = ForeignImportWrapper {
       name    :: UniqueSymbol
-    , funType :: HsType
+    , funType :: Hs.Type
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
     }
@@ -372,7 +369,7 @@ data ForeignImportWrapper = ForeignImportWrapper {
 
 -- | 'HsBindgen.Runtime.Internal.FunPtr.Class.FromFunPtr' instance
 data FromFunPtrInstance = FromFunPtrInstance{
-      typ  :: HsType
+      typ  :: Hs.Type
     , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
@@ -386,7 +383,7 @@ data FromFunPtrInstance = FromFunPtrInstance{
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportDynamic = ForeignImportDynamic {
       name    :: UniqueSymbol
-    , funType :: HsType
+    , funType :: Hs.Type
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
     }
@@ -424,16 +421,16 @@ data WriteRawInstance = WriteRawInstance{
 -- | A call to 'HsBindgen.Runtime.HasCField.readRawCField', 'HsBindgen.Runtime.HasCBitfield.readRawCBitfield', or 'HsBindgen.Runtime.HasCField.readRawByteOff'
 type ReadRawCField :: Ctx -> Star
 data ReadRawCField ctx =
-    ReadRawCField HsType (Idx ctx)
-  | ReadRawCBitfield HsType (Idx ctx)
+    ReadRawCField Hs.Type (Idx ctx)
+  | ReadRawCBitfield Hs.Type (Idx ctx)
   | ReadRawByteOff (Idx ctx) Int
   deriving stock (Generic, Show)
 
 -- | A call to 'HsBindgen.Runtime.HasCField.writeRawCField', 'HsBindgen.Runtime.HasCBitfield.writeRawCBitfield', or 'HsBindgen.Runtime.HasCField.writeRawByteOff'
 type WriteRawCField :: Ctx -> Star
 data WriteRawCField ctx =
-    WriteRawCField HsType (Idx ctx) (Idx ctx)
-  | WriteRawCBitfield HsType (Idx ctx) (Idx ctx)
+    WriteRawCField Hs.Type (Idx ctx) (Idx ctx)
+  | WriteRawCBitfield Hs.Type (Idx ctx) (Idx ctx)
   | WriteRawByteOff (Idx ctx) Int (Idx ctx)
   deriving stock (Generic, Show)
 
@@ -457,16 +454,16 @@ data StorableInstance = StorableInstance{
 -- | A call to 'HsBindgen.Runtime.HasCField.peekCField', 'HsBindgen.Runtime.HasCBitfield.peekCBitfield', or 'Foreign.Storable.peekByteOff'.
 type PeekCField :: Ctx -> Star
 data PeekCField ctx =
-    PeekCField HsType (Idx ctx)
-  | PeekCBitfield HsType (Idx ctx)
+    PeekCField Hs.Type (Idx ctx)
+  | PeekCBitfield Hs.Type (Idx ctx)
   | PeekByteOff (Idx ctx) Int
   deriving stock (Generic, Show)
 
 -- | A call to 'HsBindgen.Runtime.HasCField.pokeCField', 'HsBindgen.Runtime.HasCBitfield.pokeCBitfield', or 'Foreign.Storable.pokeByteOff'.
 type PokeCField :: Ctx -> Star
 data PokeCField ctx =
-    PokeCField HsType (Idx ctx) (Idx ctx)
-  | PokeCBitfield HsType (Idx ctx) (Idx ctx)
+    PokeCField Hs.Type (Idx ctx) (Idx ctx)
+  | PokeCBitfield Hs.Type (Idx ctx) (Idx ctx)
   | PokeByteOff (Idx ctx) Int (Idx ctx)
   deriving stock (Generic, Show)
 
@@ -531,7 +528,7 @@ data PrimInstance = PrimInstance{
 -- | Common field metadata for indexing operations
 type IndexPrimFieldData :: Ctx -> Star
 data IndexPrimFieldData ctx = IndexPrimFieldData{
-      typ       :: HsType  -- ^ Field type
+      typ       :: Hs.Type -- ^ Field type
     , arg1      :: Idx ctx -- ^ First argument variable
     , arg2      :: Idx ctx -- ^ Second argument variable
     , pos       :: Int     -- ^ Field position (0-based)
@@ -563,7 +560,7 @@ data IndexOffAddrField ctx = IndexOffAddrField{
 -- | Common field metadata for read operations
 type ReadPrimFieldsData :: Ctx -> Star
 data ReadPrimFieldsData ctx = ReadPrimFieldsData{
-      fields    :: [(HsType, Int)] -- ^ Fields: (type, position)
+      fields    :: [(Hs.Type, Int)] -- ^ Fields: (type, position)
     , arg1      :: Idx ctx         -- ^ First argument variable
     , arg2      :: Idx ctx         -- ^ Second argument variable
     , arg3      :: Idx ctx         -- ^ Third argument variable
@@ -601,11 +598,11 @@ data ReadOffAddrFields ctx = ReadOffAddrFields{
 
 -- | Common field metadata for write operations
 data WritePrimFieldsData ctx = WritePrimFieldsData{
-      fields    :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
-    , arg1      :: Idx ctx                  -- ^ First argument variable
-    , arg2      :: Idx ctx                  -- ^ Second argument variable
-    , arg3      :: Idx ctx                  -- ^ Third argument variable
-    , numFields :: Int                      -- ^ Total number of fields
+      fields    :: [(Hs.Type, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
+    , arg1      :: Idx ctx                   -- ^ First argument variable
+    , arg2      :: Idx ctx                   -- ^ Second argument variable
+    , arg3      :: Idx ctx                   -- ^ Third argument variable
+    , numFields :: Int                       -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -642,13 +639,13 @@ data WriteOffAddrFields ctx = WriteOffAddrFields {
 -- | 'HsBindgen.Runtime.HasCField.HasCField' instance
 data HasCFieldInstance = HasCFieldInstance {
       -- | The haskell type of the parent C object
-      parentType :: HsType
+      parentType :: Hs.Type
 
       -- | The name of the field
     , fieldName :: Hs.Name Hs.NsVar
 
       -- | The haskell type of the field
-    , cFieldType :: HsType
+    , cFieldType :: Hs.Type
 
       -- | The offset (in number of bytes) of the field wrt the parent object
     , fieldOffset :: Int
@@ -662,13 +659,13 @@ data HasCFieldInstance = HasCFieldInstance {
 -- | 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
 data HasCBitfieldInstance = HasCBitfieldInstance {
       -- | The haskell type of the parent C object
-      parentType :: HsType
+      parentType :: Hs.Type
 
       -- | The name of the bit-field
     , fieldName :: Hs.Name Hs.NsVar
 
       -- | The haskell type of the bit-field
-    , cBitfieldType :: HsType
+    , cBitfieldType :: Hs.Type
 
       -- | The offset (in number of bit) of the bit-field wrt the parent object
     , bitOffset :: Int
@@ -685,13 +682,13 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
 -- | 'GHC.Records.HasField' instance
 data HasFieldInstance = HasFieldInstance {
       -- | The Haskell type of the parent C object
-      parentType :: HsType
+      parentType :: Hs.Type
 
       -- | The name of the (bit-)field
     , fieldName :: Hs.Name Hs.NsVar
 
       -- | The haskell type of the (bit-)field
-    , fieldType :: HsType
+    , fieldType :: Hs.Type
 
       -- | Implement the instance via a 'HsBindgen.Runtime.HasCField.HasCField'
       -- or 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance.
@@ -710,13 +707,13 @@ data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
 -- | 'GHC.Records.Compat.HasField' instance
 data CompatHasFieldInstance = CompatHasFieldInstance {
       -- | The Haskell type of the parent C object
-      parentType :: HsType
+      parentType :: Hs.Type
 
       -- | The name of the (bit-)field we want to set/get
     , fieldName :: Hs.Name Hs.NsVar
 
       -- | The haskell type of the (bit-)field
-    , fieldType :: HsType
+    , fieldType :: Hs.Type
 
       -- | The other fields of the haskell type
     , otherFields :: [Hs.Name Hs.NsVar]
@@ -731,7 +728,7 @@ data CompatHasFieldInstance = CompatHasFieldInstance {
 -------------------------------------------------------------------------------}
 
 data HasFlamInstance = HasFlamInstance {
-      typ    :: HsType
+      typ    :: Hs.Type
     , offset :: Int
     }
   deriving stock (Generic, Show)
@@ -741,7 +738,7 @@ data HasFlamInstance = HasFlamInstance {
 -------------------------------------------------------------------------------}
 
 data CEnumInstance = CEnumInstance {
-      fieldType    :: HsType
+      fieldType    :: Hs.Type
     , valueNames   :: Map Integer (NonEmpty String)
     , isSequential :: Bool
     }
@@ -770,7 +767,7 @@ newtype Seq t ctx = Seq [t ctx]
 -- At the moment, we do not support type variables.
 data TypSyn = TypSyn{
       name    :: Hs.Name Hs.NsTypeConstr
-    , typ     :: HsType
+    , typ     :: Hs.Type
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1448>
       -- Temporary: origin will be gone.
     , origin  :: Origin.Decl Origin.EmptyData

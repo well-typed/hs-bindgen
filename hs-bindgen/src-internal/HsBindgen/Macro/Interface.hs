@@ -20,12 +20,12 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST.Expr
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type
 import HsBindgen.Util.Tracer
@@ -71,8 +71,8 @@ data MacroLang (l :: Star) = MacroLang {
     --
     -- The caller supplies a function to translate variables to 'HsType'.
   , translateMacroType ::
-         TypecheckedMacroTypeBody l HsType
-      -> HsType
+         TypecheckedMacroTypeBody l Hs.Type
+      -> Hs.Type
 
     -- | Translate a checked value-macro to a 'Binding'.
   , translateMacroValue ::

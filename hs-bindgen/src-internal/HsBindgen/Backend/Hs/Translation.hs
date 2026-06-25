@@ -15,7 +15,6 @@ import DeBruijn (Add (..), Idx (..), pattern I2)
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -49,7 +48,9 @@ import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
@@ -157,7 +158,7 @@ isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
     any (isInDeclIndex . snd) . C.depsOfType
   where
-    isInDeclIndex :: C.DeclIdPair -> Bool
+    isInDeclIndex :: DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
 
 {-------------------------------------------------------------------------------
@@ -402,7 +403,7 @@ enumDecs info enum spec = do
                     }
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
@@ -461,7 +462,7 @@ enumDecs info enum spec = do
         valueDecls = [
               Hs.DeclPatSyn Hs.PatSyn{
                   name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
-                , typ     = HsTypRef nt.name (Just nt.field.typ)
+                , typ     = Hs.TypRef nt.name (Just nt.field.typ)
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
@@ -607,8 +608,8 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
-    auxDeclIdPair :: C.DeclIdPair
-    auxDeclIdPair = C.DeclIdPair{
+    auxDeclIdPair :: DeclIdPair
+    auxDeclIdPair = DeclIdPair{
           cName  = origInfo.id.cName
           -- Still refer to the /original/ C decl...?
         , hsName = Hs.demoteNs auxName
@@ -715,16 +716,16 @@ macroDecsTypedef macroLang info macroType spec = do
           , comment = Nothing
           }
 
-        macroVarToHsType :: MacroTypeBodyVar Final -> HsType
+        macroVarToHsType :: MacroTypeBodyVar Final -> Hs.Type
         macroVarToHsType = \case
           MacroTypeExtBinding ext ->
-            Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec $
-              Hs.HsTypRef
+            Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec $
+              Hs.TypRef
                 (Hs.assertNs (Proxy @Hs.NsTypeConstr)
                 (BindingSpec.extDeclIdPair ext).hsName)
                 Nothing
           MacroTypeBodyVar pair ->
-            Hs.HsTypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
+            Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl {
@@ -870,7 +871,7 @@ global info ty _spec = do
 -- use the foreign import of the stub function instead. Most notably, arrays of
 -- unknown size do not have a 'Foreign.Storable.Storable' instance.
 constGetter ::
-     HsType
+     Hs.Type
   -> C.DeclInfo Final
   -> Hs.TermName
   -> [Hs.Decl l]
@@ -928,8 +929,8 @@ addressStubDecs info ty runnerNameSpec _spec = do
     aux env = (foreignImport ++ runnerDecls, runnerName)
       where
         -- *** Stub (impure) ***
-        stubImportType :: HsType
-        stubImportType = HsIO $ Type.topLevel stubType
+        stubImportType :: Hs.Type
+        stubImportType = Hs.IO $ Type.topLevel stubType
 
         stubSymbol :: UniqueSymbol
         stubSymbol = globallyUnique env.uniqueId env.baseModuleName $ "get_" ++ varName
@@ -1042,8 +1043,8 @@ addressStubDecs info ty runnerNameSpec _spec = do
 referencesUntagged ::
      forall p. (
        HasCallStack
-     , Id p ~ C.DeclIdPair
-     , MacroId p ~ C.DeclIdPair
+     , Id p ~ DeclIdPair
+     , MacroId p ~ DeclIdPair
      , ExtBinding p ~ BindingSpec.ResolvedExtBinding
      , MacroUnderlying p ~ C.Type p
      )
@@ -1136,7 +1137,7 @@ anonEnumConstantDecs info anonEnumConstant = do
               (Proxy @Hs.NsConstr)
               anonEnumConstant.constant.info.name.hsName
 
-          patSynType :: HsType
+          patSynType :: Hs.Type
           patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
 
           typeSigDecl :: Hs.Decl l

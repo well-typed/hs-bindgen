@@ -23,7 +23,6 @@ module HsBindgen.IR.C.Naming (
     -- ** Scoped names
   , ScopedName(..)
   , parseScopedName
-  , ScopedNamePair(..)
 
     -- * PrelimDeclId
   , AnonId(..)
@@ -38,7 +37,6 @@ module HsBindgen.IR.C.Naming (
   , renderNonAnonDeclId
   , renderDeclId
   , parseDeclId
-  , DeclIdPair(..)
   ) where
 
 import Data.Text qualified as Text
@@ -51,7 +49,6 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -186,18 +183,6 @@ parseScopedName :: Text -> Maybe ScopedName
 parseScopedName t = case Text.words t of
     [n]        -> Just $ ScopedName n
     _otherwise -> Nothing
-
---------------------------------------------------------------------------------
-
--- | A t'ScopedName' paired with a Haskell name
-data ScopedNamePair = ScopedNamePair {
-      cName  :: ScopedName
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1927>
-      -- ScopedNamePair only ever refers to type constructors and variable
-      -- names.
-    , hsName :: Hs.SomeName
-    }
-  deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
   PrelimDeclId
@@ -392,12 +377,3 @@ parseDeclId t = do
     return $ case Text.uncons declName.text of
       Just ('@', n) -> DeclId{name = DeclName n declName.kind, isAnon = True}
       _otherwise    -> DeclId{name = declName, isAnon = False}
-
---------------------------------------------------------------------------------
-
--- | A t'DeclId' paired with a Haskell name
-data DeclIdPair = DeclIdPair {
-      cName  :: DeclId
-    , hsName :: Hs.SomeName
-    }
-  deriving stock (Eq, Ord, Show)

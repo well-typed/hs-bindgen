@@ -16,7 +16,6 @@ import DeBruijn.Idx
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -30,7 +29,9 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type
@@ -323,29 +324,29 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
   Types
 -------------------------------------------------------------------------------}
 
-translateType :: Hs.HsType -> ClosedType
+translateType :: Hs.Type -> ClosedType
 translateType = \case
-    Hs.HsPrimType t          -> translatePrimType t
-    Hs.HsTypRef r _          -> TCon r
-    Hs.HsConstArray n t      -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
-    Hs.HsIncompleteArray t   -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
-    Hs.HsPtrArrayElem t      -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.HsPtrConstArrayElem t -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.HsPtr t               -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
-    Hs.HsFunPtr t            -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
-    Hs.HsStablePtr t         -> TApp (tBindgenGlobal Foreign_StablePtr_type) (translateType t)
-    Hs.HsPtrConst t          -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
-    Hs.HsIO t                -> TApp (tBindgenGlobal IO_type) (translateType t)
-    Hs.HsFun a b             -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs _ -> TExt r c hs
-    Hs.HsByteArray           -> tBindgenGlobal ByteArray_type
-    Hs.HsSizedByteArray n m  -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.HsBlock t             -> tBindgenGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t       -> TApp (tBindgenGlobal Complex_type) (translateType (HsPrimType t))
-    Hs.HsStrLit s            -> TStrLit s
-    Hs.HsWithFlam x y        ->
+    Hs.PrimType t          -> translatePrimType t
+    Hs.TypRef r _          -> TCon r
+    Hs.ConstArray n t      -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
+    Hs.IncompleteArray t   -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
+    Hs.PtrArrayElem t      -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
+    Hs.PtrConstArrayElem t -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
+    Hs.Ptr t               -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
+    Hs.FunPtr t            -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
+    Hs.StablePtr t         -> TApp (tBindgenGlobal Foreign_StablePtr_type) (translateType t)
+    Hs.PtrConst t          -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
+    Hs.IO t                -> TApp (tBindgenGlobal IO_type) (translateType t)
+    Hs.Fun a b             -> TFun (translateType a) (translateType b)
+    Hs.ExtBinding r c hs _ -> TExt r c hs
+    Hs.ByteArray           -> tBindgenGlobal ByteArray_type
+    Hs.SizedByteArray n m  -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.Block t             -> tBindgenGlobal Block_type `TApp` translateType t
+    Hs.ComplexType t       -> TApp (tBindgenGlobal Complex_type) (translateType (Hs.PrimType t))
+    Hs.StrLit s            -> TStrLit s
+    Hs.WithFlam x y        ->
       TApp (TApp (tBindgenGlobal Flam_WithFlam_type) (translateType x)) (translateType y)
-    Hs.HsEquivStorable t     -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
+    Hs.EquivStorable t     -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
 
 {-------------------------------------------------------------------------------
   @StaticSize@, @ReadRaw@, @WriteRaw@
@@ -435,38 +436,38 @@ translateWriteRawCField = \case
     Hs.WriteRawByteOff ptr i x ->
       appMany WriteRaw_writeRawByteOff [EBound ptr, eInt i, EBound x]
 
-translatePrimType :: Hs.HsPrimType -> SType ctx
+translatePrimType :: Hs.PrimType -> SType ctx
 translatePrimType = \case
-    HsPrimVoid    -> tBindgenGlobal Void_type
-    HsPrimUnit    -> TUnit
-    HsPrimChar    -> tBindgenGlobal Char_type
-    HsPrimInt     -> tBindgenGlobal Int_type
-    HsPrimDouble  -> tBindgenGlobal Double_type
-    HsPrimFloat   -> tBindgenGlobal Float_type
-    HsPrimBool    -> tBindgenGlobal Bool_type
-    HsPrimInt8    -> tBindgenGlobal Int8_type
-    HsPrimInt16   -> tBindgenGlobal Int16_type
-    HsPrimInt32   -> tBindgenGlobal Int32_type
-    HsPrimInt64   -> tBindgenGlobal Int64_type
-    HsPrimWord    -> tBindgenGlobal Word_type
-    HsPrimWord8   -> tBindgenGlobal Word8_type
-    HsPrimWord16  -> tBindgenGlobal Word16_type
-    HsPrimWord32  -> tBindgenGlobal Word32_type
-    HsPrimWord64  -> tBindgenGlobal Word64_type
-    HsPrimCChar   -> tBindgenGlobal CChar_type
-    HsPrimCSChar  -> tBindgenGlobal CSChar_type
-    HsPrimCUChar  -> tBindgenGlobal CUChar_type
-    HsPrimCShort  -> tBindgenGlobal CShort_type
-    HsPrimCUShort -> tBindgenGlobal CUShort_type
-    HsPrimCInt    -> tBindgenGlobal CInt_type
-    HsPrimCUInt   -> tBindgenGlobal CUInt_type
-    HsPrimCLong   -> tBindgenGlobal CLong_type
-    HsPrimCULong  -> tBindgenGlobal CULong_type
-    HsPrimCLLong  -> tBindgenGlobal CLLong_type
-    HsPrimCULLong -> tBindgenGlobal CULLong_type
-    HsPrimCBool   -> tBindgenGlobal CBool_type
-    HsPrimCFloat  -> tBindgenGlobal CFloat_type
-    HsPrimCDouble -> tBindgenGlobal CDouble_type
+    Hs.PrimVoid    -> tBindgenGlobal Void_type
+    Hs.PrimUnit    -> TUnit
+    Hs.PrimChar    -> tBindgenGlobal Char_type
+    Hs.PrimInt     -> tBindgenGlobal Int_type
+    Hs.PrimDouble  -> tBindgenGlobal Double_type
+    Hs.PrimFloat   -> tBindgenGlobal Float_type
+    Hs.PrimBool    -> tBindgenGlobal Bool_type
+    Hs.PrimInt8    -> tBindgenGlobal Int8_type
+    Hs.PrimInt16   -> tBindgenGlobal Int16_type
+    Hs.PrimInt32   -> tBindgenGlobal Int32_type
+    Hs.PrimInt64   -> tBindgenGlobal Int64_type
+    Hs.PrimWord    -> tBindgenGlobal Word_type
+    Hs.PrimWord8   -> tBindgenGlobal Word8_type
+    Hs.PrimWord16  -> tBindgenGlobal Word16_type
+    Hs.PrimWord32  -> tBindgenGlobal Word32_type
+    Hs.PrimWord64  -> tBindgenGlobal Word64_type
+    Hs.PrimCChar   -> tBindgenGlobal CChar_type
+    Hs.PrimCSChar  -> tBindgenGlobal CSChar_type
+    Hs.PrimCUChar  -> tBindgenGlobal CUChar_type
+    Hs.PrimCShort  -> tBindgenGlobal CShort_type
+    Hs.PrimCUShort -> tBindgenGlobal CUShort_type
+    Hs.PrimCInt    -> tBindgenGlobal CInt_type
+    Hs.PrimCUInt   -> tBindgenGlobal CUInt_type
+    Hs.PrimCLong   -> tBindgenGlobal CLong_type
+    Hs.PrimCULong  -> tBindgenGlobal CULong_type
+    Hs.PrimCLLong  -> tBindgenGlobal CLLong_type
+    Hs.PrimCULLong -> tBindgenGlobal CULLong_type
+    Hs.PrimCBool   -> tBindgenGlobal CBool_type
+    Hs.PrimCFloat  -> tBindgenGlobal CFloat_type
+    Hs.PrimCDouble -> tBindgenGlobal CDouble_type
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -533,7 +534,7 @@ translateHasCFieldInstance inst mbComment = Instance {
     }
   where
     parent    = translateType inst.parentType
-    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
     fieldType = translateType inst.cFieldType
     o         = fromIntegral inst.fieldOffset
 
@@ -564,7 +565,7 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     }
   where
     parent    = translateType inst.parentType
-    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
     fieldType = translateType inst.cBitfieldType
     o         = fromIntegral inst.bitOffset
     w         = fromIntegral inst.bitWidth
@@ -604,7 +605,7 @@ translateHasFieldInstance inst mbComment = Instance{
     parent    = translateType inst.parentType
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
     field     = translateType inst.fieldType
-    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
@@ -635,7 +636,7 @@ translateCompatHasFieldInstance inst mbComment = Instance{
   where
     parent    = translateType inst.parentType
     field     = translateType inst.fieldType
-    fieldLit  = translateType $ HsStrLit $ Hs.nameToStr inst.fieldName
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
@@ -664,7 +665,7 @@ translateCompatHasFieldInstance inst mbComment = Instance{
         mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
         mkFBindIdentity fieldName = FBind (Hs.nameToStr fieldName) $
                       eBindgenGlobal HasField_getField
-            `ETypeApp` (translateType (HsStrLit (Hs.nameToStr fieldName)))
+            `ETypeApp` (translateType (Hs.StrLit (Hs.nameToStr fieldName)))
             `EApp`      EBound (IS IZ)
 
 {-------------------------------------------------------------------------------
@@ -721,7 +722,7 @@ translateDeclVar var = DBinding Binding{
 
 translateCEnumInstance ::
      Hs.Struct
-  -> HsType
+  -> Hs.Type
   -> Map Integer (NonEmpty String)
   -> Bool
   -> Maybe HsDoc.Comment
@@ -756,7 +757,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     fnameStr = Hs.nameToStr fname
 
     fromCEnumE :: ClosedExpr
-    fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit fnameStr)
+    fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.StrLit fnameStr)
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
