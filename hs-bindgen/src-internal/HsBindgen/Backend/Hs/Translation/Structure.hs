@@ -4,6 +4,7 @@ module HsBindgen.Backend.Hs.Translation.Structure (
     structDecs
   ) where
 
+import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State hiding (MonadState)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -17,8 +18,8 @@ import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (HsM)
-import HsBindgen.Backend.Hs.Translation.State qualified as State
+import HsBindgen.Backend.Hs.Translation.Monad (HsM)
+import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Final
@@ -32,31 +33,29 @@ import HsBindgen.NameHint
 
 -- | Generate declarations for given C struct
 structDecs ::
-     Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> C.Struct Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-structDecs supInsts hCfg info struct spec =
+structDecs info struct spec = do
     case struct.flam of
-      Nothing   -> getDeclsRegular   supInsts hCfg spec info struct
-      Just flam -> getDeclsFlam flam supInsts hCfg spec info struct
+      Nothing   -> getDeclsRegular   spec info struct
+      Just flam -> getDeclsFlam flam spec info struct
 
 getDeclsRegular ::
      HasCallStack
-  => Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
-  -> PrescriptiveDeclSpec
+  => PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> HsM [Hs.Decl l]
-getDeclsRegular supInsts hCfg spec info struct = do
+getDeclsRegular spec info struct = do
+    env <- Reader.ask
+    let supInsts = env.supportedInstances.struct
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts hCfg spec name info struct insts'
+          getDecls supInsts env.haddockConfig spec name info struct insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
@@ -66,20 +65,20 @@ getDeclsRegular supInsts hCfg spec info struct = do
 getDeclsFlam ::
      HasCallStack
   => C.StructField Final
-  -> Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> HsM [Hs.Decl l]
-getDeclsFlam flam supInsts hCfg spec info struct = do
+getDeclsFlam flam spec info struct = do
+    env <- Reader.ask
+    let supInsts = env.supportedInstances.struct
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts hCfg spec auxName info struct insts'
+          getDecls supInsts env.haddockConfig spec auxName info struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
-    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
+    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl env.haddockConfig]
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
@@ -103,8 +102,8 @@ getDeclsFlam flam supInsts hCfg spec info struct = do
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
     -- We generate pointer manipulation bindings for the FLAM field.
-    flamDecl :: Hs.Decl l
-    flamDecl =
+    flamDecl :: HaddockConfig -> Hs.Decl l
+    flamDecl hCfg =
       Hs.DeclTypSyn
         Hs.TypSyn{
             name

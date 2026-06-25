@@ -2,19 +2,19 @@ module HsBindgen.Backend.Hs.Translation.Union (
     unionDecs
   ) where
 
+import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State hiding (MonadState)
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
+import HsBindgen.Backend.Hs.Translation.Monad (HsM)
+import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
-import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -26,17 +26,18 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 unionDecs ::
      HasCallStack
-  => HaddockConfig
-  -> C.DeclInfo Final
+  => C.DeclInfo Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-unionDecs haddockConfig info union spec = do
-    nt <- newtypeDec
-    flip aux nt <$> State.get
+unionDecs info union spec = do
+    st <- State.get
+    env <- Reader.ask
+    nt <- newtypeDec env
+    pure $ aux st env nt
   where
-    newtypeDec :: HsM Hs.Newtype
-    newtypeDec =
+    newtypeDec :: HsM.Env -> HsM Hs.Newtype
+    newtypeDec env = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
@@ -62,7 +63,7 @@ unionDecs haddockConfig info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks haddockConfig info
+        newtypeComment = mkHaddocks env.haddockConfig info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
@@ -82,8 +83,8 @@ unionDecs haddockConfig info union spec = do
           ]
 
     -- everything in aux is state-dependent
-    aux :: TranslationState -> Hs.Newtype -> [Hs.Decl l]
-    aux transState nt =
+    aux :: HsM.St -> HsM.Env -> Hs.Newtype -> [Hs.Decl l]
+    aux transState env nt =
         Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
         concatMap (unionFieldDecls nt.name) union.fields
       where
@@ -138,7 +139,7 @@ unionDecs haddockConfig info union spec = do
                       name    = getterName
                     , typ     = hsType
                     , constr  = nt.name
-                    , comment = mkHaddocksFieldInfo haddockConfig info field.info
+                    , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
                              <> commentRefName setterName.text
                     }
                 , Hs.DeclUnionSetter Hs.UnionSetter{

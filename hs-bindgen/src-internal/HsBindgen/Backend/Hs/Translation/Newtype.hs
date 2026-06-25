@@ -10,17 +10,15 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (TranslationState)
-import HsBindgen.Backend.Hs.Translation.State qualified as State
+import HsBindgen.Backend.Hs.Translation.Monad (HsM)
+import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Smart constructor for creating a 'Hs.Newtype'
 newtypeDec ::
-     ( HasCallStack
-     , State.MonadState TranslationState m
-     )
+     HasCallStack
   => Hs.Name Hs.NsTypeConstr
   -> Hs.Name Hs.NsConstr
   -> Hs.Field
@@ -28,13 +26,13 @@ newtypeDec ::
   -> Maybe HsDoc.Comment
   -> Set Inst.TypeClass -- ^ Candidate instances
   -> Set Inst.TypeClass -- ^ Known instances
-  -> m Hs.Newtype
+  -> HsM Hs.Newtype
 newtypeDec name constr field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
     State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
     pure hsNewtype
   where
-    aux :: TranslationState -> Hs.Newtype
+    aux :: HsM.St -> Hs.Newtype
     aux transState = Hs.Newtype {
             name      = name
           , constr    = constr

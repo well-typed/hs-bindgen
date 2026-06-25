@@ -1,8 +1,17 @@
-module HsBindgen.Backend.Hs.Translation.State (
+-- |
+--
+-- Intended for qualified import.
+--
+-- > import HsBindgen.Backend.Hs.Translation.Monad (HsM)
+-- > import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
+--
+module HsBindgen.Backend.Hs.Translation.Monad (
     HsM
   , runHsM
-  , TranslationState(..)
-  , emptyTranslationState
+  , St(..)
+  , initSt
+  , Env(..)
+  , initEnv
     -- * Actions with optional delays
     -- $actions
   , Action
@@ -10,28 +19,63 @@ module HsBindgen.Backend.Hs.Translation.State (
   , immediate
   , immediateM
   , delayM
+  , concatSequence
   ) where
 
+import Control.Monad.Reader
 import Control.Monad.State.Lazy
 import Data.Map.Strict qualified as Map
 
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Translation.Instances
+import HsBindgen.Config.Prelims
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
+import HsBindgen.Language.C qualified as C
 
-newtype HsM a = HsM (State TranslationState a)
+newtype HsM a = HsM (ReaderT Env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
-  deriving newtype (MonadState TranslationState)
+  deriving newtype (MonadState St)
+  deriving newtype (MonadReader Env)
 
-runHsM :: HsM a -> a
-runHsM (HsM m) = evalState m emptyTranslationState
+runHsM ::
+     Env
+  -> HsM a
+  -> a
+runHsM env (HsM m) =
+    evalState (runReaderT m env) initSt
 
-data TranslationState = TranslationState {
+data St = St {
       instanceMap :: InstanceMap
     }
   deriving stock (Generic)
 
-emptyTranslationState :: TranslationState
-emptyTranslationState = TranslationState Map.empty
+initSt :: St
+initSt = St Map.empty
+
+data Env = Env {
+    uniqueId           :: UniqueId
+  , baseModuleName     :: BaseModuleName
+  , haddockConfig      :: HaddockConfig
+  , sizeofs            :: C.Sizeofs
+  , supportedInstances :: Inst.SupportedInstances
+  }
+
+initEnv ::
+     UniqueId
+  -> BaseModuleName
+  -> HaddockConfig
+  -> C.Sizeofs
+  -> Inst.SupportedInstances
+  -> Env
+initEnv uniqueId baseModuleName haddockConfig sizeofs supportedInstances =
+    Env {
+        uniqueId = uniqueId
+      , baseModuleName = baseModuleName
+      , haddockConfig = haddockConfig
+      , sizeofs = sizeofs
+      , supportedInstances = supportedInstances
+      }
 
 {-------------------------------------------------------------------------------
   Actions with optional delays
@@ -149,3 +193,6 @@ immediateM action = do
 --
 delayM :: HsM a -> HsM (Action a)
 delayM action = pure $ Action action
+
+concatSequence :: [Action [a]] -> Action [a]
+concatSequence = fmap concat . sequence
