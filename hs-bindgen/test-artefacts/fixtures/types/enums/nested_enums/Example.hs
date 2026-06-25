@@ -123,6 +123,14 @@ instance HasCField.HasCField EnumA "unwrapEnumA" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
+
 {-| __C declaration:__ @VALA_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 3:17@
@@ -291,6 +299,15 @@ instance HasCField.HasCField ExB_fieldB1 "unwrapExB_fieldB1" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapExB_fieldB1" ExB_fieldB1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> ExB_fieldB1 {unwrapExB_fieldB1 = y1}
+      , RIP.getField @"unwrapExB_fieldB1" x0
+      )
 
 {-| __C declaration:__ @VALB_1@
 

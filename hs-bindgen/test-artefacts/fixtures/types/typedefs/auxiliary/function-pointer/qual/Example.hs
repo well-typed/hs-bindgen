@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'T'
@@ -82,6 +83,14 @@ instance HasCField.HasCField T_Aux "unwrapT_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapT_Aux" T_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T_Aux {unwrapT_Aux = y1}, RIP.getField @"unwrapT_Aux" x0)
+
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/qual.h 1:23@
@@ -110,3 +119,10 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = RIP.FunPtr T_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr T_Aux
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

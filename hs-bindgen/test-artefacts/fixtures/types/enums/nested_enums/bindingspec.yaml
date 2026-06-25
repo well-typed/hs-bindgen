@@ -24,6 +24,7 @@ hstypes:
       - unwrapEnumA
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -80,6 +81,7 @@ hstypes:
       - unwrapExB_fieldB1
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

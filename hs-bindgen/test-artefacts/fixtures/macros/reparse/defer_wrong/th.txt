@@ -46,6 +46,9 @@ instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = S
           offset# = \_ -> \_ -> 0
+instance (~) ty S => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 15:11@
@@ -61,6 +64,9 @@ instance (~) ty T => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
 instance HasCField Foo "unwrapFoo"
     where type CFieldType Foo "unwrapFoo" = T
           offset# = \_ -> \_ -> 0
+instance (~) ty T => HasField "unwrapFoo" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
+                              getField @"unwrapFoo" x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 16:13@
@@ -80,3 +86,6 @@ instance (~) ty (Ptr T) => HasField "unwrapBar" (Ptr Bar) (Ptr ty)
 instance HasCField Bar "unwrapBar"
     where type CFieldType Bar "unwrapBar" = Ptr T
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr T) => HasField "unwrapBar" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{unwrapBar = y_1},
+                              getField @"unwrapBar" x_0)

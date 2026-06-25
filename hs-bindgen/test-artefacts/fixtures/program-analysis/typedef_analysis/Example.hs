@@ -180,6 +180,14 @@ instance HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr Struct5
+         ) => RIP.CompatHasField.HasField "unwrapStruct5_t" Struct5_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct5_t {unwrapStruct5_t = y1}, RIP.getField @"unwrapStruct5_t" x0)
+
 {-| __C declaration:__ @struct struct6@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 25:16@
@@ -241,6 +249,14 @@ instance HasCField.HasCField Struct6 "unwrapStruct6" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr Struct6_Aux
+         ) => RIP.CompatHasField.HasField "unwrapStruct6" Struct6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct6 {unwrapStruct6 = y1}, RIP.getField @"unwrapStruct6" x0)
+
 {-| __C declaration:__ @struct struct7@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 28:8@
@@ -300,6 +316,14 @@ instance HasCField.HasCField Struct7a "unwrapStruct7a" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ Struct7
+         ) => RIP.CompatHasField.HasField "unwrapStruct7a" Struct7a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct7a {unwrapStruct7a = y1}, RIP.getField @"unwrapStruct7a" x0)
+
 {-| __C declaration:__ @struct7b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 30:24@
@@ -328,6 +352,14 @@ instance HasCField.HasCField Struct7b "unwrapStruct7b" where
   type CFieldType Struct7b "unwrapStruct7b" = Struct7
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Struct7
+         ) => RIP.CompatHasField.HasField "unwrapStruct7b" Struct7b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct7b {unwrapStruct7b = y1}, RIP.getField @"unwrapStruct7b" x0)
 
 {-| __C declaration:__ @struct struct8@
 
@@ -388,6 +420,14 @@ instance HasCField.HasCField Struct8b "unwrapStruct8b" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ Struct8
+         ) => RIP.CompatHasField.HasField "unwrapStruct8b" Struct8b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct8b {unwrapStruct8b = y1}, RIP.getField @"unwrapStruct8b" x0)
+
 {-| __C declaration:__ @struct struct9@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 38:8@
@@ -446,6 +486,14 @@ instance HasCField.HasCField Struct9_t "unwrapStruct9_t" where
   type CFieldType Struct9_t "unwrapStruct9_t" = Struct9
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Struct9
+         ) => RIP.CompatHasField.HasField "unwrapStruct9_t" Struct9_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct9_t {unwrapStruct9_t = y1}, RIP.getField @"unwrapStruct9_t" x0)
 
 {-| __C declaration:__ @struct struct10@
 
@@ -506,6 +554,15 @@ instance HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
     Struct10_t
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Struct10_t
+         ) => RIP.CompatHasField.HasField "unwrapStruct10_t_t" Struct10_t_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Struct10_t_t {unwrapStruct10_t_t = y1}
+      , RIP.getField @"unwrapStruct10_t_t" x0
+      )
 
 {-| __C declaration:__ @struct struct11@
 

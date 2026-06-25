@@ -29,6 +29,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -55,6 +56,7 @@ hstypes:
       fields:
       - unwrapT2
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Floating
@@ -85,6 +87,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -111,6 +114,7 @@ hstypes:
       fields:
       - unwrapT4
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Floating
@@ -141,6 +145,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

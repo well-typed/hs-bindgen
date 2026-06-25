@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct FILE@
@@ -93,3 +94,11 @@ instance HasCField.HasCField Size_t "unwrapSize_t" where
   type CFieldType Size_t "unwrapSize_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapSize_t" Size_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_t {unwrapSize_t = y1}, RIP.getField @"unwrapSize_t" x0)

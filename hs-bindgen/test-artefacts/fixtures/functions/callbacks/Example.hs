@@ -126,6 +126,16 @@ instance HasCField.HasCField FileOpenedNotification_Aux "unwrapFileOpenedNotific
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IO ()
+         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification_Aux" FileOpenedNotification_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux = y1}
+      , RIP.getField @"unwrapFileOpenedNotification_Aux" x0
+      )
+
 {-| __C declaration:__ @FileOpenedNotification@
 
     __defined at:__ @functions\/callbacks.h 10:16@
@@ -156,6 +166,16 @@ instance HasCField.HasCField FileOpenedNotification "unwrapFileOpenedNotificatio
     RIP.FunPtr FileOpenedNotification_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr FileOpenedNotification_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification" FileOpenedNotification ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOpenedNotification {unwrapFileOpenedNotification = y1}
+      , RIP.getField @"unwrapFileOpenedNotification" x0
+      )
 
 {-| Auxiliary type used by 'ProgressUpdate'
 
@@ -218,6 +238,16 @@ instance HasCField.HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ProgressUpdate_Aux {unwrapProgressUpdate_Aux = y1}
+      , RIP.getField @"unwrapProgressUpdate_Aux" x0
+      )
+
 {-| __C declaration:__ @ProgressUpdate@
 
     __defined at:__ @functions\/callbacks.h 11:16@
@@ -248,6 +278,15 @@ instance HasCField.HasCField ProgressUpdate "unwrapProgressUpdate" where
     RIP.FunPtr ProgressUpdate_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr ProgressUpdate_Aux
+         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate" ProgressUpdate ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> ProgressUpdate {unwrapProgressUpdate = y1}
+      , RIP.getField @"unwrapProgressUpdate" x0
+      )
 
 {-| Auxiliary type used by 'DataValidator'
 
@@ -310,6 +349,16 @@ instance HasCField.HasCField DataValidator_Aux "unwrapDataValidator_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapDataValidator_Aux" DataValidator_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DataValidator_Aux {unwrapDataValidator_Aux = y1}
+      , RIP.getField @"unwrapDataValidator_Aux" x0
+      )
+
 {-| __C declaration:__ @DataValidator@
 
     __defined at:__ @functions\/callbacks.h 12:15@
@@ -340,6 +389,15 @@ instance HasCField.HasCField DataValidator "unwrapDataValidator" where
     RIP.FunPtr DataValidator_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr DataValidator_Aux
+         ) => RIP.CompatHasField.HasField "unwrapDataValidator" DataValidator ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> DataValidator {unwrapDataValidator = y1}
+      , RIP.getField @"unwrapDataValidator" x0
+      )
 
 {-| __C declaration:__ @struct Measurement@
 
@@ -502,6 +560,16 @@ instance HasCField.HasCField MeasurementReceived_Aux "unwrapMeasurementReceived_
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.Ptr Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived_Aux {unwrapMeasurementReceived_Aux = y1}
+      , RIP.getField @"unwrapMeasurementReceived_Aux" x0
+      )
+
 {-| __C declaration:__ @MeasurementReceived@
 
     __defined at:__ @functions\/callbacks.h 26:16@
@@ -533,6 +601,16 @@ instance HasCField.HasCField MeasurementReceived "unwrapMeasurementReceived" whe
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.FunPtr MeasurementReceived_Aux
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived" MeasurementReceived ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived {unwrapMeasurementReceived = y1}
+      , RIP.getField @"unwrapMeasurementReceived" x0
+      )
+
 {-| Auxiliary type used by 'MeasurementReceived2'
 
     __C declaration:__ @MeasurementReceived2@
@@ -558,6 +636,16 @@ instance HasCField.HasCField MeasurementReceived2_Aux "unwrapMeasurementReceived
     Measurement -> IO ()
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ (Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2_Aux" MeasurementReceived2_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived2_Aux {unwrapMeasurementReceived2_Aux = y1}
+      , RIP.getField @"unwrapMeasurementReceived2_Aux" x0
+      )
 
 {-| __C declaration:__ @MeasurementReceived2@
 
@@ -589,6 +677,16 @@ instance HasCField.HasCField MeasurementReceived2 "unwrapMeasurementReceived2" w
     RIP.FunPtr MeasurementReceived2_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr MeasurementReceived2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived2 {unwrapMeasurementReceived2 = y1}
+      , RIP.getField @"unwrapMeasurementReceived2" x0
+      )
 
 {-| Auxiliary type used by 'SampleBufferFull'
 
@@ -651,6 +749,16 @@ instance HasCField.HasCField SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" w
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SampleBufferFull_Aux {unwrapSampleBufferFull_Aux = y1}
+      , RIP.getField @"unwrapSampleBufferFull_Aux" x0
+      )
+
 {-| __C declaration:__ @SampleBufferFull@
 
     __defined at:__ @functions\/callbacks.h 32:16@
@@ -681,6 +789,16 @@ instance HasCField.HasCField SampleBufferFull "unwrapSampleBufferFull" where
     RIP.FunPtr SampleBufferFull_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr SampleBufferFull_Aux
+         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull" SampleBufferFull ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SampleBufferFull {unwrapSampleBufferFull = y1}
+      , RIP.getField @"unwrapSampleBufferFull" x0
+      )
 
 {-| __C declaration:__ @struct MeasurementHandler@
 
@@ -1193,6 +1311,15 @@ instance HasCField.HasCField Processor_mode "unwrapProcessor_mode" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_mode" Processor_mode ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Processor_mode {unwrapProcessor_mode = y1}
+      , RIP.getField @"unwrapProcessor_mode" x0
+      )
+
 {-| __C declaration:__ @MODE_SIMPLE@
 
     __defined at:__ @functions\/callbacks.h 76:10@
@@ -1357,6 +1484,13 @@ instance HasCField.HasCField Foo "unwrapFoo" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
+
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @functions\/callbacks.h 95:13@
@@ -1397,6 +1531,14 @@ instance HasCField.HasCField Foo2 "unwrapFoo2" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFoo2" Foo2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo2 {unwrapFoo2 = y1}, RIP.getField @"unwrapFoo2" x0)
+
 {-| __C declaration:__ @A@
 
     __defined at:__ @functions\/callbacks.h 102:13@
@@ -1436,6 +1578,12 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 {-| __C declaration:__ @B@
 
     __defined at:__ @functions\/callbacks.h 108:13@
@@ -1474,6 +1622,12 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
 
 {-| __C declaration:__ @struct S@
 
@@ -1573,6 +1727,12 @@ instance HasCField.HasCField C "unwrapC" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapC" C ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> C {unwrapC = y1}, RIP.getField @"unwrapC" x0)
+
 {-| __C declaration:__ @union U@
 
     __defined at:__ @functions\/callbacks.h 117:7@
@@ -1668,6 +1828,12 @@ instance HasCField.HasCField D "unwrapD" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapD" D ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> D {unwrapD = y1}, RIP.getField @"unwrapD" x0)
+
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/callbacks.h 125:15@
@@ -1725,6 +1891,13 @@ instance HasCField.HasCField T "unwrapT" where
     RIP.FunPtr (D -> IO ()) -> IO ()
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ (RIP.FunPtr (D -> IO ()) -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 -- __unique:__ @instance ToFunPtr (A -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_a46c670f88b5e6d2_base ::

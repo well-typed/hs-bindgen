@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @sym@
@@ -60,3 +61,11 @@ instance HasCField.HasCField MySym "unwrapMySym" where
   type CFieldType MySym "unwrapMySym" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapMySym" MySym ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MySym {unwrapMySym = y1}, RIP.getField @"unwrapMySym" x0)

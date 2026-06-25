@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @adiós@
@@ -63,6 +64,15 @@ instance HasCField.HasCField Adio'0301s "unwrapAdio'0301s" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapAdio'0301s" Adio'0301s ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Adio'0301s {unwrapAdio'0301s = y1}
+      , RIP.getField @"unwrapAdio'0301s" x0
+      )
+
 {-| __C declaration:__ @数字@
 
     __defined at:__ @edge-cases\/adios.h 17:13@
@@ -102,3 +112,11 @@ instance HasCField.HasCField C数字 "unwrapC\25968\23383" where
   type CFieldType C数字 "unwrapC\25968\23383" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapC\25968\23383" C数字 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         C数字 {unwrapC数字 = y1}, RIP.getField @"unwrapC\25968\23383" x0)

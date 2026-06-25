@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @FILE@
@@ -60,3 +61,11 @@ instance HasCField.HasCField FILE "unwrapFILE" where
   type CFieldType FILE "unwrapFILE" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFILE" FILE ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         FILE {unwrapFILE = y1}, RIP.getField @"unwrapFILE" x0)

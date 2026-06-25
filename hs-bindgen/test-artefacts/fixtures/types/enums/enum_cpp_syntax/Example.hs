@@ -26,6 +26,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -119,6 +120,14 @@ instance HasCField.HasCField Foo_enum "unwrapFoo_enum" where
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapFoo_enum" Foo_enum ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo_enum {unwrapFoo_enum = y1}, RIP.getField @"unwrapFoo_enum" x0)
 
 {-| __C declaration:__ @A@
 

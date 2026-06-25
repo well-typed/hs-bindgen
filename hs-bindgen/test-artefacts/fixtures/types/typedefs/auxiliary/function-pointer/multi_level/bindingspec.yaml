@@ -32,6 +32,7 @@ hstypes:
       fields:
       - unwrapF1
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -50,6 +51,7 @@ hstypes:
       fields:
       - unwrapF2
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -68,6 +70,7 @@ hstypes:
       fields:
       - unwrapF3
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -86,6 +89,7 @@ hstypes:
       fields:
       - unwrapF4
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -104,6 +108,7 @@ hstypes:
       fields:
       - unwrapF5
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -122,6 +127,7 @@ hstypes:
       fields:
       - unwrapF6
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -143,6 +149,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

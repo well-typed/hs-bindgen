@@ -56,6 +56,7 @@ hstypes:
       fields:
       - unwrapPoint1b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -90,6 +91,7 @@ hstypes:
       fields:
       - unwrapPoint2b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -108,6 +110,7 @@ hstypes:
       fields:
       - unwrapPoint3a
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -144,6 +147,7 @@ hstypes:
       fields:
       - unwrapPoint3b
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

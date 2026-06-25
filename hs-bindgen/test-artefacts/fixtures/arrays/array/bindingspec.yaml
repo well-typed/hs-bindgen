@@ -47,6 +47,7 @@ hstypes:
       fields:
       - unwrapList
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -60,6 +61,7 @@ hstypes:
       fields:
       - unwrapMatrix
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -77,6 +79,7 @@ hstypes:
       fields:
       - unwrapSudoku
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -94,6 +97,7 @@ hstypes:
       fields:
       - unwrapTriplet
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -111,6 +115,7 @@ hstypes:
       fields:
       - unwrapTripletlist
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

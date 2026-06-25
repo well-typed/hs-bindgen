@@ -318,6 +318,14 @@ instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapAnonEnum" AnonEnum ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         AnonEnum {unwrapAnonEnum = y1}, RIP.getField @"unwrapAnonEnum" x0)
+
 {-| __C declaration:__ @VAL_A@
 
     __defined at:__ @globals\/untagged.h 16:8@
@@ -416,6 +424,15 @@ instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapAnonEnumCoords" AnonEnumCoords ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> AnonEnumCoords {unwrapAnonEnumCoords = y1}
+      , RIP.getField @"unwrapAnonEnumCoords" x0
+      )
 
 {-| __C declaration:__ @X@
 
@@ -531,6 +548,12 @@ instance HasCField.HasCField A "unwrapA" where
   type CFieldType A "unwrapA" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
 
 {-| __C declaration:__ @a1@
 

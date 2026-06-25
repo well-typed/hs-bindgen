@@ -663,6 +663,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr Uint) (Ptr ty)
 instance HasCField Uint "unwrap"
     where type CFieldType Uint "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" Uint ty
+    where hasField = \x_0 -> (\y_1 -> Uint{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @size_t@
 
     __defined at:__ @comprehensive\/smoke.h 8:23@
@@ -692,6 +695,9 @@ instance (~) ty CULong => HasField "unwrap" (Ptr Size_t) (Ptr ty)
 instance HasCField Size_t "unwrap"
     where type CFieldType Size_t "unwrap" = CULong
           offset# = \_ -> \_ -> 0
+instance (~) ty CULong => HasField "unwrap" Size_t ty
+    where hasField = \x_0 -> (\y_1 -> Size_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct bar1_t@
 
     __defined at:__ @comprehensive\/smoke.h 39:8@
@@ -1123,6 +1129,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr Baz2_t) (Ptr ty)
 instance HasCField Baz2_t "unwrap"
     where type CFieldType Baz2_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" Baz2_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz2_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ2@
 
     __defined at:__ @comprehensive\/smoke.h 67:3@
@@ -1175,6 +1184,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr Baz3_t) (Ptr ty)
 instance HasCField Baz3_t "unwrap"
     where type CFieldType Baz3_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" Baz3_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz3_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ3@
 
     __defined at:__ @comprehensive\/smoke.h 71:3@
@@ -1227,6 +1239,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr Baz4_t) (Ptr ty)
 instance HasCField Baz4_t "unwrap"
     where type CFieldType Baz4_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" Baz4_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz4_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ4@
 
     __defined at:__ @comprehensive\/smoke.h 75:3@

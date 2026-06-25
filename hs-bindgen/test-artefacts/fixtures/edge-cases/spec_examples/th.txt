@@ -62,6 +62,9 @@ instance (~) ty CShort =>
 instance HasCField Int16_T "unwrapInt16_T"
     where type CFieldType Int16_T "unwrapInt16_T" = CShort
           offset# = \_ -> \_ -> 0
+instance (~) ty CShort => HasField "unwrapInt16_T" Int16_T ty
+    where hasField = \x_0 -> (\y_1 -> Int16_T{unwrapInt16_T = y_1},
+                              getField @"unwrapInt16_T" x_0)
 {-| __C declaration:__ @int32_T@
 
     __defined at:__ @edge-cases\/spec_examples.h 11:13@
@@ -92,6 +95,9 @@ instance (~) ty CInt =>
 instance HasCField Int32_T "unwrapInt32_T"
     where type CFieldType Int32_T "unwrapInt32_T" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapInt32_T" Int32_T ty
+    where hasField = \x_0 -> (\y_1 -> Int32_T{unwrapInt32_T = y_1},
+                              getField @"unwrapInt32_T" x_0)
 {-| __C declaration:__ @int64_T@
 
     __defined at:__ @edge-cases\/spec_examples.h 12:19@
@@ -122,6 +128,9 @@ instance (~) ty CLLong =>
 instance HasCField Int64_T "unwrapInt64_T"
     where type CFieldType Int64_T "unwrapInt64_T" = CLLong
           offset# = \_ -> \_ -> 0
+instance (~) ty CLLong => HasField "unwrapInt64_T" Int64_T ty
+    where hasField = \x_0 -> (\y_1 -> Int64_T{unwrapInt64_T = y_1},
+                              getField @"unwrapInt64_T" x_0)
 {-| __C declaration:__ @struct cint16_T@
 
     __defined at:__ @edge-cases\/spec_examples.h 14:9@

@@ -251,6 +251,14 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
+
 {-| __C declaration:__ @struct bools3@
 
     __defined at:__ @types\/primitives\/bool.h 15:8@

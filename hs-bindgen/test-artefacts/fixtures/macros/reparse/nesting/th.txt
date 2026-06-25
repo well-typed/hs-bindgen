@@ -28,6 +28,9 @@ instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @struct TS1@
 
     __defined at:__ @macros\/reparse\/nesting.h 5:16@

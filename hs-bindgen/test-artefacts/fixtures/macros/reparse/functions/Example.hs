@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro ID@
@@ -73,6 +74,14 @@ instance HasCField.HasCField MY_INT "unwrapMY_INT" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMY_INT" MY_INT ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MY_INT {unwrapMY_INT = y1}, RIP.getField @"unwrapMY_INT" x0)
+
 {-| __C declaration:__ @my_int_t@
 
     __defined at:__ @macros\/reparse\/functions.h 19:16@
@@ -112,3 +121,11 @@ instance HasCField.HasCField My_int_t "unwrapMy_int_t" where
   type CFieldType My_int_t "unwrapMy_int_t" = MY_INT
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ MY_INT
+         ) => RIP.CompatHasField.HasField "unwrapMy_int_t" My_int_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         My_int_t {unwrapMy_int_t = y1}, RIP.getField @"unwrapMy_int_t" x0)

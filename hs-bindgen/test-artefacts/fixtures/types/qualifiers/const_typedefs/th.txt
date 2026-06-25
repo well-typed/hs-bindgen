@@ -101,6 +101,9 @@ instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapI" I ty
+    where hasField = \x_0 -> (\y_1 -> I{unwrapI = y_1},
+                              getField @"unwrapI" x_0)
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 11:8@
@@ -172,6 +175,9 @@ instance (~) ty CUInt => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
@@ -209,6 +215,9 @@ instance (~) ty I => HasField "unwrapTI" (Ptr TI) (Ptr ty)
 instance HasCField TI "unwrapTI"
     where type CFieldType TI "unwrapTI" = I
           offset# = \_ -> \_ -> 0
+instance (~) ty I => HasField "unwrapTI" TI ty
+    where hasField = \x_0 -> (\y_1 -> TI{unwrapTI = y_1},
+                              getField @"unwrapTI" x_0)
 {-| __C declaration:__ @TS@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
@@ -224,6 +233,9 @@ instance (~) ty S => HasField "unwrapTS" (Ptr TS) (Ptr ty)
 instance HasCField TS "unwrapTS"
     where type CFieldType TS "unwrapTS" = S
           offset# = \_ -> \_ -> 0
+instance (~) ty S => HasField "unwrapTS" TS ty
+    where hasField = \x_0 -> (\y_1 -> TS{unwrapTS = y_1},
+                              getField @"unwrapTS" x_0)
 {-| __C declaration:__ @TU@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
@@ -239,6 +251,9 @@ instance (~) ty U => HasField "unwrapTU" (Ptr TU) (Ptr ty)
 instance HasCField TU "unwrapTU"
     where type CFieldType TU "unwrapTU" = U
           offset# = \_ -> \_ -> 0
+instance (~) ty U => HasField "unwrapTU" TU ty
+    where hasField = \x_0 -> (\y_1 -> TU{unwrapTU = y_1},
+                              getField @"unwrapTU" x_0)
 {-| __C declaration:__ @TE@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
@@ -259,6 +274,9 @@ instance (~) ty E => HasField "unwrapTE" (Ptr TE) (Ptr ty)
 instance HasCField TE "unwrapTE"
     where type CFieldType TE "unwrapTE" = E
           offset# = \_ -> \_ -> 0
+instance (~) ty E => HasField "unwrapTE" TE ty
+    where hasField = \x_0 -> (\y_1 -> TE{unwrapTE = y_1},
+                              getField @"unwrapTE" x_0)
 {-| __C declaration:__ @TTI@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
@@ -288,6 +306,9 @@ instance (~) ty TI => HasField "unwrapTTI" (Ptr TTI) (Ptr ty)
 instance HasCField TTI "unwrapTTI"
     where type CFieldType TTI "unwrapTTI" = TI
           offset# = \_ -> \_ -> 0
+instance (~) ty TI => HasField "unwrapTTI" TTI ty
+    where hasField = \x_0 -> (\y_1 -> TTI{unwrapTTI = y_1},
+                              getField @"unwrapTTI" x_0)
 {-| __C declaration:__ @TTS@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
@@ -303,6 +324,9 @@ instance (~) ty TS => HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
 instance HasCField TTS "unwrapTTS"
     where type CFieldType TTS "unwrapTTS" = TS
           offset# = \_ -> \_ -> 0
+instance (~) ty TS => HasField "unwrapTTS" TTS ty
+    where hasField = \x_0 -> (\y_1 -> TTS{unwrapTTS = y_1},
+                              getField @"unwrapTTS" x_0)
 {-| __C declaration:__ @TTU@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
@@ -318,6 +342,9 @@ instance (~) ty TU => HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
 instance HasCField TTU "unwrapTTU"
     where type CFieldType TTU "unwrapTTU" = TU
           offset# = \_ -> \_ -> 0
+instance (~) ty TU => HasField "unwrapTTU" TTU ty
+    where hasField = \x_0 -> (\y_1 -> TTU{unwrapTTU = y_1},
+                              getField @"unwrapTTU" x_0)
 {-| __C declaration:__ @TTE@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
@@ -338,6 +365,9 @@ instance (~) ty TE => HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
 instance HasCField TTE "unwrapTTE"
     where type CFieldType TTE "unwrapTTE" = TE
           offset# = \_ -> \_ -> 0
+instance (~) ty TE => HasField "unwrapTTE" TTE ty
+    where hasField = \x_0 -> (\y_1 -> TTE{unwrapTTE = y_1},
+                              getField @"unwrapTTE" x_0)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a_base ::
     IO (Ptr Void)

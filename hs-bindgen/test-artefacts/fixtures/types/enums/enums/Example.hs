@@ -52,6 +52,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum first@
@@ -143,6 +144,14 @@ instance HasCField.HasCField First "unwrapFirst" where
   type CFieldType First "unwrapFirst" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapFirst" First ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         First {unwrapFirst = y1}, RIP.getField @"unwrapFirst" x0)
 
 {-| __C declaration:__ @FIRST1@
 
@@ -254,6 +263,14 @@ instance HasCField.HasCField Second "unwrapSecond" where
   type CFieldType Second "unwrapSecond" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapSecond" Second ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Second {unwrapSecond = y1}, RIP.getField @"unwrapSecond" x0)
 
 {-| __C declaration:__ @SECOND_A@
 
@@ -371,6 +388,14 @@ instance HasCField.HasCField Same "unwrapSame" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapSame" Same ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Same {unwrapSame = y1}, RIP.getField @"unwrapSame" x0)
+
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -471,6 +496,14 @@ instance HasCField.HasCField Nonseq "unwrapNonseq" where
   type CFieldType Nonseq "unwrapNonseq" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapNonseq" Nonseq ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Nonseq {unwrapNonseq = y1}, RIP.getField @"unwrapNonseq" x0)
 
 {-| __C declaration:__ @NONSEQ_A@
 
@@ -592,6 +625,14 @@ instance HasCField.HasCField Packed "unwrapPacked" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unwrapPacked" Packed ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Packed {unwrapPacked = y1}, RIP.getField @"unwrapPacked" x0)
+
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -709,6 +750,14 @@ instance HasCField.HasCField EnumA "unwrapEnumA" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
+
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -816,6 +865,14 @@ instance HasCField.HasCField EnumB "unwrapEnumB" where
   type CFieldType EnumB "unwrapEnumB" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumB" EnumB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumB {unwrapEnumB = y1}, RIP.getField @"unwrapEnumB" x0)
 
 {-| __C declaration:__ @B_FOO@
 
@@ -925,6 +982,14 @@ instance HasCField.HasCField EnumC "unwrapEnumC" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumC" EnumC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumC {unwrapEnumC = y1}, RIP.getField @"unwrapEnumC" x0)
+
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -1032,6 +1097,14 @@ instance HasCField.HasCField EnumD_t "unwrapEnumD_t" where
   type CFieldType EnumD_t "unwrapEnumD_t" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumD_t" EnumD_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumD_t {unwrapEnumD_t = y1}, RIP.getField @"unwrapEnumD_t" x0)
 
 {-| __C declaration:__ @D_FOO@
 

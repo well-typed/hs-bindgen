@@ -49,6 +49,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -93,6 +94,15 @@ instance HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CBool" Stdlib_CBool ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CBool {unwrapStdlib_CBool = y1}
+      , RIP.getField @"unwrapStdlib_CBool" x0
+      )
+
 {-| __C declaration:__ @stdlib_Int8@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
@@ -133,6 +143,15 @@ instance HasCField.HasCField Stdlib_Int8 "unwrapStdlib_Int8" where
     HsBindgen.Runtime.LibC.Int8
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Int8" Stdlib_Int8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Int8 {unwrapStdlib_Int8 = y1}
+      , RIP.getField @"unwrapStdlib_Int8" x0
+      )
 
 {-| __C declaration:__ @stdlib_Int16@
 
@@ -175,6 +194,15 @@ instance HasCField.HasCField Stdlib_Int16 "unwrapStdlib_Int16" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int16
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Int16" Stdlib_Int16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Int16 {unwrapStdlib_Int16 = y1}
+      , RIP.getField @"unwrapStdlib_Int16" x0
+      )
+
 {-| __C declaration:__ @stdlib_Int32@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
@@ -215,6 +243,15 @@ instance HasCField.HasCField Stdlib_Int32 "unwrapStdlib_Int32" where
     HsBindgen.Runtime.LibC.Int32
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Int32" Stdlib_Int32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Int32 {unwrapStdlib_Int32 = y1}
+      , RIP.getField @"unwrapStdlib_Int32" x0
+      )
 
 {-| __C declaration:__ @stdlib_Int64@
 
@@ -257,6 +294,15 @@ instance HasCField.HasCField Stdlib_Int64 "unwrapStdlib_Int64" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Int64" Stdlib_Int64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Int64 {unwrapStdlib_Int64 = y1}
+      , RIP.getField @"unwrapStdlib_Int64" x0
+      )
+
 {-| __C declaration:__ @stdlib_Word8@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
@@ -297,6 +343,15 @@ instance HasCField.HasCField Stdlib_Word8 "unwrapStdlib_Word8" where
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Word8" Stdlib_Word8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Word8 {unwrapStdlib_Word8 = y1}
+      , RIP.getField @"unwrapStdlib_Word8" x0
+      )
 
 {-| __C declaration:__ @stdlib_Word16@
 
@@ -339,6 +394,15 @@ instance HasCField.HasCField Stdlib_Word16 "unwrapStdlib_Word16" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Word16" Stdlib_Word16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Word16 {unwrapStdlib_Word16 = y1}
+      , RIP.getField @"unwrapStdlib_Word16" x0
+      )
+
 {-| __C declaration:__ @stdlib_Word32@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
@@ -379,6 +443,15 @@ instance HasCField.HasCField Stdlib_Word32 "unwrapStdlib_Word32" where
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Word32" Stdlib_Word32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Word32 {unwrapStdlib_Word32 = y1}
+      , RIP.getField @"unwrapStdlib_Word32" x0
+      )
 
 {-| __C declaration:__ @stdlib_Word64@
 
@@ -421,6 +494,15 @@ instance HasCField.HasCField Stdlib_Word64 "unwrapStdlib_Word64" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_Word64" Stdlib_Word64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_Word64 {unwrapStdlib_Word64 = y1}
+      , RIP.getField @"unwrapStdlib_Word64" x0
+      )
+
 {-| __C declaration:__ @stdlib_CIntMax@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
@@ -461,6 +543,15 @@ instance HasCField.HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax" where
     HsBindgen.Runtime.LibC.CIntMax
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CIntMax
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CIntMax" Stdlib_CIntMax ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CIntMax {unwrapStdlib_CIntMax = y1}
+      , RIP.getField @"unwrapStdlib_CIntMax" x0
+      )
 
 {-| __C declaration:__ @stdlib_CUIntMax@
 
@@ -503,6 +594,15 @@ instance HasCField.HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CUIntMax
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CUIntMax" Stdlib_CUIntMax ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CUIntMax {unwrapStdlib_CUIntMax = y1}
+      , RIP.getField @"unwrapStdlib_CUIntMax" x0
+      )
+
 {-| __C declaration:__ @stdlib_CIntPtr@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
@@ -543,6 +643,15 @@ instance HasCField.HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr" where
     HsBindgen.Runtime.LibC.CIntPtr
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CIntPtr
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CIntPtr" Stdlib_CIntPtr ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CIntPtr {unwrapStdlib_CIntPtr = y1}
+      , RIP.getField @"unwrapStdlib_CIntPtr" x0
+      )
 
 {-| __C declaration:__ @stdlib_CUIntPtr@
 
@@ -585,6 +694,15 @@ instance HasCField.HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CUIntPtr
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CUIntPtr" Stdlib_CUIntPtr ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CUIntPtr {unwrapStdlib_CUIntPtr = y1}
+      , RIP.getField @"unwrapStdlib_CUIntPtr" x0
+      )
+
 {-| __C declaration:__ @stdlib_CFenvT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
@@ -609,6 +727,15 @@ instance HasCField.HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CFenvT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CFenvT" Stdlib_CFenvT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CFenvT {unwrapStdlib_CFenvT = y1}
+      , RIP.getField @"unwrapStdlib_CFenvT" x0
+      )
+
 {-| __C declaration:__ @stdlib_CFexceptT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
@@ -632,6 +759,16 @@ instance HasCField.HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT" where
     HsBindgen.Runtime.LibC.CFexceptT
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CFexceptT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CFexceptT" Stdlib_CFexceptT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Stdlib_CFexceptT {unwrapStdlib_CFexceptT = y1}
+      , RIP.getField @"unwrapStdlib_CFexceptT" x0
+      )
 
 {-| __C declaration:__ @stdlib_CSize@
 
@@ -674,6 +811,15 @@ instance HasCField.HasCField Stdlib_CSize "unwrapStdlib_CSize" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CSize" Stdlib_CSize ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CSize {unwrapStdlib_CSize = y1}
+      , RIP.getField @"unwrapStdlib_CSize" x0
+      )
+
 {-| __C declaration:__ @stdlib_CPtrdiff@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
@@ -715,6 +861,15 @@ instance HasCField.HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CPtrdiff" Stdlib_CPtrdiff ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CPtrdiff {unwrapStdlib_CPtrdiff = y1}
+      , RIP.getField @"unwrapStdlib_CPtrdiff" x0
+      )
+
 {-| __C declaration:__ @stdlib_CJmpBuf@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
@@ -738,6 +893,15 @@ instance HasCField.HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf" where
     HsBindgen.Runtime.LibC.CJmpBuf
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CJmpBuf
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CJmpBuf" Stdlib_CJmpBuf ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CJmpBuf {unwrapStdlib_CJmpBuf = y1}
+      , RIP.getField @"unwrapStdlib_CJmpBuf" x0
+      )
 
 {-| __C declaration:__ @stdlib_CWchar@
 
@@ -780,6 +944,15 @@ instance HasCField.HasCField Stdlib_CWchar "unwrapStdlib_CWchar" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CWchar
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CWchar" Stdlib_CWchar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CWchar {unwrapStdlib_CWchar = y1}
+      , RIP.getField @"unwrapStdlib_CWchar" x0
+      )
+
 {-| __C declaration:__ @stdlib_CWintT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
@@ -821,6 +994,15 @@ instance HasCField.HasCField Stdlib_CWintT "unwrapStdlib_CWintT" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CWintT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CWintT" Stdlib_CWintT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CWintT {unwrapStdlib_CWintT = y1}
+      , RIP.getField @"unwrapStdlib_CWintT" x0
+      )
+
 {-| __C declaration:__ @stdlib_CMbstateT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
@@ -844,6 +1026,16 @@ instance HasCField.HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT" where
     HsBindgen.Runtime.LibC.CMbstateT
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CMbstateT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CMbstateT" Stdlib_CMbstateT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Stdlib_CMbstateT {unwrapStdlib_CMbstateT = y1}
+      , RIP.getField @"unwrapStdlib_CMbstateT" x0
+      )
 
 {-| __C declaration:__ @stdlib_CWctransT@
 
@@ -877,6 +1069,16 @@ instance HasCField.HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CWctransT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CWctransT" Stdlib_CWctransT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Stdlib_CWctransT {unwrapStdlib_CWctransT = y1}
+      , RIP.getField @"unwrapStdlib_CWctransT" x0
+      )
+
 {-| __C declaration:__ @stdlib_CWctypeT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
@@ -908,6 +1110,15 @@ instance HasCField.HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT" where
     HsBindgen.Runtime.LibC.CWctypeT
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CWctypeT
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CWctypeT" Stdlib_CWctypeT ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CWctypeT {unwrapStdlib_CWctypeT = y1}
+      , RIP.getField @"unwrapStdlib_CWctypeT" x0
+      )
 
 {-| __C declaration:__ @stdlib_CChar16T@
 
@@ -950,6 +1161,15 @@ instance HasCField.HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CChar16T
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CChar16T" Stdlib_CChar16T ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CChar16T {unwrapStdlib_CChar16T = y1}
+      , RIP.getField @"unwrapStdlib_CChar16T" x0
+      )
+
 {-| __C declaration:__ @stdlib_CChar32T@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
@@ -991,6 +1211,15 @@ instance HasCField.HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CChar32T
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CChar32T" Stdlib_CChar32T ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CChar32T {unwrapStdlib_CChar32T = y1}
+      , RIP.getField @"unwrapStdlib_CChar32T" x0
+      )
+
 {-| __C declaration:__ @stdlib_CTime@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
@@ -1024,6 +1253,15 @@ instance HasCField.HasCField Stdlib_CTime "unwrapStdlib_CTime" where
     HsBindgen.Runtime.LibC.CTime
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CTime
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CTime" Stdlib_CTime ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CTime {unwrapStdlib_CTime = y1}
+      , RIP.getField @"unwrapStdlib_CTime" x0
+      )
 
 {-| __C declaration:__ @stdlib_CClock@
 
@@ -1059,6 +1297,15 @@ instance HasCField.HasCField Stdlib_CClock "unwrapStdlib_CClock" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CClock
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CClock" Stdlib_CClock ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CClock {unwrapStdlib_CClock = y1}
+      , RIP.getField @"unwrapStdlib_CClock" x0
+      )
+
 {-| __C declaration:__ @stdlib_CTm@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
@@ -1084,6 +1331,15 @@ instance HasCField.HasCField Stdlib_CTm "unwrapStdlib_CTm" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CTm
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CTm" Stdlib_CTm ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CTm {unwrapStdlib_CTm = y1}
+      , RIP.getField @"unwrapStdlib_CTm" x0
+      )
+
 {-| __C declaration:__ @stdlib_CFile@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
@@ -1108,6 +1364,15 @@ instance HasCField.HasCField Stdlib_CFile "unwrapStdlib_CFile" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CFile
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CFile" Stdlib_CFile ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CFile {unwrapStdlib_CFile = y1}
+      , RIP.getField @"unwrapStdlib_CFile" x0
+      )
+
 {-| __C declaration:__ @stdlib_CFpos@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
@@ -1131,6 +1396,15 @@ instance HasCField.HasCField Stdlib_CFpos "unwrapStdlib_CFpos" where
     HsBindgen.Runtime.LibC.CFpos
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CFpos
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CFpos" Stdlib_CFpos ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CFpos {unwrapStdlib_CFpos = y1}
+      , RIP.getField @"unwrapStdlib_CFpos" x0
+      )
 
 {-| __C declaration:__ @stdlib_CSigAtomic@
 
@@ -1172,3 +1446,13 @@ instance HasCField.HasCField Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic" where
     HsBindgen.Runtime.LibC.CSigAtomic
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSigAtomic
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CSigAtomic" Stdlib_CSigAtomic ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Stdlib_CSigAtomic {unwrapStdlib_CSigAtomic = y1}
+      , RIP.getField @"unwrapStdlib_CSigAtomic" x0
+      )

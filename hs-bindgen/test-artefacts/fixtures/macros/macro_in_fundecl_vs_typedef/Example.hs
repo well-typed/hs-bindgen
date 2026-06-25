@@ -69,6 +69,13 @@ instance HasCField.HasCField MC "unwrapMC" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapMC" MC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MC {unwrapMC = y1}, RIP.getField @"unwrapMC" x0)
+
 {-| __C declaration:__ @TC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
@@ -107,6 +114,13 @@ instance HasCField.HasCField TC "unwrapTC" where
   type CFieldType TC "unwrapTC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapTC" TC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TC {unwrapTC = y1}, RIP.getField @"unwrapTC" x0)
 
 {-| __C declaration:__ @struct struct1@
 
@@ -316,6 +330,14 @@ instance HasCField.HasCField Struct3_t "unwrapStruct3_t" where
   type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Struct3
+         ) => RIP.CompatHasField.HasField "unwrapStruct3_t" Struct3_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct3_t {unwrapStruct3_t = y1}, RIP.getField @"unwrapStruct3_t" x0)
 
 {-| __C declaration:__ @struct struct4@
 

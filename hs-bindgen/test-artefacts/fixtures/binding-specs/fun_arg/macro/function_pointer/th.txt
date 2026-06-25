@@ -166,6 +166,10 @@ instance HasCField MyFunctionPointer_Aux
     where type CFieldType MyFunctionPointer_Aux
                           "unwrapMyFunctionPointer_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapMyFunctionPointer_Aux" MyFunctionPointer_Aux ty
+    where hasField = \x_0 -> (\y_1 -> MyFunctionPointer_Aux{unwrapMyFunctionPointer_Aux = y_1},
+                              getField @"unwrapMyFunctionPointer_Aux" x_0)
 {-| __C declaration:__ @MyFunctionPointer@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 5:15@
@@ -187,6 +191,10 @@ instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
     where type CFieldType MyFunctionPointer
                           "unwrapMyFunctionPointer" = FunPtr MyFunctionPointer_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr MyFunctionPointer_Aux) =>
+         HasField "unwrapMyFunctionPointer" MyFunctionPointer ty
+    where hasField = \x_0 -> (\y_1 -> MyFunctionPointer{unwrapMyFunctionPointer = y_1},
+                              getField @"unwrapMyFunctionPointer" x_0)
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 9:9@
@@ -207,6 +215,9 @@ instance (~) ty MyFunctionPointer =>
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyFunctionPointer
           offset# = \_ -> \_ -> 0
+instance (~) ty MyFunctionPointer => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 10:9@
@@ -226,6 +237,9 @@ instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
+instance (~) ty A => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 31:9@
@@ -238,6 +252,9 @@ instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
+instance (~) ty M.C => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_40e15e86e5db36ce" hs_bindgen_40e15e86e5db36ce_base ::
     FunPtr Void

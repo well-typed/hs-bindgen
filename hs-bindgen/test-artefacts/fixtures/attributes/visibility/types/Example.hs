@@ -2024,6 +2024,13 @@ instance HasCField.HasCField E5 "unwrapE5" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapE5" E5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E5 {unwrapE5 = y1}, RIP.getField @"unwrapE5" x0)
+
 {-| __C declaration:__ @x5@
 
     __defined at:__ @attributes\/visibility\/types.h 100:54@
@@ -2120,6 +2127,13 @@ instance HasCField.HasCField E6 "unwrapE6" where
   type CFieldType E6 "unwrapE6" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapE6" E6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E6 {unwrapE6 = y1}, RIP.getField @"unwrapE6" x0)
 
 {-| __C declaration:__ @x6@
 
@@ -2218,6 +2232,13 @@ instance HasCField.HasCField E7 "unwrapE7" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapE7" E7 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E7 {unwrapE7 = y1}, RIP.getField @"unwrapE7" x0)
+
 {-| __C declaration:__ @x7@
 
     __defined at:__ @attributes\/visibility\/types.h 102:54@
@@ -2314,6 +2335,13 @@ instance HasCField.HasCField E8 "unwrapE8" where
   type CFieldType E8 "unwrapE8" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapE8" E8 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E8 {unwrapE8 = y1}, RIP.getField @"unwrapE8" x0)
 
 {-| __C declaration:__ @x8@
 
@@ -2412,6 +2440,13 @@ instance HasCField.HasCField E9 "unwrapE9" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapE9" E9 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E9 {unwrapE9 = y1}, RIP.getField @"unwrapE9" x0)
+
 {-| __C declaration:__ @x9@
 
     __defined at:__ @attributes\/visibility\/types.h 104:54@
@@ -2508,6 +2543,14 @@ instance HasCField.HasCField E10 "unwrapE10" where
   type CFieldType E10 "unwrapE10" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE10" E10 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E10 {unwrapE10 = y1}, RIP.getField @"unwrapE10" x0)
 
 {-| __C declaration:__ @x10@
 
@@ -2606,6 +2649,14 @@ instance HasCField.HasCField E11 "unwrapE11" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE11" E11 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E11 {unwrapE11 = y1}, RIP.getField @"unwrapE11" x0)
+
 {-| __C declaration:__ @x11@
 
     __defined at:__ @attributes\/visibility\/types.h 114:55@
@@ -2702,6 +2753,14 @@ instance HasCField.HasCField E12 "unwrapE12" where
   type CFieldType E12 "unwrapE12" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE12" E12 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E12 {unwrapE12 = y1}, RIP.getField @"unwrapE12" x0)
 
 {-| __C declaration:__ @x12@
 
@@ -2800,6 +2859,14 @@ instance HasCField.HasCField E13 "unwrapE13" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE13" E13 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E13 {unwrapE13 = y1}, RIP.getField @"unwrapE13" x0)
+
 {-| __C declaration:__ @x13@
 
     __defined at:__ @attributes\/visibility\/types.h 116:55@
@@ -2896,6 +2963,14 @@ instance HasCField.HasCField E14 "unwrapE14" where
   type CFieldType E14 "unwrapE14" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE14" E14 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E14 {unwrapE14 = y1}, RIP.getField @"unwrapE14" x0)
 
 {-| __C declaration:__ @x14@
 
@@ -2994,6 +3069,14 @@ instance HasCField.HasCField E15 "unwrapE15" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE15" E15 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E15 {unwrapE15 = y1}, RIP.getField @"unwrapE15" x0)
+
 {-| __C declaration:__ @x15@
 
     __defined at:__ @attributes\/visibility\/types.h 126:55@
@@ -3090,6 +3173,14 @@ instance HasCField.HasCField E16 "unwrapE16" where
   type CFieldType E16 "unwrapE16" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE16" E16 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E16 {unwrapE16 = y1}, RIP.getField @"unwrapE16" x0)
 
 {-| __C declaration:__ @x16@
 
@@ -3188,6 +3279,14 @@ instance HasCField.HasCField E17 "unwrapE17" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE17" E17 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E17 {unwrapE17 = y1}, RIP.getField @"unwrapE17" x0)
+
 {-| __C declaration:__ @x17@
 
     __defined at:__ @attributes\/visibility\/types.h 128:55@
@@ -3285,6 +3384,14 @@ instance HasCField.HasCField E18 "unwrapE18" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE18" E18 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E18 {unwrapE18 = y1}, RIP.getField @"unwrapE18" x0)
+
 {-| __C declaration:__ @x18@
 
     __defined at:__ @attributes\/visibility\/types.h 129:55@
@@ -3381,6 +3488,14 @@ instance HasCField.HasCField E19 "unwrapE19" where
   type CFieldType E19 "unwrapE19" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapE19" E19 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         E19 {unwrapE19 = y1}, RIP.getField @"unwrapE19" x0)
 
 {-| __C declaration:__ @x19@
 

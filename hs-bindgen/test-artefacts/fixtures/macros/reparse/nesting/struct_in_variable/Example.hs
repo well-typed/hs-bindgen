@@ -67,6 +67,14 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
 {-| __C declaration:__ @struct \@G1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:1@

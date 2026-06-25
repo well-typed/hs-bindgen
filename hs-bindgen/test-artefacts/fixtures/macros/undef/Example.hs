@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro T@
@@ -59,3 +60,9 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

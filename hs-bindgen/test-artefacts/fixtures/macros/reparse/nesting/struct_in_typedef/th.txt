@@ -28,6 +28,9 @@ instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @struct T1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 3:9@
@@ -112,6 +115,9 @@ instance (~) ty (Ptr T2_Aux) =>
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = Ptr T2_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr T2_Aux) => HasField "unwrapT2" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
+                              getField @"unwrapT2" x_0)
 {-| __C declaration:__ @struct \@T3_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:9@
@@ -164,3 +170,6 @@ instance (~) ty (Ptr (Ptr T3_Aux)) =>
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = Ptr (Ptr T3_Aux)
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr (Ptr T3_Aux)) => HasField "unwrapT3" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{unwrapT3 = y_1},
+                              getField @"unwrapT3" x_0)

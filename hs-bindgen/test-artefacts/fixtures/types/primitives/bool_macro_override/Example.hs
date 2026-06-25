@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro A@
@@ -61,6 +62,12 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 {-| __C declaration:__ @macro bool@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 12:9@
@@ -100,3 +107,11 @@ instance HasCField.HasCField Bool' "unwrapBool'" where
   type CFieldType Bool' "unwrapBool'" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapBool'" Bool' ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bool' {unwrapBool' = y1}, RIP.getField @"unwrapBool'" x0)

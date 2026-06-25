@@ -15,6 +15,7 @@ hstypes:
       - unwrapTest
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

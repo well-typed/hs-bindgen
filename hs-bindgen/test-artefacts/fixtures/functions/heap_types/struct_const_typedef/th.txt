@@ -69,6 +69,9 @@ instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = S
           offset# = \_ -> \_ -> 0
+instance (~) ty S => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::
     Ptr Void

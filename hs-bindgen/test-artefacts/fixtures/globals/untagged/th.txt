@@ -192,6 +192,9 @@ instance (~) ty CUInt =>
 instance HasCField AnonEnum "unwrapAnonEnum"
     where type CFieldType AnonEnum "unwrapAnonEnum" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapAnonEnum" AnonEnum ty
+    where hasField = \x_0 -> (\y_1 -> AnonEnum{unwrapAnonEnum = y_1},
+                              getField @"unwrapAnonEnum" x_0)
 {-| __C declaration:__ @VAL_A@
 
     __defined at:__ @globals\/untagged.h 16:8@
@@ -249,6 +252,10 @@ instance (~) ty CUInt =>
 instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
     where type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt =>
+         HasField "unwrapAnonEnumCoords" AnonEnumCoords ty
+    where hasField = \x_0 -> (\y_1 -> AnonEnumCoords{unwrapAnonEnumCoords = y_1},
+                              getField @"unwrapAnonEnumCoords" x_0)
 {-| __C declaration:__ @X@
 
     __defined at:__ @globals\/untagged.h 18:8@
@@ -316,6 +323,9 @@ instance (~) ty CUInt => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @a1@
 
     __defined at:__ @globals\/untagged.h 24:8@

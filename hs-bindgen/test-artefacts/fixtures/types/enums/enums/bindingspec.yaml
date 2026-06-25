@@ -51,6 +51,7 @@ hstypes:
       - unwrapEnumA
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -73,6 +74,7 @@ hstypes:
       - unwrapEnumB
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -95,6 +97,7 @@ hstypes:
       - unwrapEnumC
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -117,6 +120,7 @@ hstypes:
       - unwrapEnumD_t
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -139,6 +143,7 @@ hstypes:
       - unwrapFirst
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -161,6 +166,7 @@ hstypes:
       - unwrapNonseq
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -182,6 +188,7 @@ hstypes:
       - unwrapPacked
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -204,6 +211,7 @@ hstypes:
       - unwrapSame
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -226,6 +234,7 @@ hstypes:
       - unwrapSecond
   instances:
   - CEnum
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

@@ -106,3 +106,9 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = S
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ S) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

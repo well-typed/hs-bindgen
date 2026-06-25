@@ -137,6 +137,10 @@ instance HasCField MyArray "unwrapMyArray"
     where type CFieldType MyArray "unwrapMyArray" = ConstantArray 3
                                                                   CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "unwrapMyArray" MyArray ty
+    where hasField = \x_0 -> (\y_1 -> MyArray{unwrapMyArray = y_1},
+                              getField @"unwrapMyArray" x_0)
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 9:9@
@@ -152,6 +156,9 @@ instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyArray
           offset# = \_ -> \_ -> 0
+instance (~) ty MyArray => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:9@
@@ -167,6 +174,9 @@ instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
+instance (~) ty A => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 31:9@
@@ -179,6 +189,9 @@ instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
+instance (~) ty M.C => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232132_base ::
     Ptr Void

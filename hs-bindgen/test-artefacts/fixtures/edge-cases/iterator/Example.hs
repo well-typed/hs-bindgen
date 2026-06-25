@@ -24,6 +24,7 @@ module Example
 import qualified HsBindgen.Runtime.Block as Block
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 
 {-| Auxiliary type used by 'Toggle'
 
@@ -86,6 +87,15 @@ instance HasCField.HasCField Toggle_Aux "unwrapToggle_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IO RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapToggle_Aux" Toggle_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Toggle_Aux {unwrapToggle_Aux = y1}
+      , RIP.getField @"unwrapToggle_Aux" x0
+      )
+
 {-| __C declaration:__ @Toggle@
 
     __defined at:__ @edge-cases\/iterator.h 3:16@
@@ -110,6 +120,14 @@ instance HasCField.HasCField Toggle "unwrapToggle" where
     Block.Block Toggle_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Block.Block Toggle_Aux
+         ) => RIP.CompatHasField.HasField "unwrapToggle" Toggle ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Toggle {unwrapToggle = y1}, RIP.getField @"unwrapToggle" x0)
 
 {-| Auxiliary type used by 'Counter'
 
@@ -172,6 +190,15 @@ instance HasCField.HasCField Counter_Aux "unwrapCounter_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ IO RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapCounter_Aux" Counter_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Counter_Aux {unwrapCounter_Aux = y1}
+      , RIP.getField @"unwrapCounter_Aux" x0
+      )
+
 {-| __C declaration:__ @Counter@
 
     __defined at:__ @edge-cases\/iterator.h 10:14@
@@ -196,6 +223,14 @@ instance HasCField.HasCField Counter "unwrapCounter" where
     Block.Block Counter_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Block.Block Counter_Aux
+         ) => RIP.CompatHasField.HasField "unwrapCounter" Counter ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Counter {unwrapCounter = y1}, RIP.getField @"unwrapCounter" x0)
 
 {-| Auxiliary type used by 'VarCounter'
 
@@ -258,6 +293,15 @@ instance HasCField.HasCField VarCounter_Aux "unwrapVarCounter_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapVarCounter_Aux" VarCounter_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> VarCounter_Aux {unwrapVarCounter_Aux = y1}
+      , RIP.getField @"unwrapVarCounter_Aux" x0
+      )
+
 {-| __C declaration:__ @VarCounter@
 
     __defined at:__ @edge-cases\/iterator.h 17:14@
@@ -282,3 +326,12 @@ instance HasCField.HasCField VarCounter "unwrapVarCounter" where
     Block.Block VarCounter_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ Block.Block VarCounter_Aux
+         ) => RIP.CompatHasField.HasField "unwrapVarCounter" VarCounter ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> VarCounter {unwrapVarCounter = y1}
+      , RIP.getField @"unwrapVarCounter" x0
+      )

@@ -129,6 +129,9 @@ instance (~) ty CBool => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CBool
           offset# = \_ -> \_ -> 0
+instance (~) ty CBool => HasField "unwrapBOOL" BOOL ty
+    where hasField = \x_0 -> (\y_1 -> BOOL{unwrapBOOL = y_1},
+                              getField @"unwrapBOOL" x_0)
 {-| __C declaration:__ @struct bools3@
 
     __defined at:__ @types\/primitives\/bool.h 15:8@

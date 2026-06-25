@@ -41,6 +41,10 @@ instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
     where type CFieldType RunDriver_Aux
                           "unwrapRunDriver_Aux" = Ptr Driver -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Driver -> IO CInt) =>
+         HasField "unwrapRunDriver_Aux" RunDriver_Aux ty
+    where hasField = \x_0 -> (\y_1 -> RunDriver_Aux{unwrapRunDriver_Aux = y_1},
+                              getField @"unwrapRunDriver_Aux" x_0)
 {-| __C declaration:__ @RunDriver@
 
     __defined at:__ @functions\/typedef_funptr.h 12:15@
@@ -62,6 +66,10 @@ instance HasCField RunDriver "unwrapRunDriver"
     where type CFieldType RunDriver
                           "unwrapRunDriver" = FunPtr RunDriver_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr RunDriver_Aux) =>
+         HasField "unwrapRunDriver" RunDriver ty
+    where hasField = \x_0 -> (\y_1 -> RunDriver{unwrapRunDriver = y_1},
+                              getField @"unwrapRunDriver" x_0)
 {-| __C declaration:__ @struct Driver@
 
     __defined at:__ @functions\/typedef_funptr.h 13:8@

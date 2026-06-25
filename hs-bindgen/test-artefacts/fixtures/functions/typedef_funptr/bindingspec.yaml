@@ -54,6 +54,7 @@ hstypes:
       fields:
       - unwrapRunDriver
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

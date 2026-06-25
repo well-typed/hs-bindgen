@@ -686,6 +686,10 @@ instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
                                                                   CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" Triplet ty
+    where hasField = \x_0 -> (\y_1 -> Triplet{unwrapTriplet = y_1},
+                              getField @"unwrapTriplet" x_0)
 {-| __C declaration:__ @list@
 
     __defined at:__ @arrays\/array.h 43:13@
@@ -702,6 +706,10 @@ instance (~) ty (IncompleteArray CInt) =>
 instance HasCField List "unwrapList"
     where type CFieldType List "unwrapList" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (IncompleteArray CInt) =>
+         HasField "unwrapList" List ty
+    where hasField = \x_0 -> (\y_1 -> List{unwrapList = y_1},
+                              getField @"unwrapList" x_0)
 {-| __C declaration:__ @matrix@
 
     __defined at:__ @arrays\/array.h 45:13@
@@ -719,6 +727,10 @@ instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
                                                                 (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
+         HasField "unwrapMatrix" Matrix ty
+    where hasField = \x_0 -> (\y_1 -> Matrix{unwrapMatrix = y_1},
+                              getField @"unwrapMatrix" x_0)
 {-| __C declaration:__ @tripletlist@
 
     __defined at:__ @arrays\/array.h 47:13@
@@ -737,6 +749,10 @@ instance HasCField Tripletlist "unwrapTripletlist"
     where type CFieldType Tripletlist
                           "unwrapTripletlist" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
+instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
+         HasField "unwrapTripletlist" Tripletlist ty
+    where hasField = \x_0 -> (\y_1 -> Tripletlist{unwrapTripletlist = y_1},
+                              getField @"unwrapTripletlist" x_0)
 {-| __C declaration:__ @struct Example@
 
     __defined at:__ @arrays\/array.h 49:8@
@@ -812,6 +828,10 @@ instance HasCField Sudoku "unwrapSudoku"
     where type CFieldType Sudoku "unwrapSudoku" = ConstantArray 3
                                                                 Triplet
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 Triplet) =>
+         HasField "unwrapSudoku" Sudoku ty
+    where hasField = \x_0 -> (\y_1 -> Sudoku{unwrapSudoku = y_1},
+                              getField @"unwrapSudoku" x_0)
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3a2c_base ::
     Int32

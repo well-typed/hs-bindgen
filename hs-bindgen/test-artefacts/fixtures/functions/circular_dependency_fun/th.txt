@@ -41,6 +41,10 @@ instance HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux"
     where type CFieldType Fun_ptr_Aux
                           "unwrapFun_ptr_Aux" = Ptr Forward_declaration -> IO ()
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr Forward_declaration -> IO ()) =>
+         HasField "unwrapFun_ptr_Aux" Fun_ptr_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Fun_ptr_Aux{unwrapFun_ptr_Aux = y_1},
+                              getField @"unwrapFun_ptr_Aux" x_0)
 {-| __C declaration:__ @fun_ptr@
 
     __defined at:__ @functions\/circular_dependency_fun.h 3:16@
@@ -61,6 +65,10 @@ instance (~) ty (FunPtr Fun_ptr_Aux) =>
 instance HasCField Fun_ptr "unwrapFun_ptr"
     where type CFieldType Fun_ptr "unwrapFun_ptr" = FunPtr Fun_ptr_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr Fun_ptr_Aux) =>
+         HasField "unwrapFun_ptr" Fun_ptr ty
+    where hasField = \x_0 -> (\y_1 -> Fun_ptr{unwrapFun_ptr = y_1},
+                              getField @"unwrapFun_ptr" x_0)
 {-| __C declaration:__ @struct forward_declaration@
 
     __defined at:__ @functions\/circular_dependency_fun.h 5:8@

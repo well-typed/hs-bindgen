@@ -41,6 +41,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -118,6 +119,7 @@ hstypes:
       fields:
       - unwrapStruct3_t
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -154,6 +156,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

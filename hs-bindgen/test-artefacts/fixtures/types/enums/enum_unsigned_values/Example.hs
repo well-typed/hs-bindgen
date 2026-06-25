@@ -27,6 +27,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -114,6 +115,15 @@ instance HasCField.HasCField Uint8_enum "unwrapUint8_enum" where
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapUint8_enum" Uint8_enum ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint8_enum {unwrapUint8_enum = y1}
+      , RIP.getField @"unwrapUint8_enum" x0
+      )
 
 {-| __C declaration:__ @U8_ZERO@
 

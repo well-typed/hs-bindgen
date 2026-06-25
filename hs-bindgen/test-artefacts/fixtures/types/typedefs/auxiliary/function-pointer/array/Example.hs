@@ -23,6 +23,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -87,6 +88,14 @@ instance HasCField.HasCField T_Aux "unwrapT_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapT_Aux" T_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T_Aux {unwrapT_Aux = y1}, RIP.getField @"unwrapT_Aux" x0)
+
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 1:16@
@@ -110,6 +119,13 @@ instance HasCField.HasCField T "unwrapT" where
     IA.IncompleteArray (RIP.FunPtr T_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ IA.IncompleteArray (RIP.FunPtr T_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 {-| Auxiliary type used by 'U'
 
@@ -172,6 +188,14 @@ instance HasCField.HasCField U_Aux "unwrapU_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapU_Aux" U_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         U_Aux {unwrapU_Aux = y1}, RIP.getField @"unwrapU_Aux" x0)
+
 {-| __C declaration:__ @U@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 2:16@
@@ -201,3 +225,10 @@ instance HasCField.HasCField U "unwrapU" where
     CA.ConstantArray 3 (RIP.FunPtr U_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr U_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapU" U ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> U {unwrapU = y1}, RIP.getField @"unwrapU" x0)

@@ -45,6 +45,9 @@ instance (~) ty CUInt =>
 instance HasCField First "unwrapFirst"
     where type CFieldType First "unwrapFirst" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapFirst" First ty
+    where hasField = \x_0 -> (\y_1 -> First{unwrapFirst = y_1},
+                              getField @"unwrapFirst" x_0)
 {-| __C declaration:__ @FIRST1@
 
     __defined at:__ @types\/enums\/enums.h 5:5@
@@ -108,6 +111,9 @@ instance (~) ty CInt =>
 instance HasCField Second "unwrapSecond"
     where type CFieldType Second "unwrapSecond" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapSecond" Second ty
+    where hasField = \x_0 -> (\y_1 -> Second{unwrapSecond = y_1},
+                              getField @"unwrapSecond" x_0)
 {-| __C declaration:__ @SECOND_A@
 
     __defined at:__ @types\/enums\/enums.h 10:5@
@@ -176,6 +182,9 @@ instance (~) ty CUInt => HasField "unwrapSame" (Ptr Same) (Ptr ty)
 instance HasCField Same "unwrapSame"
     where type CFieldType Same "unwrapSame" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapSame" Same ty
+    where hasField = \x_0 -> (\y_1 -> Same{unwrapSame = y_1},
+                              getField @"unwrapSame" x_0)
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -234,6 +243,9 @@ instance (~) ty CUInt =>
 instance HasCField Nonseq "unwrapNonseq"
     where type CFieldType Nonseq "unwrapNonseq" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapNonseq" Nonseq ty
+    where hasField = \x_0 -> (\y_1 -> Nonseq{unwrapNonseq = y_1},
+                              getField @"unwrapNonseq" x_0)
 {-| __C declaration:__ @NONSEQ_A@
 
     __defined at:__ @types\/enums\/enums.h 21:5@
@@ -305,6 +317,9 @@ instance (~) ty CUChar =>
 instance HasCField Packed "unwrapPacked"
     where type CFieldType Packed "unwrapPacked" = CUChar
           offset# = \_ -> \_ -> 0
+instance (~) ty CUChar => HasField "unwrapPacked" Packed ty
+    where hasField = \x_0 -> (\y_1 -> Packed{unwrapPacked = y_1},
+                              getField @"unwrapPacked" x_0)
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -375,6 +390,9 @@ instance (~) ty CUInt =>
 instance HasCField EnumA "unwrapEnumA"
     where type CFieldType EnumA "unwrapEnumA" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapEnumA" EnumA ty
+    where hasField = \x_0 -> (\y_1 -> EnumA{unwrapEnumA = y_1},
+                              getField @"unwrapEnumA" x_0)
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -437,6 +455,9 @@ instance (~) ty CUInt =>
 instance HasCField EnumB "unwrapEnumB"
     where type CFieldType EnumB "unwrapEnumB" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapEnumB" EnumB ty
+    where hasField = \x_0 -> (\y_1 -> EnumB{unwrapEnumB = y_1},
+                              getField @"unwrapEnumB" x_0)
 {-| __C declaration:__ @B_FOO@
 
     __defined at:__ @types\/enums\/enums.h 32:22@
@@ -499,6 +520,9 @@ instance (~) ty CUInt =>
 instance HasCField EnumC "unwrapEnumC"
     where type CFieldType EnumC "unwrapEnumC" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapEnumC" EnumC ty
+    where hasField = \x_0 -> (\y_1 -> EnumC{unwrapEnumC = y_1},
+                              getField @"unwrapEnumC" x_0)
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -561,6 +585,9 @@ instance (~) ty CUInt =>
 instance HasCField EnumD_t "unwrapEnumD_t"
     where type CFieldType EnumD_t "unwrapEnumD_t" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapEnumD_t" EnumD_t ty
+    where hasField = \x_0 -> (\y_1 -> EnumD_t{unwrapEnumD_t = y_1},
+                              getField @"unwrapEnumD_t" x_0)
 {-| __C declaration:__ @D_FOO@
 
     __defined at:__ @types\/enums\/enums.h 37:14@

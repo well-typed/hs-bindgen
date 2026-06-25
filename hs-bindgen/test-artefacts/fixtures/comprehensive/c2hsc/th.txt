@@ -536,6 +536,9 @@ instance (~) ty (PtrConst CChar) =>
 instance HasCField An_pchar "unwrap"
     where type CFieldType An_pchar "unwrap" = PtrConst CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty (PtrConst CChar) => HasField "unwrap" An_pchar ty
+    where hasField = \x_0 -> (\y_1 -> An_pchar{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyCoolStruct@
 
     __defined at:__ @comprehensive\/c2hsc.h 15:9@
@@ -611,6 +614,9 @@ instance (~) ty (CInt -> IO CInt) =>
 instance HasCField Foo_Aux "unwrap"
     where type CFieldType Foo_Aux "unwrap" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> IO CInt) => HasField "unwrap" Foo_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Foo_Aux{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @comprehensive\/c2hsc.h 20:15@
@@ -631,6 +637,9 @@ instance (~) ty (FunPtr Foo_Aux) =>
 instance HasCField Foo "unwrap"
     where type CFieldType Foo "unwrap" = FunPtr Foo_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr Foo_Aux) => HasField "unwrap" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct foo_t@
 
     __defined at:__ @comprehensive\/c2hsc.h 31:8@
@@ -716,6 +725,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr Bar_10) (Ptr ty)
 instance HasCField Bar_10 "unwrap"
     where type CFieldType Bar_10 "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" Bar_10 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_10{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAR@
 
     __defined at:__ @comprehensive\/c2hsc.h 45:24@
@@ -799,6 +811,9 @@ instance (~) ty CUInt => HasField "unwrap" (Ptr E) (Ptr ty)
 instance HasCField E "unwrap"
     where type CFieldType E "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrap" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @CONST@
 
     __defined at:__ @comprehensive\/c2hsc.h 53:3@
@@ -884,6 +899,9 @@ instance (~) ty (Ptr MyTypeImpl) =>
 instance HasCField MyType "unwrap"
     where type CFieldType MyType "unwrap" = Ptr MyTypeImpl
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr MyTypeImpl) => HasField "unwrap" MyType ty
+    where hasField = \x_0 -> (\y_1 -> MyType{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyStruct@
 
     __defined at:__ @comprehensive\/c2hsc.h 64:16@
@@ -3783,6 +3801,9 @@ instance (~) ty CInt => HasField "unwrap" (Ptr An_int) (Ptr ty)
 instance HasCField An_int "unwrap"
     where type CFieldType An_int "unwrap" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrap" An_int ty
+    where hasField = \x_0 -> (\y_1 -> An_int{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct \@cal_table_table@
 
     __defined at:__ @comprehensive\/c2hsc.h 341:5@
@@ -4070,6 +4091,9 @@ instance (~) ty (Ptr CInt) =>
 instance HasCField Bug_24 "unwrap"
     where type CFieldType Bug_24 "unwrap" = Ptr CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr CInt) => HasField "unwrap" Bug_24 ty
+    where hasField = \x_0 -> (\y_1 -> Bug_24{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @bug_24_2@
 
     __defined at:__ @comprehensive\/c2hsc.h 359:21@
@@ -4090,6 +4114,9 @@ instance (~) ty (PtrConst CInt) =>
 instance HasCField Bug_24_2 "unwrap"
     where type CFieldType Bug_24_2 "unwrap" = PtrConst CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (PtrConst CInt) => HasField "unwrap" Bug_24_2 ty
+    where hasField = \x_0 -> (\y_1 -> Bug_24_2{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @MyArray_27@
 
     __defined at:__ @comprehensive\/c2hsc.h 364:13@
@@ -4106,6 +4133,10 @@ instance (~) ty (ConstantArray 20 CInt) =>
 instance HasCField MyArray_27 "unwrap"
     where type CFieldType MyArray_27 "unwrap" = ConstantArray 20 CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 20 CInt) =>
+         HasField "unwrap" MyArray_27 ty
+    where hasField = \x_0 -> (\y_1 -> MyArray_27{unwrap = y_1},
+                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyStruct_27@
 
     __defined at:__ @comprehensive\/c2hsc.h 365:9@

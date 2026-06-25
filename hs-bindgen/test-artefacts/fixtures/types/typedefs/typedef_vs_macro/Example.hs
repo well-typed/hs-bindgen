@@ -70,6 +70,13 @@ instance HasCField.HasCField T1 "unwrapT1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+
 {-| __C declaration:__ @T2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 2:14@
@@ -108,6 +115,13 @@ instance HasCField.HasCField T2 "unwrapT2" where
   type CFieldType T2 "unwrapT2" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
+
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
 
 {-| __C declaration:__ @macro M1@
 
@@ -148,6 +162,13 @@ instance HasCField.HasCField M1 "unwrapM1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapM1" M1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M1 {unwrapM1 = y1}, RIP.getField @"unwrapM1" x0)
+
 {-| __C declaration:__ @macro M2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
@@ -187,6 +208,13 @@ instance HasCField.HasCField M2 "unwrapM2" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapM2" M2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M2 {unwrapM2 = y1}, RIP.getField @"unwrapM2" x0)
+
 {-| __C declaration:__ @macro M3@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
@@ -215,6 +243,14 @@ instance HasCField.HasCField M3 "unwrapM3" where
   type CFieldType M3 "unwrapM3" = RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapM3" M3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         M3 {unwrapM3 = y1}, RIP.getField @"unwrapM3" x0)
 
 {-| __C declaration:__ @struct ExampleStruct@
 
@@ -431,6 +467,14 @@ instance HasCField.HasCField Uint64_t "unwrapUint64_t" where
   type CFieldType Uint64_t "unwrapUint64_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapUint64_t" Uint64_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Uint64_t {unwrapUint64_t = y1}, RIP.getField @"unwrapUint64_t" x0)
 
 {-| __C declaration:__ @struct foo@
 

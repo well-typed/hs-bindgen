@@ -121,6 +121,16 @@ instance HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" whe
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFileOperationStatus" FileOperationStatus ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOperationStatus {unwrapFileOperationStatus = y1}
+      , RIP.getField @"unwrapFileOperationStatus" x0
+      )
+
 {-| __C declaration:__ @SUCCESS@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@

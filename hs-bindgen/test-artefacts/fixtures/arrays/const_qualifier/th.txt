@@ -256,6 +256,9 @@ instance (~) ty (IncompleteArray CInt) =>
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (IncompleteArray CInt) => HasField "unwrapS" S ty
+    where hasField = \x_0 -> (\y_1 -> S{unwrapS = y_1},
+                              getField @"unwrapS" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @arrays\/const_qualifier.h 8:19@
@@ -272,6 +275,9 @@ instance (~) ty (IncompleteArray CInt) =>
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (IncompleteArray CInt) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 {-| __C declaration:__ @U@
 
     __defined at:__ @arrays\/const_qualifier.h 18:19@
@@ -288,6 +294,9 @@ instance (~) ty (ConstantArray 3 CInt) =>
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) => HasField "unwrapU" U ty
+    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
+                              getField @"unwrapU" x_0)
 {-| __C declaration:__ @V@
 
     __defined at:__ @arrays\/const_qualifier.h 19:19@
@@ -304,6 +313,9 @@ instance (~) ty (ConstantArray 3 CInt) =>
 instance HasCField V "unwrapV"
     where type CFieldType V "unwrapV" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) => HasField "unwrapV" V ty
+    where hasField = \x_0 -> (\y_1 -> V{unwrapV = y_1},
+                              getField @"unwrapV" x_0)
 {-| __C declaration:__ @W@
 
     __defined at:__ @arrays\/const_qualifier.h 29:19@
@@ -320,6 +332,9 @@ instance (~) ty (ConstantArray 3 CInt) =>
 instance HasCField W "unwrapW"
     where type CFieldType W "unwrapW" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) => HasField "unwrapW" W ty
+    where hasField = \x_0 -> (\y_1 -> W{unwrapW = y_1},
+                              getField @"unwrapW" x_0)
 {-| __C declaration:__ @X@
 
     __defined at:__ @arrays\/const_qualifier.h 30:19@
@@ -336,6 +351,9 @@ instance (~) ty (ConstantArray 3 CInt) =>
 instance HasCField X "unwrapX"
     where type CFieldType X "unwrapX" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 3 CInt) => HasField "unwrapX" X ty
+    where hasField = \x_0 -> (\y_1 -> X{unwrapX = y_1},
+                              getField @"unwrapX" x_0)
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_41e3579627406714" hs_bindgen_41e3579627406714_base ::
     Ptr Void

@@ -107,6 +107,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -136,6 +137,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -165,6 +167,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -191,6 +194,7 @@ hstypes:
       fields:
       - unwrapStdlib_CClock
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Generic
@@ -213,6 +217,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFenvT
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -223,6 +228,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFexceptT
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -233,6 +239,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFile
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -243,6 +250,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFpos
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -256,6 +264,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -285,6 +294,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -311,6 +321,7 @@ hstypes:
       fields:
       - unwrapStdlib_CJmpBuf
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -321,6 +332,7 @@ hstypes:
       fields:
       - unwrapStdlib_CMbstateT
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -334,6 +346,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -363,6 +376,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -392,6 +406,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -418,6 +433,7 @@ hstypes:
       fields:
       - unwrapStdlib_CTime
   instances:
+  - CompatHasField
   - Enum
   - Eq
   - Generic
@@ -440,6 +456,7 @@ hstypes:
       fields:
       - unwrapStdlib_CTm
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -457,6 +474,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -486,6 +504,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -515,6 +534,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -541,6 +561,7 @@ hstypes:
       fields:
       - unwrapStdlib_CWctransT
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -559,6 +580,7 @@ hstypes:
       fields:
       - unwrapStdlib_CWctypeT
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -580,6 +602,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -609,6 +632,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -638,6 +662,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -667,6 +692,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -696,6 +722,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -725,6 +752,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -754,6 +782,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -783,6 +812,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -812,6 +842,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

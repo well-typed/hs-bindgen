@@ -19,6 +19,7 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -52,3 +53,11 @@ instance HasCField.HasCField Triplet "unwrapTriplet" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)

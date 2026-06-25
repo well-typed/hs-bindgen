@@ -56,6 +56,9 @@ instance (~) ty CUInt =>
 instance HasCField Uint32_t "unwrapUint32_t"
     where type CFieldType Uint32_t "unwrapUint32_t" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapUint32_t" Uint32_t ty
+    where hasField = \x_0 -> (\y_1 -> Uint32_t{unwrapUint32_t = y_1},
+                              getField @"unwrapUint32_t" x_0)
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@

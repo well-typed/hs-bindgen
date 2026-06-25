@@ -28,6 +28,9 @@ instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapT1" T1 ty
+    where hasField = \x_0 -> (\y_1 -> T1{unwrapT1 = y_1},
+                              getField @"unwrapT1" x_0)
 {-| __C declaration:__ @T2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 2:14@
@@ -57,6 +60,9 @@ instance (~) ty CChar => HasField "unwrapT2" (Ptr T2) (Ptr ty)
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty CChar => HasField "unwrapT2" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
+                              getField @"unwrapT2" x_0)
 {-| __C declaration:__ @macro M1@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
@@ -86,6 +92,9 @@ instance (~) ty CInt => HasField "unwrapM1" (Ptr M1) (Ptr ty)
 instance HasCField M1 "unwrapM1"
     where type CFieldType M1 "unwrapM1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapM1" M1 ty
+    where hasField = \x_0 -> (\y_1 -> M1{unwrapM1 = y_1},
+                              getField @"unwrapM1" x_0)
 {-| __C declaration:__ @macro M2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
@@ -115,6 +124,9 @@ instance (~) ty CChar => HasField "unwrapM2" (Ptr M2) (Ptr ty)
 instance HasCField M2 "unwrapM2"
     where type CFieldType M2 "unwrapM2" = CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty CChar => HasField "unwrapM2" M2 ty
+    where hasField = \x_0 -> (\y_1 -> M2{unwrapM2 = y_1},
+                              getField @"unwrapM2" x_0)
 {-| __C declaration:__ @macro M3@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
@@ -134,6 +146,9 @@ instance (~) ty (Ptr CInt) => HasField "unwrapM3" (Ptr M3) (Ptr ty)
 instance HasCField M3 "unwrapM3"
     where type CFieldType M3 "unwrapM3" = Ptr CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (Ptr CInt) => HasField "unwrapM3" M3 ty
+    where hasField = \x_0 -> (\y_1 -> M3{unwrapM3 = y_1},
+                              getField @"unwrapM3" x_0)
 {-| __C declaration:__ @struct ExampleStruct@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 8:8@
@@ -260,6 +275,9 @@ instance (~) ty CInt =>
 instance HasCField Uint64_t "unwrapUint64_t"
     where type CFieldType Uint64_t "unwrapUint64_t" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapUint64_t" Uint64_t ty
+    where hasField = \x_0 -> (\y_1 -> Uint64_t{unwrapUint64_t = y_1},
+                              getField @"unwrapUint64_t" x_0)
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 17:8@

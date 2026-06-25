@@ -32,6 +32,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro MyInt@
@@ -73,6 +74,14 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| __C declaration:__ @union T1@
 
@@ -212,6 +221,14 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.Ptr T2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+
 {-| __C declaration:__ @union \@T3_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_typedef.h 5:9@
@@ -296,3 +313,11 @@ instance HasCField.HasCField T3 "unwrapT3" where
     RIP.Ptr (RIP.Ptr T3_Aux)
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr T3_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapT3" T3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T3 {unwrapT3 = y1}, RIP.getField @"unwrapT3" x0)

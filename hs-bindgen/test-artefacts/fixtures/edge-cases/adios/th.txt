@@ -98,6 +98,9 @@ instance (~) ty CInt =>
 instance HasCField Adio'0301s "unwrapAdio'0301s"
     where type CFieldType Adio'0301s "unwrapAdio'0301s" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapAdio'0301s" Adio'0301s ty
+    where hasField = \x_0 -> (\y_1 -> Adio'0301s{unwrapAdio'0301s = y_1},
+                              getField @"unwrapAdio'0301s" x_0)
 {-| __C declaration:__ @数字@
 
     __defined at:__ @edge-cases\/adios.h 17:13@
@@ -128,6 +131,9 @@ instance (~) ty CInt =>
 instance HasCField C数字 "unwrapC\25968\23383"
     where type CFieldType C数字 "unwrapC\25968\23383" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapC\25968\23383" C数字 ty
+    where hasField = \x_0 -> (\y_1 -> C数字{unwrapC数字 = y_1},
+                              getField @"unwrapC\25968\23383" x_0)
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::
     IO Int32

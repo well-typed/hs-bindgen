@@ -28,3 +28,6 @@ instance (~) ty CInt => HasField "unwrapFILE" (Ptr FILE) (Ptr ty)
 instance HasCField FILE "unwrapFILE"
     where type CFieldType FILE "unwrapFILE" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapFILE" FILE ty
+    where hasField = \x_0 -> (\y_1 -> FILE{unwrapFILE = y_1},
+                              getField @"unwrapFILE" x_0)

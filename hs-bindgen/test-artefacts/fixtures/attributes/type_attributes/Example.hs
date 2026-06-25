@@ -138,6 +138,16 @@ instance HasCField.HasCField More_aligned_int "unwrapMore_aligned_int" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMore_aligned_int" More_aligned_int ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          More_aligned_int {unwrapMore_aligned_int = y1}
+      , RIP.getField @"unwrapMore_aligned_int" x0
+      )
+
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @attributes\/type_attributes.h 11:8@
@@ -577,6 +587,13 @@ instance HasCField.HasCField T1 "unwrapT1" where
 
   offset# = \_ -> \_ -> 0
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+
 {-| __C declaration:__ @short_a@
 
     __defined at:__ @attributes\/type_attributes.h 34:46@
@@ -616,3 +633,11 @@ instance HasCField.HasCField Short_a "unwrapShort_a" where
   type CFieldType Short_a "unwrapShort_a" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapShort_a" Short_a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Short_a {unwrapShort_a = y1}, RIP.getField @"unwrapShort_a" x0)

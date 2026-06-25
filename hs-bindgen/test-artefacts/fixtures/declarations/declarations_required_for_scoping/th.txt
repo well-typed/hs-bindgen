@@ -52,6 +52,10 @@ instance (~) ty HsBindgen.Runtime.LibC.CSize =>
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326_base ::
     Word64

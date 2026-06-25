@@ -23,6 +23,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -49,6 +51,7 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -59,6 +62,7 @@ hstypes:
       fields:
       - unwrapMyArray
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

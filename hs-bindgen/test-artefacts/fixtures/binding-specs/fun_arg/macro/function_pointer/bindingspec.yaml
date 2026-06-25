@@ -23,6 +23,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -41,6 +42,7 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -59,6 +61,7 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - CompatHasField
   - Generic
   - HasCField
   - HasField
@@ -69,6 +72,7 @@ hstypes:
       fields:
       - unwrapMyFunctionPointer
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

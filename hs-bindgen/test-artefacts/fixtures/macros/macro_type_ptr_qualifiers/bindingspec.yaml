@@ -29,6 +29,7 @@ hstypes:
       fields:
       - unwrapConstPtrToInt
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -47,6 +48,7 @@ hstypes:
       fields:
       - unwrapPtrToConstIntL
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -65,6 +67,7 @@ hstypes:
       fields:
       - unwrapPtrToConstIntR
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -83,6 +86,7 @@ hstypes:
       fields:
       - unwrapPtrToConstVoidL
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -101,6 +105,7 @@ hstypes:
       fields:
       - unwrapPtrToConstVoidR
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField
@@ -119,6 +124,7 @@ hstypes:
       fields:
       - unwrapPtrToVoid
   instances:
+  - CompatHasField
   - Eq
   - Generic
   - HasCField

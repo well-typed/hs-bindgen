@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @macro BOOL@
@@ -60,3 +61,11 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
   type CFieldType BOOL "unwrapBOOL" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)

@@ -137,6 +137,14 @@ instance HasCField.HasCField Size_type "unwrapSize_type" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.CompatHasField.HasField "unwrapSize_type" Size_type ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_type {unwrapSize_type = y1}, RIP.getField @"unwrapSize_type" x0)
+
 {-| __C declaration:__ @struct opaque_struct@
 
     __defined at:__ @documentation\/doxygen_docs.h 76:8@
@@ -249,6 +257,15 @@ instance HasCField.HasCField Color_enum "unwrapColor_enum" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapColor_enum" Color_enum ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Color_enum {unwrapColor_enum = y1}
+      , RIP.getField @"unwrapColor_enum" x0
+      )
+
 {-| Red color
 
     __C declaration:__ @COLOR_RED@
@@ -343,6 +360,16 @@ instance HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" w
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Event_callback_t_Aux {unwrapEvent_callback_t_Aux = y1}
+      , RIP.getField @"unwrapEvent_callback_t_Aux" x0
+      )
+
 {-| Callback function type.
 
     [__@event_type@__]: Type of event
@@ -381,6 +408,16 @@ instance HasCField.HasCField Event_callback_t "unwrapEvent_callback_t" where
     RIP.FunPtr Event_callback_t_Aux
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
+         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t" Event_callback_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Event_callback_t {unwrapEvent_callback_t = y1}
+      , RIP.getField @"unwrapEvent_callback_t" x0
+      )
 
 {-| Structure with documented fields.
 
@@ -709,6 +746,15 @@ instance HasCField.HasCField Status_code_t "unwrapStatus_code_t" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapStatus_code_t" Status_code_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Status_code_t {unwrapStatus_code_t = y1}
+      , RIP.getField @"unwrapStatus_code_t" x0
+      )
 
 {-| Operation successful.
 
@@ -1307,6 +1353,16 @@ instance HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux = y1}
+      , RIP.getField @"unwrapProcessor_fn_t_Aux" x0
+      )
+
 {-| Function pointer typedef.
 
     [__@input@__]: Input value
@@ -1346,6 +1402,15 @@ instance HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t" Processor_fn_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Processor_fn_t {unwrapProcessor_fn_t = y1}
+      , RIP.getField @"unwrapProcessor_fn_t" x0
+      )
+
 {-| Array typedef with size.
 
     __C declaration:__ @filename_t@
@@ -1378,6 +1443,15 @@ instance HasCField.HasCField Filename_t "unwrapFilename_t" where
     CA.ConstantArray 256 RIP.CChar
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ CA.ConstantArray 256 RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapFilename_t" Filename_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Filename_t {unwrapFilename_t = y1}
+      , RIP.getField @"unwrapFilename_t" x0
+      )
 
 {-| Structure with flexible array member.
 
@@ -2702,3 +2776,12 @@ instance HasCField.HasCField Api_version_t "unwrapApi_version_t" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapApi_version_t" Api_version_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Api_version_t {unwrapApi_version_t = y1}
+      , RIP.getField @"unwrapApi_version_t" x0
+      )

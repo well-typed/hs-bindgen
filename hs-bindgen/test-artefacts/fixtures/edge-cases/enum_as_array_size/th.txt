@@ -51,6 +51,9 @@ instance (~) ty CUInt => HasField "unwrapTest" (Ptr Test) (Ptr ty)
 instance HasCField Test "unwrapTest"
     where type CFieldType Test "unwrapTest" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapTest" Test ty
+    where hasField = \x_0 -> (\y_1 -> Test{unwrapTest = y_1},
+                              getField @"unwrapTest" x_0)
 {-| __C declaration:__ @test_a@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h 4:3@

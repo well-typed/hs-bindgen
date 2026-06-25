@@ -41,6 +41,9 @@ instance (~) ty CInt => HasField "unwrapInt_t" (Ptr Int_t) (Ptr ty)
 instance HasCField Int_t "unwrapInt_t"
     where type CFieldType Int_t "unwrapInt_t" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "unwrapInt_t" Int_t ty
+    where hasField = \x_0 -> (\y_1 -> Int_t{unwrapInt_t = y_1},
+                              getField @"unwrapInt_t" x_0)
 {-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/redeclaration.h 26:8@

@@ -25,6 +25,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum test@
@@ -115,6 +116,14 @@ instance HasCField.HasCField Test "unwrapTest" where
   type CFieldType Test "unwrapTest" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapTest" Test ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Test {unwrapTest = y1}, RIP.getField @"unwrapTest" x0)
 
 {-| __C declaration:__ @test_a@
 

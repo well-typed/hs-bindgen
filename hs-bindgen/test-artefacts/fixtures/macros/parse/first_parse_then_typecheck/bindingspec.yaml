@@ -20,6 +20,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -49,6 +50,7 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
+  - CompatHasField
   - Enum
   - Eq
   - FiniteBits

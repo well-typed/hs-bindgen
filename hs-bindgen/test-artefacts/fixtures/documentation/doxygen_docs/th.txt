@@ -595,6 +595,10 @@ instance HasCField Size_type "unwrapSize_type"
     where type CFieldType Size_type
                           "unwrapSize_type" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "unwrapSize_type" Size_type ty
+    where hasField = \x_0 -> (\y_1 -> Size_type{unwrapSize_type = y_1},
+                              getField @"unwrapSize_type" x_0)
 {-| __C declaration:__ @struct opaque_struct@
 
     __defined at:__ @documentation\/doxygen_docs.h 76:8@
@@ -658,6 +662,9 @@ instance (~) ty CUInt =>
 instance HasCField Color_enum "unwrapColor_enum"
     where type CFieldType Color_enum "unwrapColor_enum" = CUInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CUInt => HasField "unwrapColor_enum" Color_enum ty
+    where hasField = \x_0 -> (\y_1 -> Color_enum{unwrapColor_enum = y_1},
+                              getField @"unwrapColor_enum" x_0)
 {-| Red color
 
     __C declaration:__ @COLOR_RED@
@@ -735,6 +742,10 @@ instance HasCField Event_callback_t_Aux
     where type CFieldType Event_callback_t_Aux
                           "unwrapEvent_callback_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> Ptr Void -> IO CInt) =>
+         HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Event_callback_t_Aux{unwrapEvent_callback_t_Aux = y_1},
+                              getField @"unwrapEvent_callback_t_Aux" x_0)
 {-| Callback function type.
 
     [__@event_type@__]: Type of event
@@ -764,6 +775,10 @@ instance HasCField Event_callback_t "unwrapEvent_callback_t"
     where type CFieldType Event_callback_t
                           "unwrapEvent_callback_t" = FunPtr Event_callback_t_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr Event_callback_t_Aux) =>
+         HasField "unwrapEvent_callback_t" Event_callback_t ty
+    where hasField = \x_0 -> (\y_1 -> Event_callback_t{unwrapEvent_callback_t = y_1},
+                              getField @"unwrapEvent_callback_t" x_0)
 {-| Structure with documented fields.
 
     This structure demonstrates field documentation.
@@ -958,6 +973,10 @@ instance (~) ty CInt =>
 instance HasCField Status_code_t "unwrapStatus_code_t"
     where type CFieldType Status_code_t "unwrapStatus_code_t" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapStatus_code_t" Status_code_t ty
+    where hasField = \x_0 -> (\y_1 -> Status_code_t{unwrapStatus_code_t = y_1},
+                              getField @"unwrapStatus_code_t" x_0)
 {-| Operation successful.
 
     __C declaration:__ @STATUS_OK@
@@ -1424,6 +1443,10 @@ instance HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux"
     where type CFieldType Processor_fn_t_Aux
                           "unwrapProcessor_fn_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty (CInt -> Ptr Void -> IO CInt) =>
+         HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Processor_fn_t_Aux{unwrapProcessor_fn_t_Aux = y_1},
+                              getField @"unwrapProcessor_fn_t_Aux" x_0)
 {-| Function pointer typedef.
 
     [__@input@__]: Input value
@@ -1453,6 +1476,10 @@ instance HasCField Processor_fn_t "unwrapProcessor_fn_t"
     where type CFieldType Processor_fn_t
                           "unwrapProcessor_fn_t" = FunPtr Processor_fn_t_Aux
           offset# = \_ -> \_ -> 0
+instance (~) ty (FunPtr Processor_fn_t_Aux) =>
+         HasField "unwrapProcessor_fn_t" Processor_fn_t ty
+    where hasField = \x_0 -> (\y_1 -> Processor_fn_t{unwrapProcessor_fn_t = y_1},
+                              getField @"unwrapProcessor_fn_t" x_0)
 {-| Array typedef with size.
 
     __C declaration:__ @filename_t@
@@ -1472,6 +1499,10 @@ instance HasCField Filename_t "unwrapFilename_t"
     where type CFieldType Filename_t
                           "unwrapFilename_t" = ConstantArray 256 CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 256 CChar) =>
+         HasField "unwrapFilename_t" Filename_t ty
+    where hasField = \x_0 -> (\y_1 -> Filename_t{unwrapFilename_t = y_1},
+                              getField @"unwrapFilename_t" x_0)
 {-| Structure with flexible array member.
 
     Used for variable-length data buffers.
@@ -2253,6 +2284,10 @@ instance (~) ty CInt =>
 instance HasCField Api_version_t "unwrapApi_version_t"
     where type CFieldType Api_version_t "unwrapApi_version_t" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "unwrapApi_version_t" Api_version_t ty
+    where hasField = \x_0 -> (\y_1 -> Api_version_t{unwrapApi_version_t = y_1},
+                              getField @"unwrapApi_version_t" x_0)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     Ptr Void

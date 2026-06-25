@@ -72,6 +72,14 @@ instance HasCField.HasCField Int16_T "unwrapInt16_T" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapInt16_T" Int16_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int16_T {unwrapInt16_T = y1}, RIP.getField @"unwrapInt16_T" x0)
+
 {-| __C declaration:__ @int32_T@
 
     __defined at:__ @edge-cases\/spec_examples.h 11:13@
@@ -112,6 +120,14 @@ instance HasCField.HasCField Int32_T "unwrapInt32_T" where
 
   offset# = \_ -> \_ -> 0
 
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapInt32_T" Int32_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int32_T {unwrapInt32_T = y1}, RIP.getField @"unwrapInt32_T" x0)
+
 {-| __C declaration:__ @int64_T@
 
     __defined at:__ @edge-cases\/spec_examples.h 12:19@
@@ -151,6 +167,14 @@ instance HasCField.HasCField Int64_T "unwrapInt64_T" where
   type CFieldType Int64_T "unwrapInt64_T" = RIP.CLLong
 
   offset# = \_ -> \_ -> 0
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "unwrapInt64_T" Int64_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int64_T {unwrapInt64_T = y1}, RIP.getField @"unwrapInt64_T" x0)
 
 {-| __C declaration:__ @struct cint16_T@
 
