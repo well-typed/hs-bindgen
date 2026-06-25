@@ -63,6 +63,7 @@ import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
@@ -318,9 +319,9 @@ lookupHsTypeSpec ::
 lookupHsTypeSpec hsIdentifier spec =
     BindingSpec.lookupHsTypeSpec hsIdentifier spec.resolved
 
--- | Get the 'C.DeclIdPair' for a 'ResolvedExtBinding'
-extDeclIdPair :: ResolvedExtBinding -> C.DeclIdPair
-extDeclIdPair ext = C.DeclIdPair{
+-- | Get the 'DeclIdPair' for a 'ResolvedExtBinding'
+extDeclIdPair :: ResolvedExtBinding -> DeclIdPair
+extDeclIdPair ext = DeclIdPair{
       cName  = ext.cName
     , hsName = Hs.demoteNs ext.hsName.name
     }

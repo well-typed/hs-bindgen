@@ -50,6 +50,7 @@ import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
@@ -157,7 +158,7 @@ isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
     any (isInDeclIndex . snd) . C.depsOfType
   where
-    isInDeclIndex :: C.DeclIdPair -> Bool
+    isInDeclIndex :: DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
 
 {-------------------------------------------------------------------------------
@@ -607,8 +608,8 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
-    auxDeclIdPair :: C.DeclIdPair
-    auxDeclIdPair = C.DeclIdPair{
+    auxDeclIdPair :: DeclIdPair
+    auxDeclIdPair = DeclIdPair{
           cName  = origInfo.id.cName
           -- Still refer to the /original/ C decl...?
         , hsName = Hs.demoteNs auxName
@@ -1042,8 +1043,8 @@ addressStubDecs info ty runnerNameSpec _spec = do
 referencesUntagged ::
      forall p. (
        HasCallStack
-     , Id p ~ C.DeclIdPair
-     , MacroId p ~ C.DeclIdPair
+     , Id p ~ DeclIdPair
+     , MacroId p ~ DeclIdPair
      , ExtBinding p ~ BindingSpec.ResolvedExtBinding
      , MacroUnderlying p ~ C.Type p
      )

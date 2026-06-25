@@ -31,6 +31,7 @@ import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface
 import HsBindgen.Macro.Type

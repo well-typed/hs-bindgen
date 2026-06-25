@@ -9,6 +9,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
 
 {-------------------------------------------------------------------------------
   Definition
@@ -31,14 +32,14 @@ type family AnnAdjustTypes ix where
 instance IsPass AdjustTypes
 
 instance PassId AdjustTypes where
-  type Id AdjustTypes = C.DeclIdPair
+  type Id AdjustTypes = DeclIdPair
 
   idNameKind     _ namePair = namePair.cName.name.kind
   idSourceName   _ namePair = C.declIdSourceName namePair.cName
   idLocationInfo _ namePair = C.declIdLocationInfo namePair.cName
 
 instance PassScopedName AdjustTypes where
-  type ScopedName AdjustTypes = C.ScopedNamePair
+  type ScopedName AdjustTypes = ScopedNamePair
 
 instance PassMacro AdjustTypes where
   type MacroId         AdjustTypes = Id AdjustTypes

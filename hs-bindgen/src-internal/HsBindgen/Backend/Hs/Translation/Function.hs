@@ -35,6 +35,7 @@ import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
 

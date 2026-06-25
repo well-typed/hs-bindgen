@@ -265,6 +265,7 @@ library internal
     HsBindgen.IR.Pass.Macro
     HsBindgen.IR.Pass.Msg
     HsBindgen.IR.Pass.ScopedName
+    HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
     HsBindgen.Macro.Interface
