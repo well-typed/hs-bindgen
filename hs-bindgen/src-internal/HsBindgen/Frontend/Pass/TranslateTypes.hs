@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
 
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -72,7 +73,7 @@ processField = \case
 processRegularField :: C.RegularField AdjustTypes -> C.RegularField TranslateTypes
 processRegularField field = C.RegularField{
       info   = coercePass field.info
-    , typ    = processType field.typ
+    , typ    = processType Translation.Top field.typ
     , offset = field.offset
     , width  = field.width
     , ann    = field.ann
@@ -81,7 +82,7 @@ processRegularField field = C.RegularField{
 processImplicitField :: C.ImplicitField AdjustTypes -> C.ImplicitField TranslateTypes
 processImplicitField field = C.ImplicitField{
       info     = coercePass field.info
-    , typRef   = processAnonRef field.typRef
+    , typRef   = processAnonRef Translation.Top field.typRef
     , offset   = field.offset
     , indirect = map processIndirectField field.indirect
     , ann      = field.ann
@@ -90,22 +91,22 @@ processImplicitField field = C.ImplicitField{
 processIndirectField :: C.IndirectField AdjustTypes -> C.IndirectField TranslateTypes
 processIndirectField field = C.IndirectField{
       info   = coercePass field.info
-    , typ    = processType field.typ
+    , typ    = processType Translation.Top field.typ
     , offset = field.offset
     , width  = field.width
-    , path   = map processAnonRef field.path
+    , path   = map (processAnonRef Translation.Top) field.path
     , ann    = coercePassAnn (Proxy @'("IndirectField", AdjustTypes, TranslateTypes)) field.ann
     }
 
 processTypedef :: C.Typedef AdjustTypes -> C.Typedef TranslateTypes
 processTypedef typedef = C.Typedef{
-      typ = processType typedef.typ
+      typ = processType Translation.Top typedef.typ
     , ann = typedef.ann
     }
 
 processEnum :: C.Enum AdjustTypes -> C.Enum TranslateTypes
 processEnum enum = C.Enum{
-      typ       = processType enum.typ
+      typ       = processType Translation.Top enum.typ
     , sizeof    = enum.sizeof
     , alignment = enum.alignment
     , constants = map coercePass enum.constants
@@ -125,7 +126,7 @@ processMacro = \case
 processFunction :: C.Function AdjustTypes -> C.Function TranslateTypes
 processFunction fun = C.Function{
       args  = map processFunctionArg fun.args
-    , res   = processType fun.res
+    , res   = processType Translation.FunRes fun.res
     , attrs = fun.attrs
     , ann   = fun.ann
     }
@@ -133,7 +134,10 @@ processFunction fun = C.Function{
 processFunctionArg :: C.FunctionArg AdjustTypes -> C.FunctionArg TranslateTypes
 processFunctionArg arg = C.FunctionArg{
       name = arg.name
-    , typ  = processType arg.typ
+    , typ  = TranslatedTypes{
+          c  = coercePass arg.typ
+        , hs = Translation.inContext Translation.FunArg arg
+        }
     , ann  =
         coercePassAnn
           (Proxy @'("TypeFunArg", AdjustTypes, TranslateTypes))
@@ -142,7 +146,7 @@ processFunctionArg arg = C.FunctionArg{
 
 processGlobal :: C.Global AdjustTypes -> C.Global TranslateTypes
 processGlobal global = C.Global{
-      typ = processType global.typ
+      typ = processType Translation.Top global.typ
     , ann = global.ann
     }
 
@@ -150,14 +154,20 @@ processGlobal global = C.Global{
   Types
 -------------------------------------------------------------------------------}
 
-processType :: C.Type AdjustTypes -> TranslatedTypes TranslateTypes
-processType typ = TranslatedTypes{
-      c = coercePass typ
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+processType ::
+     Translation.TypeContext
+  -> C.Type AdjustTypes
+  -> TranslatedTypes TranslateTypes
+processType ctx typ = TranslatedTypes{
+      c  = coercePass typ
+    , hs = Translation.inContext ctx typ
     }
 
-processAnonRef :: C.AnonRef AdjustTypes -> TranslatedAnonRef TranslateTypes
-processAnonRef typ = TranslatedAnonRef{
+processAnonRef ::
+     Translation.TypeContext
+  -> C.AnonRef AdjustTypes
+  -> TranslatedAnonRef TranslateTypes
+processAnonRef ctx typ = TranslatedAnonRef{
       c = coercePass typ
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+    , hs = Translation.inContext ctx (C.anonRefType typ)
     }

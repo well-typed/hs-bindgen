@@ -24,7 +24,6 @@ import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -95,9 +94,7 @@ getDeclsFlam flam auxName spec info struct = do
             comment      = Nothing
           , instanceDecl =
               Hs.InstanceHasFlam hsStruct $
-                Hs.HasFlamInstance
-                  (Translation.topLevel flam.typ.c)
-                  (flam.offset `div` 8)
+                Hs.HasFlamInstance flam.typ.hs (flam.offset `div` 8)
           }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
@@ -108,9 +105,7 @@ getDeclsFlam flam auxName spec info struct = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.WithFlam
-                (Translation.topLevel flam.typ.c)
-                (Hs.TypRef auxName Nothing)
+              Hs.WithFlam flam.typ.hs (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
@@ -129,7 +124,7 @@ getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.Type]
-    fieldTypes = Translation.topLevel . (.typ.c) <$> fields
+    fieldTypes = (.typ.hs) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
     candidateInsts = Hs.getCandidateInsts supInsts
@@ -155,7 +150,7 @@ getDecls supInsts env spec structName info struct insts =
     getHsField field =
         Hs.Field {
             name    = fieldName field
-          , typ     = Translation.topLevel field.typ.c
+          , typ     = field.typ.hs
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
           }
@@ -334,7 +329,7 @@ hasFieldDecs env info struct field = case field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     auxIndirectField :: C.ImplicitField Final -> C.IndirectField Final -> [Hs.Decl l]
     auxIndirectField impField indField = [
@@ -386,7 +381,7 @@ hasFieldCompatDecs env info struct field = [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasFieldCompatInstance
     decl = Hs.HasFieldCompatInstance {
@@ -437,7 +432,7 @@ hasFieldPtrDecs struct field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
@@ -470,7 +465,7 @@ hasCFieldDecs struct field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasCFieldInstance
     decl = Hs.HasCFieldInstance {
@@ -500,7 +495,7 @@ hasCBitfieldDecs struct field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Int -> Hs.HasCBitfieldInstance
     decl w = Hs.HasCBitfieldInstance {

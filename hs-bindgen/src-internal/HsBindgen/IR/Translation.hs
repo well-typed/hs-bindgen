@@ -62,8 +62,8 @@ data ScopedNamePair = ScopedNamePair {
 
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
-      c :: C.Type p
---    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+      c  :: C.Type p
+    , hs :: Hs.Type
     }
   deriving stock (Eq, Generic, Show)
 
@@ -71,13 +71,14 @@ instance (
       CoercePass C.Type p p'
     ) => CoercePass TranslatedTypes p p' where
   coercePass translatedTypes = TranslatedTypes{
-      c = coercePass translatedTypes.c
+      c  = coercePass translatedTypes.c
+    , hs = translatedTypes.hs
     }
 
 -- | A t'C.AnonRef' associated with possible Haskell type translations
 data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
       c :: C.AnonRef p
---    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+    , hs :: Hs.Type
     }
   deriving stock (Eq, Generic, Show)
 
@@ -86,11 +87,13 @@ instance (
     ) => CoercePass TranslatedAnonRef p p' where
   coercePass translatedAnonRef = TranslatedAnonRef {
       c = coercePass translatedAnonRef.c
+    , hs = translatedAnonRef.hs
     }
 
 translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
 translatedAnonRefType translatedAnonRef = TranslatedTypes {
       c = C.anonRefType translatedAnonRef.c
+    , hs = translatedAnonRef.hs
     }
 
 -- | Translate a primitive type

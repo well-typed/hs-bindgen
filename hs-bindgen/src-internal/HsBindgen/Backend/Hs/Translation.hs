@@ -209,9 +209,8 @@ generateDecs macroLang (C.Decl info kind spec) =
         pure $ HsM.concatSequence [safes, unsafes, funPtrs]
       C.DeclMacro macro -> withCategoryM CType $
         HsM.immediateM $ macroDecs macroLang info macro spec
-      C.DeclGlobal g -> do
-        withCategoryM (CTerm CGlobal) $
-          HsM.immediateM $ global info g.typ.c spec
+      C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
+        HsM.immediateM $ global info g spec
   where
     withCategory ::
          Category
@@ -322,7 +321,7 @@ enumDecs info enum spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = enum.names.field
-            , typ     = Translation.topLevel enum.typ.c
+            , typ     = enum.typ.hs
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -522,7 +521,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = typedef.names.orig.field
-            , typ     = Translation.topLevel typedef.typ.c
+            , typ     = typedef.typ.hs
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -667,15 +666,18 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
         }
 
     auxTypedef :: C.Typedef Final
-    auxTypedef = C.Typedef{
-          typ = TranslatedTypes{
-              c = C.TypeFun args res
+    auxTypedef =
+      let c = C.TypeFun args res
+      in  C.Typedef{
+              typ = TranslatedTypes{
+                  c  = c
+                , hs = Translation.topLevel c
+                }
+            , ann = MangleNames.TypedefNames{
+                  orig = auxNames
+                , aux  = Nothing
+                }
             }
-        , ann = MangleNames.TypedefNames{
-              orig = auxNames
-            , aux  = Nothing
-            }
-        }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- We should think about prescriptive binding specs for _Aux types.
@@ -686,15 +688,18 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
         }
 
     mainTypedef :: C.Typedef Final
-    mainTypedef = C.Typedef{
-          ann = names
-        , typ = TranslatedTypes{
-              c = reconstruct $ C.TypeTypedef $ C.Ref {
-                  name       = auxInfo.id
-                , underlying = C.TypeFun args res
-                }
+    mainTypedef =
+      let c = reconstruct $ C.TypeTypedef $ C.Ref{
+              name       = auxInfo.id
+            , underlying = C.TypeFun args res
             }
-        }
+      in  C.Typedef{
+              typ = TranslatedTypes{
+                  c  = c
+                , hs = Translation.topLevel c
+                }
+            , ann = names
+            }
 
 {-------------------------------------------------------------------------------
   Macros
@@ -851,10 +856,10 @@ macroDecsTypedef macroLang info macroType spec = do
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
      C.DeclInfo Final
-  -> C.Type Final
+  -> C.Global Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-global info ty _spec = do
+global info g _spec = do
     insts <- getInsts
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
@@ -870,10 +875,10 @@ global info ty _spec = do
     --
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/993>
     -- We should check that the Storable instance has no superclass constraints.
-    if C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts then do
+    if C.isErasedTypeConstQualified g.typ.c && Inst.Storable `elem` insts then do
       (stubDecs :: [Hs.Decl l], pureStubName :: Hs.TermName) <- getStubDecsWith GlobalUniqueId
       let constGetterOfType :: [Hs.Decl l]
-          constGetterOfType = constGetter (Translation.topLevel ty) info pureStubName
+          constGetterOfType = constGetter g.typ.hs info pureStubName
       pure (stubDecs ++ constGetterOfType)
     -- Otherwise, do not generate a getter
     else do
@@ -881,7 +886,7 @@ global info ty _spec = do
   where
     getStubDecsWith :: RunnerNameSpec -> HsM ([Hs.Decl l], Hs.TermName)
     getStubDecsWith x =
-      addressStubDecs info ty x _spec
+      addressStubDecs info g.typ.c x _spec
 
     getInsts :: HsM (Set Inst.TypeClass)
     getInsts = do
@@ -890,7 +895,7 @@ global info ty _spec = do
           st.instanceMap
           Nothing
           (Set.singleton Inst.Storable)
-          [Translation.topLevel ty]
+          [g.typ.hs]
 
 -- | Getter for a constant (i.e., @const@) global variable
 --

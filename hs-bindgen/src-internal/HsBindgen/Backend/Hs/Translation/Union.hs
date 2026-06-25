@@ -18,7 +18,6 @@ import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -200,7 +199,7 @@ hasFieldDecs st env info union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasFieldInstance
     decl = Hs.HasFieldInstance {
@@ -273,7 +272,7 @@ hasFieldCompatDecs st env info union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasFieldCompatInstance
     decl = Hs.HasFieldCompatInstance {
@@ -329,7 +328,7 @@ hasFieldPtrDecs union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasFieldPtrInstance
     decl = Hs.HasFieldPtrInstance {
@@ -362,7 +361,7 @@ hasCFieldDecs union field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Hs.HasCFieldInstance
     decl = Hs.HasCFieldInstance {
@@ -392,7 +391,7 @@ hasCBitfieldDecs union field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Translation.topLevel (getFieldTyp field).c
+    fieldType = (getFieldTyp field).hs
 
     decl :: Int -> Hs.HasCBitfieldInstance
     decl w = Hs.HasCBitfieldInstance {
