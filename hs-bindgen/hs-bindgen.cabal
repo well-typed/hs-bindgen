@@ -99,7 +99,6 @@ library internal
     HsBindgen.Backend.Global
     HsBindgen.Backend.Hs.AST
     HsBindgen.Backend.Hs.AST.Strategy
-    HsBindgen.Backend.Hs.AST.Type
     HsBindgen.Backend.Hs.CallConv
     HsBindgen.Backend.Hs.Haddock.Config
     HsBindgen.Backend.Hs.Haddock.Documentation
@@ -255,6 +254,8 @@ library internal
     HsBindgen.IR.C.Naming
     HsBindgen.IR.C.PrettyPrinter
     HsBindgen.IR.C.Type
+    HsBindgen.IR.Hs
+    HsBindgen.IR.Hs.Type
     HsBindgen.IR.Pass
     HsBindgen.IR.Pass.Ann
     HsBindgen.IR.Pass.CommentDecl

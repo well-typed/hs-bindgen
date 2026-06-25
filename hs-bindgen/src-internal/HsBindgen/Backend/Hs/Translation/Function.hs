@@ -13,7 +13,6 @@ import DeBruijn (Add, Ctx, Env (..), Idx (..), lzeroAdd, sizeEnv, swapAdd,
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
@@ -35,6 +34,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
 
@@ -215,9 +215,10 @@ functionDecs safety info origCFun _spec = do
         runsInIO :: Bool
         runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
 
-        mbHsIO :: HsType -> HsType
-        mbHsIO | runsInIO  = HsIO
-              | otherwise = id
+        mbHsIO :: Hs.Type -> Hs.Type
+        mbHsIO
+          | runsInIO  = Hs.IO
+          | otherwise = id
 
         mbIoComment :: Maybe HsDoc.Comment
         mbIoComment = ioComment origCFun.attrs.purity
@@ -387,7 +388,7 @@ instance ToWrapperType PassResBy where
 
 class ToPrimitiveType a where
   -- | Recover type used in the foreign import
-  toPrimitiveType :: Type.TypeContext -> a -> HsType
+  toPrimitiveType :: Type.TypeContext -> a -> Hs.Type
 
 instance ToPrimitiveType PassArgBy where
   toPrimitiveType ctx = \case
@@ -401,7 +402,7 @@ instance ToPrimitiveType PassResBy where
 
 class ToOrigType a where
   -- | Recover type used in "restoreOrigSignature"
-  toOrigType :: Type.TypeContext -> a -> HsType
+  toOrigType :: Type.TypeContext -> a -> Hs.Type
 
 instance ToOrigType PassArgBy where
   toOrigType ctx = \case
@@ -472,11 +473,11 @@ getCWrapperDecl origName wrapperName res args
 -- | Generate a function declaration restoring the signature of the original C
 -- function.
 getRestoreOrigSignatureDecl ::
-     Hs.TermName        -- ^ name of new function
-  -> Hs.TermName        -- ^ name of foreign import
+     Hs.TermName            -- ^ name of new function
+  -> Hs.TermName            -- ^ name of foreign import
   -> PassResBy              -- ^ C result type
   -> [PassArgBy]            -- ^ C types of function parameters
-  -> HsType                 -- ^ Haskell result type
+  -> Hs.Type                -- ^ Haskell result type
   -> [Hs.FunctionParameter] -- ^ Haskell function parameters
   -> C.Function Final       -- ^ original C function
   -> Maybe HsDoc.Comment    -- ^ function comment

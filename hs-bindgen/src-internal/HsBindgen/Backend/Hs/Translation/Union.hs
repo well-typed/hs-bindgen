@@ -7,7 +7,6 @@ import Control.Monad.State qualified as State hiding (MonadState)
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
@@ -22,6 +21,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
 unionDecs ::
@@ -50,7 +50,7 @@ unionDecs info union spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = union.names.field
-            , typ     = Hs.HsByteArray
+            , typ     = Hs.ByteArray
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -115,16 +115,16 @@ unionDecs info union spec = do
               , comment  = Nothing
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
               }
           ]
 
-        sba :: Hs.HsType
+        sba :: Hs.Type
         sba =
-            HsSizedByteArray
+            Hs.SizedByteArray
               (fromIntegral union.sizeof)
               (fromIntegral union.alignment)
 
@@ -151,7 +151,7 @@ unionDecs info union spec = do
                 ]
               else []
           where
-            hsType :: HsType
+            hsType :: Hs.Type
             hsType     = Type.topLevel field.typ
             fInsts     = Hs.getInstances
                             transState.instanceMap
@@ -216,13 +216,13 @@ unionFieldDecls unionName field = [
     unionFieldWidth :: C.UnionField Final -> Maybe Int
     unionFieldWidth _f = Nothing
 
-    parentType :: HsType
-    parentType = Hs.HsTypRef unionName Nothing
+    parentType :: Hs.Type
+    parentType = Hs.TypRef unionName Nothing
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: HsType
+    fieldType :: Hs.Type
     fieldType = Type.topLevel field.typ
 
     hasFieldDecl :: Hs.HasFieldInstance

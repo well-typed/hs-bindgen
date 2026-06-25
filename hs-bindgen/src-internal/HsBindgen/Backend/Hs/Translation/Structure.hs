@@ -13,7 +13,6 @@ import Data.Vec.Lazy qualified as Vec
 import DeBruijn (EmptyCtx, Idx (..), Weaken (..), pattern I1)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
@@ -28,6 +27,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
@@ -108,9 +108,9 @@ getDeclsFlam flam spec info struct = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.HsWithFlam
+              Hs.WithFlam
                 (Type.topLevel flam.typ)
-                (Hs.HsTypRef auxName Nothing)
+                (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
@@ -128,7 +128,7 @@ getInstances ::
 getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
-    fieldTypes :: [Hs.HsType]
+    fieldTypes :: [Hs.Type]
     fieldTypes = Type.topLevel . (.typ) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
@@ -226,7 +226,7 @@ getDecls supInsts hCfg spec structName info struct insts =
                   }
             , if hasStaticSize && hasReadRaw && hasWriteRaw
                 then Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                    strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef structName Nothing))
+                    strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef structName Nothing))
                   , clss     = Inst.Storable
                   , name     = structName
                   , comment  = Nothing
@@ -336,13 +336,13 @@ getFieldDecls structName cStruct hsStruct field = [
           }
     ]
   where
-    parentType :: HsType
-    parentType = Hs.HsTypRef structName Nothing
+    parentType :: Hs.Type
+    parentType = Hs.TypRef structName Nothing
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: HsType
+    fieldType :: Hs.Type
     fieldType = Type.topLevel field.typ
 
     hasFieldDecl :: Hs.HasFieldInstance
@@ -390,22 +390,22 @@ getFieldDecls structName cStruct hsStruct field = [
 
 peekField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
 peekField ptr field = case field.width of
-    Nothing -> Hs.PeekCField    (HsStrLit name) ptr
-    Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
+    Nothing -> Hs.PeekCField    (Hs.StrLit name) ptr
+    Just _w -> Hs.PeekCBitfield (Hs.StrLit name) ptr
   where
     name = Text.unpack field.info.name.hsName.text
 
 pokeField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
 pokeField ptr field x = case field.width of
-    Nothing  -> Hs.PokeCField    (HsStrLit name) ptr x
-    Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
+    Nothing  -> Hs.PokeCField    (Hs.StrLit name) ptr x
+    Just _w  -> Hs.PokeCBitfield (Hs.StrLit name) ptr x
   where
     name = Text.unpack field.info.name.hsName.text
 
 readRawField :: Idx ctx -> C.StructField Final -> Hs.ReadRawCField ctx
 readRawField ptr field = case field.width of
-    Nothing -> Hs.ReadRawCField    (HsStrLit name) ptr
-    Just _w -> Hs.ReadRawCBitfield (HsStrLit name) ptr
+    Nothing -> Hs.ReadRawCField    (Hs.StrLit name) ptr
+    Just _w -> Hs.ReadRawCBitfield (Hs.StrLit name) ptr
   where
     name = Text.unpack field.info.name.hsName.text
 
@@ -415,7 +415,7 @@ writeRawField ::
   -> Idx ctx
   -> Hs.WriteRawCField ctx
 writeRawField ptr field x = case field.width of
-    Nothing  -> Hs.WriteRawCField    (HsStrLit name) ptr x
-    Just _w  -> Hs.WriteRawCBitfield (HsStrLit name) ptr x
+    Nothing  -> Hs.WriteRawCField    (Hs.StrLit name) ptr x
+    Just _w  -> Hs.WriteRawCBitfield (Hs.StrLit name) ptr x
   where
     name = Text.unpack field.info.name.hsName.text

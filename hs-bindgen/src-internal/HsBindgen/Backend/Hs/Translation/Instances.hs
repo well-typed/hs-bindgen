@@ -17,11 +17,12 @@ module HsBindgen.Backend.Hs.Translation.Instances (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import HsBindgen.Backend.Hs.AST
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -40,12 +41,12 @@ getCandidateInsts supInsts = Set.fromList $ catMaybes [
     , supStrats.dependency == Inst.Dependent
     ]
 
-getDeriveStrat :: Inst.SupportedStrategies -> Maybe (Strategy ty)
+getDeriveStrat :: Inst.SupportedStrategies -> Maybe (Hs.Strategy ty)
 getDeriveStrat supStrats = case supStrats.defStrategy of
     Nothing             -> Nothing
     Just Inst.HsBindgen -> Nothing
-    Just Inst.Newtype   -> Just DeriveNewtype
-    Just Inst.Stock     -> Just DeriveStock
+    Just Inst.Newtype   -> Just Hs.DeriveNewtype
+    Just Inst.Stock     -> Just Hs.DeriveStock
 
 --------------------------------------------------------------------------------
 
@@ -56,22 +57,23 @@ getInstances ::
   => InstanceMap                  -- ^ Current state
   -> Maybe (Hs.Name NsTypeConstr) -- ^ Name of current type (optional)
   -> Set Inst.TypeClass           -- ^ Candidate instances
-  -> [HsType]                     -- ^ Dependencies
+  -> [Hs.Type]                    -- ^ Dependencies
   -> Set Inst.TypeClass
 getInstances instanceMap name = aux
   where
-    aux :: Set Inst.TypeClass -> [HsType] -> Set Inst.TypeClass
+    aux :: Set Inst.TypeClass -> [Hs.Type] -> Set Inst.TypeClass
     aux acc [] = acc
     aux acc (hsType:hsTypes)
       | Set.null acc = acc
       | otherwise = case hsType of
-          HsPrimType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
-          HsTypRef name' _
+          Hs.PrimType primType ->
+            aux (acc /\ getHsPrimTypeInsts primType) hsTypes
+          Hs.TypRef name' _
             | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
                 Nothing -> panicPure $ "Type not found: " ++ show name'
-          HsConstArray _n hsType' ->
+          Hs.ConstArray _n hsType' ->
             -- TODO: instance resolution for 'IsArray' is currently
             -- special-cased because for 'IsArray' instances we don't have to
             -- check all dependencies. See issue #1739.
@@ -80,7 +82,7 @@ getInstances instanceMap name = aux
               else id) $
             -- constrain by ConstantArray item type in next step
             aux (acc /\ cArrayInsts) $ hsType' : hsTypes
-          HsIncompleteArray hsType' ->
+          Hs.IncompleteArray hsType' ->
             -- TODO: instance resolution for 'IsArray' is currently
             -- special-cased because for 'IsArray' instances we don't have to
             -- check all dependencies. See issue #1739.
@@ -89,31 +91,31 @@ getInstances instanceMap name = aux
               else id) $
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
-          HsPtrArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
-          HsPtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
-          HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsPtrConst{} -> aux (acc /\ ptrInsts) hsTypes
-          HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
-          HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
-          HsExtBinding _ref _cTypeSpec hsTypeSpec _ ->
+          Hs.PtrArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.PtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.Ptr{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.FunPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.StablePtr{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.PtrConst{} -> aux (acc /\ ptrInsts) hsTypes
+          Hs.IO t  -> aux (acc /\ ioInsts) (t : hsTypes)
+          Hs.Fun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
+          Hs.ExtBinding _ref _cTypeSpec hsTypeSpec _ ->
             let acc' = acc /\ hsTypeSpecInsts hsTypeSpec
             in  aux acc' hsTypes
-          HsByteArray{} ->
+          Hs.ByteArray{} ->
             let acc' = acc /\ Set.fromList [Inst.Eq, Inst.Ord, Inst.Show]
             in  aux acc' hsTypes
-          HsSizedByteArray{} ->
+          Hs.SizedByteArray{} ->
             let acc' = acc /\ Set.fromList [Inst.Eq, Inst.Show]
             in  aux acc' hsTypes
-          HsBlock{} ->
+          Hs.Block{} ->
             aux (blockInsts /\ acc) (hsTypes)
-          HsComplexType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
-          HsStrLit{} -> Set.empty
+          Hs.ComplexType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
+          Hs.StrLit{} -> Set.empty
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/1572>
           -- Instances for 'WithFlam'.
-          HsWithFlam{} -> Set.empty
-          HsEquivStorable{} -> Set.empty
+          Hs.WithFlam{} -> Set.empty
+          Hs.EquivStorable{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
@@ -161,38 +163,38 @@ getInstances instanceMap name = aux
       | (cls, Require{}) <- Map.toAscList hsTypeSpec.instances
       ]
 
-getHsPrimTypeInsts :: HsPrimType -> Set Inst.TypeClass
+getHsPrimTypeInsts :: Hs.PrimType -> Set Inst.TypeClass
 getHsPrimTypeInsts = \case
-    HsPrimVoid       -> voidInsts
-    HsPrimUnit       -> unitInsts
-    HsPrimChar       -> charInsts
-    HsPrimInt        -> integralInsts
-    HsPrimDouble     -> floatingInsts
-    HsPrimFloat      -> floatingInsts
-    HsPrimBool       -> boolInsts
-    HsPrimInt8       -> integralInsts
-    HsPrimInt16      -> integralInsts
-    HsPrimInt32      -> integralInsts
-    HsPrimInt64      -> integralInsts
-    HsPrimWord       -> integralInsts
-    HsPrimWord8      -> integralInsts
-    HsPrimWord16     -> integralInsts
-    HsPrimWord32     -> integralInsts
-    HsPrimWord64     -> integralInsts
-    HsPrimCChar      -> integralInsts
-    HsPrimCSChar     -> integralInsts
-    HsPrimCUChar     -> integralInsts
-    HsPrimCShort     -> integralInsts
-    HsPrimCUShort    -> integralInsts
-    HsPrimCInt       -> integralInsts
-    HsPrimCUInt      -> integralInsts
-    HsPrimCLong      -> integralInsts
-    HsPrimCULong     -> integralInsts
-    HsPrimCLLong     -> integralInsts
-    HsPrimCULLong    -> integralInsts
-    HsPrimCBool      -> integralInsts
-    HsPrimCFloat     -> floatingInsts
-    HsPrimCDouble    -> floatingInsts
+    Hs.PrimVoid    -> voidInsts
+    Hs.PrimUnit    -> unitInsts
+    Hs.PrimChar    -> charInsts
+    Hs.PrimInt     -> integralInsts
+    Hs.PrimDouble  -> floatingInsts
+    Hs.PrimFloat   -> floatingInsts
+    Hs.PrimBool    -> boolInsts
+    Hs.PrimInt8    -> integralInsts
+    Hs.PrimInt16   -> integralInsts
+    Hs.PrimInt32   -> integralInsts
+    Hs.PrimInt64   -> integralInsts
+    Hs.PrimWord    -> integralInsts
+    Hs.PrimWord8   -> integralInsts
+    Hs.PrimWord16  -> integralInsts
+    Hs.PrimWord32  -> integralInsts
+    Hs.PrimWord64  -> integralInsts
+    Hs.PrimCChar   -> integralInsts
+    Hs.PrimCSChar  -> integralInsts
+    Hs.PrimCUChar  -> integralInsts
+    Hs.PrimCShort  -> integralInsts
+    Hs.PrimCUShort -> integralInsts
+    Hs.PrimCInt    -> integralInsts
+    Hs.PrimCUInt   -> integralInsts
+    Hs.PrimCLong   -> integralInsts
+    Hs.PrimCULong  -> integralInsts
+    Hs.PrimCLLong  -> integralInsts
+    Hs.PrimCULLong -> integralInsts
+    Hs.PrimCBool   -> integralInsts
+    Hs.PrimCFloat  -> floatingInsts
+    Hs.PrimCDouble -> floatingInsts
   where
     boolInsts :: Set Inst.TypeClass
     boolInsts = Set.fromList [
