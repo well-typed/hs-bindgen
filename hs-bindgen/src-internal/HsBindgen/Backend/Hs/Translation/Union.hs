@@ -17,7 +17,6 @@ import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -204,11 +203,13 @@ hasFieldDecs st env info nt field =
       ]
     else []
   where
-    fInsts     = Hs.getInstances
-                    st.instanceMap
-                    (Just nt.name)
-                    (Set.singleton Inst.Storable)
-                    [fieldType]
+    fInsts :: Set Inst.TypeClass
+    fInsts =
+      Hs.getInstances
+        st.instanceMap
+        (Just nt.name)
+        (Set.singleton Inst.Storable)
+        [field.typ.hs]
 
     fieldComment :: Maybe HsDoc.Comment
     fieldComment = mkHaddocksFieldInfo env.haddockConfig info field.info
@@ -219,14 +220,11 @@ hasFieldDecs st env info nt field =
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: Hs.Type
-    fieldType = Translation.topLevel field.typ.c
-
     baseHasFieldDecl :: Hs.HasFieldInstance
     baseHasFieldDecl = Hs.HasFieldInstance {
           parentType = parentType
         , fieldName  = fieldName
-        , fieldType  = fieldType
+        , fieldType  = field.typ.hs
         , impl       = Hs.HasFieldImplUnion
         }
 
@@ -234,7 +232,7 @@ hasFieldDecs st env info nt field =
     compatHasFieldDecl = Hs.HasFieldCompatInstance {
           parentType = parentType
         , fieldName  = fieldName
-        , fieldType  = fieldType
+        , fieldType  = field.typ.hs
         , impl       = Hs.HasFieldCompatImplUnion
         }
 
@@ -299,14 +297,11 @@ hasFieldPtrDecs nt field = concat [
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: Hs.Type
-    fieldType = Translation.topLevel field.typ.c
-
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
           parentType = parentType
         , fieldName  = fieldName
-        , fieldType  = fieldType
+        , fieldType  = field.typ.hs
         , deriveVia  =
             case unionFieldWidth field of
               Nothing -> Hs.ViaHasCField
@@ -317,7 +312,7 @@ hasFieldPtrDecs nt field = concat [
     hasCFieldDecl = Hs.HasCFieldInstance {
           parentType  = parentType
         , fieldName   = fieldName
-        , cFieldType  = fieldType
+        , cFieldType  = field.typ.hs
         , fieldOffset = 0
         }
 
@@ -325,7 +320,7 @@ hasFieldPtrDecs nt field = concat [
     hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
           parentType    = parentType
         , fieldName     = fieldName
-        , cBitfieldType = fieldType
+        , cBitfieldType = field.typ.hs
         , bitOffset     = 0
         , bitWidth      = w
         }

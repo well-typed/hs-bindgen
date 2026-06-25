@@ -22,7 +22,6 @@ import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -93,9 +92,7 @@ getDeclsFlam flam auxName spec info struct = do
             comment      = Nothing
           , instanceDecl =
               Hs.InstanceHasFlam hsStruct $
-                Hs.HasFlamInstance
-                  (Translation.topLevel flam.typ.c)
-                  (flam.offset `div` 8)
+                Hs.HasFlamInstance flam.typ.hs (flam.offset `div` 8)
           }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
@@ -106,9 +103,7 @@ getDeclsFlam flam auxName spec info struct = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.WithFlam
-                (Translation.topLevel flam.typ.c)
-                (Hs.TypRef auxName Nothing)
+              Hs.WithFlam flam.typ.hs (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
@@ -127,7 +122,7 @@ getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.Type]
-    fieldTypes = Translation.topLevel . (.typ.c) <$> fields
+    fieldTypes = (.typ.hs) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
     candidateInsts = Hs.getCandidateInsts supInsts
@@ -153,7 +148,7 @@ getDecls supInsts hCfg spec structName info struct insts =
     getHsField field =
         Hs.Field {
             name    = fieldName field
-          , typ     = Translation.topLevel field.typ.c
+          , typ     = field.typ.hs
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo hCfg info field.info
           }
@@ -318,14 +313,11 @@ hasFieldCompatDecs structName cStruct hsStruct field = [
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: Hs.Type
-    fieldType = Translation.topLevel field.typ.c
-
     hasFieldCompatDecl :: Hs.HasFieldCompatInstance
     hasFieldCompatDecl = Hs.HasFieldCompatInstance {
           parentType = parentType
         , fieldName  = fieldName
-        , fieldType  = fieldType
+        , fieldType  = field.typ.hs
         , impl = Hs.HasFieldCompatImplRecord $ Hs.HFCImplRecord {
               otherFields = otherFields
             , constr = hsStruct.constr
@@ -396,14 +388,11 @@ hasFieldPtrDecs struct field = concat [
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
-    fieldType :: Hs.Type
-    fieldType = Translation.topLevel field.typ.c
-
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
           parentType = parentType
         , fieldName  = fieldName
-        , fieldType  = fieldType
+        , fieldType  = field.typ.hs
         , deriveVia  =
             case field.width of
               Nothing -> Hs.ViaHasCField
@@ -414,7 +403,7 @@ hasFieldPtrDecs struct field = concat [
     hasCFieldDecl = Hs.HasCFieldInstance {
           parentType  = parentType
         , fieldName   = fieldName
-        , cFieldType  = fieldType
+        , cFieldType  = field.typ.hs
         , fieldOffset = field.offset `div` 8
         }
 
@@ -422,7 +411,7 @@ hasFieldPtrDecs struct field = concat [
     hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
           parentType    = parentType
         , fieldName     = fieldName
-        , cBitfieldType = fieldType
+        , cBitfieldType = field.typ.hs
         , bitOffset     = field.offset
         , bitWidth      = w
         }

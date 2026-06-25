@@ -60,8 +60,8 @@ data ScopedNamePair = ScopedNamePair {
 
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
-      c :: C.Type p
---    , hs :: Hs.Type    -- TODO
+      c  :: C.Type p
+    , hs :: Hs.Type
     }
   deriving stock (Eq, Generic, Show)
 
@@ -74,7 +74,8 @@ instance (
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass TranslatedTypes p p' where
   coercePass translatedTypes = TranslatedTypes{
-      c = coercePass translatedTypes.c
+      c  = coercePass translatedTypes.c
+    , hs = translatedTypes.hs
     }
 
 -- | Translate a primitive type
