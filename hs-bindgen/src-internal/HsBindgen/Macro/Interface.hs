@@ -1,22 +1,22 @@
 -- | Pluggable macro-language interface
 --
--- This module defines the 'MacroLang' record type, providing the macro-language
--- implementation (parsing, typechecking, translation). Values of 'MacroLang'
--- can be provided by separate packages. The default value uses @c-expr-dsl@,
--- and is defined in the user-facing @hs-bindgen@ library as
--- 'HsBindgen.Macro.cExprLang'.
+-- This module defines the macro language 'Lang' record type, providing the
+-- macro-language implementation (parsing, typechecking, translation). Values of
+-- the macro language 'Lang' can be provided by separate packages. The default
+-- value uses @c-expr-dsl@, and is defined in the user-facing @hs-bindgen@
+-- library as 'HsBindgen.Macro.cExprLang'.
+--
+-- Intended for qualified import.
+--
+-- @
+-- import HsBindgen.Macro.Interface qualified as Macro
+-- @
 module HsBindgen.Macro.Interface (
     -- * Record
-    MacroLang(..)
+    Lang(..)
     -- * Typecheck result
-  , MacroTypecheckResult(..)
-    -- * Errors
-  , MacroTypecheckError(..)
-  , MacroLangParseError(..)
-  , MacroLangTypecheckError(..)
+  , TypecheckResult(..)
   ) where
-
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
@@ -27,8 +27,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Type
-import HsBindgen.Util.Tracer
+import HsBindgen.Macro.Error
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Record
@@ -37,48 +37,50 @@ import HsBindgen.Util.Tracer
 -- | A macro language: provides parsing, typechecking and translation of C macro
 -- bodies.
 --
--- The C standard (and any other configuration) is fixed when the 'MacroLang'
+-- The C standard (and any other configuration) is fixed when the macro 'Lang'
 -- is constructed; the interface itself is configuration-free.
-data MacroLang (l :: Star) = MacroLang {
+data Lang (l :: Star) = Lang {
     -- | Parse a single macro from @libclang@ tokens.
-    parseMacroBody ::
+    parse ::
          [Token TokenSpelling]
-      -> Either MacroLangParseError (ParsedMacroBody l)
+      -> Either MacroParseError (Macro.Unresolved l)
+
+  , resolve ::
+         Set C.DeclId
+         -- ^ Set of declaration IDs in scope.
+      -> Macro.Unresolved l
+      -> Either MacroResolutionError (Macro.Resolved l)
 
     -- | Dependencies of a parsed (not yet typechecked) macro.
     --
     -- The caller supplies name resolvers; the implementation walks the macro
     -- AST.
-  , parsedMacroDeps ::
-         Set C.DeclId
-         -- ^ Declarations in scope
-      -> ParsedMacroBody l
+  , parsedDeps ::
+         Macro.Resolved l
       -> [(C.ValOrRef, C.DeclId)]
 
     -- | Batch-typecheck a sequence of macros.
-  , typecheckMacroBodies ::
-         Set C.DeclId
-         -- ^ Declarations in scope
-      -> [ParsedMacroBody l]
-      -> Map Text (MacroTypecheckResult l)
+  , typecheck ::
+         [Macro.Resolved l]
+      -> Map Text (TypecheckResult l)
 
     -- | Get dependencies of a typechecked type-like macro body.
-  , typecheckedMacroTypeDeps ::
-         TypecheckedMacroTypeBody l C.DeclId
+  , typecheckedTypeDeps ::
+         Macro.TypecheckedType l C.DeclId
       -> [(C.ValOrRef, C.DeclId)]
 
     -- | Translate a checked type-like macro body to an 'HsType'.
     --
     -- The caller supplies a function to translate variables to 'HsType'.
-  , translateMacroType ::
-         TypecheckedMacroTypeBody l Hs.Type
+  , translateType ::
+         Macro.TypecheckedType l Hs.Type
       -> Hs.Type
 
     -- | Translate a checked value-macro to a 'Binding'.
-  , translateMacroValue ::
+  , translateValue ::
          Hs.Name Hs.NsVar
          -- ^ Exported binding name
-      -> TypecheckedMacroValueBody l Hs.TermName
+      -> Macro.TypecheckedValue l Hs.TermName
       -> Maybe HsDoc.Comment
       -> Binding
   }
@@ -91,45 +93,11 @@ data MacroLang (l :: Star) = MacroLang {
 --
 -- @l@ is the macro-language tag, @var@ is the variable type used to represent
 -- macro dependencies.
-data MacroTypecheckResult l
-  = MacroTypecheckType  (TypecheckedMacroTypeBody  l C.DeclId)
-  | MacroTypecheckValue (TypecheckedMacroValueBody l C.DeclId)
-  | MacroTypecheckError MacroTypecheckError
+data TypecheckResult l
+  = TypecheckType  (Macro.TypecheckedType  l C.DeclId)
+  | TypecheckValue (Macro.TypecheckedValue l C.DeclId)
+  | TypecheckError MacroTypecheckError
 
-deriving stock instance HasMacroTypes l => Show (MacroTypecheckResult l)
-deriving stock instance HasMacroTypes l => Eq   (MacroTypecheckResult l)
+deriving stock instance Macro.HasTypes l => Show (TypecheckResult l)
+deriving stock instance Macro.HasTypes l => Eq   (TypecheckResult l)
 
-{-------------------------------------------------------------------------------
-  Errors
--------------------------------------------------------------------------------}
-
-data MacroTypecheckError =
-    MacroTypecheckTypecheckError       MacroLangTypecheckError
-  | MacroTypecheckUnresolvedTaggedType C.DeclId
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace MacroTypecheckError where
-  prettyForTrace = \case
-      MacroTypecheckTypecheckError err -> PP.hsep [
-          "Failed to typecheck macro:"
-        , PP.string err.macroTypecheckError
-        ]
-      MacroTypecheckUnresolvedTaggedType declId -> PP.hsep [
-          "Macro type references unknown tagged type:"
-        , prettyForTrace declId
-        ]
-
-instance IsTrace Level MacroTypecheckError where
-  getDefaultLogLevel = \case
-    MacroTypecheckTypecheckError{}       -> Info
-    MacroTypecheckUnresolvedTaggedType{} -> Warning
-  getSource          = const HsBindgen
-  getTraceId         = const "macro-typecheck"
-
--- | An opaque parse error from the macro-language backend.
-newtype MacroLangParseError = MacroLangParseError { macroParseError :: String }
-  deriving stock (Eq, Show, Generic)
-
--- | An opaque typecheck error from the macro-language backend.
-newtype MacroLangTypecheckError = MacroLangTypecheckError { macroTypecheckError :: String }
-  deriving stock (Eq, Show, Generic)

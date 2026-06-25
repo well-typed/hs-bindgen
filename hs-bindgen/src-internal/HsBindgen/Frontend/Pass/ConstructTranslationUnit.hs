@@ -14,9 +14,8 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.TranslationUnit qualified as C
-import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Construction
@@ -25,16 +24,15 @@ import HsBindgen.Macro.Type
 type PreviousPass = EnrichComments
 
 constructTranslationUnit ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> [ParseResult l PreviousPass]
   -> IncludeGraph
   -> C.TranslationUnit l ConstructTranslationUnit
 constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit{
-      decls        = map coercePass $
-                           DeclUseGraph.toDecls
-                             declMeta.declIndex
-                             declMeta.declUseGraph
+      decls        = DeclUseGraph.toDecls
+                       declMeta.declIndex
+                       declMeta.declUseGraph
     , includeGraph = includeGraph
     , meta         = declMeta
     }
@@ -43,22 +41,25 @@ constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit
     declMeta = mkDeclMeta macroLang parseResults includeGraph
 
 mkDeclMeta ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> [ParseResult l PreviousPass]
   -> IncludeGraph
   -> DeclMeta l
-mkDeclMeta macroLang parseResults includeGraph = DeclMeta{
+mkDeclMeta macroLang parseResults includeGraph = declMeta
+  where
+    declIndex :: DeclIndex l
+    declIndex = DeclIndex.fromParseResults macroLang parseResults
+
+    declUseGraph :: DeclUseGraph
+    declUseGraph = DeclUseGraph.construct macroLang includeGraph declIndex
+
+    useDeclGraph :: UseDeclGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
+
+    declMeta :: DeclMeta l
+    declMeta = DeclMeta{
       declIndex    = declIndex
     , declUseGraph = declUseGraph
     , useDeclGraph = useDeclGraph
     }
-  where
-    declIndex :: DeclIndex l
-    declIndex = DeclIndex.fromParseResults parseResults
-
-    declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.fromDecls macroLang includeGraph declIndex
-
-    useDeclGraph :: UseDeclGraph
-    useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

@@ -166,6 +166,7 @@ library internal
     HsBindgen.Frontend
     HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
+    HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
     HsBindgen.Frontend.Analysis.DeclUseGraph
     HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
     HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
@@ -268,6 +269,8 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Macro.Error
+    HsBindgen.Macro.Flip
     HsBindgen.Macro.Interface
     HsBindgen.Macro.Type
     HsBindgen.NameHint
@@ -346,6 +349,7 @@ library
     HsBindgen.Macro.CExpr
     HsBindgen.Macro.Global
     HsBindgen.Macro.Parse
+    HsBindgen.Macro.Resolution
     HsBindgen.Macro.Translation.Type
     HsBindgen.Macro.Translation.Value
     HsBindgen.Macro.Typecheck
@@ -369,7 +373,6 @@ library
     , debruijn
     , fin
     , libclang-bindings
-    , mtl
     , template-haskell
     , text
     , vec

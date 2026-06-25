@@ -304,7 +304,7 @@ runTestHsBindgen report getTestResources test artefacts = do
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig report test $ \traceConfigUnsafe -> do
       hsBindgenEMacroLang
-        (pure . cExprLang)
+        (pure . cExpr)
         traceConfigUnsafe
         quietTracerConfig
         bindgenConfig

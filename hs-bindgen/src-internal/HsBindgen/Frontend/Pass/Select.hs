@@ -28,7 +28,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
-import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -289,7 +289,11 @@ getSelectMsgs
   declIndex
   = concatMap (uncurry aux) $ DeclIndex.toList declIndex
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l
+      -> [AnnMsg Select]
     aux =
       getSelectMsgsDeclId
         getTransitiveSelectability
@@ -395,7 +399,7 @@ getSelectMsgsDeclId
 mkSuccessMessages ::
      HasCallStack
   => C.DeclId
-  -> Success l EnrichComments
+  -> Success l ConstructTranslationUnit
   -> [AnnMsg Select]
 mkSuccessMessages declId success = concat [
       fmap (mkAnnMsg . SelectDelayedParseMsg)
@@ -415,7 +419,11 @@ mkSuccessMessages declId success = concat [
 getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex l -> [AnnMsg Select]
 getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l
+      -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success -> mkSuccessMessages declId success
@@ -436,22 +444,31 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
               }
           | x <- NonEmpty.toList xs
           ]
-        UnusableParseFailure loc x -> List.singleton $ withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId [loc]
-          , msg = SelectParseFailure x
-          }
-        UnusableConflict x -> List.singleton $ withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId (Conflict.toList x)
-          , msg = SelectConflict
-          }
-        UnusableMangleNamesFailure loc x -> List.singleton $ withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId [loc]
-          , msg = SelectMangleNamesFailure x
-          }
-        UnusableTypecheckMacrosError loc err -> List.singleton$ withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId [loc]
-          , msg = SelectMacroTypecheckFailure err
-          }
+        UnusableParseFailure loc x ->
+          List.singleton $ withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId [loc]
+            , msg = SelectParseFailure x
+            }
+        UnusableConflict x ->
+          List.singleton $ withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId (Conflict.toList x)
+            , msg = SelectConflict
+            }
+        UnusableMangleNamesFailure loc x ->
+          List.singleton $ withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId [loc]
+            , msg = SelectMangleNamesFailure x
+            }
+        UnusableTypecheckMacrosError loc err ->
+          List.singleton$ withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId [loc]
+            , msg = SelectMacroTypecheckFailure err
+            }
+        UnusableMacroResolutionFailure loc err ->
+          List.singleton $ withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId [loc]
+            , msg = SelectMacroResolutionFailure err
+            }
         UnusableOmitted{} ->
           []
 
@@ -461,7 +478,11 @@ getDelayedMsgsAdditionalSelectedTransDeps ::
   -> [AnnMsg Select]
 getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l
+      -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success -> mkSuccessMessages declId success
@@ -484,7 +505,11 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
 getDelayedMsgsNotSelected :: HasCallStack => DeclIndex l -> [AnnMsg Select]
 getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
   where
-    aux :: HasCallStack => C.DeclId -> Entry l -> [AnnMsg Select]
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l
+      -> [AnnMsg Select]
     aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
@@ -508,6 +533,13 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
             List.singleton $ withCallStack C.WithLocationInfo{
                 loc = C.declIdLocationInfo declId [loc]
               , msg = SelectMacroTypecheckFailure err
+              }
+          _otherLvl -> []
+        UnusableMacroResolutionFailure loc err -> case getDefaultLogLevel err of
+          Bug ->
+            List.singleton $ withCallStack C.WithLocationInfo{
+                loc = C.declIdLocationInfo declId [loc]
+              , msg = SelectMacroResolutionFailure err
               }
           _otherLvl -> []
         UnusableOmitted{} -> []
@@ -607,6 +639,8 @@ selectDeclIndex declUseGraph p declIndex =
           UnusableMangleNamesFailure loc _ ->
             Just ([loc], C.Available)
           UnusableTypecheckMacrosError loc _ ->
+            Just ([loc], C.Available)
+          UnusableMacroResolutionFailure loc _ ->
             Just ([loc], C.Available)
           UnusableOmitted{} ->
             Nothing

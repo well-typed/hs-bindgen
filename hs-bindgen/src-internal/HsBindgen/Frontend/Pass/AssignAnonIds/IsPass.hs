@@ -9,7 +9,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ instance PassId AssignAnonIds
 instance PassScopedName AssignAnonIds
 
 instance PassMacro AssignAnonIds where
-  type MacroBody AssignAnonIds = ParsedMacroBody
+  type MacroBody AssignAnonIds = Macro.Unresolved
 
 instance PassExtBinding AssignAnonIds
 

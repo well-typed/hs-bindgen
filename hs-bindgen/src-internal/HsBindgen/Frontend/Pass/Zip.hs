@@ -22,13 +22,14 @@ import HsBindgen.Frontend.Pass.Zip.Zip
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 -- | Zip reparsed declarations with their original definitions
 zip ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> C.TranslationUnit l ReparseMacroExpansions
   -> C.TranslationUnit l Zip
 zip macroLang unit =
@@ -40,8 +41,8 @@ zip macroLang unit =
          }
 
 updateMeta ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> [(C.DeclId, [DelayedParseMsg])]
   -> [C.Decl l Zip]
   -> DeclMeta l
@@ -87,8 +88,8 @@ updateMeta macroLang failures successes meta = DeclMeta{
 -- that @foo@ depends on @B@. We have to cut the dependency to @A@ and
 -- replace it with the dependency to @B@.
 updateDeps ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> C.Decl l Zip
   -> DeclUseGraph
   -> DeclUseGraph

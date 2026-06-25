@@ -9,7 +9,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     DeclUseGraph -- opaque
   , toDigraph
     -- * Construction
-  , fromDecls
+  , construct
   , insertDepsOfDecl
     -- * Deletion
   , deleteDeps

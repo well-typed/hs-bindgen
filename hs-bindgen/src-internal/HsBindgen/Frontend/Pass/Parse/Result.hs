@@ -21,7 +21,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ data ParseResult l p = ParseResult{
     deriving (Generic)
 
 deriving stock instance ( IsPass p
-                        , HasMacroTypes l
+                        , Macro.HasTypes l
                         ) => Show (ParseResult l p)
 
 data ParseClassification l p =
@@ -51,7 +51,7 @@ data ParseClassification l p =
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , HasMacroTypes l
+                        , Macro.HasTypes l
                         ) => Show (ParseClassification l p)
 
 instance PrettyForTrace (ParseClassification l p) where
@@ -68,7 +68,7 @@ data ParseSuccess l p = ParseSuccess {
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , HasMacroTypes l
+                        , Macro.HasTypes l
                         ) => Show (ParseSuccess l p)
 
 -- | Why did we not attempt to parse a declaration?

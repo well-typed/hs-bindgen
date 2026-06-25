@@ -30,7 +30,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
 
 {-------------------------------------------------------------------------------
   Top-level

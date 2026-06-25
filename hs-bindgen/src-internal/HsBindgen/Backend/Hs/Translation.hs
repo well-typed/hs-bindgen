@@ -53,8 +53,8 @@ import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.NameHint
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -64,8 +64,8 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 generateDeclarations ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> UniqueId
   -> HaddockConfig
   -> BaseModuleName
@@ -96,8 +96,8 @@ data WithCategory a = WithCategory {
   } deriving (Show)
 
 generateDeclarations' ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> HsM.Env
   -> DeclIndex l
   -> [C.Decl l Final]
@@ -168,8 +168,8 @@ isDefinedInCurrentModule declIndex =
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1758>
 -- Take the 'PrescriptiveDeclSpec' into account.
 generateDecs ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> C.Decl l Final
   -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
 generateDecs macroLang (C.Decl info kind spec) =
@@ -678,8 +678,8 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> C.DeclInfo Final
   -> TypecheckedMacro Final l
   -> PrescriptiveDeclSpec
@@ -690,8 +690,8 @@ macroDecs macroLang info checkedMacro spec =
       MacroValue val -> macroVarDecs info val
 
 macroDecsTypedef ::
-     forall l. (HasMacroTypes l, HasCallStack)
-  => MacroLang l
+     forall l. (Macro.HasTypes l, HasCallStack)
+  => Macro.Lang l
   -> C.DeclInfo Final
   -> TypecheckedMacroType l Final
   -> PrescriptiveDeclSpec
@@ -715,7 +715,7 @@ macroDecsTypedef macroLang info macroType spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field{
             name    = macroType.names.field
-          , typ     = macroLang.translateMacroType (fmap macroVarToHsType macroType.body)
+          , typ     = macroLang.translateType (fmap macroVarToHsType macroType.body)
           , origin  = Origin.GeneratedField
           , comment = Nothing
           }

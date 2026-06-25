@@ -10,7 +10,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ instance PassId SimplifyAST where
 instance PassScopedName SimplifyAST
 
 instance PassMacro SimplifyAST where
-  type MacroBody SimplifyAST = ParsedMacroBody
+  type MacroBody SimplifyAST = Macro.Unresolved
 
 instance PassExtBinding SimplifyAST
 

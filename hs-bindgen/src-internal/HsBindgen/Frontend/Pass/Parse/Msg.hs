@@ -23,7 +23,7 @@ import HsBindgen.Frontend.LanguageC.Error qualified as LanC
 import HsBindgen.Frontend.Pass.Zip.Error
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Error
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -128,7 +128,7 @@ data DelayedParseMsg =
   | ParseMacroEmpty C.PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
-  | ParseMacroErrorParse MacroLangParseError
+  | ParseMacroErrorParse MacroParseError
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
     --

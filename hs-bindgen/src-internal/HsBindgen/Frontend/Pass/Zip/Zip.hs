@@ -17,7 +17,7 @@ import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
 
 type In  = PrepareReparse
 type Out = ReparseMacroExpansions

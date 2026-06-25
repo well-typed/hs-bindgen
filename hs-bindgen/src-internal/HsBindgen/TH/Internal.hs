@@ -33,8 +33,8 @@ import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type (HasMacroTypes)
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
@@ -71,9 +71,9 @@ toFilePath _    (Dir x) = x
 -- >   hashInclude "foo.h"
 -- >   hashInclude "bar.h"
 withHsBindgenMacroLang ::
-     forall l. HasMacroTypes l
-  => (ClangCStandard -> IO (MacroLang l))
-     --  ^ The callback returning the 'MacroLang' to use.
+     forall l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+     --  ^ The callback returning the macro 'Macro.Lang' to use.
   -> Config
   -> ConfigTH
   -> BindgenM

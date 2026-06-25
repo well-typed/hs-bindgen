@@ -7,7 +7,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Definition
@@ -33,7 +33,7 @@ instance PassId ConstructTranslationUnit
 instance PassScopedName ConstructTranslationUnit
 
 instance PassMacro ConstructTranslationUnit where
-  type MacroBody ConstructTranslationUnit = ParsedMacroBody
+  type MacroBody ConstructTranslationUnit = Macro.Resolved
 
 instance PassExtBinding ConstructTranslationUnit
 
@@ -49,7 +49,6 @@ instance PassMsg ConstructTranslationUnit
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassMacroBody          EnrichComments ConstructTranslationUnit
 instance CoercePassId                 EnrichComments ConstructTranslationUnit
 instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit

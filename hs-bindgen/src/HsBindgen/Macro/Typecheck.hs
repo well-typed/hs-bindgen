@@ -1,93 +1,52 @@
 module HsBindgen.Macro.Typecheck (
-    typecheckMacroBodies
+    typecheckMacros
   , typecheckedMacroTypeDeps
   ) where
 
-import Control.Monad.Except (Except, MonadError (..))
 import Data.Map qualified as Map
-import Data.Set qualified as Set
 import Data.Text qualified as Text
 
 import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Interface.Type qualified as T
+import C.Expr.Typecheck.Type qualified as CExpr
 
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.CExpr
-import HsBindgen.Macro.Interface
+import HsBindgen.Macro.CExpr (CExpr)
+import HsBindgen.Macro.CExpr qualified as Macro
+import HsBindgen.Macro.Error
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
-typecheckMacroBodies ::
-     Set C.DeclId
-  -> [ParsedMacroBody CExpr]
-  -> Map Text (MacroTypecheckResult CExpr)
-typecheckMacroBodies declsInScope bodies =
-    Map.mapKeysMonotonic (.getName) $ fmap convertResult $
-      CExpr.tcMacros
-        typedefs
-        injectTypeName
-        injectValueName
-        injectNonAnonTaggedTypeName
-        [m | ParsedMacroBodyCExpr m <- bodies]
+typeOfAnn :: C.DeclId -> Maybe CExpr.QuantTy
+typeOfAnn declId = case declId.name.kind of
+    C.NameKindOrdinary -> Just CExpr.simpleType
+    _otherwise         -> Nothing
+
+typecheckMacros ::
+     [Macro.Resolved CExpr]
+  -> Map Text (Macro.TypecheckResult CExpr)
+typecheckMacros bodies =
+    Map.mapKeysMonotonic (.getIdentifier) $ fmap convertResult $
+      CExpr.tcMacros typeOfAnn (map (.unwrap.unwrap) bodies)
   where
-    typedefs :: Set CExpr.Name
-    typedefs = Set.fromList $ [ (CExpr.Name declId.name.text)
-                              | declId <- Set.toList declsInScope
-                              , declId.name.kind == C.NameKindOrdinary ]
-
     convertResult ::
-         CExpr.MacroTcResult MacroTypecheckError C.DeclId
-      -> MacroTypecheckResult CExpr
+         CExpr.MacroTcResult C.DeclId
+      -> Macro.TypecheckResult CExpr
     convertResult = \case
       CExpr.MacroTcTypeExpr x ->
-        MacroTypecheckType  (TypecheckedMacroTypeBodyCExpr  x)
+        Macro.TypecheckType  (Macro.TypecheckedTypeCExpr  x)
       CExpr.MacroTcValueExpr x ->
-        MacroTypecheckValue (TypecheckedMacroValueBodyCExpr x)
-      CExpr.MacroTcInjectError e ->
-        MacroTypecheckError e
+        Macro.TypecheckValue (Macro.TypecheckedValueCExpr x)
       CExpr.MacroTcError err ->
-        MacroTypecheckError $
-          MacroTypecheckTypecheckError $
-            MacroLangTypecheckError (Text.unpack (CExpr.pprMacroTcError err))
-
-    injectTypeName ::
-         CExpr.CTypeSource
-      -> CExpr.Name
-      -> C.DeclId
-    injectTypeName = \case
-        CExpr.FromTypedef ->
-          \n -> C.DeclId (C.DeclName n.getName C.NameKindOrdinary) False
-        CExpr.FromMacroType ->
-          \n -> C.DeclId (C.DeclName n.getName C.NameKindMacro) False
-
-    injectValueName :: CExpr.Name -> C.DeclId
-    injectValueName (CExpr.Name n) =
-        let dn = C.DeclName{text = n , kind = C.NameKindMacro}
-        in  C.DeclId dn False
-
-    injectNonAnonTaggedTypeName ::
-         CExpr.TagKind
-      -> CExpr.Name
-      -> Except MacroTypecheckError C.DeclId
-    injectNonAnonTaggedTypeName k n =
-        if Set.member declId declsInScope then
-          pure declId
-        else
-          throwError  $ MacroTypecheckUnresolvedTaggedType declId
-      where
-        declId :: C.DeclId
-        declId = C.DeclId{
-            name = C.DeclName{
-              text = n.getName
-            , kind = C.NameKindTagged (convertTagKind k)
-            }
-          , isAnon = False
-          }
+        Macro.TypecheckError $
+            MacroTypecheckError (Text.unpack (CExpr.pprMacroTcError err))
 
 typecheckedMacroTypeDeps ::
-     TypecheckedMacroTypeBody CExpr C.DeclId
+     Macro.TypecheckedType CExpr C.DeclId
   -> [(C.ValOrRef, C.DeclId)]
-typecheckedMacroTypeDeps (TypecheckedMacroTypeBodyCExpr tcExpr) =
+typecheckedMacroTypeDeps (Macro.TypecheckedTypeCExpr tcExpr) =
     -- 'T.Expr' is a unary type-application tree, so it carries at most one variable.
     case go C.ByValue tcExpr.macroTypeBody of
       Nothing -> []

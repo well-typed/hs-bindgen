@@ -33,8 +33,8 @@ import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
@@ -42,8 +42,8 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 translateDecls ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> ByCategory_ [Hs.Decl l]
   -> ByCategory_ ([CWrapper], [SDecl])
 translateDecls macroLang = fmap go
@@ -65,7 +65,7 @@ getCWrappers decls = mapMaybe getCWrapper decls
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
 
-translateDecl :: HasMacroTypes l => MacroLang l -> Hs.Decl l -> SDecl
+translateDecl :: Macro.HasTypes l => Macro.Lang l -> Hs.Decl l -> SDecl
 translateDecl macroLang = \case
   Hs.DeclTypSyn               x -> translateDeclTypSyn            x
   Hs.DeclData                 x -> translateDeclData              x
@@ -211,10 +211,10 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
     , comment  = deriv.comment
     }
 
-translateMacroValue' :: HasMacroTypes l => MacroLang l -> Hs.MacroValue l -> SDecl
+translateMacroValue' :: Macro.HasTypes l => Macro.Lang l -> Hs.MacroValue l -> SDecl
 translateMacroValue' macroLang macro = DBinding $
     withCLiteralComment $
-    macroLang.translateMacroValue
+    macroLang.translateValue
       macro.name
       (fmap macroIdToHsName macro.expr.body)
       macro.comment

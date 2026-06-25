@@ -30,7 +30,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
-import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Error
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -176,6 +176,9 @@ data SelectMsg =
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroTypecheckFailure MacroTypecheckError
+    -- | Delayed macro name-resolution failure for macros the user wants to
+    -- select directly.
+  | SelectMacroResolutionFailure MacroResolutionError
     -- | Delayed @PrepareReparse@ message
   | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
     -- | Inform the user that no declarations matched the selection predicate.
@@ -209,6 +212,8 @@ instance PrettyForTrace SelectMsg where
         ]
       SelectMacroTypecheckFailure x ->
         couldNotSelect $ prettyForTrace x
+      SelectMacroResolutionFailure x ->
+        couldNotSelect $ prettyForTrace x
       SelectDelayedPrepareReparseMsg x ->
         PP.hang "During prepare-reparse:" 2 (prettyForTrace x)
       SelectNoDeclarationsMatched ->
@@ -240,6 +245,7 @@ instance IsTrace Level SelectMsg where
     SelectMangleNamesFailure{}       -> Warning
     SelectMangleNamesSquashed{}      -> Notice
     SelectMacroTypecheckFailure x    -> getDefaultLogLevel x
+    SelectMacroResolutionFailure x   -> getDefaultLogLevel x
     SelectDelayedPrepareReparseMsg x -> getDefaultLogLevel x
     SelectNoDeclarationsMatched      -> Warning
   getSource  = const HsBindgen
@@ -254,6 +260,7 @@ instance IsTrace Level SelectMsg where
     SelectMangleNamesFailure{}       -> "select-mangle-names-failure"
     SelectMangleNamesSquashed{}      -> "select-mangle-names-squashed"
     SelectMacroTypecheckFailure x    -> "select-" <> getTraceId x
+    SelectMacroResolutionFailure x   -> "select-" <> getTraceId x
     SelectDelayedPrepareReparseMsg x -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched      -> "select"
 

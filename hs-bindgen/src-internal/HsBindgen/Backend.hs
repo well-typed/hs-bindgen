@@ -22,7 +22,7 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 
 -- | The backend translates the parsed C declarations in to Haskell
@@ -30,7 +30,7 @@ import HsBindgen.Util.Tracer
 --
 -- The backend is pure and should not emit warnings or errors.
 runBackend ::
-     forall l. HasMacroTypes l
+     forall l. Macro.HasTypes l
   => Tracer BackendMsg
   -> BindgenConfig
   -> BootArtefact l

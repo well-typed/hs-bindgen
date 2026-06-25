@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Interface qualified as Macro
 
 {-------------------------------------------------------------------------------
   Construction
@@ -28,7 +28,7 @@ import HsBindgen.Macro.Interface
 
 parseDecls ::
      forall l.
-     MacroLang l
+     Macro.Lang l
   -> ParseDecl.Env
   -> IO ([ParseResult l Parse], [MacroDefinition])
 parseDecls macroLang parseEnv = do

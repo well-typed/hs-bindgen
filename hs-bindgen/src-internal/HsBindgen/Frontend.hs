@@ -62,7 +62,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 
 import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
@@ -253,7 +253,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   that the unusable declaration /and all of its dependencies/ will not be
 --   selected.
 runFrontend ::
-     forall l. (HasMacroTypes l, HasCallStack)
+     forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
   -> FrontendConfig
   -> BootArtefact l

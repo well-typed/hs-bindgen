@@ -346,15 +346,24 @@ test_programAnalysis_selection_fail_variant_3 =
 test_programAnalysis_selection_foo :: TestCase
 test_programAnalysis_selection_foo =
     testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
-      MatchSelect name SelectParseFailure{} ->
-        Just $ Expected name
-      MatchSelect name (MatchTransMissing [_]) ->
-        Just $ Expected name
+      MatchSelect _name (MatchTransMissing [_]) ->
+        Just $ Expected ("macro A", "foo_t not selected")
+
+      -- We get a transient name mangler failure here because @foo_t@ is
+      -- unsupported, and so, it is not mangled.
+      MatchSelect _name SelectMangleNamesFailure{} ->
+        Just $ Expected ("macro A", "foo_t not mangled")
+      MatchSelect _name SelectParseFailure{} ->
+        Just $ Expected ("f", "unsupported underlying type")
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["macro A", "f"]
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+        ("macro A", "foo_t not selected")
+      , ("macro A", "foo_t not mangled")
+      , ("f", "unsupported underlying type")
+      ]
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =

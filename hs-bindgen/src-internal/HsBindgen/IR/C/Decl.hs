@@ -47,7 +47,7 @@ import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C (PrimType)
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 import Doxygen.Parser.Types qualified as Doxy
 
@@ -409,10 +409,10 @@ deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance IsPass p => Show (Union            p)
 deriving stock instance IsPass p => Show (UnionField       p)
 
-deriving stock instance (HasMacroTypes l, IsPass p) => Eq (DeclKind l p)
+deriving stock instance (Macro.HasTypes l, IsPass p) => Eq (DeclKind l p)
 
-deriving stock instance (HasMacroTypes l, IsPass p) => Show (Decl     l p)
-deriving stock instance (HasMacroTypes l, IsPass p) => Show (DeclKind l p)
+deriving stock instance (Macro.HasTypes l, IsPass p) => Show (Decl     l p)
+deriving stock instance (Macro.HasTypes l, IsPass p) => Show (DeclKind l p)
 
 {-------------------------------------------------------------------------------
   CoercePass instances

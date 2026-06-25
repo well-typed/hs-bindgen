@@ -7,7 +7,7 @@
 * The `SelectPredicate` type has been renamed to `SelectionPredicate`, and the
   `selectPredicate` field of `FrontendConfig` has been renamed to
   `selectionPredicate`. Update any code that references these names.
-* `hsBindgen` and `hsBindgenE` now take a `MacroLang l` as their first
+* `hsBindgen` and `hsBindgenE` now take a `Macro.Lang l` as their first
   argument; the `Artefact` type gained an `l` type parameter.  Callers should
   use the convenience wrappers `HsBindgen.IO.hsBindgen` (IO mode) or
   `HsBindgen.TH.withHsBindgen` (TH mode), which detect the C standard
@@ -31,16 +31,26 @@
 * Remove the old style of union getters and setters. Use the new `get` and `set`
   functions from `hs-bindgen-runtime` instead. See [issue #2060][is-2060] and
   [PR #2091][pr-2091].
+* The `Macro.Lang` record fields and `Macro.HasTypes` associated data families
+  have been renamed. Custom macro-language backend implementors must update
+  field names (`parseMacroBody` → `parse`, `parsedMacroDeps` → `parsedDeps`,
+  `typecheckMacroBodies` → `typecheck`, etc.), data family names
+  (`ParsedMacroBody l` → `Parsed l ann`, `TypecheckedMacroTypeBody l` →
+  `TypecheckedType l`, `TypecheckedMacroValueBody l` → `TypecheckedValue l`),
+  and supply the new `resolve` field. Error types are consolidated in
+  `HsBindgen.Macro.Error`; `MacroTypecheckResult` is renamed `TypecheckResult`
+  with shortened constructors.
 
 ### New features
 
-* The macro-language implementation is now pluggable. The `HasMacroTypes`
-  type class and the `MacroLang` record (in the internal library) define the
+* Variable names in macro bodies are resolved against all known declarations.
+* The macro-language implementation is now pluggable. The `Macro.HasTypes` type
+  class and the `Macro.Lang` record (in the internal library) define the
   interface that a macro-language backend must implement. The default backend
   (`CExpr`, backed by `c-expr-dsl`) is exposed from the new `HsBindgen.Macro`
-  module in the public library as `cExprLang :: ClangCStandard -> MacroLang
-  CExpr`, which also contains all translation logic from typechecked macro
-  expressions to Haskell AST nodes.
+  module in the public library as `cExpr :: ClangCStandard -> Macro.Lang CExpr`,
+  which also contains all translation logic from typechecked macro expressions
+  to Haskell AST nodes.
 * New `HsBindgen.IO` module exposes `hsBindgen`, a convenience entry point that
   auto-detects the effective C standard and delegates to the internal
   `hsBindgen`, and `hsBindgenMacroLang` for supplying a custom macro-language

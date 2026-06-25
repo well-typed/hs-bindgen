@@ -15,7 +15,7 @@ import Data.Set qualified as Set
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
-import HsBindgen.Frontend.Pass.EnrichComments.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 
@@ -30,7 +30,7 @@ import HsBindgen.IR.C qualified as C
 --
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
-toDecls :: DeclIndex l -> DeclUseGraph -> [C.Decl l EnrichComments]
+toDecls :: DeclIndex l -> DeclUseGraph -> [C.Decl l ConstructTranslationUnit]
 toDecls index declUseGraph =
     -- NOTE: There might be dependencies in the 'DeclUseGraph' on declarations
     -- without a corresponding entry in the 'DeclIndex'.  For example, this can

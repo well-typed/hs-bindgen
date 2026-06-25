@@ -15,12 +15,12 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Error
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
-type CType = C.Type Out
 
 type FailedMacro = (C.DeclId, SingleLoc, MacroTypecheckError)
 
@@ -34,33 +34,26 @@ type FailedMacro = (C.DeclId, SingleLoc, MacroTypecheckError)
 -- Returns the per-declaration results together with @resolvedMacroTypes@, the
 -- mapping from macro names to their underlying C types (used by the reparse
 -- environment).
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1952>
---
--- We should only resolve the declaration IDs of macro dependencies once. Now
--- we resolve them twice: when we get the dependencies of parsed macros, and
--- when we typecheck macros.
 typecheckDecls ::
-     forall l. HasMacroTypes l
-  => MacroLang l
-  -> Map C.DeclId CType
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> [C.Decl l In]
   -> ([Either FailedMacro (C.Decl l Out)], Set Text)
-typecheckDecls macroLang knownTypes decls =
+typecheckDecls macroLang decls =
     merge typecheckedMacros decls
   where
-    parsedMacros :: [ParsedMacroBody l]
+    parsedMacros :: [Macro.Resolved l]
     parsedMacros = mapMaybe getParsedMacro decls
 
-    typecheckedMacros :: Map Text (MacroTypecheckResult l)
+    typecheckedMacros :: Map Text (Macro.TypecheckResult l)
     typecheckedMacros =
-      macroLang.typecheckMacroBodies (Map.keysSet knownTypes) parsedMacros
+      macroLang.typecheck parsedMacros
 
 {-------------------------------------------------------------------------------
   Interleaving: thread typechecked macros back into declaration order
 -------------------------------------------------------------------------------}
 
-getParsedMacro :: C.Decl l In -> Maybe (ParsedMacroBody l)
+getParsedMacro :: C.Decl l In -> Maybe (Macro.Resolved l)
 getParsedMacro decl = case decl.kind of
     C.DeclMacro macro -> Just macro
     _otherwise        -> Nothing
@@ -91,8 +84,8 @@ coerceDecl decl = case decl.kind of
 
 -- | Merge typechecked macro results back into the original declarations
 merge ::
-     forall l. HasMacroTypes l
-  => Map Text (MacroTypecheckResult l)
+     forall l. Macro.HasTypes l
+  => Map Text (Macro.TypecheckResult l)
   -> [C.Decl l In]
   -> ([Either FailedMacro (C.Decl l Out)], Set Text)
 merge checkedMacros =
@@ -119,18 +112,18 @@ merge checkedMacros =
                 )
 
 fromMacroTcResult ::
-     HasMacroTypes l
+     Macro.HasTypes l
   => C.DeclInfo Out
-  -> MacroTypecheckResult l
+  -> Macro.TypecheckResult l
   -> Either FailedMacro (C.Decl l Out)
 fromMacroTcResult info = \case
-    MacroTypecheckType  x ->
+    Macro.TypecheckType  x ->
       Right $ toDecl $
         MacroType $ TypecheckedMacroType (fmap MacroTypeBodyVar x) NoAnn
-    MacroTypecheckValue x ->
+    Macro.TypecheckValue x ->
       Right $ toDecl $
         MacroValue $ TypecheckedMacroValue x
-    MacroTypecheckError err ->
+    Macro.TypecheckError err ->
       Left (info.id, info.loc, err)
   where
     toDecl :: TypecheckedMacro Out l -> C.Decl l Out
@@ -146,10 +139,10 @@ fromMacroTcResult info = \case
 -- @bool@ renders identically to @_Bool@ regardless of @language-c@ version.
 addKnownMacro ::
      Text
-  -> MacroTypecheckResult l
+  -> Macro.TypecheckResult l
   -> Set Text
   -> Set Text
 addKnownMacro macroName tcRes knownMacros =
     case tcRes of
-      MacroTypecheckType _body -> Set.insert macroName knownMacros
-      _                        -> knownMacros
+      Macro.TypecheckType _body -> Set.insert macroName knownMacros
+      _                         -> knownMacros

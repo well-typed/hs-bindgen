@@ -22,7 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Definition
@@ -53,7 +53,7 @@ instance PassId Parse where
 instance PassScopedName Parse
 
 instance PassMacro Parse where
-  type MacroBody Parse = ParsedMacroBody
+  type MacroBody Parse = Macro.Unresolved
 
 instance PassExtBinding Parse
 
