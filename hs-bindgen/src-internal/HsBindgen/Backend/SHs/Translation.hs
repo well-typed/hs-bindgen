@@ -330,7 +330,7 @@ translateCompletePragma = DCompletePragma
 
 translateType :: Hs.Type -> ClosedType
 translateType = \case
-    Hs.PrimType t          -> translatePrimType t
+    Hs.PrimType t          -> translateHsPrimType t
     Hs.TypRef r _          -> TCon r
     Hs.ConstArray n t      -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
     Hs.IncompleteArray t   -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
@@ -440,8 +440,8 @@ translateWriteRawCField = \case
     Hs.WriteRawByteOff ptr i x ->
       appMany WriteRaw_writeRawByteOff [EBound ptr, eInt i, EBound x]
 
-translatePrimType :: Hs.PrimType -> SType ctx
-translatePrimType = \case
+translateHsPrimType :: Hs.PrimType -> SType ctx
+translateHsPrimType = \case
     Hs.PrimVoid    -> tBindgenGlobal Void_type
     Hs.PrimUnit    -> TUnit
     Hs.PrimChar    -> tBindgenGlobal Char_type

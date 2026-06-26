@@ -6,8 +6,8 @@ import C.Expr.Syntax qualified as CExpr
 import C.Expr.Typecheck
 import C.Expr.Typecheck.Interface.Type qualified as T
 
-import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.Translation
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.CExpr (CExpr)
 import HsBindgen.Macro.CExpr qualified as Macro
@@ -30,10 +30,10 @@ translateMacroType (Macro.TypecheckedTypeCExpr tcExpr) = go tcExpr.macroTypeBody
 
     convertLiteral :: CExpr.TypeLit -> Hs.PrimType
     convertLiteral = \case
-      CExpr.TypeInt  sign size -> Type.primType $ C.PrimIntegral (convertIntSize size) (convertSign sign)
-      CExpr.TypeChar sign      -> Type.primType $ C.PrimChar (convertCharSign sign)
-      CExpr.TypeFloat size     -> Type.primType $ C.PrimFloating (convertFloatSize size)
-      CExpr.TypeBool           -> Type.primType C.PrimBool
+      CExpr.TypeInt  sign size -> translateCPrimType $ C.PrimIntegral (convertIntSize size) (convertSign sign)
+      CExpr.TypeChar sign      -> translateCPrimType $ C.PrimChar (convertCharSign sign)
+      CExpr.TypeFloat size     -> translateCPrimType $ C.PrimFloating (convertFloatSize size)
+      CExpr.TypeBool           -> translateCPrimType C.PrimBool
       CExpr.TypeVoid           -> Hs.PrimVoid
 
     convertSign :: Maybe CExpr.Sign -> C.PrimSign

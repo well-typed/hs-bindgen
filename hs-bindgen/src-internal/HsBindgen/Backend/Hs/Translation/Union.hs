@@ -14,10 +14,10 @@ import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
-import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -220,7 +220,7 @@ hasFieldDecs st env info nt field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ.c
+    fieldType = Translation.topLevel field.typ.c
 
     baseHasFieldDecl :: Hs.HasFieldInstance
     baseHasFieldDecl = Hs.HasFieldInstance {
@@ -300,7 +300,7 @@ hasFieldPtrDecs nt field = concat [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ.c
+    fieldType = Translation.topLevel field.typ.c
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {

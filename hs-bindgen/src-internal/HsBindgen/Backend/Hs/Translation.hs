@@ -30,7 +30,6 @@ import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Structure
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
-import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.Hs.Translation.Union
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -44,6 +43,7 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
@@ -318,7 +318,7 @@ enumDecs info enum spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = enum.names.field
-            , typ     = Type.topLevel enum.typ.c
+            , typ     = Translation.topLevel enum.typ.c
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -518,7 +518,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
               name    = typedef.names.orig.field
-            , typ     = Type.topLevel typedef.typ.c
+            , typ     = Translation.topLevel typedef.typ.c
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
@@ -869,7 +869,7 @@ global info ty _spec = do
     if C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts then do
       (stubDecs :: [Hs.Decl l], pureStubName :: Hs.TermName) <- getStubDecsWith GlobalUniqueId
       let constGetterOfType :: [Hs.Decl l]
-          constGetterOfType = constGetter (Type.topLevel ty) info pureStubName
+          constGetterOfType = constGetter (Translation.topLevel ty) info pureStubName
       pure (stubDecs ++ constGetterOfType)
     -- Otherwise, do not generate a getter
     else do
@@ -886,7 +886,7 @@ global info ty _spec = do
           st.instanceMap
           Nothing
           (Set.singleton Inst.Storable)
-          [Type.topLevel ty]
+          [Translation.topLevel ty]
 
 -- | Getter for a constant (i.e., @const@) global variable
 --
@@ -957,7 +957,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
       where
         -- *** Stub (impure) ***
         stubImportType :: Hs.Type
-        stubImportType = Hs.IO $ Type.topLevel stubType
+        stubImportType = Hs.IO $ Translation.topLevel stubType
 
         stubSymbol :: UniqueSymbol
         stubSymbol = globallyUnique env.uniqueId env.baseModuleName $ "get_" ++ varName
@@ -1055,7 +1055,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
             HaskellId      -> Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) name
             GlobalUniqueId -> Hs.InternalName $ uniquify name.text
 
-        runnerType = SHs.translateType (Type.topLevel stubType)
+        runnerType = SHs.translateType (Translation.topLevel stubType)
         runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                     `SHs.EApp` SHs.EFree stubName
 
@@ -1165,7 +1165,7 @@ anonEnumConstantDecs info anonEnumConstant = do
               anonEnumConstant.constant.info.name.hsName
 
           patSynType :: Hs.Type
-          patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
+          patSynType = Hs.PrimType (translateCPrimType anonEnumConstant.typ)
 
           typeSigDecl :: Hs.Decl l
           typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{

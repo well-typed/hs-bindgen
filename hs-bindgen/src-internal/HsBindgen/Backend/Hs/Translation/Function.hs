@@ -22,7 +22,6 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImp
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
-import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
@@ -31,6 +30,7 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
@@ -148,7 +148,7 @@ functionDecs safety info origCFun _spec = do
               Hs.ForeignImport.FunParam {
                   hsParam =
                     Hs.FunctionParameter{
-                      typ     = toPrimitiveType Type.FunArg arg
+                      typ     = toPrimitiveType Translation.FunArg arg
                     , comment = Nothing
                     }
                 }
@@ -157,7 +157,7 @@ functionDecs safety info origCFun _spec = do
               Hs.ForeignImport.FunParam {
                   hsParam =
                     Hs.FunctionParameter{
-                      typ     = toPrimitiveType Type.FunArg primResult
+                      typ     = toPrimitiveType Translation.FunArg primResult
                     , comment = Nothing
                     }
                 }
@@ -185,7 +185,7 @@ functionDecs safety info origCFun _spec = do
           where
             mkFunRes :: PassResBy -> Hs.ForeignImport.FunRes
             mkFunRes passBy = Hs.ForeignImport.FunRes {
-                  hsType   = mbHsIO $ toPrimitiveType Type.FunRes passBy
+                  hsType   = mbHsIO $ toPrimitiveType Translation.FunRes passBy
                 }
 
         restoreOrigSignature :: Hs.Decl l
@@ -195,7 +195,7 @@ functionDecs safety info origCFun _spec = do
               (Hs.InternalName cWrapperName)
               primResult
               primParams
-              (mbHsIO $ toOrigType Type.FunRes primResult)
+              (mbHsIO $ toOrigType Translation.FunRes primResult)
               restoreOrigSignatureParams
               origCFun
               (mbRestoreOrigSignatureComment <> mbIoComment)
@@ -206,7 +206,7 @@ functionDecs safety info origCFun _spec = do
           let params :: [(Maybe Text, Hs.FunctionParameter)]
               params = [ ( fmap (.cName.text) arg.name
                         , Hs.FunctionParameter{
-                            typ     = toOrigType Type.FunArg (classifyArgPassingMethod arg)
+                            typ     = toOrigType Translation.FunArg (classifyArgPassingMethod arg)
                           , comment = Nothing
                           })
                         | arg <- origCFun.args
@@ -389,31 +389,31 @@ instance ToWrapperType PassResBy where
 
 class ToPrimitiveType a where
   -- | Recover type used in the foreign import
-  toPrimitiveType :: Type.TypeContext -> a -> Hs.Type
+  toPrimitiveType :: Translation.TypeContext -> a -> Hs.Type
 
 instance ToPrimitiveType PassArgBy where
   toPrimitiveType ctx = \case
-      PassByValue argTy -> Type.inContext ctx argTy
-      PassByAddress ty -> Type.inContext ctx $ C.TypePointers 1 ty
+      PassByValue argTy -> Translation.inContext ctx argTy
+      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
 
 instance ToPrimitiveType PassResBy where
   toPrimitiveType ctx = \case
-      PassByValue ty -> Type.inContext ctx ty
-      PassByAddress ty -> Type.inContext ctx $ C.TypePointers 1 ty
+      PassByValue ty -> Translation.inContext ctx ty
+      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
 
 class ToOrigType a where
   -- | Recover type used in "restoreOrigSignature"
-  toOrigType :: Type.TypeContext -> a -> Hs.Type
+  toOrigType :: Translation.TypeContext -> a -> Hs.Type
 
 instance ToOrigType PassArgBy where
   toOrigType ctx = \case
-      PassByValue argTy -> Type.inContext ctx argTy
-      PassByAddress ty -> Type.inContext ctx ty
+      PassByValue argTy -> Translation.inContext ctx argTy
+      PassByAddress ty -> Translation.inContext ctx ty
 
 instance ToOrigType PassResBy where
   toOrigType ctx = \case
-      PassByValue ty -> Type.inContext ctx ty
-      PassByAddress ty -> Type.inContext ctx ty
+      PassByValue ty -> Translation.inContext ctx ty
+      PassByAddress ty -> Translation.inContext ctx ty
 
 -- | Check whether a type needs to be restored
 --

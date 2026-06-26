@@ -4,22 +4,26 @@
 --
 -- > import HsBindgen.IR.Translation
 module HsBindgen.IR.Translation (
-    -- * DeclIdPair
+    -- * IDs
     DeclIdPair(..)
   , extDeclIdPair
-    -- * ScopedNamePair
+    -- * Names
   , ScopedNamePair(..)
+    -- * Types
   , TranslatedTypes(..)
+  , translateCPrimType
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
-  DeclIdPair
+  IDs
 -------------------------------------------------------------------------------}
 
 -- | A t'C.DeclId' paired with a Haskell name
@@ -37,7 +41,7 @@ extDeclIdPair ext = DeclIdPair{
     }
 
 {-------------------------------------------------------------------------------
-  ScopedNamePair
+  Names
 -------------------------------------------------------------------------------}
 
 -- | A t'C.ScopedName' paired with a Haskell name
@@ -50,7 +54,9 @@ data ScopedNamePair = ScopedNamePair {
     }
   deriving stock (Eq, Generic, Ord, Show)
 
---------------------------------------------------------------------------------
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
 
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
@@ -70,3 +76,30 @@ instance (
   coercePass translatedTypes = TranslatedTypes{
       c = coercePass translatedTypes.c
     }
+
+-- | Translate a primitive type
+translateCPrimType :: C.PrimType -> Hs.PrimType
+translateCPrimType = \case
+    C.PrimBool         -> Hs.PrimCBool
+    C.PrimIntegral i s -> integralType i s
+    C.PrimFloating f   -> floatingType f
+    C.PrimChar sign    -> charType sign
+  where
+    integralType :: C.PrimIntType -> C.PrimSign -> Hs.PrimType
+    integralType C.PrimInt      C.Signed   = Hs.PrimCInt
+    integralType C.PrimInt      C.Unsigned = Hs.PrimCUInt
+    integralType C.PrimShort    C.Signed   = Hs.PrimCShort
+    integralType C.PrimShort    C.Unsigned = Hs.PrimCUShort
+    integralType C.PrimLong     C.Signed   = Hs.PrimCLong
+    integralType C.PrimLong     C.Unsigned = Hs.PrimCULong
+    integralType C.PrimLongLong C.Signed   = Hs.PrimCLLong
+    integralType C.PrimLongLong C.Unsigned = Hs.PrimCULLong
+
+    floatingType :: C.PrimFloatType -> Hs.PrimType
+    floatingType C.PrimFloat  = Hs.PrimCFloat
+    floatingType C.PrimDouble = Hs.PrimCDouble
+
+    charType :: C.PrimSignChar -> Hs.PrimType
+    charType (C.PrimSignImplicit _inferred)  = Hs.PrimCChar
+    charType (C.PrimSignExplicit C.Signed)   = Hs.PrimCSChar
+    charType (C.PrimSignExplicit C.Unsigned) = Hs.PrimCUChar

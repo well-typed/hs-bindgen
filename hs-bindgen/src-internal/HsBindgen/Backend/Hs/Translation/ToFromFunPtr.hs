@@ -14,11 +14,11 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
-import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.HsModule.Pretty ()
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
@@ -52,7 +52,7 @@ forFunction sizeofs (args, res) =
       funHs
   where
     funC  = C.TypeFun args res
-    funHs = Type.topLevel funC
+    funHs = Translation.topLevel funC
 
     nameWith :: String -> UniqueSymbol
     nameWith s =

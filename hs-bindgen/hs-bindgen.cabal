@@ -114,7 +114,6 @@ library internal
     HsBindgen.Backend.Hs.Translation.Newtype
     HsBindgen.Backend.Hs.Translation.Structure
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
-    HsBindgen.Backend.Hs.Translation.Type
     HsBindgen.Backend.Hs.Translation.Union
     HsBindgen.Backend.HsModule.Names
     HsBindgen.Backend.HsModule.Pretty
@@ -245,6 +244,7 @@ library internal
     HsBindgen.Frontend.Pass.SimplifyAST.IsPass
     HsBindgen.Frontend.Pass.TranslateTypes
     HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+    HsBindgen.Frontend.Pass.TranslateTypes.Translation
     HsBindgen.Frontend.Pass.TypecheckMacros
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
     HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
