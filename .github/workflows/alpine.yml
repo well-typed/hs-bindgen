@@ -55,7 +55,7 @@ jobs:
       # failed PR push.
       - name: 💾 Restore cabal store cache
         id: cache-cabal
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: .cabal-store
           key: alpine-cabal-${{ hashFiles('cabal.project*', '**/*.cabal') }}
@@ -124,7 +124,7 @@ jobs:
       # when the exact key already hit (no new dependencies pulled).
       - name: 💾 Save cabal store cache
         if: always() && steps.cache-cabal.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: .cabal-store
           key: ${{ steps.cache-cabal.outputs.cache-primary-key }}
