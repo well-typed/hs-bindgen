@@ -38,11 +38,12 @@ hstypes:
       - exampleStruct_m1
       - exampleStruct_m2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -55,11 +56,12 @@ hstypes:
       fields:
       - foo_a
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -75,7 +77,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -83,6 +84,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -105,7 +108,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -113,6 +115,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -132,12 +136,13 @@ hstypes:
       fields:
       - unwrapM3
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -154,7 +159,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -162,6 +166,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -184,7 +190,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -192,6 +197,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -214,7 +221,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -222,6 +228,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num

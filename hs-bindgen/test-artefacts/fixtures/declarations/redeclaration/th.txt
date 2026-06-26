@@ -36,14 +36,14 @@ newtype Int_t
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapInt_t" Int_t ty
+    where hasField = \x_0 -> (\y_1 -> Int_t{unwrapInt_t = y_1},
+                              getField @"unwrapInt_t" x_0)
 instance (~) ty CInt => HasField "unwrapInt_t" (Ptr Int_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_t")
 instance HasCField Int_t "unwrapInt_t"
     where type CFieldType Int_t "unwrapInt_t" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapInt_t" Int_t ty
-    where hasField = \x_0 -> (\y_1 -> Int_t{unwrapInt_t = y_1},
-                              getField @"unwrapInt_t" x_0)
 {-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/redeclaration.h 26:8@
@@ -68,14 +68,14 @@ instance WriteRaw X
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        X x_n_2 -> writeRaw (Proxy @"x_n") ptr_0 x_n_2
 deriving via (EquivStorable X) instance Storable X
-instance HasCField X "x_n"
-    where type CFieldType X "x_n" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "x_n" (Ptr X) (Ptr ty)
-    where getField = fromPtr (Proxy @"x_n")
 instance (~) ty CInt => HasField "x_n" X ty
     where hasField = \x_0 -> (\y_1 -> X{x_n = y_1},
                               getField @"x_n" x_0)
+instance (~) ty CInt => HasField "x_n" (Ptr X) (Ptr ty)
+    where getField = fromPtr (Proxy @"x_n")
+instance HasCField X "x_n"
+    where type CFieldType X "x_n" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/redeclaration.h 30:7@
@@ -155,16 +155,16 @@ set_y_o :: CInt -> Y
 
 -}
 set_y_o = setUnionPayload
+instance (~) ty CInt => HasField "y_m" (Ptr Y) (Ptr ty)
+    where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_m"
     where type CFieldType Y "y_m" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "y_m" (Ptr Y) (Ptr ty)
-    where getField = fromPtr (Proxy @"y_m")
+instance (~) ty CInt => HasField "y_o" (Ptr Y) (Ptr ty)
+    where getField = fromPtr (Proxy @"y_o")
 instance HasCField Y "y_o"
     where type CFieldType Y "y_o" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "y_o" (Ptr Y) (Ptr ty)
-    where getField = fromPtr (Proxy @"y_o")
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
     IO (Ptr Void)

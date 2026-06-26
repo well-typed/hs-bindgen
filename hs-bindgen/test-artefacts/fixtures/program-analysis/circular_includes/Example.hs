@@ -52,6 +52,16 @@ newtype OUTER_BEFORE_CIRCULAR_INCLUDE = OUTER_BEFORE_CIRCULAR_INCLUDE
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" OUTER_BEFORE_CIRCULAR_INCLUDE ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          OUTER_BEFORE_CIRCULAR_INCLUDE {unwrapOUTER_BEFORE_CIRCULAR_INCLUDE = y1}
+      , RIP.getField @"unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_BEFORE_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
 
   getField =
@@ -63,16 +73,6 @@ instance HasCField.HasCField OUTER_BEFORE_CIRCULAR_INCLUDE "unwrapOUTER_BEFORE_C
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" OUTER_BEFORE_CIRCULAR_INCLUDE ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          OUTER_BEFORE_CIRCULAR_INCLUDE {unwrapOUTER_BEFORE_CIRCULAR_INCLUDE = y1}
-      , RIP.getField @"unwrapOUTER_BEFORE_CIRCULAR_INCLUDE" x0
-      )
 
 {-| __C declaration:__ @OUTER_AFTER_CIRCULAR_INCLUDE@
 
@@ -103,6 +103,16 @@ newtype OUTER_AFTER_CIRCULAR_INCLUDE = OUTER_AFTER_CIRCULAR_INCLUDE
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" OUTER_AFTER_CIRCULAR_INCLUDE ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          OUTER_AFTER_CIRCULAR_INCLUDE {unwrapOUTER_AFTER_CIRCULAR_INCLUDE = y1}
+      , RIP.getField @"unwrapOUTER_AFTER_CIRCULAR_INCLUDE" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" (RIP.Ptr OUTER_AFTER_CIRCULAR_INCLUDE) (RIP.Ptr ty) where
 
   getField =
@@ -114,13 +124,3 @@ instance HasCField.HasCField OUTER_AFTER_CIRCULAR_INCLUDE "unwrapOUTER_AFTER_CIR
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapOUTER_AFTER_CIRCULAR_INCLUDE" OUTER_AFTER_CIRCULAR_INCLUDE ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          OUTER_AFTER_CIRCULAR_INCLUDE {unwrapOUTER_AFTER_CIRCULAR_INCLUDE = y1}
-      , RIP.getField @"unwrapOUTER_AFTER_CIRCULAR_INCLUDE" x0
-      )

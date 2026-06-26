@@ -14,10 +14,11 @@ hstypes:
       fields:
       - unwrapT
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr

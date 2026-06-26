@@ -65,18 +65,6 @@ instance Marshal.WriteRaw Vector_Aux where
 
 deriving via Marshal.EquivStorable Vector_Aux instance RIP.Storable Vector_Aux
 
-instance HasCField.HasCField Vector_Aux "vector_length" where
-
-  type CFieldType Vector_Aux "vector_length" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vector_length" (RIP.Ptr Vector_Aux) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vector_length")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "vector_length" Vector_Aux ty where
 
@@ -84,6 +72,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Vector {vector_length = y1}, RIP.getField @"vector_length" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "vector_length" (RIP.Ptr Vector_Aux) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vector_length")
+
+instance HasCField.HasCField Vector_Aux "vector_length" where
+
+  type CFieldType Vector_Aux "vector_length" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance FLAM.Offset RIP.CLong Vector_Aux where
 

@@ -152,6 +152,14 @@ newtype An_pchar = An_pchar
     )
 
 instance ( ty ~ PtrConst.PtrConst RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrap" An_pchar ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         An_pchar {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ PtrConst.PtrConst RIP.CChar
          ) => RIP.HasField "unwrap" (RIP.Ptr An_pchar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -162,14 +170,6 @@ instance HasCField.HasCField An_pchar "unwrap" where
     PtrConst.PtrConst RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrap" An_pchar ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         An_pchar {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct MyCoolStruct@
 
@@ -212,19 +212,6 @@ instance Marshal.WriteRaw MyCoolStruct where
 
 deriving via Marshal.EquivStorable MyCoolStruct instance RIP.Storable MyCoolStruct
 
-instance HasCField.HasCField MyCoolStruct "listOfNames" where
-
-  type CFieldType MyCoolStruct "listOfNames" =
-    CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
-         ) => RIP.HasField "listOfNames" (RIP.Ptr MyCoolStruct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"listOfNames")
-
 instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
          ) => RIP.CompatHasField.HasField "listOfNames" MyCoolStruct ty where
 
@@ -232,6 +219,19 @@ instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
     \x0 ->
       (\y1 ->
          MyCoolStruct {listOfNames = y1}, RIP.getField @"listOfNames" x0)
+
+instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
+         ) => RIP.HasField "listOfNames" (RIP.Ptr MyCoolStruct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"listOfNames")
+
+instance HasCField.HasCField MyCoolStruct "listOfNames" where
+
+  type CFieldType MyCoolStruct "listOfNames" =
+    CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
+
+  offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Foo'
 
@@ -282,6 +282,14 @@ instance RIP.FromFunPtr Foo_Aux where
   fromFunPtr = hs_bindgen_223d08172bb37c01
 
 instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrap" Foo_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo_Aux {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrap" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -292,14 +300,6 @@ instance HasCField.HasCField Foo_Aux "unwrap" where
     RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrap" Foo_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Foo_Aux {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @foo@
 
@@ -320,6 +320,13 @@ newtype Foo = Foo
     )
 
 instance ( ty ~ RIP.FunPtr Foo_Aux
+         ) => RIP.CompatHasField.HasField "unwrap" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> Foo {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.FunPtr Foo_Aux
          ) => RIP.HasField "unwrap" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -329,13 +336,6 @@ instance HasCField.HasCField Foo "unwrap" where
   type CFieldType Foo "unwrap" = RIP.FunPtr Foo_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Foo_Aux
-         ) => RIP.CompatHasField.HasField "unwrap" Foo ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> Foo {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct foo_t@
 
@@ -378,19 +378,6 @@ instance Marshal.WriteRaw Foo_t where
 
 deriving via Marshal.EquivStorable Foo_t instance RIP.Storable Foo_t
 
-instance HasCField.HasCField Foo_t "foo_member" where
-
-  type CFieldType Foo_t "foo_member" =
-    RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "foo_member" (RIP.Ptr Foo_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_member")
-
 instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
          ) => RIP.CompatHasField.HasField "foo_member" Foo_t ty where
 
@@ -398,6 +385,19 @@ instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
     \x0 ->
       (\y1 ->
          Foo_t {foo_member = y1}, RIP.getField @"foo_member" x0)
+
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.HasField "foo_member" (RIP.Ptr Foo_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"foo_member")
+
+instance HasCField.HasCField Foo_t "foo_member" where
+
+  type CFieldType Foo_t "foo_member" =
+    RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct Foo_10_@
 
@@ -486,6 +486,14 @@ instance Read Bar_10 where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bar_10 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bar_10 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Bar_10) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -495,14 +503,6 @@ instance HasCField.HasCField Bar_10 "unwrap" where
   type CFieldType Bar_10 "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bar_10 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Bar_10 {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @BAR@
 
@@ -553,20 +553,20 @@ instance Marshal.WriteRaw St where
 
 deriving via Marshal.EquivStorable St instance RIP.Storable St
 
-instance HasCField.HasCField St "i" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "i" St ty where
 
-  type CFieldType St "i" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> St {i = y1}, RIP.getField @"i" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "i" (RIP.Ptr St) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"i")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "i" St ty where
+instance HasCField.HasCField St "i" where
 
-  hasField =
-    \x0 -> (\y1 -> St {i = y1}, RIP.getField @"i" x0)
+  type CFieldType St "i" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @enum e@
 
@@ -645,6 +645,12 @@ instance Read E where
 
   readListPrec = RIP.readListPrecDefault
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr E) (RIP.Ptr ty) where
 
@@ -655,12 +661,6 @@ instance HasCField.HasCField E "unwrap" where
   type CFieldType E "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" E ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> E {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @CONST@
 
@@ -715,15 +715,15 @@ set_u_c ::
   -> U
 set_u_c = RIP.setUnionPayload
 
+instance (ty ~ RIP.CChar) => RIP.HasField "c" (RIP.Ptr U) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"c")
+
 instance HasCField.HasCField U "c" where
 
   type CFieldType U "c" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CChar) => RIP.HasField "c" (RIP.Ptr U) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"c")
 
 {-| __C declaration:__ @struct MyTypeImpl@
 
@@ -752,6 +752,14 @@ newtype MyType = MyType
     )
 
 instance ( ty ~ RIP.Ptr MyTypeImpl
+         ) => RIP.CompatHasField.HasField "unwrap" MyType ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyType {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.Ptr MyTypeImpl
          ) => RIP.HasField "unwrap" (RIP.Ptr MyType) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -761,14 +769,6 @@ instance HasCField.HasCField MyType "unwrap" where
   type CFieldType MyType "unwrap" = RIP.Ptr MyTypeImpl
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr MyTypeImpl
-         ) => RIP.CompatHasField.HasField "unwrap" MyType ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyType {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct MyStruct@
 
@@ -811,23 +811,23 @@ instance Marshal.WriteRaw MyStructType where
 
 deriving via Marshal.EquivStorable MyStructType instance RIP.Storable MyStructType
 
-instance HasCField.HasCField MyStructType "x" where
-
-  type CFieldType MyStructType "x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "x" (RIP.Ptr MyStructType) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "x" MyStructType ty where
 
   hasField =
     \x0 ->
       (\y1 -> MyStructType {x = y1}, RIP.getField @"x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "x" (RIP.Ptr MyStructType) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"x")
+
+instance HasCField.HasCField MyStructType "x" where
+
+  type CFieldType MyStructType "x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct MyStructEmpty@
 
@@ -880,19 +880,6 @@ instance Marshal.WriteRaw Ordinary_float_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_struct instance RIP.Storable Ordinary_float_struct
 
-instance HasCField.HasCField Ordinary_float_struct "ordinary_float_member" where
-
-  type CFieldType Ordinary_float_struct "ordinary_float_member" =
-    RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "ordinary_float_member" (RIP.Ptr Ordinary_float_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_member")
-
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "ordinary_float_member" Ordinary_float_struct ty where
 
@@ -902,6 +889,19 @@ instance ( ty ~ RIP.CFloat
           Ordinary_float_struct {ordinary_float_member = y1}
       , RIP.getField @"ordinary_float_member" x0
       )
+
+instance ( ty ~ RIP.CFloat
+         ) => RIP.HasField "ordinary_float_member" (RIP.Ptr Ordinary_float_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_float_member")
+
+instance HasCField.HasCField Ordinary_float_struct "ordinary_float_member" where
+
+  type CFieldType Ordinary_float_struct "ordinary_float_member" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_double_struct@
 
@@ -944,19 +944,6 @@ instance Marshal.WriteRaw Ordinary_double_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_struct instance RIP.Storable Ordinary_double_struct
 
-instance HasCField.HasCField Ordinary_double_struct "ordinary_double_member" where
-
-  type CFieldType Ordinary_double_struct "ordinary_double_member" =
-    RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "ordinary_double_member" (RIP.Ptr Ordinary_double_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_member")
-
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "ordinary_double_member" Ordinary_double_struct ty where
 
@@ -966,6 +953,19 @@ instance ( ty ~ RIP.CDouble
           Ordinary_double_struct {ordinary_double_member = y1}
       , RIP.getField @"ordinary_double_member" x0
       )
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.HasField "ordinary_double_member" (RIP.Ptr Ordinary_double_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_double_member")
+
+instance HasCField.HasCField Ordinary_double_struct "ordinary_double_member" where
+
+  type CFieldType Ordinary_double_struct "ordinary_double_member" =
+    RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_char_struct@
 
@@ -1008,19 +1008,6 @@ instance Marshal.WriteRaw Ordinary_signed_char_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_struct instance RIP.Storable Ordinary_signed_char_struct
 
-instance HasCField.HasCField Ordinary_signed_char_struct "ordinary_signed_char_member" where
-
-  type CFieldType Ordinary_signed_char_struct "ordinary_signed_char_member" =
-    RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_member" (RIP.Ptr Ordinary_signed_char_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_member")
-
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "ordinary_signed_char_member" Ordinary_signed_char_struct ty where
 
@@ -1030,6 +1017,19 @@ instance ( ty ~ RIP.CChar
           Ordinary_signed_char_struct {ordinary_signed_char_member = y1}
       , RIP.getField @"ordinary_signed_char_member" x0
       )
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "ordinary_signed_char_member" (RIP.Ptr Ordinary_signed_char_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_member")
+
+instance HasCField.HasCField Ordinary_signed_char_struct "ordinary_signed_char_member" where
+
+  type CFieldType Ordinary_signed_char_struct "ordinary_signed_char_member" =
+    RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_char_struct@
 
@@ -1072,19 +1072,6 @@ instance Marshal.WriteRaw Explicit_signed_char_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_struct instance RIP.Storable Explicit_signed_char_struct
 
-instance HasCField.HasCField Explicit_signed_char_struct "explicit_signed_char_member" where
-
-  type CFieldType Explicit_signed_char_struct "explicit_signed_char_member" =
-    RIP.CSChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_member" (RIP.Ptr Explicit_signed_char_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_member")
-
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "explicit_signed_char_member" Explicit_signed_char_struct ty where
 
@@ -1094,6 +1081,19 @@ instance ( ty ~ RIP.CSChar
           Explicit_signed_char_struct {explicit_signed_char_member = y1}
       , RIP.getField @"explicit_signed_char_member" x0
       )
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "explicit_signed_char_member" (RIP.Ptr Explicit_signed_char_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_member")
+
+instance HasCField.HasCField Explicit_signed_char_struct "explicit_signed_char_member" where
+
+  type CFieldType Explicit_signed_char_struct "explicit_signed_char_member" =
+    RIP.CSChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_char_struct@
 
@@ -1136,19 +1136,6 @@ instance Marshal.WriteRaw Unsigned_char_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_struct instance RIP.Storable Unsigned_char_struct
 
-instance HasCField.HasCField Unsigned_char_struct "unsigned_char_member" where
-
-  type CFieldType Unsigned_char_struct "unsigned_char_member" =
-    RIP.CUChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUChar
-         ) => RIP.HasField "unsigned_char_member" (RIP.Ptr Unsigned_char_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_member")
-
 instance ( ty ~ RIP.CUChar
          ) => RIP.CompatHasField.HasField "unsigned_char_member" Unsigned_char_struct ty where
 
@@ -1158,6 +1145,19 @@ instance ( ty ~ RIP.CUChar
           Unsigned_char_struct {unsigned_char_member = y1}
       , RIP.getField @"unsigned_char_member" x0
       )
+
+instance ( ty ~ RIP.CUChar
+         ) => RIP.HasField "unsigned_char_member" (RIP.Ptr Unsigned_char_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_char_member")
+
+instance HasCField.HasCField Unsigned_char_struct "unsigned_char_member" where
+
+  type CFieldType Unsigned_char_struct "unsigned_char_member" =
+    RIP.CUChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_short_struct@
 
@@ -1200,19 +1200,6 @@ instance Marshal.WriteRaw Ordinary_signed_short_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_struct instance RIP.Storable Ordinary_signed_short_struct
 
-instance HasCField.HasCField Ordinary_signed_short_struct "ordinary_signed_short_member" where
-
-  type CFieldType Ordinary_signed_short_struct "ordinary_signed_short_member" =
-    RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_member" (RIP.Ptr Ordinary_signed_short_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_member")
-
 instance ( ty ~ RIP.CShort
          ) => RIP.CompatHasField.HasField "ordinary_signed_short_member" Ordinary_signed_short_struct ty where
 
@@ -1222,6 +1209,19 @@ instance ( ty ~ RIP.CShort
           Ordinary_signed_short_struct {ordinary_signed_short_member = y1}
       , RIP.getField @"ordinary_signed_short_member" x0
       )
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.HasField "ordinary_signed_short_member" (RIP.Ptr Ordinary_signed_short_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_member")
+
+instance HasCField.HasCField Ordinary_signed_short_struct "ordinary_signed_short_member" where
+
+  type CFieldType Ordinary_signed_short_struct "ordinary_signed_short_member" =
+    RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_short_struct@
 
@@ -1264,19 +1264,6 @@ instance Marshal.WriteRaw Explicit_signed_short_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_struct instance RIP.Storable Explicit_signed_short_struct
 
-instance HasCField.HasCField Explicit_signed_short_struct "explicit_signed_short_member" where
-
-  type CFieldType Explicit_signed_short_struct "explicit_signed_short_member" =
-    RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_member" (RIP.Ptr Explicit_signed_short_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_member")
-
 instance ( ty ~ RIP.CShort
          ) => RIP.CompatHasField.HasField "explicit_signed_short_member" Explicit_signed_short_struct ty where
 
@@ -1286,6 +1273,19 @@ instance ( ty ~ RIP.CShort
           Explicit_signed_short_struct {explicit_signed_short_member = y1}
       , RIP.getField @"explicit_signed_short_member" x0
       )
+
+instance ( ty ~ RIP.CShort
+         ) => RIP.HasField "explicit_signed_short_member" (RIP.Ptr Explicit_signed_short_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_member")
+
+instance HasCField.HasCField Explicit_signed_short_struct "explicit_signed_short_member" where
+
+  type CFieldType Explicit_signed_short_struct "explicit_signed_short_member" =
+    RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_short_struct@
 
@@ -1328,19 +1328,6 @@ instance Marshal.WriteRaw Unsigned_short_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_struct instance RIP.Storable Unsigned_short_struct
 
-instance HasCField.HasCField Unsigned_short_struct "unsigned_short_member" where
-
-  type CFieldType Unsigned_short_struct "unsigned_short_member" =
-    RIP.CUShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUShort
-         ) => RIP.HasField "unsigned_short_member" (RIP.Ptr Unsigned_short_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_member")
-
 instance ( ty ~ RIP.CUShort
          ) => RIP.CompatHasField.HasField "unsigned_short_member" Unsigned_short_struct ty where
 
@@ -1350,6 +1337,19 @@ instance ( ty ~ RIP.CUShort
           Unsigned_short_struct {unsigned_short_member = y1}
       , RIP.getField @"unsigned_short_member" x0
       )
+
+instance ( ty ~ RIP.CUShort
+         ) => RIP.HasField "unsigned_short_member" (RIP.Ptr Unsigned_short_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_short_member")
+
+instance HasCField.HasCField Unsigned_short_struct "unsigned_short_member" where
+
+  type CFieldType Unsigned_short_struct "unsigned_short_member" =
+    RIP.CUShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_int_struct@
 
@@ -1392,19 +1392,6 @@ instance Marshal.WriteRaw Ordinary_signed_int_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_struct instance RIP.Storable Ordinary_signed_int_struct
 
-instance HasCField.HasCField Ordinary_signed_int_struct "ordinary_signed_int_member" where
-
-  type CFieldType Ordinary_signed_int_struct "ordinary_signed_int_member" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_member" (RIP.Ptr Ordinary_signed_int_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_member")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty where
 
@@ -1414,6 +1401,19 @@ instance ( ty ~ RIP.CInt
           Ordinary_signed_int_struct {ordinary_signed_int_member = y1}
       , RIP.getField @"ordinary_signed_int_member" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "ordinary_signed_int_member" (RIP.Ptr Ordinary_signed_int_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_member")
+
+instance HasCField.HasCField Ordinary_signed_int_struct "ordinary_signed_int_member" where
+
+  type CFieldType Ordinary_signed_int_struct "ordinary_signed_int_member" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_int_struct@
 
@@ -1456,19 +1456,6 @@ instance Marshal.WriteRaw Explicit_signed_int_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_struct instance RIP.Storable Explicit_signed_int_struct
 
-instance HasCField.HasCField Explicit_signed_int_struct "explicit_signed_int_member" where
-
-  type CFieldType Explicit_signed_int_struct "explicit_signed_int_member" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_member" (RIP.Ptr Explicit_signed_int_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_member")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "explicit_signed_int_member" Explicit_signed_int_struct ty where
 
@@ -1478,6 +1465,19 @@ instance ( ty ~ RIP.CInt
           Explicit_signed_int_struct {explicit_signed_int_member = y1}
       , RIP.getField @"explicit_signed_int_member" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "explicit_signed_int_member" (RIP.Ptr Explicit_signed_int_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_member")
+
+instance HasCField.HasCField Explicit_signed_int_struct "explicit_signed_int_member" where
+
+  type CFieldType Explicit_signed_int_struct "explicit_signed_int_member" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_int_struct@
 
@@ -1520,19 +1520,6 @@ instance Marshal.WriteRaw Unsigned_int_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_struct instance RIP.Storable Unsigned_int_struct
 
-instance HasCField.HasCField Unsigned_int_struct "unsigned_int_member" where
-
-  type CFieldType Unsigned_int_struct "unsigned_int_member" =
-    RIP.CUInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unsigned_int_member" (RIP.Ptr Unsigned_int_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_member")
-
 instance ( ty ~ RIP.CUInt
          ) => RIP.CompatHasField.HasField "unsigned_int_member" Unsigned_int_struct ty where
 
@@ -1542,6 +1529,19 @@ instance ( ty ~ RIP.CUInt
           Unsigned_int_struct {unsigned_int_member = y1}
       , RIP.getField @"unsigned_int_member" x0
       )
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.HasField "unsigned_int_member" (RIP.Ptr Unsigned_int_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_int_member")
+
+instance HasCField.HasCField Unsigned_int_struct "unsigned_int_member" where
+
+  type CFieldType Unsigned_int_struct "unsigned_int_member" =
+    RIP.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_struct@
 
@@ -1584,19 +1584,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_struct instance RIP.Storable Ordinary_signed_long_struct
 
-instance HasCField.HasCField Ordinary_signed_long_struct "ordinary_signed_long_member" where
-
-  type CFieldType Ordinary_signed_long_struct "ordinary_signed_long_member" =
-    RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_member" (RIP.Ptr Ordinary_signed_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_member")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_member" Ordinary_signed_long_struct ty where
 
@@ -1606,6 +1593,19 @@ instance ( ty ~ RIP.CLong
           Ordinary_signed_long_struct {ordinary_signed_long_member = y1}
       , RIP.getField @"ordinary_signed_long_member" x0
       )
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "ordinary_signed_long_member" (RIP.Ptr Ordinary_signed_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_member")
+
+instance HasCField.HasCField Ordinary_signed_long_struct "ordinary_signed_long_member" where
+
+  type CFieldType Ordinary_signed_long_struct "ordinary_signed_long_member" =
+    RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_struct@
 
@@ -1648,19 +1648,6 @@ instance Marshal.WriteRaw Explicit_signed_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_struct instance RIP.Storable Explicit_signed_long_struct
 
-instance HasCField.HasCField Explicit_signed_long_struct "explicit_signed_long_member" where
-
-  type CFieldType Explicit_signed_long_struct "explicit_signed_long_member" =
-    RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_member" (RIP.Ptr Explicit_signed_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_member")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_member" Explicit_signed_long_struct ty where
 
@@ -1670,6 +1657,19 @@ instance ( ty ~ RIP.CLong
           Explicit_signed_long_struct {explicit_signed_long_member = y1}
       , RIP.getField @"explicit_signed_long_member" x0
       )
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "explicit_signed_long_member" (RIP.Ptr Explicit_signed_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_member")
+
+instance HasCField.HasCField Explicit_signed_long_struct "explicit_signed_long_member" where
+
+  type CFieldType Explicit_signed_long_struct "explicit_signed_long_member" =
+    RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_struct@
 
@@ -1712,19 +1712,6 @@ instance Marshal.WriteRaw Unsigned_long_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_struct instance RIP.Storable Unsigned_long_struct
 
-instance HasCField.HasCField Unsigned_long_struct "unsigned_long_member" where
-
-  type CFieldType Unsigned_long_struct "unsigned_long_member" =
-    RIP.CULong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CULong
-         ) => RIP.HasField "unsigned_long_member" (RIP.Ptr Unsigned_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_member")
-
 instance ( ty ~ RIP.CULong
          ) => RIP.CompatHasField.HasField "unsigned_long_member" Unsigned_long_struct ty where
 
@@ -1734,6 +1721,19 @@ instance ( ty ~ RIP.CULong
           Unsigned_long_struct {unsigned_long_member = y1}
       , RIP.getField @"unsigned_long_member" x0
       )
+
+instance ( ty ~ RIP.CULong
+         ) => RIP.HasField "unsigned_long_member" (RIP.Ptr Unsigned_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_member")
+
+instance HasCField.HasCField Unsigned_long_struct "unsigned_long_member" where
+
+  type CFieldType Unsigned_long_struct "unsigned_long_member" =
+    RIP.CULong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_struct@
 
@@ -1776,19 +1776,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_struct instance RIP.Storable Ordinary_signed_long_long_struct
 
-instance HasCField.HasCField Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" where
-
-  type CFieldType Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" =
-    RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_member" (RIP.Ptr Ordinary_signed_long_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_member")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_member" Ordinary_signed_long_long_struct ty where
 
@@ -1798,6 +1785,19 @@ instance ( ty ~ RIP.CLLong
           Ordinary_signed_long_long_struct {ordinary_signed_long_long_member = y1}
       , RIP.getField @"ordinary_signed_long_long_member" x0
       )
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "ordinary_signed_long_long_member" (RIP.Ptr Ordinary_signed_long_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_member")
+
+instance HasCField.HasCField Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" where
+
+  type CFieldType Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" =
+    RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_long_struct@
 
@@ -1840,19 +1840,6 @@ instance Marshal.WriteRaw Explicit_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_struct instance RIP.Storable Explicit_signed_long_long_struct
 
-instance HasCField.HasCField Explicit_signed_long_long_struct "explicit_signed_long_long_member" where
-
-  type CFieldType Explicit_signed_long_long_struct "explicit_signed_long_long_member" =
-    RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_member" (RIP.Ptr Explicit_signed_long_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_member")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_long_member" Explicit_signed_long_long_struct ty where
 
@@ -1862,6 +1849,19 @@ instance ( ty ~ RIP.CLLong
           Explicit_signed_long_long_struct {explicit_signed_long_long_member = y1}
       , RIP.getField @"explicit_signed_long_long_member" x0
       )
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "explicit_signed_long_long_member" (RIP.Ptr Explicit_signed_long_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_member")
+
+instance HasCField.HasCField Explicit_signed_long_long_struct "explicit_signed_long_long_member" where
+
+  type CFieldType Explicit_signed_long_long_struct "explicit_signed_long_long_member" =
+    RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_long_struct@
 
@@ -1904,19 +1904,6 @@ instance Marshal.WriteRaw Unsigned_long_long_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_struct instance RIP.Storable Unsigned_long_long_struct
 
-instance HasCField.HasCField Unsigned_long_long_struct "unsigned_long_long_member" where
-
-  type CFieldType Unsigned_long_long_struct "unsigned_long_long_member" =
-    RIP.CULLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_member" (RIP.Ptr Unsigned_long_long_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_member")
-
 instance ( ty ~ RIP.CULLong
          ) => RIP.CompatHasField.HasField "unsigned_long_long_member" Unsigned_long_long_struct ty where
 
@@ -1926,6 +1913,19 @@ instance ( ty ~ RIP.CULLong
           Unsigned_long_long_struct {unsigned_long_long_member = y1}
       , RIP.getField @"unsigned_long_long_member" x0
       )
+
+instance ( ty ~ RIP.CULLong
+         ) => RIP.HasField "unsigned_long_long_member" (RIP.Ptr Unsigned_long_long_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_member")
+
+instance HasCField.HasCField Unsigned_long_long_struct "unsigned_long_long_member" where
+
+  type CFieldType Unsigned_long_long_struct "unsigned_long_long_member" =
+    RIP.CULLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| Structs: pointers
 
@@ -1972,19 +1972,6 @@ instance Marshal.WriteRaw Ordinary_void_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_struct instance RIP.Storable Ordinary_void_pointer_struct
 
-instance HasCField.HasCField Ordinary_void_pointer_struct "ordinary_void_pointer_member" where
-
-  type CFieldType Ordinary_void_pointer_struct "ordinary_void_pointer_member" =
-    RIP.Ptr RIP.Void
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "ordinary_void_pointer_member" (RIP.Ptr Ordinary_void_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.Void
          ) => RIP.CompatHasField.HasField "ordinary_void_pointer_member" Ordinary_void_pointer_struct ty where
 
@@ -1994,6 +1981,19 @@ instance ( ty ~ RIP.Ptr RIP.Void
           Ordinary_void_pointer_struct {ordinary_void_pointer_member = y1}
       , RIP.getField @"ordinary_void_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.HasField "ordinary_void_pointer_member" (RIP.Ptr Ordinary_void_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_member")
+
+instance HasCField.HasCField Ordinary_void_pointer_struct "ordinary_void_pointer_member" where
+
+  type CFieldType Ordinary_void_pointer_struct "ordinary_void_pointer_member" =
+    RIP.Ptr RIP.Void
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_float_pointer_struct@
 
@@ -2036,19 +2036,6 @@ instance Marshal.WriteRaw Ordinary_float_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_struct instance RIP.Storable Ordinary_float_pointer_struct
 
-instance HasCField.HasCField Ordinary_float_pointer_struct "ordinary_float_pointer_member" where
-
-  type CFieldType Ordinary_float_pointer_struct "ordinary_float_pointer_member" =
-    RIP.Ptr RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CFloat
-         ) => RIP.HasField "ordinary_float_pointer_member" (RIP.Ptr Ordinary_float_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CFloat
          ) => RIP.CompatHasField.HasField "ordinary_float_pointer_member" Ordinary_float_pointer_struct ty where
 
@@ -2058,6 +2045,19 @@ instance ( ty ~ RIP.Ptr RIP.CFloat
           Ordinary_float_pointer_struct {ordinary_float_pointer_member = y1}
       , RIP.getField @"ordinary_float_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CFloat
+         ) => RIP.HasField "ordinary_float_pointer_member" (RIP.Ptr Ordinary_float_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_member")
+
+instance HasCField.HasCField Ordinary_float_pointer_struct "ordinary_float_pointer_member" where
+
+  type CFieldType Ordinary_float_pointer_struct "ordinary_float_pointer_member" =
+    RIP.Ptr RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_double_pointer_struct@
 
@@ -2100,19 +2100,6 @@ instance Marshal.WriteRaw Ordinary_double_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_struct instance RIP.Storable Ordinary_double_pointer_struct
 
-instance HasCField.HasCField Ordinary_double_pointer_struct "ordinary_double_pointer_member" where
-
-  type CFieldType Ordinary_double_pointer_struct "ordinary_double_pointer_member" =
-    RIP.Ptr RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CDouble
-         ) => RIP.HasField "ordinary_double_pointer_member" (RIP.Ptr Ordinary_double_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CDouble
          ) => RIP.CompatHasField.HasField "ordinary_double_pointer_member" Ordinary_double_pointer_struct ty where
 
@@ -2122,6 +2109,19 @@ instance ( ty ~ RIP.Ptr RIP.CDouble
           Ordinary_double_pointer_struct {ordinary_double_pointer_member = y1}
       , RIP.getField @"ordinary_double_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CDouble
+         ) => RIP.HasField "ordinary_double_pointer_member" (RIP.Ptr Ordinary_double_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_member")
+
+instance HasCField.HasCField Ordinary_double_pointer_struct "ordinary_double_pointer_member" where
+
+  type CFieldType Ordinary_double_pointer_struct "ordinary_double_pointer_member" =
+    RIP.Ptr RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_struct@
 
@@ -2164,19 +2164,6 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_struct instance RIP.Storable Ordinary_signed_char_pointer_struct
 
-instance HasCField.HasCField Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" where
-
-  type CFieldType Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" =
-    RIP.Ptr RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_pointer_member" (RIP.Ptr Ordinary_signed_char_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_member" Ordinary_signed_char_pointer_struct ty where
 
@@ -2186,6 +2173,19 @@ instance ( ty ~ RIP.Ptr RIP.CChar
           Ordinary_signed_char_pointer_struct {ordinary_signed_char_pointer_member = y1}
       , RIP.getField @"ordinary_signed_char_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.HasField "ordinary_signed_char_pointer_member" (RIP.Ptr Ordinary_signed_char_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_member")
+
+instance HasCField.HasCField Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" where
+
+  type CFieldType Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" =
+    RIP.Ptr RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_char_pointer_struct@
 
@@ -2228,19 +2228,6 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_struct instance RIP.Storable Explicit_signed_char_pointer_struct
 
-instance HasCField.HasCField Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" where
-
-  type CFieldType Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" =
-    RIP.Ptr RIP.CSChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_pointer_member" (RIP.Ptr Explicit_signed_char_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CSChar
          ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_member" Explicit_signed_char_pointer_struct ty where
 
@@ -2250,6 +2237,19 @@ instance ( ty ~ RIP.Ptr RIP.CSChar
           Explicit_signed_char_pointer_struct {explicit_signed_char_pointer_member = y1}
       , RIP.getField @"explicit_signed_char_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CSChar
+         ) => RIP.HasField "explicit_signed_char_pointer_member" (RIP.Ptr Explicit_signed_char_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_member")
+
+instance HasCField.HasCField Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" where
+
+  type CFieldType Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" =
+    RIP.Ptr RIP.CSChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_char_pointer_struct@
 
@@ -2292,19 +2292,6 @@ instance Marshal.WriteRaw Unsigned_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_struct instance RIP.Storable Unsigned_char_pointer_struct
 
-instance HasCField.HasCField Unsigned_char_pointer_struct "unsigned_char_pointer_member" where
-
-  type CFieldType Unsigned_char_pointer_struct "unsigned_char_pointer_member" =
-    RIP.Ptr RIP.CUChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CUChar
-         ) => RIP.HasField "unsigned_char_pointer_member" (RIP.Ptr Unsigned_char_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CUChar
          ) => RIP.CompatHasField.HasField "unsigned_char_pointer_member" Unsigned_char_pointer_struct ty where
 
@@ -2314,6 +2301,19 @@ instance ( ty ~ RIP.Ptr RIP.CUChar
           Unsigned_char_pointer_struct {unsigned_char_pointer_member = y1}
       , RIP.getField @"unsigned_char_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CUChar
+         ) => RIP.HasField "unsigned_char_pointer_member" (RIP.Ptr Unsigned_char_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_member")
+
+instance HasCField.HasCField Unsigned_char_pointer_struct "unsigned_char_pointer_member" where
+
+  type CFieldType Unsigned_char_pointer_struct "unsigned_char_pointer_member" =
+    RIP.Ptr RIP.CUChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_struct@
 
@@ -2356,19 +2356,6 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_struct instance RIP.Storable Ordinary_signed_short_pointer_struct
 
-instance HasCField.HasCField Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" where
-
-  type CFieldType Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" =
-    RIP.Ptr RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_pointer_member" (RIP.Ptr Ordinary_signed_short_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CShort
          ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_member" Ordinary_signed_short_pointer_struct ty where
 
@@ -2378,6 +2365,19 @@ instance ( ty ~ RIP.Ptr RIP.CShort
           Ordinary_signed_short_pointer_struct {ordinary_signed_short_pointer_member = y1}
       , RIP.getField @"ordinary_signed_short_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CShort
+         ) => RIP.HasField "ordinary_signed_short_pointer_member" (RIP.Ptr Ordinary_signed_short_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_member")
+
+instance HasCField.HasCField Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" where
+
+  type CFieldType Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" =
+    RIP.Ptr RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_short_pointer_struct@
 
@@ -2420,19 +2420,6 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_struct instance RIP.Storable Explicit_signed_short_pointer_struct
 
-instance HasCField.HasCField Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" where
-
-  type CFieldType Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" =
-    RIP.Ptr RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_pointer_member" (RIP.Ptr Explicit_signed_short_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CShort
          ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_member" Explicit_signed_short_pointer_struct ty where
 
@@ -2442,6 +2429,19 @@ instance ( ty ~ RIP.Ptr RIP.CShort
           Explicit_signed_short_pointer_struct {explicit_signed_short_pointer_member = y1}
       , RIP.getField @"explicit_signed_short_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CShort
+         ) => RIP.HasField "explicit_signed_short_pointer_member" (RIP.Ptr Explicit_signed_short_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_member")
+
+instance HasCField.HasCField Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" where
+
+  type CFieldType Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" =
+    RIP.Ptr RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_short_pointer_struct@
 
@@ -2484,19 +2484,6 @@ instance Marshal.WriteRaw Unsigned_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_struct instance RIP.Storable Unsigned_short_pointer_struct
 
-instance HasCField.HasCField Unsigned_short_pointer_struct "unsigned_short_pointer_member" where
-
-  type CFieldType Unsigned_short_pointer_struct "unsigned_short_pointer_member" =
-    RIP.Ptr RIP.CUShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CUShort
-         ) => RIP.HasField "unsigned_short_pointer_member" (RIP.Ptr Unsigned_short_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CUShort
          ) => RIP.CompatHasField.HasField "unsigned_short_pointer_member" Unsigned_short_pointer_struct ty where
 
@@ -2506,6 +2493,19 @@ instance ( ty ~ RIP.Ptr RIP.CUShort
           Unsigned_short_pointer_struct {unsigned_short_pointer_member = y1}
       , RIP.getField @"unsigned_short_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CUShort
+         ) => RIP.HasField "unsigned_short_pointer_member" (RIP.Ptr Unsigned_short_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_member")
+
+instance HasCField.HasCField Unsigned_short_pointer_struct "unsigned_short_pointer_member" where
+
+  type CFieldType Unsigned_short_pointer_struct "unsigned_short_pointer_member" =
+    RIP.Ptr RIP.CUShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_struct@
 
@@ -2548,19 +2548,6 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_struct instance RIP.Storable Ordinary_signed_int_pointer_struct
 
-instance HasCField.HasCField Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" where
-
-  type CFieldType Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" =
-    RIP.Ptr RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_pointer_member" (RIP.Ptr Ordinary_signed_int_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_member" Ordinary_signed_int_pointer_struct ty where
 
@@ -2570,6 +2557,19 @@ instance ( ty ~ RIP.Ptr RIP.CInt
           Ordinary_signed_int_pointer_struct {ordinary_signed_int_pointer_member = y1}
       , RIP.getField @"ordinary_signed_int_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.HasField "ordinary_signed_int_pointer_member" (RIP.Ptr Ordinary_signed_int_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_member")
+
+instance HasCField.HasCField Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" where
+
+  type CFieldType Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" =
+    RIP.Ptr RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_int_pointer_struct@
 
@@ -2612,19 +2612,6 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_struct instance RIP.Storable Explicit_signed_int_pointer_struct
 
-instance HasCField.HasCField Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" where
-
-  type CFieldType Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" =
-    RIP.Ptr RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_pointer_member" (RIP.Ptr Explicit_signed_int_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_member" Explicit_signed_int_pointer_struct ty where
 
@@ -2634,6 +2621,19 @@ instance ( ty ~ RIP.Ptr RIP.CInt
           Explicit_signed_int_pointer_struct {explicit_signed_int_pointer_member = y1}
       , RIP.getField @"explicit_signed_int_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.HasField "explicit_signed_int_pointer_member" (RIP.Ptr Explicit_signed_int_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_member")
+
+instance HasCField.HasCField Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" where
+
+  type CFieldType Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" =
+    RIP.Ptr RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_int_pointer_struct@
 
@@ -2676,19 +2676,6 @@ instance Marshal.WriteRaw Unsigned_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_struct instance RIP.Storable Unsigned_int_pointer_struct
 
-instance HasCField.HasCField Unsigned_int_pointer_struct "unsigned_int_pointer_member" where
-
-  type CFieldType Unsigned_int_pointer_struct "unsigned_int_pointer_member" =
-    RIP.Ptr RIP.CUInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CUInt
-         ) => RIP.HasField "unsigned_int_pointer_member" (RIP.Ptr Unsigned_int_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CUInt
          ) => RIP.CompatHasField.HasField "unsigned_int_pointer_member" Unsigned_int_pointer_struct ty where
 
@@ -2698,6 +2685,19 @@ instance ( ty ~ RIP.Ptr RIP.CUInt
           Unsigned_int_pointer_struct {unsigned_int_pointer_member = y1}
       , RIP.getField @"unsigned_int_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CUInt
+         ) => RIP.HasField "unsigned_int_pointer_member" (RIP.Ptr Unsigned_int_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_member")
+
+instance HasCField.HasCField Unsigned_int_pointer_struct "unsigned_int_pointer_member" where
+
+  type CFieldType Unsigned_int_pointer_struct "unsigned_int_pointer_member" =
+    RIP.Ptr RIP.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_struct@
 
@@ -2740,19 +2740,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_struct instance RIP.Storable Ordinary_signed_long_pointer_struct
 
-instance HasCField.HasCField Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" where
-
-  type CFieldType Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" =
-    RIP.Ptr RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_pointer_member" (RIP.Ptr Ordinary_signed_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_member" Ordinary_signed_long_pointer_struct ty where
 
@@ -2762,6 +2749,19 @@ instance ( ty ~ RIP.Ptr RIP.CLong
           Ordinary_signed_long_pointer_struct {ordinary_signed_long_pointer_member = y1}
       , RIP.getField @"ordinary_signed_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CLong
+         ) => RIP.HasField "ordinary_signed_long_pointer_member" (RIP.Ptr Ordinary_signed_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_member")
+
+instance HasCField.HasCField Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" where
+
+  type CFieldType Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" =
+    RIP.Ptr RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_pointer_struct@
 
@@ -2804,19 +2804,6 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_struct instance RIP.Storable Explicit_signed_long_pointer_struct
 
-instance HasCField.HasCField Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" where
-
-  type CFieldType Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" =
-    RIP.Ptr RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_pointer_member" (RIP.Ptr Explicit_signed_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_member" Explicit_signed_long_pointer_struct ty where
 
@@ -2826,6 +2813,19 @@ instance ( ty ~ RIP.Ptr RIP.CLong
           Explicit_signed_long_pointer_struct {explicit_signed_long_pointer_member = y1}
       , RIP.getField @"explicit_signed_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CLong
+         ) => RIP.HasField "explicit_signed_long_pointer_member" (RIP.Ptr Explicit_signed_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_member")
+
+instance HasCField.HasCField Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" where
+
+  type CFieldType Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" =
+    RIP.Ptr RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_pointer_struct@
 
@@ -2868,19 +2868,6 @@ instance Marshal.WriteRaw Unsigned_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_struct instance RIP.Storable Unsigned_long_pointer_struct
 
-instance HasCField.HasCField Unsigned_long_pointer_struct "unsigned_long_pointer_member" where
-
-  type CFieldType Unsigned_long_pointer_struct "unsigned_long_pointer_member" =
-    RIP.Ptr RIP.CULong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CULong
-         ) => RIP.HasField "unsigned_long_pointer_member" (RIP.Ptr Unsigned_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CULong
          ) => RIP.CompatHasField.HasField "unsigned_long_pointer_member" Unsigned_long_pointer_struct ty where
 
@@ -2890,6 +2877,19 @@ instance ( ty ~ RIP.Ptr RIP.CULong
           Unsigned_long_pointer_struct {unsigned_long_pointer_member = y1}
       , RIP.getField @"unsigned_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CULong
+         ) => RIP.HasField "unsigned_long_pointer_member" (RIP.Ptr Unsigned_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_member")
+
+instance HasCField.HasCField Unsigned_long_pointer_struct "unsigned_long_pointer_member" where
+
+  type CFieldType Unsigned_long_pointer_struct "unsigned_long_pointer_member" =
+    RIP.Ptr RIP.CULong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_struct@
 
@@ -2933,19 +2933,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_struct instance RIP.Storable Ordinary_signed_long_long_pointer_struct
 
-instance HasCField.HasCField Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" where
-
-  type CFieldType Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" =
-    RIP.Ptr RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_pointer_member" (RIP.Ptr Ordinary_signed_long_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CLLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_member" Ordinary_signed_long_long_pointer_struct ty where
 
@@ -2955,6 +2942,19 @@ instance ( ty ~ RIP.Ptr RIP.CLLong
           Ordinary_signed_long_long_pointer_struct {ordinary_signed_long_long_pointer_member = y1}
       , RIP.getField @"ordinary_signed_long_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CLLong
+         ) => RIP.HasField "ordinary_signed_long_long_pointer_member" (RIP.Ptr Ordinary_signed_long_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_member")
+
+instance HasCField.HasCField Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" where
+
+  type CFieldType Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" =
+    RIP.Ptr RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_struct@
 
@@ -2998,19 +2998,6 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_struct instance RIP.Storable Explicit_signed_long_long_pointer_struct
 
-instance HasCField.HasCField Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" where
-
-  type CFieldType Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" =
-    RIP.Ptr RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_pointer_member" (RIP.Ptr Explicit_signed_long_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CLLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_member" Explicit_signed_long_long_pointer_struct ty where
 
@@ -3020,6 +3007,19 @@ instance ( ty ~ RIP.Ptr RIP.CLLong
           Explicit_signed_long_long_pointer_struct {explicit_signed_long_long_pointer_member = y1}
       , RIP.getField @"explicit_signed_long_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CLLong
+         ) => RIP.HasField "explicit_signed_long_long_pointer_member" (RIP.Ptr Explicit_signed_long_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_member")
+
+instance HasCField.HasCField Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" where
+
+  type CFieldType Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" =
+    RIP.Ptr RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_long_pointer_struct@
 
@@ -3062,19 +3062,6 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_struct instance RIP.Storable Unsigned_long_long_pointer_struct
 
-instance HasCField.HasCField Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" where
-
-  type CFieldType Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" =
-    RIP.Ptr RIP.CULLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_pointer_member" (RIP.Ptr Unsigned_long_long_pointer_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_member")
-
 instance ( ty ~ RIP.Ptr RIP.CULLong
          ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_member" Unsigned_long_long_pointer_struct ty where
 
@@ -3084,6 +3071,19 @@ instance ( ty ~ RIP.Ptr RIP.CULLong
           Unsigned_long_long_pointer_struct {unsigned_long_long_pointer_member = y1}
       , RIP.getField @"unsigned_long_long_pointer_member" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.CULLong
+         ) => RIP.HasField "unsigned_long_long_pointer_member" (RIP.Ptr Unsigned_long_long_pointer_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_member")
+
+instance HasCField.HasCField Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" where
+
+  type CFieldType Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" =
+    RIP.Ptr RIP.CULLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| Structs: arrays
 
@@ -3128,19 +3128,6 @@ instance Marshal.WriteRaw Ordinary_float_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_array_struct instance RIP.Storable Ordinary_float_array_struct
 
-instance HasCField.HasCField Ordinary_float_array_struct "ordinary_float_array_member" where
-
-  type CFieldType Ordinary_float_array_struct "ordinary_float_array_member" =
-    CA.ConstantArray 10 RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
-         ) => RIP.HasField "ordinary_float_array_member" (RIP.Ptr Ordinary_float_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
          ) => RIP.CompatHasField.HasField "ordinary_float_array_member" Ordinary_float_array_struct ty where
 
@@ -3150,6 +3137,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
           Ordinary_float_array_struct {ordinary_float_array_member = y1}
       , RIP.getField @"ordinary_float_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
+         ) => RIP.HasField "ordinary_float_array_member" (RIP.Ptr Ordinary_float_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_float_array_member")
+
+instance HasCField.HasCField Ordinary_float_array_struct "ordinary_float_array_member" where
+
+  type CFieldType Ordinary_float_array_struct "ordinary_float_array_member" =
+    CA.ConstantArray 10 RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_double_array_struct@
 
@@ -3192,19 +3192,6 @@ instance Marshal.WriteRaw Ordinary_double_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_array_struct instance RIP.Storable Ordinary_double_array_struct
 
-instance HasCField.HasCField Ordinary_double_array_struct "ordinary_double_array_member" where
-
-  type CFieldType Ordinary_double_array_struct "ordinary_double_array_member" =
-    CA.ConstantArray 10 RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
-         ) => RIP.HasField "ordinary_double_array_member" (RIP.Ptr Ordinary_double_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
          ) => RIP.CompatHasField.HasField "ordinary_double_array_member" Ordinary_double_array_struct ty where
 
@@ -3214,6 +3201,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
           Ordinary_double_array_struct {ordinary_double_array_member = y1}
       , RIP.getField @"ordinary_double_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
+         ) => RIP.HasField "ordinary_double_array_member" (RIP.Ptr Ordinary_double_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_double_array_member")
+
+instance HasCField.HasCField Ordinary_double_array_struct "ordinary_double_array_member" where
+
+  type CFieldType Ordinary_double_array_struct "ordinary_double_array_member" =
+    CA.ConstantArray 10 RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_char_array_struct@
 
@@ -3256,19 +3256,6 @@ instance Marshal.WriteRaw Ordinary_signed_char_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_array_struct instance RIP.Storable Ordinary_signed_char_array_struct
 
-instance HasCField.HasCField Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" where
-
-  type CFieldType Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" =
-    CA.ConstantArray 10 RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_array_member" (RIP.Ptr Ordinary_signed_char_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CChar
          ) => RIP.CompatHasField.HasField "ordinary_signed_char_array_member" Ordinary_signed_char_array_struct ty where
 
@@ -3278,6 +3265,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CChar
           Ordinary_signed_char_array_struct {ordinary_signed_char_array_member = y1}
       , RIP.getField @"ordinary_signed_char_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CChar
+         ) => RIP.HasField "ordinary_signed_char_array_member" (RIP.Ptr Ordinary_signed_char_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_array_member")
+
+instance HasCField.HasCField Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" where
+
+  type CFieldType Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" =
+    CA.ConstantArray 10 RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_char_array_struct@
 
@@ -3320,19 +3320,6 @@ instance Marshal.WriteRaw Explicit_signed_char_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_array_struct instance RIP.Storable Explicit_signed_char_array_struct
 
-instance HasCField.HasCField Explicit_signed_char_array_struct "explicit_signed_char_array_member" where
-
-  type CFieldType Explicit_signed_char_array_struct "explicit_signed_char_array_member" =
-    CA.ConstantArray 10 RIP.CSChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_array_member" (RIP.Ptr Explicit_signed_char_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
          ) => RIP.CompatHasField.HasField "explicit_signed_char_array_member" Explicit_signed_char_array_struct ty where
 
@@ -3342,6 +3329,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
           Explicit_signed_char_array_struct {explicit_signed_char_array_member = y1}
       , RIP.getField @"explicit_signed_char_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
+         ) => RIP.HasField "explicit_signed_char_array_member" (RIP.Ptr Explicit_signed_char_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_array_member")
+
+instance HasCField.HasCField Explicit_signed_char_array_struct "explicit_signed_char_array_member" where
+
+  type CFieldType Explicit_signed_char_array_struct "explicit_signed_char_array_member" =
+    CA.ConstantArray 10 RIP.CSChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_char_array_struct@
 
@@ -3384,19 +3384,6 @@ instance Marshal.WriteRaw Unsigned_char_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_array_struct instance RIP.Storable Unsigned_char_array_struct
 
-instance HasCField.HasCField Unsigned_char_array_struct "unsigned_char_array_member" where
-
-  type CFieldType Unsigned_char_array_struct "unsigned_char_array_member" =
-    CA.ConstantArray 10 RIP.CUChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
-         ) => RIP.HasField "unsigned_char_array_member" (RIP.Ptr Unsigned_char_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
          ) => RIP.CompatHasField.HasField "unsigned_char_array_member" Unsigned_char_array_struct ty where
 
@@ -3406,6 +3393,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
           Unsigned_char_array_struct {unsigned_char_array_member = y1}
       , RIP.getField @"unsigned_char_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
+         ) => RIP.HasField "unsigned_char_array_member" (RIP.Ptr Unsigned_char_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_char_array_member")
+
+instance HasCField.HasCField Unsigned_char_array_struct "unsigned_char_array_member" where
+
+  type CFieldType Unsigned_char_array_struct "unsigned_char_array_member" =
+    CA.ConstantArray 10 RIP.CUChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_short_array_struct@
 
@@ -3448,19 +3448,6 @@ instance Marshal.WriteRaw Ordinary_signed_short_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_array_struct instance RIP.Storable Ordinary_signed_short_array_struct
 
-instance HasCField.HasCField Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" where
-
-  type CFieldType Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" =
-    CA.ConstantArray 10 RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_array_member" (RIP.Ptr Ordinary_signed_short_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CShort
          ) => RIP.CompatHasField.HasField "ordinary_signed_short_array_member" Ordinary_signed_short_array_struct ty where
 
@@ -3470,6 +3457,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CShort
           Ordinary_signed_short_array_struct {ordinary_signed_short_array_member = y1}
       , RIP.getField @"ordinary_signed_short_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CShort
+         ) => RIP.HasField "ordinary_signed_short_array_member" (RIP.Ptr Ordinary_signed_short_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_array_member")
+
+instance HasCField.HasCField Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" where
+
+  type CFieldType Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" =
+    CA.ConstantArray 10 RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_short_array_struct@
 
@@ -3512,19 +3512,6 @@ instance Marshal.WriteRaw Explicit_signed_short_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_array_struct instance RIP.Storable Explicit_signed_short_array_struct
 
-instance HasCField.HasCField Explicit_signed_short_array_struct "explicit_signed_short_array_member" where
-
-  type CFieldType Explicit_signed_short_array_struct "explicit_signed_short_array_member" =
-    CA.ConstantArray 10 RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_array_member" (RIP.Ptr Explicit_signed_short_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CShort
          ) => RIP.CompatHasField.HasField "explicit_signed_short_array_member" Explicit_signed_short_array_struct ty where
 
@@ -3534,6 +3521,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CShort
           Explicit_signed_short_array_struct {explicit_signed_short_array_member = y1}
       , RIP.getField @"explicit_signed_short_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CShort
+         ) => RIP.HasField "explicit_signed_short_array_member" (RIP.Ptr Explicit_signed_short_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_array_member")
+
+instance HasCField.HasCField Explicit_signed_short_array_struct "explicit_signed_short_array_member" where
+
+  type CFieldType Explicit_signed_short_array_struct "explicit_signed_short_array_member" =
+    CA.ConstantArray 10 RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_short_array_struct@
 
@@ -3576,19 +3576,6 @@ instance Marshal.WriteRaw Unsigned_short_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_array_struct instance RIP.Storable Unsigned_short_array_struct
 
-instance HasCField.HasCField Unsigned_short_array_struct "unsigned_short_array_member" where
-
-  type CFieldType Unsigned_short_array_struct "unsigned_short_array_member" =
-    CA.ConstantArray 10 RIP.CUShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
-         ) => RIP.HasField "unsigned_short_array_member" (RIP.Ptr Unsigned_short_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
          ) => RIP.CompatHasField.HasField "unsigned_short_array_member" Unsigned_short_array_struct ty where
 
@@ -3598,6 +3585,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
           Unsigned_short_array_struct {unsigned_short_array_member = y1}
       , RIP.getField @"unsigned_short_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
+         ) => RIP.HasField "unsigned_short_array_member" (RIP.Ptr Unsigned_short_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_short_array_member")
+
+instance HasCField.HasCField Unsigned_short_array_struct "unsigned_short_array_member" where
+
+  type CFieldType Unsigned_short_array_struct "unsigned_short_array_member" =
+    CA.ConstantArray 10 RIP.CUShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_int_array_struct@
 
@@ -3640,19 +3640,6 @@ instance Marshal.WriteRaw Ordinary_signed_int_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_array_struct instance RIP.Storable Ordinary_signed_int_array_struct
 
-instance HasCField.HasCField Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" where
-
-  type CFieldType Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" =
-    CA.ConstantArray 10 RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_array_member" (RIP.Ptr Ordinary_signed_int_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CInt
          ) => RIP.CompatHasField.HasField "ordinary_signed_int_array_member" Ordinary_signed_int_array_struct ty where
 
@@ -3662,6 +3649,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CInt
           Ordinary_signed_int_array_struct {ordinary_signed_int_array_member = y1}
       , RIP.getField @"ordinary_signed_int_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CInt
+         ) => RIP.HasField "ordinary_signed_int_array_member" (RIP.Ptr Ordinary_signed_int_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_array_member")
+
+instance HasCField.HasCField Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" where
+
+  type CFieldType Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" =
+    CA.ConstantArray 10 RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_int_array_struct@
 
@@ -3704,19 +3704,6 @@ instance Marshal.WriteRaw Explicit_signed_int_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_array_struct instance RIP.Storable Explicit_signed_int_array_struct
 
-instance HasCField.HasCField Explicit_signed_int_array_struct "explicit_signed_int_array_member" where
-
-  type CFieldType Explicit_signed_int_array_struct "explicit_signed_int_array_member" =
-    CA.ConstantArray 10 RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_array_member" (RIP.Ptr Explicit_signed_int_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CInt
          ) => RIP.CompatHasField.HasField "explicit_signed_int_array_member" Explicit_signed_int_array_struct ty where
 
@@ -3726,6 +3713,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CInt
           Explicit_signed_int_array_struct {explicit_signed_int_array_member = y1}
       , RIP.getField @"explicit_signed_int_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CInt
+         ) => RIP.HasField "explicit_signed_int_array_member" (RIP.Ptr Explicit_signed_int_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_array_member")
+
+instance HasCField.HasCField Explicit_signed_int_array_struct "explicit_signed_int_array_member" where
+
+  type CFieldType Explicit_signed_int_array_struct "explicit_signed_int_array_member" =
+    CA.ConstantArray 10 RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_int_array_struct@
 
@@ -3768,19 +3768,6 @@ instance Marshal.WriteRaw Unsigned_int_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_array_struct instance RIP.Storable Unsigned_int_array_struct
 
-instance HasCField.HasCField Unsigned_int_array_struct "unsigned_int_array_member" where
-
-  type CFieldType Unsigned_int_array_struct "unsigned_int_array_member" =
-    CA.ConstantArray 10 RIP.CUInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
-         ) => RIP.HasField "unsigned_int_array_member" (RIP.Ptr Unsigned_int_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
          ) => RIP.CompatHasField.HasField "unsigned_int_array_member" Unsigned_int_array_struct ty where
 
@@ -3790,6 +3777,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
           Unsigned_int_array_struct {unsigned_int_array_member = y1}
       , RIP.getField @"unsigned_int_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
+         ) => RIP.HasField "unsigned_int_array_member" (RIP.Ptr Unsigned_int_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_int_array_member")
+
+instance HasCField.HasCField Unsigned_int_array_struct "unsigned_int_array_member" where
+
+  type CFieldType Unsigned_int_array_struct "unsigned_int_array_member" =
+    CA.ConstantArray 10 RIP.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_array_struct@
 
@@ -3832,19 +3832,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_array_struct instance RIP.Storable Ordinary_signed_long_array_struct
 
-instance HasCField.HasCField Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" where
-
-  type CFieldType Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" =
-    CA.ConstantArray 10 RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_array_member" (RIP.Ptr Ordinary_signed_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_array_member" Ordinary_signed_long_array_struct ty where
 
@@ -3854,6 +3841,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLong
           Ordinary_signed_long_array_struct {ordinary_signed_long_array_member = y1}
       , RIP.getField @"ordinary_signed_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CLong
+         ) => RIP.HasField "ordinary_signed_long_array_member" (RIP.Ptr Ordinary_signed_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_array_member")
+
+instance HasCField.HasCField Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" where
+
+  type CFieldType Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" =
+    CA.ConstantArray 10 RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_array_struct@
 
@@ -3896,19 +3896,6 @@ instance Marshal.WriteRaw Explicit_signed_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_array_struct instance RIP.Storable Explicit_signed_long_array_struct
 
-instance HasCField.HasCField Explicit_signed_long_array_struct "explicit_signed_long_array_member" where
-
-  type CFieldType Explicit_signed_long_array_struct "explicit_signed_long_array_member" =
-    CA.ConstantArray 10 RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_array_member" (RIP.Ptr Explicit_signed_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_array_member" Explicit_signed_long_array_struct ty where
 
@@ -3918,6 +3905,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLong
           Explicit_signed_long_array_struct {explicit_signed_long_array_member = y1}
       , RIP.getField @"explicit_signed_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CLong
+         ) => RIP.HasField "explicit_signed_long_array_member" (RIP.Ptr Explicit_signed_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_array_member")
+
+instance HasCField.HasCField Explicit_signed_long_array_struct "explicit_signed_long_array_member" where
+
+  type CFieldType Explicit_signed_long_array_struct "explicit_signed_long_array_member" =
+    CA.ConstantArray 10 RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_array_struct@
 
@@ -3960,19 +3960,6 @@ instance Marshal.WriteRaw Unsigned_long_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_array_struct instance RIP.Storable Unsigned_long_array_struct
 
-instance HasCField.HasCField Unsigned_long_array_struct "unsigned_long_array_member" where
-
-  type CFieldType Unsigned_long_array_struct "unsigned_long_array_member" =
-    CA.ConstantArray 10 RIP.CULong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CULong
-         ) => RIP.HasField "unsigned_long_array_member" (RIP.Ptr Unsigned_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CULong
          ) => RIP.CompatHasField.HasField "unsigned_long_array_member" Unsigned_long_array_struct ty where
 
@@ -3982,6 +3969,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CULong
           Unsigned_long_array_struct {unsigned_long_array_member = y1}
       , RIP.getField @"unsigned_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CULong
+         ) => RIP.HasField "unsigned_long_array_member" (RIP.Ptr Unsigned_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_array_member")
+
+instance HasCField.HasCField Unsigned_long_array_struct "unsigned_long_array_member" where
+
+  type CFieldType Unsigned_long_array_struct "unsigned_long_array_member" =
+    CA.ConstantArray 10 RIP.CULong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_array_struct@
 
@@ -4025,19 +4025,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_array_struct instance RIP.Storable Ordinary_signed_long_long_array_struct
 
-instance HasCField.HasCField Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" where
-
-  type CFieldType Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_array_member" (RIP.Ptr Ordinary_signed_long_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_array_member" Ordinary_signed_long_long_array_struct ty where
 
@@ -4047,6 +4034,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
           Ordinary_signed_long_long_array_struct {ordinary_signed_long_long_array_member = y1}
       , RIP.getField @"ordinary_signed_long_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
+         ) => RIP.HasField "ordinary_signed_long_long_array_member" (RIP.Ptr Ordinary_signed_long_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_array_member")
+
+instance HasCField.HasCField Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" where
+
+  type CFieldType Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" =
+    CA.ConstantArray 10 RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_long_array_struct@
 
@@ -4090,19 +4090,6 @@ instance Marshal.WriteRaw Explicit_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_array_struct instance RIP.Storable Explicit_signed_long_long_array_struct
 
-instance HasCField.HasCField Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" where
-
-  type CFieldType Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CLLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_array_member" (RIP.Ptr Explicit_signed_long_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
          ) => RIP.CompatHasField.HasField "explicit_signed_long_long_array_member" Explicit_signed_long_long_array_struct ty where
 
@@ -4112,6 +4099,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
           Explicit_signed_long_long_array_struct {explicit_signed_long_long_array_member = y1}
       , RIP.getField @"explicit_signed_long_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
+         ) => RIP.HasField "explicit_signed_long_long_array_member" (RIP.Ptr Explicit_signed_long_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_array_member")
+
+instance HasCField.HasCField Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" where
+
+  type CFieldType Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" =
+    CA.ConstantArray 10 RIP.CLLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_long_array_struct@
 
@@ -4154,19 +4154,6 @@ instance Marshal.WriteRaw Unsigned_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_array_struct instance RIP.Storable Unsigned_long_long_array_struct
 
-instance HasCField.HasCField Unsigned_long_long_array_struct "unsigned_long_long_array_member" where
-
-  type CFieldType Unsigned_long_long_array_struct "unsigned_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CULLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_array_member" (RIP.Ptr Unsigned_long_long_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
          ) => RIP.CompatHasField.HasField "unsigned_long_long_array_member" Unsigned_long_long_array_struct ty where
 
@@ -4176,6 +4163,19 @@ instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
           Unsigned_long_long_array_struct {unsigned_long_long_array_member = y1}
       , RIP.getField @"unsigned_long_long_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
+         ) => RIP.HasField "unsigned_long_long_array_member" (RIP.Ptr Unsigned_long_long_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_array_member")
+
+instance HasCField.HasCField Unsigned_long_long_array_struct "unsigned_long_long_array_member" where
+
+  type CFieldType Unsigned_long_long_array_struct "unsigned_long_long_array_member" =
+    CA.ConstantArray 10 RIP.CULLong
+
+  offset# = \_ -> \_ -> 0
 
 {-| Structs: arrays of pointers
 
@@ -4222,19 +4222,6 @@ instance Marshal.WriteRaw Ordinary_void_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_array_struct instance RIP.Storable Ordinary_void_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" where
-
-  type CFieldType Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.Void)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
-         ) => RIP.HasField "ordinary_void_pointer_array_member" (RIP.Ptr Ordinary_void_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
          ) => RIP.CompatHasField.HasField "ordinary_void_pointer_array_member" Ordinary_void_pointer_array_struct ty where
 
@@ -4244,6 +4231,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
           Ordinary_void_pointer_array_struct {ordinary_void_pointer_array_member = y1}
       , RIP.getField @"ordinary_void_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
+         ) => RIP.HasField "ordinary_void_pointer_array_member" (RIP.Ptr Ordinary_void_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" where
+
+  type CFieldType Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.Void)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_float_pointer_array_struct@
 
@@ -4286,19 +4286,6 @@ instance Marshal.WriteRaw Ordinary_float_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_array_struct instance RIP.Storable Ordinary_float_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" where
-
-  type CFieldType Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
-         ) => RIP.HasField "ordinary_float_pointer_array_member" (RIP.Ptr Ordinary_float_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
          ) => RIP.CompatHasField.HasField "ordinary_float_pointer_array_member" Ordinary_float_pointer_array_struct ty where
 
@@ -4308,6 +4295,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
           Ordinary_float_pointer_array_struct {ordinary_float_pointer_array_member = y1}
       , RIP.getField @"ordinary_float_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
+         ) => RIP.HasField "ordinary_float_pointer_array_member" (RIP.Ptr Ordinary_float_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" where
+
+  type CFieldType Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_double_pointer_array_struct@
 
@@ -4350,19 +4350,6 @@ instance Marshal.WriteRaw Ordinary_double_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_array_struct instance RIP.Storable Ordinary_double_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" where
-
-  type CFieldType Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
-         ) => RIP.HasField "ordinary_double_pointer_array_member" (RIP.Ptr Ordinary_double_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
          ) => RIP.CompatHasField.HasField "ordinary_double_pointer_array_member" Ordinary_double_pointer_array_struct ty where
 
@@ -4372,6 +4359,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
           Ordinary_double_pointer_array_struct {ordinary_double_pointer_array_member = y1}
       , RIP.getField @"ordinary_double_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
+         ) => RIP.HasField "ordinary_double_pointer_array_member" (RIP.Ptr Ordinary_double_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" where
+
+  type CFieldType Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_array_struct@
 
@@ -4415,19 +4415,6 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_array_struct instance RIP.Storable Ordinary_signed_char_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" where
-
-  type CFieldType Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
-         ) => RIP.HasField "ordinary_signed_char_pointer_array_member" (RIP.Ptr Ordinary_signed_char_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
          ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_array_member" Ordinary_signed_char_pointer_array_struct ty where
 
@@ -4437,6 +4424,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
           Ordinary_signed_char_pointer_array_struct {ordinary_signed_char_pointer_array_member = y1}
       , RIP.getField @"ordinary_signed_char_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
+         ) => RIP.HasField "ordinary_signed_char_pointer_array_member" (RIP.Ptr Ordinary_signed_char_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" where
+
+  type CFieldType Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_char_pointer_array_struct@
 
@@ -4480,19 +4480,6 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_array_struct instance RIP.Storable Explicit_signed_char_pointer_array_struct
 
-instance HasCField.HasCField Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" where
-
-  type CFieldType Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
-         ) => RIP.HasField "explicit_signed_char_pointer_array_member" (RIP.Ptr Explicit_signed_char_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
          ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_array_member" Explicit_signed_char_pointer_array_struct ty where
 
@@ -4502,6 +4489,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
           Explicit_signed_char_pointer_array_struct {explicit_signed_char_pointer_array_member = y1}
       , RIP.getField @"explicit_signed_char_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
+         ) => RIP.HasField "explicit_signed_char_pointer_array_member" (RIP.Ptr Explicit_signed_char_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_array_member")
+
+instance HasCField.HasCField Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" where
+
+  type CFieldType Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_char_pointer_array_struct@
 
@@ -4544,19 +4544,6 @@ instance Marshal.WriteRaw Unsigned_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_array_struct instance RIP.Storable Unsigned_char_pointer_array_struct
 
-instance HasCField.HasCField Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" where
-
-  type CFieldType Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
-         ) => RIP.HasField "unsigned_char_pointer_array_member" (RIP.Ptr Unsigned_char_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
          ) => RIP.CompatHasField.HasField "unsigned_char_pointer_array_member" Unsigned_char_pointer_array_struct ty where
 
@@ -4566,6 +4553,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
           Unsigned_char_pointer_array_struct {unsigned_char_pointer_array_member = y1}
       , RIP.getField @"unsigned_char_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
+         ) => RIP.HasField "unsigned_char_pointer_array_member" (RIP.Ptr Unsigned_char_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_array_member")
+
+instance HasCField.HasCField Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" where
+
+  type CFieldType Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_array_struct@
 
@@ -4609,19 +4609,6 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_array_struct instance RIP.Storable Ordinary_signed_short_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" where
-
-  type CFieldType Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.HasField "ordinary_signed_short_pointer_array_member" (RIP.Ptr Ordinary_signed_short_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
          ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_array_member" Ordinary_signed_short_pointer_array_struct ty where
 
@@ -4631,6 +4618,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
           Ordinary_signed_short_pointer_array_struct {ordinary_signed_short_pointer_array_member = y1}
       , RIP.getField @"ordinary_signed_short_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+         ) => RIP.HasField "ordinary_signed_short_pointer_array_member" (RIP.Ptr Ordinary_signed_short_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" where
+
+  type CFieldType Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_short_pointer_array_struct@
 
@@ -4674,19 +4674,6 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_array_struct instance RIP.Storable Explicit_signed_short_pointer_array_struct
 
-instance HasCField.HasCField Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" where
-
-  type CFieldType Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.HasField "explicit_signed_short_pointer_array_member" (RIP.Ptr Explicit_signed_short_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
          ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_array_member" Explicit_signed_short_pointer_array_struct ty where
 
@@ -4696,6 +4683,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
           Explicit_signed_short_pointer_array_struct {explicit_signed_short_pointer_array_member = y1}
       , RIP.getField @"explicit_signed_short_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+         ) => RIP.HasField "explicit_signed_short_pointer_array_member" (RIP.Ptr Explicit_signed_short_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_array_member")
+
+instance HasCField.HasCField Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" where
+
+  type CFieldType Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_short_pointer_array_struct@
 
@@ -4738,19 +4738,6 @@ instance Marshal.WriteRaw Unsigned_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_array_struct instance RIP.Storable Unsigned_short_pointer_array_struct
 
-instance HasCField.HasCField Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" where
-
-  type CFieldType Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
-         ) => RIP.HasField "unsigned_short_pointer_array_member" (RIP.Ptr Unsigned_short_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
          ) => RIP.CompatHasField.HasField "unsigned_short_pointer_array_member" Unsigned_short_pointer_array_struct ty where
 
@@ -4760,6 +4747,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
           Unsigned_short_pointer_array_struct {unsigned_short_pointer_array_member = y1}
       , RIP.getField @"unsigned_short_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
+         ) => RIP.HasField "unsigned_short_pointer_array_member" (RIP.Ptr Unsigned_short_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_array_member")
+
+instance HasCField.HasCField Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" where
+
+  type CFieldType Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_array_struct@
 
@@ -4803,19 +4803,6 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_array_struct instance RIP.Storable Ordinary_signed_int_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" where
-
-  type CFieldType Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.HasField "ordinary_signed_int_pointer_array_member" (RIP.Ptr Ordinary_signed_int_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
          ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_array_member" Ordinary_signed_int_pointer_array_struct ty where
 
@@ -4825,6 +4812,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
           Ordinary_signed_int_pointer_array_struct {ordinary_signed_int_pointer_array_member = y1}
       , RIP.getField @"ordinary_signed_int_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+         ) => RIP.HasField "ordinary_signed_int_pointer_array_member" (RIP.Ptr Ordinary_signed_int_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" where
+
+  type CFieldType Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_int_pointer_array_struct@
 
@@ -4868,19 +4868,6 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_array_struct instance RIP.Storable Explicit_signed_int_pointer_array_struct
 
-instance HasCField.HasCField Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" where
-
-  type CFieldType Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.HasField "explicit_signed_int_pointer_array_member" (RIP.Ptr Explicit_signed_int_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
          ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_array_member" Explicit_signed_int_pointer_array_struct ty where
 
@@ -4890,6 +4877,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
           Explicit_signed_int_pointer_array_struct {explicit_signed_int_pointer_array_member = y1}
       , RIP.getField @"explicit_signed_int_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+         ) => RIP.HasField "explicit_signed_int_pointer_array_member" (RIP.Ptr Explicit_signed_int_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_array_member")
+
+instance HasCField.HasCField Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" where
+
+  type CFieldType Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_int_pointer_array_struct@
 
@@ -4932,19 +4932,6 @@ instance Marshal.WriteRaw Unsigned_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_array_struct instance RIP.Storable Unsigned_int_pointer_array_struct
 
-instance HasCField.HasCField Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" where
-
-  type CFieldType Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
-         ) => RIP.HasField "unsigned_int_pointer_array_member" (RIP.Ptr Unsigned_int_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
          ) => RIP.CompatHasField.HasField "unsigned_int_pointer_array_member" Unsigned_int_pointer_array_struct ty where
 
@@ -4954,6 +4941,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
           Unsigned_int_pointer_array_struct {unsigned_int_pointer_array_member = y1}
       , RIP.getField @"unsigned_int_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
+         ) => RIP.HasField "unsigned_int_pointer_array_member" (RIP.Ptr Unsigned_int_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_array_member")
+
+instance HasCField.HasCField Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" where
+
+  type CFieldType Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_array_struct@
 
@@ -4997,19 +4997,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_array_struct instance RIP.Storable Ordinary_signed_long_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" where
-
-  type CFieldType Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.HasField "ordinary_signed_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_array_member" Ordinary_signed_long_pointer_array_struct ty where
 
@@ -5019,6 +5006,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
           Ordinary_signed_long_pointer_array_struct {ordinary_signed_long_pointer_array_member = y1}
       , RIP.getField @"ordinary_signed_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+         ) => RIP.HasField "ordinary_signed_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" where
+
+  type CFieldType Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_pointer_array_struct@
 
@@ -5062,19 +5062,6 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_array_struct instance RIP.Storable Explicit_signed_long_pointer_array_struct
 
-instance HasCField.HasCField Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" where
-
-  type CFieldType Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.HasField "explicit_signed_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
          ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_array_member" Explicit_signed_long_pointer_array_struct ty where
 
@@ -5084,6 +5071,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
           Explicit_signed_long_pointer_array_struct {explicit_signed_long_pointer_array_member = y1}
       , RIP.getField @"explicit_signed_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+         ) => RIP.HasField "explicit_signed_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_array_member")
+
+instance HasCField.HasCField Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" where
+
+  type CFieldType Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_pointer_array_struct@
 
@@ -5126,19 +5126,6 @@ instance Marshal.WriteRaw Unsigned_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_array_struct instance RIP.Storable Unsigned_long_pointer_array_struct
 
-instance HasCField.HasCField Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" where
-
-  type CFieldType Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
-         ) => RIP.HasField "unsigned_long_pointer_array_member" (RIP.Ptr Unsigned_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
          ) => RIP.CompatHasField.HasField "unsigned_long_pointer_array_member" Unsigned_long_pointer_array_struct ty where
 
@@ -5148,6 +5135,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
           Unsigned_long_pointer_array_struct {unsigned_long_pointer_array_member = y1}
       , RIP.getField @"unsigned_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
+         ) => RIP.HasField "unsigned_long_pointer_array_member" (RIP.Ptr Unsigned_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_array_member")
+
+instance HasCField.HasCField Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" where
+
+  type CFieldType Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_array_struct@
 
@@ -5191,19 +5191,6 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_array_struct instance RIP.Storable Ordinary_signed_long_long_pointer_array_struct
 
-instance HasCField.HasCField Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" where
-
-  type CFieldType Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.HasField "ordinary_signed_long_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
          ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_array_member" Ordinary_signed_long_long_pointer_array_struct ty where
 
@@ -5213,6 +5200,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
           Ordinary_signed_long_long_pointer_array_struct {ordinary_signed_long_long_pointer_array_member = y1}
       , RIP.getField @"ordinary_signed_long_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+         ) => RIP.HasField "ordinary_signed_long_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member")
+
+instance HasCField.HasCField Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" where
+
+  type CFieldType Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_array_struct@
 
@@ -5256,19 +5256,6 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_array_struct instance RIP.Storable Explicit_signed_long_long_pointer_array_struct
 
-instance HasCField.HasCField Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" where
-
-  type CFieldType Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.HasField "explicit_signed_long_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
          ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_array_member" Explicit_signed_long_long_pointer_array_struct ty where
 
@@ -5278,6 +5265,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
           Explicit_signed_long_long_pointer_array_struct {explicit_signed_long_long_pointer_array_member = y1}
       , RIP.getField @"explicit_signed_long_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+         ) => RIP.HasField "explicit_signed_long_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_array_member")
+
+instance HasCField.HasCField Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" where
+
+  type CFieldType Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct unsigned_long_long_pointer_array_struct@
 
@@ -5321,19 +5321,6 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_array_struct instance RIP.Storable Unsigned_long_long_pointer_array_struct
 
-instance HasCField.HasCField Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" where
-
-  type CFieldType Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
-         ) => RIP.HasField "unsigned_long_long_pointer_array_member" (RIP.Ptr Unsigned_long_long_pointer_array_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_array_member")
-
 instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
          ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_array_member" Unsigned_long_long_pointer_array_struct ty where
 
@@ -5343,6 +5330,19 @@ instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
           Unsigned_long_long_pointer_array_struct {unsigned_long_long_pointer_array_member = y1}
       , RIP.getField @"unsigned_long_long_pointer_array_member" x0
       )
+
+instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
+         ) => RIP.HasField "unsigned_long_long_pointer_array_member" (RIP.Ptr Unsigned_long_long_pointer_array_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_array_member")
+
+instance HasCField.HasCField Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" where
+
+  type CFieldType Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" =
+    CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
+
+  offset# = \_ -> \_ -> 0
 
 {-| Sanity checks
 
@@ -5376,6 +5376,13 @@ newtype An_int = An_int
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrap" An_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         An_int {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrap" (RIP.Ptr An_int) (RIP.Ptr ty) where
 
@@ -5386,13 +5393,6 @@ instance HasCField.HasCField An_int "unwrap" where
   type CFieldType An_int "unwrap" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrap" An_int ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         An_int {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct \@cal_table_table@
 
@@ -5444,17 +5444,6 @@ instance Marshal.WriteRaw Cal_table_table where
 
 deriving via Marshal.EquivStorable Cal_table_table instance RIP.Storable Cal_table_table
 
-instance HasCField.HasCField Cal_table_table "raw" where
-
-  type CFieldType Cal_table_table "raw" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "raw" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"raw")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "raw" Cal_table_table ty where
 
@@ -5465,16 +5454,16 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"raw" x0
       )
 
-instance HasCField.HasCField Cal_table_table "val" where
-
-  type CFieldType Cal_table_table "val" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "val" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
+         ) => RIP.HasField "raw" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"val")
+  getField = HasCField.fromPtr (RIP.Proxy @"raw")
+
+instance HasCField.HasCField Cal_table_table "raw" where
+
+  type CFieldType Cal_table_table "raw" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "val" Cal_table_table ty where
@@ -5485,6 +5474,17 @@ instance ( ty ~ RIP.CInt
           Cal_table_table {val = y1, raw = RIP.getField @"raw" x0}
       , RIP.getField @"val" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "val" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"val")
+
+instance HasCField.HasCField Cal_table_table "val" where
+
+  type CFieldType Cal_table_table "val" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| Issues without test cases in the original test suite
 
@@ -5540,17 +5540,6 @@ instance Marshal.WriteRaw Cal_table where
 
 deriving via Marshal.EquivStorable Cal_table instance RIP.Storable Cal_table
 
-instance HasCField.HasCField Cal_table "size" where
-
-  type CFieldType Cal_table "size" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "size" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"size")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "size" Cal_table ty where
 
@@ -5561,17 +5550,16 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"size" x0
       )
 
-instance HasCField.HasCField Cal_table "table" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "size" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
 
-  type CFieldType Cal_table "table" =
-    CA.ConstantArray 32 Cal_table_table
+  getField = HasCField.fromPtr (RIP.Proxy @"size")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField Cal_table "size" where
 
-instance ( ty ~ CA.ConstantArray 32 Cal_table_table
-         ) => RIP.HasField "table" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
+  type CFieldType Cal_table "size" = RIP.CInt
 
-  getField = HasCField.fromPtr (RIP.Proxy @"table")
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ CA.ConstantArray 32 Cal_table_table
          ) => RIP.CompatHasField.HasField "table" Cal_table ty where
@@ -5582,6 +5570,18 @@ instance ( ty ~ CA.ConstantArray 32 Cal_table_table
           Cal_table {table = y1, size = RIP.getField @"size" x0}
       , RIP.getField @"table" x0
       )
+
+instance ( ty ~ CA.ConstantArray 32 Cal_table_table
+         ) => RIP.HasField "table" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"table")
+
+instance HasCField.HasCField Cal_table "table" where
+
+  type CFieldType Cal_table "table" =
+    CA.ConstantArray 32 Cal_table_table
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @union \@Elf32_External_Dyn_d_un@
 
@@ -5656,6 +5656,11 @@ set_elf32_External_Dyn_d_un_d_ptr ::
 set_elf32_External_Dyn_d_un_d_ptr =
   RIP.setUnionPayload
 
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.HasField "d_val" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"d_val")
+
 instance HasCField.HasCField Elf32_External_Dyn_d_un "d_val" where
 
   type CFieldType Elf32_External_Dyn_d_un "d_val" =
@@ -5664,9 +5669,9 @@ instance HasCField.HasCField Elf32_External_Dyn_d_un "d_val" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_val" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
+         ) => RIP.HasField "d_ptr" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_val")
+  getField = HasCField.fromPtr (RIP.Proxy @"d_ptr")
 
 instance HasCField.HasCField Elf32_External_Dyn_d_un "d_ptr" where
 
@@ -5674,11 +5679,6 @@ instance HasCField.HasCField Elf32_External_Dyn_d_un "d_ptr" where
     CA.ConstantArray 4 RIP.CUChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_ptr" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"d_ptr")
 
 {-| __C declaration:__ @struct Elf32_External_Dyn@
 
@@ -5730,18 +5730,6 @@ instance Marshal.WriteRaw Elf32_External_Dyn where
 
 deriving via Marshal.EquivStorable Elf32_External_Dyn instance RIP.Storable Elf32_External_Dyn
 
-instance HasCField.HasCField Elf32_External_Dyn "d_tag" where
-
-  type CFieldType Elf32_External_Dyn "d_tag" =
-    CA.ConstantArray 4 RIP.CUChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_tag" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"d_tag")
-
 instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
          ) => RIP.CompatHasField.HasField "d_tag" Elf32_External_Dyn ty where
 
@@ -5752,17 +5740,17 @@ instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
       , RIP.getField @"d_tag" x0
       )
 
-instance HasCField.HasCField Elf32_External_Dyn "d_un" where
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.HasField "d_tag" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
 
-  type CFieldType Elf32_External_Dyn "d_un" =
-    Elf32_External_Dyn_d_un
+  getField = HasCField.fromPtr (RIP.Proxy @"d_tag")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField Elf32_External_Dyn "d_tag" where
 
-instance ( ty ~ Elf32_External_Dyn_d_un
-         ) => RIP.HasField "d_un" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
+  type CFieldType Elf32_External_Dyn "d_tag" =
+    CA.ConstantArray 4 RIP.CUChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_un")
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Elf32_External_Dyn_d_un
          ) => RIP.CompatHasField.HasField "d_un" Elf32_External_Dyn ty where
@@ -5773,6 +5761,18 @@ instance ( ty ~ Elf32_External_Dyn_d_un
           Elf32_External_Dyn {d_un = y1, d_tag = RIP.getField @"d_tag" x0}
       , RIP.getField @"d_un" x0
       )
+
+instance ( ty ~ Elf32_External_Dyn_d_un
+         ) => RIP.HasField "d_un" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"d_un")
+
+instance HasCField.HasCField Elf32_External_Dyn "d_un" where
+
+  type CFieldType Elf32_External_Dyn "d_un" =
+    Elf32_External_Dyn_d_un
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @bug_24@
 
@@ -5793,6 +5793,14 @@ newtype Bug_24 = Bug_24
     )
 
 instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bug_24 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bug_24 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Bug_24) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -5802,14 +5810,6 @@ instance HasCField.HasCField Bug_24 "unwrap" where
   type CFieldType Bug_24 "unwrap" = RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bug_24 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Bug_24 {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @bug_24_2@
 
@@ -5830,6 +5830,14 @@ newtype Bug_24_2 = Bug_24_2
     )
 
 instance ( ty ~ PtrConst.PtrConst RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" Bug_24_2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bug_24_2 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ PtrConst.PtrConst RIP.CInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Bug_24_2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -5840,14 +5848,6 @@ instance HasCField.HasCField Bug_24_2 "unwrap" where
     PtrConst.PtrConst RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bug_24_2 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Bug_24_2 {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @MyArray_27@
 
@@ -5868,6 +5868,14 @@ newtype MyArray_27 = MyArray_27
     )
 
 instance ( ty ~ CA.ConstantArray 20 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrap" MyArray_27 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyArray_27 {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ CA.ConstantArray 20 RIP.CInt
          ) => RIP.HasField "unwrap" (RIP.Ptr MyArray_27) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -5878,14 +5886,6 @@ instance HasCField.HasCField MyArray_27 "unwrap" where
     CA.ConstantArray 20 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 20 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" MyArray_27 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyArray_27 {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct MyStruct_27@
 
@@ -5928,20 +5928,20 @@ instance Marshal.WriteRaw MyStruct_27 where
 
 deriving via Marshal.EquivStorable MyStruct_27 instance RIP.Storable MyStruct_27
 
-instance HasCField.HasCField MyStruct_27 "x" where
-
-  type CFieldType MyStruct_27 "x" = MyArray_27
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ MyArray_27
-         ) => RIP.HasField "x" (RIP.Ptr MyStruct_27) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"x")
-
 instance ( ty ~ MyArray_27
          ) => RIP.CompatHasField.HasField "x" MyStruct_27 ty where
 
   hasField =
     \x0 ->
       (\y1 -> MyStruct_27 {x = y1}, RIP.getField @"x" x0)
+
+instance ( ty ~ MyArray_27
+         ) => RIP.HasField "x" (RIP.Ptr MyStruct_27) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"x")
+
+instance HasCField.HasCField MyStruct_27 "x" where
+
+  type CFieldType MyStruct_27 "x" = MyArray_27
+
+  offset# = \_ -> \_ -> 0

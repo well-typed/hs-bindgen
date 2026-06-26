@@ -107,7 +107,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -115,6 +114,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -137,7 +138,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -145,6 +145,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -167,7 +169,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -175,6 +176,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -194,13 +197,14 @@ hstypes:
       fields:
       - unwrapStdlib_CClock
   instances:
-  - CompatHasField
   - Enum
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Num
   - Ord
   - Read
@@ -217,10 +221,11 @@ hstypes:
       fields:
       - unwrapStdlib_CFenvT
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CFexceptT
   representation:
     newtype:
@@ -228,10 +233,11 @@ hstypes:
       fields:
       - unwrapStdlib_CFexceptT
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CFile
   representation:
     newtype:
@@ -239,10 +245,11 @@ hstypes:
       fields:
       - unwrapStdlib_CFile
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CFpos
   representation:
     newtype:
@@ -250,10 +257,11 @@ hstypes:
       fields:
       - unwrapStdlib_CFpos
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CIntMax
   representation:
     newtype:
@@ -264,7 +272,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -272,6 +279,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -294,7 +303,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -302,6 +310,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -321,10 +331,11 @@ hstypes:
       fields:
       - unwrapStdlib_CJmpBuf
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CMbstateT
   representation:
     newtype:
@@ -332,10 +343,11 @@ hstypes:
       fields:
       - unwrapStdlib_CMbstateT
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Stdlib_CPtrdiff
   representation:
     newtype:
@@ -346,7 +358,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -354,6 +365,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -376,7 +389,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -384,6 +396,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -406,7 +420,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -414,6 +427,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -433,13 +448,14 @@ hstypes:
       fields:
       - unwrapStdlib_CTime
   instances:
-  - CompatHasField
   - Enum
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Num
   - Ord
   - Read
@@ -456,11 +472,12 @@ hstypes:
       fields:
       - unwrapStdlib_CTm
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -474,7 +491,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -482,6 +498,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -504,7 +522,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -512,6 +529,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -534,7 +553,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -542,6 +560,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -561,12 +581,13 @@ hstypes:
       fields:
       - unwrapStdlib_CWctransT
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Prim
   - ReadRaw
   - Show
@@ -580,12 +601,13 @@ hstypes:
       fields:
       - unwrapStdlib_CWctypeT
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Prim
   - ReadRaw
   - Show
@@ -602,7 +624,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -610,6 +631,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -632,7 +655,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -640,6 +662,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -662,7 +686,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -670,6 +693,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -692,7 +717,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -700,6 +724,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -722,7 +748,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -730,6 +755,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -752,7 +779,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -760,6 +786,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -782,7 +810,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -790,6 +817,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -812,7 +841,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -820,6 +848,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -842,7 +872,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -850,6 +879,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num

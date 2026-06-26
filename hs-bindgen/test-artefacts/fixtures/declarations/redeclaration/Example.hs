@@ -59,6 +59,14 @@ newtype Int_t = Int_t
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapInt_t" Int_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int_t {unwrapInt_t = y1}, RIP.getField @"unwrapInt_t" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapInt_t" (RIP.Ptr Int_t) (RIP.Ptr ty) where
 
   getField =
@@ -69,14 +77,6 @@ instance HasCField.HasCField Int_t "unwrapInt_t" where
   type CFieldType Int_t "unwrapInt_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapInt_t" Int_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Int_t {unwrapInt_t = y1}, RIP.getField @"unwrapInt_t" x0)
 
 {-| __C declaration:__ @struct X@
 
@@ -119,20 +119,20 @@ instance Marshal.WriteRaw X where
 
 deriving via Marshal.EquivStorable X instance RIP.Storable X
 
-instance HasCField.HasCField X "x_n" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "x_n" X ty where
 
-  type CFieldType X "x_n" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> X {x_n = y1}, RIP.getField @"x_n" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "x_n" (RIP.Ptr X) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"x_n")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "x_n" X ty where
+instance HasCField.HasCField X "x_n" where
 
-  hasField =
-    \x0 -> (\y1 -> X {x_n = y1}, RIP.getField @"x_n" x0)
+  type CFieldType X "x_n" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union Y@
 
@@ -203,22 +203,22 @@ set_y_o ::
   -> Y
 set_y_o = RIP.setUnionPayload
 
+instance (ty ~ RIP.CInt) => RIP.HasField "y_m" (RIP.Ptr Y) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"y_m")
+
 instance HasCField.HasCField Y "y_m" where
 
   type CFieldType Y "y_m" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.HasField "y_m" (RIP.Ptr Y) (RIP.Ptr ty) where
+instance (ty ~ RIP.CInt) => RIP.HasField "y_o" (RIP.Ptr Y) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"y_m")
+  getField = HasCField.fromPtr (RIP.Proxy @"y_o")
 
 instance HasCField.HasCField Y "y_o" where
 
   type CFieldType Y "y_o" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.HasField "y_o" (RIP.Ptr Y) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"y_o")

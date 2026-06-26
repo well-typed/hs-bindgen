@@ -73,19 +73,6 @@ instance Marshal.WriteRaw Some_struct_field1 where
 
 deriving via Marshal.EquivStorable Some_struct_field1 instance RIP.Storable Some_struct_field1
 
-instance HasCField.HasCField Some_struct_field1 "some_struct_field1_x" where
-
-  type CFieldType Some_struct_field1 "some_struct_field1_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "some_struct_field1_x" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"some_struct_field1_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "some_struct_field1_x" Some_struct_field1 ty where
 
@@ -98,18 +85,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"some_struct_field1_x" x0
       )
 
-instance HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
-
-  type CFieldType Some_struct_field1 "some_struct_field1_y" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "some_struct_field1_y" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
+         ) => RIP.HasField "some_struct_field1_x" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"some_struct_field1_y")
+    HasCField.fromPtr (RIP.Proxy @"some_struct_field1_x")
+
+instance HasCField.HasCField Some_struct_field1 "some_struct_field1_x" where
+
+  type CFieldType Some_struct_field1 "some_struct_field1_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "some_struct_field1_y" Some_struct_field1 ty where
@@ -122,6 +109,19 @@ instance ( ty ~ RIP.CInt
                              }
       , RIP.getField @"some_struct_field1_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "some_struct_field1_y" (RIP.Ptr Some_struct_field1) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"some_struct_field1_y")
+
+instance HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
+
+  type CFieldType Some_struct_field1 "some_struct_field1_y" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -182,19 +182,6 @@ instance Marshal.WriteRaw Some_struct where
 
 deriving via Marshal.EquivStorable Some_struct instance RIP.Storable Some_struct
 
-instance HasCField.HasCField Some_struct "some_struct_field1" where
-
-  type CFieldType Some_struct "some_struct_field1" =
-    Some_struct_field1
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field1" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"some_struct_field1")
-
 instance ( ty ~ Some_struct_field1
          ) => RIP.CompatHasField.HasField "some_struct_field1" Some_struct ty where
 
@@ -208,18 +195,18 @@ instance ( ty ~ Some_struct_field1
       , RIP.getField @"some_struct_field1" x0
       )
 
-instance HasCField.HasCField Some_struct "some_struct_field2" where
-
-  type CFieldType Some_struct "some_struct_field2" =
-    Some_struct_field1
-
-  offset# = \_ -> \_ -> 8
-
 instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field2" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+         ) => RIP.HasField "some_struct_field1" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"some_struct_field2")
+    HasCField.fromPtr (RIP.Proxy @"some_struct_field1")
+
+instance HasCField.HasCField Some_struct "some_struct_field1" where
+
+  type CFieldType Some_struct "some_struct_field1" =
+    Some_struct_field1
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Some_struct_field1
          ) => RIP.CompatHasField.HasField "some_struct_field2" Some_struct ty where
@@ -234,18 +221,18 @@ instance ( ty ~ Some_struct_field1
       , RIP.getField @"some_struct_field2" x0
       )
 
-instance HasCField.HasCField Some_struct "some_struct_field3" where
-
-  type CFieldType Some_struct "some_struct_field3" =
-    Some_struct_field1
-
-  offset# = \_ -> \_ -> 16
-
 instance ( ty ~ Some_struct_field1
-         ) => RIP.HasField "some_struct_field3" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+         ) => RIP.HasField "some_struct_field2" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"some_struct_field3")
+    HasCField.fromPtr (RIP.Proxy @"some_struct_field2")
+
+instance HasCField.HasCField Some_struct "some_struct_field2" where
+
+  type CFieldType Some_struct "some_struct_field2" =
+    Some_struct_field1
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ Some_struct_field1
          ) => RIP.CompatHasField.HasField "some_struct_field3" Some_struct ty where
@@ -259,3 +246,16 @@ instance ( ty ~ Some_struct_field1
                       }
       , RIP.getField @"some_struct_field3" x0
       )
+
+instance ( ty ~ Some_struct_field1
+         ) => RIP.HasField "some_struct_field3" (RIP.Ptr Some_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"some_struct_field3")
+
+instance HasCField.HasCField Some_struct "some_struct_field3" where
+
+  type CFieldType Some_struct "some_struct_field3" =
+    Some_struct_field1
+
+  offset# = \_ -> \_ -> 16

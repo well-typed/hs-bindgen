@@ -79,23 +79,23 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance RIP.Storable S
 
-instance HasCField.HasCField S "s_f" where
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
+         ) => RIP.CompatHasField.HasField "s_f" S ty where
 
-  type CFieldType S "s_f" =
-    CA.ConstantArray 3 RIP.CShort
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> S {s_f = y1}, RIP.getField @"s_f" x0)
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CShort
          ) => RIP.HasField "s_f" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_f")
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CShort
-         ) => RIP.CompatHasField.HasField "s_f" S ty where
+instance HasCField.HasCField S "s_f" where
 
-  hasField =
-    \x0 -> (\y1 -> S {s_f = y1}, RIP.getField @"s_f" x0)
+  type CFieldType S "s_f" =
+    CA.ConstantArray 3 RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @more_aligned_int@
 
@@ -126,6 +126,16 @@ newtype More_aligned_int = More_aligned_int
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMore_aligned_int" More_aligned_int ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          More_aligned_int {unwrapMore_aligned_int = y1}
+      , RIP.getField @"unwrapMore_aligned_int" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMore_aligned_int" (RIP.Ptr More_aligned_int) (RIP.Ptr ty) where
 
   getField =
@@ -137,16 +147,6 @@ instance HasCField.HasCField More_aligned_int "unwrapMore_aligned_int" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMore_aligned_int" More_aligned_int ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          More_aligned_int {unwrapMore_aligned_int = y1}
-      , RIP.getField @"unwrapMore_aligned_int" x0
-      )
 
 {-| __C declaration:__ @struct S2@
 
@@ -189,24 +189,24 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance RIP.Storable S2
 
-instance HasCField.HasCField S2 "s2_f" where
-
-  type CFieldType S2 "s2_f" =
-    CA.ConstantArray 3 RIP.CShort
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CShort
-         ) => RIP.HasField "s2_f" (RIP.Ptr S2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_f")
-
 instance ( ty ~ CA.ConstantArray 3 RIP.CShort
          ) => RIP.CompatHasField.HasField "s2_f" S2 ty where
 
   hasField =
     \x0 ->
       (\y1 -> S2 {s2_f = y1}, RIP.getField @"s2_f" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CShort
+         ) => RIP.HasField "s2_f" (RIP.Ptr S2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_f")
+
+instance HasCField.HasCField S2 "s2_f" where
+
+  type CFieldType S2 "s2_f" =
+    CA.ConstantArray 3 RIP.CShort
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct my_unpacked_struct@
 
@@ -258,19 +258,6 @@ instance Marshal.WriteRaw My_unpacked_struct where
 
 deriving via Marshal.EquivStorable My_unpacked_struct instance RIP.Storable My_unpacked_struct
 
-instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
-
-  type CFieldType My_unpacked_struct "my_unpacked_struct_c" =
-    RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "my_unpacked_struct_c" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_c")
-
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "my_unpacked_struct_c" My_unpacked_struct ty where
 
@@ -283,18 +270,18 @@ instance ( ty ~ RIP.CChar
       , RIP.getField @"my_unpacked_struct_c" x0
       )
 
-instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_i" where
-
-  type CFieldType My_unpacked_struct "my_unpacked_struct_i" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "my_unpacked_struct_i" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "my_unpacked_struct_c" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_i")
+    HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_c")
+
+instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
+
+  type CFieldType My_unpacked_struct "my_unpacked_struct_c" =
+    RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "my_unpacked_struct_i" My_unpacked_struct ty where
@@ -307,6 +294,19 @@ instance ( ty ~ RIP.CInt
                              }
       , RIP.getField @"my_unpacked_struct_i" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "my_unpacked_struct_i" (RIP.Ptr My_unpacked_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"my_unpacked_struct_i")
+
+instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_i" where
+
+  type CFieldType My_unpacked_struct "my_unpacked_struct_i" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct my_packed_struct@
 
@@ -367,19 +367,6 @@ instance Marshal.WriteRaw My_packed_struct where
 
 deriving via Marshal.EquivStorable My_packed_struct instance RIP.Storable My_packed_struct
 
-instance HasCField.HasCField My_packed_struct "my_packed_struct_c" where
-
-  type CFieldType My_packed_struct "my_packed_struct_c" =
-    RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "my_packed_struct_c" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_c")
-
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "my_packed_struct_c" My_packed_struct ty where
 
@@ -393,18 +380,18 @@ instance ( ty ~ RIP.CChar
       , RIP.getField @"my_packed_struct_c" x0
       )
 
-instance HasCField.HasCField My_packed_struct "my_packed_struct_i" where
-
-  type CFieldType My_packed_struct "my_packed_struct_i" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 1
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "my_packed_struct_i" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "my_packed_struct_c" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_i")
+    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_c")
+
+instance HasCField.HasCField My_packed_struct "my_packed_struct_c" where
+
+  type CFieldType My_packed_struct "my_packed_struct_c" =
+    RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "my_packed_struct_i" My_packed_struct ty where
@@ -419,18 +406,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"my_packed_struct_i" x0
       )
 
-instance HasCField.HasCField My_packed_struct "my_packed_struct_s" where
-
-  type CFieldType My_packed_struct "my_packed_struct_s" =
-    My_unpacked_struct
-
-  offset# = \_ -> \_ -> 5
-
-instance ( ty ~ My_unpacked_struct
-         ) => RIP.HasField "my_packed_struct_s" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "my_packed_struct_i" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_s")
+    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_i")
+
+instance HasCField.HasCField My_packed_struct "my_packed_struct_i" where
+
+  type CFieldType My_packed_struct "my_packed_struct_i" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 1
 
 instance ( ty ~ My_unpacked_struct
          ) => RIP.CompatHasField.HasField "my_packed_struct_s" My_packed_struct ty where
@@ -444,6 +431,19 @@ instance ( ty ~ My_unpacked_struct
                            }
       , RIP.getField @"my_packed_struct_s" x0
       )
+
+instance ( ty ~ My_unpacked_struct
+         ) => RIP.HasField "my_packed_struct_s" (RIP.Ptr My_packed_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"my_packed_struct_s")
+
+instance HasCField.HasCField My_packed_struct "my_packed_struct_s" where
+
+  type CFieldType My_packed_struct "my_packed_struct_s" =
+    My_unpacked_struct
+
+  offset# = \_ -> \_ -> 5
 
 {-| __C declaration:__ @union wait_status_ptr_t@
 
@@ -514,23 +514,16 @@ set_wait_status_ptr_t___up ::
   -> Wait_status_ptr_t
 set_wait_status_ptr_t___up = RIP.setUnionPayload
 
-instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
-
-  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___ip" =
-    RIP.Ptr RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "wait_status_ptr_t___ip" (RIP.Ptr Wait_status_ptr_t) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"wait_status_ptr_t___ip")
 
-instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___up" where
+instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
 
-  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___up" =
-    RIP.Ptr Wait
+  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___ip" =
+    RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -539,6 +532,13 @@ instance ( ty ~ RIP.Ptr Wait
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"wait_status_ptr_t___up")
+
+instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___up" where
+
+  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___up" =
+    RIP.Ptr Wait
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union wait@
 
@@ -576,6 +576,13 @@ newtype T1 = T1
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
 
@@ -586,13 +593,6 @@ instance HasCField.HasCField T1 "unwrapT1" where
   type CFieldType T1 "unwrapT1" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
 
 {-| __C declaration:__ @short_a@
 
@@ -623,6 +623,14 @@ newtype Short_a = Short_a
     )
 
 instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapShort_a" Short_a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Short_a {unwrapShort_a = y1}, RIP.getField @"unwrapShort_a" x0)
+
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapShort_a" (RIP.Ptr Short_a) (RIP.Ptr ty) where
 
   getField =
@@ -633,11 +641,3 @@ instance HasCField.HasCField Short_a "unwrapShort_a" where
   type CFieldType Short_a "unwrapShort_a" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "unwrapShort_a" Short_a ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Short_a {unwrapShort_a = y1}, RIP.getField @"unwrapShort_a" x0)

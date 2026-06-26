@@ -112,6 +112,14 @@ instance Read EnumA where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
 
   getField =
@@ -122,14 +130,6 @@ instance HasCField.HasCField EnumA "unwrapEnumA" where
   type CFieldType EnumA "unwrapEnumA" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
 
 {-| __C declaration:__ @VALA_1@
 
@@ -190,11 +190,12 @@ instance Marshal.WriteRaw ExA where
 
 deriving via Marshal.EquivStorable ExA instance RIP.Storable ExA
 
-instance HasCField.HasCField ExA "exA_fieldA1" where
+instance (ty ~ EnumA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
 
-  type CFieldType ExA "exA_fieldA1" = EnumA
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 ->
+      (\y1 ->
+         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
 
 instance ( ty ~ EnumA
          ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
@@ -202,12 +203,11 @@ instance ( ty ~ EnumA
   getField =
     HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
 
-instance (ty ~ EnumA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
+instance HasCField.HasCField ExA "exA_fieldA1" where
 
-  hasField =
-    \x0 ->
-      (\y1 ->
-         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
+  type CFieldType ExA "exA_fieldA1" = EnumA
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
@@ -288,6 +288,15 @@ instance Read ExB_fieldB1 where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapExB_fieldB1" ExB_fieldB1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> ExB_fieldB1 {unwrapExB_fieldB1 = y1}
+      , RIP.getField @"unwrapExB_fieldB1" x0
+      )
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapExB_fieldB1" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
@@ -299,15 +308,6 @@ instance HasCField.HasCField ExB_fieldB1 "unwrapExB_fieldB1" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapExB_fieldB1" ExB_fieldB1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> ExB_fieldB1 {unwrapExB_fieldB1 = y1}
-      , RIP.getField @"unwrapExB_fieldB1" x0
-      )
 
 {-| __C declaration:__ @VALB_1@
 
@@ -368,18 +368,6 @@ instance Marshal.WriteRaw ExB where
 
 deriving via Marshal.EquivStorable ExB instance RIP.Storable ExB
 
-instance HasCField.HasCField ExB "exB_fieldB1" where
-
-  type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
-
 instance ( ty ~ ExB_fieldB1
          ) => RIP.CompatHasField.HasField "exB_fieldB1" ExB ty where
 
@@ -387,3 +375,15 @@ instance ( ty ~ ExB_fieldB1
     \x0 ->
       (\y1 ->
          ExB {exB_fieldB1 = y1}, RIP.getField @"exB_fieldB1" x0)
+
+instance ( ty ~ ExB_fieldB1
+         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
+
+instance HasCField.HasCField ExB "exB_fieldB1" where
+
+  type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
+
+  offset# = \_ -> \_ -> 0

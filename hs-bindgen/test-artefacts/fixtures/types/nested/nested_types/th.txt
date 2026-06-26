@@ -31,24 +31,24 @@ instance WriteRaw Foo
                                        Foo foo_i_2
                                            foo_c_3 -> writeRaw (Proxy @"foo_i") ptr_0 foo_i_2 >> writeRaw (Proxy @"foo_c") ptr_0 foo_c_3
 deriving via (EquivStorable Foo) instance Storable Foo
-instance HasCField Foo "foo_i"
-    where type CFieldType Foo "foo_i" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_i")
 instance (~) ty CInt => HasField "foo_i" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_i = y_1,
                                           foo_c = getField @"foo_c" x_0},
                               getField @"foo_i" x_0)
-instance HasCField Foo "foo_c"
-    where type CFieldType Foo "foo_c" = CChar
-          offset# = \_ -> \_ -> 4
-instance (~) ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_c")
+instance (~) ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_i")
+instance HasCField Foo "foo_i"
+    where type CFieldType Foo "foo_i" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "foo_c" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_c = y_1,
                                           foo_i = getField @"foo_i" x_0},
                               getField @"foo_c" x_0)
+instance (~) ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_c")
+instance HasCField Foo "foo_c"
+    where type CFieldType Foo "foo_c" = CChar
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @types\/nested\/nested_types.h 6:8@
@@ -81,24 +81,24 @@ instance WriteRaw Bar
                                        Bar bar_foo1_2
                                            bar_foo2_3 -> writeRaw (Proxy @"bar_foo1") ptr_0 bar_foo1_2 >> writeRaw (Proxy @"bar_foo2") ptr_0 bar_foo2_3
 deriving via (EquivStorable Bar) instance Storable Bar
-instance HasCField Bar "bar_foo1"
-    where type CFieldType Bar "bar_foo1" = Foo
-          offset# = \_ -> \_ -> 0
-instance (~) ty Foo => HasField "bar_foo1" (Ptr Bar) (Ptr ty)
-    where getField = fromPtr (Proxy @"bar_foo1")
 instance (~) ty Foo => HasField "bar_foo1" Bar ty
     where hasField = \x_0 -> (\y_1 -> Bar{bar_foo1 = y_1,
                                           bar_foo2 = getField @"bar_foo2" x_0},
                               getField @"bar_foo1" x_0)
-instance HasCField Bar "bar_foo2"
-    where type CFieldType Bar "bar_foo2" = Foo
-          offset# = \_ -> \_ -> 8
-instance (~) ty Foo => HasField "bar_foo2" (Ptr Bar) (Ptr ty)
-    where getField = fromPtr (Proxy @"bar_foo2")
+instance (~) ty Foo => HasField "bar_foo1" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_foo1")
+instance HasCField Bar "bar_foo1"
+    where type CFieldType Bar "bar_foo1" = Foo
+          offset# = \_ -> \_ -> 0
 instance (~) ty Foo => HasField "bar_foo2" Bar ty
     where hasField = \x_0 -> (\y_1 -> Bar{bar_foo2 = y_1,
                                           bar_foo1 = getField @"bar_foo1" x_0},
                               getField @"bar_foo2" x_0)
+instance (~) ty Foo => HasField "bar_foo2" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_foo2")
+instance HasCField Bar "bar_foo2"
+    where type CFieldType Bar "bar_foo2" = Foo
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct \@ex3_ex3_struct@
 
     __defined at:__ @types\/nested\/nested_types.h 12:5@
@@ -131,28 +131,28 @@ instance WriteRaw Ex3_ex3_struct
                                        Ex3_ex3_struct ex3_ex3_struct_ex3_a_2
                                                       ex3_ex3_struct_ex3_b_3 -> writeRaw (Proxy @"ex3_ex3_struct_ex3_a") ptr_0 ex3_ex3_struct_ex3_a_2 >> writeRaw (Proxy @"ex3_ex3_struct_ex3_b") ptr_0 ex3_ex3_struct_ex3_b_3
 deriving via (EquivStorable Ex3_ex3_struct) instance Storable Ex3_ex3_struct
-instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
-    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_a")
 instance (~) ty CInt =>
          HasField "ex3_ex3_struct_ex3_a" Ex3_ex3_struct ty
     where hasField = \x_0 -> (\y_1 -> Ex3_ex3_struct{ex3_ex3_struct_ex3_a = y_1,
                                                      ex3_ex3_struct_ex3_b = getField @"ex3_ex3_struct_ex3_b" x_0},
                               getField @"ex3_ex3_struct_ex3_a" x_0)
-instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
-    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
-          offset# = \_ -> \_ -> 4
-instance (~) ty CChar =>
-         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_b")
+instance (~) ty CInt =>
+         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_a")
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CChar =>
          HasField "ex3_ex3_struct_ex3_b" Ex3_ex3_struct ty
     where hasField = \x_0 -> (\y_1 -> Ex3_ex3_struct{ex3_ex3_struct_ex3_b = y_1,
                                                      ex3_ex3_struct_ex3_a = getField @"ex3_ex3_struct_ex3_a" x_0},
                               getField @"ex3_ex3_struct_ex3_b" x_0)
+instance (~) ty CChar =>
+         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_b")
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct ex3@
 
     __defined at:__ @types\/nested\/nested_types.h 11:8@
@@ -185,25 +185,25 @@ instance WriteRaw Ex3
                                        Ex3 ex3_ex3_struct_2
                                            ex3_ex3_c_3 -> writeRaw (Proxy @"ex3_ex3_struct") ptr_0 ex3_ex3_struct_2 >> writeRaw (Proxy @"ex3_ex3_c") ptr_0 ex3_ex3_c_3
 deriving via (EquivStorable Ex3) instance Storable Ex3
-instance HasCField Ex3 "ex3_ex3_struct"
-    where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
-          offset# = \_ -> \_ -> 0
-instance (~) ty Ex3_ex3_struct =>
-         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex3_ex3_struct")
 instance (~) ty Ex3_ex3_struct => HasField "ex3_ex3_struct" Ex3 ty
     where hasField = \x_0 -> (\y_1 -> Ex3{ex3_ex3_struct = y_1,
                                           ex3_ex3_c = getField @"ex3_ex3_c" x_0},
                               getField @"ex3_ex3_struct" x_0)
-instance HasCField Ex3 "ex3_ex3_c"
-    where type CFieldType Ex3 "ex3_ex3_c" = CFloat
-          offset# = \_ -> \_ -> 8
-instance (~) ty CFloat => HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex3_ex3_c")
+instance (~) ty Ex3_ex3_struct =>
+         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_struct")
+instance HasCField Ex3 "ex3_ex3_struct"
+    where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
+          offset# = \_ -> \_ -> 0
 instance (~) ty CFloat => HasField "ex3_ex3_c" Ex3 ty
     where hasField = \x_0 -> (\y_1 -> Ex3{ex3_ex3_c = y_1,
                                           ex3_ex3_struct = getField @"ex3_ex3_struct" x_0},
                               getField @"ex3_ex3_c" x_0)
+instance (~) ty CFloat => HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex3_ex3_c")
+instance HasCField Ex3 "ex3_ex3_c"
+    where type CFieldType Ex3 "ex3_ex3_c" = CFloat
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct ex4_odd@
 
     __defined at:__ @types\/nested\/nested_types.h 22:8@
@@ -236,27 +236,27 @@ instance WriteRaw Ex4_odd
                                        Ex4_odd ex4_odd_value_2
                                                ex4_odd_next_3 -> writeRaw (Proxy @"ex4_odd_value") ptr_0 ex4_odd_value_2 >> writeRaw (Proxy @"ex4_odd_next") ptr_0 ex4_odd_next_3
 deriving via (EquivStorable Ex4_odd) instance Storable Ex4_odd
-instance HasCField Ex4_odd "ex4_odd_value"
-    where type CFieldType Ex4_odd "ex4_odd_value" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex4_odd_value")
 instance (~) ty CInt => HasField "ex4_odd_value" Ex4_odd ty
     where hasField = \x_0 -> (\y_1 -> Ex4_odd{ex4_odd_value = y_1,
                                               ex4_odd_next = getField @"ex4_odd_next" x_0},
                               getField @"ex4_odd_value" x_0)
-instance HasCField Ex4_odd "ex4_odd_next"
-    where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Ex4_even) =>
-         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex4_odd_next")
+instance (~) ty CInt =>
+         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_odd_value")
+instance HasCField Ex4_odd "ex4_odd_value"
+    where type CFieldType Ex4_odd "ex4_odd_value" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Ex4_even) =>
          HasField "ex4_odd_next" Ex4_odd ty
     where hasField = \x_0 -> (\y_1 -> Ex4_odd{ex4_odd_next = y_1,
                                               ex4_odd_value = getField @"ex4_odd_value" x_0},
                               getField @"ex4_odd_next" x_0)
+instance (~) ty (Ptr Ex4_even) =>
+         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_odd_next")
+instance HasCField Ex4_odd "ex4_odd_next"
+    where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct ex4_even@
 
     __defined at:__ @types\/nested\/nested_types.h 24:12@
@@ -289,24 +289,24 @@ instance WriteRaw Ex4_even
                                        Ex4_even ex4_even_value_2
                                                 ex4_even_next_3 -> writeRaw (Proxy @"ex4_even_value") ptr_0 ex4_even_value_2 >> writeRaw (Proxy @"ex4_even_next") ptr_0 ex4_even_next_3
 deriving via (EquivStorable Ex4_even) instance Storable Ex4_even
-instance HasCField Ex4_even "ex4_even_value"
-    where type CFieldType Ex4_even "ex4_even_value" = CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty CDouble =>
-         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex4_even_value")
 instance (~) ty CDouble => HasField "ex4_even_value" Ex4_even ty
     where hasField = \x_0 -> (\y_1 -> Ex4_even{ex4_even_value = y_1,
                                                ex4_even_next = getField @"ex4_even_next" x_0},
                               getField @"ex4_even_value" x_0)
-instance HasCField Ex4_even "ex4_even_next"
-    where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Ex4_odd) =>
-         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
-    where getField = fromPtr (Proxy @"ex4_even_next")
+instance (~) ty CDouble =>
+         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_even_value")
+instance HasCField Ex4_even "ex4_even_value"
+    where type CFieldType Ex4_even "ex4_even_value" = CDouble
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Ex4_odd) =>
          HasField "ex4_even_next" Ex4_even ty
     where hasField = \x_0 -> (\y_1 -> Ex4_even{ex4_even_next = y_1,
                                                ex4_even_value = getField @"ex4_even_value" x_0},
                               getField @"ex4_even_next" x_0)
+instance (~) ty (Ptr Ex4_odd) =>
+         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
+    where getField = fromPtr (Proxy @"ex4_even_next")
+instance HasCField Ex4_even "ex4_even_next"
+    where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
+          offset# = \_ -> \_ -> 8

@@ -42,14 +42,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @union \@G1@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:1@
@@ -95,11 +95,11 @@ set_g1_x :: MyInt -> G1
 
 -}
 set_g1_x = setUnionPayload
+instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
+    where getField = fromPtr (Proxy @"g1_x")
 instance HasCField G1 "g1_x"
     where type CFieldType G1 "g1_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
-    where getField = fromPtr (Proxy @"g1_x")
 {-| __C declaration:__ @union \@G2@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:1@
@@ -145,11 +145,11 @@ set_g2_x :: MyInt -> G2
 
 -}
 set_g2_x = setUnionPayload
+instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
+    where getField = fromPtr (Proxy @"g2_x")
 instance HasCField G2 "g2_x"
     where type CFieldType G2 "g2_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
-    where getField = fromPtr (Proxy @"g2_x")
 {-| __C declaration:__ @union \@G3@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:1@
@@ -195,11 +195,11 @@ set_g3_x :: MyInt -> G3
 
 -}
 set_g3_x = setUnionPayload
+instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
+    where getField = fromPtr (Proxy @"g3_x")
 instance HasCField G3 "g3_x"
     where type CFieldType G3 "g3_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
-    where getField = fromPtr (Proxy @"g3_x")
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_G1@
 foreign import ccall unsafe "hs_bindgen_4b01ee4d60407c60" hs_bindgen_4b01ee4d60407c60_base ::
     IO (Ptr Void)

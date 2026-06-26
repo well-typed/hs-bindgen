@@ -75,17 +75,6 @@ instance Marshal.WriteRaw Pt where
 
 deriving via Marshal.EquivStorable Pt instance RIP.Storable Pt
 
-instance HasCField.HasCField Pt "pt_x" where
-
-  type CFieldType Pt "pt_x" = RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "pt_x" (RIP.Ptr Pt) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"pt_x")
-
 instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_x" Pt ty where
 
   hasField =
@@ -95,16 +84,16 @@ instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_x" Pt ty where
       , RIP.getField @"pt_x" x0
       )
 
-instance HasCField.HasCField Pt "pt_y" where
-
-  type CFieldType Pt "pt_y" = RIP.CDouble
-
-  offset# = \_ -> \_ -> 8
-
 instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "pt_y" (RIP.Ptr Pt) (RIP.Ptr ty) where
+         ) => RIP.HasField "pt_x" (RIP.Ptr Pt) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"pt_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"pt_x")
+
+instance HasCField.HasCField Pt "pt_x" where
+
+  type CFieldType Pt "pt_x" = RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_y" Pt ty where
 
@@ -114,6 +103,17 @@ instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_y" Pt ty where
           Pt {pt_y = y1, pt_x = RIP.getField @"pt_x" x0}
       , RIP.getField @"pt_y" x0
       )
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.HasField "pt_y" (RIP.Ptr Pt) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"pt_y")
+
+instance HasCField.HasCField Pt "pt_y" where
+
+  type CFieldType Pt "pt_y" = RIP.CDouble
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @macro CHILD_HEADER@
 
@@ -177,16 +177,6 @@ instance Marshal.WriteRaw Rect where
 
 deriving via Marshal.EquivStorable Rect instance RIP.Storable Rect
 
-instance HasCField.HasCField Rect "rect_tl" where
-
-  type CFieldType Rect "rect_tl" = Pt
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ Pt) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"rect_tl")
-
 instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_tl" Rect ty where
 
   hasField =
@@ -196,15 +186,15 @@ instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_tl" Rect ty where
       , RIP.getField @"rect_tl" x0
       )
 
-instance HasCField.HasCField Rect "rect_br" where
+instance (ty ~ Pt) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
 
-  type CFieldType Rect "rect_br" = Pt
+  getField = HasCField.fromPtr (RIP.Proxy @"rect_tl")
 
-  offset# = \_ -> \_ -> 16
+instance HasCField.HasCField Rect "rect_tl" where
 
-instance (ty ~ Pt) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
+  type CFieldType Rect "rect_tl" = Pt
 
-  getField = HasCField.fromPtr (RIP.Proxy @"rect_br")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_br" Rect ty where
 
@@ -214,3 +204,13 @@ instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_br" Rect ty where
           Rect {rect_br = y1, rect_tl = RIP.getField @"rect_tl" x0}
       , RIP.getField @"rect_br" x0
       )
+
+instance (ty ~ Pt) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"rect_br")
+
+instance HasCField.HasCField Rect "rect_br" where
+
+  type CFieldType Rect "rect_br" = Pt
+
+  offset# = \_ -> \_ -> 16

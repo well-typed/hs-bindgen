@@ -35,16 +35,16 @@ instance ToFunPtr RunDriver_Aux
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 instance (~) ty (Ptr Driver -> IO CInt) =>
+         HasField "unwrapRunDriver_Aux" RunDriver_Aux ty
+    where hasField = \x_0 -> (\y_1 -> RunDriver_Aux{unwrapRunDriver_Aux = y_1},
+                              getField @"unwrapRunDriver_Aux" x_0)
+instance (~) ty (Ptr Driver -> IO CInt) =>
          HasField "unwrapRunDriver_Aux" (Ptr RunDriver_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
 instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
     where type CFieldType RunDriver_Aux
                           "unwrapRunDriver_Aux" = Ptr Driver -> IO CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Driver -> IO CInt) =>
-         HasField "unwrapRunDriver_Aux" RunDriver_Aux ty
-    where hasField = \x_0 -> (\y_1 -> RunDriver_Aux{unwrapRunDriver_Aux = y_1},
-                              getField @"unwrapRunDriver_Aux" x_0)
 {-| __C declaration:__ @RunDriver@
 
     __defined at:__ @functions\/typedef_funptr.h 12:15@
@@ -60,16 +60,16 @@ newtype RunDriver
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr RunDriver_Aux) =>
+         HasField "unwrapRunDriver" RunDriver ty
+    where hasField = \x_0 -> (\y_1 -> RunDriver{unwrapRunDriver = y_1},
+                              getField @"unwrapRunDriver" x_0)
+instance (~) ty (FunPtr RunDriver_Aux) =>
          HasField "unwrapRunDriver" (Ptr RunDriver) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver")
 instance HasCField RunDriver "unwrapRunDriver"
     where type CFieldType RunDriver
                           "unwrapRunDriver" = FunPtr RunDriver_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr RunDriver_Aux) =>
-         HasField "unwrapRunDriver" RunDriver ty
-    where hasField = \x_0 -> (\y_1 -> RunDriver{unwrapRunDriver = y_1},
-                              getField @"unwrapRunDriver" x_0)
 {-| __C declaration:__ @struct Driver@
 
     __defined at:__ @functions\/typedef_funptr.h 13:8@
@@ -94,15 +94,15 @@ instance WriteRaw Driver
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Driver driver_run_2 -> writeRaw (Proxy @"driver_run") ptr_0 driver_run_2
 deriving via (EquivStorable Driver) instance Storable Driver
-instance HasCField Driver "driver_run"
-    where type CFieldType Driver "driver_run" = RunDriver
-          offset# = \_ -> \_ -> 0
-instance (~) ty RunDriver =>
-         HasField "driver_run" (Ptr Driver) (Ptr ty)
-    where getField = fromPtr (Proxy @"driver_run")
 instance (~) ty RunDriver => HasField "driver_run" Driver ty
     where hasField = \x_0 -> (\y_1 -> Driver{driver_run = y_1},
                               getField @"driver_run" x_0)
+instance (~) ty RunDriver =>
+         HasField "driver_run" (Ptr Driver) (Ptr ty)
+    where getField = fromPtr (Proxy @"driver_run")
+instance HasCField Driver "driver_run"
+    where type CFieldType Driver "driver_run" = RunDriver
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Bare@
 
     __defined at:__ @functions\/typedef_funptr.h 20:8@
@@ -127,13 +127,13 @@ instance WriteRaw Bare
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Bare bare_callback_2 -> writeRaw (Proxy @"bare_callback") ptr_0 bare_callback_2
 deriving via (EquivStorable Bare) instance Storable Bare
-instance HasCField Bare "bare_callback"
-    where type CFieldType Bare "bare_callback" = FunPtr (CInt -> IO ())
-          offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (CInt -> IO ())) =>
-         HasField "bare_callback" (Ptr Bare) (Ptr ty)
-    where getField = fromPtr (Proxy @"bare_callback")
 instance (~) ty (FunPtr (CInt -> IO ())) =>
          HasField "bare_callback" Bare ty
     where hasField = \x_0 -> (\y_1 -> Bare{bare_callback = y_1},
                               getField @"bare_callback" x_0)
+instance (~) ty (FunPtr (CInt -> IO ())) =>
+         HasField "bare_callback" (Ptr Bare) (Ptr ty)
+    where getField = fromPtr (Proxy @"bare_callback")
+instance HasCField Bare "bare_callback"
+    where type CFieldType Bare "bare_callback" = FunPtr (CInt -> IO ())
+          offset# = \_ -> \_ -> 0

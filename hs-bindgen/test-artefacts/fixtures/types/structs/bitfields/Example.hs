@@ -122,19 +122,6 @@ instance Marshal.WriteRaw Foo_8 where
 
 deriving via Marshal.EquivStorable Foo_8 instance RIP.Storable Foo_8
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_a" where
-
-  type CBitfieldType Foo_8 "foo_8_a" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_a" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_a")
-
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_a" Foo_8 ty where
 
@@ -151,18 +138,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_8_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_b" where
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "foo_8_a" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_8 "foo_8_b" = RIP.CSChar
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_a")
 
-  bitfieldOffset# = \_ -> \_ -> 3
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_a" where
+
+  type CBitfieldType Foo_8 "foo_8_a" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_b" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_b")
 
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_b" Foo_8 ty where
@@ -180,18 +167,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_8_b" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_c" where
-
-  type CBitfieldType Foo_8 "foo_8_c" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 6
-
-  bitfieldWidth# = \_ -> \_ -> 2
-
 instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_c" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_8_b" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_c")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_b")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_b" where
+
+  type CBitfieldType Foo_8 "foo_8_b" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 3
+
+  bitfieldWidth# = \_ -> \_ -> 3
 
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_c" Foo_8 ty where
@@ -209,18 +196,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_8_c" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_d" where
-
-  type CBitfieldType Foo_8 "foo_8_d" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 8
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
 instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_d" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_8_c" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_d")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_c")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_c" where
+
+  type CBitfieldType Foo_8 "foo_8_c" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 2
 
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_d" Foo_8 ty where
@@ -238,18 +225,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_8_d" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_e" where
-
-  type CBitfieldType Foo_8 "foo_8_e" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 16
-
-  bitfieldWidth# = \_ -> \_ -> 8
-
 instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_e" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_8_d" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_e")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_d")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_d" where
+
+  type CBitfieldType Foo_8 "foo_8_d" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 8
+
+  bitfieldWidth# = \_ -> \_ -> 3
 
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_e" Foo_8 ty where
@@ -267,18 +254,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_8_e" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_8 "foo_8_f" where
-
-  type CBitfieldType Foo_8 "foo_8_f" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 24
-
-  bitfieldWidth# = \_ -> \_ -> 5
-
 instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_8_f" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_8_e" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_f")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_e")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_e" where
+
+  type CBitfieldType Foo_8 "foo_8_e" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 16
+
+  bitfieldWidth# = \_ -> \_ -> 8
 
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_8_f" Foo_8 ty where
@@ -295,6 +282,19 @@ instance ( ty ~ RIP.CSChar
                 }
       , RIP.getField @"foo_8_f" x0
       )
+
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "foo_8_f" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_f")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_f" where
+
+  type CBitfieldType Foo_8 "foo_8_f" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 5
 
 {-| __C declaration:__ @struct foo_16@
 
@@ -382,19 +382,6 @@ instance Marshal.WriteRaw Foo_16 where
 
 deriving via Marshal.EquivStorable Foo_16 instance RIP.Storable Foo_16
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_a" where
-
-  type CBitfieldType Foo_16 "foo_16_a" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 6
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_16_a" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_a")
-
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_16_a" Foo_16 ty where
 
@@ -411,18 +398,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_16_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_b" where
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "foo_16_a" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_16 "foo_16_b" = RIP.CInt
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_a")
 
-  bitfieldOffset# = \_ -> \_ -> 6
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_a" where
 
-  bitfieldWidth# = \_ -> \_ -> 10
+  type CBitfieldType Foo_16 "foo_16_a" = RIP.CSChar
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_16_b" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 0
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_b")
+  bitfieldWidth# = \_ -> \_ -> 6
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_16_b" Foo_16 ty where
@@ -440,18 +427,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_16_b" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_c" where
-
-  type CBitfieldType Foo_16 "foo_16_c" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 16
-
-  bitfieldWidth# = \_ -> \_ -> 16
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_16_c" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_16_b" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_c")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_b")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_b" where
+
+  type CBitfieldType Foo_16 "foo_16_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 10
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_16_c" Foo_16 ty where
@@ -469,18 +456,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_16_c" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_d" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_16_c" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_16 "foo_16_d" = RIP.CInt
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_c")
 
-  bitfieldOffset# = \_ -> \_ -> 32
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_c" where
+
+  type CBitfieldType Foo_16 "foo_16_c" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 16
 
   bitfieldWidth# = \_ -> \_ -> 16
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_16_d" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_d")
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_16_d" Foo_16 ty where
@@ -498,18 +485,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_16_d" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_e" where
-
-  type CBitfieldType Foo_16 "foo_16_e" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 48
-
-  bitfieldWidth# = \_ -> \_ -> 12
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_16_e" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_16_d" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_e")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_d")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_d" where
+
+  type CBitfieldType Foo_16 "foo_16_d" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 32
+
+  bitfieldWidth# = \_ -> \_ -> 16
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_16_e" Foo_16 ty where
@@ -527,18 +514,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_16_e" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_16 "foo_16_f" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_16_e" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_16 "foo_16_f" = RIP.CInt
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_e")
 
-  bitfieldOffset# = \_ -> \_ -> 64
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_e" where
+
+  type CBitfieldType Foo_16 "foo_16_e" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 48
 
   bitfieldWidth# = \_ -> \_ -> 12
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_16_f" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_f")
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_16_f" Foo_16 ty where
@@ -555,6 +542,19 @@ instance ( ty ~ RIP.CInt
                  }
       , RIP.getField @"foo_16_f" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_16_f" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_f")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_f" where
+
+  type CBitfieldType Foo_16 "foo_16_f" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 64
+
+  bitfieldWidth# = \_ -> \_ -> 12
 
 {-| __C declaration:__ @struct foo_32@
 
@@ -651,19 +651,6 @@ instance Marshal.WriteRaw Foo_32 where
 
 deriving via Marshal.EquivStorable Foo_32 instance RIP.Storable Foo_32
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_a" where
-
-  type CBitfieldType Foo_32 "foo_32_a" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 6
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_32_a" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_a")
-
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "foo_32_a" Foo_32 ty where
 
@@ -681,18 +668,18 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"foo_32_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_b" where
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "foo_32_a" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_32 "foo_32_b" = RIP.CInt
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_a")
 
-  bitfieldOffset# = \_ -> \_ -> 6
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_a" where
 
-  bitfieldWidth# = \_ -> \_ -> 12
+  type CBitfieldType Foo_32 "foo_32_a" = RIP.CSChar
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_32_b" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 0
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_b")
+  bitfieldWidth# = \_ -> \_ -> 6
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_32_b" Foo_32 ty where
@@ -711,18 +698,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_32_b" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_c" where
-
-  type CBitfieldType Foo_32 "foo_32_c" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 18
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_32_c" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_32_b" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_c")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_b")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_b" where
+
+  type CBitfieldType Foo_32 "foo_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 12
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_32_c" Foo_32 ty where
@@ -741,18 +728,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_32_c" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_d" where
-
-  type CBitfieldType Foo_32 "foo_32_d" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 32
-
-  bitfieldWidth# = \_ -> \_ -> 10
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_32_d" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_32_c" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_d")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_c")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_c" where
+
+  type CBitfieldType Foo_32 "foo_32_c" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 18
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_32_d" Foo_32 ty where
@@ -771,18 +758,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_32_d" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_e" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_32_d" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_32 "foo_32_e" = RIP.CLong
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_d")
 
-  bitfieldOffset# = \_ -> \_ -> 64
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_d" where
 
-  bitfieldWidth# = \_ -> \_ -> 32
+  type CBitfieldType Foo_32 "foo_32_d" = RIP.CInt
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "foo_32_e" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 32
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_e")
+  bitfieldWidth# = \_ -> \_ -> 10
 
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "foo_32_e" Foo_32 ty where
@@ -801,18 +788,18 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"foo_32_e" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_f" where
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "foo_32_e" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_32 "foo_32_f" = RIP.CInt
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_e")
 
-  bitfieldOffset# = \_ -> \_ -> 96
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_e" where
 
-  bitfieldWidth# = \_ -> \_ -> 6
+  type CBitfieldType Foo_32 "foo_32_e" = RIP.CLong
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_32_f" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 64
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_f")
+  bitfieldWidth# = \_ -> \_ -> 32
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_32_f" Foo_32 ty where
@@ -831,18 +818,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_32_f" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_32 "foo_32_g" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_32_f" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_32 "foo_32_g" = RIP.CLong
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_f")
 
-  bitfieldOffset# = \_ -> \_ -> 102
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_f" where
 
-  bitfieldWidth# = \_ -> \_ -> 24
+  type CBitfieldType Foo_32 "foo_32_f" = RIP.CInt
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "foo_32_g" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 96
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_g")
+  bitfieldWidth# = \_ -> \_ -> 6
 
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "foo_32_g" Foo_32 ty where
@@ -860,6 +847,19 @@ instance ( ty ~ RIP.CLong
                  }
       , RIP.getField @"foo_32_g" x0
       )
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "foo_32_g" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_g")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_g" where
+
+  type CBitfieldType Foo_32 "foo_32_g" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 102
+
+  bitfieldWidth# = \_ -> \_ -> 24
 
 {-| __C declaration:__ @struct foo_64@
 
@@ -929,19 +929,6 @@ instance Marshal.WriteRaw Foo_64 where
 
 deriving via Marshal.EquivStorable Foo_64 instance RIP.Storable Foo_64
 
-instance HasCBitfield.HasCBitfield Foo_64 "foo_64_a" where
-
-  type CBitfieldType Foo_64 "foo_64_a" = RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 24
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "foo_64_a" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_a")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "foo_64_a" Foo_64 ty where
 
@@ -956,18 +943,18 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"foo_64_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_64 "foo_64_b" where
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "foo_64_a" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
 
-  type CBitfieldType Foo_64 "foo_64_b" = RIP.CLLong
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_a")
 
-  bitfieldOffset# = \_ -> \_ -> 24
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_a" where
 
-  bitfieldWidth# = \_ -> \_ -> 40
+  type CBitfieldType Foo_64 "foo_64_a" = RIP.CLong
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "foo_64_b" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldOffset# = \_ -> \_ -> 0
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_b")
+  bitfieldWidth# = \_ -> \_ -> 24
 
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "foo_64_b" Foo_64 ty where
@@ -983,18 +970,18 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"foo_64_b" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_64 "foo_64_c" where
-
-  type CBitfieldType Foo_64 "foo_64_c" = RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 64
-
-  bitfieldWidth# = \_ -> \_ -> 64
-
 instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "foo_64_c" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_64_b" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_c")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_b")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_b" where
+
+  type CBitfieldType Foo_64 "foo_64_b" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 40
 
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "foo_64_c" Foo_64 ty where
@@ -1010,18 +997,18 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"foo_64_c" x0
       )
 
-instance HasCBitfield.HasCBitfield Foo_64 "foo_64_d" where
-
-  type CBitfieldType Foo_64 "foo_64_d" = RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 128
-
-  bitfieldWidth# = \_ -> \_ -> 36
-
 instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "foo_64_d" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_64_c" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_d")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_c")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_c" where
+
+  type CBitfieldType Foo_64 "foo_64_c" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 64
+
+  bitfieldWidth# = \_ -> \_ -> 64
 
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "foo_64_d" Foo_64 ty where
@@ -1036,6 +1023,19 @@ instance ( ty ~ RIP.CLLong
                  }
       , RIP.getField @"foo_64_d" x0
       )
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "foo_64_d" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_d")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_d" where
+
+  type CBitfieldType Foo_64 "foo_64_d" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 128
+
+  bitfieldWidth# = \_ -> \_ -> 36
 
 {-| __C declaration:__ @struct bar_8_8@
 
@@ -1087,20 +1087,6 @@ instance Marshal.WriteRaw Bar_8_8 where
 
 deriving via Marshal.EquivStorable Bar_8_8 instance RIP.Storable Bar_8_8
 
-instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_a" where
-
-  type CBitfieldType Bar_8_8 "bar_8_8_a" = RIP.CSChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 6
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "bar_8_8_a" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_a")
-
 instance ( ty ~ RIP.CSChar
          ) => RIP.CompatHasField.HasField "bar_8_8_a" Bar_8_8 ty where
 
@@ -1111,19 +1097,19 @@ instance ( ty ~ RIP.CSChar
       , RIP.getField @"bar_8_8_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_b" where
-
-  type CBitfieldType Bar_8_8 "bar_8_8_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 6
-
-  bitfieldWidth# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_8_8_b" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CSChar
+         ) => RIP.HasField "bar_8_8_a" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_a" where
+
+  type CBitfieldType Bar_8_8 "bar_8_8_a" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 6
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_8_8_b" Bar_8_8 ty where
@@ -1134,6 +1120,20 @@ instance ( ty ~ RIP.CInt
           Bar_8_8 {bar_8_8_b = y1, bar_8_8_a = RIP.getField @"bar_8_8_a" x0}
       , RIP.getField @"bar_8_8_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_8_8_b" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_b")
+
+instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_b" where
+
+  type CBitfieldType Bar_8_8 "bar_8_8_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct bar_8_16@
 
@@ -1185,20 +1185,6 @@ instance Marshal.WriteRaw Bar_8_16 where
 
 deriving via Marshal.EquivStorable Bar_8_16 instance RIP.Storable Bar_8_16
 
-instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_a" where
-
-  type CBitfieldType Bar_8_16 "bar_8_16_a" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_8_16_a" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_8_16_a" Bar_8_16 ty where
 
@@ -1209,19 +1195,19 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"bar_8_16_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_b" where
-
-  type CBitfieldType Bar_8_16 "bar_8_16_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 14
-
-  bitfieldWidth# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_8_16_b" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bar_8_16_a" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_a" where
+
+  type CBitfieldType Bar_8_16 "bar_8_16_a" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_8_16_b" Bar_8_16 ty where
@@ -1232,6 +1218,20 @@ instance ( ty ~ RIP.CInt
           Bar_8_16 {bar_8_16_b = y1, bar_8_16_a = RIP.getField @"bar_8_16_a" x0}
       , RIP.getField @"bar_8_16_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_8_16_b" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_b")
+
+instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_b" where
+
+  type CBitfieldType Bar_8_16 "bar_8_16_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 14
+
+  bitfieldWidth# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct bar_8_32@
 
@@ -1283,20 +1283,6 @@ instance Marshal.WriteRaw Bar_8_32 where
 
 deriving via Marshal.EquivStorable Bar_8_32 instance RIP.Storable Bar_8_32
 
-instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_a" where
-
-  type CBitfieldType Bar_8_32 "bar_8_32_a" = RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 30
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "bar_8_32_a" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_a")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "bar_8_32_a" Bar_8_32 ty where
 
@@ -1307,19 +1293,19 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"bar_8_32_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_b" where
-
-  type CBitfieldType Bar_8_32 "bar_8_32_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 30
-
-  bitfieldWidth# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_8_32_b" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "bar_8_32_a" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_a" where
+
+  type CBitfieldType Bar_8_32 "bar_8_32_a" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 30
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_8_32_b" Bar_8_32 ty where
@@ -1330,6 +1316,20 @@ instance ( ty ~ RIP.CInt
           Bar_8_32 {bar_8_32_b = y1, bar_8_32_a = RIP.getField @"bar_8_32_a" x0}
       , RIP.getField @"bar_8_32_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_8_32_b" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_b")
+
+instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_b" where
+
+  type CBitfieldType Bar_8_32 "bar_8_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 30
+
+  bitfieldWidth# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct bar_8_64@
 
@@ -1381,20 +1381,6 @@ instance Marshal.WriteRaw Bar_8_64 where
 
 deriving via Marshal.EquivStorable Bar_8_64 instance RIP.Storable Bar_8_64
 
-instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_a" where
-
-  type CBitfieldType Bar_8_64 "bar_8_64_a" = RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 62
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "bar_8_64_a" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_a")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "bar_8_64_a" Bar_8_64 ty where
 
@@ -1405,19 +1391,19 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"bar_8_64_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_b" where
-
-  type CBitfieldType Bar_8_64 "bar_8_64_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 62
-
-  bitfieldWidth# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_8_64_b" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "bar_8_64_a" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_a" where
+
+  type CBitfieldType Bar_8_64 "bar_8_64_a" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 62
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_8_64_b" Bar_8_64 ty where
@@ -1428,6 +1414,20 @@ instance ( ty ~ RIP.CInt
           Bar_8_64 {bar_8_64_b = y1, bar_8_64_a = RIP.getField @"bar_8_64_a" x0}
       , RIP.getField @"bar_8_64_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_8_64_b" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_b")
+
+instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_b" where
+
+  type CBitfieldType Bar_8_64 "bar_8_64_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 62
+
+  bitfieldWidth# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct bar_16_16@
 
@@ -1479,20 +1479,6 @@ instance Marshal.WriteRaw Bar_16_16 where
 
 deriving via Marshal.EquivStorable Bar_16_16 instance RIP.Storable Bar_16_16
 
-instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_a" where
-
-  type CBitfieldType Bar_16_16 "bar_16_16_a" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_16_16_a" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_16_16_a" Bar_16_16 ty where
 
@@ -1503,19 +1489,19 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"bar_16_16_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_b" where
-
-  type CBitfieldType Bar_16_16 "bar_16_16_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 14
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_16_16_b" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bar_16_16_a" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_a" where
+
+  type CBitfieldType Bar_16_16 "bar_16_16_a" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_16_16_b" Bar_16_16 ty where
@@ -1526,6 +1512,20 @@ instance ( ty ~ RIP.CInt
           Bar_16_16 {bar_16_16_b = y1, bar_16_16_a = RIP.getField @"bar_16_16_a" x0}
       , RIP.getField @"bar_16_16_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_16_16_b" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_b")
+
+instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_b" where
+
+  type CBitfieldType Bar_16_16 "bar_16_16_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 14
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 {-| __C declaration:__ @struct bar_16_32@
 
@@ -1577,21 +1577,6 @@ instance Marshal.WriteRaw Bar_16_32 where
 
 deriving via Marshal.EquivStorable Bar_16_32 instance RIP.Storable Bar_16_32
 
-instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_a" where
-
-  type CBitfieldType Bar_16_32 "bar_16_32_a" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 24
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "bar_16_32_a" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_a")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "bar_16_32_a" Bar_16_32 ty where
 
@@ -1602,19 +1587,20 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"bar_16_32_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_b" where
-
-  type CBitfieldType Bar_16_32 "bar_16_32_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 24
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_16_32_b" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "bar_16_32_a" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_a" where
+
+  type CBitfieldType Bar_16_32 "bar_16_32_a" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 24
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_16_32_b" Bar_16_32 ty where
@@ -1625,6 +1611,20 @@ instance ( ty ~ RIP.CInt
           Bar_16_32 {bar_16_32_b = y1, bar_16_32_a = RIP.getField @"bar_16_32_a" x0}
       , RIP.getField @"bar_16_32_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_16_32_b" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_b")
+
+instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_b" where
+
+  type CBitfieldType Bar_16_32 "bar_16_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 {-| __C declaration:__ @struct bar_16_64@
 
@@ -1676,21 +1676,6 @@ instance Marshal.WriteRaw Bar_16_64 where
 
 deriving via Marshal.EquivStorable Bar_16_64 instance RIP.Storable Bar_16_64
 
-instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_a" where
-
-  type CBitfieldType Bar_16_64 "bar_16_64_a" =
-    RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 56
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "bar_16_64_a" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_a")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "bar_16_64_a" Bar_16_64 ty where
 
@@ -1701,19 +1686,20 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"bar_16_64_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_b" where
-
-  type CBitfieldType Bar_16_64 "bar_16_64_b" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 56
-
-  bitfieldWidth# = \_ -> \_ -> 14
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_16_64_b" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "bar_16_64_a" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_a" where
+
+  type CBitfieldType Bar_16_64 "bar_16_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "bar_16_64_b" Bar_16_64 ty where
@@ -1724,6 +1710,20 @@ instance ( ty ~ RIP.CInt
           Bar_16_64 {bar_16_64_b = y1, bar_16_64_a = RIP.getField @"bar_16_64_a" x0}
       , RIP.getField @"bar_16_64_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_16_64_b" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_b")
+
+instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_b" where
+
+  type CBitfieldType Bar_16_64 "bar_16_64_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 14
 
 {-| __C declaration:__ @struct bar_32_32@
 
@@ -1775,21 +1775,6 @@ instance Marshal.WriteRaw Bar_32_32 where
 
 deriving via Marshal.EquivStorable Bar_32_32 instance RIP.Storable Bar_32_32
 
-instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_a" where
-
-  type CBitfieldType Bar_32_32 "bar_32_32_a" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 30
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "bar_32_32_a" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_a")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "bar_32_32_a" Bar_32_32 ty where
 
@@ -1800,20 +1785,20 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"bar_32_32_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_b" where
-
-  type CBitfieldType Bar_32_32 "bar_32_32_b" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 30
-
-  bitfieldWidth# = \_ -> \_ -> 30
-
 instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "bar_32_32_b" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bar_32_32_a" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_a" where
+
+  type CBitfieldType Bar_32_32 "bar_32_32_a" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 30
 
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "bar_32_32_b" Bar_32_32 ty where
@@ -1824,6 +1809,21 @@ instance ( ty ~ RIP.CLong
           Bar_32_32 {bar_32_32_b = y1, bar_32_32_a = RIP.getField @"bar_32_32_a" x0}
       , RIP.getField @"bar_32_32_b" x0
       )
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "bar_32_32_b" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_b")
+
+instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_b" where
+
+  type CBitfieldType Bar_32_32 "bar_32_32_b" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 30
+
+  bitfieldWidth# = \_ -> \_ -> 30
 
 {-| __C declaration:__ @struct bar_32_64@
 
@@ -1875,21 +1875,6 @@ instance Marshal.WriteRaw Bar_32_64 where
 
 deriving via Marshal.EquivStorable Bar_32_64 instance RIP.Storable Bar_32_64
 
-instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_a" where
-
-  type CBitfieldType Bar_32_64 "bar_32_64_a" =
-    RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 56
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "bar_32_64_a" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_a")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "bar_32_64_a" Bar_32_64 ty where
 
@@ -1900,20 +1885,20 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"bar_32_64_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_b" where
-
-  type CBitfieldType Bar_32_64 "bar_32_64_b" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 56
-
-  bitfieldWidth# = \_ -> \_ -> 30
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "bar_32_64_b" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "bar_32_64_a" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_a" where
+
+  type CBitfieldType Bar_32_64 "bar_32_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
 
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "bar_32_64_b" Bar_32_64 ty where
@@ -1924,6 +1909,21 @@ instance ( ty ~ RIP.CLong
           Bar_32_64 {bar_32_64_b = y1, bar_32_64_a = RIP.getField @"bar_32_64_a" x0}
       , RIP.getField @"bar_32_64_b" x0
       )
+
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "bar_32_64_b" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_b")
+
+instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_b" where
+
+  type CBitfieldType Bar_32_64 "bar_32_64_b" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 30
 
 {-| __C declaration:__ @struct bar_64_64@
 
@@ -1975,21 +1975,6 @@ instance Marshal.WriteRaw Bar_64_64 where
 
 deriving via Marshal.EquivStorable Bar_64_64 instance RIP.Storable Bar_64_64
 
-instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_a" where
-
-  type CBitfieldType Bar_64_64 "bar_64_64_a" =
-    RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 56
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "bar_64_64_a" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_a")
-
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "bar_64_64_a" Bar_64_64 ty where
 
@@ -2000,20 +1985,20 @@ instance ( ty ~ RIP.CLLong
       , RIP.getField @"bar_64_64_a" x0
       )
 
-instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_b" where
-
-  type CBitfieldType Bar_64_64 "bar_64_64_b" =
-    RIP.CLLong
-
-  bitfieldOffset# = \_ -> \_ -> 56
-
-  bitfieldWidth# = \_ -> \_ -> 40
-
 instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "bar_64_64_b" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bar_64_64_a" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_b")
+    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_a" where
+
+  type CBitfieldType Bar_64_64 "bar_64_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
 
 instance ( ty ~ RIP.CLLong
          ) => RIP.CompatHasField.HasField "bar_64_64_b" Bar_64_64 ty where
@@ -2024,3 +2009,18 @@ instance ( ty ~ RIP.CLLong
           Bar_64_64 {bar_64_64_b = y1, bar_64_64_a = RIP.getField @"bar_64_64_a" x0}
       , RIP.getField @"bar_64_64_b" x0
       )
+
+instance ( ty ~ RIP.CLLong
+         ) => RIP.HasField "bar_64_64_b" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_b")
+
+instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_b" where
+
+  type CBitfieldType Bar_64_64 "bar_64_64_b" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 40

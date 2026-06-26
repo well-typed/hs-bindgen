@@ -15,11 +15,12 @@ hstypes:
       - banner_point_x
       - banner_point_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

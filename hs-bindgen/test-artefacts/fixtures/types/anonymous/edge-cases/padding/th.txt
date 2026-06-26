@@ -23,15 +23,15 @@ instance WriteRaw SS_anon'y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SS_anon'y sS_anon'y_y_2 -> writeRaw (Proxy @"sS_anon'y_y") ptr_0 sS_anon'y_y_2
 deriving via (EquivStorable SS_anon'y) instance Storable SS_anon'y
-instance HasCField SS_anon'y "sS_anon'y_y"
-    where type CFieldType SS_anon'y "sS_anon'y_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt =>
-         HasField "sS_anon'y_y" (Ptr SS_anon'y) (Ptr ty)
-    where getField = fromPtr (Proxy @"sS_anon'y_y")
 instance (~) ty CInt => HasField "sS_anon'y_y" SS_anon'y ty
     where hasField = \x_0 -> (\y_1 -> SS_anon'y{sS_anon'y_y = y_1},
                               getField @"sS_anon'y_y" x_0)
+instance (~) ty CInt =>
+         HasField "sS_anon'y_y" (Ptr SS_anon'y) (Ptr ty)
+    where getField = fromPtr (Proxy @"sS_anon'y_y")
+instance HasCField SS_anon'y "sS_anon'y_y"
+    where type CFieldType SS_anon'y "sS_anon'y_y" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct SS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 13:8@
@@ -72,36 +72,36 @@ instance WriteRaw SS
                                           sS_anon'y_3
                                           sS_z_4 -> writeRaw (Proxy @"sS_x") ptr_0 sS_x_2 >> (writeRaw (Proxy @"sS_anon'y") ptr_0 sS_anon'y_3 >> writeRaw (Proxy @"sS_z") ptr_0 sS_z_4)
 deriving via (EquivStorable SS) instance Storable SS
-instance HasCField SS "sS_x"
-    where type CFieldType SS "sS_x" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "sS_x" (Ptr SS) (Ptr ty)
-    where getField = fromPtr (Proxy @"sS_x")
 instance (~) ty CChar => HasField "sS_x" SS ty
     where hasField = \x_0 -> (\y_1 -> SS{sS_x = y_1,
                                          sS_anon'y = getField @"sS_anon'y" x_0,
                                          sS_z = getField @"sS_z" x_0},
                               getField @"sS_x" x_0)
-instance HasCField SS "sS_anon'y"
-    where type CFieldType SS "sS_anon'y" = SS_anon'y
-          offset# = \_ -> \_ -> 4
-instance (~) ty SS_anon'y => HasField "sS_anon'y" (Ptr SS) (Ptr ty)
-    where getField = fromPtr (Proxy @"sS_anon'y")
+instance (~) ty CChar => HasField "sS_x" (Ptr SS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sS_x")
+instance HasCField SS "sS_x"
+    where type CFieldType SS "sS_x" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty SS_anon'y => HasField "sS_anon'y" SS ty
     where hasField = \x_0 -> (\y_1 -> SS{sS_anon'y = y_1,
                                          sS_x = getField @"sS_x" x_0,
                                          sS_z = getField @"sS_z" x_0},
                               getField @"sS_anon'y" x_0)
-instance HasCField SS "sS_z"
-    where type CFieldType SS "sS_z" = CInt
-          offset# = \_ -> \_ -> 12
-instance (~) ty CInt => HasField "sS_z" (Ptr SS) (Ptr ty)
-    where getField = fromPtr (Proxy @"sS_z")
+instance (~) ty SS_anon'y => HasField "sS_anon'y" (Ptr SS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sS_anon'y")
+instance HasCField SS "sS_anon'y"
+    where type CFieldType SS "sS_anon'y" = SS_anon'y
+          offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "sS_z" SS ty
     where hasField = \x_0 -> (\y_1 -> SS{sS_z = y_1,
                                          sS_x = getField @"sS_x" x_0,
                                          sS_anon'y = getField @"sS_anon'y" x_0},
                               getField @"sS_z" x_0)
+instance (~) ty CInt => HasField "sS_z" (Ptr SS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sS_z")
+instance HasCField SS "sS_z"
+    where type CFieldType SS "sS_z" = CInt
+          offset# = \_ -> \_ -> 12
 {-| __C declaration:__ @union \@SU_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 24:3@
@@ -149,12 +149,12 @@ set_sU_anon'y_y :: CInt -> SU_anon'y
 
 -}
 set_sU_anon'y_y = setUnionPayload
-instance HasCField SU_anon'y "sU_anon'y_y"
-    where type CFieldType SU_anon'y "sU_anon'y_y" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "sU_anon'y_y" (Ptr SU_anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"sU_anon'y_y")
+instance HasCField SU_anon'y "sU_anon'y_y"
+    where type CFieldType SU_anon'y "sU_anon'y_y" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 22:8@
@@ -195,36 +195,36 @@ instance WriteRaw SU
                                           sU_anon'y_3
                                           sU_z_4 -> writeRaw (Proxy @"sU_x") ptr_0 sU_x_2 >> (writeRaw (Proxy @"sU_anon'y") ptr_0 sU_anon'y_3 >> writeRaw (Proxy @"sU_z") ptr_0 sU_z_4)
 deriving via (EquivStorable SU) instance Storable SU
-instance HasCField SU "sU_x"
-    where type CFieldType SU "sU_x" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "sU_x" (Ptr SU) (Ptr ty)
-    where getField = fromPtr (Proxy @"sU_x")
 instance (~) ty CChar => HasField "sU_x" SU ty
     where hasField = \x_0 -> (\y_1 -> SU{sU_x = y_1,
                                          sU_anon'y = getField @"sU_anon'y" x_0,
                                          sU_z = getField @"sU_z" x_0},
                               getField @"sU_x" x_0)
-instance HasCField SU "sU_anon'y"
-    where type CFieldType SU "sU_anon'y" = SU_anon'y
-          offset# = \_ -> \_ -> 4
-instance (~) ty SU_anon'y => HasField "sU_anon'y" (Ptr SU) (Ptr ty)
-    where getField = fromPtr (Proxy @"sU_anon'y")
+instance (~) ty CChar => HasField "sU_x" (Ptr SU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sU_x")
+instance HasCField SU "sU_x"
+    where type CFieldType SU "sU_x" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty SU_anon'y => HasField "sU_anon'y" SU ty
     where hasField = \x_0 -> (\y_1 -> SU{sU_anon'y = y_1,
                                          sU_x = getField @"sU_x" x_0,
                                          sU_z = getField @"sU_z" x_0},
                               getField @"sU_anon'y" x_0)
-instance HasCField SU "sU_z"
-    where type CFieldType SU "sU_z" = CInt
-          offset# = \_ -> \_ -> 8
-instance (~) ty CInt => HasField "sU_z" (Ptr SU) (Ptr ty)
-    where getField = fromPtr (Proxy @"sU_z")
+instance (~) ty SU_anon'y => HasField "sU_anon'y" (Ptr SU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sU_anon'y")
+instance HasCField SU "sU_anon'y"
+    where type CFieldType SU "sU_anon'y" = SU_anon'y
+          offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "sU_z" SU ty
     where hasField = \x_0 -> (\y_1 -> SU{sU_z = y_1,
                                          sU_x = getField @"sU_x" x_0,
                                          sU_anon'y = getField @"sU_anon'y" x_0},
                               getField @"sU_z" x_0)
+instance (~) ty CInt => HasField "sU_z" (Ptr SU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sU_z")
+instance HasCField SU "sU_z"
+    where type CFieldType SU "sU_z" = CInt
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct \@US_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
@@ -249,15 +249,15 @@ instance WriteRaw US_anon'y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        US_anon'y uS_anon'y_y_2 -> writeRaw (Proxy @"uS_anon'y_y") ptr_0 uS_anon'y_y_2
 deriving via (EquivStorable US_anon'y) instance Storable US_anon'y
-instance HasCField US_anon'y "uS_anon'y_y"
-    where type CFieldType US_anon'y "uS_anon'y_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt =>
-         HasField "uS_anon'y_y" (Ptr US_anon'y) (Ptr ty)
-    where getField = fromPtr (Proxy @"uS_anon'y_y")
 instance (~) ty CInt => HasField "uS_anon'y_y" US_anon'y ty
     where hasField = \x_0 -> (\y_1 -> US_anon'y{uS_anon'y_y = y_1},
                               getField @"uS_anon'y_y" x_0)
+instance (~) ty CInt =>
+         HasField "uS_anon'y_y" (Ptr US_anon'y) (Ptr ty)
+    where getField = fromPtr (Proxy @"uS_anon'y_y")
+instance HasCField US_anon'y "uS_anon'y_y"
+    where type CFieldType US_anon'y "uS_anon'y_y" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @union US@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 31:7@
@@ -371,21 +371,21 @@ set_uS_z :: CInt -> US
 
 -}
 set_uS_z = setUnionPayload
+instance (~) ty CChar => HasField "uS_x" (Ptr US) (Ptr ty)
+    where getField = fromPtr (Proxy @"uS_x")
 instance HasCField US "uS_x"
     where type CFieldType US "uS_x" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "uS_x" (Ptr US) (Ptr ty)
-    where getField = fromPtr (Proxy @"uS_x")
+instance (~) ty US_anon'y => HasField "uS_anon'y" (Ptr US) (Ptr ty)
+    where getField = fromPtr (Proxy @"uS_anon'y")
 instance HasCField US "uS_anon'y"
     where type CFieldType US "uS_anon'y" = US_anon'y
           offset# = \_ -> \_ -> 0
-instance (~) ty US_anon'y => HasField "uS_anon'y" (Ptr US) (Ptr ty)
-    where getField = fromPtr (Proxy @"uS_anon'y")
+instance (~) ty CInt => HasField "uS_z" (Ptr US) (Ptr ty)
+    where getField = fromPtr (Proxy @"uS_z")
 instance HasCField US "uS_z"
     where type CFieldType US "uS_z" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uS_z" (Ptr US) (Ptr ty)
-    where getField = fromPtr (Proxy @"uS_z")
 {-| __C declaration:__ @union \@UU_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
@@ -433,12 +433,12 @@ set_uU_anon'y_y :: CInt -> UU_anon'y
 
 -}
 set_uU_anon'y_y = setUnionPayload
-instance HasCField UU_anon'y "uU_anon'y_y"
-    where type CFieldType UU_anon'y "uU_anon'y_y" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "uU_anon'y_y" (Ptr UU_anon'y) (Ptr ty)
     where getField = fromPtr (Proxy @"uU_anon'y_y")
+instance HasCField UU_anon'y "uU_anon'y_y"
+    where type CFieldType UU_anon'y "uU_anon'y_y" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union UU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 40:7@
@@ -552,18 +552,18 @@ set_uU_z :: CInt -> UU
 
 -}
 set_uU_z = setUnionPayload
+instance (~) ty CChar => HasField "uU_x" (Ptr UU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU_x")
 instance HasCField UU "uU_x"
     where type CFieldType UU "uU_x" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "uU_x" (Ptr UU) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU_x")
+instance (~) ty UU_anon'y => HasField "uU_anon'y" (Ptr UU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU_anon'y")
 instance HasCField UU "uU_anon'y"
     where type CFieldType UU "uU_anon'y" = UU_anon'y
           offset# = \_ -> \_ -> 0
-instance (~) ty UU_anon'y => HasField "uU_anon'y" (Ptr UU) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU_anon'y")
+instance (~) ty CInt => HasField "uU_z" (Ptr UU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU_z")
 instance HasCField UU "uU_z"
     where type CFieldType UU "uU_z" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "uU_z" (Ptr UU) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU_z")

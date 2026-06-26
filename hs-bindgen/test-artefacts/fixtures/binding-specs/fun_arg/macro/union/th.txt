@@ -167,11 +167,11 @@ set_myUnion_x :: CInt -> MyUnion
 
 -}
 set_myUnion_x = setUnionPayload
+instance (~) ty CInt => HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
+    where getField = fromPtr (Proxy @"myUnion_x")
 instance HasCField MyUnion "myUnion_x"
     where type CFieldType MyUnion "myUnion_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
-    where getField = fromPtr (Proxy @"myUnion_x")
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 9:9@
@@ -182,14 +182,14 @@ newtype A
     = A {unwrapA :: MyUnion}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty MyUnion => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty MyUnion => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyUnion
           offset# = \_ -> \_ -> 0
-instance (~) ty MyUnion => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:9@
@@ -200,14 +200,14 @@ newtype B
     = B {unwrapB :: A}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty A => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
-instance (~) ty A => HasField "unwrapB" B ty
-    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
-                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 31:9@
@@ -215,14 +215,14 @@ instance (~) ty A => HasField "unwrapB" B ty
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype E = E {unwrapE :: M.C} deriving stock Generic
+instance (~) ty M.C => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
-instance (~) ty M.C => HasField "unwrapE" E ty
-    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
-                              getField @"unwrapE" x_0)
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_5da9ad143faecbca" hs_bindgen_5da9ad143faecbca_base ::
     Ptr Void

@@ -50,6 +50,12 @@ newtype T = T
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
@@ -60,9 +66,3 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

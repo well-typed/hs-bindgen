@@ -45,8 +45,18 @@ data TypeClass =
   | HasCBitfield  -- Indicates instances for all bit fields
   | HasCField     -- Indicates instances for all non-bit fields
   | HasFFIType
-  | HasField      -- Indicates instances for all fields
-  | CompatHasField -- Indicates instances for all fields
+    -- | 'GHC.Records.HasField'
+    --
+    -- Indicates instances for all fields.
+  | HasField
+    -- | 'GHC.Records.Compat.HasField' instance
+    --
+    -- Indicates instances for all fields.
+  | HasFieldCompat
+    -- | 'GHC.Records.HasField' for the pointer manipulation API
+    --
+    -- Indicates instances for all fields.
+  | HasFieldPtr
   | Integral
   | IsArray
   | Ix
@@ -170,13 +180,14 @@ instance Default SupportedInstances where
   def =
     SupportedInstances{
         struct = Map.fromList [
-            mkDef CompatHasField Independent HsBindgen []
-          , mkDef Eq             Dependent   Stock     []
+            mkDef Eq             Dependent   Stock     []
           , mkDef Flam_Offset    Independent HsBindgen []
           , mkDef Generic        Independent Stock     []
           , mkDef HasCBitfield   Independent HsBindgen []
           , mkDef HasCField      Independent HsBindgen []
           , mkDef HasField       Independent HsBindgen []
+          , mkDef HasFieldCompat Independent HsBindgen []
+          , mkDef HasFieldPtr    Independent HsBindgen []
           , mkOpt Ord            Dependent             [Stock]
           , mkDef ReadRaw        Dependent   HsBindgen []
           , mkDef Show           Dependent   Stock     []
@@ -185,25 +196,27 @@ instance Default SupportedInstances where
           , mkDef WriteRaw       Dependent   HsBindgen []
           ]
       , union = Map.fromList [
-            mkDef Generic      Independent Stock     []
-          , mkDef HasCBitfield Independent HsBindgen []
-          , mkDef HasCField    Independent HsBindgen []
-          , mkDef HasField     Independent HsBindgen []
-          , mkDef ReadRaw      Independent HsBindgen []
-          , mkDef StaticSize   Independent HsBindgen []
-          , mkDef Storable     Independent HsBindgen []
-          , mkDef WriteRaw     Independent HsBindgen []
+            mkDef Generic        Independent Stock     []
+          , mkDef HasCBitfield   Independent HsBindgen []
+          , mkDef HasCField      Independent HsBindgen []
+          , mkDef HasFieldCompat Independent HsBindgen []
+          , mkDef HasFieldPtr    Independent HsBindgen []
+          , mkDef ReadRaw        Independent HsBindgen []
+          , mkDef StaticSize     Independent HsBindgen []
+          , mkDef Storable       Independent HsBindgen []
+          , mkDef WriteRaw       Independent HsBindgen []
           ]
       , enum = Map.fromList [
             mkOpt Bounded         Independent           [HsBindgen, Newtype]
           , mkDef CEnum           Independent HsBindgen []
-          , mkDef CompatHasField  Independent HsBindgen []
           , mkOpt Enum            Independent           [HsBindgen, Newtype]
           , mkDef Eq              Dependent   Stock     []
           , mkDef Generic         Independent Stock     []
           , mkDef HasCField       Independent HsBindgen []
           , mkDef HasFFIType      Dependent   Newtype   []
           , mkDef HasField        Independent HsBindgen []
+          , mkDef HasFieldCompat  Independent HsBindgen []
+          , mkDef HasFieldPtr     Independent HsBindgen []
           , mkDef Ord             Dependent   Stock     []
           , mkDef Prim            Independent HsBindgen []
           , mkDef Read            Independent HsBindgen [Newtype, Stock]
@@ -218,7 +231,6 @@ instance Default SupportedInstances where
             mkDef Bitfield        Dependent   Newtype   []
           , mkDef Bits            Dependent   Newtype   []
           , mkDef Bounded         Dependent   Newtype   []
-          , mkDef CompatHasField  Independent HsBindgen []
           , mkDef Enum            Dependent   Newtype   []
           , mkDef Eq              Dependent   Stock     []
           , mkDef FiniteBits      Dependent   Newtype   []
@@ -229,6 +241,8 @@ instance Default SupportedInstances where
           , mkDef HasCField       Independent HsBindgen []
           , mkDef HasFFIType      Dependent   Newtype   []
           , mkDef HasField        Independent HsBindgen []
+          , mkDef HasFieldCompat  Independent HsBindgen []
+          , mkDef HasFieldPtr     Independent HsBindgen []
           , mkDef Integral        Dependent   Newtype   []
             -- TODO: instance resolution for 'IsArray' is currently
             -- special-cased because for 'IsArray' instances we don't have to

@@ -18,11 +18,12 @@ hstypes:
       - bar_x
       - bar_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -37,11 +38,12 @@ hstypes:
       - foo_b
       - foo_c
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

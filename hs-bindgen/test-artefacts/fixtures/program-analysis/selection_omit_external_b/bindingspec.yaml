@@ -20,11 +20,12 @@ hstypes:
       fields:
       - directlyDependsOnOmitted_o
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -37,11 +38,12 @@ hstypes:
       fields:
       - indirectlyDependsOnOmitted_d
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -54,11 +56,12 @@ hstypes:
       fields:
       - omitted_n
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

@@ -17,11 +17,12 @@ hstypes:
       fields:
       - unwrapT
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: U
@@ -31,11 +32,12 @@ hstypes:
       fields:
       - unwrapU
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show

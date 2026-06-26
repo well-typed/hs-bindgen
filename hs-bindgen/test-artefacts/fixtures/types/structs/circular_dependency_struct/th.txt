@@ -23,14 +23,14 @@ instance WriteRaw B
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        B b_toA_2 -> writeRaw (Proxy @"b_toA") ptr_0 b_toA_2
 deriving via (EquivStorable B) instance Storable B
-instance HasCField B "b_toA"
-    where type CFieldType B "b_toA" = Ptr A
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr A) => HasField "b_toA" (Ptr B) (Ptr ty)
-    where getField = fromPtr (Proxy @"b_toA")
 instance (~) ty (Ptr A) => HasField "b_toA" B ty
     where hasField = \x_0 -> (\y_1 -> B{b_toA = y_1},
                               getField @"b_toA" x_0)
+instance (~) ty (Ptr A) => HasField "b_toA" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"b_toA")
+instance HasCField B "b_toA"
+    where type CFieldType B "b_toA" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct a@
 
     __defined at:__ @types\/structs\/circular_dependency_struct.h 7:8@
@@ -55,11 +55,11 @@ instance WriteRaw A
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        A a_toB_2 -> writeRaw (Proxy @"a_toB") ptr_0 a_toB_2
 deriving via (EquivStorable A) instance Storable A
-instance HasCField A "a_toB"
-    where type CFieldType A "a_toB" = B
-          offset# = \_ -> \_ -> 0
-instance (~) ty B => HasField "a_toB" (Ptr A) (Ptr ty)
-    where getField = fromPtr (Proxy @"a_toB")
 instance (~) ty B => HasField "a_toB" A ty
     where hasField = \x_0 -> (\y_1 -> A{a_toB = y_1},
                               getField @"a_toB" x_0)
+instance (~) ty B => HasField "a_toB" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"a_toB")
+instance HasCField A "a_toB"
+    where type CFieldType A "a_toB" = B
+          offset# = \_ -> \_ -> 0

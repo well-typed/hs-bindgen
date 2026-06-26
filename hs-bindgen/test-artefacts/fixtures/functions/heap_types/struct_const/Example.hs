@@ -63,17 +63,17 @@ instance Marshal.WriteRaw T where
 
 deriving via Marshal.EquivStorable T instance RIP.Storable T
 
-instance HasCField.HasCField T "t_x" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
 
-  type CFieldType T "t_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> T {t_x = y1}, RIP.getField @"t_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t_x")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
+instance HasCField.HasCField T "t_x" where
 
-  hasField =
-    \x0 -> (\y1 -> T {t_x = y1}, RIP.getField @"t_x" x0)
+  type CFieldType T "t_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

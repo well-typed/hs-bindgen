@@ -247,8 +247,8 @@ data BindgenGlobalTerm =
     -- HasField
   | HasField_getField
 
-    -- CompatHasField
-  | CompatHasField_hasField
+    -- Compat.HasField
+  | HasFieldCompat_hasField
 
     -- Proxy
   | Proxy_constructor
@@ -403,7 +403,8 @@ typeClassGlobal = globalType . \case
     Inst.HasCField       -> (IRuntimeModule "HasCField",    ''HasCField.HasCField)
     Inst.HasFFIType      -> (IRuntimeInternalPrelude,       ''RIP.HasFFIType)
     Inst.HasField        -> (IRuntimeInternalPrelude,       ''RIP.HasField)
-    Inst.CompatHasField  -> (IRuntimeInternalPreludeCompatHasField, ''RIP.CompatHasField.HasField)
+    Inst.HasFieldCompat  -> (IRuntimeInternalPreludeCompatHasField, ''RIP.CompatHasField.HasField)
+    Inst.HasFieldPtr     -> (IRuntimeInternalPrelude,       ''RIP.HasField)
     Inst.Flam_Offset     -> (IRuntimeModule "FLAM",         ''FLAM.Offset)
     Inst.Integral        -> (IHaskellPrelude,               ''Integral)
     Inst.IsArray         -> (IRuntimeModule "IsA",          ''IsA.IsArray)
@@ -484,7 +485,7 @@ bindgenGlobalTerm = globalExpr . \case
     HasField_getField -> (IRuntimeInternalPrelude, GVar, 'RIP.getField)
 
     -- Compat.HasField
-    CompatHasField_hasField -> (IRuntimeInternalPreludeCompatHasField, GVar, 'RIP.CompatHasField.hasField)
+    HasFieldCompat_hasField -> (IRuntimeInternalPreludeCompatHasField, GVar, 'RIP.CompatHasField.hasField)
 
     -- Proxy
     Proxy_constructor -> (IRuntimeInternalPrelude, GCon, 'RIP.Proxy)

@@ -23,11 +23,12 @@ hstypes:
       fields:
       - unwrapA
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -40,11 +41,12 @@ hstypes:
       fields:
       - unwrapB
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -57,10 +59,11 @@ hstypes:
       fields:
       - unwrapE
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: MyStruct
   representation:
     record:
@@ -68,11 +71,12 @@ hstypes:
       fields:
       - myStruct_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

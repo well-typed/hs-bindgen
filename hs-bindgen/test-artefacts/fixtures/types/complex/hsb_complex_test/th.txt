@@ -175,48 +175,48 @@ instance WriteRaw Complex_object_t
                                                         complex_object_t_position_3
                                                         complex_object_t_id_4 -> writeRaw (Proxy @"complex_object_t_velocity") ptr_0 complex_object_t_velocity_2 >> (writeRaw (Proxy @"complex_object_t_position") ptr_0 complex_object_t_position_3 >> writeRaw (Proxy @"complex_object_t_id") ptr_0 complex_object_t_id_4)
 deriving via (EquivStorable Complex_object_t) instance Storable Complex_object_t
-instance HasCField Complex_object_t "complex_object_t_velocity"
-    where type CFieldType Complex_object_t
-                          "complex_object_t_velocity" = Complex CFloat
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Complex CFloat) =>
-         HasField "complex_object_t_velocity"
-                  (Ptr Complex_object_t)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"complex_object_t_velocity")
 instance (~) ty (Complex CFloat) =>
          HasField "complex_object_t_velocity" Complex_object_t ty
     where hasField = \x_0 -> (\y_1 -> Complex_object_t{complex_object_t_velocity = y_1,
                                                        complex_object_t_position = getField @"complex_object_t_position" x_0,
                                                        complex_object_t_id = getField @"complex_object_t_id" x_0},
                               getField @"complex_object_t_velocity" x_0)
-instance HasCField Complex_object_t "complex_object_t_position"
-    where type CFieldType Complex_object_t
-                          "complex_object_t_position" = Complex CDouble
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Complex CDouble) =>
-         HasField "complex_object_t_position"
+instance (~) ty (Complex CFloat) =>
+         HasField "complex_object_t_velocity"
                   (Ptr Complex_object_t)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"complex_object_t_position")
+    where getField = fromPtr (Proxy @"complex_object_t_velocity")
+instance HasCField Complex_object_t "complex_object_t_velocity"
+    where type CFieldType Complex_object_t
+                          "complex_object_t_velocity" = Complex CFloat
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Complex CDouble) =>
          HasField "complex_object_t_position" Complex_object_t ty
     where hasField = \x_0 -> (\y_1 -> Complex_object_t{complex_object_t_position = y_1,
                                                        complex_object_t_velocity = getField @"complex_object_t_velocity" x_0,
                                                        complex_object_t_id = getField @"complex_object_t_id" x_0},
                               getField @"complex_object_t_position" x_0)
-instance HasCField Complex_object_t "complex_object_t_id"
-    where type CFieldType Complex_object_t "complex_object_t_id" = CInt
-          offset# = \_ -> \_ -> 24
-instance (~) ty CInt =>
-         HasField "complex_object_t_id" (Ptr Complex_object_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"complex_object_t_id")
+instance (~) ty (Complex CDouble) =>
+         HasField "complex_object_t_position"
+                  (Ptr Complex_object_t)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"complex_object_t_position")
+instance HasCField Complex_object_t "complex_object_t_position"
+    where type CFieldType Complex_object_t
+                          "complex_object_t_position" = Complex CDouble
+          offset# = \_ -> \_ -> 8
 instance (~) ty CInt =>
          HasField "complex_object_t_id" Complex_object_t ty
     where hasField = \x_0 -> (\y_1 -> Complex_object_t{complex_object_t_id = y_1,
                                                        complex_object_t_velocity = getField @"complex_object_t_velocity" x_0,
                                                        complex_object_t_position = getField @"complex_object_t_position" x_0},
                               getField @"complex_object_t_id" x_0)
+instance (~) ty CInt =>
+         HasField "complex_object_t_id" (Ptr Complex_object_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"complex_object_t_id")
+instance HasCField Complex_object_t "complex_object_t_id"
+    where type CFieldType Complex_object_t "complex_object_t_id" = CInt
+          offset# = \_ -> \_ -> 24
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e_base ::
     Ptr Void

@@ -107,6 +107,14 @@ instance Read MyEnum where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyEnum {unwrapMyEnum = y1}, RIP.getField @"unwrapMyEnum" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
 
   getField =
@@ -117,14 +125,6 @@ instance HasCField.HasCField MyEnum "unwrapMyEnum" where
   type CFieldType MyEnum "unwrapMyEnum" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyEnum {unwrapMyEnum = y1}, RIP.getField @"unwrapMyEnum" x0)
 
 {-| __C declaration:__ @Say你好@
 

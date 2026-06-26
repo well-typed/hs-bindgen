@@ -84,6 +84,14 @@ newtype Size_t = Size_t
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapSize_t" Size_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_t {unwrapSize_t = y1}, RIP.getField @"unwrapSize_t" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapSize_t" (RIP.Ptr Size_t) (RIP.Ptr ty) where
 
   getField =
@@ -94,11 +102,3 @@ instance HasCField.HasCField Size_t "unwrapSize_t" where
   type CFieldType Size_t "unwrapSize_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapSize_t" Size_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Size_t {unwrapSize_t = y1}, RIP.getField @"unwrapSize_t" x0)

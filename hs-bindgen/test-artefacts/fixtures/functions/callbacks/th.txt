@@ -466,6 +466,12 @@ instance FromFunPtr FileOpenedNotification_Aux
     where fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 instance (~) ty (IO ()) =>
          HasField "unwrapFileOpenedNotification_Aux"
+                  FileOpenedNotification_Aux
+                  ty
+    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification_Aux{unwrapFileOpenedNotification_Aux = y_1},
+                              getField @"unwrapFileOpenedNotification_Aux" x_0)
+instance (~) ty (IO ()) =>
+         HasField "unwrapFileOpenedNotification_Aux"
                   (Ptr FileOpenedNotification_Aux)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFileOpenedNotification_Aux")
@@ -474,12 +480,6 @@ instance HasCField FileOpenedNotification_Aux
     where type CFieldType FileOpenedNotification_Aux
                           "unwrapFileOpenedNotification_Aux" = IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (IO ()) =>
-         HasField "unwrapFileOpenedNotification_Aux"
-                  FileOpenedNotification_Aux
-                  ty
-    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification_Aux{unwrapFileOpenedNotification_Aux = y_1},
-                              getField @"unwrapFileOpenedNotification_Aux" x_0)
 {-| __C declaration:__ @FileOpenedNotification@
 
     __defined at:__ @functions\/callbacks.h 10:16@
@@ -495,6 +495,10 @@ newtype FileOpenedNotification
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr FileOpenedNotification_Aux) =>
+         HasField "unwrapFileOpenedNotification" FileOpenedNotification ty
+    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification{unwrapFileOpenedNotification = y_1},
+                              getField @"unwrapFileOpenedNotification" x_0)
+instance (~) ty (FunPtr FileOpenedNotification_Aux) =>
          HasField "unwrapFileOpenedNotification"
                   (Ptr FileOpenedNotification)
                   (Ptr ty)
@@ -504,10 +508,6 @@ instance HasCField FileOpenedNotification
     where type CFieldType FileOpenedNotification
                           "unwrapFileOpenedNotification" = FunPtr FileOpenedNotification_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr FileOpenedNotification_Aux) =>
-         HasField "unwrapFileOpenedNotification" FileOpenedNotification ty
-    where hasField = \x_0 -> (\y_1 -> FileOpenedNotification{unwrapFileOpenedNotification = y_1},
-                              getField @"unwrapFileOpenedNotification" x_0)
 {-| Auxiliary type used by 'ProgressUpdate'
 
     __C declaration:__ @ProgressUpdate@
@@ -544,6 +544,10 @@ instance ToFunPtr ProgressUpdate_Aux
 instance FromFunPtr ProgressUpdate_Aux
     where fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty
+    where hasField = \x_0 -> (\y_1 -> ProgressUpdate_Aux{unwrapProgressUpdate_Aux = y_1},
+                              getField @"unwrapProgressUpdate_Aux" x_0)
+instance (~) ty (CInt -> IO ()) =>
          HasField "unwrapProgressUpdate_Aux"
                   (Ptr ProgressUpdate_Aux)
                   (Ptr ty)
@@ -552,10 +556,6 @@ instance HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux"
     where type CFieldType ProgressUpdate_Aux
                           "unwrapProgressUpdate_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO ()) =>
-         HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty
-    where hasField = \x_0 -> (\y_1 -> ProgressUpdate_Aux{unwrapProgressUpdate_Aux = y_1},
-                              getField @"unwrapProgressUpdate_Aux" x_0)
 {-| __C declaration:__ @ProgressUpdate@
 
     __defined at:__ @functions\/callbacks.h 11:16@
@@ -571,16 +571,16 @@ newtype ProgressUpdate
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr ProgressUpdate_Aux) =>
+         HasField "unwrapProgressUpdate" ProgressUpdate ty
+    where hasField = \x_0 -> (\y_1 -> ProgressUpdate{unwrapProgressUpdate = y_1},
+                              getField @"unwrapProgressUpdate" x_0)
+instance (~) ty (FunPtr ProgressUpdate_Aux) =>
          HasField "unwrapProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapProgressUpdate")
 instance HasCField ProgressUpdate "unwrapProgressUpdate"
     where type CFieldType ProgressUpdate
                           "unwrapProgressUpdate" = FunPtr ProgressUpdate_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr ProgressUpdate_Aux) =>
-         HasField "unwrapProgressUpdate" ProgressUpdate ty
-    where hasField = \x_0 -> (\y_1 -> ProgressUpdate{unwrapProgressUpdate = y_1},
-                              getField @"unwrapProgressUpdate" x_0)
 {-| Auxiliary type used by 'DataValidator'
 
     __C declaration:__ @DataValidator@
@@ -617,16 +617,16 @@ instance ToFunPtr DataValidator_Aux
 instance FromFunPtr DataValidator_Aux
     where fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapDataValidator_Aux" DataValidator_Aux ty
+    where hasField = \x_0 -> (\y_1 -> DataValidator_Aux{unwrapDataValidator_Aux = y_1},
+                              getField @"unwrapDataValidator_Aux" x_0)
+instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrapDataValidator_Aux" (Ptr DataValidator_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapDataValidator_Aux")
 instance HasCField DataValidator_Aux "unwrapDataValidator_Aux"
     where type CFieldType DataValidator_Aux
                           "unwrapDataValidator_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO CInt) =>
-         HasField "unwrapDataValidator_Aux" DataValidator_Aux ty
-    where hasField = \x_0 -> (\y_1 -> DataValidator_Aux{unwrapDataValidator_Aux = y_1},
-                              getField @"unwrapDataValidator_Aux" x_0)
 {-| __C declaration:__ @DataValidator@
 
     __defined at:__ @functions\/callbacks.h 12:15@
@@ -642,16 +642,16 @@ newtype DataValidator
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr DataValidator_Aux) =>
+         HasField "unwrapDataValidator" DataValidator ty
+    where hasField = \x_0 -> (\y_1 -> DataValidator{unwrapDataValidator = y_1},
+                              getField @"unwrapDataValidator" x_0)
+instance (~) ty (FunPtr DataValidator_Aux) =>
          HasField "unwrapDataValidator" (Ptr DataValidator) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapDataValidator")
 instance HasCField DataValidator "unwrapDataValidator"
     where type CFieldType DataValidator
                           "unwrapDataValidator" = FunPtr DataValidator_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr DataValidator_Aux) =>
-         HasField "unwrapDataValidator" DataValidator ty
-    where hasField = \x_0 -> (\y_1 -> DataValidator{unwrapDataValidator = y_1},
-                              getField @"unwrapDataValidator" x_0)
 {-| __C declaration:__ @struct Measurement@
 
     __defined at:__ @functions\/callbacks.h 21:8@
@@ -684,28 +684,28 @@ instance WriteRaw Measurement
                                        Measurement measurement_value_2
                                                    measurement_timestamp_3 -> writeRaw (Proxy @"measurement_value") ptr_0 measurement_value_2 >> writeRaw (Proxy @"measurement_timestamp") ptr_0 measurement_timestamp_3
 deriving via (EquivStorable Measurement) instance Storable Measurement
-instance HasCField Measurement "measurement_value"
-    where type CFieldType Measurement "measurement_value" = CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty CDouble =>
-         HasField "measurement_value" (Ptr Measurement) (Ptr ty)
-    where getField = fromPtr (Proxy @"measurement_value")
 instance (~) ty CDouble =>
          HasField "measurement_value" Measurement ty
     where hasField = \x_0 -> (\y_1 -> Measurement{measurement_value = y_1,
                                                   measurement_timestamp = getField @"measurement_timestamp" x_0},
                               getField @"measurement_value" x_0)
-instance HasCField Measurement "measurement_timestamp"
-    where type CFieldType Measurement "measurement_timestamp" = CDouble
-          offset# = \_ -> \_ -> 8
 instance (~) ty CDouble =>
-         HasField "measurement_timestamp" (Ptr Measurement) (Ptr ty)
-    where getField = fromPtr (Proxy @"measurement_timestamp")
+         HasField "measurement_value" (Ptr Measurement) (Ptr ty)
+    where getField = fromPtr (Proxy @"measurement_value")
+instance HasCField Measurement "measurement_value"
+    where type CFieldType Measurement "measurement_value" = CDouble
+          offset# = \_ -> \_ -> 0
 instance (~) ty CDouble =>
          HasField "measurement_timestamp" Measurement ty
     where hasField = \x_0 -> (\y_1 -> Measurement{measurement_timestamp = y_1,
                                                   measurement_value = getField @"measurement_value" x_0},
                               getField @"measurement_timestamp" x_0)
+instance (~) ty CDouble =>
+         HasField "measurement_timestamp" (Ptr Measurement) (Ptr ty)
+    where getField = fromPtr (Proxy @"measurement_timestamp")
+instance HasCField Measurement "measurement_timestamp"
+    where type CFieldType Measurement "measurement_timestamp" = CDouble
+          offset# = \_ -> \_ -> 8
 {-| Auxiliary type used by 'MeasurementReceived'
 
     __C declaration:__ @MeasurementReceived@
@@ -743,6 +743,10 @@ instance ToFunPtr MeasurementReceived_Aux
 instance FromFunPtr MeasurementReceived_Aux
     where fromFunPtr = hs_bindgen_383c36bb22947621
 instance (~) ty (Ptr Measurement -> IO ()) =>
+         HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived_Aux{unwrapMeasurementReceived_Aux = y_1},
+                              getField @"unwrapMeasurementReceived_Aux" x_0)
+instance (~) ty (Ptr Measurement -> IO ()) =>
          HasField "unwrapMeasurementReceived_Aux"
                   (Ptr MeasurementReceived_Aux)
                   (Ptr ty)
@@ -752,10 +756,6 @@ instance HasCField MeasurementReceived_Aux
     where type CFieldType MeasurementReceived_Aux
                           "unwrapMeasurementReceived_Aux" = Ptr Measurement -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Measurement -> IO ()) =>
-         HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty
-    where hasField = \x_0 -> (\y_1 -> MeasurementReceived_Aux{unwrapMeasurementReceived_Aux = y_1},
-                              getField @"unwrapMeasurementReceived_Aux" x_0)
 {-| __C declaration:__ @MeasurementReceived@
 
     __defined at:__ @functions\/callbacks.h 26:16@
@@ -771,6 +771,10 @@ newtype MeasurementReceived
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr MeasurementReceived_Aux) =>
+         HasField "unwrapMeasurementReceived" MeasurementReceived ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived{unwrapMeasurementReceived = y_1},
+                              getField @"unwrapMeasurementReceived" x_0)
+instance (~) ty (FunPtr MeasurementReceived_Aux) =>
          HasField "unwrapMeasurementReceived"
                   (Ptr MeasurementReceived)
                   (Ptr ty)
@@ -779,10 +783,6 @@ instance HasCField MeasurementReceived "unwrapMeasurementReceived"
     where type CFieldType MeasurementReceived
                           "unwrapMeasurementReceived" = FunPtr MeasurementReceived_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr MeasurementReceived_Aux) =>
-         HasField "unwrapMeasurementReceived" MeasurementReceived ty
-    where hasField = \x_0 -> (\y_1 -> MeasurementReceived{unwrapMeasurementReceived = y_1},
-                              getField @"unwrapMeasurementReceived" x_0)
 {-| Auxiliary type used by 'MeasurementReceived2'
 
     __C declaration:__ @MeasurementReceived2@
@@ -797,6 +797,12 @@ newtype MeasurementReceived2_Aux
     deriving stock Generic
 instance (~) ty (Measurement -> IO ()) =>
          HasField "unwrapMeasurementReceived2_Aux"
+                  MeasurementReceived2_Aux
+                  ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2_Aux{unwrapMeasurementReceived2_Aux = y_1},
+                              getField @"unwrapMeasurementReceived2_Aux" x_0)
+instance (~) ty (Measurement -> IO ()) =>
+         HasField "unwrapMeasurementReceived2_Aux"
                   (Ptr MeasurementReceived2_Aux)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMeasurementReceived2_Aux")
@@ -805,12 +811,6 @@ instance HasCField MeasurementReceived2_Aux
     where type CFieldType MeasurementReceived2_Aux
                           "unwrapMeasurementReceived2_Aux" = Measurement -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (Measurement -> IO ()) =>
-         HasField "unwrapMeasurementReceived2_Aux"
-                  MeasurementReceived2_Aux
-                  ty
-    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2_Aux{unwrapMeasurementReceived2_Aux = y_1},
-                              getField @"unwrapMeasurementReceived2_Aux" x_0)
 {-| __C declaration:__ @MeasurementReceived2@
 
     __defined at:__ @functions\/callbacks.h 29:16@
@@ -826,6 +826,10 @@ newtype MeasurementReceived2
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr MeasurementReceived2_Aux) =>
+         HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty
+    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2{unwrapMeasurementReceived2 = y_1},
+                              getField @"unwrapMeasurementReceived2" x_0)
+instance (~) ty (FunPtr MeasurementReceived2_Aux) =>
          HasField "unwrapMeasurementReceived2"
                   (Ptr MeasurementReceived2)
                   (Ptr ty)
@@ -835,10 +839,6 @@ instance HasCField MeasurementReceived2
     where type CFieldType MeasurementReceived2
                           "unwrapMeasurementReceived2" = FunPtr MeasurementReceived2_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr MeasurementReceived2_Aux) =>
-         HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty
-    where hasField = \x_0 -> (\y_1 -> MeasurementReceived2{unwrapMeasurementReceived2 = y_1},
-                              getField @"unwrapMeasurementReceived2" x_0)
 {-| Auxiliary type used by 'SampleBufferFull'
 
     __C declaration:__ @SampleBufferFull@
@@ -877,6 +877,10 @@ instance ToFunPtr SampleBufferFull_Aux
 instance FromFunPtr SampleBufferFull_Aux
     where fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
 instance (~) ty (Ptr (Elem (ConstantArray 10 CInt)) -> IO ()) =>
+         HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty
+    where hasField = \x_0 -> (\y_1 -> SampleBufferFull_Aux{unwrapSampleBufferFull_Aux = y_1},
+                              getField @"unwrapSampleBufferFull_Aux" x_0)
+instance (~) ty (Ptr (Elem (ConstantArray 10 CInt)) -> IO ()) =>
          HasField "unwrapSampleBufferFull_Aux"
                   (Ptr SampleBufferFull_Aux)
                   (Ptr ty)
@@ -888,10 +892,6 @@ instance HasCField SampleBufferFull_Aux
                                                                                   CInt)) ->
                                                          IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Elem (ConstantArray 10 CInt)) -> IO ()) =>
-         HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty
-    where hasField = \x_0 -> (\y_1 -> SampleBufferFull_Aux{unwrapSampleBufferFull_Aux = y_1},
-                              getField @"unwrapSampleBufferFull_Aux" x_0)
 {-| __C declaration:__ @SampleBufferFull@
 
     __defined at:__ @functions\/callbacks.h 32:16@
@@ -907,16 +907,16 @@ newtype SampleBufferFull
                       Storable,
                       WriteRaw)
 instance (~) ty (FunPtr SampleBufferFull_Aux) =>
+         HasField "unwrapSampleBufferFull" SampleBufferFull ty
+    where hasField = \x_0 -> (\y_1 -> SampleBufferFull{unwrapSampleBufferFull = y_1},
+                              getField @"unwrapSampleBufferFull" x_0)
+instance (~) ty (FunPtr SampleBufferFull_Aux) =>
          HasField "unwrapSampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSampleBufferFull")
 instance HasCField SampleBufferFull "unwrapSampleBufferFull"
     where type CFieldType SampleBufferFull
                           "unwrapSampleBufferFull" = FunPtr SampleBufferFull_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr SampleBufferFull_Aux) =>
-         HasField "unwrapSampleBufferFull" SampleBufferFull ty
-    where hasField = \x_0 -> (\y_1 -> SampleBufferFull{unwrapSampleBufferFull = y_1},
-                              getField @"unwrapSampleBufferFull" x_0)
 {-| __C declaration:__ @struct MeasurementHandler@
 
     __defined at:__ @functions\/callbacks.h 50:8@
@@ -959,52 +959,52 @@ instance WriteRaw MeasurementHandler
                                                           measurementHandler_validate_3
                                                           measurementHandler_onError_4 -> writeRaw (Proxy @"measurementHandler_onReceived") ptr_0 measurementHandler_onReceived_2 >> (writeRaw (Proxy @"measurementHandler_validate") ptr_0 measurementHandler_validate_3 >> writeRaw (Proxy @"measurementHandler_onError") ptr_0 measurementHandler_onError_4)
 deriving via (EquivStorable MeasurementHandler) instance Storable MeasurementHandler
-instance HasCField MeasurementHandler
-                   "measurementHandler_onReceived"
-    where type CFieldType MeasurementHandler
-                          "measurementHandler_onReceived" = FunPtr (Ptr Measurement -> IO ())
-          offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
-         HasField "measurementHandler_onReceived"
-                  (Ptr MeasurementHandler)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"measurementHandler_onReceived")
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "measurementHandler_onReceived" MeasurementHandler ty
     where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_onReceived = y_1,
                                                          measurementHandler_validate = getField @"measurementHandler_validate" x_0,
                                                          measurementHandler_onError = getField @"measurementHandler_onError" x_0},
                               getField @"measurementHandler_onReceived" x_0)
-instance HasCField MeasurementHandler "measurementHandler_validate"
-    where type CFieldType MeasurementHandler
-                          "measurementHandler_validate" = FunPtr (Ptr Measurement -> IO CInt)
-          offset# = \_ -> \_ -> 8
-instance (~) ty (FunPtr (Ptr Measurement -> IO CInt)) =>
-         HasField "measurementHandler_validate"
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "measurementHandler_onReceived"
                   (Ptr MeasurementHandler)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"measurementHandler_validate")
+    where getField = fromPtr (Proxy @"measurementHandler_onReceived")
+instance HasCField MeasurementHandler
+                   "measurementHandler_onReceived"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_onReceived" = FunPtr (Ptr Measurement -> IO ())
+          offset# = \_ -> \_ -> 0
 instance (~) ty (FunPtr (Ptr Measurement -> IO CInt)) =>
          HasField "measurementHandler_validate" MeasurementHandler ty
     where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_validate = y_1,
                                                          measurementHandler_onReceived = getField @"measurementHandler_onReceived" x_0,
                                                          measurementHandler_onError = getField @"measurementHandler_onError" x_0},
                               getField @"measurementHandler_validate" x_0)
-instance HasCField MeasurementHandler "measurementHandler_onError"
-    where type CFieldType MeasurementHandler
-                          "measurementHandler_onError" = FunPtr (CInt -> IO ())
-          offset# = \_ -> \_ -> 16
-instance (~) ty (FunPtr (CInt -> IO ())) =>
-         HasField "measurementHandler_onError"
+instance (~) ty (FunPtr (Ptr Measurement -> IO CInt)) =>
+         HasField "measurementHandler_validate"
                   (Ptr MeasurementHandler)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"measurementHandler_onError")
+    where getField = fromPtr (Proxy @"measurementHandler_validate")
+instance HasCField MeasurementHandler "measurementHandler_validate"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_validate" = FunPtr (Ptr Measurement -> IO CInt)
+          offset# = \_ -> \_ -> 8
 instance (~) ty (FunPtr (CInt -> IO ())) =>
          HasField "measurementHandler_onError" MeasurementHandler ty
     where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_onError = y_1,
                                                          measurementHandler_onReceived = getField @"measurementHandler_onReceived" x_0,
                                                          measurementHandler_validate = getField @"measurementHandler_validate" x_0},
                               getField @"measurementHandler_onError" x_0)
+instance (~) ty (FunPtr (CInt -> IO ())) =>
+         HasField "measurementHandler_onError"
+                  (Ptr MeasurementHandler)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"measurementHandler_onError")
+instance HasCField MeasurementHandler "measurementHandler_onError"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_onError" = FunPtr (CInt -> IO ())
+          offset# = \_ -> \_ -> 16
 {-| __C declaration:__ @struct DataPipeline@
 
     __defined at:__ @functions\/callbacks.h 58:8@
@@ -1047,15 +1047,6 @@ instance WriteRaw DataPipeline
                                                     dataPipeline_process_3
                                                     dataPipeline_postProcess_4 -> writeRaw (Proxy @"dataPipeline_preProcess") ptr_0 dataPipeline_preProcess_2 >> (writeRaw (Proxy @"dataPipeline_process") ptr_0 dataPipeline_process_3 >> writeRaw (Proxy @"dataPipeline_postProcess") ptr_0 dataPipeline_postProcess_4)
 deriving via (EquivStorable DataPipeline) instance Storable DataPipeline
-instance HasCField DataPipeline "dataPipeline_preProcess"
-    where type CFieldType DataPipeline
-                          "dataPipeline_preProcess" = FunPtr (Ptr Measurement ->
-                                                              DataValidator -> IO ())
-          offset# = \_ -> \_ -> 0
-instance (~) ty
-             (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
-         HasField "dataPipeline_preProcess" (Ptr DataPipeline) (Ptr ty)
-    where getField = fromPtr (Proxy @"dataPipeline_preProcess")
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
          HasField "dataPipeline_preProcess" DataPipeline ty
@@ -1063,28 +1054,28 @@ instance (~) ty
                                                    dataPipeline_process = getField @"dataPipeline_process" x_0,
                                                    dataPipeline_postProcess = getField @"dataPipeline_postProcess" x_0},
                               getField @"dataPipeline_preProcess" x_0)
-instance HasCField DataPipeline "dataPipeline_process"
+instance (~) ty
+             (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
+         HasField "dataPipeline_preProcess" (Ptr DataPipeline) (Ptr ty)
+    where getField = fromPtr (Proxy @"dataPipeline_preProcess")
+instance HasCField DataPipeline "dataPipeline_preProcess"
     where type CFieldType DataPipeline
-                          "dataPipeline_process" = FunPtr (Ptr Measurement -> IO ())
-          offset# = \_ -> \_ -> 8
-instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
-         HasField "dataPipeline_process" (Ptr DataPipeline) (Ptr ty)
-    where getField = fromPtr (Proxy @"dataPipeline_process")
+                          "dataPipeline_preProcess" = FunPtr (Ptr Measurement ->
+                                                              DataValidator -> IO ())
+          offset# = \_ -> \_ -> 0
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "dataPipeline_process" DataPipeline ty
     where hasField = \x_0 -> (\y_1 -> DataPipeline{dataPipeline_process = y_1,
                                                    dataPipeline_preProcess = getField @"dataPipeline_preProcess" x_0,
                                                    dataPipeline_postProcess = getField @"dataPipeline_postProcess" x_0},
                               getField @"dataPipeline_process" x_0)
-instance HasCField DataPipeline "dataPipeline_postProcess"
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "dataPipeline_process" (Ptr DataPipeline) (Ptr ty)
+    where getField = fromPtr (Proxy @"dataPipeline_process")
+instance HasCField DataPipeline "dataPipeline_process"
     where type CFieldType DataPipeline
-                          "dataPipeline_postProcess" = FunPtr (Ptr Measurement ->
-                                                               ProgressUpdate -> IO ())
-          offset# = \_ -> \_ -> 16
-instance (~) ty
-             (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
-         HasField "dataPipeline_postProcess" (Ptr DataPipeline) (Ptr ty)
-    where getField = fromPtr (Proxy @"dataPipeline_postProcess")
+                          "dataPipeline_process" = FunPtr (Ptr Measurement -> IO ())
+          offset# = \_ -> \_ -> 8
 instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
          HasField "dataPipeline_postProcess" DataPipeline ty
@@ -1092,6 +1083,15 @@ instance (~) ty
                                                    dataPipeline_preProcess = getField @"dataPipeline_preProcess" x_0,
                                                    dataPipeline_process = getField @"dataPipeline_process" x_0},
                               getField @"dataPipeline_postProcess" x_0)
+instance (~) ty
+             (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
+         HasField "dataPipeline_postProcess" (Ptr DataPipeline) (Ptr ty)
+    where getField = fromPtr (Proxy @"dataPipeline_postProcess")
+instance HasCField DataPipeline "dataPipeline_postProcess"
+    where type CFieldType DataPipeline
+                          "dataPipeline_postProcess" = FunPtr (Ptr Measurement ->
+                                                               ProgressUpdate -> IO ())
+          offset# = \_ -> \_ -> 16
 {-| __C declaration:__ @union ProcessorCallback@
 
     __defined at:__ @functions\/callbacks.h 69:7@
@@ -1219,20 +1219,14 @@ set_processorCallback_withProgress :: FunPtr (Ptr Measurement ->
 
 -}
 set_processorCallback_withProgress = setUnionPayload
-instance HasCField ProcessorCallback "processorCallback_simple"
-    where type CFieldType ProcessorCallback
-                          "processorCallback_simple" = FunPtr (Ptr Measurement -> IO ())
-          offset# = \_ -> \_ -> 0
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "processorCallback_simple"
                   (Ptr ProcessorCallback)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"processorCallback_simple")
-instance HasCField ProcessorCallback
-                   "processorCallback_withValidator"
+instance HasCField ProcessorCallback "processorCallback_simple"
     where type CFieldType ProcessorCallback
-                          "processorCallback_withValidator" = FunPtr (Ptr Measurement ->
-                                                                      DataValidator -> IO ())
+                          "processorCallback_simple" = FunPtr (Ptr Measurement -> IO ())
           offset# = \_ -> \_ -> 0
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
@@ -1241,10 +1235,10 @@ instance (~) ty
                   (Ptr ty)
     where getField = fromPtr (Proxy @"processorCallback_withValidator")
 instance HasCField ProcessorCallback
-                   "processorCallback_withProgress"
+                   "processorCallback_withValidator"
     where type CFieldType ProcessorCallback
-                          "processorCallback_withProgress" = FunPtr (Ptr Measurement ->
-                                                                     ProgressUpdate -> IO ())
+                          "processorCallback_withValidator" = FunPtr (Ptr Measurement ->
+                                                                      DataValidator -> IO ())
           offset# = \_ -> \_ -> 0
 instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
@@ -1252,6 +1246,12 @@ instance (~) ty
                   (Ptr ProcessorCallback)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"processorCallback_withProgress")
+instance HasCField ProcessorCallback
+                   "processorCallback_withProgress"
+    where type CFieldType ProcessorCallback
+                          "processorCallback_withProgress" = FunPtr (Ptr Measurement ->
+                                                                     ProgressUpdate -> IO ())
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @enum \@Processor_mode@
 
     __defined at:__ @functions\/callbacks.h 76:3@
@@ -1294,15 +1294,15 @@ instance Read Processor_mode
           readList = readListDefault
           readListPrec = readListPrecDefault
 instance (~) ty CUInt =>
+         HasField "unwrapProcessor_mode" Processor_mode ty
+    where hasField = \x_0 -> (\y_1 -> Processor_mode{unwrapProcessor_mode = y_1},
+                              getField @"unwrapProcessor_mode" x_0)
+instance (~) ty CUInt =>
          HasField "unwrapProcessor_mode" (Ptr Processor_mode) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapProcessor_mode")
 instance HasCField Processor_mode "unwrapProcessor_mode"
     where type CFieldType Processor_mode "unwrapProcessor_mode" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt =>
-         HasField "unwrapProcessor_mode" Processor_mode ty
-    where hasField = \x_0 -> (\y_1 -> Processor_mode{unwrapProcessor_mode = y_1},
-                              getField @"unwrapProcessor_mode" x_0)
 {-| __C declaration:__ @MODE_SIMPLE@
 
     __defined at:__ @functions\/callbacks.h 76:10@
@@ -1359,29 +1359,29 @@ instance WriteRaw Processor
                                        Processor processor_mode_2
                                                  processor_callback_3 -> writeRaw (Proxy @"processor_mode") ptr_0 processor_mode_2 >> writeRaw (Proxy @"processor_callback") ptr_0 processor_callback_3
 deriving via (EquivStorable Processor) instance Storable Processor
-instance HasCField Processor "processor_mode"
-    where type CFieldType Processor "processor_mode" = Processor_mode
-          offset# = \_ -> \_ -> 0
-instance (~) ty Processor_mode =>
-         HasField "processor_mode" (Ptr Processor) (Ptr ty)
-    where getField = fromPtr (Proxy @"processor_mode")
 instance (~) ty Processor_mode =>
          HasField "processor_mode" Processor ty
     where hasField = \x_0 -> (\y_1 -> Processor{processor_mode = y_1,
                                                 processor_callback = getField @"processor_callback" x_0},
                               getField @"processor_mode" x_0)
-instance HasCField Processor "processor_callback"
-    where type CFieldType Processor
-                          "processor_callback" = ProcessorCallback
-          offset# = \_ -> \_ -> 8
-instance (~) ty ProcessorCallback =>
-         HasField "processor_callback" (Ptr Processor) (Ptr ty)
-    where getField = fromPtr (Proxy @"processor_callback")
+instance (~) ty Processor_mode =>
+         HasField "processor_mode" (Ptr Processor) (Ptr ty)
+    where getField = fromPtr (Proxy @"processor_mode")
+instance HasCField Processor "processor_mode"
+    where type CFieldType Processor "processor_mode" = Processor_mode
+          offset# = \_ -> \_ -> 0
 instance (~) ty ProcessorCallback =>
          HasField "processor_callback" Processor ty
     where hasField = \x_0 -> (\y_1 -> Processor{processor_callback = y_1,
                                                 processor_mode = getField @"processor_mode" x_0},
                               getField @"processor_callback" x_0)
+instance (~) ty ProcessorCallback =>
+         HasField "processor_callback" (Ptr Processor) (Ptr ty)
+    where getField = fromPtr (Proxy @"processor_callback")
+instance HasCField Processor "processor_callback"
+    where type CFieldType Processor
+                          "processor_callback" = ProcessorCallback
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @foo@
 
     __defined at:__ @functions\/callbacks.h 94:13@
@@ -1406,14 +1406,14 @@ newtype Foo
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapFoo" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
+                              getField @"unwrapFoo" x_0)
 instance (~) ty CInt => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFoo")
 instance HasCField Foo "unwrapFoo"
     where type CFieldType Foo "unwrapFoo" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapFoo" Foo ty
-    where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
-                              getField @"unwrapFoo" x_0)
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @functions\/callbacks.h 95:13@
@@ -1438,14 +1438,14 @@ newtype Foo2
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapFoo2" Foo2 ty
+    where hasField = \x_0 -> (\y_1 -> Foo2{unwrapFoo2 = y_1},
+                              getField @"unwrapFoo2" x_0)
 instance (~) ty CInt => HasField "unwrapFoo2" (Ptr Foo2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFoo2")
 instance HasCField Foo2 "unwrapFoo2"
     where type CFieldType Foo2 "unwrapFoo2" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapFoo2" Foo2 ty
-    where hasField = \x_0 -> (\y_1 -> Foo2{unwrapFoo2 = y_1},
-                              getField @"unwrapFoo2" x_0)
 {-| __C declaration:__ @A@
 
     __defined at:__ @functions\/callbacks.h 102:13@
@@ -1470,14 +1470,14 @@ newtype A
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @B@
 
     __defined at:__ @functions\/callbacks.h 108:13@
@@ -1502,14 +1502,14 @@ newtype B
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 instance (~) ty CInt => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapB" B ty
-    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
-                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @functions\/callbacks.h 109:8@
@@ -1534,15 +1534,15 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_fn_2 -> writeRaw (Proxy @"s_fn") ptr_0 s_fn_2
 deriving via (EquivStorable S) instance Storable S
-instance HasCField S "s_fn"
-    where type CFieldType S "s_fn" = FunPtr (B -> IO ())
-          offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (B -> IO ())) =>
-         HasField "s_fn" (Ptr S) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_fn")
 instance (~) ty (FunPtr (B -> IO ())) => HasField "s_fn" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_fn = y_1},
                               getField @"s_fn" x_0)
+instance (~) ty (FunPtr (B -> IO ())) =>
+         HasField "s_fn" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_fn")
+instance HasCField S "s_fn"
+    where type CFieldType S "s_fn" = FunPtr (B -> IO ())
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @C@
 
     __defined at:__ @functions\/callbacks.h 116:13@
@@ -1567,14 +1567,14 @@ newtype C
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapC" C ty
+    where hasField = \x_0 -> (\y_1 -> C{unwrapC = y_1},
+                              getField @"unwrapC" x_0)
 instance (~) ty CInt => HasField "unwrapC" (Ptr C) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapC")
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapC" C ty
-    where hasField = \x_0 -> (\y_1 -> C{unwrapC = y_1},
-                              getField @"unwrapC" x_0)
 {-| __C declaration:__ @union U@
 
     __defined at:__ @functions\/callbacks.h 117:7@
@@ -1620,13 +1620,13 @@ set_u_fn :: ConstantArray 3 (FunPtr (C -> IO ())) -> U
 
 -}
 set_u_fn = setUnionPayload
+instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
+         HasField "u_fn" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_fn")
 instance HasCField U "u_fn"
     where type CFieldType U "u_fn" = ConstantArray 3
                                                    (FunPtr (C -> IO ()))
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
-         HasField "u_fn" (Ptr U) (Ptr ty)
-    where getField = fromPtr (Proxy @"u_fn")
 {-| __C declaration:__ @D@
 
     __defined at:__ @functions\/callbacks.h 124:13@
@@ -1651,14 +1651,14 @@ newtype D
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapD" D ty
+    where hasField = \x_0 -> (\y_1 -> D{unwrapD = y_1},
+                              getField @"unwrapD" x_0)
 instance (~) ty CInt => HasField "unwrapD" (Ptr D) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapD")
 instance HasCField D "unwrapD"
     where type CFieldType D "unwrapD" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapD" D ty
-    where hasField = \x_0 -> (\y_1 -> D{unwrapD = y_1},
-                              getField @"unwrapD" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/callbacks.h 125:15@
@@ -1691,15 +1691,15 @@ instance ToFunPtr T
 instance FromFunPtr T
     where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
 instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
+         HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = FunPtr (D -> IO ()) -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
-         HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
 -- __unique:__ @instance ToFunPtr (A -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_a46c670f88b5e6d2_base ::
     Int32 -> IO ()

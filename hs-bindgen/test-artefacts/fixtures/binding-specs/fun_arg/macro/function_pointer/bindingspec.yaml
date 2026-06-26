@@ -23,12 +23,13 @@ hstypes:
       fields:
       - unwrapA
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -42,12 +43,13 @@ hstypes:
       fields:
       - unwrapB
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -61,10 +63,11 @@ hstypes:
       fields:
       - unwrapE
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: MyFunctionPointer
   representation:
     newtype:
@@ -72,12 +75,13 @@ hstypes:
       fields:
       - unwrapMyFunctionPointer
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show

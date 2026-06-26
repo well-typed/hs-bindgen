@@ -23,20 +23,20 @@ instance WriteRaw SSS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS_anon'anon'x_anon'x sSS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"sSS_anon'anon'x_anon'x_x") ptr_0 sSS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable SSS_anon'anon'x_anon'x) instance Storable SSS_anon'anon'x_anon'x
-instance HasCField SSS_anon'anon'x_anon'x
-                   "sSS_anon'anon'x_anon'x_x"
-    where type CFieldType SSS_anon'anon'x_anon'x
-                          "sSS_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "sSS_anon'anon'x_anon'x_x" SSS_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> SSS_anon'anon'x_anon'x{sSS_anon'anon'x_anon'x_x = y_1},
+                              getField @"sSS_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "sSS_anon'anon'x_anon'x_x"
                   (Ptr SSS_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"sSS_anon'anon'x_anon'x_x")
-instance (~) ty CInt =>
-         HasField "sSS_anon'anon'x_anon'x_x" SSS_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (\y_1 -> SSS_anon'anon'x_anon'x{sSS_anon'anon'x_anon'x_x = y_1},
-                              getField @"sSS_anon'anon'x_anon'x_x" x_0)
+instance HasCField SSS_anon'anon'x_anon'x
+                   "sSS_anon'anon'x_anon'x_x"
+    where type CFieldType SSS_anon'anon'x_anon'x
+                          "sSS_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@SSS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
@@ -61,17 +61,17 @@ instance WriteRaw SSS_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS_anon'anon'x sSS_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"sSS_anon'anon'x_anon'x") ptr_0 sSS_anon'anon'x_anon'x_2
 deriving via (EquivStorable SSS_anon'anon'x) instance Storable SSS_anon'anon'x
-instance HasCField SSS_anon'anon'x "sSS_anon'anon'x_anon'x"
-    where type CFieldType SSS_anon'anon'x
-                          "sSS_anon'anon'x_anon'x" = SSS_anon'anon'x_anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SSS_anon'anon'x_anon'x =>
-         HasField "sSS_anon'anon'x_anon'x" (Ptr SSS_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"sSS_anon'anon'x_anon'x")
 instance (~) ty SSS_anon'anon'x_anon'x =>
          HasField "sSS_anon'anon'x_anon'x" SSS_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> SSS_anon'anon'x{sSS_anon'anon'x_anon'x = y_1},
                               getField @"sSS_anon'anon'x_anon'x" x_0)
+instance (~) ty SSS_anon'anon'x_anon'x =>
+         HasField "sSS_anon'anon'x_anon'x" (Ptr SSS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSS_anon'anon'x_anon'x")
+instance HasCField SSS_anon'anon'x "sSS_anon'anon'x_anon'x"
+    where type CFieldType SSS_anon'anon'x
+                          "sSS_anon'anon'x_anon'x" = SSS_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SSS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 15:8@
@@ -96,16 +96,16 @@ instance WriteRaw SSS
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS sSS_anon'anon'x_2 -> writeRaw (Proxy @"sSS_anon'anon'x") ptr_0 sSS_anon'anon'x_2
 deriving via (EquivStorable SSS) instance Storable SSS
-instance HasCField SSS "sSS_anon'anon'x"
-    where type CFieldType SSS "sSS_anon'anon'x" = SSS_anon'anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SSS_anon'anon'x =>
-         HasField "sSS_anon'anon'x" (Ptr SSS) (Ptr ty)
-    where getField = fromPtr (Proxy @"sSS_anon'anon'x")
 instance (~) ty SSS_anon'anon'x =>
          HasField "sSS_anon'anon'x" SSS ty
     where hasField = \x_0 -> (\y_1 -> SSS{sSS_anon'anon'x = y_1},
                               getField @"sSS_anon'anon'x" x_0)
+instance (~) ty SSS_anon'anon'x =>
+         HasField "sSS_anon'anon'x" (Ptr SSS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSS_anon'anon'x")
+instance HasCField SSS "sSS_anon'anon'x"
+    where type CFieldType SSS "sSS_anon'anon'x" = SSS_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@USS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
@@ -130,20 +130,20 @@ instance WriteRaw USS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USS_anon'anon'x_anon'x uSS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"uSS_anon'anon'x_anon'x_x") ptr_0 uSS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable USS_anon'anon'x_anon'x) instance Storable USS_anon'anon'x_anon'x
-instance HasCField USS_anon'anon'x_anon'x
-                   "uSS_anon'anon'x_anon'x_x"
-    where type CFieldType USS_anon'anon'x_anon'x
-                          "uSS_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "uSS_anon'anon'x_anon'x_x" USS_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> USS_anon'anon'x_anon'x{uSS_anon'anon'x_anon'x_x = y_1},
+                              getField @"uSS_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "uSS_anon'anon'x_anon'x_x"
                   (Ptr USS_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"uSS_anon'anon'x_anon'x_x")
-instance (~) ty CInt =>
-         HasField "uSS_anon'anon'x_anon'x_x" USS_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (\y_1 -> USS_anon'anon'x_anon'x{uSS_anon'anon'x_anon'x_x = y_1},
-                              getField @"uSS_anon'anon'x_anon'x_x" x_0)
+instance HasCField USS_anon'anon'x_anon'x
+                   "uSS_anon'anon'x_anon'x_x"
+    where type CFieldType USS_anon'anon'x_anon'x
+                          "uSS_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@USS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
@@ -168,17 +168,17 @@ instance WriteRaw USS_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USS_anon'anon'x uSS_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"uSS_anon'anon'x_anon'x") ptr_0 uSS_anon'anon'x_anon'x_2
 deriving via (EquivStorable USS_anon'anon'x) instance Storable USS_anon'anon'x
-instance HasCField USS_anon'anon'x "uSS_anon'anon'x_anon'x"
-    where type CFieldType USS_anon'anon'x
-                          "uSS_anon'anon'x_anon'x" = USS_anon'anon'x_anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty USS_anon'anon'x_anon'x =>
-         HasField "uSS_anon'anon'x_anon'x" (Ptr USS_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"uSS_anon'anon'x_anon'x")
 instance (~) ty USS_anon'anon'x_anon'x =>
          HasField "uSS_anon'anon'x_anon'x" USS_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> USS_anon'anon'x{uSS_anon'anon'x_anon'x = y_1},
                               getField @"uSS_anon'anon'x_anon'x" x_0)
+instance (~) ty USS_anon'anon'x_anon'x =>
+         HasField "uSS_anon'anon'x_anon'x" (Ptr USS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSS_anon'anon'x_anon'x")
+instance HasCField USS_anon'anon'x "uSS_anon'anon'x_anon'x"
+    where type CFieldType USS_anon'anon'x
+                          "uSS_anon'anon'x_anon'x" = USS_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union USS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 23:7@
@@ -224,12 +224,12 @@ set_uSS_anon'anon'x :: USS_anon'anon'x -> USS
 
 -}
 set_uSS_anon'anon'x = setUnionPayload
-instance HasCField USS "uSS_anon'anon'x"
-    where type CFieldType USS "uSS_anon'anon'x" = USS_anon'anon'x
-          offset# = \_ -> \_ -> 0
 instance (~) ty USS_anon'anon'x =>
          HasField "uSS_anon'anon'x" (Ptr USS) (Ptr ty)
     where getField = fromPtr (Proxy @"uSS_anon'anon'x")
+instance HasCField USS "uSS_anon'anon'x"
+    where type CFieldType USS "uSS_anon'anon'x" = USS_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@SUS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
@@ -254,20 +254,20 @@ instance WriteRaw SUS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUS_anon'anon'x_anon'x sUS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"sUS_anon'anon'x_anon'x_x") ptr_0 sUS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable SUS_anon'anon'x_anon'x) instance Storable SUS_anon'anon'x_anon'x
-instance HasCField SUS_anon'anon'x_anon'x
-                   "sUS_anon'anon'x_anon'x_x"
-    where type CFieldType SUS_anon'anon'x_anon'x
-                          "sUS_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "sUS_anon'anon'x_anon'x_x" SUS_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> SUS_anon'anon'x_anon'x{sUS_anon'anon'x_anon'x_x = y_1},
+                              getField @"sUS_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "sUS_anon'anon'x_anon'x_x"
                   (Ptr SUS_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"sUS_anon'anon'x_anon'x_x")
-instance (~) ty CInt =>
-         HasField "sUS_anon'anon'x_anon'x_x" SUS_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (\y_1 -> SUS_anon'anon'x_anon'x{sUS_anon'anon'x_anon'x_x = y_1},
-                              getField @"sUS_anon'anon'x_anon'x_x" x_0)
+instance HasCField SUS_anon'anon'x_anon'x
+                   "sUS_anon'anon'x_anon'x_x"
+    where type CFieldType SUS_anon'anon'x_anon'x
+                          "sUS_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SUS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
@@ -318,13 +318,13 @@ set_sUS_anon'anon'x_anon'x :: SUS_anon'anon'x_anon'x ->
 
 -}
 set_sUS_anon'anon'x_anon'x = setUnionPayload
+instance (~) ty SUS_anon'anon'x_anon'x =>
+         HasField "sUS_anon'anon'x_anon'x" (Ptr SUS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUS_anon'anon'x_anon'x")
 instance HasCField SUS_anon'anon'x "sUS_anon'anon'x_anon'x"
     where type CFieldType SUS_anon'anon'x
                           "sUS_anon'anon'x_anon'x" = SUS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUS_anon'anon'x_anon'x =>
-         HasField "sUS_anon'anon'x_anon'x" (Ptr SUS_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"sUS_anon'anon'x_anon'x")
 {-| __C declaration:__ @struct SUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 31:8@
@@ -349,16 +349,16 @@ instance WriteRaw SUS
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUS sUS_anon'anon'x_2 -> writeRaw (Proxy @"sUS_anon'anon'x") ptr_0 sUS_anon'anon'x_2
 deriving via (EquivStorable SUS) instance Storable SUS
-instance HasCField SUS "sUS_anon'anon'x"
-    where type CFieldType SUS "sUS_anon'anon'x" = SUS_anon'anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SUS_anon'anon'x =>
-         HasField "sUS_anon'anon'x" (Ptr SUS) (Ptr ty)
-    where getField = fromPtr (Proxy @"sUS_anon'anon'x")
 instance (~) ty SUS_anon'anon'x =>
          HasField "sUS_anon'anon'x" SUS ty
     where hasField = \x_0 -> (\y_1 -> SUS{sUS_anon'anon'x = y_1},
                               getField @"sUS_anon'anon'x" x_0)
+instance (~) ty SUS_anon'anon'x =>
+         HasField "sUS_anon'anon'x" (Ptr SUS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUS_anon'anon'x")
+instance HasCField SUS "sUS_anon'anon'x"
+    where type CFieldType SUS "sUS_anon'anon'x" = SUS_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@UUS_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
@@ -383,20 +383,20 @@ instance WriteRaw UUS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UUS_anon'anon'x_anon'x uUS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"uUS_anon'anon'x_anon'x_x") ptr_0 uUS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable UUS_anon'anon'x_anon'x) instance Storable UUS_anon'anon'x_anon'x
-instance HasCField UUS_anon'anon'x_anon'x
-                   "uUS_anon'anon'x_anon'x_x"
-    where type CFieldType UUS_anon'anon'x_anon'x
-                          "uUS_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "uUS_anon'anon'x_anon'x_x" UUS_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> UUS_anon'anon'x_anon'x{uUS_anon'anon'x_anon'x_x = y_1},
+                              getField @"uUS_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "uUS_anon'anon'x_anon'x_x"
                   (Ptr UUS_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"uUS_anon'anon'x_anon'x_x")
-instance (~) ty CInt =>
-         HasField "uUS_anon'anon'x_anon'x_x" UUS_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (\y_1 -> UUS_anon'anon'x_anon'x{uUS_anon'anon'x_anon'x_x = y_1},
-                              getField @"uUS_anon'anon'x_anon'x_x" x_0)
+instance HasCField UUS_anon'anon'x_anon'x
+                   "uUS_anon'anon'x_anon'x_x"
+    where type CFieldType UUS_anon'anon'x_anon'x
+                          "uUS_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@UUS_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
@@ -447,13 +447,13 @@ set_uUS_anon'anon'x_anon'x :: UUS_anon'anon'x_anon'x ->
 
 -}
 set_uUS_anon'anon'x_anon'x = setUnionPayload
+instance (~) ty UUS_anon'anon'x_anon'x =>
+         HasField "uUS_anon'anon'x_anon'x" (Ptr UUS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUS_anon'anon'x_anon'x")
 instance HasCField UUS_anon'anon'x "uUS_anon'anon'x_anon'x"
     where type CFieldType UUS_anon'anon'x
                           "uUS_anon'anon'x_anon'x" = UUS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUS_anon'anon'x_anon'x =>
-         HasField "uUS_anon'anon'x_anon'x" (Ptr UUS_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"uUS_anon'anon'x_anon'x")
 {-| __C declaration:__ @union UUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 39:7@
@@ -499,12 +499,12 @@ set_uUS_anon'anon'x :: UUS_anon'anon'x -> UUS
 
 -}
 set_uUS_anon'anon'x = setUnionPayload
-instance HasCField UUS "uUS_anon'anon'x"
-    where type CFieldType UUS "uUS_anon'anon'x" = UUS_anon'anon'x
-          offset# = \_ -> \_ -> 0
 instance (~) ty UUS_anon'anon'x =>
          HasField "uUS_anon'anon'x" (Ptr UUS) (Ptr ty)
     where getField = fromPtr (Proxy @"uUS_anon'anon'x")
+instance HasCField UUS "uUS_anon'anon'x"
+    where type CFieldType UUS "uUS_anon'anon'x" = UUS_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SSU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
@@ -555,16 +555,16 @@ set_sSU_anon'anon'x_anon'x_x :: CInt -> SSU_anon'anon'x_anon'x
 
 -}
 set_sSU_anon'anon'x_anon'x_x = setUnionPayload
-instance HasCField SSU_anon'anon'x_anon'x
-                   "sSU_anon'anon'x_anon'x_x"
-    where type CFieldType SSU_anon'anon'x_anon'x
-                          "sSU_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "sSU_anon'anon'x_anon'x_x"
                   (Ptr SSU_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"sSU_anon'anon'x_anon'x_x")
+instance HasCField SSU_anon'anon'x_anon'x
+                   "sSU_anon'anon'x_anon'x_x"
+    where type CFieldType SSU_anon'anon'x_anon'x
+                          "sSU_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@SSU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
@@ -589,17 +589,17 @@ instance WriteRaw SSU_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSU_anon'anon'x sSU_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"sSU_anon'anon'x_anon'x") ptr_0 sSU_anon'anon'x_anon'x_2
 deriving via (EquivStorable SSU_anon'anon'x) instance Storable SSU_anon'anon'x
-instance HasCField SSU_anon'anon'x "sSU_anon'anon'x_anon'x"
-    where type CFieldType SSU_anon'anon'x
-                          "sSU_anon'anon'x_anon'x" = SSU_anon'anon'x_anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SSU_anon'anon'x_anon'x =>
-         HasField "sSU_anon'anon'x_anon'x" (Ptr SSU_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"sSU_anon'anon'x_anon'x")
 instance (~) ty SSU_anon'anon'x_anon'x =>
          HasField "sSU_anon'anon'x_anon'x" SSU_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> SSU_anon'anon'x{sSU_anon'anon'x_anon'x = y_1},
                               getField @"sSU_anon'anon'x_anon'x" x_0)
+instance (~) ty SSU_anon'anon'x_anon'x =>
+         HasField "sSU_anon'anon'x_anon'x" (Ptr SSU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSU_anon'anon'x_anon'x")
+instance HasCField SSU_anon'anon'x "sSU_anon'anon'x_anon'x"
+    where type CFieldType SSU_anon'anon'x
+                          "sSU_anon'anon'x_anon'x" = SSU_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SSU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 47:8@
@@ -624,16 +624,16 @@ instance WriteRaw SSU
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSU sSU_anon'anon'x_2 -> writeRaw (Proxy @"sSU_anon'anon'x") ptr_0 sSU_anon'anon'x_2
 deriving via (EquivStorable SSU) instance Storable SSU
-instance HasCField SSU "sSU_anon'anon'x"
-    where type CFieldType SSU "sSU_anon'anon'x" = SSU_anon'anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SSU_anon'anon'x =>
-         HasField "sSU_anon'anon'x" (Ptr SSU) (Ptr ty)
-    where getField = fromPtr (Proxy @"sSU_anon'anon'x")
 instance (~) ty SSU_anon'anon'x =>
          HasField "sSU_anon'anon'x" SSU ty
     where hasField = \x_0 -> (\y_1 -> SSU{sSU_anon'anon'x = y_1},
                               getField @"sSU_anon'anon'x" x_0)
+instance (~) ty SSU_anon'anon'x =>
+         HasField "sSU_anon'anon'x" (Ptr SSU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSU_anon'anon'x")
+instance HasCField SSU "sSU_anon'anon'x"
+    where type CFieldType SSU "sSU_anon'anon'x" = SSU_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@USU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
@@ -684,16 +684,16 @@ set_uSU_anon'anon'x_anon'x_x :: CInt -> USU_anon'anon'x_anon'x
 
 -}
 set_uSU_anon'anon'x_anon'x_x = setUnionPayload
-instance HasCField USU_anon'anon'x_anon'x
-                   "uSU_anon'anon'x_anon'x_x"
-    where type CFieldType USU_anon'anon'x_anon'x
-                          "uSU_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "uSU_anon'anon'x_anon'x_x"
                   (Ptr USU_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"uSU_anon'anon'x_anon'x_x")
+instance HasCField USU_anon'anon'x_anon'x
+                   "uSU_anon'anon'x_anon'x_x"
+    where type CFieldType USU_anon'anon'x_anon'x
+                          "uSU_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@USU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
@@ -718,17 +718,17 @@ instance WriteRaw USU_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USU_anon'anon'x uSU_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"uSU_anon'anon'x_anon'x") ptr_0 uSU_anon'anon'x_anon'x_2
 deriving via (EquivStorable USU_anon'anon'x) instance Storable USU_anon'anon'x
-instance HasCField USU_anon'anon'x "uSU_anon'anon'x_anon'x"
-    where type CFieldType USU_anon'anon'x
-                          "uSU_anon'anon'x_anon'x" = USU_anon'anon'x_anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty USU_anon'anon'x_anon'x =>
-         HasField "uSU_anon'anon'x_anon'x" (Ptr USU_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"uSU_anon'anon'x_anon'x")
 instance (~) ty USU_anon'anon'x_anon'x =>
          HasField "uSU_anon'anon'x_anon'x" USU_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> USU_anon'anon'x{uSU_anon'anon'x_anon'x = y_1},
                               getField @"uSU_anon'anon'x_anon'x" x_0)
+instance (~) ty USU_anon'anon'x_anon'x =>
+         HasField "uSU_anon'anon'x_anon'x" (Ptr USU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSU_anon'anon'x_anon'x")
+instance HasCField USU_anon'anon'x "uSU_anon'anon'x_anon'x"
+    where type CFieldType USU_anon'anon'x
+                          "uSU_anon'anon'x_anon'x" = USU_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union USU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 55:7@
@@ -774,12 +774,12 @@ set_uSU_anon'anon'x :: USU_anon'anon'x -> USU
 
 -}
 set_uSU_anon'anon'x = setUnionPayload
-instance HasCField USU "uSU_anon'anon'x"
-    where type CFieldType USU "uSU_anon'anon'x" = USU_anon'anon'x
-          offset# = \_ -> \_ -> 0
 instance (~) ty USU_anon'anon'x =>
          HasField "uSU_anon'anon'x" (Ptr USU) (Ptr ty)
     where getField = fromPtr (Proxy @"uSU_anon'anon'x")
+instance HasCField USU "uSU_anon'anon'x"
+    where type CFieldType USU "uSU_anon'anon'x" = USU_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SUU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
@@ -830,16 +830,16 @@ set_sUU_anon'anon'x_anon'x_x :: CInt -> SUU_anon'anon'x_anon'x
 
 -}
 set_sUU_anon'anon'x_anon'x_x = setUnionPayload
-instance HasCField SUU_anon'anon'x_anon'x
-                   "sUU_anon'anon'x_anon'x_x"
-    where type CFieldType SUU_anon'anon'x_anon'x
-                          "sUU_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "sUU_anon'anon'x_anon'x_x"
                   (Ptr SUU_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"sUU_anon'anon'x_anon'x_x")
+instance HasCField SUU_anon'anon'x_anon'x
+                   "sUU_anon'anon'x_anon'x_x"
+    where type CFieldType SUU_anon'anon'x_anon'x
+                          "sUU_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SUU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
@@ -890,13 +890,13 @@ set_sUU_anon'anon'x_anon'x :: SUU_anon'anon'x_anon'x ->
 
 -}
 set_sUU_anon'anon'x_anon'x = setUnionPayload
+instance (~) ty SUU_anon'anon'x_anon'x =>
+         HasField "sUU_anon'anon'x_anon'x" (Ptr SUU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUU_anon'anon'x_anon'x")
 instance HasCField SUU_anon'anon'x "sUU_anon'anon'x_anon'x"
     where type CFieldType SUU_anon'anon'x
                           "sUU_anon'anon'x_anon'x" = SUU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
-instance (~) ty SUU_anon'anon'x_anon'x =>
-         HasField "sUU_anon'anon'x_anon'x" (Ptr SUU_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"sUU_anon'anon'x_anon'x")
 {-| __C declaration:__ @struct SUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 63:8@
@@ -921,16 +921,16 @@ instance WriteRaw SUU
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUU sUU_anon'anon'x_2 -> writeRaw (Proxy @"sUU_anon'anon'x") ptr_0 sUU_anon'anon'x_2
 deriving via (EquivStorable SUU) instance Storable SUU
-instance HasCField SUU "sUU_anon'anon'x"
-    where type CFieldType SUU "sUU_anon'anon'x" = SUU_anon'anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty SUU_anon'anon'x =>
-         HasField "sUU_anon'anon'x" (Ptr SUU) (Ptr ty)
-    where getField = fromPtr (Proxy @"sUU_anon'anon'x")
 instance (~) ty SUU_anon'anon'x =>
          HasField "sUU_anon'anon'x" SUU ty
     where hasField = \x_0 -> (\y_1 -> SUU{sUU_anon'anon'x = y_1},
                               getField @"sUU_anon'anon'x" x_0)
+instance (~) ty SUU_anon'anon'x =>
+         HasField "sUU_anon'anon'x" (Ptr SUU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUU_anon'anon'x")
+instance HasCField SUU "sUU_anon'anon'x"
+    where type CFieldType SUU "sUU_anon'anon'x" = SUU_anon'anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@UUU_anon\'anon\'x_anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
@@ -981,16 +981,16 @@ set_uUU_anon'anon'x_anon'x_x :: CInt -> UUU_anon'anon'x_anon'x
 
 -}
 set_uUU_anon'anon'x_anon'x_x = setUnionPayload
-instance HasCField UUU_anon'anon'x_anon'x
-                   "uUU_anon'anon'x_anon'x_x"
-    where type CFieldType UUU_anon'anon'x_anon'x
-                          "uUU_anon'anon'x_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "uUU_anon'anon'x_anon'x_x"
                   (Ptr UUU_anon'anon'x_anon'x)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"uUU_anon'anon'x_anon'x_x")
+instance HasCField UUU_anon'anon'x_anon'x
+                   "uUU_anon'anon'x_anon'x_x"
+    where type CFieldType UUU_anon'anon'x_anon'x
+                          "uUU_anon'anon'x_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@UUU_anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
@@ -1041,13 +1041,13 @@ set_uUU_anon'anon'x_anon'x :: UUU_anon'anon'x_anon'x ->
 
 -}
 set_uUU_anon'anon'x_anon'x = setUnionPayload
+instance (~) ty UUU_anon'anon'x_anon'x =>
+         HasField "uUU_anon'anon'x_anon'x" (Ptr UUU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUU_anon'anon'x_anon'x")
 instance HasCField UUU_anon'anon'x "uUU_anon'anon'x_anon'x"
     where type CFieldType UUU_anon'anon'x
                           "uUU_anon'anon'x_anon'x" = UUU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
-instance (~) ty UUU_anon'anon'x_anon'x =>
-         HasField "uUU_anon'anon'x_anon'x" (Ptr UUU_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"uUU_anon'anon'x_anon'x")
 {-| __C declaration:__ @union UUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 71:7@
@@ -1093,9 +1093,9 @@ set_uUU_anon'anon'x :: UUU_anon'anon'x -> UUU
 
 -}
 set_uUU_anon'anon'x = setUnionPayload
-instance HasCField UUU "uUU_anon'anon'x"
-    where type CFieldType UUU "uUU_anon'anon'x" = UUU_anon'anon'x
-          offset# = \_ -> \_ -> 0
 instance (~) ty UUU_anon'anon'x =>
          HasField "uUU_anon'anon'x" (Ptr UUU) (Ptr ty)
     where getField = fromPtr (Proxy @"uUU_anon'anon'x")
+instance HasCField UUU "uUU_anon'anon'x"
+    where type CFieldType UUU "uUU_anon'anon'x" = UUU_anon'anon'x
+          offset# = \_ -> \_ -> 0

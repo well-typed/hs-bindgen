@@ -109,6 +109,14 @@ instance Read Foo_enum where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapFoo_enum" Foo_enum ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo_enum {unwrapFoo_enum = y1}, RIP.getField @"unwrapFoo_enum" x0)
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr ty) where
 
   getField =
@@ -120,14 +128,6 @@ instance HasCField.HasCField Foo_enum "unwrapFoo_enum" where
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "unwrapFoo_enum" Foo_enum ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Foo_enum {unwrapFoo_enum = y1}, RIP.getField @"unwrapFoo_enum" x0)
 
 {-| __C declaration:__ @A@
 

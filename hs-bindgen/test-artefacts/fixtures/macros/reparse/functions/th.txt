@@ -98,15 +98,15 @@ newtype MY_INT
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMY_INT" MY_INT ty
+    where hasField = \x_0 -> (\y_1 -> MY_INT{unwrapMY_INT = y_1},
+                              getField @"unwrapMY_INT" x_0)
 instance (~) ty CInt =>
          HasField "unwrapMY_INT" (Ptr MY_INT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMY_INT")
 instance HasCField MY_INT "unwrapMY_INT"
     where type CFieldType MY_INT "unwrapMY_INT" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMY_INT" MY_INT ty
-    where hasField = \x_0 -> (\y_1 -> MY_INT{unwrapMY_INT = y_1},
-                              getField @"unwrapMY_INT" x_0)
 {-| __C declaration:__ @my_int_t@
 
     __defined at:__ @macros\/reparse\/functions.h 19:16@
@@ -131,15 +131,15 @@ newtype My_int_t
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty MY_INT => HasField "unwrapMy_int_t" My_int_t ty
+    where hasField = \x_0 -> (\y_1 -> My_int_t{unwrapMy_int_t = y_1},
+                              getField @"unwrapMy_int_t" x_0)
 instance (~) ty MY_INT =>
          HasField "unwrapMy_int_t" (Ptr My_int_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMy_int_t")
 instance HasCField My_int_t "unwrapMy_int_t"
     where type CFieldType My_int_t "unwrapMy_int_t" = MY_INT
           offset# = \_ -> \_ -> 0
-instance (~) ty MY_INT => HasField "unwrapMy_int_t" My_int_t ty
-    where hasField = \x_0 -> (\y_1 -> My_int_t{unwrapMy_int_t = y_1},
-                              getField @"unwrapMy_int_t" x_0)
 -- __unique:__ @test_macrosreparsefunctions_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_b6e9ae739486d53b" hs_bindgen_b6e9ae739486d53b_base ::
     Int32

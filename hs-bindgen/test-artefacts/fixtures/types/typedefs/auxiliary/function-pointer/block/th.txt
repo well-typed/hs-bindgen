@@ -32,15 +32,15 @@ instance ToFunPtr T_Aux
     where toFunPtr = hs_bindgen_5927fedc3abfa99c
 instance FromFunPtr T_Aux
     where fromFunPtr = hs_bindgen_281617c90fa9307a
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT_Aux" T_Aux ty
+    where hasField = \x_0 -> (\y_1 -> T_Aux{unwrapT_Aux = y_1},
+                              getField @"unwrapT_Aux" x_0)
 instance (~) ty (CInt -> IO ()) =>
          HasField "unwrapT_Aux" (Ptr T_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT_Aux")
 instance HasCField T_Aux "unwrapT_Aux"
     where type CFieldType T_Aux "unwrapT_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO ()) => HasField "unwrapT_Aux" T_Aux ty
-    where hasField = \x_0 -> (\y_1 -> T_Aux{unwrapT_Aux = y_1},
-                              getField @"unwrapT_Aux" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 1:16@
@@ -51,12 +51,12 @@ newtype T
     = T {unwrapT :: (Block T_Aux)}
     deriving stock Generic
     deriving newtype HasFFIType
+instance (~) ty (Block T_Aux) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 instance (~) ty (Block T_Aux) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = Block T_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (Block T_Aux) => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)

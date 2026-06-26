@@ -102,20 +102,14 @@ set_unionA_b ::
   -> UnionA
 set_unionA_b = RIP.setUnionPayload
 
-instance HasCField.HasCField UnionA "unionA_a" where
-
-  type CFieldType UnionA "unionA_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
 
-instance HasCField.HasCField UnionA "unionA_b" where
+instance HasCField.HasCField UnionA "unionA_a" where
 
-  type CFieldType UnionA "unionA_b" = RIP.CChar
+  type CFieldType UnionA "unionA_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -123,6 +117,12 @@ instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
+
+instance HasCField.HasCField UnionA "unionA_b" where
+
+  type CFieldType UnionA "unionA_b" = RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct exA@
 
@@ -165,11 +165,12 @@ instance Marshal.WriteRaw ExA where
 
 deriving via Marshal.EquivStorable ExA instance RIP.Storable ExA
 
-instance HasCField.HasCField ExA "exA_fieldA1" where
+instance (ty ~ UnionA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
 
-  type CFieldType ExA "exA_fieldA1" = UnionA
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 ->
+      (\y1 ->
+         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
 
 instance ( ty ~ UnionA
          ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
@@ -177,12 +178,11 @@ instance ( ty ~ UnionA
   getField =
     HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
 
-instance (ty ~ UnionA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
+instance HasCField.HasCField ExA "exA_fieldA1" where
 
-  hasField =
-    \x0 ->
-      (\y1 ->
-         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
+  type CFieldType ExA "exA_fieldA1" = UnionA
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union \@exB_fieldB1@
 
@@ -253,23 +253,16 @@ set_exB_fieldB1_b ::
   -> ExB_fieldB1
 set_exB_fieldB1_b = RIP.setUnionPayload
 
-instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
-
-  type CFieldType ExB_fieldB1 "exB_fieldB1_a" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_a")
 
-instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
+instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
-  type CFieldType ExB_fieldB1 "exB_fieldB1_b" =
-    RIP.CChar
+  type CFieldType ExB_fieldB1 "exB_fieldB1_a" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -278,6 +271,13 @@ instance ( ty ~ RIP.CChar
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_b")
+
+instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
+
+  type CFieldType ExB_fieldB1 "exB_fieldB1_b" =
+    RIP.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct exB@
 
@@ -320,18 +320,6 @@ instance Marshal.WriteRaw ExB where
 
 deriving via Marshal.EquivStorable ExB instance RIP.Storable ExB
 
-instance HasCField.HasCField ExB "exB_fieldB1" where
-
-  type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
-
 instance ( ty ~ ExB_fieldB1
          ) => RIP.CompatHasField.HasField "exB_fieldB1" ExB ty where
 
@@ -339,3 +327,15 @@ instance ( ty ~ ExB_fieldB1
     \x0 ->
       (\y1 ->
          ExB {exB_fieldB1 = y1}, RIP.getField @"exB_fieldB1" x0)
+
+instance ( ty ~ ExB_fieldB1
+         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
+
+instance HasCField.HasCField ExB "exB_fieldB1" where
+
+  type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
+
+  offset# = \_ -> \_ -> 0

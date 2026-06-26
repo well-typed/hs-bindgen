@@ -32,15 +32,15 @@ instance ToFunPtr T_Aux
     where toFunPtr = hs_bindgen_5927fedc3abfa99c
 instance FromFunPtr T_Aux
     where fromFunPtr = hs_bindgen_281617c90fa9307a
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT_Aux" T_Aux ty
+    where hasField = \x_0 -> (\y_1 -> T_Aux{unwrapT_Aux = y_1},
+                              getField @"unwrapT_Aux" x_0)
 instance (~) ty (CInt -> IO ()) =>
          HasField "unwrapT_Aux" (Ptr T_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT_Aux")
 instance HasCField T_Aux "unwrapT_Aux"
     where type CFieldType T_Aux "unwrapT_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO ()) => HasField "unwrapT_Aux" T_Aux ty
-    where hasField = \x_0 -> (\y_1 -> T_Aux{unwrapT_Aux = y_1},
-                              getField @"unwrapT_Aux" x_0)
 {-| __C declaration:__ @T@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 1:16@
@@ -52,15 +52,15 @@ newtype T
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (FunPtr T_Aux)) =>
+         HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty (IncompleteArray (FunPtr T_Aux)) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = IncompleteArray (FunPtr T_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (IncompleteArray (FunPtr T_Aux)) =>
-         HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
 {-| Auxiliary type used by 'U'
 
     __C declaration:__ @U@
@@ -94,15 +94,15 @@ instance ToFunPtr U_Aux
     where toFunPtr = hs_bindgen_a78147e446a66171
 instance FromFunPtr U_Aux
     where fromFunPtr = hs_bindgen_abb428b050bb7646
+instance (~) ty (CInt -> IO ()) => HasField "unwrapU_Aux" U_Aux ty
+    where hasField = \x_0 -> (\y_1 -> U_Aux{unwrapU_Aux = y_1},
+                              getField @"unwrapU_Aux" x_0)
 instance (~) ty (CInt -> IO ()) =>
          HasField "unwrapU_Aux" (Ptr U_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU_Aux")
 instance HasCField U_Aux "unwrapU_Aux"
     where type CFieldType U_Aux "unwrapU_Aux" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO ()) => HasField "unwrapU_Aux" U_Aux ty
-    where hasField = \x_0 -> (\y_1 -> U_Aux{unwrapU_Aux = y_1},
-                              getField @"unwrapU_Aux" x_0)
 {-| __C declaration:__ @U@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/array.h 2:16@
@@ -114,12 +114,12 @@ newtype U
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 (FunPtr U_Aux)) =>
+         HasField "unwrapU" U ty
+    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
+                              getField @"unwrapU" x_0)
+instance (~) ty (ConstantArray 3 (FunPtr U_Aux)) =>
          HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = ConstantArray 3 (FunPtr U_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 3 (FunPtr U_Aux)) =>
-         HasField "unwrapU" U ty
-    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
-                              getField @"unwrapU" x_0)

@@ -67,20 +67,20 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance RIP.Storable Bar
 
-instance HasCField.HasCField Bar "bar_x1_1" where
-
-  type CFieldType Bar "bar_x1_1" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_x1_1" (RIP.Ptr Bar) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_x1_1")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "bar_x1_1" Bar ty where
 
   hasField =
     \x0 ->
       (\y1 ->
          Bar {bar_x1_1 = y1}, RIP.getField @"bar_x1_1" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_x1_1" (RIP.Ptr Bar) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_x1_1")
+
+instance HasCField.HasCField Bar "bar_x1_1" where
+
+  type CFieldType Bar "bar_x1_1" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

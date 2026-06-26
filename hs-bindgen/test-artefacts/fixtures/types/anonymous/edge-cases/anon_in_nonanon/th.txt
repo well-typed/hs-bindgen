@@ -23,15 +23,15 @@ instance WriteRaw S_y_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S_y_anon'x s_y_anon'x_x_2 -> writeRaw (Proxy @"s_y_anon'x_x") ptr_0 s_y_anon'x_x_2
 deriving via (EquivStorable S_y_anon'x) instance Storable S_y_anon'x
-instance HasCField S_y_anon'x "s_y_anon'x_x"
-    where type CFieldType S_y_anon'x "s_y_anon'x_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "s_y_anon'x_x" (Ptr S_y_anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y_anon'x_x")
 instance (~) ty CInt => HasField "s_y_anon'x_x" S_y_anon'x ty
     where hasField = \x_0 -> (\y_1 -> S_y_anon'x{s_y_anon'x_x = y_1},
                               getField @"s_y_anon'x_x" x_0)
+instance (~) ty CInt =>
+         HasField "s_y_anon'x_x" (Ptr S_y_anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_anon'x_x")
+instance HasCField S_y_anon'x "s_y_anon'x_x"
+    where type CFieldType S_y_anon'x "s_y_anon'x_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@S_y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 14:3@
@@ -56,15 +56,15 @@ instance WriteRaw S_y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S_y s_y_anon'x_2 -> writeRaw (Proxy @"s_y_anon'x") ptr_0 s_y_anon'x_2
 deriving via (EquivStorable S_y) instance Storable S_y
-instance HasCField S_y "s_y_anon'x"
-    where type CFieldType S_y "s_y_anon'x" = S_y_anon'x
-          offset# = \_ -> \_ -> 0
-instance (~) ty S_y_anon'x =>
-         HasField "s_y_anon'x" (Ptr S_y) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y_anon'x")
 instance (~) ty S_y_anon'x => HasField "s_y_anon'x" S_y ty
     where hasField = \x_0 -> (\y_1 -> S_y{s_y_anon'x = y_1},
                               getField @"s_y_anon'x" x_0)
+instance (~) ty S_y_anon'x =>
+         HasField "s_y_anon'x" (Ptr S_y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_anon'x")
+instance HasCField S_y "s_y_anon'x"
+    where type CFieldType S_y "s_y_anon'x" = S_y_anon'x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 13:8@
@@ -89,11 +89,11 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_y_2 -> writeRaw (Proxy @"s_y") ptr_0 s_y_2
 deriving via (EquivStorable S) instance Storable S
-instance HasCField S "s_y"
-    where type CFieldType S "s_y" = S_y
-          offset# = \_ -> \_ -> 0
-instance (~) ty S_y => HasField "s_y" (Ptr S) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y")
 instance (~) ty S_y => HasField "s_y" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_y = y_1},
                               getField @"s_y" x_0)
+instance (~) ty S_y => HasField "s_y" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y")
+instance HasCField S "s_y"
+    where type CFieldType S "s_y" = S_y
+          offset# = \_ -> \_ -> 0

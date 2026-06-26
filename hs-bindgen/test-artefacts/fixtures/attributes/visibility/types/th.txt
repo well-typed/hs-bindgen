@@ -58,14 +58,14 @@ instance WriteRaw S5
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S5 s5_x_2 -> writeRaw (Proxy @"s5_x") ptr_0 s5_x_2
 deriving via (EquivStorable S5) instance Storable S5
-instance HasCField S5 "s5_x"
-    where type CFieldType S5 "s5_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s5_x" (Ptr S5) (Ptr ty)
-    where getField = fromPtr (Proxy @"s5_x")
 instance (~) ty CInt => HasField "s5_x" S5 ty
     where hasField = \x_0 -> (\y_1 -> S5{s5_x = y_1},
                               getField @"s5_x" x_0)
+instance (~) ty CInt => HasField "s5_x" (Ptr S5) (Ptr ty)
+    where getField = fromPtr (Proxy @"s5_x")
+instance HasCField S5 "s5_x"
+    where type CFieldType S5 "s5_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S6@
 
     __defined at:__ @attributes\/visibility\/types.h 21:51@
@@ -90,14 +90,14 @@ instance WriteRaw S6
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S6 s6_x_2 -> writeRaw (Proxy @"s6_x") ptr_0 s6_x_2
 deriving via (EquivStorable S6) instance Storable S6
-instance HasCField S6 "s6_x"
-    where type CFieldType S6 "s6_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s6_x" (Ptr S6) (Ptr ty)
-    where getField = fromPtr (Proxy @"s6_x")
 instance (~) ty CInt => HasField "s6_x" S6 ty
     where hasField = \x_0 -> (\y_1 -> S6{s6_x = y_1},
                               getField @"s6_x" x_0)
+instance (~) ty CInt => HasField "s6_x" (Ptr S6) (Ptr ty)
+    where getField = fromPtr (Proxy @"s6_x")
+instance HasCField S6 "s6_x"
+    where type CFieldType S6 "s6_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S7@
 
     __defined at:__ @attributes\/visibility\/types.h 22:51@
@@ -122,14 +122,14 @@ instance WriteRaw S7
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S7 s7_x_2 -> writeRaw (Proxy @"s7_x") ptr_0 s7_x_2
 deriving via (EquivStorable S7) instance Storable S7
-instance HasCField S7 "s7_x"
-    where type CFieldType S7 "s7_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s7_x" (Ptr S7) (Ptr ty)
-    where getField = fromPtr (Proxy @"s7_x")
 instance (~) ty CInt => HasField "s7_x" S7 ty
     where hasField = \x_0 -> (\y_1 -> S7{s7_x = y_1},
                               getField @"s7_x" x_0)
+instance (~) ty CInt => HasField "s7_x" (Ptr S7) (Ptr ty)
+    where getField = fromPtr (Proxy @"s7_x")
+instance HasCField S7 "s7_x"
+    where type CFieldType S7 "s7_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S8@
 
     __defined at:__ @attributes\/visibility\/types.h 23:51@
@@ -154,14 +154,14 @@ instance WriteRaw S8
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S8 s8_x_2 -> writeRaw (Proxy @"s8_x") ptr_0 s8_x_2
 deriving via (EquivStorable S8) instance Storable S8
-instance HasCField S8 "s8_x"
-    where type CFieldType S8 "s8_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s8_x" (Ptr S8) (Ptr ty)
-    where getField = fromPtr (Proxy @"s8_x")
 instance (~) ty CInt => HasField "s8_x" S8 ty
     where hasField = \x_0 -> (\y_1 -> S8{s8_x = y_1},
                               getField @"s8_x" x_0)
+instance (~) ty CInt => HasField "s8_x" (Ptr S8) (Ptr ty)
+    where getField = fromPtr (Proxy @"s8_x")
+instance HasCField S8 "s8_x"
+    where type CFieldType S8 "s8_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S9@
 
     __defined at:__ @attributes\/visibility\/types.h 24:51@
@@ -186,14 +186,14 @@ instance WriteRaw S9
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S9 s9_x_2 -> writeRaw (Proxy @"s9_x") ptr_0 s9_x_2
 deriving via (EquivStorable S9) instance Storable S9
-instance HasCField S9 "s9_x"
-    where type CFieldType S9 "s9_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s9_x" (Ptr S9) (Ptr ty)
-    where getField = fromPtr (Proxy @"s9_x")
 instance (~) ty CInt => HasField "s9_x" S9 ty
     where hasField = \x_0 -> (\y_1 -> S9{s9_x = y_1},
                               getField @"s9_x" x_0)
+instance (~) ty CInt => HasField "s9_x" (Ptr S9) (Ptr ty)
+    where getField = fromPtr (Proxy @"s9_x")
+instance HasCField S9 "s9_x"
+    where type CFieldType S9 "s9_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S10@
 
     __defined at:__ @attributes\/visibility\/types.h 33:51@
@@ -218,14 +218,14 @@ instance WriteRaw S10
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S10 s10_x_2 -> writeRaw (Proxy @"s10_x") ptr_0 s10_x_2
 deriving via (EquivStorable S10) instance Storable S10
-instance HasCField S10 "s10_x"
-    where type CFieldType S10 "s10_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s10_x" (Ptr S10) (Ptr ty)
-    where getField = fromPtr (Proxy @"s10_x")
 instance (~) ty CInt => HasField "s10_x" S10 ty
     where hasField = \x_0 -> (\y_1 -> S10{s10_x = y_1},
                               getField @"s10_x" x_0)
+instance (~) ty CInt => HasField "s10_x" (Ptr S10) (Ptr ty)
+    where getField = fromPtr (Proxy @"s10_x")
+instance HasCField S10 "s10_x"
+    where type CFieldType S10 "s10_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S11@
 
     __defined at:__ @attributes\/visibility\/types.h 34:51@
@@ -250,14 +250,14 @@ instance WriteRaw S11
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S11 s11_x_2 -> writeRaw (Proxy @"s11_x") ptr_0 s11_x_2
 deriving via (EquivStorable S11) instance Storable S11
-instance HasCField S11 "s11_x"
-    where type CFieldType S11 "s11_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s11_x" (Ptr S11) (Ptr ty)
-    where getField = fromPtr (Proxy @"s11_x")
 instance (~) ty CInt => HasField "s11_x" S11 ty
     where hasField = \x_0 -> (\y_1 -> S11{s11_x = y_1},
                               getField @"s11_x" x_0)
+instance (~) ty CInt => HasField "s11_x" (Ptr S11) (Ptr ty)
+    where getField = fromPtr (Proxy @"s11_x")
+instance HasCField S11 "s11_x"
+    where type CFieldType S11 "s11_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S12@
 
     __defined at:__ @attributes\/visibility\/types.h 35:51@
@@ -282,14 +282,14 @@ instance WriteRaw S12
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S12 s12_x_2 -> writeRaw (Proxy @"s12_x") ptr_0 s12_x_2
 deriving via (EquivStorable S12) instance Storable S12
-instance HasCField S12 "s12_x"
-    where type CFieldType S12 "s12_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s12_x" (Ptr S12) (Ptr ty)
-    where getField = fromPtr (Proxy @"s12_x")
 instance (~) ty CInt => HasField "s12_x" S12 ty
     where hasField = \x_0 -> (\y_1 -> S12{s12_x = y_1},
                               getField @"s12_x" x_0)
+instance (~) ty CInt => HasField "s12_x" (Ptr S12) (Ptr ty)
+    where getField = fromPtr (Proxy @"s12_x")
+instance HasCField S12 "s12_x"
+    where type CFieldType S12 "s12_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S13@
 
     __defined at:__ @attributes\/visibility\/types.h 36:51@
@@ -314,14 +314,14 @@ instance WriteRaw S13
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S13 s13_x_2 -> writeRaw (Proxy @"s13_x") ptr_0 s13_x_2
 deriving via (EquivStorable S13) instance Storable S13
-instance HasCField S13 "s13_x"
-    where type CFieldType S13 "s13_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s13_x" (Ptr S13) (Ptr ty)
-    where getField = fromPtr (Proxy @"s13_x")
 instance (~) ty CInt => HasField "s13_x" S13 ty
     where hasField = \x_0 -> (\y_1 -> S13{s13_x = y_1},
                               getField @"s13_x" x_0)
+instance (~) ty CInt => HasField "s13_x" (Ptr S13) (Ptr ty)
+    where getField = fromPtr (Proxy @"s13_x")
+instance HasCField S13 "s13_x"
+    where type CFieldType S13 "s13_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S14@
 
     __defined at:__ @attributes\/visibility\/types.h 37:51@
@@ -346,14 +346,14 @@ instance WriteRaw S14
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S14 s14_x_2 -> writeRaw (Proxy @"s14_x") ptr_0 s14_x_2
 deriving via (EquivStorable S14) instance Storable S14
-instance HasCField S14 "s14_x"
-    where type CFieldType S14 "s14_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s14_x" (Ptr S14) (Ptr ty)
-    where getField = fromPtr (Proxy @"s14_x")
 instance (~) ty CInt => HasField "s14_x" S14 ty
     where hasField = \x_0 -> (\y_1 -> S14{s14_x = y_1},
                               getField @"s14_x" x_0)
+instance (~) ty CInt => HasField "s14_x" (Ptr S14) (Ptr ty)
+    where getField = fromPtr (Proxy @"s14_x")
+instance HasCField S14 "s14_x"
+    where type CFieldType S14 "s14_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S15@
 
     __defined at:__ @attributes\/visibility\/types.h 46:51@
@@ -378,14 +378,14 @@ instance WriteRaw S15
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S15 s15_x_2 -> writeRaw (Proxy @"s15_x") ptr_0 s15_x_2
 deriving via (EquivStorable S15) instance Storable S15
-instance HasCField S15 "s15_x"
-    where type CFieldType S15 "s15_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s15_x" (Ptr S15) (Ptr ty)
-    where getField = fromPtr (Proxy @"s15_x")
 instance (~) ty CInt => HasField "s15_x" S15 ty
     where hasField = \x_0 -> (\y_1 -> S15{s15_x = y_1},
                               getField @"s15_x" x_0)
+instance (~) ty CInt => HasField "s15_x" (Ptr S15) (Ptr ty)
+    where getField = fromPtr (Proxy @"s15_x")
+instance HasCField S15 "s15_x"
+    where type CFieldType S15 "s15_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S16@
 
     __defined at:__ @attributes\/visibility\/types.h 47:51@
@@ -410,14 +410,14 @@ instance WriteRaw S16
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S16 s16_x_2 -> writeRaw (Proxy @"s16_x") ptr_0 s16_x_2
 deriving via (EquivStorable S16) instance Storable S16
-instance HasCField S16 "s16_x"
-    where type CFieldType S16 "s16_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s16_x" (Ptr S16) (Ptr ty)
-    where getField = fromPtr (Proxy @"s16_x")
 instance (~) ty CInt => HasField "s16_x" S16 ty
     where hasField = \x_0 -> (\y_1 -> S16{s16_x = y_1},
                               getField @"s16_x" x_0)
+instance (~) ty CInt => HasField "s16_x" (Ptr S16) (Ptr ty)
+    where getField = fromPtr (Proxy @"s16_x")
+instance HasCField S16 "s16_x"
+    where type CFieldType S16 "s16_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S17@
 
     __defined at:__ @attributes\/visibility\/types.h 48:51@
@@ -442,14 +442,14 @@ instance WriteRaw S17
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S17 s17_x_2 -> writeRaw (Proxy @"s17_x") ptr_0 s17_x_2
 deriving via (EquivStorable S17) instance Storable S17
-instance HasCField S17 "s17_x"
-    where type CFieldType S17 "s17_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s17_x" (Ptr S17) (Ptr ty)
-    where getField = fromPtr (Proxy @"s17_x")
 instance (~) ty CInt => HasField "s17_x" S17 ty
     where hasField = \x_0 -> (\y_1 -> S17{s17_x = y_1},
                               getField @"s17_x" x_0)
+instance (~) ty CInt => HasField "s17_x" (Ptr S17) (Ptr ty)
+    where getField = fromPtr (Proxy @"s17_x")
+instance HasCField S17 "s17_x"
+    where type CFieldType S17 "s17_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S18@
 
     __defined at:__ @attributes\/visibility\/types.h 49:51@
@@ -474,14 +474,14 @@ instance WriteRaw S18
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S18 s18_x_2 -> writeRaw (Proxy @"s18_x") ptr_0 s18_x_2
 deriving via (EquivStorable S18) instance Storable S18
-instance HasCField S18 "s18_x"
-    where type CFieldType S18 "s18_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s18_x" (Ptr S18) (Ptr ty)
-    where getField = fromPtr (Proxy @"s18_x")
 instance (~) ty CInt => HasField "s18_x" S18 ty
     where hasField = \x_0 -> (\y_1 -> S18{s18_x = y_1},
                               getField @"s18_x" x_0)
+instance (~) ty CInt => HasField "s18_x" (Ptr S18) (Ptr ty)
+    where getField = fromPtr (Proxy @"s18_x")
+instance HasCField S18 "s18_x"
+    where type CFieldType S18 "s18_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S19@
 
     __defined at:__ @attributes\/visibility\/types.h 50:51@
@@ -506,14 +506,14 @@ instance WriteRaw S19
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S19 s19_x_2 -> writeRaw (Proxy @"s19_x") ptr_0 s19_x_2
 deriving via (EquivStorable S19) instance Storable S19
-instance HasCField S19 "s19_x"
-    where type CFieldType S19 "s19_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s19_x" (Ptr S19) (Ptr ty)
-    where getField = fromPtr (Proxy @"s19_x")
 instance (~) ty CInt => HasField "s19_x" S19 ty
     where hasField = \x_0 -> (\y_1 -> S19{s19_x = y_1},
                               getField @"s19_x" x_0)
+instance (~) ty CInt => HasField "s19_x" (Ptr S19) (Ptr ty)
+    where getField = fromPtr (Proxy @"s19_x")
+instance HasCField S19 "s19_x"
+    where type CFieldType S19 "s19_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union U0@
 
     __defined at:__ @attributes\/visibility\/types.h 53:50@
@@ -594,11 +594,11 @@ set_u5_x :: CInt -> U5
 
 -}
 set_u5_x = setUnionPayload
+instance (~) ty CInt => HasField "u5_x" (Ptr U5) (Ptr ty)
+    where getField = fromPtr (Proxy @"u5_x")
 instance HasCField U5 "u5_x"
     where type CFieldType U5 "u5_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u5_x" (Ptr U5) (Ptr ty)
-    where getField = fromPtr (Proxy @"u5_x")
 {-| __C declaration:__ @union U6@
 
     __defined at:__ @attributes\/visibility\/types.h 61:50@
@@ -644,11 +644,11 @@ set_u6_x :: CInt -> U6
 
 -}
 set_u6_x = setUnionPayload
+instance (~) ty CInt => HasField "u6_x" (Ptr U6) (Ptr ty)
+    where getField = fromPtr (Proxy @"u6_x")
 instance HasCField U6 "u6_x"
     where type CFieldType U6 "u6_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u6_x" (Ptr U6) (Ptr ty)
-    where getField = fromPtr (Proxy @"u6_x")
 {-| __C declaration:__ @union U7@
 
     __defined at:__ @attributes\/visibility\/types.h 62:50@
@@ -694,11 +694,11 @@ set_u7_x :: CInt -> U7
 
 -}
 set_u7_x = setUnionPayload
+instance (~) ty CInt => HasField "u7_x" (Ptr U7) (Ptr ty)
+    where getField = fromPtr (Proxy @"u7_x")
 instance HasCField U7 "u7_x"
     where type CFieldType U7 "u7_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u7_x" (Ptr U7) (Ptr ty)
-    where getField = fromPtr (Proxy @"u7_x")
 {-| __C declaration:__ @union U8@
 
     __defined at:__ @attributes\/visibility\/types.h 63:50@
@@ -744,11 +744,11 @@ set_u8_x :: CInt -> U8
 
 -}
 set_u8_x = setUnionPayload
+instance (~) ty CInt => HasField "u8_x" (Ptr U8) (Ptr ty)
+    where getField = fromPtr (Proxy @"u8_x")
 instance HasCField U8 "u8_x"
     where type CFieldType U8 "u8_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u8_x" (Ptr U8) (Ptr ty)
-    where getField = fromPtr (Proxy @"u8_x")
 {-| __C declaration:__ @union U9@
 
     __defined at:__ @attributes\/visibility\/types.h 64:50@
@@ -794,11 +794,11 @@ set_u9_x :: CInt -> U9
 
 -}
 set_u9_x = setUnionPayload
+instance (~) ty CInt => HasField "u9_x" (Ptr U9) (Ptr ty)
+    where getField = fromPtr (Proxy @"u9_x")
 instance HasCField U9 "u9_x"
     where type CFieldType U9 "u9_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u9_x" (Ptr U9) (Ptr ty)
-    where getField = fromPtr (Proxy @"u9_x")
 {-| __C declaration:__ @union U10@
 
     __defined at:__ @attributes\/visibility\/types.h 73:50@
@@ -844,11 +844,11 @@ set_u10_x :: CInt -> U10
 
 -}
 set_u10_x = setUnionPayload
+instance (~) ty CInt => HasField "u10_x" (Ptr U10) (Ptr ty)
+    where getField = fromPtr (Proxy @"u10_x")
 instance HasCField U10 "u10_x"
     where type CFieldType U10 "u10_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u10_x" (Ptr U10) (Ptr ty)
-    where getField = fromPtr (Proxy @"u10_x")
 {-| __C declaration:__ @union U11@
 
     __defined at:__ @attributes\/visibility\/types.h 74:50@
@@ -894,11 +894,11 @@ set_u11_x :: CInt -> U11
 
 -}
 set_u11_x = setUnionPayload
+instance (~) ty CInt => HasField "u11_x" (Ptr U11) (Ptr ty)
+    where getField = fromPtr (Proxy @"u11_x")
 instance HasCField U11 "u11_x"
     where type CFieldType U11 "u11_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u11_x" (Ptr U11) (Ptr ty)
-    where getField = fromPtr (Proxy @"u11_x")
 {-| __C declaration:__ @union U12@
 
     __defined at:__ @attributes\/visibility\/types.h 75:50@
@@ -944,11 +944,11 @@ set_u12_x :: CInt -> U12
 
 -}
 set_u12_x = setUnionPayload
+instance (~) ty CInt => HasField "u12_x" (Ptr U12) (Ptr ty)
+    where getField = fromPtr (Proxy @"u12_x")
 instance HasCField U12 "u12_x"
     where type CFieldType U12 "u12_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u12_x" (Ptr U12) (Ptr ty)
-    where getField = fromPtr (Proxy @"u12_x")
 {-| __C declaration:__ @union U13@
 
     __defined at:__ @attributes\/visibility\/types.h 76:50@
@@ -994,11 +994,11 @@ set_u13_x :: CInt -> U13
 
 -}
 set_u13_x = setUnionPayload
+instance (~) ty CInt => HasField "u13_x" (Ptr U13) (Ptr ty)
+    where getField = fromPtr (Proxy @"u13_x")
 instance HasCField U13 "u13_x"
     where type CFieldType U13 "u13_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u13_x" (Ptr U13) (Ptr ty)
-    where getField = fromPtr (Proxy @"u13_x")
 {-| __C declaration:__ @union U14@
 
     __defined at:__ @attributes\/visibility\/types.h 77:50@
@@ -1044,11 +1044,11 @@ set_u14_x :: CInt -> U14
 
 -}
 set_u14_x = setUnionPayload
+instance (~) ty CInt => HasField "u14_x" (Ptr U14) (Ptr ty)
+    where getField = fromPtr (Proxy @"u14_x")
 instance HasCField U14 "u14_x"
     where type CFieldType U14 "u14_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u14_x" (Ptr U14) (Ptr ty)
-    where getField = fromPtr (Proxy @"u14_x")
 {-| __C declaration:__ @union U15@
 
     __defined at:__ @attributes\/visibility\/types.h 86:50@
@@ -1094,11 +1094,11 @@ set_u15_x :: CInt -> U15
 
 -}
 set_u15_x = setUnionPayload
+instance (~) ty CInt => HasField "u15_x" (Ptr U15) (Ptr ty)
+    where getField = fromPtr (Proxy @"u15_x")
 instance HasCField U15 "u15_x"
     where type CFieldType U15 "u15_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u15_x" (Ptr U15) (Ptr ty)
-    where getField = fromPtr (Proxy @"u15_x")
 {-| __C declaration:__ @union U16@
 
     __defined at:__ @attributes\/visibility\/types.h 87:50@
@@ -1144,11 +1144,11 @@ set_u16_x :: CInt -> U16
 
 -}
 set_u16_x = setUnionPayload
+instance (~) ty CInt => HasField "u16_x" (Ptr U16) (Ptr ty)
+    where getField = fromPtr (Proxy @"u16_x")
 instance HasCField U16 "u16_x"
     where type CFieldType U16 "u16_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u16_x" (Ptr U16) (Ptr ty)
-    where getField = fromPtr (Proxy @"u16_x")
 {-| __C declaration:__ @union U17@
 
     __defined at:__ @attributes\/visibility\/types.h 88:50@
@@ -1194,11 +1194,11 @@ set_u17_x :: CInt -> U17
 
 -}
 set_u17_x = setUnionPayload
+instance (~) ty CInt => HasField "u17_x" (Ptr U17) (Ptr ty)
+    where getField = fromPtr (Proxy @"u17_x")
 instance HasCField U17 "u17_x"
     where type CFieldType U17 "u17_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u17_x" (Ptr U17) (Ptr ty)
-    where getField = fromPtr (Proxy @"u17_x")
 {-| __C declaration:__ @union U18@
 
     __defined at:__ @attributes\/visibility\/types.h 89:50@
@@ -1244,11 +1244,11 @@ set_u18_x :: CInt -> U18
 
 -}
 set_u18_x = setUnionPayload
+instance (~) ty CInt => HasField "u18_x" (Ptr U18) (Ptr ty)
+    where getField = fromPtr (Proxy @"u18_x")
 instance HasCField U18 "u18_x"
     where type CFieldType U18 "u18_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u18_x" (Ptr U18) (Ptr ty)
-    where getField = fromPtr (Proxy @"u18_x")
 {-| __C declaration:__ @union U19@
 
     __defined at:__ @attributes\/visibility\/types.h 90:50@
@@ -1294,11 +1294,11 @@ set_u19_x :: CInt -> U19
 
 -}
 set_u19_x = setUnionPayload
+instance (~) ty CInt => HasField "u19_x" (Ptr U19) (Ptr ty)
+    where getField = fromPtr (Proxy @"u19_x")
 instance HasCField U19 "u19_x"
     where type CFieldType U19 "u19_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u19_x" (Ptr U19) (Ptr ty)
-    where getField = fromPtr (Proxy @"u19_x")
 {-| __C declaration:__ @enum E0@
 
     __defined at:__ @attributes\/visibility\/types.h 93:49@
@@ -1372,14 +1372,14 @@ instance Read E5
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE5" E5 ty
+    where hasField = \x_0 -> (\y_1 -> E5{unwrapE5 = y_1},
+                              getField @"unwrapE5" x_0)
 instance (~) ty CUInt => HasField "unwrapE5" (Ptr E5) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE5")
 instance HasCField E5 "unwrapE5"
     where type CFieldType E5 "unwrapE5" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE5" E5 ty
-    where hasField = \x_0 -> (\y_1 -> E5{unwrapE5 = y_1},
-                              getField @"unwrapE5" x_0)
 {-| __C declaration:__ @x5@
 
     __defined at:__ @attributes\/visibility\/types.h 100:54@
@@ -1426,14 +1426,14 @@ instance Read E6
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE6" E6 ty
+    where hasField = \x_0 -> (\y_1 -> E6{unwrapE6 = y_1},
+                              getField @"unwrapE6" x_0)
 instance (~) ty CUInt => HasField "unwrapE6" (Ptr E6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE6")
 instance HasCField E6 "unwrapE6"
     where type CFieldType E6 "unwrapE6" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE6" E6 ty
-    where hasField = \x_0 -> (\y_1 -> E6{unwrapE6 = y_1},
-                              getField @"unwrapE6" x_0)
 {-| __C declaration:__ @x6@
 
     __defined at:__ @attributes\/visibility\/types.h 101:54@
@@ -1480,14 +1480,14 @@ instance Read E7
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE7" E7 ty
+    where hasField = \x_0 -> (\y_1 -> E7{unwrapE7 = y_1},
+                              getField @"unwrapE7" x_0)
 instance (~) ty CUInt => HasField "unwrapE7" (Ptr E7) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE7")
 instance HasCField E7 "unwrapE7"
     where type CFieldType E7 "unwrapE7" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE7" E7 ty
-    where hasField = \x_0 -> (\y_1 -> E7{unwrapE7 = y_1},
-                              getField @"unwrapE7" x_0)
 {-| __C declaration:__ @x7@
 
     __defined at:__ @attributes\/visibility\/types.h 102:54@
@@ -1534,14 +1534,14 @@ instance Read E8
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE8" E8 ty
+    where hasField = \x_0 -> (\y_1 -> E8{unwrapE8 = y_1},
+                              getField @"unwrapE8" x_0)
 instance (~) ty CUInt => HasField "unwrapE8" (Ptr E8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE8")
 instance HasCField E8 "unwrapE8"
     where type CFieldType E8 "unwrapE8" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE8" E8 ty
-    where hasField = \x_0 -> (\y_1 -> E8{unwrapE8 = y_1},
-                              getField @"unwrapE8" x_0)
 {-| __C declaration:__ @x8@
 
     __defined at:__ @attributes\/visibility\/types.h 103:54@
@@ -1588,14 +1588,14 @@ instance Read E9
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE9" E9 ty
+    where hasField = \x_0 -> (\y_1 -> E9{unwrapE9 = y_1},
+                              getField @"unwrapE9" x_0)
 instance (~) ty CUInt => HasField "unwrapE9" (Ptr E9) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE9")
 instance HasCField E9 "unwrapE9"
     where type CFieldType E9 "unwrapE9" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE9" E9 ty
-    where hasField = \x_0 -> (\y_1 -> E9{unwrapE9 = y_1},
-                              getField @"unwrapE9" x_0)
 {-| __C declaration:__ @x9@
 
     __defined at:__ @attributes\/visibility\/types.h 104:54@
@@ -1643,14 +1643,14 @@ instance Read E10
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE10" E10 ty
+    where hasField = \x_0 -> (\y_1 -> E10{unwrapE10 = y_1},
+                              getField @"unwrapE10" x_0)
 instance (~) ty CUInt => HasField "unwrapE10" (Ptr E10) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE10")
 instance HasCField E10 "unwrapE10"
     where type CFieldType E10 "unwrapE10" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE10" E10 ty
-    where hasField = \x_0 -> (\y_1 -> E10{unwrapE10 = y_1},
-                              getField @"unwrapE10" x_0)
 {-| __C declaration:__ @x10@
 
     __defined at:__ @attributes\/visibility\/types.h 113:55@
@@ -1698,14 +1698,14 @@ instance Read E11
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE11" E11 ty
+    where hasField = \x_0 -> (\y_1 -> E11{unwrapE11 = y_1},
+                              getField @"unwrapE11" x_0)
 instance (~) ty CUInt => HasField "unwrapE11" (Ptr E11) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE11")
 instance HasCField E11 "unwrapE11"
     where type CFieldType E11 "unwrapE11" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE11" E11 ty
-    where hasField = \x_0 -> (\y_1 -> E11{unwrapE11 = y_1},
-                              getField @"unwrapE11" x_0)
 {-| __C declaration:__ @x11@
 
     __defined at:__ @attributes\/visibility\/types.h 114:55@
@@ -1753,14 +1753,14 @@ instance Read E12
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE12" E12 ty
+    where hasField = \x_0 -> (\y_1 -> E12{unwrapE12 = y_1},
+                              getField @"unwrapE12" x_0)
 instance (~) ty CUInt => HasField "unwrapE12" (Ptr E12) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE12")
 instance HasCField E12 "unwrapE12"
     where type CFieldType E12 "unwrapE12" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE12" E12 ty
-    where hasField = \x_0 -> (\y_1 -> E12{unwrapE12 = y_1},
-                              getField @"unwrapE12" x_0)
 {-| __C declaration:__ @x12@
 
     __defined at:__ @attributes\/visibility\/types.h 115:55@
@@ -1808,14 +1808,14 @@ instance Read E13
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE13" E13 ty
+    where hasField = \x_0 -> (\y_1 -> E13{unwrapE13 = y_1},
+                              getField @"unwrapE13" x_0)
 instance (~) ty CUInt => HasField "unwrapE13" (Ptr E13) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE13")
 instance HasCField E13 "unwrapE13"
     where type CFieldType E13 "unwrapE13" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE13" E13 ty
-    where hasField = \x_0 -> (\y_1 -> E13{unwrapE13 = y_1},
-                              getField @"unwrapE13" x_0)
 {-| __C declaration:__ @x13@
 
     __defined at:__ @attributes\/visibility\/types.h 116:55@
@@ -1863,14 +1863,14 @@ instance Read E14
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE14" E14 ty
+    where hasField = \x_0 -> (\y_1 -> E14{unwrapE14 = y_1},
+                              getField @"unwrapE14" x_0)
 instance (~) ty CUInt => HasField "unwrapE14" (Ptr E14) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE14")
 instance HasCField E14 "unwrapE14"
     where type CFieldType E14 "unwrapE14" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE14" E14 ty
-    where hasField = \x_0 -> (\y_1 -> E14{unwrapE14 = y_1},
-                              getField @"unwrapE14" x_0)
 {-| __C declaration:__ @x14@
 
     __defined at:__ @attributes\/visibility\/types.h 117:55@
@@ -1918,14 +1918,14 @@ instance Read E15
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE15" E15 ty
+    where hasField = \x_0 -> (\y_1 -> E15{unwrapE15 = y_1},
+                              getField @"unwrapE15" x_0)
 instance (~) ty CUInt => HasField "unwrapE15" (Ptr E15) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE15")
 instance HasCField E15 "unwrapE15"
     where type CFieldType E15 "unwrapE15" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE15" E15 ty
-    where hasField = \x_0 -> (\y_1 -> E15{unwrapE15 = y_1},
-                              getField @"unwrapE15" x_0)
 {-| __C declaration:__ @x15@
 
     __defined at:__ @attributes\/visibility\/types.h 126:55@
@@ -1973,14 +1973,14 @@ instance Read E16
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE16" E16 ty
+    where hasField = \x_0 -> (\y_1 -> E16{unwrapE16 = y_1},
+                              getField @"unwrapE16" x_0)
 instance (~) ty CUInt => HasField "unwrapE16" (Ptr E16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE16")
 instance HasCField E16 "unwrapE16"
     where type CFieldType E16 "unwrapE16" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE16" E16 ty
-    where hasField = \x_0 -> (\y_1 -> E16{unwrapE16 = y_1},
-                              getField @"unwrapE16" x_0)
 {-| __C declaration:__ @x16@
 
     __defined at:__ @attributes\/visibility\/types.h 127:55@
@@ -2028,14 +2028,14 @@ instance Read E17
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE17" E17 ty
+    where hasField = \x_0 -> (\y_1 -> E17{unwrapE17 = y_1},
+                              getField @"unwrapE17" x_0)
 instance (~) ty CUInt => HasField "unwrapE17" (Ptr E17) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE17")
 instance HasCField E17 "unwrapE17"
     where type CFieldType E17 "unwrapE17" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE17" E17 ty
-    where hasField = \x_0 -> (\y_1 -> E17{unwrapE17 = y_1},
-                              getField @"unwrapE17" x_0)
 {-| __C declaration:__ @x17@
 
     __defined at:__ @attributes\/visibility\/types.h 128:55@
@@ -2083,14 +2083,14 @@ instance Read E18
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE18" E18 ty
+    where hasField = \x_0 -> (\y_1 -> E18{unwrapE18 = y_1},
+                              getField @"unwrapE18" x_0)
 instance (~) ty CUInt => HasField "unwrapE18" (Ptr E18) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE18")
 instance HasCField E18 "unwrapE18"
     where type CFieldType E18 "unwrapE18" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE18" E18 ty
-    where hasField = \x_0 -> (\y_1 -> E18{unwrapE18 = y_1},
-                              getField @"unwrapE18" x_0)
 {-| __C declaration:__ @x18@
 
     __defined at:__ @attributes\/visibility\/types.h 129:55@
@@ -2138,14 +2138,14 @@ instance Read E19
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE19" E19 ty
+    where hasField = \x_0 -> (\y_1 -> E19{unwrapE19 = y_1},
+                              getField @"unwrapE19" x_0)
 instance (~) ty CUInt => HasField "unwrapE19" (Ptr E19) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE19")
 instance HasCField E19 "unwrapE19"
     where type CFieldType E19 "unwrapE19" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapE19" E19 ty
-    where hasField = \x_0 -> (\y_1 -> E19{unwrapE19 = y_1},
-                              getField @"unwrapE19" x_0)
 {-| __C declaration:__ @x19@
 
     __defined at:__ @attributes\/visibility\/types.h 130:55@

@@ -23,10 +23,11 @@ hstypes:
       fields:
       - unwrapA
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -38,10 +39,11 @@ hstypes:
       fields:
       - unwrapB
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -53,10 +55,11 @@ hstypes:
       fields:
       - unwrapE
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: MyUnion
   representation:
     newtype:
@@ -66,7 +69,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable

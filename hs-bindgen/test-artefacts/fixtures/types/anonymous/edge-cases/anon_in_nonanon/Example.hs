@@ -65,18 +65,6 @@ instance Marshal.WriteRaw S_y_anon'x where
 
 deriving via Marshal.EquivStorable S_y_anon'x instance RIP.Storable S_y_anon'x
 
-instance HasCField.HasCField S_y_anon'x "s_y_anon'x_x" where
-
-  type CFieldType S_y_anon'x "s_y_anon'x_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s_y_anon'x_x" (RIP.Ptr S_y_anon'x) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
 
@@ -84,6 +72,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          S_y_anon'x {s_y_anon'x_x = y1}, RIP.getField @"s_y_anon'x_x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s_y_anon'x_x" (RIP.Ptr S_y_anon'x) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
+
+instance HasCField.HasCField S_y_anon'x "s_y_anon'x_x" where
+
+  type CFieldType S_y_anon'x "s_y_anon'x_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@S_y@
 
@@ -126,18 +126,6 @@ instance Marshal.WriteRaw S_y where
 
 deriving via Marshal.EquivStorable S_y instance RIP.Storable S_y
 
-instance HasCField.HasCField S_y "s_y_anon'x" where
-
-  type CFieldType S_y "s_y_anon'x" = S_y_anon'x
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ S_y_anon'x
-         ) => RIP.HasField "s_y_anon'x" (RIP.Ptr S_y) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
-
 instance ( ty ~ S_y_anon'x
          ) => RIP.CompatHasField.HasField "s_y_anon'x" S_y ty where
 
@@ -145,6 +133,18 @@ instance ( ty ~ S_y_anon'x
     \x0 ->
       (\y1 ->
          S_y {s_y_anon'x = y1}, RIP.getField @"s_y_anon'x" x0)
+
+instance ( ty ~ S_y_anon'x
+         ) => RIP.HasField "s_y_anon'x" (RIP.Ptr S_y) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
+
+instance HasCField.HasCField S_y "s_y_anon'x" where
+
+  type CFieldType S_y "s_y_anon'x" = S_y_anon'x
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct S@
 
@@ -187,17 +187,17 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance RIP.Storable S
 
-instance HasCField.HasCField S "s_y" where
+instance (ty ~ S_y) => RIP.CompatHasField.HasField "s_y" S ty where
 
-  type CFieldType S "s_y" = S_y
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)
 
 instance (ty ~ S_y) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_y")
 
-instance (ty ~ S_y) => RIP.CompatHasField.HasField "s_y" S ty where
+instance HasCField.HasCField S "s_y" where
 
-  hasField =
-    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)
+  type CFieldType S "s_y" = S_y
+
+  offset# = \_ -> \_ -> 0

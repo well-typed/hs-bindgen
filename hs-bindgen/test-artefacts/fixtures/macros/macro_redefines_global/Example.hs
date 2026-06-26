@@ -51,6 +51,14 @@ newtype FILE = FILE
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFILE" FILE ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         FILE {unwrapFILE = y1}, RIP.getField @"unwrapFILE" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFILE" (RIP.Ptr FILE) (RIP.Ptr ty) where
 
   getField =
@@ -61,11 +69,3 @@ instance HasCField.HasCField FILE "unwrapFILE" where
   type CFieldType FILE "unwrapFILE" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapFILE" FILE ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         FILE {unwrapFILE = y1}, RIP.getField @"unwrapFILE" x0)

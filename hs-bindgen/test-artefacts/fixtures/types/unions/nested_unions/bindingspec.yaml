@@ -23,10 +23,11 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -38,10 +39,11 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -55,7 +57,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -69,7 +71,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable

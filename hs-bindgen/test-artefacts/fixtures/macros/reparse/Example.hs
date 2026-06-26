@@ -107,6 +107,12 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
@@ -117,12 +123,6 @@ instance HasCField.HasCField A "unwrapA" where
   type CFieldType A "unwrapA" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -252,6 +252,14 @@ instance Read Some_enum where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapSome_enum" Some_enum ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Some_enum {unwrapSome_enum = y1}, RIP.getField @"unwrapSome_enum" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapSome_enum" (RIP.Ptr Some_enum) (RIP.Ptr ty) where
 
   getField =
@@ -263,14 +271,6 @@ instance HasCField.HasCField Some_enum "unwrapSome_enum" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapSome_enum" Some_enum ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Some_enum {unwrapSome_enum = y1}, RIP.getField @"unwrapSome_enum" x0)
 
 {-| __C declaration:__ @ENUM_A@
 
@@ -294,6 +294,15 @@ newtype Arr_typedef1 = Arr_typedef1
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray A
+         ) => RIP.CompatHasField.HasField "unwrapArr_typedef1" Arr_typedef1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Arr_typedef1 {unwrapArr_typedef1 = y1}
+      , RIP.getField @"unwrapArr_typedef1" x0
+      )
+
+instance ( ty ~ IA.IncompleteArray A
          ) => RIP.HasField "unwrapArr_typedef1" (RIP.Ptr Arr_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -305,15 +314,6 @@ instance HasCField.HasCField Arr_typedef1 "unwrapArr_typedef1" where
     IA.IncompleteArray A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray A
-         ) => RIP.CompatHasField.HasField "unwrapArr_typedef1" Arr_typedef1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Arr_typedef1 {unwrapArr_typedef1 = y1}
-      , RIP.getField @"unwrapArr_typedef1" x0
-      )
 
 {-| __C declaration:__ @arr_typedef2@
 
@@ -328,6 +328,15 @@ newtype Arr_typedef2 = Arr_typedef2
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray (RIP.Ptr A)
+         ) => RIP.CompatHasField.HasField "unwrapArr_typedef2" Arr_typedef2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Arr_typedef2 {unwrapArr_typedef2 = y1}
+      , RIP.getField @"unwrapArr_typedef2" x0
+      )
+
+instance ( ty ~ IA.IncompleteArray (RIP.Ptr A)
          ) => RIP.HasField "unwrapArr_typedef2" (RIP.Ptr Arr_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -339,15 +348,6 @@ instance HasCField.HasCField Arr_typedef2 "unwrapArr_typedef2" where
     IA.IncompleteArray (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray (RIP.Ptr A)
-         ) => RIP.CompatHasField.HasField "unwrapArr_typedef2" Arr_typedef2 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Arr_typedef2 {unwrapArr_typedef2 = y1}
-      , RIP.getField @"unwrapArr_typedef2" x0
-      )
 
 {-| __C declaration:__ @arr_typedef3@
 
@@ -368,6 +368,15 @@ newtype Arr_typedef3 = Arr_typedef3
     )
 
 instance ( ty ~ CA.ConstantArray 5 A
+         ) => RIP.CompatHasField.HasField "unwrapArr_typedef3" Arr_typedef3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Arr_typedef3 {unwrapArr_typedef3 = y1}
+      , RIP.getField @"unwrapArr_typedef3" x0
+      )
+
+instance ( ty ~ CA.ConstantArray 5 A
          ) => RIP.HasField "unwrapArr_typedef3" (RIP.Ptr Arr_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -379,15 +388,6 @@ instance HasCField.HasCField Arr_typedef3 "unwrapArr_typedef3" where
     CA.ConstantArray 5 A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 5 A
-         ) => RIP.CompatHasField.HasField "unwrapArr_typedef3" Arr_typedef3 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Arr_typedef3 {unwrapArr_typedef3 = y1}
-      , RIP.getField @"unwrapArr_typedef3" x0
-      )
 
 {-| __C declaration:__ @arr_typedef4@
 
@@ -408,6 +408,15 @@ newtype Arr_typedef4 = Arr_typedef4
     )
 
 instance ( ty ~ CA.ConstantArray 5 (RIP.Ptr A)
+         ) => RIP.CompatHasField.HasField "unwrapArr_typedef4" Arr_typedef4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Arr_typedef4 {unwrapArr_typedef4 = y1}
+      , RIP.getField @"unwrapArr_typedef4" x0
+      )
+
+instance ( ty ~ CA.ConstantArray 5 (RIP.Ptr A)
          ) => RIP.HasField "unwrapArr_typedef4" (RIP.Ptr Arr_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -419,15 +428,6 @@ instance HasCField.HasCField Arr_typedef4 "unwrapArr_typedef4" where
     CA.ConstantArray 5 (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 5 (RIP.Ptr A)
-         ) => RIP.CompatHasField.HasField "unwrapArr_typedef4" Arr_typedef4 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Arr_typedef4 {unwrapArr_typedef4 = y1}
-      , RIP.getField @"unwrapArr_typedef4" x0
-      )
 
 {-| Typedefs
 
@@ -460,6 +460,14 @@ newtype Typedef1 = Typedef1
     )
 
 instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "unwrapTypedef1" Typedef1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Typedef1 {unwrapTypedef1 = y1}, RIP.getField @"unwrapTypedef1" x0)
+
+instance ( ty ~ A
          ) => RIP.HasField "unwrapTypedef1" (RIP.Ptr Typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -470,14 +478,6 @@ instance HasCField.HasCField Typedef1 "unwrapTypedef1" where
   type CFieldType Typedef1 "unwrapTypedef1" = A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.CompatHasField.HasField "unwrapTypedef1" Typedef1 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Typedef1 {unwrapTypedef1 = y1}, RIP.getField @"unwrapTypedef1" x0)
 
 {-| __C declaration:__ @typedef2@
 
@@ -498,6 +498,14 @@ newtype Typedef2 = Typedef2
     )
 
 instance ( ty ~ RIP.Ptr A
+         ) => RIP.CompatHasField.HasField "unwrapTypedef2" Typedef2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Typedef2 {unwrapTypedef2 = y1}, RIP.getField @"unwrapTypedef2" x0)
+
+instance ( ty ~ RIP.Ptr A
          ) => RIP.HasField "unwrapTypedef2" (RIP.Ptr Typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -508,14 +516,6 @@ instance HasCField.HasCField Typedef2 "unwrapTypedef2" where
   type CFieldType Typedef2 "unwrapTypedef2" = RIP.Ptr A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr A
-         ) => RIP.CompatHasField.HasField "unwrapTypedef2" Typedef2 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Typedef2 {unwrapTypedef2 = y1}, RIP.getField @"unwrapTypedef2" x0)
 
 {-| __C declaration:__ @typedef3@
 
@@ -536,6 +536,14 @@ newtype Typedef3 = Typedef3
     )
 
 instance ( ty ~ RIP.Ptr (RIP.Ptr A)
+         ) => RIP.CompatHasField.HasField "unwrapTypedef3" Typedef3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Typedef3 {unwrapTypedef3 = y1}, RIP.getField @"unwrapTypedef3" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr A)
          ) => RIP.HasField "unwrapTypedef3" (RIP.Ptr Typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -547,14 +555,6 @@ instance HasCField.HasCField Typedef3 "unwrapTypedef3" where
     RIP.Ptr (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr A)
-         ) => RIP.CompatHasField.HasField "unwrapTypedef3" Typedef3 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Typedef3 {unwrapTypedef3 = y1}, RIP.getField @"unwrapTypedef3" x0)
 
 {-| Auxiliary type used by 'Funptr_typedef1'
 
@@ -605,6 +605,16 @@ instance RIP.FromFunPtr Funptr_typedef1_Aux where
   fromFunPtr = hs_bindgen_806a46dc418a062c
 
 instance ( ty ~ IO A
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef1_Aux" Funptr_typedef1_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Funptr_typedef1_Aux {unwrapFunptr_typedef1_Aux = y1}
+      , RIP.getField @"unwrapFunptr_typedef1_Aux" x0
+      )
+
+instance ( ty ~ IO A
          ) => RIP.HasField "unwrapFunptr_typedef1_Aux" (RIP.Ptr Funptr_typedef1_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -616,16 +626,6 @@ instance HasCField.HasCField Funptr_typedef1_Aux "unwrapFunptr_typedef1_Aux" whe
     IO A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO A
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef1_Aux" Funptr_typedef1_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Funptr_typedef1_Aux {unwrapFunptr_typedef1_Aux = y1}
-      , RIP.getField @"unwrapFunptr_typedef1_Aux" x0
-      )
 
 {-| __C declaration:__ @funptr_typedef1@
 
@@ -646,6 +646,15 @@ newtype Funptr_typedef1 = Funptr_typedef1
     )
 
 instance ( ty ~ RIP.FunPtr Funptr_typedef1_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef1" Funptr_typedef1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Funptr_typedef1 {unwrapFunptr_typedef1 = y1}
+      , RIP.getField @"unwrapFunptr_typedef1" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Funptr_typedef1_Aux
          ) => RIP.HasField "unwrapFunptr_typedef1" (RIP.Ptr Funptr_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -657,15 +666,6 @@ instance HasCField.HasCField Funptr_typedef1 "unwrapFunptr_typedef1" where
     RIP.FunPtr Funptr_typedef1_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Funptr_typedef1_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef1" Funptr_typedef1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Funptr_typedef1 {unwrapFunptr_typedef1 = y1}
-      , RIP.getField @"unwrapFunptr_typedef1" x0
-      )
 
 {-| Auxiliary type used by 'Funptr_typedef2'
 
@@ -716,6 +716,16 @@ instance RIP.FromFunPtr Funptr_typedef2_Aux where
   fromFunPtr = hs_bindgen_323d07dff85b802c
 
 instance ( ty ~ IO (RIP.Ptr A)
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef2_Aux" Funptr_typedef2_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Funptr_typedef2_Aux {unwrapFunptr_typedef2_Aux = y1}
+      , RIP.getField @"unwrapFunptr_typedef2_Aux" x0
+      )
+
+instance ( ty ~ IO (RIP.Ptr A)
          ) => RIP.HasField "unwrapFunptr_typedef2_Aux" (RIP.Ptr Funptr_typedef2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -727,16 +737,6 @@ instance HasCField.HasCField Funptr_typedef2_Aux "unwrapFunptr_typedef2_Aux" whe
     IO (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO (RIP.Ptr A)
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef2_Aux" Funptr_typedef2_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Funptr_typedef2_Aux {unwrapFunptr_typedef2_Aux = y1}
-      , RIP.getField @"unwrapFunptr_typedef2_Aux" x0
-      )
 
 {-| __C declaration:__ @funptr_typedef2@
 
@@ -757,6 +757,15 @@ newtype Funptr_typedef2 = Funptr_typedef2
     )
 
 instance ( ty ~ RIP.FunPtr Funptr_typedef2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef2" Funptr_typedef2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Funptr_typedef2 {unwrapFunptr_typedef2 = y1}
+      , RIP.getField @"unwrapFunptr_typedef2" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Funptr_typedef2_Aux
          ) => RIP.HasField "unwrapFunptr_typedef2" (RIP.Ptr Funptr_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -768,15 +777,6 @@ instance HasCField.HasCField Funptr_typedef2 "unwrapFunptr_typedef2" where
     RIP.FunPtr Funptr_typedef2_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Funptr_typedef2_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef2" Funptr_typedef2 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Funptr_typedef2 {unwrapFunptr_typedef2 = y1}
-      , RIP.getField @"unwrapFunptr_typedef2" x0
-      )
 
 {-| Auxiliary type used by 'Funptr_typedef3'
 
@@ -827,6 +827,16 @@ instance RIP.FromFunPtr Funptr_typedef3_Aux where
   fromFunPtr = hs_bindgen_82dc7b932974117e
 
 instance ( ty ~ IO (RIP.Ptr (RIP.Ptr A))
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef3_Aux" Funptr_typedef3_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Funptr_typedef3_Aux {unwrapFunptr_typedef3_Aux = y1}
+      , RIP.getField @"unwrapFunptr_typedef3_Aux" x0
+      )
+
+instance ( ty ~ IO (RIP.Ptr (RIP.Ptr A))
          ) => RIP.HasField "unwrapFunptr_typedef3_Aux" (RIP.Ptr Funptr_typedef3_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -838,16 +848,6 @@ instance HasCField.HasCField Funptr_typedef3_Aux "unwrapFunptr_typedef3_Aux" whe
     IO (RIP.Ptr (RIP.Ptr A))
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO (RIP.Ptr (RIP.Ptr A))
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef3_Aux" Funptr_typedef3_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Funptr_typedef3_Aux {unwrapFunptr_typedef3_Aux = y1}
-      , RIP.getField @"unwrapFunptr_typedef3_Aux" x0
-      )
 
 {-| __C declaration:__ @funptr_typedef3@
 
@@ -868,6 +868,15 @@ newtype Funptr_typedef3 = Funptr_typedef3
     )
 
 instance ( ty ~ RIP.FunPtr Funptr_typedef3_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef3" Funptr_typedef3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Funptr_typedef3 {unwrapFunptr_typedef3 = y1}
+      , RIP.getField @"unwrapFunptr_typedef3" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Funptr_typedef3_Aux
          ) => RIP.HasField "unwrapFunptr_typedef3" (RIP.Ptr Funptr_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -879,15 +888,6 @@ instance HasCField.HasCField Funptr_typedef3 "unwrapFunptr_typedef3" where
     RIP.FunPtr Funptr_typedef3_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Funptr_typedef3_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef3" Funptr_typedef3 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Funptr_typedef3 {unwrapFunptr_typedef3 = y1}
-      , RIP.getField @"unwrapFunptr_typedef3" x0
-      )
 
 {-| Auxiliary type used by 'Funptr_typedef4'
 
@@ -938,6 +938,16 @@ instance RIP.FromFunPtr Funptr_typedef4_Aux where
   fromFunPtr = hs_bindgen_d4a97954476da161
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef4_Aux" Funptr_typedef4_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Funptr_typedef4_Aux {unwrapFunptr_typedef4_Aux = y1}
+      , RIP.getField @"unwrapFunptr_typedef4_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapFunptr_typedef4_Aux" (RIP.Ptr Funptr_typedef4_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -949,16 +959,6 @@ instance HasCField.HasCField Funptr_typedef4_Aux "unwrapFunptr_typedef4_Aux" whe
     RIP.CInt -> RIP.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef4_Aux" Funptr_typedef4_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Funptr_typedef4_Aux {unwrapFunptr_typedef4_Aux = y1}
-      , RIP.getField @"unwrapFunptr_typedef4_Aux" x0
-      )
 
 {-| __C declaration:__ @funptr_typedef4@
 
@@ -979,6 +979,15 @@ newtype Funptr_typedef4 = Funptr_typedef4
     )
 
 instance ( ty ~ RIP.FunPtr Funptr_typedef4_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef4" Funptr_typedef4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Funptr_typedef4 {unwrapFunptr_typedef4 = y1}
+      , RIP.getField @"unwrapFunptr_typedef4" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Funptr_typedef4_Aux
          ) => RIP.HasField "unwrapFunptr_typedef4" (RIP.Ptr Funptr_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -990,15 +999,6 @@ instance HasCField.HasCField Funptr_typedef4 "unwrapFunptr_typedef4" where
     RIP.FunPtr Funptr_typedef4_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Funptr_typedef4_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef4" Funptr_typedef4 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Funptr_typedef4 {unwrapFunptr_typedef4 = y1}
-      , RIP.getField @"unwrapFunptr_typedef4" x0
-      )
 
 {-| Auxiliary type used by 'Funptr_typedef5'
 
@@ -1049,6 +1049,16 @@ instance RIP.FromFunPtr Funptr_typedef5_Aux where
   fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef5_Aux" Funptr_typedef5_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Funptr_typedef5_Aux {unwrapFunptr_typedef5_Aux = y1}
+      , RIP.getField @"unwrapFunptr_typedef5_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
          ) => RIP.HasField "unwrapFunptr_typedef5_Aux" (RIP.Ptr Funptr_typedef5_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1060,16 +1070,6 @@ instance HasCField.HasCField Funptr_typedef5_Aux "unwrapFunptr_typedef5_Aux" whe
     RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef5_Aux" Funptr_typedef5_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Funptr_typedef5_Aux {unwrapFunptr_typedef5_Aux = y1}
-      , RIP.getField @"unwrapFunptr_typedef5_Aux" x0
-      )
 
 {-| __C declaration:__ @funptr_typedef5@
 
@@ -1090,6 +1090,15 @@ newtype Funptr_typedef5 = Funptr_typedef5
     )
 
 instance ( ty ~ RIP.FunPtr Funptr_typedef5_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef5" Funptr_typedef5 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Funptr_typedef5 {unwrapFunptr_typedef5 = y1}
+      , RIP.getField @"unwrapFunptr_typedef5" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Funptr_typedef5_Aux
          ) => RIP.HasField "unwrapFunptr_typedef5" (RIP.Ptr Funptr_typedef5) (RIP.Ptr ty) where
 
   getField =
@@ -1101,15 +1110,6 @@ instance HasCField.HasCField Funptr_typedef5 "unwrapFunptr_typedef5" where
     RIP.FunPtr Funptr_typedef5_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Funptr_typedef5_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunptr_typedef5" Funptr_typedef5 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Funptr_typedef5 {unwrapFunptr_typedef5 = y1}
-      , RIP.getField @"unwrapFunptr_typedef5" x0
-      )
 
 {-| __C declaration:__ @comments2@
 
@@ -1140,6 +1140,14 @@ newtype Comments2 = Comments2
     )
 
 instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "unwrapComments2" Comments2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Comments2 {unwrapComments2 = y1}, RIP.getField @"unwrapComments2" x0)
+
+instance ( ty ~ A
          ) => RIP.HasField "unwrapComments2" (RIP.Ptr Comments2) (RIP.Ptr ty) where
 
   getField =
@@ -1150,14 +1158,6 @@ instance HasCField.HasCField Comments2 "unwrapComments2" where
   type CFieldType Comments2 "unwrapComments2" = A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.CompatHasField.HasField "unwrapComments2" Comments2 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Comments2 {unwrapComments2 = y1}, RIP.getField @"unwrapComments2" x0)
 
 {-| Struct fields
 
@@ -1223,19 +1223,6 @@ instance Marshal.WriteRaw Example_struct where
 
 deriving via Marshal.EquivStorable Example_struct instance RIP.Storable Example_struct
 
-instance HasCField.HasCField Example_struct "example_struct_field1" where
-
-  type CFieldType Example_struct "example_struct_field1" =
-    A
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.HasField "example_struct_field1" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_field1")
-
 instance ( ty ~ A
          ) => RIP.CompatHasField.HasField "example_struct_field1" Example_struct ty where
 
@@ -1249,18 +1236,18 @@ instance ( ty ~ A
       , RIP.getField @"example_struct_field1" x0
       )
 
-instance HasCField.HasCField Example_struct "example_struct_field2" where
-
-  type CFieldType Example_struct "example_struct_field2" =
-    RIP.Ptr A
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr A
-         ) => RIP.HasField "example_struct_field2" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
+instance ( ty ~ A
+         ) => RIP.HasField "example_struct_field1" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_field2")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_field1")
+
+instance HasCField.HasCField Example_struct "example_struct_field1" where
+
+  type CFieldType Example_struct "example_struct_field1" =
+    A
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr A
          ) => RIP.CompatHasField.HasField "example_struct_field2" Example_struct ty where
@@ -1275,18 +1262,18 @@ instance ( ty ~ RIP.Ptr A
       , RIP.getField @"example_struct_field2" x0
       )
 
-instance HasCField.HasCField Example_struct "example_struct_field3" where
-
-  type CFieldType Example_struct "example_struct_field3" =
-    RIP.Ptr (RIP.Ptr A)
-
-  offset# = \_ -> \_ -> 16
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr A)
-         ) => RIP.HasField "example_struct_field3" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Ptr A
+         ) => RIP.HasField "example_struct_field2" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_field3")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_field2")
+
+instance HasCField.HasCField Example_struct "example_struct_field2" where
+
+  type CFieldType Example_struct "example_struct_field2" =
+    RIP.Ptr A
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ RIP.Ptr (RIP.Ptr A)
          ) => RIP.CompatHasField.HasField "example_struct_field3" Example_struct ty where
@@ -1300,6 +1287,19 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr A)
                          }
       , RIP.getField @"example_struct_field3" x0
       )
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr A)
+         ) => RIP.HasField "example_struct_field3" (RIP.Ptr Example_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"example_struct_field3")
+
+instance HasCField.HasCField Example_struct "example_struct_field3" where
+
+  type CFieldType Example_struct "example_struct_field3" =
+    RIP.Ptr (RIP.Ptr A)
+
+  offset# = \_ -> \_ -> 16
 
 {-| __C declaration:__ @const_typedef1@
 
@@ -1330,6 +1330,15 @@ newtype Const_typedef1 = Const_typedef1
     )
 
 instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef1" Const_typedef1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef1 {unwrapConst_typedef1 = y1}
+      , RIP.getField @"unwrapConst_typedef1" x0
+      )
+
+instance ( ty ~ A
          ) => RIP.HasField "unwrapConst_typedef1" (RIP.Ptr Const_typedef1) (RIP.Ptr ty) where
 
   getField =
@@ -1341,15 +1350,6 @@ instance HasCField.HasCField Const_typedef1 "unwrapConst_typedef1" where
     A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef1" Const_typedef1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef1 {unwrapConst_typedef1 = y1}
-      , RIP.getField @"unwrapConst_typedef1" x0
-      )
 
 {-| __C declaration:__ @const_typedef2@
 
@@ -1380,6 +1380,15 @@ newtype Const_typedef2 = Const_typedef2
     )
 
 instance ( ty ~ A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef2" Const_typedef2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef2 {unwrapConst_typedef2 = y1}
+      , RIP.getField @"unwrapConst_typedef2" x0
+      )
+
+instance ( ty ~ A
          ) => RIP.HasField "unwrapConst_typedef2" (RIP.Ptr Const_typedef2) (RIP.Ptr ty) where
 
   getField =
@@ -1391,15 +1400,6 @@ instance HasCField.HasCField Const_typedef2 "unwrapConst_typedef2" where
     A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef2" Const_typedef2 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef2 {unwrapConst_typedef2 = y1}
-      , RIP.getField @"unwrapConst_typedef2" x0
-      )
 
 {-| __C declaration:__ @const_typedef3@
 
@@ -1420,6 +1420,15 @@ newtype Const_typedef3 = Const_typedef3
     )
 
 instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef3" Const_typedef3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef3 {unwrapConst_typedef3 = y1}
+      , RIP.getField @"unwrapConst_typedef3" x0
+      )
+
+instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.HasField "unwrapConst_typedef3" (RIP.Ptr Const_typedef3) (RIP.Ptr ty) where
 
   getField =
@@ -1431,15 +1440,6 @@ instance HasCField.HasCField Const_typedef3 "unwrapConst_typedef3" where
     PtrConst.PtrConst A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef3" Const_typedef3 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef3 {unwrapConst_typedef3 = y1}
-      , RIP.getField @"unwrapConst_typedef3" x0
-      )
 
 {-| __C declaration:__ @const_typedef4@
 
@@ -1460,6 +1460,15 @@ newtype Const_typedef4 = Const_typedef4
     )
 
 instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef4" Const_typedef4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef4 {unwrapConst_typedef4 = y1}
+      , RIP.getField @"unwrapConst_typedef4" x0
+      )
+
+instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.HasField "unwrapConst_typedef4" (RIP.Ptr Const_typedef4) (RIP.Ptr ty) where
 
   getField =
@@ -1471,15 +1480,6 @@ instance HasCField.HasCField Const_typedef4 "unwrapConst_typedef4" where
     PtrConst.PtrConst A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef4" Const_typedef4 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef4 {unwrapConst_typedef4 = y1}
-      , RIP.getField @"unwrapConst_typedef4" x0
-      )
 
 {-| __C declaration:__ @const_typedef5@
 
@@ -1500,6 +1500,15 @@ newtype Const_typedef5 = Const_typedef5
     )
 
 instance ( ty ~ RIP.Ptr A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef5" Const_typedef5 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef5 {unwrapConst_typedef5 = y1}
+      , RIP.getField @"unwrapConst_typedef5" x0
+      )
+
+instance ( ty ~ RIP.Ptr A
          ) => RIP.HasField "unwrapConst_typedef5" (RIP.Ptr Const_typedef5) (RIP.Ptr ty) where
 
   getField =
@@ -1511,15 +1520,6 @@ instance HasCField.HasCField Const_typedef5 "unwrapConst_typedef5" where
     RIP.Ptr A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef5" Const_typedef5 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef5 {unwrapConst_typedef5 = y1}
-      , RIP.getField @"unwrapConst_typedef5" x0
-      )
 
 {-| __C declaration:__ @const_typedef6@
 
@@ -1540,6 +1540,15 @@ newtype Const_typedef6 = Const_typedef6
     )
 
 instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef6" Const_typedef6 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef6 {unwrapConst_typedef6 = y1}
+      , RIP.getField @"unwrapConst_typedef6" x0
+      )
+
+instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.HasField "unwrapConst_typedef6" (RIP.Ptr Const_typedef6) (RIP.Ptr ty) where
 
   getField =
@@ -1551,15 +1560,6 @@ instance HasCField.HasCField Const_typedef6 "unwrapConst_typedef6" where
     PtrConst.PtrConst A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef6" Const_typedef6 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef6 {unwrapConst_typedef6 = y1}
-      , RIP.getField @"unwrapConst_typedef6" x0
-      )
 
 {-| __C declaration:__ @const_typedef7@
 
@@ -1580,6 +1580,15 @@ newtype Const_typedef7 = Const_typedef7
     )
 
 instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.CompatHasField.HasField "unwrapConst_typedef7" Const_typedef7 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_typedef7 {unwrapConst_typedef7 = y1}
+      , RIP.getField @"unwrapConst_typedef7" x0
+      )
+
+instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.HasField "unwrapConst_typedef7" (RIP.Ptr Const_typedef7) (RIP.Ptr ty) where
 
   getField =
@@ -1591,15 +1600,6 @@ instance HasCField.HasCField Const_typedef7 "unwrapConst_typedef7" where
     PtrConst.PtrConst A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.CompatHasField.HasField "unwrapConst_typedef7" Const_typedef7 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_typedef7 {unwrapConst_typedef7 = y1}
-      , RIP.getField @"unwrapConst_typedef7" x0
-      )
 
 {-| __C declaration:__ @struct example_struct_with_const@
 
@@ -1703,19 +1703,6 @@ instance Marshal.WriteRaw Example_struct_with_const where
 
 deriving via Marshal.EquivStorable Example_struct_with_const instance RIP.Storable Example_struct_with_const
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field1" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field1" =
-    A
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ A
-         ) => RIP.HasField "example_struct_with_const_const_field1" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field1")
-
 instance ( ty ~ A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field1" Example_struct_with_const ty where
 
@@ -1733,18 +1720,18 @@ instance ( ty ~ A
       , RIP.getField @"example_struct_with_const_const_field1" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field2" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field2" =
-    A
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ A
-         ) => RIP.HasField "example_struct_with_const_const_field2" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+         ) => RIP.HasField "example_struct_with_const_const_field1" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field2")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field1")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field1" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field1" =
+    A
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field2" Example_struct_with_const ty where
@@ -1763,18 +1750,18 @@ instance ( ty ~ A
       , RIP.getField @"example_struct_with_const_const_field2" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field3" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field3" =
-    PtrConst.PtrConst A
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.HasField "example_struct_with_const_const_field3" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+instance ( ty ~ A
+         ) => RIP.HasField "example_struct_with_const_const_field2" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field3")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field2")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field2" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field2" =
+    A
+
+  offset# = \_ -> \_ -> 4
 
 instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field3" Example_struct_with_const ty where
@@ -1793,18 +1780,18 @@ instance ( ty ~ PtrConst.PtrConst A
       , RIP.getField @"example_struct_with_const_const_field3" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field4" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field4" =
-    PtrConst.PtrConst A
-
-  offset# = \_ -> \_ -> 16
-
 instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.HasField "example_struct_with_const_const_field4" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+         ) => RIP.HasField "example_struct_with_const_const_field3" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field4")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field3")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field3" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field3" =
+    PtrConst.PtrConst A
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field4" Example_struct_with_const ty where
@@ -1823,18 +1810,18 @@ instance ( ty ~ PtrConst.PtrConst A
       , RIP.getField @"example_struct_with_const_const_field4" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field5" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field5" =
-    RIP.Ptr A
-
-  offset# = \_ -> \_ -> 24
-
-instance ( ty ~ RIP.Ptr A
-         ) => RIP.HasField "example_struct_with_const_const_field5" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.HasField "example_struct_with_const_const_field4" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field5")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field4")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field4" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field4" =
+    PtrConst.PtrConst A
+
+  offset# = \_ -> \_ -> 16
 
 instance ( ty ~ RIP.Ptr A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field5" Example_struct_with_const ty where
@@ -1853,18 +1840,18 @@ instance ( ty ~ RIP.Ptr A
       , RIP.getField @"example_struct_with_const_const_field5" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field6" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field6" =
-    PtrConst.PtrConst A
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.HasField "example_struct_with_const_const_field6" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Ptr A
+         ) => RIP.HasField "example_struct_with_const_const_field5" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field6")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field5")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field5" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field5" =
+    RIP.Ptr A
+
+  offset# = \_ -> \_ -> 24
 
 instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field6" Example_struct_with_const ty where
@@ -1883,18 +1870,18 @@ instance ( ty ~ PtrConst.PtrConst A
       , RIP.getField @"example_struct_with_const_const_field6" x0
       )
 
-instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field7" where
-
-  type CFieldType Example_struct_with_const "example_struct_with_const_const_field7" =
-    PtrConst.PtrConst A
-
-  offset# = \_ -> \_ -> 40
-
 instance ( ty ~ PtrConst.PtrConst A
-         ) => RIP.HasField "example_struct_with_const_const_field7" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+         ) => RIP.HasField "example_struct_with_const_const_field6" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field7")
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field6")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field6" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field6" =
+    PtrConst.PtrConst A
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ PtrConst.PtrConst A
          ) => RIP.CompatHasField.HasField "example_struct_with_const_const_field7" Example_struct_with_const ty where
@@ -1912,6 +1899,19 @@ instance ( ty ~ PtrConst.PtrConst A
                                     }
       , RIP.getField @"example_struct_with_const_const_field7" x0
       )
+
+instance ( ty ~ PtrConst.PtrConst A
+         ) => RIP.HasField "example_struct_with_const_const_field7" (RIP.Ptr Example_struct_with_const) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"example_struct_with_const_const_field7")
+
+instance HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field7" where
+
+  type CFieldType Example_struct_with_const "example_struct_with_const_const_field7" =
+    PtrConst.PtrConst A
+
+  offset# = \_ -> \_ -> 40
 
 {-| Auxiliary type used by 'Const_funptr1'
 
@@ -1962,6 +1962,16 @@ instance RIP.FromFunPtr Const_funptr1_Aux where
   fromFunPtr = hs_bindgen_ac4bd8d789bba94b
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr1_Aux" Const_funptr1_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr1_Aux {unwrapConst_funptr1_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr1_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapConst_funptr1_Aux" (RIP.Ptr Const_funptr1_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1973,16 +1983,6 @@ instance HasCField.HasCField Const_funptr1_Aux "unwrapConst_funptr1_Aux" where
     RIP.CInt -> RIP.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr1_Aux" Const_funptr1_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr1_Aux {unwrapConst_funptr1_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr1_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr1@
 
@@ -2003,6 +2003,15 @@ newtype Const_funptr1 = Const_funptr1
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr1_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr1" Const_funptr1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr1 {unwrapConst_funptr1 = y1}
+      , RIP.getField @"unwrapConst_funptr1" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr1_Aux
          ) => RIP.HasField "unwrapConst_funptr1" (RIP.Ptr Const_funptr1) (RIP.Ptr ty) where
 
   getField =
@@ -2014,15 +2023,6 @@ instance HasCField.HasCField Const_funptr1 "unwrapConst_funptr1" where
     RIP.FunPtr Const_funptr1_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr1_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr1" Const_funptr1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr1 {unwrapConst_funptr1 = y1}
-      , RIP.getField @"unwrapConst_funptr1" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr2'
 
@@ -2073,6 +2073,16 @@ instance RIP.FromFunPtr Const_funptr2_Aux where
   fromFunPtr = hs_bindgen_352cebf463125ca9
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr2_Aux" Const_funptr2_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr2_Aux {unwrapConst_funptr2_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr2_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
          ) => RIP.HasField "unwrapConst_funptr2_Aux" (RIP.Ptr Const_funptr2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2084,16 +2094,6 @@ instance HasCField.HasCField Const_funptr2_Aux "unwrapConst_funptr2_Aux" where
     RIP.CInt -> RIP.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO A)
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr2_Aux" Const_funptr2_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr2_Aux {unwrapConst_funptr2_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr2_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr2@
 
@@ -2114,6 +2114,15 @@ newtype Const_funptr2 = Const_funptr2
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr2" Const_funptr2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr2 {unwrapConst_funptr2 = y1}
+      , RIP.getField @"unwrapConst_funptr2" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr2_Aux
          ) => RIP.HasField "unwrapConst_funptr2" (RIP.Ptr Const_funptr2) (RIP.Ptr ty) where
 
   getField =
@@ -2125,15 +2134,6 @@ instance HasCField.HasCField Const_funptr2 "unwrapConst_funptr2" where
     RIP.FunPtr Const_funptr2_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr2_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr2" Const_funptr2 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr2 {unwrapConst_funptr2 = y1}
-      , RIP.getField @"unwrapConst_funptr2" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr3'
 
@@ -2184,6 +2184,16 @@ instance RIP.FromFunPtr Const_funptr3_Aux where
   fromFunPtr = hs_bindgen_86738dcfd7c9d33c
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr3_Aux" Const_funptr3_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr3_Aux {unwrapConst_funptr3_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr3_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr3_Aux" (RIP.Ptr Const_funptr3_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2195,16 +2205,6 @@ instance HasCField.HasCField Const_funptr3_Aux "unwrapConst_funptr3_Aux" where
     RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr3_Aux" Const_funptr3_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr3_Aux {unwrapConst_funptr3_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr3_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr3@
 
@@ -2225,6 +2225,15 @@ newtype Const_funptr3 = Const_funptr3
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr3_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr3" Const_funptr3 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr3 {unwrapConst_funptr3 = y1}
+      , RIP.getField @"unwrapConst_funptr3" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr3_Aux
          ) => RIP.HasField "unwrapConst_funptr3" (RIP.Ptr Const_funptr3) (RIP.Ptr ty) where
 
   getField =
@@ -2236,15 +2245,6 @@ instance HasCField.HasCField Const_funptr3 "unwrapConst_funptr3" where
     RIP.FunPtr Const_funptr3_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr3_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr3" Const_funptr3 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr3 {unwrapConst_funptr3 = y1}
-      , RIP.getField @"unwrapConst_funptr3" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr4'
 
@@ -2295,6 +2295,16 @@ instance RIP.FromFunPtr Const_funptr4_Aux where
   fromFunPtr = hs_bindgen_de7846fca3bfd1b6
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr4_Aux" Const_funptr4_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr4_Aux {unwrapConst_funptr4_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr4_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr4_Aux" (RIP.Ptr Const_funptr4_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2306,16 +2316,6 @@ instance HasCField.HasCField Const_funptr4_Aux "unwrapConst_funptr4_Aux" where
     RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr4_Aux" Const_funptr4_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr4_Aux {unwrapConst_funptr4_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr4_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr4@
 
@@ -2336,6 +2336,15 @@ newtype Const_funptr4 = Const_funptr4
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr4_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr4" Const_funptr4 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr4 {unwrapConst_funptr4 = y1}
+      , RIP.getField @"unwrapConst_funptr4" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr4_Aux
          ) => RIP.HasField "unwrapConst_funptr4" (RIP.Ptr Const_funptr4) (RIP.Ptr ty) where
 
   getField =
@@ -2347,15 +2356,6 @@ instance HasCField.HasCField Const_funptr4 "unwrapConst_funptr4" where
     RIP.FunPtr Const_funptr4_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr4_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr4" Const_funptr4 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr4 {unwrapConst_funptr4 = y1}
-      , RIP.getField @"unwrapConst_funptr4" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr5'
 
@@ -2406,6 +2406,16 @@ instance RIP.FromFunPtr Const_funptr5_Aux where
   fromFunPtr = hs_bindgen_38a21d84bb7115b5
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr5_Aux" Const_funptr5_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr5_Aux {unwrapConst_funptr5_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr5_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
          ) => RIP.HasField "unwrapConst_funptr5_Aux" (RIP.Ptr Const_funptr5_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2417,16 +2427,6 @@ instance HasCField.HasCField Const_funptr5_Aux "unwrapConst_funptr5_Aux" where
     RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr A))
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr5_Aux" Const_funptr5_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr5_Aux {unwrapConst_funptr5_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr5_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr5@
 
@@ -2447,6 +2447,15 @@ newtype Const_funptr5 = Const_funptr5
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr5_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr5" Const_funptr5 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr5 {unwrapConst_funptr5 = y1}
+      , RIP.getField @"unwrapConst_funptr5" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr5_Aux
          ) => RIP.HasField "unwrapConst_funptr5" (RIP.Ptr Const_funptr5) (RIP.Ptr ty) where
 
   getField =
@@ -2458,15 +2467,6 @@ instance HasCField.HasCField Const_funptr5 "unwrapConst_funptr5" where
     RIP.FunPtr Const_funptr5_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr5_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr5" Const_funptr5 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr5 {unwrapConst_funptr5 = y1}
-      , RIP.getField @"unwrapConst_funptr5" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr6'
 
@@ -2517,6 +2517,16 @@ instance RIP.FromFunPtr Const_funptr6_Aux where
   fromFunPtr = hs_bindgen_45251216b04aa8b5
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr6_Aux" Const_funptr6_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr6_Aux {unwrapConst_funptr6_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr6_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr6_Aux" (RIP.Ptr Const_funptr6_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2528,16 +2538,6 @@ instance HasCField.HasCField Const_funptr6_Aux "unwrapConst_funptr6_Aux" where
     RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr6_Aux" Const_funptr6_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr6_Aux {unwrapConst_funptr6_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr6_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr6@
 
@@ -2558,6 +2558,15 @@ newtype Const_funptr6 = Const_funptr6
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr6_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr6" Const_funptr6 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr6 {unwrapConst_funptr6 = y1}
+      , RIP.getField @"unwrapConst_funptr6" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr6_Aux
          ) => RIP.HasField "unwrapConst_funptr6" (RIP.Ptr Const_funptr6) (RIP.Ptr ty) where
 
   getField =
@@ -2569,15 +2578,6 @@ instance HasCField.HasCField Const_funptr6 "unwrapConst_funptr6" where
     RIP.FunPtr Const_funptr6_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr6_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr6" Const_funptr6 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr6 {unwrapConst_funptr6 = y1}
-      , RIP.getField @"unwrapConst_funptr6" x0
-      )
 
 {-| Auxiliary type used by 'Const_funptr7'
 
@@ -2628,6 +2628,16 @@ instance RIP.FromFunPtr Const_funptr7_Aux where
   fromFunPtr = hs_bindgen_42fbcebf75a973ba
 
 instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr7_Aux" Const_funptr7_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Const_funptr7_Aux {unwrapConst_funptr7_Aux = y1}
+      , RIP.getField @"unwrapConst_funptr7_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
          ) => RIP.HasField "unwrapConst_funptr7_Aux" (RIP.Ptr Const_funptr7_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -2639,16 +2649,6 @@ instance HasCField.HasCField Const_funptr7_Aux "unwrapConst_funptr7_Aux" where
     RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst A))
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr7_Aux" Const_funptr7_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Const_funptr7_Aux {unwrapConst_funptr7_Aux = y1}
-      , RIP.getField @"unwrapConst_funptr7_Aux" x0
-      )
 
 {-| __C declaration:__ @const_funptr7@
 
@@ -2669,6 +2669,15 @@ newtype Const_funptr7 = Const_funptr7
     )
 
 instance ( ty ~ RIP.FunPtr Const_funptr7_Aux
+         ) => RIP.CompatHasField.HasField "unwrapConst_funptr7" Const_funptr7 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Const_funptr7 {unwrapConst_funptr7 = y1}
+      , RIP.getField @"unwrapConst_funptr7" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Const_funptr7_Aux
          ) => RIP.HasField "unwrapConst_funptr7" (RIP.Ptr Const_funptr7) (RIP.Ptr ty) where
 
   getField =
@@ -2680,15 +2689,6 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
     RIP.FunPtr Const_funptr7_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Const_funptr7_Aux
-         ) => RIP.CompatHasField.HasField "unwrapConst_funptr7" Const_funptr7 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Const_funptr7 {unwrapConst_funptr7 = y1}
-      , RIP.getField @"unwrapConst_funptr7" x0
-      )
 
 {-| Macro-defined types
 
@@ -2721,6 +2721,14 @@ newtype BOOL = BOOL
     )
 
 instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
+
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -2731,14 +2739,6 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
   type CFieldType BOOL "unwrapBOOL" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
 
 {-| __C declaration:__ @macro INT@
 
@@ -2768,6 +2768,13 @@ newtype INT = INT
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapINT" INT ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         INT {unwrapINT = y1}, RIP.getField @"unwrapINT" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapINT" (RIP.Ptr INT) (RIP.Ptr ty) where
 
@@ -2778,13 +2785,6 @@ instance HasCField.HasCField INT "unwrapINT" where
   type CFieldType INT "unwrapINT" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapINT" INT ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         INT {unwrapINT = y1}, RIP.getField @"unwrapINT" x0)
 
 {-| __C declaration:__ @macro INTP@
 
@@ -2805,6 +2805,14 @@ newtype INTP = INTP
     )
 
 instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapINTP" INTP ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         INTP {unwrapINTP = y1}, RIP.getField @"unwrapINTP" x0)
+
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "unwrapINTP" (RIP.Ptr INTP) (RIP.Ptr ty) where
 
   getField =
@@ -2815,14 +2823,6 @@ instance HasCField.HasCField INTP "unwrapINTP" where
   type CFieldType INTP "unwrapINTP" = RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapINTP" INTP ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         INTP {unwrapINTP = y1}, RIP.getField @"unwrapINTP" x0)
 
 {-| __C declaration:__ @macro INTCP@
 
@@ -2843,6 +2843,14 @@ newtype INTCP = INTCP
     )
 
 instance ( ty ~ PtrConst.PtrConst RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapINTCP" INTCP ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         INTCP {unwrapINTCP = y1}, RIP.getField @"unwrapINTCP" x0)
+
+instance ( ty ~ PtrConst.PtrConst RIP.CInt
          ) => RIP.HasField "unwrapINTCP" (RIP.Ptr INTCP) (RIP.Ptr ty) where
 
   getField =
@@ -2854,11 +2862,3 @@ instance HasCField.HasCField INTCP "unwrapINTCP" where
     PtrConst.PtrConst RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapINTCP" INTCP ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         INTCP {unwrapINTCP = y1}, RIP.getField @"unwrapINTCP" x0)

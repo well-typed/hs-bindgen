@@ -168,6 +168,14 @@ newtype Struct5_t = Struct5_t
     )
 
 instance ( ty ~ RIP.Ptr Struct5
+         ) => RIP.CompatHasField.HasField "unwrapStruct5_t" Struct5_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct5_t {unwrapStruct5_t = y1}, RIP.getField @"unwrapStruct5_t" x0)
+
+instance ( ty ~ RIP.Ptr Struct5
          ) => RIP.HasField "unwrapStruct5_t" (RIP.Ptr Struct5_t) (RIP.Ptr ty) where
 
   getField =
@@ -179,14 +187,6 @@ instance HasCField.HasCField Struct5_t "unwrapStruct5_t" where
     RIP.Ptr Struct5
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr Struct5
-         ) => RIP.CompatHasField.HasField "unwrapStruct5_t" Struct5_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct5_t {unwrapStruct5_t = y1}, RIP.getField @"unwrapStruct5_t" x0)
 
 {-| __C declaration:__ @struct struct6@
 
@@ -237,6 +237,14 @@ newtype Struct6 = Struct6
     )
 
 instance ( ty ~ RIP.Ptr Struct6_Aux
+         ) => RIP.CompatHasField.HasField "unwrapStruct6" Struct6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct6 {unwrapStruct6 = y1}, RIP.getField @"unwrapStruct6" x0)
+
+instance ( ty ~ RIP.Ptr Struct6_Aux
          ) => RIP.HasField "unwrapStruct6" (RIP.Ptr Struct6) (RIP.Ptr ty) where
 
   getField =
@@ -248,14 +256,6 @@ instance HasCField.HasCField Struct6 "unwrapStruct6" where
     RIP.Ptr Struct6_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr Struct6_Aux
-         ) => RIP.CompatHasField.HasField "unwrapStruct6" Struct6 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct6 {unwrapStruct6 = y1}, RIP.getField @"unwrapStruct6" x0)
 
 {-| __C declaration:__ @struct struct7@
 
@@ -305,6 +305,14 @@ newtype Struct7a = Struct7a
     )
 
 instance ( ty ~ Struct7
+         ) => RIP.CompatHasField.HasField "unwrapStruct7a" Struct7a ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct7a {unwrapStruct7a = y1}, RIP.getField @"unwrapStruct7a" x0)
+
+instance ( ty ~ Struct7
          ) => RIP.HasField "unwrapStruct7a" (RIP.Ptr Struct7a) (RIP.Ptr ty) where
 
   getField =
@@ -315,14 +323,6 @@ instance HasCField.HasCField Struct7a "unwrapStruct7a" where
   type CFieldType Struct7a "unwrapStruct7a" = Struct7
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct7
-         ) => RIP.CompatHasField.HasField "unwrapStruct7a" Struct7a ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct7a {unwrapStruct7a = y1}, RIP.getField @"unwrapStruct7a" x0)
 
 {-| __C declaration:__ @struct7b@
 
@@ -342,6 +342,14 @@ newtype Struct7b = Struct7b
     )
 
 instance ( ty ~ Struct7
+         ) => RIP.CompatHasField.HasField "unwrapStruct7b" Struct7b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct7b {unwrapStruct7b = y1}, RIP.getField @"unwrapStruct7b" x0)
+
+instance ( ty ~ Struct7
          ) => RIP.HasField "unwrapStruct7b" (RIP.Ptr Struct7b) (RIP.Ptr ty) where
 
   getField =
@@ -352,14 +360,6 @@ instance HasCField.HasCField Struct7b "unwrapStruct7b" where
   type CFieldType Struct7b "unwrapStruct7b" = Struct7
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct7
-         ) => RIP.CompatHasField.HasField "unwrapStruct7b" Struct7b ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct7b {unwrapStruct7b = y1}, RIP.getField @"unwrapStruct7b" x0)
 
 {-| __C declaration:__ @struct struct8@
 
@@ -409,6 +409,14 @@ newtype Struct8b = Struct8b
     )
 
 instance ( ty ~ Struct8
+         ) => RIP.CompatHasField.HasField "unwrapStruct8b" Struct8b ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct8b {unwrapStruct8b = y1}, RIP.getField @"unwrapStruct8b" x0)
+
+instance ( ty ~ Struct8
          ) => RIP.HasField "unwrapStruct8b" (RIP.Ptr Struct8b) (RIP.Ptr ty) where
 
   getField =
@@ -419,14 +427,6 @@ instance HasCField.HasCField Struct8b "unwrapStruct8b" where
   type CFieldType Struct8b "unwrapStruct8b" = Struct8
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct8
-         ) => RIP.CompatHasField.HasField "unwrapStruct8b" Struct8b ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct8b {unwrapStruct8b = y1}, RIP.getField @"unwrapStruct8b" x0)
 
 {-| __C declaration:__ @struct struct9@
 
@@ -476,6 +476,14 @@ newtype Struct9_t = Struct9_t
     )
 
 instance ( ty ~ Struct9
+         ) => RIP.CompatHasField.HasField "unwrapStruct9_t" Struct9_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct9_t {unwrapStruct9_t = y1}, RIP.getField @"unwrapStruct9_t" x0)
+
+instance ( ty ~ Struct9
          ) => RIP.HasField "unwrapStruct9_t" (RIP.Ptr Struct9_t) (RIP.Ptr ty) where
 
   getField =
@@ -486,14 +494,6 @@ instance HasCField.HasCField Struct9_t "unwrapStruct9_t" where
   type CFieldType Struct9_t "unwrapStruct9_t" = Struct9
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct9
-         ) => RIP.CompatHasField.HasField "unwrapStruct9_t" Struct9_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct9_t {unwrapStruct9_t = y1}, RIP.getField @"unwrapStruct9_t" x0)
 
 {-| __C declaration:__ @struct struct10@
 
@@ -543,6 +543,15 @@ newtype Struct10_t_t = Struct10_t_t
     )
 
 instance ( ty ~ Struct10_t
+         ) => RIP.CompatHasField.HasField "unwrapStruct10_t_t" Struct10_t_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Struct10_t_t {unwrapStruct10_t_t = y1}
+      , RIP.getField @"unwrapStruct10_t_t" x0
+      )
+
+instance ( ty ~ Struct10_t
          ) => RIP.HasField "unwrapStruct10_t_t" (RIP.Ptr Struct10_t_t) (RIP.Ptr ty) where
 
   getField =
@@ -554,15 +563,6 @@ instance HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
     Struct10_t
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct10_t
-         ) => RIP.CompatHasField.HasField "unwrapStruct10_t_t" Struct10_t_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Struct10_t_t {unwrapStruct10_t_t = y1}
-      , RIP.getField @"unwrapStruct10_t_t" x0
-      )
 
 {-| __C declaration:__ @struct struct11@
 
@@ -614,18 +614,6 @@ instance Marshal.WriteRaw Struct11_t where
 
 deriving via Marshal.EquivStorable Struct11_t instance RIP.Storable Struct11_t
 
-instance HasCField.HasCField Struct11_t "struct11_t_x" where
-
-  type CFieldType Struct11_t "struct11_t_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct11_t_x" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"struct11_t_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct11_t_x" Struct11_t ty where
 
@@ -636,18 +624,17 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"struct11_t_x" x0
       )
 
-instance HasCField.HasCField Struct11_t "struct11_t_self" where
-
-  type CFieldType Struct11_t "struct11_t_self" =
-    RIP.Ptr Struct11_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Struct11_t
-         ) => RIP.HasField "struct11_t_self" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct11_t_x" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct11_t_self")
+    HasCField.fromPtr (RIP.Proxy @"struct11_t_x")
+
+instance HasCField.HasCField Struct11_t "struct11_t_x" where
+
+  type CFieldType Struct11_t "struct11_t_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Struct11_t
          ) => RIP.CompatHasField.HasField "struct11_t_self" Struct11_t ty where
@@ -658,6 +645,19 @@ instance ( ty ~ RIP.Ptr Struct11_t
           Struct11_t {struct11_t_self = y1, struct11_t_x = RIP.getField @"struct11_t_x" x0}
       , RIP.getField @"struct11_t_self" x0
       )
+
+instance ( ty ~ RIP.Ptr Struct11_t
+         ) => RIP.HasField "struct11_t_self" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"struct11_t_self")
+
+instance HasCField.HasCField Struct11_t "struct11_t_self" where
+
+  type CFieldType Struct11_t "struct11_t_self" =
+    RIP.Ptr Struct11_t
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct struct12@
 
@@ -709,18 +709,6 @@ instance Marshal.WriteRaw Struct12_t where
 
 deriving via Marshal.EquivStorable Struct12_t instance RIP.Storable Struct12_t
 
-instance HasCField.HasCField Struct12_t "struct12_t_x" where
-
-  type CFieldType Struct12_t "struct12_t_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct12_t_x" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"struct12_t_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct12_t_x" Struct12_t ty where
 
@@ -731,18 +719,17 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"struct12_t_x" x0
       )
 
-instance HasCField.HasCField Struct12_t "struct12_t_self" where
-
-  type CFieldType Struct12_t "struct12_t_self" =
-    RIP.Ptr Struct12_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Struct12_t
-         ) => RIP.HasField "struct12_t_self" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct12_t_x" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct12_t_self")
+    HasCField.fromPtr (RIP.Proxy @"struct12_t_x")
+
+instance HasCField.HasCField Struct12_t "struct12_t_x" where
+
+  type CFieldType Struct12_t "struct12_t_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Struct12_t
          ) => RIP.CompatHasField.HasField "struct12_t_self" Struct12_t ty where
@@ -753,6 +740,19 @@ instance ( ty ~ RIP.Ptr Struct12_t
           Struct12_t {struct12_t_self = y1, struct12_t_x = RIP.getField @"struct12_t_x" x0}
       , RIP.getField @"struct12_t_self" x0
       )
+
+instance ( ty ~ RIP.Ptr Struct12_t
+         ) => RIP.HasField "struct12_t_self" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"struct12_t_self")
+
+instance HasCField.HasCField Struct12_t "struct12_t_self" where
+
+  type CFieldType Struct12_t "struct12_t_self" =
+    RIP.Ptr Struct12_t
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct use_sites@
 
@@ -966,19 +966,6 @@ instance Marshal.WriteRaw Use_sites where
 
 deriving via Marshal.EquivStorable Use_sites instance RIP.Storable Use_sites
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct1_t" =
-    Struct1_t
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct1_t
-         ) => RIP.HasField "use_sites_useTypedef_struct1_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct1_t")
-
 instance ( ty ~ Struct1_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct1_t" Use_sites ty where
 
@@ -1007,18 +994,18 @@ instance ( ty ~ Struct1_t
       , RIP.getField @"use_sites_useTypedef_struct1_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct2_t" =
-    Struct2_t
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct2_t
-         ) => RIP.HasField "use_sites_useTypedef_struct2_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct1_t
+         ) => RIP.HasField "use_sites_useTypedef_struct1_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct2_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct1_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct1_t" =
+    Struct1_t
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Struct2_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct2_t" Use_sites ty where
@@ -1048,18 +1035,18 @@ instance ( ty ~ Struct2_t
       , RIP.getField @"use_sites_useTypedef_struct2_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct3_t" =
-    RIP.Ptr Struct3_t
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr Struct3_t
-         ) => RIP.HasField "use_sites_useTypedef_struct3_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct2_t
+         ) => RIP.HasField "use_sites_useTypedef_struct2_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct3_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct2_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct2_t" =
+    Struct2_t
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Struct3_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct3_t" Use_sites ty where
@@ -1089,18 +1076,18 @@ instance ( ty ~ RIP.Ptr Struct3_t
       , RIP.getField @"use_sites_useTypedef_struct3_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct4_t" =
-    RIP.Ptr Struct4_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Struct4_t
-         ) => RIP.HasField "use_sites_useTypedef_struct4_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Ptr Struct3_t
+         ) => RIP.HasField "use_sites_useTypedef_struct3_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct4_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct3_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct3_t" =
+    RIP.Ptr Struct3_t
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Struct4_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct4_t" Use_sites ty where
@@ -1130,18 +1117,18 @@ instance ( ty ~ RIP.Ptr Struct4_t
       , RIP.getField @"use_sites_useTypedef_struct4_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
-
-  type CFieldType Use_sites "use_sites_useStruct_struct5" =
-    Struct5
-
-  offset# = \_ -> \_ -> 16
-
-instance ( ty ~ Struct5
-         ) => RIP.HasField "use_sites_useStruct_struct5" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Ptr Struct4_t
+         ) => RIP.HasField "use_sites_useTypedef_struct4_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct5")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct4_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct4_t" =
+    RIP.Ptr Struct4_t
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ Struct5
          ) => RIP.CompatHasField.HasField "use_sites_useStruct_struct5" Use_sites ty where
@@ -1171,18 +1158,18 @@ instance ( ty ~ Struct5
       , RIP.getField @"use_sites_useStruct_struct5" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct5_t" =
-    Struct5_t
-
-  offset# = \_ -> \_ -> 16
-
-instance ( ty ~ Struct5_t
-         ) => RIP.HasField "use_sites_useTypedef_struct5_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct5
+         ) => RIP.HasField "use_sites_useStruct_struct5" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct5_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct5")
+
+instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
+
+  type CFieldType Use_sites "use_sites_useStruct_struct5" =
+    Struct5
+
+  offset# = \_ -> \_ -> 16
 
 instance ( ty ~ Struct5_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct5_t" Use_sites ty where
@@ -1212,18 +1199,18 @@ instance ( ty ~ Struct5_t
       , RIP.getField @"use_sites_useTypedef_struct5_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6" where
-
-  type CFieldType Use_sites "use_sites_useStruct_struct6" =
-    Struct6_Aux
-
-  offset# = \_ -> \_ -> 24
-
-instance ( ty ~ Struct6_Aux
-         ) => RIP.HasField "use_sites_useStruct_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct5_t
+         ) => RIP.HasField "use_sites_useTypedef_struct5_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct6")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct5_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct5_t" =
+    Struct5_t
+
+  offset# = \_ -> \_ -> 16
 
 instance ( ty ~ Struct6_Aux
          ) => RIP.CompatHasField.HasField "use_sites_useStruct_struct6" Use_sites ty where
@@ -1253,18 +1240,18 @@ instance ( ty ~ Struct6_Aux
       , RIP.getField @"use_sites_useStruct_struct6" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct6" =
-    Struct6
-
-  offset# = \_ -> \_ -> 24
-
-instance ( ty ~ Struct6
-         ) => RIP.HasField "use_sites_useTypedef_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct6_Aux
+         ) => RIP.HasField "use_sites_useStruct_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct6")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct6")
+
+instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6" where
+
+  type CFieldType Use_sites "use_sites_useStruct_struct6" =
+    Struct6_Aux
+
+  offset# = \_ -> \_ -> 24
 
 instance ( ty ~ Struct6
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct6" Use_sites ty where
@@ -1294,18 +1281,18 @@ instance ( ty ~ Struct6
       , RIP.getField @"use_sites_useTypedef_struct6" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct7a" =
-    Struct7a
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct7a
-         ) => RIP.HasField "use_sites_useTypedef_struct7a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct6
+         ) => RIP.HasField "use_sites_useTypedef_struct6" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7a")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct6")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct6" =
+    Struct6
+
+  offset# = \_ -> \_ -> 24
 
 instance ( ty ~ Struct7a
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct7a" Use_sites ty where
@@ -1335,18 +1322,18 @@ instance ( ty ~ Struct7a
       , RIP.getField @"use_sites_useTypedef_struct7a" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct7b" =
-    Struct7b
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct7b
-         ) => RIP.HasField "use_sites_useTypedef_struct7b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct7a
+         ) => RIP.HasField "use_sites_useTypedef_struct7a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7b")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7a")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct7a" =
+    Struct7a
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct7b
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct7b" Use_sites ty where
@@ -1376,18 +1363,18 @@ instance ( ty ~ Struct7b
       , RIP.getField @"use_sites_useTypedef_struct7b" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct8" =
-    Struct8
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct8
-         ) => RIP.HasField "use_sites_useTypedef_struct8" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct7b
+         ) => RIP.HasField "use_sites_useTypedef_struct7b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7b")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct7b" =
+    Struct7b
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct8
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct8" Use_sites ty where
@@ -1417,18 +1404,18 @@ instance ( ty ~ Struct8
       , RIP.getField @"use_sites_useTypedef_struct8" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct8b" =
-    Struct8b
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct8b
-         ) => RIP.HasField "use_sites_useTypedef_struct8b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct8
+         ) => RIP.HasField "use_sites_useTypedef_struct8" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8b")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct8" =
+    Struct8
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct8b
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct8b" Use_sites ty where
@@ -1458,18 +1445,18 @@ instance ( ty ~ Struct8b
       , RIP.getField @"use_sites_useTypedef_struct8b" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct9" =
-    Struct9
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct9
-         ) => RIP.HasField "use_sites_useTypedef_struct9" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct8b
+         ) => RIP.HasField "use_sites_useTypedef_struct8b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8b")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct8b" =
+    Struct8b
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct9
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct9" Use_sites ty where
@@ -1499,18 +1486,18 @@ instance ( ty ~ Struct9
       , RIP.getField @"use_sites_useTypedef_struct9" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct9_t" =
-    Struct9_t
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct9_t
-         ) => RIP.HasField "use_sites_useTypedef_struct9_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct9
+         ) => RIP.HasField "use_sites_useTypedef_struct9" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct9" =
+    Struct9
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct9_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct9_t" Use_sites ty where
@@ -1540,18 +1527,18 @@ instance ( ty ~ Struct9_t
       , RIP.getField @"use_sites_useTypedef_struct9_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct10_t" =
-    Struct10_t
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct10_t
-         ) => RIP.HasField "use_sites_useTypedef_struct10_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct9_t
+         ) => RIP.HasField "use_sites_useTypedef_struct9_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct9_t" =
+    Struct9_t
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct10_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct10_t" Use_sites ty where
@@ -1581,18 +1568,18 @@ instance ( ty ~ Struct10_t
       , RIP.getField @"use_sites_useTypedef_struct10_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct10_t_t" =
-    Struct10_t_t
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct10_t_t
-         ) => RIP.HasField "use_sites_useTypedef_struct10_t_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct10_t
+         ) => RIP.HasField "use_sites_useTypedef_struct10_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct10_t" =
+    Struct10_t
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct10_t_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct10_t_t" Use_sites ty where
@@ -1622,18 +1609,18 @@ instance ( ty ~ Struct10_t_t
       , RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct11_t" =
-    Struct11_t
-
-  offset# = \_ -> \_ -> 32
-
-instance ( ty ~ Struct11_t
-         ) => RIP.HasField "use_sites_useTypedef_struct11_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct10_t_t
+         ) => RIP.HasField "use_sites_useTypedef_struct10_t_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct11_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct10_t_t" =
+    Struct10_t_t
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct11_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct11_t" Use_sites ty where
@@ -1663,18 +1650,18 @@ instance ( ty ~ Struct11_t
       , RIP.getField @"use_sites_useTypedef_struct11_t" x0
       )
 
-instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
-
-  type CFieldType Use_sites "use_sites_useTypedef_struct12_t" =
-    Struct12_t
-
-  offset# = \_ -> \_ -> 48
-
-instance ( ty ~ Struct12_t
-         ) => RIP.HasField "use_sites_useTypedef_struct12_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ Struct11_t
+         ) => RIP.HasField "use_sites_useTypedef_struct11_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct12_t")
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct11_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct11_t" =
+    Struct11_t
+
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct12_t
          ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct12_t" Use_sites ty where
@@ -1703,3 +1690,16 @@ instance ( ty ~ Struct12_t
                     }
       , RIP.getField @"use_sites_useTypedef_struct12_t" x0
       )
+
+instance ( ty ~ Struct12_t
+         ) => RIP.HasField "use_sites_useTypedef_struct12_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct12_t")
+
+instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
+
+  type CFieldType Use_sites "use_sites_useTypedef_struct12_t" =
+    Struct12_t
+
+  offset# = \_ -> \_ -> 48

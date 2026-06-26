@@ -73,6 +73,14 @@ newtype TypeA = TypeA
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapTypeA" TypeA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TypeA {unwrapTypeA = y1}, RIP.getField @"unwrapTypeA" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapTypeA" (RIP.Ptr TypeA) (RIP.Ptr ty) where
 
   getField =
@@ -83,14 +91,6 @@ instance HasCField.HasCField TypeA "unwrapTypeA" where
   type CFieldType TypeA "unwrapTypeA" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapTypeA" TypeA ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         TypeA {unwrapTypeA = y1}, RIP.getField @"unwrapTypeA" x0)
 
 {-| __C declaration:__ @macro TypeB@
 
@@ -121,6 +121,14 @@ newtype TypeB = TypeB
     )
 
 instance ( ty ~ TypeA
+         ) => RIP.CompatHasField.HasField "unwrapTypeB" TypeB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TypeB {unwrapTypeB = y1}, RIP.getField @"unwrapTypeB" x0)
+
+instance ( ty ~ TypeA
          ) => RIP.HasField "unwrapTypeB" (RIP.Ptr TypeB) (RIP.Ptr ty) where
 
   getField =
@@ -131,11 +139,3 @@ instance HasCField.HasCField TypeB "unwrapTypeB" where
   type CFieldType TypeB "unwrapTypeB" = TypeA
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ TypeA
-         ) => RIP.CompatHasField.HasField "unwrapTypeB" TypeB ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         TypeB {unwrapTypeB = y1}, RIP.getField @"unwrapTypeB" x0)

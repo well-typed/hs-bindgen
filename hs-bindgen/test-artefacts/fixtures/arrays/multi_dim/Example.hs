@@ -44,6 +44,14 @@ newtype Matrix = Matrix
     )
 
 instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapMatrix" Matrix ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Matrix {unwrapMatrix = y1}, RIP.getField @"unwrapMatrix" x0)
+
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
          ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
 
   getField =
@@ -55,14 +63,6 @@ instance HasCField.HasCField Matrix "unwrapMatrix" where
     CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapMatrix" Matrix ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Matrix {unwrapMatrix = y1}, RIP.getField @"unwrapMatrix" x0)
 
 {-| __C declaration:__ @triplets@
 
@@ -77,6 +77,14 @@ newtype Triplets = Triplets
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapTriplets" Triplets ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Triplets {unwrapTriplets = y1}, RIP.getField @"unwrapTriplets" x0)
+
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
          ) => RIP.HasField "unwrapTriplets" (RIP.Ptr Triplets) (RIP.Ptr ty) where
 
   getField =
@@ -88,11 +96,3 @@ instance HasCField.HasCField Triplets "unwrapTriplets" where
     IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapTriplets" Triplets ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Triplets {unwrapTriplets = y1}, RIP.getField @"unwrapTriplets" x0)

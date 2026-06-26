@@ -72,17 +72,6 @@ instance Marshal.WriteRaw Hoge where
 
 deriving via Marshal.EquivStorable Hoge instance RIP.Storable Hoge
 
-instance HasCField.HasCField Hoge "hoge_x" where
-
-  type CFieldType Hoge "hoge_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "hoge_x" (RIP.Ptr Hoge) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"hoge_x")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_x" Hoge ty where
 
   hasField =
@@ -92,16 +81,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_x" Hoge ty where
       , RIP.getField @"hoge_x" x0
       )
 
-instance HasCField.HasCField Hoge "hoge_y" where
-
-  type CFieldType Hoge "hoge_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "hoge_y" (RIP.Ptr Hoge) (RIP.Ptr ty) where
+         ) => RIP.HasField "hoge_x" (RIP.Ptr Hoge) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"hoge_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"hoge_x")
+
+instance HasCField.HasCField Hoge "hoge_x" where
+
+  type CFieldType Hoge "hoge_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_y" Hoge ty where
 
@@ -111,3 +100,14 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "hoge_y" Hoge ty where
           Hoge {hoge_y = y1, hoge_x = RIP.getField @"hoge_x" x0}
       , RIP.getField @"hoge_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "hoge_y" (RIP.Ptr Hoge) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"hoge_y")
+
+instance HasCField.HasCField Hoge "hoge_y" where
+
+  type CFieldType Hoge "hoge_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4

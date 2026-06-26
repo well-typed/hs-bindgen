@@ -30,11 +30,12 @@ hstypes:
       - inner3_fieldX
       - inner3_fieldY
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -49,11 +50,12 @@ hstypes:
       - outer1_anon'fieldX
       - outer1_fieldC
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -67,11 +69,12 @@ hstypes:
       - outer1_anon'fieldX_fieldX
       - outer1_anon'fieldX_fieldY
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -86,11 +89,12 @@ hstypes:
       - outer2_fieldB
       - outer2_fieldC
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -104,11 +108,12 @@ hstypes:
       - outer2_fieldB_fieldX
       - outer2_fieldB_fieldY
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -123,11 +128,12 @@ hstypes:
       - outer3_fieldB
       - outer3_fieldC
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

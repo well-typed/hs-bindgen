@@ -24,14 +24,14 @@ instance WriteRaw Omitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Omitted omitted_n_2 -> writeRaw (Proxy @"omitted_n") ptr_0 omitted_n_2
 deriving via (EquivStorable Omitted) instance Storable Omitted
-instance HasCField Omitted "omitted_n"
-    where type CFieldType Omitted "omitted_n" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "omitted_n" (Ptr Omitted) (Ptr ty)
-    where getField = fromPtr (Proxy @"omitted_n")
 instance (~) ty CInt => HasField "omitted_n" Omitted ty
     where hasField = \x_0 -> (\y_1 -> Omitted{omitted_n = y_1},
                               getField @"omitted_n" x_0)
+instance (~) ty CInt => HasField "omitted_n" (Ptr Omitted) (Ptr ty)
+    where getField = fromPtr (Proxy @"omitted_n")
+instance HasCField Omitted "omitted_n"
+    where type CFieldType Omitted "omitted_n" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 4:8@
@@ -56,20 +56,20 @@ instance WriteRaw DirectlyDependsOnOmitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        DirectlyDependsOnOmitted directlyDependsOnOmitted_o_2 -> writeRaw (Proxy @"directlyDependsOnOmitted_o") ptr_0 directlyDependsOnOmitted_o_2
 deriving via (EquivStorable DirectlyDependsOnOmitted) instance Storable DirectlyDependsOnOmitted
-instance HasCField DirectlyDependsOnOmitted
-                   "directlyDependsOnOmitted_o"
-    where type CFieldType DirectlyDependsOnOmitted
-                          "directlyDependsOnOmitted_o" = Omitted
-          offset# = \_ -> \_ -> 0
+instance (~) ty Omitted =>
+         HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty
+    where hasField = \x_0 -> (\y_1 -> DirectlyDependsOnOmitted{directlyDependsOnOmitted_o = y_1},
+                              getField @"directlyDependsOnOmitted_o" x_0)
 instance (~) ty Omitted =>
          HasField "directlyDependsOnOmitted_o"
                   (Ptr DirectlyDependsOnOmitted)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"directlyDependsOnOmitted_o")
-instance (~) ty Omitted =>
-         HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty
-    where hasField = \x_0 -> (\y_1 -> DirectlyDependsOnOmitted{directlyDependsOnOmitted_o = y_1},
-                              getField @"directlyDependsOnOmitted_o" x_0)
+instance HasCField DirectlyDependsOnOmitted
+                   "directlyDependsOnOmitted_o"
+    where type CFieldType DirectlyDependsOnOmitted
+                          "directlyDependsOnOmitted_o" = Omitted
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
@@ -94,19 +94,19 @@ instance WriteRaw IndirectlyDependsOnOmitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_2 -> writeRaw (Proxy @"indirectlyDependsOnOmitted_d") ptr_0 indirectlyDependsOnOmitted_d_2
 deriving via (EquivStorable IndirectlyDependsOnOmitted) instance Storable IndirectlyDependsOnOmitted
-instance HasCField IndirectlyDependsOnOmitted
-                   "indirectlyDependsOnOmitted_d"
-    where type CFieldType IndirectlyDependsOnOmitted
-                          "indirectlyDependsOnOmitted_d" = DirectlyDependsOnOmitted
-          offset# = \_ -> \_ -> 0
-instance (~) ty DirectlyDependsOnOmitted =>
-         HasField "indirectlyDependsOnOmitted_d"
-                  (Ptr IndirectlyDependsOnOmitted)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"indirectlyDependsOnOmitted_d")
 instance (~) ty DirectlyDependsOnOmitted =>
          HasField "indirectlyDependsOnOmitted_d"
                   IndirectlyDependsOnOmitted
                   ty
     where hasField = \x_0 -> (\y_1 -> IndirectlyDependsOnOmitted{indirectlyDependsOnOmitted_d = y_1},
                               getField @"indirectlyDependsOnOmitted_d" x_0)
+instance (~) ty DirectlyDependsOnOmitted =>
+         HasField "indirectlyDependsOnOmitted_d"
+                  (Ptr IndirectlyDependsOnOmitted)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"indirectlyDependsOnOmitted_d")
+instance HasCField IndirectlyDependsOnOmitted
+                   "indirectlyDependsOnOmitted_d"
+    where type CFieldType IndirectlyDependsOnOmitted
+                          "indirectlyDependsOnOmitted_d" = DirectlyDependsOnOmitted
+          offset# = \_ -> \_ -> 0

@@ -44,12 +44,13 @@ hstypes:
       fields:
       - unwrapF1
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -63,12 +64,13 @@ hstypes:
       fields:
       - unwrapFunctionPointer_Function
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -82,12 +84,13 @@ hstypes:
       fields:
       - unwrapG1
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr
 - hsname: G2
   representation:
@@ -96,12 +99,13 @@ hstypes:
       fields:
       - unwrapG2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -115,12 +119,13 @@ hstypes:
       fields:
       - unwrapH1
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr
 - hsname: H2
   representation:
@@ -129,11 +134,12 @@ hstypes:
       fields:
       - unwrapH2
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: H3
   representation:
     newtype:
@@ -141,12 +147,13 @@ hstypes:
       fields:
       - unwrapH3
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -160,12 +167,13 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr
 - hsname: Intptr
   representation:
@@ -174,12 +182,13 @@ hstypes:
       fields:
       - unwrapIntptr
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -196,7 +205,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -204,6 +212,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num
@@ -223,10 +233,11 @@ hstypes:
       fields:
       - unwrapNonFunctionPointer_Function
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr

@@ -23,14 +23,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @struct T1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 3:9@
@@ -55,14 +55,14 @@ instance WriteRaw T1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T1 t1_x_2 -> writeRaw (Proxy @"t1_x") ptr_0 t1_x_2
 deriving via (EquivStorable T1) instance Storable T1
-instance HasCField T1 "t1_x"
-    where type CFieldType T1 "t1_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t1_x" (Ptr T1) (Ptr ty)
-    where getField = fromPtr (Proxy @"t1_x")
 instance (~) ty MyInt => HasField "t1_x" T1 ty
     where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
                               getField @"t1_x" x_0)
+instance (~) ty MyInt => HasField "t1_x" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"t1_x")
+instance HasCField T1 "t1_x"
+    where type CFieldType T1 "t1_x" = MyInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@T2_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 4:9@
@@ -87,14 +87,14 @@ instance WriteRaw T2_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T2_Aux t2_Aux_x_2 -> writeRaw (Proxy @"t2_Aux_x") ptr_0 t2_Aux_x_2
 deriving via (EquivStorable T2_Aux) instance Storable T2_Aux
-instance HasCField T2_Aux "t2_Aux_x"
-    where type CFieldType T2_Aux "t2_Aux_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t2_Aux_x" (Ptr T2_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"t2_Aux_x")
 instance (~) ty MyInt => HasField "t2_Aux_x" T2_Aux ty
     where hasField = \x_0 -> (\y_1 -> T2_Aux{t2_Aux_x = y_1},
                               getField @"t2_Aux_x" x_0)
+instance (~) ty MyInt => HasField "t2_Aux_x" (Ptr T2_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_Aux_x")
+instance HasCField T2_Aux "t2_Aux_x"
+    where type CFieldType T2_Aux "t2_Aux_x" = MyInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 4:32@
@@ -109,15 +109,15 @@ newtype T2
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr T2_Aux) => HasField "unwrapT2" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
+                              getField @"unwrapT2" x_0)
 instance (~) ty (Ptr T2_Aux) =>
          HasField "unwrapT2" (Ptr T2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = Ptr T2_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr T2_Aux) => HasField "unwrapT2" T2 ty
-    where hasField = \x_0 -> (\y_1 -> T2{unwrapT2 = y_1},
-                              getField @"unwrapT2" x_0)
 {-| __C declaration:__ @struct \@T3_Aux@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:9@
@@ -142,14 +142,14 @@ instance WriteRaw T3_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T3_Aux t3_Aux_x_2 -> writeRaw (Proxy @"t3_Aux_x") ptr_0 t3_Aux_x_2
 deriving via (EquivStorable T3_Aux) instance Storable T3_Aux
-instance HasCField T3_Aux "t3_Aux_x"
-    where type CFieldType T3_Aux "t3_Aux_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t3_Aux_x" (Ptr T3_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"t3_Aux_x")
 instance (~) ty MyInt => HasField "t3_Aux_x" T3_Aux ty
     where hasField = \x_0 -> (\y_1 -> T3_Aux{t3_Aux_x = y_1},
                               getField @"t3_Aux_x" x_0)
+instance (~) ty MyInt => HasField "t3_Aux_x" (Ptr T3_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_Aux_x")
+instance HasCField T3_Aux "t3_Aux_x"
+    where type CFieldType T3_Aux "t3_Aux_x" = MyInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:32@
@@ -164,12 +164,12 @@ newtype T3
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr (Ptr T3_Aux)) => HasField "unwrapT3" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{unwrapT3 = y_1},
+                              getField @"unwrapT3" x_0)
 instance (~) ty (Ptr (Ptr T3_Aux)) =>
          HasField "unwrapT3" (Ptr T3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT3")
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = Ptr (Ptr T3_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr T3_Aux)) => HasField "unwrapT3" T3 ty
-    where hasField = \x_0 -> (\y_1 -> T3{unwrapT3 = y_1},
-                              getField @"unwrapT3" x_0)

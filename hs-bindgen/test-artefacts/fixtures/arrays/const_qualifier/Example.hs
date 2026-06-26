@@ -42,6 +42,13 @@ newtype S = S
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapS" S ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> S {unwrapS = y1}, RIP.getField @"unwrapS" x0)
+
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapS")
@@ -52,13 +59,6 @@ instance HasCField.HasCField S "unwrapS" where
     IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapS" S ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> S {unwrapS = y1}, RIP.getField @"unwrapS" x0)
 
 {-| __C declaration:__ @T@
 
@@ -73,6 +73,13 @@ newtype T = T
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -83,13 +90,6 @@ instance HasCField.HasCField T "unwrapT" where
     IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 {-| __C declaration:__ @U@
 
@@ -110,6 +110,13 @@ newtype U = U
     )
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapU" U ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> U {unwrapU = y1}, RIP.getField @"unwrapU" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapU" (RIP.Ptr U) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapU")
@@ -120,13 +127,6 @@ instance HasCField.HasCField U "unwrapU" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapU" U ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> U {unwrapU = y1}, RIP.getField @"unwrapU" x0)
 
 {-| __C declaration:__ @V@
 
@@ -147,6 +147,13 @@ newtype V = V
     )
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapV" V ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> V {unwrapV = y1}, RIP.getField @"unwrapV" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapV" (RIP.Ptr V) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapV")
@@ -157,13 +164,6 @@ instance HasCField.HasCField V "unwrapV" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapV" V ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> V {unwrapV = y1}, RIP.getField @"unwrapV" x0)
 
 {-| __C declaration:__ @W@
 
@@ -184,6 +184,13 @@ newtype W = W
     )
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapW" W ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> W {unwrapW = y1}, RIP.getField @"unwrapW" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapW" (RIP.Ptr W) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapW")
@@ -194,13 +201,6 @@ instance HasCField.HasCField W "unwrapW" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapW" W ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> W {unwrapW = y1}, RIP.getField @"unwrapW" x0)
 
 {-| __C declaration:__ @X@
 
@@ -221,6 +221,13 @@ newtype X = X
     )
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapX" X ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> X {unwrapX = y1}, RIP.getField @"unwrapX" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapX" (RIP.Ptr X) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapX")
@@ -231,10 +238,3 @@ instance HasCField.HasCField X "unwrapX" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapX" X ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> X {unwrapX = y1}, RIP.getField @"unwrapX" x0)

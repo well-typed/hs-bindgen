@@ -70,6 +70,13 @@ instance RIP.FromFunPtr A where
   fromFunPtr = hs_bindgen_0cf9a6d50f563441
 
 instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -79,13 +86,6 @@ instance HasCField.HasCField A "unwrapA" where
   type CFieldType A "unwrapA" = RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
 
 {-| __C declaration:__ @B@
 
@@ -99,6 +99,12 @@ newtype B = B
   deriving stock (RIP.Generic)
   deriving newtype (RIP.HasFFIType)
 
+instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
@@ -108,12 +114,6 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = A
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
 
 {-| __C declaration:__ @E@
 
@@ -126,6 +126,12 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
+instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)
+
 instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
@@ -135,9 +141,3 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)

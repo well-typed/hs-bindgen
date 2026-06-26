@@ -31,21 +31,21 @@ instance WriteRaw Hoge
                                        Hoge hoge_x_2
                                             hoge_y_3 -> writeRaw (Proxy @"hoge_x") ptr_0 hoge_x_2 >> writeRaw (Proxy @"hoge_y") ptr_0 hoge_y_3
 deriving via (EquivStorable Hoge) instance Storable Hoge
-instance HasCField Hoge "hoge_x"
-    where type CFieldType Hoge "hoge_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "hoge_x" (Ptr Hoge) (Ptr ty)
-    where getField = fromPtr (Proxy @"hoge_x")
 instance (~) ty CInt => HasField "hoge_x" Hoge ty
     where hasField = \x_0 -> (\y_1 -> Hoge{hoge_x = y_1,
                                            hoge_y = getField @"hoge_y" x_0},
                               getField @"hoge_x" x_0)
-instance HasCField Hoge "hoge_y"
-    where type CFieldType Hoge "hoge_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "hoge_y" (Ptr Hoge) (Ptr ty)
-    where getField = fromPtr (Proxy @"hoge_y")
+instance (~) ty CInt => HasField "hoge_x" (Ptr Hoge) (Ptr ty)
+    where getField = fromPtr (Proxy @"hoge_x")
+instance HasCField Hoge "hoge_x"
+    where type CFieldType Hoge "hoge_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "hoge_y" Hoge ty
     where hasField = \x_0 -> (\y_1 -> Hoge{hoge_y = y_1,
                                            hoge_x = getField @"hoge_x" x_0},
                               getField @"hoge_y" x_0)
+instance (~) ty CInt => HasField "hoge_y" (Ptr Hoge) (Ptr ty)
+    where getField = fromPtr (Proxy @"hoge_y")
+instance HasCField Hoge "hoge_y"
+    where type CFieldType Hoge "hoge_y" = CInt
+          offset# = \_ -> \_ -> 4

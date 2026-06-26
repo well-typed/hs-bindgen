@@ -28,10 +28,11 @@ hstypes:
       - has_implicit_fields_anon'x5_1
       - has_implicit_fields_x5
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -44,11 +45,12 @@ hstypes:
       - has_implicit_fields_anon'x2_1_x2_1
       - has_implicit_fields_anon'x2_1_x2_2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -62,11 +64,12 @@ hstypes:
       - has_implicit_fields_anon'x4_1_x4_1
       - has_implicit_fields_anon'x4_1_x4_2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -81,7 +84,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable

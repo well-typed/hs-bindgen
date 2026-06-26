@@ -32,12 +32,13 @@ hstypes:
       fields:
       - unwrapF1
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -51,12 +52,13 @@ hstypes:
       fields:
       - unwrapF2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -70,12 +72,13 @@ hstypes:
       fields:
       - unwrapF3
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -89,12 +92,13 @@ hstypes:
       fields:
       - unwrapF4
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -108,12 +112,13 @@ hstypes:
       fields:
       - unwrapF5
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -127,12 +132,13 @@ hstypes:
       fields:
       - unwrapF6
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - ReadRaw
   - Show
@@ -149,7 +155,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -157,6 +162,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num

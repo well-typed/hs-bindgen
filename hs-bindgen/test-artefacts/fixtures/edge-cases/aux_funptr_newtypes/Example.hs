@@ -39,6 +39,15 @@ newtype FunPtr_Aux = FunPtr_Aux
   deriving stock (RIP.Generic)
 
 instance ( ty ~ (Foo -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapFunPtr_Aux" FunPtr_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> FunPtr_Aux {unwrapFunPtr_Aux = y1}
+      , RIP.getField @"unwrapFunPtr_Aux" x0
+      )
+
+instance ( ty ~ (Foo -> IO ())
          ) => RIP.HasField "unwrapFunPtr_Aux" (RIP.Ptr FunPtr_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -50,15 +59,6 @@ instance HasCField.HasCField FunPtr_Aux "unwrapFunPtr_Aux" where
     Foo -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (Foo -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapFunPtr_Aux" FunPtr_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> FunPtr_Aux {unwrapFunPtr_Aux = y1}
-      , RIP.getField @"unwrapFunPtr_Aux" x0
-      )
 
 {-| __C declaration:__ @FunPtr@
 
@@ -79,6 +79,14 @@ newtype FunPtr = FunPtr
     )
 
 instance ( ty ~ RIP.FunPtr FunPtr_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFunPtr" FunPtr ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         FunPtr {unwrapFunPtr = y1}, RIP.getField @"unwrapFunPtr" x0)
+
+instance ( ty ~ RIP.FunPtr FunPtr_Aux
          ) => RIP.HasField "unwrapFunPtr" (RIP.Ptr FunPtr) (RIP.Ptr ty) where
 
   getField =
@@ -90,14 +98,6 @@ instance HasCField.HasCField FunPtr "unwrapFunPtr" where
     RIP.FunPtr FunPtr_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr FunPtr_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunPtr" FunPtr ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         FunPtr {unwrapFunPtr = y1}, RIP.getField @"unwrapFunPtr" x0)
 
 {-| __C declaration:__ @struct foo@
 
@@ -149,17 +149,6 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
 
-instance HasCField.HasCField Foo "foo_x" where
-
-  type CFieldType Foo "foo_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_x" (RIP.Ptr Foo) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_x")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_x" Foo ty where
 
   hasField =
@@ -169,16 +158,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_x" Foo ty where
       , RIP.getField @"foo_x" x0
       )
 
-instance HasCField.HasCField Foo "foo_y" where
-
-  type CFieldType Foo "foo_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_y" (RIP.Ptr Foo) (RIP.Ptr ty) where
+         ) => RIP.HasField "foo_x" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_x")
+
+instance HasCField.HasCField Foo "foo_x" where
+
+  type CFieldType Foo "foo_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_y" Foo ty where
 
@@ -188,3 +177,14 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_y" Foo ty where
           Foo {foo_y = y1, foo_x = RIP.getField @"foo_x" x0}
       , RIP.getField @"foo_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_y" (RIP.Ptr Foo) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_y")
+
+instance HasCField.HasCField Foo "foo_y" where
+
+  type CFieldType Foo "foo_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4

@@ -83,11 +83,12 @@ hstypes:
       fields:
       - sSS_anon'anon'x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -100,11 +101,12 @@ hstypes:
       fields:
       - sSS_anon'anon'x_anon'x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -117,11 +119,12 @@ hstypes:
       fields:
       - sSS_anon'anon'x_anon'x_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -134,10 +137,11 @@ hstypes:
       fields:
       - sSU_anon'anon'x
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -149,10 +153,11 @@ hstypes:
       fields:
       - sSU_anon'anon'x_anon'x
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -166,7 +171,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -178,10 +183,11 @@ hstypes:
       fields:
       - sUS_anon'anon'x
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -195,7 +201,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -207,11 +213,12 @@ hstypes:
       fields:
       - sUS_anon'anon'x_anon'x_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -224,10 +231,11 @@ hstypes:
       fields:
       - sUU_anon'anon'x
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -241,7 +249,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -255,7 +263,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -269,7 +277,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -281,11 +289,12 @@ hstypes:
       fields:
       - uSS_anon'anon'x_anon'x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -298,11 +307,12 @@ hstypes:
       fields:
       - uSS_anon'anon'x_anon'x_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -317,7 +327,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -329,10 +339,11 @@ hstypes:
       fields:
       - uSU_anon'anon'x_anon'x
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -346,7 +357,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -360,7 +371,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -374,7 +385,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -386,11 +397,12 @@ hstypes:
       fields:
       - uUS_anon'anon'x_anon'x_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -405,7 +417,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -419,7 +431,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -433,7 +445,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable

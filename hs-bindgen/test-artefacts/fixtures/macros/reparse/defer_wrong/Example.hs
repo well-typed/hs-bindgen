@@ -67,20 +67,20 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance RIP.Storable S
 
-instance HasCField.HasCField S "s_x" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s_x" S ty where
 
-  type CFieldType S "s_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> S {s_x = y1}, RIP.getField @"s_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_x")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s_x" S ty where
+instance HasCField.HasCField S "s_x" where
 
-  hasField =
-    \x0 -> (\y1 -> S {s_x = y1}, RIP.getField @"s_x" x0)
+  type CFieldType S "s_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @macro T@
 
@@ -99,6 +99,12 @@ newtype T = T
     , Marshal.WriteRaw
     )
 
+instance (ty ~ S) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
 instance (ty ~ S) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -108,12 +114,6 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = S
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ S) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 {-| __C declaration:__ @foo@
 
@@ -132,6 +132,13 @@ newtype Foo = Foo
     , Marshal.WriteRaw
     )
 
+instance (ty ~ T) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
+
 instance (ty ~ T) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapFoo")
@@ -141,13 +148,6 @@ instance HasCField.HasCField Foo "unwrapFoo" where
   type CFieldType Foo "unwrapFoo" = T
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ T) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
 
 {-| __C declaration:__ @bar@
 
@@ -168,6 +168,14 @@ newtype Bar = Bar
     )
 
 instance ( ty ~ RIP.Ptr T
+         ) => RIP.CompatHasField.HasField "unwrapBar" Bar ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Bar {unwrapBar = y1}, RIP.getField @"unwrapBar" x0)
+
+instance ( ty ~ RIP.Ptr T
          ) => RIP.HasField "unwrapBar" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapBar")
@@ -177,11 +185,3 @@ instance HasCField.HasCField Bar "unwrapBar" where
   type CFieldType Bar "unwrapBar" = RIP.Ptr T
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr T
-         ) => RIP.CompatHasField.HasField "unwrapBar" Bar ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Bar {unwrapBar = y1}, RIP.getField @"unwrapBar" x0)

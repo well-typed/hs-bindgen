@@ -64,18 +64,6 @@ instance Marshal.WriteRaw OkBefore where
 
 deriving via Marshal.EquivStorable OkBefore instance RIP.Storable OkBefore
 
-instance HasCField.HasCField OkBefore "okBefore_x" where
-
-  type CFieldType OkBefore "okBefore_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"okBefore_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "okBefore_x" OkBefore ty where
 
@@ -83,6 +71,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          OkBefore {okBefore_x = y1}, RIP.getField @"okBefore_x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"okBefore_x")
+
+instance HasCField.HasCField OkBefore "okBefore_x" where
+
+  type CFieldType OkBefore "okBefore_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct OkAfter@
 
@@ -125,17 +125,6 @@ instance Marshal.WriteRaw OkAfter where
 
 deriving via Marshal.EquivStorable OkAfter instance RIP.Storable OkAfter
 
-instance HasCField.HasCField OkAfter "okAfter_x" where
-
-  type CFieldType OkAfter "okAfter_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"okAfter_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "okAfter_x" OkAfter ty where
 
@@ -143,3 +132,14 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          OkAfter {okAfter_x = y1}, RIP.getField @"okAfter_x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "okAfter_x" (RIP.Ptr OkAfter) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"okAfter_x")
+
+instance HasCField.HasCField OkAfter "okAfter_x" where
+
+  type CFieldType OkAfter "okAfter_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

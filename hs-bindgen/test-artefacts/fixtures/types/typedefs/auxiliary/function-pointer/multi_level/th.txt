@@ -34,15 +34,15 @@ instance ToFunPtr F1_Aux
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
 instance (~) ty (CInt -> CInt -> IO ()) =>
+         HasField "unwrapF1_Aux" F1_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F1_Aux{unwrapF1_Aux = y_1},
+                              getField @"unwrapF1_Aux" x_0)
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
     where type CFieldType F1_Aux "unwrapF1_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> CInt -> IO ()) =>
-         HasField "unwrapF1_Aux" F1_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F1_Aux{unwrapF1_Aux = y_1},
-                              getField @"unwrapF1_Aux" x_0)
 {-| __C declaration:__ @f1@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 7:16@
@@ -57,15 +57,15 @@ newtype F1
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (FunPtr F1_Aux) => HasField "unwrapF1" F1 ty
+    where hasField = \x_0 -> (\y_1 -> F1{unwrapF1 = y_1},
+                              getField @"unwrapF1" x_0)
 instance (~) ty (FunPtr F1_Aux) =>
          HasField "unwrapF1" (Ptr F1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1")
 instance HasCField F1 "unwrapF1"
     where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr F1_Aux) => HasField "unwrapF1" F1 ty
-    where hasField = \x_0 -> (\y_1 -> F1{unwrapF1 = y_1},
-                              getField @"unwrapF1" x_0)
 {-| Auxiliary type used by 'F2'
 
     __C declaration:__ @f2@
@@ -101,15 +101,15 @@ instance ToFunPtr F2_Aux
 instance FromFunPtr F2_Aux
     where fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
 instance (~) ty (CInt -> CInt -> IO ()) =>
+         HasField "unwrapF2_Aux" F2_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F2_Aux{unwrapF2_Aux = y_1},
+                              getField @"unwrapF2_Aux" x_0)
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF2_Aux" (Ptr F2_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2_Aux")
 instance HasCField F2_Aux "unwrapF2_Aux"
     where type CFieldType F2_Aux "unwrapF2_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> CInt -> IO ()) =>
-         HasField "unwrapF2_Aux" F2_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F2_Aux{unwrapF2_Aux = y_1},
-                              getField @"unwrapF2_Aux" x_0)
 {-| __C declaration:__ @f2@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 10:17@
@@ -124,15 +124,15 @@ newtype F2
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr (FunPtr F2_Aux)) => HasField "unwrapF2" F2 ty
+    where hasField = \x_0 -> (\y_1 -> F2{unwrapF2 = y_1},
+                              getField @"unwrapF2" x_0)
 instance (~) ty (Ptr (FunPtr F2_Aux)) =>
          HasField "unwrapF2" (Ptr F2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2")
 instance HasCField F2 "unwrapF2"
     where type CFieldType F2 "unwrapF2" = Ptr (FunPtr F2_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (FunPtr F2_Aux)) => HasField "unwrapF2" F2 ty
-    where hasField = \x_0 -> (\y_1 -> F2{unwrapF2 = y_1},
-                              getField @"unwrapF2" x_0)
 {-| Auxiliary type used by 'F3'
 
     __C declaration:__ @f3@
@@ -168,15 +168,15 @@ instance ToFunPtr F3_Aux
 instance FromFunPtr F3_Aux
     where fromFunPtr = hs_bindgen_66460422a7197535
 instance (~) ty (CInt -> CInt -> IO ()) =>
+         HasField "unwrapF3_Aux" F3_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F3_Aux{unwrapF3_Aux = y_1},
+                              getField @"unwrapF3_Aux" x_0)
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF3_Aux" (Ptr F3_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3_Aux")
 instance HasCField F3_Aux "unwrapF3_Aux"
     where type CFieldType F3_Aux "unwrapF3_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> CInt -> IO ()) =>
-         HasField "unwrapF3_Aux" F3_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F3_Aux{unwrapF3_Aux = y_1},
-                              getField @"unwrapF3_Aux" x_0)
 {-| __C declaration:__ @f3@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 13:18@
@@ -192,15 +192,15 @@ newtype F3
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr (Ptr (FunPtr F3_Aux))) =>
+         HasField "unwrapF3" F3 ty
+    where hasField = \x_0 -> (\y_1 -> F3{unwrapF3 = y_1},
+                              getField @"unwrapF3" x_0)
+instance (~) ty (Ptr (Ptr (FunPtr F3_Aux))) =>
          HasField "unwrapF3" (Ptr F3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3")
 instance HasCField F3 "unwrapF3"
     where type CFieldType F3 "unwrapF3" = Ptr (Ptr (FunPtr F3_Aux))
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr (FunPtr F3_Aux))) =>
-         HasField "unwrapF3" F3 ty
-    where hasField = \x_0 -> (\y_1 -> F3{unwrapF3 = y_1},
-                              getField @"unwrapF3" x_0)
 {-| Auxiliary type used by 'F4'
 
     __C declaration:__ @f4@
@@ -233,15 +233,15 @@ instance ToFunPtr F4_Aux
     where toFunPtr = hs_bindgen_83bcff023b3bc648
 instance FromFunPtr F4_Aux
     where fromFunPtr = hs_bindgen_40f9a8d432b9eb97
+instance (~) ty (IO CInt) => HasField "unwrapF4_Aux" F4_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F4_Aux{unwrapF4_Aux = y_1},
+                              getField @"unwrapF4_Aux" x_0)
 instance (~) ty (IO CInt) =>
          HasField "unwrapF4_Aux" (Ptr F4_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF4_Aux")
 instance HasCField F4_Aux "unwrapF4_Aux"
     where type CFieldType F4_Aux "unwrapF4_Aux" = IO CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (IO CInt) => HasField "unwrapF4_Aux" F4_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F4_Aux{unwrapF4_Aux = y_1},
-                              getField @"unwrapF4_Aux" x_0)
 {-| __C declaration:__ @f4@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 16:16@
@@ -256,15 +256,15 @@ newtype F4
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr (FunPtr F4_Aux)) => HasField "unwrapF4" F4 ty
+    where hasField = \x_0 -> (\y_1 -> F4{unwrapF4 = y_1},
+                              getField @"unwrapF4" x_0)
 instance (~) ty (Ptr (FunPtr F4_Aux)) =>
          HasField "unwrapF4" (Ptr F4) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF4")
 instance HasCField F4 "unwrapF4"
     where type CFieldType F4 "unwrapF4" = Ptr (FunPtr F4_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (FunPtr F4_Aux)) => HasField "unwrapF4" F4 ty
-    where hasField = \x_0 -> (\y_1 -> F4{unwrapF4 = y_1},
-                              getField @"unwrapF4" x_0)
 {-| Auxiliary type used by 'F5'
 
     __C declaration:__ @f5@
@@ -297,15 +297,15 @@ instance ToFunPtr F5_Aux
     where toFunPtr = hs_bindgen_6891cbd81d6f42b9
 instance FromFunPtr F5_Aux
     where fromFunPtr = hs_bindgen_586f6635c057975f
+instance (~) ty (IO ()) => HasField "unwrapF5_Aux" F5_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F5_Aux{unwrapF5_Aux = y_1},
+                              getField @"unwrapF5_Aux" x_0)
 instance (~) ty (IO ()) =>
          HasField "unwrapF5_Aux" (Ptr F5_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5_Aux")
 instance HasCField F5_Aux "unwrapF5_Aux"
     where type CFieldType F5_Aux "unwrapF5_Aux" = IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (IO ()) => HasField "unwrapF5_Aux" F5_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F5_Aux{unwrapF5_Aux = y_1},
-                              getField @"unwrapF5_Aux" x_0)
 {-| __C declaration:__ @f5@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 19:17@
@@ -320,15 +320,15 @@ newtype F5
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr (FunPtr F5_Aux)) => HasField "unwrapF5" F5 ty
+    where hasField = \x_0 -> (\y_1 -> F5{unwrapF5 = y_1},
+                              getField @"unwrapF5" x_0)
 instance (~) ty (Ptr (FunPtr F5_Aux)) =>
          HasField "unwrapF5" (Ptr F5) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5")
 instance HasCField F5 "unwrapF5"
     where type CFieldType F5 "unwrapF5" = Ptr (FunPtr F5_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (FunPtr F5_Aux)) => HasField "unwrapF5" F5 ty
-    where hasField = \x_0 -> (\y_1 -> F5{unwrapF5 = y_1},
-                              getField @"unwrapF5" x_0)
 {-| __C declaration:__ @MyInt@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 22:13@
@@ -353,14 +353,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| Auxiliary type used by 'F6'
 
     __C declaration:__ @f6@
@@ -395,15 +395,15 @@ instance ToFunPtr F6_Aux
 instance FromFunPtr F6_Aux
     where fromFunPtr = hs_bindgen_a887947b26e58f0c
 instance (~) ty (MyInt -> IO ()) =>
+         HasField "unwrapF6_Aux" F6_Aux ty
+    where hasField = \x_0 -> (\y_1 -> F6_Aux{unwrapF6_Aux = y_1},
+                              getField @"unwrapF6_Aux" x_0)
+instance (~) ty (MyInt -> IO ()) =>
          HasField "unwrapF6_Aux" (Ptr F6_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6_Aux")
 instance HasCField F6_Aux "unwrapF6_Aux"
     where type CFieldType F6_Aux "unwrapF6_Aux" = MyInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (MyInt -> IO ()) =>
-         HasField "unwrapF6_Aux" F6_Aux ty
-    where hasField = \x_0 -> (\y_1 -> F6_Aux{unwrapF6_Aux = y_1},
-                              getField @"unwrapF6_Aux" x_0)
 {-| __C declaration:__ @f6@
 
     __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/multi_level.h 23:17@
@@ -418,12 +418,12 @@ newtype F6
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr (FunPtr F6_Aux)) => HasField "unwrapF6" F6 ty
+    where hasField = \x_0 -> (\y_1 -> F6{unwrapF6 = y_1},
+                              getField @"unwrapF6" x_0)
 instance (~) ty (Ptr (FunPtr F6_Aux)) =>
          HasField "unwrapF6" (Ptr F6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6")
 instance HasCField F6 "unwrapF6"
     where type CFieldType F6 "unwrapF6" = Ptr (FunPtr F6_Aux)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (FunPtr F6_Aux)) => HasField "unwrapF6" F6 ty
-    where hasField = \x_0 -> (\y_1 -> F6{unwrapF6 = y_1},
-                              getField @"unwrapF6" x_0)

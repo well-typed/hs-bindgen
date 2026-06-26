@@ -73,19 +73,6 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
 
-instance HasCField.HasCField Foo "foo_sixty_four" where
-
-  type CFieldType Foo "foo_sixty_four" =
-    HsBindgen.Runtime.LibC.Word64
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
@@ -96,18 +83,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word64
       , RIP.getField @"foo_sixty_four" x0
       )
 
-instance HasCField.HasCField Foo "foo_thirty_two" where
-
-  type CFieldType Foo "foo_thirty_two" =
-    HsBindgen.Runtime.LibC.Word32
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
+
+instance HasCField.HasCField Foo "foo_sixty_four" where
+
+  type CFieldType Foo "foo_sixty_four" =
+    HsBindgen.Runtime.LibC.Word64
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
@@ -118,3 +105,16 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word32
           Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
       , RIP.getField @"foo_thirty_two" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+
+instance HasCField.HasCField Foo "foo_thirty_two" where
+
+  type CFieldType Foo "foo_thirty_two" =
+    HsBindgen.Runtime.LibC.Word32
+
+  offset# = \_ -> \_ -> 8

@@ -21,11 +21,12 @@ hstypes:
       - bar_x
       - bar_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -41,7 +42,6 @@ hstypes:
   - Bitfield
   - Bits
   - Bounded
-  - CompatHasField
   - Enum
   - Eq
   - FiniteBits
@@ -49,6 +49,8 @@ hstypes:
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Integral
   - Ix
   - Num

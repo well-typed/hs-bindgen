@@ -73,18 +73,6 @@ instance Marshal.WriteRaw Pascal_Aux where
 
 deriving via Marshal.EquivStorable Pascal_Aux instance RIP.Storable Pascal_Aux
 
-instance HasCField.HasCField Pascal_Aux "pascal_len" where
-
-  type CFieldType Pascal_Aux "pascal_len" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "pascal_len" (RIP.Ptr Pascal_Aux) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"pascal_len")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "pascal_len" Pascal_Aux ty where
 
@@ -92,6 +80,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Pascal {pascal_len = y1}, RIP.getField @"pascal_len" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "pascal_len" (RIP.Ptr Pascal_Aux) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"pascal_len")
+
+instance HasCField.HasCField Pascal_Aux "pascal_len" where
+
+  type CFieldType Pascal_Aux "pascal_len" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance FLAM.Offset RIP.CChar Pascal_Aux where
 
@@ -155,17 +155,6 @@ instance Marshal.WriteRaw Foo_bar where
 
 deriving via Marshal.EquivStorable Foo_bar instance RIP.Storable Foo_bar
 
-instance HasCField.HasCField Foo_bar "foo_bar_x" where
-
-  type CFieldType Foo_bar "foo_bar_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_bar_x" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_bar_x" Foo_bar ty where
 
@@ -176,16 +165,16 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"foo_bar_x" x0
       )
 
-instance HasCField.HasCField Foo_bar "foo_bar_y" where
-
-  type CFieldType Foo_bar "foo_bar_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_bar_y" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
+         ) => RIP.HasField "foo_bar_x" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_x")
+
+instance HasCField.HasCField Foo_bar "foo_bar_x" where
+
+  type CFieldType Foo_bar "foo_bar_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_bar_y" Foo_bar ty where
@@ -196,6 +185,17 @@ instance ( ty ~ RIP.CInt
           Foo_bar {foo_bar_y = y1, foo_bar_x = RIP.getField @"foo_bar_x" x0}
       , RIP.getField @"foo_bar_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_bar_y" (RIP.Ptr Foo_bar) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_bar_y")
+
+instance HasCField.HasCField Foo_bar "foo_bar_y" where
+
+  type CFieldType Foo_bar "foo_bar_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct foo@
 
@@ -238,17 +238,6 @@ instance Marshal.WriteRaw Foo_Aux where
 
 deriving via Marshal.EquivStorable Foo_Aux instance RIP.Storable Foo_Aux
 
-instance HasCField.HasCField Foo_Aux "foo_len" where
-
-  type CFieldType Foo_Aux "foo_len" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_len" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_len")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "foo_len" Foo_Aux ty where
 
@@ -256,6 +245,17 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Foo {foo_len = y1}, RIP.getField @"foo_len" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_len" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_len")
+
+instance HasCField.HasCField Foo_Aux "foo_len" where
+
+  type CFieldType Foo_Aux "foo_len" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance FLAM.Offset Foo_bar Foo_Aux where
 
@@ -319,18 +319,6 @@ instance Marshal.WriteRaw Diff_Aux where
 
 deriving via Marshal.EquivStorable Diff_Aux instance RIP.Storable Diff_Aux
 
-instance HasCField.HasCField Diff_Aux "diff_first" where
-
-  type CFieldType Diff_Aux "diff_first" = RIP.CLong
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "diff_first" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"diff_first")
-
 instance ( ty ~ RIP.CLong
          ) => RIP.CompatHasField.HasField "diff_first" Diff_Aux ty where
 
@@ -341,17 +329,17 @@ instance ( ty ~ RIP.CLong
       , RIP.getField @"diff_first" x0
       )
 
-instance HasCField.HasCField Diff_Aux "diff_second" where
-
-  type CFieldType Diff_Aux "diff_second" = RIP.CChar
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "diff_second" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CLong
+         ) => RIP.HasField "diff_first" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"diff_second")
+    HasCField.fromPtr (RIP.Proxy @"diff_first")
+
+instance HasCField.HasCField Diff_Aux "diff_first" where
+
+  type CFieldType Diff_Aux "diff_first" = RIP.CLong
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "diff_second" Diff_Aux ty where
@@ -362,6 +350,18 @@ instance ( ty ~ RIP.CChar
           Diff {diff_second = y1, diff_first = RIP.getField @"diff_first" x0}
       , RIP.getField @"diff_second" x0
       )
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "diff_second" (RIP.Ptr Diff_Aux) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"diff_second")
+
+instance HasCField.HasCField Diff_Aux "diff_second" where
+
+  type CFieldType Diff_Aux "diff_second" = RIP.CChar
+
+  offset# = \_ -> \_ -> 8
 
 instance FLAM.Offset RIP.CChar Diff_Aux where
 
@@ -418,19 +418,6 @@ instance Marshal.WriteRaw Triplets_Aux where
 
 deriving via Marshal.EquivStorable Triplets_Aux instance RIP.Storable Triplets_Aux
 
-instance HasCField.HasCField Triplets_Aux "triplets_len" where
-
-  type CFieldType Triplets_Aux "triplets_len" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "triplets_len" (RIP.Ptr Triplets_Aux) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"triplets_len")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "triplets_len" Triplets_Aux ty where
 
@@ -438,6 +425,19 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Triplets {triplets_len = y1}, RIP.getField @"triplets_len" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "triplets_len" (RIP.Ptr Triplets_Aux) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"triplets_len")
+
+instance HasCField.HasCField Triplets_Aux "triplets_len" where
+
+  type CFieldType Triplets_Aux "triplets_len" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance FLAM.Offset (CA.ConstantArray 3 RIP.CInt) Triplets_Aux where
 

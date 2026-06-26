@@ -120,14 +120,14 @@ instance WriteRaw Thing
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Thing thing_x_2 -> writeRaw (Proxy @"thing_x") ptr_0 thing_x_2
 deriving via (EquivStorable Thing) instance Storable Thing
-instance HasCField Thing "thing_x"
-    where type CFieldType Thing "thing_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "thing_x" (Ptr Thing) (Ptr ty)
-    where getField = fromPtr (Proxy @"thing_x")
 instance (~) ty CInt => HasField "thing_x" Thing ty
     where hasField = \x_0 -> (\y_1 -> Thing{thing_x = y_1},
                               getField @"thing_x" x_0)
+instance (~) ty CInt => HasField "thing_x" (Ptr Thing) (Ptr ty)
+    where getField = fromPtr (Proxy @"thing_x")
+instance HasCField Thing "thing_x"
+    where type CFieldType Thing "thing_x" = CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b_base ::
     Ptr Void

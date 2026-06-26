@@ -27,11 +27,12 @@ hstypes:
       - bar_ptrA
       - bar_ptrB
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

@@ -114,6 +114,16 @@ instance RIP.FromFunPtr FileOpenedNotification_Aux where
   fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 
 instance ( ty ~ IO ()
+         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification_Aux" FileOpenedNotification_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux = y1}
+      , RIP.getField @"unwrapFileOpenedNotification_Aux" x0
+      )
+
+instance ( ty ~ IO ()
          ) => RIP.HasField "unwrapFileOpenedNotification_Aux" (RIP.Ptr FileOpenedNotification_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -125,16 +135,6 @@ instance HasCField.HasCField FileOpenedNotification_Aux "unwrapFileOpenedNotific
     IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO ()
-         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification_Aux" FileOpenedNotification_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux = y1}
-      , RIP.getField @"unwrapFileOpenedNotification_Aux" x0
-      )
 
 {-| __C declaration:__ @FileOpenedNotification@
 
@@ -155,6 +155,16 @@ newtype FileOpenedNotification = FileOpenedNotification
     )
 
 instance ( ty ~ RIP.FunPtr FileOpenedNotification_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification" FileOpenedNotification ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOpenedNotification {unwrapFileOpenedNotification = y1}
+      , RIP.getField @"unwrapFileOpenedNotification" x0
+      )
+
+instance ( ty ~ RIP.FunPtr FileOpenedNotification_Aux
          ) => RIP.HasField "unwrapFileOpenedNotification" (RIP.Ptr FileOpenedNotification) (RIP.Ptr ty) where
 
   getField =
@@ -166,16 +176,6 @@ instance HasCField.HasCField FileOpenedNotification "unwrapFileOpenedNotificatio
     RIP.FunPtr FileOpenedNotification_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr FileOpenedNotification_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFileOpenedNotification" FileOpenedNotification ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          FileOpenedNotification {unwrapFileOpenedNotification = y1}
-      , RIP.getField @"unwrapFileOpenedNotification" x0
-      )
 
 {-| Auxiliary type used by 'ProgressUpdate'
 
@@ -226,6 +226,16 @@ instance RIP.FromFunPtr ProgressUpdate_Aux where
   fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 
 instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ProgressUpdate_Aux {unwrapProgressUpdate_Aux = y1}
+      , RIP.getField @"unwrapProgressUpdate_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapProgressUpdate_Aux" (RIP.Ptr ProgressUpdate_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -237,16 +247,6 @@ instance HasCField.HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux" where
     RIP.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate_Aux" ProgressUpdate_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          ProgressUpdate_Aux {unwrapProgressUpdate_Aux = y1}
-      , RIP.getField @"unwrapProgressUpdate_Aux" x0
-      )
 
 {-| __C declaration:__ @ProgressUpdate@
 
@@ -267,6 +267,15 @@ newtype ProgressUpdate = ProgressUpdate
     )
 
 instance ( ty ~ RIP.FunPtr ProgressUpdate_Aux
+         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate" ProgressUpdate ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> ProgressUpdate {unwrapProgressUpdate = y1}
+      , RIP.getField @"unwrapProgressUpdate" x0
+      )
+
+instance ( ty ~ RIP.FunPtr ProgressUpdate_Aux
          ) => RIP.HasField "unwrapProgressUpdate" (RIP.Ptr ProgressUpdate) (RIP.Ptr ty) where
 
   getField =
@@ -278,15 +287,6 @@ instance HasCField.HasCField ProgressUpdate "unwrapProgressUpdate" where
     RIP.FunPtr ProgressUpdate_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr ProgressUpdate_Aux
-         ) => RIP.CompatHasField.HasField "unwrapProgressUpdate" ProgressUpdate ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> ProgressUpdate {unwrapProgressUpdate = y1}
-      , RIP.getField @"unwrapProgressUpdate" x0
-      )
 
 {-| Auxiliary type used by 'DataValidator'
 
@@ -337,6 +337,16 @@ instance RIP.FromFunPtr DataValidator_Aux where
   fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 
 instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapDataValidator_Aux" DataValidator_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          DataValidator_Aux {unwrapDataValidator_Aux = y1}
+      , RIP.getField @"unwrapDataValidator_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapDataValidator_Aux" (RIP.Ptr DataValidator_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -348,16 +358,6 @@ instance HasCField.HasCField DataValidator_Aux "unwrapDataValidator_Aux" where
     RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapDataValidator_Aux" DataValidator_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          DataValidator_Aux {unwrapDataValidator_Aux = y1}
-      , RIP.getField @"unwrapDataValidator_Aux" x0
-      )
 
 {-| __C declaration:__ @DataValidator@
 
@@ -378,6 +378,15 @@ newtype DataValidator = DataValidator
     )
 
 instance ( ty ~ RIP.FunPtr DataValidator_Aux
+         ) => RIP.CompatHasField.HasField "unwrapDataValidator" DataValidator ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> DataValidator {unwrapDataValidator = y1}
+      , RIP.getField @"unwrapDataValidator" x0
+      )
+
+instance ( ty ~ RIP.FunPtr DataValidator_Aux
          ) => RIP.HasField "unwrapDataValidator" (RIP.Ptr DataValidator) (RIP.Ptr ty) where
 
   getField =
@@ -389,15 +398,6 @@ instance HasCField.HasCField DataValidator "unwrapDataValidator" where
     RIP.FunPtr DataValidator_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr DataValidator_Aux
-         ) => RIP.CompatHasField.HasField "unwrapDataValidator" DataValidator ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> DataValidator {unwrapDataValidator = y1}
-      , RIP.getField @"unwrapDataValidator" x0
-      )
 
 {-| __C declaration:__ @struct Measurement@
 
@@ -449,19 +449,6 @@ instance Marshal.WriteRaw Measurement where
 
 deriving via Marshal.EquivStorable Measurement instance RIP.Storable Measurement
 
-instance HasCField.HasCField Measurement "measurement_value" where
-
-  type CFieldType Measurement "measurement_value" =
-    RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "measurement_value" (RIP.Ptr Measurement) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"measurement_value")
-
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "measurement_value" Measurement ty where
 
@@ -474,18 +461,18 @@ instance ( ty ~ RIP.CDouble
       , RIP.getField @"measurement_value" x0
       )
 
-instance HasCField.HasCField Measurement "measurement_timestamp" where
-
-  type CFieldType Measurement "measurement_timestamp" =
-    RIP.CDouble
-
-  offset# = \_ -> \_ -> 8
-
 instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "measurement_timestamp" (RIP.Ptr Measurement) (RIP.Ptr ty) where
+         ) => RIP.HasField "measurement_value" (RIP.Ptr Measurement) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"measurement_timestamp")
+    HasCField.fromPtr (RIP.Proxy @"measurement_value")
+
+instance HasCField.HasCField Measurement "measurement_value" where
+
+  type CFieldType Measurement "measurement_value" =
+    RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "measurement_timestamp" Measurement ty where
@@ -498,6 +485,19 @@ instance ( ty ~ RIP.CDouble
                       }
       , RIP.getField @"measurement_timestamp" x0
       )
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.HasField "measurement_timestamp" (RIP.Ptr Measurement) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"measurement_timestamp")
+
+instance HasCField.HasCField Measurement "measurement_timestamp" where
+
+  type CFieldType Measurement "measurement_timestamp" =
+    RIP.CDouble
+
+  offset# = \_ -> \_ -> 8
 
 {-| Auxiliary type used by 'MeasurementReceived'
 
@@ -548,6 +548,16 @@ instance RIP.FromFunPtr MeasurementReceived_Aux where
   fromFunPtr = hs_bindgen_383c36bb22947621
 
 instance ( ty ~ (RIP.Ptr Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived_Aux {unwrapMeasurementReceived_Aux = y1}
+      , RIP.getField @"unwrapMeasurementReceived_Aux" x0
+      )
+
+instance ( ty ~ (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "unwrapMeasurementReceived_Aux" (RIP.Ptr MeasurementReceived_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -559,16 +569,6 @@ instance HasCField.HasCField MeasurementReceived_Aux "unwrapMeasurementReceived_
     RIP.Ptr Measurement -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.Ptr Measurement -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived_Aux" MeasurementReceived_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          MeasurementReceived_Aux {unwrapMeasurementReceived_Aux = y1}
-      , RIP.getField @"unwrapMeasurementReceived_Aux" x0
-      )
 
 {-| __C declaration:__ @MeasurementReceived@
 
@@ -589,6 +589,16 @@ newtype MeasurementReceived = MeasurementReceived
     )
 
 instance ( ty ~ RIP.FunPtr MeasurementReceived_Aux
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived" MeasurementReceived ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived {unwrapMeasurementReceived = y1}
+      , RIP.getField @"unwrapMeasurementReceived" x0
+      )
+
+instance ( ty ~ RIP.FunPtr MeasurementReceived_Aux
          ) => RIP.HasField "unwrapMeasurementReceived" (RIP.Ptr MeasurementReceived) (RIP.Ptr ty) where
 
   getField =
@@ -600,16 +610,6 @@ instance HasCField.HasCField MeasurementReceived "unwrapMeasurementReceived" whe
     RIP.FunPtr MeasurementReceived_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr MeasurementReceived_Aux
-         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived" MeasurementReceived ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          MeasurementReceived {unwrapMeasurementReceived = y1}
-      , RIP.getField @"unwrapMeasurementReceived" x0
-      )
 
 {-| Auxiliary type used by 'MeasurementReceived2'
 
@@ -625,6 +625,16 @@ newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
   deriving stock (RIP.Generic)
 
 instance ( ty ~ (Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2_Aux" MeasurementReceived2_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived2_Aux {unwrapMeasurementReceived2_Aux = y1}
+      , RIP.getField @"unwrapMeasurementReceived2_Aux" x0
+      )
+
+instance ( ty ~ (Measurement -> IO ())
          ) => RIP.HasField "unwrapMeasurementReceived2_Aux" (RIP.Ptr MeasurementReceived2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -636,16 +646,6 @@ instance HasCField.HasCField MeasurementReceived2_Aux "unwrapMeasurementReceived
     Measurement -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (Measurement -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2_Aux" MeasurementReceived2_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          MeasurementReceived2_Aux {unwrapMeasurementReceived2_Aux = y1}
-      , RIP.getField @"unwrapMeasurementReceived2_Aux" x0
-      )
 
 {-| __C declaration:__ @MeasurementReceived2@
 
@@ -666,6 +666,16 @@ newtype MeasurementReceived2 = MeasurementReceived2
     )
 
 instance ( ty ~ RIP.FunPtr MeasurementReceived2_Aux
+         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          MeasurementReceived2 {unwrapMeasurementReceived2 = y1}
+      , RIP.getField @"unwrapMeasurementReceived2" x0
+      )
+
+instance ( ty ~ RIP.FunPtr MeasurementReceived2_Aux
          ) => RIP.HasField "unwrapMeasurementReceived2" (RIP.Ptr MeasurementReceived2) (RIP.Ptr ty) where
 
   getField =
@@ -677,16 +687,6 @@ instance HasCField.HasCField MeasurementReceived2 "unwrapMeasurementReceived2" w
     RIP.FunPtr MeasurementReceived2_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr MeasurementReceived2_Aux
-         ) => RIP.CompatHasField.HasField "unwrapMeasurementReceived2" MeasurementReceived2 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          MeasurementReceived2 {unwrapMeasurementReceived2 = y1}
-      , RIP.getField @"unwrapMeasurementReceived2" x0
-      )
 
 {-| Auxiliary type used by 'SampleBufferFull'
 
@@ -737,6 +737,16 @@ instance RIP.FromFunPtr SampleBufferFull_Aux where
   fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
 
 instance ( ty ~ (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SampleBufferFull_Aux {unwrapSampleBufferFull_Aux = y1}
+      , RIP.getField @"unwrapSampleBufferFull_Aux" x0
+      )
+
+instance ( ty ~ (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
          ) => RIP.HasField "unwrapSampleBufferFull_Aux" (RIP.Ptr SampleBufferFull_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -748,16 +758,6 @@ instance HasCField.HasCField SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" w
     RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.Ptr (IsA.Elem (CA.ConstantArray 10 RIP.CInt)) -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull_Aux" SampleBufferFull_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          SampleBufferFull_Aux {unwrapSampleBufferFull_Aux = y1}
-      , RIP.getField @"unwrapSampleBufferFull_Aux" x0
-      )
 
 {-| __C declaration:__ @SampleBufferFull@
 
@@ -778,6 +778,16 @@ newtype SampleBufferFull = SampleBufferFull
     )
 
 instance ( ty ~ RIP.FunPtr SampleBufferFull_Aux
+         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull" SampleBufferFull ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          SampleBufferFull {unwrapSampleBufferFull = y1}
+      , RIP.getField @"unwrapSampleBufferFull" x0
+      )
+
+instance ( ty ~ RIP.FunPtr SampleBufferFull_Aux
          ) => RIP.HasField "unwrapSampleBufferFull" (RIP.Ptr SampleBufferFull) (RIP.Ptr ty) where
 
   getField =
@@ -789,16 +799,6 @@ instance HasCField.HasCField SampleBufferFull "unwrapSampleBufferFull" where
     RIP.FunPtr SampleBufferFull_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr SampleBufferFull_Aux
-         ) => RIP.CompatHasField.HasField "unwrapSampleBufferFull" SampleBufferFull ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          SampleBufferFull {unwrapSampleBufferFull = y1}
-      , RIP.getField @"unwrapSampleBufferFull" x0
-      )
 
 {-| __C declaration:__ @struct MeasurementHandler@
 
@@ -862,19 +862,6 @@ instance Marshal.WriteRaw MeasurementHandler where
 
 deriving via Marshal.EquivStorable MeasurementHandler instance RIP.Storable MeasurementHandler
 
-instance HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" where
-
-  type CFieldType MeasurementHandler "measurementHandler_onReceived" =
-    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-         ) => RIP.HasField "measurementHandler_onReceived" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"measurementHandler_onReceived")
-
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.CompatHasField.HasField "measurementHandler_onReceived" MeasurementHandler ty where
 
@@ -888,18 +875,18 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
       , RIP.getField @"measurementHandler_onReceived" x0
       )
 
-instance HasCField.HasCField MeasurementHandler "measurementHandler_validate" where
-
-  type CFieldType MeasurementHandler "measurementHandler_validate" =
-    RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
-         ) => RIP.HasField "measurementHandler_validate" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.HasField "measurementHandler_onReceived" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"measurementHandler_validate")
+    HasCField.fromPtr (RIP.Proxy @"measurementHandler_onReceived")
+
+instance HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" where
+
+  type CFieldType MeasurementHandler "measurementHandler_onReceived" =
+    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
          ) => RIP.CompatHasField.HasField "measurementHandler_validate" MeasurementHandler ty where
@@ -914,18 +901,18 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
       , RIP.getField @"measurementHandler_validate" x0
       )
 
-instance HasCField.HasCField MeasurementHandler "measurementHandler_onError" where
-
-  type CFieldType MeasurementHandler "measurementHandler_onError" =
-    RIP.FunPtr (RIP.CInt -> IO ())
-
-  offset# = \_ -> \_ -> 16
-
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
-         ) => RIP.HasField "measurementHandler_onError" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
+         ) => RIP.HasField "measurementHandler_validate" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"measurementHandler_onError")
+    HasCField.fromPtr (RIP.Proxy @"measurementHandler_validate")
+
+instance HasCField.HasCField MeasurementHandler "measurementHandler_validate" where
+
+  type CFieldType MeasurementHandler "measurementHandler_validate" =
+    RIP.FunPtr (RIP.Ptr Measurement -> IO RIP.CInt)
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
          ) => RIP.CompatHasField.HasField "measurementHandler_onError" MeasurementHandler ty where
@@ -939,6 +926,19 @@ instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
                              }
       , RIP.getField @"measurementHandler_onError" x0
       )
+
+instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
+         ) => RIP.HasField "measurementHandler_onError" (RIP.Ptr MeasurementHandler) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"measurementHandler_onError")
+
+instance HasCField.HasCField MeasurementHandler "measurementHandler_onError" where
+
+  type CFieldType MeasurementHandler "measurementHandler_onError" =
+    RIP.FunPtr (RIP.CInt -> IO ())
+
+  offset# = \_ -> \_ -> 16
 
 {-| __C declaration:__ @struct DataPipeline@
 
@@ -1002,19 +1002,6 @@ instance Marshal.WriteRaw DataPipeline where
 
 deriving via Marshal.EquivStorable DataPipeline instance RIP.Storable DataPipeline
 
-instance HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
-
-  type CFieldType DataPipeline "dataPipeline_preProcess" =
-    RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
-         ) => RIP.HasField "dataPipeline_preProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"dataPipeline_preProcess")
-
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
          ) => RIP.CompatHasField.HasField "dataPipeline_preProcess" DataPipeline ty where
 
@@ -1028,18 +1015,18 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
       , RIP.getField @"dataPipeline_preProcess" x0
       )
 
-instance HasCField.HasCField DataPipeline "dataPipeline_process" where
-
-  type CFieldType DataPipeline "dataPipeline_process" =
-    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-         ) => RIP.HasField "dataPipeline_process" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+         ) => RIP.HasField "dataPipeline_preProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dataPipeline_process")
+    HasCField.fromPtr (RIP.Proxy @"dataPipeline_preProcess")
+
+instance HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
+
+  type CFieldType DataPipeline "dataPipeline_preProcess" =
+    RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.CompatHasField.HasField "dataPipeline_process" DataPipeline ty where
@@ -1054,18 +1041,18 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
       , RIP.getField @"dataPipeline_process" x0
       )
 
-instance HasCField.HasCField DataPipeline "dataPipeline_postProcess" where
-
-  type CFieldType DataPipeline "dataPipeline_postProcess" =
-    RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
-
-  offset# = \_ -> \_ -> 16
-
-instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
-         ) => RIP.HasField "dataPipeline_postProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.HasField "dataPipeline_process" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dataPipeline_postProcess")
+    HasCField.fromPtr (RIP.Proxy @"dataPipeline_process")
+
+instance HasCField.HasCField DataPipeline "dataPipeline_process" where
+
+  type CFieldType DataPipeline "dataPipeline_process" =
+    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => RIP.CompatHasField.HasField "dataPipeline_postProcess" DataPipeline ty where
@@ -1079,6 +1066,19 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
                        }
       , RIP.getField @"dataPipeline_postProcess" x0
       )
+
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+         ) => RIP.HasField "dataPipeline_postProcess" (RIP.Ptr DataPipeline) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"dataPipeline_postProcess")
+
+instance HasCField.HasCField DataPipeline "dataPipeline_postProcess" where
+
+  type CFieldType DataPipeline "dataPipeline_postProcess" =
+    RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+
+  offset# = \_ -> \_ -> 16
 
 {-| __C declaration:__ @union ProcessorCallback@
 
@@ -1178,23 +1178,16 @@ set_processorCallback_withProgress ::
 set_processorCallback_withProgress =
   RIP.setUnionPayload
 
-instance HasCField.HasCField ProcessorCallback "processorCallback_simple" where
-
-  type CFieldType ProcessorCallback "processorCallback_simple" =
-    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "processorCallback_simple" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"processorCallback_simple")
 
-instance HasCField.HasCField ProcessorCallback "processorCallback_withValidator" where
+instance HasCField.HasCField ProcessorCallback "processorCallback_simple" where
 
-  type CFieldType ProcessorCallback "processorCallback_withValidator" =
-    RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+  type CFieldType ProcessorCallback "processorCallback_simple" =
+    RIP.FunPtr (RIP.Ptr Measurement -> IO ())
 
   offset# = \_ -> \_ -> 0
 
@@ -1204,10 +1197,10 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
   getField =
     HasCField.fromPtr (RIP.Proxy @"processorCallback_withValidator")
 
-instance HasCField.HasCField ProcessorCallback "processorCallback_withProgress" where
+instance HasCField.HasCField ProcessorCallback "processorCallback_withValidator" where
 
-  type CFieldType ProcessorCallback "processorCallback_withProgress" =
-    RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+  type CFieldType ProcessorCallback "processorCallback_withValidator" =
+    RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
 
   offset# = \_ -> \_ -> 0
 
@@ -1216,6 +1209,13 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"processorCallback_withProgress")
+
+instance HasCField.HasCField ProcessorCallback "processorCallback_withProgress" where
+
+  type CFieldType ProcessorCallback "processorCallback_withProgress" =
+    RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @enum \@Processor_mode@
 
@@ -1299,6 +1299,15 @@ instance Read Processor_mode where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_mode" Processor_mode ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Processor_mode {unwrapProcessor_mode = y1}
+      , RIP.getField @"unwrapProcessor_mode" x0
+      )
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapProcessor_mode" (RIP.Ptr Processor_mode) (RIP.Ptr ty) where
 
   getField =
@@ -1310,15 +1319,6 @@ instance HasCField.HasCField Processor_mode "unwrapProcessor_mode" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapProcessor_mode" Processor_mode ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Processor_mode {unwrapProcessor_mode = y1}
-      , RIP.getField @"unwrapProcessor_mode" x0
-      )
 
 {-| __C declaration:__ @MODE_SIMPLE@
 
@@ -1397,19 +1397,6 @@ instance Marshal.WriteRaw Processor where
 
 deriving via Marshal.EquivStorable Processor instance RIP.Storable Processor
 
-instance HasCField.HasCField Processor "processor_mode" where
-
-  type CFieldType Processor "processor_mode" =
-    Processor_mode
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Processor_mode
-         ) => RIP.HasField "processor_mode" (RIP.Ptr Processor) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"processor_mode")
-
 instance ( ty ~ Processor_mode
          ) => RIP.CompatHasField.HasField "processor_mode" Processor ty where
 
@@ -1422,18 +1409,18 @@ instance ( ty ~ Processor_mode
       , RIP.getField @"processor_mode" x0
       )
 
-instance HasCField.HasCField Processor "processor_callback" where
-
-  type CFieldType Processor "processor_callback" =
-    ProcessorCallback
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ ProcessorCallback
-         ) => RIP.HasField "processor_callback" (RIP.Ptr Processor) (RIP.Ptr ty) where
+instance ( ty ~ Processor_mode
+         ) => RIP.HasField "processor_mode" (RIP.Ptr Processor) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"processor_callback")
+    HasCField.fromPtr (RIP.Proxy @"processor_mode")
+
+instance HasCField.HasCField Processor "processor_mode" where
+
+  type CFieldType Processor "processor_mode" =
+    Processor_mode
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ ProcessorCallback
          ) => RIP.CompatHasField.HasField "processor_callback" Processor ty where
@@ -1444,6 +1431,19 @@ instance ( ty ~ ProcessorCallback
           Processor {processor_callback = y1, processor_mode = RIP.getField @"processor_mode" x0}
       , RIP.getField @"processor_callback" x0
       )
+
+instance ( ty ~ ProcessorCallback
+         ) => RIP.HasField "processor_callback" (RIP.Ptr Processor) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"processor_callback")
+
+instance HasCField.HasCField Processor "processor_callback" where
+
+  type CFieldType Processor "processor_callback" =
+    ProcessorCallback
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @foo@
 
@@ -1473,6 +1473,13 @@ newtype Foo = Foo
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
@@ -1483,13 +1490,6 @@ instance HasCField.HasCField Foo "unwrapFoo" where
   type CFieldType Foo "unwrapFoo" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
 
 {-| __C declaration:__ @foo2@
 
@@ -1520,6 +1520,14 @@ newtype Foo2 = Foo2
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFoo2" Foo2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Foo2 {unwrapFoo2 = y1}, RIP.getField @"unwrapFoo2" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFoo2" (RIP.Ptr Foo2) (RIP.Ptr ty) where
 
   getField =
@@ -1530,14 +1538,6 @@ instance HasCField.HasCField Foo2 "unwrapFoo2" where
   type CFieldType Foo2 "unwrapFoo2" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapFoo2" Foo2 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Foo2 {unwrapFoo2 = y1}, RIP.getField @"unwrapFoo2" x0)
 
 {-| __C declaration:__ @A@
 
@@ -1567,6 +1567,12 @@ newtype A = A
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
@@ -1577,12 +1583,6 @@ instance HasCField.HasCField A "unwrapA" where
   type CFieldType A "unwrapA" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
 
 {-| __C declaration:__ @B@
 
@@ -1612,6 +1612,12 @@ newtype B = B
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
@@ -1622,12 +1628,6 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapB" B ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
 
 {-| __C declaration:__ @struct S@
 
@@ -1670,23 +1670,23 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance RIP.Storable S
 
-instance HasCField.HasCField S "s_fn" where
-
-  type CFieldType S "s_fn" = RIP.FunPtr (B -> IO ())
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr (B -> IO ())
-         ) => RIP.HasField "s_fn" (RIP.Ptr S) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s_fn")
-
 instance ( ty ~ RIP.FunPtr (B -> IO ())
          ) => RIP.CompatHasField.HasField "s_fn" S ty where
 
   hasField =
     \x0 ->
       (\y1 -> S {s_fn = y1}, RIP.getField @"s_fn" x0)
+
+instance ( ty ~ RIP.FunPtr (B -> IO ())
+         ) => RIP.HasField "s_fn" (RIP.Ptr S) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s_fn")
+
+instance HasCField.HasCField S "s_fn" where
+
+  type CFieldType S "s_fn" = RIP.FunPtr (B -> IO ())
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @C@
 
@@ -1716,6 +1716,12 @@ newtype C = C
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapC" C ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> C {unwrapC = y1}, RIP.getField @"unwrapC" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapC" (RIP.Ptr C) (RIP.Ptr ty) where
 
@@ -1726,12 +1732,6 @@ instance HasCField.HasCField C "unwrapC" where
   type CFieldType C "unwrapC" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapC" C ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> C {unwrapC = y1}, RIP.getField @"unwrapC" x0)
 
 {-| __C declaration:__ @union U@
 
@@ -1777,17 +1777,17 @@ set_u_fn ::
   -> U
 set_u_fn = RIP.setUnionPayload
 
+instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+         ) => RIP.HasField "u_fn" (RIP.Ptr U) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"u_fn")
+
 instance HasCField.HasCField U "u_fn" where
 
   type CFieldType U "u_fn" =
     CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
-         ) => RIP.HasField "u_fn" (RIP.Ptr U) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"u_fn")
 
 {-| __C declaration:__ @D@
 
@@ -1817,6 +1817,12 @@ newtype D = D
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapD" D ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> D {unwrapD = y1}, RIP.getField @"unwrapD" x0)
+
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapD" (RIP.Ptr D) (RIP.Ptr ty) where
 
@@ -1827,12 +1833,6 @@ instance HasCField.HasCField D "unwrapD" where
   type CFieldType D "unwrapD" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapD" D ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> D {unwrapD = y1}, RIP.getField @"unwrapD" x0)
 
 {-| __C declaration:__ @T@
 
@@ -1881,6 +1881,13 @@ instance RIP.FromFunPtr T where
   fromFunPtr = hs_bindgen_8f830eadb43a6fe4
 
 instance ( ty ~ (RIP.FunPtr (D -> IO ()) -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
+instance ( ty ~ (RIP.FunPtr (D -> IO ()) -> IO ())
          ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -1891,13 +1898,6 @@ instance HasCField.HasCField T "unwrapT" where
     RIP.FunPtr (D -> IO ()) -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.FunPtr (D -> IO ()) -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
 
 -- __unique:__ @instance ToFunPtr (A -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_a46c670f88b5e6d2_base ::

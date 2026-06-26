@@ -680,16 +680,16 @@ newtype Triplet
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" Triplet ty
+    where hasField = \x_0 -> (\y_1 -> Triplet{unwrapTriplet = y_1},
+                              getField @"unwrapTriplet" x_0)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
                                                                   CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 3 CInt) =>
-         HasField "unwrapTriplet" Triplet ty
-    where hasField = \x_0 -> (\y_1 -> Triplet{unwrapTriplet = y_1},
-                              getField @"unwrapTriplet" x_0)
 {-| __C declaration:__ @list@
 
     __defined at:__ @arrays\/array.h 43:13@
@@ -701,15 +701,15 @@ newtype List
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
+         HasField "unwrapList" List ty
+    where hasField = \x_0 -> (\y_1 -> List{unwrapList = y_1},
+                              getField @"unwrapList" x_0)
+instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapList" (Ptr List) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapList")
 instance HasCField List "unwrapList"
     where type CFieldType List "unwrapList" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (IncompleteArray CInt) =>
-         HasField "unwrapList" List ty
-    where hasField = \x_0 -> (\y_1 -> List{unwrapList = y_1},
-                              getField @"unwrapList" x_0)
 {-| __C declaration:__ @matrix@
 
     __defined at:__ @arrays\/array.h 45:13@
@@ -721,16 +721,16 @@ newtype Matrix
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
+         HasField "unwrapMatrix" Matrix ty
+    where hasField = \x_0 -> (\y_1 -> Matrix{unwrapMatrix = y_1},
+                              getField @"unwrapMatrix" x_0)
+instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
                                                                 (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
-         HasField "unwrapMatrix" Matrix ty
-    where hasField = \x_0 -> (\y_1 -> Matrix{unwrapMatrix = y_1},
-                              getField @"unwrapMatrix" x_0)
 {-| __C declaration:__ @tripletlist@
 
     __defined at:__ @arrays\/array.h 47:13@
@@ -743,16 +743,16 @@ newtype Tripletlist
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
+         HasField "unwrapTripletlist" Tripletlist ty
+    where hasField = \x_0 -> (\y_1 -> Tripletlist{unwrapTripletlist = y_1},
+                              getField @"unwrapTripletlist" x_0)
+instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
          HasField "unwrapTripletlist" (Ptr Tripletlist) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTripletlist")
 instance HasCField Tripletlist "unwrapTripletlist"
     where type CFieldType Tripletlist
                           "unwrapTripletlist" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
-instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
-         HasField "unwrapTripletlist" Tripletlist ty
-    where hasField = \x_0 -> (\y_1 -> Tripletlist{unwrapTripletlist = y_1},
-                              getField @"unwrapTripletlist" x_0)
 {-| __C declaration:__ @struct Example@
 
     __defined at:__ @arrays\/array.h 49:8@
@@ -785,30 +785,30 @@ instance WriteRaw Example
                                        Example example_triple_2
                                                example_sudoku_3 -> writeRaw (Proxy @"example_triple") ptr_0 example_triple_2 >> writeRaw (Proxy @"example_sudoku") ptr_0 example_sudoku_3
 deriving via (EquivStorable Example) instance Storable Example
-instance HasCField Example "example_triple"
-    where type CFieldType Example "example_triple" = ConstantArray 3
-                                                                   CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 3 CInt) =>
-         HasField "example_triple" (Ptr Example) (Ptr ty)
-    where getField = fromPtr (Proxy @"example_triple")
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "example_triple" Example ty
     where hasField = \x_0 -> (\y_1 -> Example{example_triple = y_1,
                                               example_sudoku = getField @"example_sudoku" x_0},
                               getField @"example_triple" x_0)
-instance HasCField Example "example_sudoku"
-    where type CFieldType Example "example_sudoku" = ConstantArray 3
-                                                                   (ConstantArray 3 CInt)
-          offset# = \_ -> \_ -> 12
-instance (~) ty (ConstantArray 3 (ConstantArray 3 CInt)) =>
-         HasField "example_sudoku" (Ptr Example) (Ptr ty)
-    where getField = fromPtr (Proxy @"example_sudoku")
+instance (~) ty (ConstantArray 3 CInt) =>
+         HasField "example_triple" (Ptr Example) (Ptr ty)
+    where getField = fromPtr (Proxy @"example_triple")
+instance HasCField Example "example_triple"
+    where type CFieldType Example "example_triple" = ConstantArray 3
+                                                                   CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (ConstantArray 3 (ConstantArray 3 CInt)) =>
          HasField "example_sudoku" Example ty
     where hasField = \x_0 -> (\y_1 -> Example{example_sudoku = y_1,
                                               example_triple = getField @"example_triple" x_0},
                               getField @"example_sudoku" x_0)
+instance (~) ty (ConstantArray 3 (ConstantArray 3 CInt)) =>
+         HasField "example_sudoku" (Ptr Example) (Ptr ty)
+    where getField = fromPtr (Proxy @"example_sudoku")
+instance HasCField Example "example_sudoku"
+    where type CFieldType Example "example_sudoku" = ConstantArray 3
+                                                                   (ConstantArray 3 CInt)
+          offset# = \_ -> \_ -> 12
 {-| Typedef-in-typedef.
 
     __C declaration:__ @sudoku@
@@ -822,16 +822,16 @@ newtype Sudoku
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 Triplet) =>
+         HasField "unwrapSudoku" Sudoku ty
+    where hasField = \x_0 -> (\y_1 -> Sudoku{unwrapSudoku = y_1},
+                              getField @"unwrapSudoku" x_0)
+instance (~) ty (ConstantArray 3 Triplet) =>
          HasField "unwrapSudoku" (Ptr Sudoku) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSudoku")
 instance HasCField Sudoku "unwrapSudoku"
     where type CFieldType Sudoku "unwrapSudoku" = ConstantArray 3
                                                                 Triplet
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 3 Triplet) =>
-         HasField "unwrapSudoku" Sudoku ty
-    where hasField = \x_0 -> (\y_1 -> Sudoku{unwrapSudoku = y_1},
-                              getField @"unwrapSudoku" x_0)
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3a2c_base ::
     Int32

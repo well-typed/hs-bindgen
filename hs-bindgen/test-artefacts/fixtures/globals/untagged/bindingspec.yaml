@@ -33,12 +33,13 @@ hstypes:
       - unwrapA
   instances:
   - CEnum
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - Prim
   - Read
@@ -56,12 +57,13 @@ hstypes:
       - unwrapAnonEnum
   instances:
   - CEnum
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - Prim
   - Read
@@ -79,12 +81,13 @@ hstypes:
       - unwrapAnonEnumCoords
   instances:
   - CEnum
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - Prim
   - Read
@@ -101,11 +104,12 @@ hstypes:
       - anonPair_a
       - anonPair_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -119,11 +123,12 @@ hstypes:
       - anonPoint_x
       - anonPoint_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -138,7 +143,7 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasField
+  - HasFieldPtr
   - ReadRaw
   - StaticSize
   - Storable
@@ -150,11 +155,12 @@ hstypes:
       fields:
       - c_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

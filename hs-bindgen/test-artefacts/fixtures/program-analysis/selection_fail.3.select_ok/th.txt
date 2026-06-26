@@ -23,12 +23,12 @@ instance WriteRaw OkBefore
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        OkBefore okBefore_x_2 -> writeRaw (Proxy @"okBefore_x") ptr_0 okBefore_x_2
 deriving via (EquivStorable OkBefore) instance Storable OkBefore
-instance HasCField OkBefore "okBefore_x"
-    where type CFieldType OkBefore "okBefore_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
-    where getField = fromPtr (Proxy @"okBefore_x")
 instance (~) ty CInt => HasField "okBefore_x" OkBefore ty
     where hasField = \x_0 -> (\y_1 -> OkBefore{okBefore_x = y_1},
                               getField @"okBefore_x" x_0)
+instance (~) ty CInt =>
+         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
+    where getField = fromPtr (Proxy @"okBefore_x")
+instance HasCField OkBefore "okBefore_x"
+    where type CFieldType OkBefore "okBefore_x" = CInt
+          offset# = \_ -> \_ -> 0

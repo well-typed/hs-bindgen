@@ -17,11 +17,12 @@ hstypes:
       fields:
       - unwrapMatrix
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -35,10 +36,11 @@ hstypes:
       fields:
       - unwrapTriplets
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show

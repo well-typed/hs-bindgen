@@ -160,15 +160,15 @@ instance ToFunPtr A_Aux
 instance FromFunPtr A_Aux
     where fromFunPtr = hs_bindgen_cdb12400c6863f15
 instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapA_Aux" A_Aux ty
+    where hasField = \x_0 -> (\y_1 -> A_Aux{unwrapA_Aux = y_1},
+                              getField @"unwrapA_Aux" x_0)
+instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrapA_Aux" (Ptr A_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_Aux")
 instance HasCField A_Aux "unwrapA_Aux"
     where type CFieldType A_Aux "unwrapA_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO CInt) =>
-         HasField "unwrapA_Aux" A_Aux ty
-    where hasField = \x_0 -> (\y_1 -> A_Aux{unwrapA_Aux = y_1},
-                              getField @"unwrapA_Aux" x_0)
 {-| __C declaration:__ @A@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 6:15@
@@ -183,15 +183,15 @@ newtype A
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (FunPtr A_Aux) => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty (FunPtr A_Aux) =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = FunPtr A_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr A_Aux) => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @B@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 7:11@
@@ -206,14 +206,14 @@ newtype B
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty A => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
-instance (~) ty A => HasField "unwrapB" B ty
-    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
-                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @E@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 19:11@
@@ -224,14 +224,14 @@ newtype E
     = E {unwrapE :: M.C}
     deriving stock Generic
     deriving newtype HasFFIType
+instance (~) ty M.C => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
-instance (~) ty M.C => HasField "unwrapE" E ty
-    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
-                              getField @"unwrapE" x_0)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
     FunPtr Void

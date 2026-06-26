@@ -65,17 +65,6 @@ instance Marshal.WriteRaw Omitted where
 
 deriving via Marshal.EquivStorable Omitted instance RIP.Storable Omitted
 
-instance HasCField.HasCField Omitted "omitted_n" where
-
-  type CFieldType Omitted "omitted_n" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "omitted_n" Omitted ty where
 
@@ -83,6 +72,17 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Omitted {omitted_n = y1}, RIP.getField @"omitted_n" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
+
+instance HasCField.HasCField Omitted "omitted_n" where
+
+  type CFieldType Omitted "omitted_n" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
@@ -125,19 +125,6 @@ instance Marshal.WriteRaw DirectlyDependsOnOmitted where
 
 deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance RIP.Storable DirectlyDependsOnOmitted
 
-instance HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" where
-
-  type CFieldType DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" =
-    Omitted
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Omitted
-         ) => RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
-
 instance ( ty ~ Omitted
          ) => RIP.CompatHasField.HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty where
 
@@ -147,6 +134,19 @@ instance ( ty ~ Omitted
           DirectlyDependsOnOmitted {directlyDependsOnOmitted_o = y1}
       , RIP.getField @"directlyDependsOnOmitted_o" x0
       )
+
+instance ( ty ~ Omitted
+         ) => RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
+
+instance HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" where
+
+  type CFieldType DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" =
+    Omitted
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
@@ -189,19 +189,6 @@ instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
 
 deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance RIP.Storable IndirectlyDependsOnOmitted
 
-instance HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" where
-
-  type CFieldType IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" =
-    DirectlyDependsOnOmitted
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ DirectlyDependsOnOmitted
-         ) => RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")
-
 instance ( ty ~ DirectlyDependsOnOmitted
          ) => RIP.CompatHasField.HasField "indirectlyDependsOnOmitted_d" IndirectlyDependsOnOmitted ty where
 
@@ -211,3 +198,16 @@ instance ( ty ~ DirectlyDependsOnOmitted
           IndirectlyDependsOnOmitted {indirectlyDependsOnOmitted_d = y1}
       , RIP.getField @"indirectlyDependsOnOmitted_d" x0
       )
+
+instance ( ty ~ DirectlyDependsOnOmitted
+         ) => RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")
+
+instance HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" where
+
+  type CFieldType IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" =
+    DirectlyDependsOnOmitted
+
+  offset# = \_ -> \_ -> 0

@@ -72,17 +72,6 @@ instance Marshal.WriteRaw Vector where
 
 deriving via Marshal.EquivStorable Vector instance RIP.Storable Vector
 
-instance HasCField.HasCField Vector "vector_x" where
-
-  type CFieldType Vector "vector_x" = RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
-
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "vector_x" Vector ty where
 
@@ -93,16 +82,16 @@ instance ( ty ~ RIP.CDouble
       , RIP.getField @"vector_x" x0
       )
 
-instance HasCField.HasCField Vector "vector_y" where
-
-  type CFieldType Vector "vector_y" = RIP.CDouble
-
-  offset# = \_ -> \_ -> 8
-
 instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
+         ) => RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"vector_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
+
+instance HasCField.HasCField Vector "vector_x" where
+
+  type CFieldType Vector "vector_x" = RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "vector_y" Vector ty where
@@ -113,3 +102,14 @@ instance ( ty ~ RIP.CDouble
           Vector {vector_y = y1, vector_x = RIP.getField @"vector_x" x0}
       , RIP.getField @"vector_y" x0
       )
+
+instance ( ty ~ RIP.CDouble
+         ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"vector_y")
+
+instance HasCField.HasCField Vector "vector_y" where
+
+  type CFieldType Vector "vector_y" = RIP.CDouble
+
+  offset# = \_ -> \_ -> 8

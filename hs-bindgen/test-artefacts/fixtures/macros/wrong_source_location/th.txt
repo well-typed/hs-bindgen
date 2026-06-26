@@ -23,15 +23,15 @@ instance WriteRaw UU1_fieldY
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU1_fieldY uU1_fieldY_fieldX_2 -> writeRaw (Proxy @"uU1_fieldY_fieldX") ptr_0 uU1_fieldY_fieldX_2
 deriving via (EquivStorable UU1_fieldY) instance Storable UU1_fieldY
-instance HasCField UU1_fieldY "uU1_fieldY_fieldX"
-    where type CFieldType UU1_fieldY "uU1_fieldY_fieldX" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "uU1_fieldY_fieldX" (Ptr UU1_fieldY) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU1_fieldY_fieldX")
 instance (~) ty CInt => HasField "uU1_fieldY_fieldX" UU1_fieldY ty
     where hasField = \x_0 -> (\y_1 -> UU1_fieldY{uU1_fieldY_fieldX = y_1},
                               getField @"uU1_fieldY_fieldX" x_0)
+instance (~) ty CInt =>
+         HasField "uU1_fieldY_fieldX" (Ptr UU1_fieldY) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU1_fieldY_fieldX")
+instance HasCField UU1_fieldY "uU1_fieldY_fieldX"
+    where type CFieldType UU1_fieldY "uU1_fieldY_fieldX" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct UU1@
 
     __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -56,15 +56,15 @@ instance WriteRaw UU1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU1 uU1_fieldY_2 -> writeRaw (Proxy @"uU1_fieldY") ptr_0 uU1_fieldY_2
 deriving via (EquivStorable UU1) instance Storable UU1
-instance HasCField UU1 "uU1_fieldY"
-    where type CFieldType UU1 "uU1_fieldY" = UU1_fieldY
-          offset# = \_ -> \_ -> 0
-instance (~) ty UU1_fieldY =>
-         HasField "uU1_fieldY" (Ptr UU1) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU1_fieldY")
 instance (~) ty UU1_fieldY => HasField "uU1_fieldY" UU1 ty
     where hasField = \x_0 -> (\y_1 -> UU1{uU1_fieldY = y_1},
                               getField @"uU1_fieldY" x_0)
+instance (~) ty UU1_fieldY =>
+         HasField "uU1_fieldY" (Ptr UU1) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU1_fieldY")
+instance HasCField UU1 "uU1_fieldY"
+    where type CFieldType UU1 "uU1_fieldY" = UU1_fieldY
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@UU2_fieldY@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -89,15 +89,15 @@ instance WriteRaw UU2_fieldY
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU2_fieldY uU2_fieldY_fieldX_2 -> writeRaw (Proxy @"uU2_fieldY_fieldX") ptr_0 uU2_fieldY_fieldX_2
 deriving via (EquivStorable UU2_fieldY) instance Storable UU2_fieldY
-instance HasCField UU2_fieldY "uU2_fieldY_fieldX"
-    where type CFieldType UU2_fieldY "uU2_fieldY_fieldX" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "uU2_fieldY_fieldX" (Ptr UU2_fieldY) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU2_fieldY_fieldX")
 instance (~) ty CInt => HasField "uU2_fieldY_fieldX" UU2_fieldY ty
     where hasField = \x_0 -> (\y_1 -> UU2_fieldY{uU2_fieldY_fieldX = y_1},
                               getField @"uU2_fieldY_fieldX" x_0)
+instance (~) ty CInt =>
+         HasField "uU2_fieldY_fieldX" (Ptr UU2_fieldY) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU2_fieldY_fieldX")
+instance HasCField UU2_fieldY "uU2_fieldY_fieldX"
+    where type CFieldType UU2_fieldY "uU2_fieldY_fieldX" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct UU2@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -122,15 +122,15 @@ instance WriteRaw UU2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU2 uU2_fieldY_2 -> writeRaw (Proxy @"uU2_fieldY") ptr_0 uU2_fieldY_2
 deriving via (EquivStorable UU2) instance Storable UU2
-instance HasCField UU2 "uU2_fieldY"
-    where type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
-          offset# = \_ -> \_ -> 0
-instance (~) ty UU2_fieldY =>
-         HasField "uU2_fieldY" (Ptr UU2) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU2_fieldY")
 instance (~) ty UU2_fieldY => HasField "uU2_fieldY" UU2 ty
     where hasField = \x_0 -> (\y_1 -> UU2{uU2_fieldY = y_1},
                               getField @"uU2_fieldY" x_0)
+instance (~) ty UU2_fieldY =>
+         HasField "uU2_fieldY" (Ptr UU2) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU2_fieldY")
+instance HasCField UU2 "uU2_fieldY"
+    where type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -155,15 +155,15 @@ instance WriteRaw VV1_fieldA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV1_fieldA vV1_fieldA_a_2 -> writeRaw (Proxy @"vV1_fieldA_a") ptr_0 vV1_fieldA_a_2
 deriving via (EquivStorable VV1_fieldA) instance Storable VV1_fieldA
-instance HasCField VV1_fieldA "vV1_fieldA_a"
-    where type CFieldType VV1_fieldA "vV1_fieldA_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV1_fieldA_a" (Ptr VV1_fieldA) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV1_fieldA_a")
 instance (~) ty CInt => HasField "vV1_fieldA_a" VV1_fieldA ty
     where hasField = \x_0 -> (\y_1 -> VV1_fieldA{vV1_fieldA_a = y_1},
                               getField @"vV1_fieldA_a" x_0)
+instance (~) ty CInt =>
+         HasField "vV1_fieldA_a" (Ptr VV1_fieldA) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV1_fieldA_a")
+instance HasCField VV1_fieldA "vV1_fieldA_a"
+    where type CFieldType VV1_fieldA "vV1_fieldA_a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@VV1_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -188,15 +188,15 @@ instance WriteRaw VV1_fieldB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV1_fieldB vV1_fieldB_b_2 -> writeRaw (Proxy @"vV1_fieldB_b") ptr_0 vV1_fieldB_b_2
 deriving via (EquivStorable VV1_fieldB) instance Storable VV1_fieldB
-instance HasCField VV1_fieldB "vV1_fieldB_b"
-    where type CFieldType VV1_fieldB "vV1_fieldB_b" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV1_fieldB_b" (Ptr VV1_fieldB) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV1_fieldB_b")
 instance (~) ty CInt => HasField "vV1_fieldB_b" VV1_fieldB ty
     where hasField = \x_0 -> (\y_1 -> VV1_fieldB{vV1_fieldB_b = y_1},
                               getField @"vV1_fieldB_b" x_0)
+instance (~) ty CInt =>
+         HasField "vV1_fieldB_b" (Ptr VV1_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV1_fieldB_b")
+instance HasCField VV1_fieldB "vV1_fieldB_b"
+    where type CFieldType VV1_fieldB "vV1_fieldB_b" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct VV1@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -229,26 +229,26 @@ instance WriteRaw VV1
                                        VV1 vV1_fieldA_2
                                            vV1_fieldB_3 -> writeRaw (Proxy @"vV1_fieldA") ptr_0 vV1_fieldA_2 >> writeRaw (Proxy @"vV1_fieldB") ptr_0 vV1_fieldB_3
 deriving via (EquivStorable VV1) instance Storable VV1
-instance HasCField VV1 "vV1_fieldA"
-    where type CFieldType VV1 "vV1_fieldA" = VV1_fieldA
-          offset# = \_ -> \_ -> 0
-instance (~) ty VV1_fieldA =>
-         HasField "vV1_fieldA" (Ptr VV1) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV1_fieldA")
 instance (~) ty VV1_fieldA => HasField "vV1_fieldA" VV1 ty
     where hasField = \x_0 -> (\y_1 -> VV1{vV1_fieldA = y_1,
                                           vV1_fieldB = getField @"vV1_fieldB" x_0},
                               getField @"vV1_fieldA" x_0)
-instance HasCField VV1 "vV1_fieldB"
-    where type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
-          offset# = \_ -> \_ -> 4
-instance (~) ty VV1_fieldB =>
-         HasField "vV1_fieldB" (Ptr VV1) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV1_fieldB")
+instance (~) ty VV1_fieldA =>
+         HasField "vV1_fieldA" (Ptr VV1) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV1_fieldA")
+instance HasCField VV1 "vV1_fieldA"
+    where type CFieldType VV1 "vV1_fieldA" = VV1_fieldA
+          offset# = \_ -> \_ -> 0
 instance (~) ty VV1_fieldB => HasField "vV1_fieldB" VV1 ty
     where hasField = \x_0 -> (\y_1 -> VV1{vV1_fieldB = y_1,
                                           vV1_fieldA = getField @"vV1_fieldA" x_0},
                               getField @"vV1_fieldB" x_0)
+instance (~) ty VV1_fieldB =>
+         HasField "vV1_fieldB" (Ptr VV1) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV1_fieldB")
+instance HasCField VV1 "vV1_fieldB"
+    where type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct \@VV2_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -273,15 +273,15 @@ instance WriteRaw VV2_fieldA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV2_fieldA vV2_fieldA_a_2 -> writeRaw (Proxy @"vV2_fieldA_a") ptr_0 vV2_fieldA_a_2
 deriving via (EquivStorable VV2_fieldA) instance Storable VV2_fieldA
-instance HasCField VV2_fieldA "vV2_fieldA_a"
-    where type CFieldType VV2_fieldA "vV2_fieldA_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV2_fieldA_a" (Ptr VV2_fieldA) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV2_fieldA_a")
 instance (~) ty CInt => HasField "vV2_fieldA_a" VV2_fieldA ty
     where hasField = \x_0 -> (\y_1 -> VV2_fieldA{vV2_fieldA_a = y_1},
                               getField @"vV2_fieldA_a" x_0)
+instance (~) ty CInt =>
+         HasField "vV2_fieldA_a" (Ptr VV2_fieldA) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV2_fieldA_a")
+instance HasCField VV2_fieldA "vV2_fieldA_a"
+    where type CFieldType VV2_fieldA "vV2_fieldA_a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@VV2_fieldB@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -306,15 +306,15 @@ instance WriteRaw VV2_fieldB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV2_fieldB vV2_fieldB_b_2 -> writeRaw (Proxy @"vV2_fieldB_b") ptr_0 vV2_fieldB_b_2
 deriving via (EquivStorable VV2_fieldB) instance Storable VV2_fieldB
-instance HasCField VV2_fieldB "vV2_fieldB_b"
-    where type CFieldType VV2_fieldB "vV2_fieldB_b" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "vV2_fieldB_b" (Ptr VV2_fieldB) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV2_fieldB_b")
 instance (~) ty CInt => HasField "vV2_fieldB_b" VV2_fieldB ty
     where hasField = \x_0 -> (\y_1 -> VV2_fieldB{vV2_fieldB_b = y_1},
                               getField @"vV2_fieldB_b" x_0)
+instance (~) ty CInt =>
+         HasField "vV2_fieldB_b" (Ptr VV2_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV2_fieldB_b")
+instance HasCField VV2_fieldB "vV2_fieldB_b"
+    where type CFieldType VV2_fieldB "vV2_fieldB_b" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct VV2@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -347,23 +347,23 @@ instance WriteRaw VV2
                                        VV2 vV2_fieldA_2
                                            vV2_fieldB_3 -> writeRaw (Proxy @"vV2_fieldA") ptr_0 vV2_fieldA_2 >> writeRaw (Proxy @"vV2_fieldB") ptr_0 vV2_fieldB_3
 deriving via (EquivStorable VV2) instance Storable VV2
-instance HasCField VV2 "vV2_fieldA"
-    where type CFieldType VV2 "vV2_fieldA" = VV2_fieldA
-          offset# = \_ -> \_ -> 0
-instance (~) ty VV2_fieldA =>
-         HasField "vV2_fieldA" (Ptr VV2) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV2_fieldA")
 instance (~) ty VV2_fieldA => HasField "vV2_fieldA" VV2 ty
     where hasField = \x_0 -> (\y_1 -> VV2{vV2_fieldA = y_1,
                                           vV2_fieldB = getField @"vV2_fieldB" x_0},
                               getField @"vV2_fieldA" x_0)
-instance HasCField VV2 "vV2_fieldB"
-    where type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
-          offset# = \_ -> \_ -> 4
-instance (~) ty VV2_fieldB =>
-         HasField "vV2_fieldB" (Ptr VV2) (Ptr ty)
-    where getField = fromPtr (Proxy @"vV2_fieldB")
+instance (~) ty VV2_fieldA =>
+         HasField "vV2_fieldA" (Ptr VV2) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV2_fieldA")
+instance HasCField VV2 "vV2_fieldA"
+    where type CFieldType VV2 "vV2_fieldA" = VV2_fieldA
+          offset# = \_ -> \_ -> 0
 instance (~) ty VV2_fieldB => HasField "vV2_fieldB" VV2 ty
     where hasField = \x_0 -> (\y_1 -> VV2{vV2_fieldB = y_1,
                                           vV2_fieldA = getField @"vV2_fieldA" x_0},
                               getField @"vV2_fieldB" x_0)
+instance (~) ty VV2_fieldB =>
+         HasField "vV2_fieldB" (Ptr VV2) (Ptr ty)
+    where getField = fromPtr (Proxy @"vV2_fieldB")
+instance HasCField VV2 "vV2_fieldB"
+    where type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
+          offset# = \_ -> \_ -> 4

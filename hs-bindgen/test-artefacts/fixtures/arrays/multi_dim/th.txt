@@ -171,16 +171,16 @@ newtype Matrix
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
+         HasField "unwrapMatrix" Matrix ty
+    where hasField = \x_0 -> (\y_1 -> Matrix{unwrapMatrix = y_1},
+                              getField @"unwrapMatrix" x_0)
+instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
                                                                 (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
-         HasField "unwrapMatrix" Matrix ty
-    where hasField = \x_0 -> (\y_1 -> Matrix{unwrapMatrix = y_1},
-                              getField @"unwrapMatrix" x_0)
 {-| __C declaration:__ @triplets@
 
     __defined at:__ @arrays\/multi_dim.h 17:13@
@@ -193,16 +193,16 @@ newtype Triplets
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
+         HasField "unwrapTriplets" Triplets ty
+    where hasField = \x_0 -> (\y_1 -> Triplets{unwrapTriplets = y_1},
+                              getField @"unwrapTriplets" x_0)
+instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
          HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplets")
 instance HasCField Triplets "unwrapTriplets"
     where type CFieldType Triplets
                           "unwrapTriplets" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
-instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
-         HasField "unwrapTriplets" Triplets ty
-    where hasField = \x_0 -> (\y_1 -> Triplets{unwrapTriplets = y_1},
-                              getField @"unwrapTriplets" x_0)
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_57b00b79dd5b838e" hs_bindgen_57b00b79dd5b838e_base ::
     Ptr Void

@@ -51,6 +51,14 @@ newtype BOOL = BOOL
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -61,11 +69,3 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
   type CFieldType BOOL "unwrapBOOL" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)

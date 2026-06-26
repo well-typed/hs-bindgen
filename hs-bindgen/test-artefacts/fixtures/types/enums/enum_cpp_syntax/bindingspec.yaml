@@ -18,12 +18,13 @@ hstypes:
       - unwrapFoo_enum
   instances:
   - CEnum
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - Prim
   - Read

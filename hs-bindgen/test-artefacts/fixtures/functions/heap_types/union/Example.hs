@@ -67,12 +67,12 @@ set_t_x ::
   -> T
 set_t_x = RIP.setUnionPayload
 
+instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t_x")
+
 instance HasCField.HasCField T "t_x" where
 
   type CFieldType T "t_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t_x")

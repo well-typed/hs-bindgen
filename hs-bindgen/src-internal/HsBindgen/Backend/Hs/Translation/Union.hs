@@ -76,7 +76,7 @@ unionDecs info union spec = do
           -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
           -- when bit-fields in unions are supported.
           , if null union.fields then Nothing else Just Inst.HasCField
-          , if null union.fields then Nothing else Just Inst.HasField
+          , if null union.fields then Nothing else Just Inst.HasFieldPtr
           , Just Inst.ReadRaw
           , Just Inst.StaticSize
           , Just Inst.Storable
@@ -85,9 +85,9 @@ unionDecs info union spec = do
 
     -- everything in aux is state-dependent
     aux :: HsM.St -> HsM.Env -> Hs.Newtype -> [Hs.Decl l]
-    aux transState env nt =
+    aux st env nt =
         Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
-        concatMap (unionFieldDecls nt.name) union.fields
+        fieldDecls
       where
         marshalDecls :: [Hs.Decl l]
         marshalDecls = [
@@ -129,6 +129,10 @@ unionDecs info union spec = do
               (fromIntegral union.sizeof)
               (fromIntegral union.alignment)
 
+        fieldDecls :: [Hs.Decl l]
+        fieldDecls = flip concatMap union.fields $ \field ->
+          hasFieldPtrDecs nt field
+
         accessorDecls :: [Hs.Decl l]
         accessorDecls = concatMap getAccessorDecls union.fields
 
@@ -155,7 +159,7 @@ unionDecs info union spec = do
             hsType :: Hs.Type
             hsType     = Type.topLevel field.typ
             fInsts     = Hs.getInstances
-                            transState.instanceMap
+                            st.instanceMap
                             (Just nt.name)
                             (Set.singleton Inst.Storable)
                             [hsType]
@@ -170,8 +174,12 @@ unionDecs info union spec = do
               , HsDoc.Identifier name
               ]
 
--- | 'HsBindgen.Runtime.HasCField.HasCField' and 'GHC.Records.HasField' instances for a field of a
--- union declaration
+{-------------------------------------------------------------------------------
+  HasField
+-------------------------------------------------------------------------------}
+
+-- | Class instances for 'GHC.Records.HasField' for a union field for the
+-- pointer manipulation API
 --
 -- Given a union:
 --
@@ -181,34 +189,42 @@ unionDecs info union spec = do
 --
 -- > newtype MyUnion = MyUnion { unwrapMyUnion :: ByteArray }
 --
--- Then, 'unionFieldDecls' will generate roughly the following class instances
+-- Then, 'hasFieldPtrDecs' will generate roughly the following class instances
 -- for the fields @option1@ and @option@ respectively:
 --
 -- > instance HasCField "myUnion_option1" MyUnion where
 -- >   type CFieldType "myUnion_option1" MyUnion = CInt
--- > instance HasField "myUnion_option1" (Ptr MyUnion) (Ptr CInt)
+-- > instance GHC.Records.HasField "myUnion_option1" (Ptr MyUnion) (Ptr CInt)
 --
 -- > instance HasCField "myUnion_option2" MyUnion where
 -- >   type CFieldType "myUnion_option2" MyUnion = CChar
--- > instance HasField "myUnion_option2" (Ptr MyUnion) (Ptr CChar)
+-- > instance GHC.Records.HasField "myUnion_option2" (Ptr MyUnion) (Ptr CChar)
 --
--- This works similarly for bit-fields, but those get a 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance
--- instead of a 'HsBindgen.Runtime.HasCField.HasCField' instance.
-unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl l]
-unionFieldDecls unionName field = [
-      Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl =
-              case unionFieldWidth field of
-                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
-                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField hasFieldDecl
-          }
+-- This works similarly for bit-fields, but those get a
+-- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
+-- 'HsBindgen.Runtime.HasCField.HasCField' instance.
+--
+hasFieldPtrDecs :: Hs.Newtype -> C.UnionField Final -> [Hs.Decl l]
+hasFieldPtrDecs nt field = concat [
+      [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
+            }
+      | Inst.HasFieldPtr `elem` nt.instances
+      ]
+    , [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl =
+                case unionFieldWidth field of
+                  Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
+                  Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
+            }
+      | case unionFieldWidth field of
+          Nothing -> Inst.HasCField `elem` nt.instances
+          Just{} -> Inst.HasCBitfield `elem` nt.instances
+      ]
     ]
   where
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
@@ -218,7 +234,7 @@ unionFieldDecls unionName field = [
     unionFieldWidth _f = Nothing
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef unionName Nothing
+    parentType = Hs.TypRef nt.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
@@ -226,8 +242,8 @@ unionFieldDecls unionName field = [
     fieldType :: Hs.Type
     fieldType = Type.topLevel field.typ
 
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance {
+    hasFieldPtrDecl :: Hs.HasFieldPtrInstance
+    hasFieldPtrDecl = Hs.HasFieldPtrInstance {
           parentType = parentType
         , fieldName  = fieldName
         , fieldType  = fieldType

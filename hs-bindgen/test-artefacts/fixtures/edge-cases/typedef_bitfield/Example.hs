@@ -58,6 +58,14 @@ newtype MyInt = MyInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -68,14 +76,6 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| __C declaration:__ @myUInt@
 
@@ -106,6 +106,14 @@ newtype MyUInt = MyUInt
     )
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapMyUInt" MyUInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyUInt {unwrapMyUInt = y1}, RIP.getField @"unwrapMyUInt" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr ty) where
 
   getField =
@@ -116,14 +124,6 @@ instance HasCField.HasCField MyUInt "unwrapMyUInt" where
   type CFieldType MyUInt "unwrapMyUInt" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapMyUInt" MyUInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyUInt {unwrapMyUInt = y1}, RIP.getField @"unwrapMyUInt" x0)
 
 {-| __C declaration:__ @myLong@
 
@@ -154,6 +154,14 @@ newtype MyLong = MyLong
     )
 
 instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "unwrapMyLong" MyLong ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyLong {unwrapMyLong = y1}, RIP.getField @"unwrapMyLong" x0)
+
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr ty) where
 
   getField =
@@ -164,14 +172,6 @@ instance HasCField.HasCField MyLong "unwrapMyLong" where
   type CFieldType MyLong "unwrapMyLong" = RIP.CLong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.CompatHasField.HasField "unwrapMyLong" MyLong ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyLong {unwrapMyLong = y1}, RIP.getField @"unwrapMyLong" x0)
 
 {-| __C declaration:__ @struct myStruct@
 
@@ -232,20 +232,6 @@ instance Marshal.WriteRaw MyStruct where
 
 deriving via Marshal.EquivStorable MyStruct instance RIP.Storable MyStruct
 
-instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
-
-  type CBitfieldType MyStruct "myStruct_x" = MyInt
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 2
-
-instance ( ty ~ MyInt
-         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
-
 instance ( ty ~ MyInt
          ) => RIP.CompatHasField.HasField "myStruct_x" MyStruct ty where
 
@@ -259,19 +245,19 @@ instance ( ty ~ MyInt
       , RIP.getField @"myStruct_x" x0
       )
 
-instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
-
-  type CBitfieldType MyStruct "myStruct_y" = MyUInt
-
-  bitfieldOffset# = \_ -> \_ -> 2
-
-  bitfieldWidth# = \_ -> \_ -> 4
-
-instance ( ty ~ MyUInt
-         ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ MyInt
+         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
+
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
+
+  type CBitfieldType MyStruct "myStruct_x" = MyInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 2
 
 instance ( ty ~ MyUInt
          ) => RIP.CompatHasField.HasField "myStruct_y" MyStruct ty where
@@ -286,19 +272,19 @@ instance ( ty ~ MyUInt
       , RIP.getField @"myStruct_y" x0
       )
 
-instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
-
-  type CBitfieldType MyStruct "myStruct_z" = MyLong
-
-  bitfieldOffset# = \_ -> \_ -> 6
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ty ~ MyLong
-         ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ MyUInt
+         ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
+
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
+
+  type CBitfieldType MyStruct "myStruct_y" = MyUInt
+
+  bitfieldOffset# = \_ -> \_ -> 2
+
+  bitfieldWidth# = \_ -> \_ -> 4
 
 instance ( ty ~ MyLong
          ) => RIP.CompatHasField.HasField "myStruct_z" MyStruct ty where
@@ -312,3 +298,17 @@ instance ( ty ~ MyLong
                    }
       , RIP.getField @"myStruct_z" x0
       )
+
+instance ( ty ~ MyLong
+         ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")
+
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
+
+  type CBitfieldType MyStruct "myStruct_z" = MyLong
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 3

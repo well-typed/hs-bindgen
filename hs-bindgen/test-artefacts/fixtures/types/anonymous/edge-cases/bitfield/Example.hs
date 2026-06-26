@@ -69,6 +69,20 @@ instance Marshal.WriteRaw S1_anon'y where
 
 deriving via Marshal.EquivStorable S1_anon'y instance RIP.Storable S1_anon'y
 
+instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "s1_anon'y_y" S1_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         S1_anon'y {s1_anon'y_y = y1}, RIP.getField @"s1_anon'y_y" x0)
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "s1_anon'y_y" (RIP.Ptr S1_anon'y) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"s1_anon'y_y")
+
 instance HasCBitfield.HasCBitfield S1_anon'y "s1_anon'y_y" where
 
   type CBitfieldType S1_anon'y "s1_anon'y_y" =
@@ -77,20 +91,6 @@ instance HasCBitfield.HasCBitfield S1_anon'y "s1_anon'y_y" where
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s1_anon'y_y" (RIP.Ptr S1_anon'y) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"s1_anon'y_y")
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "s1_anon'y_y" S1_anon'y ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         S1_anon'y {s1_anon'y_y = y1}, RIP.getField @"s1_anon'y_y" x0)
 
 {-| __C declaration:__ @struct S1@
 
@@ -142,17 +142,6 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance RIP.Storable S1
 
-instance HasCField.HasCField S1 "s1_anon'y" where
-
-  type CFieldType S1 "s1_anon'y" = S1_anon'y
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ S1_anon'y
-         ) => RIP.HasField "s1_anon'y" (RIP.Ptr S1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_anon'y")
-
 instance (ty ~ S1_anon'y) => RIP.CompatHasField.HasField "s1_anon'y" S1 ty where
 
   hasField =
@@ -162,15 +151,16 @@ instance (ty ~ S1_anon'y) => RIP.CompatHasField.HasField "s1_anon'y" S1 ty where
       , RIP.getField @"s1_anon'y" x0
       )
 
-instance HasCField.HasCField S1 "s1_x" where
+instance ( ty ~ S1_anon'y
+         ) => RIP.HasField "s1_anon'y" (RIP.Ptr S1) (RIP.Ptr ty) where
 
-  type CFieldType S1 "s1_x" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_anon'y")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField S1 "s1_anon'y" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr ty) where
+  type CFieldType S1 "s1_anon'y" = S1_anon'y
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_x")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_x" S1 ty where
 
@@ -180,6 +170,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_x" S1 ty where
           S1 {s1_x = y1, s1_anon'y = RIP.getField @"s1_anon'y" x0}
       , RIP.getField @"s1_x" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "s1_x" (RIP.Ptr S1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_x")
+
+instance HasCField.HasCField S1 "s1_x" where
+
+  type CFieldType S1 "s1_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y_anon\'y@
 
@@ -222,21 +222,6 @@ instance Marshal.WriteRaw S2_anon'anon'y_anon'y where
 
 deriving via Marshal.EquivStorable S2_anon'anon'y_anon'y instance RIP.Storable S2_anon'anon'y_anon'y
 
-instance HasCBitfield.HasCBitfield S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" where
-
-  type CBitfieldType S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" =
-    RIP.CChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s2_anon'anon'y_anon'y_y" (RIP.Ptr S2_anon'anon'y_anon'y) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"s2_anon'anon'y_anon'y_y")
-
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty where
 
@@ -246,6 +231,21 @@ instance ( ty ~ RIP.CChar
           S2_anon'anon'y_anon'y {s2_anon'anon'y_anon'y_y = y1}
       , RIP.getField @"s2_anon'anon'y_anon'y_y" x0
       )
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "s2_anon'anon'y_anon'y_y" (RIP.Ptr S2_anon'anon'y_anon'y) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"s2_anon'anon'y_anon'y_y")
+
+instance HasCBitfield.HasCBitfield S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" where
+
+  type CBitfieldType S2_anon'anon'y_anon'y "s2_anon'anon'y_anon'y_y" =
+    RIP.CChar
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 3
 
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y@
 
@@ -297,19 +297,6 @@ instance Marshal.WriteRaw S2_anon'anon'y where
 
 deriving via Marshal.EquivStorable S2_anon'anon'y instance RIP.Storable S2_anon'anon'y
 
-instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y" where
-
-  type CFieldType S2_anon'anon'y "s2_anon'anon'y_anon'y" =
-    S2_anon'anon'y_anon'y
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ S2_anon'anon'y_anon'y
-         ) => RIP.HasField "s2_anon'anon'y_anon'y" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_anon'y")
-
 instance ( ty ~ S2_anon'anon'y_anon'y
          ) => RIP.CompatHasField.HasField "s2_anon'anon'y_anon'y" S2_anon'anon'y ty where
 
@@ -322,18 +309,18 @@ instance ( ty ~ S2_anon'anon'y_anon'y
       , RIP.getField @"s2_anon'anon'y_anon'y" x0
       )
 
-instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_x" where
-
-  type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_anon'anon'y_x" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
+instance ( ty ~ S2_anon'anon'y_anon'y
+         ) => RIP.HasField "s2_anon'anon'y_anon'y" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_x")
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_anon'y")
+
+instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y" where
+
+  type CFieldType S2_anon'anon'y "s2_anon'anon'y_anon'y" =
+    S2_anon'anon'y_anon'y
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "s2_anon'anon'y_x" S2_anon'anon'y ty where
@@ -346,6 +333,19 @@ instance ( ty ~ RIP.CInt
                          }
       , RIP.getField @"s2_anon'anon'y_x" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s2_anon'anon'y_x" (RIP.Ptr S2_anon'anon'y) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y_x")
+
+instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_x" where
+
+  type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct S2@
 
@@ -388,18 +388,6 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance RIP.Storable S2
 
-instance HasCField.HasCField S2 "s2_anon'anon'y" where
-
-  type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ S2_anon'anon'y
-         ) => RIP.HasField "s2_anon'anon'y" (RIP.Ptr S2) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y")
-
 instance ( ty ~ S2_anon'anon'y
          ) => RIP.CompatHasField.HasField "s2_anon'anon'y" S2 ty where
 
@@ -407,3 +395,15 @@ instance ( ty ~ S2_anon'anon'y
     \x0 ->
       (\y1 ->
          S2 {s2_anon'anon'y = y1}, RIP.getField @"s2_anon'anon'y" x0)
+
+instance ( ty ~ S2_anon'anon'y
+         ) => RIP.HasField "s2_anon'anon'y" (RIP.Ptr S2) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_anon'anon'y")
+
+instance HasCField.HasCField S2 "s2_anon'anon'y" where
+
+  type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
+
+  offset# = \_ -> \_ -> 0

@@ -51,6 +51,14 @@ newtype MySym = MySym
     )
 
 instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapMySym" MySym ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MySym {unwrapMySym = y1}, RIP.getField @"unwrapMySym" x0)
+
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapMySym" (RIP.Ptr MySym) (RIP.Ptr ty) where
 
   getField =
@@ -61,11 +69,3 @@ instance HasCField.HasCField MySym "unwrapMySym" where
   type CFieldType MySym "unwrapMySym" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapMySym" MySym ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MySym {unwrapMySym = y1}, RIP.getField @"unwrapMySym" x0)

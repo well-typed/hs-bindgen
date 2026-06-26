@@ -84,19 +84,6 @@ instance Marshal.WriteRaw Complex_object_t where
 
 deriving via Marshal.EquivStorable Complex_object_t instance RIP.Storable Complex_object_t
 
-instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
-
-  type CFieldType Complex_object_t "complex_object_t_velocity" =
-    RIP.Complex RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Complex RIP.CFloat
-         ) => RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_velocity")
-
 instance ( ty ~ RIP.Complex RIP.CFloat
          ) => RIP.CompatHasField.HasField "complex_object_t_velocity" Complex_object_t ty where
 
@@ -110,18 +97,18 @@ instance ( ty ~ RIP.Complex RIP.CFloat
       , RIP.getField @"complex_object_t_velocity" x0
       )
 
-instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
-
-  type CFieldType Complex_object_t "complex_object_t_position" =
-    RIP.Complex RIP.CDouble
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Complex RIP.CDouble
-         ) => RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Complex RIP.CFloat
+         ) => RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_position")
+    HasCField.fromPtr (RIP.Proxy @"complex_object_t_velocity")
+
+instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
+
+  type CFieldType Complex_object_t "complex_object_t_velocity" =
+    RIP.Complex RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Complex RIP.CDouble
          ) => RIP.CompatHasField.HasField "complex_object_t_position" Complex_object_t ty where
@@ -136,18 +123,18 @@ instance ( ty ~ RIP.Complex RIP.CDouble
       , RIP.getField @"complex_object_t_position" x0
       )
 
-instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
-
-  type CFieldType Complex_object_t "complex_object_t_id" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 24
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Complex RIP.CDouble
+         ) => RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_id")
+    HasCField.fromPtr (RIP.Proxy @"complex_object_t_position")
+
+instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
+
+  type CFieldType Complex_object_t "complex_object_t_position" =
+    RIP.Complex RIP.CDouble
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "complex_object_t_id" Complex_object_t ty where
@@ -161,3 +148,16 @@ instance ( ty ~ RIP.CInt
                            }
       , RIP.getField @"complex_object_t_id" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"complex_object_t_id")
+
+instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
+
+  type CFieldType Complex_object_t "complex_object_t_id" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 24

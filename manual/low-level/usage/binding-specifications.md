@@ -152,7 +152,7 @@ hs-bindgen-cli preprocess \
     vector.h
 ```
 
-The generated `external/vector.yaml` binding specification contains the
+The generated `binding-specs/vector.yaml` binding specification contains the
 following content.
 
 ```yaml
@@ -183,6 +183,8 @@ hstypes:
       - Generic
       - HasCField
       - HasField
+      - HasFieldCompat
+      - HasFieldPtr
       - ReadRaw
       - Show
       - StaticSize

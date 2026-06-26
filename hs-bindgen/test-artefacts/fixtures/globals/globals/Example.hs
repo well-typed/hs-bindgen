@@ -77,17 +77,6 @@ instance Marshal.WriteRaw Config where
 
 deriving via Marshal.EquivStorable Config instance RIP.Storable Config
 
-instance HasCField.HasCField Config "config_x" where
-
-  type CFieldType Config "config_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"config_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "config_x" Config ty where
 
@@ -98,16 +87,16 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"config_x" x0
       )
 
-instance HasCField.HasCField Config "config_y" where
-
-  type CFieldType Config "config_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
+         ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"config_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"config_x")
+
+instance HasCField.HasCField Config "config_x" where
+
+  type CFieldType Config "config_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "config_y" Config ty where
@@ -118,6 +107,17 @@ instance ( ty ~ RIP.CInt
           Config {config_y = y1, config_x = RIP.getField @"config_x" x0}
       , RIP.getField @"config_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"config_y")
+
+instance HasCField.HasCField Config "config_y" where
+
+  type CFieldType Config "config_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct inline_struct@
 
@@ -169,19 +169,6 @@ instance Marshal.WriteRaw Inline_struct where
 
 deriving via Marshal.EquivStorable Inline_struct instance RIP.Storable Inline_struct
 
-instance HasCField.HasCField Inline_struct "inline_struct_x" where
-
-  type CFieldType Inline_struct "inline_struct_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "inline_struct_x" Inline_struct ty where
 
@@ -192,18 +179,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"inline_struct_x" x0
       )
 
-instance HasCField.HasCField Inline_struct "inline_struct_y" where
-
-  type CFieldType Inline_struct "inline_struct_y" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+         ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
+    HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
+
+instance HasCField.HasCField Inline_struct "inline_struct_x" where
+
+  type CFieldType Inline_struct "inline_struct_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "inline_struct_y" Inline_struct ty where
@@ -214,6 +201,19 @@ instance ( ty ~ RIP.CInt
           Inline_struct {inline_struct_y = y1, inline_struct_x = RIP.getField @"inline_struct_x" x0}
       , RIP.getField @"inline_struct_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
+
+instance HasCField.HasCField Inline_struct "inline_struct_y" where
+
+  type CFieldType Inline_struct "inline_struct_y" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct version_t@
 
@@ -274,19 +274,6 @@ instance Marshal.WriteRaw Version_t where
 
 deriving via Marshal.EquivStorable Version_t instance RIP.Storable Version_t
 
-instance HasCField.HasCField Version_t "version_t_major" where
-
-  type CFieldType Version_t "version_t_major" =
-    HsBindgen.Runtime.LibC.Word8
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_major")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.CompatHasField.HasField "version_t_major" Version_t ty where
 
@@ -300,18 +287,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word8
       , RIP.getField @"version_t_major" x0
       )
 
-instance HasCField.HasCField Version_t "version_t_minor" where
-
-  type CFieldType Version_t "version_t_minor" =
-    HsBindgen.Runtime.LibC.Word16
-
-  offset# = \_ -> \_ -> 2
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_minor")
+    HasCField.fromPtr (RIP.Proxy @"version_t_major")
+
+instance HasCField.HasCField Version_t "version_t_major" where
+
+  type CFieldType Version_t "version_t_major" =
+    HsBindgen.Runtime.LibC.Word8
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.CompatHasField.HasField "version_t_minor" Version_t ty where
@@ -326,18 +313,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
       , RIP.getField @"version_t_minor" x0
       )
 
-instance HasCField.HasCField Version_t "version_t_patch" where
-
-  type CFieldType Version_t "version_t_patch" =
-    HsBindgen.Runtime.LibC.Word8
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_patch")
+    HasCField.fromPtr (RIP.Proxy @"version_t_minor")
+
+instance HasCField.HasCField Version_t "version_t_minor" where
+
+  type CFieldType Version_t "version_t_minor" =
+    HsBindgen.Runtime.LibC.Word16
+
+  offset# = \_ -> \_ -> 2
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.CompatHasField.HasField "version_t_patch" Version_t ty where
@@ -351,6 +338,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word8
                     }
       , RIP.getField @"version_t_patch" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"version_t_patch")
+
+instance HasCField.HasCField Version_t "version_t_patch" where
+
+  type CFieldType Version_t "version_t_patch" =
+    HsBindgen.Runtime.LibC.Word8
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct struct1_t@
 
@@ -411,19 +411,6 @@ instance Marshal.WriteRaw Struct1_t where
 
 deriving via Marshal.EquivStorable Struct1_t instance RIP.Storable Struct1_t
 
-instance HasCField.HasCField Struct1_t "struct1_t_x" where
-
-  type CFieldType Struct1_t "struct1_t_x" =
-    HsBindgen.Runtime.LibC.Word16
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.CompatHasField.HasField "struct1_t_x" Struct1_t ty where
 
@@ -437,17 +424,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
       , RIP.getField @"struct1_t_x" x0
       )
 
-instance HasCField.HasCField Struct1_t "struct1_t_y" where
-
-  type CFieldType Struct1_t "struct1_t_y" = RIP.CBool
-
-  offset# = \_ -> \_ -> 2
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
+
+instance HasCField.HasCField Struct1_t "struct1_t_x" where
+
+  type CFieldType Struct1_t "struct1_t_x" =
+    HsBindgen.Runtime.LibC.Word16
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CBool
          ) => RIP.CompatHasField.HasField "struct1_t_y" Struct1_t ty where
@@ -462,18 +450,17 @@ instance ( ty ~ RIP.CBool
       , RIP.getField @"struct1_t_y" x0
       )
 
-instance HasCField.HasCField Struct1_t "struct1_t_version" where
-
-  type CFieldType Struct1_t "struct1_t_version" =
-    Version_t
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ Version_t
-         ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CBool
+         ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
+
+instance HasCField.HasCField Struct1_t "struct1_t_y" where
+
+  type CFieldType Struct1_t "struct1_t_y" = RIP.CBool
+
+  offset# = \_ -> \_ -> 2
 
 instance ( ty ~ Version_t
          ) => RIP.CompatHasField.HasField "struct1_t_version" Struct1_t ty where
@@ -487,6 +474,19 @@ instance ( ty ~ Version_t
                     }
       , RIP.getField @"struct1_t_version" x0
       )
+
+instance ( ty ~ Version_t
+         ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
+
+instance HasCField.HasCField Struct1_t "struct1_t_version" where
+
+  type CFieldType Struct1_t "struct1_t_version" =
+    Version_t
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct struct2_t@
 
@@ -529,19 +529,6 @@ instance Marshal.WriteRaw Struct2_t where
 
 deriving via Marshal.EquivStorable Struct2_t instance RIP.Storable Struct2_t
 
-instance HasCField.HasCField Struct2_t "struct2_t_field1" where
-
-  type CFieldType Struct2_t "struct2_t_field1" =
-    Struct1_t
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct1_t
-         ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
-
 instance ( ty ~ Struct1_t
          ) => RIP.CompatHasField.HasField "struct2_t_field1" Struct2_t ty where
 
@@ -550,3 +537,16 @@ instance ( ty ~ Struct1_t
       ( \y1 -> Struct2_t {struct2_t_field1 = y1}
       , RIP.getField @"struct2_t_field1" x0
       )
+
+instance ( ty ~ Struct1_t
+         ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
+
+instance HasCField.HasCField Struct2_t "struct2_t_field1" where
+
+  type CFieldType Struct2_t "struct2_t_field1" =
+    Struct1_t
+
+  offset# = \_ -> \_ -> 0

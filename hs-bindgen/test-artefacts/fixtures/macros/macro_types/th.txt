@@ -13,15 +13,15 @@ newtype PtrInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr CInt) => HasField "unwrapPtrInt" PtrInt ty
+    where hasField = \x_0 -> (\y_1 -> PtrInt{unwrapPtrInt = y_1},
+                              getField @"unwrapPtrInt" x_0)
 instance (~) ty (Ptr CInt) =>
          HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrInt")
 instance HasCField PtrInt "unwrapPtrInt"
     where type CFieldType PtrInt "unwrapPtrInt" = Ptr CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CInt) => HasField "unwrapPtrInt" PtrInt ty
-    where hasField = \x_0 -> (\y_1 -> PtrInt{unwrapPtrInt = y_1},
-                              getField @"unwrapPtrInt" x_0)
 {-| __C declaration:__ @macro ShortInt@
 
     __defined at:__ @macros\/macro_types.h 3:9@
@@ -46,15 +46,15 @@ newtype ShortInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CShort => HasField "unwrapShortInt" ShortInt ty
+    where hasField = \x_0 -> (\y_1 -> ShortInt{unwrapShortInt = y_1},
+                              getField @"unwrapShortInt" x_0)
 instance (~) ty CShort =>
          HasField "unwrapShortInt" (Ptr ShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapShortInt")
 instance HasCField ShortInt "unwrapShortInt"
     where type CFieldType ShortInt "unwrapShortInt" = CShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CShort => HasField "unwrapShortInt" ShortInt ty
-    where hasField = \x_0 -> (\y_1 -> ShortInt{unwrapShortInt = y_1},
-                              getField @"unwrapShortInt" x_0)
 {-| __C declaration:__ @macro SignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 4:9@
@@ -80,16 +80,16 @@ newtype SignedShortInt
                       Storable,
                       WriteRaw)
 instance (~) ty CShort =>
+         HasField "unwrapSignedShortInt" SignedShortInt ty
+    where hasField = \x_0 -> (\y_1 -> SignedShortInt{unwrapSignedShortInt = y_1},
+                              getField @"unwrapSignedShortInt" x_0)
+instance (~) ty CShort =>
          HasField "unwrapSignedShortInt" (Ptr SignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSignedShortInt")
 instance HasCField SignedShortInt "unwrapSignedShortInt"
     where type CFieldType SignedShortInt
                           "unwrapSignedShortInt" = CShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CShort =>
-         HasField "unwrapSignedShortInt" SignedShortInt ty
-    where hasField = \x_0 -> (\y_1 -> SignedShortInt{unwrapSignedShortInt = y_1},
-                              getField @"unwrapSignedShortInt" x_0)
 {-| __C declaration:__ @macro UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
@@ -115,16 +115,16 @@ newtype UnsignedShortInt
                       Storable,
                       WriteRaw)
 instance (~) ty CUShort =>
+         HasField "unwrapUnsignedShortInt" UnsignedShortInt ty
+    where hasField = \x_0 -> (\y_1 -> UnsignedShortInt{unwrapUnsignedShortInt = y_1},
+                              getField @"unwrapUnsignedShortInt" x_0)
+instance (~) ty CUShort =>
          HasField "unwrapUnsignedShortInt" (Ptr UnsignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUnsignedShortInt")
 instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
     where type CFieldType UnsignedShortInt
                           "unwrapUnsignedShortInt" = CUShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CUShort =>
-         HasField "unwrapUnsignedShortInt" UnsignedShortInt ty
-    where hasField = \x_0 -> (\y_1 -> UnsignedShortInt{unwrapUnsignedShortInt = y_1},
-                              getField @"unwrapUnsignedShortInt" x_0)
 {-| __C declaration:__ @macro PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 8:9@
@@ -140,16 +140,16 @@ newtype PtrPtrChar
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr (Ptr CChar)) =>
+         HasField "unwrapPtrPtrChar" PtrPtrChar ty
+    where hasField = \x_0 -> (\y_1 -> PtrPtrChar{unwrapPtrPtrChar = y_1},
+                              getField @"unwrapPtrPtrChar" x_0)
+instance (~) ty (Ptr (Ptr CChar)) =>
          HasField "unwrapPtrPtrChar" (Ptr PtrPtrChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrPtrChar")
 instance HasCField PtrPtrChar "unwrapPtrPtrChar"
     where type CFieldType PtrPtrChar
                           "unwrapPtrPtrChar" = Ptr (Ptr CChar)
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr CChar)) =>
-         HasField "unwrapPtrPtrChar" PtrPtrChar ty
-    where hasField = \x_0 -> (\y_1 -> PtrPtrChar{unwrapPtrPtrChar = y_1},
-                              getField @"unwrapPtrPtrChar" x_0)
 {-| __C declaration:__ @macro MTy@
 
     __defined at:__ @macros\/macro_types.h 11:9@
@@ -172,14 +172,14 @@ newtype MTy
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CFloat => HasField "unwrapMTy" MTy ty
+    where hasField = \x_0 -> (\y_1 -> MTy{unwrapMTy = y_1},
+                              getField @"unwrapMTy" x_0)
 instance (~) ty CFloat => HasField "unwrapMTy" (Ptr MTy) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMTy")
 instance HasCField MTy "unwrapMTy"
     where type CFieldType MTy "unwrapMTy" = CFloat
           offset# = \_ -> \_ -> 0
-instance (~) ty CFloat => HasField "unwrapMTy" MTy ty
-    where hasField = \x_0 -> (\y_1 -> MTy{unwrapMTy = y_1},
-                              getField @"unwrapMTy" x_0)
 {-| __C declaration:__ @tty@
 
     __defined at:__ @macros\/macro_types.h 12:13@
@@ -202,14 +202,14 @@ newtype Tty
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty MTy => HasField "unwrapTty" Tty ty
+    where hasField = \x_0 -> (\y_1 -> Tty{unwrapTty = y_1},
+                              getField @"unwrapTty" x_0)
 instance (~) ty MTy => HasField "unwrapTty" (Ptr Tty) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTty")
 instance HasCField Tty "unwrapTty"
     where type CFieldType Tty "unwrapTty" = MTy
           offset# = \_ -> \_ -> 0
-instance (~) ty MTy => HasField "unwrapTty" Tty ty
-    where hasField = \x_0 -> (\y_1 -> Tty{unwrapTty = y_1},
-                              getField @"unwrapTty" x_0)
 {-| __C declaration:__ @macro UINT8_T@
 
     __defined at:__ @macros\/macro_types.h 14:9@
@@ -234,15 +234,15 @@ newtype UINT8_T
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CUChar => HasField "unwrapUINT8_T" UINT8_T ty
+    where hasField = \x_0 -> (\y_1 -> UINT8_T{unwrapUINT8_T = y_1},
+                              getField @"unwrapUINT8_T" x_0)
 instance (~) ty CUChar =>
          HasField "unwrapUINT8_T" (Ptr UINT8_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUINT8_T")
 instance HasCField UINT8_T "unwrapUINT8_T"
     where type CFieldType UINT8_T "unwrapUINT8_T" = CUChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CUChar => HasField "unwrapUINT8_T" UINT8_T ty
-    where hasField = \x_0 -> (\y_1 -> UINT8_T{unwrapUINT8_T = y_1},
-                              getField @"unwrapUINT8_T" x_0)
 {-| __C declaration:__ @macro BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 15:9@
@@ -267,15 +267,15 @@ newtype BOOLEAN_T
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty UINT8_T => HasField "unwrapBOOLEAN_T" BOOLEAN_T ty
+    where hasField = \x_0 -> (\y_1 -> BOOLEAN_T{unwrapBOOLEAN_T = y_1},
+                              getField @"unwrapBOOLEAN_T" x_0)
 instance (~) ty UINT8_T =>
          HasField "unwrapBOOLEAN_T" (Ptr BOOLEAN_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBOOLEAN_T")
 instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
     where type CFieldType BOOLEAN_T "unwrapBOOLEAN_T" = UINT8_T
           offset# = \_ -> \_ -> 0
-instance (~) ty UINT8_T => HasField "unwrapBOOLEAN_T" BOOLEAN_T ty
-    where hasField = \x_0 -> (\y_1 -> BOOLEAN_T{unwrapBOOLEAN_T = y_1},
-                              getField @"unwrapBOOLEAN_T" x_0)
 {-| __C declaration:__ @boolean_T@
 
     __defined at:__ @macros\/macro_types.h 16:19@
@@ -301,12 +301,12 @@ newtype Boolean_T
                       Storable,
                       WriteRaw)
 instance (~) ty BOOLEAN_T =>
+         HasField "unwrapBoolean_T" Boolean_T ty
+    where hasField = \x_0 -> (\y_1 -> Boolean_T{unwrapBoolean_T = y_1},
+                              getField @"unwrapBoolean_T" x_0)
+instance (~) ty BOOLEAN_T =>
          HasField "unwrapBoolean_T" (Ptr Boolean_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBoolean_T")
 instance HasCField Boolean_T "unwrapBoolean_T"
     where type CFieldType Boolean_T "unwrapBoolean_T" = BOOLEAN_T
           offset# = \_ -> \_ -> 0
-instance (~) ty BOOLEAN_T =>
-         HasField "unwrapBoolean_T" Boolean_T ty
-    where hasField = \x_0 -> (\y_1 -> Boolean_T{unwrapBoolean_T = y_1},
-                              getField @"unwrapBoolean_T" x_0)

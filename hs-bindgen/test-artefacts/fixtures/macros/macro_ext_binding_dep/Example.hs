@@ -31,6 +31,12 @@ newtype B = B
   }
   deriving stock (RIP.Generic)
 
+instance (ty ~ M.A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 instance (ty ~ M.A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
@@ -40,9 +46,3 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = M.A
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ M.A) => RIP.CompatHasField.HasField "unwrapB" B ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)

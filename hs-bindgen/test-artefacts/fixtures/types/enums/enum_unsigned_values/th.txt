@@ -40,16 +40,16 @@ instance Read Uint8_enum
           readList = readListDefault
           readListPrec = readListPrecDefault
 instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapUint8_enum" Uint8_enum ty
+    where hasField = \x_0 -> (\y_1 -> Uint8_enum{unwrapUint8_enum = y_1},
+                              getField @"unwrapUint8_enum" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapUint8_enum" (Ptr Uint8_enum) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint8_enum")
 instance HasCField Uint8_enum "unwrapUint8_enum"
     where type CFieldType Uint8_enum
                           "unwrapUint8_enum" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
-         HasField "unwrapUint8_enum" Uint8_enum ty
-    where hasField = \x_0 -> (\y_1 -> Uint8_enum{unwrapUint8_enum = y_1},
-                              getField @"unwrapUint8_enum" x_0)
 {-| __C declaration:__ @U8_ZERO@
 
     __defined at:__ @types\/enums\/enum_unsigned_values.h 5:3@
