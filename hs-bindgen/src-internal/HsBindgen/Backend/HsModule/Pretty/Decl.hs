@@ -55,7 +55,8 @@ instance Pretty SDecl where
             , PP.nest 2 (pretty expr)
             ]
 
-      in  PP.vsep $ (prettyTopLevelComment inst.comment) : instanceHead : typs ++ decs
+      in   prettyTopLevelComment inst.comment PP.$$
+           PP.vsep (instanceHead : typs ++ decs)
 
     DRecord record ->
       let d = PP.hsep ["data", pretty record.typ, PP.char '=', pretty record.con]
