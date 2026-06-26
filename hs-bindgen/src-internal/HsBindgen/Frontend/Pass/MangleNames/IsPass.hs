@@ -62,7 +62,7 @@ instance PassMacro MangleNames where
 instance PassExtBinding MangleNames where
   type ExtBinding MangleNames = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl MangleNames where
   type CommentDecl MangleNames = Maybe (C.Comment MangleNames)

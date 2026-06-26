@@ -740,8 +740,7 @@ macroDecsTypedef macroLang info macroType spec = do
           MacroTypeExtBinding ext ->
             Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec $
               Hs.TypRef
-                (Hs.assertNs (Proxy @Hs.NsTypeConstr)
-                (BindingSpec.extDeclIdPair ext).hsName)
+                (Hs.assertNs (Proxy @Hs.NsTypeConstr) (extDeclIdPair ext).hsName)
                 Nothing
           MacroTypeBodyVar pair ->
             Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing

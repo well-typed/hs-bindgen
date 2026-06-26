@@ -51,7 +51,7 @@ instance PassMacro AdjustTypes where
 instance PassExtBinding AdjustTypes where
   type ExtBinding AdjustTypes = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl AdjustTypes where
   type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)

@@ -76,7 +76,7 @@ instance PassMacro Select where
 instance PassExtBinding Select where
   type ExtBinding Select = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl Select where
   type CommentDecl Select = Maybe (C.Comment Select)
