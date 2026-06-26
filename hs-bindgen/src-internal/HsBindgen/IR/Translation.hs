@@ -4,17 +4,20 @@
 --
 -- > import HsBindgen.IR.Translation
 module HsBindgen.IR.Translation (
-    -- * Types
+    -- * DeclIdPair
     DeclIdPair(..)
+  , extDeclIdPair
+    -- * ScopedNamePair
   , ScopedNamePair(..)
   ) where
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
-  Types
+  DeclIdPair
 -------------------------------------------------------------------------------}
 
 -- | A t'C.DeclId' paired with a Haskell name
@@ -24,7 +27,16 @@ data DeclIdPair = DeclIdPair {
     }
   deriving stock (Eq, Ord, Show)
 
---------------------------------------------------------------------------------
+-- | Get the 'DeclIdPair' for a 'ResolvedExtBinding'
+extDeclIdPair :: BindingSpec.ResolvedExtBinding -> DeclIdPair
+extDeclIdPair ext = DeclIdPair{
+      cName  = ext.cName
+    , hsName = Hs.demoteNs ext.hsName.name
+    }
+
+{-------------------------------------------------------------------------------
+  ScopedNamePair
+-------------------------------------------------------------------------------}
 
 -- | A t'C.ScopedName' paired with a Haskell name
 data ScopedNamePair = ScopedNamePair {
