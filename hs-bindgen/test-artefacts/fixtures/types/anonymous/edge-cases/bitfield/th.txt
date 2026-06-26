@@ -23,16 +23,16 @@ instance WriteRaw S1_anon'y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S1_anon'y s1_anon'y_y_2 -> poke (Proxy @"s1_anon'y_y") ptr_0 s1_anon'y_y_2
 deriving via (EquivStorable S1_anon'y) instance Storable S1_anon'y
+instance (~) ty CChar => HasField "s1_anon'y_y" S1_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S1_anon'y{s1_anon'y_y = y_1},
+                              getField @"s1_anon'y_y" x_0)
+instance (~) ty CChar =>
+         HasField "s1_anon'y_y" (Ptr S1_anon'y) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"s1_anon'y_y")
 instance HasCBitfield S1_anon'y "s1_anon'y_y"
     where type CBitfieldType S1_anon'y "s1_anon'y_y" = CChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "s1_anon'y_y" (Ptr S1_anon'y) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"s1_anon'y_y")
-instance (~) ty CChar => HasField "s1_anon'y_y" S1_anon'y ty
-    where hasField = \x_0 -> (\y_1 -> S1_anon'y{s1_anon'y_y = y_1},
-                              getField @"s1_anon'y_y" x_0)
 {-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 12:8@
@@ -65,24 +65,24 @@ instance WriteRaw S1
                                        S1 s1_anon'y_2
                                           s1_x_3 -> writeRaw (Proxy @"s1_anon'y") ptr_0 s1_anon'y_2 >> writeRaw (Proxy @"s1_x") ptr_0 s1_x_3
 deriving via (EquivStorable S1) instance Storable S1
-instance HasCField S1 "s1_anon'y"
-    where type CFieldType S1 "s1_anon'y" = S1_anon'y
-          offset# = \_ -> \_ -> 0
-instance (~) ty S1_anon'y => HasField "s1_anon'y" (Ptr S1) (Ptr ty)
-    where getField = fromPtr (Proxy @"s1_anon'y")
 instance (~) ty S1_anon'y => HasField "s1_anon'y" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{s1_anon'y = y_1,
                                          s1_x = getField @"s1_x" x_0},
                               getField @"s1_anon'y" x_0)
-instance HasCField S1 "s1_x"
-    where type CFieldType S1 "s1_x" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "s1_x" (Ptr S1) (Ptr ty)
-    where getField = fromPtr (Proxy @"s1_x")
+instance (~) ty S1_anon'y => HasField "s1_anon'y" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_anon'y")
+instance HasCField S1 "s1_anon'y"
+    where type CFieldType S1 "s1_anon'y" = S1_anon'y
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s1_x" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{s1_x = y_1,
                                          s1_anon'y = getField @"s1_anon'y" x_0},
                               getField @"s1_x" x_0)
+instance (~) ty CInt => HasField "s1_x" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_x")
+instance HasCField S1 "s1_x"
+    where type CFieldType S1 "s1_x" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y_anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
@@ -107,21 +107,21 @@ instance WriteRaw S2_anon'anon'y_anon'y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S2_anon'anon'y_anon'y s2_anon'anon'y_anon'y_y_2 -> poke (Proxy @"s2_anon'anon'y_anon'y_y") ptr_0 s2_anon'anon'y_anon'y_y_2
 deriving via (EquivStorable S2_anon'anon'y_anon'y) instance Storable S2_anon'anon'y_anon'y
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty
+    where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y_anon'y{s2_anon'anon'y_anon'y_y = y_1},
+                              getField @"s2_anon'anon'y_anon'y_y" x_0)
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_anon'y_y"
+                  (Ptr S2_anon'anon'y_anon'y)
+                  (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"s2_anon'anon'y_anon'y_y")
 instance HasCBitfield S2_anon'anon'y_anon'y
                       "s2_anon'anon'y_anon'y_y"
     where type CBitfieldType S2_anon'anon'y_anon'y
                              "s2_anon'anon'y_anon'y_y" = CChar
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "s2_anon'anon'y_anon'y_y"
-                  (Ptr S2_anon'anon'y_anon'y)
-                  (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"s2_anon'anon'y_anon'y_y")
-instance (~) ty CChar =>
-         HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty
-    where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y_anon'y{s2_anon'anon'y_anon'y_y = y_1},
-                              getField @"s2_anon'anon'y_anon'y_y" x_0)
 {-| __C declaration:__ @struct \@S2_anon\'anon\'y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
@@ -154,29 +154,29 @@ instance WriteRaw S2_anon'anon'y
                                        S2_anon'anon'y s2_anon'anon'y_anon'y_2
                                                       s2_anon'anon'y_x_3 -> writeRaw (Proxy @"s2_anon'anon'y_anon'y") ptr_0 s2_anon'anon'y_anon'y_2 >> writeRaw (Proxy @"s2_anon'anon'y_x") ptr_0 s2_anon'anon'y_x_3
 deriving via (EquivStorable S2_anon'anon'y) instance Storable S2_anon'anon'y
-instance HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y"
-    where type CFieldType S2_anon'anon'y
-                          "s2_anon'anon'y_anon'y" = S2_anon'anon'y_anon'y
-          offset# = \_ -> \_ -> 0
-instance (~) ty S2_anon'anon'y_anon'y =>
-         HasField "s2_anon'anon'y_anon'y" (Ptr S2_anon'anon'y) (Ptr ty)
-    where getField = fromPtr (Proxy @"s2_anon'anon'y_anon'y")
 instance (~) ty S2_anon'anon'y_anon'y =>
          HasField "s2_anon'anon'y_anon'y" S2_anon'anon'y ty
     where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y{s2_anon'anon'y_anon'y = y_1,
                                                      s2_anon'anon'y_x = getField @"s2_anon'anon'y_x" x_0},
                               getField @"s2_anon'anon'y_anon'y" x_0)
-instance HasCField S2_anon'anon'y "s2_anon'anon'y_x"
-    where type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt =>
-         HasField "s2_anon'anon'y_x" (Ptr S2_anon'anon'y) (Ptr ty)
-    where getField = fromPtr (Proxy @"s2_anon'anon'y_x")
+instance (~) ty S2_anon'anon'y_anon'y =>
+         HasField "s2_anon'anon'y_anon'y" (Ptr S2_anon'anon'y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_anon'anon'y_anon'y")
+instance HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y"
+    where type CFieldType S2_anon'anon'y
+                          "s2_anon'anon'y_anon'y" = S2_anon'anon'y_anon'y
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "s2_anon'anon'y_x" S2_anon'anon'y ty
     where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y{s2_anon'anon'y_x = y_1,
                                                      s2_anon'anon'y_anon'y = getField @"s2_anon'anon'y_anon'y" x_0},
                               getField @"s2_anon'anon'y_x" x_0)
+instance (~) ty CInt =>
+         HasField "s2_anon'anon'y_x" (Ptr S2_anon'anon'y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_anon'anon'y_x")
+instance HasCField S2_anon'anon'y "s2_anon'anon'y_x"
+    where type CFieldType S2_anon'anon'y "s2_anon'anon'y_x" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 19:8@
@@ -201,12 +201,12 @@ instance WriteRaw S2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S2 s2_anon'anon'y_2 -> writeRaw (Proxy @"s2_anon'anon'y") ptr_0 s2_anon'anon'y_2
 deriving via (EquivStorable S2) instance Storable S2
-instance HasCField S2 "s2_anon'anon'y"
-    where type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
-          offset# = \_ -> \_ -> 0
-instance (~) ty S2_anon'anon'y =>
-         HasField "s2_anon'anon'y" (Ptr S2) (Ptr ty)
-    where getField = fromPtr (Proxy @"s2_anon'anon'y")
 instance (~) ty S2_anon'anon'y => HasField "s2_anon'anon'y" S2 ty
     where hasField = \x_0 -> (\y_1 -> S2{s2_anon'anon'y = y_1},
                               getField @"s2_anon'anon'y" x_0)
+instance (~) ty S2_anon'anon'y =>
+         HasField "s2_anon'anon'y" (Ptr S2) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_anon'anon'y")
+instance HasCField S2 "s2_anon'anon'y"
+    where type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
+          offset# = \_ -> \_ -> 0

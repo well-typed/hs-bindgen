@@ -78,17 +78,6 @@ instance Marshal.WriteRaw S1_c where
 
 deriving via Marshal.EquivStorable S1_c instance RIP.Storable S1_c
 
-instance HasCField.HasCField S1_c "s1_c_a" where
-
-  type CFieldType S1_c "s1_c_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s1_c_a" (RIP.Ptr S1_c) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_c_a")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_a" S1_c ty where
 
   hasField =
@@ -98,16 +87,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_a" S1_c ty where
       , RIP.getField @"s1_c_a" x0
       )
 
-instance HasCField.HasCField S1_c "s1_c_b" where
-
-  type CFieldType S1_c "s1_c_b" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s1_c_b" (RIP.Ptr S1_c) (RIP.Ptr ty) where
+         ) => RIP.HasField "s1_c_a" (RIP.Ptr S1_c) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_c_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_c_a")
+
+instance HasCField.HasCField S1_c "s1_c_a" where
+
+  type CFieldType S1_c "s1_c_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_b" S1_c ty where
 
@@ -117,6 +106,17 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_c_b" S1_c ty where
           S1_c {s1_c_b = y1, s1_c_a = RIP.getField @"s1_c_a" x0}
       , RIP.getField @"s1_c_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s1_c_b" (RIP.Ptr S1_c) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_c_b")
+
+instance HasCField.HasCField S1_c "s1_c_b" where
+
+  type CFieldType S1_c "s1_c_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct S1@
 
@@ -168,16 +168,6 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance RIP.Storable S1
 
-instance HasCField.HasCField S1 "s1_c" where
-
-  type CFieldType S1 "s1_c" = S1_c
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ S1_c) => RIP.HasField "s1_c" (RIP.Ptr S1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_c")
-
 instance (ty ~ S1_c) => RIP.CompatHasField.HasField "s1_c" S1 ty where
 
   hasField =
@@ -187,15 +177,15 @@ instance (ty ~ S1_c) => RIP.CompatHasField.HasField "s1_c" S1 ty where
       , RIP.getField @"s1_c" x0
       )
 
-instance HasCField.HasCField S1 "s1_d" where
+instance (ty ~ S1_c) => RIP.HasField "s1_c" (RIP.Ptr S1) (RIP.Ptr ty) where
 
-  type CFieldType S1 "s1_d" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_c")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField S1 "s1_c" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s1_d" (RIP.Ptr S1) (RIP.Ptr ty) where
+  type CFieldType S1 "s1_c" = S1_c
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_d")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_d" S1 ty where
 
@@ -205,6 +195,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_d" S1 ty where
           S1 {s1_d = y1, s1_c = RIP.getField @"s1_c" x0}
       , RIP.getField @"s1_d" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "s1_d" (RIP.Ptr S1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_d")
+
+instance HasCField.HasCField S1 "s1_d" where
+
+  type CFieldType S1 "s1_d" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
@@ -247,19 +247,6 @@ instance Marshal.WriteRaw S2_inner_deep where
 
 deriving via Marshal.EquivStorable S2_inner_deep instance RIP.Storable S2_inner_deep
 
-instance HasCField.HasCField S2_inner_deep "s2_inner_deep_b" where
-
-  type CFieldType S2_inner_deep "s2_inner_deep_b" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_inner_deep_b" (RIP.Ptr S2_inner_deep) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_inner_deep_b")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "s2_inner_deep_b" S2_inner_deep ty where
 
@@ -268,6 +255,19 @@ instance ( ty ~ RIP.CInt
       ( \y1 -> S2_inner_deep {s2_inner_deep_b = y1}
       , RIP.getField @"s2_inner_deep_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s2_inner_deep_b" (RIP.Ptr S2_inner_deep) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_inner_deep_b")
+
+instance HasCField.HasCField S2_inner_deep "s2_inner_deep_b" where
+
+  type CFieldType S2_inner_deep "s2_inner_deep_b" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@S2_inner@
 
@@ -319,18 +319,6 @@ instance Marshal.WriteRaw S2_inner where
 
 deriving via Marshal.EquivStorable S2_inner instance RIP.Storable S2_inner
 
-instance HasCField.HasCField S2_inner "s2_inner_a" where
-
-  type CFieldType S2_inner "s2_inner_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_inner_a" (RIP.Ptr S2_inner) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_inner_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "s2_inner_a" S2_inner ty where
 
@@ -341,18 +329,17 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"s2_inner_a" x0
       )
 
-instance HasCField.HasCField S2_inner "s2_inner_deep" where
-
-  type CFieldType S2_inner "s2_inner_deep" =
-    S2_inner_deep
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ S2_inner_deep
-         ) => RIP.HasField "s2_inner_deep" (RIP.Ptr S2_inner) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s2_inner_a" (RIP.Ptr S2_inner) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"s2_inner_deep")
+    HasCField.fromPtr (RIP.Proxy @"s2_inner_a")
+
+instance HasCField.HasCField S2_inner "s2_inner_a" where
+
+  type CFieldType S2_inner "s2_inner_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ S2_inner_deep
          ) => RIP.CompatHasField.HasField "s2_inner_deep" S2_inner ty where
@@ -363,6 +350,19 @@ instance ( ty ~ S2_inner_deep
           S2_inner {s2_inner_deep = y1, s2_inner_a = RIP.getField @"s2_inner_a" x0}
       , RIP.getField @"s2_inner_deep" x0
       )
+
+instance ( ty ~ S2_inner_deep
+         ) => RIP.HasField "s2_inner_deep" (RIP.Ptr S2_inner) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"s2_inner_deep")
+
+instance HasCField.HasCField S2_inner "s2_inner_deep" where
+
+  type CFieldType S2_inner "s2_inner_deep" =
+    S2_inner_deep
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct S2@
 
@@ -414,17 +414,6 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance RIP.Storable S2
 
-instance HasCField.HasCField S2 "s2_inner" where
-
-  type CFieldType S2 "s2_inner" = S2_inner
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ S2_inner
-         ) => RIP.HasField "s2_inner" (RIP.Ptr S2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_inner")
-
 instance (ty ~ S2_inner) => RIP.CompatHasField.HasField "s2_inner" S2 ty where
 
   hasField =
@@ -434,15 +423,16 @@ instance (ty ~ S2_inner) => RIP.CompatHasField.HasField "s2_inner" S2 ty where
       , RIP.getField @"s2_inner" x0
       )
 
-instance HasCField.HasCField S2 "s2_d" where
+instance ( ty ~ S2_inner
+         ) => RIP.HasField "s2_inner" (RIP.Ptr S2) (RIP.Ptr ty) where
 
-  type CFieldType S2 "s2_d" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_inner")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField S2 "s2_inner" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s2_d" (RIP.Ptr S2) (RIP.Ptr ty) where
+  type CFieldType S2 "s2_inner" = S2_inner
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_d")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_d" S2 ty where
 
@@ -452,6 +442,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_d" S2 ty where
           S2 {s2_d = y1, s2_inner = RIP.getField @"s2_inner" x0}
       , RIP.getField @"s2_d" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "s2_d" (RIP.Ptr S2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_d")
+
+instance HasCField.HasCField S2 "s2_d" where
+
+  type CFieldType S2 "s2_d" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct S3@
 
@@ -503,17 +503,6 @@ instance Marshal.WriteRaw S3 where
 
 deriving via Marshal.EquivStorable S3 instance RIP.Storable S3
 
-instance HasCField.HasCField S3 "s3_c" where
-
-  type CFieldType S3 "s3_c" = RIP.Ptr (RIP.Ptr S3_c)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
-         ) => RIP.HasField "s3_c" (RIP.Ptr S3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s3_c")
-
 instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
          ) => RIP.CompatHasField.HasField "s3_c" S3 ty where
 
@@ -524,15 +513,16 @@ instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
       , RIP.getField @"s3_c" x0
       )
 
-instance HasCField.HasCField S3 "s3_d" where
+instance ( ty ~ RIP.Ptr (RIP.Ptr S3_c)
+         ) => RIP.HasField "s3_c" (RIP.Ptr S3) (RIP.Ptr ty) where
 
-  type CFieldType S3 "s3_d" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"s3_c")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField S3 "s3_c" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s3_d" (RIP.Ptr S3) (RIP.Ptr ty) where
+  type CFieldType S3 "s3_c" = RIP.Ptr (RIP.Ptr S3_c)
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s3_d")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_d" S3 ty where
 
@@ -542,6 +532,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_d" S3 ty where
           S3 {s3_d = y1, s3_c = RIP.getField @"s3_c" x0}
       , RIP.getField @"s3_d" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "s3_d" (RIP.Ptr S3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s3_d")
+
+instance HasCField.HasCField S3 "s3_d" where
+
+  type CFieldType S3 "s3_d" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@S3_c@
 
@@ -593,17 +593,6 @@ instance Marshal.WriteRaw S3_c where
 
 deriving via Marshal.EquivStorable S3_c instance RIP.Storable S3_c
 
-instance HasCField.HasCField S3_c "s3_c_a" where
-
-  type CFieldType S3_c "s3_c_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s3_c_a" (RIP.Ptr S3_c) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"s3_c_a")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_a" S3_c ty where
 
   hasField =
@@ -613,16 +602,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_a" S3_c ty where
       , RIP.getField @"s3_c_a" x0
       )
 
-instance HasCField.HasCField S3_c "s3_c_b" where
-
-  type CFieldType S3_c "s3_c_b" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s3_c_b" (RIP.Ptr S3_c) (RIP.Ptr ty) where
+         ) => RIP.HasField "s3_c_a" (RIP.Ptr S3_c) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s3_c_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s3_c_a")
+
+instance HasCField.HasCField S3_c "s3_c_a" where
+
+  type CFieldType S3_c "s3_c_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_b" S3_c ty where
 
@@ -632,3 +621,14 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s3_c_b" S3_c ty where
           S3_c {s3_c_b = y1, s3_c_a = RIP.getField @"s3_c_a" x0}
       , RIP.getField @"s3_c_b" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "s3_c_b" (RIP.Ptr S3_c) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"s3_c_b")
+
+instance HasCField.HasCField S3_c "s3_c_b" where
+
+  type CFieldType S3_c "s3_c_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4

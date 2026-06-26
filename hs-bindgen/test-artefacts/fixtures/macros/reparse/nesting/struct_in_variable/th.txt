@@ -42,14 +42,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @struct \@G1@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:1@
@@ -74,14 +74,14 @@ instance WriteRaw G1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G1 g1_x_2 -> writeRaw (Proxy @"g1_x") ptr_0 g1_x_2
 deriving via (EquivStorable G1) instance Storable G1
-instance HasCField G1 "g1_x"
-    where type CFieldType G1 "g1_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
-    where getField = fromPtr (Proxy @"g1_x")
 instance (~) ty MyInt => HasField "g1_x" G1 ty
     where hasField = \x_0 -> (\y_1 -> G1{g1_x = y_1},
                               getField @"g1_x" x_0)
+instance (~) ty MyInt => HasField "g1_x" (Ptr G1) (Ptr ty)
+    where getField = fromPtr (Proxy @"g1_x")
+instance HasCField G1 "g1_x"
+    where type CFieldType G1 "g1_x" = MyInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@G2@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:1@
@@ -106,14 +106,14 @@ instance WriteRaw G2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G2 g2_x_2 -> writeRaw (Proxy @"g2_x") ptr_0 g2_x_2
 deriving via (EquivStorable G2) instance Storable G2
-instance HasCField G2 "g2_x"
-    where type CFieldType G2 "g2_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
-    where getField = fromPtr (Proxy @"g2_x")
 instance (~) ty MyInt => HasField "g2_x" G2 ty
     where hasField = \x_0 -> (\y_1 -> G2{g2_x = y_1},
                               getField @"g2_x" x_0)
+instance (~) ty MyInt => HasField "g2_x" (Ptr G2) (Ptr ty)
+    where getField = fromPtr (Proxy @"g2_x")
+instance HasCField G2 "g2_x"
+    where type CFieldType G2 "g2_x" = MyInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@G3@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:1@
@@ -138,14 +138,14 @@ instance WriteRaw G3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G3 g3_x_2 -> writeRaw (Proxy @"g3_x") ptr_0 g3_x_2
 deriving via (EquivStorable G3) instance Storable G3
-instance HasCField G3 "g3_x"
-    where type CFieldType G3 "g3_x" = MyInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
-    where getField = fromPtr (Proxy @"g3_x")
 instance (~) ty MyInt => HasField "g3_x" G3 ty
     where hasField = \x_0 -> (\y_1 -> G3{g3_x = y_1},
                               getField @"g3_x" x_0)
+instance (~) ty MyInt => HasField "g3_x" (Ptr G3) (Ptr ty)
+    where getField = fromPtr (Proxy @"g3_x")
+instance HasCField G3 "g3_x"
+    where type CFieldType G3 "g3_x" = MyInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_G1@
 foreign import ccall unsafe "hs_bindgen_7b488cf23d974403" hs_bindgen_7b488cf23d974403_base ::
     IO (Ptr Void)

@@ -76,15 +76,15 @@ newtype Struct5_t
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr Struct5) =>
+         HasField "unwrapStruct5_t" Struct5_t ty
+    where hasField = \x_0 -> (\y_1 -> Struct5_t{unwrapStruct5_t = y_1},
+                              getField @"unwrapStruct5_t" x_0)
+instance (~) ty (Ptr Struct5) =>
          HasField "unwrapStruct5_t" (Ptr Struct5_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct5_t")
 instance HasCField Struct5_t "unwrapStruct5_t"
     where type CFieldType Struct5_t "unwrapStruct5_t" = Ptr Struct5
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Struct5) =>
-         HasField "unwrapStruct5_t" Struct5_t ty
-    where hasField = \x_0 -> (\y_1 -> Struct5_t{unwrapStruct5_t = y_1},
-                              getField @"unwrapStruct5_t" x_0)
 {-| __C declaration:__ @struct struct6@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 25:16@
@@ -118,15 +118,15 @@ newtype Struct6
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr Struct6_Aux) =>
+         HasField "unwrapStruct6" Struct6 ty
+    where hasField = \x_0 -> (\y_1 -> Struct6{unwrapStruct6 = y_1},
+                              getField @"unwrapStruct6" x_0)
+instance (~) ty (Ptr Struct6_Aux) =>
          HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct6")
 instance HasCField Struct6 "unwrapStruct6"
     where type CFieldType Struct6 "unwrapStruct6" = Ptr Struct6_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Struct6_Aux) =>
-         HasField "unwrapStruct6" Struct6 ty
-    where hasField = \x_0 -> (\y_1 -> Struct6{unwrapStruct6 = y_1},
-                              getField @"unwrapStruct6" x_0)
 {-| __C declaration:__ @struct struct7@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 28:8@
@@ -153,15 +153,15 @@ newtype Struct7a
     = Struct7a {unwrapStruct7a :: Struct7}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct7 => HasField "unwrapStruct7a" Struct7a ty
+    where hasField = \x_0 -> (\y_1 -> Struct7a{unwrapStruct7a = y_1},
+                              getField @"unwrapStruct7a" x_0)
 instance (~) ty Struct7 =>
          HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7a")
 instance HasCField Struct7a "unwrapStruct7a"
     where type CFieldType Struct7a "unwrapStruct7a" = Struct7
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct7 => HasField "unwrapStruct7a" Struct7a ty
-    where hasField = \x_0 -> (\y_1 -> Struct7a{unwrapStruct7a = y_1},
-                              getField @"unwrapStruct7a" x_0)
 {-| __C declaration:__ @struct7b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 30:24@
@@ -172,15 +172,15 @@ newtype Struct7b
     = Struct7b {unwrapStruct7b :: Struct7}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct7 => HasField "unwrapStruct7b" Struct7b ty
+    where hasField = \x_0 -> (\y_1 -> Struct7b{unwrapStruct7b = y_1},
+                              getField @"unwrapStruct7b" x_0)
 instance (~) ty Struct7 =>
          HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7b")
 instance HasCField Struct7b "unwrapStruct7b"
     where type CFieldType Struct7b "unwrapStruct7b" = Struct7
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct7 => HasField "unwrapStruct7b" Struct7b ty
-    where hasField = \x_0 -> (\y_1 -> Struct7b{unwrapStruct7b = y_1},
-                              getField @"unwrapStruct7b" x_0)
 {-| __C declaration:__ @struct struct8@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 33:8@
@@ -207,15 +207,15 @@ newtype Struct8b
     = Struct8b {unwrapStruct8b :: Struct8}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct8 => HasField "unwrapStruct8b" Struct8b ty
+    where hasField = \x_0 -> (\y_1 -> Struct8b{unwrapStruct8b = y_1},
+                              getField @"unwrapStruct8b" x_0)
 instance (~) ty Struct8 =>
          HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct8b")
 instance HasCField Struct8b "unwrapStruct8b"
     where type CFieldType Struct8b "unwrapStruct8b" = Struct8
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct8 => HasField "unwrapStruct8b" Struct8b ty
-    where hasField = \x_0 -> (\y_1 -> Struct8b{unwrapStruct8b = y_1},
-                              getField @"unwrapStruct8b" x_0)
 {-| __C declaration:__ @struct struct9@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 38:8@
@@ -242,15 +242,15 @@ newtype Struct9_t
     = Struct9_t {unwrapStruct9_t :: Struct9}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct9 => HasField "unwrapStruct9_t" Struct9_t ty
+    where hasField = \x_0 -> (\y_1 -> Struct9_t{unwrapStruct9_t = y_1},
+                              getField @"unwrapStruct9_t" x_0)
 instance (~) ty Struct9 =>
          HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct9_t")
 instance HasCField Struct9_t "unwrapStruct9_t"
     where type CFieldType Struct9_t "unwrapStruct9_t" = Struct9
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct9 => HasField "unwrapStruct9_t" Struct9_t ty
-    where hasField = \x_0 -> (\y_1 -> Struct9_t{unwrapStruct9_t = y_1},
-                              getField @"unwrapStruct9_t" x_0)
 {-| __C declaration:__ @struct struct10@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 46:8@
@@ -278,16 +278,16 @@ newtype Struct10_t_t
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty Struct10_t =>
+         HasField "unwrapStruct10_t_t" Struct10_t_t ty
+    where hasField = \x_0 -> (\y_1 -> Struct10_t_t{unwrapStruct10_t_t = y_1},
+                              getField @"unwrapStruct10_t_t" x_0)
+instance (~) ty Struct10_t =>
          HasField "unwrapStruct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct10_t_t")
 instance HasCField Struct10_t_t "unwrapStruct10_t_t"
     where type CFieldType Struct10_t_t
                           "unwrapStruct10_t_t" = Struct10_t
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct10_t =>
-         HasField "unwrapStruct10_t_t" Struct10_t_t ty
-    where hasField = \x_0 -> (\y_1 -> Struct10_t_t{unwrapStruct10_t_t = y_1},
-                              getField @"unwrapStruct10_t_t" x_0)
 {-| __C declaration:__ @struct struct11@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 51:8@
@@ -320,27 +320,27 @@ instance WriteRaw Struct11_t
                                        Struct11_t struct11_t_x_2
                                                   struct11_t_self_3 -> writeRaw (Proxy @"struct11_t_x") ptr_0 struct11_t_x_2 >> writeRaw (Proxy @"struct11_t_self") ptr_0 struct11_t_self_3
 deriving via (EquivStorable Struct11_t) instance Storable Struct11_t
-instance HasCField Struct11_t "struct11_t_x"
-    where type CFieldType Struct11_t "struct11_t_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "struct11_t_x" (Ptr Struct11_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct11_t_x")
 instance (~) ty CInt => HasField "struct11_t_x" Struct11_t ty
     where hasField = \x_0 -> (\y_1 -> Struct11_t{struct11_t_x = y_1,
                                                  struct11_t_self = getField @"struct11_t_self" x_0},
                               getField @"struct11_t_x" x_0)
-instance HasCField Struct11_t "struct11_t_self"
-    where type CFieldType Struct11_t "struct11_t_self" = Ptr Struct11_t
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Struct11_t) =>
-         HasField "struct11_t_self" (Ptr Struct11_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct11_t_self")
+instance (~) ty CInt =>
+         HasField "struct11_t_x" (Ptr Struct11_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct11_t_x")
+instance HasCField Struct11_t "struct11_t_x"
+    where type CFieldType Struct11_t "struct11_t_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Struct11_t) =>
          HasField "struct11_t_self" Struct11_t ty
     where hasField = \x_0 -> (\y_1 -> Struct11_t{struct11_t_self = y_1,
                                                  struct11_t_x = getField @"struct11_t_x" x_0},
                               getField @"struct11_t_self" x_0)
+instance (~) ty (Ptr Struct11_t) =>
+         HasField "struct11_t_self" (Ptr Struct11_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct11_t_self")
+instance HasCField Struct11_t "struct11_t_self"
+    where type CFieldType Struct11_t "struct11_t_self" = Ptr Struct11_t
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct struct12@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 60:8@
@@ -373,27 +373,27 @@ instance WriteRaw Struct12_t
                                        Struct12_t struct12_t_x_2
                                                   struct12_t_self_3 -> writeRaw (Proxy @"struct12_t_x") ptr_0 struct12_t_x_2 >> writeRaw (Proxy @"struct12_t_self") ptr_0 struct12_t_self_3
 deriving via (EquivStorable Struct12_t) instance Storable Struct12_t
-instance HasCField Struct12_t "struct12_t_x"
-    where type CFieldType Struct12_t "struct12_t_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "struct12_t_x" (Ptr Struct12_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct12_t_x")
 instance (~) ty CInt => HasField "struct12_t_x" Struct12_t ty
     where hasField = \x_0 -> (\y_1 -> Struct12_t{struct12_t_x = y_1,
                                                  struct12_t_self = getField @"struct12_t_self" x_0},
                               getField @"struct12_t_x" x_0)
-instance HasCField Struct12_t "struct12_t_self"
-    where type CFieldType Struct12_t "struct12_t_self" = Ptr Struct12_t
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Struct12_t) =>
-         HasField "struct12_t_self" (Ptr Struct12_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct12_t_self")
+instance (~) ty CInt =>
+         HasField "struct12_t_x" (Ptr Struct12_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct12_t_x")
+instance HasCField Struct12_t "struct12_t_x"
+    where type CFieldType Struct12_t "struct12_t_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Struct12_t) =>
          HasField "struct12_t_self" Struct12_t ty
     where hasField = \x_0 -> (\y_1 -> Struct12_t{struct12_t_self = y_1,
                                                  struct12_t_x = getField @"struct12_t_x" x_0},
                               getField @"struct12_t_self" x_0)
+instance (~) ty (Ptr Struct12_t) =>
+         HasField "struct12_t_self" (Ptr Struct12_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct12_t_self")
+instance HasCField Struct12_t "struct12_t_self"
+    where type CFieldType Struct12_t "struct12_t_self" = Ptr Struct12_t
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct use_sites@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 66:8@
@@ -554,13 +554,6 @@ instance WriteRaw Use_sites
                                                  use_sites_useTypedef_struct11_t_18
                                                  use_sites_useTypedef_struct12_t_19 -> writeRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0 use_sites_useTypedef_struct1_t_2 >> (writeRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0 use_sites_useTypedef_struct2_t_3 >> (writeRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0 use_sites_useTypedef_struct3_t_4 >> (writeRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0 use_sites_useTypedef_struct4_t_5 >> (writeRaw (Proxy @"use_sites_useStruct_struct5") ptr_0 use_sites_useStruct_struct5_6 >> (writeRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0 use_sites_useTypedef_struct5_t_7 >> (writeRaw (Proxy @"use_sites_useStruct_struct6") ptr_0 use_sites_useStruct_struct6_8 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6") ptr_0 use_sites_useTypedef_struct6_9 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0 use_sites_useTypedef_struct7a_10 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0 use_sites_useTypedef_struct7b_11 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0 use_sites_useTypedef_struct8_12 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0 use_sites_useTypedef_struct8b_13 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0 use_sites_useTypedef_struct9_14 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0 use_sites_useTypedef_struct9_t_15 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0 use_sites_useTypedef_struct10_t_16 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0 use_sites_useTypedef_struct10_t_t_17 >> (writeRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0 use_sites_useTypedef_struct11_t_18 >> writeRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0 use_sites_useTypedef_struct12_t_19))))))))))))))))
 deriving via (EquivStorable Use_sites) instance Storable Use_sites
-instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
-    where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct1_t" = Struct1_t
-          offset# = \_ -> \_ -> 0
-instance (~) ty Struct1_t =>
-         HasField "use_sites_useTypedef_struct1_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct1_t")
 instance (~) ty Struct1_t =>
          HasField "use_sites_useTypedef_struct1_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct1_t = y_1,
@@ -582,13 +575,13 @@ instance (~) ty Struct1_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct1_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct2_t"
+instance (~) ty Struct1_t =>
+         HasField "use_sites_useTypedef_struct1_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct1_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct2_t" = Struct2_t
+                          "use_sites_useTypedef_struct1_t" = Struct1_t
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct2_t =>
-         HasField "use_sites_useTypedef_struct2_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct2_t")
 instance (~) ty Struct2_t =>
          HasField "use_sites_useTypedef_struct2_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct2_t = y_1,
@@ -610,13 +603,13 @@ instance (~) ty Struct2_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct2_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct3_t"
+instance (~) ty Struct2_t =>
+         HasField "use_sites_useTypedef_struct2_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct2_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct2_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct3_t" = Ptr Struct3_t
+                          "use_sites_useTypedef_struct2_t" = Struct2_t
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Struct3_t) =>
-         HasField "use_sites_useTypedef_struct3_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct3_t")
 instance (~) ty (Ptr Struct3_t) =>
          HasField "use_sites_useTypedef_struct3_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct3_t = y_1,
@@ -638,13 +631,13 @@ instance (~) ty (Ptr Struct3_t) =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct3_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct4_t"
+instance (~) ty (Ptr Struct3_t) =>
+         HasField "use_sites_useTypedef_struct3_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct3_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct3_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct4_t" = Ptr Struct4_t
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Struct4_t) =>
-         HasField "use_sites_useTypedef_struct4_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct4_t")
+                          "use_sites_useTypedef_struct3_t" = Ptr Struct3_t
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Struct4_t) =>
          HasField "use_sites_useTypedef_struct4_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct4_t = y_1,
@@ -666,13 +659,13 @@ instance (~) ty (Ptr Struct4_t) =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct4_t" x_0)
-instance HasCField Use_sites "use_sites_useStruct_struct5"
+instance (~) ty (Ptr Struct4_t) =>
+         HasField "use_sites_useTypedef_struct4_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct4_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct4_t"
     where type CFieldType Use_sites
-                          "use_sites_useStruct_struct5" = Struct5
-          offset# = \_ -> \_ -> 16
-instance (~) ty Struct5 =>
-         HasField "use_sites_useStruct_struct5" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useStruct_struct5")
+                          "use_sites_useTypedef_struct4_t" = Ptr Struct4_t
+          offset# = \_ -> \_ -> 8
 instance (~) ty Struct5 =>
          HasField "use_sites_useStruct_struct5" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useStruct_struct5 = y_1,
@@ -694,13 +687,13 @@ instance (~) ty Struct5 =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useStruct_struct5" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct5_t"
+instance (~) ty Struct5 =>
+         HasField "use_sites_useStruct_struct5" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useStruct_struct5")
+instance HasCField Use_sites "use_sites_useStruct_struct5"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct5_t" = Struct5_t
+                          "use_sites_useStruct_struct5" = Struct5
           offset# = \_ -> \_ -> 16
-instance (~) ty Struct5_t =>
-         HasField "use_sites_useTypedef_struct5_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct5_t")
 instance (~) ty Struct5_t =>
          HasField "use_sites_useTypedef_struct5_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct5_t = y_1,
@@ -722,13 +715,13 @@ instance (~) ty Struct5_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct5_t" x_0)
-instance HasCField Use_sites "use_sites_useStruct_struct6"
+instance (~) ty Struct5_t =>
+         HasField "use_sites_useTypedef_struct5_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct5_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct5_t"
     where type CFieldType Use_sites
-                          "use_sites_useStruct_struct6" = Struct6_Aux
-          offset# = \_ -> \_ -> 24
-instance (~) ty Struct6_Aux =>
-         HasField "use_sites_useStruct_struct6" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useStruct_struct6")
+                          "use_sites_useTypedef_struct5_t" = Struct5_t
+          offset# = \_ -> \_ -> 16
 instance (~) ty Struct6_Aux =>
          HasField "use_sites_useStruct_struct6" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useStruct_struct6 = y_1,
@@ -750,13 +743,13 @@ instance (~) ty Struct6_Aux =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useStruct_struct6" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct6"
+instance (~) ty Struct6_Aux =>
+         HasField "use_sites_useStruct_struct6" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useStruct_struct6")
+instance HasCField Use_sites "use_sites_useStruct_struct6"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct6" = Struct6
+                          "use_sites_useStruct_struct6" = Struct6_Aux
           offset# = \_ -> \_ -> 24
-instance (~) ty Struct6 =>
-         HasField "use_sites_useTypedef_struct6" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6")
 instance (~) ty Struct6 =>
          HasField "use_sites_useTypedef_struct6" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct6 = y_1,
@@ -778,13 +771,13 @@ instance (~) ty Struct6 =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct6" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct7a"
+instance (~) ty Struct6 =>
+         HasField "use_sites_useTypedef_struct6" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6")
+instance HasCField Use_sites "use_sites_useTypedef_struct6"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct7a" = Struct7a
-          offset# = \_ -> \_ -> 32
-instance (~) ty Struct7a =>
-         HasField "use_sites_useTypedef_struct7a" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7a")
+                          "use_sites_useTypedef_struct6" = Struct6
+          offset# = \_ -> \_ -> 24
 instance (~) ty Struct7a =>
          HasField "use_sites_useTypedef_struct7a" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct7a = y_1,
@@ -806,13 +799,13 @@ instance (~) ty Struct7a =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct7a" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct7b"
+instance (~) ty Struct7a =>
+         HasField "use_sites_useTypedef_struct7a" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7a")
+instance HasCField Use_sites "use_sites_useTypedef_struct7a"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct7b" = Struct7b
+                          "use_sites_useTypedef_struct7a" = Struct7a
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct7b =>
-         HasField "use_sites_useTypedef_struct7b" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7b")
 instance (~) ty Struct7b =>
          HasField "use_sites_useTypedef_struct7b" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct7b = y_1,
@@ -834,13 +827,13 @@ instance (~) ty Struct7b =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct7b" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct8"
+instance (~) ty Struct7b =>
+         HasField "use_sites_useTypedef_struct7b" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7b")
+instance HasCField Use_sites "use_sites_useTypedef_struct7b"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct8" = Struct8
+                          "use_sites_useTypedef_struct7b" = Struct7b
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct8 =>
-         HasField "use_sites_useTypedef_struct8" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8")
 instance (~) ty Struct8 =>
          HasField "use_sites_useTypedef_struct8" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct8 = y_1,
@@ -862,13 +855,13 @@ instance (~) ty Struct8 =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct8" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct8b"
+instance (~) ty Struct8 =>
+         HasField "use_sites_useTypedef_struct8" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8")
+instance HasCField Use_sites "use_sites_useTypedef_struct8"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct8b" = Struct8b
+                          "use_sites_useTypedef_struct8" = Struct8
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct8b =>
-         HasField "use_sites_useTypedef_struct8b" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8b")
 instance (~) ty Struct8b =>
          HasField "use_sites_useTypedef_struct8b" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct8b = y_1,
@@ -890,13 +883,13 @@ instance (~) ty Struct8b =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct8b" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct9"
+instance (~) ty Struct8b =>
+         HasField "use_sites_useTypedef_struct8b" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8b")
+instance HasCField Use_sites "use_sites_useTypedef_struct8b"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct9" = Struct9
+                          "use_sites_useTypedef_struct8b" = Struct8b
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct9 =>
-         HasField "use_sites_useTypedef_struct9" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9")
 instance (~) ty Struct9 =>
          HasField "use_sites_useTypedef_struct9" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct9 = y_1,
@@ -918,13 +911,13 @@ instance (~) ty Struct9 =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct9" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct9_t"
+instance (~) ty Struct9 =>
+         HasField "use_sites_useTypedef_struct9" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9")
+instance HasCField Use_sites "use_sites_useTypedef_struct9"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct9_t" = Struct9_t
+                          "use_sites_useTypedef_struct9" = Struct9
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct9_t =>
-         HasField "use_sites_useTypedef_struct9_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9_t")
 instance (~) ty Struct9_t =>
          HasField "use_sites_useTypedef_struct9_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct9_t = y_1,
@@ -946,13 +939,13 @@ instance (~) ty Struct9_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct9_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct10_t"
+instance (~) ty Struct9_t =>
+         HasField "use_sites_useTypedef_struct9_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct9_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct10_t" = Struct10_t
+                          "use_sites_useTypedef_struct9_t" = Struct9_t
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct10_t =>
-         HasField "use_sites_useTypedef_struct10_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct10_t")
 instance (~) ty Struct10_t =>
          HasField "use_sites_useTypedef_struct10_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct10_t = y_1,
@@ -974,15 +967,13 @@ instance (~) ty Struct10_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct10_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct10_t_t"
+instance (~) ty Struct10_t =>
+         HasField "use_sites_useTypedef_struct10_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct10_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct10_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct10_t_t" = Struct10_t_t
+                          "use_sites_useTypedef_struct10_t" = Struct10_t
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct10_t_t =>
-         HasField "use_sites_useTypedef_struct10_t_t"
-                  (Ptr Use_sites)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct10_t_t")
 instance (~) ty Struct10_t_t =>
          HasField "use_sites_useTypedef_struct10_t_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct10_t_t = y_1,
@@ -1004,13 +995,15 @@ instance (~) ty Struct10_t_t =>
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct10_t_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct11_t"
+instance (~) ty Struct10_t_t =>
+         HasField "use_sites_useTypedef_struct10_t_t"
+                  (Ptr Use_sites)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct10_t_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct10_t_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct11_t" = Struct11_t
+                          "use_sites_useTypedef_struct10_t_t" = Struct10_t_t
           offset# = \_ -> \_ -> 32
-instance (~) ty Struct11_t =>
-         HasField "use_sites_useTypedef_struct11_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct11_t")
 instance (~) ty Struct11_t =>
          HasField "use_sites_useTypedef_struct11_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct11_t = y_1,
@@ -1032,13 +1025,13 @@ instance (~) ty Struct11_t =>
                                                 use_sites_useTypedef_struct10_t_t = getField @"use_sites_useTypedef_struct10_t_t" x_0,
                                                 use_sites_useTypedef_struct12_t = getField @"use_sites_useTypedef_struct12_t" x_0},
                               getField @"use_sites_useTypedef_struct11_t" x_0)
-instance HasCField Use_sites "use_sites_useTypedef_struct12_t"
+instance (~) ty Struct11_t =>
+         HasField "use_sites_useTypedef_struct11_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct11_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct11_t"
     where type CFieldType Use_sites
-                          "use_sites_useTypedef_struct12_t" = Struct12_t
-          offset# = \_ -> \_ -> 48
-instance (~) ty Struct12_t =>
-         HasField "use_sites_useTypedef_struct12_t" (Ptr Use_sites) (Ptr ty)
-    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct12_t")
+                          "use_sites_useTypedef_struct11_t" = Struct11_t
+          offset# = \_ -> \_ -> 32
 instance (~) ty Struct12_t =>
          HasField "use_sites_useTypedef_struct12_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct12_t = y_1,
@@ -1060,3 +1053,10 @@ instance (~) ty Struct12_t =>
                                                 use_sites_useTypedef_struct10_t_t = getField @"use_sites_useTypedef_struct10_t_t" x_0,
                                                 use_sites_useTypedef_struct11_t = getField @"use_sites_useTypedef_struct11_t" x_0},
                               getField @"use_sites_useTypedef_struct12_t" x_0)
+instance (~) ty Struct12_t =>
+         HasField "use_sites_useTypedef_struct12_t" (Ptr Use_sites) (Ptr ty)
+    where getField = fromPtr (Proxy @"use_sites_useTypedef_struct12_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct12_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct12_t" = Struct12_t
+          offset# = \_ -> \_ -> 48

@@ -341,7 +341,8 @@ enumDecs info enum spec = do
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
-          , Just Inst.CompatHasField
+          , Just Inst.HasFieldCompat
+          , Just Inst.HasFieldPtr
           , Just Inst.Prim
           , Just Inst.Read
           , Just Inst.ReadRaw
@@ -360,7 +361,8 @@ enumDecs info enum spec = do
         ++ primDecl
         : optDecls
         ++ cEnumInstanceDecls
-        ++ Hs.newtypeFieldDecs nt
+        ++ Hs.hasFieldCompatDecs nt
+        ++ Hs.hasFieldPtrDecs nt
         ++ valueDecls
       where
         -- Singleton field: 'InstanceCEnum' and its siblings rely on this
@@ -525,7 +527,8 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
-          , Just Inst.CompatHasField
+          , Just Inst.HasFieldCompat
+          , Just Inst.HasFieldPtr
           , Inst.ToFunPtr <$ isFunType
           ]
 
@@ -542,7 +545,8 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
         Hs.DeclNewtype nt
         : newtypeWrapper
         ++ optDecls
-        ++ Hs.newtypeFieldDecs nt
+        ++ Hs.hasFieldCompatDecs nt
+        ++ Hs.hasFieldPtrDecs nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
@@ -744,13 +748,18 @@ macroDecsTypedef macroLang info macroType spec = do
         knownInsts = Set.fromList [
               Inst.HasCField
             , Inst.HasField
-            , Inst.CompatHasField
+            , Inst.HasFieldCompat
+            , Inst.HasFieldPtr
             , Inst.Generic
             ]
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
-    aux env nt = Hs.DeclNewtype nt : optDecls ++ Hs.newtypeFieldDecs nt
+    aux env nt =
+        Hs.DeclNewtype nt
+        : optDecls
+        ++ Hs.hasFieldCompatDecs nt
+        ++ Hs.hasFieldPtrDecs nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [

@@ -14,11 +14,12 @@ hstypes:
       fields:
       - baz_x1_2_1
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

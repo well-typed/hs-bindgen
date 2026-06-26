@@ -63,20 +63,20 @@ instance Marshal.WriteRaw Thing where
 
 deriving via Marshal.EquivStorable Thing instance RIP.Storable Thing
 
-instance HasCField.HasCField Thing "thing_x" where
-
-  type CFieldType Thing "thing_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "thing_x" (RIP.Ptr Thing) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"thing_x")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "thing_x" Thing ty where
 
   hasField =
     \x0 ->
       (\y1 ->
          Thing {thing_x = y1}, RIP.getField @"thing_x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "thing_x" (RIP.Ptr Thing) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"thing_x")
+
+instance HasCField.HasCField Thing "thing_x" where
+
+  type CFieldType Thing "thing_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

@@ -106,6 +106,14 @@ instance Read Test where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapTest" Test ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Test {unwrapTest = y1}, RIP.getField @"unwrapTest" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapTest" (RIP.Ptr Test) (RIP.Ptr ty) where
 
   getField =
@@ -116,14 +124,6 @@ instance HasCField.HasCField Test "unwrapTest" where
   type CFieldType Test "unwrapTest" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapTest" Test ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Test {unwrapTest = y1}, RIP.getField @"unwrapTest" x0)
 
 {-| __C declaration:__ @test_a@
 

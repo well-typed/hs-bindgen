@@ -31,29 +31,29 @@ instance WriteRaw Linked_list_A_t
                                        Linked_list_A_t linked_list_A_t_x_2
                                                        linked_list_A_t_next_3 -> writeRaw (Proxy @"linked_list_A_t_x") ptr_0 linked_list_A_t_x_2 >> writeRaw (Proxy @"linked_list_A_t_next") ptr_0 linked_list_A_t_next_3
 deriving via (EquivStorable Linked_list_A_t) instance Storable Linked_list_A_t
-instance HasCField Linked_list_A_t "linked_list_A_t_x"
-    where type CFieldType Linked_list_A_t "linked_list_A_t_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "linked_list_A_t_x" (Ptr Linked_list_A_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"linked_list_A_t_x")
 instance (~) ty CInt =>
          HasField "linked_list_A_t_x" Linked_list_A_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_A_t{linked_list_A_t_x = y_1,
                                                       linked_list_A_t_next = getField @"linked_list_A_t_next" x_0},
                               getField @"linked_list_A_t_x" x_0)
-instance HasCField Linked_list_A_t "linked_list_A_t_next"
-    where type CFieldType Linked_list_A_t
-                          "linked_list_A_t_next" = Ptr Linked_list_A_t
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Linked_list_A_t) =>
-         HasField "linked_list_A_t_next" (Ptr Linked_list_A_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"linked_list_A_t_next")
+instance (~) ty CInt =>
+         HasField "linked_list_A_t_x" (Ptr Linked_list_A_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"linked_list_A_t_x")
+instance HasCField Linked_list_A_t "linked_list_A_t_x"
+    where type CFieldType Linked_list_A_t "linked_list_A_t_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Linked_list_A_t) =>
          HasField "linked_list_A_t_next" Linked_list_A_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_A_t{linked_list_A_t_next = y_1,
                                                       linked_list_A_t_x = getField @"linked_list_A_t_x" x_0},
                               getField @"linked_list_A_t_next" x_0)
+instance (~) ty (Ptr Linked_list_A_t) =>
+         HasField "linked_list_A_t_next" (Ptr Linked_list_A_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"linked_list_A_t_next")
+instance HasCField Linked_list_A_t "linked_list_A_t_next"
+    where type CFieldType Linked_list_A_t
+                          "linked_list_A_t_next" = Ptr Linked_list_A_t
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct linked_list_B_t@
 
     __defined at:__ @types\/structs\/recursive_struct.h 9:8@
@@ -86,26 +86,26 @@ instance WriteRaw Linked_list_B_t
                                        Linked_list_B_t linked_list_B_t_x_2
                                                        linked_list_B_t_next_3 -> writeRaw (Proxy @"linked_list_B_t_x") ptr_0 linked_list_B_t_x_2 >> writeRaw (Proxy @"linked_list_B_t_next") ptr_0 linked_list_B_t_next_3
 deriving via (EquivStorable Linked_list_B_t) instance Storable Linked_list_B_t
-instance HasCField Linked_list_B_t "linked_list_B_t_x"
-    where type CFieldType Linked_list_B_t "linked_list_B_t_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "linked_list_B_t_x" (Ptr Linked_list_B_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"linked_list_B_t_x")
 instance (~) ty CInt =>
          HasField "linked_list_B_t_x" Linked_list_B_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_B_t{linked_list_B_t_x = y_1,
                                                       linked_list_B_t_next = getField @"linked_list_B_t_next" x_0},
                               getField @"linked_list_B_t_x" x_0)
-instance HasCField Linked_list_B_t "linked_list_B_t_next"
-    where type CFieldType Linked_list_B_t
-                          "linked_list_B_t_next" = Ptr Linked_list_B_t
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr Linked_list_B_t) =>
-         HasField "linked_list_B_t_next" (Ptr Linked_list_B_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"linked_list_B_t_next")
+instance (~) ty CInt =>
+         HasField "linked_list_B_t_x" (Ptr Linked_list_B_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"linked_list_B_t_x")
+instance HasCField Linked_list_B_t "linked_list_B_t_x"
+    where type CFieldType Linked_list_B_t "linked_list_B_t_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (Ptr Linked_list_B_t) =>
          HasField "linked_list_B_t_next" Linked_list_B_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_B_t{linked_list_B_t_next = y_1,
                                                       linked_list_B_t_x = getField @"linked_list_B_t_x" x_0},
                               getField @"linked_list_B_t_next" x_0)
+instance (~) ty (Ptr Linked_list_B_t) =>
+         HasField "linked_list_B_t_next" (Ptr Linked_list_B_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"linked_list_B_t_next")
+instance HasCField Linked_list_B_t "linked_list_B_t_next"
+    where type CFieldType Linked_list_B_t
+                          "linked_list_B_t_next" = Ptr Linked_list_B_t
+          offset# = \_ -> \_ -> 8

@@ -62,6 +62,14 @@ newtype MyInt = MyInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -72,14 +80,6 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| __C declaration:__ @union \@G1@
 
@@ -125,15 +125,15 @@ set_g1_x ::
   -> G1
 set_g1_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
+
 instance HasCField.HasCField G1 "g1_x" where
 
   type CFieldType G1 "g1_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
 
 {-| __C declaration:__ @union \@G2@
 
@@ -179,15 +179,15 @@ set_g2_x ::
   -> G2
 set_g2_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
+
 instance HasCField.HasCField G2 "g2_x" where
 
   type CFieldType G2 "g2_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
 
 {-| __C declaration:__ @union \@G3@
 
@@ -233,12 +233,12 @@ set_g3_x ::
   -> G3
 set_g3_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g3_x")
+
 instance HasCField.HasCField G3 "g3_x" where
 
   type CFieldType G3 "g3_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g3_x")

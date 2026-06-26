@@ -54,11 +54,12 @@ hstypes:
       - bar_16_16_a
       - bar_16_16_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -72,11 +73,12 @@ hstypes:
       - bar_16_32_a
       - bar_16_32_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -90,11 +92,12 @@ hstypes:
       - bar_16_64_a
       - bar_16_64_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -108,11 +111,12 @@ hstypes:
       - bar_32_32_a
       - bar_32_32_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -126,11 +130,12 @@ hstypes:
       - bar_32_64_a
       - bar_32_64_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -144,11 +149,12 @@ hstypes:
       - bar_64_64_a
       - bar_64_64_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -162,11 +168,12 @@ hstypes:
       - bar_8_16_a
       - bar_8_16_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -180,11 +187,12 @@ hstypes:
       - bar_8_32_a
       - bar_8_32_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -198,11 +206,12 @@ hstypes:
       - bar_8_64_a
       - bar_8_64_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -216,11 +225,12 @@ hstypes:
       - bar_8_8_a
       - bar_8_8_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -238,11 +248,12 @@ hstypes:
       - foo_16_e
       - foo_16_f
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -261,11 +272,12 @@ hstypes:
       - foo_32_f
       - foo_32_g
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -281,11 +293,12 @@ hstypes:
       - foo_64_c
       - foo_64_d
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -303,11 +316,12 @@ hstypes:
       - foo_8_e
       - foo_8_f
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

@@ -63,19 +63,6 @@ instance Marshal.WriteRaw UnrelatedDeclaration where
 
 deriving via Marshal.EquivStorable UnrelatedDeclaration instance RIP.Storable UnrelatedDeclaration
 
-instance HasCField.HasCField UnrelatedDeclaration "unrelatedDeclaration_m" where
-
-  type CFieldType UnrelatedDeclaration "unrelatedDeclaration_m" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unrelatedDeclaration_m" (RIP.Ptr UnrelatedDeclaration) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unrelatedDeclaration_m")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "unrelatedDeclaration_m" UnrelatedDeclaration ty where
 
@@ -85,3 +72,16 @@ instance ( ty ~ RIP.CInt
           UnrelatedDeclaration {unrelatedDeclaration_m = y1}
       , RIP.getField @"unrelatedDeclaration_m" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unrelatedDeclaration_m" (RIP.Ptr UnrelatedDeclaration) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unrelatedDeclaration_m")
+
+instance HasCField.HasCField UnrelatedDeclaration "unrelatedDeclaration_m" where
+
+  type CFieldType UnrelatedDeclaration "unrelatedDeclaration_m" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0

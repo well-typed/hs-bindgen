@@ -63,20 +63,20 @@ instance Marshal.WriteRaw Baz where
 
 deriving via Marshal.EquivStorable Baz instance RIP.Storable Baz
 
-instance HasCField.HasCField Baz "baz_x3_1" where
-
-  type CFieldType Baz "baz_x3_1" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "baz_x3_1" (RIP.Ptr Baz) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"baz_x3_1")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "baz_x3_1" Baz ty where
 
   hasField =
     \x0 ->
       (\y1 ->
          Baz {baz_x3_1 = y1}, RIP.getField @"baz_x3_1" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "baz_x3_1" (RIP.Ptr Baz) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"baz_x3_1")
+
+instance HasCField.HasCField Baz "baz_x3_1" where
+
+  type CFieldType Baz "baz_x3_1" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

@@ -82,17 +82,6 @@ instance Marshal.WriteRaw Outside where
 
 deriving via Marshal.EquivStorable Outside instance RIP.Storable Outside
 
-instance HasCField.HasCField Outside "outside_x" where
-
-  type CFieldType Outside "outside_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outside_x" (RIP.Ptr Outside) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"outside_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "outside_x" Outside ty where
 
@@ -103,16 +92,16 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"outside_x" x0
       )
 
-instance HasCField.HasCField Outside "outside_y" where
-
-  type CFieldType Outside "outside_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outside_y" (RIP.Ptr Outside) (RIP.Ptr ty) where
+         ) => RIP.HasField "outside_x" (RIP.Ptr Outside) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"outside_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"outside_x")
+
+instance HasCField.HasCField Outside "outside_x" where
+
+  type CFieldType Outside "outside_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "outside_y" Outside ty where
@@ -123,3 +112,14 @@ instance ( ty ~ RIP.CInt
           Outside {outside_y = y1, outside_x = RIP.getField @"outside_x" x0}
       , RIP.getField @"outside_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "outside_y" (RIP.Ptr Outside) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"outside_y")
+
+instance HasCField.HasCField Outside "outside_y" where
+
+  type CFieldType Outside "outside_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4

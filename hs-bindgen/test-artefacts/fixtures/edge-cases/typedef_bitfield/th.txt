@@ -23,14 +23,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @myUInt@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 3:22@
@@ -55,15 +55,15 @@ newtype MyUInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CUInt => HasField "unwrapMyUInt" MyUInt ty
+    where hasField = \x_0 -> (\y_1 -> MyUInt{unwrapMyUInt = y_1},
+                              getField @"unwrapMyUInt" x_0)
 instance (~) ty CUInt =>
          HasField "unwrapMyUInt" (Ptr MyUInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyUInt")
 instance HasCField MyUInt "unwrapMyUInt"
     where type CFieldType MyUInt "unwrapMyUInt" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapMyUInt" MyUInt ty
-    where hasField = \x_0 -> (\y_1 -> MyUInt{unwrapMyUInt = y_1},
-                              getField @"unwrapMyUInt" x_0)
 {-| __C declaration:__ @myLong@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 4:14@
@@ -88,15 +88,15 @@ newtype MyLong
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CLong => HasField "unwrapMyLong" MyLong ty
+    where hasField = \x_0 -> (\y_1 -> MyLong{unwrapMyLong = y_1},
+                              getField @"unwrapMyLong" x_0)
 instance (~) ty CLong =>
          HasField "unwrapMyLong" (Ptr MyLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyLong")
 instance HasCField MyLong "unwrapMyLong"
     where type CFieldType MyLong "unwrapMyLong" = CLong
           offset# = \_ -> \_ -> 0
-instance (~) ty CLong => HasField "unwrapMyLong" MyLong ty
-    where hasField = \x_0 -> (\y_1 -> MyLong{unwrapMyLong = y_1},
-                              getField @"unwrapMyLong" x_0)
 {-| __C declaration:__ @struct myStruct@
 
     __defined at:__ @edge-cases\/typedef_bitfield.h 6:8@
@@ -137,39 +137,39 @@ instance WriteRaw MyStruct
                                                 myStruct_y_3
                                                 myStruct_z_4 -> poke (Proxy @"myStruct_x") ptr_0 myStruct_x_2 >> (poke (Proxy @"myStruct_y") ptr_0 myStruct_y_3 >> poke (Proxy @"myStruct_z") ptr_0 myStruct_z_4)
 deriving via (EquivStorable MyStruct) instance Storable MyStruct
-instance HasCBitfield MyStruct "myStruct_x"
-    where type CBitfieldType MyStruct "myStruct_x" = MyInt
-          bitfieldOffset# = \_ -> \_ -> 0
-          bitfieldWidth# = \_ -> \_ -> 2
-instance (~) ty MyInt =>
-         HasField "myStruct_x" (Ptr MyStruct) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"myStruct_x")
 instance (~) ty MyInt => HasField "myStruct_x" MyStruct ty
     where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_x = y_1,
                                                myStruct_y = getField @"myStruct_y" x_0,
                                                myStruct_z = getField @"myStruct_z" x_0},
                               getField @"myStruct_x" x_0)
-instance HasCBitfield MyStruct "myStruct_y"
-    where type CBitfieldType MyStruct "myStruct_y" = MyUInt
-          bitfieldOffset# = \_ -> \_ -> 2
-          bitfieldWidth# = \_ -> \_ -> 4
-instance (~) ty MyUInt =>
-         HasField "myStruct_y" (Ptr MyStruct) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"myStruct_y")
+instance (~) ty MyInt =>
+         HasField "myStruct_x" (Ptr MyStruct) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"myStruct_x")
+instance HasCBitfield MyStruct "myStruct_x"
+    where type CBitfieldType MyStruct "myStruct_x" = MyInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2
 instance (~) ty MyUInt => HasField "myStruct_y" MyStruct ty
     where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_y = y_1,
                                                myStruct_x = getField @"myStruct_x" x_0,
                                                myStruct_z = getField @"myStruct_z" x_0},
                               getField @"myStruct_y" x_0)
-instance HasCBitfield MyStruct "myStruct_z"
-    where type CBitfieldType MyStruct "myStruct_z" = MyLong
-          bitfieldOffset# = \_ -> \_ -> 6
-          bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty MyLong =>
-         HasField "myStruct_z" (Ptr MyStruct) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"myStruct_z")
+instance (~) ty MyUInt =>
+         HasField "myStruct_y" (Ptr MyStruct) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"myStruct_y")
+instance HasCBitfield MyStruct "myStruct_y"
+    where type CBitfieldType MyStruct "myStruct_y" = MyUInt
+          bitfieldOffset# = \_ -> \_ -> 2
+          bitfieldWidth# = \_ -> \_ -> 4
 instance (~) ty MyLong => HasField "myStruct_z" MyStruct ty
     where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_z = y_1,
                                                myStruct_x = getField @"myStruct_x" x_0,
                                                myStruct_y = getField @"myStruct_y" x_0},
                               getField @"myStruct_z" x_0)
+instance (~) ty MyLong =>
+         HasField "myStruct_z" (Ptr MyStruct) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"myStruct_z")
+instance HasCBitfield MyStruct "myStruct_z"
+    where type CBitfieldType MyStruct "myStruct_z" = MyLong
+          bitfieldOffset# = \_ -> \_ -> 6
+          bitfieldWidth# = \_ -> \_ -> 3

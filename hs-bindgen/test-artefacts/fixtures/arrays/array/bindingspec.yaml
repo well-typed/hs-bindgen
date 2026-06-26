@@ -30,11 +30,12 @@ hstypes:
       - example_triple
       - example_sudoku
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -47,11 +48,12 @@ hstypes:
       fields:
       - unwrapList
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: Matrix
@@ -61,11 +63,12 @@ hstypes:
       fields:
       - unwrapMatrix
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -79,11 +82,12 @@ hstypes:
       fields:
       - unwrapSudoku
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -97,11 +101,12 @@ hstypes:
       fields:
       - unwrapTriplet
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -115,10 +120,11 @@ hstypes:
       fields:
       - unwrapTripletlist
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show

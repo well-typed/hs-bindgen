@@ -14,8 +14,9 @@ hstypes:
       fields:
       - unwrapT
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr

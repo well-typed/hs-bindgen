@@ -39,15 +39,15 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapMyEnum" MyEnum ty
+    where hasField = \x_0 -> (\y_1 -> MyEnum{unwrapMyEnum = y_1},
+                              getField @"unwrapMyEnum" x_0)
 instance (~) ty CUInt =>
          HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyEnum")
 instance HasCField MyEnum "unwrapMyEnum"
     where type CFieldType MyEnum "unwrapMyEnum" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapMyEnum" MyEnum ty
-    where hasField = \x_0 -> (\y_1 -> MyEnum{unwrapMyEnum = y_1},
-                              getField @"unwrapMyEnum" x_0)
 {-| __C declaration:__ @Say你好@
 
     __defined at:__ @edge-cases\/uses_utf8.h 5:9@

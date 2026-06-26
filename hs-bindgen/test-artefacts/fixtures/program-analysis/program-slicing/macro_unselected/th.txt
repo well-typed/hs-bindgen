@@ -45,14 +45,14 @@ newtype U
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapU" U ty
+    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
+                              getField @"unwrapU" x_0)
 instance (~) ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapU" U ty
-    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
-                              getField @"unwrapU" x_0)
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
     Int32

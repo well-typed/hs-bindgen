@@ -24,11 +24,11 @@ newtype A
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)

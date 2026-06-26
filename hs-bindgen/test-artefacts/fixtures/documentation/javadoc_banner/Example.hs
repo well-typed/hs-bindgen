@@ -78,19 +78,6 @@ instance Marshal.WriteRaw Banner_point where
 
 deriving via Marshal.EquivStorable Banner_point instance RIP.Storable Banner_point
 
-instance HasCField.HasCField Banner_point "banner_point_x" where
-
-  type CFieldType Banner_point "banner_point_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "banner_point_x" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"banner_point_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "banner_point_x" Banner_point ty where
 
@@ -101,18 +88,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"banner_point_x" x0
       )
 
-instance HasCField.HasCField Banner_point "banner_point_y" where
-
-  type CFieldType Banner_point "banner_point_y" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "banner_point_y" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
+         ) => RIP.HasField "banner_point_x" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"banner_point_y")
+    HasCField.fromPtr (RIP.Proxy @"banner_point_x")
+
+instance HasCField.HasCField Banner_point "banner_point_x" where
+
+  type CFieldType Banner_point "banner_point_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "banner_point_y" Banner_point ty where
@@ -123,3 +110,16 @@ instance ( ty ~ RIP.CInt
           Banner_point {banner_point_y = y1, banner_point_x = RIP.getField @"banner_point_x" x0}
       , RIP.getField @"banner_point_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "banner_point_y" (RIP.Ptr Banner_point) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"banner_point_y")
+
+instance HasCField.HasCField Banner_point "banner_point_y" where
+
+  type CFieldType Banner_point "banner_point_y" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4

@@ -67,6 +67,13 @@ newtype Uint = Uint
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" Uint ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Uint {unwrap = y1}, RIP.getField @"unwrap" x0)
+
 instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Uint) (RIP.Ptr ty) where
 
@@ -77,13 +84,6 @@ instance HasCField.HasCField Uint "unwrap" where
   type CFieldType Uint "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" Uint ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Uint {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @size_t@
 
@@ -114,6 +114,14 @@ newtype Size_t = Size_t
     )
 
 instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "unwrap" Size_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.CULong
          ) => RIP.HasField "unwrap" (RIP.Ptr Size_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -123,14 +131,6 @@ instance HasCField.HasCField Size_t "unwrap" where
   type CFieldType Size_t "unwrap" = RIP.CULong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CULong
-         ) => RIP.CompatHasField.HasField "unwrap" Size_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Size_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @struct bar1_t@
 
@@ -263,17 +263,6 @@ instance Marshal.WriteRaw Bar1_t where
 
 deriving via Marshal.EquivStorable Bar1_t instance RIP.Storable Bar1_t
 
-instance HasCField.HasCField Bar1_t "a" where
-
-  type CFieldType Bar1_t "a" = RIP.Ptr RIP.Void
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "a" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"a")
-
 instance ( ty ~ RIP.Ptr RIP.Void
          ) => RIP.CompatHasField.HasField "a" Bar1_t ty where
 
@@ -295,15 +284,16 @@ instance ( ty ~ RIP.Ptr RIP.Void
       , RIP.getField @"a" x0
       )
 
-instance HasCField.HasCField Bar1_t "b" where
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.HasField "a" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "b" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"a")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField Bar1_t "a" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "a" = RIP.Ptr RIP.Void
 
-  getField = HasCField.fromPtr (RIP.Proxy @"b")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" Bar1_t ty where
 
@@ -325,16 +315,15 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b" Bar1_t ty where
       , RIP.getField @"b" x0
       )
 
-instance HasCField.HasCField Bar1_t "c" where
+instance (ty ~ RIP.CInt) => RIP.HasField "b" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "c" = RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"b")
 
-  offset# = \_ -> \_ -> 12
+instance HasCField.HasCField Bar1_t "b" where
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "c" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "b" = RIP.CInt
 
-  getField = HasCField.fromPtr (RIP.Proxy @"c")
+  offset# = \_ -> \_ -> 8
 
 instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "c" Bar1_t ty where
 
@@ -356,16 +345,16 @@ instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "c" Bar1_t ty where
       , RIP.getField @"c" x0
       )
 
-instance HasCField.HasCField Bar1_t "d" where
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "c" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "d" = RIP.Ptr RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"c")
 
-  offset# = \_ -> \_ -> 16
+instance HasCField.HasCField Bar1_t "c" where
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "d" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "c" = RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d")
+  offset# = \_ -> \_ -> 12
 
 instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.CompatHasField.HasField "d" Bar1_t ty where
@@ -388,17 +377,16 @@ instance ( ty ~ RIP.Ptr RIP.CChar
       , RIP.getField @"d" x0
       )
 
-instance HasCField.HasCField Bar1_t "e" where
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.HasField "d" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "e" =
-    RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
+  getField = HasCField.fromPtr (RIP.Proxy @"d")
 
-  offset# = \_ -> \_ -> 24
+instance HasCField.HasCField Bar1_t "d" where
 
-instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
-         ) => RIP.HasField "e" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "d" = RIP.Ptr RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"e")
+  offset# = \_ -> \_ -> 16
 
 instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
          ) => RIP.CompatHasField.HasField "e" Bar1_t ty where
@@ -421,17 +409,17 @@ instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
       , RIP.getField @"e" x0
       )
 
-instance HasCField.HasCField Bar1_t "f" where
+instance ( ty ~ RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
+         ) => RIP.HasField "e" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "f" =
-    RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
+  getField = HasCField.fromPtr (RIP.Proxy @"e")
 
-  offset# = \_ -> \_ -> 32
+instance HasCField.HasCField Bar1_t "e" where
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
-         ) => RIP.HasField "f" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "e" =
+    RIP.FunPtr (IO (RIP.Ptr RIP.CChar))
 
-  getField = HasCField.fromPtr (RIP.Proxy @"f")
+  offset# = \_ -> \_ -> 24
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
          ) => RIP.CompatHasField.HasField "f" Bar1_t ty where
@@ -454,17 +442,17 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
       , RIP.getField @"f" x0
       )
 
-instance HasCField.HasCField Bar1_t "g" where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
+         ) => RIP.HasField "f" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "g" =
-    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
+  getField = HasCField.fromPtr (RIP.Proxy @"f")
 
-  offset# = \_ -> \_ -> 40
+instance HasCField.HasCField Bar1_t "f" where
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
-         ) => RIP.HasField "g" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "f" =
+    RIP.FunPtr (RIP.Ptr RIP.Void -> IO ())
 
-  getField = HasCField.fromPtr (RIP.Proxy @"g")
+  offset# = \_ -> \_ -> 32
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
          ) => RIP.CompatHasField.HasField "g" Bar1_t ty where
@@ -487,17 +475,17 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
       , RIP.getField @"g" x0
       )
 
-instance HasCField.HasCField Bar1_t "h" where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
+         ) => RIP.HasField "g" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "h" =
-    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
+  getField = HasCField.fromPtr (RIP.Proxy @"g")
 
-  offset# = \_ -> \_ -> 48
+instance HasCField.HasCField Bar1_t "g" where
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
-         ) => RIP.HasField "h" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "g" =
+    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr RIP.CInt))
 
-  getField = HasCField.fromPtr (RIP.Proxy @"h")
+  offset# = \_ -> \_ -> 40
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
          ) => RIP.CompatHasField.HasField "h" Bar1_t ty where
@@ -520,17 +508,17 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
       , RIP.getField @"h" x0
       )
 
-instance HasCField.HasCField Bar1_t "i" where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
+         ) => RIP.HasField "h" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "i" =
-    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
+  getField = HasCField.fromPtr (RIP.Proxy @"h")
 
-  offset# = \_ -> \_ -> 56
+instance HasCField.HasCField Bar1_t "h" where
 
-instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
-         ) => RIP.HasField "i" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "h" =
+    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr RIP.CInt)))
 
-  getField = HasCField.fromPtr (RIP.Proxy @"i")
+  offset# = \_ -> \_ -> 48
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
          ) => RIP.CompatHasField.HasField "i" Bar1_t ty where
@@ -553,17 +541,17 @@ instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RI
       , RIP.getField @"i" x0
       )
 
-instance HasCField.HasCField Bar1_t "j" where
+instance ( ty ~ RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
+         ) => RIP.HasField "i" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "j" =
-    CA.ConstantArray 2 RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"i")
 
-  offset# = \_ -> \_ -> 64
+instance HasCField.HasCField Bar1_t "i" where
 
-instance ( ty ~ CA.ConstantArray 2 RIP.CChar
-         ) => RIP.HasField "j" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "i" =
+    RIP.FunPtr (RIP.Ptr RIP.Void -> IO (RIP.Ptr (RIP.Ptr (RIP.Ptr RIP.CInt))))
 
-  getField = HasCField.fromPtr (RIP.Proxy @"j")
+  offset# = \_ -> \_ -> 56
 
 instance ( ty ~ CA.ConstantArray 2 RIP.CChar
          ) => RIP.CompatHasField.HasField "j" Bar1_t ty where
@@ -586,16 +574,17 @@ instance ( ty ~ CA.ConstantArray 2 RIP.CChar
       , RIP.getField @"j" x0
       )
 
-instance HasCField.HasCField Bar1_t "k" where
+instance ( ty ~ CA.ConstantArray 2 RIP.CChar
+         ) => RIP.HasField "j" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
 
-  type CFieldType Bar1_t "k" = RIP.Ptr Bar1_t
+  getField = HasCField.fromPtr (RIP.Proxy @"j")
 
-  offset# = \_ -> \_ -> 72
+instance HasCField.HasCField Bar1_t "j" where
 
-instance ( ty ~ RIP.Ptr Bar1_t
-         ) => RIP.HasField "k" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+  type CFieldType Bar1_t "j" =
+    CA.ConstantArray 2 RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"k")
+  offset# = \_ -> \_ -> 64
 
 instance ( ty ~ RIP.Ptr Bar1_t
          ) => RIP.CompatHasField.HasField "k" Bar1_t ty where
@@ -617,6 +606,17 @@ instance ( ty ~ RIP.Ptr Bar1_t
                  }
       , RIP.getField @"k" x0
       )
+
+instance ( ty ~ RIP.Ptr Bar1_t
+         ) => RIP.HasField "k" (RIP.Ptr Bar1_t) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"k")
+
+instance HasCField.HasCField Bar1_t "k" where
+
+  type CFieldType Bar1_t "k" = RIP.Ptr Bar1_t
+
+  offset# = \_ -> \_ -> 72
 
 {-| __C declaration:__ @struct bar2_t@
 
@@ -659,20 +659,20 @@ instance Marshal.WriteRaw Bar2_t where
 
 deriving via Marshal.EquivStorable Bar2_t instance RIP.Storable Bar2_t
 
-instance HasCField.HasCField Bar2_t "a" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar2_t ty where
 
-  type CFieldType Bar2_t "a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> Bar2_t {a = y1}, RIP.getField @"a" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar2_t ty where
+instance HasCField.HasCField Bar2_t "a" where
 
-  hasField =
-    \x0 -> (\y1 -> Bar2_t {a = y1}, RIP.getField @"a" x0)
+  type CFieldType Bar2_t "a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct bar3_t@
 
@@ -715,20 +715,20 @@ instance Marshal.WriteRaw Bar3_t where
 
 deriving via Marshal.EquivStorable Bar3_t instance RIP.Storable Bar3_t
 
-instance HasCField.HasCField Bar3_t "a" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar3_t ty where
 
-  type CFieldType Bar3_t "a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> Bar3_t {a = y1}, RIP.getField @"a" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "a" (RIP.Ptr Bar3_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"a")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "a" Bar3_t ty where
+instance HasCField.HasCField Bar3_t "a" where
 
-  hasField =
-    \x0 -> (\y1 -> Bar3_t {a = y1}, RIP.getField @"a" x0)
+  type CFieldType Bar3_t "a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @BAZ1@
 
@@ -818,6 +818,14 @@ instance Read Baz2_t where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz2_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz2_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Baz2_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -827,14 +835,6 @@ instance HasCField.HasCField Baz2_t "unwrap" where
   type CFieldType Baz2_t "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrap" Baz2_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Baz2_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @BAZ2@
 
@@ -924,6 +924,14 @@ instance Read Baz3_t where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz3_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz3_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Baz3_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -933,14 +941,6 @@ instance HasCField.HasCField Baz3_t "unwrap" where
   type CFieldType Baz3_t "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrap" Baz3_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Baz3_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @BAZ3@
 
@@ -1030,6 +1030,14 @@ instance Read Baz4_t where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrap" Baz4_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Baz4_t {unwrap = y1}, RIP.getField @"unwrap" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrap" (RIP.Ptr Baz4_t) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
@@ -1039,14 +1047,6 @@ instance HasCField.HasCField Baz4_t "unwrap" where
   type CFieldType Baz4_t "unwrap" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrap" Baz4_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Baz4_t {unwrap = y1}, RIP.getField @"unwrap" x0)
 
 {-| __C declaration:__ @BAZ4@
 

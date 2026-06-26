@@ -67,11 +67,11 @@ set_u_x :: CInt -> U
 
 -}
 set_u_x = setUnionPayload
+instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_x")
 instance HasCField U "u_x"
     where type CFieldType U "u_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
-    where getField = fromPtr (Proxy @"u_x")
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
@@ -82,14 +82,14 @@ newtype T
     = T {unwrapT :: U}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty U => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 instance (~) ty U => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = U
           offset# = \_ -> \_ -> 0
-instance (~) ty U => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::
     Ptr Void

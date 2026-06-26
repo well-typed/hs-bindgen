@@ -65,14 +65,14 @@ newtype T
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
 {-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 9:9@
@@ -97,14 +97,14 @@ newtype U
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapU" U ty
+    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
+                              getField @"unwrapU" x_0)
 instance (~) ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapU" U ty
-    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
-                              getField @"unwrapU" x_0)
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_27fdf7030b0bb40d" hs_bindgen_27fdf7030b0bb40d_base ::
     Int32

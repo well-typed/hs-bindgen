@@ -23,6 +23,11 @@
   ticks are not allowed in C identifiers. Since anonymous structs and unions are
   named after the generated fields, these names will now also include an `anon'`
   infix. See [issue #2064][is-2064] and [PR #2070][pr-2070].
+* Add a new `HasFieldPtr` type class name to external binding specs. We now use
+  the name `HasFieldPtr` in external binding specs to specify that a type has
+  `HasField` instances for the pointer manipulation API. The old `HasField` name
+  is now only used to record that a type has the usual `HasField` instances for
+  fields in record datatypes. See [PR #2094][pr-2094].
 
 ### New features
 
@@ -246,6 +251,7 @@
 [pr-2070]: https://github.com/well-typed/hs-bindgen/pull/2070
 [pr-2075]: https://github.com/well-typed/hs-bindgen/pull/2075
 [pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
+[pr-2094]: https://github.com/well-typed/hs-bindgen/pull/2094
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

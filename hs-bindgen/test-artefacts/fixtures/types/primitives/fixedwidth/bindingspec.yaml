@@ -15,11 +15,12 @@ hstypes:
       - foo_sixty_four
       - foo_thirty_two
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

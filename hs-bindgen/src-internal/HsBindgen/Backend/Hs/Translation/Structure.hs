@@ -261,7 +261,9 @@ getDecls supInsts hCfg spec structName info struct insts =
       ]
 
     fieldDecls :: [Hs.Decl l]
-    fieldDecls = concatMap (getFieldDecls structName struct hsStruct) struct.fields
+    fieldDecls = flip concatMap struct.fields $ \field ->
+        hasFieldCompatDecs structName struct hsStruct field ++
+        hasFieldPtrDecs hsStruct field
 
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
@@ -272,16 +274,17 @@ getDecls supInsts hCfg spec structName info struct insts =
           then Just Inst.HasCField
           else Nothing
       , if null struct.fields then Nothing else Just Inst.HasField
-      , if null struct.fields then Nothing else Just Inst.CompatHasField
+      , if null struct.fields then Nothing else Just Inst.HasFieldPtr
+      , if null struct.fields then Nothing else Just Inst.HasFieldCompat
       ]
 
 {-------------------------------------------------------------------------------
-  Fields
+  HasField
 -------------------------------------------------------------------------------}
 
--- | 'HsBindgen.Runtime.HasCField.HasCField',
--- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', 'GHC.Records.HasField', and
--- 'GHC.Records.Compat.HasField' instances for a field of a struct declaration
+
+-- | Class instances for 'GHC.Records.Compat.HasField' instances for a struct
+-- field
 --
 -- Given a struct:
 --
@@ -289,52 +292,27 @@ getDecls supInsts hCfg spec structName info struct insts =
 --
 -- We generate roughly this datatype:
 --
--- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
+-- > data MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
 --
--- GHC automatically generates 'GHC.Records.HasField' instances for the the two
--- fields.
+-- 'hasFieldCompatDecs' will generate roughly the following class instances for
+-- the fields @x@ and @y@ respectively:
 --
--- Then, 'getFieldDecls' will generate roughly the following class instances
--- for the fields @x@ and @y@ respectively:
---
--- > instance HasCField "myStruct_x" MyStruct where
--- >   type CFieldType "myStruct_x" MyStruct = CInt
--- > instance GHC.Records.HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
 -- > instance GHC.Records.Compat.HasField "myStruct_x" MyStruct CInt
---
--- > instance HasCField "myStruct_y" MyStruct where
--- >  type CFieldType "myStruct_y" MyStruct = CChar
--- > instance GHC.Records.HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
 -- > instance GHC.Records.Compat.HasField "myStruct_y" MyStruct CChar
 --
--- This works similarly for bit-fields, but those get a
--- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
--- 'HsBindgen.Runtime.HasCField.HasCField' instance.
-getFieldDecls ::
+hasFieldCompatDecs ::
      Hs.Name Hs.NsTypeConstr
   -> C.Struct Final
   -> Hs.Struct
   -> C.StructField Final
   -> [Hs.Decl l]
-getFieldDecls structName cStruct hsStruct field = [
+hasFieldCompatDecs structName cStruct hsStruct field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl =
-              case field.width of
-                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
-                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
+          , instanceDecl = Hs.InstanceHasFieldCompat hasFieldCompatDecl
           }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField hasFieldDecl
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceCompatHasField compatHasFieldDecl
-          }
+    | Inst.HasFieldCompat `elem` hsStruct.instances
     ]
   where
     parentType :: Hs.Type
@@ -346,8 +324,86 @@ getFieldDecls structName cStruct hsStruct field = [
     fieldType :: Hs.Type
     fieldType = Type.topLevel field.typ
 
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance {
+    hasFieldCompatDecl :: Hs.HasFieldCompatInstance
+    hasFieldCompatDecl = Hs.HasFieldCompatInstance {
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , impl = Hs.HasFieldCompatImplRecord $ Hs.HFCImplRecord {
+              otherFields = otherFields
+            , constr = hsStruct.constr
+            }
+        }
+      where
+        -- All fields that are /not/ the field we are creating an instance for
+        -- should stay unmodified
+        otherFields = flip mapMaybe cStruct.fields $ \field' ->
+            let fieldName' = Hs.assertNs (Proxy @Hs.NsVar) field'.info.name.hsName in
+            if fieldName == fieldName' then Nothing else Just fieldName'
+
+-- | Class instances for 'GHC.Records.HasField' for a struct field the pointer
+-- manipulation API
+--
+-- Given a struct:
+--
+-- > struct myStruct { int x; char y };
+--
+-- We generate roughly this datatype:
+--
+-- > data MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
+--
+-- 'hasFieldPtrDecs' will generate roughly the following class instances for the
+-- fields @x@ and @y@ respectively:
+--
+-- > instance HasCField "myStruct_x" MyStruct where
+-- >   type CFieldType "myStruct_x" MyStruct = CInt
+-- > instance GHC.Records.HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
+--
+-- > instance HasCField "myStruct_y" MyStruct where
+-- >  type CFieldType "myStruct_y" MyStruct = CChar
+-- > instance GHC.Records.HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
+--
+-- This works similarly for bit-fields, but those get a
+-- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
+-- 'HsBindgen.Runtime.HasCField.HasCField' instance.
+--
+hasFieldPtrDecs ::
+     Hs.Struct
+  -> C.StructField Final
+  -> [Hs.Decl l]
+hasFieldPtrDecs struct field = concat [
+      [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
+            }
+      | Inst.HasFieldPtr `elem` struct.instances
+      ]
+    , [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl =
+                case field.width of
+                  Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
+                  Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
+            }
+      | case field.width of
+          Nothing -> Inst.HasCField `elem` struct.instances
+          Just{}  -> Inst.HasCBitfield `elem` struct.instances
+      ]
+    ]
+  where
+    parentType :: Hs.Type
+    parentType = Hs.TypRef struct.name Nothing
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
+
+    fieldType :: Hs.Type
+    fieldType = Type.topLevel field.typ
+
+    hasFieldPtrDecl :: Hs.HasFieldPtrInstance
+    hasFieldPtrDecl = Hs.HasFieldPtrInstance {
           parentType = parentType
         , fieldName  = fieldName
         , fieldType  = fieldType
@@ -374,20 +430,9 @@ getFieldDecls structName cStruct hsStruct field = [
         , bitWidth      = w
         }
 
-    compatHasFieldDecl :: Hs.CompatHasFieldInstance
-    compatHasFieldDecl = Hs.CompatHasFieldInstance {
-          parentType = parentType
-        , fieldName  = fieldName
-        , fieldType  = fieldType
-        , otherFields = otherFields
-        , constr = hsStruct.constr
-        }
-      where
-        -- All fields that are /not/ the field we are creating an instance for
-        -- should stay unmodified
-        otherFields = flip mapMaybe cStruct.fields $ \field' ->
-            let fieldName' = Hs.assertNs (Proxy @Hs.NsVar) field'.info.name.hsName in
-            if fieldName == fieldName' then Nothing else Just fieldName'
+{-------------------------------------------------------------------------------
+  Field I\/O
+-------------------------------------------------------------------------------}
 
 peekField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
 peekField ptr field = case field.width of

@@ -23,11 +23,12 @@ hstypes:
       fields:
       - unwrapA
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: B
   representation:
     newtype:
@@ -35,11 +36,12 @@ hstypes:
       fields:
       - unwrapB
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: E
   representation:
     newtype:
@@ -47,10 +49,11 @@ hstypes:
       fields:
       - unwrapE
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: MyFunction
   representation:
     newtype:
@@ -58,10 +61,11 @@ hstypes:
       fields:
       - unwrapMyFunction
   instances:
-  - CompatHasField
   - FromFunPtr
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ToFunPtr

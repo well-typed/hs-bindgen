@@ -85,17 +85,6 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance RIP.Storable Bar
 
-instance HasCField.HasCField Bar "bar_ptrA" where
-
-  type CFieldType Bar "bar_ptrA" = RIP.Ptr Foo
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr Foo
-         ) => RIP.HasField "bar_ptrA" (RIP.Ptr Bar) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrA")
-
 instance ( ty ~ RIP.Ptr Foo
          ) => RIP.CompatHasField.HasField "bar_ptrA" Bar ty where
 
@@ -106,16 +95,16 @@ instance ( ty ~ RIP.Ptr Foo
       , RIP.getField @"bar_ptrA" x0
       )
 
-instance HasCField.HasCField Bar "bar_ptrB" where
+instance ( ty ~ RIP.Ptr Foo
+         ) => RIP.HasField "bar_ptrA" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
-  type CFieldType Bar "bar_ptrB" = RIP.Ptr Bar
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrA")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField Bar "bar_ptrA" where
 
-instance ( ty ~ RIP.Ptr Bar
-         ) => RIP.HasField "bar_ptrB" (RIP.Ptr Bar) (RIP.Ptr ty) where
+  type CFieldType Bar "bar_ptrA" = RIP.Ptr Foo
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrB")
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Bar
          ) => RIP.CompatHasField.HasField "bar_ptrB" Bar ty where
@@ -126,6 +115,17 @@ instance ( ty ~ RIP.Ptr Bar
           Bar {bar_ptrB = y1, bar_ptrA = RIP.getField @"bar_ptrA" x0}
       , RIP.getField @"bar_ptrB" x0
       )
+
+instance ( ty ~ RIP.Ptr Bar
+         ) => RIP.HasField "bar_ptrB" (RIP.Ptr Bar) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_ptrB")
+
+instance HasCField.HasCField Bar "bar_ptrB" where
+
+  type CFieldType Bar "bar_ptrB" = RIP.Ptr Bar
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct baz@
 

@@ -39,6 +39,14 @@ newtype MyArray = MyArray
   deriving newtype (IsA.IsArray)
 
 instance ( ty ~ IA.IncompleteArray RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyArray" MyArray ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyArray {unwrapMyArray = y1}, RIP.getField @"unwrapMyArray" x0)
+
+instance ( ty ~ IA.IncompleteArray RIP.CInt
          ) => RIP.HasField "unwrapMyArray" (RIP.Ptr MyArray) (RIP.Ptr ty) where
 
   getField =
@@ -50,14 +58,6 @@ instance HasCField.HasCField MyArray "unwrapMyArray" where
     IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyArray" MyArray ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyArray {unwrapMyArray = y1}, RIP.getField @"unwrapMyArray" x0)
 
 {-| __C declaration:__ @macro A@
 
@@ -71,6 +71,12 @@ newtype A = A
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
+instance (ty ~ MyArray) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
 instance (ty ~ MyArray) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -80,12 +86,6 @@ instance HasCField.HasCField A "unwrapA" where
   type CFieldType A "unwrapA" = MyArray
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyArray) => RIP.CompatHasField.HasField "unwrapA" A ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
 
 {-| __C declaration:__ @macro B@
 
@@ -99,6 +99,12 @@ newtype B = B
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype (IsA.IsArray)
 
+instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+
 instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
@@ -108,12 +114,6 @@ instance HasCField.HasCField B "unwrapB" where
   type CFieldType B "unwrapB" = A
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
 
 {-| __C declaration:__ @macro E@
 
@@ -126,6 +126,12 @@ newtype E = E
   }
   deriving stock (RIP.Generic)
 
+instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)
+
 instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
@@ -135,9 +141,3 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)

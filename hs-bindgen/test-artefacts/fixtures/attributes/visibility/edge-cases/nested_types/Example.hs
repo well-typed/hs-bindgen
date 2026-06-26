@@ -69,15 +69,15 @@ set_u_x ::
   -> U
 set_u_x = RIP.setUnionPayload
 
+instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
+
 instance HasCField.HasCField U "u_x" where
 
   type CFieldType U "u_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
 
 {-| __C declaration:__ @struct S@
 
@@ -120,17 +120,17 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance RIP.Storable S
 
-instance HasCField.HasCField S "s_y" where
+instance (ty ~ U) => RIP.CompatHasField.HasField "s_y" S ty where
 
-  type CFieldType S "s_y" = U
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)
 
 instance (ty ~ U) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"s_y")
 
-instance (ty ~ U) => RIP.CompatHasField.HasField "s_y" S ty where
+instance HasCField.HasCField S "s_y" where
 
-  hasField =
-    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)
+  type CFieldType S "s_y" = U
+
+  offset# = \_ -> \_ -> 0

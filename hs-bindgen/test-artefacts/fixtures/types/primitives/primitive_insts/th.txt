@@ -29,6 +29,10 @@ newtype Prim_HsPrimCPtrdiff
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
+         HasField "unwrapPrim_HsPrimCPtrdiff" Prim_HsPrimCPtrdiff ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCPtrdiff{unwrapPrim_HsPrimCPtrdiff = y_1},
+                              getField @"unwrapPrim_HsPrimCPtrdiff" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
          HasField "unwrapPrim_HsPrimCPtrdiff"
                   (Ptr Prim_HsPrimCPtrdiff)
                   (Ptr ty)
@@ -37,10 +41,6 @@ instance HasCField Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff"
     where type CFieldType Prim_HsPrimCPtrdiff
                           "unwrapPrim_HsPrimCPtrdiff" = HsBindgen.Runtime.LibC.CPtrdiff
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
-         HasField "unwrapPrim_HsPrimCPtrdiff" Prim_HsPrimCPtrdiff ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCPtrdiff{unwrapPrim_HsPrimCPtrdiff = y_1},
-                              getField @"unwrapPrim_HsPrimCPtrdiff" x_0)
 {-| __C declaration:__ @prim_HsPrimInt8@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 19:28@
@@ -66,16 +66,16 @@ newtype Prim_HsPrimInt8
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
+         HasField "unwrapPrim_HsPrimInt8" Prim_HsPrimInt8 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt8{unwrapPrim_HsPrimInt8 = y_1},
+                              getField @"unwrapPrim_HsPrimInt8" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapPrim_HsPrimInt8" (Ptr Prim_HsPrimInt8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt8")
 instance HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8"
     where type CFieldType Prim_HsPrimInt8
                           "unwrapPrim_HsPrimInt8" = HsBindgen.Runtime.LibC.Int8
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
-         HasField "unwrapPrim_HsPrimInt8" Prim_HsPrimInt8 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt8{unwrapPrim_HsPrimInt8 = y_1},
-                              getField @"unwrapPrim_HsPrimInt8" x_0)
 {-| __C declaration:__ @prim_HsPrimInt16@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 20:28@
@@ -101,16 +101,16 @@ newtype Prim_HsPrimInt16
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
+         HasField "unwrapPrim_HsPrimInt16" Prim_HsPrimInt16 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt16{unwrapPrim_HsPrimInt16 = y_1},
+                              getField @"unwrapPrim_HsPrimInt16" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
          HasField "unwrapPrim_HsPrimInt16" (Ptr Prim_HsPrimInt16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt16")
 instance HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16"
     where type CFieldType Prim_HsPrimInt16
                           "unwrapPrim_HsPrimInt16" = HsBindgen.Runtime.LibC.Int16
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
-         HasField "unwrapPrim_HsPrimInt16" Prim_HsPrimInt16 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt16{unwrapPrim_HsPrimInt16 = y_1},
-                              getField @"unwrapPrim_HsPrimInt16" x_0)
 {-| __C declaration:__ @prim_HsPrimInt32@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 21:28@
@@ -136,16 +136,16 @@ newtype Prim_HsPrimInt32
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapPrim_HsPrimInt32" Prim_HsPrimInt32 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt32{unwrapPrim_HsPrimInt32 = y_1},
+                              getField @"unwrapPrim_HsPrimInt32" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapPrim_HsPrimInt32" (Ptr Prim_HsPrimInt32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt32")
 instance HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32"
     where type CFieldType Prim_HsPrimInt32
                           "unwrapPrim_HsPrimInt32" = HsBindgen.Runtime.LibC.Int32
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
-         HasField "unwrapPrim_HsPrimInt32" Prim_HsPrimInt32 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt32{unwrapPrim_HsPrimInt32 = y_1},
-                              getField @"unwrapPrim_HsPrimInt32" x_0)
 {-| __C declaration:__ @prim_HsPrimInt64@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 22:28@
@@ -171,16 +171,16 @@ newtype Prim_HsPrimInt64
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
+         HasField "unwrapPrim_HsPrimInt64" Prim_HsPrimInt64 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt64{unwrapPrim_HsPrimInt64 = y_1},
+                              getField @"unwrapPrim_HsPrimInt64" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapPrim_HsPrimInt64" (Ptr Prim_HsPrimInt64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt64")
 instance HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64"
     where type CFieldType Prim_HsPrimInt64
                           "unwrapPrim_HsPrimInt64" = HsBindgen.Runtime.LibC.Int64
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
-         HasField "unwrapPrim_HsPrimInt64" Prim_HsPrimInt64 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimInt64{unwrapPrim_HsPrimInt64 = y_1},
-                              getField @"unwrapPrim_HsPrimInt64" x_0)
 {-| __C declaration:__ @prim_HsPrimWord8@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 24:28@
@@ -206,16 +206,16 @@ newtype Prim_HsPrimWord8
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapPrim_HsPrimWord8" Prim_HsPrimWord8 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord8{unwrapPrim_HsPrimWord8 = y_1},
+                              getField @"unwrapPrim_HsPrimWord8" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapPrim_HsPrimWord8" (Ptr Prim_HsPrimWord8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord8")
 instance HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8"
     where type CFieldType Prim_HsPrimWord8
                           "unwrapPrim_HsPrimWord8" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
-         HasField "unwrapPrim_HsPrimWord8" Prim_HsPrimWord8 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord8{unwrapPrim_HsPrimWord8 = y_1},
-                              getField @"unwrapPrim_HsPrimWord8" x_0)
 {-| __C declaration:__ @prim_HsPrimWord16@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 25:28@
@@ -241,16 +241,16 @@ newtype Prim_HsPrimWord16
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "unwrapPrim_HsPrimWord16" Prim_HsPrimWord16 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord16{unwrapPrim_HsPrimWord16 = y_1},
+                              getField @"unwrapPrim_HsPrimWord16" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "unwrapPrim_HsPrimWord16" (Ptr Prim_HsPrimWord16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord16")
 instance HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16"
     where type CFieldType Prim_HsPrimWord16
                           "unwrapPrim_HsPrimWord16" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
-         HasField "unwrapPrim_HsPrimWord16" Prim_HsPrimWord16 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord16{unwrapPrim_HsPrimWord16 = y_1},
-                              getField @"unwrapPrim_HsPrimWord16" x_0)
 {-| __C declaration:__ @prim_HsPrimWord32@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 26:28@
@@ -276,16 +276,16 @@ newtype Prim_HsPrimWord32
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapPrim_HsPrimWord32" Prim_HsPrimWord32 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord32{unwrapPrim_HsPrimWord32 = y_1},
+                              getField @"unwrapPrim_HsPrimWord32" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapPrim_HsPrimWord32" (Ptr Prim_HsPrimWord32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord32")
 instance HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32"
     where type CFieldType Prim_HsPrimWord32
                           "unwrapPrim_HsPrimWord32" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
-         HasField "unwrapPrim_HsPrimWord32" Prim_HsPrimWord32 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord32{unwrapPrim_HsPrimWord32 = y_1},
-                              getField @"unwrapPrim_HsPrimWord32" x_0)
 {-| __C declaration:__ @prim_HsPrimWord64@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 27:28@
@@ -311,16 +311,16 @@ newtype Prim_HsPrimWord64
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "unwrapPrim_HsPrimWord64" Prim_HsPrimWord64 ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord64{unwrapPrim_HsPrimWord64 = y_1},
+                              getField @"unwrapPrim_HsPrimWord64" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapPrim_HsPrimWord64" (Ptr Prim_HsPrimWord64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord64")
 instance HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64"
     where type CFieldType Prim_HsPrimWord64
                           "unwrapPrim_HsPrimWord64" = HsBindgen.Runtime.LibC.Word64
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
-         HasField "unwrapPrim_HsPrimWord64" Prim_HsPrimWord64 ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimWord64{unwrapPrim_HsPrimWord64 = y_1},
-                              getField @"unwrapPrim_HsPrimWord64" x_0)
 {-| __C declaration:__ @prim_HsPrimCChar@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 28:28@
@@ -346,16 +346,16 @@ newtype Prim_HsPrimCChar
                       Storable,
                       WriteRaw)
 instance (~) ty CChar =>
+         HasField "unwrapPrim_HsPrimCChar" Prim_HsPrimCChar ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCChar{unwrapPrim_HsPrimCChar = y_1},
+                              getField @"unwrapPrim_HsPrimCChar" x_0)
+instance (~) ty CChar =>
          HasField "unwrapPrim_HsPrimCChar" (Ptr Prim_HsPrimCChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCChar")
 instance HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar"
     where type CFieldType Prim_HsPrimCChar
                           "unwrapPrim_HsPrimCChar" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar =>
-         HasField "unwrapPrim_HsPrimCChar" Prim_HsPrimCChar ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCChar{unwrapPrim_HsPrimCChar = y_1},
-                              getField @"unwrapPrim_HsPrimCChar" x_0)
 {-| __C declaration:__ @prim_HsPrimCSChar@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 29:28@
@@ -381,16 +381,16 @@ newtype Prim_HsPrimCSChar
                       Storable,
                       WriteRaw)
 instance (~) ty CSChar =>
+         HasField "unwrapPrim_HsPrimCSChar" Prim_HsPrimCSChar ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCSChar{unwrapPrim_HsPrimCSChar = y_1},
+                              getField @"unwrapPrim_HsPrimCSChar" x_0)
+instance (~) ty CSChar =>
          HasField "unwrapPrim_HsPrimCSChar" (Ptr Prim_HsPrimCSChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCSChar")
 instance HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar"
     where type CFieldType Prim_HsPrimCSChar
                           "unwrapPrim_HsPrimCSChar" = CSChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CSChar =>
-         HasField "unwrapPrim_HsPrimCSChar" Prim_HsPrimCSChar ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCSChar{unwrapPrim_HsPrimCSChar = y_1},
-                              getField @"unwrapPrim_HsPrimCSChar" x_0)
 {-| __C declaration:__ @prim_HsPrimCUChar@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 30:28@
@@ -416,16 +416,16 @@ newtype Prim_HsPrimCUChar
                       Storable,
                       WriteRaw)
 instance (~) ty CUChar =>
+         HasField "unwrapPrim_HsPrimCUChar" Prim_HsPrimCUChar ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUChar{unwrapPrim_HsPrimCUChar = y_1},
+                              getField @"unwrapPrim_HsPrimCUChar" x_0)
+instance (~) ty CUChar =>
          HasField "unwrapPrim_HsPrimCUChar" (Ptr Prim_HsPrimCUChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUChar")
 instance HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar"
     where type CFieldType Prim_HsPrimCUChar
                           "unwrapPrim_HsPrimCUChar" = CUChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CUChar =>
-         HasField "unwrapPrim_HsPrimCUChar" Prim_HsPrimCUChar ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUChar{unwrapPrim_HsPrimCUChar = y_1},
-                              getField @"unwrapPrim_HsPrimCUChar" x_0)
 {-| __C declaration:__ @prim_HsPrimCShort@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 31:28@
@@ -451,16 +451,16 @@ newtype Prim_HsPrimCShort
                       Storable,
                       WriteRaw)
 instance (~) ty CShort =>
+         HasField "unwrapPrim_HsPrimCShort" Prim_HsPrimCShort ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCShort{unwrapPrim_HsPrimCShort = y_1},
+                              getField @"unwrapPrim_HsPrimCShort" x_0)
+instance (~) ty CShort =>
          HasField "unwrapPrim_HsPrimCShort" (Ptr Prim_HsPrimCShort) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCShort")
 instance HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort"
     where type CFieldType Prim_HsPrimCShort
                           "unwrapPrim_HsPrimCShort" = CShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CShort =>
-         HasField "unwrapPrim_HsPrimCShort" Prim_HsPrimCShort ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCShort{unwrapPrim_HsPrimCShort = y_1},
-                              getField @"unwrapPrim_HsPrimCShort" x_0)
 {-| __C declaration:__ @prim_HsPrimCUShort@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 32:28@
@@ -486,6 +486,10 @@ newtype Prim_HsPrimCUShort
                       Storable,
                       WriteRaw)
 instance (~) ty CUShort =>
+         HasField "unwrapPrim_HsPrimCUShort" Prim_HsPrimCUShort ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUShort{unwrapPrim_HsPrimCUShort = y_1},
+                              getField @"unwrapPrim_HsPrimCUShort" x_0)
+instance (~) ty CUShort =>
          HasField "unwrapPrim_HsPrimCUShort"
                   (Ptr Prim_HsPrimCUShort)
                   (Ptr ty)
@@ -494,10 +498,6 @@ instance HasCField Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort"
     where type CFieldType Prim_HsPrimCUShort
                           "unwrapPrim_HsPrimCUShort" = CUShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CUShort =>
-         HasField "unwrapPrim_HsPrimCUShort" Prim_HsPrimCUShort ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUShort{unwrapPrim_HsPrimCUShort = y_1},
-                              getField @"unwrapPrim_HsPrimCUShort" x_0)
 {-| __C declaration:__ @prim_HsPrimCInt@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 33:28@
@@ -523,16 +523,16 @@ newtype Prim_HsPrimCInt
                       Storable,
                       WriteRaw)
 instance (~) ty CInt =>
+         HasField "unwrapPrim_HsPrimCInt" Prim_HsPrimCInt ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCInt{unwrapPrim_HsPrimCInt = y_1},
+                              getField @"unwrapPrim_HsPrimCInt" x_0)
+instance (~) ty CInt =>
          HasField "unwrapPrim_HsPrimCInt" (Ptr Prim_HsPrimCInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCInt")
 instance HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt"
     where type CFieldType Prim_HsPrimCInt
                           "unwrapPrim_HsPrimCInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "unwrapPrim_HsPrimCInt" Prim_HsPrimCInt ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCInt{unwrapPrim_HsPrimCInt = y_1},
-                              getField @"unwrapPrim_HsPrimCInt" x_0)
 {-| __C declaration:__ @prim_HsPrimCUInt@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 34:28@
@@ -558,16 +558,16 @@ newtype Prim_HsPrimCUInt
                       Storable,
                       WriteRaw)
 instance (~) ty CUInt =>
+         HasField "unwrapPrim_HsPrimCUInt" Prim_HsPrimCUInt ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUInt{unwrapPrim_HsPrimCUInt = y_1},
+                              getField @"unwrapPrim_HsPrimCUInt" x_0)
+instance (~) ty CUInt =>
          HasField "unwrapPrim_HsPrimCUInt" (Ptr Prim_HsPrimCUInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUInt")
 instance HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt"
     where type CFieldType Prim_HsPrimCUInt
                           "unwrapPrim_HsPrimCUInt" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt =>
-         HasField "unwrapPrim_HsPrimCUInt" Prim_HsPrimCUInt ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCUInt{unwrapPrim_HsPrimCUInt = y_1},
-                              getField @"unwrapPrim_HsPrimCUInt" x_0)
 {-| __C declaration:__ @prim_HsPrimCLong@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 35:28@
@@ -593,16 +593,16 @@ newtype Prim_HsPrimCLong
                       Storable,
                       WriteRaw)
 instance (~) ty CLong =>
+         HasField "unwrapPrim_HsPrimCLong" Prim_HsPrimCLong ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCLong{unwrapPrim_HsPrimCLong = y_1},
+                              getField @"unwrapPrim_HsPrimCLong" x_0)
+instance (~) ty CLong =>
          HasField "unwrapPrim_HsPrimCLong" (Ptr Prim_HsPrimCLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLong")
 instance HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong"
     where type CFieldType Prim_HsPrimCLong
                           "unwrapPrim_HsPrimCLong" = CLong
           offset# = \_ -> \_ -> 0
-instance (~) ty CLong =>
-         HasField "unwrapPrim_HsPrimCLong" Prim_HsPrimCLong ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCLong{unwrapPrim_HsPrimCLong = y_1},
-                              getField @"unwrapPrim_HsPrimCLong" x_0)
 {-| __C declaration:__ @prim_HsPrimCULong@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 36:28@
@@ -628,16 +628,16 @@ newtype Prim_HsPrimCULong
                       Storable,
                       WriteRaw)
 instance (~) ty CULong =>
+         HasField "unwrapPrim_HsPrimCULong" Prim_HsPrimCULong ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCULong{unwrapPrim_HsPrimCULong = y_1},
+                              getField @"unwrapPrim_HsPrimCULong" x_0)
+instance (~) ty CULong =>
          HasField "unwrapPrim_HsPrimCULong" (Ptr Prim_HsPrimCULong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULong")
 instance HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong"
     where type CFieldType Prim_HsPrimCULong
                           "unwrapPrim_HsPrimCULong" = CULong
           offset# = \_ -> \_ -> 0
-instance (~) ty CULong =>
-         HasField "unwrapPrim_HsPrimCULong" Prim_HsPrimCULong ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCULong{unwrapPrim_HsPrimCULong = y_1},
-                              getField @"unwrapPrim_HsPrimCULong" x_0)
 {-| __C declaration:__ @prim_HsPrimCLLong@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 37:28@
@@ -663,16 +663,16 @@ newtype Prim_HsPrimCLLong
                       Storable,
                       WriteRaw)
 instance (~) ty CLLong =>
+         HasField "unwrapPrim_HsPrimCLLong" Prim_HsPrimCLLong ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCLLong{unwrapPrim_HsPrimCLLong = y_1},
+                              getField @"unwrapPrim_HsPrimCLLong" x_0)
+instance (~) ty CLLong =>
          HasField "unwrapPrim_HsPrimCLLong" (Ptr Prim_HsPrimCLLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLLong")
 instance HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong"
     where type CFieldType Prim_HsPrimCLLong
                           "unwrapPrim_HsPrimCLLong" = CLLong
           offset# = \_ -> \_ -> 0
-instance (~) ty CLLong =>
-         HasField "unwrapPrim_HsPrimCLLong" Prim_HsPrimCLLong ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCLLong{unwrapPrim_HsPrimCLLong = y_1},
-                              getField @"unwrapPrim_HsPrimCLLong" x_0)
 {-| __C declaration:__ @prim_HsPrimCULLong@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 38:28@
@@ -698,6 +698,10 @@ newtype Prim_HsPrimCULLong
                       Storable,
                       WriteRaw)
 instance (~) ty CULLong =>
+         HasField "unwrapPrim_HsPrimCULLong" Prim_HsPrimCULLong ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCULLong{unwrapPrim_HsPrimCULLong = y_1},
+                              getField @"unwrapPrim_HsPrimCULLong" x_0)
+instance (~) ty CULLong =>
          HasField "unwrapPrim_HsPrimCULLong"
                   (Ptr Prim_HsPrimCULLong)
                   (Ptr ty)
@@ -706,10 +710,6 @@ instance HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong"
     where type CFieldType Prim_HsPrimCULLong
                           "unwrapPrim_HsPrimCULLong" = CULLong
           offset# = \_ -> \_ -> 0
-instance (~) ty CULLong =>
-         HasField "unwrapPrim_HsPrimCULLong" Prim_HsPrimCULLong ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCULLong{unwrapPrim_HsPrimCULLong = y_1},
-                              getField @"unwrapPrim_HsPrimCULLong" x_0)
 {-| __C declaration:__ @prim_HsPrimCBool@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 39:28@
@@ -735,16 +735,16 @@ newtype Prim_HsPrimCBool
                       Storable,
                       WriteRaw)
 instance (~) ty CBool =>
+         HasField "unwrapPrim_HsPrimCBool" Prim_HsPrimCBool ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCBool{unwrapPrim_HsPrimCBool = y_1},
+                              getField @"unwrapPrim_HsPrimCBool" x_0)
+instance (~) ty CBool =>
          HasField "unwrapPrim_HsPrimCBool" (Ptr Prim_HsPrimCBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCBool")
 instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
     where type CFieldType Prim_HsPrimCBool
                           "unwrapPrim_HsPrimCBool" = CBool
           offset# = \_ -> \_ -> 0
-instance (~) ty CBool =>
-         HasField "unwrapPrim_HsPrimCBool" Prim_HsPrimCBool ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCBool{unwrapPrim_HsPrimCBool = y_1},
-                              getField @"unwrapPrim_HsPrimCBool" x_0)
 {-| __C declaration:__ @prim_HsPrimCFloat@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 40:28@
@@ -768,16 +768,16 @@ newtype Prim_HsPrimCFloat
                       Storable,
                       WriteRaw)
 instance (~) ty CFloat =>
+         HasField "unwrapPrim_HsPrimCFloat" Prim_HsPrimCFloat ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCFloat{unwrapPrim_HsPrimCFloat = y_1},
+                              getField @"unwrapPrim_HsPrimCFloat" x_0)
+instance (~) ty CFloat =>
          HasField "unwrapPrim_HsPrimCFloat" (Ptr Prim_HsPrimCFloat) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCFloat")
 instance HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat"
     where type CFieldType Prim_HsPrimCFloat
                           "unwrapPrim_HsPrimCFloat" = CFloat
           offset# = \_ -> \_ -> 0
-instance (~) ty CFloat =>
-         HasField "unwrapPrim_HsPrimCFloat" Prim_HsPrimCFloat ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCFloat{unwrapPrim_HsPrimCFloat = y_1},
-                              getField @"unwrapPrim_HsPrimCFloat" x_0)
 {-| __C declaration:__ @prim_HsPrimCDouble@
 
     __defined at:__ @types\/primitives\/primitive_insts.h 41:28@
@@ -801,6 +801,10 @@ newtype Prim_HsPrimCDouble
                       Storable,
                       WriteRaw)
 instance (~) ty CDouble =>
+         HasField "unwrapPrim_HsPrimCDouble" Prim_HsPrimCDouble ty
+    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCDouble{unwrapPrim_HsPrimCDouble = y_1},
+                              getField @"unwrapPrim_HsPrimCDouble" x_0)
+instance (~) ty CDouble =>
          HasField "unwrapPrim_HsPrimCDouble"
                   (Ptr Prim_HsPrimCDouble)
                   (Ptr ty)
@@ -809,7 +813,3 @@ instance HasCField Prim_HsPrimCDouble "unwrapPrim_HsPrimCDouble"
     where type CFieldType Prim_HsPrimCDouble
                           "unwrapPrim_HsPrimCDouble" = CDouble
           offset# = \_ -> \_ -> 0
-instance (~) ty CDouble =>
-         HasField "unwrapPrim_HsPrimCDouble" Prim_HsPrimCDouble ty
-    where hasField = \x_0 -> (\y_1 -> Prim_HsPrimCDouble{unwrapPrim_HsPrimCDouble = y_1},
-                              getField @"unwrapPrim_HsPrimCDouble" x_0)

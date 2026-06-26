@@ -77,17 +77,6 @@ instance Marshal.WriteRaw Bools1 where
 
 deriving via Marshal.EquivStorable Bools1 instance RIP.Storable Bools1
 
-instance HasCField.HasCField Bools1 "bools1_x" where
-
-  type CFieldType Bools1 "bools1_x" = RIP.CBool
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools1_x" (RIP.Ptr Bools1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
-
 instance ( ty ~ RIP.CBool
          ) => RIP.CompatHasField.HasField "bools1_x" Bools1 ty where
 
@@ -98,16 +87,16 @@ instance ( ty ~ RIP.CBool
       , RIP.getField @"bools1_x" x0
       )
 
-instance HasCField.HasCField Bools1 "bools1_y" where
-
-  type CFieldType Bools1 "bools1_y" = RIP.CBool
-
-  offset# = \_ -> \_ -> 1
-
 instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
+         ) => RIP.HasField "bools1_x" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
+
+instance HasCField.HasCField Bools1 "bools1_x" where
+
+  type CFieldType Bools1 "bools1_x" = RIP.CBool
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CBool
          ) => RIP.CompatHasField.HasField "bools1_y" Bools1 ty where
@@ -118,6 +107,17 @@ instance ( ty ~ RIP.CBool
           Bools1 {bools1_y = y1, bools1_x = RIP.getField @"bools1_x" x0}
       , RIP.getField @"bools1_y" x0
       )
+
+instance ( ty ~ RIP.CBool
+         ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
+
+instance HasCField.HasCField Bools1 "bools1_y" where
+
+  type CFieldType Bools1 "bools1_y" = RIP.CBool
+
+  offset# = \_ -> \_ -> 1
 
 {-| __C declaration:__ @struct bools2@
 
@@ -169,17 +169,6 @@ instance Marshal.WriteRaw Bools2 where
 
 deriving via Marshal.EquivStorable Bools2 instance RIP.Storable Bools2
 
-instance HasCField.HasCField Bools2 "bools2_x" where
-
-  type CFieldType Bools2 "bools2_x" = RIP.CBool
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
-
 instance ( ty ~ RIP.CBool
          ) => RIP.CompatHasField.HasField "bools2_x" Bools2 ty where
 
@@ -190,16 +179,16 @@ instance ( ty ~ RIP.CBool
       , RIP.getField @"bools2_x" x0
       )
 
-instance HasCField.HasCField Bools2 "bools2_y" where
-
-  type CFieldType Bools2 "bools2_y" = RIP.CBool
-
-  offset# = \_ -> \_ -> 1
-
 instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
+         ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
+
+instance HasCField.HasCField Bools2 "bools2_x" where
+
+  type CFieldType Bools2 "bools2_x" = RIP.CBool
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CBool
          ) => RIP.CompatHasField.HasField "bools2_y" Bools2 ty where
@@ -210,6 +199,17 @@ instance ( ty ~ RIP.CBool
           Bools2 {bools2_y = y1, bools2_x = RIP.getField @"bools2_x" x0}
       , RIP.getField @"bools2_y" x0
       )
+
+instance ( ty ~ RIP.CBool
+         ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
+
+instance HasCField.HasCField Bools2 "bools2_y" where
+
+  type CFieldType Bools2 "bools2_y" = RIP.CBool
+
+  offset# = \_ -> \_ -> 1
 
 {-| __C declaration:__ @macro BOOL@
 
@@ -240,6 +240,14 @@ newtype BOOL = BOOL
     )
 
 instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
+
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -250,14 +258,6 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
   type CFieldType BOOL "unwrapBOOL" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
 
 {-| __C declaration:__ @struct bools3@
 
@@ -309,17 +309,6 @@ instance Marshal.WriteRaw Bools3 where
 
 deriving via Marshal.EquivStorable Bools3 instance RIP.Storable Bools3
 
-instance HasCField.HasCField Bools3 "bools3_x" where
-
-  type CFieldType Bools3 "bools3_x" = BOOL
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ BOOL
-         ) => RIP.HasField "bools3_x" (RIP.Ptr Bools3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
-
 instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_x" Bools3 ty where
 
   hasField =
@@ -329,16 +318,16 @@ instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_x" Bools3 ty where
       , RIP.getField @"bools3_x" x0
       )
 
-instance HasCField.HasCField Bools3 "bools3_y" where
-
-  type CFieldType Bools3 "bools3_y" = BOOL
-
-  offset# = \_ -> \_ -> 1
-
 instance ( ty ~ BOOL
-         ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
+         ) => RIP.HasField "bools3_x" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
+
+instance HasCField.HasCField Bools3 "bools3_x" where
+
+  type CFieldType Bools3 "bools3_x" = BOOL
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_y" Bools3 ty where
 
@@ -348,3 +337,14 @@ instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_y" Bools3 ty where
           Bools3 {bools3_y = y1, bools3_x = RIP.getField @"bools3_x" x0}
       , RIP.getField @"bools3_y" x0
       )
+
+instance ( ty ~ BOOL
+         ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")
+
+instance HasCField.HasCField Bools3 "bools3_y" where
+
+  type CFieldType Bools3 "bools3_y" = BOOL
+
+  offset# = \_ -> \_ -> 1

@@ -23,11 +23,11 @@ newtype Sym
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CChar => HasField "unwrapSym" Sym ty
+    where hasField = \x_0 -> (\y_1 -> Sym{unwrapSym = y_1},
+                              getField @"unwrapSym" x_0)
 instance (~) ty CChar => HasField "unwrapSym" (Ptr Sym) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSym")
 instance HasCField Sym "unwrapSym"
     where type CFieldType Sym "unwrapSym" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "unwrapSym" Sym ty
-    where hasField = \x_0 -> (\y_1 -> Sym{unwrapSym = y_1},
-                              getField @"unwrapSym" x_0)

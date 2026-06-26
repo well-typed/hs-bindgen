@@ -63,17 +63,6 @@ instance Marshal.WriteRaw NewName where
 
 deriving via Marshal.EquivStorable NewName instance RIP.Storable NewName
 
-instance HasCField.HasCField NewName "newName_x" where
-
-  type CFieldType NewName "newName_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "newName_x" (RIP.Ptr NewName) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"newName_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "newName_x" NewName ty where
 
@@ -81,3 +70,14 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          NewName {newName_x = y1}, RIP.getField @"newName_x" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "newName_x" (RIP.Ptr NewName) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"newName_x")
+
+instance HasCField.HasCField NewName "newName_x" where
+
+  type CFieldType NewName "newName_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

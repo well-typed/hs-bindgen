@@ -27,11 +27,12 @@ hstypes:
       - s1_anon'y
       - s1_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -44,11 +45,12 @@ hstypes:
       fields:
       - s1_anon'y_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -61,11 +63,12 @@ hstypes:
       fields:
       - s2_anon'anon'y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -79,11 +82,12 @@ hstypes:
       - s2_anon'anon'y_anon'y
       - s2_anon'anon'y_x
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -96,11 +100,12 @@ hstypes:
       fields:
       - s2_anon'anon'y_anon'y_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCBitfield
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

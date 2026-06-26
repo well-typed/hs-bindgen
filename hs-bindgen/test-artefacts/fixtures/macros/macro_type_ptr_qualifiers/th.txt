@@ -14,15 +14,15 @@ newtype PtrToVoid
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr Void) =>
+         HasField "unwrapPtrToVoid" PtrToVoid ty
+    where hasField = \x_0 -> (\y_1 -> PtrToVoid{unwrapPtrToVoid = y_1},
+                              getField @"unwrapPtrToVoid" x_0)
+instance (~) ty (Ptr Void) =>
          HasField "unwrapPtrToVoid" (Ptr PtrToVoid) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrToVoid")
 instance HasCField PtrToVoid "unwrapPtrToVoid"
     where type CFieldType PtrToVoid "unwrapPtrToVoid" = Ptr Void
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Void) =>
-         HasField "unwrapPtrToVoid" PtrToVoid ty
-    where hasField = \x_0 -> (\y_1 -> PtrToVoid{unwrapPtrToVoid = y_1},
-                              getField @"unwrapPtrToVoid" x_0)
 {-| __C declaration:__ @macro PtrToConstVoidL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 5:9@
@@ -38,16 +38,16 @@ newtype PtrToConstVoidL
                       Storable,
                       WriteRaw)
 instance (~) ty (PtrConst Void) =>
+         HasField "unwrapPtrToConstVoidL" PtrToConstVoidL ty
+    where hasField = \x_0 -> (\y_1 -> PtrToConstVoidL{unwrapPtrToConstVoidL = y_1},
+                              getField @"unwrapPtrToConstVoidL" x_0)
+instance (~) ty (PtrConst Void) =>
          HasField "unwrapPtrToConstVoidL" (Ptr PtrToConstVoidL) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrToConstVoidL")
 instance HasCField PtrToConstVoidL "unwrapPtrToConstVoidL"
     where type CFieldType PtrToConstVoidL
                           "unwrapPtrToConstVoidL" = PtrConst Void
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst Void) =>
-         HasField "unwrapPtrToConstVoidL" PtrToConstVoidL ty
-    where hasField = \x_0 -> (\y_1 -> PtrToConstVoidL{unwrapPtrToConstVoidL = y_1},
-                              getField @"unwrapPtrToConstVoidL" x_0)
 {-| __C declaration:__ @macro PtrToConstVoidR@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 8:9@
@@ -63,16 +63,16 @@ newtype PtrToConstVoidR
                       Storable,
                       WriteRaw)
 instance (~) ty (PtrConst Void) =>
+         HasField "unwrapPtrToConstVoidR" PtrToConstVoidR ty
+    where hasField = \x_0 -> (\y_1 -> PtrToConstVoidR{unwrapPtrToConstVoidR = y_1},
+                              getField @"unwrapPtrToConstVoidR" x_0)
+instance (~) ty (PtrConst Void) =>
          HasField "unwrapPtrToConstVoidR" (Ptr PtrToConstVoidR) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrToConstVoidR")
 instance HasCField PtrToConstVoidR "unwrapPtrToConstVoidR"
     where type CFieldType PtrToConstVoidR
                           "unwrapPtrToConstVoidR" = PtrConst Void
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst Void) =>
-         HasField "unwrapPtrToConstVoidR" PtrToConstVoidR ty
-    where hasField = \x_0 -> (\y_1 -> PtrToConstVoidR{unwrapPtrToConstVoidR = y_1},
-                              getField @"unwrapPtrToConstVoidR" x_0)
 {-| __C declaration:__ @macro PtrToConstIntL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 11:9@
@@ -88,16 +88,16 @@ newtype PtrToConstIntL
                       Storable,
                       WriteRaw)
 instance (~) ty (PtrConst CInt) =>
+         HasField "unwrapPtrToConstIntL" PtrToConstIntL ty
+    where hasField = \x_0 -> (\y_1 -> PtrToConstIntL{unwrapPtrToConstIntL = y_1},
+                              getField @"unwrapPtrToConstIntL" x_0)
+instance (~) ty (PtrConst CInt) =>
          HasField "unwrapPtrToConstIntL" (Ptr PtrToConstIntL) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrToConstIntL")
 instance HasCField PtrToConstIntL "unwrapPtrToConstIntL"
     where type CFieldType PtrToConstIntL
                           "unwrapPtrToConstIntL" = PtrConst CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst CInt) =>
-         HasField "unwrapPtrToConstIntL" PtrToConstIntL ty
-    where hasField = \x_0 -> (\y_1 -> PtrToConstIntL{unwrapPtrToConstIntL = y_1},
-                              getField @"unwrapPtrToConstIntL" x_0)
 {-| __C declaration:__ @macro PtrToConstIntR@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 14:9@
@@ -113,16 +113,16 @@ newtype PtrToConstIntR
                       Storable,
                       WriteRaw)
 instance (~) ty (PtrConst CInt) =>
+         HasField "unwrapPtrToConstIntR" PtrToConstIntR ty
+    where hasField = \x_0 -> (\y_1 -> PtrToConstIntR{unwrapPtrToConstIntR = y_1},
+                              getField @"unwrapPtrToConstIntR" x_0)
+instance (~) ty (PtrConst CInt) =>
          HasField "unwrapPtrToConstIntR" (Ptr PtrToConstIntR) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrToConstIntR")
 instance HasCField PtrToConstIntR "unwrapPtrToConstIntR"
     where type CFieldType PtrToConstIntR
                           "unwrapPtrToConstIntR" = PtrConst CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst CInt) =>
-         HasField "unwrapPtrToConstIntR" PtrToConstIntR ty
-    where hasField = \x_0 -> (\y_1 -> PtrToConstIntR{unwrapPtrToConstIntR = y_1},
-                              getField @"unwrapPtrToConstIntR" x_0)
 {-| __C declaration:__ @macro ConstPtrToInt@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 17:9@
@@ -138,13 +138,13 @@ newtype ConstPtrToInt
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr CInt) =>
+         HasField "unwrapConstPtrToInt" ConstPtrToInt ty
+    where hasField = \x_0 -> (\y_1 -> ConstPtrToInt{unwrapConstPtrToInt = y_1},
+                              getField @"unwrapConstPtrToInt" x_0)
+instance (~) ty (Ptr CInt) =>
          HasField "unwrapConstPtrToInt" (Ptr ConstPtrToInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapConstPtrToInt")
 instance HasCField ConstPtrToInt "unwrapConstPtrToInt"
     where type CFieldType ConstPtrToInt
                           "unwrapConstPtrToInt" = Ptr CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CInt) =>
-         HasField "unwrapConstPtrToInt" ConstPtrToInt ty
-    where hasField = \x_0 -> (\y_1 -> ConstPtrToInt{unwrapConstPtrToInt = y_1},
-                              getField @"unwrapConstPtrToInt" x_0)

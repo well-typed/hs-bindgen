@@ -72,17 +72,6 @@ instance Marshal.WriteRaw Piyo where
 
 deriving via Marshal.EquivStorable Piyo instance RIP.Storable Piyo
 
-instance HasCField.HasCField Piyo "piyo_x" where
-
-  type CFieldType Piyo "piyo_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "piyo_x" (RIP.Ptr Piyo) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"piyo_x")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "piyo_x" Piyo ty where
 
   hasField =
@@ -92,16 +81,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "piyo_x" Piyo ty where
       , RIP.getField @"piyo_x" x0
       )
 
-instance HasCField.HasCField Piyo "piyo_y" where
-
-  type CFieldType Piyo "piyo_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "piyo_y" (RIP.Ptr Piyo) (RIP.Ptr ty) where
+         ) => RIP.HasField "piyo_x" (RIP.Ptr Piyo) (RIP.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"piyo_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"piyo_x")
+
+instance HasCField.HasCField Piyo "piyo_x" where
+
+  type CFieldType Piyo "piyo_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "piyo_y" Piyo ty where
 
@@ -111,3 +100,14 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "piyo_y" Piyo ty where
           Piyo {piyo_y = y1, piyo_x = RIP.getField @"piyo_x" x0}
       , RIP.getField @"piyo_y" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "piyo_y" (RIP.Ptr Piyo) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"piyo_y")
+
+instance HasCField.HasCField Piyo "piyo_y" where
+
+  type CFieldType Piyo "piyo_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4

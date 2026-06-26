@@ -52,6 +52,13 @@ newtype A = A
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
@@ -62,10 +69,3 @@ instance HasCField.HasCField A "unwrapA" where
     HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "unwrapA" A ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)

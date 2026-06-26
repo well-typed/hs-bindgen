@@ -254,14 +254,14 @@ newtype MC
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CChar => HasField "unwrapMC" MC ty
+    where hasField = \x_0 -> (\y_1 -> MC{unwrapMC = y_1},
+                              getField @"unwrapMC" x_0)
 instance (~) ty CChar => HasField "unwrapMC" (Ptr MC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMC")
 instance HasCField MC "unwrapMC"
     where type CFieldType MC "unwrapMC" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "unwrapMC" MC ty
-    where hasField = \x_0 -> (\y_1 -> MC{unwrapMC = y_1},
-                              getField @"unwrapMC" x_0)
 {-| __C declaration:__ @TC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
@@ -286,14 +286,14 @@ newtype TC
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CChar => HasField "unwrapTC" TC ty
+    where hasField = \x_0 -> (\y_1 -> TC{unwrapTC = y_1},
+                              getField @"unwrapTC" x_0)
 instance (~) ty CChar => HasField "unwrapTC" (Ptr TC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTC")
 instance HasCField TC "unwrapTC"
     where type CFieldType TC "unwrapTC" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "unwrapTC" TC ty
-    where hasField = \x_0 -> (\y_1 -> TC{unwrapTC = y_1},
-                              getField @"unwrapTC" x_0)
 {-| __C declaration:__ @struct struct1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:16@
@@ -318,14 +318,14 @@ instance WriteRaw Struct1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1 struct1_a_2 -> writeRaw (Proxy @"struct1_a") ptr_0 struct1_a_2
 deriving via (EquivStorable Struct1) instance Storable Struct1
-instance HasCField Struct1 "struct1_a"
-    where type CFieldType Struct1 "struct1_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "struct1_a" (Ptr Struct1) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct1_a")
 instance (~) ty CInt => HasField "struct1_a" Struct1 ty
     where hasField = \x_0 -> (\y_1 -> Struct1{struct1_a = y_1},
                               getField @"struct1_a" x_0)
+instance (~) ty CInt => HasField "struct1_a" (Ptr Struct1) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct1_a")
+instance HasCField Struct1 "struct1_a"
+    where type CFieldType Struct1 "struct1_a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
@@ -350,14 +350,14 @@ instance WriteRaw Struct2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2 struct2_a_2 -> writeRaw (Proxy @"struct2_a") ptr_0 struct2_a_2
 deriving via (EquivStorable Struct2) instance Storable Struct2
-instance HasCField Struct2 "struct2_a"
-    where type CFieldType Struct2 "struct2_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "struct2_a" (Ptr Struct2) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct2_a")
 instance (~) ty CInt => HasField "struct2_a" Struct2 ty
     where hasField = \x_0 -> (\y_1 -> Struct2{struct2_a = y_1},
                               getField @"struct2_a" x_0)
+instance (~) ty CInt => HasField "struct2_a" (Ptr Struct2) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct2_a")
+instance HasCField Struct2 "struct2_a"
+    where type CFieldType Struct2 "struct2_a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
@@ -382,14 +382,14 @@ instance WriteRaw Struct3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct3 struct3_a_2 -> writeRaw (Proxy @"struct3_a") ptr_0 struct3_a_2
 deriving via (EquivStorable Struct3) instance Storable Struct3
-instance HasCField Struct3 "struct3_a"
-    where type CFieldType Struct3 "struct3_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "struct3_a" (Ptr Struct3) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct3_a")
 instance (~) ty CInt => HasField "struct3_a" Struct3 ty
     where hasField = \x_0 -> (\y_1 -> Struct3{struct3_a = y_1},
                               getField @"struct3_a" x_0)
+instance (~) ty CInt => HasField "struct3_a" (Ptr Struct3) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct3_a")
+instance HasCField Struct3 "struct3_a"
+    where type CFieldType Struct3 "struct3_a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct3_t@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
@@ -400,15 +400,15 @@ newtype Struct3_t
     = Struct3_t {unwrapStruct3_t :: Struct3}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct3 => HasField "unwrapStruct3_t" Struct3_t ty
+    where hasField = \x_0 -> (\y_1 -> Struct3_t{unwrapStruct3_t = y_1},
+                              getField @"unwrapStruct3_t" x_0)
 instance (~) ty Struct3 =>
          HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
 instance HasCField Struct3_t "unwrapStruct3_t"
     where type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
           offset# = \_ -> \_ -> 0
-instance (~) ty Struct3 => HasField "unwrapStruct3_t" Struct3_t ty
-    where hasField = \x_0 -> (\y_1 -> Struct3_t{unwrapStruct3_t = y_1},
-                              getField @"unwrapStruct3_t" x_0)
 {-| __C declaration:__ @struct struct4@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:16@
@@ -433,14 +433,14 @@ instance WriteRaw Struct4
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct4 struct4_a_2 -> writeRaw (Proxy @"struct4_a") ptr_0 struct4_a_2
 deriving via (EquivStorable Struct4) instance Storable Struct4
-instance HasCField Struct4 "struct4_a"
-    where type CFieldType Struct4 "struct4_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "struct4_a" (Ptr Struct4) (Ptr ty)
-    where getField = fromPtr (Proxy @"struct4_a")
 instance (~) ty CInt => HasField "struct4_a" Struct4 ty
     where hasField = \x_0 -> (\y_1 -> Struct4{struct4_a = y_1},
                               getField @"struct4_a" x_0)
+instance (~) ty CInt => HasField "struct4_a" (Ptr Struct4) (Ptr ty)
+    where getField = fromPtr (Proxy @"struct4_a")
+instance HasCField Struct4 "struct4_a"
+    where type CFieldType Struct4 "struct4_a" = CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::
     Int8

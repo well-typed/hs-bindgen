@@ -77,17 +77,6 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
 
-instance HasCField.HasCField Foo "foo_i" where
-
-  type CFieldType Foo "foo_i" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_i" (RIP.Ptr Foo) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_i")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_i" Foo ty where
 
   hasField =
@@ -97,16 +86,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_i" Foo ty where
       , RIP.getField @"foo_i" x0
       )
 
-instance HasCField.HasCField Foo "foo_c" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "foo_i" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
-  type CFieldType Foo "foo_c" = RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_i")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField Foo "foo_i" where
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr ty) where
+  type CFieldType Foo "foo_i" = RIP.CInt
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_c")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "foo_c" Foo ty where
 
@@ -116,6 +105,17 @@ instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "foo_c" Foo ty where
           Foo {foo_c = y1, foo_i = RIP.getField @"foo_i" x0}
       , RIP.getField @"foo_c" x0
       )
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"foo_c")
+
+instance HasCField.HasCField Foo "foo_c" where
+
+  type CFieldType Foo "foo_c" = RIP.CChar
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct bar@
 
@@ -167,16 +167,6 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance RIP.Storable Bar
 
-instance HasCField.HasCField Bar "bar_foo1" where
-
-  type CFieldType Bar "bar_foo1" = Foo
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ Foo) => RIP.HasField "bar_foo1" (RIP.Ptr Bar) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_foo1")
-
 instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo1" Bar ty where
 
   hasField =
@@ -186,15 +176,15 @@ instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo1" Bar ty where
       , RIP.getField @"bar_foo1" x0
       )
 
-instance HasCField.HasCField Bar "bar_foo2" where
+instance (ty ~ Foo) => RIP.HasField "bar_foo1" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
-  type CFieldType Bar "bar_foo2" = Foo
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_foo1")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField Bar "bar_foo1" where
 
-instance (ty ~ Foo) => RIP.HasField "bar_foo2" (RIP.Ptr Bar) (RIP.Ptr ty) where
+  type CFieldType Bar "bar_foo1" = Foo
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_foo2")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo2" Bar ty where
 
@@ -204,6 +194,16 @@ instance (ty ~ Foo) => RIP.CompatHasField.HasField "bar_foo2" Bar ty where
           Bar {bar_foo2 = y1, bar_foo1 = RIP.getField @"bar_foo1" x0}
       , RIP.getField @"bar_foo2" x0
       )
+
+instance (ty ~ Foo) => RIP.HasField "bar_foo2" (RIP.Ptr Bar) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_foo2")
+
+instance HasCField.HasCField Bar "bar_foo2" where
+
+  type CFieldType Bar "bar_foo2" = Foo
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@ex3_ex3_struct@
 
@@ -255,19 +255,6 @@ instance Marshal.WriteRaw Ex3_ex3_struct where
 
 deriving via Marshal.EquivStorable Ex3_ex3_struct instance RIP.Storable Ex3_ex3_struct
 
-instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a" where
-
-  type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ex3_ex3_struct_ex3_a" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "ex3_ex3_struct_ex3_a" Ex3_ex3_struct ty where
 
@@ -280,18 +267,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"ex3_ex3_struct_ex3_a" x0
       )
 
-instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b" where
-
-  type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" =
-    RIP.CChar
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "ex3_ex3_struct_ex3_b" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "ex3_ex3_struct_ex3_a" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_b")
+    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_a")
+
+instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a" where
+
+  type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CChar
          ) => RIP.CompatHasField.HasField "ex3_ex3_struct_ex3_b" Ex3_ex3_struct ty where
@@ -304,6 +291,19 @@ instance ( ty ~ RIP.CChar
                          }
       , RIP.getField @"ex3_ex3_struct_ex3_b" x0
       )
+
+instance ( ty ~ RIP.CChar
+         ) => RIP.HasField "ex3_ex3_struct_ex3_b" (RIP.Ptr Ex3_ex3_struct) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct_ex3_b")
+
+instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b" where
+
+  type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" =
+    RIP.CChar
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct ex3@
 
@@ -355,18 +355,6 @@ instance Marshal.WriteRaw Ex3 where
 
 deriving via Marshal.EquivStorable Ex3 instance RIP.Storable Ex3
 
-instance HasCField.HasCField Ex3 "ex3_ex3_struct" where
-
-  type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Ex3_ex3_struct
-         ) => RIP.HasField "ex3_ex3_struct" (RIP.Ptr Ex3) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct")
-
 instance ( ty ~ Ex3_ex3_struct
          ) => RIP.CompatHasField.HasField "ex3_ex3_struct" Ex3 ty where
 
@@ -377,16 +365,17 @@ instance ( ty ~ Ex3_ex3_struct
       , RIP.getField @"ex3_ex3_struct" x0
       )
 
-instance HasCField.HasCField Ex3 "ex3_ex3_c" where
+instance ( ty ~ Ex3_ex3_struct
+         ) => RIP.HasField "ex3_ex3_struct" (RIP.Ptr Ex3) (RIP.Ptr ty) where
 
-  type CFieldType Ex3 "ex3_ex3_c" = RIP.CFloat
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ex3_ex3_struct")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField Ex3 "ex3_ex3_struct" where
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "ex3_ex3_c" (RIP.Ptr Ex3) (RIP.Ptr ty) where
+  type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
 
-  getField = HasCField.fromPtr (RIP.Proxy @"ex3_ex3_c")
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "ex3_ex3_c" Ex3 ty where
@@ -397,6 +386,17 @@ instance ( ty ~ RIP.CFloat
           Ex3 {ex3_ex3_c = y1, ex3_ex3_struct = RIP.getField @"ex3_ex3_struct" x0}
       , RIP.getField @"ex3_ex3_c" x0
       )
+
+instance ( ty ~ RIP.CFloat
+         ) => RIP.HasField "ex3_ex3_c" (RIP.Ptr Ex3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"ex3_ex3_c")
+
+instance HasCField.HasCField Ex3 "ex3_ex3_c" where
+
+  type CFieldType Ex3 "ex3_ex3_c" = RIP.CFloat
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct ex4_odd@
 
@@ -448,18 +448,6 @@ instance Marshal.WriteRaw Ex4_odd where
 
 deriving via Marshal.EquivStorable Ex4_odd instance RIP.Storable Ex4_odd
 
-instance HasCField.HasCField Ex4_odd "ex4_odd_value" where
-
-  type CFieldType Ex4_odd "ex4_odd_value" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ex4_odd_value" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ex4_odd_value")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "ex4_odd_value" Ex4_odd ty where
 
@@ -470,18 +458,17 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"ex4_odd_value" x0
       )
 
-instance HasCField.HasCField Ex4_odd "ex4_odd_next" where
-
-  type CFieldType Ex4_odd "ex4_odd_next" =
-    RIP.Ptr Ex4_even
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Ex4_even
-         ) => RIP.HasField "ex4_odd_next" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "ex4_odd_value" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ex4_odd_next")
+    HasCField.fromPtr (RIP.Proxy @"ex4_odd_value")
+
+instance HasCField.HasCField Ex4_odd "ex4_odd_value" where
+
+  type CFieldType Ex4_odd "ex4_odd_value" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Ex4_even
          ) => RIP.CompatHasField.HasField "ex4_odd_next" Ex4_odd ty where
@@ -492,6 +479,19 @@ instance ( ty ~ RIP.Ptr Ex4_even
           Ex4_odd {ex4_odd_next = y1, ex4_odd_value = RIP.getField @"ex4_odd_value" x0}
       , RIP.getField @"ex4_odd_next" x0
       )
+
+instance ( ty ~ RIP.Ptr Ex4_even
+         ) => RIP.HasField "ex4_odd_next" (RIP.Ptr Ex4_odd) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ex4_odd_next")
+
+instance HasCField.HasCField Ex4_odd "ex4_odd_next" where
+
+  type CFieldType Ex4_odd "ex4_odd_next" =
+    RIP.Ptr Ex4_even
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct ex4_even@
 
@@ -543,19 +543,6 @@ instance Marshal.WriteRaw Ex4_even where
 
 deriving via Marshal.EquivStorable Ex4_even instance RIP.Storable Ex4_even
 
-instance HasCField.HasCField Ex4_even "ex4_even_value" where
-
-  type CFieldType Ex4_even "ex4_even_value" =
-    RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "ex4_even_value" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"ex4_even_value")
-
 instance ( ty ~ RIP.CDouble
          ) => RIP.CompatHasField.HasField "ex4_even_value" Ex4_even ty where
 
@@ -566,18 +553,18 @@ instance ( ty ~ RIP.CDouble
       , RIP.getField @"ex4_even_value" x0
       )
 
-instance HasCField.HasCField Ex4_even "ex4_even_next" where
-
-  type CFieldType Ex4_even "ex4_even_next" =
-    RIP.Ptr Ex4_odd
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Ex4_odd
-         ) => RIP.HasField "ex4_even_next" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CDouble
+         ) => RIP.HasField "ex4_even_value" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ex4_even_next")
+    HasCField.fromPtr (RIP.Proxy @"ex4_even_value")
+
+instance HasCField.HasCField Ex4_even "ex4_even_value" where
+
+  type CFieldType Ex4_even "ex4_even_value" =
+    RIP.CDouble
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Ex4_odd
          ) => RIP.CompatHasField.HasField "ex4_even_next" Ex4_even ty where
@@ -588,3 +575,16 @@ instance ( ty ~ RIP.Ptr Ex4_odd
           Ex4_even {ex4_even_next = y1, ex4_even_value = RIP.getField @"ex4_even_value" x0}
       , RIP.getField @"ex4_even_next" x0
       )
+
+instance ( ty ~ RIP.Ptr Ex4_odd
+         ) => RIP.HasField "ex4_even_next" (RIP.Ptr Ex4_even) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"ex4_even_next")
+
+instance HasCField.HasCField Ex4_even "ex4_even_next" where
+
+  type CFieldType Ex4_even "ex4_even_next" =
+    RIP.Ptr Ex4_odd
+
+  offset# = \_ -> \_ -> 8

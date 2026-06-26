@@ -31,24 +31,24 @@ instance WriteRaw Dim2
                                        Dim2 dim2_x_2
                                             dim2_y_3 -> writeRaw (Proxy @"dim2_x") ptr_0 dim2_x_2 >> writeRaw (Proxy @"dim2_y") ptr_0 dim2_y_3
 deriving via (EquivStorable Dim2) instance Storable Dim2
-instance HasCField Dim2 "dim2_x"
-    where type CFieldType Dim2 "dim2_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dim2_x" (Ptr Dim2) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim2_x")
 instance (~) ty CInt => HasField "dim2_x" Dim2 ty
     where hasField = \x_0 -> (\y_1 -> Dim2{dim2_x = y_1,
                                            dim2_y = getField @"dim2_y" x_0},
                               getField @"dim2_x" x_0)
-instance HasCField Dim2 "dim2_y"
-    where type CFieldType Dim2 "dim2_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "dim2_y" (Ptr Dim2) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim2_y")
+instance (~) ty CInt => HasField "dim2_x" (Ptr Dim2) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim2_x")
+instance HasCField Dim2 "dim2_x"
+    where type CFieldType Dim2 "dim2_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "dim2_y" Dim2 ty
     where hasField = \x_0 -> (\y_1 -> Dim2{dim2_y = y_1,
                                            dim2_x = getField @"dim2_x" x_0},
                               getField @"dim2_y" x_0)
+instance (~) ty CInt => HasField "dim2_y" (Ptr Dim2) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim2_y")
+instance HasCField Dim2 "dim2_y"
+    where type CFieldType Dim2 "dim2_y" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct Dim3@
 
     __defined at:__ @types\/unions\/unions.h 6:8@
@@ -89,36 +89,36 @@ instance WriteRaw Dim3
                                             dim3_y_3
                                             dim3_z_4 -> writeRaw (Proxy @"dim3_x") ptr_0 dim3_x_2 >> (writeRaw (Proxy @"dim3_y") ptr_0 dim3_y_3 >> writeRaw (Proxy @"dim3_z") ptr_0 dim3_z_4)
 deriving via (EquivStorable Dim3) instance Storable Dim3
-instance HasCField Dim3 "dim3_x"
-    where type CFieldType Dim3 "dim3_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dim3_x" (Ptr Dim3) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim3_x")
 instance (~) ty CInt => HasField "dim3_x" Dim3 ty
     where hasField = \x_0 -> (\y_1 -> Dim3{dim3_x = y_1,
                                            dim3_y = getField @"dim3_y" x_0,
                                            dim3_z = getField @"dim3_z" x_0},
                               getField @"dim3_x" x_0)
-instance HasCField Dim3 "dim3_y"
-    where type CFieldType Dim3 "dim3_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "dim3_y" (Ptr Dim3) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim3_y")
+instance (~) ty CInt => HasField "dim3_x" (Ptr Dim3) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim3_x")
+instance HasCField Dim3 "dim3_x"
+    where type CFieldType Dim3 "dim3_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "dim3_y" Dim3 ty
     where hasField = \x_0 -> (\y_1 -> Dim3{dim3_y = y_1,
                                            dim3_x = getField @"dim3_x" x_0,
                                            dim3_z = getField @"dim3_z" x_0},
                               getField @"dim3_y" x_0)
-instance HasCField Dim3 "dim3_z"
-    where type CFieldType Dim3 "dim3_z" = CInt
-          offset# = \_ -> \_ -> 8
-instance (~) ty CInt => HasField "dim3_z" (Ptr Dim3) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim3_z")
+instance (~) ty CInt => HasField "dim3_y" (Ptr Dim3) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim3_y")
+instance HasCField Dim3 "dim3_y"
+    where type CFieldType Dim3 "dim3_y" = CInt
+          offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "dim3_z" Dim3 ty
     where hasField = \x_0 -> (\y_1 -> Dim3{dim3_z = y_1,
                                            dim3_x = getField @"dim3_x" x_0,
                                            dim3_y = getField @"dim3_y" x_0},
                               getField @"dim3_z" x_0)
+instance (~) ty CInt => HasField "dim3_z" (Ptr Dim3) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim3_z")
+instance HasCField Dim3 "dim3_z"
+    where type CFieldType Dim3 "dim3_z" = CInt
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @union DimPayload@
 
     __defined at:__ @types\/unions\/unions.h 12:7@
@@ -200,18 +200,18 @@ set_dimPayload_dim3 :: Dim2 -> DimPayload
 
 -}
 set_dimPayload_dim3 = setUnionPayload
+instance (~) ty Dim2 =>
+         HasField "dimPayload_dim2" (Ptr DimPayload) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimPayload_dim2")
 instance HasCField DimPayload "dimPayload_dim2"
     where type CFieldType DimPayload "dimPayload_dim2" = Dim2
           offset# = \_ -> \_ -> 0
 instance (~) ty Dim2 =>
-         HasField "dimPayload_dim2" (Ptr DimPayload) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimPayload_dim2")
+         HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimPayload_dim3")
 instance HasCField DimPayload "dimPayload_dim3"
     where type CFieldType DimPayload "dimPayload_dim3" = Dim2
           offset# = \_ -> \_ -> 0
-instance (~) ty Dim2 =>
-         HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimPayload_dim3")
 {-| __C declaration:__ @struct Dim@
 
     __defined at:__ @types\/unions\/unions.h 17:8@
@@ -244,25 +244,25 @@ instance WriteRaw Dim
                                        Dim dim_tag_2
                                            dim_payload_3 -> writeRaw (Proxy @"dim_tag") ptr_0 dim_tag_2 >> writeRaw (Proxy @"dim_payload") ptr_0 dim_payload_3
 deriving via (EquivStorable Dim) instance Storable Dim
-instance HasCField Dim "dim_tag"
-    where type CFieldType Dim "dim_tag" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dim_tag" (Ptr Dim) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim_tag")
 instance (~) ty CInt => HasField "dim_tag" Dim ty
     where hasField = \x_0 -> (\y_1 -> Dim{dim_tag = y_1,
                                           dim_payload = getField @"dim_payload" x_0},
                               getField @"dim_tag" x_0)
-instance HasCField Dim "dim_payload"
-    where type CFieldType Dim "dim_payload" = DimPayload
-          offset# = \_ -> \_ -> 4
-instance (~) ty DimPayload =>
-         HasField "dim_payload" (Ptr Dim) (Ptr ty)
-    where getField = fromPtr (Proxy @"dim_payload")
+instance (~) ty CInt => HasField "dim_tag" (Ptr Dim) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim_tag")
+instance HasCField Dim "dim_tag"
+    where type CFieldType Dim "dim_tag" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty DimPayload => HasField "dim_payload" Dim ty
     where hasField = \x_0 -> (\y_1 -> Dim{dim_payload = y_1,
                                           dim_tag = getField @"dim_tag" x_0},
                               getField @"dim_payload" x_0)
+instance (~) ty DimPayload =>
+         HasField "dim_payload" (Ptr Dim) (Ptr ty)
+    where getField = fromPtr (Proxy @"dim_payload")
+instance HasCField Dim "dim_payload"
+    where type CFieldType Dim "dim_payload" = DimPayload
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @union DimPayloadB@
 
     __defined at:__ @types\/unions\/unions.h 23:15@
@@ -344,18 +344,18 @@ set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
 
 -}
 set_dimPayloadB_dim3 = setUnionPayload
+instance (~) ty Dim2 =>
+         HasField "dimPayloadB_dim2" (Ptr DimPayloadB) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimPayloadB_dim2")
 instance HasCField DimPayloadB "dimPayloadB_dim2"
     where type CFieldType DimPayloadB "dimPayloadB_dim2" = Dim2
           offset# = \_ -> \_ -> 0
 instance (~) ty Dim2 =>
-         HasField "dimPayloadB_dim2" (Ptr DimPayloadB) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimPayloadB_dim2")
+         HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimPayloadB_dim3")
 instance HasCField DimPayloadB "dimPayloadB_dim3"
     where type CFieldType DimPayloadB "dimPayloadB_dim3" = Dim2
           offset# = \_ -> \_ -> 0
-instance (~) ty Dim2 =>
-         HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimPayloadB_dim3")
 {-| __C declaration:__ @struct DimB@
 
     __defined at:__ @types\/unions\/unions.h 28:8@
@@ -388,25 +388,25 @@ instance WriteRaw DimB
                                        DimB dimB_tag_2
                                             dimB_payload_3 -> writeRaw (Proxy @"dimB_tag") ptr_0 dimB_tag_2 >> writeRaw (Proxy @"dimB_payload") ptr_0 dimB_payload_3
 deriving via (EquivStorable DimB) instance Storable DimB
-instance HasCField DimB "dimB_tag"
-    where type CFieldType DimB "dimB_tag" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dimB_tag" (Ptr DimB) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimB_tag")
 instance (~) ty CInt => HasField "dimB_tag" DimB ty
     where hasField = \x_0 -> (\y_1 -> DimB{dimB_tag = y_1,
                                            dimB_payload = getField @"dimB_payload" x_0},
                               getField @"dimB_tag" x_0)
-instance HasCField DimB "dimB_payload"
-    where type CFieldType DimB "dimB_payload" = DimPayloadB
-          offset# = \_ -> \_ -> 4
-instance (~) ty DimPayloadB =>
-         HasField "dimB_payload" (Ptr DimB) (Ptr ty)
-    where getField = fromPtr (Proxy @"dimB_payload")
+instance (~) ty CInt => HasField "dimB_tag" (Ptr DimB) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimB_tag")
+instance HasCField DimB "dimB_tag"
+    where type CFieldType DimB "dimB_tag" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty DimPayloadB => HasField "dimB_payload" DimB ty
     where hasField = \x_0 -> (\y_1 -> DimB{dimB_payload = y_1,
                                            dimB_tag = getField @"dimB_tag" x_0},
                               getField @"dimB_payload" x_0)
+instance (~) ty DimPayloadB =>
+         HasField "dimB_payload" (Ptr DimB) (Ptr ty)
+    where getField = fromPtr (Proxy @"dimB_payload")
+instance HasCField DimB "dimB_payload"
+    where type CFieldType DimB "dimB_payload" = DimPayloadB
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct \@AnonA_xy@
 
     __defined at:__ @types\/unions\/unions.h 35:5@
@@ -439,26 +439,26 @@ instance WriteRaw AnonA_xy
                                        AnonA_xy anonA_xy_x_2
                                                 anonA_xy_y_3 -> writeRaw (Proxy @"anonA_xy_x") ptr_0 anonA_xy_x_2 >> writeRaw (Proxy @"anonA_xy_y") ptr_0 anonA_xy_y_3
 deriving via (EquivStorable AnonA_xy) instance Storable AnonA_xy
-instance HasCField AnonA_xy "anonA_xy_x"
-    where type CFieldType AnonA_xy "anonA_xy_x" = CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty CDouble =>
-         HasField "anonA_xy_x" (Ptr AnonA_xy) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonA_xy_x")
 instance (~) ty CDouble => HasField "anonA_xy_x" AnonA_xy ty
     where hasField = \x_0 -> (\y_1 -> AnonA_xy{anonA_xy_x = y_1,
                                                anonA_xy_y = getField @"anonA_xy_y" x_0},
                               getField @"anonA_xy_x" x_0)
-instance HasCField AnonA_xy "anonA_xy_y"
-    where type CFieldType AnonA_xy "anonA_xy_y" = CDouble
-          offset# = \_ -> \_ -> 8
 instance (~) ty CDouble =>
-         HasField "anonA_xy_y" (Ptr AnonA_xy) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonA_xy_y")
+         HasField "anonA_xy_x" (Ptr AnonA_xy) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonA_xy_x")
+instance HasCField AnonA_xy "anonA_xy_x"
+    where type CFieldType AnonA_xy "anonA_xy_x" = CDouble
+          offset# = \_ -> \_ -> 0
 instance (~) ty CDouble => HasField "anonA_xy_y" AnonA_xy ty
     where hasField = \x_0 -> (\y_1 -> AnonA_xy{anonA_xy_y = y_1,
                                                anonA_xy_x = getField @"anonA_xy_x" x_0},
                               getField @"anonA_xy_y" x_0)
+instance (~) ty CDouble =>
+         HasField "anonA_xy_y" (Ptr AnonA_xy) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonA_xy_y")
+instance HasCField AnonA_xy "anonA_xy_y"
+    where type CFieldType AnonA_xy "anonA_xy_y" = CDouble
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct \@AnonA_polar@
 
     __defined at:__ @types\/unions\/unions.h 36:5@
@@ -491,26 +491,26 @@ instance WriteRaw AnonA_polar
                                        AnonA_polar anonA_polar_r_2
                                                    anonA_polar_p_3 -> writeRaw (Proxy @"anonA_polar_r") ptr_0 anonA_polar_r_2 >> writeRaw (Proxy @"anonA_polar_p") ptr_0 anonA_polar_p_3
 deriving via (EquivStorable AnonA_polar) instance Storable AnonA_polar
-instance HasCField AnonA_polar "anonA_polar_r"
-    where type CFieldType AnonA_polar "anonA_polar_r" = CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty CDouble =>
-         HasField "anonA_polar_r" (Ptr AnonA_polar) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonA_polar_r")
 instance (~) ty CDouble => HasField "anonA_polar_r" AnonA_polar ty
     where hasField = \x_0 -> (\y_1 -> AnonA_polar{anonA_polar_r = y_1,
                                                   anonA_polar_p = getField @"anonA_polar_p" x_0},
                               getField @"anonA_polar_r" x_0)
-instance HasCField AnonA_polar "anonA_polar_p"
-    where type CFieldType AnonA_polar "anonA_polar_p" = CDouble
-          offset# = \_ -> \_ -> 8
 instance (~) ty CDouble =>
-         HasField "anonA_polar_p" (Ptr AnonA_polar) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonA_polar_p")
+         HasField "anonA_polar_r" (Ptr AnonA_polar) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonA_polar_r")
+instance HasCField AnonA_polar "anonA_polar_r"
+    where type CFieldType AnonA_polar "anonA_polar_r" = CDouble
+          offset# = \_ -> \_ -> 0
 instance (~) ty CDouble => HasField "anonA_polar_p" AnonA_polar ty
     where hasField = \x_0 -> (\y_1 -> AnonA_polar{anonA_polar_p = y_1,
                                                   anonA_polar_r = getField @"anonA_polar_r" x_0},
                               getField @"anonA_polar_p" x_0)
+instance (~) ty CDouble =>
+         HasField "anonA_polar_p" (Ptr AnonA_polar) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonA_polar_p")
+instance HasCField AnonA_polar "anonA_polar_p"
+    where type CFieldType AnonA_polar "anonA_polar_p" = CDouble
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @union AnonA@
 
     __defined at:__ @types\/unions\/unions.h 34:7@
@@ -592,15 +592,15 @@ set_anonA_polar :: AnonA_polar -> AnonA
 
 -}
 set_anonA_polar = setUnionPayload
-instance HasCField AnonA "anonA_xy"
-    where type CFieldType AnonA "anonA_xy" = AnonA_xy
-          offset# = \_ -> \_ -> 0
 instance (~) ty AnonA_xy =>
          HasField "anonA_xy" (Ptr AnonA) (Ptr ty)
     where getField = fromPtr (Proxy @"anonA_xy")
-instance HasCField AnonA "anonA_polar"
-    where type CFieldType AnonA "anonA_polar" = AnonA_polar
+instance HasCField AnonA "anonA_xy"
+    where type CFieldType AnonA "anonA_xy" = AnonA_xy
           offset# = \_ -> \_ -> 0
 instance (~) ty AnonA_polar =>
          HasField "anonA_polar" (Ptr AnonA) (Ptr ty)
     where getField = fromPtr (Proxy @"anonA_polar")
+instance HasCField AnonA "anonA_polar"
+    where type CFieldType AnonA "anonA_polar" = AnonA_polar
+          offset# = \_ -> \_ -> 0

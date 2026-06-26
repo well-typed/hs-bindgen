@@ -29,11 +29,12 @@ hstypes:
       fields:
       - unwrapS
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: T
@@ -43,11 +44,12 @@ hstypes:
       fields:
       - unwrapT
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: U
@@ -57,11 +59,12 @@ hstypes:
       fields:
       - unwrapU
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -75,11 +78,12 @@ hstypes:
       fields:
       - unwrapV
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -93,11 +97,12 @@ hstypes:
       fields:
       - unwrapW
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show
@@ -111,11 +116,12 @@ hstypes:
       fields:
       - unwrapX
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - ReadRaw
   - Show

@@ -85,6 +85,14 @@ newtype Outer_int = Outer_int
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapOuter_int" Outer_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Outer_int {unwrapOuter_int = y1}, RIP.getField @"unwrapOuter_int" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapOuter_int" (RIP.Ptr Outer_int) (RIP.Ptr ty) where
 
   getField =
@@ -96,14 +104,6 @@ instance HasCField.HasCField Outer_int "unwrapOuter_int" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapOuter_int" Outer_int ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Outer_int {unwrapOuter_int = y1}, RIP.getField @"unwrapOuter_int" x0)
 
 {-| __C declaration:__ @inner_int@
 
@@ -134,6 +134,14 @@ newtype Inner_int = Inner_int
     )
 
 instance ( ty ~ Outer_int
+         ) => RIP.CompatHasField.HasField "unwrapInner_int" Inner_int ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Inner_int {unwrapInner_int = y1}, RIP.getField @"unwrapInner_int" x0)
+
+instance ( ty ~ Outer_int
          ) => RIP.HasField "unwrapInner_int" (RIP.Ptr Inner_int) (RIP.Ptr ty) where
 
   getField =
@@ -145,14 +153,6 @@ instance HasCField.HasCField Inner_int "unwrapInner_int" where
     Outer_int
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Outer_int
-         ) => RIP.CompatHasField.HasField "unwrapInner_int" Inner_int ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Inner_int {unwrapInner_int = y1}, RIP.getField @"unwrapInner_int" x0)
 
 {-| __C declaration:__ @macro OUTER_B@
 

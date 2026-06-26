@@ -74,6 +74,15 @@ instance RIP.FromFunPtr Fun_ptr_Aux where
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
 instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapFun_ptr_Aux" Fun_ptr_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Fun_ptr_Aux {unwrapFun_ptr_Aux = y1}
+      , RIP.getField @"unwrapFun_ptr_Aux" x0
+      )
+
+instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
          ) => RIP.HasField "unwrapFun_ptr_Aux" (RIP.Ptr Fun_ptr_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -85,15 +94,6 @@ instance HasCField.HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux" where
     RIP.Ptr Forward_declaration -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.Ptr Forward_declaration -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapFun_ptr_Aux" Fun_ptr_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Fun_ptr_Aux {unwrapFun_ptr_Aux = y1}
-      , RIP.getField @"unwrapFun_ptr_Aux" x0
-      )
 
 {-| __C declaration:__ @fun_ptr@
 
@@ -114,6 +114,14 @@ newtype Fun_ptr = Fun_ptr
     )
 
 instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
+         ) => RIP.CompatHasField.HasField "unwrapFun_ptr" Fun_ptr ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Fun_ptr {unwrapFun_ptr = y1}, RIP.getField @"unwrapFun_ptr" x0)
+
+instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
          ) => RIP.HasField "unwrapFun_ptr" (RIP.Ptr Fun_ptr) (RIP.Ptr ty) where
 
   getField =
@@ -125,14 +133,6 @@ instance HasCField.HasCField Fun_ptr "unwrapFun_ptr" where
     RIP.FunPtr Fun_ptr_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Fun_ptr_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFun_ptr" Fun_ptr ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Fun_ptr {unwrapFun_ptr = y1}, RIP.getField @"unwrapFun_ptr" x0)
 
 {-| __C declaration:__ @struct forward_declaration@
 
@@ -175,19 +175,6 @@ instance Marshal.WriteRaw Forward_declaration where
 
 deriving via Marshal.EquivStorable Forward_declaration instance RIP.Storable Forward_declaration
 
-instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
-
-  type CFieldType Forward_declaration "forward_declaration_f" =
-    Fun_ptr
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Fun_ptr
-         ) => RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"forward_declaration_f")
-
 instance ( ty ~ Fun_ptr
          ) => RIP.CompatHasField.HasField "forward_declaration_f" Forward_declaration ty where
 
@@ -197,3 +184,16 @@ instance ( ty ~ Fun_ptr
           Forward_declaration {forward_declaration_f = y1}
       , RIP.getField @"forward_declaration_f" x0
       )
+
+instance ( ty ~ Fun_ptr
+         ) => RIP.HasField "forward_declaration_f" (RIP.Ptr Forward_declaration) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"forward_declaration_f")
+
+instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
+
+  type CFieldType Forward_declaration "forward_declaration_f" =
+    Fun_ptr
+
+  offset# = \_ -> \_ -> 0

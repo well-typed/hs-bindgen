@@ -18,11 +18,12 @@ hstypes:
       - fileOperationRecord_status
       - fileOperationRecord_bytes_processed
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -36,12 +37,13 @@ hstypes:
       - unwrapFileOperationStatus
   instances:
   - CEnum
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - Ord
   - Prim
   - Read

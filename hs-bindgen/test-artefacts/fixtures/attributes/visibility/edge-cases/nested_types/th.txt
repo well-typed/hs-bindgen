@@ -44,11 +44,11 @@ set_u_x :: CInt -> U
 
 -}
 set_u_x = setUnionPayload
+instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_x")
 instance HasCField U "u_x"
     where type CFieldType U "u_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
-    where getField = fromPtr (Proxy @"u_x")
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 2:49@
@@ -73,11 +73,11 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_y_2 -> writeRaw (Proxy @"s_y") ptr_0 s_y_2
 deriving via (EquivStorable S) instance Storable S
-instance HasCField S "s_y"
-    where type CFieldType S "s_y" = U
-          offset# = \_ -> \_ -> 0
-instance (~) ty U => HasField "s_y" (Ptr S) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_y")
 instance (~) ty U => HasField "s_y" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_y = y_1},
                               getField @"s_y" x_0)
+instance (~) ty U => HasField "s_y" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y")
+instance HasCField S "s_y"
+    where type CFieldType S "s_y" = U
+          offset# = \_ -> \_ -> 0

@@ -104,6 +104,15 @@ instance Read Uint8_enum where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapUint8_enum" Uint8_enum ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Uint8_enum {unwrapUint8_enum = y1}
+      , RIP.getField @"unwrapUint8_enum" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapUint8_enum" (RIP.Ptr Uint8_enum) (RIP.Ptr ty) where
 
   getField =
@@ -115,15 +124,6 @@ instance HasCField.HasCField Uint8_enum "unwrapUint8_enum" where
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "unwrapUint8_enum" Uint8_enum ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Uint8_enum {unwrapUint8_enum = y1}
-      , RIP.getField @"unwrapUint8_enum" x0
-      )
 
 {-| __C declaration:__ @U8_ZERO@
 

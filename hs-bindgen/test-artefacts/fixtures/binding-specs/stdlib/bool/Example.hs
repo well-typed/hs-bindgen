@@ -51,6 +51,15 @@ newtype Stdlib_CBool = Stdlib_CBool
     )
 
 instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapStdlib_CBool" Stdlib_CBool ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Stdlib_CBool {unwrapStdlib_CBool = y1}
+      , RIP.getField @"unwrapStdlib_CBool" x0
+      )
+
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr ty) where
 
   getField =
@@ -62,12 +71,3 @@ instance HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool" where
     RIP.CBool
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapStdlib_CBool" Stdlib_CBool ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Stdlib_CBool {unwrapStdlib_CBool = y1}
-      , RIP.getField @"unwrapStdlib_CBool" x0
-      )

@@ -70,15 +70,15 @@ set_u_x ::
   -> U
 set_u_x = RIP.setUnionPayload
 
+instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
+
 instance HasCField.HasCField U "u_x" where
 
   type CFieldType U "u_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
 
 {-| __C declaration:__ @T@
 
@@ -97,6 +97,12 @@ newtype T = T
     , Marshal.WriteRaw
     )
 
+instance (ty ~ U) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
 instance (ty ~ U) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -106,9 +112,3 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = U
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ U) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

@@ -19,12 +19,13 @@ hstypes:
       fields:
       - vector_length
   instances:
-  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

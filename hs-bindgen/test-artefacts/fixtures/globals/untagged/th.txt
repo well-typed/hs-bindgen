@@ -74,26 +74,26 @@ instance WriteRaw AnonPoint
                                        AnonPoint anonPoint_x_2
                                                  anonPoint_y_3 -> writeRaw (Proxy @"anonPoint_x") ptr_0 anonPoint_x_2 >> writeRaw (Proxy @"anonPoint_y") ptr_0 anonPoint_y_3
 deriving via (EquivStorable AnonPoint) instance Storable AnonPoint
-instance HasCField AnonPoint "anonPoint_x"
-    where type CFieldType AnonPoint "anonPoint_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "anonPoint_x" (Ptr AnonPoint) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonPoint_x")
 instance (~) ty CInt => HasField "anonPoint_x" AnonPoint ty
     where hasField = \x_0 -> (\y_1 -> AnonPoint{anonPoint_x = y_1,
                                                 anonPoint_y = getField @"anonPoint_y" x_0},
                               getField @"anonPoint_x" x_0)
-instance HasCField AnonPoint "anonPoint_y"
-    where type CFieldType AnonPoint "anonPoint_y" = CInt
-          offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
-         HasField "anonPoint_y" (Ptr AnonPoint) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonPoint_y")
+         HasField "anonPoint_x" (Ptr AnonPoint) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonPoint_x")
+instance HasCField AnonPoint "anonPoint_x"
+    where type CFieldType AnonPoint "anonPoint_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "anonPoint_y" AnonPoint ty
     where hasField = \x_0 -> (\y_1 -> AnonPoint{anonPoint_y = y_1,
                                                 anonPoint_x = getField @"anonPoint_x" x_0},
                               getField @"anonPoint_y" x_0)
+instance (~) ty CInt =>
+         HasField "anonPoint_y" (Ptr AnonPoint) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonPoint_y")
+instance HasCField AnonPoint "anonPoint_y"
+    where type CFieldType AnonPoint "anonPoint_y" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct \@anonPair@
 
     __defined at:__ @globals\/untagged.h 14:1@
@@ -126,26 +126,26 @@ instance WriteRaw AnonPair
                                        AnonPair anonPair_a_2
                                                 anonPair_b_3 -> writeRaw (Proxy @"anonPair_a") ptr_0 anonPair_a_2 >> writeRaw (Proxy @"anonPair_b") ptr_0 anonPair_b_3
 deriving via (EquivStorable AnonPair) instance Storable AnonPair
-instance HasCField AnonPair "anonPair_a"
-    where type CFieldType AnonPair "anonPair_a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "anonPair_a" (Ptr AnonPair) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonPair_a")
 instance (~) ty CInt => HasField "anonPair_a" AnonPair ty
     where hasField = \x_0 -> (\y_1 -> AnonPair{anonPair_a = y_1,
                                                anonPair_b = getField @"anonPair_b" x_0},
                               getField @"anonPair_a" x_0)
-instance HasCField AnonPair "anonPair_b"
-    where type CFieldType AnonPair "anonPair_b" = CInt
-          offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
-         HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
-    where getField = fromPtr (Proxy @"anonPair_b")
+         HasField "anonPair_a" (Ptr AnonPair) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonPair_a")
+instance HasCField AnonPair "anonPair_a"
+    where type CFieldType AnonPair "anonPair_a" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "anonPair_b" AnonPair ty
     where hasField = \x_0 -> (\y_1 -> AnonPair{anonPair_b = y_1,
                                                anonPair_a = getField @"anonPair_a" x_0},
                               getField @"anonPair_b" x_0)
+instance (~) ty CInt =>
+         HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
+    where getField = fromPtr (Proxy @"anonPair_b")
+instance HasCField AnonPair "anonPair_b"
+    where type CFieldType AnonPair "anonPair_b" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @enum \@anonEnum@
 
     __defined at:__ @globals\/untagged.h 16:1@
@@ -186,15 +186,15 @@ instance Read AnonEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapAnonEnum" AnonEnum ty
+    where hasField = \x_0 -> (\y_1 -> AnonEnum{unwrapAnonEnum = y_1},
+                              getField @"unwrapAnonEnum" x_0)
 instance (~) ty CUInt =>
          HasField "unwrapAnonEnum" (Ptr AnonEnum) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapAnonEnum")
 instance HasCField AnonEnum "unwrapAnonEnum"
     where type CFieldType AnonEnum "unwrapAnonEnum" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapAnonEnum" AnonEnum ty
-    where hasField = \x_0 -> (\y_1 -> AnonEnum{unwrapAnonEnum = y_1},
-                              getField @"unwrapAnonEnum" x_0)
 {-| __C declaration:__ @VAL_A@
 
     __defined at:__ @globals\/untagged.h 16:8@
@@ -247,15 +247,15 @@ instance Read AnonEnumCoords
           readList = readListDefault
           readListPrec = readListPrecDefault
 instance (~) ty CUInt =>
+         HasField "unwrapAnonEnumCoords" AnonEnumCoords ty
+    where hasField = \x_0 -> (\y_1 -> AnonEnumCoords{unwrapAnonEnumCoords = y_1},
+                              getField @"unwrapAnonEnumCoords" x_0)
+instance (~) ty CUInt =>
          HasField "unwrapAnonEnumCoords" (Ptr AnonEnumCoords) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapAnonEnumCoords")
 instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
     where type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt =>
-         HasField "unwrapAnonEnumCoords" AnonEnumCoords ty
-    where hasField = \x_0 -> (\y_1 -> AnonEnumCoords{unwrapAnonEnumCoords = y_1},
-                              getField @"unwrapAnonEnumCoords" x_0)
 {-| __C declaration:__ @X@
 
     __defined at:__ @globals\/untagged.h 18:8@
@@ -318,14 +318,14 @@ instance Read A
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty CUInt => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @a1@
 
     __defined at:__ @globals\/untagged.h 24:8@
@@ -379,11 +379,11 @@ set_b_x :: CInt -> B
 
 -}
 set_b_x = setUnionPayload
+instance (~) ty CInt => HasField "b_x" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"b_x")
 instance HasCField B "b_x"
     where type CFieldType B "b_x" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "b_x" (Ptr B) (Ptr ty)
-    where getField = fromPtr (Proxy @"b_x")
 {-| __C declaration:__ @struct \@C@
 
     __defined at:__ @globals\/untagged.h 30:1@
@@ -408,14 +408,14 @@ instance WriteRaw C
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        C c_x_2 -> writeRaw (Proxy @"c_x") ptr_0 c_x_2
 deriving via (EquivStorable C) instance Storable C
-instance HasCField C "c_x"
-    where type CFieldType C "c_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "c_x" (Ptr C) (Ptr ty)
-    where getField = fromPtr (Proxy @"c_x")
 instance (~) ty CInt => HasField "c_x" C ty
     where hasField = \x_0 -> (\y_1 -> C{c_x = y_1},
                               getField @"c_x" x_0)
+instance (~) ty CInt => HasField "c_x" (Ptr C) (Ptr ty)
+    where getField = fromPtr (Proxy @"c_x")
+instance HasCField C "c_x"
+    where type CFieldType C "c_x" = CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
 foreign import ccall unsafe "hs_bindgen_6629eeb3c2ffd60b" hs_bindgen_6629eeb3c2ffd60b_base ::
     IO (Ptr Void)

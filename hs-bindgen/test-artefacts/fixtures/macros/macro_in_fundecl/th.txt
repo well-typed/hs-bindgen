@@ -335,14 +335,14 @@ newtype I
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapI" I ty
+    where hasField = \x_0 -> (\y_1 -> I{unwrapI = y_1},
+                              getField @"unwrapI" x_0)
 instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapI" I ty
-    where hasField = \x_0 -> (\y_1 -> I{unwrapI = y_1},
-                              getField @"unwrapI" x_0)
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -367,14 +367,14 @@ newtype C
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CChar => HasField "unwrapC" C ty
+    where hasField = \x_0 -> (\y_1 -> C{unwrapC = y_1},
+                              getField @"unwrapC" x_0)
 instance (~) ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapC")
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "unwrapC" C ty
-    where hasField = \x_0 -> (\y_1 -> C{unwrapC = y_1},
-                              getField @"unwrapC" x_0)
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
@@ -397,14 +397,14 @@ newtype F
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CFloat => HasField "unwrapF" F ty
+    where hasField = \x_0 -> (\y_1 -> F{unwrapF = y_1},
+                              getField @"unwrapF" x_0)
 instance (~) ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF")
 instance HasCField F "unwrapF"
     where type CFieldType F "unwrapF" = CFloat
           offset# = \_ -> \_ -> 0
-instance (~) ty CFloat => HasField "unwrapF" F ty
-    where hasField = \x_0 -> (\y_1 -> F{unwrapF = y_1},
-                              getField @"unwrapF" x_0)
 {-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
@@ -429,14 +429,14 @@ newtype L
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CLong => HasField "unwrapL" L ty
+    where hasField = \x_0 -> (\y_1 -> L{unwrapL = y_1},
+                              getField @"unwrapL" x_0)
 instance (~) ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapL")
 instance HasCField L "unwrapL"
     where type CFieldType L "unwrapL" = CLong
           offset# = \_ -> \_ -> 0
-instance (~) ty CLong => HasField "unwrapL" L ty
-    where hasField = \x_0 -> (\y_1 -> L{unwrapL = y_1},
-                              getField @"unwrapL" x_0)
 {-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
@@ -461,14 +461,14 @@ newtype S
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CShort => HasField "unwrapS" S ty
+    where hasField = \x_0 -> (\y_1 -> S{unwrapS = y_1},
+                              getField @"unwrapS" x_0)
 instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort
           offset# = \_ -> \_ -> 0
-instance (~) ty CShort => HasField "unwrapS" S ty
-    where hasField = \x_0 -> (\y_1 -> S{unwrapS = y_1},
-                              getField @"unwrapS" x_0)
 -- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
     Int16 -> IO Int32

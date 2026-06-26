@@ -75,6 +75,15 @@ instance RIP.FromFunPtr Toggle_Aux where
   fromFunPtr = hs_bindgen_703fc4bdc168721d
 
 instance ( ty ~ IO RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapToggle_Aux" Toggle_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Toggle_Aux {unwrapToggle_Aux = y1}
+      , RIP.getField @"unwrapToggle_Aux" x0
+      )
+
+instance ( ty ~ IO RIP.CBool
          ) => RIP.HasField "unwrapToggle_Aux" (RIP.Ptr Toggle_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -86,15 +95,6 @@ instance HasCField.HasCField Toggle_Aux "unwrapToggle_Aux" where
     IO RIP.CBool
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapToggle_Aux" Toggle_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Toggle_Aux {unwrapToggle_Aux = y1}
-      , RIP.getField @"unwrapToggle_Aux" x0
-      )
 
 {-| __C declaration:__ @Toggle@
 
@@ -109,6 +109,14 @@ newtype Toggle = Toggle
   deriving newtype (RIP.HasFFIType)
 
 instance ( ty ~ Block.Block Toggle_Aux
+         ) => RIP.CompatHasField.HasField "unwrapToggle" Toggle ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Toggle {unwrapToggle = y1}, RIP.getField @"unwrapToggle" x0)
+
+instance ( ty ~ Block.Block Toggle_Aux
          ) => RIP.HasField "unwrapToggle" (RIP.Ptr Toggle) (RIP.Ptr ty) where
 
   getField =
@@ -120,14 +128,6 @@ instance HasCField.HasCField Toggle "unwrapToggle" where
     Block.Block Toggle_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Block.Block Toggle_Aux
-         ) => RIP.CompatHasField.HasField "unwrapToggle" Toggle ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Toggle {unwrapToggle = y1}, RIP.getField @"unwrapToggle" x0)
 
 {-| Auxiliary type used by 'Counter'
 
@@ -178,6 +178,15 @@ instance RIP.FromFunPtr Counter_Aux where
   fromFunPtr = hs_bindgen_73304cb84e9a2f8f
 
 instance ( ty ~ IO RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapCounter_Aux" Counter_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Counter_Aux {unwrapCounter_Aux = y1}
+      , RIP.getField @"unwrapCounter_Aux" x0
+      )
+
+instance ( ty ~ IO RIP.CInt
          ) => RIP.HasField "unwrapCounter_Aux" (RIP.Ptr Counter_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -189,15 +198,6 @@ instance HasCField.HasCField Counter_Aux "unwrapCounter_Aux" where
     IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapCounter_Aux" Counter_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Counter_Aux {unwrapCounter_Aux = y1}
-      , RIP.getField @"unwrapCounter_Aux" x0
-      )
 
 {-| __C declaration:__ @Counter@
 
@@ -212,6 +212,14 @@ newtype Counter = Counter
   deriving newtype (RIP.HasFFIType)
 
 instance ( ty ~ Block.Block Counter_Aux
+         ) => RIP.CompatHasField.HasField "unwrapCounter" Counter ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Counter {unwrapCounter = y1}, RIP.getField @"unwrapCounter" x0)
+
+instance ( ty ~ Block.Block Counter_Aux
          ) => RIP.HasField "unwrapCounter" (RIP.Ptr Counter) (RIP.Ptr ty) where
 
   getField =
@@ -223,14 +231,6 @@ instance HasCField.HasCField Counter "unwrapCounter" where
     Block.Block Counter_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Block.Block Counter_Aux
-         ) => RIP.CompatHasField.HasField "unwrapCounter" Counter ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Counter {unwrapCounter = y1}, RIP.getField @"unwrapCounter" x0)
 
 {-| Auxiliary type used by 'VarCounter'
 
@@ -281,6 +281,15 @@ instance RIP.FromFunPtr VarCounter_Aux where
   fromFunPtr = hs_bindgen_43d902480175fccf
 
 instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapVarCounter_Aux" VarCounter_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> VarCounter_Aux {unwrapVarCounter_Aux = y1}
+      , RIP.getField @"unwrapVarCounter_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
          ) => RIP.HasField "unwrapVarCounter_Aux" (RIP.Ptr VarCounter_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -292,15 +301,6 @@ instance HasCField.HasCField VarCounter_Aux "unwrapVarCounter_Aux" where
     RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapVarCounter_Aux" VarCounter_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> VarCounter_Aux {unwrapVarCounter_Aux = y1}
-      , RIP.getField @"unwrapVarCounter_Aux" x0
-      )
 
 {-| __C declaration:__ @VarCounter@
 
@@ -315,6 +315,15 @@ newtype VarCounter = VarCounter
   deriving newtype (RIP.HasFFIType)
 
 instance ( ty ~ Block.Block VarCounter_Aux
+         ) => RIP.CompatHasField.HasField "unwrapVarCounter" VarCounter ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> VarCounter {unwrapVarCounter = y1}
+      , RIP.getField @"unwrapVarCounter" x0
+      )
+
+instance ( ty ~ Block.Block VarCounter_Aux
          ) => RIP.HasField "unwrapVarCounter" (RIP.Ptr VarCounter) (RIP.Ptr ty) where
 
   getField =
@@ -326,12 +335,3 @@ instance HasCField.HasCField VarCounter "unwrapVarCounter" where
     Block.Block VarCounter_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Block.Block VarCounter_Aux
-         ) => RIP.CompatHasField.HasField "unwrapVarCounter" VarCounter ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> VarCounter {unwrapVarCounter = y1}
-      , RIP.getField @"unwrapVarCounter" x0
-      )

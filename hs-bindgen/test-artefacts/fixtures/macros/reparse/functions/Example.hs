@@ -63,6 +63,14 @@ newtype MY_INT = MY_INT
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMY_INT" MY_INT ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MY_INT {unwrapMY_INT = y1}, RIP.getField @"unwrapMY_INT" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMY_INT" (RIP.Ptr MY_INT) (RIP.Ptr ty) where
 
   getField =
@@ -73,14 +81,6 @@ instance HasCField.HasCField MY_INT "unwrapMY_INT" where
   type CFieldType MY_INT "unwrapMY_INT" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMY_INT" MY_INT ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MY_INT {unwrapMY_INT = y1}, RIP.getField @"unwrapMY_INT" x0)
 
 {-| __C declaration:__ @my_int_t@
 
@@ -111,6 +111,14 @@ newtype My_int_t = My_int_t
     )
 
 instance ( ty ~ MY_INT
+         ) => RIP.CompatHasField.HasField "unwrapMy_int_t" My_int_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         My_int_t {unwrapMy_int_t = y1}, RIP.getField @"unwrapMy_int_t" x0)
+
+instance ( ty ~ MY_INT
          ) => RIP.HasField "unwrapMy_int_t" (RIP.Ptr My_int_t) (RIP.Ptr ty) where
 
   getField =
@@ -121,11 +129,3 @@ instance HasCField.HasCField My_int_t "unwrapMy_int_t" where
   type CFieldType My_int_t "unwrapMy_int_t" = MY_INT
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ MY_INT
-         ) => RIP.CompatHasField.HasField "unwrapMy_int_t" My_int_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         My_int_t {unwrapMy_int_t = y1}, RIP.getField @"unwrapMy_int_t" x0)

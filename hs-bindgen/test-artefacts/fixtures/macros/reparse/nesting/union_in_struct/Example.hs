@@ -65,6 +65,14 @@ newtype MyInt = MyInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -75,14 +83,6 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| __C declaration:__ @union \@T1_x@
 
@@ -128,15 +128,15 @@ set_t1_x_x ::
   -> T1_x
 set_t1_x_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t1_x_x")
+
 instance HasCField.HasCField T1_x "t1_x_x" where
 
   type CFieldType T1_x "t1_x_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t1_x_x")
 
 {-| __C declaration:__ @struct \@T1@
 
@@ -179,21 +179,21 @@ instance Marshal.WriteRaw T1 where
 
 deriving via Marshal.EquivStorable T1 instance RIP.Storable T1
 
-instance HasCField.HasCField T1 "t1_x" where
-
-  type CFieldType T1 "t1_x" = T1_x
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ T1_x) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
-
 instance (ty ~ T1_x) => RIP.CompatHasField.HasField "t1_x" T1 ty where
 
   hasField =
     \x0 ->
       (\y1 -> T1 {t1_x = y1}, RIP.getField @"t1_x" x0)
+
+instance (ty ~ T1_x) => RIP.HasField "t1_x" (RIP.Ptr T1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t1_x")
+
+instance HasCField.HasCField T1 "t1_x" where
+
+  type CFieldType T1 "t1_x" = T1_x
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@T2@
 
@@ -236,22 +236,22 @@ instance Marshal.WriteRaw T2 where
 
 deriving via Marshal.EquivStorable T2 instance RIP.Storable T2
 
-instance HasCField.HasCField T2 "t2_x" where
+instance (ty ~ RIP.Ptr T2_x) => RIP.CompatHasField.HasField "t2_x" T2 ty where
 
-  type CFieldType T2 "t2_x" = RIP.Ptr T2_x
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 ->
+      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
 
 instance ( ty ~ RIP.Ptr T2_x
          ) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
 
-instance (ty ~ RIP.Ptr T2_x) => RIP.CompatHasField.HasField "t2_x" T2 ty where
+instance HasCField.HasCField T2 "t2_x" where
 
-  hasField =
-    \x0 ->
-      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
+  type CFieldType T2 "t2_x" = RIP.Ptr T2_x
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union \@T2_x@
 
@@ -297,15 +297,15 @@ set_t2_x_x ::
   -> T2_x
 set_t2_x_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t2_x_x")
+
 instance HasCField.HasCField T2_x "t2_x_x" where
 
   type CFieldType T2_x "t2_x_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t2_x_x")
 
 {-| __C declaration:__ @struct \@T3@
 
@@ -348,23 +348,23 @@ instance Marshal.WriteRaw T3 where
 
 deriving via Marshal.EquivStorable T3 instance RIP.Storable T3
 
-instance HasCField.HasCField T3 "t3_x" where
-
-  type CFieldType T3 "t3_x" = RIP.Ptr (RIP.Ptr T3_x)
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
-         ) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
-
 instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
          ) => RIP.CompatHasField.HasField "t3_x" T3 ty where
 
   hasField =
     \x0 ->
       (\y1 -> T3 {t3_x = y1}, RIP.getField @"t3_x" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr T3_x)
+         ) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
+
+instance HasCField.HasCField T3 "t3_x" where
+
+  type CFieldType T3 "t3_x" = RIP.Ptr (RIP.Ptr T3_x)
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union \@T3_x@
 
@@ -410,12 +410,12 @@ set_t3_x_x ::
   -> T3_x
 set_t3_x_x = RIP.setUnionPayload
 
+instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"t3_x_x")
+
 instance HasCField.HasCField T3_x "t3_x_x" where
 
   type CFieldType T3_x "t3_x_x" = MyInt
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"t3_x_x")

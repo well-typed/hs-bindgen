@@ -1,7 +1,8 @@
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
   , hasFFITypeDecs
-  , newtypeFieldDecs
+  , hasFieldCompatDecs
+  , hasFieldPtrDecs
   ) where
 
 import Control.Monad.State qualified as State
@@ -69,9 +70,11 @@ hasFFITypeDecs nt =
         , comment  = Nothing
         }
 
--- | 'HsBindgen.Runtime.HasCField.HasCField',
--- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield', 'GHC.Records.HasField', and
--- 'GHC.Records.Compat.HasField' instances for newtypes
+{-------------------------------------------------------------------------------
+  HasField
+-------------------------------------------------------------------------------}
+
+-- | Class instances for 'GHC.Records.Compat.HasField'
 --
 -- Given a generated newtype (for a @typedef@, @enum@, or macro type):
 --
@@ -80,25 +83,54 @@ hasFFITypeDecs nt =
 -- GHC automatically generates 'GHC.Records.HasField' instances for the
 -- @unwrapMyType@ field.
 --
--- Then, 'newtypeFieldDecls' will generate roughly the following class
--- instances.
+-- 'hasFieldCompatDecs' will generate roughly the following class instances:
+--
+-- > instance GHC.Records.Compat.HasField "unwrapMyType" MyType CInt
+--
+hasFieldCompatDecs :: Hs.Newtype -> [Hs.Decl l]
+hasFieldCompatDecs nt =
+    [ Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceHasFieldCompat hasFieldCompatDecl
+            }
+    | Inst.HasFieldCompat `elem` nt.instances
+    ]
+  where
+    parentType :: Hs.Type
+    parentType = Hs.TypRef nt.name (Just nt.field.typ)
+
+    hasFieldCompatDecl :: Hs.HasFieldCompatInstance
+    hasFieldCompatDecl = Hs.HasFieldCompatInstance {
+          parentType  = parentType
+        , fieldName   = nt.field.name
+        , fieldType   = nt.field.typ
+        , impl = Hs.HasFieldCompatImplRecord $ Hs.HFCImplRecord {
+              otherFields = []
+            , constr = nt.constr
+            }
+        }
+
+-- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
+--
+-- Given a generated newtype (for a @typedef@, @enum@, or macro type):
+--
+-- > newtype MyType = MyType { unwrapMyType :: CInt }
+--
+-- 'hasFieldPtrDecs' will generate roughly the following class instances:
 --
 -- > instance HasCField "unwrapMyType" MyType where
 -- >   type CFieldType "unwrapMyType" MyType = CInt
 -- > instance GHC.Records.HasField "unwrapMyType" (Ptr MyType) (Ptr CInt)
--- > instance GHC.Records.Compat.HasField "unwrapMyType" MyType CInt
 --
--- The first two instances help eliminating newtypes from 'Foreign.Ptr.Ptr'
--- types. Naturally, newtypes can also be introduced in 'Foreign.Ptr.Ptr' types,
--- but this should be done using 'Foreign.Ptr.castPtr' or some similar function.
-newtypeFieldDecs :: Hs.Newtype -> [Hs.Decl l]
-newtypeFieldDecs nt = concat [
+hasFieldPtrDecs :: Hs.Newtype -> [Hs.Decl l]
+hasFieldPtrDecs nt = concat [
       [ Hs.DeclDefineInstance $
           Hs.DefineInstance {
               comment      = Nothing
-            , instanceDecl = Hs.InstanceHasField hasFieldDecl
+            , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
             }
-      | Inst.HasField `elem` nt.instances
+      | Inst.HasFieldPtr `elem` nt.instances
       ]
     , [ Hs.DeclDefineInstance $
           Hs.DefineInstance {
@@ -107,20 +139,13 @@ newtypeFieldDecs nt = concat [
             }
       | Inst.HasCField `elem` nt.instances
       ]
-    , [ Hs.DeclDefineInstance $
-          Hs.DefineInstance {
-                comment      = Nothing
-              , instanceDecl = Hs.InstanceCompatHasField compatHasFieldDecl
-              }
-      | Inst.CompatHasField `elem` nt.instances
-      ]
     ]
   where
     parentType :: Hs.Type
     parentType = Hs.TypRef nt.name (Just nt.field.typ)
 
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance{
+    hasFieldPtrDecl :: Hs.HasFieldPtrInstance
+    hasFieldPtrDecl = Hs.HasFieldPtrInstance{
           parentType = parentType
         , fieldName  = nt.field.name
         , fieldType  = nt.field.typ
@@ -133,13 +158,4 @@ newtypeFieldDecs nt = concat [
         , fieldName   = nt.field.name
         , cFieldType  = nt.field.typ
         , fieldOffset = 0
-        }
-
-    compatHasFieldDecl :: Hs.CompatHasFieldInstance
-    compatHasFieldDecl = Hs.CompatHasFieldInstance {
-          parentType  = parentType
-        , fieldName   = nt.field.name
-        , fieldType   = nt.field.typ
-        , otherFields = []
-        , constr      = nt.constr
         }

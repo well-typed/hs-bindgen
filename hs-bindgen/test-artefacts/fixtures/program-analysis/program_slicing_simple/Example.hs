@@ -53,6 +53,14 @@ newtype Uint32_t = Uint32_t
     )
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapUint32_t" Uint32_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Uint32_t {unwrapUint32_t = y1}, RIP.getField @"unwrapUint32_t" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapUint32_t" (RIP.Ptr Uint32_t) (RIP.Ptr ty) where
 
   getField =
@@ -63,14 +71,6 @@ instance HasCField.HasCField Uint32_t "unwrapUint32_t" where
   type CFieldType Uint32_t "unwrapUint32_t" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapUint32_t" Uint32_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Uint32_t {unwrapUint32_t = y1}, RIP.getField @"unwrapUint32_t" x0)
 
 {-| __C declaration:__ @struct foo@
 
@@ -116,18 +116,6 @@ instance RIP.Storable Foo where
                HasCField.poke (RIP.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
             >> HasCField.poke (RIP.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
-instance HasCField.HasCField Foo "foo_sixty_four" where
-
-  type CFieldType Foo "foo_sixty_four" = Foreign.Word64
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Foreign.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
-
 instance ( ty ~ Foreign.Word64
          ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
@@ -138,17 +126,17 @@ instance ( ty ~ Foreign.Word64
       , RIP.getField @"foo_sixty_four" x0
       )
 
-instance HasCField.HasCField Foo "foo_thirty_two" where
-
-  type CFieldType Foo "foo_thirty_two" = Uint32_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ Uint32_t
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ Foreign.Word64
+         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
+
+instance HasCField.HasCField Foo "foo_sixty_four" where
+
+  type CFieldType Foo "foo_sixty_four" = Foreign.Word64
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Uint32_t
          ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
@@ -159,3 +147,15 @@ instance ( ty ~ Uint32_t
           Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
       , RIP.getField @"foo_thirty_two" x0
       )
+
+instance ( ty ~ Uint32_t
+         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+
+instance HasCField.HasCField Foo "foo_thirty_two" where
+
+  type CFieldType Foo "foo_thirty_two" = Uint32_t
+
+  offset# = \_ -> \_ -> 8

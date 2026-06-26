@@ -134,6 +134,14 @@ instance Read First where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapFirst" First ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         First {unwrapFirst = y1}, RIP.getField @"unwrapFirst" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapFirst" (RIP.Ptr First) (RIP.Ptr ty) where
 
   getField =
@@ -144,14 +152,6 @@ instance HasCField.HasCField First "unwrapFirst" where
   type CFieldType First "unwrapFirst" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapFirst" First ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         First {unwrapFirst = y1}, RIP.getField @"unwrapFirst" x0)
 
 {-| __C declaration:__ @FIRST1@
 
@@ -253,6 +253,14 @@ instance Read Second where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapSecond" Second ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Second {unwrapSecond = y1}, RIP.getField @"unwrapSecond" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapSecond" (RIP.Ptr Second) (RIP.Ptr ty) where
 
   getField =
@@ -263,14 +271,6 @@ instance HasCField.HasCField Second "unwrapSecond" where
   type CFieldType Second "unwrapSecond" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapSecond" Second ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Second {unwrapSecond = y1}, RIP.getField @"unwrapSecond" x0)
 
 {-| __C declaration:__ @SECOND_A@
 
@@ -377,6 +377,14 @@ instance Read Same where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapSame" Same ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Same {unwrapSame = y1}, RIP.getField @"unwrapSame" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapSame" (RIP.Ptr Same) (RIP.Ptr ty) where
 
   getField =
@@ -387,14 +395,6 @@ instance HasCField.HasCField Same "unwrapSame" where
   type CFieldType Same "unwrapSame" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapSame" Same ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Same {unwrapSame = y1}, RIP.getField @"unwrapSame" x0)
 
 {-| __C declaration:__ @SAME_A@
 
@@ -486,6 +486,14 @@ instance Read Nonseq where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapNonseq" Nonseq ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Nonseq {unwrapNonseq = y1}, RIP.getField @"unwrapNonseq" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapNonseq" (RIP.Ptr Nonseq) (RIP.Ptr ty) where
 
   getField =
@@ -496,14 +504,6 @@ instance HasCField.HasCField Nonseq "unwrapNonseq" where
   type CFieldType Nonseq "unwrapNonseq" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapNonseq" Nonseq ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Nonseq {unwrapNonseq = y1}, RIP.getField @"unwrapNonseq" x0)
 
 {-| __C declaration:__ @NONSEQ_A@
 
@@ -614,6 +614,14 @@ instance Read Packed where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unwrapPacked" Packed ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Packed {unwrapPacked = y1}, RIP.getField @"unwrapPacked" x0)
+
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapPacked" (RIP.Ptr Packed) (RIP.Ptr ty) where
 
   getField =
@@ -624,14 +632,6 @@ instance HasCField.HasCField Packed "unwrapPacked" where
   type CFieldType Packed "unwrapPacked" = RIP.CUChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unwrapPacked" Packed ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Packed {unwrapPacked = y1}, RIP.getField @"unwrapPacked" x0)
 
 {-| __C declaration:__ @PACKED_A@
 
@@ -739,6 +739,14 @@ instance Read EnumA where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
 
   getField =
@@ -749,14 +757,6 @@ instance HasCField.HasCField EnumA "unwrapEnumA" where
   type CFieldType EnumA "unwrapEnumA" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
 
 {-| __C declaration:__ @A_FOO@
 
@@ -855,6 +855,14 @@ instance Read EnumB where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumB" EnumB ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumB {unwrapEnumB = y1}, RIP.getField @"unwrapEnumB" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumB" (RIP.Ptr EnumB) (RIP.Ptr ty) where
 
   getField =
@@ -865,14 +873,6 @@ instance HasCField.HasCField EnumB "unwrapEnumB" where
   type CFieldType EnumB "unwrapEnumB" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumB" EnumB ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         EnumB {unwrapEnumB = y1}, RIP.getField @"unwrapEnumB" x0)
 
 {-| __C declaration:__ @B_FOO@
 
@@ -971,6 +971,14 @@ instance Read EnumC where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumC" EnumC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumC {unwrapEnumC = y1}, RIP.getField @"unwrapEnumC" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumC" (RIP.Ptr EnumC) (RIP.Ptr ty) where
 
   getField =
@@ -981,14 +989,6 @@ instance HasCField.HasCField EnumC "unwrapEnumC" where
   type CFieldType EnumC "unwrapEnumC" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumC" EnumC ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         EnumC {unwrapEnumC = y1}, RIP.getField @"unwrapEnumC" x0)
 
 {-| __C declaration:__ @C_FOO@
 
@@ -1087,6 +1087,14 @@ instance Read EnumD_t where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapEnumD_t" EnumD_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         EnumD_t {unwrapEnumD_t = y1}, RIP.getField @"unwrapEnumD_t" x0)
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapEnumD_t" (RIP.Ptr EnumD_t) (RIP.Ptr ty) where
 
   getField =
@@ -1097,14 +1105,6 @@ instance HasCField.HasCField EnumD_t "unwrapEnumD_t" where
   type CFieldType EnumD_t "unwrapEnumD_t" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumD_t" EnumD_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         EnumD_t {unwrapEnumD_t = y1}, RIP.getField @"unwrapEnumD_t" x0)
 
 {-| __C declaration:__ @D_FOO@
 

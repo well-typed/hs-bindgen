@@ -111,11 +111,13 @@ fieldExtensions field = typeExtensions field.typ
 
 typeClassExtensions :: Inst.TypeClass -> Set TH.Extension
 typeClassExtensions = \case
-    Inst.HasCField    -> Set.singleton TH.MagicHash
-    Inst.HasCBitfield -> Set.singleton TH.MagicHash
-    Inst.HasField     -> Set.singleton TH.UndecidableInstances
-    Inst.HasFFIType   -> Set.singleton TH.UndecidableInstances
-    Inst.Prim         -> Set.fromList [TH.MagicHash, TH.UnboxedTuples]
+    Inst.HasCField      -> Set.singleton TH.MagicHash
+    Inst.HasCBitfield   -> Set.singleton TH.MagicHash
+    Inst.HasField       -> Set.singleton TH.UndecidableInstances
+    Inst.HasFieldCompat -> Set.singleton TH.UndecidableInstances
+    Inst.HasFieldPtr    -> Set.singleton TH.UndecidableInstances
+    Inst.HasFFIType     -> Set.singleton TH.UndecidableInstances
+    Inst.Prim           -> Set.fromList [TH.MagicHash, TH.UnboxedTuples]
     _ -> mempty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension

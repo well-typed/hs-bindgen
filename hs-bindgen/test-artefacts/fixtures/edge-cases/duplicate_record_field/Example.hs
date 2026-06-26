@@ -65,20 +65,20 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance RIP.Storable A
 
-instance HasCField.HasCField A "dup" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" A ty where
 
-  type CFieldType A "dup" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> A {dup = y1}, RIP.getField @"dup" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr A) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" A ty where
+instance HasCField.HasCField A "dup" where
 
-  hasField =
-    \x0 -> (\y1 -> A {dup = y1}, RIP.getField @"dup" x0)
+  type CFieldType A "dup" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct B@
 
@@ -121,17 +121,17 @@ instance Marshal.WriteRaw B where
 
 deriving via Marshal.EquivStorable B instance RIP.Storable B
 
-instance HasCField.HasCField B "dup" where
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" B ty where
 
-  type CFieldType B "dup" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
+  hasField =
+    \x0 -> (\y1 -> B {dup = y1}, RIP.getField @"dup" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr B) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"dup")
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" B ty where
+instance HasCField.HasCField B "dup" where
 
-  hasField =
-    \x0 -> (\y1 -> B {dup = y1}, RIP.getField @"dup" x0)
+  type CFieldType B "dup" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

@@ -530,15 +530,15 @@ newtype An_pchar
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (PtrConst CChar) => HasField "unwrap" An_pchar ty
+    where hasField = \x_0 -> (\y_1 -> An_pchar{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (PtrConst CChar) =>
          HasField "unwrap" (Ptr An_pchar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField An_pchar "unwrap"
     where type CFieldType An_pchar "unwrap" = PtrConst CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst CChar) => HasField "unwrap" An_pchar ty
-    where hasField = \x_0 -> (\y_1 -> An_pchar{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyCoolStruct@
 
     __defined at:__ @comprehensive\/c2hsc.h 15:9@
@@ -564,17 +564,17 @@ instance WriteRaw MyCoolStruct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        MyCoolStruct listOfNames_2 -> writeRaw (Proxy @"listOfNames") ptr_0 listOfNames_2
 deriving via (EquivStorable MyCoolStruct) instance Storable MyCoolStruct
-instance HasCField MyCoolStruct "listOfNames"
-    where type CFieldType MyCoolStruct "listOfNames" = ConstantArray 8
-                                                                     (ConstantArray 255 CChar)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 8 (ConstantArray 255 CChar)) =>
-         HasField "listOfNames" (Ptr MyCoolStruct) (Ptr ty)
-    where getField = fromPtr (Proxy @"listOfNames")
 instance (~) ty (ConstantArray 8 (ConstantArray 255 CChar)) =>
          HasField "listOfNames" MyCoolStruct ty
     where hasField = \x_0 -> (\y_1 -> MyCoolStruct{listOfNames = y_1},
                               getField @"listOfNames" x_0)
+instance (~) ty (ConstantArray 8 (ConstantArray 255 CChar)) =>
+         HasField "listOfNames" (Ptr MyCoolStruct) (Ptr ty)
+    where getField = fromPtr (Proxy @"listOfNames")
+instance HasCField MyCoolStruct "listOfNames"
+    where type CFieldType MyCoolStruct "listOfNames" = ConstantArray 8
+                                                                     (ConstantArray 255 CChar)
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Foo'
 
     __C declaration:__ @foo@
@@ -608,15 +608,15 @@ instance ToFunPtr Foo_Aux
     where toFunPtr = hs_bindgen_b5a7b5e83ffee6b4
 instance FromFunPtr Foo_Aux
     where fromFunPtr = hs_bindgen_223d08172bb37c01
+instance (~) ty (CInt -> IO CInt) => HasField "unwrap" Foo_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Foo_Aux{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrap" (Ptr Foo_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Foo_Aux "unwrap"
     where type CFieldType Foo_Aux "unwrap" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO CInt) => HasField "unwrap" Foo_Aux ty
-    where hasField = \x_0 -> (\y_1 -> Foo_Aux{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @comprehensive\/c2hsc.h 20:15@
@@ -631,15 +631,15 @@ newtype Foo
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (FunPtr Foo_Aux) => HasField "unwrap" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (FunPtr Foo_Aux) =>
          HasField "unwrap" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Foo "unwrap"
     where type CFieldType Foo "unwrap" = FunPtr Foo_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr Foo_Aux) => HasField "unwrap" Foo ty
-    where hasField = \x_0 -> (\y_1 -> Foo{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct foo_t@
 
     __defined at:__ @comprehensive\/c2hsc.h 31:8@
@@ -664,16 +664,16 @@ instance WriteRaw Foo_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Foo_t foo_member_2 -> writeRaw (Proxy @"foo_member") ptr_0 foo_member_2
 deriving via (EquivStorable Foo_t) instance Storable Foo_t
-instance HasCField Foo_t "foo_member"
-    where type CFieldType Foo_t "foo_member" = FunPtr (CInt -> IO CInt)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (CInt -> IO CInt)) =>
-         HasField "foo_member" (Ptr Foo_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_member")
 instance (~) ty (FunPtr (CInt -> IO CInt)) =>
          HasField "foo_member" Foo_t ty
     where hasField = \x_0 -> (\y_1 -> Foo_t{foo_member = y_1},
                               getField @"foo_member" x_0)
+instance (~) ty (FunPtr (CInt -> IO CInt)) =>
+         HasField "foo_member" (Ptr Foo_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_member")
+instance HasCField Foo_t "foo_member"
+    where type CFieldType Foo_t "foo_member" = FunPtr (CInt -> IO CInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Foo_10_@
 
     __defined at:__ @comprehensive\/c2hsc.h 44:16@
@@ -720,14 +720,14 @@ instance Read Bar_10
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrap" Bar_10 ty
+    where hasField = \x_0 -> (\y_1 -> Bar_10{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr Bar_10) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Bar_10 "unwrap"
     where type CFieldType Bar_10 "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" Bar_10 ty
-    where hasField = \x_0 -> (\y_1 -> Bar_10{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAR@
 
     __defined at:__ @comprehensive\/c2hsc.h 45:24@
@@ -760,13 +760,13 @@ instance WriteRaw St
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        St i_2 -> writeRaw (Proxy @"i") ptr_0 i_2
 deriving via (EquivStorable St) instance Storable St
+instance (~) ty CInt => HasField "i" St ty
+    where hasField = \x_0 -> (\y_1 -> St{i = y_1}, getField @"i" x_0)
+instance (~) ty CInt => HasField "i" (Ptr St) (Ptr ty)
+    where getField = fromPtr (Proxy @"i")
 instance HasCField St "i"
     where type CFieldType St "i" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "i" (Ptr St) (Ptr ty)
-    where getField = fromPtr (Proxy @"i")
-instance (~) ty CInt => HasField "i" St ty
-    where hasField = \x_0 -> (\y_1 -> St{i = y_1}, getField @"i" x_0)
 {-| __C declaration:__ @enum e@
 
     __defined at:__ @comprehensive\/c2hsc.h 52:6@
@@ -806,14 +806,14 @@ instance Read E
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrap" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField E "unwrap"
     where type CFieldType E "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" E ty
-    where hasField = \x_0 -> (\y_1 -> E{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @CONST@
 
     __defined at:__ @comprehensive\/c2hsc.h 53:3@
@@ -867,11 +867,11 @@ set_u_c :: CChar -> U
 
 -}
 set_u_c = setUnionPayload
+instance (~) ty CChar => HasField "c" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
 instance HasCField U "c"
     where type CFieldType U "c" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "c" (Ptr U) (Ptr ty)
-    where getField = fromPtr (Proxy @"c")
 {-| __C declaration:__ @struct MyTypeImpl@
 
     __defined at:__ @comprehensive\/c2hsc.h 61:8@
@@ -893,15 +893,15 @@ newtype MyType
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr MyTypeImpl) => HasField "unwrap" MyType ty
+    where hasField = \x_0 -> (\y_1 -> MyType{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (Ptr MyTypeImpl) =>
          HasField "unwrap" (Ptr MyType) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField MyType "unwrap"
     where type CFieldType MyType "unwrap" = Ptr MyTypeImpl
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr MyTypeImpl) => HasField "unwrap" MyType ty
-    where hasField = \x_0 -> (\y_1 -> MyType{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyStruct@
 
     __defined at:__ @comprehensive\/c2hsc.h 64:16@
@@ -926,14 +926,14 @@ instance WriteRaw MyStructType
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        MyStructType x_2 -> writeRaw (Proxy @"x") ptr_0 x_2
 deriving via (EquivStorable MyStructType) instance Storable MyStructType
-instance HasCField MyStructType "x"
-    where type CFieldType MyStructType "x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "x" (Ptr MyStructType) (Ptr ty)
-    where getField = fromPtr (Proxy @"x")
 instance (~) ty CInt => HasField "x" MyStructType ty
     where hasField = \x_0 -> (\y_1 -> MyStructType{x = y_1},
                               getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr MyStructType) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField MyStructType "x"
+    where type CFieldType MyStructType "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct MyStructEmpty@
 
     __defined at:__ @comprehensive\/c2hsc.h 68:16@
@@ -967,19 +967,19 @@ instance WriteRaw Ordinary_float_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_float_struct ordinary_float_member_2 -> writeRaw (Proxy @"ordinary_float_member") ptr_0 ordinary_float_member_2
 deriving via (EquivStorable Ordinary_float_struct) instance Storable Ordinary_float_struct
-instance HasCField Ordinary_float_struct "ordinary_float_member"
-    where type CFieldType Ordinary_float_struct
-                          "ordinary_float_member" = CFloat
-          offset# = \_ -> \_ -> 0
+instance (~) ty CFloat =>
+         HasField "ordinary_float_member" Ordinary_float_struct ty
+    where hasField = \x_0 -> (\y_1 -> Ordinary_float_struct{ordinary_float_member = y_1},
+                              getField @"ordinary_float_member" x_0)
 instance (~) ty CFloat =>
          HasField "ordinary_float_member"
                   (Ptr Ordinary_float_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"ordinary_float_member")
-instance (~) ty CFloat =>
-         HasField "ordinary_float_member" Ordinary_float_struct ty
-    where hasField = \x_0 -> (\y_1 -> Ordinary_float_struct{ordinary_float_member = y_1},
-                              getField @"ordinary_float_member" x_0)
+instance HasCField Ordinary_float_struct "ordinary_float_member"
+    where type CFieldType Ordinary_float_struct
+                          "ordinary_float_member" = CFloat
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_double_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 205:8@
@@ -1004,19 +1004,19 @@ instance WriteRaw Ordinary_double_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_double_struct ordinary_double_member_2 -> writeRaw (Proxy @"ordinary_double_member") ptr_0 ordinary_double_member_2
 deriving via (EquivStorable Ordinary_double_struct) instance Storable Ordinary_double_struct
-instance HasCField Ordinary_double_struct "ordinary_double_member"
-    where type CFieldType Ordinary_double_struct
-                          "ordinary_double_member" = CDouble
-          offset# = \_ -> \_ -> 0
+instance (~) ty CDouble =>
+         HasField "ordinary_double_member" Ordinary_double_struct ty
+    where hasField = \x_0 -> (\y_1 -> Ordinary_double_struct{ordinary_double_member = y_1},
+                              getField @"ordinary_double_member" x_0)
 instance (~) ty CDouble =>
          HasField "ordinary_double_member"
                   (Ptr Ordinary_double_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"ordinary_double_member")
-instance (~) ty CDouble =>
-         HasField "ordinary_double_member" Ordinary_double_struct ty
-    where hasField = \x_0 -> (\y_1 -> Ordinary_double_struct{ordinary_double_member = y_1},
-                              getField @"ordinary_double_member" x_0)
+instance HasCField Ordinary_double_struct "ordinary_double_member"
+    where type CFieldType Ordinary_double_struct
+                          "ordinary_double_member" = CDouble
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_char_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 208:8@
@@ -1041,22 +1041,22 @@ instance WriteRaw Ordinary_signed_char_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_char_struct ordinary_signed_char_member_2 -> writeRaw (Proxy @"ordinary_signed_char_member") ptr_0 ordinary_signed_char_member_2
 deriving via (EquivStorable Ordinary_signed_char_struct) instance Storable Ordinary_signed_char_struct
-instance HasCField Ordinary_signed_char_struct
-                   "ordinary_signed_char_member"
-    where type CFieldType Ordinary_signed_char_struct
-                          "ordinary_signed_char_member" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar =>
-         HasField "ordinary_signed_char_member"
-                  (Ptr Ordinary_signed_char_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_char_member")
 instance (~) ty CChar =>
          HasField "ordinary_signed_char_member"
                   Ordinary_signed_char_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_char_struct{ordinary_signed_char_member = y_1},
                               getField @"ordinary_signed_char_member" x_0)
+instance (~) ty CChar =>
+         HasField "ordinary_signed_char_member"
+                  (Ptr Ordinary_signed_char_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_char_member")
+instance HasCField Ordinary_signed_char_struct
+                   "ordinary_signed_char_member"
+    where type CFieldType Ordinary_signed_char_struct
+                          "ordinary_signed_char_member" = CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_char_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 209:8@
@@ -1081,22 +1081,22 @@ instance WriteRaw Explicit_signed_char_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_char_struct explicit_signed_char_member_2 -> writeRaw (Proxy @"explicit_signed_char_member") ptr_0 explicit_signed_char_member_2
 deriving via (EquivStorable Explicit_signed_char_struct) instance Storable Explicit_signed_char_struct
-instance HasCField Explicit_signed_char_struct
-                   "explicit_signed_char_member"
-    where type CFieldType Explicit_signed_char_struct
-                          "explicit_signed_char_member" = CSChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CSChar =>
-         HasField "explicit_signed_char_member"
-                  (Ptr Explicit_signed_char_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_char_member")
 instance (~) ty CSChar =>
          HasField "explicit_signed_char_member"
                   Explicit_signed_char_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_char_struct{explicit_signed_char_member = y_1},
                               getField @"explicit_signed_char_member" x_0)
+instance (~) ty CSChar =>
+         HasField "explicit_signed_char_member"
+                  (Ptr Explicit_signed_char_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_char_member")
+instance HasCField Explicit_signed_char_struct
+                   "explicit_signed_char_member"
+    where type CFieldType Explicit_signed_char_struct
+                          "explicit_signed_char_member" = CSChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_char_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 210:8@
@@ -1121,17 +1121,17 @@ instance WriteRaw Unsigned_char_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_char_struct unsigned_char_member_2 -> writeRaw (Proxy @"unsigned_char_member") ptr_0 unsigned_char_member_2
 deriving via (EquivStorable Unsigned_char_struct) instance Storable Unsigned_char_struct
-instance HasCField Unsigned_char_struct "unsigned_char_member"
-    where type CFieldType Unsigned_char_struct
-                          "unsigned_char_member" = CUChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CUChar =>
-         HasField "unsigned_char_member" (Ptr Unsigned_char_struct) (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_char_member")
 instance (~) ty CUChar =>
          HasField "unsigned_char_member" Unsigned_char_struct ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_char_struct{unsigned_char_member = y_1},
                               getField @"unsigned_char_member" x_0)
+instance (~) ty CUChar =>
+         HasField "unsigned_char_member" (Ptr Unsigned_char_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_char_member")
+instance HasCField Unsigned_char_struct "unsigned_char_member"
+    where type CFieldType Unsigned_char_struct
+                          "unsigned_char_member" = CUChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_short_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 212:8@
@@ -1156,22 +1156,22 @@ instance WriteRaw Ordinary_signed_short_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_short_struct ordinary_signed_short_member_2 -> writeRaw (Proxy @"ordinary_signed_short_member") ptr_0 ordinary_signed_short_member_2
 deriving via (EquivStorable Ordinary_signed_short_struct) instance Storable Ordinary_signed_short_struct
-instance HasCField Ordinary_signed_short_struct
-                   "ordinary_signed_short_member"
-    where type CFieldType Ordinary_signed_short_struct
-                          "ordinary_signed_short_member" = CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty CShort =>
-         HasField "ordinary_signed_short_member"
-                  (Ptr Ordinary_signed_short_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_short_member")
 instance (~) ty CShort =>
          HasField "ordinary_signed_short_member"
                   Ordinary_signed_short_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_short_struct{ordinary_signed_short_member = y_1},
                               getField @"ordinary_signed_short_member" x_0)
+instance (~) ty CShort =>
+         HasField "ordinary_signed_short_member"
+                  (Ptr Ordinary_signed_short_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_short_member")
+instance HasCField Ordinary_signed_short_struct
+                   "ordinary_signed_short_member"
+    where type CFieldType Ordinary_signed_short_struct
+                          "ordinary_signed_short_member" = CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_short_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 213:8@
@@ -1196,22 +1196,22 @@ instance WriteRaw Explicit_signed_short_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_short_struct explicit_signed_short_member_2 -> writeRaw (Proxy @"explicit_signed_short_member") ptr_0 explicit_signed_short_member_2
 deriving via (EquivStorable Explicit_signed_short_struct) instance Storable Explicit_signed_short_struct
-instance HasCField Explicit_signed_short_struct
-                   "explicit_signed_short_member"
-    where type CFieldType Explicit_signed_short_struct
-                          "explicit_signed_short_member" = CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty CShort =>
-         HasField "explicit_signed_short_member"
-                  (Ptr Explicit_signed_short_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_short_member")
 instance (~) ty CShort =>
          HasField "explicit_signed_short_member"
                   Explicit_signed_short_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_short_struct{explicit_signed_short_member = y_1},
                               getField @"explicit_signed_short_member" x_0)
+instance (~) ty CShort =>
+         HasField "explicit_signed_short_member"
+                  (Ptr Explicit_signed_short_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_short_member")
+instance HasCField Explicit_signed_short_struct
+                   "explicit_signed_short_member"
+    where type CFieldType Explicit_signed_short_struct
+                          "explicit_signed_short_member" = CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_short_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 214:8@
@@ -1236,19 +1236,19 @@ instance WriteRaw Unsigned_short_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_short_struct unsigned_short_member_2 -> writeRaw (Proxy @"unsigned_short_member") ptr_0 unsigned_short_member_2
 deriving via (EquivStorable Unsigned_short_struct) instance Storable Unsigned_short_struct
-instance HasCField Unsigned_short_struct "unsigned_short_member"
-    where type CFieldType Unsigned_short_struct
-                          "unsigned_short_member" = CUShort
-          offset# = \_ -> \_ -> 0
+instance (~) ty CUShort =>
+         HasField "unsigned_short_member" Unsigned_short_struct ty
+    where hasField = \x_0 -> (\y_1 -> Unsigned_short_struct{unsigned_short_member = y_1},
+                              getField @"unsigned_short_member" x_0)
 instance (~) ty CUShort =>
          HasField "unsigned_short_member"
                   (Ptr Unsigned_short_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unsigned_short_member")
-instance (~) ty CUShort =>
-         HasField "unsigned_short_member" Unsigned_short_struct ty
-    where hasField = \x_0 -> (\y_1 -> Unsigned_short_struct{unsigned_short_member = y_1},
-                              getField @"unsigned_short_member" x_0)
+instance HasCField Unsigned_short_struct "unsigned_short_member"
+    where type CFieldType Unsigned_short_struct
+                          "unsigned_short_member" = CUShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_int_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 216:8@
@@ -1273,20 +1273,20 @@ instance WriteRaw Ordinary_signed_int_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_int_struct ordinary_signed_int_member_2 -> writeRaw (Proxy @"ordinary_signed_int_member") ptr_0 ordinary_signed_int_member_2
 deriving via (EquivStorable Ordinary_signed_int_struct) instance Storable Ordinary_signed_int_struct
-instance HasCField Ordinary_signed_int_struct
-                   "ordinary_signed_int_member"
-    where type CFieldType Ordinary_signed_int_struct
-                          "ordinary_signed_int_member" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty
+    where hasField = \x_0 -> (\y_1 -> Ordinary_signed_int_struct{ordinary_signed_int_member = y_1},
+                              getField @"ordinary_signed_int_member" x_0)
 instance (~) ty CInt =>
          HasField "ordinary_signed_int_member"
                   (Ptr Ordinary_signed_int_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"ordinary_signed_int_member")
-instance (~) ty CInt =>
-         HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty
-    where hasField = \x_0 -> (\y_1 -> Ordinary_signed_int_struct{ordinary_signed_int_member = y_1},
-                              getField @"ordinary_signed_int_member" x_0)
+instance HasCField Ordinary_signed_int_struct
+                   "ordinary_signed_int_member"
+    where type CFieldType Ordinary_signed_int_struct
+                          "ordinary_signed_int_member" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_int_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 217:8@
@@ -1311,20 +1311,20 @@ instance WriteRaw Explicit_signed_int_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_int_struct explicit_signed_int_member_2 -> writeRaw (Proxy @"explicit_signed_int_member") ptr_0 explicit_signed_int_member_2
 deriving via (EquivStorable Explicit_signed_int_struct) instance Storable Explicit_signed_int_struct
-instance HasCField Explicit_signed_int_struct
-                   "explicit_signed_int_member"
-    where type CFieldType Explicit_signed_int_struct
-                          "explicit_signed_int_member" = CInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "explicit_signed_int_member" Explicit_signed_int_struct ty
+    where hasField = \x_0 -> (\y_1 -> Explicit_signed_int_struct{explicit_signed_int_member = y_1},
+                              getField @"explicit_signed_int_member" x_0)
 instance (~) ty CInt =>
          HasField "explicit_signed_int_member"
                   (Ptr Explicit_signed_int_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"explicit_signed_int_member")
-instance (~) ty CInt =>
-         HasField "explicit_signed_int_member" Explicit_signed_int_struct ty
-    where hasField = \x_0 -> (\y_1 -> Explicit_signed_int_struct{explicit_signed_int_member = y_1},
-                              getField @"explicit_signed_int_member" x_0)
+instance HasCField Explicit_signed_int_struct
+                   "explicit_signed_int_member"
+    where type CFieldType Explicit_signed_int_struct
+                          "explicit_signed_int_member" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_int_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 218:8@
@@ -1349,17 +1349,17 @@ instance WriteRaw Unsigned_int_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_int_struct unsigned_int_member_2 -> writeRaw (Proxy @"unsigned_int_member") ptr_0 unsigned_int_member_2
 deriving via (EquivStorable Unsigned_int_struct) instance Storable Unsigned_int_struct
-instance HasCField Unsigned_int_struct "unsigned_int_member"
-    where type CFieldType Unsigned_int_struct
-                          "unsigned_int_member" = CUInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CUInt =>
-         HasField "unsigned_int_member" (Ptr Unsigned_int_struct) (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_int_member")
 instance (~) ty CUInt =>
          HasField "unsigned_int_member" Unsigned_int_struct ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_int_struct{unsigned_int_member = y_1},
                               getField @"unsigned_int_member" x_0)
+instance (~) ty CUInt =>
+         HasField "unsigned_int_member" (Ptr Unsigned_int_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_int_member")
+instance HasCField Unsigned_int_struct "unsigned_int_member"
+    where type CFieldType Unsigned_int_struct
+                          "unsigned_int_member" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 220:8@
@@ -1384,22 +1384,22 @@ instance WriteRaw Ordinary_signed_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_struct ordinary_signed_long_member_2 -> writeRaw (Proxy @"ordinary_signed_long_member") ptr_0 ordinary_signed_long_member_2
 deriving via (EquivStorable Ordinary_signed_long_struct) instance Storable Ordinary_signed_long_struct
-instance HasCField Ordinary_signed_long_struct
-                   "ordinary_signed_long_member"
-    where type CFieldType Ordinary_signed_long_struct
-                          "ordinary_signed_long_member" = CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CLong =>
-         HasField "ordinary_signed_long_member"
-                  (Ptr Ordinary_signed_long_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_member")
 instance (~) ty CLong =>
          HasField "ordinary_signed_long_member"
                   Ordinary_signed_long_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_struct{ordinary_signed_long_member = y_1},
                               getField @"ordinary_signed_long_member" x_0)
+instance (~) ty CLong =>
+         HasField "ordinary_signed_long_member"
+                  (Ptr Ordinary_signed_long_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_member")
+instance HasCField Ordinary_signed_long_struct
+                   "ordinary_signed_long_member"
+    where type CFieldType Ordinary_signed_long_struct
+                          "ordinary_signed_long_member" = CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 221:8@
@@ -1424,22 +1424,22 @@ instance WriteRaw Explicit_signed_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_struct explicit_signed_long_member_2 -> writeRaw (Proxy @"explicit_signed_long_member") ptr_0 explicit_signed_long_member_2
 deriving via (EquivStorable Explicit_signed_long_struct) instance Storable Explicit_signed_long_struct
-instance HasCField Explicit_signed_long_struct
-                   "explicit_signed_long_member"
-    where type CFieldType Explicit_signed_long_struct
-                          "explicit_signed_long_member" = CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CLong =>
-         HasField "explicit_signed_long_member"
-                  (Ptr Explicit_signed_long_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_member")
 instance (~) ty CLong =>
          HasField "explicit_signed_long_member"
                   Explicit_signed_long_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_struct{explicit_signed_long_member = y_1},
                               getField @"explicit_signed_long_member" x_0)
+instance (~) ty CLong =>
+         HasField "explicit_signed_long_member"
+                  (Ptr Explicit_signed_long_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_member")
+instance HasCField Explicit_signed_long_struct
+                   "explicit_signed_long_member"
+    where type CFieldType Explicit_signed_long_struct
+                          "explicit_signed_long_member" = CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 222:8@
@@ -1464,17 +1464,17 @@ instance WriteRaw Unsigned_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_struct unsigned_long_member_2 -> writeRaw (Proxy @"unsigned_long_member") ptr_0 unsigned_long_member_2
 deriving via (EquivStorable Unsigned_long_struct) instance Storable Unsigned_long_struct
-instance HasCField Unsigned_long_struct "unsigned_long_member"
-    where type CFieldType Unsigned_long_struct
-                          "unsigned_long_member" = CULong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CULong =>
-         HasField "unsigned_long_member" (Ptr Unsigned_long_struct) (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_member")
 instance (~) ty CULong =>
          HasField "unsigned_long_member" Unsigned_long_struct ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_struct{unsigned_long_member = y_1},
                               getField @"unsigned_long_member" x_0)
+instance (~) ty CULong =>
+         HasField "unsigned_long_member" (Ptr Unsigned_long_struct) (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_member")
+instance HasCField Unsigned_long_struct "unsigned_long_member"
+    where type CFieldType Unsigned_long_struct
+                          "unsigned_long_member" = CULong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 224:8@
@@ -1499,22 +1499,22 @@ instance WriteRaw Ordinary_signed_long_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_long_struct ordinary_signed_long_long_member_2 -> writeRaw (Proxy @"ordinary_signed_long_long_member") ptr_0 ordinary_signed_long_long_member_2
 deriving via (EquivStorable Ordinary_signed_long_long_struct) instance Storable Ordinary_signed_long_long_struct
-instance HasCField Ordinary_signed_long_long_struct
-                   "ordinary_signed_long_long_member"
-    where type CFieldType Ordinary_signed_long_long_struct
-                          "ordinary_signed_long_long_member" = CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CLLong =>
-         HasField "ordinary_signed_long_long_member"
-                  (Ptr Ordinary_signed_long_long_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_long_member")
 instance (~) ty CLLong =>
          HasField "ordinary_signed_long_long_member"
                   Ordinary_signed_long_long_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_long_struct{ordinary_signed_long_long_member = y_1},
                               getField @"ordinary_signed_long_long_member" x_0)
+instance (~) ty CLLong =>
+         HasField "ordinary_signed_long_long_member"
+                  (Ptr Ordinary_signed_long_long_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_long_member")
+instance HasCField Ordinary_signed_long_long_struct
+                   "ordinary_signed_long_long_member"
+    where type CFieldType Ordinary_signed_long_long_struct
+                          "ordinary_signed_long_long_member" = CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 225:8@
@@ -1539,22 +1539,22 @@ instance WriteRaw Explicit_signed_long_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_long_struct explicit_signed_long_long_member_2 -> writeRaw (Proxy @"explicit_signed_long_long_member") ptr_0 explicit_signed_long_long_member_2
 deriving via (EquivStorable Explicit_signed_long_long_struct) instance Storable Explicit_signed_long_long_struct
-instance HasCField Explicit_signed_long_long_struct
-                   "explicit_signed_long_long_member"
-    where type CFieldType Explicit_signed_long_long_struct
-                          "explicit_signed_long_long_member" = CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CLLong =>
-         HasField "explicit_signed_long_long_member"
-                  (Ptr Explicit_signed_long_long_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_long_member")
 instance (~) ty CLLong =>
          HasField "explicit_signed_long_long_member"
                   Explicit_signed_long_long_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_long_struct{explicit_signed_long_long_member = y_1},
                               getField @"explicit_signed_long_long_member" x_0)
+instance (~) ty CLLong =>
+         HasField "explicit_signed_long_long_member"
+                  (Ptr Explicit_signed_long_long_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_long_member")
+instance HasCField Explicit_signed_long_long_struct
+                   "explicit_signed_long_long_member"
+    where type CFieldType Explicit_signed_long_long_struct
+                          "explicit_signed_long_long_member" = CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_long_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 226:8@
@@ -1579,20 +1579,20 @@ instance WriteRaw Unsigned_long_long_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_long_struct unsigned_long_long_member_2 -> writeRaw (Proxy @"unsigned_long_long_member") ptr_0 unsigned_long_long_member_2
 deriving via (EquivStorable Unsigned_long_long_struct) instance Storable Unsigned_long_long_struct
-instance HasCField Unsigned_long_long_struct
-                   "unsigned_long_long_member"
-    where type CFieldType Unsigned_long_long_struct
-                          "unsigned_long_long_member" = CULLong
-          offset# = \_ -> \_ -> 0
+instance (~) ty CULLong =>
+         HasField "unsigned_long_long_member" Unsigned_long_long_struct ty
+    where hasField = \x_0 -> (\y_1 -> Unsigned_long_long_struct{unsigned_long_long_member = y_1},
+                              getField @"unsigned_long_long_member" x_0)
 instance (~) ty CULLong =>
          HasField "unsigned_long_long_member"
                   (Ptr Unsigned_long_long_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unsigned_long_long_member")
-instance (~) ty CULLong =>
-         HasField "unsigned_long_long_member" Unsigned_long_long_struct ty
-    where hasField = \x_0 -> (\y_1 -> Unsigned_long_long_struct{unsigned_long_long_member = y_1},
-                              getField @"unsigned_long_long_member" x_0)
+instance HasCField Unsigned_long_long_struct
+                   "unsigned_long_long_member"
+    where type CFieldType Unsigned_long_long_struct
+                          "unsigned_long_long_member" = CULLong
+          offset# = \_ -> \_ -> 0
 {-| Structs: pointers
 
     NOTE: @'Ordinary_signed_char_pointer_struct'@ is commented out in the original test suite, unclear why (no reason is given).
@@ -1621,22 +1621,22 @@ instance WriteRaw Ordinary_void_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_void_pointer_struct ordinary_void_pointer_member_2 -> writeRaw (Proxy @"ordinary_void_pointer_member") ptr_0 ordinary_void_pointer_member_2
 deriving via (EquivStorable Ordinary_void_pointer_struct) instance Storable Ordinary_void_pointer_struct
-instance HasCField Ordinary_void_pointer_struct
-                   "ordinary_void_pointer_member"
-    where type CFieldType Ordinary_void_pointer_struct
-                          "ordinary_void_pointer_member" = Ptr Void
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Void) =>
-         HasField "ordinary_void_pointer_member"
-                  (Ptr Ordinary_void_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_void_pointer_member")
 instance (~) ty (Ptr Void) =>
          HasField "ordinary_void_pointer_member"
                   Ordinary_void_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_void_pointer_struct{ordinary_void_pointer_member = y_1},
                               getField @"ordinary_void_pointer_member" x_0)
+instance (~) ty (Ptr Void) =>
+         HasField "ordinary_void_pointer_member"
+                  (Ptr Ordinary_void_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_void_pointer_member")
+instance HasCField Ordinary_void_pointer_struct
+                   "ordinary_void_pointer_member"
+    where type CFieldType Ordinary_void_pointer_struct
+                          "ordinary_void_pointer_member" = Ptr Void
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_float_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 237:8@
@@ -1661,22 +1661,22 @@ instance WriteRaw Ordinary_float_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_float_pointer_struct ordinary_float_pointer_member_2 -> writeRaw (Proxy @"ordinary_float_pointer_member") ptr_0 ordinary_float_pointer_member_2
 deriving via (EquivStorable Ordinary_float_pointer_struct) instance Storable Ordinary_float_pointer_struct
-instance HasCField Ordinary_float_pointer_struct
-                   "ordinary_float_pointer_member"
-    where type CFieldType Ordinary_float_pointer_struct
-                          "ordinary_float_pointer_member" = Ptr CFloat
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CFloat) =>
-         HasField "ordinary_float_pointer_member"
-                  (Ptr Ordinary_float_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_float_pointer_member")
 instance (~) ty (Ptr CFloat) =>
          HasField "ordinary_float_pointer_member"
                   Ordinary_float_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_float_pointer_struct{ordinary_float_pointer_member = y_1},
                               getField @"ordinary_float_pointer_member" x_0)
+instance (~) ty (Ptr CFloat) =>
+         HasField "ordinary_float_pointer_member"
+                  (Ptr Ordinary_float_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_float_pointer_member")
+instance HasCField Ordinary_float_pointer_struct
+                   "ordinary_float_pointer_member"
+    where type CFieldType Ordinary_float_pointer_struct
+                          "ordinary_float_pointer_member" = Ptr CFloat
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_double_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 238:8@
@@ -1701,22 +1701,22 @@ instance WriteRaw Ordinary_double_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_double_pointer_struct ordinary_double_pointer_member_2 -> writeRaw (Proxy @"ordinary_double_pointer_member") ptr_0 ordinary_double_pointer_member_2
 deriving via (EquivStorable Ordinary_double_pointer_struct) instance Storable Ordinary_double_pointer_struct
-instance HasCField Ordinary_double_pointer_struct
-                   "ordinary_double_pointer_member"
-    where type CFieldType Ordinary_double_pointer_struct
-                          "ordinary_double_pointer_member" = Ptr CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CDouble) =>
-         HasField "ordinary_double_pointer_member"
-                  (Ptr Ordinary_double_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_double_pointer_member")
 instance (~) ty (Ptr CDouble) =>
          HasField "ordinary_double_pointer_member"
                   Ordinary_double_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_double_pointer_struct{ordinary_double_pointer_member = y_1},
                               getField @"ordinary_double_pointer_member" x_0)
+instance (~) ty (Ptr CDouble) =>
+         HasField "ordinary_double_pointer_member"
+                  (Ptr Ordinary_double_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_double_pointer_member")
+instance HasCField Ordinary_double_pointer_struct
+                   "ordinary_double_pointer_member"
+    where type CFieldType Ordinary_double_pointer_struct
+                          "ordinary_double_pointer_member" = Ptr CDouble
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 241:8@
@@ -1741,22 +1741,22 @@ instance WriteRaw Ordinary_signed_char_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_char_pointer_struct ordinary_signed_char_pointer_member_2 -> writeRaw (Proxy @"ordinary_signed_char_pointer_member") ptr_0 ordinary_signed_char_pointer_member_2
 deriving via (EquivStorable Ordinary_signed_char_pointer_struct) instance Storable Ordinary_signed_char_pointer_struct
-instance HasCField Ordinary_signed_char_pointer_struct
-                   "ordinary_signed_char_pointer_member"
-    where type CFieldType Ordinary_signed_char_pointer_struct
-                          "ordinary_signed_char_pointer_member" = Ptr CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CChar) =>
-         HasField "ordinary_signed_char_pointer_member"
-                  (Ptr Ordinary_signed_char_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_char_pointer_member")
 instance (~) ty (Ptr CChar) =>
          HasField "ordinary_signed_char_pointer_member"
                   Ordinary_signed_char_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_char_pointer_struct{ordinary_signed_char_pointer_member = y_1},
                               getField @"ordinary_signed_char_pointer_member" x_0)
+instance (~) ty (Ptr CChar) =>
+         HasField "ordinary_signed_char_pointer_member"
+                  (Ptr Ordinary_signed_char_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_char_pointer_member")
+instance HasCField Ordinary_signed_char_pointer_struct
+                   "ordinary_signed_char_pointer_member"
+    where type CFieldType Ordinary_signed_char_pointer_struct
+                          "ordinary_signed_char_pointer_member" = Ptr CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_char_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 242:8@
@@ -1781,22 +1781,22 @@ instance WriteRaw Explicit_signed_char_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_char_pointer_struct explicit_signed_char_pointer_member_2 -> writeRaw (Proxy @"explicit_signed_char_pointer_member") ptr_0 explicit_signed_char_pointer_member_2
 deriving via (EquivStorable Explicit_signed_char_pointer_struct) instance Storable Explicit_signed_char_pointer_struct
-instance HasCField Explicit_signed_char_pointer_struct
-                   "explicit_signed_char_pointer_member"
-    where type CFieldType Explicit_signed_char_pointer_struct
-                          "explicit_signed_char_pointer_member" = Ptr CSChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CSChar) =>
-         HasField "explicit_signed_char_pointer_member"
-                  (Ptr Explicit_signed_char_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_char_pointer_member")
 instance (~) ty (Ptr CSChar) =>
          HasField "explicit_signed_char_pointer_member"
                   Explicit_signed_char_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_char_pointer_struct{explicit_signed_char_pointer_member = y_1},
                               getField @"explicit_signed_char_pointer_member" x_0)
+instance (~) ty (Ptr CSChar) =>
+         HasField "explicit_signed_char_pointer_member"
+                  (Ptr Explicit_signed_char_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_char_pointer_member")
+instance HasCField Explicit_signed_char_pointer_struct
+                   "explicit_signed_char_pointer_member"
+    where type CFieldType Explicit_signed_char_pointer_struct
+                          "explicit_signed_char_pointer_member" = Ptr CSChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_char_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 243:8@
@@ -1821,22 +1821,22 @@ instance WriteRaw Unsigned_char_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_char_pointer_struct unsigned_char_pointer_member_2 -> writeRaw (Proxy @"unsigned_char_pointer_member") ptr_0 unsigned_char_pointer_member_2
 deriving via (EquivStorable Unsigned_char_pointer_struct) instance Storable Unsigned_char_pointer_struct
-instance HasCField Unsigned_char_pointer_struct
-                   "unsigned_char_pointer_member"
-    where type CFieldType Unsigned_char_pointer_struct
-                          "unsigned_char_pointer_member" = Ptr CUChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CUChar) =>
-         HasField "unsigned_char_pointer_member"
-                  (Ptr Unsigned_char_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_char_pointer_member")
 instance (~) ty (Ptr CUChar) =>
          HasField "unsigned_char_pointer_member"
                   Unsigned_char_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_char_pointer_struct{unsigned_char_pointer_member = y_1},
                               getField @"unsigned_char_pointer_member" x_0)
+instance (~) ty (Ptr CUChar) =>
+         HasField "unsigned_char_pointer_member"
+                  (Ptr Unsigned_char_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_char_pointer_member")
+instance HasCField Unsigned_char_pointer_struct
+                   "unsigned_char_pointer_member"
+    where type CFieldType Unsigned_char_pointer_struct
+                          "unsigned_char_pointer_member" = Ptr CUChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 245:8@
@@ -1861,22 +1861,22 @@ instance WriteRaw Ordinary_signed_short_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_short_pointer_struct ordinary_signed_short_pointer_member_2 -> writeRaw (Proxy @"ordinary_signed_short_pointer_member") ptr_0 ordinary_signed_short_pointer_member_2
 deriving via (EquivStorable Ordinary_signed_short_pointer_struct) instance Storable Ordinary_signed_short_pointer_struct
-instance HasCField Ordinary_signed_short_pointer_struct
-                   "ordinary_signed_short_pointer_member"
-    where type CFieldType Ordinary_signed_short_pointer_struct
-                          "ordinary_signed_short_pointer_member" = Ptr CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CShort) =>
-         HasField "ordinary_signed_short_pointer_member"
-                  (Ptr Ordinary_signed_short_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_short_pointer_member")
 instance (~) ty (Ptr CShort) =>
          HasField "ordinary_signed_short_pointer_member"
                   Ordinary_signed_short_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_short_pointer_struct{ordinary_signed_short_pointer_member = y_1},
                               getField @"ordinary_signed_short_pointer_member" x_0)
+instance (~) ty (Ptr CShort) =>
+         HasField "ordinary_signed_short_pointer_member"
+                  (Ptr Ordinary_signed_short_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_short_pointer_member")
+instance HasCField Ordinary_signed_short_pointer_struct
+                   "ordinary_signed_short_pointer_member"
+    where type CFieldType Ordinary_signed_short_pointer_struct
+                          "ordinary_signed_short_pointer_member" = Ptr CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_short_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 246:8@
@@ -1901,22 +1901,22 @@ instance WriteRaw Explicit_signed_short_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_short_pointer_struct explicit_signed_short_pointer_member_2 -> writeRaw (Proxy @"explicit_signed_short_pointer_member") ptr_0 explicit_signed_short_pointer_member_2
 deriving via (EquivStorable Explicit_signed_short_pointer_struct) instance Storable Explicit_signed_short_pointer_struct
-instance HasCField Explicit_signed_short_pointer_struct
-                   "explicit_signed_short_pointer_member"
-    where type CFieldType Explicit_signed_short_pointer_struct
-                          "explicit_signed_short_pointer_member" = Ptr CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CShort) =>
-         HasField "explicit_signed_short_pointer_member"
-                  (Ptr Explicit_signed_short_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_short_pointer_member")
 instance (~) ty (Ptr CShort) =>
          HasField "explicit_signed_short_pointer_member"
                   Explicit_signed_short_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_short_pointer_struct{explicit_signed_short_pointer_member = y_1},
                               getField @"explicit_signed_short_pointer_member" x_0)
+instance (~) ty (Ptr CShort) =>
+         HasField "explicit_signed_short_pointer_member"
+                  (Ptr Explicit_signed_short_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_short_pointer_member")
+instance HasCField Explicit_signed_short_pointer_struct
+                   "explicit_signed_short_pointer_member"
+    where type CFieldType Explicit_signed_short_pointer_struct
+                          "explicit_signed_short_pointer_member" = Ptr CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_short_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 247:8@
@@ -1941,22 +1941,22 @@ instance WriteRaw Unsigned_short_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_short_pointer_struct unsigned_short_pointer_member_2 -> writeRaw (Proxy @"unsigned_short_pointer_member") ptr_0 unsigned_short_pointer_member_2
 deriving via (EquivStorable Unsigned_short_pointer_struct) instance Storable Unsigned_short_pointer_struct
-instance HasCField Unsigned_short_pointer_struct
-                   "unsigned_short_pointer_member"
-    where type CFieldType Unsigned_short_pointer_struct
-                          "unsigned_short_pointer_member" = Ptr CUShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CUShort) =>
-         HasField "unsigned_short_pointer_member"
-                  (Ptr Unsigned_short_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_short_pointer_member")
 instance (~) ty (Ptr CUShort) =>
          HasField "unsigned_short_pointer_member"
                   Unsigned_short_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_short_pointer_struct{unsigned_short_pointer_member = y_1},
                               getField @"unsigned_short_pointer_member" x_0)
+instance (~) ty (Ptr CUShort) =>
+         HasField "unsigned_short_pointer_member"
+                  (Ptr Unsigned_short_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_short_pointer_member")
+instance HasCField Unsigned_short_pointer_struct
+                   "unsigned_short_pointer_member"
+    where type CFieldType Unsigned_short_pointer_struct
+                          "unsigned_short_pointer_member" = Ptr CUShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 249:8@
@@ -1981,22 +1981,22 @@ instance WriteRaw Ordinary_signed_int_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_int_pointer_struct ordinary_signed_int_pointer_member_2 -> writeRaw (Proxy @"ordinary_signed_int_pointer_member") ptr_0 ordinary_signed_int_pointer_member_2
 deriving via (EquivStorable Ordinary_signed_int_pointer_struct) instance Storable Ordinary_signed_int_pointer_struct
-instance HasCField Ordinary_signed_int_pointer_struct
-                   "ordinary_signed_int_pointer_member"
-    where type CFieldType Ordinary_signed_int_pointer_struct
-                          "ordinary_signed_int_pointer_member" = Ptr CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CInt) =>
-         HasField "ordinary_signed_int_pointer_member"
-                  (Ptr Ordinary_signed_int_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_int_pointer_member")
 instance (~) ty (Ptr CInt) =>
          HasField "ordinary_signed_int_pointer_member"
                   Ordinary_signed_int_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_int_pointer_struct{ordinary_signed_int_pointer_member = y_1},
                               getField @"ordinary_signed_int_pointer_member" x_0)
+instance (~) ty (Ptr CInt) =>
+         HasField "ordinary_signed_int_pointer_member"
+                  (Ptr Ordinary_signed_int_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_int_pointer_member")
+instance HasCField Ordinary_signed_int_pointer_struct
+                   "ordinary_signed_int_pointer_member"
+    where type CFieldType Ordinary_signed_int_pointer_struct
+                          "ordinary_signed_int_pointer_member" = Ptr CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_int_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 250:8@
@@ -2021,22 +2021,22 @@ instance WriteRaw Explicit_signed_int_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_int_pointer_struct explicit_signed_int_pointer_member_2 -> writeRaw (Proxy @"explicit_signed_int_pointer_member") ptr_0 explicit_signed_int_pointer_member_2
 deriving via (EquivStorable Explicit_signed_int_pointer_struct) instance Storable Explicit_signed_int_pointer_struct
-instance HasCField Explicit_signed_int_pointer_struct
-                   "explicit_signed_int_pointer_member"
-    where type CFieldType Explicit_signed_int_pointer_struct
-                          "explicit_signed_int_pointer_member" = Ptr CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CInt) =>
-         HasField "explicit_signed_int_pointer_member"
-                  (Ptr Explicit_signed_int_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_int_pointer_member")
 instance (~) ty (Ptr CInt) =>
          HasField "explicit_signed_int_pointer_member"
                   Explicit_signed_int_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_int_pointer_struct{explicit_signed_int_pointer_member = y_1},
                               getField @"explicit_signed_int_pointer_member" x_0)
+instance (~) ty (Ptr CInt) =>
+         HasField "explicit_signed_int_pointer_member"
+                  (Ptr Explicit_signed_int_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_int_pointer_member")
+instance HasCField Explicit_signed_int_pointer_struct
+                   "explicit_signed_int_pointer_member"
+    where type CFieldType Explicit_signed_int_pointer_struct
+                          "explicit_signed_int_pointer_member" = Ptr CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_int_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 251:8@
@@ -2061,22 +2061,22 @@ instance WriteRaw Unsigned_int_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_int_pointer_struct unsigned_int_pointer_member_2 -> writeRaw (Proxy @"unsigned_int_pointer_member") ptr_0 unsigned_int_pointer_member_2
 deriving via (EquivStorable Unsigned_int_pointer_struct) instance Storable Unsigned_int_pointer_struct
-instance HasCField Unsigned_int_pointer_struct
-                   "unsigned_int_pointer_member"
-    where type CFieldType Unsigned_int_pointer_struct
-                          "unsigned_int_pointer_member" = Ptr CUInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CUInt) =>
-         HasField "unsigned_int_pointer_member"
-                  (Ptr Unsigned_int_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_int_pointer_member")
 instance (~) ty (Ptr CUInt) =>
          HasField "unsigned_int_pointer_member"
                   Unsigned_int_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_int_pointer_struct{unsigned_int_pointer_member = y_1},
                               getField @"unsigned_int_pointer_member" x_0)
+instance (~) ty (Ptr CUInt) =>
+         HasField "unsigned_int_pointer_member"
+                  (Ptr Unsigned_int_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_int_pointer_member")
+instance HasCField Unsigned_int_pointer_struct
+                   "unsigned_int_pointer_member"
+    where type CFieldType Unsigned_int_pointer_struct
+                          "unsigned_int_pointer_member" = Ptr CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 253:8@
@@ -2101,22 +2101,22 @@ instance WriteRaw Ordinary_signed_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_pointer_struct ordinary_signed_long_pointer_member_2 -> writeRaw (Proxy @"ordinary_signed_long_pointer_member") ptr_0 ordinary_signed_long_pointer_member_2
 deriving via (EquivStorable Ordinary_signed_long_pointer_struct) instance Storable Ordinary_signed_long_pointer_struct
-instance HasCField Ordinary_signed_long_pointer_struct
-                   "ordinary_signed_long_pointer_member"
-    where type CFieldType Ordinary_signed_long_pointer_struct
-                          "ordinary_signed_long_pointer_member" = Ptr CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CLong) =>
-         HasField "ordinary_signed_long_pointer_member"
-                  (Ptr Ordinary_signed_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_pointer_member")
 instance (~) ty (Ptr CLong) =>
          HasField "ordinary_signed_long_pointer_member"
                   Ordinary_signed_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_pointer_struct{ordinary_signed_long_pointer_member = y_1},
                               getField @"ordinary_signed_long_pointer_member" x_0)
+instance (~) ty (Ptr CLong) =>
+         HasField "ordinary_signed_long_pointer_member"
+                  (Ptr Ordinary_signed_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_pointer_member")
+instance HasCField Ordinary_signed_long_pointer_struct
+                   "ordinary_signed_long_pointer_member"
+    where type CFieldType Ordinary_signed_long_pointer_struct
+                          "ordinary_signed_long_pointer_member" = Ptr CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 254:8@
@@ -2141,22 +2141,22 @@ instance WriteRaw Explicit_signed_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_pointer_struct explicit_signed_long_pointer_member_2 -> writeRaw (Proxy @"explicit_signed_long_pointer_member") ptr_0 explicit_signed_long_pointer_member_2
 deriving via (EquivStorable Explicit_signed_long_pointer_struct) instance Storable Explicit_signed_long_pointer_struct
-instance HasCField Explicit_signed_long_pointer_struct
-                   "explicit_signed_long_pointer_member"
-    where type CFieldType Explicit_signed_long_pointer_struct
-                          "explicit_signed_long_pointer_member" = Ptr CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CLong) =>
-         HasField "explicit_signed_long_pointer_member"
-                  (Ptr Explicit_signed_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_pointer_member")
 instance (~) ty (Ptr CLong) =>
          HasField "explicit_signed_long_pointer_member"
                   Explicit_signed_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_pointer_struct{explicit_signed_long_pointer_member = y_1},
                               getField @"explicit_signed_long_pointer_member" x_0)
+instance (~) ty (Ptr CLong) =>
+         HasField "explicit_signed_long_pointer_member"
+                  (Ptr Explicit_signed_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_pointer_member")
+instance HasCField Explicit_signed_long_pointer_struct
+                   "explicit_signed_long_pointer_member"
+    where type CFieldType Explicit_signed_long_pointer_struct
+                          "explicit_signed_long_pointer_member" = Ptr CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 255:8@
@@ -2181,22 +2181,22 @@ instance WriteRaw Unsigned_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_pointer_struct unsigned_long_pointer_member_2 -> writeRaw (Proxy @"unsigned_long_pointer_member") ptr_0 unsigned_long_pointer_member_2
 deriving via (EquivStorable Unsigned_long_pointer_struct) instance Storable Unsigned_long_pointer_struct
-instance HasCField Unsigned_long_pointer_struct
-                   "unsigned_long_pointer_member"
-    where type CFieldType Unsigned_long_pointer_struct
-                          "unsigned_long_pointer_member" = Ptr CULong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CULong) =>
-         HasField "unsigned_long_pointer_member"
-                  (Ptr Unsigned_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_pointer_member")
 instance (~) ty (Ptr CULong) =>
          HasField "unsigned_long_pointer_member"
                   Unsigned_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_pointer_struct{unsigned_long_pointer_member = y_1},
                               getField @"unsigned_long_pointer_member" x_0)
+instance (~) ty (Ptr CULong) =>
+         HasField "unsigned_long_pointer_member"
+                  (Ptr Unsigned_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_pointer_member")
+instance HasCField Unsigned_long_pointer_struct
+                   "unsigned_long_pointer_member"
+    where type CFieldType Unsigned_long_pointer_struct
+                          "unsigned_long_pointer_member" = Ptr CULong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 257:8@
@@ -2221,22 +2221,22 @@ instance WriteRaw Ordinary_signed_long_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_long_pointer_struct ordinary_signed_long_long_pointer_member_2 -> writeRaw (Proxy @"ordinary_signed_long_long_pointer_member") ptr_0 ordinary_signed_long_long_pointer_member_2
 deriving via (EquivStorable Ordinary_signed_long_long_pointer_struct) instance Storable Ordinary_signed_long_long_pointer_struct
-instance HasCField Ordinary_signed_long_long_pointer_struct
-                   "ordinary_signed_long_long_pointer_member"
-    where type CFieldType Ordinary_signed_long_long_pointer_struct
-                          "ordinary_signed_long_long_pointer_member" = Ptr CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CLLong) =>
-         HasField "ordinary_signed_long_long_pointer_member"
-                  (Ptr Ordinary_signed_long_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_long_pointer_member")
 instance (~) ty (Ptr CLLong) =>
          HasField "ordinary_signed_long_long_pointer_member"
                   Ordinary_signed_long_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_long_pointer_struct{ordinary_signed_long_long_pointer_member = y_1},
                               getField @"ordinary_signed_long_long_pointer_member" x_0)
+instance (~) ty (Ptr CLLong) =>
+         HasField "ordinary_signed_long_long_pointer_member"
+                  (Ptr Ordinary_signed_long_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_long_pointer_member")
+instance HasCField Ordinary_signed_long_long_pointer_struct
+                   "ordinary_signed_long_long_pointer_member"
+    where type CFieldType Ordinary_signed_long_long_pointer_struct
+                          "ordinary_signed_long_long_pointer_member" = Ptr CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 258:8@
@@ -2261,22 +2261,22 @@ instance WriteRaw Explicit_signed_long_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_long_pointer_struct explicit_signed_long_long_pointer_member_2 -> writeRaw (Proxy @"explicit_signed_long_long_pointer_member") ptr_0 explicit_signed_long_long_pointer_member_2
 deriving via (EquivStorable Explicit_signed_long_long_pointer_struct) instance Storable Explicit_signed_long_long_pointer_struct
-instance HasCField Explicit_signed_long_long_pointer_struct
-                   "explicit_signed_long_long_pointer_member"
-    where type CFieldType Explicit_signed_long_long_pointer_struct
-                          "explicit_signed_long_long_pointer_member" = Ptr CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CLLong) =>
-         HasField "explicit_signed_long_long_pointer_member"
-                  (Ptr Explicit_signed_long_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_long_pointer_member")
 instance (~) ty (Ptr CLLong) =>
          HasField "explicit_signed_long_long_pointer_member"
                   Explicit_signed_long_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_long_pointer_struct{explicit_signed_long_long_pointer_member = y_1},
                               getField @"explicit_signed_long_long_pointer_member" x_0)
+instance (~) ty (Ptr CLLong) =>
+         HasField "explicit_signed_long_long_pointer_member"
+                  (Ptr Explicit_signed_long_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_long_pointer_member")
+instance HasCField Explicit_signed_long_long_pointer_struct
+                   "explicit_signed_long_long_pointer_member"
+    where type CFieldType Explicit_signed_long_long_pointer_struct
+                          "explicit_signed_long_long_pointer_member" = Ptr CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_long_pointer_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 259:8@
@@ -2301,22 +2301,22 @@ instance WriteRaw Unsigned_long_long_pointer_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_long_pointer_struct unsigned_long_long_pointer_member_2 -> writeRaw (Proxy @"unsigned_long_long_pointer_member") ptr_0 unsigned_long_long_pointer_member_2
 deriving via (EquivStorable Unsigned_long_long_pointer_struct) instance Storable Unsigned_long_long_pointer_struct
-instance HasCField Unsigned_long_long_pointer_struct
-                   "unsigned_long_long_pointer_member"
-    where type CFieldType Unsigned_long_long_pointer_struct
-                          "unsigned_long_long_pointer_member" = Ptr CULLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CULLong) =>
-         HasField "unsigned_long_long_pointer_member"
-                  (Ptr Unsigned_long_long_pointer_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_long_pointer_member")
 instance (~) ty (Ptr CULLong) =>
          HasField "unsigned_long_long_pointer_member"
                   Unsigned_long_long_pointer_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_long_pointer_struct{unsigned_long_long_pointer_member = y_1},
                               getField @"unsigned_long_long_pointer_member" x_0)
+instance (~) ty (Ptr CULLong) =>
+         HasField "unsigned_long_long_pointer_member"
+                  (Ptr Unsigned_long_long_pointer_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_long_pointer_member")
+instance HasCField Unsigned_long_long_pointer_struct
+                   "unsigned_long_long_pointer_member"
+    where type CFieldType Unsigned_long_long_pointer_struct
+                          "unsigned_long_long_pointer_member" = Ptr CULLong
+          offset# = \_ -> \_ -> 0
 {-| Structs: arrays
 
     __C declaration:__ @struct ordinary_float_array_struct@
@@ -2344,22 +2344,22 @@ instance WriteRaw Ordinary_float_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_float_array_struct ordinary_float_array_member_2 -> writeRaw (Proxy @"ordinary_float_array_member") ptr_0 ordinary_float_array_member_2
 deriving via (EquivStorable Ordinary_float_array_struct) instance Storable Ordinary_float_array_struct
-instance HasCField Ordinary_float_array_struct
-                   "ordinary_float_array_member"
-    where type CFieldType Ordinary_float_array_struct
-                          "ordinary_float_array_member" = ConstantArray 10 CFloat
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CFloat) =>
-         HasField "ordinary_float_array_member"
-                  (Ptr Ordinary_float_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_float_array_member")
 instance (~) ty (ConstantArray 10 CFloat) =>
          HasField "ordinary_float_array_member"
                   Ordinary_float_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_float_array_struct{ordinary_float_array_member = y_1},
                               getField @"ordinary_float_array_member" x_0)
+instance (~) ty (ConstantArray 10 CFloat) =>
+         HasField "ordinary_float_array_member"
+                  (Ptr Ordinary_float_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_float_array_member")
+instance HasCField Ordinary_float_array_struct
+                   "ordinary_float_array_member"
+    where type CFieldType Ordinary_float_array_struct
+                          "ordinary_float_array_member" = ConstantArray 10 CFloat
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_double_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 266:8@
@@ -2385,22 +2385,22 @@ instance WriteRaw Ordinary_double_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_double_array_struct ordinary_double_array_member_2 -> writeRaw (Proxy @"ordinary_double_array_member") ptr_0 ordinary_double_array_member_2
 deriving via (EquivStorable Ordinary_double_array_struct) instance Storable Ordinary_double_array_struct
-instance HasCField Ordinary_double_array_struct
-                   "ordinary_double_array_member"
-    where type CFieldType Ordinary_double_array_struct
-                          "ordinary_double_array_member" = ConstantArray 10 CDouble
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CDouble) =>
-         HasField "ordinary_double_array_member"
-                  (Ptr Ordinary_double_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_double_array_member")
 instance (~) ty (ConstantArray 10 CDouble) =>
          HasField "ordinary_double_array_member"
                   Ordinary_double_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_double_array_struct{ordinary_double_array_member = y_1},
                               getField @"ordinary_double_array_member" x_0)
+instance (~) ty (ConstantArray 10 CDouble) =>
+         HasField "ordinary_double_array_member"
+                  (Ptr Ordinary_double_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_double_array_member")
+instance HasCField Ordinary_double_array_struct
+                   "ordinary_double_array_member"
+    where type CFieldType Ordinary_double_array_struct
+                          "ordinary_double_array_member" = ConstantArray 10 CDouble
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_char_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 269:8@
@@ -2426,22 +2426,22 @@ instance WriteRaw Ordinary_signed_char_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_char_array_struct ordinary_signed_char_array_member_2 -> writeRaw (Proxy @"ordinary_signed_char_array_member") ptr_0 ordinary_signed_char_array_member_2
 deriving via (EquivStorable Ordinary_signed_char_array_struct) instance Storable Ordinary_signed_char_array_struct
-instance HasCField Ordinary_signed_char_array_struct
-                   "ordinary_signed_char_array_member"
-    where type CFieldType Ordinary_signed_char_array_struct
-                          "ordinary_signed_char_array_member" = ConstantArray 10 CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CChar) =>
-         HasField "ordinary_signed_char_array_member"
-                  (Ptr Ordinary_signed_char_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_char_array_member")
 instance (~) ty (ConstantArray 10 CChar) =>
          HasField "ordinary_signed_char_array_member"
                   Ordinary_signed_char_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_char_array_struct{ordinary_signed_char_array_member = y_1},
                               getField @"ordinary_signed_char_array_member" x_0)
+instance (~) ty (ConstantArray 10 CChar) =>
+         HasField "ordinary_signed_char_array_member"
+                  (Ptr Ordinary_signed_char_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_char_array_member")
+instance HasCField Ordinary_signed_char_array_struct
+                   "ordinary_signed_char_array_member"
+    where type CFieldType Ordinary_signed_char_array_struct
+                          "ordinary_signed_char_array_member" = ConstantArray 10 CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_char_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 270:8@
@@ -2467,22 +2467,22 @@ instance WriteRaw Explicit_signed_char_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_char_array_struct explicit_signed_char_array_member_2 -> writeRaw (Proxy @"explicit_signed_char_array_member") ptr_0 explicit_signed_char_array_member_2
 deriving via (EquivStorable Explicit_signed_char_array_struct) instance Storable Explicit_signed_char_array_struct
-instance HasCField Explicit_signed_char_array_struct
-                   "explicit_signed_char_array_member"
-    where type CFieldType Explicit_signed_char_array_struct
-                          "explicit_signed_char_array_member" = ConstantArray 10 CSChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CSChar) =>
-         HasField "explicit_signed_char_array_member"
-                  (Ptr Explicit_signed_char_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_char_array_member")
 instance (~) ty (ConstantArray 10 CSChar) =>
          HasField "explicit_signed_char_array_member"
                   Explicit_signed_char_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_char_array_struct{explicit_signed_char_array_member = y_1},
                               getField @"explicit_signed_char_array_member" x_0)
+instance (~) ty (ConstantArray 10 CSChar) =>
+         HasField "explicit_signed_char_array_member"
+                  (Ptr Explicit_signed_char_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_char_array_member")
+instance HasCField Explicit_signed_char_array_struct
+                   "explicit_signed_char_array_member"
+    where type CFieldType Explicit_signed_char_array_struct
+                          "explicit_signed_char_array_member" = ConstantArray 10 CSChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_char_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 271:8@
@@ -2508,20 +2508,20 @@ instance WriteRaw Unsigned_char_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_char_array_struct unsigned_char_array_member_2 -> writeRaw (Proxy @"unsigned_char_array_member") ptr_0 unsigned_char_array_member_2
 deriving via (EquivStorable Unsigned_char_array_struct) instance Storable Unsigned_char_array_struct
-instance HasCField Unsigned_char_array_struct
-                   "unsigned_char_array_member"
-    where type CFieldType Unsigned_char_array_struct
-                          "unsigned_char_array_member" = ConstantArray 10 CUChar
-          offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 10 CUChar) =>
+         HasField "unsigned_char_array_member" Unsigned_char_array_struct ty
+    where hasField = \x_0 -> (\y_1 -> Unsigned_char_array_struct{unsigned_char_array_member = y_1},
+                              getField @"unsigned_char_array_member" x_0)
 instance (~) ty (ConstantArray 10 CUChar) =>
          HasField "unsigned_char_array_member"
                   (Ptr Unsigned_char_array_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unsigned_char_array_member")
-instance (~) ty (ConstantArray 10 CUChar) =>
-         HasField "unsigned_char_array_member" Unsigned_char_array_struct ty
-    where hasField = \x_0 -> (\y_1 -> Unsigned_char_array_struct{unsigned_char_array_member = y_1},
-                              getField @"unsigned_char_array_member" x_0)
+instance HasCField Unsigned_char_array_struct
+                   "unsigned_char_array_member"
+    where type CFieldType Unsigned_char_array_struct
+                          "unsigned_char_array_member" = ConstantArray 10 CUChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_short_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 273:8@
@@ -2547,22 +2547,22 @@ instance WriteRaw Ordinary_signed_short_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_short_array_struct ordinary_signed_short_array_member_2 -> writeRaw (Proxy @"ordinary_signed_short_array_member") ptr_0 ordinary_signed_short_array_member_2
 deriving via (EquivStorable Ordinary_signed_short_array_struct) instance Storable Ordinary_signed_short_array_struct
-instance HasCField Ordinary_signed_short_array_struct
-                   "ordinary_signed_short_array_member"
-    where type CFieldType Ordinary_signed_short_array_struct
-                          "ordinary_signed_short_array_member" = ConstantArray 10 CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CShort) =>
-         HasField "ordinary_signed_short_array_member"
-                  (Ptr Ordinary_signed_short_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_short_array_member")
 instance (~) ty (ConstantArray 10 CShort) =>
          HasField "ordinary_signed_short_array_member"
                   Ordinary_signed_short_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_short_array_struct{ordinary_signed_short_array_member = y_1},
                               getField @"ordinary_signed_short_array_member" x_0)
+instance (~) ty (ConstantArray 10 CShort) =>
+         HasField "ordinary_signed_short_array_member"
+                  (Ptr Ordinary_signed_short_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_short_array_member")
+instance HasCField Ordinary_signed_short_array_struct
+                   "ordinary_signed_short_array_member"
+    where type CFieldType Ordinary_signed_short_array_struct
+                          "ordinary_signed_short_array_member" = ConstantArray 10 CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_short_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 274:8@
@@ -2588,22 +2588,22 @@ instance WriteRaw Explicit_signed_short_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_short_array_struct explicit_signed_short_array_member_2 -> writeRaw (Proxy @"explicit_signed_short_array_member") ptr_0 explicit_signed_short_array_member_2
 deriving via (EquivStorable Explicit_signed_short_array_struct) instance Storable Explicit_signed_short_array_struct
-instance HasCField Explicit_signed_short_array_struct
-                   "explicit_signed_short_array_member"
-    where type CFieldType Explicit_signed_short_array_struct
-                          "explicit_signed_short_array_member" = ConstantArray 10 CShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CShort) =>
-         HasField "explicit_signed_short_array_member"
-                  (Ptr Explicit_signed_short_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_short_array_member")
 instance (~) ty (ConstantArray 10 CShort) =>
          HasField "explicit_signed_short_array_member"
                   Explicit_signed_short_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_short_array_struct{explicit_signed_short_array_member = y_1},
                               getField @"explicit_signed_short_array_member" x_0)
+instance (~) ty (ConstantArray 10 CShort) =>
+         HasField "explicit_signed_short_array_member"
+                  (Ptr Explicit_signed_short_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_short_array_member")
+instance HasCField Explicit_signed_short_array_struct
+                   "explicit_signed_short_array_member"
+    where type CFieldType Explicit_signed_short_array_struct
+                          "explicit_signed_short_array_member" = ConstantArray 10 CShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_short_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 275:8@
@@ -2629,22 +2629,22 @@ instance WriteRaw Unsigned_short_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_short_array_struct unsigned_short_array_member_2 -> writeRaw (Proxy @"unsigned_short_array_member") ptr_0 unsigned_short_array_member_2
 deriving via (EquivStorable Unsigned_short_array_struct) instance Storable Unsigned_short_array_struct
-instance HasCField Unsigned_short_array_struct
-                   "unsigned_short_array_member"
-    where type CFieldType Unsigned_short_array_struct
-                          "unsigned_short_array_member" = ConstantArray 10 CUShort
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CUShort) =>
-         HasField "unsigned_short_array_member"
-                  (Ptr Unsigned_short_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_short_array_member")
 instance (~) ty (ConstantArray 10 CUShort) =>
          HasField "unsigned_short_array_member"
                   Unsigned_short_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_short_array_struct{unsigned_short_array_member = y_1},
                               getField @"unsigned_short_array_member" x_0)
+instance (~) ty (ConstantArray 10 CUShort) =>
+         HasField "unsigned_short_array_member"
+                  (Ptr Unsigned_short_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_short_array_member")
+instance HasCField Unsigned_short_array_struct
+                   "unsigned_short_array_member"
+    where type CFieldType Unsigned_short_array_struct
+                          "unsigned_short_array_member" = ConstantArray 10 CUShort
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_int_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 277:8@
@@ -2670,22 +2670,22 @@ instance WriteRaw Ordinary_signed_int_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_int_array_struct ordinary_signed_int_array_member_2 -> writeRaw (Proxy @"ordinary_signed_int_array_member") ptr_0 ordinary_signed_int_array_member_2
 deriving via (EquivStorable Ordinary_signed_int_array_struct) instance Storable Ordinary_signed_int_array_struct
-instance HasCField Ordinary_signed_int_array_struct
-                   "ordinary_signed_int_array_member"
-    where type CFieldType Ordinary_signed_int_array_struct
-                          "ordinary_signed_int_array_member" = ConstantArray 10 CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CInt) =>
-         HasField "ordinary_signed_int_array_member"
-                  (Ptr Ordinary_signed_int_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_int_array_member")
 instance (~) ty (ConstantArray 10 CInt) =>
          HasField "ordinary_signed_int_array_member"
                   Ordinary_signed_int_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_int_array_struct{ordinary_signed_int_array_member = y_1},
                               getField @"ordinary_signed_int_array_member" x_0)
+instance (~) ty (ConstantArray 10 CInt) =>
+         HasField "ordinary_signed_int_array_member"
+                  (Ptr Ordinary_signed_int_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_int_array_member")
+instance HasCField Ordinary_signed_int_array_struct
+                   "ordinary_signed_int_array_member"
+    where type CFieldType Ordinary_signed_int_array_struct
+                          "ordinary_signed_int_array_member" = ConstantArray 10 CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_int_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 278:8@
@@ -2711,22 +2711,22 @@ instance WriteRaw Explicit_signed_int_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_int_array_struct explicit_signed_int_array_member_2 -> writeRaw (Proxy @"explicit_signed_int_array_member") ptr_0 explicit_signed_int_array_member_2
 deriving via (EquivStorable Explicit_signed_int_array_struct) instance Storable Explicit_signed_int_array_struct
-instance HasCField Explicit_signed_int_array_struct
-                   "explicit_signed_int_array_member"
-    where type CFieldType Explicit_signed_int_array_struct
-                          "explicit_signed_int_array_member" = ConstantArray 10 CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CInt) =>
-         HasField "explicit_signed_int_array_member"
-                  (Ptr Explicit_signed_int_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_int_array_member")
 instance (~) ty (ConstantArray 10 CInt) =>
          HasField "explicit_signed_int_array_member"
                   Explicit_signed_int_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_int_array_struct{explicit_signed_int_array_member = y_1},
                               getField @"explicit_signed_int_array_member" x_0)
+instance (~) ty (ConstantArray 10 CInt) =>
+         HasField "explicit_signed_int_array_member"
+                  (Ptr Explicit_signed_int_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_int_array_member")
+instance HasCField Explicit_signed_int_array_struct
+                   "explicit_signed_int_array_member"
+    where type CFieldType Explicit_signed_int_array_struct
+                          "explicit_signed_int_array_member" = ConstantArray 10 CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_int_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 279:8@
@@ -2752,20 +2752,20 @@ instance WriteRaw Unsigned_int_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_int_array_struct unsigned_int_array_member_2 -> writeRaw (Proxy @"unsigned_int_array_member") ptr_0 unsigned_int_array_member_2
 deriving via (EquivStorable Unsigned_int_array_struct) instance Storable Unsigned_int_array_struct
-instance HasCField Unsigned_int_array_struct
-                   "unsigned_int_array_member"
-    where type CFieldType Unsigned_int_array_struct
-                          "unsigned_int_array_member" = ConstantArray 10 CUInt
-          offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 10 CUInt) =>
+         HasField "unsigned_int_array_member" Unsigned_int_array_struct ty
+    where hasField = \x_0 -> (\y_1 -> Unsigned_int_array_struct{unsigned_int_array_member = y_1},
+                              getField @"unsigned_int_array_member" x_0)
 instance (~) ty (ConstantArray 10 CUInt) =>
          HasField "unsigned_int_array_member"
                   (Ptr Unsigned_int_array_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unsigned_int_array_member")
-instance (~) ty (ConstantArray 10 CUInt) =>
-         HasField "unsigned_int_array_member" Unsigned_int_array_struct ty
-    where hasField = \x_0 -> (\y_1 -> Unsigned_int_array_struct{unsigned_int_array_member = y_1},
-                              getField @"unsigned_int_array_member" x_0)
+instance HasCField Unsigned_int_array_struct
+                   "unsigned_int_array_member"
+    where type CFieldType Unsigned_int_array_struct
+                          "unsigned_int_array_member" = ConstantArray 10 CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 281:8@
@@ -2791,22 +2791,22 @@ instance WriteRaw Ordinary_signed_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_array_struct ordinary_signed_long_array_member_2 -> writeRaw (Proxy @"ordinary_signed_long_array_member") ptr_0 ordinary_signed_long_array_member_2
 deriving via (EquivStorable Ordinary_signed_long_array_struct) instance Storable Ordinary_signed_long_array_struct
-instance HasCField Ordinary_signed_long_array_struct
-                   "ordinary_signed_long_array_member"
-    where type CFieldType Ordinary_signed_long_array_struct
-                          "ordinary_signed_long_array_member" = ConstantArray 10 CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CLong) =>
-         HasField "ordinary_signed_long_array_member"
-                  (Ptr Ordinary_signed_long_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_array_member")
 instance (~) ty (ConstantArray 10 CLong) =>
          HasField "ordinary_signed_long_array_member"
                   Ordinary_signed_long_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_array_struct{ordinary_signed_long_array_member = y_1},
                               getField @"ordinary_signed_long_array_member" x_0)
+instance (~) ty (ConstantArray 10 CLong) =>
+         HasField "ordinary_signed_long_array_member"
+                  (Ptr Ordinary_signed_long_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_array_member")
+instance HasCField Ordinary_signed_long_array_struct
+                   "ordinary_signed_long_array_member"
+    where type CFieldType Ordinary_signed_long_array_struct
+                          "ordinary_signed_long_array_member" = ConstantArray 10 CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 282:8@
@@ -2832,22 +2832,22 @@ instance WriteRaw Explicit_signed_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_array_struct explicit_signed_long_array_member_2 -> writeRaw (Proxy @"explicit_signed_long_array_member") ptr_0 explicit_signed_long_array_member_2
 deriving via (EquivStorable Explicit_signed_long_array_struct) instance Storable Explicit_signed_long_array_struct
-instance HasCField Explicit_signed_long_array_struct
-                   "explicit_signed_long_array_member"
-    where type CFieldType Explicit_signed_long_array_struct
-                          "explicit_signed_long_array_member" = ConstantArray 10 CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CLong) =>
-         HasField "explicit_signed_long_array_member"
-                  (Ptr Explicit_signed_long_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_array_member")
 instance (~) ty (ConstantArray 10 CLong) =>
          HasField "explicit_signed_long_array_member"
                   Explicit_signed_long_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_array_struct{explicit_signed_long_array_member = y_1},
                               getField @"explicit_signed_long_array_member" x_0)
+instance (~) ty (ConstantArray 10 CLong) =>
+         HasField "explicit_signed_long_array_member"
+                  (Ptr Explicit_signed_long_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_array_member")
+instance HasCField Explicit_signed_long_array_struct
+                   "explicit_signed_long_array_member"
+    where type CFieldType Explicit_signed_long_array_struct
+                          "explicit_signed_long_array_member" = ConstantArray 10 CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 283:8@
@@ -2873,20 +2873,20 @@ instance WriteRaw Unsigned_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_array_struct unsigned_long_array_member_2 -> writeRaw (Proxy @"unsigned_long_array_member") ptr_0 unsigned_long_array_member_2
 deriving via (EquivStorable Unsigned_long_array_struct) instance Storable Unsigned_long_array_struct
-instance HasCField Unsigned_long_array_struct
-                   "unsigned_long_array_member"
-    where type CFieldType Unsigned_long_array_struct
-                          "unsigned_long_array_member" = ConstantArray 10 CULong
-          offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 10 CULong) =>
+         HasField "unsigned_long_array_member" Unsigned_long_array_struct ty
+    where hasField = \x_0 -> (\y_1 -> Unsigned_long_array_struct{unsigned_long_array_member = y_1},
+                              getField @"unsigned_long_array_member" x_0)
 instance (~) ty (ConstantArray 10 CULong) =>
          HasField "unsigned_long_array_member"
                   (Ptr Unsigned_long_array_struct)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"unsigned_long_array_member")
-instance (~) ty (ConstantArray 10 CULong) =>
-         HasField "unsigned_long_array_member" Unsigned_long_array_struct ty
-    where hasField = \x_0 -> (\y_1 -> Unsigned_long_array_struct{unsigned_long_array_member = y_1},
-                              getField @"unsigned_long_array_member" x_0)
+instance HasCField Unsigned_long_array_struct
+                   "unsigned_long_array_member"
+    where type CFieldType Unsigned_long_array_struct
+                          "unsigned_long_array_member" = ConstantArray 10 CULong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 285:8@
@@ -2912,22 +2912,22 @@ instance WriteRaw Ordinary_signed_long_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_long_array_struct ordinary_signed_long_long_array_member_2 -> writeRaw (Proxy @"ordinary_signed_long_long_array_member") ptr_0 ordinary_signed_long_long_array_member_2
 deriving via (EquivStorable Ordinary_signed_long_long_array_struct) instance Storable Ordinary_signed_long_long_array_struct
-instance HasCField Ordinary_signed_long_long_array_struct
-                   "ordinary_signed_long_long_array_member"
-    where type CFieldType Ordinary_signed_long_long_array_struct
-                          "ordinary_signed_long_long_array_member" = ConstantArray 10 CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CLLong) =>
-         HasField "ordinary_signed_long_long_array_member"
-                  (Ptr Ordinary_signed_long_long_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_long_array_member")
 instance (~) ty (ConstantArray 10 CLLong) =>
          HasField "ordinary_signed_long_long_array_member"
                   Ordinary_signed_long_long_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_long_array_struct{ordinary_signed_long_long_array_member = y_1},
                               getField @"ordinary_signed_long_long_array_member" x_0)
+instance (~) ty (ConstantArray 10 CLLong) =>
+         HasField "ordinary_signed_long_long_array_member"
+                  (Ptr Ordinary_signed_long_long_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_long_array_member")
+instance HasCField Ordinary_signed_long_long_array_struct
+                   "ordinary_signed_long_long_array_member"
+    where type CFieldType Ordinary_signed_long_long_array_struct
+                          "ordinary_signed_long_long_array_member" = ConstantArray 10 CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 286:8@
@@ -2953,22 +2953,22 @@ instance WriteRaw Explicit_signed_long_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_long_array_struct explicit_signed_long_long_array_member_2 -> writeRaw (Proxy @"explicit_signed_long_long_array_member") ptr_0 explicit_signed_long_long_array_member_2
 deriving via (EquivStorable Explicit_signed_long_long_array_struct) instance Storable Explicit_signed_long_long_array_struct
-instance HasCField Explicit_signed_long_long_array_struct
-                   "explicit_signed_long_long_array_member"
-    where type CFieldType Explicit_signed_long_long_array_struct
-                          "explicit_signed_long_long_array_member" = ConstantArray 10 CLLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CLLong) =>
-         HasField "explicit_signed_long_long_array_member"
-                  (Ptr Explicit_signed_long_long_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_long_array_member")
 instance (~) ty (ConstantArray 10 CLLong) =>
          HasField "explicit_signed_long_long_array_member"
                   Explicit_signed_long_long_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_long_array_struct{explicit_signed_long_long_array_member = y_1},
                               getField @"explicit_signed_long_long_array_member" x_0)
+instance (~) ty (ConstantArray 10 CLLong) =>
+         HasField "explicit_signed_long_long_array_member"
+                  (Ptr Explicit_signed_long_long_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_long_array_member")
+instance HasCField Explicit_signed_long_long_array_struct
+                   "explicit_signed_long_long_array_member"
+    where type CFieldType Explicit_signed_long_long_array_struct
+                          "explicit_signed_long_long_array_member" = ConstantArray 10 CLLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_long_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 287:8@
@@ -2994,22 +2994,22 @@ instance WriteRaw Unsigned_long_long_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_long_array_struct unsigned_long_long_array_member_2 -> writeRaw (Proxy @"unsigned_long_long_array_member") ptr_0 unsigned_long_long_array_member_2
 deriving via (EquivStorable Unsigned_long_long_array_struct) instance Storable Unsigned_long_long_array_struct
-instance HasCField Unsigned_long_long_array_struct
-                   "unsigned_long_long_array_member"
-    where type CFieldType Unsigned_long_long_array_struct
-                          "unsigned_long_long_array_member" = ConstantArray 10 CULLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 CULLong) =>
-         HasField "unsigned_long_long_array_member"
-                  (Ptr Unsigned_long_long_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_long_array_member")
 instance (~) ty (ConstantArray 10 CULLong) =>
          HasField "unsigned_long_long_array_member"
                   Unsigned_long_long_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_long_array_struct{unsigned_long_long_array_member = y_1},
                               getField @"unsigned_long_long_array_member" x_0)
+instance (~) ty (ConstantArray 10 CULLong) =>
+         HasField "unsigned_long_long_array_member"
+                  (Ptr Unsigned_long_long_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_long_array_member")
+instance HasCField Unsigned_long_long_array_struct
+                   "unsigned_long_long_array_member"
+    where type CFieldType Unsigned_long_long_array_struct
+                          "unsigned_long_long_array_member" = ConstantArray 10 CULLong
+          offset# = \_ -> \_ -> 0
 {-| Structs: arrays of pointers
 
     NOTE: Here too @'Ordinary_signed_char_pointer_array_struct'@ was commented out in the original test suite, with no reason given.
@@ -3039,22 +3039,22 @@ instance WriteRaw Ordinary_void_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_void_pointer_array_struct ordinary_void_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_void_pointer_array_member") ptr_0 ordinary_void_pointer_array_member_2
 deriving via (EquivStorable Ordinary_void_pointer_array_struct) instance Storable Ordinary_void_pointer_array_struct
-instance HasCField Ordinary_void_pointer_array_struct
-                   "ordinary_void_pointer_array_member"
-    where type CFieldType Ordinary_void_pointer_array_struct
-                          "ordinary_void_pointer_array_member" = ConstantArray 10 (Ptr Void)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr Void)) =>
-         HasField "ordinary_void_pointer_array_member"
-                  (Ptr Ordinary_void_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_void_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr Void)) =>
          HasField "ordinary_void_pointer_array_member"
                   Ordinary_void_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_void_pointer_array_struct{ordinary_void_pointer_array_member = y_1},
                               getField @"ordinary_void_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr Void)) =>
+         HasField "ordinary_void_pointer_array_member"
+                  (Ptr Ordinary_void_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_void_pointer_array_member")
+instance HasCField Ordinary_void_pointer_array_struct
+                   "ordinary_void_pointer_array_member"
+    where type CFieldType Ordinary_void_pointer_array_struct
+                          "ordinary_void_pointer_array_member" = ConstantArray 10 (Ptr Void)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_float_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 298:8@
@@ -3080,23 +3080,23 @@ instance WriteRaw Ordinary_float_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_float_pointer_array_struct ordinary_float_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_float_pointer_array_member") ptr_0 ordinary_float_pointer_array_member_2
 deriving via (EquivStorable Ordinary_float_pointer_array_struct) instance Storable Ordinary_float_pointer_array_struct
-instance HasCField Ordinary_float_pointer_array_struct
-                   "ordinary_float_pointer_array_member"
-    where type CFieldType Ordinary_float_pointer_array_struct
-                          "ordinary_float_pointer_array_member" = ConstantArray 10
-                                                                                (Ptr CFloat)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CFloat)) =>
-         HasField "ordinary_float_pointer_array_member"
-                  (Ptr Ordinary_float_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_float_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CFloat)) =>
          HasField "ordinary_float_pointer_array_member"
                   Ordinary_float_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_float_pointer_array_struct{ordinary_float_pointer_array_member = y_1},
                               getField @"ordinary_float_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CFloat)) =>
+         HasField "ordinary_float_pointer_array_member"
+                  (Ptr Ordinary_float_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_float_pointer_array_member")
+instance HasCField Ordinary_float_pointer_array_struct
+                   "ordinary_float_pointer_array_member"
+    where type CFieldType Ordinary_float_pointer_array_struct
+                          "ordinary_float_pointer_array_member" = ConstantArray 10
+                                                                                (Ptr CFloat)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_double_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 299:8@
@@ -3122,23 +3122,23 @@ instance WriteRaw Ordinary_double_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_double_pointer_array_struct ordinary_double_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_double_pointer_array_member") ptr_0 ordinary_double_pointer_array_member_2
 deriving via (EquivStorable Ordinary_double_pointer_array_struct) instance Storable Ordinary_double_pointer_array_struct
-instance HasCField Ordinary_double_pointer_array_struct
-                   "ordinary_double_pointer_array_member"
-    where type CFieldType Ordinary_double_pointer_array_struct
-                          "ordinary_double_pointer_array_member" = ConstantArray 10
-                                                                                 (Ptr CDouble)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CDouble)) =>
-         HasField "ordinary_double_pointer_array_member"
-                  (Ptr Ordinary_double_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_double_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CDouble)) =>
          HasField "ordinary_double_pointer_array_member"
                   Ordinary_double_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_double_pointer_array_struct{ordinary_double_pointer_array_member = y_1},
                               getField @"ordinary_double_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CDouble)) =>
+         HasField "ordinary_double_pointer_array_member"
+                  (Ptr Ordinary_double_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_double_pointer_array_member")
+instance HasCField Ordinary_double_pointer_array_struct
+                   "ordinary_double_pointer_array_member"
+    where type CFieldType Ordinary_double_pointer_array_struct
+                          "ordinary_double_pointer_array_member" = ConstantArray 10
+                                                                                 (Ptr CDouble)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_char_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 302:8@
@@ -3164,23 +3164,23 @@ instance WriteRaw Ordinary_signed_char_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_char_pointer_array_struct ordinary_signed_char_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_signed_char_pointer_array_member") ptr_0 ordinary_signed_char_pointer_array_member_2
 deriving via (EquivStorable Ordinary_signed_char_pointer_array_struct) instance Storable Ordinary_signed_char_pointer_array_struct
-instance HasCField Ordinary_signed_char_pointer_array_struct
-                   "ordinary_signed_char_pointer_array_member"
-    where type CFieldType Ordinary_signed_char_pointer_array_struct
-                          "ordinary_signed_char_pointer_array_member" = ConstantArray 10
-                                                                                      (Ptr CChar)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CChar)) =>
-         HasField "ordinary_signed_char_pointer_array_member"
-                  (Ptr Ordinary_signed_char_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_char_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CChar)) =>
          HasField "ordinary_signed_char_pointer_array_member"
                   Ordinary_signed_char_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_char_pointer_array_struct{ordinary_signed_char_pointer_array_member = y_1},
                               getField @"ordinary_signed_char_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CChar)) =>
+         HasField "ordinary_signed_char_pointer_array_member"
+                  (Ptr Ordinary_signed_char_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_char_pointer_array_member")
+instance HasCField Ordinary_signed_char_pointer_array_struct
+                   "ordinary_signed_char_pointer_array_member"
+    where type CFieldType Ordinary_signed_char_pointer_array_struct
+                          "ordinary_signed_char_pointer_array_member" = ConstantArray 10
+                                                                                      (Ptr CChar)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_char_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 303:8@
@@ -3206,23 +3206,23 @@ instance WriteRaw Explicit_signed_char_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_char_pointer_array_struct explicit_signed_char_pointer_array_member_2 -> writeRaw (Proxy @"explicit_signed_char_pointer_array_member") ptr_0 explicit_signed_char_pointer_array_member_2
 deriving via (EquivStorable Explicit_signed_char_pointer_array_struct) instance Storable Explicit_signed_char_pointer_array_struct
-instance HasCField Explicit_signed_char_pointer_array_struct
-                   "explicit_signed_char_pointer_array_member"
-    where type CFieldType Explicit_signed_char_pointer_array_struct
-                          "explicit_signed_char_pointer_array_member" = ConstantArray 10
-                                                                                      (Ptr CSChar)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CSChar)) =>
-         HasField "explicit_signed_char_pointer_array_member"
-                  (Ptr Explicit_signed_char_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_char_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CSChar)) =>
          HasField "explicit_signed_char_pointer_array_member"
                   Explicit_signed_char_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_char_pointer_array_struct{explicit_signed_char_pointer_array_member = y_1},
                               getField @"explicit_signed_char_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CSChar)) =>
+         HasField "explicit_signed_char_pointer_array_member"
+                  (Ptr Explicit_signed_char_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_char_pointer_array_member")
+instance HasCField Explicit_signed_char_pointer_array_struct
+                   "explicit_signed_char_pointer_array_member"
+    where type CFieldType Explicit_signed_char_pointer_array_struct
+                          "explicit_signed_char_pointer_array_member" = ConstantArray 10
+                                                                                      (Ptr CSChar)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_char_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 304:8@
@@ -3248,23 +3248,23 @@ instance WriteRaw Unsigned_char_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_char_pointer_array_struct unsigned_char_pointer_array_member_2 -> writeRaw (Proxy @"unsigned_char_pointer_array_member") ptr_0 unsigned_char_pointer_array_member_2
 deriving via (EquivStorable Unsigned_char_pointer_array_struct) instance Storable Unsigned_char_pointer_array_struct
-instance HasCField Unsigned_char_pointer_array_struct
-                   "unsigned_char_pointer_array_member"
-    where type CFieldType Unsigned_char_pointer_array_struct
-                          "unsigned_char_pointer_array_member" = ConstantArray 10
-                                                                               (Ptr CUChar)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CUChar)) =>
-         HasField "unsigned_char_pointer_array_member"
-                  (Ptr Unsigned_char_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_char_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CUChar)) =>
          HasField "unsigned_char_pointer_array_member"
                   Unsigned_char_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_char_pointer_array_struct{unsigned_char_pointer_array_member = y_1},
                               getField @"unsigned_char_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CUChar)) =>
+         HasField "unsigned_char_pointer_array_member"
+                  (Ptr Unsigned_char_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_char_pointer_array_member")
+instance HasCField Unsigned_char_pointer_array_struct
+                   "unsigned_char_pointer_array_member"
+    where type CFieldType Unsigned_char_pointer_array_struct
+                          "unsigned_char_pointer_array_member" = ConstantArray 10
+                                                                               (Ptr CUChar)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_short_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 306:8@
@@ -3290,23 +3290,23 @@ instance WriteRaw Ordinary_signed_short_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_short_pointer_array_struct ordinary_signed_short_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_signed_short_pointer_array_member") ptr_0 ordinary_signed_short_pointer_array_member_2
 deriving via (EquivStorable Ordinary_signed_short_pointer_array_struct) instance Storable Ordinary_signed_short_pointer_array_struct
-instance HasCField Ordinary_signed_short_pointer_array_struct
-                   "ordinary_signed_short_pointer_array_member"
-    where type CFieldType Ordinary_signed_short_pointer_array_struct
-                          "ordinary_signed_short_pointer_array_member" = ConstantArray 10
-                                                                                       (Ptr CShort)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
-         HasField "ordinary_signed_short_pointer_array_member"
-                  (Ptr Ordinary_signed_short_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_short_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
          HasField "ordinary_signed_short_pointer_array_member"
                   Ordinary_signed_short_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_short_pointer_array_struct{ordinary_signed_short_pointer_array_member = y_1},
                               getField @"ordinary_signed_short_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
+         HasField "ordinary_signed_short_pointer_array_member"
+                  (Ptr Ordinary_signed_short_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_short_pointer_array_member")
+instance HasCField Ordinary_signed_short_pointer_array_struct
+                   "ordinary_signed_short_pointer_array_member"
+    where type CFieldType Ordinary_signed_short_pointer_array_struct
+                          "ordinary_signed_short_pointer_array_member" = ConstantArray 10
+                                                                                       (Ptr CShort)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_short_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 307:8@
@@ -3332,23 +3332,23 @@ instance WriteRaw Explicit_signed_short_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_short_pointer_array_struct explicit_signed_short_pointer_array_member_2 -> writeRaw (Proxy @"explicit_signed_short_pointer_array_member") ptr_0 explicit_signed_short_pointer_array_member_2
 deriving via (EquivStorable Explicit_signed_short_pointer_array_struct) instance Storable Explicit_signed_short_pointer_array_struct
-instance HasCField Explicit_signed_short_pointer_array_struct
-                   "explicit_signed_short_pointer_array_member"
-    where type CFieldType Explicit_signed_short_pointer_array_struct
-                          "explicit_signed_short_pointer_array_member" = ConstantArray 10
-                                                                                       (Ptr CShort)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
-         HasField "explicit_signed_short_pointer_array_member"
-                  (Ptr Explicit_signed_short_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_short_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
          HasField "explicit_signed_short_pointer_array_member"
                   Explicit_signed_short_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_short_pointer_array_struct{explicit_signed_short_pointer_array_member = y_1},
                               getField @"explicit_signed_short_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CShort)) =>
+         HasField "explicit_signed_short_pointer_array_member"
+                  (Ptr Explicit_signed_short_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_short_pointer_array_member")
+instance HasCField Explicit_signed_short_pointer_array_struct
+                   "explicit_signed_short_pointer_array_member"
+    where type CFieldType Explicit_signed_short_pointer_array_struct
+                          "explicit_signed_short_pointer_array_member" = ConstantArray 10
+                                                                                       (Ptr CShort)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_short_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 308:8@
@@ -3374,23 +3374,23 @@ instance WriteRaw Unsigned_short_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_short_pointer_array_struct unsigned_short_pointer_array_member_2 -> writeRaw (Proxy @"unsigned_short_pointer_array_member") ptr_0 unsigned_short_pointer_array_member_2
 deriving via (EquivStorable Unsigned_short_pointer_array_struct) instance Storable Unsigned_short_pointer_array_struct
-instance HasCField Unsigned_short_pointer_array_struct
-                   "unsigned_short_pointer_array_member"
-    where type CFieldType Unsigned_short_pointer_array_struct
-                          "unsigned_short_pointer_array_member" = ConstantArray 10
-                                                                                (Ptr CUShort)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CUShort)) =>
-         HasField "unsigned_short_pointer_array_member"
-                  (Ptr Unsigned_short_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_short_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CUShort)) =>
          HasField "unsigned_short_pointer_array_member"
                   Unsigned_short_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_short_pointer_array_struct{unsigned_short_pointer_array_member = y_1},
                               getField @"unsigned_short_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CUShort)) =>
+         HasField "unsigned_short_pointer_array_member"
+                  (Ptr Unsigned_short_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_short_pointer_array_member")
+instance HasCField Unsigned_short_pointer_array_struct
+                   "unsigned_short_pointer_array_member"
+    where type CFieldType Unsigned_short_pointer_array_struct
+                          "unsigned_short_pointer_array_member" = ConstantArray 10
+                                                                                (Ptr CUShort)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_int_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 310:8@
@@ -3416,23 +3416,23 @@ instance WriteRaw Ordinary_signed_int_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_int_pointer_array_struct ordinary_signed_int_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_signed_int_pointer_array_member") ptr_0 ordinary_signed_int_pointer_array_member_2
 deriving via (EquivStorable Ordinary_signed_int_pointer_array_struct) instance Storable Ordinary_signed_int_pointer_array_struct
-instance HasCField Ordinary_signed_int_pointer_array_struct
-                   "ordinary_signed_int_pointer_array_member"
-    where type CFieldType Ordinary_signed_int_pointer_array_struct
-                          "ordinary_signed_int_pointer_array_member" = ConstantArray 10
-                                                                                     (Ptr CInt)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
-         HasField "ordinary_signed_int_pointer_array_member"
-                  (Ptr Ordinary_signed_int_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_int_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
          HasField "ordinary_signed_int_pointer_array_member"
                   Ordinary_signed_int_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_int_pointer_array_struct{ordinary_signed_int_pointer_array_member = y_1},
                               getField @"ordinary_signed_int_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
+         HasField "ordinary_signed_int_pointer_array_member"
+                  (Ptr Ordinary_signed_int_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_int_pointer_array_member")
+instance HasCField Ordinary_signed_int_pointer_array_struct
+                   "ordinary_signed_int_pointer_array_member"
+    where type CFieldType Ordinary_signed_int_pointer_array_struct
+                          "ordinary_signed_int_pointer_array_member" = ConstantArray 10
+                                                                                     (Ptr CInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_int_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 311:8@
@@ -3458,23 +3458,23 @@ instance WriteRaw Explicit_signed_int_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_int_pointer_array_struct explicit_signed_int_pointer_array_member_2 -> writeRaw (Proxy @"explicit_signed_int_pointer_array_member") ptr_0 explicit_signed_int_pointer_array_member_2
 deriving via (EquivStorable Explicit_signed_int_pointer_array_struct) instance Storable Explicit_signed_int_pointer_array_struct
-instance HasCField Explicit_signed_int_pointer_array_struct
-                   "explicit_signed_int_pointer_array_member"
-    where type CFieldType Explicit_signed_int_pointer_array_struct
-                          "explicit_signed_int_pointer_array_member" = ConstantArray 10
-                                                                                     (Ptr CInt)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
-         HasField "explicit_signed_int_pointer_array_member"
-                  (Ptr Explicit_signed_int_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_int_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
          HasField "explicit_signed_int_pointer_array_member"
                   Explicit_signed_int_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_int_pointer_array_struct{explicit_signed_int_pointer_array_member = y_1},
                               getField @"explicit_signed_int_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CInt)) =>
+         HasField "explicit_signed_int_pointer_array_member"
+                  (Ptr Explicit_signed_int_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_int_pointer_array_member")
+instance HasCField Explicit_signed_int_pointer_array_struct
+                   "explicit_signed_int_pointer_array_member"
+    where type CFieldType Explicit_signed_int_pointer_array_struct
+                          "explicit_signed_int_pointer_array_member" = ConstantArray 10
+                                                                                     (Ptr CInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_int_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 312:8@
@@ -3500,22 +3500,22 @@ instance WriteRaw Unsigned_int_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_int_pointer_array_struct unsigned_int_pointer_array_member_2 -> writeRaw (Proxy @"unsigned_int_pointer_array_member") ptr_0 unsigned_int_pointer_array_member_2
 deriving via (EquivStorable Unsigned_int_pointer_array_struct) instance Storable Unsigned_int_pointer_array_struct
-instance HasCField Unsigned_int_pointer_array_struct
-                   "unsigned_int_pointer_array_member"
-    where type CFieldType Unsigned_int_pointer_array_struct
-                          "unsigned_int_pointer_array_member" = ConstantArray 10 (Ptr CUInt)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CUInt)) =>
-         HasField "unsigned_int_pointer_array_member"
-                  (Ptr Unsigned_int_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_int_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CUInt)) =>
          HasField "unsigned_int_pointer_array_member"
                   Unsigned_int_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_int_pointer_array_struct{unsigned_int_pointer_array_member = y_1},
                               getField @"unsigned_int_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CUInt)) =>
+         HasField "unsigned_int_pointer_array_member"
+                  (Ptr Unsigned_int_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_int_pointer_array_member")
+instance HasCField Unsigned_int_pointer_array_struct
+                   "unsigned_int_pointer_array_member"
+    where type CFieldType Unsigned_int_pointer_array_struct
+                          "unsigned_int_pointer_array_member" = ConstantArray 10 (Ptr CUInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 314:8@
@@ -3541,23 +3541,23 @@ instance WriteRaw Ordinary_signed_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_pointer_array_struct ordinary_signed_long_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_signed_long_pointer_array_member") ptr_0 ordinary_signed_long_pointer_array_member_2
 deriving via (EquivStorable Ordinary_signed_long_pointer_array_struct) instance Storable Ordinary_signed_long_pointer_array_struct
-instance HasCField Ordinary_signed_long_pointer_array_struct
-                   "ordinary_signed_long_pointer_array_member"
-    where type CFieldType Ordinary_signed_long_pointer_array_struct
-                          "ordinary_signed_long_pointer_array_member" = ConstantArray 10
-                                                                                      (Ptr CLong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
-         HasField "ordinary_signed_long_pointer_array_member"
-                  (Ptr Ordinary_signed_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
          HasField "ordinary_signed_long_pointer_array_member"
                   Ordinary_signed_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_pointer_array_struct{ordinary_signed_long_pointer_array_member = y_1},
                               getField @"ordinary_signed_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
+         HasField "ordinary_signed_long_pointer_array_member"
+                  (Ptr Ordinary_signed_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_pointer_array_member")
+instance HasCField Ordinary_signed_long_pointer_array_struct
+                   "ordinary_signed_long_pointer_array_member"
+    where type CFieldType Ordinary_signed_long_pointer_array_struct
+                          "ordinary_signed_long_pointer_array_member" = ConstantArray 10
+                                                                                      (Ptr CLong)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 315:8@
@@ -3583,23 +3583,23 @@ instance WriteRaw Explicit_signed_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_pointer_array_struct explicit_signed_long_pointer_array_member_2 -> writeRaw (Proxy @"explicit_signed_long_pointer_array_member") ptr_0 explicit_signed_long_pointer_array_member_2
 deriving via (EquivStorable Explicit_signed_long_pointer_array_struct) instance Storable Explicit_signed_long_pointer_array_struct
-instance HasCField Explicit_signed_long_pointer_array_struct
-                   "explicit_signed_long_pointer_array_member"
-    where type CFieldType Explicit_signed_long_pointer_array_struct
-                          "explicit_signed_long_pointer_array_member" = ConstantArray 10
-                                                                                      (Ptr CLong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
-         HasField "explicit_signed_long_pointer_array_member"
-                  (Ptr Explicit_signed_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
          HasField "explicit_signed_long_pointer_array_member"
                   Explicit_signed_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_pointer_array_struct{explicit_signed_long_pointer_array_member = y_1},
                               getField @"explicit_signed_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CLong)) =>
+         HasField "explicit_signed_long_pointer_array_member"
+                  (Ptr Explicit_signed_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_pointer_array_member")
+instance HasCField Explicit_signed_long_pointer_array_struct
+                   "explicit_signed_long_pointer_array_member"
+    where type CFieldType Explicit_signed_long_pointer_array_struct
+                          "explicit_signed_long_pointer_array_member" = ConstantArray 10
+                                                                                      (Ptr CLong)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 316:8@
@@ -3625,23 +3625,23 @@ instance WriteRaw Unsigned_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_pointer_array_struct unsigned_long_pointer_array_member_2 -> writeRaw (Proxy @"unsigned_long_pointer_array_member") ptr_0 unsigned_long_pointer_array_member_2
 deriving via (EquivStorable Unsigned_long_pointer_array_struct) instance Storable Unsigned_long_pointer_array_struct
-instance HasCField Unsigned_long_pointer_array_struct
-                   "unsigned_long_pointer_array_member"
-    where type CFieldType Unsigned_long_pointer_array_struct
-                          "unsigned_long_pointer_array_member" = ConstantArray 10
-                                                                               (Ptr CULong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CULong)) =>
-         HasField "unsigned_long_pointer_array_member"
-                  (Ptr Unsigned_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CULong)) =>
          HasField "unsigned_long_pointer_array_member"
                   Unsigned_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_pointer_array_struct{unsigned_long_pointer_array_member = y_1},
                               getField @"unsigned_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CULong)) =>
+         HasField "unsigned_long_pointer_array_member"
+                  (Ptr Unsigned_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_pointer_array_member")
+instance HasCField Unsigned_long_pointer_array_struct
+                   "unsigned_long_pointer_array_member"
+    where type CFieldType Unsigned_long_pointer_array_struct
+                          "unsigned_long_pointer_array_member" = ConstantArray 10
+                                                                               (Ptr CULong)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ordinary_signed_long_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 318:8@
@@ -3667,23 +3667,23 @@ instance WriteRaw Ordinary_signed_long_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Ordinary_signed_long_long_pointer_array_struct ordinary_signed_long_long_pointer_array_member_2 -> writeRaw (Proxy @"ordinary_signed_long_long_pointer_array_member") ptr_0 ordinary_signed_long_long_pointer_array_member_2
 deriving via (EquivStorable Ordinary_signed_long_long_pointer_array_struct) instance Storable Ordinary_signed_long_long_pointer_array_struct
-instance HasCField Ordinary_signed_long_long_pointer_array_struct
-                   "ordinary_signed_long_long_pointer_array_member"
-    where type CFieldType Ordinary_signed_long_long_pointer_array_struct
-                          "ordinary_signed_long_long_pointer_array_member" = ConstantArray 10
-                                                                                           (Ptr CLLong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
-         HasField "ordinary_signed_long_long_pointer_array_member"
-                  (Ptr Ordinary_signed_long_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"ordinary_signed_long_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
          HasField "ordinary_signed_long_long_pointer_array_member"
                   Ordinary_signed_long_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Ordinary_signed_long_long_pointer_array_struct{ordinary_signed_long_long_pointer_array_member = y_1},
                               getField @"ordinary_signed_long_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
+         HasField "ordinary_signed_long_long_pointer_array_member"
+                  (Ptr Ordinary_signed_long_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"ordinary_signed_long_long_pointer_array_member")
+instance HasCField Ordinary_signed_long_long_pointer_array_struct
+                   "ordinary_signed_long_long_pointer_array_member"
+    where type CFieldType Ordinary_signed_long_long_pointer_array_struct
+                          "ordinary_signed_long_long_pointer_array_member" = ConstantArray 10
+                                                                                           (Ptr CLLong)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct explicit_signed_long_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 319:8@
@@ -3709,23 +3709,23 @@ instance WriteRaw Explicit_signed_long_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Explicit_signed_long_long_pointer_array_struct explicit_signed_long_long_pointer_array_member_2 -> writeRaw (Proxy @"explicit_signed_long_long_pointer_array_member") ptr_0 explicit_signed_long_long_pointer_array_member_2
 deriving via (EquivStorable Explicit_signed_long_long_pointer_array_struct) instance Storable Explicit_signed_long_long_pointer_array_struct
-instance HasCField Explicit_signed_long_long_pointer_array_struct
-                   "explicit_signed_long_long_pointer_array_member"
-    where type CFieldType Explicit_signed_long_long_pointer_array_struct
-                          "explicit_signed_long_long_pointer_array_member" = ConstantArray 10
-                                                                                           (Ptr CLLong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
-         HasField "explicit_signed_long_long_pointer_array_member"
-                  (Ptr Explicit_signed_long_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"explicit_signed_long_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
          HasField "explicit_signed_long_long_pointer_array_member"
                   Explicit_signed_long_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Explicit_signed_long_long_pointer_array_struct{explicit_signed_long_long_pointer_array_member = y_1},
                               getField @"explicit_signed_long_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CLLong)) =>
+         HasField "explicit_signed_long_long_pointer_array_member"
+                  (Ptr Explicit_signed_long_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"explicit_signed_long_long_pointer_array_member")
+instance HasCField Explicit_signed_long_long_pointer_array_struct
+                   "explicit_signed_long_long_pointer_array_member"
+    where type CFieldType Explicit_signed_long_long_pointer_array_struct
+                          "explicit_signed_long_long_pointer_array_member" = ConstantArray 10
+                                                                                           (Ptr CLLong)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct unsigned_long_long_pointer_array_struct@
 
     __defined at:__ @comprehensive\/c2hsc.h 320:8@
@@ -3751,23 +3751,23 @@ instance WriteRaw Unsigned_long_long_pointer_array_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Unsigned_long_long_pointer_array_struct unsigned_long_long_pointer_array_member_2 -> writeRaw (Proxy @"unsigned_long_long_pointer_array_member") ptr_0 unsigned_long_long_pointer_array_member_2
 deriving via (EquivStorable Unsigned_long_long_pointer_array_struct) instance Storable Unsigned_long_long_pointer_array_struct
-instance HasCField Unsigned_long_long_pointer_array_struct
-                   "unsigned_long_long_pointer_array_member"
-    where type CFieldType Unsigned_long_long_pointer_array_struct
-                          "unsigned_long_long_pointer_array_member" = ConstantArray 10
-                                                                                    (Ptr CULLong)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 10 (Ptr CULLong)) =>
-         HasField "unsigned_long_long_pointer_array_member"
-                  (Ptr Unsigned_long_long_pointer_array_struct)
-                  (Ptr ty)
-    where getField = fromPtr (Proxy @"unsigned_long_long_pointer_array_member")
 instance (~) ty (ConstantArray 10 (Ptr CULLong)) =>
          HasField "unsigned_long_long_pointer_array_member"
                   Unsigned_long_long_pointer_array_struct
                   ty
     where hasField = \x_0 -> (\y_1 -> Unsigned_long_long_pointer_array_struct{unsigned_long_long_pointer_array_member = y_1},
                               getField @"unsigned_long_long_pointer_array_member" x_0)
+instance (~) ty (ConstantArray 10 (Ptr CULLong)) =>
+         HasField "unsigned_long_long_pointer_array_member"
+                  (Ptr Unsigned_long_long_pointer_array_struct)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unsigned_long_long_pointer_array_member")
+instance HasCField Unsigned_long_long_pointer_array_struct
+                   "unsigned_long_long_pointer_array_member"
+    where type CFieldType Unsigned_long_long_pointer_array_struct
+                          "unsigned_long_long_pointer_array_member" = ConstantArray 10
+                                                                                    (Ptr CULLong)
+          offset# = \_ -> \_ -> 0
 {-| Sanity checks
 
     NOTE: The @smoke.h@ test is moved to a separate header.
@@ -3796,14 +3796,14 @@ newtype An_int
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrap" An_int ty
+    where hasField = \x_0 -> (\y_1 -> An_int{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CInt => HasField "unwrap" (Ptr An_int) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField An_int "unwrap"
     where type CFieldType An_int "unwrap" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrap" An_int ty
-    where hasField = \x_0 -> (\y_1 -> An_int{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct \@cal_table_table@
 
     __defined at:__ @comprehensive\/c2hsc.h 341:5@
@@ -3836,26 +3836,26 @@ instance WriteRaw Cal_table_table
                                        Cal_table_table raw_2
                                                        val_3 -> writeRaw (Proxy @"raw") ptr_0 raw_2 >> writeRaw (Proxy @"val") ptr_0 val_3
 deriving via (EquivStorable Cal_table_table) instance Storable Cal_table_table
-instance HasCField Cal_table_table "raw"
-    where type CFieldType Cal_table_table "raw" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "raw" (Ptr Cal_table_table) (Ptr ty)
-    where getField = fromPtr (Proxy @"raw")
 instance (~) ty CInt => HasField "raw" Cal_table_table ty
     where hasField = \x_0 -> (\y_1 -> Cal_table_table{raw = y_1,
                                                       val = getField @"val" x_0},
                               getField @"raw" x_0)
-instance HasCField Cal_table_table "val"
-    where type CFieldType Cal_table_table "val" = CInt
-          offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
-         HasField "val" (Ptr Cal_table_table) (Ptr ty)
-    where getField = fromPtr (Proxy @"val")
+         HasField "raw" (Ptr Cal_table_table) (Ptr ty)
+    where getField = fromPtr (Proxy @"raw")
+instance HasCField Cal_table_table "raw"
+    where type CFieldType Cal_table_table "raw" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "val" Cal_table_table ty
     where hasField = \x_0 -> (\y_1 -> Cal_table_table{val = y_1,
                                                       raw = getField @"raw" x_0},
                               getField @"val" x_0)
+instance (~) ty CInt =>
+         HasField "val" (Ptr Cal_table_table) (Ptr ty)
+    where getField = fromPtr (Proxy @"val")
+instance HasCField Cal_table_table "val"
+    where type CFieldType Cal_table_table "val" = CInt
+          offset# = \_ -> \_ -> 4
 {-| Issues without test cases in the original test suite
 
     These are examples from open issues on the c2hsc repository, that don't (yet) have corresponding test cases in the c2hsc test suite.
@@ -3892,27 +3892,27 @@ instance WriteRaw Cal_table
                                        Cal_table size_2
                                                  table_3 -> writeRaw (Proxy @"size") ptr_0 size_2 >> writeRaw (Proxy @"table") ptr_0 table_3
 deriving via (EquivStorable Cal_table) instance Storable Cal_table
-instance HasCField Cal_table "size"
-    where type CFieldType Cal_table "size" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "size" (Ptr Cal_table) (Ptr ty)
-    where getField = fromPtr (Proxy @"size")
 instance (~) ty CInt => HasField "size" Cal_table ty
     where hasField = \x_0 -> (\y_1 -> Cal_table{size = y_1,
                                                 table = getField @"table" x_0},
                               getField @"size" x_0)
-instance HasCField Cal_table "table"
-    where type CFieldType Cal_table "table" = ConstantArray 32
-                                                            Cal_table_table
-          offset# = \_ -> \_ -> 4
-instance (~) ty (ConstantArray 32 Cal_table_table) =>
-         HasField "table" (Ptr Cal_table) (Ptr ty)
-    where getField = fromPtr (Proxy @"table")
+instance (~) ty CInt => HasField "size" (Ptr Cal_table) (Ptr ty)
+    where getField = fromPtr (Proxy @"size")
+instance HasCField Cal_table "size"
+    where type CFieldType Cal_table "size" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty (ConstantArray 32 Cal_table_table) =>
          HasField "table" Cal_table ty
     where hasField = \x_0 -> (\y_1 -> Cal_table{table = y_1,
                                                 size = getField @"size" x_0},
                               getField @"table" x_0)
+instance (~) ty (ConstantArray 32 Cal_table_table) =>
+         HasField "table" (Ptr Cal_table) (Ptr ty)
+    where getField = fromPtr (Proxy @"table")
+instance HasCField Cal_table "table"
+    where type CFieldType Cal_table "table" = ConstantArray 32
+                                                            Cal_table_table
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @union \@Elf32_External_Dyn_d_un@
 
     __defined at:__ @comprehensive\/c2hsc.h 349:3@
@@ -4001,20 +4001,20 @@ set_elf32_External_Dyn_d_un_d_ptr :: ConstantArray 4 CUChar ->
 
 -}
 set_elf32_External_Dyn_d_un_d_ptr = setUnionPayload
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_val" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
+    where getField = fromPtr (Proxy @"d_val")
 instance HasCField Elf32_External_Dyn_d_un "d_val"
     where type CFieldType Elf32_External_Dyn_d_un
                           "d_val" = ConstantArray 4 CUChar
           offset# = \_ -> \_ -> 0
 instance (~) ty (ConstantArray 4 CUChar) =>
-         HasField "d_val" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
-    where getField = fromPtr (Proxy @"d_val")
+         HasField "d_ptr" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
+    where getField = fromPtr (Proxy @"d_ptr")
 instance HasCField Elf32_External_Dyn_d_un "d_ptr"
     where type CFieldType Elf32_External_Dyn_d_un
                           "d_ptr" = ConstantArray 4 CUChar
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 4 CUChar) =>
-         HasField "d_ptr" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
-    where getField = fromPtr (Proxy @"d_ptr")
 {-| __C declaration:__ @struct Elf32_External_Dyn@
 
     __defined at:__ @comprehensive\/c2hsc.h 347:9@
@@ -4047,30 +4047,30 @@ instance WriteRaw Elf32_External_Dyn
                                        Elf32_External_Dyn d_tag_2
                                                           d_un_3 -> writeRaw (Proxy @"d_tag") ptr_0 d_tag_2 >> writeRaw (Proxy @"d_un") ptr_0 d_un_3
 deriving via (EquivStorable Elf32_External_Dyn) instance Storable Elf32_External_Dyn
-instance HasCField Elf32_External_Dyn "d_tag"
-    where type CFieldType Elf32_External_Dyn "d_tag" = ConstantArray 4
-                                                                     CUChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 4 CUChar) =>
-         HasField "d_tag" (Ptr Elf32_External_Dyn) (Ptr ty)
-    where getField = fromPtr (Proxy @"d_tag")
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_tag" Elf32_External_Dyn ty
     where hasField = \x_0 -> (\y_1 -> Elf32_External_Dyn{d_tag = y_1,
                                                          d_un = getField @"d_un" x_0},
                               getField @"d_tag" x_0)
-instance HasCField Elf32_External_Dyn "d_un"
-    where type CFieldType Elf32_External_Dyn
-                          "d_un" = Elf32_External_Dyn_d_un
-          offset# = \_ -> \_ -> 4
-instance (~) ty Elf32_External_Dyn_d_un =>
-         HasField "d_un" (Ptr Elf32_External_Dyn) (Ptr ty)
-    where getField = fromPtr (Proxy @"d_un")
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_tag" (Ptr Elf32_External_Dyn) (Ptr ty)
+    where getField = fromPtr (Proxy @"d_tag")
+instance HasCField Elf32_External_Dyn "d_tag"
+    where type CFieldType Elf32_External_Dyn "d_tag" = ConstantArray 4
+                                                                     CUChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty Elf32_External_Dyn_d_un =>
          HasField "d_un" Elf32_External_Dyn ty
     where hasField = \x_0 -> (\y_1 -> Elf32_External_Dyn{d_un = y_1,
                                                          d_tag = getField @"d_tag" x_0},
                               getField @"d_un" x_0)
+instance (~) ty Elf32_External_Dyn_d_un =>
+         HasField "d_un" (Ptr Elf32_External_Dyn) (Ptr ty)
+    where getField = fromPtr (Proxy @"d_un")
+instance HasCField Elf32_External_Dyn "d_un"
+    where type CFieldType Elf32_External_Dyn
+                          "d_un" = Elf32_External_Dyn_d_un
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @bug_24@
 
     __defined at:__ @comprehensive\/c2hsc.h 358:15@
@@ -4085,15 +4085,15 @@ newtype Bug_24
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr CInt) => HasField "unwrap" Bug_24 ty
+    where hasField = \x_0 -> (\y_1 -> Bug_24{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (Ptr CInt) =>
          HasField "unwrap" (Ptr Bug_24) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Bug_24 "unwrap"
     where type CFieldType Bug_24 "unwrap" = Ptr CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr CInt) => HasField "unwrap" Bug_24 ty
-    where hasField = \x_0 -> (\y_1 -> Bug_24{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @bug_24_2@
 
     __defined at:__ @comprehensive\/c2hsc.h 359:21@
@@ -4108,15 +4108,15 @@ newtype Bug_24_2
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (PtrConst CInt) => HasField "unwrap" Bug_24_2 ty
+    where hasField = \x_0 -> (\y_1 -> Bug_24_2{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (PtrConst CInt) =>
          HasField "unwrap" (Ptr Bug_24_2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Bug_24_2 "unwrap"
     where type CFieldType Bug_24_2 "unwrap" = PtrConst CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (PtrConst CInt) => HasField "unwrap" Bug_24_2 ty
-    where hasField = \x_0 -> (\y_1 -> Bug_24_2{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @MyArray_27@
 
     __defined at:__ @comprehensive\/c2hsc.h 364:13@
@@ -4128,15 +4128,15 @@ newtype MyArray_27
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 20 CInt) =>
+         HasField "unwrap" MyArray_27 ty
+    where hasField = \x_0 -> (\y_1 -> MyArray_27{unwrap = y_1},
+                              getField @"unwrap" x_0)
+instance (~) ty (ConstantArray 20 CInt) =>
          HasField "unwrap" (Ptr MyArray_27) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField MyArray_27 "unwrap"
     where type CFieldType MyArray_27 "unwrap" = ConstantArray 20 CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (ConstantArray 20 CInt) =>
-         HasField "unwrap" MyArray_27 ty
-    where hasField = \x_0 -> (\y_1 -> MyArray_27{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct MyStruct_27@
 
     __defined at:__ @comprehensive\/c2hsc.h 365:9@
@@ -4161,15 +4161,15 @@ instance WriteRaw MyStruct_27
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        MyStruct_27 x_2 -> writeRaw (Proxy @"x") ptr_0 x_2
 deriving via (EquivStorable MyStruct_27) instance Storable MyStruct_27
-instance HasCField MyStruct_27 "x"
-    where type CFieldType MyStruct_27 "x" = MyArray_27
-          offset# = \_ -> \_ -> 0
-instance (~) ty MyArray_27 =>
-         HasField "x" (Ptr MyStruct_27) (Ptr ty)
-    where getField = fromPtr (Proxy @"x")
 instance (~) ty MyArray_27 => HasField "x" MyStruct_27 ty
     where hasField = \x_0 -> (\y_1 -> MyStruct_27{x = y_1},
                               getField @"x" x_0)
+instance (~) ty MyArray_27 =>
+         HasField "x" (Ptr MyStruct_27) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField MyStruct_27 "x"
+    where type CFieldType MyStruct_27 "x" = MyArray_27
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
 foreign import ccall safe "hs_bindgen_3fd2a5c6e681c44b" hs_bindgen_3fd2a5c6e681c44b_base ::
     FunPtr Void

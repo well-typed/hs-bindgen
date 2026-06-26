@@ -42,6 +42,14 @@ newtype Triplet = Triplet
     )
 
 instance ( ty ~ CA.ConstantArray 3 RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)
+
+instance ( ty ~ CA.ConstantArray 3 RIP.CInt
          ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
 
   getField =
@@ -53,11 +61,3 @@ instance HasCField.HasCField Triplet "unwrapTriplet" where
     CA.ConstantArray 3 RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)

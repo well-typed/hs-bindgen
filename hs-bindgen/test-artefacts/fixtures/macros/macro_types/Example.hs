@@ -50,6 +50,14 @@ newtype PtrInt = PtrInt
     )
 
 instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapPtrInt" PtrInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         PtrInt {unwrapPtrInt = y1}, RIP.getField @"unwrapPtrInt" x0)
+
+instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "unwrapPtrInt" (RIP.Ptr PtrInt) (RIP.Ptr ty) where
 
   getField =
@@ -61,14 +69,6 @@ instance HasCField.HasCField PtrInt "unwrapPtrInt" where
     RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapPtrInt" PtrInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         PtrInt {unwrapPtrInt = y1}, RIP.getField @"unwrapPtrInt" x0)
 
 {-| __C declaration:__ @macro ShortInt@
 
@@ -99,6 +99,14 @@ newtype ShortInt = ShortInt
     )
 
 instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapShortInt" ShortInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         ShortInt {unwrapShortInt = y1}, RIP.getField @"unwrapShortInt" x0)
+
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapShortInt" (RIP.Ptr ShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -110,14 +118,6 @@ instance HasCField.HasCField ShortInt "unwrapShortInt" where
     RIP.CShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "unwrapShortInt" ShortInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         ShortInt {unwrapShortInt = y1}, RIP.getField @"unwrapShortInt" x0)
 
 {-| __C declaration:__ @macro SignedShortInt@
 
@@ -148,6 +148,15 @@ newtype SignedShortInt = SignedShortInt
     )
 
 instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapSignedShortInt" SignedShortInt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> SignedShortInt {unwrapSignedShortInt = y1}
+      , RIP.getField @"unwrapSignedShortInt" x0
+      )
+
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapSignedShortInt" (RIP.Ptr SignedShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -159,15 +168,6 @@ instance HasCField.HasCField SignedShortInt "unwrapSignedShortInt" where
     RIP.CShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "unwrapSignedShortInt" SignedShortInt ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> SignedShortInt {unwrapSignedShortInt = y1}
-      , RIP.getField @"unwrapSignedShortInt" x0
-      )
 
 {-| __C declaration:__ @macro UnsignedShortInt@
 
@@ -198,6 +198,16 @@ newtype UnsignedShortInt = UnsignedShortInt
     )
 
 instance ( ty ~ RIP.CUShort
+         ) => RIP.CompatHasField.HasField "unwrapUnsignedShortInt" UnsignedShortInt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          UnsignedShortInt {unwrapUnsignedShortInt = y1}
+      , RIP.getField @"unwrapUnsignedShortInt" x0
+      )
+
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "unwrapUnsignedShortInt" (RIP.Ptr UnsignedShortInt) (RIP.Ptr ty) where
 
   getField =
@@ -209,16 +219,6 @@ instance HasCField.HasCField UnsignedShortInt "unwrapUnsignedShortInt" where
     RIP.CUShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUShort
-         ) => RIP.CompatHasField.HasField "unwrapUnsignedShortInt" UnsignedShortInt ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          UnsignedShortInt {unwrapUnsignedShortInt = y1}
-      , RIP.getField @"unwrapUnsignedShortInt" x0
-      )
 
 {-| __C declaration:__ @macro PtrPtrChar@
 
@@ -239,6 +239,15 @@ newtype PtrPtrChar = PtrPtrChar
     )
 
 instance ( ty ~ RIP.Ptr (RIP.Ptr RIP.CChar)
+         ) => RIP.CompatHasField.HasField "unwrapPtrPtrChar" PtrPtrChar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> PtrPtrChar {unwrapPtrPtrChar = y1}
+      , RIP.getField @"unwrapPtrPtrChar" x0
+      )
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr RIP.CChar)
          ) => RIP.HasField "unwrapPtrPtrChar" (RIP.Ptr PtrPtrChar) (RIP.Ptr ty) where
 
   getField =
@@ -250,15 +259,6 @@ instance HasCField.HasCField PtrPtrChar "unwrapPtrPtrChar" where
     RIP.Ptr (RIP.Ptr RIP.CChar)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr RIP.CChar)
-         ) => RIP.CompatHasField.HasField "unwrapPtrPtrChar" PtrPtrChar ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> PtrPtrChar {unwrapPtrPtrChar = y1}
-      , RIP.getField @"unwrapPtrPtrChar" x0
-      )
 
 {-| __C declaration:__ @macro MTy@
 
@@ -287,6 +287,14 @@ newtype MTy = MTy
     )
 
 instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "unwrapMTy" MTy ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MTy {unwrapMTy = y1}, RIP.getField @"unwrapMTy" x0)
+
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "unwrapMTy" (RIP.Ptr MTy) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapMTy")
@@ -296,14 +304,6 @@ instance HasCField.HasCField MTy "unwrapMTy" where
   type CFieldType MTy "unwrapMTy" = RIP.CFloat
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "unwrapMTy" MTy ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MTy {unwrapMTy = y1}, RIP.getField @"unwrapMTy" x0)
 
 {-| __C declaration:__ @tty@
 
@@ -331,6 +331,13 @@ newtype Tty = Tty
     , Marshal.WriteRaw
     )
 
+instance (ty ~ MTy) => RIP.CompatHasField.HasField "unwrapTty" Tty ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Tty {unwrapTty = y1}, RIP.getField @"unwrapTty" x0)
+
 instance (ty ~ MTy) => RIP.HasField "unwrapTty" (RIP.Ptr Tty) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapTty")
@@ -340,13 +347,6 @@ instance HasCField.HasCField Tty "unwrapTty" where
   type CFieldType Tty "unwrapTty" = MTy
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ MTy) => RIP.CompatHasField.HasField "unwrapTty" Tty ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Tty {unwrapTty = y1}, RIP.getField @"unwrapTty" x0)
 
 {-| __C declaration:__ @macro UINT8_T@
 
@@ -377,6 +377,14 @@ newtype UINT8_T = UINT8_T
     )
 
 instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unwrapUINT8_T" UINT8_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         UINT8_T {unwrapUINT8_T = y1}, RIP.getField @"unwrapUINT8_T" x0)
+
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapUINT8_T" (RIP.Ptr UINT8_T) (RIP.Ptr ty) where
 
   getField =
@@ -387,14 +395,6 @@ instance HasCField.HasCField UINT8_T "unwrapUINT8_T" where
   type CFieldType UINT8_T "unwrapUINT8_T" = RIP.CUChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unwrapUINT8_T" UINT8_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         UINT8_T {unwrapUINT8_T = y1}, RIP.getField @"unwrapUINT8_T" x0)
 
 {-| __C declaration:__ @macro BOOLEAN_T@
 
@@ -425,6 +425,14 @@ newtype BOOLEAN_T = BOOLEAN_T
     )
 
 instance ( ty ~ UINT8_T
+         ) => RIP.CompatHasField.HasField "unwrapBOOLEAN_T" BOOLEAN_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         BOOLEAN_T {unwrapBOOLEAN_T = y1}, RIP.getField @"unwrapBOOLEAN_T" x0)
+
+instance ( ty ~ UINT8_T
          ) => RIP.HasField "unwrapBOOLEAN_T" (RIP.Ptr BOOLEAN_T) (RIP.Ptr ty) where
 
   getField =
@@ -435,14 +443,6 @@ instance HasCField.HasCField BOOLEAN_T "unwrapBOOLEAN_T" where
   type CFieldType BOOLEAN_T "unwrapBOOLEAN_T" = UINT8_T
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ UINT8_T
-         ) => RIP.CompatHasField.HasField "unwrapBOOLEAN_T" BOOLEAN_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         BOOLEAN_T {unwrapBOOLEAN_T = y1}, RIP.getField @"unwrapBOOLEAN_T" x0)
 
 {-| __C declaration:__ @boolean_T@
 
@@ -473,6 +473,14 @@ newtype Boolean_T = Boolean_T
     )
 
 instance ( ty ~ BOOLEAN_T
+         ) => RIP.CompatHasField.HasField "unwrapBoolean_T" Boolean_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Boolean_T {unwrapBoolean_T = y1}, RIP.getField @"unwrapBoolean_T" x0)
+
+instance ( ty ~ BOOLEAN_T
          ) => RIP.HasField "unwrapBoolean_T" (RIP.Ptr Boolean_T) (RIP.Ptr ty) where
 
   getField =
@@ -484,11 +492,3 @@ instance HasCField.HasCField Boolean_T "unwrapBoolean_T" where
     BOOLEAN_T
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ BOOLEAN_T
-         ) => RIP.CompatHasField.HasField "unwrapBoolean_T" Boolean_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Boolean_T {unwrapBoolean_T = y1}, RIP.getField @"unwrapBoolean_T" x0)

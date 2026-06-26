@@ -51,6 +51,14 @@ newtype Sym = Sym
     )
 
 instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapSym" Sym ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Sym {unwrapSym = y1}, RIP.getField @"unwrapSym" x0)
+
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapSym" (RIP.Ptr Sym) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapSym")
@@ -60,11 +68,3 @@ instance HasCField.HasCField Sym "unwrapSym" where
   type CFieldType Sym "unwrapSym" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapSym" Sym ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Sym {unwrapSym = y1}, RIP.getField @"unwrapSym" x0)

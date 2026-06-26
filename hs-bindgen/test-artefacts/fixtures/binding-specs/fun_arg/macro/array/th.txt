@@ -131,16 +131,16 @@ newtype MyArray
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
+         HasField "unwrapMyArray" MyArray ty
+    where hasField = \x_0 -> (\y_1 -> MyArray{unwrapMyArray = y_1},
+                              getField @"unwrapMyArray" x_0)
+instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapMyArray" (Ptr MyArray) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyArray")
 instance HasCField MyArray "unwrapMyArray"
     where type CFieldType MyArray
                           "unwrapMyArray" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty (IncompleteArray CInt) =>
-         HasField "unwrapMyArray" MyArray ty
-    where hasField = \x_0 -> (\y_1 -> MyArray{unwrapMyArray = y_1},
-                              getField @"unwrapMyArray" x_0)
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 9:9@
@@ -151,14 +151,14 @@ newtype A
     = A {unwrapA :: MyArray}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
+instance (~) ty MyArray => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
 instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyArray
           offset# = \_ -> \_ -> 0
-instance (~) ty MyArray => HasField "unwrapA" A ty
-    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
-                              getField @"unwrapA" x_0)
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 10:9@
@@ -169,14 +169,14 @@ newtype B
     = B {unwrapB :: A}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
+instance (~) ty A => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
-instance (~) ty A => HasField "unwrapB" B ty
-    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
-                              getField @"unwrapB" x_0)
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 31:9@
@@ -184,14 +184,14 @@ instance (~) ty A => HasField "unwrapB" B ty
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 newtype E = E {unwrapE :: M.C} deriving stock Generic
+instance (~) ty M.C => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
-instance (~) ty M.C => HasField "unwrapE" E ty
-    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
-                              getField @"unwrapE" x_0)
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232132_base ::
     Ptr Void

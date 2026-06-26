@@ -106,10 +106,10 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasCFieldInstance i defInst.comment
       Hs.InstanceHasCBitfield i ->
         DInst $ translateHasCBitfieldInstance i defInst.comment
-      Hs.InstanceHasField i ->
-        DInst $ translateHasFieldInstance i defInst.comment
-      Hs.InstanceCompatHasField i ->
-        DInst $ translateCompatHasFieldInstance i defInst.comment
+      Hs.InstanceHasFieldCompat i ->
+        DInst $ translateHasFieldCompatInstance i defInst.comment
+      Hs.InstanceHasFieldPtr i ->
+        DInst $ translateHasFieldPtrInstance i defInst.comment
       Hs.InstanceHasFlam struct i ->
         DInst Instance{
             clss    = Inst.Flam_Offset
@@ -571,14 +571,73 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     w         = fromIntegral inst.bitWidth
 
 {-------------------------------------------------------------------------------
-  'HasField'
+  'GHC.Records.Compat.HasField'
 -------------------------------------------------------------------------------}
 
-translateHasFieldInstance ::
-     Hs.HasFieldInstance
+translateHasFieldCompatInstance ::
+     Hs.HasFieldCompatInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldInstance inst mbComment = Instance{
+translateHasFieldCompatInstance inst mbComment = Instance{
+      clss   = Inst.HasFieldCompat
+    , args    = [fieldLit, parent, tyTypeVar]
+    , types   = []
+    , comment = mbComment
+    , super   = [ TApp (TApp TEq tyTypeVar) field ]
+    , decs    = [ ( bindgenGlobalTerm HasFieldCompat_hasField
+                  , ELam (NameHint "x") $ appManyExpr (EBoxedTup $ Plus2 0) [
+                        exprSetter
+                      , exprGetter
+                      ]
+                  )
+                ]
+    }
+  where
+    parent    = translateType inst.parentType
+    field     = translateType inst.fieldType
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
+    -- This is not actually a free type variable.
+    tyTypeVar = TFree $ Hs.UnsafeName "ty"
+
+    exprGetter :: SExpr (S Z)
+    exprGetter = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` EBound IZ
+
+    -- For the setter we use total record construction. The advantage with
+    -- record fields is that they can be used in any order regardless of the
+    -- order in which the fields were defined the datatype. This leads to a
+    -- simpler implementation compared to non-record construction. However,
+    -- because we use record fields we need total record construction instead of
+    -- a partial record update because the latter can cause warnings about
+    -- ambiguous field names. The implementation cost for record construction
+    -- compared to record update is low.
+    exprSetter :: SExpr (S Z)
+    exprSetter =
+        case inst.impl of
+          Hs.HasFieldCompatImplRecord impl ->
+            ELam (NameHint "y") $
+              ERecCon impl.constr $ concat [
+                  [ FBind (Hs.nameToStr inst.fieldName) (EBound IZ) ]
+                , map mkFBindIdentity impl.otherFields
+                ]
+      where
+        -- An 'FBind' that leaves the original field unchanged
+        mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
+        mkFBindIdentity fieldName = FBind (Hs.nameToStr fieldName) $
+                      eBindgenGlobal HasField_getField
+            `ETypeApp` (translateType (Hs.StrLit (Hs.nameToStr fieldName)))
+            `EApp`      EBound (IS IZ)
+
+{-------------------------------------------------------------------------------
+  'GHC.Records.HasField' for the pointer manipulation API
+-------------------------------------------------------------------------------}
+
+translateHasFieldPtrInstance ::
+     Hs.HasFieldPtrInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateHasFieldPtrInstance inst mbComment = Instance{
       clss   = Inst.HasField
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
@@ -610,63 +669,6 @@ translateHasFieldInstance inst mbComment = Instance{
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.UnsafeName "ty"
-
-{-------------------------------------------------------------------------------
-  'HasField'
--------------------------------------------------------------------------------}
-
-translateCompatHasFieldInstance ::
-     Hs.CompatHasFieldInstance
-  -> Maybe HsDoc.Comment
-  -> Instance
-translateCompatHasFieldInstance inst mbComment = Instance{
-      clss   = Inst.CompatHasField
-    , args    = [fieldLit, parent, tyTypeVar]
-    , types   = []
-    , comment = mbComment
-    , super   = [ TApp (TApp TEq tyTypeVar) field ]
-    , decs    = [ ( bindgenGlobalTerm CompatHasField_hasField
-                  , ELam (NameHint "x") $ appManyExpr (EBoxedTup $ Plus2 0) [
-                        exprSetter
-                      , exprGetter
-                      ]
-                  )
-                ]
-    }
-  where
-    parent    = translateType inst.parentType
-    field     = translateType inst.fieldType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
-
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
-    -- This is not actually a free type variable.
-    tyTypeVar = TFree $ Hs.UnsafeName "ty"
-
-    exprGetter :: SExpr (S Z)
-    exprGetter = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` EBound IZ
-
-    -- For the setter we use total record construction. The advantage with
-    -- record fields is that they can be used in any order regardless of the
-    -- order in which the fields were defined the datatype. This leads to a
-    -- simpler implementation compared to non-record construction. However,
-    -- because we use record fields we need total record construction instead of
-    -- a partial record update because the latter can cause warnings about
-    -- ambiguous field names. The implementation cost for record construction
-    -- compared to record update is low.
-    exprSetter :: SExpr (S Z)
-    exprSetter =
-        ELam (NameHint "y") $
-          ERecCon inst.constr $ concat [
-              [ FBind (Hs.nameToStr inst.fieldName) (EBound IZ) ]
-            , map mkFBindIdentity inst.otherFields
-            ]
-      where
-        -- An 'FBind' that leaves the original field unchanged
-        mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
-        mkFBindIdentity fieldName = FBind (Hs.nameToStr fieldName) $
-                      eBindgenGlobal HasField_getField
-            `ETypeApp` (translateType (Hs.StrLit (Hs.nameToStr fieldName)))
-            `EApp`      EBound (IS IZ)
 
 {-------------------------------------------------------------------------------
   Unions

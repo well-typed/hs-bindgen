@@ -74,6 +74,16 @@ newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCPtrdiff" Prim_HsPrimCPtrdiff ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCPtrdiff {unwrapPrim_HsPrimCPtrdiff = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCPtrdiff" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
          ) => RIP.HasField "unwrapPrim_HsPrimCPtrdiff" (RIP.Ptr Prim_HsPrimCPtrdiff) (RIP.Ptr ty) where
 
   getField =
@@ -85,16 +95,6 @@ instance HasCField.HasCField Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff" whe
     HsBindgen.Runtime.LibC.CPtrdiff
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CPtrdiff
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCPtrdiff" Prim_HsPrimCPtrdiff ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCPtrdiff {unwrapPrim_HsPrimCPtrdiff = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCPtrdiff" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimInt8@
 
@@ -125,6 +125,15 @@ newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int8
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt8" Prim_HsPrimInt8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Prim_HsPrimInt8 {unwrapPrim_HsPrimInt8 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimInt8" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int8
          ) => RIP.HasField "unwrapPrim_HsPrimInt8" (RIP.Ptr Prim_HsPrimInt8) (RIP.Ptr ty) where
 
   getField =
@@ -136,15 +145,6 @@ instance HasCField.HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8" where
     HsBindgen.Runtime.LibC.Int8
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Int8
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt8" Prim_HsPrimInt8 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Prim_HsPrimInt8 {unwrapPrim_HsPrimInt8 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimInt8" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimInt16@
 
@@ -175,6 +175,16 @@ newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int16
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt16" Prim_HsPrimInt16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimInt16 {unwrapPrim_HsPrimInt16 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimInt16" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int16
          ) => RIP.HasField "unwrapPrim_HsPrimInt16" (RIP.Ptr Prim_HsPrimInt16) (RIP.Ptr ty) where
 
   getField =
@@ -186,16 +196,6 @@ instance HasCField.HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16" where
     HsBindgen.Runtime.LibC.Int16
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Int16
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt16" Prim_HsPrimInt16 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimInt16 {unwrapPrim_HsPrimInt16 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimInt16" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimInt32@
 
@@ -226,6 +226,16 @@ newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt32" Prim_HsPrimInt32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimInt32 {unwrapPrim_HsPrimInt32 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimInt32" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "unwrapPrim_HsPrimInt32" (RIP.Ptr Prim_HsPrimInt32) (RIP.Ptr ty) where
 
   getField =
@@ -237,16 +247,6 @@ instance HasCField.HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32" where
     HsBindgen.Runtime.LibC.Int32
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt32" Prim_HsPrimInt32 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimInt32 {unwrapPrim_HsPrimInt32 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimInt32" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimInt64@
 
@@ -277,6 +277,16 @@ newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int64
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt64" Prim_HsPrimInt64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimInt64 {unwrapPrim_HsPrimInt64 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimInt64" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Int64
          ) => RIP.HasField "unwrapPrim_HsPrimInt64" (RIP.Ptr Prim_HsPrimInt64) (RIP.Ptr ty) where
 
   getField =
@@ -288,16 +298,6 @@ instance HasCField.HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64" where
     HsBindgen.Runtime.LibC.Int64
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Int64
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimInt64" Prim_HsPrimInt64 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimInt64 {unwrapPrim_HsPrimInt64 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimInt64" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimWord8@
 
@@ -328,6 +328,16 @@ newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord8" Prim_HsPrimWord8 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimWord8 {unwrapPrim_HsPrimWord8 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimWord8" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "unwrapPrim_HsPrimWord8" (RIP.Ptr Prim_HsPrimWord8) (RIP.Ptr ty) where
 
   getField =
@@ -339,16 +349,6 @@ instance HasCField.HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8" where
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord8" Prim_HsPrimWord8 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimWord8 {unwrapPrim_HsPrimWord8 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimWord8" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimWord16@
 
@@ -379,6 +379,16 @@ newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord16" Prim_HsPrimWord16 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimWord16 {unwrapPrim_HsPrimWord16 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimWord16" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.HasField "unwrapPrim_HsPrimWord16" (RIP.Ptr Prim_HsPrimWord16) (RIP.Ptr ty) where
 
   getField =
@@ -390,16 +400,6 @@ instance HasCField.HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16" where
     HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord16" Prim_HsPrimWord16 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimWord16 {unwrapPrim_HsPrimWord16 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimWord16" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimWord32@
 
@@ -430,6 +430,16 @@ newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord32" Prim_HsPrimWord32 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimWord32 {unwrapPrim_HsPrimWord32 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimWord32" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.HasField "unwrapPrim_HsPrimWord32" (RIP.Ptr Prim_HsPrimWord32) (RIP.Ptr ty) where
 
   getField =
@@ -441,16 +451,6 @@ instance HasCField.HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32" where
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord32" Prim_HsPrimWord32 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimWord32 {unwrapPrim_HsPrimWord32 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimWord32" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimWord64@
 
@@ -481,6 +481,16 @@ newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word64
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord64" Prim_HsPrimWord64 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimWord64 {unwrapPrim_HsPrimWord64 = y1}
+      , RIP.getField @"unwrapPrim_HsPrimWord64" x0
+      )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => RIP.HasField "unwrapPrim_HsPrimWord64" (RIP.Ptr Prim_HsPrimWord64) (RIP.Ptr ty) where
 
   getField =
@@ -492,16 +502,6 @@ instance HasCField.HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64" where
     HsBindgen.Runtime.LibC.Word64
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimWord64" Prim_HsPrimWord64 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimWord64 {unwrapPrim_HsPrimWord64 = y1}
-      , RIP.getField @"unwrapPrim_HsPrimWord64" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCChar@
 
@@ -532,6 +532,16 @@ newtype Prim_HsPrimCChar = Prim_HsPrimCChar
     )
 
 instance ( ty ~ RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCChar" Prim_HsPrimCChar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCChar {unwrapPrim_HsPrimCChar = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCChar" x0
+      )
+
+instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapPrim_HsPrimCChar" (RIP.Ptr Prim_HsPrimCChar) (RIP.Ptr ty) where
 
   getField =
@@ -543,16 +553,6 @@ instance HasCField.HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar" where
     RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCChar" Prim_HsPrimCChar ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCChar {unwrapPrim_HsPrimCChar = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCChar" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCSChar@
 
@@ -583,6 +583,16 @@ newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
     )
 
 instance ( ty ~ RIP.CSChar
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCSChar" Prim_HsPrimCSChar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCSChar {unwrapPrim_HsPrimCSChar = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCSChar" x0
+      )
+
+instance ( ty ~ RIP.CSChar
          ) => RIP.HasField "unwrapPrim_HsPrimCSChar" (RIP.Ptr Prim_HsPrimCSChar) (RIP.Ptr ty) where
 
   getField =
@@ -594,16 +604,6 @@ instance HasCField.HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar" where
     RIP.CSChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CSChar
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCSChar" Prim_HsPrimCSChar ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCSChar {unwrapPrim_HsPrimCSChar = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCSChar" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCUChar@
 
@@ -634,6 +634,16 @@ newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
     )
 
 instance ( ty ~ RIP.CUChar
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUChar" Prim_HsPrimCUChar ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCUChar {unwrapPrim_HsPrimCUChar = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCUChar" x0
+      )
+
+instance ( ty ~ RIP.CUChar
          ) => RIP.HasField "unwrapPrim_HsPrimCUChar" (RIP.Ptr Prim_HsPrimCUChar) (RIP.Ptr ty) where
 
   getField =
@@ -645,16 +655,6 @@ instance HasCField.HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar" where
     RIP.CUChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUChar" Prim_HsPrimCUChar ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCUChar {unwrapPrim_HsPrimCUChar = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCUChar" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCShort@
 
@@ -685,6 +685,16 @@ newtype Prim_HsPrimCShort = Prim_HsPrimCShort
     )
 
 instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCShort" Prim_HsPrimCShort ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCShort {unwrapPrim_HsPrimCShort = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCShort" x0
+      )
+
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapPrim_HsPrimCShort" (RIP.Ptr Prim_HsPrimCShort) (RIP.Ptr ty) where
 
   getField =
@@ -696,16 +706,6 @@ instance HasCField.HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort" where
     RIP.CShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCShort" Prim_HsPrimCShort ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCShort {unwrapPrim_HsPrimCShort = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCShort" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCUShort@
 
@@ -736,6 +736,16 @@ newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
     )
 
 instance ( ty ~ RIP.CUShort
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUShort" Prim_HsPrimCUShort ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCUShort {unwrapPrim_HsPrimCUShort = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCUShort" x0
+      )
+
+instance ( ty ~ RIP.CUShort
          ) => RIP.HasField "unwrapPrim_HsPrimCUShort" (RIP.Ptr Prim_HsPrimCUShort) (RIP.Ptr ty) where
 
   getField =
@@ -747,16 +757,6 @@ instance HasCField.HasCField Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort" where
     RIP.CUShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUShort
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUShort" Prim_HsPrimCUShort ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCUShort {unwrapPrim_HsPrimCUShort = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCUShort" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCInt@
 
@@ -787,6 +787,15 @@ newtype Prim_HsPrimCInt = Prim_HsPrimCInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCInt" Prim_HsPrimCInt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Prim_HsPrimCInt {unwrapPrim_HsPrimCInt = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCInt" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapPrim_HsPrimCInt" (RIP.Ptr Prim_HsPrimCInt) (RIP.Ptr ty) where
 
   getField =
@@ -798,15 +807,6 @@ instance HasCField.HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCInt" Prim_HsPrimCInt ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Prim_HsPrimCInt {unwrapPrim_HsPrimCInt = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCInt" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCUInt@
 
@@ -837,6 +837,16 @@ newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
     )
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUInt" Prim_HsPrimCUInt ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCUInt {unwrapPrim_HsPrimCUInt = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCUInt" x0
+      )
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapPrim_HsPrimCUInt" (RIP.Ptr Prim_HsPrimCUInt) (RIP.Ptr ty) where
 
   getField =
@@ -848,16 +858,6 @@ instance HasCField.HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCUInt" Prim_HsPrimCUInt ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCUInt {unwrapPrim_HsPrimCUInt = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCUInt" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCLong@
 
@@ -888,6 +888,16 @@ newtype Prim_HsPrimCLong = Prim_HsPrimCLong
     )
 
 instance ( ty ~ RIP.CLong
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCLong" Prim_HsPrimCLong ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCLong {unwrapPrim_HsPrimCLong = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCLong" x0
+      )
+
+instance ( ty ~ RIP.CLong
          ) => RIP.HasField "unwrapPrim_HsPrimCLong" (RIP.Ptr Prim_HsPrimCLong) (RIP.Ptr ty) where
 
   getField =
@@ -899,16 +909,6 @@ instance HasCField.HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong" where
     RIP.CLong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLong
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCLong" Prim_HsPrimCLong ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCLong {unwrapPrim_HsPrimCLong = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCLong" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCULong@
 
@@ -939,6 +939,16 @@ newtype Prim_HsPrimCULong = Prim_HsPrimCULong
     )
 
 instance ( ty ~ RIP.CULong
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCULong" Prim_HsPrimCULong ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCULong {unwrapPrim_HsPrimCULong = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCULong" x0
+      )
+
+instance ( ty ~ RIP.CULong
          ) => RIP.HasField "unwrapPrim_HsPrimCULong" (RIP.Ptr Prim_HsPrimCULong) (RIP.Ptr ty) where
 
   getField =
@@ -950,16 +960,6 @@ instance HasCField.HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong" where
     RIP.CULong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CULong
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCULong" Prim_HsPrimCULong ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCULong {unwrapPrim_HsPrimCULong = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCULong" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCLLong@
 
@@ -990,6 +990,16 @@ newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
     )
 
 instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCLLong" Prim_HsPrimCLLong ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCLLong {unwrapPrim_HsPrimCLLong = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCLLong" x0
+      )
+
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "unwrapPrim_HsPrimCLLong" (RIP.Ptr Prim_HsPrimCLLong) (RIP.Ptr ty) where
 
   getField =
@@ -1001,16 +1011,6 @@ instance HasCField.HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong" where
     RIP.CLLong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCLLong" Prim_HsPrimCLLong ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCLLong {unwrapPrim_HsPrimCLLong = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCLLong" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCULLong@
 
@@ -1041,6 +1041,16 @@ newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
     )
 
 instance ( ty ~ RIP.CULLong
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCULLong" Prim_HsPrimCULLong ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCULLong {unwrapPrim_HsPrimCULLong = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCULLong" x0
+      )
+
+instance ( ty ~ RIP.CULLong
          ) => RIP.HasField "unwrapPrim_HsPrimCULLong" (RIP.Ptr Prim_HsPrimCULLong) (RIP.Ptr ty) where
 
   getField =
@@ -1052,16 +1062,6 @@ instance HasCField.HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong" where
     RIP.CULLong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CULLong
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCULLong" Prim_HsPrimCULLong ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCULLong {unwrapPrim_HsPrimCULLong = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCULLong" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCBool@
 
@@ -1092,6 +1092,16 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     )
 
 instance ( ty ~ RIP.CBool
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCBool" Prim_HsPrimCBool ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCBool {unwrapPrim_HsPrimCBool = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCBool" x0
+      )
+
+instance ( ty ~ RIP.CBool
          ) => RIP.HasField "unwrapPrim_HsPrimCBool" (RIP.Ptr Prim_HsPrimCBool) (RIP.Ptr ty) where
 
   getField =
@@ -1103,16 +1113,6 @@ instance HasCField.HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool" where
     RIP.CBool
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCBool" Prim_HsPrimCBool ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCBool {unwrapPrim_HsPrimCBool = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCBool" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCFloat@
 
@@ -1141,6 +1141,16 @@ newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
     )
 
 instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCFloat" Prim_HsPrimCFloat ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCFloat {unwrapPrim_HsPrimCFloat = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCFloat" x0
+      )
+
+instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "unwrapPrim_HsPrimCFloat" (RIP.Ptr Prim_HsPrimCFloat) (RIP.Ptr ty) where
 
   getField =
@@ -1152,16 +1162,6 @@ instance HasCField.HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat" where
     RIP.CFloat
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCFloat" Prim_HsPrimCFloat ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCFloat {unwrapPrim_HsPrimCFloat = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCFloat" x0
-      )
 
 {-| __C declaration:__ @prim_HsPrimCDouble@
 
@@ -1190,6 +1190,16 @@ newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
     )
 
 instance ( ty ~ RIP.CDouble
+         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCDouble" Prim_HsPrimCDouble ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Prim_HsPrimCDouble {unwrapPrim_HsPrimCDouble = y1}
+      , RIP.getField @"unwrapPrim_HsPrimCDouble" x0
+      )
+
+instance ( ty ~ RIP.CDouble
          ) => RIP.HasField "unwrapPrim_HsPrimCDouble" (RIP.Ptr Prim_HsPrimCDouble) (RIP.Ptr ty) where
 
   getField =
@@ -1201,13 +1211,3 @@ instance HasCField.HasCField Prim_HsPrimCDouble "unwrapPrim_HsPrimCDouble" where
     RIP.CDouble
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "unwrapPrim_HsPrimCDouble" Prim_HsPrimCDouble ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Prim_HsPrimCDouble {unwrapPrim_HsPrimCDouble = y1}
-      , RIP.getField @"unwrapPrim_HsPrimCDouble" x0
-      )

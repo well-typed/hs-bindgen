@@ -58,6 +58,13 @@ newtype MC = MC
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapMC" MC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MC {unwrapMC = y1}, RIP.getField @"unwrapMC" x0)
+
 instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapMC" (RIP.Ptr MC) (RIP.Ptr ty) where
 
@@ -68,13 +75,6 @@ instance HasCField.HasCField MC "unwrapMC" where
   type CFieldType MC "unwrapMC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapMC" MC ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MC {unwrapMC = y1}, RIP.getField @"unwrapMC" x0)
 
 {-| __C declaration:__ @TC@
 
@@ -104,6 +104,13 @@ newtype TC = TC
     , Marshal.WriteRaw
     )
 
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapTC" TC ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         TC {unwrapTC = y1}, RIP.getField @"unwrapTC" x0)
+
 instance ( ty ~ RIP.CChar
          ) => RIP.HasField "unwrapTC" (RIP.Ptr TC) (RIP.Ptr ty) where
 
@@ -114,13 +121,6 @@ instance HasCField.HasCField TC "unwrapTC" where
   type CFieldType TC "unwrapTC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapTC" TC ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         TC {unwrapTC = y1}, RIP.getField @"unwrapTC" x0)
 
 {-| __C declaration:__ @struct struct1@
 
@@ -163,17 +163,6 @@ instance Marshal.WriteRaw Struct1 where
 
 deriving via Marshal.EquivStorable Struct1 instance RIP.Storable Struct1
 
-instance HasCField.HasCField Struct1 "struct1_a" where
-
-  type CFieldType Struct1 "struct1_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct1_a" (RIP.Ptr Struct1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"struct1_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct1_a" Struct1 ty where
 
@@ -181,6 +170,17 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Struct1 {struct1_a = y1}, RIP.getField @"struct1_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct1_a" (RIP.Ptr Struct1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"struct1_a")
+
+instance HasCField.HasCField Struct1 "struct1_a" where
+
+  type CFieldType Struct1 "struct1_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct struct2@
 
@@ -223,17 +223,6 @@ instance Marshal.WriteRaw Struct2 where
 
 deriving via Marshal.EquivStorable Struct2 instance RIP.Storable Struct2
 
-instance HasCField.HasCField Struct2 "struct2_a" where
-
-  type CFieldType Struct2 "struct2_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct2_a" (RIP.Ptr Struct2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"struct2_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct2_a" Struct2 ty where
 
@@ -241,6 +230,17 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Struct2 {struct2_a = y1}, RIP.getField @"struct2_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct2_a" (RIP.Ptr Struct2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"struct2_a")
+
+instance HasCField.HasCField Struct2 "struct2_a" where
+
+  type CFieldType Struct2 "struct2_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct struct3@
 
@@ -283,17 +283,6 @@ instance Marshal.WriteRaw Struct3 where
 
 deriving via Marshal.EquivStorable Struct3 instance RIP.Storable Struct3
 
-instance HasCField.HasCField Struct3 "struct3_a" where
-
-  type CFieldType Struct3 "struct3_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"struct3_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct3_a" Struct3 ty where
 
@@ -301,6 +290,17 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Struct3 {struct3_a = y1}, RIP.getField @"struct3_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"struct3_a")
+
+instance HasCField.HasCField Struct3 "struct3_a" where
+
+  type CFieldType Struct3 "struct3_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct3_t@
 
@@ -320,6 +320,14 @@ newtype Struct3_t = Struct3_t
     )
 
 instance ( ty ~ Struct3
+         ) => RIP.CompatHasField.HasField "unwrapStruct3_t" Struct3_t ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Struct3_t {unwrapStruct3_t = y1}, RIP.getField @"unwrapStruct3_t" x0)
+
+instance ( ty ~ Struct3
          ) => RIP.HasField "unwrapStruct3_t" (RIP.Ptr Struct3_t) (RIP.Ptr ty) where
 
   getField =
@@ -330,14 +338,6 @@ instance HasCField.HasCField Struct3_t "unwrapStruct3_t" where
   type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Struct3
-         ) => RIP.CompatHasField.HasField "unwrapStruct3_t" Struct3_t ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Struct3_t {unwrapStruct3_t = y1}, RIP.getField @"unwrapStruct3_t" x0)
 
 {-| __C declaration:__ @struct struct4@
 
@@ -380,17 +380,6 @@ instance Marshal.WriteRaw Struct4 where
 
 deriving via Marshal.EquivStorable Struct4 instance RIP.Storable Struct4
 
-instance HasCField.HasCField Struct4 "struct4_a" where
-
-  type CFieldType Struct4 "struct4_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"struct4_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "struct4_a" Struct4 ty where
 
@@ -398,3 +387,14 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          Struct4 {struct4_a = y1}, RIP.getField @"struct4_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"struct4_a")
+
+instance HasCField.HasCField Struct4 "struct4_a" where
+
+  type CFieldType Struct4 "struct4_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

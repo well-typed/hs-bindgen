@@ -83,6 +83,14 @@ instance RIP.FromFunPtr F1_Aux where
   fromFunPtr = hs_bindgen_ddeb5206e8192425
 
 instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF1_Aux" F1_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F1_Aux {unwrapF1_Aux = y1}, RIP.getField @"unwrapF1_Aux" x0)
+
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapF1_Aux" (RIP.Ptr F1_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -94,14 +102,6 @@ instance HasCField.HasCField F1_Aux "unwrapF1_Aux" where
     RIP.CInt -> RIP.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapF1_Aux" F1_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F1_Aux {unwrapF1_Aux = y1}, RIP.getField @"unwrapF1_Aux" x0)
 
 {-| __C declaration:__ @f1@
 
@@ -122,6 +122,14 @@ newtype F1 = F1
     )
 
 instance ( ty ~ RIP.FunPtr F1_Aux
+         ) => RIP.CompatHasField.HasField "unwrapF1" F1 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F1 {unwrapF1 = y1}, RIP.getField @"unwrapF1" x0)
+
+instance ( ty ~ RIP.FunPtr F1_Aux
          ) => RIP.HasField "unwrapF1" (RIP.Ptr F1) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF1")
@@ -131,14 +139,6 @@ instance HasCField.HasCField F1 "unwrapF1" where
   type CFieldType F1 "unwrapF1" = RIP.FunPtr F1_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr F1_Aux
-         ) => RIP.CompatHasField.HasField "unwrapF1" F1 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F1 {unwrapF1 = y1}, RIP.getField @"unwrapF1" x0)
 
 {-| Auxiliary type used by 'F2'
 
@@ -189,6 +189,14 @@ instance RIP.FromFunPtr F2_Aux where
   fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
 
 instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF2_Aux" F2_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F2_Aux {unwrapF2_Aux = y1}, RIP.getField @"unwrapF2_Aux" x0)
+
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapF2_Aux" (RIP.Ptr F2_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -200,14 +208,6 @@ instance HasCField.HasCField F2_Aux "unwrapF2_Aux" where
     RIP.CInt -> RIP.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapF2_Aux" F2_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F2_Aux {unwrapF2_Aux = y1}, RIP.getField @"unwrapF2_Aux" x0)
 
 {-| __C declaration:__ @f2@
 
@@ -228,6 +228,14 @@ newtype F2 = F2
     )
 
 instance ( ty ~ RIP.Ptr (RIP.FunPtr F2_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF2" F2 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F2 {unwrapF2 = y1}, RIP.getField @"unwrapF2" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F2_Aux)
          ) => RIP.HasField "unwrapF2" (RIP.Ptr F2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF2")
@@ -238,14 +246,6 @@ instance HasCField.HasCField F2 "unwrapF2" where
     RIP.Ptr (RIP.FunPtr F2_Aux)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.FunPtr F2_Aux)
-         ) => RIP.CompatHasField.HasField "unwrapF2" F2 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F2 {unwrapF2 = y1}, RIP.getField @"unwrapF2" x0)
 
 {-| Auxiliary type used by 'F3'
 
@@ -296,6 +296,14 @@ instance RIP.FromFunPtr F3_Aux where
   fromFunPtr = hs_bindgen_66460422a7197535
 
 instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF3_Aux" F3_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F3_Aux {unwrapF3_Aux = y1}, RIP.getField @"unwrapF3_Aux" x0)
+
+instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapF3_Aux" (RIP.Ptr F3_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -307,14 +315,6 @@ instance HasCField.HasCField F3_Aux "unwrapF3_Aux" where
     RIP.CInt -> RIP.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapF3_Aux" F3_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F3_Aux {unwrapF3_Aux = y1}, RIP.getField @"unwrapF3_Aux" x0)
 
 {-| __C declaration:__ @f3@
 
@@ -335,6 +335,14 @@ newtype F3 = F3
     )
 
 instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
+         ) => RIP.CompatHasField.HasField "unwrapF3" F3 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F3 {unwrapF3 = y1}, RIP.getField @"unwrapF3" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
          ) => RIP.HasField "unwrapF3" (RIP.Ptr F3) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF3")
@@ -345,14 +353,6 @@ instance HasCField.HasCField F3 "unwrapF3" where
     RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.FunPtr F3_Aux))
-         ) => RIP.CompatHasField.HasField "unwrapF3" F3 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F3 {unwrapF3 = y1}, RIP.getField @"unwrapF3" x0)
 
 {-| Auxiliary type used by 'F4'
 
@@ -403,6 +403,14 @@ instance RIP.FromFunPtr F4_Aux where
   fromFunPtr = hs_bindgen_40f9a8d432b9eb97
 
 instance ( ty ~ IO RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapF4_Aux" F4_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F4_Aux {unwrapF4_Aux = y1}, RIP.getField @"unwrapF4_Aux" x0)
+
+instance ( ty ~ IO RIP.CInt
          ) => RIP.HasField "unwrapF4_Aux" (RIP.Ptr F4_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -413,14 +421,6 @@ instance HasCField.HasCField F4_Aux "unwrapF4_Aux" where
   type CFieldType F4_Aux "unwrapF4_Aux" = IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapF4_Aux" F4_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F4_Aux {unwrapF4_Aux = y1}, RIP.getField @"unwrapF4_Aux" x0)
 
 {-| __C declaration:__ @f4@
 
@@ -441,6 +441,14 @@ newtype F4 = F4
     )
 
 instance ( ty ~ RIP.Ptr (RIP.FunPtr F4_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF4" F4 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F4 {unwrapF4 = y1}, RIP.getField @"unwrapF4" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F4_Aux)
          ) => RIP.HasField "unwrapF4" (RIP.Ptr F4) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF4")
@@ -451,14 +459,6 @@ instance HasCField.HasCField F4 "unwrapF4" where
     RIP.Ptr (RIP.FunPtr F4_Aux)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.FunPtr F4_Aux)
-         ) => RIP.CompatHasField.HasField "unwrapF4" F4 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F4 {unwrapF4 = y1}, RIP.getField @"unwrapF4" x0)
 
 {-| Auxiliary type used by 'F5'
 
@@ -509,6 +509,14 @@ instance RIP.FromFunPtr F5_Aux where
   fromFunPtr = hs_bindgen_586f6635c057975f
 
 instance ( ty ~ IO ()
+         ) => RIP.CompatHasField.HasField "unwrapF5_Aux" F5_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F5_Aux {unwrapF5_Aux = y1}, RIP.getField @"unwrapF5_Aux" x0)
+
+instance ( ty ~ IO ()
          ) => RIP.HasField "unwrapF5_Aux" (RIP.Ptr F5_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -519,14 +527,6 @@ instance HasCField.HasCField F5_Aux "unwrapF5_Aux" where
   type CFieldType F5_Aux "unwrapF5_Aux" = IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ IO ()
-         ) => RIP.CompatHasField.HasField "unwrapF5_Aux" F5_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F5_Aux {unwrapF5_Aux = y1}, RIP.getField @"unwrapF5_Aux" x0)
 
 {-| __C declaration:__ @f5@
 
@@ -547,6 +547,14 @@ newtype F5 = F5
     )
 
 instance ( ty ~ RIP.Ptr (RIP.FunPtr F5_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF5" F5 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F5 {unwrapF5 = y1}, RIP.getField @"unwrapF5" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F5_Aux)
          ) => RIP.HasField "unwrapF5" (RIP.Ptr F5) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF5")
@@ -557,14 +565,6 @@ instance HasCField.HasCField F5 "unwrapF5" where
     RIP.Ptr (RIP.FunPtr F5_Aux)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.FunPtr F5_Aux)
-         ) => RIP.CompatHasField.HasField "unwrapF5" F5 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F5 {unwrapF5 = y1}, RIP.getField @"unwrapF5" x0)
 
 {-| __C declaration:__ @MyInt@
 
@@ -595,6 +595,14 @@ newtype MyInt = MyInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -605,14 +613,6 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| Auxiliary type used by 'F6'
 
@@ -663,6 +663,14 @@ instance RIP.FromFunPtr F6_Aux where
   fromFunPtr = hs_bindgen_a887947b26e58f0c
 
 instance ( ty ~ (MyInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapF6_Aux" F6_Aux ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F6_Aux {unwrapF6_Aux = y1}, RIP.getField @"unwrapF6_Aux" x0)
+
+instance ( ty ~ (MyInt -> IO ())
          ) => RIP.HasField "unwrapF6_Aux" (RIP.Ptr F6_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -674,14 +682,6 @@ instance HasCField.HasCField F6_Aux "unwrapF6_Aux" where
     MyInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (MyInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapF6_Aux" F6_Aux ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F6_Aux {unwrapF6_Aux = y1}, RIP.getField @"unwrapF6_Aux" x0)
 
 {-| __C declaration:__ @f6@
 
@@ -702,6 +702,14 @@ newtype F6 = F6
     )
 
 instance ( ty ~ RIP.Ptr (RIP.FunPtr F6_Aux)
+         ) => RIP.CompatHasField.HasField "unwrapF6" F6 ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         F6 {unwrapF6 = y1}, RIP.getField @"unwrapF6" x0)
+
+instance ( ty ~ RIP.Ptr (RIP.FunPtr F6_Aux)
          ) => RIP.HasField "unwrapF6" (RIP.Ptr F6) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapF6")
@@ -712,11 +720,3 @@ instance HasCField.HasCField F6 "unwrapF6" where
     RIP.Ptr (RIP.FunPtr F6_Aux)
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr (RIP.FunPtr F6_Aux)
-         ) => RIP.CompatHasField.HasField "unwrapF6" F6 ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         F6 {unwrapF6 = y1}, RIP.getField @"unwrapF6" x0)

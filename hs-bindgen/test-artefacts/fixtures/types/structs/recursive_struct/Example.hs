@@ -73,19 +73,6 @@ instance Marshal.WriteRaw Linked_list_A_t where
 
 deriving via Marshal.EquivStorable Linked_list_A_t instance RIP.Storable Linked_list_A_t
 
-instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
-
-  type CFieldType Linked_list_A_t "linked_list_A_t_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "linked_list_A_t_x" Linked_list_A_t ty where
 
@@ -98,18 +85,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"linked_list_A_t_x" x0
       )
 
-instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
-
-  type CFieldType Linked_list_A_t "linked_list_A_t_next" =
-    RIP.Ptr Linked_list_A_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Linked_list_A_t
-         ) => RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_next")
+    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_x")
+
+instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
+
+  type CFieldType Linked_list_A_t "linked_list_A_t_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Linked_list_A_t
          ) => RIP.CompatHasField.HasField "linked_list_A_t_next" Linked_list_A_t ty where
@@ -122,6 +109,19 @@ instance ( ty ~ RIP.Ptr Linked_list_A_t
                           }
       , RIP.getField @"linked_list_A_t_next" x0
       )
+
+instance ( ty ~ RIP.Ptr Linked_list_A_t
+         ) => RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_next")
+
+instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
+
+  type CFieldType Linked_list_A_t "linked_list_A_t_next" =
+    RIP.Ptr Linked_list_A_t
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct linked_list_B_t@
 
@@ -173,19 +173,6 @@ instance Marshal.WriteRaw Linked_list_B_t where
 
 deriving via Marshal.EquivStorable Linked_list_B_t instance RIP.Storable Linked_list_B_t
 
-instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
-
-  type CFieldType Linked_list_B_t "linked_list_B_t_x" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_x")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "linked_list_B_t_x" Linked_list_B_t ty where
 
@@ -198,18 +185,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"linked_list_B_t_x" x0
       )
 
-instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
-
-  type CFieldType Linked_list_B_t "linked_list_B_t_next" =
-    RIP.Ptr Linked_list_B_t
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.Ptr Linked_list_B_t
-         ) => RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_next")
+    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_x")
+
+instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
+
+  type CFieldType Linked_list_B_t "linked_list_B_t_x" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr Linked_list_B_t
          ) => RIP.CompatHasField.HasField "linked_list_B_t_next" Linked_list_B_t ty where
@@ -222,3 +209,16 @@ instance ( ty ~ RIP.Ptr Linked_list_B_t
                           }
       , RIP.getField @"linked_list_B_t_next" x0
       )
+
+instance ( ty ~ RIP.Ptr Linked_list_B_t
+         ) => RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_next")
+
+instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
+
+  type CFieldType Linked_list_B_t "linked_list_B_t_next" =
+    RIP.Ptr Linked_list_B_t
+
+  offset# = \_ -> \_ -> 8

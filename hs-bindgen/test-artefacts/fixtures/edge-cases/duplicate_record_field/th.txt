@@ -23,14 +23,14 @@ instance WriteRaw A
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        A dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
 deriving via (EquivStorable A) instance Storable A
-instance HasCField A "dup"
-    where type CFieldType A "dup" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dup" (Ptr A) (Ptr ty)
-    where getField = fromPtr (Proxy @"dup")
 instance (~) ty CInt => HasField "dup" A ty
     where hasField = \x_0 -> (\y_1 -> A{dup = y_1},
                               getField @"dup" x_0)
+instance (~) ty CInt => HasField "dup" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"dup")
+instance HasCField A "dup"
+    where type CFieldType A "dup" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/duplicate_record_field.h 5:8@
@@ -55,11 +55,11 @@ instance WriteRaw B
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        B dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
 deriving via (EquivStorable B) instance Storable B
-instance HasCField B "dup"
-    where type CFieldType B "dup" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "dup" (Ptr B) (Ptr ty)
-    where getField = fromPtr (Proxy @"dup")
 instance (~) ty CInt => HasField "dup" B ty
     where hasField = \x_0 -> (\y_1 -> B{dup = y_1},
                               getField @"dup" x_0)
+instance (~) ty CInt => HasField "dup" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"dup")
+instance HasCField B "dup"
+    where type CFieldType B "dup" = CInt
+          offset# = \_ -> \_ -> 0

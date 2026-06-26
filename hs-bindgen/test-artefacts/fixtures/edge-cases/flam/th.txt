@@ -23,15 +23,15 @@ instance WriteRaw Pascal_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Pascal pascal_len_2 -> writeRaw (Proxy @"pascal_len") ptr_0 pascal_len_2
 deriving via (EquivStorable Pascal_Aux) instance Storable Pascal_Aux
-instance HasCField Pascal_Aux "pascal_len"
-    where type CFieldType Pascal_Aux "pascal_len" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"pascal_len")
 instance (~) ty CInt => HasField "pascal_len" Pascal_Aux ty
     where hasField = \x_0 -> (\y_1 -> Pascal{pascal_len = y_1},
                               getField @"pascal_len" x_0)
+instance (~) ty CInt =>
+         HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"pascal_len")
+instance HasCField Pascal_Aux "pascal_len"
+    where type CFieldType Pascal_Aux "pascal_len" = CInt
+          offset# = \_ -> \_ -> 0
 instance Offset CChar Pascal_Aux
     where offset = \_proxy_0 -> 4
 type Pascal = WithFlam CChar Pascal_Aux
@@ -67,24 +67,24 @@ instance WriteRaw Foo_bar
                                        Foo_bar foo_bar_x_2
                                                foo_bar_y_3 -> writeRaw (Proxy @"foo_bar_x") ptr_0 foo_bar_x_2 >> writeRaw (Proxy @"foo_bar_y") ptr_0 foo_bar_y_3
 deriving via (EquivStorable Foo_bar) instance Storable Foo_bar
-instance HasCField Foo_bar "foo_bar_x"
-    where type CFieldType Foo_bar "foo_bar_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "foo_bar_x" (Ptr Foo_bar) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_bar_x")
 instance (~) ty CInt => HasField "foo_bar_x" Foo_bar ty
     where hasField = \x_0 -> (\y_1 -> Foo_bar{foo_bar_x = y_1,
                                               foo_bar_y = getField @"foo_bar_y" x_0},
                               getField @"foo_bar_x" x_0)
-instance HasCField Foo_bar "foo_bar_y"
-    where type CFieldType Foo_bar "foo_bar_y" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_bar_y")
+instance (~) ty CInt => HasField "foo_bar_x" (Ptr Foo_bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_bar_x")
+instance HasCField Foo_bar "foo_bar_x"
+    where type CFieldType Foo_bar "foo_bar_x" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "foo_bar_y" Foo_bar ty
     where hasField = \x_0 -> (\y_1 -> Foo_bar{foo_bar_y = y_1,
                                               foo_bar_x = getField @"foo_bar_x" x_0},
                               getField @"foo_bar_y" x_0)
+instance (~) ty CInt => HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_bar_y")
+instance HasCField Foo_bar "foo_bar_y"
+    where type CFieldType Foo_bar "foo_bar_y" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @edge-cases\/flam.h 8:8@
@@ -109,14 +109,14 @@ instance WriteRaw Foo_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Foo foo_len_2 -> writeRaw (Proxy @"foo_len") ptr_0 foo_len_2
 deriving via (EquivStorable Foo_Aux) instance Storable Foo_Aux
-instance HasCField Foo_Aux "foo_len"
-    where type CFieldType Foo_Aux "foo_len" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"foo_len")
 instance (~) ty CInt => HasField "foo_len" Foo_Aux ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_len = y_1},
                               getField @"foo_len" x_0)
+instance (~) ty CInt => HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_len")
+instance HasCField Foo_Aux "foo_len"
+    where type CFieldType Foo_Aux "foo_len" = CInt
+          offset# = \_ -> \_ -> 0
 instance Offset Foo_bar Foo_Aux
     where offset = \_proxy_0 -> 4
 type Foo = WithFlam Foo_bar Foo_Aux
@@ -152,26 +152,26 @@ instance WriteRaw Diff_Aux
                                        Diff diff_first_2
                                             diff_second_3 -> writeRaw (Proxy @"diff_first") ptr_0 diff_first_2 >> writeRaw (Proxy @"diff_second") ptr_0 diff_second_3
 deriving via (EquivStorable Diff_Aux) instance Storable Diff_Aux
-instance HasCField Diff_Aux "diff_first"
-    where type CFieldType Diff_Aux "diff_first" = CLong
-          offset# = \_ -> \_ -> 0
-instance (~) ty CLong =>
-         HasField "diff_first" (Ptr Diff_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"diff_first")
 instance (~) ty CLong => HasField "diff_first" Diff_Aux ty
     where hasField = \x_0 -> (\y_1 -> Diff{diff_first = y_1,
                                            diff_second = getField @"diff_second" x_0},
                               getField @"diff_first" x_0)
-instance HasCField Diff_Aux "diff_second"
-    where type CFieldType Diff_Aux "diff_second" = CChar
-          offset# = \_ -> \_ -> 8
-instance (~) ty CChar =>
-         HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"diff_second")
+instance (~) ty CLong =>
+         HasField "diff_first" (Ptr Diff_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"diff_first")
+instance HasCField Diff_Aux "diff_first"
+    where type CFieldType Diff_Aux "diff_first" = CLong
+          offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "diff_second" Diff_Aux ty
     where hasField = \x_0 -> (\y_1 -> Diff{diff_second = y_1,
                                            diff_first = getField @"diff_first" x_0},
                               getField @"diff_second" x_0)
+instance (~) ty CChar =>
+         HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"diff_second")
+instance HasCField Diff_Aux "diff_second"
+    where type CFieldType Diff_Aux "diff_second" = CChar
+          offset# = \_ -> \_ -> 8
 instance Offset CChar Diff_Aux
     where offset = \_proxy_0 -> 9
 type Diff = WithFlam CChar Diff_Aux
@@ -201,15 +201,15 @@ instance WriteRaw Triplets_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Triplets triplets_len_2 -> writeRaw (Proxy @"triplets_len") ptr_0 triplets_len_2
 deriving via (EquivStorable Triplets_Aux) instance Storable Triplets_Aux
-instance HasCField Triplets_Aux "triplets_len"
-    where type CFieldType Triplets_Aux "triplets_len" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"triplets_len")
 instance (~) ty CInt => HasField "triplets_len" Triplets_Aux ty
     where hasField = \x_0 -> (\y_1 -> Triplets{triplets_len = y_1},
                               getField @"triplets_len" x_0)
+instance (~) ty CInt =>
+         HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"triplets_len")
+instance HasCField Triplets_Aux "triplets_len"
+    where type CFieldType Triplets_Aux "triplets_len" = CInt
+          offset# = \_ -> \_ -> 0
 instance Offset (ConstantArray 3 CInt) Triplets_Aux
     where offset = \_proxy_0 -> 4
 type Triplets = WithFlam (ConstantArray 3 CInt) Triplets_Aux

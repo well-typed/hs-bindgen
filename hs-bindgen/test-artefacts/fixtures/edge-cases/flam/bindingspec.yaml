@@ -41,12 +41,13 @@ hstypes:
       - diff_first
       - diff_second
   instances:
-  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -61,12 +62,13 @@ hstypes:
       fields:
       - foo_len
   instances:
-  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -80,11 +82,12 @@ hstypes:
       - foo_bar_x
       - foo_bar_y
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -99,12 +102,13 @@ hstypes:
       fields:
       - pascal_len
   instances:
-  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -119,12 +123,13 @@ hstypes:
       fields:
       - triplets_len
   instances:
-  - CompatHasField
   - Eq
   - Flam_Offset
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

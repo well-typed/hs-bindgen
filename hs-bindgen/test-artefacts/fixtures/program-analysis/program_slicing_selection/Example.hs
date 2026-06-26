@@ -109,6 +109,16 @@ instance Read FileOperationStatus where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapFileOperationStatus" FileOperationStatus ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          FileOperationStatus {unwrapFileOperationStatus = y1}
+      , RIP.getField @"unwrapFileOperationStatus" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr ty) where
 
   getField =
@@ -120,16 +130,6 @@ instance HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" whe
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapFileOperationStatus" FileOperationStatus ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          FileOperationStatus {unwrapFileOperationStatus = y1}
-      , RIP.getField @"unwrapFileOperationStatus" x0
-      )
 
 {-| __C declaration:__ @SUCCESS@
 
@@ -237,19 +237,6 @@ instance Marshal.WriteRaw FileOperationRecord where
 
 deriving via Marshal.EquivStorable FileOperationRecord instance RIP.Storable FileOperationRecord
 
-instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
-
-  type CFieldType FileOperationRecord "fileOperationRecord_status" =
-    FileOperationStatus
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ FileOperationStatus
-         ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
-
 instance ( ty ~ FileOperationStatus
          ) => RIP.CompatHasField.HasField "fileOperationRecord_status" FileOperationRecord ty where
 
@@ -262,18 +249,18 @@ instance ( ty ~ FileOperationStatus
       , RIP.getField @"fileOperationRecord_status" x0
       )
 
-instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
-
-  type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
-    HsBindgen.Runtime.LibC.CSize
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+instance ( ty ~ FileOperationStatus
+         ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")
+    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
+
+instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
+
+  type CFieldType FileOperationRecord "fileOperationRecord_status" =
+    FileOperationStatus
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.CompatHasField.HasField "fileOperationRecord_bytes_processed" FileOperationRecord ty where
@@ -286,3 +273,16 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
                               }
       , RIP.getField @"fileOperationRecord_bytes_processed" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")
+
+instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
+
+  type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 8

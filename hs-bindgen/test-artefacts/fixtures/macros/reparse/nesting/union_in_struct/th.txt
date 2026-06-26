@@ -42,14 +42,14 @@ newtype MyInt
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
+    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
+                              getField @"unwrapMyInt" x_0)
 instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "unwrapMyInt" MyInt ty
-    where hasField = \x_0 -> (\y_1 -> MyInt{unwrapMyInt = y_1},
-                              getField @"unwrapMyInt" x_0)
 {-| __C declaration:__ @union \@T1_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:10@
@@ -97,11 +97,11 @@ set_t1_x_x :: MyInt -> T1_x
 
 -}
 set_t1_x_x = setUnionPayload
+instance (~) ty MyInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t1_x_x")
 instance HasCField T1_x "t1_x_x"
     where type CFieldType T1_x "t1_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
-    where getField = fromPtr (Proxy @"t1_x_x")
 {-| __C declaration:__ @struct \@T1@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:1@
@@ -126,14 +126,14 @@ instance WriteRaw T1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T1 t1_x_2 -> writeRaw (Proxy @"t1_x") ptr_0 t1_x_2
 deriving via (EquivStorable T1) instance Storable T1
-instance HasCField T1 "t1_x"
-    where type CFieldType T1 "t1_x" = T1_x
-          offset# = \_ -> \_ -> 0
-instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
-    where getField = fromPtr (Proxy @"t1_x")
 instance (~) ty T1_x => HasField "t1_x" T1 ty
     where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
                               getField @"t1_x" x_0)
+instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"t1_x")
+instance HasCField T1 "t1_x"
+    where type CFieldType T1 "t1_x" = T1_x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@T2@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:1@
@@ -158,14 +158,14 @@ instance WriteRaw T2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T2 t2_x_2 -> writeRaw (Proxy @"t2_x") ptr_0 t2_x_2
 deriving via (EquivStorable T2) instance Storable T2
-instance HasCField T2 "t2_x"
-    where type CFieldType T2 "t2_x" = Ptr T2_x
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
-    where getField = fromPtr (Proxy @"t2_x")
 instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
     where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
                               getField @"t2_x" x_0)
+instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_x")
+instance HasCField T2 "t2_x"
+    where type CFieldType T2 "t2_x" = Ptr T2_x
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@T2_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:10@
@@ -213,11 +213,11 @@ set_t2_x_x :: MyInt -> T2_x
 
 -}
 set_t2_x_x = setUnionPayload
+instance (~) ty MyInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_x_x")
 instance HasCField T2_x "t2_x_x"
     where type CFieldType T2_x "t2_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
-    where getField = fromPtr (Proxy @"t2_x_x")
 {-| __C declaration:__ @struct \@T3@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:1@
@@ -242,15 +242,15 @@ instance WriteRaw T3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T3 t3_x_2 -> writeRaw (Proxy @"t3_x") ptr_0 t3_x_2
 deriving via (EquivStorable T3) instance Storable T3
-instance HasCField T3 "t3_x"
-    where type CFieldType T3 "t3_x" = Ptr (Ptr T3_x)
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr T3_x)) =>
-         HasField "t3_x" (Ptr T3) (Ptr ty)
-    where getField = fromPtr (Proxy @"t3_x")
 instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
     where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
                               getField @"t3_x" x_0)
+instance (~) ty (Ptr (Ptr T3_x)) =>
+         HasField "t3_x" (Ptr T3) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_x")
+instance HasCField T3 "t3_x"
+    where type CFieldType T3 "t3_x" = Ptr (Ptr T3_x)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@T3_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:10@
@@ -298,11 +298,11 @@ set_t3_x_x :: MyInt -> T3_x
 
 -}
 set_t3_x_x = setUnionPayload
+instance (~) ty MyInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_x_x")
 instance HasCField T3_x "t3_x_x"
     where type CFieldType T3_x "t3_x_x" = MyInt
           offset# = \_ -> \_ -> 0
-instance (~) ty MyInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
-    where getField = fromPtr (Proxy @"t3_x_x")
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T1@
 foreign import ccall unsafe "hs_bindgen_44a1ef54c1044601" hs_bindgen_44a1ef54c1044601_base ::
     IO (Ptr Void)

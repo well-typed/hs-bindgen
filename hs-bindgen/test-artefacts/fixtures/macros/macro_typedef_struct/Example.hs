@@ -54,6 +54,14 @@ newtype MY_TYPE = MY_TYPE
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMY_TYPE" MY_TYPE ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MY_TYPE {unwrapMY_TYPE = y1}, RIP.getField @"unwrapMY_TYPE" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMY_TYPE" (RIP.Ptr MY_TYPE) (RIP.Ptr ty) where
 
   getField =
@@ -64,14 +72,6 @@ instance HasCField.HasCField MY_TYPE "unwrapMY_TYPE" where
   type CFieldType MY_TYPE "unwrapMY_TYPE" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMY_TYPE" MY_TYPE ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MY_TYPE {unwrapMY_TYPE = y1}, RIP.getField @"unwrapMY_TYPE" x0)
 
 {-| __C declaration:__ @struct bar@
 
@@ -123,17 +123,6 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance RIP.Storable Bar
 
-instance HasCField.HasCField Bar "bar_x" where
-
-  type CFieldType Bar "bar_x" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_x")
-
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "bar_x" Bar ty where
 
   hasField =
@@ -143,15 +132,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "bar_x" Bar ty where
       , RIP.getField @"bar_x" x0
       )
 
-instance HasCField.HasCField Bar "bar_y" where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (RIP.Ptr ty) where
 
-  type CFieldType Bar "bar_y" = MY_TYPE
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_x")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField Bar "bar_x" where
 
-instance (ty ~ MY_TYPE) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
+  type CFieldType Bar "bar_x" = RIP.CInt
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bar_y")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ MY_TYPE) => RIP.CompatHasField.HasField "bar_y" Bar ty where
 
@@ -161,3 +151,13 @@ instance (ty ~ MY_TYPE) => RIP.CompatHasField.HasField "bar_y" Bar ty where
           Bar {bar_y = y1, bar_x = RIP.getField @"bar_x" x0}
       , RIP.getField @"bar_y" x0
       )
+
+instance (ty ~ MY_TYPE) => RIP.HasField "bar_y" (RIP.Ptr Bar) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"bar_y")
+
+instance HasCField.HasCField Bar "bar_y" where
+
+  type CFieldType Bar "bar_y" = MY_TYPE
+
+  offset# = \_ -> \_ -> 4

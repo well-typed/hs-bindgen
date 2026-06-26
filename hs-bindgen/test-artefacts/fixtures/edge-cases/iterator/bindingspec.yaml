@@ -20,11 +20,12 @@ hstypes:
       fields:
       - unwrapCounter
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: Toggle
   representation:
     newtype:
@@ -32,11 +33,12 @@ hstypes:
       fields:
       - unwrapToggle
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: VarCounter
   representation:
     newtype:
@@ -44,8 +46,9 @@ hstypes:
       fields:
       - unwrapVarCounter
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasFFIType
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr

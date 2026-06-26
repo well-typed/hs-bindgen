@@ -46,14 +46,14 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
 deriving via (EquivStorable S) instance Storable S
-instance HasCField S "s_x"
-    where type CFieldType S "s_x" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_x")
 instance (~) ty CInt => HasField "s_x" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
                               getField @"s_x" x_0)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
@@ -64,14 +64,14 @@ newtype T
     = T {unwrapT :: S}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty S => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = S
           offset# = \_ -> \_ -> 0
-instance (~) ty S => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::
     Ptr Void

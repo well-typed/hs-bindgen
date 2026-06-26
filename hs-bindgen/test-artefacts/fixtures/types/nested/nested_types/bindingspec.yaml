@@ -30,11 +30,12 @@ hstypes:
       - bar_foo1
       - bar_foo2
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -48,11 +49,12 @@ hstypes:
       - ex3_ex3_struct
       - ex3_ex3_c
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -66,11 +68,12 @@ hstypes:
       - ex3_ex3_struct_ex3_a
       - ex3_ex3_struct_ex3_b
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -84,11 +87,12 @@ hstypes:
       - ex4_even_value
       - ex4_even_next
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -102,11 +106,12 @@ hstypes:
       - ex4_odd_value
       - ex4_odd_next
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -120,11 +125,12 @@ hstypes:
       - foo_i
       - foo_c
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

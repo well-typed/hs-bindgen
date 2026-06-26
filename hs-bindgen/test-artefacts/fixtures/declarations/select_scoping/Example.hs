@@ -51,6 +51,16 @@ newtype ParsedAndSelected1 = ParsedAndSelected1
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapParsedAndSelected1" ParsedAndSelected1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          ParsedAndSelected1 {unwrapParsedAndSelected1 = y1}
+      , RIP.getField @"unwrapParsedAndSelected1" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapParsedAndSelected1" (RIP.Ptr ParsedAndSelected1) (RIP.Ptr ty) where
 
   getField =
@@ -62,13 +72,3 @@ instance HasCField.HasCField ParsedAndSelected1 "unwrapParsedAndSelected1" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapParsedAndSelected1" ParsedAndSelected1 ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          ParsedAndSelected1 {unwrapParsedAndSelected1 = y1}
-      , RIP.getField @"unwrapParsedAndSelected1" x0
-      )

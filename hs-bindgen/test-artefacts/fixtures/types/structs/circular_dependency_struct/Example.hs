@@ -64,21 +64,21 @@ instance Marshal.WriteRaw B where
 
 deriving via Marshal.EquivStorable B instance RIP.Storable B
 
-instance HasCField.HasCField B "b_toA" where
-
-  type CFieldType B "b_toA" = RIP.Ptr A
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.Ptr A) => RIP.HasField "b_toA" (RIP.Ptr B) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"b_toA")
-
 instance (ty ~ RIP.Ptr A) => RIP.CompatHasField.HasField "b_toA" B ty where
 
   hasField =
     \x0 ->
       (\y1 -> B {b_toA = y1}, RIP.getField @"b_toA" x0)
+
+instance (ty ~ RIP.Ptr A) => RIP.HasField "b_toA" (RIP.Ptr B) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"b_toA")
+
+instance HasCField.HasCField B "b_toA" where
+
+  type CFieldType B "b_toA" = RIP.Ptr A
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct a@
 
@@ -121,18 +121,18 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance RIP.Storable A
 
-instance HasCField.HasCField A "a_toB" where
-
-  type CFieldType A "a_toB" = B
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ B) => RIP.HasField "a_toB" (RIP.Ptr A) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"a_toB")
-
 instance (ty ~ B) => RIP.CompatHasField.HasField "a_toB" A ty where
 
   hasField =
     \x0 ->
       (\y1 -> A {a_toB = y1}, RIP.getField @"a_toB" x0)
+
+instance (ty ~ B) => RIP.HasField "a_toB" (RIP.Ptr A) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"a_toB")
+
+instance HasCField.HasCField A "a_toB" where
+
+  type CFieldType A "a_toB" = B
+
+  offset# = \_ -> \_ -> 0

@@ -61,6 +61,14 @@ newtype Int16_T = Int16_T
     )
 
 instance ( ty ~ RIP.CShort
+         ) => RIP.CompatHasField.HasField "unwrapInt16_T" Int16_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int16_T {unwrapInt16_T = y1}, RIP.getField @"unwrapInt16_T" x0)
+
+instance ( ty ~ RIP.CShort
          ) => RIP.HasField "unwrapInt16_T" (RIP.Ptr Int16_T) (RIP.Ptr ty) where
 
   getField =
@@ -71,14 +79,6 @@ instance HasCField.HasCField Int16_T "unwrapInt16_T" where
   type CFieldType Int16_T "unwrapInt16_T" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "unwrapInt16_T" Int16_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Int16_T {unwrapInt16_T = y1}, RIP.getField @"unwrapInt16_T" x0)
 
 {-| __C declaration:__ @int32_T@
 
@@ -109,6 +109,14 @@ newtype Int32_T = Int32_T
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapInt32_T" Int32_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int32_T {unwrapInt32_T = y1}, RIP.getField @"unwrapInt32_T" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapInt32_T" (RIP.Ptr Int32_T) (RIP.Ptr ty) where
 
   getField =
@@ -119,14 +127,6 @@ instance HasCField.HasCField Int32_T "unwrapInt32_T" where
   type CFieldType Int32_T "unwrapInt32_T" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapInt32_T" Int32_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Int32_T {unwrapInt32_T = y1}, RIP.getField @"unwrapInt32_T" x0)
 
 {-| __C declaration:__ @int64_T@
 
@@ -157,6 +157,14 @@ newtype Int64_T = Int64_T
     )
 
 instance ( ty ~ RIP.CLLong
+         ) => RIP.CompatHasField.HasField "unwrapInt64_T" Int64_T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Int64_T {unwrapInt64_T = y1}, RIP.getField @"unwrapInt64_T" x0)
+
+instance ( ty ~ RIP.CLLong
          ) => RIP.HasField "unwrapInt64_T" (RIP.Ptr Int64_T) (RIP.Ptr ty) where
 
   getField =
@@ -167,14 +175,6 @@ instance HasCField.HasCField Int64_T "unwrapInt64_T" where
   type CFieldType Int64_T "unwrapInt64_T" = RIP.CLLong
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CLLong
-         ) => RIP.CompatHasField.HasField "unwrapInt64_T" Int64_T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Int64_T {unwrapInt64_T = y1}, RIP.getField @"unwrapInt64_T" x0)
 
 {-| __C declaration:__ @struct cint16_T@
 
@@ -226,18 +226,6 @@ instance Marshal.WriteRaw Cint16_T where
 
 deriving via Marshal.EquivStorable Cint16_T instance RIP.Storable Cint16_T
 
-instance HasCField.HasCField Cint16_T "cint16_T_re" where
-
-  type CFieldType Cint16_T "cint16_T_re" = Int16_T
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Int16_T
-         ) => RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"cint16_T_re")
-
 instance ( ty ~ Int16_T
          ) => RIP.CompatHasField.HasField "cint16_T_re" Cint16_T ty where
 
@@ -248,17 +236,17 @@ instance ( ty ~ Int16_T
       , RIP.getField @"cint16_T_re" x0
       )
 
-instance HasCField.HasCField Cint16_T "cint16_T_im" where
-
-  type CFieldType Cint16_T "cint16_T_im" = Int16_T
-
-  offset# = \_ -> \_ -> 2
-
 instance ( ty ~ Int16_T
-         ) => RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
+         ) => RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"cint16_T_im")
+    HasCField.fromPtr (RIP.Proxy @"cint16_T_re")
+
+instance HasCField.HasCField Cint16_T "cint16_T_re" where
+
+  type CFieldType Cint16_T "cint16_T_re" = Int16_T
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Int16_T
          ) => RIP.CompatHasField.HasField "cint16_T_im" Cint16_T ty where
@@ -269,6 +257,18 @@ instance ( ty ~ Int16_T
           Cint16_T {cint16_T_im = y1, cint16_T_re = RIP.getField @"cint16_T_re" x0}
       , RIP.getField @"cint16_T_im" x0
       )
+
+instance ( ty ~ Int16_T
+         ) => RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"cint16_T_im")
+
+instance HasCField.HasCField Cint16_T "cint16_T_im" where
+
+  type CFieldType Cint16_T "cint16_T_im" = Int16_T
+
+  offset# = \_ -> \_ -> 2
 
 {-| __C declaration:__ @struct B@
 
@@ -377,16 +377,6 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance RIP.Storable A
 
-instance HasCField.HasCField A "a_x" where
-
-  type CFieldType A "a_x" = RIP.CDouble
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CDouble) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"a_x")
-
 instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "a_x" A ty where
 
   hasField =
@@ -401,16 +391,15 @@ instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "a_x" A ty where
       , RIP.getField @"a_x" x0
       )
 
-instance HasCField.HasCField A "a_label" where
+instance (ty ~ RIP.CDouble) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  type CFieldType A "a_label" = RIP.Ptr RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"a_x")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField A "a_x" where
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
+  type CFieldType A "a_x" = RIP.CDouble
 
-  getField = HasCField.fromPtr (RIP.Proxy @"a_label")
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.Ptr RIP.CChar
          ) => RIP.CompatHasField.HasField "a_label" A ty where
@@ -427,17 +416,16 @@ instance ( ty ~ RIP.Ptr RIP.CChar
       , RIP.getField @"a_label" x0
       )
 
-instance HasCField.HasCField A "a_samples" where
+instance ( ty ~ RIP.Ptr RIP.CChar
+         ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  type CFieldType A "a_samples" =
-    CA.ConstantArray 128 RIP.CChar
+  getField = HasCField.fromPtr (RIP.Proxy @"a_label")
 
-  offset# = \_ -> \_ -> 16
+instance HasCField.HasCField A "a_label" where
 
-instance ( ty ~ CA.ConstantArray 128 RIP.CChar
-         ) => RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr ty) where
+  type CFieldType A "a_label" = RIP.Ptr RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ CA.ConstantArray 128 RIP.CChar
          ) => RIP.CompatHasField.HasField "a_samples" A ty where
@@ -454,15 +442,17 @@ instance ( ty ~ CA.ConstantArray 128 RIP.CChar
       , RIP.getField @"a_samples" x0
       )
 
-instance HasCField.HasCField A "a_b" where
+instance ( ty ~ CA.ConstantArray 128 RIP.CChar
+         ) => RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  type CFieldType A "a_b" = B
+  getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
 
-  offset# = \_ -> \_ -> 144
+instance HasCField.HasCField A "a_samples" where
 
-instance (ty ~ B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
+  type CFieldType A "a_samples" =
+    CA.ConstantArray 128 RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"a_b")
+  offset# = \_ -> \_ -> 16
 
 instance (ty ~ B) => RIP.CompatHasField.HasField "a_b" A ty where
 
@@ -478,15 +468,15 @@ instance (ty ~ B) => RIP.CompatHasField.HasField "a_b" A ty where
       , RIP.getField @"a_b" x0
       )
 
-instance HasCField.HasCField A "a_c" where
+instance (ty ~ B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  type CFieldType A "a_c" = RIP.Ptr C
+  getField = HasCField.fromPtr (RIP.Proxy @"a_b")
+
+instance HasCField.HasCField A "a_b" where
+
+  type CFieldType A "a_b" = B
 
   offset# = \_ -> \_ -> 144
-
-instance (ty ~ RIP.Ptr C) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"a_c")
 
 instance (ty ~ RIP.Ptr C) => RIP.CompatHasField.HasField "a_c" A ty where
 
@@ -501,6 +491,16 @@ instance (ty ~ RIP.Ptr C) => RIP.CompatHasField.HasField "a_c" A ty where
             }
       , RIP.getField @"a_c" x0
       )
+
+instance (ty ~ RIP.Ptr C) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"a_c")
+
+instance HasCField.HasCField A "a_c" where
+
+  type CFieldType A "a_c" = RIP.Ptr C
+
+  offset# = \_ -> \_ -> 144
 
 {-| __C declaration:__ @struct C@
 

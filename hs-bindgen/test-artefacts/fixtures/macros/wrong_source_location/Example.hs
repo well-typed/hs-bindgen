@@ -72,19 +72,6 @@ instance Marshal.WriteRaw UU1_fieldY where
 
 deriving via Marshal.EquivStorable UU1_fieldY instance RIP.Storable UU1_fieldY
 
-instance HasCField.HasCField UU1_fieldY "uU1_fieldY_fieldX" where
-
-  type CFieldType UU1_fieldY "uU1_fieldY_fieldX" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU1_fieldY_fieldX" (RIP.Ptr UU1_fieldY) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY_fieldX")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "uU1_fieldY_fieldX" UU1_fieldY ty where
 
@@ -93,6 +80,19 @@ instance ( ty ~ RIP.CInt
       ( \y1 -> UU1_fieldY {uU1_fieldY_fieldX = y1}
       , RIP.getField @"uU1_fieldY_fieldX" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "uU1_fieldY_fieldX" (RIP.Ptr UU1_fieldY) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY_fieldX")
+
+instance HasCField.HasCField UU1_fieldY "uU1_fieldY_fieldX" where
+
+  type CFieldType UU1_fieldY "uU1_fieldY_fieldX" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct UU1@
 
@@ -135,18 +135,6 @@ instance Marshal.WriteRaw UU1 where
 
 deriving via Marshal.EquivStorable UU1 instance RIP.Storable UU1
 
-instance HasCField.HasCField UU1 "uU1_fieldY" where
-
-  type CFieldType UU1 "uU1_fieldY" = UU1_fieldY
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ UU1_fieldY
-         ) => RIP.HasField "uU1_fieldY" (RIP.Ptr UU1) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY")
-
 instance ( ty ~ UU1_fieldY
          ) => RIP.CompatHasField.HasField "uU1_fieldY" UU1 ty where
 
@@ -154,6 +142,18 @@ instance ( ty ~ UU1_fieldY
     \x0 ->
       (\y1 ->
          UU1 {uU1_fieldY = y1}, RIP.getField @"uU1_fieldY" x0)
+
+instance ( ty ~ UU1_fieldY
+         ) => RIP.HasField "uU1_fieldY" (RIP.Ptr UU1) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY")
+
+instance HasCField.HasCField UU1 "uU1_fieldY" where
+
+  type CFieldType UU1 "uU1_fieldY" = UU1_fieldY
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@UU2_fieldY@
 
@@ -196,19 +196,6 @@ instance Marshal.WriteRaw UU2_fieldY where
 
 deriving via Marshal.EquivStorable UU2_fieldY instance RIP.Storable UU2_fieldY
 
-instance HasCField.HasCField UU2_fieldY "uU2_fieldY_fieldX" where
-
-  type CFieldType UU2_fieldY "uU2_fieldY_fieldX" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU2_fieldY_fieldX" (RIP.Ptr UU2_fieldY) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY_fieldX")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "uU2_fieldY_fieldX" UU2_fieldY ty where
 
@@ -217,6 +204,19 @@ instance ( ty ~ RIP.CInt
       ( \y1 -> UU2_fieldY {uU2_fieldY_fieldX = y1}
       , RIP.getField @"uU2_fieldY_fieldX" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "uU2_fieldY_fieldX" (RIP.Ptr UU2_fieldY) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY_fieldX")
+
+instance HasCField.HasCField UU2_fieldY "uU2_fieldY_fieldX" where
+
+  type CFieldType UU2_fieldY "uU2_fieldY_fieldX" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct UU2@
 
@@ -259,18 +259,6 @@ instance Marshal.WriteRaw UU2 where
 
 deriving via Marshal.EquivStorable UU2 instance RIP.Storable UU2
 
-instance HasCField.HasCField UU2 "uU2_fieldY" where
-
-  type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ UU2_fieldY
-         ) => RIP.HasField "uU2_fieldY" (RIP.Ptr UU2) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY")
-
 instance ( ty ~ UU2_fieldY
          ) => RIP.CompatHasField.HasField "uU2_fieldY" UU2 ty where
 
@@ -278,6 +266,18 @@ instance ( ty ~ UU2_fieldY
     \x0 ->
       (\y1 ->
          UU2 {uU2_fieldY = y1}, RIP.getField @"uU2_fieldY" x0)
+
+instance ( ty ~ UU2_fieldY
+         ) => RIP.HasField "uU2_fieldY" (RIP.Ptr UU2) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY")
+
+instance HasCField.HasCField UU2 "uU2_fieldY" where
+
+  type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
@@ -320,18 +320,6 @@ instance Marshal.WriteRaw VV1_fieldA where
 
 deriving via Marshal.EquivStorable VV1_fieldA instance RIP.Storable VV1_fieldA
 
-instance HasCField.HasCField VV1_fieldA "vV1_fieldA_a" where
-
-  type CFieldType VV1_fieldA "vV1_fieldA_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldA_a" (RIP.Ptr VV1_fieldA) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "vV1_fieldA_a" VV1_fieldA ty where
 
@@ -339,6 +327,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          VV1_fieldA {vV1_fieldA_a = y1}, RIP.getField @"vV1_fieldA_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "vV1_fieldA_a" (RIP.Ptr VV1_fieldA) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA_a")
+
+instance HasCField.HasCField VV1_fieldA "vV1_fieldA_a" where
+
+  type CFieldType VV1_fieldA "vV1_fieldA_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@VV1_fieldB@
 
@@ -381,18 +381,6 @@ instance Marshal.WriteRaw VV1_fieldB where
 
 deriving via Marshal.EquivStorable VV1_fieldB instance RIP.Storable VV1_fieldB
 
-instance HasCField.HasCField VV1_fieldB "vV1_fieldB_b" where
-
-  type CFieldType VV1_fieldB "vV1_fieldB_b" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldB_b" (RIP.Ptr VV1_fieldB) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB_b")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "vV1_fieldB_b" VV1_fieldB ty where
 
@@ -400,6 +388,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          VV1_fieldB {vV1_fieldB_b = y1}, RIP.getField @"vV1_fieldB_b" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "vV1_fieldB_b" (RIP.Ptr VV1_fieldB) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB_b")
+
+instance HasCField.HasCField VV1_fieldB "vV1_fieldB_b" where
+
+  type CFieldType VV1_fieldB "vV1_fieldB_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct VV1@
 
@@ -451,18 +451,6 @@ instance Marshal.WriteRaw VV1 where
 
 deriving via Marshal.EquivStorable VV1 instance RIP.Storable VV1
 
-instance HasCField.HasCField VV1 "vV1_fieldA" where
-
-  type CFieldType VV1 "vV1_fieldA" = VV1_fieldA
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ VV1_fieldA
-         ) => RIP.HasField "vV1_fieldA" (RIP.Ptr VV1) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA")
-
 instance ( ty ~ VV1_fieldA
          ) => RIP.CompatHasField.HasField "vV1_fieldA" VV1 ty where
 
@@ -473,17 +461,17 @@ instance ( ty ~ VV1_fieldA
       , RIP.getField @"vV1_fieldA" x0
       )
 
-instance HasCField.HasCField VV1 "vV1_fieldB" where
-
-  type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ VV1_fieldB
-         ) => RIP.HasField "vV1_fieldB" (RIP.Ptr VV1) (RIP.Ptr ty) where
+instance ( ty ~ VV1_fieldA
+         ) => RIP.HasField "vV1_fieldA" (RIP.Ptr VV1) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB")
+    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA")
+
+instance HasCField.HasCField VV1 "vV1_fieldA" where
+
+  type CFieldType VV1 "vV1_fieldA" = VV1_fieldA
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ VV1_fieldB
          ) => RIP.CompatHasField.HasField "vV1_fieldB" VV1 ty where
@@ -494,6 +482,18 @@ instance ( ty ~ VV1_fieldB
           VV1 {vV1_fieldB = y1, vV1_fieldA = RIP.getField @"vV1_fieldA" x0}
       , RIP.getField @"vV1_fieldB" x0
       )
+
+instance ( ty ~ VV1_fieldB
+         ) => RIP.HasField "vV1_fieldB" (RIP.Ptr VV1) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB")
+
+instance HasCField.HasCField VV1 "vV1_fieldB" where
+
+  type CFieldType VV1 "vV1_fieldB" = VV1_fieldB
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct \@VV2_fieldA@
 
@@ -536,18 +536,6 @@ instance Marshal.WriteRaw VV2_fieldA where
 
 deriving via Marshal.EquivStorable VV2_fieldA instance RIP.Storable VV2_fieldA
 
-instance HasCField.HasCField VV2_fieldA "vV2_fieldA_a" where
-
-  type CFieldType VV2_fieldA "vV2_fieldA_a" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldA_a" (RIP.Ptr VV2_fieldA) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "vV2_fieldA_a" VV2_fieldA ty where
 
@@ -555,6 +543,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          VV2_fieldA {vV2_fieldA_a = y1}, RIP.getField @"vV2_fieldA_a" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "vV2_fieldA_a" (RIP.Ptr VV2_fieldA) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA_a")
+
+instance HasCField.HasCField VV2_fieldA "vV2_fieldA_a" where
+
+  type CFieldType VV2_fieldA "vV2_fieldA_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@VV2_fieldB@
 
@@ -597,18 +597,6 @@ instance Marshal.WriteRaw VV2_fieldB where
 
 deriving via Marshal.EquivStorable VV2_fieldB instance RIP.Storable VV2_fieldB
 
-instance HasCField.HasCField VV2_fieldB "vV2_fieldB_b" where
-
-  type CFieldType VV2_fieldB "vV2_fieldB_b" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldB_b" (RIP.Ptr VV2_fieldB) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB_b")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "vV2_fieldB_b" VV2_fieldB ty where
 
@@ -616,6 +604,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          VV2_fieldB {vV2_fieldB_b = y1}, RIP.getField @"vV2_fieldB_b" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "vV2_fieldB_b" (RIP.Ptr VV2_fieldB) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB_b")
+
+instance HasCField.HasCField VV2_fieldB "vV2_fieldB_b" where
+
+  type CFieldType VV2_fieldB "vV2_fieldB_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct VV2@
 
@@ -667,18 +667,6 @@ instance Marshal.WriteRaw VV2 where
 
 deriving via Marshal.EquivStorable VV2 instance RIP.Storable VV2
 
-instance HasCField.HasCField VV2 "vV2_fieldA" where
-
-  type CFieldType VV2 "vV2_fieldA" = VV2_fieldA
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ VV2_fieldA
-         ) => RIP.HasField "vV2_fieldA" (RIP.Ptr VV2) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA")
-
 instance ( ty ~ VV2_fieldA
          ) => RIP.CompatHasField.HasField "vV2_fieldA" VV2 ty where
 
@@ -689,17 +677,17 @@ instance ( ty ~ VV2_fieldA
       , RIP.getField @"vV2_fieldA" x0
       )
 
-instance HasCField.HasCField VV2 "vV2_fieldB" where
-
-  type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ VV2_fieldB
-         ) => RIP.HasField "vV2_fieldB" (RIP.Ptr VV2) (RIP.Ptr ty) where
+instance ( ty ~ VV2_fieldA
+         ) => RIP.HasField "vV2_fieldA" (RIP.Ptr VV2) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB")
+    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA")
+
+instance HasCField.HasCField VV2 "vV2_fieldA" where
+
+  type CFieldType VV2 "vV2_fieldA" = VV2_fieldA
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ VV2_fieldB
          ) => RIP.CompatHasField.HasField "vV2_fieldB" VV2 ty where
@@ -710,3 +698,15 @@ instance ( ty ~ VV2_fieldB
           VV2 {vV2_fieldB = y1, vV2_fieldA = RIP.getField @"vV2_fieldA" x0}
       , RIP.getField @"vV2_fieldB" x0
       )
+
+instance ( ty ~ VV2_fieldB
+         ) => RIP.HasField "vV2_fieldB" (RIP.Ptr VV2) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB")
+
+instance HasCField.HasCField VV2 "vV2_fieldB" where
+
+  type CFieldType VV2 "vV2_fieldB" = VV2_fieldB
+
+  offset# = \_ -> \_ -> 4

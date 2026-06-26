@@ -23,11 +23,12 @@ hstypes:
       fields:
       - unwrapA
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: B
@@ -37,11 +38,12 @@ hstypes:
       fields:
       - unwrapB
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show
 - hsname: E
@@ -51,10 +53,11 @@ hstypes:
       fields:
       - unwrapE
   instances:
-  - CompatHasField
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
 - hsname: MyArray
   representation:
     newtype:
@@ -62,10 +65,11 @@ hstypes:
       fields:
       - unwrapMyArray
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - IsArray
   - Show

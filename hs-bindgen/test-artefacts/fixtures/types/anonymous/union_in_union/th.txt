@@ -83,24 +83,24 @@ set_outer1_anon'fieldX_fieldY :: CInt -> Outer1_anon'fieldX
 
 -}
 set_outer1_anon'fieldX_fieldY = setUnionPayload
-instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX"
-    where type CFieldType Outer1_anon'fieldX
-                          "outer1_anon'fieldX_fieldX" = CInt
-          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldX"
                   (Ptr Outer1_anon'fieldX)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldX")
-instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldY"
+instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX"
     where type CFieldType Outer1_anon'fieldX
-                          "outer1_anon'fieldX_fieldY" = CInt
+                          "outer1_anon'fieldX_fieldX" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldY"
                   (Ptr Outer1_anon'fieldX)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX_fieldY")
+instance HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldY"
+    where type CFieldType Outer1_anon'fieldX
+                          "outer1_anon'fieldX_fieldY" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union outer1@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 6:7@
@@ -216,25 +216,25 @@ set_outer1_fieldC :: CInt -> Outer1
 
 -}
 set_outer1_fieldC = setUnionPayload
-instance HasCField Outer1 "outer1_fieldA"
-    where type CFieldType Outer1 "outer1_fieldA" = CChar
-          offset# = \_ -> \_ -> 0
 instance (~) ty CChar =>
          HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldA")
-instance HasCField Outer1 "outer1_anon'fieldX"
-    where type CFieldType Outer1
-                          "outer1_anon'fieldX" = Outer1_anon'fieldX
+instance HasCField Outer1 "outer1_fieldA"
+    where type CFieldType Outer1 "outer1_fieldA" = CChar
           offset# = \_ -> \_ -> 0
 instance (~) ty Outer1_anon'fieldX =>
          HasField "outer1_anon'fieldX" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX")
-instance HasCField Outer1 "outer1_fieldC"
-    where type CFieldType Outer1 "outer1_fieldC" = CInt
+instance HasCField Outer1 "outer1_anon'fieldX"
+    where type CFieldType Outer1
+                          "outer1_anon'fieldX" = Outer1_anon'fieldX
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "outer1_fieldC" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldC")
+instance HasCField Outer1 "outer1_fieldC"
+    where type CFieldType Outer1 "outer1_fieldC" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@outer2_fieldB@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 17:3@
@@ -316,18 +316,18 @@ set_outer2_fieldB_fieldY :: CInt -> Outer2_fieldB
 
 -}
 set_outer2_fieldB_fieldY = setUnionPayload
+instance (~) ty CInt =>
+         HasField "outer2_fieldB_fieldX" (Ptr Outer2_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldB_fieldX")
 instance HasCField Outer2_fieldB "outer2_fieldB_fieldX"
     where type CFieldType Outer2_fieldB "outer2_fieldB_fieldX" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
-         HasField "outer2_fieldB_fieldX" (Ptr Outer2_fieldB) (Ptr ty)
-    where getField = fromPtr (Proxy @"outer2_fieldB_fieldX")
+         HasField "outer2_fieldB_fieldY" (Ptr Outer2_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldB_fieldY")
 instance HasCField Outer2_fieldB "outer2_fieldB_fieldY"
     where type CFieldType Outer2_fieldB "outer2_fieldB_fieldY" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "outer2_fieldB_fieldY" (Ptr Outer2_fieldB) (Ptr ty)
-    where getField = fromPtr (Proxy @"outer2_fieldB_fieldY")
 {-| __C declaration:__ @union outer2@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 15:7@
@@ -443,24 +443,24 @@ set_outer2_fieldC :: CInt -> Outer2
 
 -}
 set_outer2_fieldC = setUnionPayload
-instance HasCField Outer2 "outer2_fieldA"
-    where type CFieldType Outer2 "outer2_fieldA" = CChar
-          offset# = \_ -> \_ -> 0
 instance (~) ty CChar =>
          HasField "outer2_fieldA" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldA")
-instance HasCField Outer2 "outer2_fieldB"
-    where type CFieldType Outer2 "outer2_fieldB" = Outer2_fieldB
+instance HasCField Outer2 "outer2_fieldA"
+    where type CFieldType Outer2 "outer2_fieldA" = CChar
           offset# = \_ -> \_ -> 0
 instance (~) ty Outer2_fieldB =>
          HasField "outer2_fieldB" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldB")
-instance HasCField Outer2 "outer2_fieldC"
-    where type CFieldType Outer2 "outer2_fieldC" = CInt
+instance HasCField Outer2 "outer2_fieldB"
+    where type CFieldType Outer2 "outer2_fieldB" = Outer2_fieldB
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "outer2_fieldC" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldC")
+instance HasCField Outer2 "outer2_fieldC"
+    where type CFieldType Outer2 "outer2_fieldC" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union inner3@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 26:9@
@@ -542,18 +542,18 @@ set_inner3_fieldY :: CInt -> Inner3
 
 -}
 set_inner3_fieldY = setUnionPayload
+instance (~) ty CInt =>
+         HasField "inner3_fieldX" (Ptr Inner3) (Ptr ty)
+    where getField = fromPtr (Proxy @"inner3_fieldX")
 instance HasCField Inner3 "inner3_fieldX"
     where type CFieldType Inner3 "inner3_fieldX" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
-         HasField "inner3_fieldX" (Ptr Inner3) (Ptr ty)
-    where getField = fromPtr (Proxy @"inner3_fieldX")
+         HasField "inner3_fieldY" (Ptr Inner3) (Ptr ty)
+    where getField = fromPtr (Proxy @"inner3_fieldY")
 instance HasCField Inner3 "inner3_fieldY"
     where type CFieldType Inner3 "inner3_fieldY" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CInt =>
-         HasField "inner3_fieldY" (Ptr Inner3) (Ptr ty)
-    where getField = fromPtr (Proxy @"inner3_fieldY")
 {-| __C declaration:__ @union outer3@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 24:7@
@@ -669,21 +669,21 @@ set_outer3_fieldC :: CInt -> Outer3
 
 -}
 set_outer3_fieldC = setUnionPayload
-instance HasCField Outer3 "outer3_fieldA"
-    where type CFieldType Outer3 "outer3_fieldA" = CChar
-          offset# = \_ -> \_ -> 0
 instance (~) ty CChar =>
          HasField "outer3_fieldA" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldA")
-instance HasCField Outer3 "outer3_fieldB"
-    where type CFieldType Outer3 "outer3_fieldB" = Inner3
+instance HasCField Outer3 "outer3_fieldA"
+    where type CFieldType Outer3 "outer3_fieldA" = CChar
           offset# = \_ -> \_ -> 0
 instance (~) ty Inner3 =>
          HasField "outer3_fieldB" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldB")
-instance HasCField Outer3 "outer3_fieldC"
-    where type CFieldType Outer3 "outer3_fieldC" = CInt
+instance HasCField Outer3 "outer3_fieldB"
+    where type CFieldType Outer3 "outer3_fieldB" = Inner3
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "outer3_fieldC" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldC")
+instance HasCField Outer3 "outer3_fieldC"
+    where type CFieldType Outer3 "outer3_fieldC" = CInt
+          offset# = \_ -> \_ -> 0

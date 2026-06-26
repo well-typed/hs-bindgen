@@ -41,15 +41,15 @@ newtype Stdlib_CBool
                       Storable,
                       WriteRaw)
 instance (~) ty CBool =>
+         HasField "unwrapStdlib_CBool" Stdlib_CBool ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CBool{unwrapStdlib_CBool = y_1},
+                              getField @"unwrapStdlib_CBool" x_0)
+instance (~) ty CBool =>
          HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
     where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
           offset# = \_ -> \_ -> 0
-instance (~) ty CBool =>
-         HasField "unwrapStdlib_CBool" Stdlib_CBool ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CBool{unwrapStdlib_CBool = y_1},
-                              getField @"unwrapStdlib_CBool" x_0)
 {-| __C declaration:__ @stdlib_Int8@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
@@ -75,16 +75,16 @@ newtype Stdlib_Int8
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
+         HasField "unwrapStdlib_Int8" Stdlib_Int8 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Int8{unwrapStdlib_Int8 = y_1},
+                              getField @"unwrapStdlib_Int8" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapStdlib_Int8" (Ptr Stdlib_Int8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int8")
 instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
     where type CFieldType Stdlib_Int8
                           "unwrapStdlib_Int8" = HsBindgen.Runtime.LibC.Int8
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
-         HasField "unwrapStdlib_Int8" Stdlib_Int8 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Int8{unwrapStdlib_Int8 = y_1},
-                              getField @"unwrapStdlib_Int8" x_0)
 {-| __C declaration:__ @stdlib_Int16@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
@@ -110,16 +110,16 @@ newtype Stdlib_Int16
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
+         HasField "unwrapStdlib_Int16" Stdlib_Int16 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Int16{unwrapStdlib_Int16 = y_1},
+                              getField @"unwrapStdlib_Int16" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
          HasField "unwrapStdlib_Int16" (Ptr Stdlib_Int16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int16")
 instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
     where type CFieldType Stdlib_Int16
                           "unwrapStdlib_Int16" = HsBindgen.Runtime.LibC.Int16
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
-         HasField "unwrapStdlib_Int16" Stdlib_Int16 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Int16{unwrapStdlib_Int16 = y_1},
-                              getField @"unwrapStdlib_Int16" x_0)
 {-| __C declaration:__ @stdlib_Int32@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
@@ -145,16 +145,16 @@ newtype Stdlib_Int32
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapStdlib_Int32" Stdlib_Int32 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Int32{unwrapStdlib_Int32 = y_1},
+                              getField @"unwrapStdlib_Int32" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapStdlib_Int32" (Ptr Stdlib_Int32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int32")
 instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
     where type CFieldType Stdlib_Int32
                           "unwrapStdlib_Int32" = HsBindgen.Runtime.LibC.Int32
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
-         HasField "unwrapStdlib_Int32" Stdlib_Int32 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Int32{unwrapStdlib_Int32 = y_1},
-                              getField @"unwrapStdlib_Int32" x_0)
 {-| __C declaration:__ @stdlib_Int64@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
@@ -180,16 +180,16 @@ newtype Stdlib_Int64
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
+         HasField "unwrapStdlib_Int64" Stdlib_Int64 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Int64{unwrapStdlib_Int64 = y_1},
+                              getField @"unwrapStdlib_Int64" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapStdlib_Int64" (Ptr Stdlib_Int64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int64")
 instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
     where type CFieldType Stdlib_Int64
                           "unwrapStdlib_Int64" = HsBindgen.Runtime.LibC.Int64
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
-         HasField "unwrapStdlib_Int64" Stdlib_Int64 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Int64{unwrapStdlib_Int64 = y_1},
-                              getField @"unwrapStdlib_Int64" x_0)
 {-| __C declaration:__ @stdlib_Word8@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
@@ -215,16 +215,16 @@ newtype Stdlib_Word8
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapStdlib_Word8" Stdlib_Word8 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Word8{unwrapStdlib_Word8 = y_1},
+                              getField @"unwrapStdlib_Word8" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapStdlib_Word8" (Ptr Stdlib_Word8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word8")
 instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
     where type CFieldType Stdlib_Word8
                           "unwrapStdlib_Word8" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
-         HasField "unwrapStdlib_Word8" Stdlib_Word8 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Word8{unwrapStdlib_Word8 = y_1},
-                              getField @"unwrapStdlib_Word8" x_0)
 {-| __C declaration:__ @stdlib_Word16@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
@@ -250,16 +250,16 @@ newtype Stdlib_Word16
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "unwrapStdlib_Word16" Stdlib_Word16 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Word16{unwrapStdlib_Word16 = y_1},
+                              getField @"unwrapStdlib_Word16" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "unwrapStdlib_Word16" (Ptr Stdlib_Word16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word16")
 instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
     where type CFieldType Stdlib_Word16
                           "unwrapStdlib_Word16" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
-         HasField "unwrapStdlib_Word16" Stdlib_Word16 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Word16{unwrapStdlib_Word16 = y_1},
-                              getField @"unwrapStdlib_Word16" x_0)
 {-| __C declaration:__ @stdlib_Word32@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
@@ -285,16 +285,16 @@ newtype Stdlib_Word32
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapStdlib_Word32" Stdlib_Word32 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Word32{unwrapStdlib_Word32 = y_1},
+                              getField @"unwrapStdlib_Word32" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapStdlib_Word32" (Ptr Stdlib_Word32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word32")
 instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
     where type CFieldType Stdlib_Word32
                           "unwrapStdlib_Word32" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
-         HasField "unwrapStdlib_Word32" Stdlib_Word32 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Word32{unwrapStdlib_Word32 = y_1},
-                              getField @"unwrapStdlib_Word32" x_0)
 {-| __C declaration:__ @stdlib_Word64@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
@@ -320,16 +320,16 @@ newtype Stdlib_Word64
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "unwrapStdlib_Word64" Stdlib_Word64 ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_Word64{unwrapStdlib_Word64 = y_1},
+                              getField @"unwrapStdlib_Word64" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapStdlib_Word64" (Ptr Stdlib_Word64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word64")
 instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
     where type CFieldType Stdlib_Word64
                           "unwrapStdlib_Word64" = HsBindgen.Runtime.LibC.Word64
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
-         HasField "unwrapStdlib_Word64" Stdlib_Word64 ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_Word64{unwrapStdlib_Word64 = y_1},
-                              getField @"unwrapStdlib_Word64" x_0)
 {-| __C declaration:__ @stdlib_CIntMax@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
@@ -355,16 +355,16 @@ newtype Stdlib_CIntMax
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CIntMax =>
+         HasField "unwrapStdlib_CIntMax" Stdlib_CIntMax ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CIntMax{unwrapStdlib_CIntMax = y_1},
+                              getField @"unwrapStdlib_CIntMax" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CIntMax =>
          HasField "unwrapStdlib_CIntMax" (Ptr Stdlib_CIntMax) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntMax")
 instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
     where type CFieldType Stdlib_CIntMax
                           "unwrapStdlib_CIntMax" = HsBindgen.Runtime.LibC.CIntMax
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CIntMax =>
-         HasField "unwrapStdlib_CIntMax" Stdlib_CIntMax ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CIntMax{unwrapStdlib_CIntMax = y_1},
-                              getField @"unwrapStdlib_CIntMax" x_0)
 {-| __C declaration:__ @stdlib_CUIntMax@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
@@ -390,16 +390,16 @@ newtype Stdlib_CUIntMax
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CUIntMax =>
+         HasField "unwrapStdlib_CUIntMax" Stdlib_CUIntMax ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CUIntMax{unwrapStdlib_CUIntMax = y_1},
+                              getField @"unwrapStdlib_CUIntMax" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CUIntMax =>
          HasField "unwrapStdlib_CUIntMax" (Ptr Stdlib_CUIntMax) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntMax")
 instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
     where type CFieldType Stdlib_CUIntMax
                           "unwrapStdlib_CUIntMax" = HsBindgen.Runtime.LibC.CUIntMax
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CUIntMax =>
-         HasField "unwrapStdlib_CUIntMax" Stdlib_CUIntMax ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CUIntMax{unwrapStdlib_CUIntMax = y_1},
-                              getField @"unwrapStdlib_CUIntMax" x_0)
 {-| __C declaration:__ @stdlib_CIntPtr@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
@@ -425,16 +425,16 @@ newtype Stdlib_CIntPtr
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CIntPtr =>
+         HasField "unwrapStdlib_CIntPtr" Stdlib_CIntPtr ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CIntPtr{unwrapStdlib_CIntPtr = y_1},
+                              getField @"unwrapStdlib_CIntPtr" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CIntPtr =>
          HasField "unwrapStdlib_CIntPtr" (Ptr Stdlib_CIntPtr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntPtr")
 instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
     where type CFieldType Stdlib_CIntPtr
                           "unwrapStdlib_CIntPtr" = HsBindgen.Runtime.LibC.CIntPtr
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CIntPtr =>
-         HasField "unwrapStdlib_CIntPtr" Stdlib_CIntPtr ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CIntPtr{unwrapStdlib_CIntPtr = y_1},
-                              getField @"unwrapStdlib_CIntPtr" x_0)
 {-| __C declaration:__ @stdlib_CUIntPtr@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
@@ -460,16 +460,16 @@ newtype Stdlib_CUIntPtr
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CUIntPtr =>
+         HasField "unwrapStdlib_CUIntPtr" Stdlib_CUIntPtr ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CUIntPtr{unwrapStdlib_CUIntPtr = y_1},
+                              getField @"unwrapStdlib_CUIntPtr" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CUIntPtr =>
          HasField "unwrapStdlib_CUIntPtr" (Ptr Stdlib_CUIntPtr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntPtr")
 instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
     where type CFieldType Stdlib_CUIntPtr
                           "unwrapStdlib_CUIntPtr" = HsBindgen.Runtime.LibC.CUIntPtr
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CUIntPtr =>
-         HasField "unwrapStdlib_CUIntPtr" Stdlib_CUIntPtr ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CUIntPtr{unwrapStdlib_CUIntPtr = y_1},
-                              getField @"unwrapStdlib_CUIntPtr" x_0)
 {-| __C declaration:__ @stdlib_CFenvT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
@@ -480,16 +480,16 @@ newtype Stdlib_CFenvT
     = Stdlib_CFenvT {unwrapStdlib_CFenvT :: HsBindgen.Runtime.LibC.CFenvT}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CFenvT =>
+         HasField "unwrapStdlib_CFenvT" Stdlib_CFenvT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CFenvT{unwrapStdlib_CFenvT = y_1},
+                              getField @"unwrapStdlib_CFenvT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CFenvT =>
          HasField "unwrapStdlib_CFenvT" (Ptr Stdlib_CFenvT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFenvT")
 instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
     where type CFieldType Stdlib_CFenvT
                           "unwrapStdlib_CFenvT" = HsBindgen.Runtime.LibC.CFenvT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CFenvT =>
-         HasField "unwrapStdlib_CFenvT" Stdlib_CFenvT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CFenvT{unwrapStdlib_CFenvT = y_1},
-                              getField @"unwrapStdlib_CFenvT" x_0)
 {-| __C declaration:__ @stdlib_CFexceptT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
@@ -500,16 +500,16 @@ newtype Stdlib_CFexceptT
     = Stdlib_CFexceptT {unwrapStdlib_CFexceptT :: HsBindgen.Runtime.LibC.CFexceptT}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CFexceptT =>
+         HasField "unwrapStdlib_CFexceptT" Stdlib_CFexceptT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CFexceptT{unwrapStdlib_CFexceptT = y_1},
+                              getField @"unwrapStdlib_CFexceptT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CFexceptT =>
          HasField "unwrapStdlib_CFexceptT" (Ptr Stdlib_CFexceptT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFexceptT")
 instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
     where type CFieldType Stdlib_CFexceptT
                           "unwrapStdlib_CFexceptT" = HsBindgen.Runtime.LibC.CFexceptT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CFexceptT =>
-         HasField "unwrapStdlib_CFexceptT" Stdlib_CFexceptT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CFexceptT{unwrapStdlib_CFexceptT = y_1},
-                              getField @"unwrapStdlib_CFexceptT" x_0)
 {-| __C declaration:__ @stdlib_CSize@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
@@ -535,16 +535,16 @@ newtype Stdlib_CSize
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "unwrapStdlib_CSize" Stdlib_CSize ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CSize{unwrapStdlib_CSize = y_1},
+                              getField @"unwrapStdlib_CSize" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "unwrapStdlib_CSize" (Ptr Stdlib_CSize) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSize")
 instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
     where type CFieldType Stdlib_CSize
                           "unwrapStdlib_CSize" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CSize =>
-         HasField "unwrapStdlib_CSize" Stdlib_CSize ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CSize{unwrapStdlib_CSize = y_1},
-                              getField @"unwrapStdlib_CSize" x_0)
 {-| __C declaration:__ @stdlib_CPtrdiff@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
@@ -570,16 +570,16 @@ newtype Stdlib_CPtrdiff
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
+         HasField "unwrapStdlib_CPtrdiff" Stdlib_CPtrdiff ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CPtrdiff{unwrapStdlib_CPtrdiff = y_1},
+                              getField @"unwrapStdlib_CPtrdiff" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
          HasField "unwrapStdlib_CPtrdiff" (Ptr Stdlib_CPtrdiff) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CPtrdiff")
 instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
     where type CFieldType Stdlib_CPtrdiff
                           "unwrapStdlib_CPtrdiff" = HsBindgen.Runtime.LibC.CPtrdiff
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
-         HasField "unwrapStdlib_CPtrdiff" Stdlib_CPtrdiff ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CPtrdiff{unwrapStdlib_CPtrdiff = y_1},
-                              getField @"unwrapStdlib_CPtrdiff" x_0)
 {-| __C declaration:__ @stdlib_CJmpBuf@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
@@ -590,16 +590,16 @@ newtype Stdlib_CJmpBuf
     = Stdlib_CJmpBuf {unwrapStdlib_CJmpBuf :: HsBindgen.Runtime.LibC.CJmpBuf}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CJmpBuf =>
+         HasField "unwrapStdlib_CJmpBuf" Stdlib_CJmpBuf ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CJmpBuf{unwrapStdlib_CJmpBuf = y_1},
+                              getField @"unwrapStdlib_CJmpBuf" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CJmpBuf =>
          HasField "unwrapStdlib_CJmpBuf" (Ptr Stdlib_CJmpBuf) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CJmpBuf")
 instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
     where type CFieldType Stdlib_CJmpBuf
                           "unwrapStdlib_CJmpBuf" = HsBindgen.Runtime.LibC.CJmpBuf
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CJmpBuf =>
-         HasField "unwrapStdlib_CJmpBuf" Stdlib_CJmpBuf ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CJmpBuf{unwrapStdlib_CJmpBuf = y_1},
-                              getField @"unwrapStdlib_CJmpBuf" x_0)
 {-| __C declaration:__ @stdlib_CWchar@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
@@ -625,16 +625,16 @@ newtype Stdlib_CWchar
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CWchar =>
+         HasField "unwrapStdlib_CWchar" Stdlib_CWchar ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CWchar{unwrapStdlib_CWchar = y_1},
+                              getField @"unwrapStdlib_CWchar" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CWchar =>
          HasField "unwrapStdlib_CWchar" (Ptr Stdlib_CWchar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWchar")
 instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
     where type CFieldType Stdlib_CWchar
                           "unwrapStdlib_CWchar" = HsBindgen.Runtime.LibC.CWchar
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CWchar =>
-         HasField "unwrapStdlib_CWchar" Stdlib_CWchar ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CWchar{unwrapStdlib_CWchar = y_1},
-                              getField @"unwrapStdlib_CWchar" x_0)
 {-| __C declaration:__ @stdlib_CWintT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
@@ -660,16 +660,16 @@ newtype Stdlib_CWintT
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CWintT =>
+         HasField "unwrapStdlib_CWintT" Stdlib_CWintT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CWintT{unwrapStdlib_CWintT = y_1},
+                              getField @"unwrapStdlib_CWintT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CWintT =>
          HasField "unwrapStdlib_CWintT" (Ptr Stdlib_CWintT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWintT")
 instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
     where type CFieldType Stdlib_CWintT
                           "unwrapStdlib_CWintT" = HsBindgen.Runtime.LibC.CWintT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CWintT =>
-         HasField "unwrapStdlib_CWintT" Stdlib_CWintT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CWintT{unwrapStdlib_CWintT = y_1},
-                              getField @"unwrapStdlib_CWintT" x_0)
 {-| __C declaration:__ @stdlib_CMbstateT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
@@ -680,16 +680,16 @@ newtype Stdlib_CMbstateT
     = Stdlib_CMbstateT {unwrapStdlib_CMbstateT :: HsBindgen.Runtime.LibC.CMbstateT}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CMbstateT =>
+         HasField "unwrapStdlib_CMbstateT" Stdlib_CMbstateT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CMbstateT{unwrapStdlib_CMbstateT = y_1},
+                              getField @"unwrapStdlib_CMbstateT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CMbstateT =>
          HasField "unwrapStdlib_CMbstateT" (Ptr Stdlib_CMbstateT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CMbstateT")
 instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
     where type CFieldType Stdlib_CMbstateT
                           "unwrapStdlib_CMbstateT" = HsBindgen.Runtime.LibC.CMbstateT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CMbstateT =>
-         HasField "unwrapStdlib_CMbstateT" Stdlib_CMbstateT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CMbstateT{unwrapStdlib_CMbstateT = y_1},
-                              getField @"unwrapStdlib_CMbstateT" x_0)
 {-| __C declaration:__ @stdlib_CWctransT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
@@ -706,16 +706,16 @@ newtype Stdlib_CWctransT
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CWctransT =>
+         HasField "unwrapStdlib_CWctransT" Stdlib_CWctransT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CWctransT{unwrapStdlib_CWctransT = y_1},
+                              getField @"unwrapStdlib_CWctransT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CWctransT =>
          HasField "unwrapStdlib_CWctransT" (Ptr Stdlib_CWctransT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctransT")
 instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
     where type CFieldType Stdlib_CWctransT
                           "unwrapStdlib_CWctransT" = HsBindgen.Runtime.LibC.CWctransT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CWctransT =>
-         HasField "unwrapStdlib_CWctransT" Stdlib_CWctransT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CWctransT{unwrapStdlib_CWctransT = y_1},
-                              getField @"unwrapStdlib_CWctransT" x_0)
 {-| __C declaration:__ @stdlib_CWctypeT@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
@@ -732,16 +732,16 @@ newtype Stdlib_CWctypeT
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CWctypeT =>
+         HasField "unwrapStdlib_CWctypeT" Stdlib_CWctypeT ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CWctypeT{unwrapStdlib_CWctypeT = y_1},
+                              getField @"unwrapStdlib_CWctypeT" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CWctypeT =>
          HasField "unwrapStdlib_CWctypeT" (Ptr Stdlib_CWctypeT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctypeT")
 instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
     where type CFieldType Stdlib_CWctypeT
                           "unwrapStdlib_CWctypeT" = HsBindgen.Runtime.LibC.CWctypeT
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CWctypeT =>
-         HasField "unwrapStdlib_CWctypeT" Stdlib_CWctypeT ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CWctypeT{unwrapStdlib_CWctypeT = y_1},
-                              getField @"unwrapStdlib_CWctypeT" x_0)
 {-| __C declaration:__ @stdlib_CChar16T@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
@@ -767,16 +767,16 @@ newtype Stdlib_CChar16T
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CChar16T =>
+         HasField "unwrapStdlib_CChar16T" Stdlib_CChar16T ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CChar16T{unwrapStdlib_CChar16T = y_1},
+                              getField @"unwrapStdlib_CChar16T" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CChar16T =>
          HasField "unwrapStdlib_CChar16T" (Ptr Stdlib_CChar16T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar16T")
 instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
     where type CFieldType Stdlib_CChar16T
                           "unwrapStdlib_CChar16T" = HsBindgen.Runtime.LibC.CChar16T
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CChar16T =>
-         HasField "unwrapStdlib_CChar16T" Stdlib_CChar16T ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CChar16T{unwrapStdlib_CChar16T = y_1},
-                              getField @"unwrapStdlib_CChar16T" x_0)
 {-| __C declaration:__ @stdlib_CChar32T@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
@@ -802,16 +802,16 @@ newtype Stdlib_CChar32T
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CChar32T =>
+         HasField "unwrapStdlib_CChar32T" Stdlib_CChar32T ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CChar32T{unwrapStdlib_CChar32T = y_1},
+                              getField @"unwrapStdlib_CChar32T" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CChar32T =>
          HasField "unwrapStdlib_CChar32T" (Ptr Stdlib_CChar32T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar32T")
 instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
     where type CFieldType Stdlib_CChar32T
                           "unwrapStdlib_CChar32T" = HsBindgen.Runtime.LibC.CChar32T
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CChar32T =>
-         HasField "unwrapStdlib_CChar32T" Stdlib_CChar32T ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CChar32T{unwrapStdlib_CChar32T = y_1},
-                              getField @"unwrapStdlib_CChar32T" x_0)
 {-| __C declaration:__ @stdlib_CTime@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
@@ -830,16 +830,16 @@ newtype Stdlib_CTime
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CTime =>
+         HasField "unwrapStdlib_CTime" Stdlib_CTime ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CTime{unwrapStdlib_CTime = y_1},
+                              getField @"unwrapStdlib_CTime" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CTime =>
          HasField "unwrapStdlib_CTime" (Ptr Stdlib_CTime) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTime")
 instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
     where type CFieldType Stdlib_CTime
                           "unwrapStdlib_CTime" = HsBindgen.Runtime.LibC.CTime
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CTime =>
-         HasField "unwrapStdlib_CTime" Stdlib_CTime ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CTime{unwrapStdlib_CTime = y_1},
-                              getField @"unwrapStdlib_CTime" x_0)
 {-| __C declaration:__ @stdlib_CClock@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
@@ -858,16 +858,16 @@ newtype Stdlib_CClock
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CClock =>
+         HasField "unwrapStdlib_CClock" Stdlib_CClock ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CClock{unwrapStdlib_CClock = y_1},
+                              getField @"unwrapStdlib_CClock" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CClock =>
          HasField "unwrapStdlib_CClock" (Ptr Stdlib_CClock) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CClock")
 instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
     where type CFieldType Stdlib_CClock
                           "unwrapStdlib_CClock" = HsBindgen.Runtime.LibC.CClock
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CClock =>
-         HasField "unwrapStdlib_CClock" Stdlib_CClock ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CClock{unwrapStdlib_CClock = y_1},
-                              getField @"unwrapStdlib_CClock" x_0)
 {-| __C declaration:__ @stdlib_CTm@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
@@ -879,16 +879,16 @@ newtype Stdlib_CTm
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize)
 instance (~) ty HsBindgen.Runtime.LibC.CTm =>
+         HasField "unwrapStdlib_CTm" Stdlib_CTm ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CTm{unwrapStdlib_CTm = y_1},
+                              getField @"unwrapStdlib_CTm" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CTm =>
          HasField "unwrapStdlib_CTm" (Ptr Stdlib_CTm) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTm")
 instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
     where type CFieldType Stdlib_CTm
                           "unwrapStdlib_CTm" = HsBindgen.Runtime.LibC.CTm
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CTm =>
-         HasField "unwrapStdlib_CTm" Stdlib_CTm ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CTm{unwrapStdlib_CTm = y_1},
-                              getField @"unwrapStdlib_CTm" x_0)
 {-| __C declaration:__ @stdlib_CFile@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
@@ -899,16 +899,16 @@ newtype Stdlib_CFile
     = Stdlib_CFile {unwrapStdlib_CFile :: HsBindgen.Runtime.LibC.CFile}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CFile =>
+         HasField "unwrapStdlib_CFile" Stdlib_CFile ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CFile{unwrapStdlib_CFile = y_1},
+                              getField @"unwrapStdlib_CFile" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CFile =>
          HasField "unwrapStdlib_CFile" (Ptr Stdlib_CFile) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFile")
 instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
     where type CFieldType Stdlib_CFile
                           "unwrapStdlib_CFile" = HsBindgen.Runtime.LibC.CFile
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CFile =>
-         HasField "unwrapStdlib_CFile" Stdlib_CFile ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CFile{unwrapStdlib_CFile = y_1},
-                              getField @"unwrapStdlib_CFile" x_0)
 {-| __C declaration:__ @stdlib_CFpos@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
@@ -919,16 +919,16 @@ newtype Stdlib_CFpos
     = Stdlib_CFpos {unwrapStdlib_CFpos :: HsBindgen.Runtime.LibC.CFpos}
     deriving stock Generic
 instance (~) ty HsBindgen.Runtime.LibC.CFpos =>
+         HasField "unwrapStdlib_CFpos" Stdlib_CFpos ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CFpos{unwrapStdlib_CFpos = y_1},
+                              getField @"unwrapStdlib_CFpos" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CFpos =>
          HasField "unwrapStdlib_CFpos" (Ptr Stdlib_CFpos) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFpos")
 instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
     where type CFieldType Stdlib_CFpos
                           "unwrapStdlib_CFpos" = HsBindgen.Runtime.LibC.CFpos
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CFpos =>
-         HasField "unwrapStdlib_CFpos" Stdlib_CFpos ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CFpos{unwrapStdlib_CFpos = y_1},
-                              getField @"unwrapStdlib_CFpos" x_0)
 {-| __C declaration:__ @stdlib_CSigAtomic@
 
     __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
@@ -954,13 +954,13 @@ newtype Stdlib_CSigAtomic
                       Storable,
                       WriteRaw)
 instance (~) ty HsBindgen.Runtime.LibC.CSigAtomic =>
+         HasField "unwrapStdlib_CSigAtomic" Stdlib_CSigAtomic ty
+    where hasField = \x_0 -> (\y_1 -> Stdlib_CSigAtomic{unwrapStdlib_CSigAtomic = y_1},
+                              getField @"unwrapStdlib_CSigAtomic" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.CSigAtomic =>
          HasField "unwrapStdlib_CSigAtomic" (Ptr Stdlib_CSigAtomic) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSigAtomic")
 instance HasCField Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic"
     where type CFieldType Stdlib_CSigAtomic
                           "unwrapStdlib_CSigAtomic" = HsBindgen.Runtime.LibC.CSigAtomic
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CSigAtomic =>
-         HasField "unwrapStdlib_CSigAtomic" Stdlib_CSigAtomic ty
-    where hasField = \x_0 -> (\y_1 -> Stdlib_CSigAtomic{unwrapStdlib_CSigAtomic = y_1},
-                              getField @"unwrapStdlib_CSigAtomic" x_0)

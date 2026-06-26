@@ -31,24 +31,24 @@ instance WriteRaw S1
                                        S1 a_2
                                           b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
 deriving via (EquivStorable S1) instance Storable S1
-instance HasCField S1 "a"
-    where type CFieldType S1 "a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "a" (Ptr S1) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CInt => HasField "a" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{a = y_1,
                                          b = getField @"b" x_0},
                               getField @"a" x_0)
-instance HasCField S1 "b"
-    where type CFieldType S1 "b" = CChar
-          offset# = \_ -> \_ -> 4
-instance (~) ty CChar => HasField "b" (Ptr S1) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CInt => HasField "a" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S1 "a"
+    where type CFieldType S1 "a" = CInt
+          offset# = \_ -> \_ -> 0
 instance (~) ty CChar => HasField "b" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{b = y_1,
                                          a = getField @"a" x_0},
                               getField @"b" x_0)
+instance (~) ty CChar => HasField "b" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S1 "b"
+    where type CFieldType S1 "b" = CChar
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/simple_structs.h 8:16@
@@ -89,36 +89,36 @@ instance WriteRaw S2_t
                                             b_3
                                             c_4 -> writeRaw (Proxy @"a") ptr_0 a_2 >> (writeRaw (Proxy @"b") ptr_0 b_3 >> writeRaw (Proxy @"c") ptr_0 c_4)
 deriving via (EquivStorable S2_t) instance Storable S2_t
-instance HasCField S2_t "a"
-    where type CFieldType S2_t "a" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S2_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CChar => HasField "a" S2_t ty
     where hasField = \x_0 -> (\y_1 -> S2_t{a = y_1,
                                            b = getField @"b" x_0,
                                            c = getField @"c" x_0},
                               getField @"a" x_0)
-instance HasCField S2_t "b"
-    where type CFieldType S2_t "b" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "b" (Ptr S2_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CChar => HasField "a" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S2_t "a"
+    where type CFieldType S2_t "a" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" S2_t ty
     where hasField = \x_0 -> (\y_1 -> S2_t{b = y_1,
                                            a = getField @"a" x_0,
                                            c = getField @"c" x_0},
                               getField @"b" x_0)
-instance HasCField S2_t "c"
-    where type CFieldType S2_t "c" = CFloat
-          offset# = \_ -> \_ -> 8
-instance (~) ty CFloat => HasField "c" (Ptr S2_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"c")
+instance (~) ty CInt => HasField "b" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S2_t "b"
+    where type CFieldType S2_t "b" = CInt
+          offset# = \_ -> \_ -> 4
 instance (~) ty CFloat => HasField "c" S2_t ty
     where hasField = \x_0 -> (\y_1 -> S2_t{c = y_1,
                                            a = getField @"a" x_0,
                                            b = getField @"b" x_0},
                               getField @"c" x_0)
+instance (~) ty CFloat => HasField "c" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
+instance HasCField S2_t "c"
+    where type CFieldType S2_t "c" = CFloat
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct S3_t@
 
     __defined at:__ @types\/structs\/simple_structs.h 15:9@
@@ -143,13 +143,13 @@ instance WriteRaw S3_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S3_t a_2 -> writeRaw (Proxy @"a") ptr_0 a_2
 deriving via (EquivStorable S3_t) instance Storable S3_t
+instance (~) ty CChar => HasField "a" S3_t ty
+    where hasField = \x_0 -> (\y_1 -> S3_t{a = y_1}, getField @"a" x_0)
+instance (~) ty CChar => HasField "a" (Ptr S3_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
 instance HasCField S3_t "a"
     where type CFieldType S3_t "a" = CChar
           offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S3_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
-instance (~) ty CChar => HasField "a" S3_t ty
-    where hasField = \x_0 -> (\y_1 -> S3_t{a = y_1}, getField @"a" x_0)
 {-| __C declaration:__ @struct S4@
 
     __defined at:__ @types\/structs\/simple_structs.h 19:8@
@@ -190,36 +190,36 @@ instance WriteRaw S4
                                           a_3
                                           c_4 -> writeRaw (Proxy @"b") ptr_0 b_2 >> (writeRaw (Proxy @"a") ptr_0 a_3 >> writeRaw (Proxy @"c") ptr_0 c_4)
 deriving via (EquivStorable S4) instance Storable S4
-instance HasCField S4 "b"
-    where type CFieldType S4 "b" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "b" (Ptr S4) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
 instance (~) ty CChar => HasField "b" S4 ty
     where hasField = \x_0 -> (\y_1 -> S4{b = y_1,
                                          a = getField @"a" x_0,
                                          c = getField @"c" x_0},
                               getField @"b" x_0)
-instance HasCField S4 "a"
-    where type CFieldType S4 "a" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "a" (Ptr S4) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
+instance (~) ty CChar => HasField "b" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S4 "b"
+    where type CFieldType S4 "b" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "a" S4 ty
     where hasField = \x_0 -> (\y_1 -> S4{a = y_1,
                                          b = getField @"b" x_0,
                                          c = getField @"c" x_0},
                               getField @"a" x_0)
-instance HasCField S4 "c"
-    where type CFieldType S4 "c" = Ptr CInt
-          offset# = \_ -> \_ -> 8
-instance (~) ty (Ptr CInt) => HasField "c" (Ptr S4) (Ptr ty)
-    where getField = fromPtr (Proxy @"c")
+instance (~) ty CInt => HasField "a" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S4 "a"
+    where type CFieldType S4 "a" = CInt
+          offset# = \_ -> \_ -> 4
 instance (~) ty (Ptr CInt) => HasField "c" S4 ty
     where hasField = \x_0 -> (\y_1 -> S4{c = y_1,
                                          b = getField @"b" x_0,
                                          a = getField @"a" x_0},
                               getField @"c" x_0)
+instance (~) ty (Ptr CInt) => HasField "c" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
+instance HasCField S4 "c"
+    where type CFieldType S4 "c" = Ptr CInt
+          offset# = \_ -> \_ -> 8
 {-| __C declaration:__ @struct S5@
 
     __defined at:__ @types\/structs\/simple_structs.h 26:16@
@@ -252,24 +252,24 @@ instance WriteRaw S5
                                        S5 a_2
                                           b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
 deriving via (EquivStorable S5) instance Storable S5
-instance HasCField S5 "a"
-    where type CFieldType S5 "a" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S5) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CChar => HasField "a" S5 ty
     where hasField = \x_0 -> (\y_1 -> S5{a = y_1,
                                          b = getField @"b" x_0},
                               getField @"a" x_0)
-instance HasCField S5 "b"
-    where type CFieldType S5 "b" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "b" (Ptr S5) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CChar => HasField "a" (Ptr S5) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S5 "a"
+    where type CFieldType S5 "a" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" S5 ty
     where hasField = \x_0 -> (\y_1 -> S5{b = y_1,
                                          a = getField @"a" x_0},
                               getField @"b" x_0)
+instance (~) ty CInt => HasField "b" (Ptr S5) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S5 "b"
+    where type CFieldType S5 "b" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct S6@
 
     __defined at:__ @types\/structs\/simple_structs.h 31:8@
@@ -302,24 +302,24 @@ instance WriteRaw S6
                                        S6 a_2
                                           b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
 deriving via (EquivStorable S6) instance Storable S6
-instance HasCField S6 "a"
-    where type CFieldType S6 "a" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S6) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CChar => HasField "a" S6 ty
     where hasField = \x_0 -> (\y_1 -> S6{a = y_1,
                                          b = getField @"b" x_0},
                               getField @"a" x_0)
-instance HasCField S6 "b"
-    where type CFieldType S6 "b" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "b" (Ptr S6) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CChar => HasField "a" (Ptr S6) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S6 "a"
+    where type CFieldType S6 "a" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" S6 ty
     where hasField = \x_0 -> (\y_1 -> S6{b = y_1,
                                          a = getField @"a" x_0},
                               getField @"b" x_0)
+instance (~) ty CInt => HasField "b" (Ptr S6) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S6 "b"
+    where type CFieldType S6 "b" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @struct \@S7a_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h 34:9@
@@ -352,24 +352,24 @@ instance WriteRaw S7a_Aux
                                        S7a_Aux a_2
                                                b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
 deriving via (EquivStorable S7a_Aux) instance Storable S7a_Aux
-instance HasCField S7a_Aux "a"
-    where type CFieldType S7a_Aux "a" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S7a_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CChar => HasField "a" S7a_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7a_Aux{a = y_1,
                                               b = getField @"b" x_0},
                               getField @"a" x_0)
-instance HasCField S7a_Aux "b"
-    where type CFieldType S7a_Aux "b" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "b" (Ptr S7a_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CChar => HasField "a" (Ptr S7a_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S7a_Aux "a"
+    where type CFieldType S7a_Aux "a" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" S7a_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7a_Aux{b = y_1,
                                               a = getField @"a" x_0},
                               getField @"b" x_0)
+instance (~) ty CInt => HasField "b" (Ptr S7a_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S7a_Aux "b"
+    where type CFieldType S7a_Aux "b" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @S7a@
 
     __defined at:__ @types\/structs\/simple_structs.h 34:36@
@@ -384,15 +384,15 @@ newtype S7a
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty (Ptr S7a_Aux) => HasField "unwrap" S7a ty
+    where hasField = \x_0 -> (\y_1 -> S7a{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty (Ptr S7a_Aux) =>
          HasField "unwrap" (Ptr S7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField S7a "unwrap"
     where type CFieldType S7a "unwrap" = Ptr S7a_Aux
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr S7a_Aux) => HasField "unwrap" S7a ty
-    where hasField = \x_0 -> (\y_1 -> S7a{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct \@S7b_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h 35:9@
@@ -425,24 +425,24 @@ instance WriteRaw S7b_Aux
                                        S7b_Aux a_2
                                                b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
 deriving via (EquivStorable S7b_Aux) instance Storable S7b_Aux
-instance HasCField S7b_Aux "a"
-    where type CFieldType S7b_Aux "a" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "a" (Ptr S7b_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CChar => HasField "a" S7b_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7b_Aux{a = y_1,
                                               b = getField @"b" x_0},
                               getField @"a" x_0)
-instance HasCField S7b_Aux "b"
-    where type CFieldType S7b_Aux "b" = CInt
-          offset# = \_ -> \_ -> 4
-instance (~) ty CInt => HasField "b" (Ptr S7b_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty CChar => HasField "a" (Ptr S7b_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S7b_Aux "a"
+    where type CFieldType S7b_Aux "a" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" S7b_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7b_Aux{b = y_1,
                                               a = getField @"a" x_0},
                               getField @"b" x_0)
+instance (~) ty CInt => HasField "b" (Ptr S7b_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S7b_Aux "b"
+    where type CFieldType S7b_Aux "b" = CInt
+          offset# = \_ -> \_ -> 4
 {-| __C declaration:__ @S7b@
 
     __defined at:__ @types\/structs\/simple_structs.h 35:38@
@@ -458,12 +458,12 @@ newtype S7b
                       Storable,
                       WriteRaw)
 instance (~) ty (Ptr (Ptr (Ptr S7b_Aux))) =>
+         HasField "unwrap" S7b ty
+    where hasField = \x_0 -> (\y_1 -> S7b{unwrap = y_1},
+                              getField @"unwrap" x_0)
+instance (~) ty (Ptr (Ptr (Ptr S7b_Aux))) =>
          HasField "unwrap" (Ptr S7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField S7b "unwrap"
     where type CFieldType S7b "unwrap" = Ptr (Ptr (Ptr S7b_Aux))
           offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr (Ptr (Ptr S7b_Aux))) =>
-         HasField "unwrap" S7b ty
-    where hasField = \x_0 -> (\y_1 -> S7b{unwrap = y_1},
-                              getField @"unwrap" x_0)

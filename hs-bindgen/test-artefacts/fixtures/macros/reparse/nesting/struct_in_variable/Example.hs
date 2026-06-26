@@ -56,6 +56,14 @@ newtype MyInt = MyInt
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
@@ -66,14 +74,6 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
   type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
 
 {-| __C declaration:__ @struct \@G1@
 
@@ -116,21 +116,21 @@ instance Marshal.WriteRaw G1 where
 
 deriving via Marshal.EquivStorable G1 instance RIP.Storable G1
 
-instance HasCField.HasCField G1 "g1_x" where
-
-  type CFieldType G1 "g1_x" = MyInt
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
-
 instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g1_x" G1 ty where
 
   hasField =
     \x0 ->
       (\y1 -> G1 {g1_x = y1}, RIP.getField @"g1_x" x0)
+
+instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
+
+instance HasCField.HasCField G1 "g1_x" where
+
+  type CFieldType G1 "g1_x" = MyInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@G2@
 
@@ -173,21 +173,21 @@ instance Marshal.WriteRaw G2 where
 
 deriving via Marshal.EquivStorable G2 instance RIP.Storable G2
 
-instance HasCField.HasCField G2 "g2_x" where
-
-  type CFieldType G2 "g2_x" = MyInt
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
-
 instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g2_x" G2 ty where
 
   hasField =
     \x0 ->
       (\y1 -> G2 {g2_x = y1}, RIP.getField @"g2_x" x0)
+
+instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
+
+instance HasCField.HasCField G2 "g2_x" where
+
+  type CFieldType G2 "g2_x" = MyInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct \@G3@
 
@@ -230,18 +230,18 @@ instance Marshal.WriteRaw G3 where
 
 deriving via Marshal.EquivStorable G3 instance RIP.Storable G3
 
-instance HasCField.HasCField G3 "g3_x" where
-
-  type CFieldType G3 "g3_x" = MyInt
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"g3_x")
-
 instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g3_x" G3 ty where
 
   hasField =
     \x0 ->
       (\y1 -> G3 {g3_x = y1}, RIP.getField @"g3_x" x0)
+
+instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"g3_x")
+
+instance HasCField.HasCField G3 "g3_x" where
+
+  type CFieldType G3 "g3_x" = MyInt
+
+  offset# = \_ -> \_ -> 0

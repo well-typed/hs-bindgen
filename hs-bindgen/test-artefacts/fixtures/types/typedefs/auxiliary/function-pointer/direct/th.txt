@@ -30,12 +30,12 @@ instance ToFunPtr T
     where toFunPtr = hs_bindgen_b8534912f6256492
 instance FromFunPtr T
     where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
 instance (~) ty (CInt -> IO ()) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt -> IO ()
           offset# = \_ -> \_ -> 0
-instance (~) ty (CInt -> IO ()) => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)

@@ -67,6 +67,13 @@ instance RIP.FromFunPtr T where
   fromFunPtr = hs_bindgen_8f830eadb43a6fe4
 
 instance ( ty ~ (RIP.CInt -> IO ())
+         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+
+instance ( ty ~ (RIP.CInt -> IO ())
          ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
@@ -76,10 +83,3 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = RIP.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)

@@ -86,18 +86,6 @@ instance Marshal.WriteRaw SS_anon'y where
 
 deriving via Marshal.EquivStorable SS_anon'y instance RIP.Storable SS_anon'y
 
-instance HasCField.HasCField SS_anon'y "sS_anon'y_y" where
-
-  type CFieldType SS_anon'y "sS_anon'y_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "sS_anon'y_y" (RIP.Ptr SS_anon'y) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"sS_anon'y_y")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "sS_anon'y_y" SS_anon'y ty where
 
@@ -105,6 +93,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          SS_anon'y {sS_anon'y_y = y1}, RIP.getField @"sS_anon'y_y" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "sS_anon'y_y" (RIP.Ptr SS_anon'y) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"sS_anon'y_y")
+
+instance HasCField.HasCField SS_anon'y "sS_anon'y_y" where
+
+  type CFieldType SS_anon'y "sS_anon'y_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct SS@
 
@@ -165,16 +165,6 @@ instance Marshal.WriteRaw SS where
 
 deriving via Marshal.EquivStorable SS instance RIP.Storable SS
 
-instance HasCField.HasCField SS "sS_x" where
-
-  type CFieldType SS "sS_x" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CChar) => RIP.HasField "sS_x" (RIP.Ptr SS) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"sS_x")
-
 instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sS_x" SS ty where
 
   hasField =
@@ -187,16 +177,15 @@ instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sS_x" SS ty where
       , RIP.getField @"sS_x" x0
       )
 
-instance HasCField.HasCField SS "sS_anon'y" where
+instance (ty ~ RIP.CChar) => RIP.HasField "sS_x" (RIP.Ptr SS) (RIP.Ptr ty) where
 
-  type CFieldType SS "sS_anon'y" = SS_anon'y
+  getField = HasCField.fromPtr (RIP.Proxy @"sS_x")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField SS "sS_x" where
 
-instance ( ty ~ SS_anon'y
-         ) => RIP.HasField "sS_anon'y" (RIP.Ptr SS) (RIP.Ptr ty) where
+  type CFieldType SS "sS_x" = RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sS_anon'y")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ SS_anon'y) => RIP.CompatHasField.HasField "sS_anon'y" SS ty where
 
@@ -207,15 +196,16 @@ instance (ty ~ SS_anon'y) => RIP.CompatHasField.HasField "sS_anon'y" SS ty where
       , RIP.getField @"sS_anon'y" x0
       )
 
-instance HasCField.HasCField SS "sS_z" where
+instance ( ty ~ SS_anon'y
+         ) => RIP.HasField "sS_anon'y" (RIP.Ptr SS) (RIP.Ptr ty) where
 
-  type CFieldType SS "sS_z" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"sS_anon'y")
 
-  offset# = \_ -> \_ -> 12
+instance HasCField.HasCField SS "sS_anon'y" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "sS_z" (RIP.Ptr SS) (RIP.Ptr ty) where
+  type CFieldType SS "sS_anon'y" = SS_anon'y
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sS_z")
+  offset# = \_ -> \_ -> 4
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sS_z" SS ty where
 
@@ -228,6 +218,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sS_z" SS ty where
              }
       , RIP.getField @"sS_z" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "sS_z" (RIP.Ptr SS) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"sS_z")
+
+instance HasCField.HasCField SS "sS_z" where
+
+  type CFieldType SS "sS_z" = RIP.CInt
+
+  offset# = \_ -> \_ -> 12
 
 {-| __C declaration:__ @union \@SU_anon\'y@
 
@@ -273,17 +273,17 @@ set_sU_anon'y_y ::
   -> SU_anon'y
 set_sU_anon'y_y = RIP.setUnionPayload
 
-instance HasCField.HasCField SU_anon'y "sU_anon'y_y" where
-
-  type CFieldType SU_anon'y "sU_anon'y_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "sU_anon'y_y" (RIP.Ptr SU_anon'y) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"sU_anon'y_y")
+
+instance HasCField.HasCField SU_anon'y "sU_anon'y_y" where
+
+  type CFieldType SU_anon'y "sU_anon'y_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct SU@
 
@@ -344,16 +344,6 @@ instance Marshal.WriteRaw SU where
 
 deriving via Marshal.EquivStorable SU instance RIP.Storable SU
 
-instance HasCField.HasCField SU "sU_x" where
-
-  type CFieldType SU "sU_x" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance (ty ~ RIP.CChar) => RIP.HasField "sU_x" (RIP.Ptr SU) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"sU_x")
-
 instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sU_x" SU ty where
 
   hasField =
@@ -366,16 +356,15 @@ instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "sU_x" SU ty where
       , RIP.getField @"sU_x" x0
       )
 
-instance HasCField.HasCField SU "sU_anon'y" where
+instance (ty ~ RIP.CChar) => RIP.HasField "sU_x" (RIP.Ptr SU) (RIP.Ptr ty) where
 
-  type CFieldType SU "sU_anon'y" = SU_anon'y
+  getField = HasCField.fromPtr (RIP.Proxy @"sU_x")
 
-  offset# = \_ -> \_ -> 4
+instance HasCField.HasCField SU "sU_x" where
 
-instance ( ty ~ SU_anon'y
-         ) => RIP.HasField "sU_anon'y" (RIP.Ptr SU) (RIP.Ptr ty) where
+  type CFieldType SU "sU_x" = RIP.CChar
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sU_anon'y")
+  offset# = \_ -> \_ -> 0
 
 instance (ty ~ SU_anon'y) => RIP.CompatHasField.HasField "sU_anon'y" SU ty where
 
@@ -386,15 +375,16 @@ instance (ty ~ SU_anon'y) => RIP.CompatHasField.HasField "sU_anon'y" SU ty where
       , RIP.getField @"sU_anon'y" x0
       )
 
-instance HasCField.HasCField SU "sU_z" where
+instance ( ty ~ SU_anon'y
+         ) => RIP.HasField "sU_anon'y" (RIP.Ptr SU) (RIP.Ptr ty) where
 
-  type CFieldType SU "sU_z" = RIP.CInt
+  getField = HasCField.fromPtr (RIP.Proxy @"sU_anon'y")
 
-  offset# = \_ -> \_ -> 8
+instance HasCField.HasCField SU "sU_anon'y" where
 
-instance (ty ~ RIP.CInt) => RIP.HasField "sU_z" (RIP.Ptr SU) (RIP.Ptr ty) where
+  type CFieldType SU "sU_anon'y" = SU_anon'y
 
-  getField = HasCField.fromPtr (RIP.Proxy @"sU_z")
+  offset# = \_ -> \_ -> 4
 
 instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sU_z" SU ty where
 
@@ -407,6 +397,16 @@ instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "sU_z" SU ty where
              }
       , RIP.getField @"sU_z" x0
       )
+
+instance (ty ~ RIP.CInt) => RIP.HasField "sU_z" (RIP.Ptr SU) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"sU_z")
+
+instance HasCField.HasCField SU "sU_z" where
+
+  type CFieldType SU "sU_z" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@US_anon\'y@
 
@@ -449,18 +449,6 @@ instance Marshal.WriteRaw US_anon'y where
 
 deriving via Marshal.EquivStorable US_anon'y instance RIP.Storable US_anon'y
 
-instance HasCField.HasCField US_anon'y "uS_anon'y_y" where
-
-  type CFieldType US_anon'y "uS_anon'y_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uS_anon'y_y" (RIP.Ptr US_anon'y) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uS_anon'y_y")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "uS_anon'y_y" US_anon'y ty where
 
@@ -468,6 +456,18 @@ instance ( ty ~ RIP.CInt
     \x0 ->
       (\y1 ->
          US_anon'y {uS_anon'y_y = y1}, RIP.getField @"uS_anon'y_y" x0)
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "uS_anon'y_y" (RIP.Ptr US_anon'y) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"uS_anon'y_y")
+
+instance HasCField.HasCField US_anon'y "uS_anon'y_y" where
+
+  type CFieldType US_anon'y "uS_anon'y_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @union US@
 
@@ -563,19 +563,13 @@ set_uS_z ::
   -> US
 set_uS_z = RIP.setUnionPayload
 
-instance HasCField.HasCField US "uS_x" where
-
-  type CFieldType US "uS_x" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
 instance (ty ~ RIP.CChar) => RIP.HasField "uS_x" (RIP.Ptr US) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_x")
 
-instance HasCField.HasCField US "uS_anon'y" where
+instance HasCField.HasCField US "uS_x" where
 
-  type CFieldType US "uS_anon'y" = US_anon'y
+  type CFieldType US "uS_x" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -584,15 +578,21 @@ instance ( ty ~ US_anon'y
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_anon'y")
 
-instance HasCField.HasCField US "uS_z" where
+instance HasCField.HasCField US "uS_anon'y" where
 
-  type CFieldType US "uS_z" = RIP.CInt
+  type CFieldType US "uS_anon'y" = US_anon'y
 
   offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.HasField "uS_z" (RIP.Ptr US) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uS_z")
+
+instance HasCField.HasCField US "uS_z" where
+
+  type CFieldType US "uS_z" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union \@UU_anon\'y@
 
@@ -638,17 +638,17 @@ set_uU_anon'y_y ::
   -> UU_anon'y
 set_uU_anon'y_y = RIP.setUnionPayload
 
-instance HasCField.HasCField UU_anon'y "uU_anon'y_y" where
-
-  type CFieldType UU_anon'y "uU_anon'y_y" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "uU_anon'y_y" (RIP.Ptr UU_anon'y) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"uU_anon'y_y")
+
+instance HasCField.HasCField UU_anon'y "uU_anon'y_y" where
+
+  type CFieldType UU_anon'y "uU_anon'y_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @union UU@
 
@@ -744,19 +744,13 @@ set_uU_z ::
   -> UU
 set_uU_z = RIP.setUnionPayload
 
-instance HasCField.HasCField UU "uU_x" where
-
-  type CFieldType UU "uU_x" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
 instance (ty ~ RIP.CChar) => RIP.HasField "uU_x" (RIP.Ptr UU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_x")
 
-instance HasCField.HasCField UU "uU_anon'y" where
+instance HasCField.HasCField UU "uU_x" where
 
-  type CFieldType UU "uU_anon'y" = UU_anon'y
+  type CFieldType UU "uU_x" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -765,12 +759,18 @@ instance ( ty ~ UU_anon'y
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_anon'y")
 
-instance HasCField.HasCField UU "uU_z" where
+instance HasCField.HasCField UU "uU_anon'y" where
 
-  type CFieldType UU "uU_z" = RIP.CInt
+  type CFieldType UU "uU_anon'y" = UU_anon'y
 
   offset# = \_ -> \_ -> 0
 
 instance (ty ~ RIP.CInt) => RIP.HasField "uU_z" (RIP.Ptr UU) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"uU_z")
+
+instance HasCField.HasCField UU "uU_z" where
+
+  type CFieldType UU "uU_z" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0

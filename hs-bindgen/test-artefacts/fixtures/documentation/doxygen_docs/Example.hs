@@ -125,6 +125,14 @@ newtype Size_type = Size_type
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.CompatHasField.HasField "unwrapSize_type" Size_type ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Size_type {unwrapSize_type = y1}, RIP.getField @"unwrapSize_type" x0)
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.HasField "unwrapSize_type" (RIP.Ptr Size_type) (RIP.Ptr ty) where
 
   getField =
@@ -136,14 +144,6 @@ instance HasCField.HasCField Size_type "unwrapSize_type" where
     HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "unwrapSize_type" Size_type ty where
-
-  hasField =
-    \x0 ->
-      (\y1 ->
-         Size_type {unwrapSize_type = y1}, RIP.getField @"unwrapSize_type" x0)
 
 {-| __C declaration:__ @struct opaque_struct@
 
@@ -245,6 +245,15 @@ instance Read Color_enum where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CUInt
+         ) => RIP.CompatHasField.HasField "unwrapColor_enum" Color_enum ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Color_enum {unwrapColor_enum = y1}
+      , RIP.getField @"unwrapColor_enum" x0
+      )
+
+instance ( ty ~ RIP.CUInt
          ) => RIP.HasField "unwrapColor_enum" (RIP.Ptr Color_enum) (RIP.Ptr ty) where
 
   getField =
@@ -256,15 +265,6 @@ instance HasCField.HasCField Color_enum "unwrapColor_enum" where
     RIP.CUInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapColor_enum" Color_enum ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Color_enum {unwrapColor_enum = y1}
-      , RIP.getField @"unwrapColor_enum" x0
-      )
 
 {-| Red color
 
@@ -348,6 +348,16 @@ instance RIP.FromFunPtr Event_callback_t_Aux where
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
 instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Event_callback_t_Aux {unwrapEvent_callback_t_Aux = y1}
+      , RIP.getField @"unwrapEvent_callback_t_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
          ) => RIP.HasField "unwrapEvent_callback_t_Aux" (RIP.Ptr Event_callback_t_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -359,16 +369,6 @@ instance HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" w
     RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Event_callback_t_Aux {unwrapEvent_callback_t_Aux = y1}
-      , RIP.getField @"unwrapEvent_callback_t_Aux" x0
-      )
 
 {-| Callback function type.
 
@@ -397,6 +397,16 @@ newtype Event_callback_t = Event_callback_t
     )
 
 instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
+         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t" Event_callback_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Event_callback_t {unwrapEvent_callback_t = y1}
+      , RIP.getField @"unwrapEvent_callback_t" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
          ) => RIP.HasField "unwrapEvent_callback_t" (RIP.Ptr Event_callback_t) (RIP.Ptr ty) where
 
   getField =
@@ -408,16 +418,6 @@ instance HasCField.HasCField Event_callback_t "unwrapEvent_callback_t" where
     RIP.FunPtr Event_callback_t_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
-         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t" Event_callback_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Event_callback_t {unwrapEvent_callback_t = y1}
-      , RIP.getField @"unwrapEvent_callback_t" x0
-      )
 
 {-| Structure with documented fields.
 
@@ -517,19 +517,6 @@ instance Marshal.WriteRaw Config_t where
 
 deriving via Marshal.EquivStorable Config_t instance RIP.Storable Config_t
 
-instance HasCField.HasCField Config_t "config_t_id" where
-
-  type CFieldType Config_t "config_t_id" =
-    HsBindgen.Runtime.LibC.Word32
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "config_t_id" (RIP.Ptr Config_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_id")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.CompatHasField.HasField "config_t_id" Config_t ty where
 
@@ -545,18 +532,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word32
       , RIP.getField @"config_t_id" x0
       )
 
-instance HasCField.HasCField Config_t "config_t_name" where
-
-  type CFieldType Config_t "config_t_name" =
-    CA.ConstantArray 64 RIP.CChar
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ CA.ConstantArray 64 RIP.CChar
-         ) => RIP.HasField "config_t_name" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.HasField "config_t_id" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_name")
+    HasCField.fromPtr (RIP.Proxy @"config_t_id")
+
+instance HasCField.HasCField Config_t "config_t_id" where
+
+  type CFieldType Config_t "config_t_id" =
+    HsBindgen.Runtime.LibC.Word32
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ CA.ConstantArray 64 RIP.CChar
          ) => RIP.CompatHasField.HasField "config_t_name" Config_t ty where
@@ -573,18 +560,18 @@ instance ( ty ~ CA.ConstantArray 64 RIP.CChar
       , RIP.getField @"config_t_name" x0
       )
 
-instance HasCField.HasCField Config_t "config_t_flags" where
-
-  type CFieldType Config_t "config_t_flags" =
-    HsBindgen.Runtime.LibC.Word32
-
-  offset# = \_ -> \_ -> 68
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "config_t_flags" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 64 RIP.CChar
+         ) => RIP.HasField "config_t_name" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_flags")
+    HasCField.fromPtr (RIP.Proxy @"config_t_name")
+
+instance HasCField.HasCField Config_t "config_t_name" where
+
+  type CFieldType Config_t "config_t_name" =
+    CA.ConstantArray 64 RIP.CChar
+
+  offset# = \_ -> \_ -> 4
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => RIP.CompatHasField.HasField "config_t_flags" Config_t ty where
@@ -601,18 +588,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word32
       , RIP.getField @"config_t_flags" x0
       )
 
-instance HasCField.HasCField Config_t "config_t_callback" where
-
-  type CFieldType Config_t "config_t_callback" =
-    Event_callback_t
-
-  offset# = \_ -> \_ -> 72
-
-instance ( ty ~ Event_callback_t
-         ) => RIP.HasField "config_t_callback" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ HsBindgen.Runtime.LibC.Word32
+         ) => RIP.HasField "config_t_flags" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_callback")
+    HasCField.fromPtr (RIP.Proxy @"config_t_flags")
+
+instance HasCField.HasCField Config_t "config_t_flags" where
+
+  type CFieldType Config_t "config_t_flags" =
+    HsBindgen.Runtime.LibC.Word32
+
+  offset# = \_ -> \_ -> 68
 
 instance ( ty ~ Event_callback_t
          ) => RIP.CompatHasField.HasField "config_t_callback" Config_t ty where
@@ -629,18 +616,18 @@ instance ( ty ~ Event_callback_t
       , RIP.getField @"config_t_callback" x0
       )
 
-instance HasCField.HasCField Config_t "config_t_user_data" where
-
-  type CFieldType Config_t "config_t_user_data" =
-    RIP.Ptr RIP.Void
-
-  offset# = \_ -> \_ -> 80
-
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "config_t_user_data" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ Event_callback_t
+         ) => RIP.HasField "config_t_callback" (RIP.Ptr Config_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_user_data")
+    HasCField.fromPtr (RIP.Proxy @"config_t_callback")
+
+instance HasCField.HasCField Config_t "config_t_callback" where
+
+  type CFieldType Config_t "config_t_callback" =
+    Event_callback_t
+
+  offset# = \_ -> \_ -> 72
 
 instance ( ty ~ RIP.Ptr RIP.Void
          ) => RIP.CompatHasField.HasField "config_t_user_data" Config_t ty where
@@ -656,6 +643,19 @@ instance ( ty ~ RIP.Ptr RIP.Void
                    }
       , RIP.getField @"config_t_user_data" x0
       )
+
+instance ( ty ~ RIP.Ptr RIP.Void
+         ) => RIP.HasField "config_t_user_data" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"config_t_user_data")
+
+instance HasCField.HasCField Config_t "config_t_user_data" where
+
+  type CFieldType Config_t "config_t_user_data" =
+    RIP.Ptr RIP.Void
+
+  offset# = \_ -> \_ -> 80
 
 {-| Enumeration with documented values.
 
@@ -735,6 +735,15 @@ instance Read Status_code_t where
   readListPrec = RIP.readListPrecDefault
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapStatus_code_t" Status_code_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Status_code_t {unwrapStatus_code_t = y1}
+      , RIP.getField @"unwrapStatus_code_t" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapStatus_code_t" (RIP.Ptr Status_code_t) (RIP.Ptr ty) where
 
   getField =
@@ -746,15 +755,6 @@ instance HasCField.HasCField Status_code_t "unwrapStatus_code_t" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapStatus_code_t" Status_code_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Status_code_t {unwrapStatus_code_t = y1}
-      , RIP.getField @"unwrapStatus_code_t" x0
-      )
 
 {-| Operation successful.
 
@@ -865,19 +865,6 @@ instance Marshal.WriteRaw Data_union_t_as_parts where
 
 deriving via Marshal.EquivStorable Data_union_t_as_parts instance RIP.Storable Data_union_t_as_parts
 
-instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
-
-  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_low" =
-    HsBindgen.Runtime.LibC.Word16
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "data_union_t_as_parts_low" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_low")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.CompatHasField.HasField "data_union_t_as_parts_low" Data_union_t_as_parts ty where
 
@@ -890,18 +877,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
       , RIP.getField @"data_union_t_as_parts_low" x0
       )
 
-instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" where
-
-  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_high" =
-    HsBindgen.Runtime.LibC.Word16
-
-  offset# = \_ -> \_ -> 2
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "data_union_t_as_parts_high" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
+         ) => RIP.HasField "data_union_t_as_parts_low" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_high")
+    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_low")
+
+instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
+
+  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_low" =
+    HsBindgen.Runtime.LibC.Word16
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => RIP.CompatHasField.HasField "data_union_t_as_parts_high" Data_union_t_as_parts ty where
@@ -914,6 +901,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Word16
                                 }
       , RIP.getField @"data_union_t_as_parts_high" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.Word16
+         ) => RIP.HasField "data_union_t_as_parts_high" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_high")
+
+instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" where
+
+  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_high" =
+    HsBindgen.Runtime.LibC.Word16
+
+  offset# = \_ -> \_ -> 2
 
 {-| Union with documented fields.
 
@@ -1040,23 +1040,16 @@ set_data_union_t_as_parts ::
   -> Data_union_t
 set_data_union_t_as_parts = RIP.setUnionPayload
 
-instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
-
-  type CFieldType Data_union_t "data_union_t_as_int" =
-    HsBindgen.Runtime.LibC.Int32
-
-  offset# = \_ -> \_ -> 0
-
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "data_union_t_as_int" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_int")
 
-instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
+instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
-  type CFieldType Data_union_t "data_union_t_as_float" =
-    RIP.CFloat
+  type CFieldType Data_union_t "data_union_t_as_int" =
+    HsBindgen.Runtime.LibC.Int32
 
   offset# = \_ -> \_ -> 0
 
@@ -1066,10 +1059,10 @@ instance ( ty ~ RIP.CFloat
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_float")
 
-instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
+instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
 
-  type CFieldType Data_union_t "data_union_t_as_bytes" =
-    CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
+  type CFieldType Data_union_t "data_union_t_as_float" =
+    RIP.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -1079,10 +1072,10 @@ instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_bytes")
 
-instance HasCField.HasCField Data_union_t "data_union_t_as_parts" where
+instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
 
-  type CFieldType Data_union_t "data_union_t_as_parts" =
-    Data_union_t_as_parts
+  type CFieldType Data_union_t "data_union_t_as_bytes" =
+    CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
 
@@ -1091,6 +1084,13 @@ instance ( ty ~ Data_union_t_as_parts
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts")
+
+instance HasCField.HasCField Data_union_t "data_union_t_as_parts" where
+
+  type CFieldType Data_union_t "data_union_t_as_parts" =
+    Data_union_t_as_parts
+
+  offset# = \_ -> \_ -> 0
 
 {-| Bit field structure.
 
@@ -1176,21 +1176,6 @@ instance Marshal.WriteRaw Bitfield_t where
 
 deriving via Marshal.EquivStorable Bitfield_t instance RIP.Storable Bitfield_t
 
-instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag1" where
-
-  type CBitfieldType Bitfield_t "bitfield_t_flag1" =
-    RIP.CUInt
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 1
-
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_flag1" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag1")
-
 instance ( ty ~ RIP.CUInt
          ) => RIP.CompatHasField.HasField "bitfield_t_flag1" Bitfield_t ty where
 
@@ -1205,20 +1190,20 @@ instance ( ty ~ RIP.CUInt
       , RIP.getField @"bitfield_t_flag1" x0
       )
 
-instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag2" where
-
-  type CBitfieldType Bitfield_t "bitfield_t_flag2" =
-    RIP.CUInt
-
-  bitfieldOffset# = \_ -> \_ -> 1
-
-  bitfieldWidth# = \_ -> \_ -> 1
-
 instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_flag2" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bitfield_t_flag1" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag2")
+    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag1")
+
+instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag1" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_flag1" =
+    RIP.CUInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 1
 
 instance ( ty ~ RIP.CUInt
          ) => RIP.CompatHasField.HasField "bitfield_t_flag2" Bitfield_t ty where
@@ -1234,20 +1219,20 @@ instance ( ty ~ RIP.CUInt
       , RIP.getField @"bitfield_t_flag2" x0
       )
 
-instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_counter" where
-
-  type CBitfieldType Bitfield_t "bitfield_t_counter" =
-    RIP.CUInt
-
-  bitfieldOffset# = \_ -> \_ -> 2
-
-  bitfieldWidth# = \_ -> \_ -> 6
-
 instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_counter" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bitfield_t_flag2" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_counter")
+    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag2")
+
+instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag2" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_flag2" =
+    RIP.CUInt
+
+  bitfieldOffset# = \_ -> \_ -> 1
+
+  bitfieldWidth# = \_ -> \_ -> 1
 
 instance ( ty ~ RIP.CUInt
          ) => RIP.CompatHasField.HasField "bitfield_t_counter" Bitfield_t ty where
@@ -1263,20 +1248,20 @@ instance ( ty ~ RIP.CUInt
       , RIP.getField @"bitfield_t_counter" x0
       )
 
-instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_reserved" where
-
-  type CBitfieldType Bitfield_t "bitfield_t_reserved" =
-    RIP.CUInt
-
-  bitfieldOffset# = \_ -> \_ -> 8
-
-  bitfieldWidth# = \_ -> \_ -> 24
-
 instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_reserved" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "bitfield_t_counter" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_reserved")
+    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_counter")
+
+instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_counter" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_counter" =
+    RIP.CUInt
+
+  bitfieldOffset# = \_ -> \_ -> 2
+
+  bitfieldWidth# = \_ -> \_ -> 6
 
 instance ( ty ~ RIP.CUInt
          ) => RIP.CompatHasField.HasField "bitfield_t_reserved" Bitfield_t ty where
@@ -1291,6 +1276,21 @@ instance ( ty ~ RIP.CUInt
                      }
       , RIP.getField @"bitfield_t_reserved" x0
       )
+
+instance ( ty ~ RIP.CUInt
+         ) => RIP.HasField "bitfield_t_reserved" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_reserved")
+
+instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_reserved" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_reserved" =
+    RIP.CUInt
+
+  bitfieldOffset# = \_ -> \_ -> 8
+
+  bitfieldWidth# = \_ -> \_ -> 24
 
 {-| Auxiliary type used by 'Processor_fn_t'
 
@@ -1341,6 +1341,16 @@ instance RIP.FromFunPtr Processor_fn_t_Aux where
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
 instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux = y1}
+      , RIP.getField @"unwrapProcessor_fn_t_Aux" x0
+      )
+
+instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
          ) => RIP.HasField "unwrapProcessor_fn_t_Aux" (RIP.Ptr Processor_fn_t_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -1352,16 +1362,6 @@ instance HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
     RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 ->
-          Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux = y1}
-      , RIP.getField @"unwrapProcessor_fn_t_Aux" x0
-      )
 
 {-| Function pointer typedef.
 
@@ -1390,6 +1390,15 @@ newtype Processor_fn_t = Processor_fn_t
     )
 
 instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
+         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t" Processor_fn_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Processor_fn_t {unwrapProcessor_fn_t = y1}
+      , RIP.getField @"unwrapProcessor_fn_t" x0
+      )
+
+instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
          ) => RIP.HasField "unwrapProcessor_fn_t" (RIP.Ptr Processor_fn_t) (RIP.Ptr ty) where
 
   getField =
@@ -1401,15 +1410,6 @@ instance HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
     RIP.FunPtr Processor_fn_t_Aux
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
-         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t" Processor_fn_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Processor_fn_t {unwrapProcessor_fn_t = y1}
-      , RIP.getField @"unwrapProcessor_fn_t" x0
-      )
 
 {-| Array typedef with size.
 
@@ -1432,6 +1432,15 @@ newtype Filename_t = Filename_t
     )
 
 instance ( ty ~ CA.ConstantArray 256 RIP.CChar
+         ) => RIP.CompatHasField.HasField "unwrapFilename_t" Filename_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Filename_t {unwrapFilename_t = y1}
+      , RIP.getField @"unwrapFilename_t" x0
+      )
+
+instance ( ty ~ CA.ConstantArray 256 RIP.CChar
          ) => RIP.HasField "unwrapFilename_t" (RIP.Ptr Filename_t) (RIP.Ptr ty) where
 
   getField =
@@ -1443,15 +1452,6 @@ instance HasCField.HasCField Filename_t "unwrapFilename_t" where
     CA.ConstantArray 256 RIP.CChar
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ CA.ConstantArray 256 RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapFilename_t" Filename_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Filename_t {unwrapFilename_t = y1}
-      , RIP.getField @"unwrapFilename_t" x0
-      )
 
 {-| Structure with flexible array member.
 
@@ -1500,19 +1500,6 @@ instance Marshal.WriteRaw Flexible_array_Aux where
 
 deriving via Marshal.EquivStorable Flexible_array_Aux instance RIP.Storable Flexible_array_Aux
 
-instance HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
-
-  type CFieldType Flexible_array_Aux "flexible_array_count" =
-    HsBindgen.Runtime.LibC.CSize
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "flexible_array_count" (RIP.Ptr Flexible_array_Aux) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"flexible_array_count")
-
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.CompatHasField.HasField "flexible_array_count" Flexible_array_Aux ty where
 
@@ -1521,6 +1508,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
       ( \y1 -> Flexible_array {flexible_array_count = y1}
       , RIP.getField @"flexible_array_count" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "flexible_array_count" (RIP.Ptr Flexible_array_Aux) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"flexible_array_count")
+
+instance HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
+
+  type CFieldType Flexible_array_Aux "flexible_array_count" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 0
 
 instance FLAM.Offset RIP.CInt Flexible_array_Aux where
 
@@ -1608,19 +1608,6 @@ instance Marshal.WriteRaw Dyn_array_t where
 
 deriving via Marshal.EquivStorable Dyn_array_t instance RIP.Storable Dyn_array_t
 
-instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
-
-  type CFieldType Dyn_array_t "dyn_array_t_data" =
-    RIP.Ptr RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "dyn_array_t_data" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_data")
-
 instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.CompatHasField.HasField "dyn_array_t_data" Dyn_array_t ty where
 
@@ -1634,18 +1621,18 @@ instance ( ty ~ RIP.Ptr RIP.CInt
       , RIP.getField @"dyn_array_t_data" x0
       )
 
-instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
-
-  type CFieldType Dyn_array_t "dyn_array_t_size" =
-    HsBindgen.Runtime.LibC.CSize
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "dyn_array_t_size" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.HasField "dyn_array_t_data" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_size")
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_data")
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_data" =
+    RIP.Ptr RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.CompatHasField.HasField "dyn_array_t_size" Dyn_array_t ty where
@@ -1660,18 +1647,18 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
       , RIP.getField @"dyn_array_t_size" x0
       )
 
-instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
-
-  type CFieldType Dyn_array_t "dyn_array_t_capacity" =
-    HsBindgen.Runtime.LibC.CSize
-
-  offset# = \_ -> \_ -> 16
-
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "dyn_array_t_capacity" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+         ) => RIP.HasField "dyn_array_t_size" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_capacity")
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_size")
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_size" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 8
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => RIP.CompatHasField.HasField "dyn_array_t_capacity" Dyn_array_t ty where
@@ -1685,6 +1672,19 @@ instance ( ty ~ HsBindgen.Runtime.LibC.CSize
                       }
       , RIP.getField @"dyn_array_t_capacity" x0
       )
+
+instance ( ty ~ HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "dyn_array_t_capacity" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_capacity")
+
+instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
+
+  type CFieldType Dyn_array_t "dyn_array_t_capacity" =
+    HsBindgen.Runtime.LibC.CSize
+
+  offset# = \_ -> \_ -> 16
 
 {-| __C declaration:__ @struct \@multi_anon_t_pos@
 
@@ -1740,19 +1740,6 @@ instance Marshal.WriteRaw Multi_anon_t_pos where
 
 deriving via Marshal.EquivStorable Multi_anon_t_pos instance RIP.Storable Multi_anon_t_pos
 
-instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
-
-  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_x" =
-    RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_pos_x" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_x")
-
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty where
 
@@ -1765,18 +1752,18 @@ instance ( ty ~ RIP.CFloat
       , RIP.getField @"multi_anon_t_pos_x" x0
       )
 
-instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
-
-  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_y" =
-    RIP.CFloat
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_pos_y" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+         ) => RIP.HasField "multi_anon_t_pos_x" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_y")
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_x")
+
+instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
+
+  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_x" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty where
@@ -1789,6 +1776,19 @@ instance ( ty ~ RIP.CFloat
                            }
       , RIP.getField @"multi_anon_t_pos_y" x0
       )
+
+instance ( ty ~ RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_pos_y" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_y")
+
+instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
+
+  type CFieldType Multi_anon_t_pos "multi_anon_t_pos_y" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 4
 
 {-| __C declaration:__ @struct \@multi_anon_t_dim@
 
@@ -1844,19 +1844,6 @@ instance Marshal.WriteRaw Multi_anon_t_dim where
 
 deriving via Marshal.EquivStorable Multi_anon_t_dim instance RIP.Storable Multi_anon_t_dim
 
-instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
-
-  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_w" =
-    RIP.CFloat
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_dim_w" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_w")
-
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty where
 
@@ -1869,18 +1856,18 @@ instance ( ty ~ RIP.CFloat
       , RIP.getField @"multi_anon_t_dim_w" x0
       )
 
-instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_h" where
-
-  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_h" =
-    RIP.CFloat
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_dim_h" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+         ) => RIP.HasField "multi_anon_t_dim_w" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_h")
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_w")
+
+instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
+
+  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_w" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CFloat
          ) => RIP.CompatHasField.HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty where
@@ -1893,6 +1880,19 @@ instance ( ty ~ RIP.CFloat
                            }
       , RIP.getField @"multi_anon_t_dim_h" x0
       )
+
+instance ( ty ~ RIP.CFloat
+         ) => RIP.HasField "multi_anon_t_dim_h" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_h")
+
+instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_h" where
+
+  type CFieldType Multi_anon_t_dim "multi_anon_t_dim_h" =
+    RIP.CFloat
+
+  offset# = \_ -> \_ -> 4
 
 {-| Struct with multiple anonymous inner structs.
 
@@ -1956,19 +1956,6 @@ instance Marshal.WriteRaw Multi_anon_t where
 
 deriving via Marshal.EquivStorable Multi_anon_t instance RIP.Storable Multi_anon_t
 
-instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
-
-  type CFieldType Multi_anon_t "multi_anon_t_pos" =
-    Multi_anon_t_pos
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Multi_anon_t_pos
-         ) => RIP.HasField "multi_anon_t_pos" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos")
-
 instance ( ty ~ Multi_anon_t_pos
          ) => RIP.CompatHasField.HasField "multi_anon_t_pos" Multi_anon_t ty where
 
@@ -1979,18 +1966,18 @@ instance ( ty ~ Multi_anon_t_pos
       , RIP.getField @"multi_anon_t_pos" x0
       )
 
-instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
-
-  type CFieldType Multi_anon_t "multi_anon_t_dim" =
-    Multi_anon_t_dim
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ Multi_anon_t_dim
-         ) => RIP.HasField "multi_anon_t_dim" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+instance ( ty ~ Multi_anon_t_pos
+         ) => RIP.HasField "multi_anon_t_pos" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim")
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos")
+
+instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
+
+  type CFieldType Multi_anon_t "multi_anon_t_pos" =
+    Multi_anon_t_pos
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Multi_anon_t_dim
          ) => RIP.CompatHasField.HasField "multi_anon_t_dim" Multi_anon_t ty where
@@ -2001,6 +1988,19 @@ instance ( ty ~ Multi_anon_t_dim
           Multi_anon_t {multi_anon_t_dim = y1, multi_anon_t_pos = RIP.getField @"multi_anon_t_pos" x0}
       , RIP.getField @"multi_anon_t_dim" x0
       )
+
+instance ( ty ~ Multi_anon_t_dim
+         ) => RIP.HasField "multi_anon_t_dim" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim")
+
+instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
+
+  type CFieldType Multi_anon_t "multi_anon_t_dim" =
+    Multi_anon_t_dim
+
+  offset# = \_ -> \_ -> 8
 
 {-| Named inner struct
 
@@ -2058,19 +2058,6 @@ instance Marshal.WriteRaw Named_inner where
 
 deriving via Marshal.EquivStorable Named_inner instance RIP.Storable Named_inner
 
-instance HasCField.HasCField Named_inner "named_inner_nx" where
-
-  type CFieldType Named_inner "named_inner_nx" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_inner_nx" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"named_inner_nx")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "named_inner_nx" Named_inner ty where
 
@@ -2081,18 +2068,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"named_inner_nx" x0
       )
 
-instance HasCField.HasCField Named_inner "named_inner_ny" where
-
-  type CFieldType Named_inner "named_inner_ny" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_inner_ny" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+         ) => RIP.HasField "named_inner_nx" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_inner_ny")
+    HasCField.fromPtr (RIP.Proxy @"named_inner_nx")
+
+instance HasCField.HasCField Named_inner "named_inner_nx" where
+
+  type CFieldType Named_inner "named_inner_nx" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "named_inner_ny" Named_inner ty where
@@ -2103,6 +2090,19 @@ instance ( ty ~ RIP.CInt
           Named_inner {named_inner_ny = y1, named_inner_nx = RIP.getField @"named_inner_nx" x0}
       , RIP.getField @"named_inner_ny" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "named_inner_ny" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_inner_ny")
+
+instance HasCField.HasCField Named_inner "named_inner_ny" where
+
+  type CFieldType Named_inner "named_inner_ny" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| Struct with a named inner struct.
 
@@ -2160,19 +2160,6 @@ instance Marshal.WriteRaw Named_outer where
 
 deriving via Marshal.EquivStorable Named_outer instance RIP.Storable Named_outer
 
-instance HasCField.HasCField Named_outer "named_outer_inner_field" where
-
-  type CFieldType Named_outer "named_outer_inner_field" =
-    Named_inner
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Named_inner
-         ) => RIP.HasField "named_outer_inner_field" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"named_outer_inner_field")
-
 instance ( ty ~ Named_inner
          ) => RIP.CompatHasField.HasField "named_outer_inner_field" Named_outer ty where
 
@@ -2185,18 +2172,18 @@ instance ( ty ~ Named_inner
       , RIP.getField @"named_outer_inner_field" x0
       )
 
-instance HasCField.HasCField Named_outer "named_outer_nz" where
-
-  type CFieldType Named_outer "named_outer_nz" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_outer_nz" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+instance ( ty ~ Named_inner
+         ) => RIP.HasField "named_outer_inner_field" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_outer_nz")
+    HasCField.fromPtr (RIP.Proxy @"named_outer_inner_field")
+
+instance HasCField.HasCField Named_outer "named_outer_inner_field" where
+
+  type CFieldType Named_outer "named_outer_inner_field" =
+    Named_inner
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "named_outer_nz" Named_outer ty where
@@ -2209,6 +2196,19 @@ instance ( ty ~ RIP.CInt
                       }
       , RIP.getField @"named_outer_nz" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "named_outer_nz" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"named_outer_nz")
+
+instance HasCField.HasCField Named_outer "named_outer_nz" where
+
+  type CFieldType Named_outer "named_outer_nz" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@deep_mid_anon_field@
 
@@ -2253,19 +2253,6 @@ instance Marshal.WriteRaw Deep_mid_anon_field where
 
 deriving via Marshal.EquivStorable Deep_mid_anon_field instance RIP.Storable Deep_mid_anon_field
 
-instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" where
-
-  type CFieldType Deep_mid_anon_field "deep_mid_anon_field_deep_a" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_mid_anon_field_deep_a" (RIP.Ptr Deep_mid_anon_field) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field_deep_a")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty where
 
@@ -2275,6 +2262,19 @@ instance ( ty ~ RIP.CInt
           Deep_mid_anon_field {deep_mid_anon_field_deep_a = y1}
       , RIP.getField @"deep_mid_anon_field_deep_a" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "deep_mid_anon_field_deep_a" (RIP.Ptr Deep_mid_anon_field) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field_deep_a")
+
+instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" where
+
+  type CFieldType Deep_mid_anon_field "deep_mid_anon_field_deep_a" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| The named mid-level struct
 
@@ -2332,18 +2332,6 @@ instance Marshal.WriteRaw Deep_mid where
 
 deriving via Marshal.EquivStorable Deep_mid instance RIP.Storable Deep_mid
 
-instance HasCField.HasCField Deep_mid "deep_mid_m" where
-
-  type CFieldType Deep_mid "deep_mid_m" = RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_mid_m" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_m")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "deep_mid_m" Deep_mid ty where
 
@@ -2354,18 +2342,17 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"deep_mid_m" x0
       )
 
-instance HasCField.HasCField Deep_mid "deep_mid_anon_field" where
-
-  type CFieldType Deep_mid "deep_mid_anon_field" =
-    Deep_mid_anon_field
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ Deep_mid_anon_field
-         ) => RIP.HasField "deep_mid_anon_field" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "deep_mid_m" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field")
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_m")
+
+instance HasCField.HasCField Deep_mid "deep_mid_m" where
+
+  type CFieldType Deep_mid "deep_mid_m" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Deep_mid_anon_field
          ) => RIP.CompatHasField.HasField "deep_mid_anon_field" Deep_mid ty where
@@ -2376,6 +2363,19 @@ instance ( ty ~ Deep_mid_anon_field
           Deep_mid {deep_mid_anon_field = y1, deep_mid_m = RIP.getField @"deep_mid_m" x0}
       , RIP.getField @"deep_mid_anon_field" x0
       )
+
+instance ( ty ~ Deep_mid_anon_field
+         ) => RIP.HasField "deep_mid_anon_field" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field")
+
+instance HasCField.HasCField Deep_mid "deep_mid_anon_field" where
+
+  type CFieldType Deep_mid "deep_mid_anon_field" =
+    Deep_mid_anon_field
+
+  offset# = \_ -> \_ -> 4
 
 {-| Deeply nested mix of named and anonymous structs.
 
@@ -2433,19 +2433,6 @@ instance Marshal.WriteRaw Deep_outer where
 
 deriving via Marshal.EquivStorable Deep_outer instance RIP.Storable Deep_outer
 
-instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
-
-  type CFieldType Deep_outer "deep_outer_mid_field" =
-    Deep_mid
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ Deep_mid
-         ) => RIP.HasField "deep_outer_mid_field" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_outer_mid_field")
-
 instance ( ty ~ Deep_mid
          ) => RIP.CompatHasField.HasField "deep_outer_mid_field" Deep_outer ty where
 
@@ -2456,17 +2443,18 @@ instance ( ty ~ Deep_mid
       , RIP.getField @"deep_outer_mid_field" x0
       )
 
-instance HasCField.HasCField Deep_outer "deep_outer_o" where
-
-  type CFieldType Deep_outer "deep_outer_o" = RIP.CInt
-
-  offset# = \_ -> \_ -> 8
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_outer_o" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+instance ( ty ~ Deep_mid
+         ) => RIP.HasField "deep_outer_mid_field" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_outer_o")
+    HasCField.fromPtr (RIP.Proxy @"deep_outer_mid_field")
+
+instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
+
+  type CFieldType Deep_outer "deep_outer_mid_field" =
+    Deep_mid
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "deep_outer_o" Deep_outer ty where
@@ -2479,6 +2467,18 @@ instance ( ty ~ RIP.CInt
                      }
       , RIP.getField @"deep_outer_o" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "deep_outer_o" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"deep_outer_o")
+
+instance HasCField.HasCField Deep_outer "deep_outer_o" where
+
+  type CFieldType Deep_outer "deep_outer_o" = RIP.CInt
+
+  offset# = \_ -> \_ -> 8
 
 {-| __C declaration:__ @struct \@unnamed_field_t_anon\'ua@
 
@@ -2536,19 +2536,6 @@ instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
 
 deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance RIP.Storable Unnamed_field_t_anon'ua
 
-instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" where
-
-  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_anon'ua_ua" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ua")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua_ua" Unnamed_field_t_anon'ua ty where
 
@@ -2561,18 +2548,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"unnamed_field_t_anon'ua_ua" x0
       )
 
-instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" where
-
-  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 4
-
 instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_anon'ua_ub" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
+         ) => RIP.HasField "unnamed_field_t_anon'ua_ua" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ub")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ua")
+
+instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" where
+
+  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua_ub" Unnamed_field_t_anon'ua ty where
@@ -2585,6 +2572,19 @@ instance ( ty ~ RIP.CInt
                                   }
       , RIP.getField @"unnamed_field_t_anon'ua_ub" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_anon'ua_ub" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ub")
+
+instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" where
+
+  type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 4
 
 {-| Struct with unnamed anonymous field.
 
@@ -2656,19 +2656,6 @@ instance Marshal.WriteRaw Unnamed_field_t where
 
 deriving via Marshal.EquivStorable Unnamed_field_t instance RIP.Storable Unnamed_field_t
 
-instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
-
-  type CFieldType Unnamed_field_t "unnamed_field_t_before" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_before" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_before")
-
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "unnamed_field_t_before" Unnamed_field_t ty where
 
@@ -2682,18 +2669,18 @@ instance ( ty ~ RIP.CInt
       , RIP.getField @"unnamed_field_t_before" x0
       )
 
-instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
-
-  type CFieldType Unnamed_field_t "unnamed_field_t_anon'ua" =
-    Unnamed_field_t_anon'ua
-
-  offset# = \_ -> \_ -> 4
-
-instance ( ty ~ Unnamed_field_t_anon'ua
-         ) => RIP.HasField "unnamed_field_t_anon'ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_before" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_before")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_before" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Unnamed_field_t_anon'ua
          ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua" Unnamed_field_t ty where
@@ -2708,18 +2695,18 @@ instance ( ty ~ Unnamed_field_t_anon'ua
       , RIP.getField @"unnamed_field_t_anon'ua" x0
       )
 
-instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
-
-  type CFieldType Unnamed_field_t "unnamed_field_t_after" =
-    RIP.CInt
-
-  offset# = \_ -> \_ -> 12
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_after" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+instance ( ty ~ Unnamed_field_t_anon'ua
+         ) => RIP.HasField "unnamed_field_t_anon'ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_anon'ua" =
+    Unnamed_field_t_anon'ua
+
+  offset# = \_ -> \_ -> 4
 
 instance ( ty ~ RIP.CInt
          ) => RIP.CompatHasField.HasField "unnamed_field_t_after" Unnamed_field_t ty where
@@ -2733,6 +2720,19 @@ instance ( ty ~ RIP.CInt
                           }
       , RIP.getField @"unnamed_field_t_after" x0
       )
+
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "unnamed_field_t_after" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_after" =
+    RIP.CInt
+
+  offset# = \_ -> \_ -> 12
 
 {-| API version number (not in any group).
 
@@ -2765,6 +2765,15 @@ newtype Api_version_t = Api_version_t
     )
 
 instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "unwrapApi_version_t" Api_version_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 -> Api_version_t {unwrapApi_version_t = y1}
+      , RIP.getField @"unwrapApi_version_t" x0
+      )
+
+instance ( ty ~ RIP.CInt
          ) => RIP.HasField "unwrapApi_version_t" (RIP.Ptr Api_version_t) (RIP.Ptr ty) where
 
   getField =
@@ -2776,12 +2785,3 @@ instance HasCField.HasCField Api_version_t "unwrapApi_version_t" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
-
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapApi_version_t" Api_version_t ty where
-
-  hasField =
-    \x0 ->
-      ( \y1 -> Api_version_t {unwrapApi_version_t = y1}
-      , RIP.getField @"unwrapApi_version_t" x0
-      )

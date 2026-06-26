@@ -41,11 +41,12 @@ hstypes:
       - primitive_f
       - primitive_d
   instances:
-  - CompatHasField
   - Eq
   - Generic
   - HasCField
   - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize

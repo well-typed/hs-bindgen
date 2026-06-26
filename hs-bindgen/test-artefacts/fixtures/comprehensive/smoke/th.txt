@@ -658,14 +658,14 @@ newtype Uint
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CUInt => HasField "unwrap" Uint ty
+    where hasField = \x_0 -> (\y_1 -> Uint{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr Uint) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Uint "unwrap"
     where type CFieldType Uint "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" Uint ty
-    where hasField = \x_0 -> (\y_1 -> Uint{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @size_t@
 
     __defined at:__ @comprehensive\/smoke.h 8:23@
@@ -690,14 +690,14 @@ newtype Size_t
                       StaticSize,
                       Storable,
                       WriteRaw)
+instance (~) ty CULong => HasField "unwrap" Size_t ty
+    where hasField = \x_0 -> (\y_1 -> Size_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CULong => HasField "unwrap" (Ptr Size_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Size_t "unwrap"
     where type CFieldType Size_t "unwrap" = CULong
           offset# = \_ -> \_ -> 0
-instance (~) ty CULong => HasField "unwrap" Size_t ty
-    where hasField = \x_0 -> (\y_1 -> Size_t{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @struct bar1_t@
 
     __defined at:__ @comprehensive\/smoke.h 39:8@
@@ -802,11 +802,6 @@ instance WriteRaw Bar1_t
                                               j_11
                                               k_12 -> writeRaw (Proxy @"a") ptr_0 a_2 >> (writeRaw (Proxy @"b") ptr_0 b_3 >> (writeRaw (Proxy @"c") ptr_0 c_4 >> (writeRaw (Proxy @"d") ptr_0 d_5 >> (writeRaw (Proxy @"e") ptr_0 e_6 >> (writeRaw (Proxy @"f") ptr_0 f_7 >> (writeRaw (Proxy @"g") ptr_0 g_8 >> (writeRaw (Proxy @"h") ptr_0 h_9 >> (writeRaw (Proxy @"i") ptr_0 i_10 >> (writeRaw (Proxy @"j") ptr_0 j_11 >> writeRaw (Proxy @"k") ptr_0 k_12)))))))))
 deriving via (EquivStorable Bar1_t) instance Storable Bar1_t
-instance HasCField Bar1_t "a"
-    where type CFieldType Bar1_t "a" = Ptr Void
-          offset# = \_ -> \_ -> 0
-instance (~) ty (Ptr Void) => HasField "a" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty (Ptr Void) => HasField "a" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{a = y_1,
                                              b = getField @"b" x_0,
@@ -820,11 +815,11 @@ instance (~) ty (Ptr Void) => HasField "a" Bar1_t ty
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"a" x_0)
-instance HasCField Bar1_t "b"
-    where type CFieldType Bar1_t "b" = CInt
-          offset# = \_ -> \_ -> 8
-instance (~) ty CInt => HasField "b" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"b")
+instance (~) ty (Ptr Void) => HasField "a" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField Bar1_t "a"
+    where type CFieldType Bar1_t "a" = Ptr Void
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "b" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{b = y_1,
                                              a = getField @"a" x_0,
@@ -838,11 +833,11 @@ instance (~) ty CInt => HasField "b" Bar1_t ty
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"b" x_0)
-instance HasCField Bar1_t "c"
-    where type CFieldType Bar1_t "c" = CChar
-          offset# = \_ -> \_ -> 12
-instance (~) ty CChar => HasField "c" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"c")
+instance (~) ty CInt => HasField "b" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField Bar1_t "b"
+    where type CFieldType Bar1_t "b" = CInt
+          offset# = \_ -> \_ -> 8
 instance (~) ty CChar => HasField "c" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{c = y_1,
                                              a = getField @"a" x_0,
@@ -856,11 +851,11 @@ instance (~) ty CChar => HasField "c" Bar1_t ty
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"c" x_0)
-instance HasCField Bar1_t "d"
-    where type CFieldType Bar1_t "d" = Ptr CChar
-          offset# = \_ -> \_ -> 16
-instance (~) ty (Ptr CChar) => HasField "d" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"d")
+instance (~) ty CChar => HasField "c" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
+instance HasCField Bar1_t "c"
+    where type CFieldType Bar1_t "c" = CChar
+          offset# = \_ -> \_ -> 12
 instance (~) ty (Ptr CChar) => HasField "d" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{d = y_1,
                                              a = getField @"a" x_0,
@@ -874,12 +869,11 @@ instance (~) ty (Ptr CChar) => HasField "d" Bar1_t ty
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"d" x_0)
-instance HasCField Bar1_t "e"
-    where type CFieldType Bar1_t "e" = FunPtr (IO (Ptr CChar))
-          offset# = \_ -> \_ -> 24
-instance (~) ty (FunPtr (IO (Ptr CChar))) =>
-         HasField "e" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"e")
+instance (~) ty (Ptr CChar) => HasField "d" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"d")
+instance HasCField Bar1_t "d"
+    where type CFieldType Bar1_t "d" = Ptr CChar
+          offset# = \_ -> \_ -> 16
 instance (~) ty (FunPtr (IO (Ptr CChar))) => HasField "e" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{e = y_1,
                                              a = getField @"a" x_0,
@@ -893,12 +887,12 @@ instance (~) ty (FunPtr (IO (Ptr CChar))) => HasField "e" Bar1_t ty
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"e" x_0)
-instance HasCField Bar1_t "f"
-    where type CFieldType Bar1_t "f" = FunPtr (Ptr Void -> IO ())
-          offset# = \_ -> \_ -> 32
-instance (~) ty (FunPtr (Ptr Void -> IO ())) =>
-         HasField "f" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"f")
+instance (~) ty (FunPtr (IO (Ptr CChar))) =>
+         HasField "e" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"e")
+instance HasCField Bar1_t "e"
+    where type CFieldType Bar1_t "e" = FunPtr (IO (Ptr CChar))
+          offset# = \_ -> \_ -> 24
 instance (~) ty (FunPtr (Ptr Void -> IO ())) =>
          HasField "f" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{f = y_1,
@@ -913,13 +907,12 @@ instance (~) ty (FunPtr (Ptr Void -> IO ())) =>
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"f" x_0)
-instance HasCField Bar1_t "g"
-    where type CFieldType Bar1_t "g" = FunPtr (Ptr Void ->
-                                               IO (Ptr CInt))
-          offset# = \_ -> \_ -> 40
-instance (~) ty (FunPtr (Ptr Void -> IO (Ptr CInt))) =>
-         HasField "g" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"g")
+instance (~) ty (FunPtr (Ptr Void -> IO ())) =>
+         HasField "f" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"f")
+instance HasCField Bar1_t "f"
+    where type CFieldType Bar1_t "f" = FunPtr (Ptr Void -> IO ())
+          offset# = \_ -> \_ -> 32
 instance (~) ty (FunPtr (Ptr Void -> IO (Ptr CInt))) =>
          HasField "g" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{g = y_1,
@@ -934,13 +927,13 @@ instance (~) ty (FunPtr (Ptr Void -> IO (Ptr CInt))) =>
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"g" x_0)
-instance HasCField Bar1_t "h"
-    where type CFieldType Bar1_t "h" = FunPtr (Ptr Void ->
-                                               IO (Ptr (Ptr CInt)))
-          offset# = \_ -> \_ -> 48
-instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr CInt)))) =>
-         HasField "h" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"h")
+instance (~) ty (FunPtr (Ptr Void -> IO (Ptr CInt))) =>
+         HasField "g" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"g")
+instance HasCField Bar1_t "g"
+    where type CFieldType Bar1_t "g" = FunPtr (Ptr Void ->
+                                               IO (Ptr CInt))
+          offset# = \_ -> \_ -> 40
 instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr CInt)))) =>
          HasField "h" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{h = y_1,
@@ -955,13 +948,13 @@ instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr CInt)))) =>
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"h" x_0)
-instance HasCField Bar1_t "i"
-    where type CFieldType Bar1_t "i" = FunPtr (Ptr Void ->
-                                               IO (Ptr (Ptr (Ptr CInt))))
-          offset# = \_ -> \_ -> 56
-instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr (Ptr CInt))))) =>
-         HasField "i" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"i")
+instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr CInt)))) =>
+         HasField "h" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"h")
+instance HasCField Bar1_t "h"
+    where type CFieldType Bar1_t "h" = FunPtr (Ptr Void ->
+                                               IO (Ptr (Ptr CInt)))
+          offset# = \_ -> \_ -> 48
 instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr (Ptr CInt))))) =>
          HasField "i" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{i = y_1,
@@ -976,12 +969,13 @@ instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr (Ptr CInt))))) =>
                                              j = getField @"j" x_0,
                                              k = getField @"k" x_0},
                               getField @"i" x_0)
-instance HasCField Bar1_t "j"
-    where type CFieldType Bar1_t "j" = ConstantArray 2 CChar
-          offset# = \_ -> \_ -> 64
-instance (~) ty (ConstantArray 2 CChar) =>
-         HasField "j" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"j")
+instance (~) ty (FunPtr (Ptr Void -> IO (Ptr (Ptr (Ptr CInt))))) =>
+         HasField "i" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"i")
+instance HasCField Bar1_t "i"
+    where type CFieldType Bar1_t "i" = FunPtr (Ptr Void ->
+                                               IO (Ptr (Ptr (Ptr CInt))))
+          offset# = \_ -> \_ -> 56
 instance (~) ty (ConstantArray 2 CChar) => HasField "j" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{j = y_1,
                                              a = getField @"a" x_0,
@@ -995,11 +989,12 @@ instance (~) ty (ConstantArray 2 CChar) => HasField "j" Bar1_t ty
                                              i = getField @"i" x_0,
                                              k = getField @"k" x_0},
                               getField @"j" x_0)
-instance HasCField Bar1_t "k"
-    where type CFieldType Bar1_t "k" = Ptr Bar1_t
-          offset# = \_ -> \_ -> 72
-instance (~) ty (Ptr Bar1_t) => HasField "k" (Ptr Bar1_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"k")
+instance (~) ty (ConstantArray 2 CChar) =>
+         HasField "j" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"j")
+instance HasCField Bar1_t "j"
+    where type CFieldType Bar1_t "j" = ConstantArray 2 CChar
+          offset# = \_ -> \_ -> 64
 instance (~) ty (Ptr Bar1_t) => HasField "k" Bar1_t ty
     where hasField = \x_0 -> (\y_1 -> Bar1_t{k = y_1,
                                              a = getField @"a" x_0,
@@ -1013,6 +1008,11 @@ instance (~) ty (Ptr Bar1_t) => HasField "k" Bar1_t ty
                                              i = getField @"i" x_0,
                                              j = getField @"j" x_0},
                               getField @"k" x_0)
+instance (~) ty (Ptr Bar1_t) => HasField "k" (Ptr Bar1_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"k")
+instance HasCField Bar1_t "k"
+    where type CFieldType Bar1_t "k" = Ptr Bar1_t
+          offset# = \_ -> \_ -> 72
 {-| __C declaration:__ @struct bar2_t@
 
     __defined at:__ @comprehensive\/smoke.h 54:16@
@@ -1037,14 +1037,14 @@ instance WriteRaw Bar2_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Bar2_t a_2 -> writeRaw (Proxy @"a") ptr_0 a_2
 deriving via (EquivStorable Bar2_t) instance Storable Bar2_t
-instance HasCField Bar2_t "a"
-    where type CFieldType Bar2_t "a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "a" (Ptr Bar2_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CInt => HasField "a" Bar2_t ty
     where hasField = \x_0 -> (\y_1 -> Bar2_t{a = y_1},
                               getField @"a" x_0)
+instance (~) ty CInt => HasField "a" (Ptr Bar2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField Bar2_t "a"
+    where type CFieldType Bar2_t "a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct bar3_t@
 
     __defined at:__ @comprehensive\/smoke.h 58:9@
@@ -1069,14 +1069,14 @@ instance WriteRaw Bar3_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Bar3_t a_2 -> writeRaw (Proxy @"a") ptr_0 a_2
 deriving via (EquivStorable Bar3_t) instance Storable Bar3_t
-instance HasCField Bar3_t "a"
-    where type CFieldType Bar3_t "a" = CInt
-          offset# = \_ -> \_ -> 0
-instance (~) ty CInt => HasField "a" (Ptr Bar3_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"a")
 instance (~) ty CInt => HasField "a" Bar3_t ty
     where hasField = \x_0 -> (\y_1 -> Bar3_t{a = y_1},
                               getField @"a" x_0)
+instance (~) ty CInt => HasField "a" (Ptr Bar3_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField Bar3_t "a"
+    where type CFieldType Bar3_t "a" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @BAZ1@
 
     __defined at:__ @comprehensive\/smoke.h 62:1@
@@ -1124,14 +1124,14 @@ instance Read Baz2_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrap" Baz2_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz2_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr Baz2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Baz2_t "unwrap"
     where type CFieldType Baz2_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" Baz2_t ty
-    where hasField = \x_0 -> (\y_1 -> Baz2_t{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ2@
 
     __defined at:__ @comprehensive\/smoke.h 67:3@
@@ -1179,14 +1179,14 @@ instance Read Baz3_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrap" Baz3_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz3_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr Baz3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Baz3_t "unwrap"
     where type CFieldType Baz3_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" Baz3_t ty
-    where hasField = \x_0 -> (\y_1 -> Baz3_t{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ3@
 
     __defined at:__ @comprehensive\/smoke.h 71:3@
@@ -1234,14 +1234,14 @@ instance Read Baz4_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrap" Baz4_t ty
+    where hasField = \x_0 -> (\y_1 -> Baz4_t{unwrap = y_1},
+                              getField @"unwrap" x_0)
 instance (~) ty CUInt => HasField "unwrap" (Ptr Baz4_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Baz4_t "unwrap"
     where type CFieldType Baz4_t "unwrap" = CUInt
           offset# = \_ -> \_ -> 0
-instance (~) ty CUInt => HasField "unwrap" Baz4_t ty
-    where hasField = \x_0 -> (\y_1 -> Baz4_t{unwrap = y_1},
-                              getField @"unwrap" x_0)
 {-| __C declaration:__ @BAZ4@
 
     __defined at:__ @comprehensive\/smoke.h 75:3@
