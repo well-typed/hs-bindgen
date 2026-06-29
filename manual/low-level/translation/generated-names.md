@@ -104,32 +104,6 @@ newtype Index = Index {
  }
 ```
 
-### Getters and setters
-
-For unions we generate getters and setters (see detailed section on unions,
-below); for those we use `get_` and `set_` prefixes. For example,
-
-```c
-union occupation {
- struct student  { .. } student;
- struct employee { .. } employee;
-} occupation;
-```
-
-results in
-
-```haskell
-get_occupation_student  :: Occupation -> Student
-get_occupation_employee :: Occupation -> Employee
-
-set_occupation_student  :: Student  -> Occupation
-set_occupation_employee :: Employee -> Occupation
-```
-
-> [!NOTE]
-> Here too we could in principle take advantage of overloaded record syntax.
-> <https://github.com/well-typed/hs-bindgen/issues/557>
-
 ### Anonymous types
 
 For anonymous type declarations (such as untagged `struct` definitions, with

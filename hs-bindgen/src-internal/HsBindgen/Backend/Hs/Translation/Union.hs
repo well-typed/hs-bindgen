@@ -76,7 +76,10 @@ unionDecs info union spec = do
           -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
           -- when bit-fields in unions are supported.
           , if null union.fields then Nothing else Just Inst.HasCField
+          , if null union.fields then Nothing else Just Inst.HasField
+          , if null union.fields then Nothing else Just Inst.HasFieldCompat
           , if null union.fields then Nothing else Just Inst.HasFieldPtr
+          , Just Inst.IsUnion
           , Just Inst.ReadRaw
           , Just Inst.StaticSize
           , Just Inst.Storable
@@ -86,7 +89,7 @@ unionDecs info union spec = do
     -- everything in aux is state-dependent
     aux :: HsM.St -> HsM.Env -> Hs.Newtype -> [Hs.Decl l]
     aux st env nt =
-        Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
+        Hs.DeclNewtype nt : marshalDecls ++ isUnionDecl ++
         fieldDecls
       where
         marshalDecls :: [Hs.Decl l]
@@ -131,52 +134,109 @@ unionDecs info union spec = do
 
         fieldDecls :: [Hs.Decl l]
         fieldDecls = flip concatMap union.fields $ \field ->
+          hasFieldDecs st env info nt field ++
           hasFieldPtrDecs nt field
 
-        accessorDecls :: [Hs.Decl l]
-        accessorDecls = concatMap getAccessorDecls union.fields
-
-        getAccessorDecls :: C.UnionField Final -> [Hs.Decl l]
-        getAccessorDecls field =
-            if Inst.Storable `Set.member` fInsts
-              then [
-                  Hs.DeclUnionGetter Hs.UnionGetter{
-                      name    = getterName
-                    , typ     = hsType
-                    , constr  = nt.name
-                    , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
-                             <> commentRefName setterName.text
-                    }
-                , Hs.DeclUnionSetter Hs.UnionSetter{
-                      name    = setterName
-                    , typ     = hsType
-                    , constr  = nt.name
-                    , comment = commentRefName getterName.text
-                    }
-                ]
-              else []
-          where
-            hsType :: Hs.Type
-            hsType     = Type.topLevel field.typ
-            fInsts     = Hs.getInstances
-                            st.instanceMap
-                            (Just nt.name)
-                            (Set.singleton Inst.Storable)
-                            [hsType]
-
-            getterName, setterName :: Hs.Name Hs.NsVar
-            getterName = field.names.getter
-            setterName = field.names.setter
-
-            commentRefName :: Text -> Maybe HsDoc.Comment
-            commentRefName name = Just $ HsDoc.paragraph [
-                HsDoc.Bold [HsDoc.TextContent "See:"]
-              , HsDoc.Identifier name
-              ]
+        isUnionDecl :: [Hs.Decl l]
+        isUnionDecl = [
+              Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  strategy = Hs.DeriveVia sba
+                , clss     = Inst.IsUnion
+                , name     = nt.name
+                , comment  = Nothing
+                }
+            | Inst.IsUnion `Set.member` nt.instances
+            ]
 
 {-------------------------------------------------------------------------------
   HasField
 -------------------------------------------------------------------------------}
+
+
+-- | Class instances for 'GHC.Records.HasField' and
+-- 'GHC.Records.Compat.HasField' for a union field
+--
+-- Given a union:
+--
+-- > union myUnion { int option1; char option2 };
+--
+-- We generate roughly this newtype:
+--
+-- > newtype MyUnion = MyUnion { unwrapMyUnion :: ByteArray }
+--
+-- Then, 'hasFieldDecs' will generate roughly the following class instances for
+-- the fields @option1@ and @option@ respectively:
+--
+-- > instance GHC.Records.HasField "myUnion_option1" MyUnion CInt
+-- > instance GHC.Records.Compat.HasField "myUnion_option1" MyUnion CInt
+--
+-- > instance GHC.Records.HasField "myUnion_option2"  MyUnion CChar
+-- > instance GHC.Records.Compat.HasField "myUnion_option2" MyUnion CChar
+--
+-- Unions do not get 'GHC.Records.HasField' instances for its fields for free
+-- (like with structs), so we generate them instead in addition to
+-- 'GHC.Records.Compat.HasField' instances.
+--
+hasFieldDecs ::
+     HsM.St
+  -> HsM.Env
+  -> C.DeclInfo Final
+  -> Hs.Newtype
+  -> C.UnionField Final
+  -> [Hs.Decl l]
+hasFieldDecs st env info nt field =
+    if Inst.Storable `Set.member` fInsts
+    then concat [
+        [ Hs.DeclDefineInstance $
+            Hs.DefineInstance {
+                comment = fieldComment
+              , instanceDecl = Hs.InstanceHasField baseHasFieldDecl
+              }
+        | Inst.HasField `elem` nt.instances
+        ]
+      , [ Hs.DeclDefineInstance $
+            Hs.DefineInstance {
+                comment = fieldComment
+              , instanceDecl = Hs.InstanceHasFieldCompat compatHasFieldDecl
+              }
+        | Inst.HasFieldCompat `elem` nt.instances
+        ]
+      ]
+    else []
+  where
+    fInsts     = Hs.getInstances
+                    st.instanceMap
+                    (Just nt.name)
+                    (Set.singleton Inst.Storable)
+                    [fieldType]
+
+    fieldComment :: Maybe HsDoc.Comment
+    fieldComment = mkHaddocksFieldInfo env.haddockConfig info field.info
+
+    parentType :: Hs.Type
+    parentType = Hs.TypRef nt.name Nothing
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
+
+    fieldType :: Hs.Type
+    fieldType = Type.topLevel field.typ
+
+    baseHasFieldDecl :: Hs.HasFieldInstance
+    baseHasFieldDecl = Hs.HasFieldInstance {
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , impl       = Hs.HasFieldImplUnion
+        }
+
+    compatHasFieldDecl :: Hs.HasFieldCompatInstance
+    compatHasFieldDecl = Hs.HasFieldCompatInstance {
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , impl       = Hs.HasFieldCompatImplUnion
+        }
 
 -- | Class instances for 'GHC.Records.HasField' for a union field for the
 -- pointer manipulation API

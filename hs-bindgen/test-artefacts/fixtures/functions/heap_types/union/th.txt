@@ -33,40 +33,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize T
 deriving via (SizedByteArray 4 4) instance ReadRaw T
 deriving via (SizedByteArray 4 4) instance WriteRaw T
 deriving via (EquivStorable T) instance Storable T
-{-|
-
-    __See:__ 'set_t_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @functions\/heap_types\/union.h 4:7@
-
-    __exported by:__ @functions\/heap_types\/union.h@
--}
-get_t_x :: T -> CInt
-{-|
-
-    __See:__ 'set_t_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @functions\/heap_types\/union.h 4:7@
-
-    __exported by:__ @functions\/heap_types\/union.h@
--}
-get_t_x = getUnionPayload
-{-|
-
-    __See:__ 'get_t_x'
-
--}
-set_t_x :: CInt -> T
-{-|
-
-    __See:__ 'get_t_x'
-
--}
-set_t_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion T
+instance (~) ty CInt => HasField "t_x" T ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t_x" x_0)
 instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"t_x")
 instance HasCField T "t_x"

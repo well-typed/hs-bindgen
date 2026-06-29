@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedRecordDot #-}
+
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Manual.Functions.FirstOrder (examples) where
@@ -70,6 +72,6 @@ examples = do
             apply1Fun = fromFunPtr apply1FunPtr
         print =<< apply1Fun (safeCastFunPtr FunPtr.square) 6
       do -- function type in union field
-        let apply1FunPtr = Fun.get_apply1Union_apply1_nopointer_union_field Fun.apply1_union
+        let apply1FunPtr = Fun.apply1_union.apply1Union_apply1_nopointer_union_field
             apply1Fun = fromFunPtr apply1FunPtr
         print =<< apply1Fun (safeCastFunPtr FunPtr.square) 7

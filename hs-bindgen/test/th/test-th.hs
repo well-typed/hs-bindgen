@@ -21,6 +21,7 @@ import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Union qualified as Union
 
 import Test.Common.Util.Tasty
 import Test.TH.StaticCounterA qualified as CounterA
@@ -167,17 +168,17 @@ test01 = testGroup "test_01"
 
     , testCase "union" $ do
         let x :: Test01.LongLongOrDouble
-            x = zeroUnionValue
+            x = Union.zero
             l :: CLLong
-            l = Test01.get_longLongOrDouble_l x
+            l = x.longLongOrDouble_l
             d :: CDouble
-            d = Test01.get_longLongOrDouble_d x
+            d = x.longLongOrDouble_d
         l @?= 0
         d @?= 0
         let d' :: CDouble
-            d' = Test01.get_longLongOrDouble_d $ Test01.set_longLongOrDouble_d 3.5
+            d' = (Union.set @"longLongOrDouble_d" @Test01.LongLongOrDouble 3.5).longLongOrDouble_d
             l' :: CLLong
-            l' = Test01.get_longLongOrDouble_l $ Test01.set_longLongOrDouble_l 10
+            l' = (Union.set @"longLongOrDouble_l" @Test01.LongLongOrDouble 10).longLongOrDouble_l
         l' @?= 10
         d' @?= 3.5
 

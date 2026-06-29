@@ -32,6 +32,7 @@ import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as RIP.Compat
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Union qualified as Union
 
 import HsBindgen.Backend.Level
 import HsBindgen.Errors (panicPure)
@@ -408,6 +409,7 @@ typeClassGlobal = globalType . \case
     Inst.Flam_Offset     -> (IRuntimeModule "FLAM",         ''FLAM.Offset)
     Inst.Integral        -> (IHaskellPrelude,               ''Integral)
     Inst.IsArray         -> (IRuntimeModule "IsA",          ''IsA.IsArray)
+    Inst.IsUnion         -> (IRuntimeModule "Union",        ''Union.IsUnion)
     Inst.Ix              -> (IRuntimeInternalPrelude,       ''RIP.Ix)
     Inst.Num             -> (IHaskellPrelude,               ''Num)
     Inst.Ord             -> (IHaskellPrelude,               ''Ord)

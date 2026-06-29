@@ -47,7 +47,14 @@ data TypeClass =
   | HasFFIType
     -- | 'GHC.Records.HasField'
     --
-    -- Indicates instances for all fields.
+    -- Indicates instances for all fields (except for union fields in some
+    -- cases, see TODO below).
+     --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447#issuecomment-4809540458>:
+    -- a union field can only be given a @HasField@ instance if the field's type
+    -- has a @Storable@ instance. @HasField@ instances for some but not all
+    -- union fields can currently not be represented in the 'TypeClass'
+    -- datatype.
   | HasField
     -- | 'GHC.Records.Compat.HasField' instance
     --
@@ -59,6 +66,7 @@ data TypeClass =
   | HasFieldPtr
   | Integral
   | IsArray
+  | IsUnion
   | Ix
   | Num
   | Ord
@@ -199,8 +207,10 @@ instance Default SupportedInstances where
             mkDef Generic        Independent Stock     []
           , mkDef HasCBitfield   Independent HsBindgen []
           , mkDef HasCField      Independent HsBindgen []
+          , mkDef HasField       Independent HsBindgen []
           , mkDef HasFieldCompat Independent HsBindgen []
           , mkDef HasFieldPtr    Independent HsBindgen []
+          , mkDef IsUnion        Dependent   Newtype   []
           , mkDef ReadRaw        Independent HsBindgen []
           , mkDef StaticSize     Independent HsBindgen []
           , mkDef Storable       Independent HsBindgen []
@@ -248,6 +258,7 @@ instance Default SupportedInstances where
             -- special-cased because for 'IsArray' instances we don't have to
             -- check all dependencies. See issue #1739.
           , mkDef IsArray         Dependent   Newtype   []
+          , mkDef IsUnion         Dependent   Newtype   []
           , mkDef Ix              Dependent   Newtype   []
           , mkDef Num             Dependent   Newtype   []
           , mkDef Ord             Dependent   Stock     []

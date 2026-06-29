@@ -10,6 +10,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck
 
 import HsBindgen.Runtime.Prelude (safeCastFunPtr)
+import HsBindgen.Runtime.Union qualified as Union
 
 import Generated.Callbacks.Unions qualified as Types
 import Generated.Callbacks.Unions.FunPtr qualified as FunPtr
@@ -41,8 +42,8 @@ prop_apply_object_op_increment_object :: Object -> Property
 prop_apply_object_op_increment_object obj = ioProperty $ do
     z <- Safe.apply_object_op increment_objectPtr (getVal obj) (getTyp obj)
     let z' = incrementObject (getVal obj) (getTyp obj)
-    pure $ Types.get_val_integer z' === Types.get_val_integer z .||.
-           Types.get_val_floating z' === Types.get_val_floating z
+    pure $ Union.get @"integer" z' === Union.get @"integer" z .||.
+           Union.get @"floating" z' === Union.get @"floating" z
   where
     increment_objectPtr :: FunPtr Types.Object_op
     increment_objectPtr = safeCastFunPtr FunPtr.increment_object
@@ -54,8 +55,8 @@ prop_apply_object_op_increment_object obj = ioProperty $ do
 incrementObject :: Types.Val -> Types.Typ -> Types.Val
 incrementObject val typ =
     case typ of
-      Types.LongLong -> Types.set_val_integer  (Types.get_val_integer  val + 1)
-      Types.Float    -> Types.set_val_floating (Types.get_val_floating val + 1)
+      Types.LongLong -> Union.set @"integer"  (Union.get @"integer"  val + 1)
+      Types.Float    -> Union.set @"floating" (Union.get @"floating" val + 1)
       _              -> val
 
 {-------------------------------------------------------------------------------
@@ -69,8 +70,8 @@ data Object =
 
 getVal :: Object -> Types.Val
 getVal = \case
-    Integer x -> Types.set_val_integer x
-    Floating x -> Types.set_val_floating x
+    Integer x  -> Union.set @"integer"  x
+    Floating x -> Union.set @"floating" x
 
 getTyp :: Object -> Types.Typ
 getTyp = \case

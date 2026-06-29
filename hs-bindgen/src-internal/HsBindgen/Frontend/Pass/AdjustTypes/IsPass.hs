@@ -22,7 +22,6 @@ type family AnnAdjustTypes ix where
   AnnAdjustTypes "Decl"                 = PrescriptiveDeclSpec
   AnnAdjustTypes "Struct"               = StructNames
   AnnAdjustTypes "Union"                = NewtypeNames
-  AnnAdjustTypes "UnionField"           = UnionFieldNames
   AnnAdjustTypes "Enum"                 = NewtypeNames
   AnnAdjustTypes "Typedef"              = TypedefNames
   AnnAdjustTypes "TypecheckedMacroType" = NewtypeNames

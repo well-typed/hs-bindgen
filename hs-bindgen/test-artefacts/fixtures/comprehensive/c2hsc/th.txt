@@ -833,40 +833,11 @@ deriving via (SizedByteArray 1 1) instance StaticSize U
 deriving via (SizedByteArray 1 1) instance ReadRaw U
 deriving via (SizedByteArray 1 1) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
-{-|
-
-    __See:__ 'set_u_c'
-
-    __C declaration:__ @c@
-
-    __defined at:__ @comprehensive\/c2hsc.h 57:8@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_u_c :: U -> CChar
-{-|
-
-    __See:__ 'set_u_c'
-
-    __C declaration:__ @c@
-
-    __defined at:__ @comprehensive\/c2hsc.h 57:8@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_u_c = getUnionPayload
-{-|
-
-    __See:__ 'get_u_c'
-
--}
-set_u_c :: CChar -> U
-{-|
-
-    __See:__ 'get_u_c'
-
--}
-set_u_c = setUnionPayload
+deriving via (SizedByteArray 1 1) instance IsUnion U
+instance (~) ty CChar => HasField "c" U ty
+    where getField = getUnionPayload
+instance (~) ty CChar => HasField "c" U ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"c" x_0)
 instance (~) ty CChar => HasField "c" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"c")
 instance HasCField U "c"
@@ -3929,78 +3900,14 @@ deriving via (SizedByteArray 4
 deriving via (SizedByteArray 4
                              1) instance WriteRaw Elf32_External_Dyn_d_un
 deriving via (EquivStorable Elf32_External_Dyn_d_un) instance Storable Elf32_External_Dyn_d_un
-{-|
-
-    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
-
-    __C declaration:__ @d_val@
-
-    __defined at:__ @comprehensive\/c2hsc.h 350:19@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_elf32_External_Dyn_d_un_d_val :: Elf32_External_Dyn_d_un ->
-                                     ConstantArray 4 CUChar
-{-|
-
-    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
-
-    __C declaration:__ @d_val@
-
-    __defined at:__ @comprehensive\/c2hsc.h 350:19@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_elf32_External_Dyn_d_un_d_val = getUnionPayload
-{-|
-
-    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
-
--}
-set_elf32_External_Dyn_d_un_d_val :: ConstantArray 4 CUChar ->
-                                     Elf32_External_Dyn_d_un
-{-|
-
-    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
-
--}
-set_elf32_External_Dyn_d_un_d_val = setUnionPayload
-{-|
-
-    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
-
-    __C declaration:__ @d_ptr@
-
-    __defined at:__ @comprehensive\/c2hsc.h 351:19@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_elf32_External_Dyn_d_un_d_ptr :: Elf32_External_Dyn_d_un ->
-                                     ConstantArray 4 CUChar
-{-|
-
-    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
-
-    __C declaration:__ @d_ptr@
-
-    __defined at:__ @comprehensive\/c2hsc.h 351:19@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-get_elf32_External_Dyn_d_un_d_ptr = getUnionPayload
-{-|
-
-    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
-
--}
-set_elf32_External_Dyn_d_un_d_ptr :: ConstantArray 4 CUChar ->
-                                     Elf32_External_Dyn_d_un
-{-|
-
-    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
-
--}
-set_elf32_External_Dyn_d_un_d_ptr = setUnionPayload
+deriving via (SizedByteArray 4
+                             1) instance IsUnion Elf32_External_Dyn_d_un
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_val" Elf32_External_Dyn_d_un ty
+    where getField = getUnionPayload
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_val" Elf32_External_Dyn_d_un ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"d_val" x_0)
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_val" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
     where getField = fromPtr (Proxy @"d_val")
@@ -4008,6 +3915,12 @@ instance HasCField Elf32_External_Dyn_d_un "d_val"
     where type CFieldType Elf32_External_Dyn_d_un
                           "d_val" = ConstantArray 4 CUChar
           offset# = \_ -> \_ -> 0
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_ptr" Elf32_External_Dyn_d_un ty
+    where getField = getUnionPayload
+instance (~) ty (ConstantArray 4 CUChar) =>
+         HasField "d_ptr" Elf32_External_Dyn_d_un ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"d_ptr" x_0)
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_ptr" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
     where getField = fromPtr (Proxy @"d_ptr")

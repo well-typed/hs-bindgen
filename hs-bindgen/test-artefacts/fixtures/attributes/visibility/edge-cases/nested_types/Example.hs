@@ -14,8 +14,6 @@
 
 module Example
     ( Example.U(..)
-    , Example.get_u_x
-    , Example.set_u_x
     , Example.S(..)
     )
   where
@@ -24,6 +22,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union U@
 
@@ -44,30 +43,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U
 
 deriving via Marshal.EquivStorable U instance RIP.Storable U
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U
 
-    __See:__ 'set_u_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
 
     __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
 -}
-get_u_x ::
-     U
-  -> RIP.CInt
-get_u_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u_x" U ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
+
+    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
 -}
-set_u_x ::
-     RIP.CInt
-  -> U
-set_u_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u_x" U ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
 

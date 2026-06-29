@@ -1,5 +1,31 @@
 # Revision history for hs-bindgen-runtime
 
+## ?.?.? -- YYYY-mm-dd
+
+### Breaking changes
+
+None
+
+### New features
+
+* Add a new `IsUnion` class for C unions. Currently the only member function is
+  `zero`, which creates a union value set to all zeroes.
+* Add `get`/`set` functions that serve as getters/setters for union values.
+  These depend `HasField` instances. See [issue #2060][is-2060] and [PR
+  #2091][pr-2091].
+
+### Minor changes
+
+* Deprecate `zeroUnionValue` in favour of the `zero` function from the new
+  `IsUnion` class. See [issue #2060][is-2060] and [PR #2091][pr-2091].
+
+### Bug fixes
+
+None
+
+[is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
+[pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
+
 ## 0.1.0-alpha2 -- 2026-03-27
 
 ### Breaking changes

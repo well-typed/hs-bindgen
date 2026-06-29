@@ -838,6 +838,7 @@ hstypes:
       - unwrapSome_union
   instances:
   - Generic
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable

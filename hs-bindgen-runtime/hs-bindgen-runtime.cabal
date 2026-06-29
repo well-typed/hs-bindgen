@@ -95,6 +95,7 @@ library
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.PtrConst
+    HsBindgen.Runtime.Union
 
   other-modules:
     HsBindgen.Runtime.Internal.FunPtr.Class

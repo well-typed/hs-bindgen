@@ -40,14 +40,6 @@ module Example
     , pattern Example.STATUS_ERROR
     , Example.Data_union_t_as_parts(..)
     , Example.Data_union_t(..)
-    , Example.get_data_union_t_as_int
-    , Example.set_data_union_t_as_int
-    , Example.get_data_union_t_as_float
-    , Example.set_data_union_t_as_float
-    , Example.get_data_union_t_as_bytes
-    , Example.set_data_union_t_as_bytes
-    , Example.get_data_union_t_as_parts
-    , Example.set_data_union_t_as_parts
     , Example.Bitfield_t(..)
     , Example.Processor_fn_t_Aux(..)
     , Example.Processor_fn_t(..)
@@ -80,6 +72,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.Compat
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| Maximum length for name strings.
 
@@ -938,9 +931,9 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Data_union_t
 
 deriving via Marshal.EquivStorable Data_union_t instance RIP.Storable Data_union_t
 
-{-| Integer representation.
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Data_union_t
 
-    __See:__ 'set_data_union_t_as_int'
+{-| Integer representation.
 
     __C declaration:__ @as_int@
 
@@ -948,97 +941,25 @@ deriving via Marshal.EquivStorable Data_union_t instance RIP.Storable Data_union
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-get_data_union_t_as_int ::
-     Data_union_t
-  -> HsBindgen.Runtime.LibC.Int32
-get_data_union_t_as_int = RIP.getUnionPayload
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.HasField "data_union_t_as_int" Data_union_t ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_data_union_t_as_int'
+{-| Integer representation.
 
--}
-set_data_union_t_as_int ::
-     HsBindgen.Runtime.LibC.Int32
-  -> Data_union_t
-set_data_union_t_as_int = RIP.setUnionPayload
+    __C declaration:__ @as_int@
 
-{-| Float representation.
-
-    __See:__ 'set_data_union_t_as_float'
-
-    __C declaration:__ @as_float@
-
-    __defined at:__ @documentation\/doxygen_docs.h 289:11@
+    __defined at:__ @documentation\/doxygen_docs.h 288:13@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-get_data_union_t_as_float ::
-     Data_union_t
-  -> RIP.CFloat
-get_data_union_t_as_float = RIP.getUnionPayload
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => RIP.CompatHasField.HasField "data_union_t_as_int" Data_union_t ty where
 
-{-|
-
-    __See:__ 'get_data_union_t_as_float'
-
--}
-set_data_union_t_as_float ::
-     RIP.CFloat
-  -> Data_union_t
-set_data_union_t_as_float = RIP.setUnionPayload
-
-{-| Byte array representation.
-
-    __See:__ 'set_data_union_t_as_bytes'
-
-    __C declaration:__ @as_bytes@
-
-    __defined at:__ @documentation\/doxygen_docs.h 290:13@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
--}
-get_data_union_t_as_bytes ::
-     Data_union_t
-  -> CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-get_data_union_t_as_bytes = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_data_union_t_as_bytes'
-
--}
-set_data_union_t_as_bytes ::
-     CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-  -> Data_union_t
-set_data_union_t_as_bytes = RIP.setUnionPayload
-
-{-| Structured representation.
-
-    Allows access to high and low parts separately As Parts Struct
-
-    __See:__ 'set_data_union_t_as_parts'
-
-    __C declaration:__ @as_parts@
-
-    __defined at:__ @documentation\/doxygen_docs.h 299:30@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
--}
-get_data_union_t_as_parts ::
-     Data_union_t
-  -> Data_union_t_as_parts
-get_data_union_t_as_parts = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_data_union_t_as_parts'
-
--}
-set_data_union_t_as_parts ::
-     Data_union_t_as_parts
-  -> Data_union_t
-set_data_union_t_as_parts = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_int" x0)
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => RIP.HasField "data_union_t_as_int" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
@@ -1053,6 +974,34 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Float representation.
+
+    __C declaration:__ @as_float@
+
+    __defined at:__ @documentation\/doxygen_docs.h 289:11@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ RIP.CFloat
+         ) => RIP.HasField "data_union_t_as_float" Data_union_t ty where
+
+  getField = RIP.getUnionPayload
+
+{-| Float representation.
+
+    __C declaration:__ @as_float@
+
+    __defined at:__ @documentation\/doxygen_docs.h 289:11@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ RIP.CFloat
+         ) => RIP.CompatHasField.HasField "data_union_t_as_float" Data_union_t ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_float" x0)
+
 instance ( ty ~ RIP.CFloat
          ) => RIP.HasField "data_union_t_as_float" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
@@ -1066,6 +1015,34 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Byte array representation.
+
+    __C declaration:__ @as_bytes@
+
+    __defined at:__ @documentation\/doxygen_docs.h 290:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
+         ) => RIP.HasField "data_union_t_as_bytes" Data_union_t ty where
+
+  getField = RIP.getUnionPayload
+
+{-| Byte array representation.
+
+    __C declaration:__ @as_bytes@
+
+    __defined at:__ @documentation\/doxygen_docs.h 290:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
+         ) => RIP.CompatHasField.HasField "data_union_t_as_bytes" Data_union_t ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_bytes" x0)
+
 instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
          ) => RIP.HasField "data_union_t_as_bytes" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
 
@@ -1078,6 +1055,38 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
     CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
+
+{-| Structured representation.
+
+    Allows access to high and low parts separately As Parts Struct
+
+    __C declaration:__ @as_parts@
+
+    __defined at:__ @documentation\/doxygen_docs.h 299:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ Data_union_t_as_parts
+         ) => RIP.HasField "data_union_t_as_parts" Data_union_t ty where
+
+  getField = RIP.getUnionPayload
+
+{-| Structured representation.
+
+    Allows access to high and low parts separately As Parts Struct
+
+    __C declaration:__ @as_parts@
+
+    __defined at:__ @documentation\/doxygen_docs.h 299:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ Data_union_t_as_parts
+         ) => RIP.CompatHasField.HasField "data_union_t_as_parts" Data_union_t ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_parts" x0)
 
 instance ( ty ~ Data_union_t_as_parts
          ) => RIP.HasField "data_union_t_as_parts" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where

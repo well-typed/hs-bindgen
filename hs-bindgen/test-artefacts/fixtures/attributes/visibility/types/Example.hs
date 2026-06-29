@@ -43,50 +43,20 @@ module Example
     , Example.U3
     , Example.U4
     , Example.U5(..)
-    , Example.get_u5_x
-    , Example.set_u5_x
     , Example.U6(..)
-    , Example.get_u6_x
-    , Example.set_u6_x
     , Example.U7(..)
-    , Example.get_u7_x
-    , Example.set_u7_x
     , Example.U8(..)
-    , Example.get_u8_x
-    , Example.set_u8_x
     , Example.U9(..)
-    , Example.get_u9_x
-    , Example.set_u9_x
     , Example.U10(..)
-    , Example.get_u10_x
-    , Example.set_u10_x
     , Example.U11(..)
-    , Example.get_u11_x
-    , Example.set_u11_x
     , Example.U12(..)
-    , Example.get_u12_x
-    , Example.set_u12_x
     , Example.U13(..)
-    , Example.get_u13_x
-    , Example.set_u13_x
     , Example.U14(..)
-    , Example.get_u14_x
-    , Example.set_u14_x
     , Example.U15(..)
-    , Example.get_u15_x
-    , Example.set_u15_x
     , Example.U16(..)
-    , Example.get_u16_x
-    , Example.set_u16_x
     , Example.U17(..)
-    , Example.get_u17_x
-    , Example.set_u17_x
     , Example.U18(..)
-    , Example.get_u18_x
-    , Example.set_u18_x
     , Example.U19(..)
-    , Example.get_u19_x
-    , Example.set_u19_x
     , Example.E0
     , Example.E1
     , Example.E2
@@ -130,6 +100,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct S0@
 
@@ -1095,30 +1066,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U5
 
 deriving via Marshal.EquivStorable U5 instance RIP.Storable U5
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U5
 
-    __See:__ 'set_u5_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 60:59@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u5_x ::
-     U5
-  -> RIP.CInt
-get_u5_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u5_x" U5 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u5_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 60:59@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u5_x ::
-     RIP.CInt
-  -> U5
-set_u5_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u5_x" U5 ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u5_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u5_x" (RIP.Ptr U5) (RIP.Ptr ty) where
 
@@ -1149,30 +1118,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U6
 
 deriving via Marshal.EquivStorable U6 instance RIP.Storable U6
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U6
 
-    __See:__ 'set_u6_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 61:59@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u6_x ::
-     U6
-  -> RIP.CInt
-get_u6_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u6_x" U6 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u6_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 61:59@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u6_x ::
-     RIP.CInt
-  -> U6
-set_u6_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u6_x" U6 ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u6_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u6_x" (RIP.Ptr U6) (RIP.Ptr ty) where
 
@@ -1203,30 +1170,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U7
 
 deriving via Marshal.EquivStorable U7 instance RIP.Storable U7
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U7
 
-    __See:__ 'set_u7_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 62:59@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u7_x ::
-     U7
-  -> RIP.CInt
-get_u7_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u7_x" U7 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u7_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 62:59@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u7_x ::
-     RIP.CInt
-  -> U7
-set_u7_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u7_x" U7 ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u7_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u7_x" (RIP.Ptr U7) (RIP.Ptr ty) where
 
@@ -1257,30 +1222,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U8
 
 deriving via Marshal.EquivStorable U8 instance RIP.Storable U8
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U8
 
-    __See:__ 'set_u8_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 63:59@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u8_x ::
-     U8
-  -> RIP.CInt
-get_u8_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u8_x" U8 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u8_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 63:59@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u8_x ::
-     RIP.CInt
-  -> U8
-set_u8_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u8_x" U8 ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u8_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u8_x" (RIP.Ptr U8) (RIP.Ptr ty) where
 
@@ -1311,30 +1274,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U9
 
 deriving via Marshal.EquivStorable U9 instance RIP.Storable U9
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U9
 
-    __See:__ 'set_u9_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 64:59@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u9_x ::
-     U9
-  -> RIP.CInt
-get_u9_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u9_x" U9 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u9_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 64:59@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u9_x ::
-     RIP.CInt
-  -> U9
-set_u9_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u9_x" U9 ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u9_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "u9_x" (RIP.Ptr U9) (RIP.Ptr ty) where
 
@@ -1365,30 +1326,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U10
 
 deriving via Marshal.EquivStorable U10 instance RIP.Storable U10
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U10
 
-    __See:__ 'set_u10_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 73:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u10_x ::
-     U10
-  -> RIP.CInt
-get_u10_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u10_x" U10 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u10_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 73:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u10_x ::
-     RIP.CInt
-  -> U10
-set_u10_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u10_x" U10 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u10_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u10_x" (RIP.Ptr U10) (RIP.Ptr ty) where
@@ -1420,30 +1380,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U11
 
 deriving via Marshal.EquivStorable U11 instance RIP.Storable U11
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U11
 
-    __See:__ 'set_u11_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 74:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u11_x ::
-     U11
-  -> RIP.CInt
-get_u11_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u11_x" U11 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u11_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 74:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u11_x ::
-     RIP.CInt
-  -> U11
-set_u11_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u11_x" U11 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u11_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u11_x" (RIP.Ptr U11) (RIP.Ptr ty) where
@@ -1475,30 +1434,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U12
 
 deriving via Marshal.EquivStorable U12 instance RIP.Storable U12
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U12
 
-    __See:__ 'set_u12_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 75:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u12_x ::
-     U12
-  -> RIP.CInt
-get_u12_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u12_x" U12 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u12_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 75:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u12_x ::
-     RIP.CInt
-  -> U12
-set_u12_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u12_x" U12 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u12_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u12_x" (RIP.Ptr U12) (RIP.Ptr ty) where
@@ -1530,30 +1488,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U13
 
 deriving via Marshal.EquivStorable U13 instance RIP.Storable U13
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U13
 
-    __See:__ 'set_u13_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 76:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u13_x ::
-     U13
-  -> RIP.CInt
-get_u13_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u13_x" U13 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u13_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 76:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u13_x ::
-     RIP.CInt
-  -> U13
-set_u13_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u13_x" U13 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u13_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u13_x" (RIP.Ptr U13) (RIP.Ptr ty) where
@@ -1585,30 +1542,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U14
 
 deriving via Marshal.EquivStorable U14 instance RIP.Storable U14
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U14
 
-    __See:__ 'set_u14_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 77:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u14_x ::
-     U14
-  -> RIP.CInt
-get_u14_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u14_x" U14 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u14_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 77:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u14_x ::
-     RIP.CInt
-  -> U14
-set_u14_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u14_x" U14 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u14_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u14_x" (RIP.Ptr U14) (RIP.Ptr ty) where
@@ -1640,30 +1596,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U15
 
 deriving via Marshal.EquivStorable U15 instance RIP.Storable U15
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U15
 
-    __See:__ 'set_u15_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 86:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u15_x ::
-     U15
-  -> RIP.CInt
-get_u15_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u15_x" U15 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u15_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 86:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u15_x ::
-     RIP.CInt
-  -> U15
-set_u15_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u15_x" U15 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u15_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u15_x" (RIP.Ptr U15) (RIP.Ptr ty) where
@@ -1695,30 +1650,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U16
 
 deriving via Marshal.EquivStorable U16 instance RIP.Storable U16
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U16
 
-    __See:__ 'set_u16_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 87:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u16_x ::
-     U16
-  -> RIP.CInt
-get_u16_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u16_x" U16 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u16_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 87:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u16_x ::
-     RIP.CInt
-  -> U16
-set_u16_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u16_x" U16 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u16_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u16_x" (RIP.Ptr U16) (RIP.Ptr ty) where
@@ -1750,30 +1704,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U17
 
 deriving via Marshal.EquivStorable U17 instance RIP.Storable U17
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U17
 
-    __See:__ 'set_u17_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 88:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u17_x ::
-     U17
-  -> RIP.CInt
-get_u17_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u17_x" U17 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u17_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 88:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u17_x ::
-     RIP.CInt
-  -> U17
-set_u17_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u17_x" U17 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u17_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u17_x" (RIP.Ptr U17) (RIP.Ptr ty) where
@@ -1805,30 +1758,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U18
 
 deriving via Marshal.EquivStorable U18 instance RIP.Storable U18
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U18
 
-    __See:__ 'set_u18_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 89:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u18_x ::
-     U18
-  -> RIP.CInt
-get_u18_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u18_x" U18 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u18_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 89:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u18_x ::
-     RIP.CInt
-  -> U18
-set_u18_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u18_x" U18 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u18_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u18_x" (RIP.Ptr U18) (RIP.Ptr ty) where
@@ -1860,30 +1812,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw U19
 
 deriving via Marshal.EquivStorable U19 instance RIP.Storable U19
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion U19
 
-    __See:__ 'set_u19_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 90:60@
 
     __exported by:__ @attributes\/visibility\/types.h@
 -}
-get_u19_x ::
-     U19
-  -> RIP.CInt
-get_u19_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "u19_x" U19 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u19_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @attributes\/visibility\/types.h 90:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
 -}
-set_u19_x ::
-     RIP.CInt
-  -> U19
-set_u19_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "u19_x" U19 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"u19_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "u19_x" (RIP.Ptr U19) (RIP.Ptr ty) where

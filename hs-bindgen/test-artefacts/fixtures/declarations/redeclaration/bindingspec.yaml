@@ -71,7 +71,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable

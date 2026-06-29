@@ -16,27 +16,11 @@ module Example
     ( Example.SS_anon'y(..)
     , Example.SS(..)
     , Example.SU_anon'y(..)
-    , Example.get_sU_anon'y_y
-    , Example.set_sU_anon'y_y
     , Example.SU(..)
     , Example.US_anon'y(..)
     , Example.US(..)
-    , Example.get_uS_x
-    , Example.set_uS_x
-    , Example.get_uS_anon'y
-    , Example.set_uS_anon'y
-    , Example.get_uS_z
-    , Example.set_uS_z
     , Example.UU_anon'y(..)
-    , Example.get_uU_anon'y_y
-    , Example.set_uU_anon'y_y
     , Example.UU(..)
-    , Example.get_uU_x
-    , Example.set_uU_x
-    , Example.get_uU_anon'y
-    , Example.set_uU_anon'y
-    , Example.get_uU_z
-    , Example.set_uU_z
     )
   where
 
@@ -44,6 +28,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct \@SS_anon\'y@
 
@@ -248,30 +233,30 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw SU_anon'y
 
 deriving via Marshal.EquivStorable SU_anon'y instance RIP.Storable SU_anon'y
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion SU_anon'y
 
-    __See:__ 'set_sU_anon'y_y'
-
-    __C declaration:__ @y@
+{-| __C declaration:__ @y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_sU_anon'y_y ::
-     SU_anon'y
-  -> RIP.CInt
-get_sU_anon'y_y = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "sU_anon'y_y" SU_anon'y ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_sU_anon'y_y'
+{-| __C declaration:__ @y@
 
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-set_sU_anon'y_y ::
-     RIP.CInt
-  -> SU_anon'y
-set_sU_anon'y_y = RIP.setUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "sU_anon'y_y" SU_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"sU_anon'y_y" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "sU_anon'y_y" (RIP.Ptr SU_anon'y) (RIP.Ptr ty) where
@@ -488,80 +473,28 @@ deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw US
 
 deriving via Marshal.EquivStorable US instance RIP.Storable US
 
-{-|
+deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion US
 
-    __See:__ 'set_uS_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_uS_x ::
-     US
-  -> RIP.CChar
-get_uS_x = RIP.getUnionPayload
+instance (ty ~ RIP.CChar) => RIP.HasField "uS_x" US ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_uS_x'
+{-| __C declaration:__ @x@
 
--}
-set_uS_x ::
-     RIP.CChar
-  -> US
-set_uS_x = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_uS_anon'y'
-
-    __C declaration:__ @anon\'y@
-
-    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 32:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_uS_anon'y ::
-     US
-  -> US_anon'y
-get_uS_anon'y = RIP.getUnionPayload
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "uS_x" US ty where
 
-{-|
-
-    __See:__ 'get_uS_anon'y'
-
--}
-set_uS_anon'y ::
-     US_anon'y
-  -> US
-set_uS_anon'y = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_uS_z'
-
-    __C declaration:__ @z@
-
-    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
-
-    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_uS_z ::
-     US
-  -> RIP.CInt
-get_uS_z = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_uS_z'
-
--}
-set_uS_z ::
-     RIP.CInt
-  -> US
-set_uS_z = RIP.setUnionPayload
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"uS_x" x0)
 
 instance (ty ~ RIP.CChar) => RIP.HasField "uS_x" (RIP.Ptr US) (RIP.Ptr ty) where
 
@@ -573,6 +506,28 @@ instance HasCField.HasCField US "uS_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ US_anon'y) => RIP.HasField "uS_anon'y" US ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 33:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ US_anon'y) => RIP.CompatHasField.HasField "uS_anon'y" US ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"uS_anon'y" x0)
+
 instance ( ty ~ US_anon'y
          ) => RIP.HasField "uS_anon'y" (RIP.Ptr US) (RIP.Ptr ty) where
 
@@ -583,6 +538,27 @@ instance HasCField.HasCField US "uS_anon'y" where
   type CFieldType US "uS_anon'y" = US_anon'y
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.HasField "uS_z" US ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "uS_z" US ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"uS_z" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "uS_z" (RIP.Ptr US) (RIP.Ptr ty) where
 
@@ -613,30 +589,30 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UU_anon'y
 
 deriving via Marshal.EquivStorable UU_anon'y instance RIP.Storable UU_anon'y
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion UU_anon'y
 
-    __See:__ 'set_uU_anon'y_y'
-
-    __C declaration:__ @y@
+{-| __C declaration:__ @y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_uU_anon'y_y ::
-     UU_anon'y
-  -> RIP.CInt
-get_uU_anon'y_y = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "uU_anon'y_y" UU_anon'y ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_uU_anon'y_y'
+{-| __C declaration:__ @y@
 
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-set_uU_anon'y_y ::
-     RIP.CInt
-  -> UU_anon'y
-set_uU_anon'y_y = RIP.setUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "uU_anon'y_y" UU_anon'y ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"uU_anon'y_y" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "uU_anon'y_y" (RIP.Ptr UU_anon'y) (RIP.Ptr ty) where
@@ -669,80 +645,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UU
 
 deriving via Marshal.EquivStorable UU instance RIP.Storable UU
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion UU
 
-    __See:__ 'set_uU_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_uU_x ::
-     UU
-  -> RIP.CChar
-get_uU_x = RIP.getUnionPayload
+instance (ty ~ RIP.CChar) => RIP.HasField "uU_x" UU ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_uU_x'
+{-| __C declaration:__ @x@
 
--}
-set_uU_x ::
-     RIP.CChar
-  -> UU
-set_uU_x = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_uU_anon'y'
-
-    __C declaration:__ @anon\'y@
-
-    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 41:8@
 
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
-get_uU_anon'y ::
-     UU
-  -> UU_anon'y
-get_uU_anon'y = RIP.getUnionPayload
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "uU_x" UU ty where
 
-{-|
-
-    __See:__ 'get_uU_anon'y'
-
--}
-set_uU_anon'y ::
-     UU_anon'y
-  -> UU
-set_uU_anon'y = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_uU_z'
-
-    __C declaration:__ @z@
-
-    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
-
-    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_uU_z ::
-     UU
-  -> RIP.CInt
-get_uU_z = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_uU_z'
-
--}
-set_uU_z ::
-     RIP.CInt
-  -> UU
-set_uU_z = RIP.setUnionPayload
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"uU_x" x0)
 
 instance (ty ~ RIP.CChar) => RIP.HasField "uU_x" (RIP.Ptr UU) (RIP.Ptr ty) where
 
@@ -754,6 +678,28 @@ instance HasCField.HasCField UU "uU_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ UU_anon'y) => RIP.HasField "uU_anon'y" UU ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 42:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ UU_anon'y) => RIP.CompatHasField.HasField "uU_anon'y" UU ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"uU_anon'y" x0)
+
 instance ( ty ~ UU_anon'y
          ) => RIP.HasField "uU_anon'y" (RIP.Ptr UU) (RIP.Ptr ty) where
 
@@ -764,6 +710,27 @@ instance HasCField.HasCField UU "uU_anon'y" where
   type CFieldType UU "uU_anon'y" = UU_anon'y
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.HasField "uU_z" UU ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 46:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "uU_z" UU ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"uU_z" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "uU_z" (RIP.Ptr UU) (RIP.Ptr ty) where
 

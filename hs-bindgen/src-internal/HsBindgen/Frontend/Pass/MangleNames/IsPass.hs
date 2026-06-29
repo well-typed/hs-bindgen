@@ -3,7 +3,6 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     -- * Additional names
   , StructNames(..)
   , NewtypeNames(..)
-  , UnionFieldNames(..)
   , TypedefNames(..)
     -- * Trace messages
   , MangleNamesMsg(..)
@@ -33,7 +32,6 @@ type family AnnMangleNames ix where
   AnnMangleNames "Decl"                 = PrescriptiveDeclSpec
   AnnMangleNames "Struct"               = StructNames
   AnnMangleNames "Union"                = NewtypeNames
-  AnnMangleNames "UnionField"           = UnionFieldNames
   AnnMangleNames "Enum"                 = NewtypeNames
   AnnMangleNames "Typedef"              = TypedefNames
   AnnMangleNames "TypecheckedMacroType" = NewtypeNames
@@ -91,12 +89,6 @@ data StructNames = StructNames {
 data NewtypeNames = NewtypeNames {
       dataConstr :: Hs.Name Hs.NsConstr
     , field      :: Hs.Name Hs.NsVar
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
-data UnionFieldNames = UnionFieldNames {
-      getter  :: Hs.Name Hs.NsVar
-    , setter  :: Hs.Name Hs.NsVar
     }
   deriving stock (Show, Eq, Ord, Generic)
 

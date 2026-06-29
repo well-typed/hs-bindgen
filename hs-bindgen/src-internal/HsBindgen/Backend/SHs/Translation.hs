@@ -79,8 +79,6 @@ translateDecl macroLang = \case
   Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic  x
   Hs.DeclFunction             x -> translateFunctionDecl          x
   Hs.DeclPatSyn               x -> translatePatSyn                x
-  Hs.DeclUnionGetter          x -> translateUnionGetter           x
-  Hs.DeclUnionSetter          x -> translateUnionSetter           x
   Hs.DeclVar                  x -> translateDeclVar               x
 
 translateDeclTypSyn :: Hs.TypSyn -> SDecl
@@ -106,6 +104,8 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasCFieldInstance i defInst.comment
       Hs.InstanceHasCBitfield i ->
         DInst $ translateHasCBitfieldInstance i defInst.comment
+      Hs.InstanceHasField i ->
+        DInst $ translateHasFieldInstance i defInst.comment
       Hs.InstanceHasFieldCompat i ->
         DInst $ translateHasFieldCompatInstance i defInst.comment
       Hs.InstanceHasFieldPtr i ->
@@ -571,6 +571,37 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     w         = fromIntegral inst.bitWidth
 
 {-------------------------------------------------------------------------------
+  'GHC.Records.HasField'
+-------------------------------------------------------------------------------}
+
+translateHasFieldInstance ::
+     Hs.HasFieldInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateHasFieldInstance inst mbComment = Instance{
+      clss   = Inst.HasField
+    , args    = [fieldLit, parent, tyTypeVar]
+    , types   = []
+    , comment = mbComment
+    , super   = [ TApp (TApp TEq tyTypeVar) field ]
+    , decs    = [ ( bindgenGlobalTerm HasField_getField
+                  , exprGetter
+                  )
+                ]
+    }
+  where
+    parent    = translateType inst.parentType
+    field     = translateType inst.fieldType
+    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+
+    -- This is not actually a free type variable.
+    tyTypeVar = TFree $ Hs.UnsafeName "ty"
+
+    exprGetter :: SExpr Z
+    exprGetter = case inst.impl of
+      Hs.HasFieldImplUnion -> eBindgenGlobal ByteArray_getUnionPayload
+
+{-------------------------------------------------------------------------------
   'GHC.Records.Compat.HasField'
 -------------------------------------------------------------------------------}
 
@@ -621,6 +652,8 @@ translateHasFieldCompatInstance inst mbComment = Instance{
                   [ FBind (Hs.nameToStr inst.fieldName) (EBound IZ) ]
                 , map mkFBindIdentity impl.otherFields
                 ]
+          Hs.HasFieldCompatImplUnion ->
+              eBindgenGlobal ByteArray_setUnionPayload
       where
         -- An 'FBind' that leaves the original field unchanged
         mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
@@ -669,40 +702,6 @@ translateHasFieldPtrInstance inst mbComment = Instance{
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.UnsafeName "ty"
-
-{-------------------------------------------------------------------------------
-  Unions
--------------------------------------------------------------------------------}
-
-translateUnionGetter :: Hs.UnionGetter -> SDecl
-translateUnionGetter getter = DBinding Binding{
-      name       = Hs.ExportedName getter.name
-    , result     = Result (translateType getter.typ) Nothing
-    , body       = eBindgenGlobal ByteArray_getUnionPayload
-    , pragmas    = []
-    , comment    = getter.comment
-    , parameters = [
-          Parameter {
-              typ     = TCon getter.constr
-            , comment = Nothing
-            }
-        ]
-    }
-
-translateUnionSetter :: Hs.UnionSetter -> SDecl
-translateUnionSetter setter = DBinding Binding{
-      name       = Hs.ExportedName setter.name
-    , result     = Result (TCon setter.constr) Nothing
-    , body       = eBindgenGlobal ByteArray_setUnionPayload
-    , pragmas    = []
-    , comment    = setter.comment
-    , parameters = [
-          Parameter {
-              typ     = translateType setter.typ
-            , comment = Nothing
-            }
-        ]
-    }
 
 {-------------------------------------------------------------------------------
   Variables

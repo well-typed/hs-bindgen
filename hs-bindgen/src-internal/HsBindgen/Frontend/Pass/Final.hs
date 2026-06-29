@@ -38,9 +38,6 @@ instance HasField "names" (C.Struct Final) MangleNames.StructNames where
 instance HasField "names" (C.Union Final) MangleNames.NewtypeNames where
   getField union = union.ann
 
-instance HasField "names" (C.UnionField Final) MangleNames.UnionFieldNames where
-  getField field = field.ann
-
 instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
   getField enum = enum.ann
 

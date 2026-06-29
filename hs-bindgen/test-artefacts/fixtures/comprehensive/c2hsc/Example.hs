@@ -30,8 +30,6 @@ module Example
     , Example.E(..)
     , pattern Example.CONST
     , Example.U(..)
-    , Example.get_u_c
-    , Example.set_u_c
     , Example.MyTypeImpl
     , Example.MyType(..)
     , Example.MyStructType(..)
@@ -110,10 +108,6 @@ module Example
     , Example.Cal_table_table(..)
     , Example.Cal_table(..)
     , Example.Elf32_External_Dyn_d_un(..)
-    , Example.get_elf32_External_Dyn_d_un_d_val
-    , Example.set_elf32_External_Dyn_d_un_d_val
-    , Example.get_elf32_External_Dyn_d_un_d_ptr
-    , Example.set_elf32_External_Dyn_d_un_d_ptr
     , Example.Elf32_External_Dyn(..)
     , Example.Bug_24(..)
     , Example.Bug_24_2(..)
@@ -130,6 +124,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.Compat
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| Issues
 
@@ -690,30 +685,28 @@ deriving via RIP.SizedByteArray 1 1 instance Marshal.WriteRaw U
 
 deriving via Marshal.EquivStorable U instance RIP.Storable U
 
-{-|
+deriving via RIP.SizedByteArray 1 1 instance Union.IsUnion U
 
-    __See:__ 'set_u_c'
-
-    __C declaration:__ @c@
+{-| __C declaration:__ @c@
 
     __defined at:__ @comprehensive\/c2hsc.h 57:8@
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-get_u_c ::
-     U
-  -> RIP.CChar
-get_u_c = RIP.getUnionPayload
+instance (ty ~ RIP.CChar) => RIP.HasField "c" U ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u_c'
+{-| __C declaration:__ @c@
 
+    __defined at:__ @comprehensive\/c2hsc.h 57:8@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
 -}
-set_u_c ::
-     RIP.CChar
-  -> U
-set_u_c = RIP.setUnionPayload
+instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "c" U ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"c" x0)
 
 instance (ty ~ RIP.CChar) => RIP.HasField "c" (RIP.Ptr U) (RIP.Ptr ty) where
 
@@ -5602,59 +5595,31 @@ deriving via RIP.SizedByteArray 4 1 instance Marshal.WriteRaw Elf32_External_Dyn
 
 deriving via Marshal.EquivStorable Elf32_External_Dyn_d_un instance RIP.Storable Elf32_External_Dyn_d_un
 
-{-|
+deriving via RIP.SizedByteArray 4 1 instance Union.IsUnion Elf32_External_Dyn_d_un
 
-    __See:__ 'set_elf32_External_Dyn_d_un_d_val'
-
-    __C declaration:__ @d_val@
+{-| __C declaration:__ @d_val@
 
     __defined at:__ @comprehensive\/c2hsc.h 350:19@
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-get_elf32_External_Dyn_d_un_d_val ::
-     Elf32_External_Dyn_d_un
-  -> CA.ConstantArray 4 RIP.CUChar
-get_elf32_External_Dyn_d_un_d_val =
-  RIP.getUnionPayload
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.HasField "d_val" Elf32_External_Dyn_d_un ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_elf32_External_Dyn_d_un_d_val'
+{-| __C declaration:__ @d_val@
 
--}
-set_elf32_External_Dyn_d_un_d_val ::
-     CA.ConstantArray 4 RIP.CUChar
-  -> Elf32_External_Dyn_d_un
-set_elf32_External_Dyn_d_un_d_val =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_elf32_External_Dyn_d_un_d_ptr'
-
-    __C declaration:__ @d_ptr@
-
-    __defined at:__ @comprehensive\/c2hsc.h 351:19@
+    __defined at:__ @comprehensive\/c2hsc.h 350:19@
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-get_elf32_External_Dyn_d_un_d_ptr ::
-     Elf32_External_Dyn_d_un
-  -> CA.ConstantArray 4 RIP.CUChar
-get_elf32_External_Dyn_d_un_d_ptr =
-  RIP.getUnionPayload
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.CompatHasField.HasField "d_val" Elf32_External_Dyn_d_un ty where
 
-{-|
-
-    __See:__ 'get_elf32_External_Dyn_d_un_d_ptr'
-
--}
-set_elf32_External_Dyn_d_un_d_ptr ::
-     CA.ConstantArray 4 RIP.CUChar
-  -> Elf32_External_Dyn_d_un
-set_elf32_External_Dyn_d_un_d_ptr =
-  RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"d_val" x0)
 
 instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
          ) => RIP.HasField "d_val" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
@@ -5667,6 +5632,30 @@ instance HasCField.HasCField Elf32_External_Dyn_d_un "d_val" where
     CA.ConstantArray 4 RIP.CUChar
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @d_ptr@
+
+    __defined at:__ @comprehensive\/c2hsc.h 351:19@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @d_ptr@
+
+    __defined at:__ @comprehensive\/c2hsc.h 351:19@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
+instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
+         ) => RIP.CompatHasField.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"d_ptr" x0)
 
 instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
          ) => RIP.HasField "d_ptr" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where

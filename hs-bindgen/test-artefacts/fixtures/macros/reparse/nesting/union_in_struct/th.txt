@@ -63,40 +63,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize T1_x
 deriving via (SizedByteArray 4 4) instance ReadRaw T1_x
 deriving via (SizedByteArray 4 4) instance WriteRaw T1_x
 deriving via (EquivStorable T1_x) instance Storable T1_x
-{-|
-
-    __See:__ 'set_t1_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t1_x_x :: T1_x -> MyInt
-{-|
-
-    __See:__ 'set_t1_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t1_x_x = getUnionPayload
-{-|
-
-    __See:__ 'get_t1_x_x'
-
--}
-set_t1_x_x :: MyInt -> T1_x
-{-|
-
-    __See:__ 'get_t1_x_x'
-
--}
-set_t1_x_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion T1_x
+instance (~) ty MyInt => HasField "t1_x_x" T1_x ty
+    where getField = getUnionPayload
+instance (~) ty MyInt => HasField "t1_x_x" T1_x ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t1_x_x" x_0)
 instance (~) ty MyInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t1_x_x")
 instance HasCField T1_x "t1_x_x"
@@ -179,40 +150,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize T2_x
 deriving via (SizedByteArray 4 4) instance ReadRaw T2_x
 deriving via (SizedByteArray 4 4) instance WriteRaw T2_x
 deriving via (EquivStorable T2_x) instance Storable T2_x
-{-|
-
-    __See:__ 'set_t2_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t2_x_x :: T2_x -> MyInt
-{-|
-
-    __See:__ 'set_t2_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t2_x_x = getUnionPayload
-{-|
-
-    __See:__ 'get_t2_x_x'
-
--}
-set_t2_x_x :: MyInt -> T2_x
-{-|
-
-    __See:__ 'get_t2_x_x'
-
--}
-set_t2_x_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion T2_x
+instance (~) ty MyInt => HasField "t2_x_x" T2_x ty
+    where getField = getUnionPayload
+instance (~) ty MyInt => HasField "t2_x_x" T2_x ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t2_x_x" x_0)
 instance (~) ty MyInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t2_x_x")
 instance HasCField T2_x "t2_x_x"
@@ -264,40 +206,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize T3_x
 deriving via (SizedByteArray 4 4) instance ReadRaw T3_x
 deriving via (SizedByteArray 4 4) instance WriteRaw T3_x
 deriving via (EquivStorable T3_x) instance Storable T3_x
-{-|
-
-    __See:__ 'set_t3_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t3_x_x :: T3_x -> MyInt
-{-|
-
-    __See:__ 'set_t3_x_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:24@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
--}
-get_t3_x_x = getUnionPayload
-{-|
-
-    __See:__ 'get_t3_x_x'
-
--}
-set_t3_x_x :: MyInt -> T3_x
-{-|
-
-    __See:__ 'get_t3_x_x'
-
--}
-set_t3_x_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion T3_x
+instance (~) ty MyInt => HasField "t3_x_x" T3_x ty
+    where getField = getUnionPayload
+instance (~) ty MyInt => HasField "t3_x_x" T3_x ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t3_x_x" x_0)
 instance (~) ty MyInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
     where getField = fromPtr (Proxy @"t3_x_x")
 instance HasCField T3_x "t3_x_x"

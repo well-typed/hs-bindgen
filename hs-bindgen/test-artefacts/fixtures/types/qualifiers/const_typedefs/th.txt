@@ -131,6 +131,7 @@ deriving via (SizedByteArray 0 1) instance StaticSize U
 deriving via (SizedByteArray 0 1) instance ReadRaw U
 deriving via (SizedByteArray 0 1) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
+deriving via (SizedByteArray 0 1) instance IsUnion U
 {-| __C declaration:__ @enum E@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
@@ -245,7 +246,7 @@ instance HasCField TS "unwrapTS"
 newtype TU
     = TU {unwrapTU :: U}
     deriving stock Generic
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsUnion, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty U => HasField "unwrapTU" TU ty
     where hasField = \x_0 -> (\y_1 -> TU{unwrapTU = y_1},
                               getField @"unwrapTU" x_0)
@@ -336,7 +337,7 @@ instance HasCField TTS "unwrapTTS"
 newtype TTU
     = TTU {unwrapTTU :: TU}
     deriving stock Generic
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsUnion, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty TU => HasField "unwrapTTU" TTU ty
     where hasField = \x_0 -> (\y_1 -> TTU{unwrapTTU = y_1},
                               getField @"unwrapTTU" x_0)

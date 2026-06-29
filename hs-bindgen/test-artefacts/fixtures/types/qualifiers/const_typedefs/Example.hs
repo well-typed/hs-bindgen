@@ -37,6 +37,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @I@
 
@@ -131,6 +132,8 @@ deriving via RIP.SizedByteArray 0 1 instance Marshal.ReadRaw U
 deriving via RIP.SizedByteArray 0 1 instance Marshal.WriteRaw U
 
 deriving via Marshal.EquivStorable U instance RIP.Storable U
+
+deriving via RIP.SizedByteArray 0 1 instance Union.IsUnion U
 
 {-| __C declaration:__ @enum E@
 
@@ -325,7 +328,8 @@ newtype TU = TU
   }
   deriving stock (RIP.Generic)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Union.IsUnion
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -474,7 +478,8 @@ newtype TTU = TTU
   }
   deriving stock (RIP.Generic)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Union.IsUnion
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw

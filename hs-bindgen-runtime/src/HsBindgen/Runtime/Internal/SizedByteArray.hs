@@ -3,7 +3,7 @@
 module HsBindgen.Runtime.Internal.SizedByteArray (
     SizedByteArray(..)
   , zeroUnionValue
-) where
+  ) where
 
 import Data.Coerce (Coercible, coerce)
 import Data.Primitive.ByteArray (ByteArray (..))
@@ -71,6 +71,7 @@ instance GHC.KnownNat n => WriteRaw (SizedByteArray n m) where
         size = fromIntegral $ GHC.natVal (Proxy @n)
     BA.copyByteArrayToAddr ptr arr 0 size
 
+{-# DEPRECATED zeroUnionValue "Use HsBindgen.Runtime.Union.zero instead" #-}
 -- | Create a value of a C union with all bytes initialized to zero.
 zeroUnionValue :: forall a. (Coercible a ByteArray, StaticSize a) => a
 zeroUnionValue = coerce $ BA.byteArrayFromListN n $ replicate n (0 :: Word8)

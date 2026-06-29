@@ -132,80 +132,23 @@ deriving via (SizedByteArray 8 4) instance StaticSize DimPayload
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayload
 deriving via (SizedByteArray 8 4) instance WriteRaw DimPayload
 deriving via (EquivStorable DimPayload) instance Storable DimPayload
-{-|
-
-    __See:__ 'set_dimPayload_dim2'
-
-    __C declaration:__ @dim2@
-
-    __defined at:__ @types\/unions\/unions.h 13:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayload_dim2 :: DimPayload -> Dim2
-{-|
-
-    __See:__ 'set_dimPayload_dim2'
-
-    __C declaration:__ @dim2@
-
-    __defined at:__ @types\/unions\/unions.h 13:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayload_dim2 = getUnionPayload
-{-|
-
-    __See:__ 'get_dimPayload_dim2'
-
--}
-set_dimPayload_dim2 :: Dim2 -> DimPayload
-{-|
-
-    __See:__ 'get_dimPayload_dim2'
-
--}
-set_dimPayload_dim2 = setUnionPayload
-{-|
-
-    __See:__ 'set_dimPayload_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 14:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayload_dim3 :: DimPayload -> Dim2
-{-|
-
-    __See:__ 'set_dimPayload_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 14:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayload_dim3 = getUnionPayload
-{-|
-
-    __See:__ 'get_dimPayload_dim3'
-
--}
-set_dimPayload_dim3 :: Dim2 -> DimPayload
-{-|
-
-    __See:__ 'get_dimPayload_dim3'
-
--}
-set_dimPayload_dim3 = setUnionPayload
+deriving via (SizedByteArray 8 4) instance IsUnion DimPayload
+instance (~) ty Dim2 => HasField "dimPayload_dim2" DimPayload ty
+    where getField = getUnionPayload
+instance (~) ty Dim2 => HasField "dimPayload_dim2" DimPayload ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"dimPayload_dim2" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayload_dim2" (Ptr DimPayload) (Ptr ty)
     where getField = fromPtr (Proxy @"dimPayload_dim2")
 instance HasCField DimPayload "dimPayload_dim2"
     where type CFieldType DimPayload "dimPayload_dim2" = Dim2
           offset# = \_ -> \_ -> 0
+instance (~) ty Dim2 => HasField "dimPayload_dim3" DimPayload ty
+    where getField = getUnionPayload
+instance (~) ty Dim2 => HasField "dimPayload_dim3" DimPayload ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"dimPayload_dim3" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
     where getField = fromPtr (Proxy @"dimPayload_dim3")
@@ -276,80 +219,23 @@ deriving via (SizedByteArray 8 4) instance StaticSize DimPayloadB
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayloadB
 deriving via (SizedByteArray 8 4) instance WriteRaw DimPayloadB
 deriving via (EquivStorable DimPayloadB) instance Storable DimPayloadB
-{-|
-
-    __See:__ 'set_dimPayloadB_dim2'
-
-    __C declaration:__ @dim2@
-
-    __defined at:__ @types\/unions\/unions.h 24:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayloadB_dim2 :: DimPayloadB -> Dim2
-{-|
-
-    __See:__ 'set_dimPayloadB_dim2'
-
-    __C declaration:__ @dim2@
-
-    __defined at:__ @types\/unions\/unions.h 24:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayloadB_dim2 = getUnionPayload
-{-|
-
-    __See:__ 'get_dimPayloadB_dim2'
-
--}
-set_dimPayloadB_dim2 :: Dim2 -> DimPayloadB
-{-|
-
-    __See:__ 'get_dimPayloadB_dim2'
-
--}
-set_dimPayloadB_dim2 = setUnionPayload
-{-|
-
-    __See:__ 'set_dimPayloadB_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 25:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayloadB_dim3 :: DimPayloadB -> Dim2
-{-|
-
-    __See:__ 'set_dimPayloadB_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 25:17@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_dimPayloadB_dim3 = getUnionPayload
-{-|
-
-    __See:__ 'get_dimPayloadB_dim3'
-
--}
-set_dimPayloadB_dim3 :: Dim2 -> DimPayloadB
-{-|
-
-    __See:__ 'get_dimPayloadB_dim3'
-
--}
-set_dimPayloadB_dim3 = setUnionPayload
+deriving via (SizedByteArray 8 4) instance IsUnion DimPayloadB
+instance (~) ty Dim2 => HasField "dimPayloadB_dim2" DimPayloadB ty
+    where getField = getUnionPayload
+instance (~) ty Dim2 => HasField "dimPayloadB_dim2" DimPayloadB ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"dimPayloadB_dim2" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayloadB_dim2" (Ptr DimPayloadB) (Ptr ty)
     where getField = fromPtr (Proxy @"dimPayloadB_dim2")
 instance HasCField DimPayloadB "dimPayloadB_dim2"
     where type CFieldType DimPayloadB "dimPayloadB_dim2" = Dim2
           offset# = \_ -> \_ -> 0
+instance (~) ty Dim2 => HasField "dimPayloadB_dim3" DimPayloadB ty
+    where getField = getUnionPayload
+instance (~) ty Dim2 => HasField "dimPayloadB_dim3" DimPayloadB ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"dimPayloadB_dim3" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
     where getField = fromPtr (Proxy @"dimPayloadB_dim3")
@@ -524,80 +410,23 @@ deriving via (SizedByteArray 16 8) instance StaticSize AnonA
 deriving via (SizedByteArray 16 8) instance ReadRaw AnonA
 deriving via (SizedByteArray 16 8) instance WriteRaw AnonA
 deriving via (EquivStorable AnonA) instance Storable AnonA
-{-|
-
-    __See:__ 'set_anonA_xy'
-
-    __C declaration:__ @xy@
-
-    __defined at:__ @types\/unions\/unions.h 35:36@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_anonA_xy :: AnonA -> AnonA_xy
-{-|
-
-    __See:__ 'set_anonA_xy'
-
-    __C declaration:__ @xy@
-
-    __defined at:__ @types\/unions\/unions.h 35:36@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_anonA_xy = getUnionPayload
-{-|
-
-    __See:__ 'get_anonA_xy'
-
--}
-set_anonA_xy :: AnonA_xy -> AnonA
-{-|
-
-    __See:__ 'get_anonA_xy'
-
--}
-set_anonA_xy = setUnionPayload
-{-|
-
-    __See:__ 'set_anonA_polar'
-
-    __C declaration:__ @polar@
-
-    __defined at:__ @types\/unions\/unions.h 36:36@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_anonA_polar :: AnonA -> AnonA_polar
-{-|
-
-    __See:__ 'set_anonA_polar'
-
-    __C declaration:__ @polar@
-
-    __defined at:__ @types\/unions\/unions.h 36:36@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-get_anonA_polar = getUnionPayload
-{-|
-
-    __See:__ 'get_anonA_polar'
-
--}
-set_anonA_polar :: AnonA_polar -> AnonA
-{-|
-
-    __See:__ 'get_anonA_polar'
-
--}
-set_anonA_polar = setUnionPayload
+deriving via (SizedByteArray 16 8) instance IsUnion AnonA
+instance (~) ty AnonA_xy => HasField "anonA_xy" AnonA ty
+    where getField = getUnionPayload
+instance (~) ty AnonA_xy => HasField "anonA_xy" AnonA ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"anonA_xy" x_0)
 instance (~) ty AnonA_xy =>
          HasField "anonA_xy" (Ptr AnonA) (Ptr ty)
     where getField = fromPtr (Proxy @"anonA_xy")
 instance HasCField AnonA "anonA_xy"
     where type CFieldType AnonA "anonA_xy" = AnonA_xy
           offset# = \_ -> \_ -> 0
+instance (~) ty AnonA_polar => HasField "anonA_polar" AnonA ty
+    where getField = getUnionPayload
+instance (~) ty AnonA_polar => HasField "anonA_polar" AnonA ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"anonA_polar" x_0)
 instance (~) ty AnonA_polar =>
          HasField "anonA_polar" (Ptr AnonA) (Ptr ty)
     where getField = fromPtr (Proxy @"anonA_polar")

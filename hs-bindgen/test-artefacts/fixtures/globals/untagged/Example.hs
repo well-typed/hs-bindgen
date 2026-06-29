@@ -28,8 +28,6 @@ module Example
     , Example.A(..)
     , pattern Example.A1
     , Example.B(..)
-    , Example.get_b_x
-    , Example.set_b_x
     , Example.C(..)
     )
   where
@@ -39,6 +37,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct \@anonPoint@
 
@@ -583,30 +582,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw B
 
 deriving via Marshal.EquivStorable B instance RIP.Storable B
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion B
 
-    __See:__ 'set_b_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @globals\/untagged.h 27:19@
 
     __exported by:__ @globals\/untagged.h@
 -}
-get_b_x ::
-     B
-  -> RIP.CInt
-get_b_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "b_x" B ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_b_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @globals\/untagged.h 27:19@
+
+    __exported by:__ @globals\/untagged.h@
 -}
-set_b_x ::
-     RIP.CInt
-  -> B
-set_b_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b_x" B ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"b_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "b_x" (RIP.Ptr B) (RIP.Ptr ty) where
 

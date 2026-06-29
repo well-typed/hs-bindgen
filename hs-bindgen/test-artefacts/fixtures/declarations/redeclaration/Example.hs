@@ -18,10 +18,6 @@ module Example
     ( Example.Int_t(..)
     , Example.X(..)
     , Example.Y(..)
-    , Example.get_y_m
-    , Example.set_y_m
-    , Example.get_y_o
-    , Example.set_y_o
     )
   where
 
@@ -29,6 +25,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @int_t@
 
@@ -153,55 +150,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Y
 
 deriving via Marshal.EquivStorable Y instance RIP.Storable Y
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Y
 
-    __See:__ 'set_y_m'
-
-    __C declaration:__ @m@
+{-| __C declaration:__ @m@
 
     __defined at:__ @declarations\/redeclaration.h 30:15@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-get_y_m ::
-     Y
-  -> RIP.CInt
-get_y_m = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "y_m" Y ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_y_m'
+{-| __C declaration:__ @m@
 
--}
-set_y_m ::
-     RIP.CInt
-  -> Y
-set_y_m = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_y_o'
-
-    __C declaration:__ @o@
-
-    __defined at:__ @declarations\/redeclaration.h 30:22@
+    __defined at:__ @declarations\/redeclaration.h 30:15@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-get_y_o ::
-     Y
-  -> RIP.CInt
-get_y_o = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "y_m" Y ty where
 
-{-|
-
-    __See:__ 'get_y_o'
-
--}
-set_y_o ::
-     RIP.CInt
-  -> Y
-set_y_o = RIP.setUnionPayload
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"y_m" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "y_m" (RIP.Ptr Y) (RIP.Ptr ty) where
 
@@ -212,6 +182,27 @@ instance HasCField.HasCField Y "y_m" where
   type CFieldType Y "y_m" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @o@
+
+    __defined at:__ @declarations\/redeclaration.h 30:22@
+
+    __exported by:__ @declarations\/redeclaration.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.HasField "y_o" Y ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @o@
+
+    __defined at:__ @declarations\/redeclaration.h 30:22@
+
+    __exported by:__ @declarations\/redeclaration.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "y_o" Y ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"y_o" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "y_o" (RIP.Ptr Y) (RIP.Ptr ty) where
 
