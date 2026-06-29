@@ -32,8 +32,12 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
+          # Default CI: oldest (14) and newest (22) LLVM on Linux, plus macOS on
+          # the oldest. All versions are covered by comprehensive-ci.
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "22"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "22"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -41,14 +45,12 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          # Vary LLVM version from 14 to 21.
+          # Default CI: oldest (14) and newest (22) LLVM on Linux, plus macOS on
+          # the oldest. The middle versions are covered by comprehensive-ci.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "16"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "18"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "20"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "21"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "22"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "22"},'
           # Vary GHC version from 9.2 to 9.14.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.2", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.6", "llvm": "14"},'
@@ -119,7 +121,12 @@ jobs:
       # is incremented, then the "Restor cache" step fails to restore a cache,
       # meaning we will start with an empty cabal store that we will then save a
       # new cache for.
-      cache-reset-number: 2
+      #
+      # Bumped to 3 when LLVM installation moved off install-llvm-action to
+      # apt: the apt libclang has a different SONAME (libclang-N.so.N vs
+      # upstream libclang.so.N), so cabal stores built against the old toolchain
+      # fail to load libclang at Template-Haskell time.
+      cache-reset-number: 3
 
       # Manual directories relative to the repository root
       manual-dir: "./manual"

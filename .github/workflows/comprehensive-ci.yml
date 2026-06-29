@@ -24,7 +24,7 @@ jobs:
       matrix:
         runner: [ubuntu-latest, macos-latest]
         ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21']
+        llvm: ['14', '16', '18', '20', '21', '22']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
@@ -103,7 +103,7 @@ jobs:
       fail-fast: false
       matrix:
         # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
-        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        # On Windows, LLVM is bundled with GHC, no separate LLVM matrix.
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
 
     defaults:
@@ -237,7 +237,7 @@ jobs:
       matrix:
         runner: [ubuntu-latest, macos-latest]
         ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21']
+        llvm: ['14', '16', '18', '20', '21', '22']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
@@ -315,7 +315,7 @@ jobs:
       fail-fast: false
       matrix:
         # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
-        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        # On Windows, LLVM is bundled with GHC, no separate LLVM matrix.
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
 
     defaults:
@@ -388,7 +388,7 @@ jobs:
         runner: [ubuntu-latest, macos-latest]
         # Doesn't run GHC 9.2 due to a haddock bug
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21']
+        llvm: ['14', '16', '18', '20', '21', '22']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
@@ -443,7 +443,7 @@ jobs:
       matrix:
         # Doesn't run GHC 9.2 due to a haddock bug.
         # GHC 9.2 also uses GCC on Windows, not LLVM/Clang.
-        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        # On Windows, LLVM is bundled with GHC, no separate LLVM matrix.
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
 
     defaults:
