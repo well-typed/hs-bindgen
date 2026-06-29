@@ -217,20 +217,10 @@ apply1_struct :: Apply1Struct
 newtype Apply1Union = Apply1Union
   { unwrapApply1Union :: ByteArray
   }
-get_apply1Union_apply1_nopointer_union_field ::
-     Apply1Union
-  -> FunPtr (
-         FunPtr Int2int
-      -> CInt
-      -> IO CInt
-      )
-set_apply1Union_apply1_nopointer_union_field ::
-     FunPtr (
-           FunPtr Int2int
-        -> CInt
-        -> IO CInt
-        )
-  -> Apply1Union
+instance ( ty ~ FunPtr (FunPtr Int2int -> CInt -> IO CInt)
+         ) => GHC.Records.HasField "apply1Union_apply1_nopointer_union_field" Apply1Union ty where
+instance ( ty ~ FunPtr (FunPtr Int2int -> CInt -> IO CInt)
+         ) => GHC.Records.Compat.HasField "apply1Union_apply1_nopointer_union_field" Apply1Union ty where
 apply1_union :: Apply1Union
 ```
 

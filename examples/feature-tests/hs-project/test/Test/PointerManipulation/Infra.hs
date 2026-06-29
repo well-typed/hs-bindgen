@@ -24,6 +24,7 @@ import GHC.Records (HasField (..))
 import Test.Tasty.QuickCheck (Property, ioProperty, (===))
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
+import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as Compat
 import HsBindgen.Runtime.Prelude (BitfieldPtr)
 
 import Test.Util.Orphans ()
@@ -93,6 +94,7 @@ data FieldFunc a where
   FieldFunc ::
        forall field a b.
        ( HasField field a b
+       , Compat.HasField field a b
        , HasField field (Ptr a) (Ptr b)
        , Storable b
        )
@@ -102,6 +104,7 @@ data FieldFunc a where
   BitfieldFunc ::
        forall field a b.
        ( HasField field a b
+       , Compat.HasField field a b
        , HasField field (Ptr a) (BitfieldPtr b)
        , Storable b
        , BitfieldPtr.Bitfield b

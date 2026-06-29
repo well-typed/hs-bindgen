@@ -20,8 +20,6 @@ module HsBindgen.Backend.Hs.AST (
     -- * Declarations
   , Decl(..)
   , InstanceDecl(..)
-  , UnionGetter(..)
-  , UnionSetter(..)
   , DefineInstance(..)
   , DeriveInstance(..)
   , Var(..)
@@ -65,6 +63,9 @@ module HsBindgen.Backend.Hs.AST (
   , HasCFieldInstance(..)
     -- ** 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
   , HasCBitfieldInstance(..)
+    -- ** 'GHC.Records.HasField'
+  , HasFieldInstance(..)
+  , HasFieldImpl(..)
     -- ** 'GHC.Records.Compat.HasField'
   , HasFieldCompatInstance(..)
   , HasFieldCompatImpl(..)
@@ -259,8 +260,6 @@ data Decl l where
     DeclForeignImportWrapper :: ForeignImportWrapper -> Decl l
     DeclFunction             :: FunctionDecl         -> Decl l
     DeclMacroValue           :: MacroValue l         -> Decl l
-    DeclUnionGetter          :: UnionGetter          -> Decl l
-    DeclUnionSetter          :: UnionSetter          -> Decl l
     DeclVar                  :: Var                  -> Decl l
 deriving stock instance Show (Decl l)
 
@@ -282,6 +281,7 @@ data InstanceDecl where
     InstanceStorable        :: Struct -> StorableInstance -> InstanceDecl
     InstanceHasCField       :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield    :: HasCBitfieldInstance -> InstanceDecl
+    InstanceHasField        :: HasFieldInstance -> InstanceDecl
     InstanceHasFieldCompat  :: HasFieldCompatInstance -> InstanceDecl
     InstanceHasFieldPtr     :: HasFieldPtrInstance -> InstanceDecl
     InstanceHasFlam         :: Struct -> HasFlamInstance -> InstanceDecl
@@ -678,6 +678,29 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
+  'GHC.Records.HasField'
+-------------------------------------------------------------------------------}
+
+-- | 'GHC.Records.HasField' instance
+data HasFieldInstance = HasFieldInstance {
+      -- | The Haskell type of the parent C object
+      parentType :: Hs.Type
+
+      -- | The name of the field
+    , fieldName :: Hs.Name Hs.NsVar
+
+      -- | The haskell type of the field
+    , fieldType :: Hs.Type
+
+      -- | Implementation of member functions
+    , impl :: HasFieldImpl
+    }
+  deriving stock (Generic, Show)
+
+data HasFieldImpl = HasFieldImplUnion
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
   'GHC.Records.Compat.HasField'
 -------------------------------------------------------------------------------}
 
@@ -701,6 +724,8 @@ data HasFieldCompatInstance = HasFieldCompatInstance {
 data HasFieldCompatImpl =
     -- | structs, typedefs, enums, and macro types
     HasFieldCompatImplRecord HasFieldCompatImplRecord
+    -- | unions
+  | HasFieldCompatImplUnion
   deriving stock (Generic, Show)
 
 -- | 'GHC.Records.Compat.HasField.hasField' for C types that are translated to

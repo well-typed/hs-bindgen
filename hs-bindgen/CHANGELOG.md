@@ -28,6 +28,9 @@
   `HasField` instances for the pointer manipulation API. The old `HasField` name
   is now only used to record that a type has the usual `HasField` instances for
   fields in record datatypes. See [PR #2094][pr-2094].
+* Remove the old style of union getters and setters. Use the new `get` and `set`
+  functions from `hs-bindgen-runtime` instead. See [issue #2060][is-2060] and
+  [PR #2091][pr-2091].
 
 ### New features
 
@@ -116,6 +119,12 @@
 * Generate `GHC.Records.Compat.HasField` instances for generated newtypes. Such
   newtypes are generated for typedefs, enums, and macro types. See [issue
   #2083][is-2083] and PR[PR #2087][pr-2087].
+* Generate `GHC.Records.HasField` instances for unions. See [issue
+  #2060][is-2060] and [PR #2091][pr-2091].
+* Generate `GHC.Records.Compat.HasField` instances for unions. See [issue
+  #2060][is-2060] and [PR #2091][pr-2091].
+* Generate `HsBindgen.Runtime.Union.IsUnion` instances for unions and newtypes
+  around unions. See [issue #2060][is-2060] and [PR #2091][pr-2091].
 
 ### Minor changes
 
@@ -236,6 +245,7 @@
 [is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
 [is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
+[is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
@@ -251,6 +261,7 @@
 [pr-2070]: https://github.com/well-typed/hs-bindgen/pull/2070
 [pr-2075]: https://github.com/well-typed/hs-bindgen/pull/2075
 [pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
+[pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2094]: https://github.com/well-typed/hs-bindgen/pull/2094
 
 ## 0.1.0-alpha2 -- 2026-03-27

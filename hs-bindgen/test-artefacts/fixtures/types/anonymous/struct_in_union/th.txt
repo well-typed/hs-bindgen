@@ -72,108 +72,12 @@ deriving via (SizedByteArray 8 4) instance StaticSize Outer1
 deriving via (SizedByteArray 8 4) instance ReadRaw Outer1
 deriving via (SizedByteArray 8 4) instance WriteRaw Outer1
 deriving via (EquivStorable Outer1) instance Storable Outer1
-{-|
-
-    __See:__ 'set_outer1_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 7:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_fieldA :: Outer1 -> CChar
-{-|
-
-    __See:__ 'set_outer1_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 7:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_fieldA = getUnionPayload
-{-|
-
-    __See:__ 'get_outer1_fieldA'
-
--}
-set_outer1_fieldA :: CChar -> Outer1
-{-|
-
-    __See:__ 'get_outer1_fieldA'
-
--}
-set_outer1_fieldA = setUnionPayload
-{-|
-
-    __See:__ 'set_outer1_anon'fieldX'
-
-    __C declaration:__ @anon\'fieldX@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 8:3@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_anon'fieldX :: Outer1 -> Outer1_anon'fieldX
-{-|
-
-    __See:__ 'set_outer1_anon'fieldX'
-
-    __C declaration:__ @anon\'fieldX@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 8:3@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_anon'fieldX = getUnionPayload
-{-|
-
-    __See:__ 'get_outer1_anon'fieldX'
-
--}
-set_outer1_anon'fieldX :: Outer1_anon'fieldX -> Outer1
-{-|
-
-    __See:__ 'get_outer1_anon'fieldX'
-
--}
-set_outer1_anon'fieldX = setUnionPayload
-{-|
-
-    __See:__ 'set_outer1_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 12:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_fieldC :: Outer1 -> CInt
-{-|
-
-    __See:__ 'set_outer1_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 12:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer1_fieldC = getUnionPayload
-{-|
-
-    __See:__ 'get_outer1_fieldC'
-
--}
-set_outer1_fieldC :: CInt -> Outer1
-{-|
-
-    __See:__ 'get_outer1_fieldC'
-
--}
-set_outer1_fieldC = setUnionPayload
+deriving via (SizedByteArray 8 4) instance IsUnion Outer1
+instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
+    where getField = getUnionPayload
+instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer1_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldA")
@@ -181,12 +85,24 @@ instance HasCField Outer1 "outer1_fieldA"
     where type CFieldType Outer1 "outer1_fieldA" = CChar
           offset# = \_ -> \_ -> 0
 instance (~) ty Outer1_anon'fieldX =>
+         HasField "outer1_anon'fieldX" Outer1 ty
+    where getField = getUnionPayload
+instance (~) ty Outer1_anon'fieldX =>
+         HasField "outer1_anon'fieldX" Outer1 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer1_anon'fieldX" x_0)
+instance (~) ty Outer1_anon'fieldX =>
          HasField "outer1_anon'fieldX" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_anon'fieldX")
 instance HasCField Outer1 "outer1_anon'fieldX"
     where type CFieldType Outer1
                           "outer1_anon'fieldX" = Outer1_anon'fieldX
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer1_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer1_fieldC" (Ptr Outer1) (Ptr ty)
     where getField = fromPtr (Proxy @"outer1_fieldC")
@@ -260,120 +176,34 @@ deriving via (SizedByteArray 8 4) instance StaticSize Outer2
 deriving via (SizedByteArray 8 4) instance ReadRaw Outer2
 deriving via (SizedByteArray 8 4) instance WriteRaw Outer2
 deriving via (EquivStorable Outer2) instance Storable Outer2
-{-|
-
-    __See:__ 'set_outer2_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 16:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldA :: Outer2 -> CChar
-{-|
-
-    __See:__ 'set_outer2_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 16:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldA = getUnionPayload
-{-|
-
-    __See:__ 'get_outer2_fieldA'
-
--}
-set_outer2_fieldA :: CChar -> Outer2
-{-|
-
-    __See:__ 'get_outer2_fieldA'
-
--}
-set_outer2_fieldA = setUnionPayload
-{-|
-
-    __See:__ 'set_outer2_fieldB'
-
-    __C declaration:__ @fieldB@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 20:5@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldB :: Outer2 -> Outer2_fieldB
-{-|
-
-    __See:__ 'set_outer2_fieldB'
-
-    __C declaration:__ @fieldB@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 20:5@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldB = getUnionPayload
-{-|
-
-    __See:__ 'get_outer2_fieldB'
-
--}
-set_outer2_fieldB :: Outer2_fieldB -> Outer2
-{-|
-
-    __See:__ 'get_outer2_fieldB'
-
--}
-set_outer2_fieldB = setUnionPayload
-{-|
-
-    __See:__ 'set_outer2_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 21:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldC :: Outer2 -> CInt
-{-|
-
-    __See:__ 'set_outer2_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 21:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer2_fieldC = getUnionPayload
-{-|
-
-    __See:__ 'get_outer2_fieldC'
-
--}
-set_outer2_fieldC :: CInt -> Outer2
-{-|
-
-    __See:__ 'get_outer2_fieldC'
-
--}
-set_outer2_fieldC = setUnionPayload
+deriving via (SizedByteArray 8 4) instance IsUnion Outer2
+instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
+    where getField = getUnionPayload
+instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer2_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer2_fieldA" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldA")
 instance HasCField Outer2 "outer2_fieldA"
     where type CFieldType Outer2 "outer2_fieldA" = CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty Outer2_fieldB => HasField "outer2_fieldB" Outer2 ty
+    where getField = getUnionPayload
+instance (~) ty Outer2_fieldB => HasField "outer2_fieldB" Outer2 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer2_fieldB" x_0)
 instance (~) ty Outer2_fieldB =>
          HasField "outer2_fieldB" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldB")
 instance HasCField Outer2 "outer2_fieldB"
     where type CFieldType Outer2 "outer2_fieldB" = Outer2_fieldB
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "outer2_fieldC" Outer2 ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "outer2_fieldC" Outer2 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer2_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer2_fieldC" (Ptr Outer2) (Ptr ty)
     where getField = fromPtr (Proxy @"outer2_fieldC")
@@ -445,120 +275,34 @@ deriving via (SizedByteArray 8 4) instance StaticSize Outer3
 deriving via (SizedByteArray 8 4) instance ReadRaw Outer3
 deriving via (SizedByteArray 8 4) instance WriteRaw Outer3
 deriving via (EquivStorable Outer3) instance Storable Outer3
-{-|
-
-    __See:__ 'set_outer3_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 25:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldA :: Outer3 -> CChar
-{-|
-
-    __See:__ 'set_outer3_fieldA'
-
-    __C declaration:__ @fieldA@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 25:8@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldA = getUnionPayload
-{-|
-
-    __See:__ 'get_outer3_fieldA'
-
--}
-set_outer3_fieldA :: CChar -> Outer3
-{-|
-
-    __See:__ 'get_outer3_fieldA'
-
--}
-set_outer3_fieldA = setUnionPayload
-{-|
-
-    __See:__ 'set_outer3_fieldB'
-
-    __C declaration:__ @fieldB@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 29:5@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldB :: Outer3 -> Inner3
-{-|
-
-    __See:__ 'set_outer3_fieldB'
-
-    __C declaration:__ @fieldB@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 29:5@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldB = getUnionPayload
-{-|
-
-    __See:__ 'get_outer3_fieldB'
-
--}
-set_outer3_fieldB :: Inner3 -> Outer3
-{-|
-
-    __See:__ 'get_outer3_fieldB'
-
--}
-set_outer3_fieldB = setUnionPayload
-{-|
-
-    __See:__ 'set_outer3_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 30:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldC :: Outer3 -> CInt
-{-|
-
-    __See:__ 'set_outer3_fieldC'
-
-    __C declaration:__ @fieldC@
-
-    __defined at:__ @types\/anonymous\/struct_in_union.h 30:7@
-
-    __exported by:__ @types\/anonymous\/struct_in_union.h@
--}
-get_outer3_fieldC = getUnionPayload
-{-|
-
-    __See:__ 'get_outer3_fieldC'
-
--}
-set_outer3_fieldC :: CInt -> Outer3
-{-|
-
-    __See:__ 'get_outer3_fieldC'
-
--}
-set_outer3_fieldC = setUnionPayload
+deriving via (SizedByteArray 8 4) instance IsUnion Outer3
+instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
+    where getField = getUnionPayload
+instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer3_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer3_fieldA" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldA")
 instance HasCField Outer3 "outer3_fieldA"
     where type CFieldType Outer3 "outer3_fieldA" = CChar
           offset# = \_ -> \_ -> 0
+instance (~) ty Inner3 => HasField "outer3_fieldB" Outer3 ty
+    where getField = getUnionPayload
+instance (~) ty Inner3 => HasField "outer3_fieldB" Outer3 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer3_fieldB" x_0)
 instance (~) ty Inner3 =>
          HasField "outer3_fieldB" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldB")
 instance HasCField Outer3 "outer3_fieldB"
     where type CFieldType Outer3 "outer3_fieldB" = Inner3
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "outer3_fieldC" Outer3 ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "outer3_fieldC" Outer3 ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"outer3_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer3_fieldC" (Ptr Outer3) (Ptr ty)
     where getField = fromPtr (Proxy @"outer3_fieldC")

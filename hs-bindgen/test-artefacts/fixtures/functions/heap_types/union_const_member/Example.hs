@@ -14,14 +14,14 @@
 
 module Example
     ( Example.T(..)
-    , Example.get_t_x
-    , Example.set_t_x
     )
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union U@
 
@@ -42,30 +42,28 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T
 
 deriving via Marshal.EquivStorable T instance RIP.Storable T
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion T
 
-    __See:__ 'set_t_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @functions\/heap_types\/union_const_member.h 4:13@
 
     __exported by:__ @functions\/heap_types\/union_const_member.h@
 -}
-get_t_x ::
-     T
-  -> RIP.CInt
-get_t_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "t_x" T ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_t_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @functions\/heap_types\/union_const_member.h 4:13@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
 -}
-set_t_x ::
-     RIP.CInt
-  -> T
-set_t_x = RIP.setUnionPayload
+instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"t_x" x0)
 
 instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 

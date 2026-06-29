@@ -10,40 +10,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize U
 deriving via (SizedByteArray 4 4) instance ReadRaw U
 deriving via (SizedByteArray 4 4) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
-{-|
-
-    __See:__ 'set_u_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
-
-    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
--}
-get_u_x :: U -> CInt
-{-|
-
-    __See:__ 'set_u_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
-
-    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
--}
-get_u_x = getUnionPayload
-{-|
-
-    __See:__ 'get_u_x'
-
--}
-set_u_x :: CInt -> U
-{-|
-
-    __See:__ 'get_u_x'
-
--}
-set_u_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion U
+instance (~) ty CInt => HasField "u_x" U ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "u_x" U ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"u_x" x_0)
 instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"u_x")
 instance HasCField U "u_x"

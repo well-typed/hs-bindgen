@@ -16,24 +16,12 @@ module Example
     ( Example.Dim2(..)
     , Example.Dim3(..)
     , Example.DimPayload(..)
-    , Example.get_dimPayload_dim2
-    , Example.set_dimPayload_dim2
-    , Example.get_dimPayload_dim3
-    , Example.set_dimPayload_dim3
     , Example.Dim(..)
     , Example.DimPayloadB(..)
-    , Example.get_dimPayloadB_dim2
-    , Example.set_dimPayloadB_dim2
-    , Example.get_dimPayloadB_dim3
-    , Example.set_dimPayloadB_dim3
     , Example.DimB(..)
     , Example.AnonA_xy(..)
     , Example.AnonA_polar(..)
     , Example.AnonA(..)
-    , Example.get_anonA_xy
-    , Example.set_anonA_xy
-    , Example.get_anonA_polar
-    , Example.set_anonA_polar
     )
   where
 
@@ -41,6 +29,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct Dim2@
 
@@ -279,55 +268,30 @@ deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayload
 
 deriving via Marshal.EquivStorable DimPayload instance RIP.Storable DimPayload
 
-{-|
+deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayload
 
-    __See:__ 'set_dimPayload_dim2'
-
-    __C declaration:__ @dim2@
+{-| __C declaration:__ @dim2@
 
     __defined at:__ @types\/unions\/unions.h 13:17@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_dimPayload_dim2 ::
-     DimPayload
-  -> Dim2
-get_dimPayload_dim2 = RIP.getUnionPayload
+instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim2" DimPayload ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_dimPayload_dim2'
+{-| __C declaration:__ @dim2@
 
--}
-set_dimPayload_dim2 ::
-     Dim2
-  -> DimPayload
-set_dimPayload_dim2 = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_dimPayload_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 14:17@
+    __defined at:__ @types\/unions\/unions.h 13:17@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_dimPayload_dim3 ::
-     DimPayload
-  -> Dim2
-get_dimPayload_dim3 = RIP.getUnionPayload
+instance ( ty ~ Dim2
+         ) => RIP.CompatHasField.HasField "dimPayload_dim2" DimPayload ty where
 
-{-|
-
-    __See:__ 'get_dimPayload_dim3'
-
--}
-set_dimPayload_dim3 ::
-     Dim2
-  -> DimPayload
-set_dimPayload_dim3 = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"dimPayload_dim2" x0)
 
 instance ( ty ~ Dim2
          ) => RIP.HasField "dimPayload_dim2" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
@@ -340,6 +304,29 @@ instance HasCField.HasCField DimPayload "dimPayload_dim2" where
   type CFieldType DimPayload "dimPayload_dim2" = Dim2
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @dim3@
+
+    __defined at:__ @types\/unions\/unions.h 14:17@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim3" DimPayload ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @dim3@
+
+    __defined at:__ @types\/unions\/unions.h 14:17@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance ( ty ~ Dim2
+         ) => RIP.CompatHasField.HasField "dimPayload_dim3" DimPayload ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"dimPayload_dim3" x0)
 
 instance ( ty ~ Dim2
          ) => RIP.HasField "dimPayload_dim3" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
@@ -464,55 +451,30 @@ deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayloadB
 
 deriving via Marshal.EquivStorable DimPayloadB instance RIP.Storable DimPayloadB
 
-{-|
+deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayloadB
 
-    __See:__ 'set_dimPayloadB_dim2'
-
-    __C declaration:__ @dim2@
+{-| __C declaration:__ @dim2@
 
     __defined at:__ @types\/unions\/unions.h 24:17@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_dimPayloadB_dim2 ::
-     DimPayloadB
-  -> Dim2
-get_dimPayloadB_dim2 = RIP.getUnionPayload
+instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim2" DimPayloadB ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_dimPayloadB_dim2'
+{-| __C declaration:__ @dim2@
 
--}
-set_dimPayloadB_dim2 ::
-     Dim2
-  -> DimPayloadB
-set_dimPayloadB_dim2 = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_dimPayloadB_dim3'
-
-    __C declaration:__ @dim3@
-
-    __defined at:__ @types\/unions\/unions.h 25:17@
+    __defined at:__ @types\/unions\/unions.h 24:17@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_dimPayloadB_dim3 ::
-     DimPayloadB
-  -> Dim2
-get_dimPayloadB_dim3 = RIP.getUnionPayload
+instance ( ty ~ Dim2
+         ) => RIP.CompatHasField.HasField "dimPayloadB_dim2" DimPayloadB ty where
 
-{-|
-
-    __See:__ 'get_dimPayloadB_dim3'
-
--}
-set_dimPayloadB_dim3 ::
-     Dim2
-  -> DimPayloadB
-set_dimPayloadB_dim3 = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"dimPayloadB_dim2" x0)
 
 instance ( ty ~ Dim2
          ) => RIP.HasField "dimPayloadB_dim2" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
@@ -525,6 +487,29 @@ instance HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
   type CFieldType DimPayloadB "dimPayloadB_dim2" = Dim2
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @dim3@
+
+    __defined at:__ @types\/unions\/unions.h 25:17@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim3" DimPayloadB ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @dim3@
+
+    __defined at:__ @types\/unions\/unions.h 25:17@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance ( ty ~ Dim2
+         ) => RIP.CompatHasField.HasField "dimPayloadB_dim3" DimPayloadB ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"dimPayloadB_dim3" x0)
 
 instance ( ty ~ Dim2
          ) => RIP.HasField "dimPayloadB_dim3" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
@@ -839,55 +824,30 @@ deriving via RIP.SizedByteArray 16 8 instance Marshal.WriteRaw AnonA
 
 deriving via Marshal.EquivStorable AnonA instance RIP.Storable AnonA
 
-{-|
+deriving via RIP.SizedByteArray 16 8 instance Union.IsUnion AnonA
 
-    __See:__ 'set_anonA_xy'
-
-    __C declaration:__ @xy@
+{-| __C declaration:__ @xy@
 
     __defined at:__ @types\/unions\/unions.h 35:36@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_anonA_xy ::
-     AnonA
-  -> AnonA_xy
-get_anonA_xy = RIP.getUnionPayload
+instance (ty ~ AnonA_xy) => RIP.HasField "anonA_xy" AnonA ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_anonA_xy'
+{-| __C declaration:__ @xy@
 
--}
-set_anonA_xy ::
-     AnonA_xy
-  -> AnonA
-set_anonA_xy = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_anonA_polar'
-
-    __C declaration:__ @polar@
-
-    __defined at:__ @types\/unions\/unions.h 36:36@
+    __defined at:__ @types\/unions\/unions.h 35:36@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-get_anonA_polar ::
-     AnonA
-  -> AnonA_polar
-get_anonA_polar = RIP.getUnionPayload
+instance ( ty ~ AnonA_xy
+         ) => RIP.CompatHasField.HasField "anonA_xy" AnonA ty where
 
-{-|
-
-    __See:__ 'get_anonA_polar'
-
--}
-set_anonA_polar ::
-     AnonA_polar
-  -> AnonA
-set_anonA_polar = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"anonA_xy" x0)
 
 instance ( ty ~ AnonA_xy
          ) => RIP.HasField "anonA_xy" (RIP.Ptr AnonA) (RIP.Ptr ty) where
@@ -899,6 +859,29 @@ instance HasCField.HasCField AnonA "anonA_xy" where
   type CFieldType AnonA "anonA_xy" = AnonA_xy
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @polar@
+
+    __defined at:__ @types\/unions\/unions.h 36:36@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance (ty ~ AnonA_polar) => RIP.HasField "anonA_polar" AnonA ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @polar@
+
+    __defined at:__ @types\/unions\/unions.h 36:36@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance ( ty ~ AnonA_polar
+         ) => RIP.CompatHasField.HasField "anonA_polar" AnonA ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"anonA_polar" x0)
 
 instance ( ty ~ AnonA_polar
          ) => RIP.HasField "anonA_polar" (RIP.Ptr AnonA) (RIP.Ptr ty) where

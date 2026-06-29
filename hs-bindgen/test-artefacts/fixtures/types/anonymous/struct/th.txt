@@ -147,78 +147,19 @@ deriving via (SizedByteArray 4
 deriving via (SizedByteArray 4
                              4) instance WriteRaw Has_implicit_fields_anon'x5_1
 deriving via (EquivStorable Has_implicit_fields_anon'x5_1) instance Storable Has_implicit_fields_anon'x5_1
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_1'
-
-    __C declaration:__ @x5_1@
-
-    __defined at:__ @types\/anonymous\/struct.h 17:9@
-
-    __exported by:__ @types\/anonymous\/struct.h@
--}
-get_has_implicit_fields_anon'x5_1_x5_1 :: Has_implicit_fields_anon'x5_1 ->
-                                          CInt
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_1'
-
-    __C declaration:__ @x5_1@
-
-    __defined at:__ @types\/anonymous\/struct.h 17:9@
-
-    __exported by:__ @types\/anonymous\/struct.h@
--}
-get_has_implicit_fields_anon'x5_1_x5_1 = getUnionPayload
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_1'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_1 :: CInt ->
-                                          Has_implicit_fields_anon'x5_1
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_1'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_1 = setUnionPayload
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_2'
-
-    __C declaration:__ @x5_2@
-
-    __defined at:__ @types\/anonymous\/struct.h 18:9@
-
-    __exported by:__ @types\/anonymous\/struct.h@
--}
-get_has_implicit_fields_anon'x5_1_x5_2 :: Has_implicit_fields_anon'x5_1 ->
-                                          CInt
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_2'
-
-    __C declaration:__ @x5_2@
-
-    __defined at:__ @types\/anonymous\/struct.h 18:9@
-
-    __exported by:__ @types\/anonymous\/struct.h@
--}
-get_has_implicit_fields_anon'x5_1_x5_2 = getUnionPayload
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_2'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_2 :: CInt ->
-                                          Has_implicit_fields_anon'x5_1
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_2'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_2 = setUnionPayload
+deriving via (SizedByteArray 4
+                             4) instance IsUnion Has_implicit_fields_anon'x5_1
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x5_1_x5_1"
+                  Has_implicit_fields_anon'x5_1
+                  ty
+    where getField = getUnionPayload
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x5_1_x5_1"
+                  Has_implicit_fields_anon'x5_1
+                  ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"has_implicit_fields_anon'x5_1_x5_1" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_1"
                   (Ptr Has_implicit_fields_anon'x5_1)
@@ -229,6 +170,17 @@ instance HasCField Has_implicit_fields_anon'x5_1
     where type CFieldType Has_implicit_fields_anon'x5_1
                           "has_implicit_fields_anon'x5_1_x5_1" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x5_1_x5_2"
+                  Has_implicit_fields_anon'x5_1
+                  ty
+    where getField = getUnionPayload
+instance (~) ty CInt =>
+         HasField "has_implicit_fields_anon'x5_1_x5_2"
+                  Has_implicit_fields_anon'x5_1
+                  ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"has_implicit_fields_anon'x5_1_x5_2" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_2"
                   (Ptr Has_implicit_fields_anon'x5_1)

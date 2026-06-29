@@ -87,79 +87,20 @@ deriving via (SizedByteArray 4 4) instance StaticSize Y
 deriving via (SizedByteArray 4 4) instance ReadRaw Y
 deriving via (SizedByteArray 4 4) instance WriteRaw Y
 deriving via (EquivStorable Y) instance Storable Y
-{-|
-
-    __See:__ 'set_y_m'
-
-    __C declaration:__ @m@
-
-    __defined at:__ @declarations\/redeclaration.h 30:15@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
-get_y_m :: Y -> CInt
-{-|
-
-    __See:__ 'set_y_m'
-
-    __C declaration:__ @m@
-
-    __defined at:__ @declarations\/redeclaration.h 30:15@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
-get_y_m = getUnionPayload
-{-|
-
-    __See:__ 'get_y_m'
-
--}
-set_y_m :: CInt -> Y
-{-|
-
-    __See:__ 'get_y_m'
-
--}
-set_y_m = setUnionPayload
-{-|
-
-    __See:__ 'set_y_o'
-
-    __C declaration:__ @o@
-
-    __defined at:__ @declarations\/redeclaration.h 30:22@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
-get_y_o :: Y -> CInt
-{-|
-
-    __See:__ 'set_y_o'
-
-    __C declaration:__ @o@
-
-    __defined at:__ @declarations\/redeclaration.h 30:22@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
-get_y_o = getUnionPayload
-{-|
-
-    __See:__ 'get_y_o'
-
--}
-set_y_o :: CInt -> Y
-{-|
-
-    __See:__ 'get_y_o'
-
--}
-set_y_o = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion Y
+instance (~) ty CInt => HasField "y_m" Y ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "y_m" Y ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"y_m" x_0)
 instance (~) ty CInt => HasField "y_m" (Ptr Y) (Ptr ty)
     where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_m"
     where type CFieldType Y "y_m" = CInt
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "y_o" Y ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "y_o" Y ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"y_o" x_0)
 instance (~) ty CInt => HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = fromPtr (Proxy @"y_o")
 instance HasCField Y "y_o"

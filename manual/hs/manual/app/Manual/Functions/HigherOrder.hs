@@ -1,3 +1,5 @@
+{-# LANGUAGE DataKinds #-}
+
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Manual.Functions.HigherOrder (examples) where
@@ -7,6 +9,7 @@ import Foreign as F
 import Foreign.C qualified as FC
 
 import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.Union qualified as Union
 
 import Callbacks
 import Callbacks.Safe
@@ -184,7 +187,7 @@ examples = do
           m <- peek mPtr
           putStrLn $ "  [simple] Processing: " ++ show (measurement_value m)
 
-        let callback = set_processorCallback_simple simpleFunPtr
+        let callback = Union.set @"processorCallback_simple" simpleFunPtr
         poke processorPtr $ Processor
           { processor_mode = MODE_SIMPLE
           , processor_callback = callback
@@ -200,7 +203,7 @@ examples = do
           putStrLn $ "  [withValidator] Processing: " ++ show (measurement_value m)
           putStrLn $ "  [withValidator] Validator present: " ++ show (unwrapDataValidator validator /= F.nullFunPtr)
 
-        let callback = set_processorCallback_withValidator validatedFunPtr
+        let callback = Union.set @"processorCallback_withValidator" validatedFunPtr
         poke processorPtr $ Processor
           { processor_mode = MODE_VALIDATED
           , processor_callback = callback

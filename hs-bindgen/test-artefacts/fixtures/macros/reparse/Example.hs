@@ -78,6 +78,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.Compat
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @macro A@
 
@@ -172,6 +173,8 @@ deriving via RIP.SizedByteArray 0 1 instance Marshal.ReadRaw Some_union
 deriving via RIP.SizedByteArray 0 1 instance Marshal.WriteRaw Some_union
 
 deriving via Marshal.EquivStorable Some_union instance RIP.Storable Some_union
+
+deriving via RIP.SizedByteArray 0 1 instance Union.IsUnion Some_union
 
 {-| __C declaration:__ @enum some_enum@
 

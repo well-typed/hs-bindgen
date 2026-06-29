@@ -16,23 +16,7 @@ module Example
     ( Example.Has_implicit_fields_anon'x2_1(..)
     , Example.Has_implicit_fields_anon'x4_1(..)
     , Example.Has_implicit_fields_anon'x5_1(..)
-    , Example.get_has_implicit_fields_anon'x5_1_x5_1
-    , Example.set_has_implicit_fields_anon'x5_1_x5_1
-    , Example.get_has_implicit_fields_anon'x5_1_x5_2
-    , Example.set_has_implicit_fields_anon'x5_1_x5_2
     , Example.Has_implicit_fields(..)
-    , Example.get_has_implicit_fields_x1
-    , Example.set_has_implicit_fields_x1
-    , Example.get_has_implicit_fields_anon'x2_1
-    , Example.set_has_implicit_fields_anon'x2_1
-    , Example.get_has_implicit_fields_x3
-    , Example.set_has_implicit_fields_x3
-    , Example.get_has_implicit_fields_anon'x4_1
-    , Example.set_has_implicit_fields_anon'x4_1
-    , Example.get_has_implicit_fields_anon'x5_1
-    , Example.set_has_implicit_fields_anon'x5_1
-    , Example.get_has_implicit_fields_x5
-    , Example.set_has_implicit_fields_x5
     )
   where
 
@@ -40,6 +24,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct \@has_implicit_fields_anon\'x2_1@
 
@@ -264,59 +249,31 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Has_implicit_field
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x5_1 instance RIP.Storable Has_implicit_fields_anon'x5_1
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Has_implicit_fields_anon'x5_1
 
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_1'
-
-    __C declaration:__ @x5_1@
+{-| __C declaration:__ @x5_1@
 
     __defined at:__ @types\/anonymous\/union.h 15:9@
 
     __exported by:__ @types\/anonymous\/union.h@
 -}
-get_has_implicit_fields_anon'x5_1_x5_1 ::
-     Has_implicit_fields_anon'x5_1
-  -> RIP.CInt
-get_has_implicit_fields_anon'x5_1_x5_1 =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_1" Has_implicit_fields_anon'x5_1 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_1'
+{-| __C declaration:__ @x5_1@
 
--}
-set_has_implicit_fields_anon'x5_1_x5_1 ::
-     RIP.CInt
-  -> Has_implicit_fields_anon'x5_1
-set_has_implicit_fields_anon'x5_1_x5_1 =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_2'
-
-    __C declaration:__ @x5_2@
-
-    __defined at:__ @types\/anonymous\/union.h 16:9@
+    __defined at:__ @types\/anonymous\/union.h 15:9@
 
     __exported by:__ @types\/anonymous\/union.h@
 -}
-get_has_implicit_fields_anon'x5_1_x5_2 ::
-     Has_implicit_fields_anon'x5_1
-  -> RIP.CInt
-get_has_implicit_fields_anon'x5_1_x5_2 =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x5_1_x5_1" Has_implicit_fields_anon'x5_1 ty where
 
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_2'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_2 ::
-     RIP.CInt
-  -> Has_implicit_fields_anon'x5_1
-set_has_implicit_fields_anon'x5_1_x5_2 =
-  RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x5_1_x5_1" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_1" (RIP.Ptr Has_implicit_fields_anon'x5_1) (RIP.Ptr ty) where
@@ -330,6 +287,30 @@ instance HasCField.HasCField Has_implicit_fields_anon'x5_1 "has_implicit_fields_
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/union.h 16:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_2" Has_implicit_fields_anon'x5_1 ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/union.h 16:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x5_1_x5_2" Has_implicit_fields_anon'x5_1 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x5_1_x5_2" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_2" (RIP.Ptr Has_implicit_fields_anon'x5_1) (RIP.Ptr ty) where
@@ -363,161 +344,31 @@ deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw Has_implicit_field
 
 deriving via Marshal.EquivStorable Has_implicit_fields instance RIP.Storable Has_implicit_fields
 
-{-|
+deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion Has_implicit_fields
 
-    __See:__ 'set_has_implicit_fields_x1'
-
-    __C declaration:__ @x1@
+{-| __C declaration:__ @x1@
 
     __defined at:__ @types\/anonymous\/union.h 4:7@
 
     __exported by:__ @types\/anonymous\/union.h@
 -}
-get_has_implicit_fields_x1 ::
-     Has_implicit_fields
-  -> RIP.CInt
-get_has_implicit_fields_x1 = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_x1" Has_implicit_fields ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_has_implicit_fields_x1'
+{-| __C declaration:__ @x1@
 
--}
-set_has_implicit_fields_x1 ::
-     RIP.CInt
-  -> Has_implicit_fields
-set_has_implicit_fields_x1 = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x2_1'
-
-    __C declaration:__ @anon\'x2_1@
-
-    __defined at:__ @types\/anonymous\/union.h 5:3@
+    __defined at:__ @types\/anonymous\/union.h 4:7@
 
     __exported by:__ @types\/anonymous\/union.h@
 -}
-get_has_implicit_fields_anon'x2_1 ::
-     Has_implicit_fields
-  -> Has_implicit_fields_anon'x2_1
-get_has_implicit_fields_anon'x2_1 =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_x1" Has_implicit_fields ty where
 
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x2_1'
-
--}
-set_has_implicit_fields_anon'x2_1 ::
-     Has_implicit_fields_anon'x2_1
-  -> Has_implicit_fields
-set_has_implicit_fields_anon'x2_1 =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_x3'
-
-    __C declaration:__ @x3@
-
-    __defined at:__ @types\/anonymous\/union.h 9:7@
-
-    __exported by:__ @types\/anonymous\/union.h@
--}
-get_has_implicit_fields_x3 ::
-     Has_implicit_fields
-  -> RIP.CInt
-get_has_implicit_fields_x3 = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_has_implicit_fields_x3'
-
--}
-set_has_implicit_fields_x3 ::
-     RIP.CInt
-  -> Has_implicit_fields
-set_has_implicit_fields_x3 = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x4_1'
-
-    __C declaration:__ @anon\'x4_1@
-
-    __defined at:__ @types\/anonymous\/union.h 10:3@
-
-    __exported by:__ @types\/anonymous\/union.h@
--}
-get_has_implicit_fields_anon'x4_1 ::
-     Has_implicit_fields
-  -> Has_implicit_fields_anon'x4_1
-get_has_implicit_fields_anon'x4_1 =
-  RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x4_1'
-
--}
-set_has_implicit_fields_anon'x4_1 ::
-     Has_implicit_fields_anon'x4_1
-  -> Has_implicit_fields
-set_has_implicit_fields_anon'x4_1 =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1'
-
-    __C declaration:__ @anon\'x5_1@
-
-    __defined at:__ @types\/anonymous\/union.h 14:3@
-
-    __exported by:__ @types\/anonymous\/union.h@
--}
-get_has_implicit_fields_anon'x5_1 ::
-     Has_implicit_fields
-  -> Has_implicit_fields_anon'x5_1
-get_has_implicit_fields_anon'x5_1 =
-  RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1'
-
--}
-set_has_implicit_fields_anon'x5_1 ::
-     Has_implicit_fields_anon'x5_1
-  -> Has_implicit_fields
-set_has_implicit_fields_anon'x5_1 =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_x5'
-
-    __C declaration:__ @x5@
-
-    __defined at:__ @types\/anonymous\/union.h 18:7@
-
-    __exported by:__ @types\/anonymous\/union.h@
--}
-get_has_implicit_fields_x5 ::
-     Has_implicit_fields
-  -> RIP.CInt
-get_has_implicit_fields_x5 = RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_has_implicit_fields_x5'
-
--}
-set_has_implicit_fields_x5 ::
-     RIP.CInt
-  -> Has_implicit_fields
-set_has_implicit_fields_x5 = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_x1" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
@@ -532,6 +383,30 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'x2_1@
+
+    __defined at:__ @types\/anonymous\/union.h 5:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x2_1
+         ) => RIP.HasField "has_implicit_fields_anon'x2_1" Has_implicit_fields ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @anon\'x2_1@
+
+    __defined at:__ @types\/anonymous\/union.h 5:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x2_1
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x2_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x2_1" x0)
+
 instance ( ty ~ Has_implicit_fields_anon'x2_1
          ) => RIP.HasField "has_implicit_fields_anon'x2_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
@@ -544,6 +419,30 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x2_1"
     Has_implicit_fields_anon'x2_1
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x3@
+
+    __defined at:__ @types\/anonymous\/union.h 9:7@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_x3" Has_implicit_fields ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @x3@
+
+    __defined at:__ @types\/anonymous\/union.h 9:7@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_x3" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_x3" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x3" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
@@ -558,6 +457,30 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x3" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'x4_1@
+
+    __defined at:__ @types\/anonymous\/union.h 10:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x4_1
+         ) => RIP.HasField "has_implicit_fields_anon'x4_1" Has_implicit_fields ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @anon\'x4_1@
+
+    __defined at:__ @types\/anonymous\/union.h 10:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x4_1
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x4_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x4_1" x0)
+
 instance ( ty ~ Has_implicit_fields_anon'x4_1
          ) => RIP.HasField "has_implicit_fields_anon'x4_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
@@ -571,6 +494,30 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x4_1"
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'x5_1@
+
+    __defined at:__ @types\/anonymous\/union.h 14:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x5_1
+         ) => RIP.HasField "has_implicit_fields_anon'x5_1" Has_implicit_fields ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @anon\'x5_1@
+
+    __defined at:__ @types\/anonymous\/union.h 14:3@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ Has_implicit_fields_anon'x5_1
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x5_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x5_1" x0)
+
 instance ( ty ~ Has_implicit_fields_anon'x5_1
          ) => RIP.HasField "has_implicit_fields_anon'x5_1" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where
 
@@ -583,6 +530,30 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x5_1"
     Has_implicit_fields_anon'x5_1
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x5@
+
+    __defined at:__ @types\/anonymous\/union.h 18:7@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_x5" Has_implicit_fields ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @x5@
+
+    __defined at:__ @types\/anonymous\/union.h 18:7@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_x5" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_x5" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_x5" (RIP.Ptr Has_implicit_fields) (RIP.Ptr ty) where

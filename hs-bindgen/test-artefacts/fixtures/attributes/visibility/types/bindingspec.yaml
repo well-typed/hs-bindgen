@@ -847,7 +847,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -861,7 +864,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -875,7 +881,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -889,7 +898,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -903,7 +915,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -917,7 +932,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -931,7 +949,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -945,7 +966,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -959,7 +983,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -973,7 +1000,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -993,7 +1023,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -1007,7 +1040,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -1021,7 +1057,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -1035,7 +1074,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -1049,7 +1091,10 @@ hstypes:
   instances:
   - Generic
   - HasCField
+  - HasField
+  - HasFieldCompat
   - HasFieldPtr
+  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable

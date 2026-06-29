@@ -32,12 +32,6 @@ module Example
     , Example.MeasurementHandler(..)
     , Example.DataPipeline(..)
     , Example.ProcessorCallback(..)
-    , Example.get_processorCallback_simple
-    , Example.set_processorCallback_simple
-    , Example.get_processorCallback_withValidator
-    , Example.set_processorCallback_withValidator
-    , Example.get_processorCallback_withProgress
-    , Example.set_processorCallback_withProgress
     , Example.Processor_mode(..)
     , pattern Example.MODE_SIMPLE
     , pattern Example.MODE_VALIDATED
@@ -50,8 +44,6 @@ module Example
     , Example.S(..)
     , Example.C(..)
     , Example.U(..)
-    , Example.get_u_fn
-    , Example.set_u_fn
     , Example.D(..)
     , Example.T(..)
     )
@@ -64,6 +56,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| Auxiliary type used by 'FileOpenedNotification'
 
@@ -1099,84 +1092,31 @@ deriving via RIP.SizedByteArray 8 8 instance Marshal.WriteRaw ProcessorCallback
 
 deriving via Marshal.EquivStorable ProcessorCallback instance RIP.Storable ProcessorCallback
 
-{-|
+deriving via RIP.SizedByteArray 8 8 instance Union.IsUnion ProcessorCallback
 
-    __See:__ 'set_processorCallback_simple'
-
-    __C declaration:__ @simple@
+{-| __C declaration:__ @simple@
 
     __defined at:__ @functions\/callbacks.h 70:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-get_processorCallback_simple ::
-     ProcessorCallback
-  -> RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-get_processorCallback_simple = RIP.getUnionPayload
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.HasField "processorCallback_simple" ProcessorCallback ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_processorCallback_simple'
+{-| __C declaration:__ @simple@
 
--}
-set_processorCallback_simple ::
-     RIP.FunPtr (RIP.Ptr Measurement -> IO ())
-  -> ProcessorCallback
-set_processorCallback_simple = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_processorCallback_withValidator'
-
-    __C declaration:__ @withValidator@
-
-    __defined at:__ @functions\/callbacks.h 71:10@
+    __defined at:__ @functions\/callbacks.h 70:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-get_processorCallback_withValidator ::
-     ProcessorCallback
-  -> RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
-get_processorCallback_withValidator =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
+         ) => RIP.CompatHasField.HasField "processorCallback_simple" ProcessorCallback ty where
 
-{-|
-
-    __See:__ 'get_processorCallback_withValidator'
-
--}
-set_processorCallback_withValidator ::
-     RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
-  -> ProcessorCallback
-set_processorCallback_withValidator =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_processorCallback_withProgress'
-
-    __C declaration:__ @withProgress@
-
-    __defined at:__ @functions\/callbacks.h 72:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_withProgress ::
-     ProcessorCallback
-  -> RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
-get_processorCallback_withProgress =
-  RIP.getUnionPayload
-
-{-|
-
-    __See:__ 'get_processorCallback_withProgress'
-
--}
-set_processorCallback_withProgress ::
-     RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
-  -> ProcessorCallback
-set_processorCallback_withProgress =
-  RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"processorCallback_simple" x0)
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> IO ())
          ) => RIP.HasField "processorCallback_simple" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
@@ -1191,6 +1131,30 @@ instance HasCField.HasCField ProcessorCallback "processorCallback_simple" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @withValidator@
+
+    __defined at:__ @functions\/callbacks.h 71:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+         ) => RIP.HasField "processorCallback_withValidator" ProcessorCallback ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @withValidator@
+
+    __defined at:__ @functions\/callbacks.h 71:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
+         ) => RIP.CompatHasField.HasField "processorCallback_withValidator" ProcessorCallback ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"processorCallback_withValidator" x0)
+
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
          ) => RIP.HasField "processorCallback_withValidator" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
 
@@ -1203,6 +1167,30 @@ instance HasCField.HasCField ProcessorCallback "processorCallback_withValidator"
     RIP.FunPtr (RIP.Ptr Measurement -> DataValidator -> IO ())
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @withProgress@
+
+    __defined at:__ @functions\/callbacks.h 72:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+         ) => RIP.HasField "processorCallback_withProgress" ProcessorCallback ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @withProgress@
+
+    __defined at:__ @functions\/callbacks.h 72:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
+         ) => RIP.CompatHasField.HasField "processorCallback_withProgress" ProcessorCallback ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"processorCallback_withProgress" x0)
 
 instance ( ty ~ RIP.FunPtr (RIP.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => RIP.HasField "processorCallback_withProgress" (RIP.Ptr ProcessorCallback) (RIP.Ptr ty) where
@@ -1752,30 +1740,30 @@ deriving via RIP.SizedByteArray 24 8 instance Marshal.WriteRaw U
 
 deriving via Marshal.EquivStorable U instance RIP.Storable U
 
-{-|
+deriving via RIP.SizedByteArray 24 8 instance Union.IsUnion U
 
-    __See:__ 'set_u_fn'
-
-    __C declaration:__ @fn@
+{-| __C declaration:__ @fn@
 
     __defined at:__ @functions\/callbacks.h 118:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-get_u_fn ::
-     U
-  -> CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
-get_u_fn = RIP.getUnionPayload
+instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+         ) => RIP.HasField "u_fn" U ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_u_fn'
+{-| __C declaration:__ @fn@
 
+    __defined at:__ @functions\/callbacks.h 118:10@
+
+    __exported by:__ @functions\/callbacks.h@
 -}
-set_u_fn ::
-     CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
-  -> U
-set_u_fn = RIP.setUnionPayload
+instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
+         ) => RIP.CompatHasField.HasField "u_fn" U ty where
+
+  hasField =
+    \x0 -> (RIP.setUnionPayload, RIP.getField @"u_fn" x0)
 
 instance ( ty ~ CA.ConstantArray 3 (RIP.FunPtr (C -> IO ()))
          ) => RIP.HasField "u_fn" (RIP.Ptr U) (RIP.Ptr ty) where

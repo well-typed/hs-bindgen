@@ -345,40 +345,11 @@ deriving via (SizedByteArray 4 4) instance StaticSize B
 deriving via (SizedByteArray 4 4) instance ReadRaw B
 deriving via (SizedByteArray 4 4) instance WriteRaw B
 deriving via (EquivStorable B) instance Storable B
-{-|
-
-    __See:__ 'set_b_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @globals\/untagged.h 27:19@
-
-    __exported by:__ @globals\/untagged.h@
--}
-get_b_x :: B -> CInt
-{-|
-
-    __See:__ 'set_b_x'
-
-    __C declaration:__ @x@
-
-    __defined at:__ @globals\/untagged.h 27:19@
-
-    __exported by:__ @globals\/untagged.h@
--}
-get_b_x = getUnionPayload
-{-|
-
-    __See:__ 'get_b_x'
-
--}
-set_b_x :: CInt -> B
-{-|
-
-    __See:__ 'get_b_x'
-
--}
-set_b_x = setUnionPayload
+deriving via (SizedByteArray 4 4) instance IsUnion B
+instance (~) ty CInt => HasField "b_x" B ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "b_x" B ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"b_x" x_0)
 instance (~) ty CInt => HasField "b_x" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"b_x")
 instance HasCField B "b_x"

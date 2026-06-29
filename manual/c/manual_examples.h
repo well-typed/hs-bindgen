@@ -42,32 +42,6 @@ sum sum_triple(triple* triple);
 average average_triple(triple* triple);
 
 /**
- * Unions
- */
-
-typedef union occupation {
-  struct student {
-    char* university;
-    int year;
-  } student;
-
-  struct employee {
-    char* company;
-    struct person* supervisor;
-    int salary;
-  } employee;
-} occupation;
-
-void print_occupation(int tag, occupation* o);
-
-struct person {
-  char* name;
-  int occupation_tag;
-
-  union occupation occupation;
-};
-
-/**
  * Anonymous types
  */
 

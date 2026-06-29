@@ -16,10 +16,6 @@ module Example
     ( Example.Has_implicit_fields_anon'x2_1(..)
     , Example.Has_implicit_fields_anon'x4_1(..)
     , Example.Has_implicit_fields_anon'x5_1(..)
-    , Example.get_has_implicit_fields_anon'x5_1_x5_1
-    , Example.set_has_implicit_fields_anon'x5_1_x5_1
-    , Example.get_has_implicit_fields_anon'x5_1_x5_2
-    , Example.set_has_implicit_fields_anon'x5_1_x5_2
     , Example.Has_implicit_fields(..)
     )
   where
@@ -28,6 +24,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct \@has_implicit_fields_anon\'x2_1@
 
@@ -252,59 +249,31 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Has_implicit_field
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x5_1 instance RIP.Storable Has_implicit_fields_anon'x5_1
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Has_implicit_fields_anon'x5_1
 
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_1'
-
-    __C declaration:__ @x5_1@
+{-| __C declaration:__ @x5_1@
 
     __defined at:__ @types\/anonymous\/struct.h 17:9@
 
     __exported by:__ @types\/anonymous\/struct.h@
 -}
-get_has_implicit_fields_anon'x5_1_x5_1 ::
-     Has_implicit_fields_anon'x5_1
-  -> RIP.CInt
-get_has_implicit_fields_anon'x5_1_x5_1 =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_1" Has_implicit_fields_anon'x5_1 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_1'
+{-| __C declaration:__ @x5_1@
 
--}
-set_has_implicit_fields_anon'x5_1_x5_1 ::
-     RIP.CInt
-  -> Has_implicit_fields_anon'x5_1
-set_has_implicit_fields_anon'x5_1_x5_1 =
-  RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_has_implicit_fields_anon'x5_1_x5_2'
-
-    __C declaration:__ @x5_2@
-
-    __defined at:__ @types\/anonymous\/struct.h 18:9@
+    __defined at:__ @types\/anonymous\/struct.h 17:9@
 
     __exported by:__ @types\/anonymous\/struct.h@
 -}
-get_has_implicit_fields_anon'x5_1_x5_2 ::
-     Has_implicit_fields_anon'x5_1
-  -> RIP.CInt
-get_has_implicit_fields_anon'x5_1_x5_2 =
-  RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x5_1_x5_1" Has_implicit_fields_anon'x5_1 ty where
 
-{-|
-
-    __See:__ 'get_has_implicit_fields_anon'x5_1_x5_2'
-
--}
-set_has_implicit_fields_anon'x5_1_x5_2 ::
-     RIP.CInt
-  -> Has_implicit_fields_anon'x5_1
-set_has_implicit_fields_anon'x5_1_x5_2 =
-  RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x5_1_x5_1" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_1" (RIP.Ptr Has_implicit_fields_anon'x5_1) (RIP.Ptr ty) where
@@ -318,6 +287,30 @@ instance HasCField.HasCField Has_implicit_fields_anon'x5_1 "has_implicit_fields_
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_2" Has_implicit_fields_anon'x5_1 ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "has_implicit_fields_anon'x5_1_x5_2" Has_implicit_fields_anon'x5_1 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"has_implicit_fields_anon'x5_1_x5_2" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "has_implicit_fields_anon'x5_1_x5_2" (RIP.Ptr Has_implicit_fields_anon'x5_1) (RIP.Ptr ty) where

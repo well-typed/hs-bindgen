@@ -14,22 +14,10 @@
 
 module Example
     ( Example.Outer1_anon'fieldX(..)
-    , Example.get_outer1_anon'fieldX_fieldX
-    , Example.set_outer1_anon'fieldX_fieldX
-    , Example.get_outer1_anon'fieldX_fieldY
-    , Example.set_outer1_anon'fieldX_fieldY
     , Example.Outer1(..)
     , Example.Outer2_fieldB(..)
-    , Example.get_outer2_fieldB_fieldX
-    , Example.set_outer2_fieldB_fieldX
-    , Example.get_outer2_fieldB_fieldY
-    , Example.set_outer2_fieldB_fieldY
     , Example.Outer2(..)
     , Example.Inner3(..)
-    , Example.get_inner3_fieldX
-    , Example.set_inner3_fieldX
-    , Example.get_inner3_fieldY
-    , Example.set_inner3_fieldY
     , Example.Outer3(..)
     )
   where
@@ -38,6 +26,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union \@outer1_anon\'fieldX@
 
@@ -58,55 +47,31 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Outer1_anon'fieldX
 
 deriving via Marshal.EquivStorable Outer1_anon'fieldX instance RIP.Storable Outer1_anon'fieldX
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Outer1_anon'fieldX
 
-    __See:__ 'set_outer1_anon'fieldX_fieldX'
-
-    __C declaration:__ @fieldX@
+{-| __C declaration:__ @fieldX@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 9:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_anon'fieldX_fieldX ::
-     Outer1_anon'fieldX
-  -> RIP.CInt
-get_outer1_anon'fieldX_fieldX = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_outer1_anon'fieldX_fieldX'
+{-| __C declaration:__ @fieldX@
 
--}
-set_outer1_anon'fieldX_fieldX ::
-     RIP.CInt
-  -> Outer1_anon'fieldX
-set_outer1_anon'fieldX_fieldX = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_outer1_anon'fieldX_fieldY'
-
-    __C declaration:__ @fieldY@
-
-    __defined at:__ @types\/anonymous\/union_in_struct.h 10:9@
+    __defined at:__ @types\/anonymous\/union_in_struct.h 9:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer1_anon'fieldX_fieldY ::
-     Outer1_anon'fieldX
-  -> RIP.CInt
-get_outer1_anon'fieldX_fieldY = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty where
 
-{-|
-
-    __See:__ 'get_outer1_anon'fieldX_fieldY'
-
--}
-set_outer1_anon'fieldX_fieldY ::
-     RIP.CInt
-  -> Outer1_anon'fieldX
-set_outer1_anon'fieldX_fieldY = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"outer1_anon'fieldX_fieldX" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer1_anon'fieldX_fieldX" (RIP.Ptr Outer1_anon'fieldX) (RIP.Ptr ty) where
@@ -120,6 +85,30 @@ instance HasCField.HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX" wher
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 10:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 10:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"outer1_anon'fieldX_fieldY" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer1_anon'fieldX_fieldY" (RIP.Ptr Outer1_anon'fieldX) (RIP.Ptr ty) where
@@ -288,55 +277,31 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Outer2_fieldB
 
 deriving via Marshal.EquivStorable Outer2_fieldB instance RIP.Storable Outer2_fieldB
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Outer2_fieldB
 
-    __See:__ 'set_outer2_fieldB_fieldX'
-
-    __C declaration:__ @fieldX@
+{-| __C declaration:__ @fieldX@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 18:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer2_fieldB_fieldX ::
-     Outer2_fieldB
-  -> RIP.CInt
-get_outer2_fieldB_fieldX = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "outer2_fieldB_fieldX" Outer2_fieldB ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_outer2_fieldB_fieldX'
+{-| __C declaration:__ @fieldX@
 
--}
-set_outer2_fieldB_fieldX ::
-     RIP.CInt
-  -> Outer2_fieldB
-set_outer2_fieldB_fieldX = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_outer2_fieldB_fieldY'
-
-    __C declaration:__ @fieldY@
-
-    __defined at:__ @types\/anonymous\/union_in_struct.h 19:9@
+    __defined at:__ @types\/anonymous\/union_in_struct.h 18:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_outer2_fieldB_fieldY ::
-     Outer2_fieldB
-  -> RIP.CInt
-get_outer2_fieldB_fieldY = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer2_fieldB_fieldX" Outer2_fieldB ty where
 
-{-|
-
-    __See:__ 'get_outer2_fieldB_fieldY'
-
--}
-set_outer2_fieldB_fieldY ::
-     RIP.CInt
-  -> Outer2_fieldB
-set_outer2_fieldB_fieldY = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"outer2_fieldB_fieldX" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer2_fieldB_fieldX" (RIP.Ptr Outer2_fieldB) (RIP.Ptr ty) where
@@ -350,6 +315,30 @@ instance HasCField.HasCField Outer2_fieldB "outer2_fieldB_fieldX" where
     RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 19:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.HasField "outer2_fieldB_fieldY" Outer2_fieldB ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 19:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "outer2_fieldB_fieldY" Outer2_fieldB ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"outer2_fieldB_fieldY" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "outer2_fieldB_fieldY" (RIP.Ptr Outer2_fieldB) (RIP.Ptr ty) where
@@ -518,55 +507,30 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Inner3
 
 deriving via Marshal.EquivStorable Inner3 instance RIP.Storable Inner3
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Inner3
 
-    __See:__ 'set_inner3_fieldX'
-
-    __C declaration:__ @fieldX@
+{-| __C declaration:__ @fieldX@
 
     __defined at:__ @types\/anonymous\/union_in_struct.h 27:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_inner3_fieldX ::
-     Inner3
-  -> RIP.CInt
-get_inner3_fieldX = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "inner3_fieldX" Inner3 ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_inner3_fieldX'
+{-| __C declaration:__ @fieldX@
 
--}
-set_inner3_fieldX ::
-     RIP.CInt
-  -> Inner3
-set_inner3_fieldX = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_inner3_fieldY'
-
-    __C declaration:__ @fieldY@
-
-    __defined at:__ @types\/anonymous\/union_in_struct.h 28:9@
+    __defined at:__ @types\/anonymous\/union_in_struct.h 27:9@
 
     __exported by:__ @types\/anonymous\/union_in_struct.h@
 -}
-get_inner3_fieldY ::
-     Inner3
-  -> RIP.CInt
-get_inner3_fieldY = RIP.getUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "inner3_fieldX" Inner3 ty where
 
-{-|
-
-    __See:__ 'get_inner3_fieldY'
-
--}
-set_inner3_fieldY ::
-     RIP.CInt
-  -> Inner3
-set_inner3_fieldY = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"inner3_fieldX" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inner3_fieldX" (RIP.Ptr Inner3) (RIP.Ptr ty) where
@@ -579,6 +543,29 @@ instance HasCField.HasCField Inner3 "inner3_fieldX" where
   type CFieldType Inner3 "inner3_fieldX" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 28:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance (ty ~ RIP.CInt) => RIP.HasField "inner3_fieldY" Inner3 ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_struct.h 28:9@
+
+    __exported by:__ @types\/anonymous\/union_in_struct.h@
+-}
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "inner3_fieldY" Inner3 ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"inner3_fieldY" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "inner3_fieldY" (RIP.Ptr Inner3) (RIP.Ptr ty) where

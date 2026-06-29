@@ -17,17 +17,11 @@
 module Example
     ( Example.MyInt(..)
     , Example.T1_x(..)
-    , Example.get_t1_x_x
-    , Example.set_t1_x_x
     , Example.T1(..)
     , Example.T2(..)
     , Example.T2_x(..)
-    , Example.get_t2_x_x
-    , Example.set_t2_x_x
     , Example.T3(..)
     , Example.T3_x(..)
-    , Example.get_t3_x_x
-    , Example.set_t3_x_x
     )
   where
 
@@ -35,6 +29,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @macro MyInt@
 
@@ -103,30 +98,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T1_x
 
 deriving via Marshal.EquivStorable T1_x instance RIP.Storable T1_x
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion T1_x
 
-    __See:__ 'set_t1_x_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:24@
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-get_t1_x_x ::
-     T1_x
-  -> MyInt
-get_t1_x_x = RIP.getUnionPayload
+instance (ty ~ MyInt) => RIP.HasField "t1_x_x" T1_x ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_t1_x_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 3:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-set_t1_x_x ::
-     MyInt
-  -> T1_x
-set_t1_x_x = RIP.setUnionPayload
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t1_x_x" T1_x ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"t1_x_x" x0)
 
 instance (ty ~ MyInt) => RIP.HasField "t1_x_x" (RIP.Ptr T1_x) (RIP.Ptr ty) where
 
@@ -272,30 +266,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T2_x
 
 deriving via Marshal.EquivStorable T2_x instance RIP.Storable T2_x
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion T2_x
 
-    __See:__ 'set_t2_x_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:24@
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-get_t2_x_x ::
-     T2_x
-  -> MyInt
-get_t2_x_x = RIP.getUnionPayload
+instance (ty ~ MyInt) => RIP.HasField "t2_x_x" T2_x ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_t2_x_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 4:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-set_t2_x_x ::
-     MyInt
-  -> T2_x
-set_t2_x_x = RIP.setUnionPayload
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t2_x_x" T2_x ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"t2_x_x" x0)
 
 instance (ty ~ MyInt) => RIP.HasField "t2_x_x" (RIP.Ptr T2_x) (RIP.Ptr ty) where
 
@@ -385,30 +378,29 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T3_x
 
 deriving via Marshal.EquivStorable T3_x instance RIP.Storable T3_x
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion T3_x
 
-    __See:__ 'set_t3_x_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:24@
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-get_t3_x_x ::
-     T3_x
-  -> MyInt
-get_t3_x_x = RIP.getUnionPayload
+instance (ty ~ MyInt) => RIP.HasField "t3_x_x" T3_x ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_t3_x_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @macros\/reparse\/nesting\/union_in_struct.h 5:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-set_t3_x_x ::
-     MyInt
-  -> T3_x
-set_t3_x_x = RIP.setUnionPayload
+instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t3_x_x" T3_x ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"t3_x_x" x0)
 
 instance (ty ~ MyInt) => RIP.HasField "t3_x_x" (RIP.Ptr T3_x) (RIP.Ptr ty) where
 

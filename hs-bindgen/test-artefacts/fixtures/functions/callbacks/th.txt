@@ -1108,117 +1108,15 @@ deriving via (SizedByteArray 8
 deriving via (SizedByteArray 8
                              8) instance WriteRaw ProcessorCallback
 deriving via (EquivStorable ProcessorCallback) instance Storable ProcessorCallback
-{-|
-
-    __See:__ 'set_processorCallback_simple'
-
-    __C declaration:__ @simple@
-
-    __defined at:__ @functions\/callbacks.h 70:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_simple :: ProcessorCallback ->
-                                FunPtr (Ptr Measurement -> IO ())
-{-|
-
-    __See:__ 'set_processorCallback_simple'
-
-    __C declaration:__ @simple@
-
-    __defined at:__ @functions\/callbacks.h 70:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_simple = getUnionPayload
-{-|
-
-    __See:__ 'get_processorCallback_simple'
-
--}
-set_processorCallback_simple :: FunPtr (Ptr Measurement ->
-                                        IO ()) ->
-                                ProcessorCallback
-{-|
-
-    __See:__ 'get_processorCallback_simple'
-
--}
-set_processorCallback_simple = setUnionPayload
-{-|
-
-    __See:__ 'set_processorCallback_withValidator'
-
-    __C declaration:__ @withValidator@
-
-    __defined at:__ @functions\/callbacks.h 71:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_withValidator :: ProcessorCallback ->
-                                       FunPtr (Ptr Measurement -> DataValidator -> IO ())
-{-|
-
-    __See:__ 'set_processorCallback_withValidator'
-
-    __C declaration:__ @withValidator@
-
-    __defined at:__ @functions\/callbacks.h 71:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_withValidator = getUnionPayload
-{-|
-
-    __See:__ 'get_processorCallback_withValidator'
-
--}
-set_processorCallback_withValidator :: FunPtr (Ptr Measurement ->
-                                               DataValidator -> IO ()) ->
-                                       ProcessorCallback
-{-|
-
-    __See:__ 'get_processorCallback_withValidator'
-
--}
-set_processorCallback_withValidator = setUnionPayload
-{-|
-
-    __See:__ 'set_processorCallback_withProgress'
-
-    __C declaration:__ @withProgress@
-
-    __defined at:__ @functions\/callbacks.h 72:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_withProgress :: ProcessorCallback ->
-                                      FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())
-{-|
-
-    __See:__ 'set_processorCallback_withProgress'
-
-    __C declaration:__ @withProgress@
-
-    __defined at:__ @functions\/callbacks.h 72:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_processorCallback_withProgress = getUnionPayload
-{-|
-
-    __See:__ 'get_processorCallback_withProgress'
-
--}
-set_processorCallback_withProgress :: FunPtr (Ptr Measurement ->
-                                              ProgressUpdate -> IO ()) ->
-                                      ProcessorCallback
-{-|
-
-    __See:__ 'get_processorCallback_withProgress'
-
--}
-set_processorCallback_withProgress = setUnionPayload
+deriving via (SizedByteArray 8
+                             8) instance IsUnion ProcessorCallback
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "processorCallback_simple" ProcessorCallback ty
+    where getField = getUnionPayload
+instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
+         HasField "processorCallback_simple" ProcessorCallback ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"processorCallback_simple" x_0)
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "processorCallback_simple"
                   (Ptr ProcessorCallback)
@@ -1228,6 +1126,15 @@ instance HasCField ProcessorCallback "processorCallback_simple"
     where type CFieldType ProcessorCallback
                           "processorCallback_simple" = FunPtr (Ptr Measurement -> IO ())
           offset# = \_ -> \_ -> 0
+instance (~) ty
+             (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
+         HasField "processorCallback_withValidator" ProcessorCallback ty
+    where getField = getUnionPayload
+instance (~) ty
+             (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
+         HasField "processorCallback_withValidator" ProcessorCallback ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"processorCallback_withValidator" x_0)
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
          HasField "processorCallback_withValidator"
@@ -1240,6 +1147,15 @@ instance HasCField ProcessorCallback
                           "processorCallback_withValidator" = FunPtr (Ptr Measurement ->
                                                                       DataValidator -> IO ())
           offset# = \_ -> \_ -> 0
+instance (~) ty
+             (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
+         HasField "processorCallback_withProgress" ProcessorCallback ty
+    where getField = getUnionPayload
+instance (~) ty
+             (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
+         HasField "processorCallback_withProgress" ProcessorCallback ty
+    where hasField = \x_0 -> (setUnionPayload,
+                              getField @"processorCallback_withProgress" x_0)
 instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
          HasField "processorCallback_withProgress"
@@ -1586,40 +1502,13 @@ deriving via (SizedByteArray 24 8) instance StaticSize U
 deriving via (SizedByteArray 24 8) instance ReadRaw U
 deriving via (SizedByteArray 24 8) instance WriteRaw U
 deriving via (EquivStorable U) instance Storable U
-{-|
-
-    __See:__ 'set_u_fn'
-
-    __C declaration:__ @fn@
-
-    __defined at:__ @functions\/callbacks.h 118:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_u_fn :: U -> ConstantArray 3 (FunPtr (C -> IO ()))
-{-|
-
-    __See:__ 'set_u_fn'
-
-    __C declaration:__ @fn@
-
-    __defined at:__ @functions\/callbacks.h 118:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
-get_u_fn = getUnionPayload
-{-|
-
-    __See:__ 'get_u_fn'
-
--}
-set_u_fn :: ConstantArray 3 (FunPtr (C -> IO ())) -> U
-{-|
-
-    __See:__ 'get_u_fn'
-
--}
-set_u_fn = setUnionPayload
+deriving via (SizedByteArray 24 8) instance IsUnion U
+instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
+         HasField "u_fn" U ty
+    where getField = getUnionPayload
+instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
+         HasField "u_fn" U ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"u_fn" x_0)
 instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
          HasField "u_fn" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"u_fn")

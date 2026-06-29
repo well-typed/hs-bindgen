@@ -15,8 +15,6 @@
 
 module Example
     ( Example.MyUnion(..)
-    , Example.get_myUnion_x
-    , Example.set_myUnion_x
     , Example.A(..)
     , Example.B(..)
     , Example.E(..)
@@ -27,6 +25,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 import qualified M
 
 {-| __C declaration:__ @union MyUnion@
@@ -48,30 +47,30 @@ deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw MyUnion
 
 deriving via Marshal.EquivStorable MyUnion instance RIP.Storable MyUnion
 
-{-|
+deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion MyUnion
 
-    __See:__ 'set_myUnion_x'
-
-    __C declaration:__ @x@
+{-| __C declaration:__ @x@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-get_myUnion_x ::
-     MyUnion
-  -> RIP.CInt
-get_myUnion_x = RIP.getUnionPayload
+instance (ty ~ RIP.CInt) => RIP.HasField "myUnion_x" MyUnion ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_myUnion_x'
+{-| __C declaration:__ @x@
 
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-set_myUnion_x ::
-     RIP.CInt
-  -> MyUnion
-set_myUnion_x = RIP.setUnionPayload
+instance ( ty ~ RIP.CInt
+         ) => RIP.CompatHasField.HasField "myUnion_x" MyUnion ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"myUnion_x" x0)
 
 instance ( ty ~ RIP.CInt
          ) => RIP.HasField "myUnion_x" (RIP.Ptr MyUnion) (RIP.Ptr ty) where
@@ -95,7 +94,8 @@ newtype A = A
   }
   deriving stock (RIP.Generic)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Union.IsUnion
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -128,7 +128,8 @@ newtype B = B
   }
   deriving stock (RIP.Generic)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Union.IsUnion
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw

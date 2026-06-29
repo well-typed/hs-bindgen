@@ -27,7 +27,7 @@ module HsBindgen.Runtime.Prelude (
   , IsArray (Elem)
 
     -- * Unions
-  , zeroUnionValue
+  , IsUnion
 
     -- * Marshaling and serialization
   , StaticSize(..)
@@ -51,7 +51,7 @@ import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Internal.FunPtr
 import HsBindgen.Runtime.Internal.Ptr
-import HsBindgen.Runtime.Internal.SizedByteArray
 import HsBindgen.Runtime.IsArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst
+import HsBindgen.Runtime.Union

@@ -22,10 +22,6 @@ module Example
     , Example.My_unpacked_struct(..)
     , Example.My_packed_struct(..)
     , Example.Wait_status_ptr_t(..)
-    , Example.get_wait_status_ptr_t___ip
-    , Example.set_wait_status_ptr_t___ip
-    , Example.get_wait_status_ptr_t___up
-    , Example.set_wait_status_ptr_t___up
     , Example.Wait
     , Example.T1(..)
     , Example.Short_a(..)
@@ -37,6 +33,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct S@
 
@@ -464,55 +461,31 @@ deriving via RIP.SizedByteArray 8 8 instance Marshal.WriteRaw Wait_status_ptr_t
 
 deriving via Marshal.EquivStorable Wait_status_ptr_t instance RIP.Storable Wait_status_ptr_t
 
-{-|
+deriving via RIP.SizedByteArray 8 8 instance Union.IsUnion Wait_status_ptr_t
 
-    __See:__ 'set_wait_status_ptr_t___ip'
-
-    __C declaration:__ @__ip@
+{-| __C declaration:__ @__ip@
 
     __defined at:__ @attributes\/type_attributes.h 28:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
-get_wait_status_ptr_t___ip ::
-     Wait_status_ptr_t
-  -> RIP.Ptr RIP.CInt
-get_wait_status_ptr_t___ip = RIP.getUnionPayload
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.HasField "wait_status_ptr_t___ip" Wait_status_ptr_t ty where
 
-{-|
+  getField = RIP.getUnionPayload
 
-    __See:__ 'get_wait_status_ptr_t___ip'
+{-| __C declaration:__ @__ip@
 
--}
-set_wait_status_ptr_t___ip ::
-     RIP.Ptr RIP.CInt
-  -> Wait_status_ptr_t
-set_wait_status_ptr_t___ip = RIP.setUnionPayload
-
-{-|
-
-    __See:__ 'set_wait_status_ptr_t___up'
-
-    __C declaration:__ @__up@
-
-    __defined at:__ @attributes\/type_attributes.h 29:15@
+    __defined at:__ @attributes\/type_attributes.h 28:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
-get_wait_status_ptr_t___up ::
-     Wait_status_ptr_t
-  -> RIP.Ptr Wait
-get_wait_status_ptr_t___up = RIP.getUnionPayload
+instance ( ty ~ RIP.Ptr RIP.CInt
+         ) => RIP.CompatHasField.HasField "wait_status_ptr_t___ip" Wait_status_ptr_t ty where
 
-{-|
-
-    __See:__ 'get_wait_status_ptr_t___up'
-
--}
-set_wait_status_ptr_t___up ::
-     RIP.Ptr Wait
-  -> Wait_status_ptr_t
-set_wait_status_ptr_t___up = RIP.setUnionPayload
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"wait_status_ptr_t___ip" x0)
 
 instance ( ty ~ RIP.Ptr RIP.CInt
          ) => RIP.HasField "wait_status_ptr_t___ip" (RIP.Ptr Wait_status_ptr_t) (RIP.Ptr ty) where
@@ -526,6 +499,30 @@ instance HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
     RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @__up@
+
+    __defined at:__ @attributes\/type_attributes.h 29:15@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
+instance ( ty ~ RIP.Ptr Wait
+         ) => RIP.HasField "wait_status_ptr_t___up" Wait_status_ptr_t ty where
+
+  getField = RIP.getUnionPayload
+
+{-| __C declaration:__ @__up@
+
+    __defined at:__ @attributes\/type_attributes.h 29:15@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
+instance ( ty ~ RIP.Ptr Wait
+         ) => RIP.CompatHasField.HasField "wait_status_ptr_t___up" Wait_status_ptr_t ty where
+
+  hasField =
+    \x0 ->
+      (RIP.setUnionPayload, RIP.getField @"wait_status_ptr_t___up" x0)
 
 instance ( ty ~ RIP.Ptr Wait
          ) => RIP.HasField "wait_status_ptr_t___up" (RIP.Ptr Wait_status_ptr_t) (RIP.Ptr ty) where
