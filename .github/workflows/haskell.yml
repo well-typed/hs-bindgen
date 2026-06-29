@@ -199,7 +199,7 @@ jobs:
 
     - name: 💾 Restore cache
       id: cache-cabal-restore
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       env:
         key: build-and-test-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
         plan-file-hs-bindgen: './dist-newstyle/cache/plan.json'
@@ -217,7 +217,7 @@ jobs:
       run: cabal build all --only-dependencies
 
     - name: 💾 Save cache
-      uses: actions/cache/save@v5
+      uses: actions/cache/save@v6
       if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}

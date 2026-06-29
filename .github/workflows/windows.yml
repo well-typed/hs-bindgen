@@ -252,7 +252,7 @@ jobs:
         # Do not restore the cache if it is disabled in a manual dispatch.
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true' }}
         id: restore-cache
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         env:
           key: build-and-test-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
           plan-file-hs-bindgen: './dist-newstyle/cache/plan.json'
@@ -275,7 +275,7 @@ jobs:
 
       - name: "[build] Save cache"
         if: ${{ (github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true') && (steps.restore-cache.outputs.cache-hit != 'true') }}
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{ steps.restore-cache.outputs.cache-primary-key }}
