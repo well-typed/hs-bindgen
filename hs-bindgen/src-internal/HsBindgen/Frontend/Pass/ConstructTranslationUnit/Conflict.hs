@@ -9,6 +9,7 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
     -- * Construction
   , between
   , insert
+  , fromList
     -- * Query
   , toList
   , getMinimumLoc
@@ -28,7 +29,26 @@ import HsBindgen.Util.Tracer
 
 -- | Multiple declarations for the same identifier
 --
--- Invariant: the 'Set' must be non-empty.
+-- Two declarations are in conflict, if we cannot disambiguate between them in
+-- C.
+--
+-- Conflicts can arise:
+--
+-- - macro vs macro (macros can be redefined)
+--
+-- - macro vs ordinary
+--
+-- - Clang-generated collision between a named tagged declaration and an
+--   anonymous tagged declaration
+--
+--   For example,
+--
+--   @
+--   struct foo { ... };
+--   typedef struct { ... } foo;
+--   @
+--
+-- Invariant: the 'Set' must have cardinality of 2 or larger.
 data Conflict = Conflict {
       locs :: Set SingleLoc
     }
@@ -43,6 +63,12 @@ between l1 l2 = Conflict $ Set.fromList [l1, l2]
 
 insert :: Conflict -> SingleLoc -> Conflict
 insert (Conflict xs) x = Conflict $ Set.insert x xs
+
+-- | Precondition: The length of the list must be 2 or longer.
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
+fromList :: [SingleLoc] -> Conflict
+fromList ls = Conflict $ Set.fromList ls
 
 {-------------------------------------------------------------------------------
   Query
