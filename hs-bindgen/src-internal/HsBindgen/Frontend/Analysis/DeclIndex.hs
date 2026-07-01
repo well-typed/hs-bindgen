@@ -49,7 +49,6 @@ import Prelude hiding (filter, lookup)
 
 import Control.Monad.State
 import Data.Foldable qualified as Foldable
-import Data.List.NonEmpty ((<|))
 import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
@@ -271,11 +270,13 @@ fromParseResults results = flip execState empty $ mapM_ aux results
   where
     aux :: ParseResult l EnrichComments -> State (DeclIndex l) ()
     aux new = modify' $ \index -> DeclIndex $
-      let mConflict :: Maybe (Either (Entry l) ((C.DeclId, C.DeclId), Entry l))
+      let mConflict :: Maybe (IsConflict l)
           mConflict = Foldable.asum [
-              Left <$> Map.lookup new.id index.map
-            , fmap Right $ case new.id.name.kind of
-                C.NameKindOrdinary ->
+              do
+                old <- Map.lookup new.id index.map
+                pure $ checkIsConflict new (new.id, old)
+            , case new.id.name.kind of
+                C.NameKindOrdinary -> do
                   let altDeclId = C.DeclId{
                           name   = C.DeclName{
                               text = new.id.name.text
@@ -283,9 +284,9 @@ fromParseResults results = flip execState empty $ mapM_ aux results
                             }
                         , isAnon = False
                         }
-                  in  ((new.id, altDeclId),) <$> Map.lookup altDeclId index.map
-                C.NameKindTagged{} -> Nothing
-                C.NameKindMacro    ->
+                  old <- Map.lookup altDeclId index.map
+                  pure $ checkIsConflict new (altDeclId, old)
+                C.NameKindMacro    -> do
                   let altDeclId = C.DeclId{
                           name   = C.DeclName{
                               text = new.id.name.text
@@ -293,62 +294,23 @@ fromParseResults results = flip execState empty $ mapM_ aux results
                             }
                         , isAnon = False
                         }
-                  in  ((altDeclId, new.id),) <$> Map.lookup altDeclId index.map
+                  old <- Map.lookup altDeclId index.map
+                  pure $ checkIsConflict new (altDeclId, old)
+                C.NameKindTagged{} -> Nothing
             ]
       in  case mConflict of
-            -- No conflict
             Nothing ->
               Map.insert new.id (parseResultToEntry new) index.map
-            -- Conflict in same namespace
-            Just (Left entry) ->
-              handleConflict new.id new entry index.map
-            -- Conflict between ordinary and macro
-            Just (Right ((ordinaryDeclId, macroDeclId), entry)) ->
-              -- Store the conflict for both declaration IDs, the ordinary kind,
-              -- and the macro kind.
-              handleConflict ordinaryDeclId  new entry $
-              handleConflict macroDeclId     new entry $
-              index.map
-
-    handleConflict ::
-         C.DeclId
-      -> ParseResult l EnrichComments
-      -> Entry l
-      -> Map C.DeclId (Entry l)
-      -> Map C.DeclId (Entry l)
-    handleConflict declId new = \case
-      UsableE oldUsable -> case oldUsable of
-        UsableSuccess oldSuccess -> case new.classification of
-          ParseResultSuccess newSuccess
-            -- Redeclaration with the same definition can happen with opaque
-            -- structs, for example.  We stick with the first declaration.
-            | oldSuccess.decl.kind == newSuccess.decl.kind -> id
-            | otherwise ->
-                let conflict = UnusableE $ UnusableConflict $
-                      Conflict.between oldSuccess.decl.info.loc new.loc
-                in  Map.insert declId conflict
-          ParseResultNotAttempted{} -> id
-          ParseResultFailure{} -> Map.insert declId (parseResultToEntry new)
-        UsableExternal   -> panicPure "Unexpected UsableExternal"
-        UsableSquashed s -> panicPure $ "Unexpected Squashed: " <> show s
-      UnusableE oldUnusable -> case oldUnusable of
-        UnusableParseNotAttempted loc nasOld
-          | ParseResultNotAttempted naNew <- new.classification ->
-              Map.insert declId $
-                UnusableE (UnusableParseNotAttempted loc (naNew <| nasOld))
-          | otherwise -> Map.insert declId $ parseResultToEntry new
-        UnusableParseFailure{} -> id
-        UnusableConflict c -> Map.insert declId . UnusableE . UnusableConflict $
-          Conflict.insert c new.loc
-        UnusableMangleNamesFailure _ x ->
-          panicPure $
-            "Unexpected UnusableMangleNamesFailure: " <> show x
-        UnusableTypecheckMacrosError loc err ->
-          panicPure $
-            "Unexpected UnusableTypecheckMacrosError: " <> show loc <> " " <> show err
-        UnusableOmitted x ->
-          panicPure $
-            "Unexpected UnusableOmitted: " <> show x
+            Just (Redefinition success) ->
+              Map.insert new.id (UsableE $ UsableSuccess success) index.map
+            Just (SingleConflict ids conflict) ->
+              Map.union
+                ( Map.fromList
+                    [ (x,UnusableE $ UnusableConflict conflict)
+                    | x <- Set.toList ids
+                    ]
+                )
+                index.map
 
     parseResultToEntry :: ParseResult l EnrichComments -> Entry l
     parseResultToEntry result = case result.classification of
@@ -365,6 +327,47 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         , delayedParseMsgs = success.delayedParseMsgs
         , delayedPrepareReparseMsgs = []
         }
+
+{-------------------------------------------------------------------------------
+  Conflicts
+-------------------------------------------------------------------------------}
+
+data IsConflict l =
+    Redefinition (Success l EnrichComments)
+  | SingleConflict (Set C.DeclId) Conflict
+
+checkIsConflict ::
+     HasMacroTypes l
+  => ParseResult l EnrichComments
+  -> (C.DeclId, Entry l)
+  -> IsConflict l
+checkIsConflict new (oldId, old) =
+    case (new.classification, old) of
+      (ParseResultSuccess newSuccess, UsableE (UsableSuccess oldSuccess))
+        | newSuccess.decl.kind == oldSuccess.decl.kind ->
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
+          --
+          -- We should make sure that we do not report delayed messages multiple
+          -- times (e.g., use 'Data.List.nub').
+          let delayedParseMsgs =
+                newSuccess.delayedParseMsgs ++ oldSuccess.delayedParseMsgs
+              delayedPrepareReparseMsgs =
+                if not (null oldSuccess.delayedPrepareReparseMsgs) then
+                  panicPure "expected empty prepare reparse messages"
+                else
+                  []
+          in Redefinition $ oldSuccess{
+                 delayedParseMsgs          = delayedParseMsgs
+               , delayedPrepareReparseMsgs = delayedPrepareReparseMsgs
+               }
+      _otherwise ->
+        let conflict :: Conflict
+            conflict = case old of
+              UnusableE (UnusableConflict c) ->
+                Conflict.insert c new.loc
+              _otherwise ->
+                Conflict.fromList $ new.loc : entryToLoc old
+        in SingleConflict (Set.fromList [new.id, oldId]) conflict
 
 {-------------------------------------------------------------------------------
   Filter
