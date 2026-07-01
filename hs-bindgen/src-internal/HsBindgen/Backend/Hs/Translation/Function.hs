@@ -26,8 +26,6 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
-import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
@@ -111,11 +109,11 @@ functionDecs safety info origCFun _spec = do
                 , T.unpack origCName
                 ]
 
-        primResult :: PassResBy
-        primResult = classifyResPassingMethod origCFun.res.c
+        primResult :: Translation.PassResBy Final
+        primResult = Translation.passResBy origCFun.res.c
 
-        primParams :: [PassArgBy]
-        primParams = map classifyArgPassingMethod origCFun.args
+        primParams :: [Translation.PassArgBy Final]
+        primParams = map Translation.passArgBy origCFun.args
 
         foreignImport :: [Hs.Decl l]
         foreignImport =
@@ -148,7 +146,7 @@ functionDecs safety info origCFun _spec = do
               Hs.ForeignImport.FunParam {
                   hsParam =
                     Hs.FunctionParameter{
-                      typ     = toPrimitiveType Translation.FunArg arg
+                      typ     = Translation.toPrimitiveType Translation.FunArg arg
                     , comment = Nothing
                     }
                 }
@@ -157,16 +155,16 @@ functionDecs safety info origCFun _spec = do
               Hs.ForeignImport.FunParam {
                   hsParam =
                     Hs.FunctionParameter{
-                      typ     = toPrimitiveType Translation.FunArg primResult
+                      typ     = Translation.toPrimitiveType Translation.FunArg primResult
                     , comment = Nothing
                     }
                 }
             | case primResult of
                 -- A type that is not supported by the Haskell FFI as a function result.
                 -- We pass it as a function parameter instead.
-                PassByAddress {} -> True
+                Translation.PassByAddress {} -> True
                 -- A "normal" result type that is supported by the Haskell FFI.
-                PassByValue {} -> False
+                Translation.PassByValue {} -> False
             ]
 
         -- When translating a 'C.Type' there are C types which we cannot pass
@@ -179,13 +177,13 @@ functionDecs safety info origCFun _spec = do
         foreignImportResult = case primResult of
             -- A type that is not supported by the Haskell FFI as a function result.
             -- We pass it as a function parameter instead.
-            PassByAddress {} -> mkFunRes (PassByValue C.TypeVoid)
+            Translation.PassByAddress {} -> mkFunRes (Translation.PassByValue C.TypeVoid)
             -- A "normal" result type that is supported by the Haskell FFI.
-            PassByValue {} -> mkFunRes primResult
+            Translation.PassByValue {} -> mkFunRes primResult
           where
-            mkFunRes :: PassResBy -> Hs.ForeignImport.FunRes
+            mkFunRes :: Translation.PassResBy Final -> Hs.ForeignImport.FunRes
             mkFunRes passBy = Hs.ForeignImport.FunRes {
-                  hsType   = mbHsIO $ toPrimitiveType Translation.FunRes passBy
+                  hsType   = mbHsIO $ Translation.toPrimitiveType Translation.FunRes passBy
                 }
 
         restoreOrigSignature :: Hs.Decl l
@@ -195,7 +193,7 @@ functionDecs safety info origCFun _spec = do
               (Hs.InternalName cWrapperName)
               primResult
               primParams
-              (mbHsIO $ toOrigType Translation.FunRes primResult)
+              (mbHsIO $ Translation.toOrigType Translation.FunRes primResult)
               restoreOrigSignatureParams
               origCFun
               (mbRestoreOrigSignatureComment <> mbIoComment)
@@ -206,7 +204,7 @@ functionDecs safety info origCFun _spec = do
           let params :: [(Maybe Text, Hs.FunctionParameter)]
               params = [ ( fmap (.cName.text) arg.name
                         , Hs.FunctionParameter{
-                            typ     = toOrigType Translation.FunArg (classifyArgPassingMethod arg)
+                            typ     = Translation.toOrigType Translation.FunArg (Translation.passArgBy arg)
                           , comment = Nothing
                           })
                         | arg <- origCFun.args
@@ -241,9 +239,9 @@ getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 -- function purity, because pointer manipulation requires 'IO'.
 --
 functionShouldRunInIO ::
-     C.FunctionPurity -- ^ C function purity (function attribute)
-  -> PassResBy        -- ^ C result type
-  -> [PassArgBy]      -- ^ C parameter types
+     C.FunctionPurity              -- ^ C function purity (function attribute)
+  -> Translation.PassResBy Final   -- ^ C result type
+  -> [Translation.PassArgBy Final] -- ^ C parameter types
   -> Bool
 functionShouldRunInIO purity resType argTypes
   | requiresRestore resType || any requiresRestore argTypes
@@ -296,125 +294,6 @@ ioComment purity =
   Argument passing method
 -------------------------------------------------------------------------------}
 
--- | Classification of the type of a function argument: it is either passed by
--- value or by address.
-type PassArgBy = PassBy (C.FunctionArg Final) (C.Type Final)
-
--- | Classification of the type of a function result: it is either passed by
--- value or by address.
-type PassResBy = PassBy (C.Type Final) (C.Type Final)
-
--- | Classification of the type of a function argument\/result: it is either
--- passed by value or by address.
-data PassBy byValue byAddress =
-      -- | Types passed by value.
-      --
-      -- Ordinary, "primitive" types which can be handled by Haskell FFI
-      -- directly.
-      PassByValue byValue
-      -- | Types passed by address: union, struct, and complex
-      --
-      -- These have to be passed by address, because they can not be handled by
-      -- the Haskell FFI directly.
-    | PassByAddress byAddress
-  deriving Show
-
-isPassByAddress :: PassBy byValue byAddress -> Bool
-isPassByAddress = \case
-    PassByValue {} -> False
-    PassByAddress {} -> True
-
--- | Classify how a function result is passed from C to Haskell
-classifyResPassingMethod :: HasCallStack => C.Type Final -> PassResBy
-classifyResPassingMethod res
-  -- Heap types
-  | C.isCanonicalTypeStruct res ||
-    C.isCanonicalTypeUnion res ||
-    C.isCanonicalTypeComplex res
-  = PassByAddress res
-
-  | C.isCanonicalTypeArray res
-  = panicPure "classifyResPassingMethod: an array can not be the result type of a function"
-
-  | C.isCanonicalTypeFunction res
-  = panicPure "classifyResPassingMethod: a function can not be the result type of a function"
-
-  -- Other types
-  | otherwise
-  = PassByValue res
-
--- | Classify how a function argument is passed from Haskell to C
-classifyArgPassingMethod :: HasCallStack => C.FunctionArg Final -> PassArgBy
-classifyArgPassingMethod arg
-  -- Heap types
-  | C.isCanonicalTypeStruct  arg.typ.c ||
-    C.isCanonicalTypeUnion   arg.typ.c ||
-    C.isCanonicalTypeComplex arg.typ.c
-  = if arg.ann == NotAdjusted
-    then PassByAddress arg.typ.c
-    else panicPure
-          "classifyArgPassingMethod: found a function argument/result type that is \
-          \a struct/union/complex with an unexpected annotation. \
-          \Is there a bug in the AdjustTypes frontend pass?"
-
-  | C.isCanonicalTypeArray arg.typ.c
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is an array, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
-
-  | C.isCanonicalTypeFunction arg.typ.c
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is a function, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
-
-  -- Other types
-  | otherwise
-  = PassByValue arg
-
-class ToWrapperType a where
--- | Recover type used in the C wrapper
-  toWrapperType :: a -> C.Type Final
-
-instance ToWrapperType PassArgBy where
-  toWrapperType = \case
-      PassByValue argTy -> argTy.typ.c
-      PassByAddress ty -> C.TypePointers 1 ty
-
-instance ToWrapperType PassResBy where
-  toWrapperType = \case
-    PassByValue ty -> ty
-    PassByAddress ty -> C.TypePointers 1 ty
-
-class ToPrimitiveType a where
-  -- | Recover type used in the foreign import
-  toPrimitiveType :: Translation.TypeContext -> a -> Hs.Type
-
-instance ToPrimitiveType PassArgBy where
-  toPrimitiveType ctx = \case
-      PassByValue argTy -> Translation.inContext ctx argTy
-      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
-
-instance ToPrimitiveType PassResBy where
-  toPrimitiveType ctx = \case
-      PassByValue ty -> Translation.inContext ctx ty
-      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
-
-class ToOrigType a where
-  -- | Recover type used in "restoreOrigSignature"
-  toOrigType :: Translation.TypeContext -> a -> Hs.Type
-
-instance ToOrigType PassArgBy where
-  toOrigType ctx = \case
-      PassByValue argTy -> Translation.inContext ctx argTy
-      PassByAddress ty -> Translation.inContext ctx ty
-
-instance ToOrigType PassResBy where
-  toOrigType ctx = \case
-      PassByValue ty -> Translation.inContext ctx ty
-      PassByAddress ty -> Translation.inContext ctx ty
-
 -- | Check whether a type needs to be restored
 --
 -- If a type is passed by address through the Haskell FFI when the C function
@@ -422,10 +301,8 @@ instance ToOrigType PassResBy where
 -- by peeking/poking the value from/to the address. This requires performing
 -- 'IO'.
 --
-requiresRestore :: PassBy byValue byAddress -> Bool
-requiresRestore = \case
-    PassByValue{}   -> False
-    PassByAddress{} -> True
+requiresRestore :: Translation.PassBy byValue byAddress -> Bool
+requiresRestore = Translation.isPassByAddress
 
 {-------------------------------------------------------------------------------
   Userland-API C wrapper
@@ -433,39 +310,55 @@ requiresRestore = \case
 
 -- | Userland-API C wrapper
 getCWrapperDecl ::
-     String      -- ^ original C name
-  -> String      -- ^ C wrapper name
-  -> PassResBy   -- ^ C result type
-  -> [PassArgBy] -- ^ C types of function parameters
+     String                        -- ^ original C name
+  -> String                        -- ^ C wrapper name
+  -> Translation.PassResBy Final   -- ^ C result type
+  -> [Translation.PassArgBy Final] -- ^ C types of function parameters
   -> PC.FunDefn
 getCWrapperDecl origName wrapperName res args
-    | C.isVoid (toWrapperType res)
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toWrapperType <$> args') $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
-            PC.CSNil
+    | C.isVoid resWrapper = PC.withArgs args $ \args' ->
+        let expr = PC.ExpressionStatement $
+              PC.Call origName (callArgs args' (PC.argsToIdx args'))
+        in  PC.FunDefn
+              wrapperName
+              C.TypeVoid
+              C.ImpureFunction
+              (Translation.toWrapperType <$> args')
+              (PC.CSList $ PC.CSStatement expr PC.CSNil)
+    | Translation.isPassByAddress res = PC.withArgs args $ \args' ->
+        let expr = PC.ExpressionStatement $
+              PC.Assign
+                (PC.LDeRef (PC.LVar IZ))
+                (PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args')))
+        in  PC.FunDefn
+              wrapperName
+              C.TypeVoid
+              C.ImpureFunction
+              (fmap Translation.toWrapperType args' :> Translation.toWrapperType res)
+              (PC.CSList $ PC.CSStatement expr PC.CSNil)
+    | otherwise = PC.withArgs args $ \args' ->
+        let expr = PC.ExpressionStatement $
+              PC.Return (PC.Call origName (callArgs args' (PC.argsToIdx args')))
+        in  PC.FunDefn
+              wrapperName
+              resWrapper
+              C.ImpureFunction
+              (Translation.toWrapperType <$> args')
+              (PC.CSList $ PC.CSStatement expr PC.CSNil)
 
-    | isPassByAddress res
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap toWrapperType args' :> toWrapperType res) $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args')))
-            PC.CSNil
-
-    | otherwise
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (toWrapperType res) C.ImpureFunction (toWrapperType <$> args') $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Return $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
-            PC.CSNil
   where
-    callArgs :: Env ctx' PassArgBy -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
+    resWrapper :: C.Type Final
+    resWrapper = Translation.toWrapperType res
+
+    callArgs ::
+         Env ctx' (Translation.PassArgBy Final)
+      -> Env ctx' (Idx ctx)
+      -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids)
-      where f ty idx = if isPassByAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
+      where
+        f ty idx
+          | Translation.isPassByAddress ty = PC.DeRef (PC.Var idx)
+          | otherwise                      = PC.Var idx
 
 {-------------------------------------------------------------------------------
   RestoreOrigSignature
@@ -474,14 +367,14 @@ getCWrapperDecl origName wrapperName res args
 -- | Generate a function declaration restoring the signature of the original C
 -- function.
 getRestoreOrigSignatureDecl ::
-     Hs.TermName            -- ^ name of new function
-  -> Hs.TermName            -- ^ name of foreign import
-  -> PassResBy              -- ^ C result type
-  -> [PassArgBy]            -- ^ C types of function parameters
-  -> Hs.Type                -- ^ Haskell result type
-  -> [Hs.FunctionParameter] -- ^ Haskell function parameters
-  -> C.Function Final       -- ^ original C function
-  -> Maybe HsDoc.Comment    -- ^ function comment
+     Hs.TermName                   -- ^ name of new function
+  -> Hs.TermName                   -- ^ name of foreign import
+  -> Translation.PassResBy Final   -- ^ C result type
+  -> [Translation.PassArgBy Final] -- ^ C types of function parameters
+  -> Hs.Type                       -- ^ Haskell result type
+  -> [Hs.FunctionParameter]        -- ^ Haskell function parameters
+  -> C.Function Final              -- ^ original C function
+  -> Maybe HsDoc.Comment           -- ^ function comment
   -> Hs.Decl l
 getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParams cFunc mbComment =
     Hs.DeclFunction $ Hs.FunctionDecl{
@@ -535,7 +428,11 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
                       | arg <- cFunc.args
                       ]
 
-        mkFunArg :: Maybe Text -> PassArgBy -> Hs.FunctionParameter -> FunArg
+        mkFunArg ::
+             Maybe Text
+          -> Translation.PassArgBy Final
+          -> Hs.FunctionParameter
+          -> FunArg
         mkFunArg mbCName passBy param = FunArg{
             typ        = passBy
           , cParamName = mbCName
@@ -606,14 +503,14 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs = case x.typ of
-            PassByAddress ty -> SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
+            Translation.PassByAddress ty -> SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified ty in
               [ SHs.EBound y
               , SHs.ELam x.nameHint $
                   go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
               ]
 
-            PassByValue{} -> go xs ys (Var y False : zs)
+            Translation.PassByValue{} -> go xs ys (Var y False : zs)
 
     -- | Construct an expression to pass the function result by address, if
     -- necessary
@@ -658,7 +555,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
 
 -- | Information about a function argument
 data FunArg = FunArg {
-    typ        :: PassArgBy
+    typ        :: Translation.PassArgBy Final
   , cParamName :: Maybe Text
   , funParam   :: Hs.FunctionParameter
   }
@@ -673,8 +570,8 @@ funArgToVarInfo arg = VarInfo {
   where
     fallback :: Hs.Name Hs.NsVar
     fallback = Hs.UnsafeName $ case arg.typ of
-      PassByValue{}   -> "x"
-      PassByAddress{} -> "ptr"
+      Translation.PassByValue{}   -> "x"
+      Translation.PassByAddress{} -> "ptr"
 
     toHint :: Hs.Name Hs.NsVar -> NameHint
     toHint n = NameHint $ T.unpack n.text
@@ -721,7 +618,7 @@ exprVar var
 
 -- | Information for variables corresponding to function arguments
 data VarInfo = VarInfo {
-    typ      :: PassArgBy
+    typ      :: Translation.PassArgBy Final
   , nameHint :: NameHint
   }
 

@@ -10,6 +10,17 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
   , InContext(..)
     -- ** Helper functions
   , topLevel
+
+  -- * Argument and result passing
+  , PassBy(..)
+  , isPassByAddress
+  , PassArgBy
+  , passArgBy
+  , PassResBy
+  , passResBy
+  , ToWrapperType(..)
+  , ToOrigType(..)
+  , ToPrimitiveType(..)
   ) where
 
 import Data.Proxy (Proxy (..))
@@ -65,7 +76,136 @@ instance IsPassCompat p => InContext (C.FunctionArg p) where
 -------------------------------------------------------------------------------}
 
 topLevel :: (HasCallStack, IsPassCompat p) => C.Type p -> Hs.Type
-topLevel = inContext Top
+topLevel = typeInContext Top
+
+{-------------------------------------------------------------------------------
+  Argument and result passing
+-------------------------------------------------------------------------------}
+
+-- | Function argument and result classification
+--
+-- It is either passed by value or by address.
+data PassBy byValue byAddress =
+      -- | Types passed by value.
+      --
+      -- Ordinary, "primitive" types which can be handled by Haskell FFI
+      -- directly.
+      PassByValue byValue
+      -- | Types passed by address: union, struct, and complex
+      --
+      -- These have to be passed by address, because they can not be handled by
+      -- the Haskell FFI directly.
+    | PassByAddress byAddress
+  deriving Show
+
+isPassByAddress :: PassBy byValue byAddress -> Bool
+isPassByAddress = \case
+    PassByValue{}   -> False
+    PassByAddress{} -> True
+
+-- | Function argument classification
+type PassArgBy p = PassBy (C.FunctionArg p) (C.Type p)
+
+-- | Determine how a function argument is passed from Haskell to C
+passArgBy :: forall p.
+     (HasCallStack, IsPassCompat p)
+  => C.FunctionArg p
+  -> PassArgBy p
+passArgBy arg
+    -- Heap types
+    | C.isCanonicalTypeStruct  ty ||
+      C.isCanonicalTypeUnion   ty ||
+      C.isCanonicalTypeComplex ty =
+        if arg.ann == NotAdjusted
+          then PassByAddress ty
+          else
+            -- Should have been adjusted in the AdjustTypes pass
+            panicPure "passArgBy: function argument of type struct/union/complex"
+
+    -- Invalid types
+    | C.isCanonicalTypeArray ty =
+        -- Should have been adjusted in the AdjustTypes pass
+        panicPure "passArgBy: function argument of type array"
+    | C.isCanonicalTypeFunction ty =
+        -- Should have been adjusted in the AdjustTypes pass
+        panicPure "passArgBy: function argument of type function"
+
+    -- Other types
+    | otherwise =
+        PassByValue arg
+  where
+    ty :: C.Type p
+    ty = cType (Proxy @p) arg.typ
+
+-- | Function result classification
+type PassResBy p = PassBy (C.Type p) (C.Type p)
+
+-- | Determine how a function result is passed from C to Haskell
+passResBy :: (HasCallStack, IsPassCompat p) => C.Type p -> PassResBy p
+passResBy res
+    -- Heap types
+    | C.isCanonicalTypeStruct  res ||
+      C.isCanonicalTypeUnion   res ||
+      C.isCanonicalTypeComplex res =
+        PassByAddress res
+
+    -- Invalid types
+    | C.isCanonicalTypeArray res =
+        panicPure "passResBy: array cannot be the result type of a function"
+    | C.isCanonicalTypeFunction res =
+        panicPure "passResBy: function cannot be the result type of a function"
+
+    -- Other types
+    | otherwise =
+        PassByValue res
+
+--------------------------------------------------------------------------------
+
+class IsPassCompat p => ToWrapperType a p where
+  -- | Recover type used in the C wrapper
+  toWrapperType :: a -> C.Type p
+
+instance IsPassCompat p => ToWrapperType (PassArgBy p) p where
+  toWrapperType = \case
+    PassByValue   arg -> cType (Proxy @p) arg.typ
+    PassByAddress ty  -> C.TypePointers 1 ty
+
+instance IsPassCompat p => ToWrapperType (PassResBy p) p where
+  toWrapperType = \case
+    PassByValue   ty -> ty
+    PassByAddress ty -> C.TypePointers 1 ty
+
+--------------------------------------------------------------------------------
+
+class ToOrigType a where
+  -- | Recover type used in @restoreOrigSignature@
+  toOrigType :: TypeContext -> a -> Hs.Type
+
+instance IsPassCompat p => ToOrigType (PassArgBy p) where
+  toOrigType ctx = \case
+    PassByValue   arg -> inContext ctx arg
+    PassByAddress ty  -> inContext ctx ty
+
+instance IsPassCompat p => ToOrigType (PassResBy p) where
+  toOrigType ctx = \case
+    PassByValue   ty -> inContext ctx ty
+    PassByAddress ty -> inContext ctx ty
+
+--------------------------------------------------------------------------------
+
+class ToPrimitiveType a where
+  -- | Recover type used in the foreign import
+  toPrimitiveType :: TypeContext -> a -> Hs.Type
+
+instance IsPassCompat p => ToPrimitiveType (PassArgBy p) where
+  toPrimitiveType ctx = \case
+    PassByValue   arg -> inContext ctx arg
+    PassByAddress ty  -> inContext ctx (C.TypePointers 1 ty)
+
+instance IsPassCompat p => ToPrimitiveType (PassResBy p) where
+  toPrimitiveType ctx = \case
+    PassByValue   ty -> inContext ctx ty
+    PassByAddress ty -> inContext ctx (C.TypePointers 1 ty)
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
