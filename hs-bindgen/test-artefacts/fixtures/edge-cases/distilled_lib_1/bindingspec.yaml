@@ -12,6 +12,7 @@ ctypes:
 - headers: edge-cases/distilled_lib_1.h
   cname: enum another_typedef_enum_e
   hsname: Another_typedef_enum_e
+  enum: open
 - headers: edge-cases/distilled_lib_1.h
   cname: another_typedef_enum_e
   hsname: Another_typedef_enum_e
@@ -30,6 +31,7 @@ ctypes:
 - headers: edge-cases/distilled_lib_1.h
   cname: enum a_typedef_enum_e
   hsname: A_typedef_enum_e
+  enum: open
 - headers: edge-cases/distilled_lib_1.h
   cname: a_typedef_enum_e
   hsname: A_typedef_enum_e

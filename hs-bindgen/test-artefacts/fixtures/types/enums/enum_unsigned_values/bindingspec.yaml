@@ -6,6 +6,7 @@ ctypes:
 - headers: types/enums/enum_unsigned_values.h
   cname: enum uint8_enum
   hsname: Uint8_enum
+  enum: open
 - headers: types/enums/enum_unsigned_values.h
   cname: uint8_enum
   hsname: Uint8_enum

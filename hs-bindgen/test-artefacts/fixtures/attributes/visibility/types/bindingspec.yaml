@@ -141,48 +141,63 @@ ctypes:
 - headers: attributes/visibility/types.h
   cname: enum E5
   hsname: E5
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E6
   hsname: E6
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E7
   hsname: E7
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E8
   hsname: E8
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E9
   hsname: E9
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E10
   hsname: E10
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E11
   hsname: E11
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E12
   hsname: E12
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E13
   hsname: E13
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E14
   hsname: E14
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E15
   hsname: E15
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E16
   hsname: E16
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E17
   hsname: E17
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E18
   hsname: E18
+  enum: open
 - headers: attributes/visibility/types.h
   cname: enum E19
   hsname: E19
+  enum: open
 hstypes:
 - hsname: E0
   representation: emptydata

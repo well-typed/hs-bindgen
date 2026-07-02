@@ -6,6 +6,7 @@ ctypes:
 - headers: edge-cases/enum_as_array_size.h
   cname: enum test
   hsname: Test
+  enum: open
 hstypes:
 - hsname: Test
   representation:

@@ -27,6 +27,7 @@ ctypes:
 - headers: comprehensive/c2hsc.h
   cname: enum Bar_10_
   hsname: Bar_10
+  enum: open
 - headers: comprehensive/c2hsc.h
   cname: Bar_10
   hsname: Bar_10
@@ -36,6 +37,7 @@ ctypes:
 - headers: comprehensive/c2hsc.h
   cname: enum e
   hsname: E
+  enum: open
 - headers: comprehensive/c2hsc.h
   cname: union u
   hsname: U

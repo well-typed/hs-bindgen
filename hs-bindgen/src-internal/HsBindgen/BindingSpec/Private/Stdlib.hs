@@ -263,6 +263,7 @@ mkType t hsId hsTypeRep insts headers' =
     cTypeSpec :: BindingSpec.CTypeSpec
     cTypeSpec = BindingSpec.CTypeSpec {
         hsName = Just typeConstrName
+      , enum   = Nothing -- No C @enum@ types in @stdlib@
       }
 
     hsTypeSpec :: BindingSpec.HsTypeSpec

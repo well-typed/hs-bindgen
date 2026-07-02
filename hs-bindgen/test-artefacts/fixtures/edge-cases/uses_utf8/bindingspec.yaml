@@ -6,6 +6,7 @@ ctypes:
 - headers: edge-cases/uses_utf8.h
   cname: enum MyEnum
   hsname: MyEnum
+  enum: open
 hstypes:
 - hsname: MyEnum
   representation:

@@ -39,6 +39,7 @@ ctypes:
 - headers: functions/callbacks.h
   cname: enum @Processor_mode
   hsname: Processor_mode
+  enum: open
 - headers: functions/callbacks.h
   cname: foo
   hsname: Foo

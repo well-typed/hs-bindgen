@@ -6,6 +6,7 @@ ctypes:
 - headers: binding-specs/fun_arg/macro/enum.h
   cname: enum MyEnum
   hsname: MyEnum
+  enum: open
 - headers: binding-specs/fun_arg/macro/enum.h
   cname: macro A
   hsname: A

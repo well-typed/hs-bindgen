@@ -6,6 +6,7 @@ ctypes:
 - headers: program-analysis/program_slicing_selection.h
   cname: enum FileOperationStatus
   hsname: FileOperationStatus
+  enum: open
 - headers: program-analysis/program_slicing_selection.h
   cname: struct FileOperationRecord
   hsname: FileOperationRecord

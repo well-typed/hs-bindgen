@@ -15,6 +15,7 @@ ctypes:
 - headers: macros/reparse.h
   cname: enum some_enum
   hsname: Some_enum
+  enum: open
 - headers: macros/reparse.h
   cname: arr_typedef1
   hsname: Arr_typedef1
