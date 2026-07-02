@@ -36,7 +36,8 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -52,7 +53,7 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     forall l. (HasCallStack, HasMacroTypes l)
+     forall l. (HasCallStack, Macro.HasTypes l)
   => FieldNamingStrategy
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
@@ -466,7 +467,7 @@ data MangleDeclResult l =
     | MdrSquashed MangleNamesSquash
     | MdrMangled (C.Decl l MangleNames)
 
-mangleDecl :: HasMacroTypes l => C.Decl l ResolveBindingSpecs -> M (MangleDeclResult l)
+mangleDecl :: Macro.HasTypes l => C.Decl l ResolveBindingSpecs -> M (MangleDeclResult l)
 mangleDecl decl = do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
@@ -683,7 +684,7 @@ mangleEnclosingRef = \case
     C.UnusableEnclosingRef e ->
       pure $ C.UnusableEnclosingRef e
 
-instance HasMacroTypes l => MangleWithDeclName (C.DeclKind l) where
+instance Macro.HasTypes l => MangleWithDeclName (C.DeclKind l) where
   mangleWithDeclName hsName = \case
       C.DeclStruct   x         -> C.DeclStruct           <$> mangleWithDeclName hsName x
       C.DeclUnion    x         -> C.DeclUnion            <$> mangleWithDeclName hsName x
@@ -947,12 +948,12 @@ instance Mangle C.Global where
         , ann = global.ann
         }
 
-instance HasMacroTypes l => MangleWithDeclName (Flip TypecheckedMacro l) where
+instance Macro.HasTypes l => MangleWithDeclName (Flip TypecheckedMacro l) where
   mangleWithDeclName hsName (Flip m) = Flip <$> case m of
       MacroType  typ -> MacroType  <$> mangleWithDeclName hsName typ
       MacroValue val -> MacroValue <$> mangle val
 
-instance HasMacroTypes l => MangleWithDeclName (TypecheckedMacroType l) where
+instance Macro.HasTypes l => MangleWithDeclName (TypecheckedMacroType l) where
   mangleWithDeclName hsName macroType = do
       strategy       <- asks (.fieldNamingStrategy)
       macroTypeNames <- mkMacroTypeNames strategy hsName
@@ -969,7 +970,7 @@ instance HasMacroTypes l => MangleWithDeclName (TypecheckedMacroType l) where
         MacroTypeExtBinding ext -> pure $ MacroTypeExtBinding ext
         MacroTypeBodyVar declId -> MacroTypeBodyVar <$> lookupTypePair declId
 
-instance HasMacroTypes l => Mangle (TypecheckedMacroValue l) where
+instance Macro.HasTypes l => Mangle (TypecheckedMacroValue l) where
   mangle macroValue = do
       body' <- traverse lookupVarPair macroValue.body
       pure $ TypecheckedMacroValue body'

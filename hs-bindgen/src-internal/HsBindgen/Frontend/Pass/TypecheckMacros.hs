@@ -18,8 +18,8 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 type In  = ConstructTranslationUnit
 type Out = TypecheckMacros
@@ -35,8 +35,8 @@ type Out = TypecheckMacros
 --
 -- Register macro typecheck failures in @DeclMeta@.
 typecheckMacros ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> C.TranslationUnit l In
   -> ( C.TranslationUnit l Out
      , Map LanC.CName (C.Type ReparseMacroExpansions)
@@ -46,7 +46,7 @@ typecheckMacros macroLang unit =
     let knownTypes =
           collectKnownTypes unit.decls
         (tcRes, resolvedMacros) =
-          typecheckDecls macroLang knownTypes unit.decls
+          typecheckDecls macroLang unit.decls
         (failedMacros, typecheckedDecls) =
           partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls

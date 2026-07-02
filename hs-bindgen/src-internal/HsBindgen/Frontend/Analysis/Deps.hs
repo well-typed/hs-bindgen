@@ -15,8 +15,8 @@ import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Get all dependencies
@@ -50,16 +50,15 @@ depsOfDeclWith depsOfMacro = \case
 depsOfDeclParsedMacro ::
      forall l p.
      ( IsPass p
-     , MacroBody p ~ ParsedMacroBody
+     , MacroBody p ~ Macro.Resolved
      , Id p ~ C.DeclId )
-  => MacroLang l
-  -> Set C.DeclId
+  => Macro.Lang l
   -> C.DeclKind l p
   -> [(C.ValOrRef, Id p)]
-depsOfDeclParsedMacro macroLang allDeclIds = depsOfDeclWith depsOfParsedMacro
+depsOfDeclParsedMacro macroLang = depsOfDeclWith depsOfParsedMacro
   where
-    depsOfParsedMacro :: ParsedMacroBody l -> [(C.ValOrRef, C.DeclId)]
-    depsOfParsedMacro body = macroLang.parsedMacroDeps allDeclIds body
+    depsOfParsedMacro :: Macro.Resolved l -> [(C.ValOrRef, C.DeclId)]
+    depsOfParsedMacro body = macroLang.parsedDeps body
 
 {-------------------------------------------------------------------------------
   Dependencies of declaration after @ReparseMacroExpansions@ and 'Zip'
@@ -79,26 +78,26 @@ depsOfDeclParsedMacro macroLang allDeclIds = depsOfDeclWith depsOfParsedMacro
 -- We use 'depsOfDecl' after reconciling the pre- and post-reparse ASTs in the
 -- 'Zip' pass, updating the dependency graphs.
 depsOfDecl ::
-     HasMacroTypes l
-  => MacroLang l
+     Macro.HasTypes l
+  => Macro.Lang l
   -> C.DeclKind l Zip
   -> [(C.ValOrRef, C.DeclId)]
 depsOfDecl = depsOfDeclTcMacro
 
 depsOfDeclTcMacro ::
-     forall l. (HasMacroTypes l)
-  => MacroLang l -> C.DeclKind l Zip -> [(C.ValOrRef, C.DeclId)]
+     forall l. (Macro.HasTypes l)
+  => Macro.Lang l -> C.DeclKind l Zip -> [(C.ValOrRef, C.DeclId)]
 depsOfDeclTcMacro macroLang = depsOfDeclWith (typecheckedMacroDeps macroLang)
 
 -- | Dependencies of typechecked macro declarations
 typecheckedMacroDeps ::
-     forall l. HasMacroTypes l
-  => MacroLang l
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
   -> TypecheckedMacro Zip l
   -> [(C.ValOrRef, C.DeclId)]
 typecheckedMacroDeps macroLang = \case
     MacroType  typ ->
-      macroLang.typecheckedMacroTypeDeps $ fmap fromMacroTypeBodyVar typ.body
+      macroLang.typecheckedTypeDeps $ fmap fromMacroTypeBodyVar typ.body
     MacroValue val ->
       typecheckedMacroValueDeps val.body
   where
@@ -112,7 +111,7 @@ typecheckedMacroDeps macroLang = \case
     --
     -- On the value-level, all dependencies must be 'ByValue'.
     typecheckedMacroValueDeps ::
-         TypecheckedMacroValueBody l C.DeclId
+         Macro.TypecheckedValue l C.DeclId
       -> [(C.ValOrRef, C.DeclId)]
     typecheckedMacroValueDeps = map (C.ByValue,) . toList
 

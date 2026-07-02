@@ -81,8 +81,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -93,8 +93,8 @@ import Doxygen.Parser (Doxygen, lookupGroupInfo, lookupGroupMembership)
 -- For a list of build artefacts, see the description and constructors of
 -- 'Artefact'.
 hsBindgenMacroLang ::
-     HasMacroTypes l
-  => (ClangCStandard -> IO (MacroLang l))
+     Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
@@ -120,8 +120,8 @@ hsBindgenMacroLang mkMacroLang tu ts b i a = do
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
 hsBindgenEMacroLang ::
-     forall a l. HasMacroTypes l
-  => (ClangCStandard -> IO (MacroLang l))
+     forall a l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig

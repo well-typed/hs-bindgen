@@ -123,7 +123,7 @@ execFrontend getTestResources cStdStr incDirs header k =
           config         = BindgenConfig bootConfig frontendConfig backendConfig
           bootTracer     = contramap TraceBoot tracer
           frontendTracer = contramap TraceFrontend tracer
-      bootArtefact     <- runBoot bootTracer (pure . cExprLang) config [header]
+      bootArtefact     <- runBoot bootTracer (pure . cExpr) config [header]
       frontendArtefact <- runFrontend frontendTracer frontendConfig bootArtefact
       k frontendArtefact
   where

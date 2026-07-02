@@ -90,4 +90,4 @@ withHsBindgen ::
   -> Config.ConfigTH
   -> TH.BindgenM
   -> TH.Q [TH.Dec]
-withHsBindgen = TH.withHsBindgenMacroLang (pure . cExprLang)
+withHsBindgen = TH.withHsBindgenMacroLang (pure . cExpr)

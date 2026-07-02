@@ -6,7 +6,6 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Interface
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -65,11 +64,13 @@ test_macros_macro_type_unresolved_tagged =
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMangleNamesFailure{}) ->
+        Just $ Expected (name, "select-mangle-names-failure")
+      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroTypecheckFailure MacroTypecheckUnresolvedTaggedType{}) ->
+      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       _otherwise ->
         Nothing
@@ -78,7 +79,7 @@ test_macros_macro_type_unresolved_tagged =
     declsWithMsgs = [
         ("struct Unparsable",        "select-parse-failure")
       , ("macro PTR_UNPARSABLE",     "select-transitive-dependencies-missing")
-      , ("macro PTR_UNPARSABLE",     "macro-unresolved-tagged-type")
+      , ("macro PTR_UNPARSABLE",     "select-mangle-names-failure")
       , ("macro PTR_DOES_NOT_EXIST", "macro-unresolved-tagged-type")
       , ("macro DOES_NOT_EXIST",     "macro-unresolved-tagged-type")
       ]

@@ -31,7 +31,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Monad (mapMaybeM)
 import HsBindgen.Util.Tracer (withCallStack)
 
@@ -136,7 +137,7 @@ data MEnv l = MEnv {
     , declIndex    :: DeclIndex l
     }
 
-deriving stock instance HasMacroTypes l => Show (MEnv l)
+deriving stock instance Macro.HasTypes l => Show (MEnv l)
 
 {-------------------------------------------------------------------------------
   Internal: monad state

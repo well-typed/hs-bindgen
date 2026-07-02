@@ -10,14 +10,8 @@ source-repository-package
 source-repository-package
     type: git
     location: https://github.com/well-typed/c-expr
-    tag: c789b4ab20cc13696a96bf4e508a5af95d523ce0
-    subdir: c-expr-runtime
-
-source-repository-package
-    type: git
-    location: https://github.com/well-typed/c-expr
-    tag: c789b4ab20cc13696a96bf4e508a5af95d523ce0
-    subdir: c-expr-dsl
+    tag: e7dcc55a3799b4bac10a15fb764d6bbba546b787
+    subdir: c-expr-runtime c-expr-dsl
 
 source-repository-package
     type: git

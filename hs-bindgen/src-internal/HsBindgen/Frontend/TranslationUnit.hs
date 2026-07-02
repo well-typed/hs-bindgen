@@ -12,7 +12,7 @@ import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 -- | Information we collect from a C translation unit.
 --
@@ -57,7 +57,7 @@ data TranslationUnit l p = TranslationUnit{
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , HasMacroTypes l
+                        , Macro.HasTypes l
                         ) => Show (TranslationUnit l p)
 
 instance (

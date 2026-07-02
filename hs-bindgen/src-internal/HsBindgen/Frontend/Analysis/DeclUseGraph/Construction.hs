@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Analysis.DeclUseGraph.Construction (
     -- * Construction
-    fromDecls
+    construct
   , insertDepsOfDecl
     -- * Deletion
   , deleteDeps
@@ -23,58 +23,65 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.Deps
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Pass.EnrichComments.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-fromDecls ::
+construct ::
      forall l. HasCallStack
-  => MacroLang l
+  => Macro.Lang l
   -> IncludeGraph
   -> DeclIndex l
   -> DeclUseGraph
-fromDecls macroLang includeGraph declIndex = DeclUseGraph $
-    foldl'
-      (flip insertDepsOfDeclParsedMacro)
-      verticesGraph
-      sortedSuccessfulDecls
+construct macroLang includeGraph declIndex = declUseGraph
   where
-    successfulDecls, sortedSuccessfulDecls :: [C.Decl l EnrichComments]
+    -- The include graph informs us about the order of declarations which is
+    -- key.
+    orderMap :: Map SourcePath Int
+    orderMap = IncludeGraph.toOrderMap includeGraph
+    -- The declaration index contains declarations that we cannot use. Macros
+    -- have already been resolved while constructing the declaration index.
+    successfulDecls, sortedSuccessfulDecls :: [C.Decl l ConstructTranslationUnit]
     successfulDecls       = DeclIndex.getDecls declIndex
     sortedSuccessfulDecls = List.sortOn (annSortKey orderMap) successfulDecls
 
-    orderMap :: Map SourcePath Int
-    orderMap = IncludeGraph.toOrderMap includeGraph
-
     allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
     allDeclIds        = DeclIndex.keysSet declIndex
-    successfulDeclIds = Set.fromList $ map (.info.id) successfulDecls
-    failedDeclIds = allDeclIds Set.\\ successfulDeclIds
+    successfulDeclIds = Set.fromList $ map (.info.id) sortedSuccessfulDecls
+    failedDeclIds     = allDeclIds Set.\\ successfulDeclIds
 
-    -- We first insert all declarations, so that they are assigned vertices.
-    -- For successfully parsed declarations, we do this in source order.  This
+    declUseGraph :: DeclUseGraph
+    declUseGraph = DeclUseGraph $
+      foldl'
+        (flip insertDepsOfDeclParsedMacro)
+        verticesGraph
+        sortedSuccessfulDecls
+
+    -- We first insert all declarations, so that they are assigned vertices. For
+    -- successfully parsed declarations, we do this in source order. This
     -- ensures that we preserve source order as much as possible in 'toDecls'
     -- (modulo dependencies).
     verticesGraph :: Digraph C.ValOrRef C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
       map (.info.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
 
-    -- We cannot use plain 'depsOfDecl' here because we have not typechecked
-    -- macros yet.  Instead, we must provide a "resolver" for bare names (see
-    -- below).
+    -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
+    -- been resolved (in the declaration index) but not yet typechecked. We
+    -- therefore use 'depsOfDeclParsedMacro', which derives the dependencies
+    -- from the resolved (but not yet typechecked) macro body.
     insertDepsOfDeclParsedMacro ::
-         C.Decl l EnrichComments
+         C.Decl l ConstructTranslationUnit
       -> Digraph C.ValOrRef C.DeclId
       -> Digraph C.ValOrRef C.DeclId
     insertDepsOfDeclParsedMacro decl =
-      insertDeps decl.info.id (depsOfDeclParsedMacro macroLang allDeclIds decl.kind)
+      insertDeps decl.info.id (depsOfDeclParsedMacro macroLang decl.kind)
 
 insertDeps ::
      (HasCallStack)
@@ -98,8 +105,8 @@ insertDeps source = flip (foldl' aux)
 
 -- | Inserts dependency edges of provided declaration.
 insertDepsOfDecl ::
-     (HasMacroTypes l, HasCallStack)
-  => MacroLang l
+     (Macro.HasTypes l, HasCallStack)
+  => Macro.Lang l
   -> C.Decl l Zip
   -> DeclUseGraph
   -> DeclUseGraph

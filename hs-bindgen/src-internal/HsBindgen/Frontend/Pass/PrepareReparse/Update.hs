@@ -40,7 +40,7 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports (Map, mapMaybe)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Flip
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------

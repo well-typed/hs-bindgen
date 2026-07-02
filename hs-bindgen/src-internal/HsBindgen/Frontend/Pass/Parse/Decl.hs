@@ -29,8 +29,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -42,7 +42,7 @@ import HsBindgen.Macro.Type
 -- goes wrong with a nested declaration, we want to skip the entire outer
 -- declaration.
 topLevelDecl ::
-     MacroLang l
+     Macro.Lang l
   -> Fold ParseDecl (CXSourceLocation, [ParseResult l Parse])
 topLevelDecl macroLang =
     foldWithHandler handleParseExceptions (parseDeclTopLevel macroLang)
@@ -65,7 +65,7 @@ type Parser l = CXCursor -> ParseDecl (Next ParseDecl [ParseResult l Parse])
 
 -- | Parse declarations with available parse context
 parseDeclNested ::
-     MacroLang l
+     Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> Parser l
@@ -74,7 +74,7 @@ parseDeclNested macroLang enclosing ctx =
 
 -- | Parse a top level declaration (parse context not yet available)
 parseDeclTopLevel ::
-     MacroLang l
+     Macro.Lang l
   -> CXCursor
   -> ParseDecl (Next ParseDecl (CXSourceLocation, [ParseResult l Parse]))
 parseDeclTopLevel macroLang curr = do
@@ -94,7 +94,7 @@ parseDeclTopLevel macroLang curr = do
 -- | Auxiliary function; use 'parseDeclNested' or 'parseDeclTopLevel'
 parseDecl' ::
      (HasCallStack)
-  => MacroLang l
+  => Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> Maybe ParseCtx
   -> Parser l
@@ -209,7 +209,7 @@ parseDeclWith enclosing ctx parser curr = do
 -- | Macros
 macroDefinition ::
      forall l. HasCallStack
-  => MacroLang l
+  => Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse -> Parser l
@@ -255,7 +255,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
 -- Visibility attributes are ignored on structs, since as far as we can tell
 -- they do not affect the Haskell bindings.
 structDecl ::
-     MacroLang l
+     Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse
@@ -346,7 +346,7 @@ structDecl macroLang enclosing ctx info = \curr -> do
 -- Visibility attributes are ignored on unions, since as far as we can tell they
 -- do not affect the Haskell bindings.
 unionDecl ::
-     MacroLang l
+     Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse
@@ -583,7 +583,7 @@ enumConstantDecl sign = \curr -> do
 
 functionDecl ::
      forall l.
-     MacroLang l
+     Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse
@@ -734,7 +734,7 @@ functionDecl macroLang enclosing ctx info =
 -- | Global variable declaration
 varDecl ::
      forall l.
-     MacroLang l
+     Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
   -> C.DeclInfo Parse
@@ -1110,14 +1110,14 @@ partitionAnonDecls =
 -- No type environment is needed for this step; type resolution and
 -- expression typechecking happen later in 'TypecheckMacros'.
 parseMacroTokens ::
-     MacroLang l
+     Macro.Lang l
   -> C.PrelimDeclId
   -> [Token TokenSpelling]
-  -> Either DelayedParseMsg (ParsedMacroBody l)
+  -> Either DelayedParseMsg (Macro.Unresolved l)
 parseMacroTokens macroLang name = \case
     []      -> Left $ ParseMacroEmpty name []
     [token] -> Left $ ParseMacroEmpty name [token]
-    tokens  -> first ParseMacroErrorParse $ macroLang.parseMacroBody tokens
+    tokens  -> first ParseMacroErrorParse $ macroLang.parse tokens
 
 -- | Whether a global variable has @extern@ storage class
 --

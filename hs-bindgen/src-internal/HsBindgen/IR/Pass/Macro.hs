@@ -18,7 +18,7 @@ module HsBindgen.IR.Pass.Macro (
 import HsBindgen.Imports
 import HsBindgen.IR.Pass.Definition
 import HsBindgen.IR.Pass.Id
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Associated type families
@@ -32,7 +32,7 @@ class (
     , Ord  (MacroUnderlying p)  -- For using as map key
     , Show (MacroId         p)  -- For debugging
     , Show (MacroUnderlying p)  -- For debugging
-    , forall l. HasMacroTypes l => ValidMacroBody p l
+    , forall l. Macro.HasTypes l => ValidMacroBody p l
     ) => PassMacro (p :: Pass) where
 
   -- | Declaration identifier for macro types

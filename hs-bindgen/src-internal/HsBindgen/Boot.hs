@@ -29,7 +29,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C (Sizeofs)
-import HsBindgen.Macro.Interface
+import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -41,7 +41,7 @@ import HsBindgen.Util.Tracer
 -- - Load external and prescriptive binding specifications.
 runBoot ::
      Tracer BootMsg
-  -> (ClangCStandard -> IO (MacroLang l))
+  -> (ClangCStandard -> IO (Macro.Lang l))
   -> BindgenConfig
   -> [C.UncheckedHashIncludeArg]
   -> IO (BootArtefact l)
@@ -188,7 +188,7 @@ data BootArtefact l = BootArtefact {
     , cStandard               :: Cached ClangCStandard
     , clangExe                :: Cached (Maybe ClangExe)
     , clangArgs               :: Cached ClangArgs
-    , macroLang               :: Cached (MacroLang l)
+    , macroLang               :: Cached (Macro.Lang l)
     , hashIncludeArgs         :: Cached [C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec

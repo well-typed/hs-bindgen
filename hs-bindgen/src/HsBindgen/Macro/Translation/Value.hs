@@ -23,16 +23,17 @@ import HsBindgen.Config.MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.CExpr
+import HsBindgen.Macro.CExpr (CExpr)
+import HsBindgen.Macro.CExpr qualified as Macro
 import HsBindgen.Macro.Global
 import HsBindgen.NameHint
 
 translateMacroValue ::
      Hs.Name Hs.NsVar
-  -> TypecheckedMacroValueBody CExpr Hs.TermName
+  -> Macro.TypecheckedValue CExpr Hs.TermName
   -> Maybe HsDoc.Comment
   -> Binding
-translateMacroValue name (TypecheckedMacroValueBodyCExpr expr) comment =
+translateMacroValue name (Macro.TypecheckedValueCExpr expr) comment =
     Binding
       { name       = Hs.ExportedName name
       , parameters = []
@@ -203,11 +204,11 @@ translateBody ::
      CExpr.TypecheckedMacroValueExpr Hs.TermName
   -> ClosedExpr
 translateBody (CExpr.TypecheckedMacroValueExpr params body _) =
-    lambdaN (Vec.reverse (nameToHint <$> params)) (mexpr body)
+    lambdaN (Vec.reverse (identifierToHint <$> params)) (mexpr body)
 
-nameToHint :: CExpr.Name -> NameHint
-nameToHint nm =
-    toHint $ mangleCandidateDefaultFallback fallback nm.getName
+identifierToHint :: CExpr.Identifier -> NameHint
+identifierToHint nm =
+    toHint $ mangleCandidateDefaultFallback fallback nm.getIdentifier
   where
     fallback :: Hs.Name Hs.NsVar
     fallback = Hs.UnsafeName "x"

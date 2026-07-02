@@ -52,31 +52,43 @@ import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
+import Optics.Core (traverseOf)
 
 import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (IsPass)
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Error
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
+
+type In  = EnrichComments
+type Out = ConstructTranslationUnit
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Index of all declarations
+-- | The declaration index, parameterized by the pass at which the indexed
+-- declarations are represented.
+--
+-- The public 'DeclIndex' fixes this to 'ConstructTranslationUnit' (macros
+-- resolved). The polymorphic form is used internally to build the index at
+-- 'EnrichComments' before resolving macros (see 'fromParseResults').
 --
 -- The declaration index indexes C types (not Haskell types); as such, it
 -- contains declarations in the source code, and never contains external
@@ -146,7 +158,7 @@ data DeclIndex l = DeclIndex {
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable l =
-      UsableSuccess (Success l EnrichComments)
+      UsableSuccess (Success l Out)
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
       -- This should have a SingleLoc.
     | UsableExternal
@@ -174,11 +186,12 @@ data Unusable =
       -- Historically, there were more reasons for not attempting a parse,
       -- that's why we store a non-empty list of reasons. We could remove this
       -- indirection.
-      UnusableParseNotAttempted    SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure         SingleLoc DelayedParseMsg
-    | UnusableConflict             Conflict
-    | UnusableMangleNamesFailure   SingleLoc MangleNamesError
-    | UnusableTypecheckMacrosError SingleLoc MacroTypecheckError
+      UnusableParseNotAttempted      SingleLoc (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure           SingleLoc DelayedParseMsg
+    | UnusableConflict               Conflict
+    | UnusableMangleNamesFailure     SingleLoc MangleNamesError
+    | UnusableTypecheckMacrosError   SingleLoc MacroTypecheckError
+    | UnusableMacroResolutionFailure SingleLoc MacroResolutionError
 
       -- | Omitted by prescriptive binding specifications
     | UnusableOmitted            SingleLoc
@@ -196,17 +209,20 @@ instance PrettyForTrace Unusable where
       "Name mangler failure"
     UnusableTypecheckMacrosError{} ->
       "Macro type-checking failed"
+    UnusableMacroResolutionFailure{} ->
+      "Macro name resolution failed"
     UnusableOmitted{} ->
       "Omitted by prescriptive binding specification"
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
-    UnusableParseNotAttempted loc _    -> [loc]
-    UnusableParseFailure loc _         -> [loc]
-    UnusableConflict conflict          -> Conflict.toList conflict
-    UnusableMangleNamesFailure loc _   -> [loc]
-    UnusableTypecheckMacrosError loc _ -> [loc]
-    UnusableOmitted loc                -> [loc]
+    UnusableParseNotAttempted loc _      -> [loc]
+    UnusableParseFailure loc _           -> [loc]
+    UnusableConflict conflict            -> Conflict.toList conflict
+    UnusableMangleNamesFailure loc _     -> [loc]
+    UnusableTypecheckMacrosError loc _   -> [loc]
+    UnusableMacroResolutionFailure loc _ -> [loc]
+    UnusableOmitted loc                  -> [loc]
 
 data Success l p = Success {
     decl                      :: C.Decl l p
@@ -216,7 +232,7 @@ data Success l p = Success {
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
-                        , HasMacroTypes l
+                        , Macro.HasTypes l
                         ) => Show (Success l p)
 
 data Squashed = Squashed {
@@ -257,29 +273,132 @@ entryToAvailability = \case
 empty :: DeclIndex l
 empty = DeclIndex Map.empty
 
+-- | Construct the declaration index, resolving macro names.
+--
+-- Macro resolution needs the set of all declaration IDs, which is only known
+-- once the whole index has been built. We therefore build the index in two
+-- stages: first 'buildIndex' constructs the index at 'EnrichComments' (so that
+-- conflict detection can compare macro bodies, and so that we detect conflicts
+-- even with macros that we cannot resolve), then 'resolveMacros' resolves each
+-- successful declaration into the final index fixed to the
+-- 'ConstructTranslationUnit' pass.
+fromParseResults ::
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
+  -> [ParseResult l In]
+  -> DeclIndex l
+fromParseResults macroLang parseResults =
+    buildIndex $ resolveMacros macroLang declIds parseResults
+  where
+    declIds :: Set C.DeclId
+    declIds = getDeclIds parseResults
+
+    getDeclIds :: [ParseResult l In] -> Set C.DeclId
+    getDeclIds = Set.fromList . map (.id)
+
+{-------------------------------------------------------------------------------
+  Macro resolution
+-------------------------------------------------------------------------------}
+
+-- | Result of resolving macro names in a single parse result.
+data ResolvedResult l =
+    -- | Macro names were resolved successfully (or the declaration was not a
+    -- macro, or was not a parse success to begin with).
+    Resolved (ParseResult l Out)
+    -- | Macro names could not be resolved.
+  | Unresolved C.DeclId SingleLoc MacroResolutionError
+
+resolvedResultId :: ResolvedResult l -> C.DeclId
+resolvedResultId = \case
+    Resolved result       -> result.id
+    Unresolved declId _ _ -> declId
+
+resolvedResultLoc :: ResolvedResult l -> SingleLoc
+resolvedResultLoc = \case
+    Resolved result    -> result.loc
+    Unresolved _ loc _ -> loc
+
+resolvedResultToEntry :: ResolvedResult l -> Entry l
+resolvedResultToEntry = \case
+    Resolved result      -> parseResultToEntry result
+    Unresolved _ loc err -> UnusableE $ UnusableMacroResolutionFailure loc err
+  where
+    parseResultToEntry :: ParseResult l Out -> Entry l
+    parseResultToEntry result = case result.classification of
+      ParseResultSuccess r ->
+        UsableE $ UsableSuccess (parseSuccessToSuccess r)
+      ParseResultNotAttempted r ->
+        UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
+      ParseResultFailure r ->
+        UnusableE $ UnusableParseFailure result.loc r
+
+    parseSuccessToSuccess :: ParseSuccess l Out -> Success l Out
+    parseSuccessToSuccess success = Success {
+          decl = success.decl
+        , delayedParseMsgs = success.delayedParseMsgs
+        , delayedPrepareReparseMsgs = []
+        }
+
+-- | Resolve macro names in every successful declaration.
+--
+-- A declaration whose macro names cannot be resolved becomes 'Unresolved', which
+-- 'buildIndex' turns into an 'UnusableMacroResolutionFailure' entry.
+resolveMacros ::
+     forall l.
+     Macro.Lang l
+  -> Set C.DeclId
+  -> [ParseResult l In]
+  -> [ResolvedResult l]
+resolveMacros macroLang allDeclIds = map resolveParseResult
+  where
+    resolveParseResult :: ParseResult l In -> ResolvedResult l
+    resolveParseResult result =
+      case traverseOf #classification resolveParseClassification result of
+        Right resolved -> Resolved resolved
+        Left  err      -> Unresolved result.id result.loc err
+
+    resolveParseClassification ::
+         ParseClassification l In
+      -> Either MacroResolutionError (ParseClassification l Out)
+    resolveParseClassification = \case
+      ParseResultSuccess success ->
+        case resolveMacroWith macroLang allDeclIds success.decl of
+          Right resolvedDecl -> Right $
+            ParseResultSuccess ParseSuccess{
+              decl             = resolvedDecl
+            , delayedParseMsgs = success.delayedParseMsgs
+            }
+          Left err -> Left err
+      ParseResultNotAttempted x -> Right $ ParseResultNotAttempted x
+      ParseResultFailure      x -> Right $ ParseResultFailure      x
+
+{-------------------------------------------------------------------------------
+  Build from resolved macros
+-------------------------------------------------------------------------------}
+
 -- This function checks for conflicts between ordinary declarations and macro
 -- declarations, which must be done specially because they are in separate
 -- namespaces. This is done here because we need to detect conflicts even with
 -- macros that we cannot typecheck, which are thrown out in the
 -- @TypecheckMacros@ pass.
-fromParseResults ::
-     forall l. HasMacroTypes l
-  => [ParseResult l EnrichComments]
-  -> DeclIndex l
-fromParseResults results = flip execState empty $ mapM_ aux results
+buildIndex :: forall l. Macro.HasTypes l => [ResolvedResult l] -> DeclIndex l
+buildIndex results = flip execState empty $ mapM_ aux results
   where
-    aux :: ParseResult l EnrichComments -> State (DeclIndex l) ()
+    aux :: ResolvedResult l -> State (DeclIndex l) ()
     aux new = modify' $ \index -> DeclIndex $
-      let mConflict :: Maybe (IsConflict l)
+      let declId :: C.DeclId
+          declId = resolvedResultId new
+
+          mConflict :: Maybe (IsConflict l)
           mConflict = Foldable.asum [
               do
-                old <- Map.lookup new.id index.map
-                pure $ checkIsConflict new (new.id, old)
-            , case new.id.name.kind of
+                old <- Map.lookup declId index.map
+                pure $ checkIsConflict new (declId, old)
+            , case declId.name.kind of
                 C.NameKindOrdinary -> do
                   let altDeclId = C.DeclId{
                           name   = C.DeclName{
-                              text = new.id.name.text
+                              text = declId.name.text
                             , kind = C.NameKindMacro
                             }
                         , isAnon = False
@@ -289,7 +408,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
                 C.NameKindMacro    -> do
                   let altDeclId = C.DeclId{
                           name   = C.DeclName{
-                              text = new.id.name.text
+                              text = declId.name.text
                             , kind = C.NameKindOrdinary
                             }
                         , isAnon = False
@@ -300,9 +419,9 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             ]
       in  case mConflict of
             Nothing ->
-              Map.insert new.id (parseResultToEntry new) index.map
+              Map.insert declId (resolvedResultToEntry new) index.map
             Just (Redefinition success) ->
-              Map.insert new.id (UsableE $ UsableSuccess success) index.map
+              Map.insert declId (UsableE $ UsableSuccess success) index.map
             Just (SingleConflict ids conflict) ->
               Map.union
                 ( Map.fromList
@@ -312,37 +431,21 @@ fromParseResults results = flip execState empty $ mapM_ aux results
                 )
                 index.map
 
-    parseResultToEntry :: ParseResult l EnrichComments -> Entry l
-    parseResultToEntry result = case result.classification of
-      ParseResultSuccess r ->
-        UsableE $ UsableSuccess (parseSuccessToSuccess r)
-      ParseResultNotAttempted r ->
-        UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
-      ParseResultFailure r ->
-        UnusableE $ UnusableParseFailure result.loc r
-
-    parseSuccessToSuccess :: ParseSuccess l EnrichComments -> Success l EnrichComments
-    parseSuccessToSuccess success = Success {
-          decl = success.decl
-        , delayedParseMsgs = success.delayedParseMsgs
-        , delayedPrepareReparseMsgs = []
-        }
-
 {-------------------------------------------------------------------------------
   Conflicts
 -------------------------------------------------------------------------------}
 
 data IsConflict l =
-    Redefinition (Success l EnrichComments)
+    Redefinition (Success l ConstructTranslationUnit)
   | SingleConflict (Set C.DeclId) Conflict
 
 checkIsConflict ::
-     HasMacroTypes l
-  => ParseResult l EnrichComments
+     Macro.HasTypes l
+  => ResolvedResult l
   -> (C.DeclId, Entry l)
   -> IsConflict l
-checkIsConflict new (oldId, old) =
-    case (new.classification, old) of
+checkIsConflict new (oldId, old) = case new of
+    Resolved new' -> case (new'.classification, old) of
       (ParseResultSuccess newSuccess, UsableE (UsableSuccess oldSuccess))
         | newSuccess.decl.kind == oldSuccess.decl.kind ->
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
@@ -360,20 +463,27 @@ checkIsConflict new (oldId, old) =
                  delayedParseMsgs          = delayedParseMsgs
                , delayedPrepareReparseMsgs = delayedPrepareReparseMsgs
                }
-      _otherwise ->
-        let conflict :: Conflict
-            conflict = case old of
-              UnusableE (UnusableConflict c) ->
-                Conflict.insert c new.loc
-              _otherwise ->
-                Conflict.fromList $ new.loc : entryToLoc old
-        in SingleConflict (Set.fromList [new.id, oldId]) conflict
+      _otherwise -> singleConflict
+    _otherwise -> singleConflict
+  where
+    singleConflict =
+      let newLoc = resolvedResultLoc new
+          conflict :: Conflict
+          conflict = case old of
+            UnusableE (UnusableConflict c) ->
+              Conflict.insert c newLoc
+            _otherwise ->
+              Conflict.fromList $ newLoc : entryToLoc old
+      in SingleConflict (Set.fromList [resolvedResultId new, oldId]) conflict
 
 {-------------------------------------------------------------------------------
   Filter
 -------------------------------------------------------------------------------}
 
-filter :: (C.DeclId -> Entry l -> Bool) -> DeclIndex l -> DeclIndex l
+filter ::
+     (C.DeclId -> Entry l -> Bool)
+  -> DeclIndex l
+  -> DeclIndex l
 filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
 
 restrictKeys :: DeclIndex l -> Set C.DeclId -> DeclIndex l
@@ -387,14 +497,14 @@ withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: C.DeclId -> DeclIndex l -> Maybe (C.Decl l EnrichComments)
+lookup :: C.DeclId -> DeclIndex l -> Maybe (C.Decl l Out)
 lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Get all parse successes.
-getDecls :: DeclIndex l -> [C.Decl l EnrichComments]
+getDecls :: DeclIndex l -> [C.Decl l Out]
 getDecls index = mapMaybe toDecl $ Map.elems index.map
   where
     toDecl = \case
@@ -451,7 +561,9 @@ getSquashed ::
   -> Map C.DeclId (SourcePath, Hs.Name Hs.NsTypeConstr)
 getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
   where
-    onlySquashedTargetingSet :: Entry l -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
+    onlySquashedTargetingSet ::
+         Entry l
+      -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
       UsableE (UsableSquashed e) ->
         case (e.targetNameHs, Set.member e.targetNameC targets) of

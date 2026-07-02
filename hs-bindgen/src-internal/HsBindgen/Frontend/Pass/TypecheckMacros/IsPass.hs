@@ -12,7 +12,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Definition
@@ -66,13 +66,13 @@ data TypecheckedMacro p l =
   | MacroValue (TypecheckedMacroValue l p)
 
 -- | Checked type macro
-data TypecheckedMacroType l p = HasMacroTypes l => TypecheckedMacroType{
-      body :: TypecheckedMacroTypeBody l (MacroTypeBodyVar p)
+data TypecheckedMacroType l p = Macro.HasTypes l => TypecheckedMacroType{
+      body :: Macro.TypecheckedType l (MacroTypeBodyVar p)
     , ann  :: Ann "TypecheckedMacroType" p
     }
 
-data TypecheckedMacroValue l p = HasMacroTypes l => TypecheckedMacroValue {
-      body :: TypecheckedMacroValueBody l (Id p)
+data TypecheckedMacroValue l p = Macro.HasTypes l => TypecheckedMacroValue {
+      body :: Macro.TypecheckedValue l (Id p)
     }
 
 deriving stock instance IsPass p => Show (TypecheckedMacro      p l)

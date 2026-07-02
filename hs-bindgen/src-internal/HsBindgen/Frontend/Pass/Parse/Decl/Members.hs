@@ -26,7 +26,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFai
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Type
+import HsBindgen.Macro.Type qualified as Macro
 
 -- NOTE: this is a copy of 'HsBindgen.Frontend.Pass.Parse.Decl.Parser' for
 -- internal use to prevent cyclic module dependencies
@@ -43,7 +43,7 @@ data ParseMembersResult field l = ParseMembersResult {
     , fieldMembers :: Either DelayedParseMsg [field Parse]
     }
 
-deriving stock instance (Show (field Parse), HasMacroTypes l)
+deriving stock instance (Show (field Parse), Macro.HasTypes l)
   => Show (ParseMembersResult field l)
 
 -- | Parse the members of a struct

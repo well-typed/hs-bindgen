@@ -63,7 +63,7 @@ hsBindgen ::
   -> [C.UncheckedHashIncludeArg]
   -> Artefact CExpr a
   -> IO a
-hsBindgen = hsBindgenMacroLang (pure . cExprLang)
+hsBindgen = hsBindgenMacroLang (pure . cExpr)
 
 {-------------------------------------------------------------------------------
   Global options

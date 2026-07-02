@@ -1,6 +1,6 @@
 // Struct whose parse fails because of an unsupported field type (long double).
-// As a result it is absent from the declaration environment, so the macro
-// below triggers 'TypecheckMacrosErrorUnresolvedTaggedType'.
+// As a result it is absent from the declaration environment, so the macros
+// below trigger name resolution errors.
 struct Unparsable {
   long double x;
 };
