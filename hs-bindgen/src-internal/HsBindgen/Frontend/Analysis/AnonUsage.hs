@@ -182,7 +182,7 @@ analyseDecl decl =
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.AnonId, Context)]
 analyseStruct info struct = concat [
       concatMap aux struct.fields
-    , concatMap aux struct.flam
+    , foldMap   aux (C.flamStructField struct.flam)
     ]
   where
     aux :: C.StructField Parse -> [(C.AnonId, Context)]

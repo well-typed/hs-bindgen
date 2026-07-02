@@ -169,11 +169,21 @@ translateModule' fns mrc mcat moduleBaseName resolveExports (cWrappers, decs) =
 resolvePragmas :: FieldNamingStrategy -> QualifiedStyle -> [CWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas fieldNaming qualStyle wrappers ds =
     Set.toAscList . mconcat $
-      haddockPrunePragmas
+      omitFieldPrefixesPragmas
+        : haddockPrunePragmas
         : userlandCapiPragmas
         : qualifiedPostPragma
         : map (resolveDeclPragmas fieldNaming) ds
   where
+    -- 'NoFieldSelectors' is the negation of the default-on 'FieldSelectors' and
+    -- so cannot be carried in the positive 'TH.Extension' set (see
+    -- 'HsBindgen.Backend.Extensions.omitFieldPrefixesExtensions'); we emit it as
+    -- a module pragma directly. Without top-level field selectors, an unprefixed
+    -- field name cannot clash with a non-field declaration of the same name.
+    omitFieldPrefixesPragmas :: Set GhcPragma
+    omitFieldPrefixesPragmas = case fieldNaming of
+      AddFieldPrefixes  -> Set.empty
+      OmitFieldPrefixes -> Set.singleton "LANGUAGE NoFieldSelectors"
     userlandCapiPragmas :: Set GhcPragma
     userlandCapiPragmas = case wrappers of
       []  -> Set.empty

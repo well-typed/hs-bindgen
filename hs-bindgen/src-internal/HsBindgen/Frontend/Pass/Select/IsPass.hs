@@ -43,6 +43,7 @@ data Select a
 type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
   AnnSelect "Struct"               = StructNames
+  AnnSelect "Flam"                 = FlamNames
   AnnSelect "Union"                = NewtypeNames
   AnnSelect "Enum"                 = NewtypeNames
   AnnSelect "Typedef"              = TypedefNames

@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/duplicate_field_name_omit.h

@@ -122,7 +122,7 @@ typecheckedMacroDeps macroLang = \case
 depsOfStruct :: IsPass p => C.Struct p -> [(C.ValOrRef, Id p)]
 depsOfStruct struct = concat [
       concatMap depsOfField struct.fields
-    , concatMap depsOfField struct.flam
+    , foldMap   depsOfField (C.flamStructField struct.flam)
     ]
 
 depsOfUnion :: IsPass p => C.Union p -> [(C.ValOrRef, Id p)]

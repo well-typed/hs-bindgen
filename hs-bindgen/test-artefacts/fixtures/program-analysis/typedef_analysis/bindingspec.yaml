@@ -34,11 +34,17 @@ ctypes:
   cname: struct5_t
   hsname: Struct5_t
 - headers: program-analysis/typedef_analysis.h
-  cname: struct struct6
-  hsname: Struct6_Aux
+  cname: struct struct6a
+  hsname: Struct6a_struct
 - headers: program-analysis/typedef_analysis.h
-  cname: struct6
-  hsname: Struct6
+  cname: struct6a
+  hsname: Struct6a
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct6b
+  hsname: Struct6b_struct
+- headers: program-analysis/typedef_analysis.h
+  cname: struct6b
+  hsname: Struct6b
 - headers: program-analysis/typedef_analysis.h
   cname: struct struct7
   hsname: Struct7
@@ -90,7 +96,112 @@ ctypes:
 - headers: program-analysis/typedef_analysis.h
   cname: struct use_sites
   hsname: Use_sites
+- headers: program-analysis/typedef_analysis.h
+  cname: struct foo
+  hsname: Foo_struct
+- headers: program-analysis/typedef_analysis.h
+  cname: foo
+  hsname: Foo
+- headers: program-analysis/typedef_analysis.h
+  cname: struct bar
+  hsname: Bar_struct
+- headers: program-analysis/typedef_analysis.h
+  cname: bar
+  hsname: Bar
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct15
+  hsname: Struct15
+- headers: program-analysis/typedef_analysis.h
+  cname: struct15
+  hsname: Struct15
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct16
+  hsname: Struct16_struct
+- headers: program-analysis/typedef_analysis.h
+  cname: struct16
+  hsname: Struct16
+- headers: program-analysis/typedef_analysis.h
+  cname: struct use_sites_qual
+  hsname: Use_sites_qual
 hstypes:
+- hsname: Bar
+  representation:
+    newtype:
+      constructor: Bar
+      fields:
+      - unwrapBar
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_struct
+  representation:
+    record:
+      constructor: Bar_struct
+      fields:
+      - bar_struct_a
+      - bar_struct_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - unwrapFoo
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_struct
+  representation:
+    record:
+      constructor: Foo_struct
+      fields:
+      - foo_struct_x
+      - foo_struct_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Struct10_t
   representation:
     record:
@@ -160,6 +271,52 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: Struct15
+  representation:
+    record:
+      constructor: Struct15
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct16
+  representation:
+    newtype:
+      constructor: Struct16
+      fields:
+      - unwrapStruct16
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct16_struct
+  representation:
+    record:
+      constructor: Struct16_struct
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Struct1_t
   representation:
     record:
@@ -223,12 +380,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Struct6
+- hsname: Struct6a
   representation:
     newtype:
-      constructor: Struct6
+      constructor: Struct6a
       fields:
-      - unwrapStruct6
+      - unwrapStruct6a
   instances:
   - Eq
   - Generic
@@ -243,10 +400,42 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Struct6_Aux
+- hsname: Struct6a_struct
   representation:
     record:
-      constructor: Struct6_Aux
+      constructor: Struct6a_struct
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct6b
+  representation:
+    newtype:
+      constructor: Struct6b
+      fields:
+      - unwrapStruct6b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsArray
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct6b_struct
+  representation:
+    record:
+      constructor: Struct6b_struct
       fields: []
   instances:
   - Eq
@@ -378,8 +567,10 @@ hstypes:
       - use_sites_useTypedef_struct4_t
       - use_sites_useStruct_struct5
       - use_sites_useTypedef_struct5_t
-      - use_sites_useStruct_struct6
-      - use_sites_useTypedef_struct6
+      - use_sites_useStruct_struct6a
+      - use_sites_useTypedef_struct6a
+      - use_sites_useStruct_struct6b
+      - use_sites_useTypedef_struct6b
       - use_sites_useTypedef_struct7a
       - use_sites_useTypedef_struct7b
       - use_sites_useTypedef_struct8
@@ -390,6 +581,26 @@ hstypes:
       - use_sites_useTypedef_struct10_t_t
       - use_sites_useTypedef_struct11_t
       - use_sites_useTypedef_struct12_t
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Use_sites_qual
+  representation:
+    record:
+      constructor: Use_sites_qual
+      fields:
+      - use_sites_qual_useTypedef_struct15
+      - use_sites_qual_useStruct_struct16
+      - use_sites_qual_useTypedef_struct16
   instances:
   - Eq
   - Generic

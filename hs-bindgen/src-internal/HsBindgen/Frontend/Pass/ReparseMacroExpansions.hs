@@ -119,11 +119,11 @@ processStruct ::
 processStruct info struct = do
     mkDecl
       <$> mapM (processStructField info.id) struct.fields
-      <*> mapM (processStructField info.id) struct.flam
+      <*> C.traverseFlamField (processStructField info.id) struct.flam
   where
     mkDecl ::
          [C.StructField ReparseMacroExpansions]
-      -> Maybe (C.StructField ReparseMacroExpansions)
+      -> C.Flam ReparseMacroExpansions
       -> C.Decl l ReparseMacroExpansions
     mkDecl fields flam = C.Decl{
           info = info

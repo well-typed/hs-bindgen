@@ -21,6 +21,7 @@ data AdjustTypes a
 type family AnnAdjustTypes ix where
   AnnAdjustTypes "Decl"                 = PrescriptiveDeclSpec
   AnnAdjustTypes "Struct"               = StructNames
+  AnnAdjustTypes "Flam"                 = FlamNames
   AnnAdjustTypes "Union"                = NewtypeNames
   AnnAdjustTypes "Enum"                 = NewtypeNames
   AnnAdjustTypes "Typedef"              = TypedefNames
