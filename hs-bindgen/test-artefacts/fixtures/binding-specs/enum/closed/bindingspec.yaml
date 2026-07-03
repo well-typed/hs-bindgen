@@ -1,0 +1,34 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/enum/closed.h
+  cname: enum foo
+  hsname: Foo
+  enum: closed
+hstypes:
+- hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - unwrapFoo
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
