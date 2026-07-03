@@ -7,6 +7,8 @@ import Control.Monad.Reader (MonadReader, ReaderT, runReaderT)
 import Control.Monad.Reader qualified as Reader
 import Control.Monad.State (MonadState, State, runState)
 import Control.Monad.State qualified as State
+import Control.Monad.Trans.Class (lift)
+import Control.Monad.Trans.Maybe (MaybeT (..))
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -248,8 +250,8 @@ resolveTop decl = Reader.ask >>= \env -> do
 -- it.
 --
 -- Type specifications that do not match declarations may themselves be mutated.
-applyPrescriptive ::
-     forall l. HasCallStack
+applyPrescriptive :: forall l.
+     HasCallStack
   => C.Decl l PreviousPass
   -> BindingSpec.CTypeSpec
   -> Maybe BindingSpec.HsTypeSpec
@@ -259,25 +261,41 @@ applyPrescriptive ::
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
-applyPrescriptive decl cTypeSpec = \case
-    Nothing         -> return $ Just (decl, (Just cTypeSpec, Nothing))
-    Just hsTypeSpec -> do
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
-      -- We should validate instances only set for supported kinds
-      -- (instances themselves are to be resolved in a separate pass)
-      (decl', hsRep) <- case hsTypeSpec.hsRep of
-        Nothing    -> return (decl, Nothing)
-        Just hsRep -> case hsRep of
-          BindingSpec.HsTypeRepRecord    recordRep  -> auxRecord recordRep
-          BindingSpec.HsTypeRepNewtype   newtypeRep -> auxNewtype newtypeRep
-          BindingSpec.HsTypeRepEmptyData            -> auxEmptyData
-          BindingSpec.HsTypeRepTypeAlias            -> auxTypeAlias
-      let hsTypeSpec' = hsTypeSpec{ BindingSpec.hsRep = hsRep }
-      return $ Just (decl', (Just cTypeSpec, Just hsTypeSpec'))
+applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
+    mCTypeSpec'           <- applyCTypeSpec
+    (decl', mHsTypeSpec') <- applyHsTypeSpec
+    return (decl', (mCTypeSpec', mHsTypeSpec'))
   where
+    applyCTypeSpec :: MaybeT (M l) (Maybe BindingSpec.CTypeSpec)
+    applyCTypeSpec = do
+      case (decl.kind, cTypeSpec.enum) of
+        (C.DeclEnum{}, _)       -> return ()
+        (_,            Nothing) -> return ()
+        (_,            Just{})  -> lift . State.modify' $
+          insertTrace
+            (withCallStack $ ResolveBindingSpecsEnumTypeMismatch decl.info.id)
+      return (Just cTypeSpec)
+
+    applyHsTypeSpec ::
+      MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeSpec)
+    applyHsTypeSpec = case mHsTypeSpec of
+      Nothing         -> return (decl, Nothing)
+      Just hsTypeSpec -> do
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
+        -- We should validate instances only set for supported kinds
+        -- (instances themselves are to be resolved in a separate pass)
+        (decl', hsRep') <- case hsTypeSpec.hsRep of
+          Nothing    -> return (decl, Nothing)
+          Just hsRep -> case hsRep of
+            BindingSpec.HsTypeRepRecord    recordRep  -> auxRecord recordRep
+            BindingSpec.HsTypeRepNewtype   newtypeRep -> auxNewtype newtypeRep
+            BindingSpec.HsTypeRepEmptyData            -> auxEmptyData
+            BindingSpec.HsTypeRepTypeAlias            -> auxTypeAlias
+        return (decl', Just hsTypeSpec{ BindingSpec.hsRep = hsRep' })
+
     auxRecord ::
          BindingSpec.HsRecordRep
-      -> M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
+      -> MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxRecord recordRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate the record type and number of fields.
@@ -285,15 +303,16 @@ applyPrescriptive decl cTypeSpec = \case
 
     auxNewtype ::
          BindingSpec.HsNewtypeRep
-      -> M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
+      -> MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxNewtype newtypeRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate enum, typedef, or macro type
       return (decl, Just (BindingSpec.HsTypeRepNewtype newtypeRep))
 
-    auxEmptyData :: M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
+    auxEmptyData ::
+      MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxEmptyData = do
-      declIndex <- Reader.asks (.declIndex)
+      declIndex <- lift $ Reader.asks (.declIndex)
       -- A complete C type keeps its size and alignment, so that a 'StaticSize'
       -- instance can be generated for the empty data type.  Structs, unions, and
       -- enums carry the layout directly; a typedef is followed to its underlying
@@ -312,7 +331,7 @@ applyPrescriptive decl cTypeSpec = \case
             _otherwise        -> (False, Nothing)
       if isValid
         then do
-          State.modify' $
+          lift . State.modify' $
               insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyData decl.info.id)
             . insertOpaquedType decl.info.id
           -- Cannot use record update because 'C.kind' is ambiguous
@@ -323,11 +342,12 @@ applyPrescriptive decl cTypeSpec = \case
                 }
           return (decl', Just BindingSpec.HsTypeRepEmptyData)
         else do
-          State.modify' $
+          lift . State.modify' $
             insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
           return (decl, Nothing)
 
-    auxTypeAlias :: M l (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
+    auxTypeAlias ::
+      MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxTypeAlias =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate types.

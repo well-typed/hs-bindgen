@@ -86,6 +86,7 @@ data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
 
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
+  | ResolveBindingSpecsEnumTypeMismatch     C.DeclId
   | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclId
   | ResolveBindingSpecsNoHsTypeSpec         C.DeclId
   | ResolveBindingSpecsOmittedType          C.DeclId
@@ -105,6 +106,9 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace pSpecHsModuleName
           <+> "cannot be used to generate"
           <+> prettyForTrace hsModuleName
+      ResolveBindingSpecsEnumTypeMismatch cDeclId ->
+        "C enum specification for non-enum type:"
+          <+> prettyForTrace cDeclId
       ResolveBindingSpecsExtHsRefNoIdentifier cDeclId ->
         "Haskell identifier not specified in binding specification:"
           <+> prettyForTrace cDeclId
@@ -141,6 +145,7 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
     ResolveBindingSpecsModuleMismatch{}       -> Warning
+    ResolveBindingSpecsEnumTypeMismatch{}     -> Warning
     ResolveBindingSpecsExtHsRefNoIdentifier{} -> Warning
     ResolveBindingSpecsNoHsTypeSpec{}         -> Warning
     ResolveBindingSpecsOmittedType{}          -> Info
