@@ -29,7 +29,17 @@ pattern C = Index 2
 ```
 
 These patterns are not declared `COMPLETE`, because C `enum`s merely declare
-values, they do not restrict the range.
+values, they do not restrict the range.  In cases when you know that the
+declared values are the only valid values, you can use a prescriptive binding
+specification to specify that a C `enum` is closed, in which case the patterns
+are declared `COMPLETE`.
+
+```yaml
+ctypes:
+  - headers: example.h
+    cname: index
+    enum: closed
+```
 
 ### User-defined ranges
 

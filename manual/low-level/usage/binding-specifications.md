@@ -791,6 +791,33 @@ ctypes:
       cname: struct foo
 ```
 
+C `enum`s do not *really* define new types; they merely give names to some
+values of the parent type.  However, in some applications *users* may know that
+the values declared for a specific `enum` are the only ones possible.  Key
+`enum` allows users to explicitly distinguish these cases:
+
+* `open` specifies that a C `enum` may have values others than those declared.
+  This is the default.
+
+    ```yaml
+    - headers: acme.h
+      cname: enum foo
+      enum: open
+    ```
+
+* `closed` specifies that the declared values are the only valid values of a C
+  `enum`.  In this case, `hs-bindgen` generates a `COMPLETE` pragma for the
+  declared patterns.
+
+    ```yaml
+    - headers: acme.h
+      cname: enum bar
+      enum: closed
+    ```
+
+It is invalid to specify `enum` for a non-`enum` type.  In this case, a warning
+is emitted and the `enum` specification is ignored.
+
 #### `hstypes`
 
 Description
