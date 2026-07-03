@@ -195,8 +195,12 @@ library internal
     HsBindgen.Frontend.Pass.EnrichComments.IsPass
     HsBindgen.Frontend.Pass.Final
     HsBindgen.Frontend.Pass.MangleNames
+    HsBindgen.Frontend.Pass.MangleNames.CreateNames
+    HsBindgen.Frontend.Pass.MangleNames.DetectClashes
     HsBindgen.Frontend.Pass.MangleNames.Error
     HsBindgen.Frontend.Pass.MangleNames.IsPass
+    HsBindgen.Frontend.Pass.MangleNames.Names
+    HsBindgen.Frontend.Pass.MangleNames.ResolveNames
     HsBindgen.Frontend.Pass.Parse
     HsBindgen.Frontend.Pass.Parse.Builtin
     HsBindgen.Frontend.Pass.Parse.Context

@@ -89,7 +89,7 @@ instance Simplify (C.Decl l) where
 instance Simplify C.Struct where
   simplifyIt info struct =
       concatMap (simplifyIt info) struct.fields ++
-      concatMap (simplifyIt info) struct.flam
+      foldMap (simplifyIt info) (C.flamStructField struct.flam)
 
 instance Simplify C.StructField where
   simplifyIt info field = case field.ann of

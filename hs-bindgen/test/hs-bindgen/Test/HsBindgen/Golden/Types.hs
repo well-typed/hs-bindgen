@@ -3,12 +3,11 @@ module Test.HsBindgen.Golden.Types (testCases) where
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
-import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (UnsupportedEmptyAnon))
+import HsBindgen.Frontend.Pass.MangleNames.Error
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
@@ -233,7 +232,7 @@ test_types_typedefs_typedefs =
 test_types_typedefs_typenames :: TestCase
 test_types_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
-      MatchSelect name (SelectMangleNamesFailure MangleNamesCollision{}) ->
+      MatchSelect name (SelectMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing

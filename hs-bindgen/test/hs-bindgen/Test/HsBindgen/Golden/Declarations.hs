@@ -2,7 +2,7 @@
 module Test.HsBindgen.Golden.Declarations (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (MangleNamesCollision))
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -27,8 +27,11 @@ testCases = [
       -- Bespoke tests
     , test_declarations_declaration_unselected_b
     , test_declarations_definitions
+    , test_declarations_duplicate_field_name_omit
     , test_declarations_failing_tentative_definitions_linkage
+    , test_declarations_field_name_reuse_omit
     , test_declarations_name_collision
+    , test_declarations_name_collision_aux
     , test_declarations_redeclaration
     , test_declarations_redeclaration_different
     , test_declarations_redeclaration_identical
@@ -62,6 +65,22 @@ test_declarations_definitions =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo", "n"]
 
+test_declarations_duplicate_field_name_omit :: TestCase
+test_declarations_duplicate_field_name_omit =
+    defaultTest "declarations/duplicate_field_name_omit"
+      & #onFrontend      .~ (\cfg -> cfg
+            & #fieldNamingStrategy .~ OmitFieldPrefixes
+          )
+      & #tracePredicate  .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (SelectMangleNamesFailure (MangleNamesCollisionError DetectClashesDuplicateFieldName{})) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["struct S"]
+
 test_declarations_failing_tentative_definitions_linkage :: TestCase
 test_declarations_failing_tentative_definitions_linkage =
     failingTestLibclangMulti "declarations/failing/tentative_definitions_linkage" [(), ()] $ \case
@@ -72,17 +91,54 @@ test_declarations_failing_tentative_definitions_linkage =
       _otherwise ->
         Nothing
 
--- This tests https://github.com/well-typed/hs-bindgen/issues/1373.
+-- Under @OmitFieldPrefixes@ the generated module enables @NoFieldSelectors@, so
+-- an unprefixed field name does not generate a top-level selector and can freely
+-- coincide with a non-field declaration of the same name. Here @struct S@'s
+-- field @foo@ shares a name with a global @foo@, and @struct T@'s field @bar@
+-- with a function @bar@; none collide and all are generated and compile.
+test_declarations_field_name_reuse_omit :: TestCase
+test_declarations_field_name_reuse_omit =
+    defaultTest "declarations/field_name_reuse_omit"
+      & #onFrontend .~ (\cfg -> cfg
+            & #fieldNamingStrategy .~ OmitFieldPrefixes
+          )
+
+-- This tests https://github.com/well-typed/hs-bindgen/issues/1373 and
+-- https://github.com/well-typed/hs-bindgen/issues/2020.
+--
+-- It covers a cross-declaration collision (@union y@ vs @union Y@) and two
+-- intra-declaration collisions: @enum Color { Color }@, whose tag and
+-- enumerator share the C name; and @enum A { a }@ (issue #2020), where the tag
+-- and the case-mangled enumerator both produce the Haskell name @A@.
 test_declarations_name_collision :: TestCase
 test_declarations_name_collision =
     testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
-      MatchSelect name (SelectMangleNamesFailure MangleNamesCollision{}) ->
+      MatchSelect name (SelectMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing
   where
     declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["union y", "union Y"]
+    declsWithMsgs =
+      ["union y", "union Y", "enum Color", "enum A", "struct S", "S_x"]
+
+-- This tests sweep-2 collision detection for names derived in pass 2:
+--
+-- * A struct with a flexible array member generates @Foo_Aux@ (the FLAM
+--   auxiliary type), which clashes with a top-level @foo_Aux@ declaration.
+--
+-- * A function-pointer typedef generates @Bar_Aux@ (the function-pointer
+--   auxiliary type), which clashes with a top-level @bar_Aux@ declaration.
+test_declarations_name_collision_aux :: TestCase
+test_declarations_name_collision_aux =
+    testTraceMulti "declarations/name_collision_aux" declsWithMsgs $ \case
+      MatchSelect name (SelectMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["struct foo", "foo_Aux", "bar", "bar_Aux"]
 
 test_declarations_redeclaration :: TestCase
 test_declarations_redeclaration =

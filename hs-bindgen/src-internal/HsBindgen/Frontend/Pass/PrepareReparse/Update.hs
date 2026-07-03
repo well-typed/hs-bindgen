@@ -178,7 +178,7 @@ instance Update (C.DeclKind l) where
 instance Update C.Struct where
   updateIt info struct = do
       fields' <- mapM (updateIt info) struct.fields
-      flam' <- mapM (updateIt info) struct.flam
+      flam' <- C.traverseFlamField (updateIt info) struct.flam
       pure C.Struct {
           sizeof    = struct.sizeof
         , alignment = struct.alignment

@@ -277,7 +277,7 @@ structDecl macroLang enclosing ctx info = \curr -> do
                       sizeof    = fromIntegral sizeof
                     , alignment = fromIntegral alignment
                     , fields    = filter isField regularFields
-                    , flam      = mFlam
+                    , flam      = maybe C.NoFlam (`C.Flam` NoAnn) mFlam
                     , ann       = IsAnon isAnon
                     }
                 }

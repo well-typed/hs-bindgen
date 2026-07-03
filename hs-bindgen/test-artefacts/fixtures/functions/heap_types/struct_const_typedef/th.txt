@@ -28,8 +28,8 @@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
-data S
-    = S {s_x :: CInt
+data T
+    = T {t_x :: CInt
          {- ^ __C declaration:__ @x@
 
               __defined at:__ @functions\/heap_types\/struct_const_typedef.h 4:7@
@@ -37,40 +37,22 @@ data S
               __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
          -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize S
+instance StaticSize T
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw S
-    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
-instance WriteRaw S
+instance ReadRaw T
+    where readRaw = \ptr_0 -> pure T <*> readRaw (Proxy @"t_x") ptr_0
+instance WriteRaw T
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
-deriving via (EquivStorable S) instance Storable S
-instance (~) ty CInt => HasField "s_x" S ty
-    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
-                              getField @"s_x" x_0)
-instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_x")
-instance HasCField S "s_x"
-    where type CFieldType S "s_x" = CInt
-          offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @T@
-
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
-
-    __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
--}
-newtype T
-    = T {unwrapT :: S}
-    deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
-instance (~) ty S => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
-instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrapT")
-instance HasCField T "unwrapT"
-    where type CFieldType T "unwrapT" = S
+                                       T t_x_2 -> writeRaw (Proxy @"t_x") ptr_0 t_x_2
+deriving via (EquivStorable T) instance Storable T
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (\y_1 -> T{t_x = y_1},
+                              getField @"t_x" x_0)
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"t_x")
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::
