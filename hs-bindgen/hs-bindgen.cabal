@@ -98,6 +98,7 @@ library internal
     HsBindgen.Backend.Extensions
     HsBindgen.Backend.Global
     HsBindgen.Backend.Hs.AST
+    HsBindgen.Backend.Hs.AST.CompletePragma
     HsBindgen.Backend.Hs.AST.Strategy
     HsBindgen.Backend.Hs.CallConv
     HsBindgen.Backend.Hs.Haddock.Config

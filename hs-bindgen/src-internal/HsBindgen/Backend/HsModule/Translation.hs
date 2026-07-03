@@ -303,6 +303,8 @@ resolveDeclImports = \case
         resolveTypeImports patSyn.typ
       , resolvePatExprImports patSyn.rhs
       ]
+    DCompletePragma _completePragma ->
+      mempty
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> ImportAcc
@@ -436,6 +438,7 @@ resolveDeclExports = \case
     DForeignImport foreignImport -> exportVar foreignImport.name
     DBinding binding             -> exportVar binding.name
     DPatternSynonym patSyn       -> exportPattern patSyn.name
+    DCompletePragma _            -> []
     -- Instances are automatically exported by GHC
     DInst _                      -> []
     DDerivingInstance _          -> []

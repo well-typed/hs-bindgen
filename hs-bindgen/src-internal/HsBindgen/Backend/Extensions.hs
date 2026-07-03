@@ -68,6 +68,7 @@ requiredExtensions fieldNaming = \case
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]
+    DCompletePragma{} -> mempty
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton

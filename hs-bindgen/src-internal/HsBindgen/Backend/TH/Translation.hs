@@ -7,6 +7,7 @@ module HsBindgen.Backend.TH.Translation (
 
 import Control.Monad (liftM2)
 import Data.ByteString qualified as BS
+import Data.List qualified as List
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
@@ -353,6 +354,10 @@ mkDecl fns = \case
           ]
         putLocalDocM patSyn.name patSyn.comment
         pure decls
+
+      DCompletePragma completePragma ->
+        List.singleton
+          <$> TH.pragCompleteD (map mkHsName completePragma.patterns) Nothing
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
