@@ -156,6 +156,17 @@ instance Pretty SDecl where
         , "pattern" <+> pretty patSyn.name <+> "=" <+> pretty patSyn.rhs
         ]
 
+    DCompletePragma completePragma ->
+      let patterns = map pretty completePragma.patterns
+          oneLine  = PP.hlist "{-# COMPLETE " " #-}" patterns
+      in  PP.ifFits oneLine oneLine $
+            PP.vcat . ("{-# COMPLETE" :) . (++ [PP.nest 2 "#-}"]) $
+              [ if idx == (0 :: Int)
+                  then PP.nest 6 pat
+                  else PP.nest 4 ("," <+> pat)
+              | (idx, pat) <- zip [0..] patterns
+              ]
+
 {-------------------------------------------------------------------------------
   PatEpxr pretty-printing
 -------------------------------------------------------------------------------}

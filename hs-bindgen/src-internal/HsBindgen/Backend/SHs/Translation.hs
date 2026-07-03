@@ -79,6 +79,7 @@ translateDecl macroLang = \case
   Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic  x
   Hs.DeclFunction             x -> translateFunctionDecl          x
   Hs.DeclPatSyn               x -> translatePatSyn                x
+  Hs.DeclCompletePragma       x -> translateCompletePragma        x
   Hs.DeclVar                  x -> translateDeclVar               x
 
 translateDeclTypSyn :: Hs.TypSyn -> SDecl
@@ -319,6 +320,9 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
     , origin  = patSyn.origin
     , comment = patSyn.comment
     }
+
+translateCompletePragma :: Hs.CompletePragma -> SDecl
+translateCompletePragma = DCompletePragma
 
 {-------------------------------------------------------------------------------
   Types

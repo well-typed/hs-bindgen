@@ -135,6 +135,9 @@
   #2060][is-2060] and [PR #2091][pr-2091].
 * Generate `HsBindgen.Runtime.Union.IsUnion` instances for unions and newtypes
   around unions. See [issue #2060][is-2060] and [PR #2091][pr-2091].
+* Add `enum` specification to the C type specification of binding
+  specifications, enabling users to specify a C `enum` as `closed` so that we
+  generate a `COMPLETE` pragma for the declared patterns.
 
 ### Minor changes
 

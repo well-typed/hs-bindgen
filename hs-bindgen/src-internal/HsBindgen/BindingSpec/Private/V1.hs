@@ -23,6 +23,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
   , CTypeSpec(..)
+  , CEnumSpec(..)
   , HsTypeSpec(..)
   , HsTypeRep(..)
   , HsRecordRep(..)
@@ -150,8 +151,20 @@ type ResolvedBindingSpec = BindingSpec (C.HashIncludeArg, SourcePath)
 -- | Binding specification for a C type
 data CTypeSpec = CTypeSpec {
       hsName :: Maybe (Hs.Name Hs.NsTypeConstr)
+    , enum   :: Maybe CEnumSpec -- ^ Specified for C @enum@ types
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+--------------------------------------------------------------------------------
+
+-- | C @enum@ specification
+data CEnumSpec =
+    CEnumOpen   -- ^ C @enum@ may have values other than those declared
+  | CEnumClosed -- ^ C @enum@ may only have declared vlaues
+  deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
+
+instance Default CEnumSpec where
+  def = CEnumOpen
 
 --------------------------------------------------------------------------------
 
@@ -369,18 +382,20 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "cname"                 -> 11
       -- ACTypeSpec:3, AHsTypeSpec:1, AConstraintSpec:3
       "hsname"                -> 12
-      -- ACTypeSpec:4, AHsTypeSpec:2
-      "representation"        -> 13
+      -- ACTypeSpec:4
+      "enum"                  -> 13
+      -- AHsTypeSpec:2
+      "representation"        -> 14
       -- AHsTypeSpec:3
-      "instances"             -> 14
+      "instances"             -> 15
       -- AHsTypeRep:1
-      "record"                -> 15
+      "record"                -> 16
       -- AHsTypeRep:2
-      "newtype"               -> 16
+      "newtype"               -> 17
       -- HsRecordRep:1, HsNewtypeRep:1
-      "constructor"           -> 17
+      "constructor"           -> 18
       -- HsRecordRep:2, HsNewtypeRep:2
-      "fields"                -> 18
+      "fields"                -> 19
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -630,6 +645,7 @@ data instance ARep V1 CTypeSpec = ACTypeSpec {
       headers :: [FilePath]
     , cName   :: Text
     , hsName  :: Maybe (Hs.Name Hs.NsTypeConstr)
+    , enum    :: Maybe CEnumSpec
     }
   deriving stock (Show)
 
@@ -638,10 +654,12 @@ instance Aeson.FromJSON (ARep V1 CTypeSpec) where
     aCTypeSpecHeaders <- o .:  "headers" >>= listFromJSON
     aCTypeSpecCName   <- o .:  "cname"
     aCTypeSpecHsName  <- o .:? "hsname"
+    aCTypeSpecEnum    <- o .:? "enum"
     return ACTypeSpec{
         headers = aCTypeSpecHeaders
       , cName   = aCTypeSpecCName
       , hsName  = fromARep' <$> aCTypeSpecHsName
+      , enum    = fromARep' <$> aCTypeSpecEnum
       }
 
 instance Aeson.ToJSON (ARep V1 CTypeSpec) where
@@ -649,6 +667,7 @@ instance Aeson.ToJSON (ARep V1 CTypeSpec) where
       Just ("headers" .= listToJSON arep.headers)
     , Just ("cname"   .= arep.cName)
     , ("hsname" .=) . toARep' <$> arep.hsName
+    , ("enum"   .=) . toARep' <$> arep.enum
     ]
 
 instance ARepKV V1 CTypeSpec where
@@ -664,6 +683,7 @@ instance ARepKV V1 CTypeSpec where
         }
     , CTypeSpec{
           hsName = arep.hsName
+        , enum   = arep.enum
         }
     )
 
@@ -671,6 +691,7 @@ instance ARepKV V1 CTypeSpec where
       headers = k.headers
     , cName   = k.cName
     , hsName  = v.hsName
+    , enum    = v.enum
     }
 
 deriving stock instance Show (ARepK V1 CTypeSpec)
@@ -778,7 +799,8 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
         Require spec -> ARequire ACTypeSpec{
             headers = map (.path) (Set.toAscList headers)
           , cName   = C.renderDeclId cDeclId
-          , hsName = spec.hsName
+          , hsName  = spec.hsName
+          , enum    = spec.enum
           }
         Omit -> AOmit AKCTypeSpec{
             headers = map (.path) (Set.toAscList headers)
@@ -799,6 +821,34 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
     headersOf = \case
       ARequire x -> x.headers
       AOmit    x -> x.headers
+
+--------------------------------------------------------------------------------
+
+newtype instance ARep V1 CEnumSpec = ACEnumSpec CEnumSpec
+  deriving stock (Show)
+
+instance ARepIso V1 CEnumSpec
+
+instance Aeson.FromJSON (ARep V1 CEnumSpec) where
+  parseJSON = Aeson.withText "CEnumSpec" $ \t ->
+    case Map.lookup t cEnumSpecFromText of
+      Just cEnumSpec -> return (ACEnumSpec cEnumSpec)
+      Nothing        -> Aeson.parseFail $
+        "unknown C enum specification: " ++ Text.unpack t
+
+instance Aeson.ToJSON (ARep V1 CEnumSpec) where
+  toJSON (ACEnumSpec cEnumSpec) = Aeson.String (cEnumSpecToText cEnumSpec)
+
+cEnumSpecToText :: CEnumSpec -> Text
+cEnumSpecToText = \case
+    CEnumOpen   -> "open"
+    CEnumClosed -> "closed"
+
+cEnumSpecFromText :: Map Text CEnumSpec
+cEnumSpecFromText = Map.fromList [
+      (cEnumSpecToText cEnumSpec, cEnumSpec)
+    | cEnumSpec <- [minBound..]
+    ]
 
 --------------------------------------------------------------------------------
 

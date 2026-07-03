@@ -15,6 +15,7 @@ ctypes:
 - headers: documentation/doxygen_docs.h
   cname: enum color_enum
   hsname: Color_enum
+  enum: open
 - headers: documentation/doxygen_docs.h
   cname: event_callback_t
   hsname: Event_callback_t
@@ -27,6 +28,7 @@ ctypes:
 - headers: documentation/doxygen_docs.h
   cname: enum status_code_t
   hsname: Status_code_t
+  enum: open
 - headers: documentation/doxygen_docs.h
   cname: status_code_t
   hsname: Status_code_t

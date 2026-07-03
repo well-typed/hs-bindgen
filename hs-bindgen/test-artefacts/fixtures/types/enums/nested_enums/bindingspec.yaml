@@ -9,12 +9,14 @@ ctypes:
 - headers: types/enums/nested_enums.h
   cname: enum enumA
   hsname: EnumA
+  enum: open
 - headers: types/enums/nested_enums.h
   cname: struct exB
   hsname: ExB
 - headers: types/enums/nested_enums.h
   cname: enum @exB_fieldB1
   hsname: ExB_fieldB1
+  enum: open
 hstypes:
 - hsname: EnumA
   representation:

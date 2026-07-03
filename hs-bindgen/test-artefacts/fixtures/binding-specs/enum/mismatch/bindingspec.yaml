@@ -3,31 +3,25 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: edge-cases/enum_as_array_size.h
-  cname: enum test
-  hsname: Test
-  enum: open
+- headers: binding-specs/enum/mismatch.h
+  cname: struct pt
+  hsname: Pt
 hstypes:
-- hsname: Test
+- hsname: Pt
   representation:
-    newtype:
-      constructor: Test
+    record:
+      constructor: Pt
       fields:
-      - unwrapTest
+      - pt_x
+      - pt_y
   instances:
-  - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
-  - Ord
-  - Prim
-  - Read
   - ReadRaw
-  - SequentialCEnum
   - Show
   - StaticSize
   - Storable

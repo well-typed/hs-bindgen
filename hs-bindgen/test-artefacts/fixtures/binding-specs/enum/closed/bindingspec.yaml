@@ -3,17 +3,17 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: edge-cases/enum_as_array_size.h
-  cname: enum test
-  hsname: Test
-  enum: open
+- headers: binding-specs/enum/closed.h
+  cname: enum foo
+  hsname: Foo
+  enum: closed
 hstypes:
-- hsname: Test
+- hsname: Foo
   representation:
     newtype:
-      constructor: Test
+      constructor: Foo
       fields:
-      - unwrapTest
+      - unwrapFoo
   instances:
   - CEnum
   - Eq

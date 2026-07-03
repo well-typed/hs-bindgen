@@ -106,7 +106,10 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           ] ++
           [ let headers   = getMainHeaders' sourcePath
                 cTypeSpec :: CTypeSpec
-                cTypeSpec = CTypeSpec $ Just hsName
+                cTypeSpec = CTypeSpec{
+                    hsName = Just hsName
+                  , enum   = Nothing
+                  }
             in  (cDeclId, [(headers, Require cTypeSpec)])
           | (cDeclId, (sourcePath, hsName)) <- squashedTypes
           ]
@@ -133,6 +136,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           HsOrigin.Aux{} -> id
           _otherwise     -> insertType $ auxNewtype ntype
       Hs.DeclPatSyn{}               -> id
+      Hs.DeclCompletePragma{}       -> id
       Hs.DeclDefineInstance{}       -> id
       Hs.DeclDeriveInstance{}       -> id
       Hs.DeclForeignImport{}        -> id
@@ -165,6 +169,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
     auxTypSyn typSyn =
       let cTypeSpec = BindingSpec.CTypeSpec {
               hsName = Just typSyn.name
+            , enum   = Nothing
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just BindingSpec.HsTypeRepTypeAlias
@@ -184,6 +189,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       Just originDecl ->
         let cTypeSpec = BindingSpec.CTypeSpec {
                 hsName = Just hsStruct.name
+              , enum   = Nothing
               }
             hsRecordRep = BindingSpec.HsRecordRep {
                 constructor = Just hsStruct.constr
@@ -212,6 +218,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       let originDecl   = edata.origin
           cTypeSpec = BindingSpec.CTypeSpec {
               hsName = Just edata.name
+            , enum   = Nothing
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just BindingSpec.HsTypeRepEmptyData
@@ -230,6 +237,13 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       let originDecl   = hsNewtype.origin
           cTypeSpec    = BindingSpec.CTypeSpec {
               hsName = Just hsNewtype.name
+            , enum   =
+                case originDecl.spec.cSpec of
+                  Just spec -> spec.enum
+                  Nothing   ->
+                    case originDecl.kind of
+                      HsOrigin.Enum{} -> Just BindingSpec.CEnumOpen
+                      _otherwise      -> Nothing
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
               constructor = Just hsNewtype.constr

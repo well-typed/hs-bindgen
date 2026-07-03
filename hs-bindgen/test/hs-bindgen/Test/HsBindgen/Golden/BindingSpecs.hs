@@ -7,6 +7,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Predicate
@@ -28,6 +29,10 @@ testCases = [
     , test_bindingSpecs_name_squash_struct
     , test_bindingSpecs_name_squash_typedef
     , test_bindingSpecs_name_type
+      -- * C @enum@ specification
+    , test_bindingSpecs_enum_closed
+    , test_bindingSpecs_enum_open
+    , test_bindingSpecs_enum_mismatch
       -- * Representation: emptydata
     , test_bindingSpecs_rep_emptydata_staticsize
       -- * Function arguments with typedefs
@@ -124,6 +129,38 @@ test_bindingSpecs_name_type =
     defaultTest "binding-specs/name/type"
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/name/type_p.yaml"
+
+{-------------------------------------------------------------------------------
+  C @enum@ specification
+-------------------------------------------------------------------------------}
+
+test_bindingSpecs_enum_closed :: TestCase
+test_bindingSpecs_enum_closed =
+    defaultTest "binding-specs/enum/closed"
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/binding-specs/enum/closed_p.yaml"
+
+test_bindingSpecs_enum_open :: TestCase
+test_bindingSpecs_enum_open =
+    defaultTest "binding-specs/enum/open"
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/binding-specs/enum/open_p.yaml"
+
+test_bindingSpecs_enum_mismatch :: TestCase
+test_bindingSpecs_enum_mismatch =
+    testTraceSimple "binding-specs/enum/mismatch" auxTrace
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/binding-specs/enum/mismatch_p.yaml"
+  where
+    auxTrace :: TraceMsg -> Maybe (TraceExpectation ())
+    auxTrace traceMsg = do
+      declId <- case traceMsg of
+        TraceFrontend
+          (FrontendResolveBindingSpecs
+            (ResolveBindingSpecsEnumTypeMismatch declId)) -> Just declId
+        _otherwise -> Nothing
+      guard $ C.renderDeclId declId == "struct pt"
+      return $ Expected ()
 
 {-------------------------------------------------------------------------------
   Representation: emptydata

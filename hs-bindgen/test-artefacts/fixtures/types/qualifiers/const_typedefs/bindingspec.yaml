@@ -15,6 +15,7 @@ ctypes:
 - headers: types/qualifiers/const_typedefs.h
   cname: enum E
   hsname: E
+  enum: open
 - headers: types/qualifiers/const_typedefs.h
   cname: TI
   hsname: TI

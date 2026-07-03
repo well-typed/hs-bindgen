@@ -204,6 +204,7 @@ sdeclIsTopLevel = \case
     DForeignImport _    -> False
     DBinding _          -> False
     DPatternSynonym _   -> False
+    DCompletePragma _   -> False
     DInst _             -> False
     DDerivingInstance _ -> False
   where
@@ -228,6 +229,7 @@ sdeclOriginCName = \case
     DForeignImport _    -> Nothing
     DBinding _          -> Nothing
     DPatternSynonym _   -> Nothing
+    DCompletePragma _   -> Nothing
     DInst _             -> Nothing
     DDerivingInstance _ -> Nothing
   where
@@ -248,6 +250,7 @@ sdeclExportedName = \case
     DForeignImport foreignImport -> termText foreignImport.name
     DBinding binding             -> termText binding.name
     DPatternSynonym patSyn       -> Just patSyn.name.text
+    DCompletePragma _            -> Nothing
     DInst _                      -> Nothing
     DDerivingInstance _          -> Nothing
   where

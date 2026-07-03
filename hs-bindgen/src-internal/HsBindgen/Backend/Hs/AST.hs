@@ -88,12 +88,14 @@ module HsBindgen.Backend.Hs.AST (
   , makeElimStruct
     -- ** Pattern Synonyms
   , PatSyn(..)
+  , CompletePragma(..)
   ) where
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Fin
 import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
+import HsBindgen.Backend.Hs.AST.CompletePragma
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -253,6 +255,7 @@ data Decl l where
     DeclEmpty                :: EmptyData            -> Decl l
     DeclNewtype              :: Newtype              -> Decl l
     DeclPatSyn               :: PatSyn               -> Decl l
+    DeclCompletePragma       :: CompletePragma       -> Decl l
     DeclDefineInstance       :: DefineInstance       -> Decl l
     DeclDeriveInstance       :: DeriveInstance       -> Decl l
     DeclForeignImport        :: ForeignImportDecl    -> Decl l

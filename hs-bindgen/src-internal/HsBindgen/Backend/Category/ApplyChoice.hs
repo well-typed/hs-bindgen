@@ -32,6 +32,7 @@ applyTerms = \case
         Hs.DeclEmpty{}                    -> p
         Hs.DeclNewtype{}                  -> p
         Hs.DeclPatSyn{}                   -> p
+        Hs.DeclCompletePragma{}           -> p
         Hs.DeclDefineInstance{}           -> p
         Hs.DeclDeriveInstance{}           -> p
         fi@Hs.DeclForeignImport{}         -> fi

@@ -8,6 +8,7 @@ import Control.Monad.State qualified as State hiding (MonadState)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe qualified as Maybe
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import DeBruijn (Add (..), Idx (..), pattern I2)
@@ -364,6 +365,7 @@ enumDecs info enum spec = do
         ++ Hs.hasFieldCompatDecs nt
         ++ Hs.hasFieldPtrDecs nt
         ++ valueDecls
+        ++ completeDecl
       where
         -- Singleton field: 'InstanceCEnum' and its siblings rely on this
         -- struct having exactly one field (the underlying enum integer).
@@ -472,6 +474,19 @@ enumDecs info enum spec = do
                 }
             | constant <- enum.constants
             ]
+
+        completeDecl :: [Hs.Decl l]
+        completeDecl = Maybe.maybeToList $ do
+          cSpec     <- spec.cSpec
+          cEnumSpec <- cSpec.enum
+          guard $ cEnumSpec == BindingSpec.CEnumClosed
+          let pragma = Hs.CompletePragma{
+                  patterns = [
+                      Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+                    | constant <- enum.constants
+                    ]
+                }
+          return $ Hs.DeclCompletePragma pragma
 
 {-------------------------------------------------------------------------------
   Typedef

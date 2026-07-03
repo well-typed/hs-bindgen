@@ -1,0 +1,10 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+
+hsmodule: Example
+
+ctypes:
+  - headers: binding-specs/enum/mismatch.h
+    cname: struct pt
+    enum: closed

@@ -12,12 +12,15 @@ ctypes:
 - headers: globals/untagged.h
   cname: enum @anonEnum
   hsname: AnonEnum
+  enum: open
 - headers: globals/untagged.h
   cname: enum @anonEnumCoords
   hsname: AnonEnumCoords
+  enum: open
 - headers: globals/untagged.h
   cname: enum @A
   hsname: A
+  enum: open
 - headers: globals/untagged.h
   cname: union @B
   hsname: B

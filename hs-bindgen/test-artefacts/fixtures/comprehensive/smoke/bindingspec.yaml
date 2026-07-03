@@ -27,15 +27,18 @@ ctypes:
 - headers: comprehensive/smoke.h
   cname: enum baz2_t
   hsname: Baz2_t
+  enum: open
 - headers: comprehensive/smoke.h
   cname: baz2_t
   hsname: Baz2_t
 - headers: comprehensive/smoke.h
   cname: enum baz3_t
   hsname: Baz3_t
+  enum: open
 - headers: comprehensive/smoke.h
   cname: enum baz4_t
   hsname: Baz4_t
+  enum: open
 - headers: comprehensive/smoke.h
   cname: baz4_t
   hsname: Baz4_t

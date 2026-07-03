@@ -37,6 +37,7 @@ module HsBindgen.Backend.SHs.AST (
   ) where
 
 import HsBindgen.Backend.Global
+import HsBindgen.Backend.Hs.AST.CompletePragma qualified as Hs
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -74,6 +75,7 @@ data SDecl =
   | DForeignImport ForeignImport
   | DBinding Binding
   | DPatternSynonym PatternSynonym
+  | DCompletePragma Hs.CompletePragma
   deriving stock (Show)
 
 data TypeSynonym = TypeSynonym{
