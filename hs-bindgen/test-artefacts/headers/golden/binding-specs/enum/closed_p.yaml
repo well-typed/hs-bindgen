@@ -8,3 +8,7 @@ ctypes:
   - headers: binding-specs/enum/closed.h
     cname: enum foo
     enum: closed
+  - headers: binding-specs/enum/closed.h
+    cname: enum elementary_particle_type
+    hsname: ElementaryParticleType
+    enum: closed
