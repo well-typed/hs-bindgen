@@ -230,6 +230,8 @@ library internal
     HsBindgen.Frontend.Pass.PrepareReparse.Tracer
     HsBindgen.Frontend.Pass.PrepareReparse.Update
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
