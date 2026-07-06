@@ -10,6 +10,7 @@ import Prelude hiding (zip)
 
 import Control.Exception (catch)
 import Data.List.NonEmpty qualified as NE
+import Data.Map.Lazy qualified as Map
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -368,7 +369,7 @@ runFrontend tracer config boot = do
       (_, knownTypes, knownMacros) <- typecheckMacrosPass
       afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      pure $ reparseMacroExpansions cStd knownTypes knownMacros afterPrepareReparse
+      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros afterPrepareReparse
 
     zipPass <- cache "zip" $ do
       macroLang                   <- boot.macroLang

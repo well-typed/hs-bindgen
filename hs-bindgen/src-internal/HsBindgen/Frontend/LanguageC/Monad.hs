@@ -30,7 +30,7 @@ import GHC.Stack
 
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 
@@ -39,10 +39,6 @@ import HsBindgen.IR.C qualified as C
 -------------------------------------------------------------------------------}
 
 -- | Monad used to translate from the @language-c@ AST to our AST
---
--- The @p@ parameter indicates an @hs-bindgen@ pass; this will be instantiated
--- to @ReparseMacroExpansions@. We leave it polymorphic here to avoid
--- unnecessary mutual dependencies.
 newtype FromLanC a = WrapFromLanC (
       ExceptT Error (Reader ReparseEnv) a
     )
@@ -56,7 +52,7 @@ newtype FromLanC a = WrapFromLanC (
 -- | Types in scope when reparsing a particular declaration
 data ReparseEnv = ReparseEnv {
     -- | Known @typedef@s
-    knownTypes      :: Map CName (C.Type ReparseMacroExpansions)
+    knownTypes      :: Map CName (C.Type LanC)
     -- | Known type-like macros
     --
     -- We store macros in a separate field, because we do not translate macros
@@ -79,15 +75,15 @@ getReparseEnv = WrapFromLanC Reader.ask
 getKnownTypes :: ReparseEnv -> Set CName
 getKnownTypes env = Map.keysSet env.knownTypes <> env.knownMacros
 
-lookupType :: CName -> ReparseEnv -> Maybe (C.Type ReparseMacroExpansions)
+lookupType :: CName -> ReparseEnv -> Maybe (C.Type LanC)
 lookupType nm env =
     case (Set.member nm env.knownMacros, Map.lookup nm env.knownTypes) of
       -- Macro types take priority: a typedef and a type-like macro may share the
       -- same bare name (e.g. 'bool' from stdbool.h alongside a typedef 'bool').
       --
-      -- The underlying type '()' is a placeholder. The 'Zip' pass fills it in
-      -- by consulting the annotation carrying information from pre-reparse
-      -- 'TypecheckMacros'.
+      -- The underlying type '()' is a placeholder. The 'Zip' intermediate pass
+      -- fills it in by consulting the annotation carrying information from
+      -- pre-reparse 'PrepareReparse'.
       (True,  _)            -> Just (C.TypeMacro (C.MacroRef macroId ()))
       (False, mTypedefType) -> mTypedefType
   where

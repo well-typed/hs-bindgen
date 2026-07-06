@@ -15,8 +15,8 @@ runs:
     shell: bash
     if: ${{ runner.os == 'Linux' && inputs.version == '18' }}
     run: |
-      wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
-      sudo apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
+      wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.2_amd64.deb
+      sudo apt install ./libtinfo5_6.3-2ubuntu0.2_amd64.deb
 
   - name: Windows quirks - Filter MSVC LLVM from PATH
     shell: powershell
