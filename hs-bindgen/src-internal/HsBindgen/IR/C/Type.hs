@@ -99,12 +99,6 @@ data TypeF (tag :: TypeTag) (p :: Pass) =
 
     -- | Reference to a macro type
     --
-    -- During
-    -- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
-    -- the underlying field of the 'MacroRef' is a placeholder (@()@).
-    -- 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip' fills it in with the actual type
-    -- and every downstream pass sees a fully populated 'MacroRef'.
-    --
     -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypeMacroRefF tag p ~ Void@.
   | TypeMacro !(TypeMacroRefF tag p)
@@ -276,10 +270,9 @@ type EnumRef p = Ref (Id p) p
 --
 -- Structurally similar to 'Ref' but the 'underlying' field is driven by the
 -- 'MacroUnderlying' associated type family, so it can be a placeholder (@()@)
--- during
+-- during the
 -- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions'
--- and the real @'Type' p@ from 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip'
--- onwards.
+-- pass and the real @'Type' p@ after the pass is finished.
 --
 -- For example, if we have this C code:
 --
@@ -506,15 +499,13 @@ _completePragmaCoversAllCases = \case
 
 -- | Normal-form computation.
 --
--- The 'MacroUnderlying p ~ Type p' constraint excludes
--- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
--- the only pass where the underlying of a 'MacroRef' is unresolved (@()@).
--- Normalization recurses into 'MacroRef.underlying', which only makes sense
--- once 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip' has filled the underlying in.
+-- Normalization recurses into 'MacroRef.underlying', which only makes sense if
+-- 'MacroUnderlying p ~ Type p'. During the
+-- 'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions'
+-- pass, the 'MacroUnderlying' is temporarily set to @()@.
 class Normalize tag tag' where
   normalize :: (
       MacroUnderlying p ~ Type p
-    -- , IsPass p
     ) => TypeF tag p -> TypeF tag' p
 
 instance Normalize tag tag where

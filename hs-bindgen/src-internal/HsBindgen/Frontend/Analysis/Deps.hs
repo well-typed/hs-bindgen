@@ -10,8 +10,8 @@ module HsBindgen.Frontend.Analysis.Deps (
 
 import GHC.Records
 
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -61,39 +61,35 @@ depsOfDeclParsedMacro macroLang = depsOfDeclWith depsOfParsedMacro
     depsOfParsedMacro body = macroLang.parsedDeps body
 
 {-------------------------------------------------------------------------------
-  Dependencies of declaration after @ReparseMacroExpansions@ and 'Zip'
+  Dependencies of declaration after @ReparseMacroExpansions@
 -------------------------------------------------------------------------------}
 
--- | Get all dependencies of a declaration in the 'Zip' pass
+-- | Get all dependencies of a declaration in the 'ReparseMacroExpansions' pass
 --
 -- Disclaimer: For a specific declaration, we can only determine the full set of
 -- dependencies after we have reparsed this declaration, because it may contain
--- macro expansions. This step happens in the @ReparseMacroExpansions@ and 'Zip'
--- passes.
+-- macro expansions. This step happens in the @ReparseMacroExpansions@ pass.
 --
--- Before reparsing, that is, when @p@ is 'TypecheckMacros' or earlier, the
--- dependencies of declarations with macro expansions can only refer to the
--- /underlying types/ of the expanded macros.
+-- Before reparsing, the dependencies of declarations with macro expansions can
+-- only refer to the /underlying types/ of the expanded macros.
 --
--- We use 'depsOfDecl' after reconciling the pre- and post-reparse ASTs in the
--- 'Zip' pass, updating the dependency graphs.
 depsOfDecl ::
      Macro.HasTypes l
   => Macro.Lang l
-  -> C.DeclKind l Zip
+  -> C.DeclKind l ReparseMacroExpansions
   -> [(C.ValOrRef, C.DeclId)]
 depsOfDecl = depsOfDeclTcMacro
 
 depsOfDeclTcMacro ::
      forall l. (Macro.HasTypes l)
-  => Macro.Lang l -> C.DeclKind l Zip -> [(C.ValOrRef, C.DeclId)]
+  => Macro.Lang l -> C.DeclKind l ReparseMacroExpansions -> [(C.ValOrRef, C.DeclId)]
 depsOfDeclTcMacro macroLang = depsOfDeclWith (typecheckedMacroDeps macroLang)
 
 -- | Dependencies of typechecked macro declarations
 typecheckedMacroDeps ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
-  -> TypecheckedMacro Zip l
+  -> TypecheckedMacro ReparseMacroExpansions l
   -> [(C.ValOrRef, C.DeclId)]
 typecheckedMacroDeps macroLang = \case
     MacroType  typ ->
@@ -101,7 +97,7 @@ typecheckedMacroDeps macroLang = \case
     MacroValue val ->
       typecheckedMacroValueDeps val.body
   where
-    fromMacroTypeBodyVar :: MacroTypeBodyVar Zip -> C.DeclId
+    fromMacroTypeBodyVar :: MacroTypeBodyVar ReparseMacroExpansions -> C.DeclId
     fromMacroTypeBodyVar = \case
       MacroTypeExtBinding      x -> absurd x
       MacroTypeBodyVar    declId -> declId

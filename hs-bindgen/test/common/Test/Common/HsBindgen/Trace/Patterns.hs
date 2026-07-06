@@ -11,6 +11,9 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * PrepareReparse
   , pattern MatchImmediatePrepareReparse
   , pattern MatchDelayedPrepareReparse
+    -- * ReparseMacroExpansions
+  , pattern MatchImmediateReparseMacroExpansions
+  , pattern MatchDelayedReparseMacroExpansions
     -- * ResolveBindingSpecs
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
@@ -33,9 +36,12 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
                                                           PrepareReparseMsg)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass.Msg (PassMsg (Msg))
 import HsBindgen.TraceMsg
 
 {-------------------------------------------------------------------------------
@@ -108,6 +114,26 @@ pattern MatchDelayedPrepareReparse name x <- MatchSelect name (matchDelayedPrepa
 matchDelayedPrepareReparse :: SelectMsg -> Maybe DelayedPrepareReparseMsg
 matchDelayedPrepareReparse = \case
     SelectDelayedPrepareReparseMsg x -> Just x
+    _otherwise -> Nothing
+
+{-------------------------------------------------------------------------------
+  ReparseMacroExpansions
+-------------------------------------------------------------------------------}
+
+pattern MatchImmediateReparseMacroExpansions :: Msg ReparseMacroExpansions -> TraceMsg
+pattern MatchImmediateReparseMacroExpansions x <- TraceFrontend (
+      FrontendReparseMacroExpansions x
+    )
+
+pattern MatchDelayedReparseMacroExpansions ::
+     C.DeclName
+  -> DelayedReparseMacroExpansionsMsg
+  -> TraceMsg
+pattern MatchDelayedReparseMacroExpansions name x <- MatchSelect name (matchDelayedReparseMacroExpansions -> Just x)
+
+matchDelayedReparseMacroExpansions :: SelectMsg -> Maybe DelayedReparseMacroExpansionsMsg
+matchDelayedReparseMacroExpansions = \case
+    SelectDelayedReparseMacroExpansionsMsg x -> Just x
     _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------

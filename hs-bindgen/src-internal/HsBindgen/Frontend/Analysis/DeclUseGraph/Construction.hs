@@ -24,7 +24,7 @@ import HsBindgen.Frontend.Analysis.Deps
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.Zip.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Interface qualified as Macro
@@ -107,7 +107,7 @@ insertDeps source = flip (foldl' aux)
 insertDepsOfDecl ::
      (Macro.HasTypes l, HasCallStack)
   => Macro.Lang l
-  -> C.Decl l Zip
+  -> C.Decl l ReparseMacroExpansions
   -> DeclUseGraph
   -> DeclUseGraph
 insertDepsOfDecl macroLang decl declUseGraph = DeclUseGraph $

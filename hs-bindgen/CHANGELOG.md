@@ -77,8 +77,6 @@
   `hsBindgen`, and `hsBindgenMacroLang` for supplying a custom macro-language
   backend. Similarly, `HsBindgen.TH` exposes `withHsBindgenMacroLang` as the
   custom-macro-lang counterpart to `withHsBindgen`.
-* Alignment of C ASTs before and after reparsing has been extracted into a
-  dedicated `Zip` pass (previously part of `ReparseMacroExpansions`).
 * A new CLI option `--log-squashed-as-info` (and matching
   `CustomLogLevelSetting` constructor `MakeMangleNamesSquashedInfo`) demotes
   the `select-mangle-names-squashed` trace from `Notice` to `Info`, so the

@@ -4,6 +4,7 @@ module Test.HsBindgen.Golden.Macros.Redeclaration (testCases) where
 import Control.Applicative
 
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique))
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -37,21 +38,28 @@ test_def_undef_def =
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro T", "foo", "foo", "bar", "bar"]
+    expected = ["macro T", "foo", "foo", "foo", "bar", "bar", "bar"]
 
+    -- NOTE: though messages related to reparsing are most often info-level or
+    -- below, this predicate matches on all reparse-related trace messages so
+    -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
       (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
         Just $ Tolerated
-      MatchDelayed name@"foo" ParseMacroErrorReparse{} ->
-        Just $ Expected name
       MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
         Just $ Expected name
-      MatchDelayed name@"bar" ParseMacroErrorReparse{} ->
+      MatchDelayedReparseMacroExpansions name@"foo" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"foo" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       MatchDelayedPrepareReparse name@"bar" PrepareReparseExpansionNotUnique{} ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -62,21 +70,28 @@ test_different =
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro T", "foo", "foo", "bar", "bar"]
+    expected = ["macro T", "foo", "foo", "foo", "bar", "bar", "bar"]
 
+    -- NOTE: though messages related to reparsing are most often info-level or
+    -- below, this predicate matches on all reparse-related trace messages so
+    -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
       (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
         Just $ Tolerated
-      MatchDelayed name@"foo" ParseMacroErrorReparse{} ->
-        Just $ Expected name
       MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
         Just $ Expected name
-      MatchDelayed name@"bar" ParseMacroErrorReparse{} ->
+      MatchDelayedReparseMacroExpansions name@"foo" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"foo" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       MatchDelayedPrepareReparse name@"bar" PrepareReparseExpansionNotUnique{} ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -87,19 +102,26 @@ test_identical_semantics =
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro T", "foo", "foo", "bar", "bar"]
+    expected = ["macro T", "foo", "foo", "foo", "bar", "bar", "bar"]
 
+    -- NOTE: though messages related to reparsing are most often info-level or
+    -- below, this predicate matches on all reparse-related trace messages so
+    -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
-      MatchDelayed name@"foo" ParseMacroErrorReparse{} ->
-        Just $ Expected name
       MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
         Just $ Expected name
-      MatchDelayed name@"bar" ParseMacroErrorReparse{} ->
+      MatchDelayedReparseMacroExpansions name@"foo" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"foo" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       MatchDelayedPrepareReparse name@"bar" PrepareReparseExpansionNotUnique{} ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -110,21 +132,28 @@ test_identical_syntax =
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro A", "macro T", "foo", "foo", "bar", "bar"]
+    expected = ["macro A", "macro T", "foo", "foo", "foo", "bar", "bar", "bar"]
 
+    -- NOTE: though messages related to reparsing are most often info-level or
+    -- below, this predicate matches on all reparse-related trace messages so
+    -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
       MatchSelect name@"macro T" SelectConflict{} ->
         Just $ Expected name
-      MatchDelayed name@"foo" ParseMacroErrorReparse{} ->
-        Just $ Expected name
       MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
         Just $ Expected name
-      MatchDelayed name@"bar" ParseMacroErrorReparse{} ->
+      MatchDelayedReparseMacroExpansions name@"foo" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"foo" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       MatchDelayedPrepareReparse name@"bar" PrepareReparseExpansionNotUnique{} ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -150,16 +179,22 @@ multiTracePredicate_custom expected predicate = multiTracePredicate expected pre
   where
     predicate' x = predicate x <|> defaultPredicate x
 
+    -- NOTE: though messages related to reparsing are most often info-level or
+    -- below, this predicate marks all reparse-related trace messages as
+    -- unexpected so that we can precisely test every message
     defaultPredicate :: TraceMsg -> Maybe (TraceExpectation b)
     defaultPredicate = \case
+        -- Parse (macro)
         MatchDelayed _info ParseMacroErrorParse{} ->
           Just Unexpected
-        MatchDelayed _info ParseMacroErrorReparse{} ->
-          Just Unexpected
-        MatchDelayed _info ParseMacroErrorReparseZip{} ->
-          Just Unexpected
+        -- PrepareReparse
         MatchImmediatePrepareReparse _ ->
           Just Unexpected
         MatchDelayedPrepareReparse _info _ ->
+          Just Unexpected
+        -- ReparseMacroExpansions
+        MatchImmediateReparseMacroExpansions _ ->
+          Just Unexpected
+        MatchDelayedReparseMacroExpansions _info _ ->
           Just Unexpected
         _ -> Nothing

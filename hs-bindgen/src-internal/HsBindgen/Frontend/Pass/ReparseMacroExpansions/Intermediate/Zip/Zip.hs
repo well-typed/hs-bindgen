@@ -1,5 +1,5 @@
 -- | Zip the C ASTs before and after reparsing
-module HsBindgen.Frontend.Pass.Zip.Zip (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Zip (
     ZipResult (..)
   , zipEither
   ) where
@@ -8,19 +8,19 @@ import Control.Monad
 import Data.Void
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Pass.Zip.Error
-import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.Flip
 
 type In  = PrepareReparse
-type Out = ReparseMacroExpansions
+type Out = LanC
 
 {-------------------------------------------------------------------------------
   Monadic result type
@@ -138,10 +138,10 @@ checkEqCoerce lhs rhs =
 class ZipReparsed a where
   zipReparsed :: a Out -> ZipResult (a Zip)
 
-zipEither :: ZipReparsed a => a Out -> Either [DelayedParseMsg] (a Zip)
+zipEither :: ZipReparsed a => a Out -> Either [DelayedReparseMacroExpansionsMsg] (a Zip)
 zipEither x =
     case zipReparsed x of
-      ZipFailure es -> Left $ fmap ParseMacroErrorReparseZip es
+      ZipFailure es -> Left $ fmap ReparseMacroExpansionsZip es
       ZipSuccess z -> Right z
 
 {-------------------------------------------------------------------------------

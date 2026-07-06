@@ -7,8 +7,8 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
 import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -163,9 +163,9 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               Zip ResolveBindingSpecs
-instance CoercePassMacroId          Zip ResolveBindingSpecs
-instance CoercePassAnn "TypeFunArg" Zip ResolveBindingSpecs
+instance CoercePassId               ReparseMacroExpansions ResolveBindingSpecs
+instance CoercePassMacroId          ReparseMacroExpansions ResolveBindingSpecs
+instance CoercePassAnn "TypeFunArg" ReparseMacroExpansions ResolveBindingSpecs
 
-instance CoercePassCommentDecl Zip ResolveBindingSpecs where
+instance CoercePassCommentDecl ReparseMacroExpansions ResolveBindingSpecs where
   coercePassCommentDecl _ = fmap coercePass

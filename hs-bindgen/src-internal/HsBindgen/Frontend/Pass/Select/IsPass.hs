@@ -23,7 +23,8 @@ import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
@@ -182,6 +183,8 @@ data SelectMsg =
   | SelectMacroResolutionFailure MacroResolutionError
     -- | Delayed @PrepareReparse@ message
   | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
+    -- | Delayed @ReparseMacroExpansions@ message
+  | SelectDelayedReparseMacroExpansionsMsg DelayedReparseMacroExpansionsMsg
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -198,7 +201,7 @@ instance PrettyForTrace SelectMsg where
       SelectDeprecated r ->
         withSelectReason r "Selected a deprecated declaration"
       SelectDelayedParseMsg x ->
-        PP.hang "During parse:" 2 (prettyForTrace x)
+        during x $ prettyForTrace x
       SelectParseNotAttempted x ->
         couldNotSelect $ prettyForTrace x
       SelectParseFailure x ->
@@ -216,10 +219,15 @@ instance PrettyForTrace SelectMsg where
       SelectMacroResolutionFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectDelayedPrepareReparseMsg x ->
-        PP.hang "During prepare-reparse:" 2 (prettyForTrace x)
+        during x $ prettyForTrace x
+      SelectDelayedReparseMacroExpansionsMsg x ->
+        during x $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
     where
+      during :: IsTrace l e => e -> CtxDoc -> CtxDoc
+      during x = PP.hang (PP.string ("During " <> (getTraceId x).id <> ":")) 2
+
       couldNotSelectStr :: CtxDoc
       couldNotSelectStr = "Could not select declaration"
 
@@ -236,36 +244,38 @@ instance PrettyForTrace SelectMsg where
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectStatusInfo{}               -> Info
-    TransitiveDependenciesMissing{}  -> Warning
-    SelectDeprecated{}               -> Notice
-    SelectDelayedParseMsg x          -> getDefaultLogLevel x
-    SelectParseNotAttempted{}        -> Warning
-    SelectParseFailure x             -> getDefaultLogLevel x
-    SelectConflict{}                 -> Warning
-    SelectMangleNamesFailure x       -> case x of
+    SelectStatusInfo{}                       -> Info
+    TransitiveDependenciesMissing{}          -> Warning
+    SelectDeprecated{}                       -> Notice
+    SelectDelayedParseMsg x                  -> getDefaultLogLevel x
+    SelectParseNotAttempted{}                -> Warning
+    SelectParseFailure x                     -> getDefaultLogLevel x
+    SelectConflict{}                         -> Warning
+    SelectMangleNamesFailure x               -> case x of
       MangleNamesCreationError CreateNamesSquashMustBeTypeConstr{} -> Bug
       _                                                            -> Warning
-    SelectMangleNamesSquashed{}      -> Notice
-    SelectMacroTypecheckFailure x    -> getDefaultLogLevel x
-    SelectMacroResolutionFailure x   -> getDefaultLogLevel x
-    SelectDelayedPrepareReparseMsg x -> getDefaultLogLevel x
-    SelectNoDeclarationsMatched      -> Warning
+    SelectMangleNamesSquashed{}              -> Notice
+    SelectMacroTypecheckFailure x            -> getDefaultLogLevel x
+    SelectMacroResolutionFailure x           -> getDefaultLogLevel x
+    SelectDelayedPrepareReparseMsg x         -> getDefaultLogLevel x
+    SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
+    SelectNoDeclarationsMatched              -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectStatusInfo{}               -> "select"
-    TransitiveDependenciesMissing{}  -> "select"
-    SelectDeprecated{}               -> "select"
-    SelectDelayedParseMsg x          -> "select-" <> getTraceId x
-    SelectParseNotAttempted{}        -> "select-parse"
-    SelectParseFailure x             -> "select-" <> getTraceId x
-    SelectConflict{}                 -> "select"
-    SelectMangleNamesFailure{}       -> "select-mangle-names-failure"
-    SelectMangleNamesSquashed{}      -> "select-mangle-names-squashed"
-    SelectMacroTypecheckFailure x    -> "select-" <> getTraceId x
-    SelectMacroResolutionFailure x   -> "select-" <> getTraceId x
-    SelectDelayedPrepareReparseMsg x -> "select-" <> getTraceId x
-    SelectNoDeclarationsMatched      -> "select"
+    SelectStatusInfo{}                       -> "select"
+    TransitiveDependenciesMissing{}          -> "select"
+    SelectDeprecated{}                       -> "select"
+    SelectDelayedParseMsg x                  -> "select-" <> getTraceId x
+    SelectParseNotAttempted{}                -> "select-parse"
+    SelectParseFailure x                     -> "select-" <> getTraceId x
+    SelectConflict{}                         -> "select"
+    SelectMangleNamesFailure{}               -> "select-mangle-names-failure"
+    SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
+    SelectMacroTypecheckFailure x            -> "select-" <> getTraceId x
+    SelectMacroResolutionFailure x           -> "select-" <> getTraceId x
+    SelectDelayedPrepareReparseMsg x         -> "select-" <> getTraceId x
+    SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
+    SelectNoDeclarationsMatched              -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass

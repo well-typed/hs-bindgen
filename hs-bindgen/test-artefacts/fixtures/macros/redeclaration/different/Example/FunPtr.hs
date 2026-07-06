@@ -42,7 +42,7 @@ hs_bindgen_d0db0eb938233932 =
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -61,7 +61,7 @@ hs_bindgen_46700de9dec9ddc2 =
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}

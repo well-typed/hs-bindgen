@@ -25,9 +25,9 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -42,7 +42,7 @@ import HsBindgen.Util.Tracer (withCallStack)
   Top-level
 -------------------------------------------------------------------------------}
 
-type PreviousPass = Zip
+type PreviousPass = ReparseMacroExpansions
 
 resolveBindingSpecs ::
      forall l. HasCallStack
@@ -573,7 +573,7 @@ instance Resolve (TypecheckedMacroType l) l where
       -- of 'C.DeclId'. Maybe we can directly refer to external bindings from
       -- 'C.DeclId'?
       resolveVar ::
-           MacroTypeBodyVar Zip
+           MacroTypeBodyVar PreviousPass
         -> M l (MacroTypeBodyVar ResolveBindingSpecs)
       resolveVar (MacroTypeExtBinding   x) = absurd x
       resolveVar (MacroTypeBodyVar declId) = do

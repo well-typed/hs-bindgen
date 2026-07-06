@@ -40,7 +40,7 @@ hs_bindgen_3a672aa51059499f =
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/identical_semantics.h 4:6@
+    __defined at:__ @macros\/redeclaration\/identical_semantics.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
@@ -64,7 +64,7 @@ hs_bindgen_f6ce0c67437e90e7 =
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/identical_semantics.h 6:6@
+    __defined at:__ @macros\/redeclaration\/identical_semantics.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}

@@ -52,8 +52,6 @@ import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Pass.Zip
-import HsBindgen.Frontend.Pass.Zip.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -188,25 +186,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
 --   referencing macro-defined types that may have to be adjusted.
 --
--- == 9. "HsBindgen.Frontend.Pass.Zip"
---
--- "HsBindgen.Frontend.Pass.Zip" reconciles each reparsed declaration with
--- its pre-reparse representation, producing a single zipped C AST. It also
--- updates the 'DeclUseGraph' to replace dependencies that pointed to
--- underlying types (as seen before reparsing) with references to the
--- macro-defined types discovered during reparsing. For example, if a
--- declaration depends on @A@ before reparsing, but after reparsing it is
--- known to depend on the macro-defined type @B@ (which expands to @A@), the
--- dependency on @A@ is replaced by a dependency on @B@.
---
--- Constraints:
---
--- * Must be after "HsBindgen.Frontend.Pass.ReparseMacroExpansions", because
---   the zip takes the reparsed translation unit as input.
--- * Must be before the remaining passes, because they consume the zipped C
---   AST and updated 'DeclUseGraph'.
---
--- == 10. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 9. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -227,19 +207,19 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 11. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 10. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 12. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 11. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 13. "HsBindgen.Frontend.Pass.Select"
+-- == 12. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -369,20 +349,16 @@ runFrontend tracer config boot = do
       (_, knownTypes, knownMacros) <- typecheckMacrosPass
       afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros afterPrepareReparse
-
-    zipPass <- cache "zip" $ do
-      macroLang                   <- boot.macroLang
-      afterReparseMacroExpansions <- reparseMacroExpansionsPass
-      pure $ zip macroLang afterReparseMacroExpansions
+      macroLang <- boot.macroLang
+      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros macroLang afterPrepareReparse
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterZip <- zipPass
+      afterReparseMacroExpansions <- reparseMacroExpansionsPass
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- boot.prescriptiveBindingSpec
       let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
           (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
-            resolveBindingSpecs moduleName extSpecs pSpec afterZip
+            resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions
       forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
       pure afterResolveBindingSpecs
 
@@ -421,7 +397,6 @@ runFrontend tracer config boot = do
       , constructTranslationUnit = constructTranslationUnitPass
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
       , reparseMacroExpansions   = reparseMacroExpansionsPass
-      , zip                      = zipPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
@@ -463,7 +438,6 @@ runFrontend tracer config boot = do
 
 data FrontendArtefact l = FrontendArtefact {
       parseMeta                :: Cached ParseInfo
-
     , parse                    :: Cached [ParseResult       l Parse]
     , doxygen                  :: Cached Doxygen
     , simplifyAST              :: Cached [ParseResult       l SimplifyAST]
@@ -472,7 +446,6 @@ data FrontendArtefact l = FrontendArtefact {
     , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
     , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
     , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
-    , zip                      :: Cached (C.TranslationUnit l Zip)
     , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
     , adjustTypes              :: Cached (C.TranslationUnit l AdjustTypes)
@@ -493,6 +466,7 @@ data FrontendMsg =
   | FrontendSimplifyAST              (Msg SimplifyAST)
   | FrontendAssignAnonIds            (Msg AssignAnonIds)
   | FrontendPrepareReparse           (Msg PrepareReparse)
+  | FrontendReparseMacroExpansions   (Msg ReparseMacroExpansions)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
