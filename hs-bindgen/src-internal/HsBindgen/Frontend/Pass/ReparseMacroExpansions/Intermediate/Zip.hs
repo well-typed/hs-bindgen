@@ -1,5 +1,5 @@
 -- | Zip reparsed declarations with their pre-reparse representations
-module HsBindgen.Frontend.Pass.Zip (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip (
     zip
   ) where
 
@@ -15,10 +15,11 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
-import HsBindgen.Frontend.Pass.Zip.IsPass
-import HsBindgen.Frontend.Pass.Zip.Zip
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Zip (zipEither)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -30,7 +31,7 @@ import HsBindgen.Macro.Type qualified as Macro
 zip ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
-  -> C.TranslationUnit l ReparseMacroExpansions
+  -> C.TranslationUnit l LanC
   -> C.TranslationUnit l Zip
 zip macroLang unit =
     let (failures, successes) = zipDecls unit.decls
@@ -43,7 +44,7 @@ zip macroLang unit =
 updateMeta ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
-  -> [(C.DeclId, [DelayedParseMsg])]
+  -> [(C.DeclId, [DelayedReparseMacroExpansionsMsg])]
   -> [C.Decl l Zip]
   -> DeclMeta l
   -> DeclMeta l
@@ -58,7 +59,7 @@ updateMeta macroLang failures successes meta = DeclMeta{
       -- We use @foldr@ here to establish the original order of reparse
       -- warnings.
       foldr
-        DeclIndex.registerDelayedParseMsg
+        DeclIndex.registerDelayedReparseMacroExpansionsMsg
         meta.declIndex
         [ (declId, msg)
         | (declId, msgs) <- failures
@@ -70,7 +71,7 @@ updateMeta macroLang failures successes meta = DeclMeta{
       Foldable.foldl'
         (flip (updateDeps macroLang))
         meta.declUseGraph
-        successes
+        (map coercePass successes)
 
 -- | Dependencies before reparse may point to underlying types. These have to be
 -- replaced with their actual dependencies after reparse+zip.
@@ -90,7 +91,7 @@ updateMeta macroLang failures successes meta = DeclMeta{
 updateDeps ::
      Macro.HasTypes l
   => Macro.Lang l
-  -> C.Decl l Zip
+  -> C.Decl l ReparseMacroExpansions
   -> DeclUseGraph
   -> DeclUseGraph
 updateDeps macroLang decl graph =
@@ -103,13 +104,13 @@ updateDeps macroLang decl graph =
 
 zipDecls ::
      forall l.
-     [C.Decl l ReparseMacroExpansions]
-  -> ([(C.DeclId, [DelayedParseMsg])], [C.Decl l Zip])
+     [C.Decl l LanC]
+  -> ([(C.DeclId, [DelayedReparseMacroExpansionsMsg])], [C.Decl l Zip])
 zipDecls decls = partitionEithers $ map zipDecl decls
 
 zipDecl ::
-     C.Decl l ReparseMacroExpansions
-  -> (Either (C.DeclId, [DelayedParseMsg]) (C.Decl l Zip))
+     C.Decl l LanC
+  -> (Either (C.DeclId, [DelayedReparseMacroExpansionsMsg]) (C.Decl l Zip))
 zipDecl decl = reconstruct $ case decl.kind of
     C.DeclStruct           x -> C.DeclStruct           <$> zipEither x
     C.DeclUnion            x -> C.DeclUnion            <$> zipEither x
@@ -123,8 +124,8 @@ zipDecl decl = reconstruct $ case decl.kind of
   where
     reconstruct ::
          forall l.
-         Either [DelayedParseMsg] (C.DeclKind l Zip)
-      -> Either (C.DeclId, [DelayedParseMsg]) (C.Decl l Zip)
+         Either [DelayedReparseMacroExpansionsMsg] (C.DeclKind l Zip)
+      -> Either (C.DeclId, [DelayedReparseMacroExpansionsMsg]) (C.Decl l Zip)
     reconstruct = \case
       Left xs     ->
         Left (decl.info.id, xs)

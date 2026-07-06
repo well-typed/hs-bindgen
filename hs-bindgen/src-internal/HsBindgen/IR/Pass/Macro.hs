@@ -58,14 +58,15 @@ class (
   --
   -- 1. Before 'HsBindgen.Frontend.Pass.TypecheckMacros.IsPass.TypecheckMacros',
   --   this is 'Void', as macro types do not exist yet.
-  -- 2. After
+  -- 2. During
   --   'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
   --   the reparser produces 'HsBindgen.IR.C.Type.MacroRef' values with a
   --   placeholder underlying, recording \"a macro is referenced here,
-  --   underlying not yet known\".
-  -- 3. After 'HsBindgen.Frontend.Pass.Zip.IsPass.Zip', this is
-  --   @'HsBindgen.IR.C.Type.Type' p@.  That pass fills the underlying in from
-  --   the pre-reparse tree.
+  --   underlying not yet known\". This unknown underlying type is filled in
+  --   later in the pass using the pre-reparse tree.
+  -- 3. After
+  --   'HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.ReparseMacroExpansions',
+  --   the underlying type will be @'HsBindgen.IR.C.Type.Type' p@.
   type MacroUnderlying p :: Star
   type MacroUnderlying p = Void
 

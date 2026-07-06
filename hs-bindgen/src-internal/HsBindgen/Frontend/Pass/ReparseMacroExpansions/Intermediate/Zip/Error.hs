@@ -1,7 +1,7 @@
 -- | Errors arising while zipping C ASTs before and after reparsing
 --
 -- Defined in its own module to avoid cyclic module dependencies.
-module HsBindgen.Frontend.Pass.Zip.Error (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error (
     ZipError(..)
   , zipErrorNotZipped
   , zipErrorNotEqual

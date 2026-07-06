@@ -14,9 +14,9 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -71,7 +71,7 @@ updateMeta reparseState meta = DeclMeta{
       -- We use @foldr@ here to establish the original order of reparse
       -- warnings.
       foldr
-        DeclIndex.registerDelayedParseMsg
+        DeclIndex.registerDelayedReparseMacroExpansionsMsg
         meta.declIndex
         reparseState.reparseWarnings
 
@@ -389,7 +389,7 @@ data ReparseState = ReparseState {
       -- | Delayed parse messages collected during reparse
       --
       -- Stored in reverse order.
-      reparseWarnings :: [(C.DeclId, DelayedParseMsg)]
+      reparseWarnings :: [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
     }
   deriving stock (Generic)
 
@@ -420,12 +420,11 @@ runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
 
 -- | Run reparser if needed; use fallback on failure or if not needed.
 --
--- On reparsing failure, records @(declId, ParseMacroErrorReparse e)@ in
+-- On reparsing failure, records @(declId, ReparseMacroExpansionsLanC e)@ in
 -- 'ReparseState.reparseWarnings' and uses the fallback value.
 --
--- Reconciliation against the pre-reparse tree happens in the subsequent
--- 'HsBindgen.Frontend.Pass.Zip.Zip' pass; on parser success we always return
--- the reparsed value.
+-- Reconciliation against the pre-reparse tree happens in the subsequent @Zip@
+-- intermediate pass; on parser success we always return the reparsed value.
 reparseWith ::
      C.DeclId
   -> LanC.Parser a
@@ -447,12 +446,12 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
           usedUnknownMacros = Set.difference usedMacros env.knownMacros
       forM_ usedUnknownMacros $ \u ->
           modify $ #reparseWarnings %~
-            ((declId, ParseMacroReparseUnknownType u) :)
+            ((declId, ReparseMacroExpansionUnknownType u) :)
 
       let reparseEnv :: LanC.ReparseEnv
           reparseEnv = LanC.ReparseEnv env.knownTypes usedKnownMacros
       case parser reparseEnv tokens of
         Right a -> onSuccess a
         Left  e -> do
-          modify $ #reparseWarnings %~ ((declId, ParseMacroErrorReparse e) :)
+          modify $ #reparseWarnings %~ ((declId, ReparseMacroExpansionsLanC e) :)
           pure fallback

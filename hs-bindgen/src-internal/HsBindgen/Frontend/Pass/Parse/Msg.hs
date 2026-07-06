@@ -19,8 +19,6 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.LanguageC.Error qualified as LanC
-import HsBindgen.Frontend.Pass.Zip.Error
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Error
@@ -130,30 +128,6 @@ data DelayedParseMsg =
     -- | We could not parse the macro (macro def sites)
   | ParseMacroErrorParse MacroParseError
 
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
-    --
-    -- 'ParseMacroErrorReparse' should be a delayed reparse message.
-
-    -- | We could not reparse a fragment of C (to recover macro use sites)
-  | ParseMacroErrorReparse LanC.Error
-
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
-    --
-    -- 'ParseMacroErrorReparseZip' should be a delayed zip message.
-
-    -- | We could not zip the C AST before reparsing with the C AST after
-    -- reparsing
-  | ParseMacroErrorReparseZip
-      -- | Error that occurred during zipping
-      ZipError
-
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2022>
-    --
-    -- 'ParseMacroReparseUnknownType' should be a delayed reparse message.
-
-    -- | While reparsing a declaration with a macro expansion, we do not know
-    --   the type of an expanded macro.
-  | ParseMacroReparseUnknownType Text
 
     -- | Fully defined global variables and functions with external linkage.
     --
@@ -380,20 +354,6 @@ instance PrettyForTrace DelayedParseMsg where
         , PP.nest 2 $
             PP.renderedLines $ \_maxWidth -> lines err.macroParseError
         ]
-      ParseMacroErrorReparse x -> PP.hsep [
-          "Failed to reparse: "
-        , prettyForTrace x
-        ]
-      ParseMacroErrorReparseZip err -> PP.hsep [
-          "Failed to zip the C AST before reparsing with"
-        , "the C AST after reparsing: "
-        , prettyForTrace err
-        ]
-      ParseMacroReparseUnknownType x -> PP.hsep [
-          "During reparse:"
-        , "Unknown type of expanded macro"
-        , PP.text x
-        ]
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
             "Bindings may result in duplicate symbols; "
           , "consider using 'static' or 'extern'"
@@ -501,9 +461,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseImplicitFieldFailed    x     -> getDefaultLogLevel x
       ParseMacroEmpty{}                 -> Info
       ParseMacroErrorParse{}            -> Info
-      ParseMacroErrorReparse x          -> getDefaultLogLevel x
-      ParseMacroErrorReparseZip x       -> getDefaultLogLevel x
-      ParseMacroReparseUnknownType{}    -> Info
       ParsePotentialDuplicateSymbol{}   -> Notice
       ParseDeclarationNotVisible{}      -> Warning
       ParseFunctionOfTypeTypedef{}      -> Warning
@@ -537,9 +494,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroDefinitionNoMacroName{} -> "parse-macro"
       ParseMacroEmpty{}                 -> "parse-macro"
       ParseMacroErrorParse{}            -> "parse-macro"
-      ParseMacroErrorReparse{}          -> "parse-macro"
-      ParseMacroErrorReparseZip e       -> getTraceId e
-      ParseMacroReparseUnknownType{}    -> "parse-macro"
       _ -> "parse"
 
 {-------------------------------------------------------------------------------

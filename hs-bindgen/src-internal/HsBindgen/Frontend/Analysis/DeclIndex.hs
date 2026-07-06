@@ -37,6 +37,8 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , registerDelayedParseMsg
     -- * Support for the @PrepareReparse@ pass
   , registerDelayedPrepareReparseMsg
+    -- * Support for the @ReparseMacroExpansions@ pass
+  , registerDelayedReparseMacroExpansionsMsg
     -- * Support for binding specifications
   , registerOmittedDeclarations
   , registerExternalDeclarations
@@ -67,6 +69,7 @@ import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (IsPass)
@@ -225,9 +228,10 @@ unusableToLoc = \case
     UnusableOmitted loc                  -> [loc]
 
 data Success l p = Success {
-    decl                      :: C.Decl l p
-  , delayedParseMsgs          :: [DelayedParseMsg]
-  , delayedPrepareReparseMsgs :: [DelayedPrepareReparseMsg]
+    decl                              :: C.Decl l p
+  , delayedParseMsgs                  :: [DelayedParseMsg]
+  , delayedPrepareReparseMsgs         :: [DelayedPrepareReparseMsg]
+  , delayedReparseMacroExpansionsMsgs :: [DelayedReparseMacroExpansionsMsg]
   }
   deriving stock (Generic)
 
@@ -335,6 +339,7 @@ resolvedResultToEntry = \case
           decl = success.decl
         , delayedParseMsgs = success.delayedParseMsgs
         , delayedPrepareReparseMsgs = []
+        , delayedReparseMacroExpansionsMsgs = []
         }
 
 -- | Resolve macro names in every successful declaration.
@@ -630,6 +635,29 @@ registerDelayedPrepareReparseMsg (declId, msg) (DeclIndex i) = DeclIndex $
     addMsg (UsableE (UsableSuccess ps)) =
       UsableE $ UsableSuccess ps{
           delayedPrepareReparseMsgs = ps.delayedPrepareReparseMsgs ++ [msg]
+        }
+    addMsg entry = entry
+
+
+{-------------------------------------------------------------------------------
+  Support for @ReparseMacroExpansions@ pass
+-------------------------------------------------------------------------------}
+
+-- | Append a delayed @ReparseMacroExpansions@ message to an existing
+-- 'UsableSuccess' entry.
+--
+-- Has no effect if the declaration is not a success
+registerDelayedReparseMacroExpansionsMsg ::
+     (C.DeclId, DelayedReparseMacroExpansionsMsg)
+  -> DeclIndex l
+  -> DeclIndex l
+registerDelayedReparseMacroExpansionsMsg (declId, msg) (DeclIndex i) = DeclIndex $
+    Map.adjust addMsg declId i
+  where
+    addMsg :: Entry l -> Entry l
+    addMsg (UsableE (UsableSuccess ps)) =
+      UsableE $ UsableSuccess ps{
+          delayedReparseMacroExpansionsMsgs = ps.delayedReparseMacroExpansionsMsgs ++ [msg]
         }
     addMsg entry = entry
 

@@ -1,9 +1,9 @@
-module HsBindgen.Frontend.Pass.Zip.IsPass (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass (
     Zip
   ) where
 
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -51,11 +51,11 @@ instance CoercePassMacroId          PrepareReparse Zip
 instance CoercePassCommentDecl      PrepareReparse Zip where
   coercePassCommentDecl _ = fmap coercePass
 
-instance CoercePassId               ReparseMacroExpansions Zip
-instance CoercePassMacroId          ReparseMacroExpansions Zip
-instance CoercePassAnn "TypeFunArg" ReparseMacroExpansions Zip
-instance CoercePassCommentDecl      ReparseMacroExpansions Zip where
+instance CoercePassId               LanC Zip
+instance CoercePassMacroId          LanC Zip
+instance CoercePassAnn "TypeFunArg" LanC Zip
+instance CoercePassCommentDecl      LanC Zip where
   coercePassCommentDecl _ = fmap coercePass
 
-instance CoercePassMacroBody ReparseMacroExpansions Zip where
+instance CoercePassMacroBody LanC Zip where
   coercePassMacroBody _ = coercePassParam

@@ -232,7 +232,12 @@ library internal
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Zip
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
     HsBindgen.Frontend.Pass.Select
@@ -243,10 +248,6 @@ library internal
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
     HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
     HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
-    HsBindgen.Frontend.Pass.Zip
-    HsBindgen.Frontend.Pass.Zip.Error
-    HsBindgen.Frontend.Pass.Zip.IsPass
-    HsBindgen.Frontend.Pass.Zip.Zip
     HsBindgen.Frontend.Predicate
     HsBindgen.Frontend.PrettyC
     HsBindgen.Frontend.ProcessIncludes
