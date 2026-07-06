@@ -565,10 +565,11 @@ instance Resolve (Flip TypecheckedMacro l) l where
 
 instance Resolve (TypecheckedMacroType l) l where
   resolve ctx = \case
-      (TypecheckedMacroType body ann) -> do
+      (TypecheckedMacroType body deps ann) -> do
         body' <- traverse resolveVar body
         pure TypecheckedMacroType{
             body = body'
+          , deps = deps
           , ann  = ann
           }
     where

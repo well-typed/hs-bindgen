@@ -7,6 +7,7 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   , MacroTypeBodyVar(..)
   ) where
 
+import HsBindgen.Frontend.Analysis (Dependency)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
@@ -68,11 +69,13 @@ data TypecheckedMacro p l =
 -- | Checked type macro
 data TypecheckedMacroType l p = Macro.HasTypes l => TypecheckedMacroType{
       body :: Macro.TypecheckedType l (MacroTypeBodyVar p)
+    , deps :: [(C.DeclId, Dependency)]
     , ann  :: Ann "TypecheckedMacroType" p
     }
 
 data TypecheckedMacroValue l p = Macro.HasTypes l => TypecheckedMacroValue {
       body :: Macro.TypecheckedValue l (Id p)
+    , deps :: [(C.DeclId, Dependency)]
     }
 
 deriving stock instance IsPass p => Show (TypecheckedMacro      p l)
@@ -118,16 +121,18 @@ instance (
     , ExtBinding p ~ ExtBinding p'
     , Ann "TypecheckedMacroType" p ~ Ann "TypecheckedMacroType" p'
     ) => CoercePass (TypecheckedMacroType l) p p' where
-  coercePass (TypecheckedMacroType body ann) =
+  coercePass (TypecheckedMacroType body deps ann) =
     TypecheckedMacroType{
         body = fmap coercePass body
+      , deps = deps
       , ann  = ann
       }
 
 instance CoercePassId p p' => CoercePass (TypecheckedMacroValue l) p p' where
-  coercePass (TypecheckedMacroValue body) =
+  coercePass (TypecheckedMacroValue body deps) =
     TypecheckedMacroValue{
         body = fmap (coercePassId (Proxy @'(p, p'))) body
+      , deps = deps
       }
 
 {-------------------------------------------------------------------------------

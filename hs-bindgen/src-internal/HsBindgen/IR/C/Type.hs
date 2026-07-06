@@ -43,7 +43,6 @@ module HsBindgen.IR.C.Type (
   , getCanonicalType
 
     -- * Queries
-  , ValOrRef(..)
   , depsOfType
   , depsOfTypeFunArg
   , hasUnsupportedType
@@ -65,6 +64,7 @@ import Data.Foldable qualified as Foldable
 import Data.Set qualified as Set
 
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.Pass.Ann
@@ -571,16 +571,14 @@ getErasedType = normalize
   Queries
 -------------------------------------------------------------------------------}
 
-data ValOrRef = ByValue | ByRef
-  deriving stock (Eq, Ord, Show)
-
 -- | The declarations this type depends on (direct dependencies only)
 --
--- We also report whether this dependence is through a pointer or not.
+-- We also report what the dependent needs to know about each dependency (full
+-- shape vs. name only).
 depsOfType :: forall p.
      PassMacro p
   => Type p
-  -> [(ValOrRef, Id p)]
+  -> [(Id p, Dependency)]
 depsOfType = \case
     -- Primitive types
     TypePrim _    -> []
@@ -588,11 +586,11 @@ depsOfType = \case
     TypeVoid      -> []
 
     -- Interesting cases
-    TypeRef ref         -> [(ByValue, ref)]
-    TypeEnum ref        -> [(ByValue, ref.name)]
-    TypeMacro ref       -> [(ByValue, macroIdId (Proxy @p) ref.name)]
-    TypeTypedef ref     -> [(ByValue, ref.name)]
-    TypeUnsafePointer t -> first (const ByRef) <$> depsOfType t
+    TypeRef ref         -> [(ref                           , NeedsShape)]
+    TypeEnum ref        -> [(ref.name                      , NeedsShape)]
+    TypeMacro ref       -> [(macroIdId (Proxy @p) ref.name , NeedsShape)]
+    TypeTypedef ref     -> [(ref.name                      , NeedsShape)]
+    TypeUnsafePointer t -> second (const NeedsNameOnly) <$> depsOfType t
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1467>
     -- We could in /principle/ use extBindingId here to implement this case
@@ -600,7 +598,7 @@ depsOfType = \case
     -- whether a type is defined in the current module; 'extBindingId' currently
     -- omits the module, so this could result in potentially incorrect
     -- conclusions (if there happens to be a /another/ type of the same name).
-    -- TypeExtBinding extBinding -> [(ByValue, extBindingId (Proxy @p) extBinding)]
+    -- TypeExtBinding extBinding -> [(NeedsShape, extBindingId (Proxy @p) extBinding)]
     TypeExtBinding _extBinding -> []
 
     -- Recurse
@@ -613,7 +611,7 @@ depsOfType = \case
 depsOfTypeFunArg ::
      PassMacro p
   => TypeFunArgF Full p
-  -> [(ValOrRef, Id p)]
+  -> [(Id p, Dependency)]
 depsOfTypeFunArg arg = depsOfType arg.typ
 
 -- | Checks if a type is unsupported by Haskell's FFI

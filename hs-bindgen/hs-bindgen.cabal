@@ -165,6 +165,7 @@ library internal
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
+    HsBindgen.Frontend.Analysis
     HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro

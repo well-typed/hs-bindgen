@@ -52,7 +52,7 @@ mkDeclMeta macroLang parseResults includeGraph = declMeta
     declIndex = DeclIndex.fromParseResults macroLang parseResults
 
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.construct macroLang includeGraph declIndex
+    declUseGraph = DeclUseGraph.construct includeGraph declIndex
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

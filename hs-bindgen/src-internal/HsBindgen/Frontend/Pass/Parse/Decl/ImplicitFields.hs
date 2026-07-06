@@ -270,8 +270,8 @@ isReferenced ::
   -> [C.Decl l Parse]
   -> Bool
 isReferenced decl fields decls =
-       decl.info.id `elem` map snd (concatMap depsOfField fields)
-    || decl.info.id `elem` map snd (concatMap depsOfStructOrUnion decls)
+       decl.info.id `elem` map fst (concatMap depsOfField fields)
+    || decl.info.id `elem` map fst (concatMap depsOfStructOrUnion decls)
   where
     depsOfStructOrUnion d = case d.kind of
         C.DeclStruct struct -> depsOfStruct struct

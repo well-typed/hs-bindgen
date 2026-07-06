@@ -10,13 +10,12 @@ module HsBindgen.Frontend.Analysis.Deps (
 
 import GHC.Records
 
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Get all dependencies
@@ -25,9 +24,9 @@ import HsBindgen.Macro.Type qualified as Macro
 
 depsOfDeclWith ::
      forall l p. IsPass p
-  => (MacroBody p l -> [(C.ValOrRef, Id p)])
+  => (MacroBody p l -> [(Id p, Dependency)])
   -> C.DeclKind l p
-  -> [(C.ValOrRef, Id p)]
+  -> [(Id p, Dependency)]
 depsOfDeclWith depsOfMacro = \case
     (C.DeclStruct struct)      -> depsOfStruct struct
     (C.DeclUnion union)        -> depsOfUnion union
@@ -52,13 +51,9 @@ depsOfDeclParsedMacro ::
      ( IsPass p
      , MacroBody p ~ Macro.Resolved
      , Id p ~ C.DeclId )
-  => Macro.Lang l
-  -> C.DeclKind l p
-  -> [(C.ValOrRef, Id p)]
-depsOfDeclParsedMacro macroLang = depsOfDeclWith depsOfParsedMacro
-  where
-    depsOfParsedMacro :: Macro.Resolved l -> [(C.ValOrRef, C.DeclId)]
-    depsOfParsedMacro body = macroLang.parsedDeps body
+  => C.DeclKind l p
+  -> [(Id p, Dependency)]
+depsOfDeclParsedMacro = depsOfDeclWith (.deps)
 
 {-------------------------------------------------------------------------------
   Dependencies of declaration after @ReparseMacroExpansions@
@@ -74,65 +69,45 @@ depsOfDeclParsedMacro macroLang = depsOfDeclWith depsOfParsedMacro
 -- only refer to the /underlying types/ of the expanded macros.
 --
 depsOfDecl ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> C.DeclKind l ReparseMacroExpansions
-  -> [(C.ValOrRef, C.DeclId)]
+     C.DeclKind l ReparseMacroExpansions
+  -> [(C.DeclId, Dependency)]
 depsOfDecl = depsOfDeclTcMacro
 
 depsOfDeclTcMacro ::
-     forall l. (Macro.HasTypes l)
-  => Macro.Lang l -> C.DeclKind l ReparseMacroExpansions -> [(C.ValOrRef, C.DeclId)]
-depsOfDeclTcMacro macroLang = depsOfDeclWith (typecheckedMacroDeps macroLang)
+     C.DeclKind l ReparseMacroExpansions
+  -> [(C.DeclId, Dependency)]
+depsOfDeclTcMacro = depsOfDeclWith typecheckedMacroDeps
 
 -- | Dependencies of typechecked macro declarations
 typecheckedMacroDeps ::
-     forall l. Macro.HasTypes l
-  => Macro.Lang l
-  -> TypecheckedMacro ReparseMacroExpansions l
-  -> [(C.ValOrRef, C.DeclId)]
-typecheckedMacroDeps macroLang = \case
-    MacroType  typ ->
-      macroLang.typecheckedTypeDeps $ fmap fromMacroTypeBodyVar typ.body
-    MacroValue val ->
-      typecheckedMacroValueDeps val.body
-  where
-    fromMacroTypeBodyVar :: MacroTypeBodyVar ReparseMacroExpansions -> C.DeclId
-    fromMacroTypeBodyVar = \case
-      MacroTypeExtBinding      x -> absurd x
-      MacroTypeBodyVar    declId -> declId
-
-    -- Collect value-level dependencies from a checked macro body. Local
-    -- arguments (lambda-bound IDs) are excluded.
-    --
-    -- On the value-level, all dependencies must be 'ByValue'.
-    typecheckedMacroValueDeps ::
-         Macro.TypecheckedValue l C.DeclId
-      -> [(C.ValOrRef, C.DeclId)]
-    typecheckedMacroValueDeps = map (C.ByValue,) . toList
+     TypecheckedMacro ReparseMacroExpansions l
+  -> [(C.DeclId, Dependency)]
+typecheckedMacroDeps = \case
+    MacroType  typ -> typ.deps
+    MacroValue val -> val.deps
 
 {-------------------------------------------------------------------------------
   Structs and unions
 -------------------------------------------------------------------------------}
 
-depsOfStruct :: IsPass p => C.Struct p -> [(C.ValOrRef, Id p)]
+depsOfStruct :: IsPass p => C.Struct p -> [(Id p, Dependency)]
 depsOfStruct struct = concat [
       concatMap depsOfField struct.fields
     , foldMap   depsOfField (C.flamStructField struct.flam)
     ]
 
-depsOfUnion :: IsPass p => C.Union p -> [(C.ValOrRef, Id p)]
+depsOfUnion :: IsPass p => C.Union p -> [(Id p, Dependency)]
 depsOfUnion union = concatMap depsOfField union.fields
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.
      (HasField "typ" (a p) (C.Type p), IsPass p)
-  => a p -> [(C.ValOrRef, Id p)]
+  => a p -> [(Id p, Dependency)]
 depsOfField field = C.depsOfType field.typ
 
 {-------------------------------------------------------------------------------
   Typedefs
 -------------------------------------------------------------------------------}
 
-depsOfTypedef :: IsPass p => C.Typedef p -> [(C.ValOrRef, Id p)]
+depsOfTypedef :: IsPass p => C.Typedef p -> [(Id p, Dependency)]
 depsOfTypedef typedef = C.depsOfType typedef.typ

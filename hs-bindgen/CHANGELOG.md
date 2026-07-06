@@ -33,13 +33,16 @@
   [PR #2091][pr-2091].
 * The `Macro.Lang` record fields and `Macro.HasTypes` associated data families
   have been renamed. Custom macro-language backend implementors must update
-  field names (`parseMacroBody` → `parse`, `parsedMacroDeps` → `parsedDeps`,
-  `typecheckMacroBodies` → `typecheck`, etc.), data family names
-  (`ParsedMacroBody l` → `Parsed l ann`, `TypecheckedMacroTypeBody l` →
-  `TypecheckedType l`, `TypecheckedMacroValueBody l` → `TypecheckedValue l`),
-  and supply the new `resolve` field. Error types are consolidated in
-  `HsBindgen.Macro.Error`; `MacroTypecheckResult` is renamed `TypecheckResult`
-  with shortened constructors.
+  field names (`parseMacroBody` → `parse`, `typecheckMacroBodies` → `typecheck`,
+  etc.), data family names (`ParsedMacroBody l` → `Parsed l ann`,
+  `TypecheckedMacroTypeBody l` → `TypecheckedType l`, `TypecheckedMacroValueBody
+  l` → `TypecheckedValue l`), and supply the new `resolve` field. The
+  `parsedDeps` and `typecheckedTypeDeps` fields have been removed: a macro's
+  dependencies are now resolved once (during `resolve`) and stored in the `deps`
+  field of the new `Resolved` type, alongside the `Unresolved` type produced by
+  `parse`. Error types are consolidated in `HsBindgen.Macro.Error`;
+  `MacroTypecheckResult` is renamed `TypecheckResult` with shortened
+  constructors.
 * Tagged types that would clash with the name of an enclosing typedef are now
   disambiguated with a `_struct`/`_union`/`_enum` suffix (mirroring the C
   keyword) instead of the previous `_Aux`. Clash detection now also covers
@@ -61,6 +64,16 @@
   addition to `DuplicateRecordFields`). No top-level field selector is emitted,
   so an unprefixed field name can no longer clash with a non-field declaration
   of the same name; fields are accessed via `HasField`/record-dot as before.
+* The `DeclUse`/`UseDecl` graph edge label `ValOrRef` (`ByValue`/`ByRef`) has
+  been renamed to `Dependency` (`NeedsShape`/`NeedsNameOnly`), reframing the
+  label as what the dependent needs to know about the dependency rather than a
+  misleading by-value/by-reference distinction. `Dependency` now lives in the
+  new `HsBindgen.Frontend.Analysis` module (previously `ValOrRef` lived in
+  `HsBindgen.IR.C.Type`). Dependency lists (e.g. as returned by `depsOfType` and
+  stored in the `deps` field of `Macro.Resolved`) now pair each dependency as
+  `(DeclId, Dependency)`, reversing the previous `(ValOrRef, DeclId)` order.
+  Macro-language backends must update accordingly. See
+  [#1751](https://github.com/well-typed/hs-bindgen/issues/1751).
 
 ### New features
 
