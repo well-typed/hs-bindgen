@@ -10,14 +10,12 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes
 import HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -39,7 +37,7 @@ typecheckMacros ::
   => Macro.Lang l
   -> C.TranslationUnit l In
   -> ( C.TranslationUnit l Out
-     , Map LanC.CName (C.Type ReparseMacroExpansions)
+     , Map LanC.CName (C.Type TypecheckMacros)
      , Set LanC.CName
      )
 typecheckMacros macroLang unit =
@@ -51,7 +49,7 @@ typecheckMacros macroLang unit =
           partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
         , Map.fromList [
-              (n, coercePass v)
+              (n, v)
             | (declId, v) <- Map.toList knownTypes
             , Just n <- [C.renderNonAnonDeclId declId]
             ]

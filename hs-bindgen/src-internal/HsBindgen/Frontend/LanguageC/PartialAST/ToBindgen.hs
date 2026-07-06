@@ -12,7 +12,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
 
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (NoAnn (..))
@@ -22,12 +22,12 @@ import HsBindgen.Language.C qualified as C
   Declarations
 -------------------------------------------------------------------------------}
 
-fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type ReparseMacroExpansions)
+fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type LanC)
 fromDecl partialDecl = do
     typ <- fromKnownType <$> fromPartialType partialDecl.typ
     return (partialDecl.name, typ)
 
-fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type ReparseMacroExpansions)
+fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type LanC)
 fromNamedDecl partialDecl = do
     name <- partialFromJust partialDecl.name
     typ  <- fromKnownType <$> fromPartialType partialDecl.typ
@@ -37,8 +37,8 @@ fromFunDecl ::
      PartialDecl
   -> FromLanC (
          CName
-       , ( [(Maybe CName, C.Type ReparseMacroExpansions)]
-         , C.Type ReparseMacroExpansions
+       , ( [(Maybe CName, C.Type LanC)]
+         , C.Type LanC
          )
        )
 fromFunDecl partialDecl = do
@@ -83,7 +83,7 @@ fromUnknownType uty =
         CLDouble{} -> unsupported "long double"
         CTypeUnknown{} -> unexpected $ "incomplete or invalid type: " <> (show uty)
 
-fromKnownType :: KnownType -> C.Type ReparseMacroExpansions
+fromKnownType :: KnownType -> C.Type LanC
 fromKnownType = \case
     KnownType   typ        -> typ
     TopLevelFun params res -> C.TypeFun (map (mkTypeFunArg . snd) params) res
@@ -96,8 +96,8 @@ fromKnownType = \case
 fromTopLevelFun ::
      KnownType
   -> FromLanC (
-         [(Maybe CName, C.Type ReparseMacroExpansions)]
-       , C.Type ReparseMacroExpansions
+         [(Maybe CName, C.Type LanC)]
+       , C.Type LanC
        )
 fromTopLevelFun = \case
     TopLevelFun params res -> return (params, res)

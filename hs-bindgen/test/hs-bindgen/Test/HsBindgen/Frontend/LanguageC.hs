@@ -44,7 +44,7 @@ import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (FlatTokens, flatten, locStart),
                                                       PrepareReparse)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
@@ -278,7 +278,7 @@ prop_reparseGlobal ::
      -- applied to that variable.
      (String -> ShowS)
      -- | Expected output: either an error, or a reparsed type
-  -> Either Error (C.Type ReparseMacroExpansions)
+  -> Either Error (C.Type LanC)
   -> Property
 prop_reparseGlobal input expectedOutput =
     ioProperty $ do
@@ -305,7 +305,8 @@ prop_reparseGlobal input expectedOutput =
     getLocation []    = panicPure "Unexpected empty list of tokens"
     getLocation (t:_) = t.tokenExtent.rangeStart
 
--- | The pass that comes just before the 'ReparseMacroExpansions' pass
+-- | The pass that comes just before the 'LanC' intermediate pass (of the
+-- @ReparseMacroExpansions@ pass)
 type PrePass = PrepareReparse
 
 -- | Copy of 'LanC.Error' without the callstack

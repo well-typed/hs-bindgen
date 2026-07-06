@@ -25,7 +25,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
   , unknownDecl
   ) where
 
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
@@ -46,13 +46,13 @@ data PartialType =
   deriving stock (Show)
 
 data KnownType =
-    KnownType (C.Type ReparseMacroExpansions)
+    KnownType (C.Type LanC)
 
     -- | Special case for top-level functions, so we can record argument names
     --
     -- It's not necessary to do this recursively: we only want argument names
     -- for top-level function declarations (not for function pointers).
-  | TopLevelFun [(Maybe CName, C.Type ReparseMacroExpansions)] (C.Type ReparseMacroExpansions)
+  | TopLevelFun [(Maybe CName, C.Type LanC)] (C.Type LanC)
   deriving stock (Show)
 
 -- | Name

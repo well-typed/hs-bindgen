@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (
   ) where
 
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -48,39 +49,18 @@ instance PassAnn ReparseMacroExpansions where
 
 instance PassMsg ReparseMacroExpansions
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/2024>
---
--- Right now, we always store the "before reparse" information. Hence, we have
--- to align all declarations, even the ones we did not reparse successfully. We
--- could add a second constructor to 'BeforeReparse' that conveys: We used the
--- fallback here, no need to align.
-newtype BeforeReparse a = BeforeReparse { unwrap :: a }
-  deriving stock (Eq, Ord, Show)
-
 {-------------------------------------------------------------------------------
-  CoercePass: TypecheckMacros → ReparseMacroExpansions
+  CoercePass: LanC → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               TypecheckMacros ReparseMacroExpansions
-instance CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
-instance CoercePassCommentDecl      TypecheckMacros ReparseMacroExpansions where
+instance CoercePassId               LanC ReparseMacroExpansions
+instance CoercePassMacroId          LanC ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" LanC ReparseMacroExpansions
+instance CoercePassCommentDecl      LanC ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
 
-{-------------------------------------------------------------------------------
-  CoercePass: PrepareReparse → ReparseMacroExpansions
--------------------------------------------------------------------------------}
+instance CoercePassMacroBody LanC ReparseMacroExpansions where
+  coercePassMacroBody _ = coercePassParam
 
-instance CoercePassId               PrepareReparse ReparseMacroExpansions
-instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
-instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
-  coercePassCommentDecl _ = fmap coercePass
-
--- instance CoercePassMacroBody TypecheckMacros ReparseMacroExpansions where
---   coercePassMacroBody _ = coercePassParam
-
-instance CoercePassMacroUnderlying TypecheckMacros ReparseMacroExpansions where
-  coercePassMacroUnderlying _ = absurd
-instance CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
-  coercePassMacroUnderlying _ = absurd
+instance CoercePassMacroUnderlying LanC  ReparseMacroExpansions where
+  coercePassMacroUnderlying _ = id

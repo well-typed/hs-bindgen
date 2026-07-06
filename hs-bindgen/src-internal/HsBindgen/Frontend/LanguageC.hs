@@ -42,8 +42,9 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.IR.C qualified as C
+
 #if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
 #endif
@@ -62,23 +63,23 @@ type Parser a =
 -- Returns the function parameters, function result, and function name.
 reparseFunDecl ::
      Parser (
-         ( [(Maybe CName, C.Type ReparseMacroExpansions)]
-         , C.Type ReparseMacroExpansions
+         ( [(Maybe CName, C.Type LanC)]
+         , C.Type LanC
          )
        , CName
        )
 reparseFunDecl = parseWith (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
-reparseTypedef :: Parser (C.Type ReparseMacroExpansions)
+reparseTypedef :: Parser (C.Type LanC)
 reparseTypedef = parseWith (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
-reparseField :: Parser (C.Type ReparseMacroExpansions, CName)
+reparseField :: Parser (C.Type LanC, CName)
 reparseField = parseWith (fmap swap .  fromNamedDecl)
 
 -- | Reparse global variable declaration
-reparseGlobal :: Parser (C.Type ReparseMacroExpansions)
+reparseGlobal :: Parser (C.Type LanC)
 reparseGlobal = parseWith (fmap snd . fromDecl)
 
 {-------------------------------------------------------------------------------

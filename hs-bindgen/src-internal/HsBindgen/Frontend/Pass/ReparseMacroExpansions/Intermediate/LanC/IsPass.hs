@@ -1,5 +1,5 @@
 module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (
-    ReparseMacroExpansions
+    LanC
   , BeforeReparse(..)
   ) where
 
@@ -13,40 +13,40 @@ import HsBindgen.IR.Pass
   Definition
 -------------------------------------------------------------------------------}
 
-type ReparseMacroExpansions :: Pass
-data ReparseMacroExpansions a
+type LanC :: Pass
+data LanC a
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
-type family AnnReparseMacroExpansions (ix :: Symbol) :: Star where
-  AnnReparseMacroExpansions "StructField"     = BeforeReparse (C.StructField PrepareReparse)
-  AnnReparseMacroExpansions "UnionField"      = BeforeReparse (C.UnionField  PrepareReparse)
-  AnnReparseMacroExpansions "Typedef"         = BeforeReparse (C.Typedef     PrepareReparse)
-  AnnReparseMacroExpansions "Function"        = BeforeReparse (C.Function    PrepareReparse)
-  AnnReparseMacroExpansions "Global"          = BeforeReparse (C.Global      PrepareReparse)
-  AnnReparseMacroExpansions _                 = NoAnn
+type family AnnLanC (ix :: Symbol) :: Star where
+  AnnLanC "StructField"     = BeforeReparse (C.StructField PrepareReparse)
+  AnnLanC "UnionField"      = BeforeReparse (C.UnionField  PrepareReparse)
+  AnnLanC "Typedef"         = BeforeReparse (C.Typedef     PrepareReparse)
+  AnnLanC "Function"        = BeforeReparse (C.Function    PrepareReparse)
+  AnnLanC "Global"          = BeforeReparse (C.Global      PrepareReparse)
+  AnnLanC _                 = NoAnn
 
-instance IsPass ReparseMacroExpansions
+instance IsPass LanC
 
-instance PassId ReparseMacroExpansions
+instance PassId LanC
 
-instance PassScopedName ReparseMacroExpansions
+instance PassScopedName LanC
 
-instance PassMacro ReparseMacroExpansions where
-  type MacroId         ReparseMacroExpansions = Id ReparseMacroExpansions
-  type MacroBody       ReparseMacroExpansions = TypecheckedMacro ReparseMacroExpansions
-  type MacroUnderlying ReparseMacroExpansions = ()
+instance PassMacro LanC where
+  type MacroId         LanC = Id LanC
+  type MacroBody       LanC = TypecheckedMacro LanC
+  type MacroUnderlying LanC = ()
 
   macroIdId _ = id
 
-instance PassExtBinding ReparseMacroExpansions
+instance PassExtBinding LanC
 
-instance PassCommentDecl ReparseMacroExpansions where
-  type CommentDecl ReparseMacroExpansions = Maybe (C.Comment ReparseMacroExpansions)
+instance PassCommentDecl LanC where
+  type CommentDecl LanC = Maybe (C.Comment LanC)
 
-instance PassAnn ReparseMacroExpansions where
-  type Ann ix ReparseMacroExpansions = AnnReparseMacroExpansions ix
+instance PassAnn LanC where
+  type Ann ix LanC = AnnLanC ix
 
-instance PassMsg ReparseMacroExpansions
+instance PassMsg LanC
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/2024>
 --
@@ -58,29 +58,17 @@ newtype BeforeReparse a = BeforeReparse { unwrap :: a }
   deriving stock (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
-  CoercePass: TypecheckMacros → ReparseMacroExpansions
+  CoercePass: PrepareReparse → LanC
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               TypecheckMacros ReparseMacroExpansions
-instance CoercePassMacroId          TypecheckMacros ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" TypecheckMacros ReparseMacroExpansions
-instance CoercePassCommentDecl      TypecheckMacros ReparseMacroExpansions where
+instance CoercePassId               PrepareReparse LanC
+instance CoercePassMacroId          PrepareReparse LanC
+instance CoercePassAnn "TypeFunArg" PrepareReparse LanC
+instance CoercePassCommentDecl      PrepareReparse LanC where
   coercePassCommentDecl _ = fmap coercePass
 
-{-------------------------------------------------------------------------------
-  CoercePass: PrepareReparse → ReparseMacroExpansions
--------------------------------------------------------------------------------}
+instance CoercePassMacroBody PrepareReparse LanC where
+  coercePassMacroBody _ = coercePassParam
 
-instance CoercePassId               PrepareReparse ReparseMacroExpansions
-instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
-instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
-  coercePassCommentDecl _ = fmap coercePass
-
--- instance CoercePassMacroBody TypecheckMacros ReparseMacroExpansions where
---   coercePassMacroBody _ = coercePassParam
-
-instance CoercePassMacroUnderlying TypecheckMacros ReparseMacroExpansions where
-  coercePassMacroUnderlying _ = absurd
-instance CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
+instance CoercePassMacroUnderlying PrepareReparse  LanC where
   coercePassMacroUnderlying _ = absurd

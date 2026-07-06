@@ -17,7 +17,7 @@ import Optics.Core qualified as Optics
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C
@@ -38,7 +38,7 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, C.Type ReparseMacroExpansions)
+mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, C.Type LanC)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ instance Apply (LanC.CDeclarator a) PartialDecl where
   'PartialType'
 -------------------------------------------------------------------------------}
 
-notFun :: Update (C.Type ReparseMacroExpansions) PartialType
+notFun :: Update (C.Type LanC) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
       if null unknown.base && null unknown.sign && null unknown.size then
@@ -214,7 +214,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
           Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where
-      typeRef :: C.DeclName -> C.Type ReparseMacroExpansions
+      typeRef :: C.DeclName -> C.Type LanC
       typeRef name = C.TypeRef $ C.DeclId{name = name, isAnon = False}
 
       checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
@@ -255,7 +255,7 @@ instance Apply (LanC.CTypeQualifier a) UnknownType where
   'KnownType'
 -------------------------------------------------------------------------------}
 
-defaultApplyKnownType :: Apply a (C.Type ReparseMacroExpansions) => Update a KnownType
+defaultApplyKnownType :: Apply a (C.Type LanC) => Update a KnownType
 defaultApplyKnownType x = fmap KnownType . apply x . fromKnownType
 
 instance Apply (LanC.CTypeQualifier a) KnownType where
@@ -275,14 +275,14 @@ instance Apply (LanC.CDerivedDeclarator a) KnownType where
   'Type' 'p'
 -------------------------------------------------------------------------------}
 
-instance Apply (LanC.CTypeQualifier a) (C.Type ReparseMacroExpansions) where
+instance Apply (LanC.CTypeQualifier a) (C.Type LanC) where
   apply = \case
       LanC.CConstQual _ -> return . C.TypeQual C.QualConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
       LanC.CAttrQual _  -> return
       other             -> \_ -> unexpectedF other
 
-instance Apply (LanC.CDerivedDeclarator a) (C.Type ReparseMacroExpansions) where
+instance Apply (LanC.CDerivedDeclarator a) (C.Type LanC) where
   apply = \case
       LanC.CPtrDeclr quals _a ->
         repeatedly apply quals . C.TypePointers 1
