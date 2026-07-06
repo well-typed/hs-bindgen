@@ -40,7 +40,7 @@ hs_bindgen_42c808e061719a11 =
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -64,7 +64,7 @@ hs_bindgen_06a03878580406ca =
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}

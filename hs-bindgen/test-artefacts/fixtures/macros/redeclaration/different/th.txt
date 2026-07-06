@@ -50,14 +50,14 @@ hs_bindgen_07088bb3b4171c29 :: CInt -> IO ()
 hs_bindgen_07088bb3b4171c29 = fromFFIType hs_bindgen_07088bb3b4171c29_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 foo_safe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -72,14 +72,14 @@ hs_bindgen_190787b2a527df76 :: CChar -> IO ()
 hs_bindgen_190787b2a527df76 = fromFFIType hs_bindgen_190787b2a527df76_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 bar_safe :: CChar -> IO ()
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -94,14 +94,14 @@ hs_bindgen_42c808e061719a11 :: CInt -> IO ()
 hs_bindgen_42c808e061719a11 = fromFFIType hs_bindgen_42c808e061719a11_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 foo_unsafe :: CInt -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -116,14 +116,14 @@ hs_bindgen_06a03878580406ca :: CChar -> IO ()
 hs_bindgen_06a03878580406ca = fromFFIType hs_bindgen_06a03878580406ca_base
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 bar_unsafe :: CChar -> IO ()
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -138,14 +138,14 @@ hs_bindgen_d0db0eb938233932 = fromFFIType hs_bindgen_d0db0eb938233932_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 foo_funptr :: FunPtr (CInt -> IO ())
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @macros\/redeclaration\/different.h 4:6@
+    __defined at:__ @macros\/redeclaration\/different.h 3:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
@@ -160,14 +160,14 @@ hs_bindgen_46700de9dec9ddc2 = fromFFIType hs_bindgen_46700de9dec9ddc2_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 bar_funptr :: FunPtr (CChar -> IO ())
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @macros\/redeclaration\/different.h 6:6@
+    __defined at:__ @macros\/redeclaration\/different.h 5:6@
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
