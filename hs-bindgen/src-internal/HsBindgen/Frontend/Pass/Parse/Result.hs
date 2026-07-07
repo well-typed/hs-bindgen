@@ -3,11 +3,10 @@ module HsBindgen.Frontend.Pass.Parse.Result (
     ParseResult(..)
   , ParseClassification(..)
   , ParseSuccess(..)
-  , ParseNotAttempted(..)
     -- * Convenience constructors
   , parseSucceed
   , parseSucceedWith
-  , parseDoNotAttempt
+  , parseUnavailable
     -- * Query
   , getParseResultMaybeDecl
   , getParseResultEitherDecl
@@ -46,7 +45,9 @@ deriving stock instance ( IsPass p
 
 data ParseClassification l p =
     ParseResultSuccess      (ParseSuccess l p)
-  | ParseResultNotAttempted ParseNotAttempted
+    -- | We unexpectedly did not parse a declaration because it is reported
+    -- "unavailable".
+  | ParseResultUnavailable
   | ParseResultFailure      DelayedParseMsg
   deriving stock (Generic)
 
@@ -56,10 +57,13 @@ deriving stock instance ( IsPass p
 
 instance PrettyForTrace (ParseClassification l p) where
   prettyForTrace = \case
-    ParseResultSuccess      x -> prettyForTrace x
-    ParseResultNotAttempted x -> prettyForTrace x
-    ParseResultFailure msg    -> PP.hang "Parse failure:" 2 $
-      prettyForTrace msg
+    ParseResultSuccess x ->
+      prettyForTrace x
+    ParseResultUnavailable ->
+      PP.hang "Parse not attempted: " 2
+        "Declaration is 'unavailable' on this platform"
+    ParseResultFailure msg ->
+      PP.hang "Parse failure:" 2 $ prettyForTrace msg
 
 data ParseSuccess l p = ParseSuccess {
       decl             :: C.Decl l p
@@ -67,16 +71,10 @@ data ParseSuccess l p = ParseSuccess {
     }
   deriving stock (Generic)
 
-deriving stock instance ( IsPass p
-                        , Macro.HasTypes l
-                        ) => Show (ParseSuccess l p)
-
--- | Why did we not attempt to parse a declaration?
-data ParseNotAttempted =
-    -- | We unexpectedly did not attempt to parse a declaration because it is
-    -- reported "unavailable".
-    DeclarationUnavailable
-  deriving stock (Show, Eq, Ord)
+deriving stock instance (
+    IsPass p
+  , Macro.HasTypes l
+  ) => Show (ParseSuccess l p)
 
 {-------------------------------------------------------------------------------
   Pretty-printing
@@ -98,10 +96,6 @@ instance PrettyForTrace (ParseSuccess l p) where
           PP.vcat $
           map prettyForTrace success.delayedParseMsgs
 
-instance PrettyForTrace ParseNotAttempted where
-  prettyForTrace = PP.hang "Parse not attempted: " 2 . \case
-    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
-
 {-------------------------------------------------------------------------------
   Convenience constructors
 -------------------------------------------------------------------------------}
@@ -121,12 +115,12 @@ parseSucceedWith msgs decl = ParseResult{
        }
     }
 
--- | Assemble a "parse not attempted" with a reason
-parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult l p
-parseDoNotAttempt info reason = ParseResult{
+-- | Assemble a parse result for an unavailable declaration
+parseUnavailable :: C.DeclInfo p -> ParseResult l p
+parseUnavailable info = ParseResult{
       id              = info.id
     , loc             = info.loc
-    , classification = ParseResultNotAttempted reason
+    , classification = ParseResultUnavailable
     }
 
 {-------------------------------------------------------------------------------
@@ -163,9 +157,9 @@ instance (
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
     ) => CoercePass (ParseClassification l) p p' where
   coercePass = \case
-    ParseResultSuccess s      -> ParseResultSuccess (coercePass s)
-    ParseResultNotAttempted x -> ParseResultNotAttempted x
-    ParseResultFailure x      -> ParseResultFailure x
+    ParseResultSuccess s   -> ParseResultSuccess (coercePass s)
+    ParseResultUnavailable -> ParseResultUnavailable
+    ParseResultFailure x   -> ParseResultFailure x
 
 instance (
       CoercePass (C.Decl l) p p'

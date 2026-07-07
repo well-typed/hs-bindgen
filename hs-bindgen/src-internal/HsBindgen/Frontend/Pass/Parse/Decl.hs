@@ -201,7 +201,7 @@ parseDeclWith enclosing ctx parser curr = do
     parseExplicitDecl info = \_curr ->
       if | C.Unavailable <- info.availability ->
              foldContinueWith [
-                 parseDoNotAttempt info DeclarationUnavailable
+                 parseUnavailable info
                ]
          | otherwise ->
              parser enclosing ctx info curr

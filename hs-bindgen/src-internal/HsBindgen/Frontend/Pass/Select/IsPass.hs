@@ -164,9 +164,8 @@ data SelectMsg =
   | SelectDeprecated SelectReason
     -- | Delayed parse message.
   | SelectDelayedParseMsg DelayedParseMsg
-    -- | Delayed parse message for declarations the user wants to select
-    -- directly, but we have not attempted to parse.
-  | SelectParseNotAttempted ParseNotAttempted
+    -- | Delayed parse message for declarations that are "unavailable".
+  | SelectParseUnavailable
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have failed to parse.
   | SelectParseFailure DelayedParseMsg
@@ -202,8 +201,8 @@ instance PrettyForTrace SelectMsg where
         withSelectReason r "Selected a deprecated declaration"
       SelectDelayedParseMsg x ->
         during x $ prettyForTrace x
-      SelectParseNotAttempted x ->
-        couldNotSelect $ prettyForTrace x
+      SelectParseUnavailable ->
+        couldNotSelect $ prettyForTrace ParseResultUnavailable
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectConflict ->
@@ -248,7 +247,7 @@ instance IsTrace Level SelectMsg where
     TransitiveDependenciesMissing{}          -> Warning
     SelectDeprecated{}                       -> Notice
     SelectDelayedParseMsg x                  -> getDefaultLogLevel x
-    SelectParseNotAttempted{}                -> Warning
+    SelectParseUnavailable                   -> Warning
     SelectParseFailure x                     -> getDefaultLogLevel x
     SelectConflict{}                         -> Warning
     SelectMangleNamesFailure x               -> case x of
@@ -266,7 +265,7 @@ instance IsTrace Level SelectMsg where
     TransitiveDependenciesMissing{}          -> "select"
     SelectDeprecated{}                       -> "select"
     SelectDelayedParseMsg x                  -> "select-" <> getTraceId x
-    SelectParseNotAttempted{}                -> "select-parse"
+    SelectParseUnavailable                   -> "select-parse"
     SelectParseFailure x                     -> "select-" <> getTraceId x
     SelectConflict{}                         -> "select"
     SelectMangleNamesFailure{}               -> "select-mangle-names-failure"

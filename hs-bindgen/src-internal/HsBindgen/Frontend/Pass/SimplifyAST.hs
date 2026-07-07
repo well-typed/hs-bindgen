@@ -85,8 +85,8 @@ simplifyAST usage parseResults = (results, msgs)
                     }]
                  , []
                  )
-        ParseResultNotAttempted notAttempted ->
-          ([ParseResult result.id result.loc (ParseResultNotAttempted notAttempted)], [])
+        ParseResultUnavailable ->
+          ([ParseResult result.id result.loc ParseResultUnavailable], [])
         ParseResultFailure failure ->
           ([ParseResult result.id result.loc (ParseResultFailure failure)], [])
 

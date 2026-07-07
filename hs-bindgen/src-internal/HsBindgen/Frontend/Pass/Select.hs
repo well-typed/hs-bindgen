@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.Select (
 
 import Data.List (sortBy)
 import Data.List qualified as List
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe (maybeToList)
 import Data.Ord (comparing)
@@ -164,14 +163,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             getMostNaturalUnselectable l r = case (l,r) of
               (UnselectableNotSelected, Unselectable u         ) ->
                 case u of
-                  UnusableParseNotAttempted{} -> r
-                  UnusableOmitted{}           -> r
-                  _otherReason                -> l
+                  UnusableParseUnavailable{} -> r
+                  UnusableOmitted{}          -> r
+                  _otherReason               -> l
               (Unselectable u         , UnselectableNotSelected) ->
                 case u of
-                  UnusableParseNotAttempted{} -> l
-                  UnusableOmitted{}           -> l
-                  _otherReason                -> r
+                  UnusableParseUnavailable{} -> l
+                  UnusableOmitted{}          -> l
+                  _otherReason               -> r
               (_, _) -> l
 
         selectDecl :: Decl l -> Maybe (Decl l)
@@ -436,19 +435,16 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
         -- Parse messages are unavailable for squashed entries. We are OK with
         -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
-          [ withCallStack C.WithLocationInfo{
+          List.singleton $ withCallStack C.WithLocationInfo{
                 loc = C.declIdLocationInfo declId [x.typedefLoc]
               , msg = SelectMangleNamesSquashed x
               }
-          ]
       UnusableE e -> case e of
-        UnusableParseNotAttempted loc xs ->
-          [ withCallStack C.WithLocationInfo{
+        UnusableParseUnavailable loc ->
+          List.singleton $ withCallStack C.WithLocationInfo{
                 loc = C.declIdLocationInfo declId [loc]
-              , msg = SelectParseNotAttempted x
+              , msg = SelectParseUnavailable
               }
-          | x <- NonEmpty.toList xs
-          ]
         UnusableParseFailure loc x ->
           List.singleton $ withCallStack C.WithLocationInfo{
               loc = C.declIdLocationInfo declId [loc]
@@ -523,7 +519,7 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
         UsableExternal -> []
         UsableSquashed{} -> []
       UnusableE e -> case e of
-        UnusableParseNotAttempted{} -> []
+        UnusableParseUnavailable{} -> []
         UnusableParseFailure loc x -> case getDefaultLogLevel x of
           Bug ->
             List.singleton $ withCallStack C.WithLocationInfo{
@@ -635,7 +631,7 @@ selectDeclIndex declUseGraph p declIndex =
           UsableSquashed x ->
             Just ([x.typedefLoc], C.Available)
         UnusableE e -> case e of
-          UnusableParseNotAttempted loc _ ->
+          UnusableParseUnavailable loc ->
             Just ([loc], C.Available)
           UnusableParseFailure loc _ ->
             Just ([loc], C.Available)

@@ -50,8 +50,8 @@ updateParseResult chosenNames result =
       ParseResultSuccess success -> do
         auxSuccess success <$>
           updateDefSite chosenNames success.decl.info.id
-      ParseResultNotAttempted notAttempted ->
-        auxNotAttempted notAttempted <$>
+      ParseResultUnavailable ->
+        auxUnavailable <$>
           updateDefSite chosenNames result.id
       ParseResultFailure failure ->
         auxFailure failure <$>
@@ -87,14 +87,13 @@ updateParseResult chosenNames result =
             <$> updateDeclInfo declId' success.decl.info
             <*> updateUseSites         success.decl.kind
 
-    auxNotAttempted ::
-         ParseNotAttempted
-      -> C.DeclId
+    auxUnavailable ::
+         C.DeclId
       -> ParseResult l AssignAnonIds
-    auxNotAttempted notAttempted declId' = ParseResult{
+    auxUnavailable declId' = ParseResult{
           id             = declId'
         , loc            = result.loc
-        , classification = ParseResultNotAttempted notAttempted
+        , classification = ParseResultUnavailable
         }
 
     auxFailure ::
