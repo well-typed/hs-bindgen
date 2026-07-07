@@ -1,7 +1,7 @@
 -- | Errors arising while zipping C ASTs before and after reparsing
 --
 -- Defined in its own module to avoid cyclic module dependencies.
-module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error (
     ZipError(..)
   , zipErrorNotZipped
   , zipErrorNotEqual
@@ -66,12 +66,14 @@ instance PrettyForTrace ZipError where
 
 instance IsTrace Level ZipError where
   getDefaultLogLevel = \case
-      -- Reparsing is best effort, so we report "regular" failures at 'Info'
-      -- level rather than a higher verbosity level
+      -- If zipping fails, then there might be a bug in the reparser
+      --
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2122>: the log
+      -- level for these two messages should be changed to @Bug@.
       ZipSubTreesNotZipped{} -> Info
-      ZipSubTreesNotEqual{}   -> Info
+      ZipSubTreesNotEqual{}  -> Info
       -- Sub-trees are useful for debugging
-      ZipSubTreeLHS{}         -> Debug
-      ZipSubTreeRHS{}         -> Debug
+      ZipSubTreeLHS{}        -> Debug
+      ZipSubTreeRHS{}        -> Debug
   getSource = const HsBindgen
   getTraceId = const "zip"

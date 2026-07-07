@@ -229,14 +229,13 @@ library internal
     HsBindgen.Frontend.Pass.PrepareReparse.Tracer
     HsBindgen.Frontend.Pass.PrepareReparse.Update
     HsBindgen.Frontend.Pass.ReparseMacroExpansions
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC
-    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
-    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip
-    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error
-    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass
-    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Zip
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
     HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip
+    HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
     HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
     HsBindgen.Frontend.Pass.Select

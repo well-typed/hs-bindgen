@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC (
 
 import Control.Monad.Reader (MonadReader (..), Reader, runReader)
 import Control.Monad.State (MonadState, StateT, modify, runStateT)
+import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 
@@ -11,59 +12,66 @@ import Clang.CStandard (ClangCStandard)
 
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (ForgetAnn (forgetAnn))
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-type CType = C.Type LanC
-
 -- | Reparse declarations that have macro expansions in their type positions,
 -- using the known-types environment from 'typecheckMacros'.
 lanC ::
-     ClangCStandard
-  -> Map LanC.CName CType
+     forall l. Macro.HasTypes l
+  => ClangCStandard
+  -> Map LanC.CName (C.Type PrepareReparse)
      -- ^ Known non-macro names and their types (see 'ReparseEnv')
   -> Set LanC.CName
      -- ^ Known macro names (see 'ReparseEnv')
+  -> Macro.Lang l
   -> C.TranslationUnit l PrepareReparse
-  -> C.TranslationUnit l LanC
-lanC cStd knownNonMacroTypes knownMacros unit =
+  -> C.TranslationUnit l ReparseMacroExpansions
+lanC cStd knownNonMacroTypes knownMacros macroLang unit =
     let (reparsedDecls, reparseState) =
           runM
             cStd
-            knownNonMacroTypes
+            (Map.map coercePass knownNonMacroTypes)
             knownMacros
             (mapM reparseDecl unit.decls)
     in  C.TranslationUnit{
             decls        = reparsedDecls
           , includeGraph = unit.includeGraph
-          , meta         = updateMeta reparseState unit.meta
+          , meta         = updateMeta macroLang reparseState.reparseWarnings reparsedDecls unit.meta
           }
 
-{-------------------------------------------------------------------------------
-  Reconstruct 'DeclMeta'
-
-  We do not update 'DeclUseGraph' and 'UseDeclGraph' here — that happens in the
-  subsequent 'HsBindgen.Frontend.Pass.Zip' pass.
--------------------------------------------------------------------------------}
-
-updateMeta :: forall l. ReparseState -> DeclMeta l -> DeclMeta l
-updateMeta reparseState meta = DeclMeta{
+updateMeta ::
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
+  -> [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
+  -> [C.Decl l ReparseMacroExpansions]
+  -> DeclMeta l
+  -> DeclMeta l
+updateMeta macroLang msgs decls meta = DeclMeta{
       declIndex    = updatedDeclIndex
-    , useDeclGraph = meta.useDeclGraph
-    , declUseGraph = meta.declUseGraph
+    , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
+    , declUseGraph = updatedDeclUseGraph
     }
   where
     updatedDeclIndex :: DeclIndex l
@@ -73,7 +81,41 @@ updateMeta reparseState meta = DeclMeta{
       foldr
         DeclIndex.registerDelayedReparseMacroExpansionsMsg
         meta.declIndex
-        reparseState.reparseWarnings
+        [ (declId, msg)
+        | (declId, msg) <- msgs
+        ]
+
+    updatedDeclUseGraph :: DeclUseGraph
+    updatedDeclUseGraph =
+      Foldable.foldl'
+        (flip (updateDeps macroLang))
+        meta.declUseGraph
+        decls
+
+-- | Dependencies before reparse may point to underlying types. These have to be
+-- replaced with their actual dependencies after reparse+zip.
+--
+-- For example,
+--
+-- @
+-- // c_header.h
+-- typedef int A;
+-- #define B A
+-- void foo(B x);
+-- @
+--
+-- Before reparse, @foo@ directly depends on @A@. After reparse+zip, we know
+-- that @foo@ depends on @B@. We have to cut the dependency to @A@ and
+-- replace it with the dependency to @B@.
+updateDeps ::
+     Macro.HasTypes l
+  => Macro.Lang l
+  -> C.Decl l ReparseMacroExpansions
+  -> DeclUseGraph
+  -> DeclUseGraph
+updateDeps macroLang decl graph =
+    DeclUseGraph.insertDepsOfDecl macroLang decl $
+      DeclUseGraph.deleteDeps (Set.singleton decl.info.id) graph
 
 {-------------------------------------------------------------------------------
   Reparse declarations with macro expansions
@@ -81,7 +123,7 @@ updateMeta reparseState meta = DeclMeta{
 
 reparseDecl ::
      C.Decl l PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 reparseDecl decl = case decl.kind of
     C.DeclMacro macro                    -> processMacro            info' macro
     C.DeclTypedef typedef                -> processTypedef          info' typedef
@@ -93,7 +135,7 @@ reparseDecl decl = case decl.kind of
     C.DeclFunction fun                   -> processFunction         info' fun
     C.DeclGlobal global                  -> processGlobal           info' global
   where
-    info' :: C.DeclInfo LanC
+    info' :: C.DeclInfo ReparseMacroExpansions
     info' = coercePass decl.info
 
 {-------------------------------------------------------------------------------
@@ -102,9 +144,9 @@ reparseDecl decl = case decl.kind of
 
 -- | Macros have already been type-checked; just coerce the pass annotation.
 processMacro ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> TypecheckedMacro PrepareReparse l
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processMacro info macro =
     pure C.Decl{
         info = info
@@ -113,18 +155,18 @@ processMacro info macro =
       }
 
 processStruct ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Struct PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processStruct info struct = do
     mkDecl
       <$> mapM (processStructField info.id) struct.fields
       <*> C.traverseFlamField (processStructField info.id) struct.flam
   where
     mkDecl ::
-         [C.StructField LanC]
-      -> C.Flam LanC
-      -> C.Decl l LanC
+         [C.StructField ReparseMacroExpansions]
+      -> C.Flam ReparseMacroExpansions
+      -> C.Decl l ReparseMacroExpansions
     mkDecl fields flam = C.Decl{
           info = info
         , ann  = NoAnn
@@ -154,38 +196,32 @@ mkFieldInfo info mName = C.FieldInfo{
 processStructField ::
      C.DeclId
   -> C.StructField PrepareReparse
-  -> M (C.StructField LanC)
+  -> M (C.StructField ReparseMacroExpansions)
 processStructField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
   where
-    withoutReparse :: C.StructField LanC
-    withoutReparse = C.StructField{
-          typ    = coercePass field.typ
-        , ann    = BeforeReparse field
-        , offset = field.offset
-        , width  = field.width
-        , info   = mkFieldInfo field.info Nothing
-        }
+    withoutReparse :: C.StructField PrepareReparse
+    withoutReparse = field
 
-    withReparse :: (CType, Text) -> M (C.StructField LanC)
+    withReparse :: (C.Type LanC, Text) -> M (C.StructField LanC)
     withReparse (ty, name) = pure C.StructField{
           typ    = ty
-        , ann    = BeforeReparse field
+        , ann    = NoAnn
         , offset = field.offset
         , width  = field.width
         , info   = mkFieldInfo field.info (Just name)
         }
 
 processUnion ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Union PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processUnion info union = do
     combineFields <$> mapM (processUnionField info.id) union.fields
   where
     combineFields ::
-         [C.UnionField LanC]
-      -> C.Decl l LanC
+         [C.UnionField ReparseMacroExpansions]
+      -> C.Decl l ReparseMacroExpansions
     combineFields fields = C.Decl{
           info = info
         , ann  = NoAnn
@@ -200,28 +236,24 @@ processUnion info union = do
 processUnionField ::
      C.DeclId
   -> C.UnionField PrepareReparse
-  -> M (C.UnionField LanC)
+  -> M (C.UnionField ReparseMacroExpansions)
 processUnionField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
   where
-    withoutReparse :: C.UnionField LanC
-    withoutReparse = C.UnionField{
-          typ  = coercePass field.typ
-        , ann  = BeforeReparse field
-        , info = mkFieldInfo field.info Nothing
-        }
+    withoutReparse :: C.UnionField PrepareReparse
+    withoutReparse = field
 
-    withReparse :: (CType, Text) -> M (C.UnionField LanC)
+    withReparse :: (C.Type LanC, Text) -> M (C.UnionField LanC)
     withReparse (ty, name) = pure C.UnionField{
           typ  = ty
-        , ann  = BeforeReparse field
+        , ann  = NoAnn
         , info = mkFieldInfo field.info (Just name)
         }
 
 processOpaque ::
-     C.DeclInfo LanC
-  -> C.DeclKind l LanC
-  -> M (C.Decl l LanC)
+     C.DeclInfo ReparseMacroExpansions
+  -> C.DeclKind l ReparseMacroExpansions
+  -> M (C.Decl l ReparseMacroExpansions)
 processOpaque info kind =
     pure C.Decl{
         info = info
@@ -230,15 +262,15 @@ processOpaque info kind =
       }
 
 processEnum ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Enum PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processEnum info enum =
     mkDecl <$> mapM processEnumConstant enum.constants
   where
     mkDecl ::
-         [C.EnumConstant LanC]
-      -> C.Decl l LanC
+         [C.EnumConstant ReparseMacroExpansions]
+      -> C.Decl l ReparseMacroExpansions
     mkDecl enumerators = C.Decl{
           info = info
         , ann  = NoAnn
@@ -252,15 +284,15 @@ processEnum info enum =
         }
 
 processAnonEnumConstant ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.AnonEnumConstant PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processAnonEnumConstant info anonEnumConst =
     mkDecl <$> processEnumConstant anonEnumConst.constant
   where
     mkDecl ::
-         C.EnumConstant LanC
-      -> C.Decl l LanC
+         C.EnumConstant ReparseMacroExpansions
+      -> C.Decl l ReparseMacroExpansions
     mkDecl constant = C.Decl{
           info = info
         , ann  = NoAnn
@@ -272,7 +304,7 @@ processAnonEnumConstant info anonEnumConst =
 
 processEnumConstant ::
      C.EnumConstant PrepareReparse
-  -> M (C.EnumConstant LanC)
+  -> M (C.EnumConstant ReparseMacroExpansions)
 processEnumConstant constant =
     pure C.EnumConstant{
         value = constant.value
@@ -284,27 +316,32 @@ processEnumConstant constant =
       }
 
 processTypedef ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Typedef PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processTypedef info typedef = do
-    reparsedType :: CType <-
-      reparseWith info.id LanC.reparseTypedef typedef.ann
-        (coercePass typedef.typ)
-        pure
+    typedef' <- reparseWith info.id LanC.reparseTypedef typedef.ann withoutReparse withReparse
     pure C.Decl{
         info = info
       , ann  = NoAnn
-      , kind = C.DeclTypedef C.Typedef{
-                   typ = reparsedType
-                 , ann = BeforeReparse typedef
-                 }
+      , kind = C.DeclTypedef typedef'
       }
+  where
+    withoutReparse :: C.Typedef PrepareReparse
+    withoutReparse = typedef
+
+    withReparse ::
+         C.Type LanC
+      -> M (C.Typedef LanC)
+    withReparse typ' = pure C.Typedef{
+          typ = typ'
+        , ann = NoAnn
+        }
 
 processFunction ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Function PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processFunction info function = do
     function' <- reparseWith info.id LanC.reparseFunDecl function.ann withoutReparse withReparse
     pure C.Decl {
@@ -313,25 +350,20 @@ processFunction info function = do
       , kind = C.DeclFunction function'
       }
   where
-    withoutReparse :: C.Function LanC
-    withoutReparse = C.Function{
-          args  = map coercePass function.args
-        , res   = coercePass function.res
-        , attrs = function.attrs
-        , ann   = BeforeReparse function
-        }
+    withoutReparse :: C.Function PrepareReparse
+    withoutReparse = function
 
     withReparse ::
-         (([(Maybe Text, CType)] , CType) , Text)
+         (([(Maybe Text, C.Type LanC)] , C.Type LanC) , Text)
       -> M (C.Function LanC)
     withReparse ((tys, ty), _name) = pure C.Function{
           args  = map (uncurry mkFunctionArg) tys
         , res   = ty
         , attrs = function.attrs
-        , ann   = BeforeReparse function
+        , ann   = NoAnn
         }
 
-    mkFunctionArg :: Maybe Text -> CType -> C.FunctionArg LanC
+    mkFunctionArg :: Maybe Text -> C.Type LanC -> C.FunctionArg LanC
     mkFunctionArg mname typ = C.FunctionArg{
           name   = C.ScopedName <$> mname
         , argTyp = C.TypeFunArgF typ NoAnn
@@ -339,9 +371,9 @@ processFunction info function = do
 
 -- | Globals (externs or constants)
 processGlobal ::
-     C.DeclInfo LanC
+     C.DeclInfo ReparseMacroExpansions
   -> C.Global PrepareReparse
-  -> M (C.Decl l LanC)
+  -> M (C.Decl l ReparseMacroExpansions)
 processGlobal info global = do
     global' <- reparseWith info.id LanC.reparseGlobal global.ann withoutReparse withReparse
     pure C.Decl {
@@ -350,16 +382,13 @@ processGlobal info global = do
       , kind = C.DeclGlobal global'
       }
   where
-    withoutReparse :: C.Global LanC
-    withoutReparse = C.Global{
-          typ = coercePass global.typ
-        , ann = BeforeReparse global
-        }
+    withoutReparse :: C.Global PrepareReparse
+    withoutReparse = global
 
-    withReparse :: CType -> M (C.Global LanC)
+    withReparse :: C.Type LanC -> M (C.Global LanC)
     withReparse ty = pure C.Global{
           typ = ty
-        , ann = BeforeReparse global
+        , ann = NoAnn
         }
 
 {-------------------------------------------------------------------------------
@@ -379,7 +408,7 @@ newtype M a = WrapM { _unwrapM :: StateT ReparseState (Reader ReparseEnv) a }
 data ReparseEnv = ReparseEnv {
       -- | Known non-macro names and their types (i.e., @typedef@s, @struct@s,
       --   @union@s and @enum@s).
-      knownTypes :: Map LanC.CName CType
+      knownTypes :: Map LanC.CName (C.Type LanC)
       -- | Known macro names; kept separate so we can restrict the reparse
       --   environment to macros actually /expanded/.
     , knownMacros :: Set LanC.CName
@@ -395,7 +424,7 @@ data ReparseState = ReparseState {
 
 runM ::
      ClangCStandard
-  -> Map LanC.CName CType
+  -> Map LanC.CName (C.Type LanC)
   -> Set LanC.CName
   -> M a
   -> (a, ReparseState)
@@ -423,18 +452,21 @@ runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
 -- On reparsing failure, records @(declId, ReparseMacroExpansionsLanC e)@ in
 -- 'ReparseState.reparseWarnings' and uses the fallback value.
 --
--- Reconciliation against the pre-reparse tree happens in the subsequent @Zip@
--- intermediate pass; on parser success we always return the reparsed value.
+-- On reparsing success and zip failure, records @(declId,
+-- ReparseMacroExpansionsZip e)@ in 'ReparseState.reparseWarnings' and uses the
+-- fallback value.
+--
 reparseWith ::
-     C.DeclId
+     forall a r. (ZipReparsed r, ForgetAnn r)
+  => C.DeclId
   -> LanC.Parser a
   -> ReparseInfo FlatTokens
-  -> r
-  -> (a -> M r)
-  -> M r
+  -> r PrepareReparse
+  -> (a -> M (r LanC))
+  -> M (r ReparseMacroExpansions)
 reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
     ReparseNotNeeded ->
-      pure fallback
+      pure fallback'
     ReparseNeeded tokens macroInvs -> do
       env <- ask
       let
@@ -451,7 +483,17 @@ reparseWith declId parser reparseInfo fallback onSuccess = case reparseInfo of
       let reparseEnv :: LanC.ReparseEnv
           reparseEnv = LanC.ReparseEnv env.knownTypes usedKnownMacros
       case parser reparseEnv tokens of
-        Right a -> onSuccess a
+        Right a -> do
+            b <- onSuccess a
+            case zipEither fallback b of
+              Left es -> do
+                forM_ es $ \e ->
+                  modify $ #reparseWarnings %~ ((declId, e) :)
+                pure fallback'
+              Right c -> pure c
         Left  e -> do
           modify $ #reparseWarnings %~ ((declId, ReparseMacroExpansionsLanC e) :)
-          pure fallback
+          pure fallback'
+  where
+    fallback' :: r ReparseMacroExpansions
+    fallback' = forgetAnn fallback

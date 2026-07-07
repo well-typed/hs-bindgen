@@ -42,7 +42,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC
 import HsBindgen.IR.C qualified as C
 
 #if !MIN_VERSION_language_c(0,10,2)

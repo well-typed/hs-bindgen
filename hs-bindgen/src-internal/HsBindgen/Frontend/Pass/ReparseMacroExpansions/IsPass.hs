@@ -2,7 +2,8 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (
     ReparseMacroExpansions
   ) where
 
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass (Zip)
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -43,17 +44,30 @@ instance PassAnn ReparseMacroExpansions where
 instance PassMsg ReparseMacroExpansions
 
 {-------------------------------------------------------------------------------
-  CoercePass: Zip → ReparseMacroExpansions
+  CoercePass: PrepareReparse → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               Zip ReparseMacroExpansions
-instance CoercePassMacroId          Zip ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" Zip ReparseMacroExpansions
-instance CoercePassCommentDecl      Zip ReparseMacroExpansions where
+instance CoercePassId               PrepareReparse ReparseMacroExpansions
+instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
+instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
 
-instance CoercePassMacroBody Zip ReparseMacroExpansions where
+instance CoercePassMacroBody PrepareReparse ReparseMacroExpansions where
   coercePassMacroBody _ = coercePassParam
 
-instance CoercePassMacroUnderlying Zip  ReparseMacroExpansions where
-  coercePassMacroUnderlying _ = coercePass
+instance CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
+  coercePassMacroUnderlying _ = absurd
+
+{-------------------------------------------------------------------------------
+  CoercePass: LanC → ReparseMacroExpansions
+-------------------------------------------------------------------------------}
+
+instance CoercePassId               LanC ReparseMacroExpansions
+instance CoercePassMacroId          LanC ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg" LanC ReparseMacroExpansions
+instance CoercePassCommentDecl      LanC ReparseMacroExpansions where
+  coercePassCommentDecl _ = fmap coercePass
+
+instance CoercePassMacroBody LanC ReparseMacroExpansions where
+  coercePassMacroBody _ = coercePassParam

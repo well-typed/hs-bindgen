@@ -11,7 +11,7 @@ import GHC.Generics (Generic)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

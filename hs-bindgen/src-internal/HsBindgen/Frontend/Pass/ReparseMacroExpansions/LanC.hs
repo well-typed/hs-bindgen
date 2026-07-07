@@ -1,11 +1,11 @@
-module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (
     LanC
-  , BeforeReparse(..)
   ) where
 
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (PrepareReparse)
+import Data.Void (absurd)
+
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 
@@ -16,14 +16,6 @@ import HsBindgen.IR.Pass
 type LanC :: Pass
 data LanC a
 
--- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
-type family AnnLanC (ix :: Symbol) :: Star where
-  AnnLanC "Function"    = BeforeReparse (C.Function    PrepareReparse)
-  AnnLanC "Global"      = BeforeReparse (C.Global      PrepareReparse)
-  AnnLanC "StructField" = BeforeReparse (C.StructField PrepareReparse)
-  AnnLanC "Typedef"     = BeforeReparse (C.Typedef     PrepareReparse)
-  AnnLanC "UnionField"  = BeforeReparse (C.UnionField  PrepareReparse)
-  AnnLanC _             = NoAnn
 
 instance IsPass LanC
 
@@ -44,18 +36,9 @@ instance PassCommentDecl LanC where
   type CommentDecl LanC = Maybe (C.Comment LanC)
 
 instance PassAnn LanC where
-  type Ann ix LanC = AnnLanC ix
+  type Ann ix LanC = NoAnn
 
 instance PassMsg LanC
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/2024>
---
--- Right now, we always store the "before reparse" information. Hence, we have
--- to align all declarations, even the ones we did not reparse successfully. We
--- could add a second constructor to 'BeforeReparse' that conveys: We used the
--- fallback here, no need to align.
-newtype BeforeReparse a = BeforeReparse { unwrap :: a }
-  deriving stock (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
   CoercePass: PrepareReparse → LanC
