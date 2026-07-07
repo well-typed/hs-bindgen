@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | Prelude required by generated bindings.
 --
 -- This is a sub-mobule of the internal runtime prelude that only exports
