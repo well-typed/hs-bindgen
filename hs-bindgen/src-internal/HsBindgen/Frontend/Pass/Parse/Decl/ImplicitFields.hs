@@ -332,7 +332,7 @@ getImplicitField encObj decl = do
     mkOrigin ::
          Target
       -> Origin.ImplicitFieldOrigin
-    mkOrigin target = Origin.ImplicitFieldOrigin encObj.typ (C.ScopedName target.originName.text)
+    mkOrigin target = Origin.ImplicitFieldOrigin (C.ScopedName target.originName.text)
 
     mkScopedName :: Target -> ScopedName Parse
     mkScopedName target = C.ScopedName ("anon'" <> target.fieldName.text)
