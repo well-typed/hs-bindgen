@@ -27,7 +27,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , lookupEntry
   , toList
   , lookupLoc
-  , lookupUnusableLoc
+  , unusableToLoc
   , keysSet
   , getOmitted
   , getSquashed
@@ -52,7 +52,6 @@ import Prelude hiding (filter, lookup)
 import Control.Monad.State
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
-import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 import Optics.Core (traverseOf)
 
@@ -61,8 +60,6 @@ import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
@@ -161,21 +158,18 @@ data DeclIndex l = DeclIndex {
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable l =
-      UsableSuccess (Success l Out)
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
-      -- This should have a SingleLoc.
-    | UsableExternal
-      -- Squashed declarations are always "usable" because we only squash
-      -- declaration in the list of declarations attached to the declaration
-      -- unit.
-    | UsableSquashed Squashed
-    deriving stock (Show, Generic)
+    UsableSuccess (Success l Out)
+  | UsableExternal C.DeclLocs
+    -- Squashed declarations are always "usable" because we only squash
+    -- declaration in the list of declarations attached to the declaration unit.
+  | UsableSquashed Squashed
+  deriving stock (Show, Generic)
 
-usableToLoc :: Usable l -> Maybe SingleLoc
+usableToLoc :: Usable l -> C.DeclLocs
 usableToLoc = \case
-    UsableSuccess  x -> Just x.decl.info.loc
-    UsableExternal   -> Nothing
-    UsableSquashed x -> Just x.typedefLoc
+    UsableSuccess  x    -> C.DeclLoc x.decl.info.loc
+    UsableExternal locs -> locs
+    UsableSquashed x    -> C.DeclLoc x.typedefLoc
 
 -- | Unusable declaration
 --
@@ -186,16 +180,16 @@ usableToLoc = \case
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      UnusableParseUnavailable       SingleLoc
-    | UnusableParseFailure           SingleLoc DelayedParseMsg
-    | UnusableConflict               Conflict
-    | UnusableMangleNamesFailure     SingleLoc MangleNamesError
-    | UnusableTypecheckMacrosError   SingleLoc MacroTypecheckError
-    | UnusableMacroResolutionFailure SingleLoc MacroResolutionError
+    UnusableParseUnavailable       SingleLoc
+  | UnusableParseFailure           SingleLoc DelayedParseMsg
+  | UnusableConflict               C.Conflict
+  | UnusableMangleNamesFailure     SingleLoc MangleNamesError
+  | UnusableTypecheckMacrosError   SingleLoc MacroTypecheckError
+  | UnusableMacroResolutionFailure SingleLoc MacroResolutionError
 
-      -- | Omitted by prescriptive binding specifications
-    | UnusableOmitted            SingleLoc
-    deriving stock (Show, Generic)
+    -- | Omitted by prescriptive binding specifications
+  | UnusableOmitted              SingleLoc
+  deriving stock (Show, Generic)
 
 instance PrettyForTrace Unusable where
   prettyForTrace = \case
@@ -214,15 +208,15 @@ instance PrettyForTrace Unusable where
     UnusableOmitted{} ->
       "Omitted by prescriptive binding specification"
 
-unusableToLoc :: Unusable -> [SingleLoc]
+unusableToLoc :: Unusable -> C.DeclLocs
 unusableToLoc = \case
-    UnusableParseUnavailable loc         -> [loc]
-    UnusableParseFailure loc _           -> [loc]
-    UnusableConflict conflict            -> Conflict.toList conflict
-    UnusableMangleNamesFailure loc _     -> [loc]
-    UnusableTypecheckMacrosError loc _   -> [loc]
-    UnusableMacroResolutionFailure loc _ -> [loc]
-    UnusableOmitted loc                  -> [loc]
+    UnusableParseUnavailable loc         -> C.DeclLoc loc
+    UnusableParseFailure loc _           -> C.DeclLoc loc
+    UnusableConflict conflict            -> C.DeclLocsConflict conflict
+    UnusableMangleNamesFailure loc _     -> C.DeclLoc loc
+    UnusableTypecheckMacrosError loc _   -> C.DeclLoc loc
+    UnusableMacroResolutionFailure loc _ -> C.DeclLoc loc
+    UnusableOmitted loc                  -> C.DeclLoc loc
 
 data Success l p = Success {
     decl                              :: C.Decl l p
@@ -250,18 +244,16 @@ data Entry l =
   | UnusableE Unusable
   deriving stock (Show, Generic)
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
--- This should return NonEmpty
-entryToLoc :: Entry l -> [SingleLoc]
+entryToLoc :: Entry l -> C.DeclLocs
 entryToLoc = \case
   (UnusableE e) -> unusableToLoc e
-  (UsableE   e) -> maybeToList $ usableToLoc e
+  (UsableE   e) -> usableToLoc e
 
 entryToAvailability :: Entry l -> C.Availability
 entryToAvailability = \case
     UsableE e   -> case e of
       UsableSuccess success -> success.decl.info.availability
-      UsableExternal        -> C.Available
+      UsableExternal{}      -> C.Available
       UsableSquashed{}      -> C.Available
     UnusableE{} -> C.Available
 
@@ -439,7 +431,7 @@ buildIndex results = flip execState empty $ mapM_ aux results
 
 data IsConflict l =
     Redefinition (Success l ConstructTranslationUnit)
-  | SingleConflict (Set C.DeclId) Conflict
+  | SingleConflict (Set C.DeclId) C.Conflict
 
 checkIsConflict ::
      Macro.HasTypes l
@@ -470,12 +462,13 @@ checkIsConflict new (oldId, old) = case new of
   where
     singleConflict =
       let newLoc = resolvedResultLoc new
-          conflict :: Conflict
+          conflict :: C.Conflict
           conflict = case old of
             UnusableE (UnusableConflict c) ->
-              Conflict.insert c newLoc
+              C.conflictInsert c newLoc
             _otherwise ->
-              Conflict.fromList $ newLoc : entryToLoc old
+              C.conflictFromList $
+                newLoc : C.declLocsToList (entryToLoc old)
       in SingleConflict (Set.fromList [resolvedResultId new, oldId]) conflict
 
 {-------------------------------------------------------------------------------
@@ -526,16 +519,10 @@ toList :: DeclIndex l -> [(C.DeclId, Entry l)]
 toList index = Map.toList index.map
 
 -- | Get the source locations of a declaration.
-lookupLoc :: C.DeclId -> DeclIndex l -> [SingleLoc]
-lookupLoc d i = case lookupEntry d i of
-  Nothing -> []
-  Just e  -> entryToLoc e
-
--- | Get the source locations of an unusable declaration.
-lookupUnusableLoc :: C.DeclId -> DeclIndex l -> [SingleLoc]
-lookupUnusableLoc d i = case lookupEntry d i of
-  Just (UnusableE  e) -> unusableToLoc e
-  _otherwise          -> []
+--
+-- 'Nothing' indicates the declaration was /not found/.
+lookupLoc :: C.DeclId -> DeclIndex l -> Maybe C.DeclLocs
+lookupLoc d i = entryToLoc <$> lookupEntry d i
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex l -> Set C.DeclId
@@ -671,12 +658,15 @@ registerOmittedDeclarations ::
 registerOmittedDeclarations xs index = DeclIndex $
     Map.union (UnusableE . UnusableOmitted <$> xs) index.map
 
-registerExternalDeclarations :: Set C.DeclId -> DeclIndex l -> DeclIndex l
+registerExternalDeclarations ::
+     [(C.DeclId, C.DeclLocs)]
+  -> DeclIndex l
+  -> DeclIndex l
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
-    insert :: DeclIndex l -> C.DeclId -> DeclIndex l
-    insert (DeclIndex i) x =
-      DeclIndex $ Map.insert x (UsableE UsableExternal) i
+    insert :: DeclIndex l -> (C.DeclId, C.DeclLocs) -> DeclIndex l
+    insert (DeclIndex i) (declId, locs) =
+      DeclIndex $ Map.insert declId (UsableE $ UsableExternal locs) i
 
 {-------------------------------------------------------------------------------
   Support for mangle names

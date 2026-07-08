@@ -179,7 +179,7 @@ pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
 
 -- | A single transitive dependency of a declaration is unusable
 pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing
-pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x _
+pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 {-------------------------------------------------------------------------------
   MangleNames

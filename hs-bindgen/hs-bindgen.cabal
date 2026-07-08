@@ -189,7 +189,6 @@ library internal
     HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
     HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
-    HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.EnrichComments
     HsBindgen.Frontend.Pass.EnrichComments.IsPass
@@ -257,6 +256,7 @@ library internal
     HsBindgen.Imports
     HsBindgen.Instances
     HsBindgen.IR.C
+    HsBindgen.IR.C.Conflict
     HsBindgen.IR.C.Decl
     HsBindgen.IR.C.HashIncludeArg
     HsBindgen.IR.C.LocationInfo

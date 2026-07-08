@@ -11,7 +11,6 @@ module HsBindgen.BindingSpec.Gen (
 import Data.ByteString (ByteString)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe qualified as Maybe
 import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 
@@ -68,13 +67,18 @@ genBindingSpec
 
     aux :: C.DeclId -> (Int, Int, Int, Text)
     aux cDeclId =
-      case Maybe.listToMaybe (DeclIndex.lookupLoc cDeclId declIndex) of
-        Just sloc ->
-          ( fromMaybe maxBound (Map.lookup sloc.singleLocPath orderMap)
-          , sloc.singleLocLine
-          , sloc.singleLocColumn
-          , C.renderDeclId cDeclId
-          )
+      case DeclIndex.lookupLoc cDeclId declIndex of
+        Just locs ->
+          -- NOTE: At the moment, we attempt to get the “minimum” location and
+          -- discard other conflicting locations (e.g., the ones of other
+          -- colliding definitions). This is OK, since we only use the location
+          -- to sort the binding specifications before generating them.
+          let loc = C.declLocsMin locs
+          in  ( fromMaybe maxBound (Map.lookup loc.singleLocPath orderMap)
+              , loc.singleLocLine
+              , loc.singleLocColumn
+              , C.renderDeclId cDeclId
+              )
         Nothing -> (maxBound, maxBound, maxBound, C.renderDeclId cDeclId)
 
     orderMap :: Map SourcePath Int

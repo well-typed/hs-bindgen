@@ -17,6 +17,7 @@ import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
@@ -81,12 +82,12 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       -> MState
       -> C.TranslationUnit l ResolveBindingSpecs
     reconstruct decls' declUseGraph state =
-      let externalIds :: Set C.DeclId
-          externalIds = Map.keysSet state.extTypes
+      let externals :: [(C.DeclId, C.DeclLocs)]
+          externals = map (second (.locs)) $ Map.toList state.extTypes
 
           index' :: DeclIndex l
           index' =
-                DeclIndex.registerExternalDeclarations externalIds
+                DeclIndex.registerExternalDeclarations externals
               . DeclIndex.registerOmittedDeclarations state.omitTypes
               $ unit.meta.declIndex
 
@@ -222,7 +223,11 @@ resolveTop decl = Reader.ask >>= \env -> do
     let sourcePath = singleLocPath decl.info.loc
         declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
-    isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
+    isExt <- isJust <$>
+      resolveExtBinding
+        decl.info.id
+        (C.DeclLoc decl.info.loc)
+        declPaths mMsg
     if isExt
       then do
         State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.info.id)
@@ -577,7 +582,7 @@ instance Resolve (TypecheckedMacroType l) l where
         -> M l (MacroTypeBodyVar ResolveBindingSpecs)
       resolveVar (MacroTypeExtBinding   x) = absurd x
       resolveVar (MacroTypeBodyVar declId) = do
-          mExt <- auxExt ctx declId
+          mExt <- resolveUseSite ctx declId
           pure $ case mExt of
             Just ext -> MacroTypeExtBinding ext
             Nothing  -> MacroTypeBodyVar declId
@@ -630,7 +635,7 @@ instance Resolve C.Type l where
            HasCallStack
         => C.DeclId
         -> M l (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
-      aux cDeclId = fmap reconstruct <$> auxExt ctx cDeclId
+      aux cDeclId = fmap reconstruct <$> resolveUseSite ctx cDeclId
         where
           reconstruct ty uTy = C.TypeExtBinding $ C.Ref ty uTy
 
@@ -642,32 +647,50 @@ instance Resolve C.TypeFunArg l where
         , ann = arg.ann
         }
 
-auxExt ::
+resolveUseSite ::
      HasCallStack
   => C.DeclId
+     -- ^ The declaration in which we resolve the use site; used for trace
+     -- messages only
   -> C.DeclId
+     -- ^ Use site itself
   -> M l (Maybe BindingSpec.ResolvedExtBinding)
-auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
+resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
     case Map.lookup cDeclId state.extTypes of
+      -- 1. Search cache: We expect all usable declarations with external
+      -- bindings to be in the cache.
       Just ty -> do
         State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
         pure (Just ty)
+      -- 2. No cache hit: The declaration is either usable and has no external
+      -- binding, or it is unusable.
       Nothing ->
-        case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
-          []   -> pure Nothing
-          locs -> do
-            let declPaths =
-                  foldMap
-                    (IncludeGraph.reaches env.includeGraph . singleLocPath)
-                    locs
-            mTy <- resolveExtBinding cDeclId declPaths Nothing
-            case mTy of
-              Just ty -> do
-                State.modify' $
-                    insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
-                  . insertExtType cDeclId ty
-                pure (Just ty)
-              Nothing -> pure Nothing
+        case DeclIndex.lookupEntry cDeclId env.declIndex of
+          Nothing ->
+            panicPure $
+              "resolveUseSite: declaration ID "
+              <> show cDeclId
+              <> " not in declaration index"
+          -- Interesting case, an unusable declaration may have an external
+          -- binding specification.
+          Just (DeclIndex.UnusableE x) -> do
+              let locs :: C.DeclLocs
+                  locs = DeclIndex.unusableToLoc x
+                  declPaths =
+                    foldMap
+                      (IncludeGraph.reaches env.includeGraph . singleLocPath)
+                      (C.declLocsToList locs)
+              mTy <- resolveExtBinding cDeclId locs declPaths Nothing
+              case mTy of
+                Just ty -> do
+                  State.modify' $
+                      insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
+                    . insertExtType cDeclId ty
+                  pure (Just ty)
+                Nothing -> pure Nothing
+          -- Cannot have an external binding specification.
+          Just DeclIndex.UsableE{} ->
+            pure Nothing
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions
@@ -677,11 +700,12 @@ auxExt ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
 resolveExtBinding ::
      HasCallStack
   => C.DeclId
+  -> C.DeclLocs
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe (AnnMsg ResolveBindingSpecs)
   -> M l (Maybe BindingSpec.ResolvedExtBinding)
-resolveExtBinding cDeclId declPaths mMsg = do
+resolveExtBinding cDeclId locs declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
@@ -689,6 +713,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
           (Just hsName, Just hsTypeSpec) -> do
             let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
+                  , locs   = locs
                   , hsName = Hs.ExtRef hsModuleName hsName
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
