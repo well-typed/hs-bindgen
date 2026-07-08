@@ -32,12 +32,12 @@ data MangleNames a
 
 type family AnnMangleNames ix where
   AnnMangleNames "Decl"                 = PrescriptiveDeclSpec
-  AnnMangleNames "Struct"               = StructNames
-  AnnMangleNames "Flam"                 = FlamNames
-  AnnMangleNames "Union"                = NewtypeNames
   AnnMangleNames "Enum"                 = NewtypeNames
+  AnnMangleNames "Flam"                 = FlamNames
+  AnnMangleNames "Struct"               = StructNames
   AnnMangleNames "Typedef"              = TypedefNames
   AnnMangleNames "TypecheckedMacroType" = NewtypeNames
+  AnnMangleNames "Union"                = NewtypeNames
   AnnMangleNames _                      = NoAnn
 
 instance IsPass MangleNames

@@ -26,12 +26,12 @@ data TypecheckMacros a
 -- 'ConstructTranslationUnit'; these are consumed in the following
 -- 'ReparseMacroExpansions' pass.
 type family AnnTypecheckMacros (ix :: Symbol) :: Star where
-  AnnTypecheckMacros "StructField"     = ReparseInfo Tokens
-  AnnTypecheckMacros "UnionField"      = ReparseInfo Tokens
-  AnnTypecheckMacros "Typedef"         = ReparseInfo Tokens
-  AnnTypecheckMacros "Function"        = ReparseInfo Tokens
-  AnnTypecheckMacros "Global"          = ReparseInfo Tokens
-  AnnTypecheckMacros _                 = NoAnn
+  AnnTypecheckMacros "Function"    = ReparseInfo Tokens
+  AnnTypecheckMacros "Global"      = ReparseInfo Tokens
+  AnnTypecheckMacros "StructField" = ReparseInfo Tokens
+  AnnTypecheckMacros "Typedef"     = ReparseInfo Tokens
+  AnnTypecheckMacros "UnionField"  = ReparseInfo Tokens
+  AnnTypecheckMacros _             = NoAnn
 
 instance IsPass TypecheckMacros
 
@@ -139,11 +139,11 @@ instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros whe
     coercePassMacroId _ = absurd
 instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
 
-instance CoercePassAnn "TypeFunArg"  ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "StructField" ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "UnionField"  ConstructTranslationUnit TypecheckMacros
-instance CoercePassAnn "Typedef"     ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Function"    ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Global"      ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "StructField" ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "TypeFunArg"  ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "Typedef"     ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "UnionField"  ConstructTranslationUnit TypecheckMacros
 instance CoercePassCommentDecl       ConstructTranslationUnit TypecheckMacros where
   coercePassCommentDecl _ = fmap coercePass

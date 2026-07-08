@@ -27,12 +27,12 @@ type PrepareReparse :: Pass
 data PrepareReparse a
 
 type family AnnPrepareReparse (ix :: Symbol) :: Star where
-  AnnPrepareReparse "StructField"     = ReparseInfo FlatTokens
-  AnnPrepareReparse "UnionField"      = ReparseInfo FlatTokens
-  AnnPrepareReparse "Typedef"         = ReparseInfo FlatTokens
-  AnnPrepareReparse "Function"        = ReparseInfo FlatTokens
-  AnnPrepareReparse "Global"          = ReparseInfo FlatTokens
-  AnnPrepareReparse _                 = NoAnn
+  AnnPrepareReparse "Function"    = ReparseInfo FlatTokens
+  AnnPrepareReparse "Global"      = ReparseInfo FlatTokens
+  AnnPrepareReparse "StructField" = ReparseInfo FlatTokens
+  AnnPrepareReparse "Typedef"     = ReparseInfo FlatTokens
+  AnnPrepareReparse "UnionField"  = ReparseInfo FlatTokens
+  AnnPrepareReparse _             = NoAnn
 
 instance IsPass PrepareReparse
 

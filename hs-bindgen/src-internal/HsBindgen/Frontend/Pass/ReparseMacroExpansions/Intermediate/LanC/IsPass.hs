@@ -18,12 +18,12 @@ data LanC a
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
 type family AnnLanC (ix :: Symbol) :: Star where
-  AnnLanC "StructField"     = BeforeReparse (C.StructField PrepareReparse)
-  AnnLanC "UnionField"      = BeforeReparse (C.UnionField  PrepareReparse)
-  AnnLanC "Typedef"         = BeforeReparse (C.Typedef     PrepareReparse)
-  AnnLanC "Function"        = BeforeReparse (C.Function    PrepareReparse)
-  AnnLanC "Global"          = BeforeReparse (C.Global      PrepareReparse)
-  AnnLanC _                 = NoAnn
+  AnnLanC "Function"    = BeforeReparse (C.Function    PrepareReparse)
+  AnnLanC "Global"      = BeforeReparse (C.Global      PrepareReparse)
+  AnnLanC "StructField" = BeforeReparse (C.StructField PrepareReparse)
+  AnnLanC "Typedef"     = BeforeReparse (C.Typedef     PrepareReparse)
+  AnnLanC "UnionField"  = BeforeReparse (C.UnionField  PrepareReparse)
+  AnnLanC _             = NoAnn
 
 instance IsPass LanC
 
