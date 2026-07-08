@@ -55,15 +55,16 @@ deriving stock instance ( IsPass p
                         , Macro.HasTypes l
                         ) => Show (ParseClassification l p)
 
-instance PrettyForTrace (ParseClassification l p) where
-  prettyForTrace = \case
-    ParseResultSuccess x ->
-      prettyForTrace x
-    ParseResultUnavailable ->
-      PP.hang "Parse not attempted: " 2
-        "Declaration is 'unavailable' on this platform"
-    ParseResultFailure msg ->
-      PP.hang "Parse failure:" 2 $ prettyForTrace msg
+-- TODO-D
+-- instance PrettyForTrace (ParseClassification l p) where
+--   prettyForTrace = \case
+--     ParseResultSuccess x ->
+--       prettyForTrace x
+--     ParseResultUnavailable ->
+--       PP.hang "Parse not attempted: " 2
+--         "Declaration is 'unavailable' on this platform"
+--     ParseResultFailure msg ->
+--       PP.hang "Parse failure:" 2 $ prettyForTrace msg
 
 data ParseSuccess l p = ParseSuccess {
       decl             :: C.Decl l p
@@ -80,12 +81,13 @@ deriving stock instance (
   Pretty-printing
 -------------------------------------------------------------------------------}
 
-instance IsPass p => PrettyForTrace (ParseResult l p) where
-  prettyForTrace result =
-      prettyForTrace $ C.WithLocationInfo{
-          loc = idLocationInfo (Proxy @p) result.id [result.loc]
-        , msg = result.classification
-        }
+-- TODO-D
+-- instance IsPass p => PrettyForTrace (ParseResult l p) where
+--   prettyForTrace result =
+--       prettyForTrace $ C.WithLocationInfo{
+--           loc = idLocationInfo (Proxy @p) result.id [result.loc]
+--         , msg = result.classification
+--         }
 
 instance PrettyForTrace (ParseSuccess l p) where
   prettyForTrace success =

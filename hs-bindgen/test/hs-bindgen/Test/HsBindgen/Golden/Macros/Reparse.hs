@@ -3,7 +3,6 @@ module Test.HsBindgen.Golden.Macros.Reparse (testCases) where
 
 import Control.Applicative
 
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -55,7 +54,7 @@ test_arithmetic_types :: TestCase
 test_arithmetic_types =
     defaultTest "macros/reparse/arithmetic_types"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name@"f29" (SelectParseFailure ParseUnsupportedLongDouble) ->
+            MatchDelayed name@"f29" ParseUnsupportedLongDouble ->
               Just $ Expected name
             _otherwise ->
               Nothing

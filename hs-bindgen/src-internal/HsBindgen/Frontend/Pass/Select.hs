@@ -17,8 +17,9 @@ import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..),
-                                              Success (..), Unusable (..),
-                                              Usable (..))
+                                              Success (..), UnusableEntry (..),
+                                              UnusableReason (..),
+                                              UsableEntry (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -45,10 +46,10 @@ import HsBindgen.Util.Tracer
 -- Declaration itself.
 type Decl l = C.Decl l Select
 
--- | Internal data type! This data type 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations
--- that are not selectable _from the perspective of `hs-bindgen`_; and, in
--- particular, not from the perspective of the user (they can change the select
--- predicate).
+-- | Internal data type! This data type
+-- 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations that are
+-- not selectable _from the perspective of `hs-bindgen`_; and, in particular,
+-- not from the perspective of the user (they can change the select predicate).
 --
 -- Also, (and in contrast to 'Usable'/'Unusable'), selectability _is concerned
 -- with transitivity_. All transitive dependencies of a selectable declaration
@@ -56,10 +57,10 @@ type Decl l = C.Decl l Select
 data Unselectable =
     -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
     --   it or one of its dependencies is unusable.
-    Unselectable Unusable
+    Unselectable UnusableEntry
     -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
     --   dependencies has not been selected by the user.
-  | UnselectableNotSelected
+  | UnselectableDependencyNotSelected
   deriving stock (Show)
 
 -- | We have to treat with two notions of usability here:
@@ -147,7 +148,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
             nonselected :: Map C.DeclId Unselectable
             nonselected  =
-              Map.fromSet (const UnselectableNotSelected) $
+              Map.fromSet (const UnselectableDependencyNotSelected) $
                 transDeps \\ selectedIds
 
             unusabilityReasons :: Map C.DeclId Unselectable
@@ -161,18 +162,19 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             -- declaration is unselectable.
             getMostNaturalUnselectable ::
               Unselectable -> Unselectable -> Unselectable
-            getMostNaturalUnselectable l r = case (l,r) of
-              (UnselectableNotSelected, Unselectable u         ) ->
-                case u of
-                  UnusableParseUnavailable{} -> r
-                  UnusableOmitted{}          -> r
-                  _otherReason               -> l
-              (Unselectable u         , UnselectableNotSelected) ->
-                case u of
-                  UnusableParseUnavailable{} -> l
-                  UnusableOmitted{}          -> l
-                  _otherReason               -> r
-              (_, _) -> l
+            getMostNaturalUnselectable l r =
+              case (l,r) of
+                (UnselectableDependencyNotSelected, Unselectable u) ->
+                  case u of
+                    UnusableReason _ UnusableUnavailable -> r
+                    UnusableReason _ UnusableOmitted     -> r
+                    _otherReason                         -> l
+                (Unselectable u, UnselectableDependencyNotSelected) ->
+                  case u of
+                    UnusableReason _ UnusableUnavailable -> l
+                    UnusableReason _ UnusableOmitted{}   -> l
+                    _otherReason                         -> r
+                (_, _) -> l
 
         selectDecl :: Decl l -> Maybe (Decl l)
         selectDecl =
@@ -379,7 +381,7 @@ getSelectMsgsDeclId
                case r of
                  Unselectable u ->
                    TransitiveDependencyUnusable i u
-                 UnselectableNotSelected ->
+                 UnselectableDependencyNotSelected ->
                    TransitiveDependencyNotSelected i locs
              | (i, r) <- Map.toList unavailReasons
              , let locs = case DeclIndex.lookupLoc i declIndex of
@@ -428,7 +430,7 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
       -> Entry l
       -> [AnnMsg Select]
     aux declId = \case
-      UsableE e -> case e of
+      UsableEntry e -> case e of
         UsableSuccess success ->
           mkSuccessMessages declId success
         UsableExternal{} -> []
@@ -439,39 +441,18 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
                 loc = C.declIdLocationInfo declId [x.typedefLoc]
               , msg = SelectMangleNamesSquashed x
               }
-      UnusableE e -> case e of
-        UnusableParseUnavailable loc ->
+      UnusableEntry e -> case e of
+        UnusableReason loc s ->
+            List.singleton $ withCallStack C.WithLocationInfo{
+                  loc = C.declIdLocationInfo declId [loc]
+                , msg = SelectUnusable s
+                }
+        UnusableConflict c ->
           List.singleton $ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [loc]
-              , msg = SelectParseUnavailable
-              }
-        UnusableParseFailure loc x ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId [loc]
-            , msg = SelectParseFailure x
-            }
-        UnusableConflict x ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId $ NonEmpty.toList $ C.conflictToList x
+              loc = C.declIdLocationInfo declId $
+                NonEmpty.toList $ C.conflictToList c
             , msg = SelectConflict
             }
-        UnusableMangleNamesFailure loc x ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId [loc]
-            , msg = SelectMangleNamesFailure x
-            }
-        UnusableTypecheckMacrosError loc err ->
-          List.singleton$ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId [loc]
-            , msg = SelectMacroTypecheckFailure err
-            }
-        UnusableMacroResolutionFailure loc err ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId [loc]
-            , msg = SelectMacroResolutionFailure err
-            }
-        UnusableOmitted{} ->
-          []
 
 getDelayedMsgsAdditionalSelectedTransDeps ::
      HasCallStack
@@ -485,7 +466,7 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
       -> Entry l
       -> [AnnMsg Select]
     aux declId = \case
-      UsableE e -> case e of
+      UsableEntry e -> case e of
         UsableSuccess success ->
           mkSuccessMessages declId success
         UsableExternal{} -> []
@@ -499,7 +480,7 @@ getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.
           ]
       -- Messages for unusable transitive dependencies are already attached to
       -- the traces of the reverse transitive dependencies.
-      UnusableE _ -> []
+      UnusableEntry _ -> []
 
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
@@ -513,38 +494,31 @@ getBugMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
       -> Entry l
       -> [AnnMsg Select]
     aux declId = \case
-      UsableE e -> case e of
+      UsableEntry e -> case e of
         UsableSuccess success ->
           let isBugLevel x = getDefaultLogLevel x == Bug
           in  filter isBugLevel $ mkSuccessMessages declId success
         UsableExternal{} -> []
         UsableSquashed{} -> []
-      UnusableE e -> case e of
-        UnusableParseUnavailable{} -> []
-        UnusableParseFailure loc x -> case getDefaultLogLevel x of
-          Bug ->
-            List.singleton $ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [loc]
-              , msg = SelectDelayedParseMsg x
-              }
-          _otherLvl -> []
+      UnusableEntry e -> case e of
+        UnusableReason loc reason ->
+          if isBug reason then
+              List.singleton $ withCallStack C.WithLocationInfo{
+                  loc = C.declIdLocationInfo declId [loc]
+                , msg = SelectUnusable reason
+                }
+          else
+            []
         UnusableConflict{} -> []
-        UnusableMangleNamesFailure{} -> []
-        UnusableTypecheckMacrosError loc err -> case getDefaultLogLevel err of
-          Bug ->
-            List.singleton $ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [loc]
-              , msg = SelectMacroTypecheckFailure err
-              }
-          _otherLvl -> []
-        UnusableMacroResolutionFailure loc err -> case getDefaultLogLevel err of
-          Bug ->
-            List.singleton $ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [loc]
-              , msg = SelectMacroResolutionFailure err
-              }
-          _otherLvl -> []
-        UnusableOmitted{} -> []
+
+    isBug :: UnusableReason -> Bool
+    isBug = \case
+      UnusableUnavailable                -> False
+      UnusableOmitted                    -> False
+      UnusableParseFailure           err -> getDefaultLogLevel err == Bug
+      UnusableMangleNamesFailure     err -> getDefaultLogLevel err == Bug
+      UnusableMacroTypecheckFailure  err -> getDefaultLogLevel err == Bug
+      UnusableMacroResolutionFailure err -> getDefaultLogLevel err == Bug
 
 {-------------------------------------------------------------------------------
   Sort traces
@@ -625,9 +599,9 @@ selectDeclIndex declUseGraph predicate declIndex =
     -- Returns multiple locations only for conflicts.
     entryInfo :: Entry l -> Maybe (C.DeclLocs, C.Availability)
     entryInfo entry = case entry of
-        UsableE UsableExternal{} ->
+        UsableEntry UsableExternal{} ->
           Nothing
-        UnusableE UnusableOmitted{} ->
+        UnusableEntry (UnusableReason _loc UnusableOmitted{}) ->
           Nothing
         _otherwise ->
           Just (DeclIndex.entryToLoc entry, DeclIndex.entryToAvailability entry)
