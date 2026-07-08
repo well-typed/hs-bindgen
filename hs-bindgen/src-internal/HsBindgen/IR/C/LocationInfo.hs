@@ -23,13 +23,13 @@ module HsBindgen.IR.C.LocationInfo (
   , declLocsToList
   ) where
 
-import Data.List.NonEmpty (NonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
+import HsBindgen.IR.C.Conflict qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.Util.Tracer
 
@@ -151,7 +151,7 @@ data DeclLocs =
     -- | The declaration has a single source location.
     DeclLoc SingleLoc
     -- | Conflicting declarations, each with its own source location.
-  | DeclLocsConflict (NonEmpty SingleLoc)
+  | DeclLocsConflict C.Conflict
   deriving stock (Eq, Ord, Show)
 
 -- | Attempts to get the “minimum” location.
@@ -160,11 +160,11 @@ data DeclLocs =
 -- Comparisons across source paths happen in lexicographical order.
 declLocsMin :: DeclLocs -> SingleLoc
 declLocsMin = \case
-  DeclLoc x           -> x
-  DeclLocsConflict xs -> minimum xs
+  DeclLoc x                 -> x
+  DeclLocsConflict conflict -> C.conflictGetMinimumLoc conflict
 
--- | All source locations, discarding the single\/conflict distinction.
+-- | All source locations, discarding the single vs conflict distinction.
 declLocsToList :: DeclLocs -> [SingleLoc]
 declLocsToList = \case
-    DeclLoc          loc  -> [loc]
-    DeclLocsConflict locs -> NonEmpty.toList locs
+    DeclLoc          loc      -> [loc]
+    DeclLocsConflict conflict -> NonEmpty.toList $ C.conflictToList conflict

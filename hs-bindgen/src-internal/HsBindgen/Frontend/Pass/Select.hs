@@ -28,7 +28,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -453,7 +452,7 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
             }
         UnusableConflict x ->
           List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId $ NonEmpty.toList $ Conflict.toList x
+              loc = C.declIdLocationInfo declId $ NonEmpty.toList $ C.conflictToList x
             , msg = SelectConflict
             }
         UnusableMangleNamesFailure loc x ->

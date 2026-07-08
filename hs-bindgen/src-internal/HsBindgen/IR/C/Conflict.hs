@@ -1,18 +1,21 @@
--- | Conflicting declarations
+-- | Conflicting C declarations
 --
--- Intended for qualified import.
+-- This module should only be used within the @HsBindgen.IR@ hierarchy.  From
+-- outside the @HsBindgen.IR@ hierarchy, "HsBindgen.IR.C" should be used.
 --
--- > import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
--- > import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
-module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
+-- Within @HsBindgen.IR@, all modules aside from "HsBindgen.IR.C" should import
+-- this module qualified for consistency.
+--
+-- > import HsBindgen.IR.C.Conflict qualified as C
+module HsBindgen.IR.C.Conflict (
     Conflict
     -- * Construction
-  , between
-  , insert
-  , fromList
+  , conflictBetween
+  , conflictInsert
+  , conflictFromList
     -- * Query
-  , toList
-  , getMinimumLoc
+  , conflictToList
+  , conflictGetMinimumLoc
   ) where
 
 import Data.List.NonEmpty qualified as NonEmpty
@@ -21,7 +24,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Imports hiding (toList)
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -53,39 +56,39 @@ import HsBindgen.Util.Tracer
 data Conflict = Conflict {
       locs :: Set SingleLoc
     }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-between :: SingleLoc -> SingleLoc -> Conflict
-between l1 l2 = Conflict $ Set.fromList [l1, l2]
+conflictBetween :: SingleLoc -> SingleLoc -> Conflict
+conflictBetween l1 l2 = Conflict $ Set.fromList [l1, l2]
 
-insert :: Conflict -> SingleLoc -> Conflict
-insert (Conflict xs) x = Conflict $ Set.insert x xs
+conflictInsert :: Conflict -> SingleLoc -> Conflict
+conflictInsert (Conflict xs) x = Conflict $ Set.insert x xs
 
 -- | Precondition: The length of the list must be 2 or longer.
 --
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
-fromList :: [SingleLoc] -> Conflict
-fromList ls = Conflict $ Set.fromList ls
+conflictFromList :: [SingleLoc] -> Conflict
+conflictFromList ls = Conflict $ Set.fromList ls
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
-toList :: Conflict -> NonEmpty SingleLoc
+conflictToList :: Conflict -> NonEmpty SingleLoc
  -- 'NonEmpty.fromList' safe due to invariant.
-toList conflict = NonEmpty.fromList $ Set.toList conflict.locs
+conflictToList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 
 -- | Attempts to get the “minimum” location.
 --
 -- This is only meaningful if the locations share the same source path.
 -- Comparisons across source paths happen in lexicographical order.
-getMinimumLoc :: Conflict -> SingleLoc
+conflictGetMinimumLoc :: Conflict -> SingleLoc
  -- 'minimum' safe due to invariant.
-getMinimumLoc conflict = minimum conflict.locs
+conflictGetMinimumLoc conflict = minimum conflict.locs
 
 {-------------------------------------------------------------------------------
   Tracing

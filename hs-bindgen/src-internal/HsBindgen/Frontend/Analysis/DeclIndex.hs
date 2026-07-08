@@ -60,8 +60,6 @@ import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
@@ -184,7 +182,7 @@ usableToLoc = \case
 data Unusable =
     UnusableParseUnavailable       SingleLoc
   | UnusableParseFailure           SingleLoc DelayedParseMsg
-  | UnusableConflict               Conflict
+  | UnusableConflict               C.Conflict
   | UnusableMangleNamesFailure     SingleLoc MangleNamesError
   | UnusableTypecheckMacrosError   SingleLoc MacroTypecheckError
   | UnusableMacroResolutionFailure SingleLoc MacroResolutionError
@@ -214,7 +212,7 @@ unusableToLoc :: Unusable -> C.DeclLocs
 unusableToLoc = \case
     UnusableParseUnavailable loc         -> C.DeclLoc loc
     UnusableParseFailure loc _           -> C.DeclLoc loc
-    UnusableConflict conflict            -> C.DeclLocsConflict (Conflict.toList conflict)
+    UnusableConflict conflict            -> C.DeclLocsConflict conflict
     UnusableMangleNamesFailure loc _     -> C.DeclLoc loc
     UnusableTypecheckMacrosError loc _   -> C.DeclLoc loc
     UnusableMacroResolutionFailure loc _ -> C.DeclLoc loc
@@ -433,7 +431,7 @@ buildIndex results = flip execState empty $ mapM_ aux results
 
 data IsConflict l =
     Redefinition (Success l ConstructTranslationUnit)
-  | SingleConflict (Set C.DeclId) Conflict
+  | SingleConflict (Set C.DeclId) C.Conflict
 
 checkIsConflict ::
      Macro.HasTypes l
@@ -464,12 +462,12 @@ checkIsConflict new (oldId, old) = case new of
   where
     singleConflict =
       let newLoc = resolvedResultLoc new
-          conflict :: Conflict
+          conflict :: C.Conflict
           conflict = case old of
             UnusableE (UnusableConflict c) ->
-              Conflict.insert c newLoc
+              C.conflictInsert c newLoc
             _otherwise ->
-              Conflict.fromList $
+              C.conflictFromList $
                 newLoc : C.declLocsToList (entryToLoc old)
       in SingleConflict (Set.fromList [resolvedResultId new, oldId]) conflict
 

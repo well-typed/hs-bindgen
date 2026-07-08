@@ -8,7 +8,8 @@
 --
 -- > import HsBindgen.IR.C qualified as C
 module HsBindgen.IR.C (
-    module HsBindgen.IR.C.Decl
+    module HsBindgen.IR.C.Conflict
+  , module HsBindgen.IR.C.Decl
   , module HsBindgen.IR.C.HashIncludeArg
   , module HsBindgen.IR.C.LocationInfo
   , module HsBindgen.IR.C.Naming
@@ -16,6 +17,7 @@ module HsBindgen.IR.C (
   , module HsBindgen.IR.C.Type
   ) where
 
+import HsBindgen.IR.C.Conflict
 import HsBindgen.IR.C.Decl
 import HsBindgen.IR.C.HashIncludeArg
 import HsBindgen.IR.C.LocationInfo
