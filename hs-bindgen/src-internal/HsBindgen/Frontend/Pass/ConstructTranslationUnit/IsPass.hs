@@ -19,12 +19,12 @@ type ConstructTranslationUnit :: Pass
 data ConstructTranslationUnit a
 
 type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
-  AnnConstructTranslationUnit "StructField"     = ReparseInfo Tokens
-  AnnConstructTranslationUnit "UnionField"      = ReparseInfo Tokens
-  AnnConstructTranslationUnit "Typedef"         = ReparseInfo Tokens
-  AnnConstructTranslationUnit "Function"        = ReparseInfo Tokens
-  AnnConstructTranslationUnit "Global"          = ReparseInfo Tokens
-  AnnConstructTranslationUnit _                 = NoAnn
+  AnnConstructTranslationUnit "Function"    = ReparseInfo Tokens
+  AnnConstructTranslationUnit "Global"      = ReparseInfo Tokens
+  AnnConstructTranslationUnit "StructField" = ReparseInfo Tokens
+  AnnConstructTranslationUnit "Typedef"     = ReparseInfo Tokens
+  AnnConstructTranslationUnit "UnionField"  = ReparseInfo Tokens
+  AnnConstructTranslationUnit _             = NoAnn
 
 instance IsPass ConstructTranslationUnit
 
@@ -53,11 +53,11 @@ instance CoercePassId                 EnrichComments ConstructTranslationUnit
 instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 
-instance CoercePassAnn "TypeFunArg"   EnrichComments ConstructTranslationUnit
-instance CoercePassAnn "StructField"  EnrichComments ConstructTranslationUnit
-instance CoercePassAnn "UnionField"   EnrichComments ConstructTranslationUnit
-instance CoercePassAnn "Typedef"      EnrichComments ConstructTranslationUnit
-instance CoercePassAnn "Function"     EnrichComments ConstructTranslationUnit
-instance CoercePassAnn "Global"       EnrichComments ConstructTranslationUnit
-instance CoercePassCommentDecl        EnrichComments ConstructTranslationUnit where
+instance CoercePassAnn "Function"      EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Global"        EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "StructField"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "TypeFunArg"    EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "Typedef"       EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "UnionField"    EnrichComments ConstructTranslationUnit
+instance CoercePassCommentDecl         EnrichComments ConstructTranslationUnit where
   coercePassCommentDecl _ = fmap coercePass

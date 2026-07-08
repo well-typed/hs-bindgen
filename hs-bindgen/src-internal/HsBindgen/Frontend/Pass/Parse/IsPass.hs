@@ -15,7 +15,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.LowLevel.Core
 
 import HsBindgen.Clang.Macros (MacroInvocation (name))
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -32,13 +31,13 @@ type Parse :: Pass
 data Parse a
 
 type family AnnParse (ix :: Symbol) :: Star where
-  AnnParse "Struct"      = IsAnon
-  AnnParse "StructField" = (ReparseInfo Tokens, FieldOrigin)
-  AnnParse "Union"       = IsAnon
-  AnnParse "UnionField"  = (ReparseInfo Tokens, FieldOrigin)
-  AnnParse "Typedef"     = ReparseInfo Tokens
   AnnParse "Function"    = ReparseInfo Tokens
   AnnParse "Global"      = ReparseInfo Tokens
+  AnnParse "Struct"      = IsAnon
+  AnnParse "StructField" = (ReparseInfo Tokens, FieldOrigin)
+  AnnParse "Typedef"     = ReparseInfo Tokens
+  AnnParse "Union"       = IsAnon
+  AnnParse "UnionField"  = (ReparseInfo Tokens, FieldOrigin)
   AnnParse _             = NoAnn
 
 instance IsPass Parse
@@ -113,16 +112,14 @@ data ExplicitFieldOrigin = ExplicitFieldOrigin
 -- about implicit fields, so we have to derive the information ourselves using a
 -- custom algorithm. See the "HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields"
 -- module for the algorithm.
-data ImplicitFieldOrigin = ImplicitFieldOrigin {
-    -- | The type of the enclosing object
-    enclosing :: CXType
+newtype ImplicitFieldOrigin = ImplicitFieldOrigin {
     -- | The name of the first field of the anonymous object
     --
     -- The offset from the enclosing object to an anonymous struct or union is
     -- equal to the offset from the enclosing object to the first field of the
     -- anonymous struct or union. The first field can also be an indirect field
     -- if there are multiple levels of nested anonymous structs/unions.
-  , field :: C.ScopedName
+    field :: C.ScopedName
   }
   deriving stock (Show, Eq, Ord)
 

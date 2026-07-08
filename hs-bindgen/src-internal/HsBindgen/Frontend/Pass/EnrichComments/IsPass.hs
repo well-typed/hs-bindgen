@@ -17,11 +17,11 @@ data EnrichComments a
 
 -- We preserve the annotations from the @Parse@ pass (same as @AssignAnonIds@)
 type family AnnEnrichComments ix where
-  AnnEnrichComments "StructField" = ReparseInfo Tokens
-  AnnEnrichComments "UnionField"  = ReparseInfo Tokens
-  AnnEnrichComments "Typedef"     = ReparseInfo Tokens
   AnnEnrichComments "Function"    = ReparseInfo Tokens
   AnnEnrichComments "Global"      = ReparseInfo Tokens
+  AnnEnrichComments "StructField" = ReparseInfo Tokens
+  AnnEnrichComments "Typedef"     = ReparseInfo Tokens
+  AnnEnrichComments "UnionField"  = ReparseInfo Tokens
   AnnEnrichComments _             = NoAnn
 
 instance IsPass EnrichComments
@@ -58,8 +58,8 @@ instance CoercePassId               AssignAnonIds EnrichComments
 instance CoercePassMacroBody        AssignAnonIds EnrichComments
 instance CoercePassMacroId          AssignAnonIds EnrichComments
 instance CoercePassMacroUnderlying  AssignAnonIds EnrichComments
-instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
 instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
+instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
 
 instance CoercePassCommentDecl AssignAnonIds EnrichComments where
   coercePassCommentDecl _ () = Nothing

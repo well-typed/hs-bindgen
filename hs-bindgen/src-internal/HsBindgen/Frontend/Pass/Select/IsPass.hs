@@ -43,13 +43,13 @@ data Select a
 
 type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
-  AnnSelect "Struct"               = StructNames
-  AnnSelect "Flam"                 = FlamNames
-  AnnSelect "Union"                = NewtypeNames
   AnnSelect "Enum"                 = NewtypeNames
+  AnnSelect "Flam"                 = FlamNames
+  AnnSelect "Struct"               = StructNames
   AnnSelect "Typedef"              = TypedefNames
   AnnSelect "TypecheckedMacroType" = NewtypeNames
   AnnSelect "TypeFunArg"           = AdjustedFrom Select
+  AnnSelect "Union"                = NewtypeNames
   AnnSelect _                      = NoAnn
 
 instance IsPass Select
