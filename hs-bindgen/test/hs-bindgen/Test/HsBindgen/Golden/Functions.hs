@@ -3,7 +3,6 @@ module Test.HsBindgen.Golden.Functions (testCases) where
 
 import HsBindgen.Backend.Category
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -74,7 +73,7 @@ test_functions_fun_attributes =
               Just $ Expected name
             MatchSelect name SelectDeprecated{} ->
               Just $ Expected name
-            MatchSelect name (SelectParseNotAttempted DeclarationUnavailable) ->
+            MatchSelect name SelectParseUnavailable ->
               Just $ Expected name
             _otherwise ->
               Nothing

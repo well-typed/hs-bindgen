@@ -186,10 +186,7 @@ usableToLoc = \case
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      -- Historically, there were more reasons for not attempting a parse,
-      -- that's why we store a non-empty list of reasons. We could remove this
-      -- indirection.
-      UnusableParseNotAttempted      SingleLoc (NonEmpty ParseNotAttempted)
+      UnusableParseUnavailable       SingleLoc
     | UnusableParseFailure           SingleLoc DelayedParseMsg
     | UnusableConflict               Conflict
     | UnusableMangleNamesFailure     SingleLoc MangleNamesError
@@ -202,8 +199,8 @@ data Unusable =
 
 instance PrettyForTrace Unusable where
   prettyForTrace = \case
-    UnusableParseNotAttempted{} ->
-      "Parse not attempted"
+    UnusableParseUnavailable{} ->
+      "Declaration unavailable"
     UnusableParseFailure{} ->
       "Parse failed"
     UnusableConflict{} ->
@@ -219,7 +216,7 @@ instance PrettyForTrace Unusable where
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
-    UnusableParseNotAttempted loc _      -> [loc]
+    UnusableParseUnavailable loc         -> [loc]
     UnusableParseFailure loc _           -> [loc]
     UnusableConflict conflict            -> Conflict.toList conflict
     UnusableMangleNamesFailure loc _     -> [loc]
@@ -329,8 +326,8 @@ resolvedResultToEntry = \case
     parseResultToEntry result = case result.classification of
       ParseResultSuccess r ->
         UsableE $ UsableSuccess (parseSuccessToSuccess r)
-      ParseResultNotAttempted r ->
-        UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
+      ParseResultUnavailable ->
+        UnusableE $ UnusableParseUnavailable result.loc
       ParseResultFailure r ->
         UnusableE $ UnusableParseFailure result.loc r
 
@@ -372,8 +369,10 @@ resolveMacros macroLang allDeclIds = map resolveParseResult
             , delayedParseMsgs = success.delayedParseMsgs
             }
           Left err -> Left err
-      ParseResultNotAttempted x -> Right $ ParseResultNotAttempted x
-      ParseResultFailure      x -> Right $ ParseResultFailure      x
+      ParseResultUnavailable ->
+        Right $ ParseResultUnavailable
+      ParseResultFailure x ->
+        Right $ ParseResultFailure x
 
 {-------------------------------------------------------------------------------
   Build from resolved macros
