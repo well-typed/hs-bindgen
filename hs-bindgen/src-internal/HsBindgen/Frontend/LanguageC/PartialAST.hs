@@ -25,7 +25,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
   , unknownDecl
   ) where
 
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.C qualified as C

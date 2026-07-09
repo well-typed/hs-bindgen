@@ -1,23 +1,21 @@
 -- | Zip the C ASTs before and after reparsing
-module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Zip (
+module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip (
     ZipResult (..)
+  , ZipReparsed
   , zipEither
   ) where
 
 import Control.Monad
-import Data.Void
 
-import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.Error
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.Zip.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (coerceNonMacroType)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Macro.Flip
 
 type In  = PrepareReparse
 type Out = LanC
@@ -53,21 +51,21 @@ checkEq lhs rhs
 
 checkEqCoerce ::
      forall a. (
-         Eq (a Zip)
-       , Show (a Zip)
-       , CoercePass a Out Zip
-       , CoercePass a In Zip
+         Eq (a ReparseMacroExpansions)
+       , Show (a ReparseMacroExpansions)
+       , CoercePass a Out ReparseMacroExpansions
+       , CoercePass a In ReparseMacroExpansions
        )
   => a In
   -> a Out
-  -> ZipResult (a Zip)
+  -> ZipResult (a ReparseMacroExpansions)
 checkEqCoerce lhs rhs =
     if lhsA == rhsA then
       success rhsA
     else
       failure $ zipErrorNotEqual lhsA rhsA
   where
-    lhsA, rhsA :: a Zip
+    lhsA, rhsA :: a ReparseMacroExpansions
     lhsA = coercePass lhs
     rhsA = coercePass rhs
 
@@ -136,11 +134,15 @@ checkEqCoerce lhs rhs =
 -- <https://github.com/well-typed/hs-bindgen/pull/1979>
 --
 class ZipReparsed a where
-  zipReparsed :: a Out -> ZipResult (a Zip)
+  zipReparsed :: a In -> a Out -> ZipResult (a ReparseMacroExpansions)
 
-zipEither :: ZipReparsed a => a Out -> Either [DelayedReparseMacroExpansionsMsg] (a Zip)
-zipEither x =
-    case zipReparsed x of
+zipEither ::
+     ZipReparsed a
+  => a In
+  -> a Out
+  -> Either [DelayedReparseMacroExpansionsMsg] (a ReparseMacroExpansions)
+zipEither pre post =
+    case zipReparsed pre post of
       ZipFailure es -> Left $ fmap ReparseMacroExpansionsZip es
       ZipSuccess z -> Right z
 
@@ -148,20 +150,8 @@ zipEither x =
   Instances
 -------------------------------------------------------------------------------}
 
-instance ZipReparsed C.Struct where
-  zipReparsed struct = do
-      fields' <- mapM zipReparsed struct.fields
-      mFlam'  <- C.traverseFlamField zipReparsed struct.flam
-      success C.Struct{
-        sizeof    = struct.sizeof
-      , alignment = struct.alignment
-      , fields    = fields'
-      , flam      = mFlam'
-      , ann       = NoAnn
-      }
-
 instance ZipReparsed C.StructField where
-  zipReparsed field = do
+  zipReparsed fieldPre field = do
       typ'    <- zipType      fieldPre.typ    field.typ
       offset' <- checkEq      fieldPre.offset field.offset
       width'  <- checkEq      fieldPre.width  field.width
@@ -173,22 +163,9 @@ instance ZipReparsed C.StructField where
         , width  = width'
         , info   = info'
         }
-    where
-      fieldPre :: C.StructField In
-      fieldPre = field.ann.unwrap
-
-instance ZipReparsed C.Union where
-  zipReparsed union = do
-      fields' <- mapM zipReparsed union.fields
-      success C.Union{
-          sizeof    = union.sizeof
-        , alignment = union.alignment
-        , fields    = fields'
-        , ann       = NoAnn
-        }
 
 instance ZipReparsed C.UnionField where
-  zipReparsed field = do
+  zipReparsed fieldPre field = do
       typ'  <- zipType      fieldPre.typ  field.typ
       info' <- checkEqCoerce fieldPre.info field.info
       success C.UnionField{
@@ -196,49 +173,18 @@ instance ZipReparsed C.UnionField where
         , ann  = NoAnn
         , info = info'
         }
-    where
-      fieldPre :: C.UnionField In
-      fieldPre = field.ann.unwrap
 
 instance ZipReparsed C.Typedef where
-  zipReparsed typedef = do
+  zipReparsed typedefPre typedef = do
       typ' <- zipType typedefPre.typ typedef.typ
       success C.Typedef{
           typ = typ'
         , ann = NoAnn
         }
-    where
-      typedefPre :: C.Typedef In
-      typedefPre = typedef.ann.unwrap
 
-instance ZipReparsed C.Enum where
-  zipReparsed enum =
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2023>
-      --
-      -- We do not reparse enumerations, and so avoid zipping. We could be
-      -- stricter here, and enfore zipping if we decide to reparse
-      -- enumerations at some point in the future. For example, we could add an
-      -- annotation with the I state, and compare the two.
-      success C.Enum{
-          typ       = coerceNonMacroType enum.typ
-        , sizeof    = enum.sizeof
-        , alignment = enum.alignment
-        , constants = map coercePass enum.constants
-        , ann       = NoAnn
-        }
-
-instance ZipReparsed C.AnonEnumConstant where
-  zipReparsed enum =
-      success C.AnonEnumConstant{
-          typ      = enum.typ
-        , constant = coercePass enum.constant
-        }
-
-instance ZipReparsed (Flip TypecheckedMacro l) where
-  zipReparsed (Flip body) = Flip <$> success (coercePassParam body)
 
 instance ZipReparsed C.Function where
-  zipReparsed fun = do
+  zipReparsed funPre fun = do
       args'  <- zipWithM zipFunctionArg funPre.args fun.args
       res'   <- zipType                 funPre.res   fun.res
       attrs' <- checkEq                 funPre.attrs fun.attrs
@@ -249,13 +195,10 @@ instance ZipReparsed C.Function where
         , ann   = NoAnn
         }
     where
-      funPre :: C.Function In
-      funPre = fun.ann.unwrap
-
       zipFunctionArg ::
            C.FunctionArg In
         -> C.FunctionArg Out
-        -> ZipResult (C.FunctionArg Zip)
+        -> ZipResult (C.FunctionArg ReparseMacroExpansions)
       zipFunctionArg arg1 arg2 = do
             name'   <- checkEq       arg1.name   arg2.name
             argTyp' <- zipTypeFunArg arg1.argTyp arg2.argTyp
@@ -265,27 +208,19 @@ instance ZipReparsed C.Function where
               }
 
 instance ZipReparsed C.Global where
-  zipReparsed global = do
+  zipReparsed globalPre global = do
       typ' <- zipType globalPre.typ global.typ
       success C.Global {
           typ = typ'
         , ann = NoAnn
         }
-    where
-      globalPre :: C.Global In
-      globalPre = global.ann.unwrap
 
 {-------------------------------------------------------------------------------
   Zip types
 -------------------------------------------------------------------------------}
 
-zipType :: C.Type In -> C.Type Out -> ZipResult (C.Type Zip)
+zipType :: C.Type In -> C.Type Out -> ZipResult (C.Type ReparseMacroExpansions)
 zipType t1 t2 = case (t1, t2) of
-      -- Impossible case: macro references do not exist in the C AST before
-      -- reparsing. Caught by the type checker, resulting in a warning.
-      --
-      -- (C.TypeMacro m1, _) -> failure $ zipErrorMacroRefBefore m1 t1 t2
-
       -- Interesting case: an arbitrary type is replaced by a macro reference
       (_, C.TypeMacro ref2) -> do
         case (ref2.name.name.text, t1) of
@@ -331,8 +266,25 @@ zipType t1 t2 = case (t1, t2) of
       -- fail in any other case
       (_, _) -> failure $ zipErrorNotZipped t1 t2
     where
-      _coveredAllCases :: C.Type Out -> ()
-      _coveredAllCases = \case
+      -- Impossible case: macro references do not exist in the C AST before
+      -- reparsing. Caught by the type checker.
+      _coveredAllCasesIn :: C.Type In -> ()
+      _coveredAllCasesIn = \case
+        C.TypePrim{} -> ()
+        C.TypeComplex{} -> ()
+        C.TypeRef{} -> ()
+        C.TypeEnum{} -> ()
+        C.TypeTypedef{} -> ()
+        C.TypePointers{} -> ()
+        C.TypeConstArray{} -> ()
+        C.TypeIncompleteArray{} -> ()
+        C.TypeFun{} -> ()
+        C.TypeVoid{} -> ()
+        C.TypeBlock{} -> ()
+        C.TypeQual{} -> ()
+
+      _coveredAllCasesOut :: C.Type Out -> ()
+      _coveredAllCasesOut = \case
         C.TypePrim{} -> ()
         C.TypeComplex{} -> ()
         C.TypeRef{} -> ()
@@ -382,7 +334,7 @@ zipPrimSignChar csign1 csign2 = case (csign1, csign2) of
 zipTypeFunArg ::
      C.TypeFunArg In
   -> C.TypeFunArg Out
-  -> ZipResult (C.TypeFunArg Zip)
+  -> ZipResult (C.TypeFunArg ReparseMacroExpansions)
 zipTypeFunArg arg1 arg2 =
     C.TypeFunArgF
       <$> zipType arg1.typ arg2.typ
@@ -391,47 +343,8 @@ zipTypeFunArg arg1 arg2 =
 zipRef ::
      C.Ref (Id In) In
   -> C.Ref (Id Out) Out
-  -> ZipResult (C.EnumRef Zip)
+  -> ZipResult (C.EnumRef ReparseMacroExpansions)
 zipRef ref1 ref2 =
     C.Ref
       <$> checkEq ref1.name ref2.name
       <*> zipType ref1.underlying ref2.underlying
-
-{-------------------------------------------------------------------------------
-  Coerce
--------------------------------------------------------------------------------}
-
--- | Coerce a 'C.Type' from 'ReparseMacroExpansions' to 'Zip', assuming no
--- 'TypeMacro' node is present.
---
--- Panics on 'TypeMacro'! Use 'zipType' instead when 'TypeMacro' may appear.
-coerceNonMacroType ::
-     forall p. (Id p ~ C.DeclId, ExtBinding p ~ Void)
-  => C.Type p
-  -> C.Type Zip
-coerceNonMacroType = go
-  where
-    go :: C.Type p -> C.Type Zip
-    go = \case
-      C.TypePrim pt        -> C.TypePrim pt
-      C.TypeComplex pt     -> C.TypeComplex pt
-      C.TypeRef declId     -> C.TypeRef declId
-      C.TypeEnum ref       -> C.TypeEnum (C.Ref ref.name (go ref.underlying))
-      C.TypeMacro{}        ->
-        panicPure "coerceNonMacroTypeToZip: unexpected TypeMacro"
-      C.TypeTypedef ref    -> C.TypeTypedef (C.Ref ref.name (go ref.underlying))
-      C.TypePointers n t   -> C.TypePointers n (go t)
-      C.TypeConstArray n t -> C.TypeConstArray n (go t)
-      C.TypeIncompleteArray t -> C.TypeIncompleteArray (go t)
-      C.TypeFun args res   -> C.TypeFun (map goArg args) (go res)
-      C.TypeVoid           -> C.TypeVoid
-      C.TypeBlock t        -> C.TypeBlock (go t)
-      C.TypeQual q t       -> C.TypeQual q (go t)
-
-    goArg :: C.TypeFunArg p -> C.TypeFunArg Zip
-    goArg arg = C.TypeFunArgF (go arg.typ) NoAnn
-
-    -- GHC reports that @ExtBinding p ~ Void@ is unused, but that is actually
-    -- not the case.
-    _constraintIsUsed :: ExtBinding p -> a
-    _constraintIsUsed = absurd

@@ -44,7 +44,7 @@ import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten (flattenDefault)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass (FlatTokens (FlatTokens, flatten, locStart),
                                                       PrepareReparse)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Intermediate.LanC.IsPass (LanC)
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
