@@ -24,7 +24,6 @@ testCases = [
       defaultTest "types/anonymous/edge-cases/anon_in_nonanon"
     , defaultTest "types/anonymous/edge-cases/bitfield"
     , defaultTest "types/anonymous/edge-cases/duplicate_field_names"
-    , defaultTest "types/anonymous/edge-cases/multi_nesting"
     , defaultTest "types/anonymous/edge-cases/padding"
     , defaultTest "types/anonymous/struct_in_struct"
     , defaultTest "types/anonymous/struct_in_union"
@@ -63,6 +62,8 @@ testCases = [
     , defaultTest "types/unions/unions"
       -- Bespoke tests
     , test_types_anonymous_edge_cases_empty_anon
+    , test_types_anonymous_edge_cases_multi_nesting
+    , test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes
     , test_types_long_double
     , test_types_primitives_bool_c23
     , test_types_primitives_bool_macro_override
@@ -98,6 +99,15 @@ test_types_anonymous_edge_cases_empty_anon =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct S1", "struct S2"]
+
+test_types_anonymous_edge_cases_multi_nesting :: TestCase
+test_types_anonymous_edge_cases_multi_nesting =
+    defaultTest "types/anonymous/edge-cases/multi_nesting"
+
+test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
+test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
+    testVariant "types/anonymous/edge-cases/multi_nesting" "omit_field_prefixes"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 test_types_long_double :: TestCase
 test_types_long_double =
