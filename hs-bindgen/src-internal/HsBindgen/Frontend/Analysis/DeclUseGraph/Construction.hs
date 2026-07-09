@@ -17,6 +17,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
@@ -27,8 +28,6 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Construction
@@ -36,11 +35,10 @@ import HsBindgen.Macro.Type qualified as Macro
 
 construct ::
      forall l. HasCallStack
-  => Macro.Lang l
-  -> IncludeGraph
+  => IncludeGraph
   -> DeclIndex l
   -> DeclUseGraph
-construct macroLang includeGraph declIndex = declUseGraph
+construct includeGraph declIndex = declUseGraph
   where
     -- The include graph informs us about the order of declarations which is
     -- key.
@@ -68,7 +66,7 @@ construct macroLang includeGraph declIndex = declUseGraph
     -- successfully parsed declarations, we do this in source order. This
     -- ensures that we preserve source order as much as possible in 'toDecls'
     -- (modulo dependencies).
-    verticesGraph :: Digraph C.ValOrRef C.DeclId
+    verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
       map (.info.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
 
@@ -78,24 +76,24 @@ construct macroLang includeGraph declIndex = declUseGraph
     -- from the resolved (but not yet typechecked) macro body.
     insertDepsOfDeclParsedMacro ::
          C.Decl l ConstructTranslationUnit
-      -> Digraph C.ValOrRef C.DeclId
-      -> Digraph C.ValOrRef C.DeclId
+      -> Digraph Dependency C.DeclId
+      -> Digraph Dependency C.DeclId
     insertDepsOfDeclParsedMacro decl =
-      insertDeps decl.info.id (depsOfDeclParsedMacro macroLang decl.kind)
+      insertDeps decl.info.id (depsOfDeclParsedMacro decl.kind)
 
 insertDeps ::
      (HasCallStack)
   => C.DeclId
-  -> [(C.ValOrRef, C.DeclId)]
-  -> Digraph C.ValOrRef C.DeclId
-  -> Digraph C.ValOrRef C.DeclId
+  -> [(C.DeclId, Dependency)]
+  -> Digraph Dependency C.DeclId
+  -> Digraph Dependency C.DeclId
 insertDeps source = flip (foldl' aux)
   where
     aux ::
-         Digraph C.ValOrRef C.DeclId
-      -> (C.ValOrRef, C.DeclId)
-      -> Digraph C.ValOrRef C.DeclId
-    aux graph (edge, target) =
+         Digraph Dependency C.DeclId
+      -> (C.DeclId, Dependency)
+      -> Digraph Dependency C.DeclId
+    aux graph (target, edge) =
       case Digraph.insertEdgeIfVerticesExist target edge source graph of
         Digraph.InsertEdgeSuccess graph' -> graph'
         Digraph.InsertEdgeSourceVertexNotFound declId ->
@@ -105,13 +103,12 @@ insertDeps source = flip (foldl' aux)
 
 -- | Inserts dependency edges of provided declaration.
 insertDepsOfDecl ::
-     (Macro.HasTypes l, HasCallStack)
-  => Macro.Lang l
-  -> C.Decl l ReparseMacroExpansions
+     HasCallStack
+  => C.Decl l ReparseMacroExpansions
   -> DeclUseGraph
   -> DeclUseGraph
-insertDepsOfDecl macroLang decl declUseGraph = DeclUseGraph $
-    insertDeps (decl.info.id) (depsOfDecl macroLang decl.kind) declUseGraph.graph
+insertDepsOfDecl decl declUseGraph = DeclUseGraph $
+    insertDeps (decl.info.id) (depsOfDecl decl.kind) declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Deletion

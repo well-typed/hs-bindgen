@@ -6,19 +6,24 @@ import Data.Set qualified as Set
 
 import C.Expr.Syntax qualified as CExpr
 
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.CExpr (CExpr)
 import HsBindgen.Macro.CExpr qualified as Macro
 import HsBindgen.Macro.Error
-import HsBindgen.Macro.Type qualified as Macro
+import HsBindgen.Macro.Interface qualified as Macro
 
 resolveMacro ::
      Set C.DeclId
   -> Macro.Unresolved CExpr
   -> Either MacroResolutionError (Macro.Resolved CExpr)
-resolveMacro declIds (Macro.Unresolved (Macro.ParsedCExpr macro)) =
-    Macro.Resolved . Macro.ParsedCExpr <$> CExpr.annotateMacro resolve macro
+resolveMacro declIds (Macro.Unresolved (Macro.ParsedCExpr macro)) = do
+    resolvedMacro <- Macro.ParsedCExpr <$> CExpr.annotateMacro resolve macro
+    pure Macro.Resolved{
+        macro = resolvedMacro
+      , deps  = getDependencies resolvedMacro
+      }
   where
     resolve :: CExpr.Name -> () -> Either MacroResolutionError C.DeclId
     resolve name _ = case name of
@@ -81,3 +86,29 @@ resolveMacro declIds (Macro.Unresolved (Macro.ParsedCExpr macro)) =
       where
         taggedId :: C.DeclId
         taggedId = C.DeclId (C.DeclName nm $ C.NameKindTagged tag) False
+
+getDependencies :: Macro.Parsed CExpr C.DeclId -> [(C.DeclId, Dependency)]
+getDependencies resolvedMacro =
+    case resolvedMacro.unwrap of
+      CExpr.Macro _ _ _ expr -> goExpr NeedsShape expr
+  where
+    goExpr ::
+         Dependency
+      -> CExpr.Expr ctx (CExpr.Ps C.DeclId)
+      -> [(C.DeclId, Dependency)]
+    goExpr depTy = \case
+      CExpr.Term term              -> goTerm depTy term
+      -- Pointer: switch the dependency to 'NeedsNameOnly'.
+      CExpr.TyApp CExpr.Pointer xs -> concatMap (goExpr NeedsNameOnly) xs
+      CExpr.TyApp CExpr.Const   xs -> concatMap (goExpr depTy)   xs
+      CExpr.VaApp _ _ xs           -> concatMap (goExpr depTy)   xs
+
+    goTerm ::
+         Dependency
+      -> CExpr.Term ctx (CExpr.Ps C.DeclId)
+      -> [(C.DeclId, Dependency)]
+    goTerm depTy = \case
+      CExpr.Literal{}    -> []
+      CExpr.LocalParam{} -> []
+      CExpr.Var (CExpr.XVarPs declId) _nm args ->
+        (declId, depTy) : concatMap (goExpr depTy) args

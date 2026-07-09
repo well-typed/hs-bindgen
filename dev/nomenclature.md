@@ -6,6 +6,10 @@ nomenclature:
 - In the `Select` pass, we either _select_ or _deselect_ a declaration.
 - Prescriptive binding specifications can _omit_ types; a declaration can be
   _extern_ due to an external binding specification.
+- Edges of the `DeclUse`/`UseDecl` graph are labelled with a `Dependency`: the
+  dependent either _needs the shape_ (`NeedsShape`) or _needs the name only_
+  (`NeedsNameOnly`) of the dependency. We avoid the old _by-value_/_by-reference_
+  framing.
 
 In particular,
 - we avoid the terms _exclude_, and _skip_.

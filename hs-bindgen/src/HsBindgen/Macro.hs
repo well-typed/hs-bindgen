@@ -35,9 +35,7 @@ cExpr :: ClangCStandard -> Macro.Lang CExpr
 cExpr cStd = Macro.Lang
   { parse               = parseMacro cStd
   , resolve             = resolveMacro
-  , parsedDeps          = parsedMacroDeps
   , typecheck           = typecheckMacros
-  , typecheckedTypeDeps = typecheckedMacroTypeDeps
   , translateType       = translateMacroType
   , translateValue      = translateMacroValue
   }

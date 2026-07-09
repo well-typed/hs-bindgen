@@ -13,19 +13,15 @@
 module HsBindgen.Macro.Type (
     -- * Typeclass
     HasTypes(..)
-    -- * Name resolution
-  , Unresolved(..)
-  , Resolved(..)
   ) where
 
 import HsBindgen.Imports
-import HsBindgen.IR.C.Naming qualified as C
 
 {-------------------------------------------------------------------------------
   Typeclass
 -------------------------------------------------------------------------------}
 
--- | Types for parsing and typechecking macro bodies
+-- | Types for parsing and typechecking macros
 --
 -- Initially, we store the 'ParsedMacro' in the AST. The 'ParsedMacro'
 -- is parameterized by an annotation:
@@ -57,27 +53,12 @@ class (
   , forall var. (Show var, Eq var) => Eq   (TypecheckedValue l var)
   ) => HasTypes (l :: Star) where
 
-  -- | Body of parsed (not yet typechecked) macro. Parameterized by the
+  -- | Parsed (not yet typechecked) macro. Parameterized by the
   --   annotation type.
   data Parsed l :: Star -> Star
 
-  -- | Body of typechecked type macro. Parameterized by the variable type.
+  -- | Typechecked type macro. Parameterized by the variable type.
   data TypecheckedType  l :: Star -> Star
 
-  -- | Body of typechecked value macro. Parameterized by the variable type.
+  -- | Typechecked value macro. Parameterized by the variable type.
   data TypecheckedValue l :: Star -> Star
-
-{-------------------------------------------------------------------------------
-  Name resolution
--------------------------------------------------------------------------------}
-
-newtype Unresolved l = Unresolved { unwrap :: Parsed l () }
-
-deriving stock instance (HasTypes l) => Eq   (Unresolved l)
-deriving stock instance (HasTypes l) => Show (Unresolved l)
-
-newtype Resolved l = Resolved { unwrap :: Parsed l C.DeclId }
-  deriving stock (Generic)
-
-deriving stock instance (HasTypes l) => Eq   (Resolved l)
-deriving stock instance (HasTypes l) => Show (Resolved l)

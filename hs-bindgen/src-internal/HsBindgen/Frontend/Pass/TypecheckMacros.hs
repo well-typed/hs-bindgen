@@ -2,7 +2,6 @@ module HsBindgen.Frontend.Pass.TypecheckMacros (
     typecheckMacros
   ) where
 
-import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 
@@ -43,17 +42,15 @@ typecheckMacros ::
 typecheckMacros macroLang unit =
     let knownTypes =
           collectKnownTypes unit.decls
-        (tcRes, resolvedMacros) =
+        (typecheckedDecls, knownMacroTypes, failedMacros) =
           typecheckDecls macroLang unit.decls
-        (failedMacros, typecheckedDecls) =
-          partitionEithers tcRes
     in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
         , Map.fromList [
               (n, v)
             | (declId, v) <- Map.toList knownTypes
             , Just n <- [C.renderNonAnonDeclId declId]
             ]
-        , resolvedMacros
+        , knownMacroTypes
         )
 
 reconstructAfterTypecheck ::
@@ -68,7 +65,7 @@ reconstructAfterTypecheck unit failedMacros decls =
       , meta         = unit.meta{
             declIndex =
               Foldable.foldl'
-                (flip DeclIndex.registerMacroTypecheckFailure)
+                DeclIndex.registerMacroTypecheckFailure
                 unit.meta.declIndex
                 failedMacros
           }

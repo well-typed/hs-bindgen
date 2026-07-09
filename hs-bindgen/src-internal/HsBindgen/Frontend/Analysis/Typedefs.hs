@@ -16,6 +16,7 @@ import Data.Map.Strict qualified as Map
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
@@ -211,7 +212,7 @@ analyseTypedef declUseGraph typedefInfo typedef =
         , length useSites == 1
         ]
       where
-        useSites :: [(C.DeclId, C.ValOrRef)]
+        useSites :: [(C.DeclId, Dependency)]
         useSites = DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.id
 
     suffixClashingPayload :: TaggedPayload -> TypedefAnalysis

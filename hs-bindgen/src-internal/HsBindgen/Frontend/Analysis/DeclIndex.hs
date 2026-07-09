@@ -67,6 +67,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (IsPass)
@@ -597,10 +598,12 @@ registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
   Support for macro failures
 -------------------------------------------------------------------------------}
 
-registerMacroTypecheckFailure
-  :: (C.DeclId, SingleLoc, MacroTypecheckError) -> DeclIndex l -> DeclIndex l
-registerMacroTypecheckFailure (declId, loc, err) (DeclIndex i) = DeclIndex $
-    Map.insert declId (UnusableE $ UnusableTypecheckMacrosError loc err) i
+registerMacroTypecheckFailure ::
+     DeclIndex l
+  -> (C.DeclInfo TypecheckMacros, MacroTypecheckError)
+  -> DeclIndex l
+registerMacroTypecheckFailure (DeclIndex i) (info, err)  = DeclIndex $
+    Map.insert info.id (UnusableE $ UnusableTypecheckMacrosError info.loc err) i
 
 {-------------------------------------------------------------------------------
   Support for @PrepareReparse@ pass

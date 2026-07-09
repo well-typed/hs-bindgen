@@ -157,7 +157,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
-    any (isInDeclIndex . snd) . C.depsOfType
+    any (isInDeclIndex . fst) . C.depsOfType
   where
     isInDeclIndex :: DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex

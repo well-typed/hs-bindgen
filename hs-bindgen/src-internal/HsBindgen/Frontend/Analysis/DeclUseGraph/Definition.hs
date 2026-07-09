@@ -8,6 +8,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 
+import HsBindgen.Frontend.Analysis
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -18,11 +19,11 @@ import HsBindgen.IR.C qualified as C
 --
 -- This graph has edges from definition sites to use sites.
 data DeclUseGraph = DeclUseGraph {
-      graph :: Digraph C.ValOrRef C.DeclId
+      graph :: Digraph Dependency C.DeclId
     }
   deriving stock (Eq, Show)
 
-toDigraph :: DeclUseGraph -> Digraph C.ValOrRef C.DeclId
+toDigraph :: DeclUseGraph -> Digraph Dependency C.DeclId
 toDigraph declUseGraph = declUseGraph.graph
 
 {-------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ toDigraph declUseGraph = declUseGraph.graph
 renderMermaid :: DeclUseGraph -> String
 renderMermaid declUseGraph = Digraph.renderMermaid opts declUseGraph.graph
   where
-    opts :: Digraph.VisOptions C.ValOrRef C.DeclId
+    opts :: Digraph.VisOptions Dependency C.DeclId
     opts = Digraph.VisOptions{
         visVertex = \v -> Digraph.VisVertex{
             label = Just (show v)

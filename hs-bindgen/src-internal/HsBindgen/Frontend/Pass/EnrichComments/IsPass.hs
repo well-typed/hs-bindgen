@@ -6,7 +6,7 @@ import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Type qualified as Macro
+import HsBindgen.Macro.Interface qualified as Macro
 
 {-------------------------------------------------------------------------------
   Definition

@@ -20,6 +20,7 @@ import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 import Data.Set qualified as Set
 
+import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition qualified as DeclUseGraph
 import HsBindgen.Imports
@@ -34,7 +35,7 @@ import HsBindgen.IR.C qualified as C
 -- Whenever declaration @A@ uses (depends on) declaration @B@, there is an edge
 -- from @A@ to @B@ in this graph.
 data UseDeclGraph = UseDeclGraph {
-      graph :: Digraph C.ValOrRef C.DeclId
+      graph :: Digraph Dependency C.DeclId
     }
   deriving stock (Show, Eq)
 
@@ -64,7 +65,7 @@ getStrictTransitiveDeps graph decls = getTransitiveDeps graph decls Set.\\ decls
 renderMermaid :: UseDeclGraph -> String
 renderMermaid useDeclGraph = Digraph.renderMermaid opts useDeclGraph.graph
   where
-    opts :: Digraph.VisOptions C.ValOrRef C.DeclId
+    opts :: Digraph.VisOptions Dependency C.DeclId
     opts = Digraph.VisOptions{
         visVertex = \v -> Digraph.VisVertex{
             label = Just (show v)

@@ -349,8 +349,7 @@ runFrontend tracer config boot = do
       (_, knownTypes, knownMacros) <- typecheckMacrosPass
       afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      macroLang <- boot.macroLang
-      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros macroLang afterPrepareReparse
+      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros afterPrepareReparse
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterReparseMacroExpansions <- reparseMacroExpansionsPass

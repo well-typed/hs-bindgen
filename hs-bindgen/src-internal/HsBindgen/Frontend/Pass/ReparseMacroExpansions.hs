@@ -29,8 +29,6 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -39,16 +37,15 @@ import HsBindgen.Macro.Type qualified as Macro
 -- | Reparse declarations that have macro expansions in their type positions,
 -- using the known-types environment from 'typecheckMacros'.
 reparseMacroExpansions ::
-     forall l. Macro.HasTypes l
-  => ClangCStandard
+     forall l.
+     ClangCStandard
   -> Map LanC.CName (C.Type PrepareReparse)
      -- ^ Known non-macro names and their types (see 'ReparseEnv')
   -> Set LanC.CName
      -- ^ Known macro names (see 'ReparseEnv')
-  -> Macro.Lang l
   -> C.TranslationUnit l PrepareReparse
   -> C.TranslationUnit l ReparseMacroExpansions
-reparseMacroExpansions cStd knownNonMacroTypes knownMacros macroLang unit =
+reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
     let (reparsedDecls, reparseState) =
           runM
             cStd
@@ -58,17 +55,16 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacros macroLang unit =
     in  C.TranslationUnit{
             decls        = reparsedDecls
           , includeGraph = unit.includeGraph
-          , meta         = updateMeta macroLang reparseState.reparseWarnings reparsedDecls unit.meta
+          , meta         = updateMeta reparseState.reparseWarnings reparsedDecls unit.meta
           }
 
 updateMeta ::
-     forall l. Macro.HasTypes l
-  => Macro.Lang l
-  -> [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
+     forall l.
+     [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
   -> [C.Decl l ReparseMacroExpansions]
   -> DeclMeta l
   -> DeclMeta l
-updateMeta macroLang msgs decls meta = DeclMeta{
+updateMeta msgs decls meta = DeclMeta{
       declIndex    = updatedDeclIndex
     , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
     , declUseGraph = updatedDeclUseGraph
@@ -88,7 +84,7 @@ updateMeta macroLang msgs decls meta = DeclMeta{
     updatedDeclUseGraph :: DeclUseGraph
     updatedDeclUseGraph =
       Foldable.foldl'
-        (flip (updateDeps macroLang))
+        (flip updateDeps)
         meta.declUseGraph
         decls
 
@@ -108,13 +104,11 @@ updateMeta macroLang msgs decls meta = DeclMeta{
 -- that @foo@ depends on @B@. We have to cut the dependency to @A@ and
 -- replace it with the dependency to @B@.
 updateDeps ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> C.Decl l ReparseMacroExpansions
+     C.Decl l ReparseMacroExpansions
   -> DeclUseGraph
   -> DeclUseGraph
-updateDeps macroLang decl graph =
-    DeclUseGraph.insertDepsOfDecl macroLang decl $
+updateDeps decl graph =
+    DeclUseGraph.insertDepsOfDecl decl $
       DeclUseGraph.deleteDeps (Set.singleton decl.info.id) graph
 
 {-------------------------------------------------------------------------------

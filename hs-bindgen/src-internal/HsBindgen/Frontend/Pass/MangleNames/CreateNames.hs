@@ -682,6 +682,7 @@ createMacroType hsName macroType = do
     names    <- createNewtypeNames strategy hsName
     pure TypecheckedMacroType{
         body = fmap coercePass macroType.body
+      , deps = macroType.deps
       , ann  = names
       }
 

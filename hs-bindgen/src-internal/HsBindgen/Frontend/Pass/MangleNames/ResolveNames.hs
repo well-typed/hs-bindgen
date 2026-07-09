@@ -315,6 +315,7 @@ resolveMacroType macroType = do
     body' <- traverse resolveMacroTypeVar macroType.body
     pure TypecheckedMacroType{
         body = body'
+      , deps = macroType.deps
       , ann  = macroType.ann
       }
   where
@@ -331,7 +332,7 @@ resolveMacroValue ::
   -> ResolveE (TypecheckedMacroValue l MangleNames)
 resolveMacroValue macroValue = do
     body' <- traverse lookupVarPairR macroValue.body
-    pure $ TypecheckedMacroValue body'
+    pure $ TypecheckedMacroValue body' macroValue.deps
 
 instance Resolve C.Comment where
   resolve (C.Comment comment) = C.Comment <$> mapM resolve comment
