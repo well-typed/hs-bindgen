@@ -25,16 +25,16 @@ import HsBindgen.IR.Pass.Definition
 class (
       -- For @Eq DeclKind@ in @DeclIndex@ construction
       Eq   (Ann "Enum"                 p)
+    , Eq   (Ann "ExplicitField"        p)
     , Eq   (Ann "Flam"                 p)
     , Eq   (Ann "Function"             p)
     , Eq   (Ann "Global"               p)
+    , Eq   (Ann "ImplicitField"        p)
     , Eq   (Ann "Struct"               p)
-    , Eq   (Ann "StructField"          p)
     , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
     , Eq   (Ann "Typedef"              p)
     , Eq   (Ann "Union"                p)
-    , Eq   (Ann "UnionField"           p)
 
       -- For de-duplicating types
     , Ord  (Ann "TypeFunArg"           p)
@@ -42,17 +42,17 @@ class (
       -- For debugging
     , Show (Ann "Decl"                 p)
     , Show (Ann "Enum"                 p)
+    , Show (Ann "ExplicitField"        p)
     , Show (Ann "Flam"                 p)
     , Show (Ann "Function"             p)
     , Show (Ann "Global"               p)
+    , Show (Ann "ImplicitField"        p)
     , Show (Ann "Struct"               p)
-    , Show (Ann "StructField"          p)
     , Show (Ann "TranslationUnit"      p)
     , Show (Ann "TypeFunArg"           p)
     , Show (Ann "TypecheckedMacroType" p)
     , Show (Ann "Typedef"              p)
     , Show (Ann "Union"                p)
-    , Show (Ann "UnionField"           p)
     ) => PassAnn (p :: Pass) where
 
   -- | Generic TTG-style annotation

@@ -150,28 +150,18 @@ zipEither pre post =
   Instances
 -------------------------------------------------------------------------------}
 
-instance ZipReparsed C.StructField where
+instance ZipReparsed C.ExplicitField where
   zipReparsed fieldPre field = do
+      info'   <- checkEqCoerce fieldPre.info   field.info
       typ'    <- zipType      fieldPre.typ    field.typ
       offset' <- checkEq      fieldPre.offset field.offset
       width'  <- checkEq      fieldPre.width  field.width
-      info'   <- checkEqCoerce fieldPre.info   field.info
-      success C.StructField{
-          typ    = typ'
-        , ann    = NoAnn
+      success C.ExplicitField{
+          info   = info'
+        , typ    = typ'
         , offset = offset'
         , width  = width'
-        , info   = info'
-        }
-
-instance ZipReparsed C.UnionField where
-  zipReparsed fieldPre field = do
-      typ'  <- zipType      fieldPre.typ  field.typ
-      info' <- checkEqCoerce fieldPre.info field.info
-      success C.UnionField{
-          typ  = typ'
-        , ann  = NoAnn
-        , info = info'
+        , ann    = NoAnn
         }
 
 instance ZipReparsed C.Typedef where

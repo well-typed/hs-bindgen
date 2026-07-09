@@ -191,28 +191,32 @@ enrichDeclKind doxy name = \case
 
 enrichStruct :: Doxygen -> Text -> C.Struct EnrichComments -> C.Struct EnrichComments
 enrichStruct doxy name struct = struct
-    & #fields %~ map (enrichStructField doxy name)
-    & #flam   %~ C.mapFlamField (enrichStructField doxy name)
+    & #fields %~ map (enrichField doxy name)
+    & #flam   %~ C.mapFlamField (enrichExplicitField doxy name)
 
 enrichUnion :: Doxygen -> Text -> C.Union EnrichComments -> C.Union EnrichComments
 enrichUnion doxy name union = union
-    & #fields %~ map (enrichUnionField doxy name)
+    & #fields %~ map (enrichField doxy name)
 
 enrichEnum :: Doxygen -> Text -> C.Enum EnrichComments -> C.Enum EnrichComments
 enrichEnum doxy name enum = enum
     & #constants %~ map (enrichEnumConstant doxy name)
 
-enrichStructField ::
-     Doxygen -> Text -> C.StructField EnrichComments -> C.StructField EnrichComments
-enrichStructField doxy name sf =
-    maybe sf (\c -> sf & #info % #comment .~ Just c) $ do
-      lookupFieldComment doxy (KeyField name sf.info.name.text)
+enrichField ::
+     Doxygen -> Text -> C.Field EnrichComments -> C.Field EnrichComments
+enrichField doxy name = C.mapField (enrichExplicitField doxy name) (enrichImplicitField doxy name)
 
-enrichUnionField ::
-     Doxygen -> Text -> C.UnionField EnrichComments -> C.UnionField EnrichComments
-enrichUnionField doxy name uf =
-    maybe uf (\c -> uf & #info % #comment .~ Just c) $ do
-      lookupFieldComment doxy (KeyField name uf.info.name.text)
+enrichExplicitField ::
+     Doxygen -> Text -> C.ExplicitField EnrichComments -> C.ExplicitField EnrichComments
+enrichExplicitField doxy name field =
+    maybe field (\c -> field & #info % #comment .~ Just c) $ do
+      lookupFieldComment doxy (KeyField name field.info.name.text)
+
+enrichImplicitField ::
+     Doxygen -> Text -> C.ImplicitField EnrichComments -> C.ImplicitField EnrichComments
+enrichImplicitField doxy name field =
+    maybe field (\c -> field & #info % #comment .~ Just c) $ do
+        lookupFieldComment doxy (KeyField name field.info.name.text)
 
 enrichEnumConstant ::
      Doxygen -> Text -> C.EnumConstant EnrichComments -> C.EnumConstant EnrichComments

@@ -1,7 +1,6 @@
 -- | Parse functions related to struct and union fields
 module HsBindgen.Frontend.Pass.Parse.Decl.Field (
-    structFieldDecl
-  , unionFieldDecl
+    explicitFieldDecl
   , getFieldInfo
   ) where
 
@@ -14,45 +13,32 @@ import Clang.LowLevel.Core (CXCursor, clang_Cursor_getOffsetOfField,
 
 import HsBindgen.Frontend.Pass.Parse.Context (ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
-import HsBindgen.Frontend.Pass.Parse.IsPass (ExplicitFieldOrigin (ExplicitFieldOrigin),
-                                             FieldOrigin (ExplicitParsed),
-                                             Parse)
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
 import HsBindgen.IR.C qualified as C
 
-structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
-structFieldDecl ctx = \curr -> do
-    structFieldInfo   <- getFieldInfo curr
-    structFieldType   <- fromCXType ctx =<< clang_getCursorType curr
-    structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
-    structFieldAnn    <- getReparseInfo curr
-    structFieldWidth  <- structWidth curr
-    pure C.StructField{
-        info   = structFieldInfo
-      , typ    = structFieldType
-      , offset = structFieldOffset
-      , width  = structFieldWidth
-      , ann    = (structFieldAnn, ExplicitParsed ExplicitFieldOrigin)
+explicitFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.ExplicitField Parse)
+explicitFieldDecl ctx = \curr -> do
+    info   <- getFieldInfo curr
+    typ    <- fromCXType ctx =<< clang_getCursorType curr
+    offset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
+    width  <- getFieldWidth curr
+    ann    <- getReparseInfo curr
+    pure C.ExplicitField{
+        info   = info
+      , typ    = typ
+      , offset = offset
+      , width  = width
+      , ann    = ann
       }
 
-structWidth :: MonadIO m => CXCursor -> m (Maybe Int)
-structWidth = \curr -> do
+getFieldWidth :: MonadIO m => CXCursor -> m (Maybe Int)
+getFieldWidth = \curr -> do
     isBitField <- clang_Cursor_isBitField curr
     if isBitField
       then Just . fromIntegral <$> clang_getFieldDeclBitWidth curr
       else return Nothing
-
-unionFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.UnionField Parse)
-unionFieldDecl ctx = \curr -> do
-    unionFieldInfo <- getFieldInfo curr
-    unionFieldType <- fromCXType ctx =<< clang_getCursorType curr
-    unionFieldAnn  <- getReparseInfo curr
-    pure C.UnionField{
-        info = unionFieldInfo
-      , typ  = unionFieldType
-      , ann  = (unionFieldAnn, ExplicitParsed ExplicitFieldOrigin)
-      }
 
 -- | Get field info from a cursor
 --

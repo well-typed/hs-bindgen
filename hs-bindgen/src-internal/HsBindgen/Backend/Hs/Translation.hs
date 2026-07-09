@@ -133,10 +133,8 @@ generateDeclarations' macroLang env declIndex decs =
 scanAllFunctionTypes :: [C.Decl l Final] -> Set ([C.TypeFunArg Final], C.Type Final)
 scanAllFunctionTypes = foldMap $ \decl ->
     case decl.kind of
-      C.DeclStruct struct ->
-        foldMap (C.getAllFunTypes . (.typ)) struct.fields
-      C.DeclUnion union   ->
-        foldMap (C.getAllFunTypes . (.typ)) union.fields
+      C.DeclStruct struct -> foldMap scanField struct.fields
+      C.DeclUnion union   -> foldMap scanField union.fields
       C.DeclTypedef typedef
         -- Exclude function type indirections, because they are already handled
         -- by 'typedefFuntypeIndirectionDecs'
@@ -153,6 +151,11 @@ scanAllFunctionTypes = foldMap $ \decl ->
       C.DeclFunction fn ->
         foldMap C.getAllFunTypes (fn.res : map (.argTyp.typ) fn.args)
       C.DeclGlobal g -> C.getAllFunTypes g.typ
+  where
+    scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)
+    scanField = C.elimField scanExplicitField scanImplicitField
+    scanExplicitField field = C.getAllFunTypes field.typ
+    scanImplicitField field = C.getAllFunTypes field.typ
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool

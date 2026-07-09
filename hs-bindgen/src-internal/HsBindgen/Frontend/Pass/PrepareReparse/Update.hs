@@ -187,16 +187,6 @@ instance Update C.Struct where
         , ann       = struct.ann
         }
 
-instance Update C.StructField where
-  updateIt info field = do
-      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
-      pure C.StructField {
-          info   = coercePass field.info
-        , typ    = coercePass field.typ
-        , offset = field.offset
-        , width  = field.width
-        , ann    = ann'
-        }
 
 instance Update C.Union where
   updateIt info union = do
@@ -208,14 +198,22 @@ instance Update C.Union where
         , ann       = union.ann
         }
 
-instance Update C.UnionField where
+instance Update C.Field where
+  updateIt info = C.mapMField (updateIt info) (updateIt info)
+
+instance Update C.ExplicitField where
   updateIt info field = do
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
-      pure C.UnionField {
-          info = coercePass field.info
-        , typ  = coercePass field.typ
-        , ann  = ann'
+      pure C.ExplicitField {
+          info   = coercePass field.info
+        , typ    = coercePass field.typ
+        , offset = field.offset
+        , width  = field.width
+        , ann    = ann'
         }
+
+instance Update C.ImplicitField where
+  updateIt _info field = pure $ coercePass field
 
 instance Update C.Typedef where
   updateIt info typedef = do

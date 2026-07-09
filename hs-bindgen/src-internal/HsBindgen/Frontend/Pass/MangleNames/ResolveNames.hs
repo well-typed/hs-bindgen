@@ -191,11 +191,26 @@ instance Resolve C.Struct where
       , alignment = struct.alignment
       }
 
-instance Resolve C.StructField where
+instance Resolve C.Union where
+  resolve union = do
+    fields <- mapM resolve union.fields
+    pure C.Union{
+        fields    = fields
+      , ann       = union.ann
+      , sizeof    = union.sizeof
+      , alignment = union.alignment
+      }
+
+instance Resolve C.Field where
+  resolve = \case
+      C.FieldExplicit field -> C.FieldExplicit <$> resolve field
+      C.FieldImplicit field -> C.FieldImplicit <$> resolve field
+
+instance Resolve C.ExplicitField where
   resolve field = do
     typ'     <- resolve field.typ
     comment' <- traverse resolve field.info.comment
-    pure C.StructField{
+    pure C.ExplicitField{
         info   = C.FieldInfo{
                      loc     = field.info.loc
                    , name    = field.info.name
@@ -207,29 +222,25 @@ instance Resolve C.StructField where
       , ann    = field.ann
       }
 
-instance Resolve C.Union where
-  resolve union = do
-    fields <- mapM resolve union.fields
-    pure C.Union{
-        fields    = fields
-      , ann       = union.ann
-      , sizeof    = union.sizeof
-      , alignment = union.alignment
+instance Resolve C.ImplicitField where
+  resolve field = do
+    typRef'     <- resolve field.typRef
+    comment' <- traverse resolve field.info.comment
+    pure C.ImplicitField{
+        info   = C.FieldInfo{
+                     loc     = field.info.loc
+                   , name    = field.info.name
+                   , comment = comment'
+                   }
+      , typRef    = typRef'
+      , offset = field.offset
+      , ann    = field.ann
       }
 
-instance Resolve C.UnionField where
-  resolve field = do
-    typ'     <- resolve field.typ
-    comment' <- traverse resolve field.info.comment
-    pure C.UnionField{
-        info = C.FieldInfo{
-                   loc     = field.info.loc
-                 , name    = field.info.name
-                 , comment = comment'
-                 }
-      , typ  = typ'
-      , ann  = field.ann
-      }
+instance Resolve C.AnonRef where
+  resolve = \case
+      C.AnonRef ref -> C.AnonRef <$> lookupTypePairR ref
+      C.AnonExtBinding ext -> C.AnonExtBinding <$> resolveExtBindingRef ext
 
 instance Resolve C.Enum where
   resolve enum = do
@@ -364,14 +375,7 @@ instance Resolve C.Type where
       C.TypeIncompleteArray typ        -> C.TypeIncompleteArray <$> resolve typ
       C.TypeBlock typ                  -> C.TypeBlock <$> resolve typ
       C.TypeQual qual typ              -> C.TypeQual qual <$> resolve typ
-      C.TypeExtBinding (C.Ref ext uTy) ->
-        -- The underlying type may reference the external binding itself (e.g.
-        -- the typedef name that was replaced). We extend the 'NameMap' with the
-        -- external binding so that such references can be resolved.
-        fmap C.TypeExtBinding $ C.Ref ext <$>
-          local
-            ( #typeConstrs %~ Map.insert ext.cName ext.hsName.name )
-            ( resolve uTy )
+      C.TypeExtBinding ref             -> C.TypeExtBinding <$> resolveExtBindingRef ref
 
       -- The other entries do not need any name mangling
       C.TypePrim prim                  -> pure $ C.TypePrim prim
@@ -380,6 +384,18 @@ instance Resolve C.Type where
 
 instance Resolve C.TypeFunArg where
   resolve arg = C.TypeFunArgF <$> resolve arg.typ <*> pure arg.ann
+
+resolveExtBindingRef ::
+     C.ExtBindingRef CreateNames
+  -> ResolveE (C.ExtBindingRef MangleNames)
+resolveExtBindingRef (C.Ref ext uTy) =
+    -- The underlying type may reference the external binding itself (e.g.
+    -- the typedef name that was replaced). We extend the 'NameMap' with the
+    -- external binding so that such references can be resolved.
+    C.Ref ext <$>
+      local
+        ( #typeConstrs %~ Map.insert ext.cName ext.hsName.name )
+        ( resolve uTy )
 
 {-------------------------------------------------------------------------------
   Resolving comment references

@@ -182,7 +182,7 @@ hasFieldDecs ::
   -> HsM.Env
   -> C.DeclInfo Final
   -> Hs.Newtype
-  -> C.UnionField Final
+  -> C.Field Final
   -> [Hs.Decl l]
 hasFieldDecs st env info nt field =
     if Inst.Storable `Set.member` fInsts
@@ -264,14 +264,14 @@ hasFieldDecs st env info nt field =
 -- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
 -- 'HsBindgen.Runtime.HasCField.HasCField' instance.
 --
-hasFieldPtrDecs :: Hs.Newtype -> C.UnionField Final -> [Hs.Decl l]
-hasFieldPtrDecs nt field = concat [
+hasFieldPtrDecs :: Hs.Newtype -> C.Field Final -> [Hs.Decl l]
+hasFieldPtrDecs union field = concat [
       [ Hs.DeclDefineInstance $
           Hs.DefineInstance {
               comment      = Nothing
             , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
             }
-      | Inst.HasFieldPtr `elem` nt.instances
+      | Inst.HasFieldPtr `elem` union.instances
       ]
     , [ Hs.DeclDefineInstance $
           Hs.DefineInstance {
@@ -282,19 +282,19 @@ hasFieldPtrDecs nt field = concat [
                   Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
             }
       | case unionFieldWidth field of
-          Nothing -> Inst.HasCField `elem` nt.instances
-          Just{} -> Inst.HasCBitfield `elem` nt.instances
+          Nothing -> Inst.HasCField `elem` union.instances
+          Just{} -> Inst.HasCBitfield `elem` union.instances
       ]
     ]
   where
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
     -- Should be changed to @C.unionFieldWidth f@ when bit-fields in unions are
     -- supported.
-    unionFieldWidth :: C.UnionField Final -> Maybe Int
+    unionFieldWidth :: C.Field Final -> Maybe Int
     unionFieldWidth _f = Nothing
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef nt.name Nothing
+    parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName

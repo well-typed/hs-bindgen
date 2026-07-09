@@ -154,11 +154,11 @@ processStruct ::
   -> M (C.Decl l ReparseMacroExpansions)
 processStruct info struct = do
     mkDecl
-      <$> mapM (processStructField info.id) struct.fields
-      <*> C.traverseFlamField (processStructField info.id) struct.flam
+      <$> mapM (processField info.id) struct.fields
+      <*> C.traverseFlamField (processExplicitField info.id) struct.flam
   where
     mkDecl ::
-         [C.StructField ReparseMacroExpansions]
+         [C.Field ReparseMacroExpansions]
       -> C.Flam ReparseMacroExpansions
       -> C.Decl l ReparseMacroExpansions
     mkDecl fields flam = C.Decl{
@@ -170,6 +170,27 @@ processStruct info struct = do
             , sizeof    = struct.sizeof
             , alignment = struct.alignment
             , ann       = struct.ann
+            }
+        }
+
+processUnion ::
+     C.DeclInfo ReparseMacroExpansions
+  -> C.Union PrepareReparse
+  -> M (C.Decl l ReparseMacroExpansions)
+processUnion info union = do
+    combineFields <$> mapM (processField info.id) union.fields
+  where
+    combineFields ::
+         [C.Field ReparseMacroExpansions]
+      -> C.Decl l ReparseMacroExpansions
+    combineFields fields = C.Decl{
+          info = info
+        , ann  = NoAnn
+        , kind = C.DeclUnion C.Union{
+              fields    = fields
+            , sizeof    = union.sizeof
+            , alignment = union.alignment
+            , ann       = union.ann
             }
         }
 
@@ -187,61 +208,31 @@ mkFieldInfo info mName = C.FieldInfo{
     , loc     = info.loc
     }
 
-processStructField ::
+processField ::
      C.DeclId
-  -> C.StructField PrepareReparse
-  -> M (C.StructField ReparseMacroExpansions)
-processStructField declId field =
+  -> C.Field PrepareReparse
+  -> M (C.Field ReparseMacroExpansions)
+processField declId = \case
+    C.FieldExplicit field -> C.FieldExplicit <$> processExplicitField declId field
+    C.FieldImplicit field -> pure $ C.FieldImplicit $ coercePass field
+
+processExplicitField ::
+     C.DeclId
+  -> C.ExplicitField PrepareReparse
+  -> M (C.ExplicitField ReparseMacroExpansions)
+processExplicitField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
   where
-    withoutReparse :: C.StructField PrepareReparse
+    withoutReparse :: C.ExplicitField PrepareReparse
     withoutReparse = field
 
-    withReparse :: (C.Type LanC, Text) -> M (C.StructField LanC)
-    withReparse (ty, name) = pure C.StructField{
-          typ    = ty
-        , ann    = NoAnn
+    withReparse :: (C.Type LanC, Text) -> M (C.ExplicitField LanC)
+    withReparse (ty, name) = pure C.ExplicitField{
+          info   = mkFieldInfo field.info (Just name)
+        , typ    = ty
         , offset = field.offset
         , width  = field.width
-        , info   = mkFieldInfo field.info (Just name)
-        }
-
-processUnion ::
-     C.DeclInfo ReparseMacroExpansions
-  -> C.Union PrepareReparse
-  -> M (C.Decl l ReparseMacroExpansions)
-processUnion info union = do
-    combineFields <$> mapM (processUnionField info.id) union.fields
-  where
-    combineFields ::
-         [C.UnionField ReparseMacroExpansions]
-      -> C.Decl l ReparseMacroExpansions
-    combineFields fields = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclUnion C.Union{
-              fields    = fields
-            , sizeof    = union.sizeof
-            , alignment = union.alignment
-            , ann       = union.ann
-            }
-        }
-
-processUnionField ::
-     C.DeclId
-  -> C.UnionField PrepareReparse
-  -> M (C.UnionField ReparseMacroExpansions)
-processUnionField declId field =
-    reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
-  where
-    withoutReparse :: C.UnionField PrepareReparse
-    withoutReparse = field
-
-    withReparse :: (C.Type LanC, Text) -> M (C.UnionField LanC)
-    withReparse (ty, name) = pure C.UnionField{
-          typ  = ty
-        , ann  = NoAnn
-        , info = mkFieldInfo field.info (Just name)
+        , ann    = NoAnn
         }
 
 processOpaque ::

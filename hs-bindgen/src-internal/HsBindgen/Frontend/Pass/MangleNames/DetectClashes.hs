@@ -85,11 +85,11 @@ derivedNames strategy owner loc = \case
          (Constructor, GlobalScope, loc, Hs.demoteNs struct.ann.constr)
        : [ (AuxType, GlobalScope, loc, Hs.demoteNs flamNames.aux)
          | C.Flam _ flamNames <- [struct.flam] ]
-      ++ concatMap structFieldNames
-           (struct.fields ++ maybeToList (C.flamStructField struct.flam))
+      ++ concatMap fieldNames struct.fields
+      ++ foldMap explicitFieldNames (C.flamStructField struct.flam)
     C.DeclUnion union ->
          newtypeNames union.ann
-      ++ concatMap unionFieldNames union.fields
+      ++ concatMap fieldNames union.fields
     C.DeclEnum enum ->
          newtypeNames enum.ann
       ++ map enumConstantName enum.constants
@@ -111,12 +111,14 @@ derivedNames strategy owner loc = \case
       AddFieldPrefixes  -> GlobalScope
       OmitFieldPrefixes -> DeclScope owner
 
-    structFieldNames :: C.StructField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
-    structFieldNames field = [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
+    fieldNames :: C.Field CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    fieldNames = C.elimField explicitFieldNames implicitFieldNames
 
-    unionFieldNames :: C.UnionField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
-    unionFieldNames field =
-        [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
+    explicitFieldNames :: C.ExplicitField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    explicitFieldNames field = [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
+
+    implicitFieldNames :: C.ImplicitField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    implicitFieldNames field = [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
 
     enumConstantName :: C.EnumConstant CreateNames -> (NameRole, Scope, SingleLoc, Hs.SomeName)
     enumConstantName constant = (Constructor, GlobalScope, loc, constant.info.name.hsName)

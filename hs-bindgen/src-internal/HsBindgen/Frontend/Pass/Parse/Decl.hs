@@ -272,14 +272,14 @@ structDecl macroLang enclosing ctx info = \curr -> do
         alignment <- clang_Type_getAlignOf ty
         isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
-        let mkStruct :: [C.StructField Parse] -> C.Decl l Parse
+        let mkStruct :: [C.Field Parse] -> C.Decl l Parse
             mkStruct allFields = C.Decl {
                   info = info
                 , ann  = NoAnn
                 , kind = C.DeclStruct C.Struct{
                       sizeof    = fromIntegral sizeof
                     , alignment = fromIntegral alignment
-                    , fields    = filter isField regularFields
+                    , fields    = mapMaybe removePaddingFields regularFields
                     , flam      = maybe C.NoFlam (`C.Flam` NoAnn) mFlam
                     , ann       = IsAnon isAnon
                     }
@@ -292,7 +292,7 @@ structDecl macroLang enclosing ctx info = \curr -> do
 
         -- Recursively parse all members of the struct. These members include
         -- field declarations and nested struct/union declarations.
-        parseStructMembersWith ty ctx (parseDeclNested macroLang enclosing') $ \membersResult ->
+        parseMembersWith ty ctx (parseDeclNested macroLang enclosing') $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
           --
@@ -321,28 +321,24 @@ structDecl macroLang enclosing ctx info = \curr -> do
   where
     -- Split off FLAM, if any
     partitionFields ::
-         [C.StructField Parse]
-      -> ([C.StructField Parse], Maybe (C.StructField Parse))
+         [C.Field Parse]
+      -> ([C.Field Parse], Maybe (C.ExplicitField Parse))
     partitionFields = go []
       where
         go ::
-             [C.StructField Parse]
-          -> [C.StructField Parse]
-          -> ([C.StructField Parse], Maybe (C.StructField Parse))
+             [C.Field Parse]
+          -> [C.Field Parse]
+          -> ([C.Field Parse], Maybe (C.ExplicitField Parse))
         go acc []     = (reverse acc, Nothing)
-        go acc (f:fs) = case f.typ of
-                          C.TypeIncompleteArray ty ->
-                            let f' = f & #typ .~ ty
-                            in (reverse acc ++ fs, Just f')
-                          _otherwise->
-                            go (f:acc) fs
+        go acc (f:fs) = case f of
+            -- only an explicit field can be FLAM
+            C.FieldExplicit f'
+              | C.TypeIncompleteArray ty <- f'.typ ->
+                  let f'' = f' & #typ .~ ty
+                  in (reverse acc ++ fs, Just f'')
+            _otherwise ->
+              go (f:acc) fs
 
-    -- An unnamed bit-field is used to specify padding, using a specified
-    -- padding width or zero to instruct the compiler to not pack any more
-    -- fields into the current storage unit.  This predicate is used to filter
-    -- out such bit-fields.
-    isField :: C.StructField Parse -> Bool
-    isField field = not $ Text.null field.info.name.text && isJust field.width
 
 -- | Parse a union declaration
 --
@@ -363,14 +359,14 @@ unionDecl macroLang enclosing ctx info = \curr -> do
         alignment <- clang_Type_getAlignOf ty
         isAnon    <- clang_Cursor_isAnonymousRecordDecl curr
 
-        let mkUnion :: [C.UnionField Parse] -> C.Decl l Parse
+        let mkUnion :: [C.Field Parse] -> C.Decl l Parse
             mkUnion fields = C.Decl{
                   info = info
                 , ann  = NoAnn
                 , kind = C.DeclUnion C.Union{
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
-                           , fields    = filter isField fields
+                           , fields    = mapMaybe removePaddingFields fields
                            , ann       = IsAnon isAnon
                            }
                 }
@@ -379,7 +375,7 @@ unionDecl macroLang enclosing ctx info = \curr -> do
 
         -- Recursively parse all members of the union. These members include
         -- field declarations and nested struct/union declarations.
-        parseUnionMembersWith ty ctx (parseDeclNested macroLang enclosing') $ \membersResult ->
+        parseMembersWith ty ctx (parseDeclNested macroLang enclosing') $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
           --
@@ -406,12 +402,20 @@ unionDecl macroLang enclosing ctx info = \curr -> do
       DefinitionElsewhere _ ->
         foldContinue
   where
-    -- An unnamed bit-field is used to specify padding, using a specified
-    -- padding width or zero to instruct the compiler to not pack any more
-    -- fields into the current storage unit.  This predicate is used to filter
-    -- out such bit-fields.
-    isField :: C.UnionField Parse -> Bool
-    isField field = not $ Text.null field.info.name.text
+
+-- An unnamed bit-field is used to specify padding, using a specified
+-- padding width or zero to instruct the compiler to not pack any more
+-- fields into the current storage unit.  This predicate is used to filter
+-- out such bit-fields.
+removePaddingFields :: C.Field Parse -> Maybe (C.Field Parse)
+removePaddingFields = \case
+    C.FieldExplicit field ->
+      if Text.null field.info.name.text && isJust field.width
+      then Nothing
+      else Just (C.FieldExplicit field)
+    C.FieldImplicit field ->
+      -- implicit fields don't have a bit-width
+      Just (C.FieldImplicit field)
 
 typedefDecl ::
      forall l.
