@@ -71,21 +71,11 @@ processDeclKind kind =
 processStruct :: C.Struct MangleNames -> C.Struct AdjustTypes
 processStruct struct =
     C.Struct {
-        fields    = map processStructField struct.fields
-      , flam      = C.mapFlamField processStructField struct.flam
+        fields    = map processField struct.fields
+      , flam      = C.mapFlamField processExplicitField struct.flam
       , sizeof    = struct.sizeof
       , alignment = struct.alignment
       , ann       = struct.ann
-      }
-
-processStructField :: C.StructField MangleNames -> C.StructField AdjustTypes
-processStructField field =
-    C.StructField {
-        info   = coercePass field.info
-      , typ    = processType field.typ
-      , offset = field.offset
-      , width  = field.width
-      , ann    = field.ann
       }
 
 processUnion :: C.Union MangleNames -> C.Union AdjustTypes
@@ -93,17 +83,38 @@ processUnion union =
     C.Union {
         sizeof    = union.sizeof
       , alignment = union.alignment
-      , fields    = map processUnionField union.fields
+      , fields    = map processField union.fields
       , ann       = union.ann
       }
 
-processUnionField :: C.UnionField MangleNames -> C.UnionField AdjustTypes
-processUnionField field =
-    C.UnionField {
-        info = coercePass field.info
-      , typ  = processType field.typ
-      , ann  = field.ann
+processField :: C.Field MangleNames -> C.Field AdjustTypes
+processField = \case
+    C.FieldExplicit field -> C.FieldExplicit $ processExplicitField field
+    C.FieldImplicit field -> C.FieldImplicit $ processImplicitField field
+
+processExplicitField :: C.ExplicitField MangleNames -> C.ExplicitField AdjustTypes
+processExplicitField field =
+    C.ExplicitField {
+        info   = coercePass field.info
+      , typ    = processType field.typ
+      , offset = field.offset
+      , width  = field.width
+      , ann    = field.ann
       }
+
+processImplicitField :: C.ImplicitField MangleNames -> C.ImplicitField AdjustTypes
+processImplicitField field =
+    C.ImplicitField {
+        info   = coercePass field.info
+      , typRef = processAnonRef field.typRef
+      , offset = field.offset
+      , ann    = field.ann
+      }
+
+processAnonRef :: C.AnonRef MangleNames -> C.AnonRef AdjustTypes
+processAnonRef = \case
+    C.AnonRef ref -> C.AnonRef ref
+    C.AnonExtBinding ext -> C.AnonExtBinding $ processExtBindingRef ext
 
 processTypedef :: C.Typedef MangleNames -> C.Typedef AdjustTypes
 processTypedef typedef =
@@ -222,7 +233,10 @@ processType = \case
     C.TypeQual qual ty ->
       C.TypeQual qual $ processType ty
     C.TypeExtBinding ref ->
-      C.TypeExtBinding $ C.Ref {
+      C.TypeExtBinding $ processExtBindingRef ref
+
+processExtBindingRef :: C.ExtBindingRef MangleNames -> C.ExtBindingRef AdjustTypes
+processExtBindingRef ref = C.Ref {
           name       = ref.name
         , underlying = processType ref.underlying
         }

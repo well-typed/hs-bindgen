@@ -91,20 +91,20 @@ instance Simplify C.Struct where
       concatMap (simplifyIt info) struct.fields ++
       foldMap (simplifyIt info) (C.flamStructField struct.flam)
 
-instance Simplify C.StructField where
-  simplifyIt info field = case field.ann of
-      ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _macroInvs -> singleTarget $
-        Target (fieldTag info field.info) (defaultDecl tokens)
-
 instance Simplify C.Union where
   simplifyIt info union = concatMap (simplifyIt info) union.fields
 
-instance Simplify C.UnionField where
+instance Simplify C.Field where
+  simplifyIt info = C.elimField (simplifyIt info) (simplifyIt info)
+
+instance Simplify C.ExplicitField where
   simplifyIt info field = case field.ann of
-      ReparseNotNeeded -> nothing
-      ReparseNeeded tokens _macroInvs -> singleTarget $
-        Target (fieldTag info field.info) (defaultDecl tokens)
+        ReparseNotNeeded -> nothing
+        ReparseNeeded tokens _macroInvs -> singleTarget $
+          Target (fieldTag info field.info) (defaultDecl tokens)
+
+instance Simplify C.ImplicitField where
+  simplifyIt _ _ = nothing
 
 instance Simplify C.Typedef where
   simplifyIt info typedef = case typedef.ann of

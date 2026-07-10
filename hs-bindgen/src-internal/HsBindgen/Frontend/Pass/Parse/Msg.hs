@@ -510,11 +510,6 @@ data ParseImplicitFieldsMsg =
     --
     -- This is likely a bug in implicit field parsing.
   | UnexpectedClangOffsetOfException Text String
-    -- | An unexpected non-zero field offset for an implicit field of a union
-    -- was computed
-    --
-    -- This is likely a bug in implicit field parsing.
-  | UnexpectedNonZeroFieldOffset Int
   deriving stock (Show, Eq, Ord, Generic)
 
 
@@ -528,16 +523,11 @@ instance PrettyForTrace ParseImplicitFieldsMsg where
           "Unexpected exception when using clang_Type_getOffsetOf"
         , "with field name", PP.text field, ":", PP.string exc
         ]
-      UnexpectedNonZeroFieldOffset off -> PP.hsep [
-          "Unexpected non-zero field offset for an implicit field of a union:"
-        , PP.show off
-        ]
 
 -- | Unsupported features are warnings
 instance IsTrace Level ParseImplicitFieldsMsg where
   getDefaultLogLevel = \case
       UnsupportedEmptyAnon{}              -> Warning
-      UnexpectedNonZeroFieldOffset{}      -> Bug
       UnexpectedClangOffsetOfException{}  -> Bug
   getSource  = const HsBindgen
   getTraceId = const "implicit-fields"

@@ -1,13 +1,11 @@
 -- | Parse functions related to struct and union members
 module HsBindgen.Frontend.Pass.Parse.Decl.Members (
     ParseMembersResult (..)
-  , parseStructMembersWith
-  , parseUnionMembersWith
+  , parseMembersWith
   ) where
 
 import Data.Either (partitionEithers)
 import Data.List.NonEmpty qualified as NE
-import GHC.Records (HasField)
 
 import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (Fold, FoldException (exception), Next,
@@ -17,8 +15,7 @@ import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl), CXType,
 
 import HsBindgen.Frontend.Pass.Parse.Context (ExceptionInCtx (exception),
                                               ParseCtx)
-import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
-                                                 unionFieldDecl)
+import HsBindgen.Frontend.Pass.Parse.Decl.Field (explicitFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields qualified as IFields
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
@@ -33,65 +30,32 @@ import HsBindgen.Macro.Type qualified as Macro
 type Parser l = CXCursor -> ParseDecl (Next ParseDecl [ParseResult l Parse])
 
 -- | The result of parsing the members of a struct\/union
-data ParseMembersResult field l = ParseMembersResult {
+data ParseMembersResult l = ParseMembersResult {
       -- | Nested object declarations (i.e., structs and unions)
       declMembers  :: [ParseResult l Parse]
       -- | Field declarations
       --
       -- Returns 'Left' if any nested struct\/union declarations or field
       -- declarations failed to be parsed. Returns 'Right' otherwise.
-    , fieldMembers :: Either DelayedParseMsg [field Parse]
+    , fieldMembers :: Either DelayedParseMsg [C.Field Parse]
     }
 
-deriving stock instance (Show (field Parse), Macro.HasTypes l)
-  => Show (ParseMembersResult field l)
-
--- | Parse the members of a struct
-parseStructMembersWith ::
-     CXType
-     -- ^ Type of the enclosing object
-  -> ParseCtx
-     -- | How to parse a non-field declaration (e.g., a union or struct
-     -- declaration)
-  -> (ParseCtx -> Parser l)
-      -- | How to continue with the result of parsing members
-  -> (ParseMembersResult C.StructField l -> ParseDecl a)
-  -> ParseDecl (Next ParseDecl a)
-parseStructMembersWith ty ctx parseObject k =
-    parseMembersWith ty ctx structFieldDecl parseObject k
-
--- | Parse the members of a union
-parseUnionMembersWith ::
-     CXType
-     -- ^ Type of the enclosing object
-  -> ParseCtx
-     -- | How to parse a non-field declaration (e.g., a union or struct
-     -- declaration)
-  -> (ParseCtx -> Parser l)
-      -- | How to continue with the result of parsing members
-  -> (ParseMembersResult C.UnionField l -> ParseDecl a)
-  -> ParseDecl (Next ParseDecl a)
-parseUnionMembersWith ty ctx parseObject k =
-    parseMembersWith ty ctx unionFieldDecl parseObject k
+deriving stock instance (Macro.HasTypes l)
+  => Show (ParseMembersResult l)
 
 -- | Parse all members of a struct\/union
 parseMembersWith ::
-     ( IFields.MakeImplicitField field
-     , HasField "typ" (field Parse) (C.Type Parse)
-     )
      -- | Type of the enclosing object
-  => CXType
+     CXType
   -> ParseCtx
-     -- | How to parse a field declaration
-  -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
   -> (ParseCtx -> Parser l)
      -- | How to continue with the result of parsing members
-  -> (ParseMembersResult field l -> ParseDecl a)
+  -> (ParseMembersResult l -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseMembersWith ty ctx parseField parseObject k =
-    foldRecurseWith (parseMember ctx parseField parseObject) $ \xs -> do
+parseMembersWith ty ctx parseObject k =
+    foldRecurseWith (parseMember ctx parseObject) $ \xs -> do
       let (foldExceptions, allDecls, fails, successes) = partitionParseMemberResults xs
           -- Always return all nested declarations, regardless of their parse
           -- status. The @Select@ pass wil handle deselecting declarations if
@@ -144,17 +108,17 @@ parseMembersWith ty ctx parseField parseObject k =
                     }
 
 -- | The result of parsing a single member of a struct\/union
-data ParseMemberResult field l =
+data ParseMemberResult l =
     ParseMemberResultFoldException (FoldException (ExceptionInCtx DelayedParseMsg))
   | ParseMemberResultDecls [ParseResult l Parse]
-  | ParseMemberResultField (field Parse)
+  | ParseMemberResultField (C.ExplicitField Parse)
 
 partitionParseMemberResults ::
-     [ParseMemberResult field l]
+     [ParseMemberResult l]
   -> ( [FoldException (ExceptionInCtx DelayedParseMsg)]
      , [ParseResult l Parse]  -- ^ All parse results
      , [ParseResult l Parse]  -- ^ Only parse failures
-     , IFields.Inputs field l -- ^ Only parse successes
+     , IFields.Inputs l -- ^ Only parse successes
      )
 partitionParseMemberResults = mconcat . fmap f
   where
@@ -174,19 +138,17 @@ partitionParseMemberResults = mconcat . fmap f
 -- | Parse a single member of a struct\/union
 parseMember ::
      ParseCtx
-     -- | How to parse a field declaration
-  -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
   -> (ParseCtx -> Parser l)
-  -> Fold ParseDecl (ParseMemberResult field l)
-parseMember ctx parseField parseObject =
+  -> Fold ParseDecl (ParseMemberResult l)
+parseMember ctx parseObject =
     fmap flatten $
     foldTry $ \curr -> do
       kind <- fromSimpleEnum <$> clang_getCursorKind curr
       case kind of
         Right CXCursor_FieldDecl -> do
-          field <- parseField ctx curr
+          field <- explicitFieldDecl ctx curr
           -- Field declarations can have struct\/union declarations as children in
           -- the clang AST; however, those are duplicates of declarations that
           -- appear elsewhere, so here we choose not to recurse.
@@ -195,8 +157,8 @@ parseMember ctx parseField parseObject =
           fmap ParseMemberResultDecls <$> parseObject ctx curr
   where
     flatten ::
-         Either (FoldException (ExceptionInCtx DelayedParseMsg)) (ParseMemberResult field l)
-      -> ParseMemberResult field l
+         Either (FoldException (ExceptionInCtx DelayedParseMsg)) (ParseMemberResult l)
+      -> ParseMemberResult l
     flatten = \case
         Left e -> ParseMemberResultFoldException e
         Right x -> x

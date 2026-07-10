@@ -78,6 +78,6 @@ newtype PatSyn =
 
 data Field =
     GeneratedField  -- ^ Field without a direct counterpart in C
-  | StructField (C.StructField Final)
+  | StructField (C.Field Final)
   deriving stock (Generic, Show)
 

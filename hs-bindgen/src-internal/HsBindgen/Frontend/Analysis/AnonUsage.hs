@@ -181,19 +181,31 @@ analyseDecl decl =
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.AnonId, Context)]
 analyseStruct info struct = concat [
-      concatMap aux struct.fields
-    , foldMap   aux (C.flamStructField struct.flam)
+      concatMap aux     struct.fields
+    , foldMap   auxFlam (C.flamStructField struct.flam)
     ]
   where
-    aux :: C.StructField Parse -> [(C.AnonId, Context)]
-    aux f = analyseType (Field info f.info) f.typ
+    aux :: C.Field Parse -> [(C.AnonId, Context)]
+    aux f = analyseField (Field info f.info) f
+
+    auxFlam :: C.ExplicitField Parse -> [(C.AnonId, Context)]
+    auxFlam f = analyseExplicitField (Field info f.info) f
 
 analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(C.AnonId, Context)]
 analyseUnion info union =
     concatMap aux union.fields
   where
-    aux :: C.UnionField Parse -> [(C.AnonId, Context)]
-    aux f = analyseType (Field info f.info) f.typ
+    aux :: C.Field Parse -> [(C.AnonId, Context)]
+    aux f = analyseField (Field info f.info) f
+
+analyseField :: Context -> C.Field Parse -> [(C.AnonId, Context)]
+analyseField ctx = C.elimField (analyseExplicitField ctx) (analyseImplicitField ctx)
+
+analyseExplicitField :: Context -> C.ExplicitField Parse -> [(C.AnonId, Context)]
+analyseExplicitField ctx field = analyseType ctx field.typ
+
+analyseImplicitField :: Context -> C.ImplicitField Parse -> [(C.AnonId, Context)]
+analyseImplicitField ctx field = analyseType ctx field.typ
 
 analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(C.AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ

@@ -193,62 +193,77 @@ instance UpdateUseSites C.Struct where
         <*> C.traverseFlamField updateUseSites struct.flam
     where
       reconstruct ::
-           [C.StructField AssignAnonIds]
+           [C.Field AssignAnonIds]
         -> C.Flam AssignAnonIds
         -> C.Struct AssignAnonIds
-      reconstruct structFields' structFlam' = C.Struct {
-            fields    = structFields'
-          , flam      = structFlam'
+      reconstruct fields' flam' = C.Struct {
+            fields    = fields'
+          , flam      = flam'
           , sizeof    = struct.sizeof
           , alignment = struct.alignment
           , ann       = NoAnn
-          }
-
-instance UpdateUseSites C.StructField where
-  updateUseSites field =
-      reconstruct
-        <$> updateUseSites field.typ
-        <*> updateUseSites field.info
-    where
-      reconstruct ::
-           C.Type AssignAnonIds
-        -> C.FieldInfo AssignAnonIds
-        -> C.StructField AssignAnonIds
-      reconstruct structFieldType' structFieldInfo' = C.StructField {
-            typ    = structFieldType'
-          , info   = structFieldInfo'
-          , offset = field.offset
-          , width  = field.width
-          , ann    = fst field.ann
           }
 
 instance UpdateUseSites C.Union where
   updateUseSites union =
       reconstruct <$> mapM updateUseSites union.fields
     where
-      reconstruct :: [C.UnionField AssignAnonIds] -> C.Union AssignAnonIds
-      reconstruct unionFields' = C.Union {
-            fields    = unionFields'
+      reconstruct :: [C.Field AssignAnonIds] -> C.Union AssignAnonIds
+      reconstruct fields' = C.Union {
+            fields    = fields'
           , sizeof    = union.sizeof
           , alignment = union.alignment
           , ann       = NoAnn
           }
 
-instance UpdateUseSites C.UnionField where
+instance UpdateUseSites C.Field where
+  updateUseSites = C.mapMField updateUseSites updateUseSites
+
+instance UpdateUseSites C.FieldInfo where
+  updateUseSites info = pure C.FieldInfo{
+        comment = ()
+      , name    = info.name
+      , loc     = info.loc
+      }
+
+instance UpdateUseSites C.ExplicitField where
   updateUseSites field =
       reconstruct
-        <$> updateUseSites field.typ
-        <*> updateUseSites field.info
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typ
     where
       reconstruct ::
-           C.Type AssignAnonIds
-        -> C.FieldInfo AssignAnonIds
-        -> C.UnionField AssignAnonIds
-      reconstruct unionFieldType' unionFieldInfo' = C.UnionField {
-          typ  = unionFieldType'
-        , info = unionFieldInfo'
-        , ann  = fst field.ann
-        }
+           C.FieldInfo AssignAnonIds
+        -> C.Type AssignAnonIds
+        -> C.ExplicitField AssignAnonIds
+      reconstruct info' typ' = C.ExplicitField {
+            info   = info'
+          , typ    = typ'
+          , offset = field.offset
+          , width  = field.width
+          , ann    = field.ann
+          }
+
+instance UpdateUseSites C.ImplicitField where
+  updateUseSites field =
+      reconstruct
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typRef
+    where
+      reconstruct ::
+           C.FieldInfo AssignAnonIds
+        -> C.AnonRef AssignAnonIds
+        -> C.ImplicitField AssignAnonIds
+      reconstruct info' typRef' = C.ImplicitField {
+            info   = info'
+          , typRef = typRef'
+          , offset = field.offset
+          , ann    = NoAnn
+          }
+
+instance UpdateUseSites C.AnonRef where
+  updateUseSites = \case
+      C.AnonRef ref -> C.AnonRef <$> updateDeclId ref
 
 instance UpdateUseSites C.Typedef where
   updateUseSites typedef =
@@ -367,13 +382,6 @@ updateDeclId prelimDeclId = WrapM $ do
 {-------------------------------------------------------------------------------
   Comments
 -------------------------------------------------------------------------------}
-
-instance UpdateUseSites C.FieldInfo where
-  updateUseSites info = pure C.FieldInfo{
-        comment = ()
-      , name    = info.name
-      , loc     = info.loc
-      }
 
 instance UpdateUseSites C.EnumConstant where
   updateUseSites constant =

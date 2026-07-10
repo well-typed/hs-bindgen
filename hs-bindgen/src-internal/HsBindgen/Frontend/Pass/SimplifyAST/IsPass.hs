@@ -22,14 +22,14 @@ data SimplifyAST a
 
 -- Preserve annotations from @Parse@ pass
 type family AnnSimplifyAST (ix :: Symbol) where
-  AnnSimplifyAST "Function"    = ReparseInfo Tokens
-  AnnSimplifyAST "Global"      = ReparseInfo Tokens
-  AnnSimplifyAST "Struct"      = IsAnon
-  AnnSimplifyAST "StructField" = (ReparseInfo Tokens, FieldOrigin)
-  AnnSimplifyAST "Typedef"     = ReparseInfo Tokens
-  AnnSimplifyAST "Union"       = IsAnon
-  AnnSimplifyAST "UnionField"  = (ReparseInfo Tokens, FieldOrigin)
-  AnnSimplifyAST _             = NoAnn
+  AnnSimplifyAST "ExplicitField" = ReparseInfo Tokens
+  AnnSimplifyAST "Function"      = ReparseInfo Tokens
+  AnnSimplifyAST "Global"        = ReparseInfo Tokens
+  AnnSimplifyAST "ImplicitField" = FieldOrigin
+  AnnSimplifyAST "Struct"        = IsAnon
+  AnnSimplifyAST "Typedef"       = ReparseInfo Tokens
+  AnnSimplifyAST "Union"         = IsAnon
+  AnnSimplifyAST _               = NoAnn
 
 instance IsPass SimplifyAST
 

@@ -37,6 +37,7 @@ module HsBindgen.IR.C.Type (
   , EnumRef
   , MacroRef(..)
   , TypedefRef
+  , ExtBindingRef
 
     -- * Normal forms
   , Normalize(..)
@@ -58,6 +59,9 @@ module HsBindgen.IR.C.Type (
   , isCanonicalTypeUnion
   , isCanonicalTypeArray
   , isErasedTypeConstQualified
+
+    -- * CoercePass
+  , CoercePassExtBindingRef(..)
   ) where
 
 import Data.Foldable qualified as Foldable
@@ -93,20 +97,17 @@ data TypeF (tag :: TypeTag) (p :: Pass) =
 
     -- | Reference to an @enum@
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that
-    -- pattern matches are redundant when @TypeEnumRefF tag p ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | TypeEnum !(TypeEnumRefF tag p)
 
     -- | Reference to a macro type
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that
-    -- pattern matches are redundant when @TypeMacroRefF tag p ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | TypeMacro !(TypeMacroRefF tag p)
 
     -- | Reference to a @typedef@
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that
-    -- pattern matches are redundant when @TypedefRefF tag p ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | TypeTypedef !(TypedefRefF tag p)
 
     -- | Pointer
@@ -150,14 +151,12 @@ data TypeF (tag :: TypeTag) (p :: Pass) =
 
     -- | Qualified type (such as @const@)
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
-    -- matches are redundant when @TypeQualifierF tag p ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | TypeQual !(TypeQualifierF tag p) (TypeF tag p)
 
     -- | Type with an external binding
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
-    -- matches are redundant when @TypeExtBindingRefF tag p ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
   | TypeExtBinding !(TypeExtBindingRefF tag p)
   deriving stock Generic
 
@@ -244,8 +243,7 @@ data TypeQual =
 data Ref a (p :: Pass) = Ref {
     -- | The reference type: a name
     --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
-    -- matches are redundant when @a ~ Void@.
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
     name :: !a
     -- | The underlying type.
     --
@@ -820,7 +818,7 @@ isErasedTypeConstQualified ty =
       _ -> False
 
 {-------------------------------------------------------------------------------
-  CoercePass instances
+  CoercePass
 -------------------------------------------------------------------------------}
 
 -- NOTE: types do not contain 'ScopedName's, so unlike most other 'CoercePass'
@@ -845,7 +843,7 @@ instance (
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
       TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
-      TypeExtBinding ref      -> TypeExtBinding (Ref ref.name (coercePass ref.underlying))
+      TypeExtBinding ref      -> TypeExtBinding (coercePassExtBindingRef ref)
       TypeBlock typ           -> TypeBlock (coercePass typ)
       TypeQual qual typ       -> TypeQual qual (coercePass typ)
       TypeComplex prim        -> TypeComplex prim
@@ -858,6 +856,15 @@ instance (
 
       goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
       goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
+
+class CoercePassExtBindingRef p p' where
+  coercePassExtBindingRef :: ExtBindingRef p -> ExtBindingRef p'
+
+instance (
+      CoercePass Type p p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePassExtBindingRef p p' where
+  coercePassExtBindingRef ref = Ref ref.name (coercePass ref.underlying)
 
 -- NOTE: see the 'CoercePass Type' instance for why there is no
 -- @ScopedName p ~ ScopedName p'@ constraint here.

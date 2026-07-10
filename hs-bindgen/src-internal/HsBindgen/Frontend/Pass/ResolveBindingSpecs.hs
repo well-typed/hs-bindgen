@@ -441,7 +441,7 @@ instance Resolve C.Struct l where
         <*> C.traverseFlamField (resolve ctx) struct.flam
     where
       reconstruct ::
-           [C.StructField ResolveBindingSpecs]
+           [C.Field ResolveBindingSpecs]
         -> C.Flam ResolveBindingSpecs
         -> C.Struct ResolveBindingSpecs
       reconstruct structFields' structFlam' = C.Struct {
@@ -452,27 +452,12 @@ instance Resolve C.Struct l where
           , ann       = struct.ann
           }
 
-instance Resolve C.StructField l where
-  resolve ctx field =
-      reconstruct <$> resolve ctx field.typ
-    where
-      reconstruct ::
-           C.Type ResolveBindingSpecs
-        -> C.StructField ResolveBindingSpecs
-      reconstruct structFieldType' = C.StructField {
-          typ    = structFieldType'
-        , info   = coercePass field.info
-        , offset = field.offset
-        , width  = field.width
-        , ann    = field.ann
-        }
-
 instance Resolve C.Union l where
   resolve ctx union =
       reconstruct <$> mapM (resolve ctx) union.fields
     where
       reconstruct ::
-           [C.UnionField ResolveBindingSpecs]
+           [C.Field ResolveBindingSpecs]
         -> C.Union ResolveBindingSpecs
       reconstruct unionFields' = C.Union {
           fields    = unionFields'
@@ -481,17 +466,47 @@ instance Resolve C.Union l where
         , ann       = union.ann
         }
 
-instance Resolve C.UnionField l where
+instance Resolve C.Field l where
+  resolve ctx = \case
+      C.FieldExplicit field -> C.FieldExplicit <$> resolve ctx field
+      C.FieldImplicit field -> C.FieldImplicit <$> resolve ctx field
+
+instance Resolve C.ExplicitField l where
   resolve ctx field =
       reconstruct <$> resolve ctx field.typ
     where
-      reconstruct :: C.Type ResolveBindingSpecs
-                 -> C.UnionField ResolveBindingSpecs
-      reconstruct unionFieldType' = C.UnionField {
-          typ  = unionFieldType'
-        , info = coercePass field.info
-        , ann  = field.ann
+      reconstruct ::
+           C.Type ResolveBindingSpecs
+        -> C.ExplicitField ResolveBindingSpecs
+      reconstruct typ' = C.ExplicitField {
+          typ    = typ'
+        , info   = coercePass field.info
+        , offset = field.offset
+        , width  = field.width
+        , ann    = field.ann
         }
+
+instance Resolve C.ImplicitField l where
+  resolve ctx field = do
+      reconstruct <$> resolve ctx field.typRef
+    where
+      reconstruct ::
+           C.AnonRef ResolveBindingSpecs
+        -> C.ImplicitField ResolveBindingSpecs
+      reconstruct typRef' = C.ImplicitField {
+          typRef    = typRef'
+        , info   = coercePass field.info
+        , offset = field.offset
+        , ann    = field.ann
+        }
+
+instance Resolve C.AnonRef l where
+  resolve ctx (C.AnonRef ref) = do
+      mResolved <- resolveUseSite ctx ref
+      let underlying' = C.TypeRef ref
+      case mResolved of
+        Just r  -> return $ C.AnonExtBinding $ C.Ref r underlying'
+        Nothing -> return $ C.AnonRef ref
 
 instance Resolve C.Enum l where
   resolve ctx enum =
@@ -591,32 +606,32 @@ instance Resolve (TypecheckedMacroType l) l where
 instance Resolve C.Type l where
   resolve ctx = \case
       C.TypeRef uid -> do
-        mResolved <- aux uid
+        mResolved <- resolveUseSite ctx uid
         let ref' = C.TypeRef uid
         case mResolved of
-          Just r  -> return $ r ref'
+          Just r  -> return $ C.TypeExtBinding $ C.Ref r ref'
           Nothing -> return ref'
       C.TypeEnum ref -> do
-        mResolved <- aux ref.name
+        mResolved <- resolveUseSite ctx ref.name
         underlying' <- resolve ctx ref.underlying
-        let enum' = C.TypeEnum (C.Ref ref.name underlying')
+        let ref' = C.TypeEnum (C.Ref ref.name underlying')
         case mResolved of
-          Just r  -> return $ r enum'
-          Nothing -> return enum'
+          Just r  -> return $ C.TypeExtBinding $ C.Ref r ref'
+          Nothing -> return ref'
       C.TypeMacro ref -> do
-        mResolved <- aux ref.name
+        mResolved <- resolveUseSite ctx ref.name
         underlying' <- resolve ctx ref.underlying
-        let macro' = C.TypeMacro (C.MacroRef ref.name underlying')
+        let ref' = C.TypeMacro (C.MacroRef ref.name underlying')
         case mResolved of
-          Just r  -> return $ r macro'
-          Nothing -> return macro'
+          Just r  -> return $ C.TypeExtBinding $ C.Ref r ref'
+          Nothing -> return ref'
       C.TypeTypedef ref -> do
-        mResolved <- aux ref.name
+        mResolved <- resolveUseSite ctx ref.name
         underlying' <- resolve ctx ref.underlying
-        let typedef' = C.TypeTypedef (C.Ref ref.name underlying')
+        let ref' = C.TypeTypedef (C.Ref ref.name underlying')
         case mResolved of
-          Just r  -> return $ r typedef'
-          Nothing -> return typedef'
+          Just r  -> return $ C.TypeExtBinding $ C.Ref r ref'
+          Nothing -> return ref'
 
       -- Recursive cases
       C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t
@@ -631,14 +646,6 @@ instance Resolve C.Type l where
       C.TypePrim t         -> return (C.TypePrim t)
       C.TypeVoid           -> return (C.TypeVoid)
       C.TypeComplex t      -> return (C.TypeComplex t)
-    where
-      aux ::
-           HasCallStack
-        => C.DeclId
-        -> M l (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
-      aux cDeclId = fmap reconstruct <$> resolveUseSite ctx cDeclId
-        where
-          reconstruct ty uTy = C.TypeExtBinding $ C.Ref ty uTy
 
 instance Resolve C.TypeFunArg l where
   resolve ctx arg = do

@@ -4,11 +4,10 @@ module HsBindgen.Frontend.Analysis.Deps (
   , depsOfStruct
   , depsOfUnion
   , depsOfField
+  , depsOfExplicitField
     -- * Parsed macros
   , depsOfDeclParsedMacro
   ) where
-
-import GHC.Records
 
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
@@ -93,17 +92,30 @@ typecheckedMacroDeps = \case
 depsOfStruct :: IsPass p => C.Struct p -> [(Id p, Dependency)]
 depsOfStruct struct = concat [
       concatMap depsOfField struct.fields
-    , foldMap   depsOfField (C.flamStructField struct.flam)
+    , foldMap   depsOfExplicitField (C.flamStructField struct.flam)
     ]
 
 depsOfUnion :: IsPass p => C.Union p -> [(Id p, Dependency)]
 depsOfUnion union = concatMap depsOfField union.fields
 
 -- | Dependencies of struct or union field
-depsOfField :: forall a p.
-     (HasField "typ" (a p) (C.Type p), IsPass p)
-  => a p -> [(Id p, Dependency)]
-depsOfField field = C.depsOfType field.typ
+depsOfField ::
+     forall p. IsPass p
+  => C.Field p
+  -> [(Id p, Dependency)]
+depsOfField = C.elimField depsOfExplicitField depsOfImplicitField
+
+depsOfExplicitField ::
+     forall p. IsPass p
+  => C.ExplicitField p
+  -> [(Id p, Dependency)]
+depsOfExplicitField field = C.depsOfType field.typ
+
+depsOfImplicitField ::
+     forall p. IsPass p
+  => C.ImplicitField p
+  -> [(Id p, Dependency)]
+depsOfImplicitField field = C.depsOfType field.typ
 
 {-------------------------------------------------------------------------------
   Typedefs

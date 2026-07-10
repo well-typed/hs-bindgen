@@ -11,7 +11,6 @@ module HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields (
   , Outputs (..)
     -- * Top-level
   , EnclosingObject(..)
-  , MakeImplicitField
   , withImplicitFields
   ) where
 
@@ -23,19 +22,15 @@ import Data.Foldable (minimumBy)
 import Data.List (sortOn)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as Text
-import GHC.Records (HasField (getField))
 
-import Clang.HighLevel.Types (SingleLoc)
 import Clang.LowLevel.Core (CXType, CallFailed, clang_Type_getOffsetOf)
 
-import HsBindgen.Frontend.Analysis.Deps (depsOfField, depsOfStruct, depsOfUnion)
-import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (..), Parse,
-                                             ReparseInfo (..), Tokens)
-import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOrigin (..),
-                                                                 FieldOrigin (..),
-                                                                 ImplicitFieldOrigin (..))
+import HsBindgen.Frontend.Analysis.Deps (depsOfExplicitField, depsOfStruct,
+                                         depsOfUnion)
+import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (isAnon), Parse)
+import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (FieldOrigin (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
-import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
+import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, forM)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (PassScopedName (ScopedName))
 
@@ -44,32 +39,32 @@ import HsBindgen.IR.Pass (PassScopedName (ScopedName))
 -------------------------------------------------------------------------------}
 
 -- | A list of nested struct\/union declarations and field declarations
-newtype Inputs field l = Inputs {
-    nestedDecls :: [Either (C.Decl l Parse) (field Parse)]
+newtype Inputs l = Inputs {
+    nestedDecls :: [Either (C.Decl l Parse) (C.ExplicitField Parse)]
   }
   deriving newtype (Semigroup, Monoid)
 
-inputEmpty :: Inputs field l
+inputEmpty :: Inputs l
 inputEmpty = Inputs []
 
-inputField :: field Parse -> Inputs field l
+inputField :: C.ExplicitField Parse -> Inputs l
 inputField x = Inputs [Right x]
 
-inputDecl :: C.Decl l Parse -> Inputs field l
+inputDecl :: C.Decl l Parse -> Inputs l
 inputDecl x = Inputs [Left x]
 
 {-------------------------------------------------------------------------------
   Outputs
 -------------------------------------------------------------------------------}
 
-data Outputs field =
+data Outputs =
     -- | An exception occurred
     OutputFail {
         exception :: ParseImplicitFieldsMsg
       }
     -- | All explicit and implicit fields
   | OutputSuccess {
-        fields    :: [field Parse]
+        fields    :: [C.Field Parse]
       }
 
 {-------------------------------------------------------------------------------
@@ -166,14 +161,12 @@ data Outputs field =
 -- > };
 --
 withImplicitFields ::
-     forall m field l. (
+     forall m l. (
        MonadIO m
-     , MakeImplicitField field
-     , HasField "typ" (field Parse) (C.Type Parse)
      )
   => EnclosingObject
-  -> Inputs field l
-  -> m (Outputs field)
+  -> Inputs l
+  -> m Outputs
 withImplicitFields encObj inputs = do
     resultsE <- runM $ mapM getImplicitField' classifications.candidates
     case resultsE of
@@ -184,14 +177,14 @@ withImplicitFields encObj inputs = do
           fields =
               fmap (.numberee)
             $ sortOn (.number)
-            $ classifications.explicitFields ++ implicitFields
+            $ fmap (fmap C.FieldExplicit) classifications.explicitFields ++ implicitFields
         }
   where
     classifications = classifyInputs inputs
 
     getImplicitField' ::
         Numbered (C.Decl l Parse)
-      -> M m (Numbered (field Parse))
+      -> M m (Numbered (C.Field Parse))
     getImplicitField' decl =
         Numbered decl.number <$> getImplicitField encObj decl.numberee
 
@@ -199,9 +192,9 @@ withImplicitFields encObj inputs = do
   Inputs classification
 -------------------------------------------------------------------------------}
 
-data Classification field l = Classification {
+data Classification l = Classification {
     -- | Parsed explicit fields
-    explicitFields :: [Numbered (field Parse)]
+    explicitFields :: [Numbered (C.ExplicitField Parse)]
     -- | Candidates for implicit fields
   , candidates     :: [Numbered (C.Decl l Parse)]
   }
@@ -214,10 +207,7 @@ data Numbered a = Numbered {
   }
   deriving stock (Functor, Foldable, Traversable)
 
-classifyInputs ::
-     forall field l. HasField "typ" (field Parse) (C.Type Parse)
-  => Inputs field l
-  -> Classification field l
+classifyInputs :: forall l. Inputs l -> Classification l
 classifyInputs inputs = Classification {
       explicitFields = explicitFields
     , candidates = candidates
@@ -226,10 +216,10 @@ classifyInputs inputs = Classification {
     -- | Number all the declarations so that we can re-sort them at the end of
     -- the algorithm
     membersNumbered ::
-      [Numbered (Either (C.Decl l Parse) (field Parse))]
+      [Numbered (Either (C.Decl l Parse) (C.ExplicitField Parse))]
     membersNumbered = zipWith Numbered [0..] inputs.nestedDecls
     nestedDecls :: [Numbered (C.Decl l Parse)]
-    explicitFields :: [Numbered (field Parse)]
+    explicitFields :: [Numbered (C.ExplicitField Parse)]
     (nestedDecls, explicitFields) = partitionEithers $ fmap numberedIn membersNumbered
 
     -- | A struct\/union declaration requires an implicit field if the
@@ -261,16 +251,15 @@ isAnonymous decl = case decl.kind of
 --
 -- Note: the nested structs and unions should include implicit fields.
 isReferenced ::
-     HasField "typ" (field Parse) (C.Type Parse)
-  => C.Decl l Parse
+     C.Decl l Parse
      -- | Fields that are declared directly in the enclosing object
-  -> [field Parse]
+  -> [C.ExplicitField Parse]
      -- | Struct and union declarations (recursively) nested in the enclosing
      -- object
   -> [C.Decl l Parse]
   -> Bool
 isReferenced decl fields decls =
-       decl.info.id `elem` map fst (concatMap depsOfField fields)
+       decl.info.id `elem` map fst (concatMap depsOfExplicitField fields)
     || decl.info.id `elem` map fst (concatMap depsOfStructOrUnion decls)
   where
     depsOfStructOrUnion d = case d.kind of
@@ -284,18 +273,17 @@ isReferenced decl fields decls =
 
 -- | Generate an implicit field for an anonymous object
 getImplicitField ::
-     forall m field l. (
-      MonadIO m
-    , MakeImplicitField field
-    )
+     forall m l. (
+       MonadIO m
+     )
      -- | The enclosing object
   => EnclosingObject
      -- | An anonymous object nested in the enclosing object
   -> C.Decl l Parse
-  -> M m (field Parse)
+  -> M m (C.Field Parse)
 getImplicitField encObj decl = do
-    targetsNE <- liftEither $ checkNonEmpty targets
-    offsets <- mapM offsetOf' targetsNE
+    indFields <- getIndirectFields encObj decl
+    indFieldsNE <- liftEither $ checkNonEmpty indFields
     -- The offset to the implicit field is equal to the offset to any of the
     -- nested object's fields, subtracted by the offset of that same field with
     -- respect to the nested object.
@@ -304,38 +292,34 @@ getImplicitField encObj decl = do
     -- 'minimumBy' to determine which /named/ field is the first. We need to
     -- know which field is first so that we can use that field's name as the
     -- implicit field's name as well.
-    let (target, offset) = minimumBy (\x y -> compare (snd x) (snd y)) offsets
-        offset' = offset - target.fieldOffset
-    makeImplicitFieldM
-      decl.info.loc
-      (mkScopedName target)
-      (C.TypeRef decl.info.id)
-      offset'
-      (mkOrigin target)
-  where
-    targets :: [Target]
-    targets = case decl.kind of
-        C.DeclStruct struct -> map getOffsetOfTarget struct.fields
-        C.DeclUnion  union  -> map getOffsetOfTarget union.fields
-        _                   -> []
+    let (origField, indField) = minimumBy (\x y -> compare (snd x).offset (snd y).offset) indFieldsNE
+        offset' = indField.offset - origField.offset
 
-    checkNonEmpty :: [Target] -> Either ParseImplicitFieldsMsg (NonEmpty Target)
+    let implicitField = makeImplicitField origField indField offset'
+
+    pure (C.FieldImplicit implicitField)
+  where
+    checkNonEmpty :: [a] -> Either ParseImplicitFieldsMsg (NonEmpty a)
     checkNonEmpty xs = case NonEmpty.nonEmpty xs of
         Nothing -> Left UnsupportedEmptyAnon
         Just ys -> Right ys
 
-    offsetOf' :: Target -> M m (Target, FieldOffset)
-    offsetOf' target = do
-        offset <- offsetOf encObj target.originName
-        pure (target, offset)
-
-    mkOrigin ::
-         Target
-      -> Origin.ImplicitFieldOrigin
-    mkOrigin target = Origin.ImplicitFieldOrigin (C.ScopedName target.originName.text)
-
-    mkScopedName :: Target -> ScopedName Parse
-    mkScopedName target = C.ScopedName ("anon'" <> target.fieldName.text)
+    makeImplicitField ::
+         C.Field Parse
+      -> IndirectField Parse
+      -> Int
+      -> C.ImplicitField Parse
+    makeImplicitField origField indField offset =
+        C.ImplicitField {
+            info = C.FieldInfo {
+                loc = decl.info.loc
+              , name = C.ScopedName ("anon'" <> indField.info.name.text)
+              , comment = ()
+              }
+          , typRef = C.AnonRef decl.info.id
+          , offset = offset
+          , ann = Origin.FieldOrigin (getOrigin origField)
+          }
 
 -- | When the field is implicit and we want to ask for its offset using its
 -- name, then we should ask for the offset to an explicit field of the
@@ -347,70 +331,62 @@ getImplicitField encObj decl = do
 -- careful with implicit field names. @libclang@ won't recognise the implicit
 -- field names.
 --
-getOffsetOfTarget ::
-     IsField field
-  => field Parse
-  -> Target
-getOffsetOfTarget (Field -> field) =
-    Target {
-        fieldName = FieldName field.info.name.text
-      , originName = FieldName $ case snd field.ann of
-          Origin.ExplicitParsed Origin.ExplicitFieldOrigin
-            -> field.info.name.text
-          Origin.ImplicitGenerated origin
-            -> origin.field.text
-      , fieldOffset = FieldOffset $ field.offset
-      }
-
-data Target = Target {
-      fieldName  :: FieldName
-    , originName :: FieldName
-    , fieldOffset :: FieldOffset
-    }
+getOrigin :: C.Field Parse -> ScopedName Parse
+getOrigin = C.elimField (.info.name) (.ann.field)
 
 {-------------------------------------------------------------------------------
-  Field
+  Indirect field
 -------------------------------------------------------------------------------}
 
-class ( HasField "ann" (Field field) (ReparseInfo Tokens, Origin.FieldOrigin)
-      , HasField "info" (Field field) (C.FieldInfo Parse)
-      , HasField "width" (Field field) (Maybe Int)
-      , HasField "offset" (Field field) Int
-      )
-   => IsField field
+getIndirectFields ::
+     forall m l. (
+       MonadIO m
+     )
+     -- | The enclosing object
+  => EnclosingObject
+     -- | An anonymous object nested in the enclosing object
+  -> C.Decl l Parse
+  -> M m [(C.Field Parse, IndirectField Parse)]
+getIndirectFields encObj decl = forM fields $ \field ->
+    (field,) <$> getIndirectField encObj decl field
+  where
+    fields :: [C.Field Parse]
+    fields = case decl.kind of
+        C.DeclStruct struct -> struct.fields
+        C.DeclUnion  union  -> union.fields
+        _ -> []
 
-instance IsField C.StructField
-instance IsField C.UnionField
+getIndirectField ::
+     forall m l. (
+       MonadIO m
+     )
+     -- | The enclosing object
+  => EnclosingObject
+     -- | An anonymous object nested in the enclosing object
+  -> C.Decl l Parse
+     -- | A field of the anonymous object
+  -> C.Field Parse
+  -> M m (IndirectField Parse)
+getIndirectField encObj _decl field = do
+    offsetOuter <- offsetOf encObj (getOrigin field)
+    pure $ mkIndirectField offsetOuter
+  where
+    mkIndirectField :: Int -> IndirectField Parse
+    mkIndirectField offset = IndirectField {
+          info = field.info
+        , typ = field.typ
+        , offset = offset
+        , width = field.width
+        , origin = Origin.FieldOrigin (getOrigin field)
+        }
 
-newtype Field field = Field { unwrap :: field Parse }
-
-instance HasField "ann" (Field C.StructField) (ReparseInfo Tokens, Origin.FieldOrigin) where
-  getField x = getField @"ann" x.unwrap
-
-instance HasField "info" (Field C.StructField) (C.FieldInfo Parse) where
-  getField x = getField @"info" x.unwrap
-
-instance HasField "width" (Field C.StructField) (Maybe Int) where
-  getField x = getField @"width" x.unwrap
-
-instance HasField "offset" (Field C.StructField) Int where
-  getField x = getField @"offset" x.unwrap
-
-instance HasField "ann" (Field C.UnionField) (ReparseInfo Tokens, Origin.FieldOrigin) where
-  getField x = getField @"ann" x.unwrap
-
-instance HasField "info" (Field C.UnionField) (C.FieldInfo Parse) where
-  getField x = getField @"info" x.unwrap
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
--- Once bit-fields are supported in union fields, then we can implement this
--- instance properly
-instance HasField "width" (Field C.UnionField) (Maybe Int) where
-  getField _ = Nothing
-
--- offsets for union fields are always 0
-instance HasField "offset" (Field C.UnionField) Int where
-  getField _ = 0
+data IndirectField p = IndirectField {
+      info :: C.FieldInfo p
+    , typ :: C.Type p
+    , offset :: Int
+    , width  :: Maybe Int
+    , origin :: Origin.FieldOrigin
+    }
 
 {-------------------------------------------------------------------------------
   Field offset
@@ -418,13 +394,6 @@ instance HasField "offset" (Field C.UnionField) Int where
 
 newtype EnclosingObject = EnclosingObject { typ :: CXType }
   deriving stock Show
-
-newtype FieldName = FieldName { text :: Text }
-  deriving stock (Show, Eq, Ord)
-
-newtype FieldOffset = FieldOffset { int :: Int }
-  deriving stock (Show, Eq, Ord)
-  deriving newtype (Num)
 
 -- | Get the offset of a named field with respect to an enclosing object.
 --
@@ -434,78 +403,17 @@ newtype FieldOffset = FieldOffset { int :: Int }
 offsetOf ::
      MonadIO m
   => EnclosingObject
-  -> FieldName
-  -> M m FieldOffset
+  -> ScopedName Parse
+  -> M m Int
 offsetOf encObj name = do
     offsetE <- liftIO $ try @CallFailed $ clang_Type_getOffsetOf encObj.typ fieldName
     case offsetE of
       Left e
         -> throwError (UnexpectedClangOffsetOfException name.text (show e))
       Right offset
-        -> pure (FieldOffset (fromIntegral offset))
+        -> pure (fromIntegral offset)
   where
     fieldName = Text.unpack name.text
-
-
-{-------------------------------------------------------------------------------
-  MakeImplicitField
--------------------------------------------------------------------------------}
-
--- | Create an implicit field monadically
-makeImplicitFieldM ::
-     (Monad m, MakeImplicitField field)
-  => SingleLoc                  -- ^ Field location
-  -> ScopedName Parse           -- ^ Field name
-  -> C.Type Parse               -- ^ Field type
-  -> FieldOffset                -- ^ Field offset
-  -> Origin.ImplicitFieldOrigin -- ^ Field origin
-  -> M m (field Parse)
-makeImplicitFieldM loc name typ off orig = do
-    let field = makeImplicitField loc name typ off orig
-    case field of
-      Left e -> throwError e
-      Right x -> pure x
-
--- | A common interface to creating an implicit field for a struct or union
--- object.
-class MakeImplicitField field where
-  -- | Create an implicit field
-  makeImplicitField ::
-       SingleLoc                  -- ^ Field location
-    -> ScopedName Parse           -- ^ Field name
-    -> C.Type Parse               -- ^ Field type
-    -> FieldOffset                -- ^ Field offset
-    -> Origin.ImplicitFieldOrigin -- ^ Field origin
-    -> Either ParseImplicitFieldsMsg (field Parse)
-
-instance MakeImplicitField C.StructField where
-  makeImplicitField loc name typ off orig =
-      Right C.StructField {
-          info = C.FieldInfo {
-              loc = loc
-            , name = name
-            , comment = ()
-            }
-        , typ = typ
-        , offset = off.int
-        , width = Nothing
-        , ann = (ReparseNotNeeded, Origin.ImplicitGenerated orig)
-        }
-
-instance MakeImplicitField C.UnionField where
-  makeImplicitField loc name typ off orig
-    | off.int /= 0
-    = Left (UnexpectedNonZeroFieldOffset off.int)
-    | otherwise
-    = Right C.UnionField {
-          info = C.FieldInfo {
-              loc = loc
-            , name = name
-            , comment = ()
-            }
-        , typ = typ
-        , ann = (ReparseNotNeeded, Origin.ImplicitGenerated orig)
-        }
 
 {-------------------------------------------------------------------------------
   Monad

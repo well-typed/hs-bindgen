@@ -22,9 +22,8 @@ module HsBindgen.IR.C.Decl (
   , flamStructField
   , traverseFlamField
   , mapFlamField
-  , StructField(..)
   , Union(..)
-  , UnionField(..)
+
   , Typedef(..)
   , Enum(..)
   , EnumConstant(..)
@@ -35,6 +34,14 @@ module HsBindgen.IR.C.Decl (
   , FunctionPurity(..)
   , decideFunctionPurity
   , Global(..)
+    -- ** Fields
+  , Field(..)
+  , mapField
+  , mapMField
+  , elimField
+  , ExplicitField(..)
+  , ImplicitField(..)
+  , AnonRef(..)
     -- ** Comments
   , Comment(..)
   , CommentRef(..)
@@ -43,11 +50,14 @@ module HsBindgen.IR.C.Decl (
 import Prelude hiding (Enum)
 import Prelude qualified as P
 
+import GHC.Records (HasField (getField))
+
 import Clang.HighLevel.Types
 
 import HsBindgen.Imports
 import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.C.Type (CoercePassExtBindingRef (coercePassExtBindingRef))
 import HsBindgen.IR.C.Type qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C (PrimType)
@@ -184,7 +194,7 @@ data OpaqueSize = OpaqueSize {
 data Struct (p :: Pass) = Struct {
       sizeof    :: Int
     , alignment :: Int
-    , fields    :: [StructField p]
+    , fields    :: [Field p]
     , flam      :: Flam p
     , ann       :: Ann "Struct" p
     }
@@ -205,11 +215,11 @@ data Struct (p :: Pass) = Struct {
 -- minted (see <https://github.com/well-typed/hs-bindgen/issues/1925>).
 data Flam (p :: Pass) =
     NoFlam
-  | Flam (StructField p) (Ann "Flam" p)
+  | Flam (ExplicitField p) (Ann "Flam" p)
   deriving stock (Generic)
 
 -- | The element-type field of a FLAM, if present
-flamStructField :: Flam p -> Maybe (StructField p)
+flamStructField :: Flam p -> Maybe (ExplicitField p)
 flamStructField = \case
     NoFlam   -> Nothing
     Flam f _ -> Just f
@@ -217,7 +227,7 @@ flamStructField = \case
 -- | Traverse the element-type field of a FLAM, preserving its annotation
 traverseFlamField ::
      (Applicative f, Ann "Flam" p ~ Ann "Flam" p')
-  => (StructField p -> f (StructField p'))
+  => (ExplicitField p -> f (ExplicitField p'))
   -> Flam p
   -> f (Flam p')
 traverseFlamField f = \case
@@ -227,36 +237,21 @@ traverseFlamField f = \case
 -- | Map over the element-type field of a FLAM, preserving its annotation
 mapFlamField ::
      (Ann "Flam" p ~ Ann "Flam" p')
-  => (StructField p -> StructField p')
+  => (ExplicitField p -> ExplicitField p')
   -> Flam p
   -> Flam p'
 mapFlamField f = \case
     NoFlam       -> NoFlam
     Flam fld ann -> Flam (f fld) ann
 
-data StructField (p :: Pass) = StructField {
-      info   :: FieldInfo p
-    , typ    :: C.Type p
-    , offset :: Int     -- ^ Offset in bits
-    , width  :: Maybe Int
-    , ann    :: Ann "StructField" p
-    }
-  deriving stock (Generic)
-
 data Union (p :: Pass) = Union {
       sizeof    :: Int
     , alignment :: Int
-    , fields    :: [UnionField p]
+    , fields    :: [Field p]
     , ann       :: Ann "Union" p
     }
   deriving stock (Generic)
 
-data UnionField (p :: Pass) = UnionField {
-      info :: FieldInfo p
-    , typ  :: C.Type p
-    , ann  :: Ann "UnionField" p
-    }
-  deriving stock (Generic)
 
 data Typedef (p :: Pass) = Typedef {
       typ :: C.Type p
@@ -405,6 +400,86 @@ data Global (p :: Pass) = Global {
   deriving stock (Generic)
 
 {-------------------------------------------------------------------------------
+  Fields
+-------------------------------------------------------------------------------}
+
+data Field p =
+    FieldExplicit (ExplicitField p)
+  | FieldImplicit (ImplicitField p)
+  deriving stock (Generic)
+
+instance HasField "info" (Field p) (FieldInfo p) where
+  getField = elimField (.info) (.info)
+
+instance HasField "typ" (Field p) (C.Type p) where
+  getField = elimField (.typ) (.typ)
+
+instance HasField "offset" (Field p) Int where
+  getField = elimField (.offset) (.offset)
+
+instance HasField "width" (Field p) (Maybe Int) where
+  getField = elimField (.width) (.width)
+
+mapField :: (ExplicitField p -> ExplicitField p') -> (ImplicitField p -> ImplicitField p') -> Field p -> Field p'
+mapField f g = \case
+    FieldExplicit field -> FieldExplicit $ f field
+    FieldImplicit field -> FieldImplicit $ g field
+
+mapMField ::
+     Monad m
+  => (ExplicitField p -> m (ExplicitField p'))
+  -> (ImplicitField p -> m (ImplicitField p'))
+  -> Field p
+  -> m (Field p')
+mapMField f g = \case
+    FieldExplicit field -> FieldExplicit <$> f field
+    FieldImplicit field -> FieldImplicit <$> g field
+
+elimField :: (ExplicitField p -> a) -> (ImplicitField p -> a) -> Field p -> a
+elimField f g = \case
+    FieldExplicit field -> f field
+    FieldImplicit field -> g field
+
+data ExplicitField p = ExplicitField {
+      info   :: FieldInfo p
+    , typ    :: C.Type p
+      -- | Offset in bits
+    , offset :: Int
+    , width  :: Maybe Int
+    , ann    :: Ann "ExplicitField" p
+    }
+    deriving stock (Generic)
+
+data ImplicitField p = ImplicitField {
+      info     :: FieldInfo p
+      -- | Implicit fields can only refer to anonymous structs or unions
+    , typRef   :: AnonRef p
+      -- | Offset in bits
+    , offset   :: Int
+    , ann      :: Ann "ImplicitField" p
+    }
+    deriving stock (Generic)
+
+-- | A reference to an anonymous struct or union
+data AnonRef p =
+    AnonRef (Id p)
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
+  | AnonExtBinding !(C.ExtBindingRef p)
+
+-- | Implicit fields can only refer to anonymous structs or unions, so the type
+-- of the field is always @TypeRef typRef@. Use the @typRef@ field to access the
+-- reference directly.
+instance HasField "typ" (ImplicitField p) (C.Type p) where
+  getField x = case x.typRef of
+      AnonRef ref -> C.TypeRef ref
+      AnonExtBinding ext -> C.TypeExtBinding ext
+
+-- | Implicit fields can only refer to anonymous structs or unions, so they have
+-- no bit width.
+instance HasField "width" (ImplicitField p) (Maybe Int) where
+  getField _x = Nothing
+
+{-------------------------------------------------------------------------------
   Comments
 -------------------------------------------------------------------------------}
 
@@ -426,38 +501,42 @@ data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 -------------------------------------------------------------------------------}
 
 deriving stock instance IsPass p => Eq (AnonEnumConstant p)
+deriving stock instance IsPass p => Eq (AnonRef          p)
 deriving stock instance IsPass p => Eq (Comment          p)
 deriving stock instance IsPass p => Eq (CommentRef       p)
 deriving stock instance IsPass p => Eq (DeclInfo         p)
 deriving stock instance IsPass p => Eq (Enum             p)
 deriving stock instance IsPass p => Eq (EnumConstant     p)
+deriving stock instance IsPass p => Eq (ExplicitField    p)
+deriving stock instance IsPass p => Eq (Field            p)
 deriving stock instance IsPass p => Eq (FieldInfo        p)
 deriving stock instance IsPass p => Eq (Flam             p)
 deriving stock instance IsPass p => Eq (Function         p)
 deriving stock instance IsPass p => Eq (FunctionArg      p)
 deriving stock instance IsPass p => Eq (Global           p)
+deriving stock instance IsPass p => Eq (ImplicitField    p)
 deriving stock instance IsPass p => Eq (Struct           p)
-deriving stock instance IsPass p => Eq (StructField      p)
 deriving stock instance IsPass p => Eq (Typedef          p)
 deriving stock instance IsPass p => Eq (Union            p)
-deriving stock instance IsPass p => Eq (UnionField       p)
 
 deriving stock instance IsPass p => Show (AnonEnumConstant p)
+deriving stock instance IsPass p => Show (AnonRef          p)
 deriving stock instance IsPass p => Show (Comment          p)
 deriving stock instance IsPass p => Show (CommentRef       p)
 deriving stock instance IsPass p => Show (DeclInfo         p)
 deriving stock instance IsPass p => Show (Enum             p)
 deriving stock instance IsPass p => Show (EnumConstant     p)
+deriving stock instance IsPass p => Show (ExplicitField    p)
+deriving stock instance IsPass p => Show (Field            p)
 deriving stock instance IsPass p => Show (FieldInfo        p)
 deriving stock instance IsPass p => Show (Flam             p)
 deriving stock instance IsPass p => Show (Function         p)
 deriving stock instance IsPass p => Show (FunctionArg      p)
 deriving stock instance IsPass p => Show (Global           p)
+deriving stock instance IsPass p => Show (ImplicitField    p)
 deriving stock instance IsPass p => Show (Struct           p)
-deriving stock instance IsPass p => Show (StructField      p)
 deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance IsPass p => Show (Union            p)
-deriving stock instance IsPass p => Show (UnionField       p)
 
 deriving stock instance (Macro.HasTypes l, IsPass p) => Eq (DeclKind l p)
 
@@ -532,8 +611,8 @@ instance (
       DeclOpaque        mSize -> DeclOpaque mSize
 
 instance (
-      CoercePass StructField p p'
-    , CoercePass Flam p p'
+      CoercePass Flam p p'
+    , CoercePass Field p p'
     , Ann "Struct" p ~ Ann "Struct" p'
     ) => CoercePass Struct p p' where
   coercePass struct = Struct{
@@ -545,7 +624,7 @@ instance (
       }
 
 instance (
-      CoercePass StructField p p'
+      CoercePass ExplicitField p p'
     , Ann "Flam" p ~ Ann "Flam" p'
     ) => CoercePass Flam p p' where
   coercePass = \case
@@ -553,21 +632,7 @@ instance (
     Flam fld ann -> Flam (coercePass fld) ann
 
 instance (
-      CoercePass C.Type p p'
-    , CoercePassCommentDecl p p'
-    , ScopedName p ~ ScopedName p'
-    , Ann "StructField" p ~ Ann "StructField" p'
-    ) => CoercePass StructField p p' where
-  coercePass field = StructField{
-        info   = coercePass field.info
-      , typ    = coercePass field.typ
-      , offset = field.offset
-      , width  = field.width
-      , ann    = field.ann
-      }
-
-instance (
-      CoercePass UnionField p p'
+      CoercePass Field p p'
     , Ann "Union" p ~ Ann "Union" p'
     ) => CoercePass Union p p' where
   coercePass union = Union{
@@ -578,16 +643,45 @@ instance (
       }
 
 instance (
-      CoercePass C.Type p p'
-    , CoercePassCommentDecl p p'
-    , ScopedName p ~ ScopedName p'
-    , Ann "UnionField" p ~ Ann "UnionField" p'
-    ) => CoercePass UnionField p p' where
-  coercePass field = UnionField{
+      CoercePass ExplicitField p p'
+    , CoercePass ImplicitField p p'
+    ) => CoercePass Field p p' where
+  coercePass = \case
+      FieldExplicit field -> FieldExplicit (coercePass field)
+      FieldImplicit field -> FieldImplicit (coercePass field)
+
+instance (
+      CoercePass FieldInfo p p'
+    , CoercePass C.Type p p'
+    , Ann "ExplicitField" p ~ Ann "ExplicitField" p'
+    ) => CoercePass ExplicitField p p' where
+  coercePass field = ExplicitField {
         info = coercePass field.info
-      , typ  = coercePass field.typ
-      , ann  = field.ann
+      , typ = coercePass field.typ
+      , offset = field.offset
+      , width = field.width
+      , ann = field.ann
       }
+
+instance (
+      CoercePass FieldInfo p p'
+    , CoercePass AnonRef p p'
+    , Ann "ImplicitField" p ~ Ann "ImplicitField" p'
+    ) => CoercePass ImplicitField p p' where
+  coercePass field = ImplicitField {
+        info = coercePass field.info
+      , typRef = coercePass field.typRef
+      , offset = field.offset
+      , ann = field.ann
+      }
+
+instance (
+      CoercePassId p p'
+    , CoercePassExtBindingRef p p'
+    ) => CoercePass AnonRef p p' where
+  coercePass = \case
+      AnonRef ref -> AnonRef $ coercePassId (Proxy @'(p, p')) ref
+      AnonExtBinding ext -> AnonExtBinding $ coercePassExtBindingRef ext
 
 instance (
       CoercePass C.Type p p'

@@ -27,19 +27,12 @@ class ForgetAnn a where
   Instances
 -------------------------------------------------------------------------------}
 
-instance ForgetAnn C.StructField where
-  forgetAnn field = C.StructField{
+instance ForgetAnn C.ExplicitField where
+  forgetAnn field = C.ExplicitField{
           typ    = coercePass field.typ
         , ann    = NoAnn
         , offset = field.offset
         , width  = field.width
-        , info   = coercePass field.info
-        }
-
-instance ForgetAnn C.UnionField where
-  forgetAnn field = C.UnionField{
-          typ    = coercePass field.typ
-        , ann    = NoAnn
         , info   = coercePass field.info
         }
 

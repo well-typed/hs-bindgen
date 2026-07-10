@@ -61,12 +61,12 @@ data CreateNames a
 
 type family AnnCreateNames ix where
   AnnCreateNames "Decl"                 = PrescriptiveDeclSpec
-  AnnCreateNames "Struct"               = StructNames
-  AnnCreateNames "Flam"                 = FlamNames
-  AnnCreateNames "Union"                = NewtypeNames
   AnnCreateNames "Enum"                 = NewtypeNames
+  AnnCreateNames "Flam"                 = FlamNames
+  AnnCreateNames "Struct"               = StructNames
   AnnCreateNames "Typedef"              = TypedefNames
   AnnCreateNames "TypecheckedMacroType" = NewtypeNames
+  AnnCreateNames "Union"                = NewtypeNames
   AnnCreateNames _                      = NoAnn
 
 instance IsPass CreateNames
@@ -438,7 +438,7 @@ createStructNames name = do
 createFlam :: Text -> C.Flam ResolveBindingSpecs -> CreateE (C.Flam CreateNames)
 createFlam _      C.NoFlam        = pure C.NoFlam
 createFlam hsName (C.Flam field _) = do
-    field'  <- createStructField hsName field
+    field'  <- createExplicitField hsName field
     auxName <- mkName (Proxy @Hs.NsTypeConstr) (hsName <> "_Aux")
     pure $ C.Flam field' FlamNames{ aux = auxName }
 
@@ -523,7 +523,7 @@ createArgumentName argName = do
 createStruct ::
      Text -> C.Struct ResolveBindingSpecs -> CreateE (C.Struct CreateNames)
 createStruct hsName struct = do
-    fields <- mapM (createStructField hsName) struct.fields
+    fields <- mapM (createField hsName) struct.fields
     flam   <- createFlam hsName struct.flam
     names  <- createStructNames hsName
     pure C.Struct{
@@ -534,13 +534,32 @@ createStruct hsName struct = do
       , alignment = struct.alignment
       }
 
-createStructField ::
+createUnion ::
+     Text -> C.Union ResolveBindingSpecs -> CreateE (C.Union CreateNames)
+createUnion hsName union = do
+    strategy <- asks (.fieldNamingStrategy)
+    names    <- createNewtypeNames strategy hsName
+    fields   <- mapM (createField hsName) union.fields
+    pure C.Union{
+        fields    = fields
+      , ann       = names
+      , sizeof    = union.sizeof
+      , alignment = union.alignment
+      }
+
+createField ::
      Text
-  -> C.StructField ResolveBindingSpecs
-  -> CreateE (C.StructField CreateNames)
-createStructField hsName field = do
+  -> C.Field ResolveBindingSpecs
+  -> CreateE (C.Field CreateNames)
+createField hsName = C.mapMField (createExplicitField hsName) (createImplicitField hsName)
+
+createExplicitField ::
+     Text
+  -> C.ExplicitField ResolveBindingSpecs
+  -> CreateE (C.ExplicitField CreateNames)
+createExplicitField hsName field = do
     name' <- createFieldName hsName field.info.name
-    pure C.StructField{
+    pure C.ExplicitField{
         info   = C.FieldInfo{
                      loc     = field.info.loc
                    , name    = name'
@@ -552,34 +571,30 @@ createStructField hsName field = do
       , ann    = field.ann
       }
 
-createUnion ::
-     Text -> C.Union ResolveBindingSpecs -> CreateE (C.Union CreateNames)
-createUnion hsName union = do
-    strategy <- asks (.fieldNamingStrategy)
-    names    <- createNewtypeNames strategy hsName
-    fields   <- mapM (createUnionField hsName) union.fields
-    pure C.Union{
-        fields    = fields
-      , ann       = names
-      , sizeof    = union.sizeof
-      , alignment = union.alignment
-      }
-
-createUnionField ::
+createImplicitField ::
      Text
-  -> C.UnionField ResolveBindingSpecs
-  -> CreateE (C.UnionField CreateNames)
-createUnionField hsName field = do
-    name'    <- createFieldName hsName field.info.name
-    pure C.UnionField{
+  -> C.ImplicitField ResolveBindingSpecs
+  -> CreateE (C.ImplicitField CreateNames)
+createImplicitField hsName field = do
+    name'   <- createFieldName hsName field.info.name
+    typRef' <- createAnonRef field.typRef
+    pure C.ImplicitField{
         info = C.FieldInfo{
                    loc     = field.info.loc
                  , name    = name'
                  , comment = fmap coercePass field.info.comment
                  }
-      , typ  = coercePass field.typ
+      , typRef = typRef'
+      , offset = field.offset
       , ann  = NoAnn
       }
+
+createAnonRef ::
+     C.AnonRef ResolveBindingSpecs
+  -> CreateE (C.AnonRef CreateNames)
+createAnonRef = \case
+    C.AnonRef ref -> pure $ C.AnonRef ref
+    C.AnonExtBinding ext -> pure $ C.AnonExtBinding $ C.coercePassExtBindingRef ext
 
 createEnum :: Text -> C.Enum ResolveBindingSpecs -> CreateE (C.Enum CreateNames)
 createEnum hsName enum = do
