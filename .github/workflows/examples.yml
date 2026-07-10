@@ -186,7 +186,12 @@ jobs:
       # is incremented, then the "Restor cache" step fails to restore a cache,
       # meaning we will start with an empty cabal store that we will then save a
       # new cache for.
-      cache-reset-number: 0
+      #
+      # Bumped to 1 when LLVM installation moved off install-llvm-action to
+      # apt: the apt libclang has a different SONAME (libclang-N.so.N vs
+      # upstream libclang.so.N), so cabal stores built against the old toolchain
+      # fail to load libclang at Template-Haskell time.
+      cache-reset-number: 1
 
     steps:
     - name: 🛠️ Set git to use LF
