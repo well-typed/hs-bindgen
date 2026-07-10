@@ -55,8 +55,8 @@ import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportGroupTag (..),
-                                                       ExportTags,
+import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportTags,
+                                                       computeExportTags,
                                                        resolveExports)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
@@ -74,8 +74,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (FlamNames (..),
-                                                   TypedefNames (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
@@ -88,8 +86,6 @@ import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-
-import Doxygen.Parser (Doxygen, lookupGroupInfo, lookupGroupMembership)
 
 -- | Main entry point to run @hs-bindgen@.
 --
@@ -456,108 +452,6 @@ getExportTags = do
     doxy  <- DoxygenA
     final <- FrontendPassA FinalPass
     pure $ computeExportTags doxy final.decls
-
--- | Build an 'ExportTags' map from Doxygen metadata and the final C
--- declarations.
---
--- The resulting map is keyed by Haskell name. 'resolveExports' performs a single
--- lookup with no fallbacks.
---
--- For each 'C.Decl Final':
---
---  * If the originating C name belongs to a @\@defgroup@, the tag is
---    @'Grouped' path@ (root-to-leaf section titles).
---  * Otherwise, if the declaration is top-level (@null info.enclosing@), the
---    tag is 'Ungrouped' and the declaration is explicitly hoisted before any
---    section headers in the export list.
---  * Otherwise (nested, no group), the declaration is omitted from the map.
---    Missing keys are interpreted as 'Derived' by 'resolveExports', so the
---    declaration inherits the preceding 'Grouped' section in source order.
---
--- Backend-synthesised companion declarations are inserted under their own
--- Haskell name with the same tag as their parent:
---
---  * Typedef function pointers contribute an auxiliary newtype @F_Aux@ whose
---    name comes from @typedef.names.aux@; the @_Aux@ form is delayed during
---    Hs translation and therefore not adjacent to its parent in source
---    order, so an entry under its own Hs name is necessary to keep it in
---    its parent's section.
---  * Structs with flexible array members contribute an auxiliary type whose
---    name comes from the @FlamNames@ carried by the struct's @C.Flam@ field
---    (@struct.flam@); same reasoning.
---
--- Example: given a C header with
---
--- > /** @defgroup core "Core Data Types" @{ */
--- > typedef struct { ... } config_t;
--- > /** @} */
---
--- and the Haskell name @Config_t@, this produces:
---
--- > fromList [("Config_t", Grouped ["Core Data Types"])]
-computeExportTags :: Doxygen -> [C.Decl l Final] -> ExportTags
-computeExportTags doxy decls =
-    Map.fromList $ concatMap declTagEntries decls
-  where
-    declTagEntries :: C.Decl l Final -> [(Text, ExportGroupTag)]
-    declTagEntries decl =
-        case declTag decl of
-          Nothing  -> []
-          Just tag ->
-            (decl.info.id.hsName.text, tag) : auxEntries decl.kind tag
-
-    -- | Compute the tag for a top-level or grouped declaration.  Returns
-    -- 'Nothing' for nested declarations without a group (those flow through
-    -- as 'Derived' by lookup miss in 'resolveExports').
-    declTag :: C.Decl l Final -> Maybe ExportGroupTag
-    declTag decl =
-      case groupPath decl.info.id.cName.name.text of
-        Just path -> Just (Grouped path)
-        Nothing
-          | null decl.info.enclosing -> Just Ungrouped
-          | otherwise                -> Nothing
-
-    -- | Extra entries for backend-synthesised companion decls that share
-    -- their parent's group membership.
-    auxEntries :: C.DeclKind l Final -> ExportGroupTag -> [(Text, ExportGroupTag)]
-    auxEntries kind tag = case kind of
-      C.DeclTypedef typedef
-        | Just (auxName, _) <- typedef.names.aux ->
-            [(auxName.text, tag)]
-      C.DeclStruct struct
-        | C.Flam _ flamNames <- struct.flam ->
-            [(flamNames.aux.text, tag)]
-      _ -> []
-
-    -- | Resolve the full group title path (root to leaf) for a C name.
-    --
-    -- Walks the Doxygen group hierarchy upward from the declaration's
-    -- immediate group to the root, collecting titles along the way.
-    --
-    -- > groupPath "config_t"
-    -- >   -- lookupGroupMembership → Just "core_types"
-    -- >   -- lookupGroupInfo "core_types" → Just ("Core Data Types", Nothing)
-    -- >   ==> Just ["Core Data Types"]
-    -- >
-    -- > groupPath "inner_typ"
-    -- >   -- lookupGroupMembership → Just "inner_a"
-    -- >   -- lookupGroupInfo "inner_a" → Just ("Inner A", Just "outer")
-    -- >   -- lookupGroupInfo "outer"   → Just ("Outer Group", Nothing)
-    -- >   ==> Just ["Outer Group", "Inner A"]
-    groupPath :: Text -> Maybe [Text]
-    groupPath declName = do
-      groupName <- lookupGroupMembership declName doxy
-      (title, mParent) <- lookupGroupInfo groupName doxy
-      pure $ buildPath [title] mParent
-
-    -- | Accumulate group titles from leaf to root, prepending each parent.
-    buildPath :: [Text] -> Maybe Text -> [Text]
-    buildPath acc Nothing = acc
-    buildPath acc (Just parentName) =
-      case lookupGroupInfo parentName doxy of
-        Just (parentTitle, grandparent) ->
-          buildPath (parentTitle : acc) grandparent
-        Nothing -> acc
 
 {-------------------------------------------------------------------------------
   Errors
