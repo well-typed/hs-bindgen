@@ -278,6 +278,7 @@
 * Fix duplicated `--safe`, `--unsafe`, and `--pointer` options in the
   `preprocess --help` output. See
   [#2010](https://github.com/well-typed/hs-bindgen/issues/2010).
+* `CXCursor_StaticAssert` is now ignored in the parse pass.
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382

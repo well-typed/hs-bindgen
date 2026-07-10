@@ -126,6 +126,10 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       -- are resolved by the linker regardless of the DLL annotation.
       Right CXCursor_DLLImport          -> \_curr -> foldContinue
       Right CXCursor_DLLExport          -> \_curr -> foldContinue
+      -- C11 @_Static_assert@ declarations (e.g. SDL's
+      -- @SDL_COMPILE_TIME_ASSERT@): compile-time checks that declare
+      -- nothing bindable.
+      Right CXCursor_StaticAssert       -> \_curr -> foldContinue
 
       -- Report error for declarations we don't recognize
       eKind -> case mCtx of
