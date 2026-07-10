@@ -681,7 +681,7 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
               <> " not in declaration index"
           -- Interesting case, an unusable declaration may have an external
           -- binding specification.
-          Just (DeclIndex.UnusableE x) -> do
+          Just (DeclIndex.UnusableEntry x) -> do
               let locs :: C.DeclLocs
                   locs = DeclIndex.unusableToLoc x
                   declPaths =
@@ -697,7 +697,7 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
                   pure (Just ty)
                 Nothing -> pure Nothing
           -- Cannot have an external binding specification.
-          Just DeclIndex.UsableE{} ->
+          Just DeclIndex.UsableEntry{} ->
             pure Nothing
 
 {-------------------------------------------------------------------------------

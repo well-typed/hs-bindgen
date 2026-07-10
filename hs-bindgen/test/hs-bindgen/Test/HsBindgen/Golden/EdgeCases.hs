@@ -3,7 +3,8 @@ module Test.HsBindgen.Golden.EdgeCases (testCases) where
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (UnusableEntry (..),
+                                              UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -65,7 +66,7 @@ test_edgeCases_clang_generated_collision =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected name
-            MatchSelect _ (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
+            MatchSelect _ (MatchTransMissing [MatchTransUnusable (UnusableConflict{})]) ->
               Just Tolerated
             _otherwise ->
               Nothing
@@ -88,7 +89,7 @@ test_edgeCases_duplicate =
               Just $ Expected (name, "conflict")
             MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just $ Expected (name, "transitive conflict")
-            MatchSelect name SelectMangleNamesFailure{} ->
+            MatchUnusable name UnusableMangleNamesFailure{} ->
               Just $ Expected (name, "mangle")
             _otherwise ->
                Nothing

@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden.Macros (testCases) where
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -60,17 +61,17 @@ test_macros_macro_ext_binding_dep =
 test_macros_macro_type_unresolved_tagged :: TestCase
 test_macros_macro_type_unresolved_tagged =
     testTraceMulti "macros/macro_type_unresolved_tagged" declsWithMsgs $ \case
-      MatchSelect name@"struct Unparsable" (SelectParseFailure ParseUnsupportedLongDouble) ->
+      MatchUnusable name@"struct Unparsable" (UnusableParseFailure ParseUnsupportedLongDouble) ->
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMangleNamesFailure{}) ->
+      MatchUnusable name@"macro PTR_UNPARSABLE" (UnusableMangleNamesFailure{}) ->
         Just $ Expected (name, "select-mangle-names-failure")
-      MatchSelect name@"macro PTR_UNPARSABLE" (SelectMacroResolutionFailure{}) ->
+      MatchUnusable name@"macro PTR_UNPARSABLE" (UnusableMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro PTR_DOES_NOT_EXIST" (SelectMacroResolutionFailure{}) ->
+      MatchUnusable name@"macro PTR_DOES_NOT_EXIST" (UnusableMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchSelect name@"macro DOES_NOT_EXIST" (SelectMacroResolutionFailure{}) ->
+      MatchUnusable name@"macro DOES_NOT_EXIST" (UnusableMacroResolutionFailure{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       _otherwise ->
         Nothing

@@ -20,6 +20,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * Select
   , pattern MatchNoDeclarations
   , pattern MatchSelect
+  , pattern MatchUnusable
   , pattern MatchTransMissing
   , pattern MatchTransNotSelected
   , pattern MatchTransUnusable
@@ -169,6 +170,9 @@ pattern MatchSelect name x <- TraceFrontend (
         }
     )
 
+pattern MatchUnusable :: C.DeclName -> UnusableReason -> TraceMsg
+pattern MatchUnusable name x <- MatchSelect name (SelectUnusable x)
+
 -- | Transitive dependencies of a declaration are missing
 pattern MatchTransMissing :: [TransitiveDependencyMissing] -> SelectMsg
 pattern MatchTransMissing xs <- TransitiveDependenciesMissing _ xs
@@ -178,7 +182,7 @@ pattern MatchTransNotSelected :: TransitiveDependencyMissing
 pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
 
 -- | A single transitive dependency of a declaration is unusable
-pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing
+pattern MatchTransUnusable :: UnusableEntry -> TransitiveDependencyMissing
 pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 {-------------------------------------------------------------------------------
@@ -206,6 +210,6 @@ pattern MatchDoxygen x <- TraceFrontend (FrontendDoxygen x)
 
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
-    SelectDelayedParseMsg x -> Just x
-    SelectParseFailure x -> Just x
-    _otherwise -> Nothing
+    SelectDelayedParseMsg x                 -> Just x
+    SelectUnusable (UnusableParseFailure x) -> Just x
+    _otherwise                              -> Nothing

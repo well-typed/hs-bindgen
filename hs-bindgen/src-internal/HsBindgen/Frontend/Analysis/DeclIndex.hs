@@ -7,8 +7,9 @@
 module HsBindgen.Frontend.Analysis.DeclIndex (
     DeclIndex -- opaque
     -- * Entry
-  , Usable(..)
-  , Unusable(..)
+  , UsableEntry(..)
+  , UnusableEntry(..)
+  , UnusableReason(..)
   , Success(..)
   , Squashed(..)
   , Entry(..)
@@ -158,7 +159,7 @@ data DeclIndex l = DeclIndex {
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
-data Usable l =
+data UsableEntry l =
     UsableSuccess (Success l Out)
   | UsableExternal C.DeclLocs
     -- Squashed declarations are always "usable" because we only squash
@@ -166,7 +167,7 @@ data Usable l =
   | UsableSquashed Squashed
   deriving stock (Show, Generic)
 
-usableToLoc :: Usable l -> C.DeclLocs
+usableToLoc :: UsableEntry l -> C.DeclLocs
 usableToLoc = \case
     UsableSuccess  x    -> C.DeclLoc x.decl.info.loc
     UsableExternal locs -> locs
@@ -180,44 +181,44 @@ usableToLoc = \case
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
-data Unusable =
-    UnusableParseUnavailable       SingleLoc
-  | UnusableParseFailure           SingleLoc DelayedParseMsg
-  | UnusableConflict               C.Conflict
-  | UnusableMangleNamesFailure     SingleLoc MangleNamesError
-  | UnusableTypecheckMacrosError   SingleLoc MacroTypecheckError
-  | UnusableMacroResolutionFailure SingleLoc MacroResolutionError
-
-    -- | Omitted by prescriptive binding specifications
-  | UnusableOmitted              SingleLoc
+data UnusableEntry =
+    UnusableReason SingleLoc UnusableReason
+  | UnusableConflict C.Conflict
   deriving stock (Show, Generic)
 
-instance PrettyForTrace Unusable where
+instance PrettyForTrace UnusableEntry where
   prettyForTrace = \case
-    UnusableParseUnavailable{} ->
-      "Declaration unavailable"
+    UnusableReason   _loc unusable -> prettyForTrace unusable
+    UnusableConflict      conflict -> prettyForTrace conflict
+
+data UnusableReason =
+    UnusableUnavailable
+  | UnusableOmitted
+  | UnusableParseFailure           DelayedParseMsg
+  | UnusableMacroTypecheckFailure  MacroTypecheckError
+  | UnusableMacroResolutionFailure MacroResolutionError
+  | UnusableMangleNamesFailure     MangleNamesError
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace UnusableReason where
+  prettyForTrace = \case
+    UnusableUnavailable{} ->
+      "Declaration is 'unavailable' on this platform"
+    UnusableOmitted{} ->
+      "Omitted by prescriptive binding specification"
     UnusableParseFailure{} ->
       "Parse failed"
-    UnusableConflict{} ->
-      "Conflicting declarations"
     UnusableMangleNamesFailure{} ->
       "Name mangler failure"
-    UnusableTypecheckMacrosError{} ->
+    UnusableMacroTypecheckFailure{} ->
       "Macro type-checking failed"
     UnusableMacroResolutionFailure{} ->
       "Macro name resolution failed"
-    UnusableOmitted{} ->
-      "Omitted by prescriptive binding specification"
 
-unusableToLoc :: Unusable -> C.DeclLocs
+unusableToLoc :: UnusableEntry -> C.DeclLocs
 unusableToLoc = \case
-    UnusableParseUnavailable loc         -> C.DeclLoc loc
-    UnusableParseFailure loc _           -> C.DeclLoc loc
-    UnusableConflict conflict            -> C.DeclLocsConflict conflict
-    UnusableMangleNamesFailure loc _     -> C.DeclLoc loc
-    UnusableTypecheckMacrosError loc _   -> C.DeclLoc loc
-    UnusableMacroResolutionFailure loc _ -> C.DeclLoc loc
-    UnusableOmitted loc                  -> C.DeclLoc loc
+  UnusableReason   loc _ -> C.DeclLoc          loc
+  UnusableConflict     c -> C.DeclLocsConflict c
 
 data Success l p = Success {
     decl                              :: C.Decl l p
@@ -241,22 +242,22 @@ data Squashed = Squashed {
 
 -- | Entry of declaration index
 data Entry l =
-    UsableE   (Usable l)
-  | UnusableE Unusable
+    UsableEntry   (UsableEntry l)
+  | UnusableEntry UnusableEntry
   deriving stock (Show, Generic)
 
 entryToLoc :: Entry l -> C.DeclLocs
 entryToLoc = \case
-  (UnusableE e) -> unusableToLoc e
-  (UsableE   e) -> usableToLoc e
+  UnusableEntry e -> unusableToLoc e
+  UsableEntry   e -> usableToLoc e
 
 entryToAvailability :: Entry l -> C.Availability
 entryToAvailability = \case
-    UsableE e   -> case e of
+    UsableEntry e   -> case e of
       UsableSuccess success -> success.decl.info.availability
       UsableExternal{}      -> C.Available
       UsableSquashed{}      -> C.Available
-    UnusableE{} -> C.Available
+    UnusableEntry{} -> C.Available
 
 {-------------------------------------------------------------------------------
   Construction
@@ -313,16 +314,16 @@ resolvedResultLoc = \case
 resolvedResultToEntry :: ResolvedResult l -> Entry l
 resolvedResultToEntry = \case
     Resolved result      -> parseResultToEntry result
-    Unresolved _ loc err -> UnusableE $ UnusableMacroResolutionFailure loc err
+    Unresolved _ loc err -> UnusableEntry $ UnusableReason loc (UnusableMacroResolutionFailure err)
   where
     parseResultToEntry :: ParseResult l Out -> Entry l
     parseResultToEntry result = case result.classification of
       ParseResultSuccess r ->
-        UsableE $ UsableSuccess (parseSuccessToSuccess r)
+        UsableEntry $ UsableSuccess (parseSuccessToSuccess r)
       ParseResultUnavailable ->
-        UnusableE $ UnusableParseUnavailable result.loc
+        UnusableEntry $ UnusableReason result.loc UnusableUnavailable
       ParseResultFailure r ->
-        UnusableE $ UnusableParseFailure result.loc r
+        UnusableEntry $ UnusableReason result.loc $ UnusableParseFailure r
 
     parseSuccessToSuccess :: ParseSuccess l Out -> Success l Out
     parseSuccessToSuccess success = Success {
@@ -416,11 +417,11 @@ buildIndex results = flip execState empty $ mapM_ aux results
             Nothing ->
               Map.insert declId (resolvedResultToEntry new) index.map
             Just (Redefinition success) ->
-              Map.insert declId (UsableE $ UsableSuccess success) index.map
+              Map.insert declId (UsableEntry $ UsableSuccess success) index.map
             Just (SingleConflict ids conflict) ->
               Map.union
                 ( Map.fromList
-                    [ (x,UnusableE $ UnusableConflict conflict)
+                    [ (x, UnusableEntry (UnusableConflict conflict))
                     | x <- Set.toList ids
                     ]
                 )
@@ -441,7 +442,7 @@ checkIsConflict ::
   -> IsConflict l
 checkIsConflict new (oldId, old) = case new of
     Resolved new' -> case (new'.classification, old) of
-      (ParseResultSuccess newSuccess, UsableE (UsableSuccess oldSuccess))
+      (ParseResultSuccess newSuccess, UsableEntry (UsableSuccess oldSuccess))
         | newSuccess.decl.kind == oldSuccess.decl.kind ->
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
           --
@@ -465,7 +466,7 @@ checkIsConflict new (oldId, old) = case new of
       let newLoc = resolvedResultLoc new
           conflict :: C.Conflict
           conflict = case old of
-            UnusableE (UnusableConflict c) ->
+            UnusableEntry (UnusableConflict c) ->
               C.conflictInsert c newLoc
             _otherwise ->
               C.conflictFromList $
@@ -496,7 +497,7 @@ withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 lookup :: C.DeclId -> DeclIndex l -> Maybe (C.Decl l Out)
 lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
-  Just (UsableE (UsableSuccess x)) -> Just $ x.decl
+  Just (UsableEntry (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Get all parse successes.
@@ -504,7 +505,7 @@ getDecls :: DeclIndex l -> [C.Decl l Out]
 getDecls index = mapMaybe toDecl $ Map.elems index.map
   where
     toDecl = \case
-      UsableE (UsableSuccess x) -> Just x.decl
+      UsableEntry (UsableSuccess x) -> Just x.decl
       _otherEntries             -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -535,11 +536,14 @@ getOmitted index = Map.mapMaybe toOmitted index.map
   where
     toOmitted :: Entry l -> Maybe SourcePath
     toOmitted = \case
-      UsableE (UsableSquashed e) -> lookupEntry e.targetNameC index >>= toOmitted
-      UsableE{}                  -> Nothing
-      UnusableE e                -> case e of
-        UnusableOmitted sloc -> Just sloc.singleLocPath
-        _otherEntry          -> Nothing
+      UsableEntry   (UsableSquashed e) ->
+        lookupEntry e.targetNameC index >>= toOmitted
+      UsableEntry{} ->
+        Nothing
+      UnusableEntry (UnusableReason loc UnusableOmitted) ->
+        Just loc.singleLocPath
+      UnusableEntry{} ->
+        Nothing
 
 -- | Get squashed entries.
 --
@@ -555,7 +559,7 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
          Entry l
       -> Maybe (SourcePath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
-      UsableE (UsableSquashed e) ->
+      UsableEntry (UsableSquashed e) ->
         if Set.member e.targetNameC targets then
           Just (e.typedefLoc.singleLocPath, e.targetNameHs)
         else
@@ -563,13 +567,13 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
       _otherwise  -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.
-getUnusables :: DeclIndex l -> Set C.DeclId -> Map C.DeclId Unusable
+getUnusables :: DeclIndex l -> Set C.DeclId -> Map C.DeclId UnusableEntry
 getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
   where
-    onlyUnusable :: Entry l -> Maybe Unusable
+    onlyUnusable :: Entry l -> Maybe UnusableEntry
     onlyUnusable = \case
-      UsableE   _ -> Nothing
-      UnusableE e -> Just e
+      UsableEntry   _ -> Nothing
+      UnusableEntry e -> Just e
 
 {-------------------------------------------------------------------------------
   Support for delayed parse messages
@@ -587,8 +591,8 @@ registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
     Map.adjust addMsg declId i
   where
     addMsg :: Entry l -> Entry l
-    addMsg (UsableE (UsableSuccess ps)) =
-      UsableE $ UsableSuccess ps {
+    addMsg (UsableEntry (UsableSuccess ps)) =
+      UsableEntry $ UsableSuccess ps {
           HsBindgen.Frontend.Analysis.DeclIndex.delayedParseMsgs =
             ps.delayedParseMsgs ++ [msg]
         }
@@ -603,7 +607,8 @@ registerMacroTypecheckFailure ::
   -> (C.DeclInfo TypecheckMacros, MacroTypecheckError)
   -> DeclIndex l
 registerMacroTypecheckFailure (DeclIndex i) (info, err)  = DeclIndex $
-    Map.insert info.id (UnusableE $ UnusableTypecheckMacrosError info.loc err) i
+    Map.insert info.id (UnusableEntry $ UnusableReason info.loc $
+      UnusableMacroTypecheckFailure err) i
 
 {-------------------------------------------------------------------------------
   Support for @PrepareReparse@ pass
@@ -621,8 +626,8 @@ registerDelayedPrepareReparseMsg (declId, msg) (DeclIndex i) = DeclIndex $
     Map.adjust addMsg declId i
   where
     addMsg :: Entry l -> Entry l
-    addMsg (UsableE (UsableSuccess ps)) =
-      UsableE $ UsableSuccess ps{
+    addMsg (UsableEntry (UsableSuccess ps)) =
+      UsableEntry $ UsableSuccess ps{
           delayedPrepareReparseMsgs = ps.delayedPrepareReparseMsgs ++ [msg]
         }
     addMsg entry = entry
@@ -644,8 +649,8 @@ registerDelayedReparseMacroExpansionsMsg (declId, msg) (DeclIndex i) = DeclIndex
     Map.adjust addMsg declId i
   where
     addMsg :: Entry l -> Entry l
-    addMsg (UsableE (UsableSuccess ps)) =
-      UsableE $ UsableSuccess ps{
+    addMsg (UsableEntry (UsableSuccess ps)) =
+      UsableEntry $ UsableSuccess ps{
           delayedReparseMacroExpansionsMsgs = ps.delayedReparseMacroExpansionsMsgs ++ [msg]
         }
     addMsg entry = entry
@@ -659,7 +664,9 @@ registerOmittedDeclarations ::
   -> DeclIndex l
   -> DeclIndex l
 registerOmittedDeclarations xs index = DeclIndex $
-    Map.union (UnusableE . UnusableOmitted <$> xs) index.map
+    Map.union (toOmitted <$> xs) index.map
+  where
+    toOmitted loc = UnusableEntry $ UnusableReason loc UnusableOmitted
 
 registerExternalDeclarations ::
      [(C.DeclId, C.DeclLocs)]
@@ -669,7 +676,7 @@ registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
     insert :: DeclIndex l -> (C.DeclId, C.DeclLocs) -> DeclIndex l
     insert (DeclIndex i) (declId, locs) =
-      DeclIndex $ Map.insert declId (UsableE $ UsableExternal locs) i
+      DeclIndex $ Map.insert declId (UsableEntry $ UsableExternal locs) i
 
 {-------------------------------------------------------------------------------
   Support for mangle names
@@ -680,11 +687,14 @@ registerSquashedDeclarations ::
   -> DeclIndex l
   -> DeclIndex l
 registerSquashedDeclarations xs index = DeclIndex $
-    Map.union (UsableE . UsableSquashed <$> xs) index.map
+    Map.union (UsableEntry . UsableSquashed <$> xs) index.map
 
 registerMangleNamesFailure ::
      Map C.DeclId (SingleLoc, MangleNamesError)
   -> DeclIndex l
   -> DeclIndex l
 registerMangleNamesFailure xs index = DeclIndex $
-    Map.union (UnusableE . uncurry UnusableMangleNamesFailure <$> xs) index.map
+    Map.union (toEntry <$> xs) index.map
+  where
+    toEntry (loc, err) =
+      UnusableEntry $ UnusableReason loc $ UnusableMangleNamesFailure err

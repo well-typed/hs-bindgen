@@ -39,6 +39,15 @@ instance PrettyForTrace MangleNamesError where
       MangleNamesCollisionError  e -> prettyForTrace e
       MangleNamesResolutionError e -> prettyForTrace e
 
+instance IsTrace Level MangleNamesError where
+  getDefaultLogLevel = \case
+    MangleNamesCreationError CreateNamesSquashMustBeTypeConstr{} -> Bug
+    MangleNamesCreationError{}                                   -> Warning
+    MangleNamesCollisionError{}                                  -> Warning
+    MangleNamesResolutionError{}                                 -> Warning
+  getSource  = const HsBindgen
+  getTraceId = const "mangle-names"
+
 {-------------------------------------------------------------------------------
   Traversal 1: create names
 -------------------------------------------------------------------------------}
