@@ -55,7 +55,8 @@ import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.HsModule.Translation.Doxygen (GroupSections,
+import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportTags,
+                                                       computeExportTags,
                                                        resolveExports)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
@@ -85,8 +86,6 @@ import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-
-import Doxygen.Parser (Doxygen, lookupGroupInfo, lookupGroupMembership)
 
 -- | Main entry point to run @hs-bindgen@.
 --
@@ -231,12 +230,12 @@ getBindings :: ModuleRenderConfig -> Artefact l String
 getBindings mrc = do
     name   <- ModuleBaseName
     decls  <- FinalDecls
-    groups <- getGroupSections
+    tags   <- getExportTags
     when (all nullDecls decls) $ EmitTrace $ NoBindingsSingleModule name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ render $
-      translateModuleSingle fns mrc name (resolveExports groups) decls
+      translateModuleSingle fns mrc name (resolveExports tags) decls
 
 -- | Write bindings to file.
 writeBindings ::
@@ -280,13 +279,13 @@ getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe Stri
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
     decls  <- FinalDecls
-    groups <- getGroupSections
+    tags   <- getExportTags
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ fmap render <$>
-      translateModuleMultiple fns mrc name (resolveExports groups) decls
+      translateModuleMultiple fns mrc name (resolveExports tags) decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -444,75 +443,15 @@ nullDecls :: ([a], [b]) -> Bool
 nullDecls (xs, ys) = null xs && null ys
 
 {-------------------------------------------------------------------------------
-  Group sections
+  Export tags
 -------------------------------------------------------------------------------}
 
--- | Fetch doxygen data and final C declarations, then compute group sections.
-getGroupSections :: Artefact l GroupSections
-getGroupSections = do
+-- | Fetch doxygen data and final C declarations, then precompute export tags.
+getExportTags :: Artefact l ExportTags
+getExportTags = do
     doxy  <- DoxygenA
     final <- FrontendPassA FinalPass
-    pure $ computeGroupSections doxy final.decls
-
--- | Build a 'GroupSections' map from Doxygen metadata and the final C
--- declarations.
---
--- For each C declaration that belongs to a Doxygen @\@defgroup@, we insert
--- two keys mapping to the same group title path: one for the C name and one
--- for the Haskell name.  The dual keying is needed because backend-generated
--- declarations (e.g. @Event_callback_t_Aux@) have a Haskell name that
--- differs from the originating C name (@event_callback_t@) — the C-name key
--- lets the consumer-side fallback ('sdeclOriginCName') find the group.
---
--- Example: given a C header with
---
--- > /** @defgroup core "Core Data Types" @{ */
--- > typedef struct { ... } config_t;
--- > /** @} */
---
--- and the Haskell name @Config_t@, this produces:
---
--- > fromList [("config_t", ["Core Data Types"]), ("Config_t", ["Core Data Types"])]
-computeGroupSections :: Doxygen -> [C.Decl l Final] -> GroupSections
-computeGroupSections doxy decls =
-    Map.fromList $ concatMap declGroupEntries decls
-  where
-    declGroupEntries :: C.Decl l Final -> [(Text, [Text])]
-    declGroupEntries decl = do
-      let cText  = decl.info.id.cName.name.text
-          hsText = decl.info.id.hsName.text
-      path <- toList $ groupPath cText
-      [(cText, path), (hsText, path)]
-
-    -- | Resolve the full group title path (root to leaf) for a C declaration.
-    --
-    -- Walks the Doxygen group hierarchy upward from the declaration's
-    -- immediate group to the root, collecting titles along the way.
-    --
-    -- > groupPath "config_t"
-    -- >   -- lookupGroupMembership → Just "core_types"
-    -- >   -- lookupGroupInfo "core_types" → Just ("Core Data Types", Nothing)
-    -- >   ==> Just ["Core Data Types"]
-    -- >
-    -- > groupPath "inner_typ"
-    -- >   -- lookupGroupMembership → Just "inner_a"
-    -- >   -- lookupGroupInfo "inner_a" → Just ("Inner A", Just "outer")
-    -- >   -- lookupGroupInfo "outer"   → Just ("Outer Group", Nothing)
-    -- >   ==> Just ["Outer Group", "Inner A"]
-    groupPath :: Text -> Maybe [Text]
-    groupPath declName = do
-      groupName <- lookupGroupMembership declName doxy
-      (title, mParent) <- lookupGroupInfo groupName doxy
-      pure $ buildPath [title] mParent
-
-    -- | Accumulate group titles from leaf to root, prepending each parent.
-    buildPath :: [Text] -> Maybe Text -> [Text]
-    buildPath acc Nothing = acc
-    buildPath acc (Just parentName) =
-      case lookupGroupInfo parentName doxy of
-        Just (parentTitle, grandparent) ->
-          buildPath (parentTitle : acc) grandparent
-        Nothing -> acc
+    pure $ computeExportTags doxy final.decls
 
 {-------------------------------------------------------------------------------
   Errors

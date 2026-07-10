@@ -1,11 +1,18 @@
 -- | Doxygen-driven export resolution
 --
 -- Builds a hierarchical 'ExportEntry' tree from a flat list of 'SDecl' values
--- and a 'GroupSections' map.  Section nesting is intrinsic to the tree:
--- depth corresponds to recursion level, so the pretty-printer never has to
--- carry an explicit depth field.
+-- and an 'ExportTags' map.  Section nesting is intrinsic to the tree: depth
+-- corresponds to recursion level, so the pretty-printer never has to carry an
+-- explicit depth field.
+--
+-- Per-declaration tag computation lives upstream (see @computeExportTags@ in
+-- "HsBindgen") and walks the final C declarations.  Consumers here perform a
+-- single 'ExportTags' lookup keyed by the Haskell export name: no fallbacks,
+-- no rediscovery of C information from the Hs AST.
 module HsBindgen.Backend.HsModule.Translation.Doxygen (
-    GroupSections
+    ExportTags
+  , ExportGroupTag(..)
+  , computeExportTags
   , resolveExports
   ) where
 
@@ -14,62 +21,53 @@ import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.HsModule.Translation (ExportEntry (..), ExportItem,
-                                               defaultResolveExports,
                                                resolveDeclExports)
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (FlamNames (..),
+                                                   TypedefNames (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 
+import Doxygen.Parser (Doxygen, lookupGroupInfo, lookupGroupMembership)
+
 {-------------------------------------------------------------------------------
-  GroupSections
+  ExportTags
 -------------------------------------------------------------------------------}
 
--- | Mapping from declaration names to their Doxygen group title path.
+-- | Per-Haskell-name precomputed export-section tag.
 --
--- Built by @computeGroupSections@ in "HsBindgen" from Doxygen XML data and
--- the final C declarations.  Keyed by both C names and Haskell names because
--- the two consumer-side lookup functions cover different 'SDecl'
--- constructors:
+-- Computed at the C-declaration level (see @computeExportTags@ in "HsBindgen")
+-- and consumed by 'resolveExports'. Keys are Haskell names as they appear in
+-- the export list.
 --
---  * __Haskell-name keys__ are needed for 'DForeignImport', 'DBinding', and
---    'DPatternSynonym', which have no 'Origin.Decl' and therefore no
---    extractable C name (see 'sdeclOriginCName').  For these constructors,
---    'sdeclExportedName' is the only lookup path.
+-- Backend-synthesised companion declarations such as the @_Aux@ newtypes
+-- generated from typedef function pointers, or the FLAM auxiliary struct, are
+-- inserted under their own Haskell name and inherit the tag of their parent
+-- C declaration. This makes 'resolveExports' a single-step lookup.
 --
---  * __C-name keys__ are needed for backend-generated declarations whose
---    Haskell name differs from the originating C name (e.g. @_Aux@
---    newtypes).  Their Haskell name is not in the map, but
---    'sdeclOriginCName' extracts the C name, which is.
+-- A missing key is interpreted as 'Derived', meaning the declaration inherits
+-- the preceding 'Grouped' section in source order. Top-level C declarations
+-- without group membership are explicitly inserted as 'Ungrouped'.
 --
--- Values are group title paths from root to leaf, e.g.:
+-- Example: for a header with an ungrouped @api_version_t@ and a
+-- @\@defgroup core "Core"@ containing @config_t@ plus an @enum color@:
 --
 -- > fromList
--- >   [ ("config_t",  ["Core Data Types"])
--- >   , ("Config_t",  ["Core Data Types"])
--- >   , ("inner_typ", ["Outer Group", "Inner A"])
--- >   , ("Inner_typ", ["Outer Group", "Inner A"])
+-- >   [ ("Api_version_t", Ungrouped)
+-- >   , ("Config_t",      Grouped ["Core"])
+-- >   , ("Color",         Grouped ["Core"])
 -- >   ]
---
--- An empty map means no group information is available, in which case the
--- export list is produced without any section headers.
-type GroupSections = Map Text [Text]
+type ExportTags = Map Text ExportGroupTag
 
 {-------------------------------------------------------------------------------
   Tagging
 -------------------------------------------------------------------------------}
 
--- | How a declaration relates to doxygen group sections
---
--- Tagging is a two-step lookup (see 'taggedExports'):
---
---  1. Try the Haskell export name in 'GroupSections'.
---  2. If that misses, try the C origin name ('sdeclOriginCName').
---  3. If both miss, distinguish top-level C declarations ('Ungrouped') from
---     anonymous\/nested\/derived ones ('Derived').
+-- | How a declaration relates to doxygen group sections.
 data ExportGroupTag =
     -- | Top-level C declaration not in any doxygen group.  Hoisted before
     -- all section headers by 'resolveExports'.
@@ -82,20 +80,119 @@ data ExportGroupTag =
     -- root to leaf (e.g. @[\"Outer Group\", \"Inner A\"]@).
   | Grouped [Text]
 
+-- | Build an 'ExportTags' map from Doxygen metadata and the final C
+-- declarations.
+--
+-- The resulting map is keyed by Haskell name. 'resolveExports' performs a single
+-- lookup with no fallbacks.
+--
+-- For each 'C.Decl Final':
+--
+--  * If the originating C name belongs to a @\@defgroup@, the tag is
+--    @'Grouped' path@ (root-to-leaf section titles).
+--  * Otherwise, if the declaration is top-level (@null info.enclosing@), the
+--    tag is 'Ungrouped' and the declaration is explicitly hoisted before any
+--    section headers in the export list.
+--  * Otherwise (nested, no group), the declaration is omitted from the map.
+--    Missing keys are interpreted as 'Derived' by 'resolveExports', so the
+--    declaration inherits the preceding 'Grouped' section in source order.
+--
+-- Backend-synthesised companion declarations are inserted under their own
+-- Haskell name with the same tag as their parent:
+--
+--  * Typedef function pointers contribute an auxiliary newtype @F_Aux@ whose
+--    name comes from @typedef.names.aux@; the @_Aux@ form is delayed during
+--    Hs translation and therefore not adjacent to its parent in source
+--    order, so an entry under its own Hs name is necessary to keep it in
+--    its parent's section.
+--  * Structs with flexible array members contribute an auxiliary type whose
+--    name comes from the @FlamNames@ carried by the struct's @C.Flam@ field
+--    (@struct.flam@); same reasoning.
+--
+-- Example: given a C header with
+--
+-- > /** @defgroup core "Core Data Types" @{ */
+-- > typedef struct { ... } config_t;
+-- > /** @} */
+--
+-- and the Haskell name @Config_t@, this produces:
+--
+-- > fromList [("Config_t", Grouped ["Core Data Types"])]
+computeExportTags :: Doxygen -> [C.Decl l Final] -> ExportTags
+computeExportTags doxy decls =
+    Map.fromList $ concatMap declTagEntries decls
+  where
+    declTagEntries :: C.Decl l Final -> [(Text, ExportGroupTag)]
+    declTagEntries decl =
+        case declTag decl of
+          Nothing  -> []
+          Just tag ->
+            (decl.info.id.hsName.text, tag) : auxEntries decl.kind tag
+
+    -- | Compute the tag for a top-level or grouped declaration.  Returns
+    -- 'Nothing' for nested declarations without a group (those flow through
+    -- as 'Derived' by lookup miss in 'resolveExports').
+    declTag :: C.Decl l Final -> Maybe ExportGroupTag
+    declTag decl =
+      case groupPath decl.info.id.cName.name.text of
+        Just path -> Just (Grouped path)
+        Nothing
+          | null decl.info.enclosing -> Just Ungrouped
+          | otherwise                -> Nothing
+
+    -- | Extra entries for backend-synthesised companion decls that share
+    -- their parent's group membership.
+    auxEntries :: C.DeclKind l Final -> ExportGroupTag -> [(Text, ExportGroupTag)]
+    auxEntries kind tag = case kind of
+      C.DeclTypedef typedef
+        | Just (auxName, _) <- typedef.names.aux ->
+            [(auxName.text, tag)]
+      C.DeclStruct struct
+        | C.Flam _ flamNames <- struct.flam ->
+            [(flamNames.aux.text, tag)]
+      _ -> []
+
+    -- | Resolve the full group title path (root to leaf) for a C name.
+    --
+    -- Walks the Doxygen group hierarchy upward from the declaration's
+    -- immediate group to the root, collecting titles along the way.
+    --
+    -- > groupPath "config_t"
+    -- >   -- lookupGroupMembership → Just "core_types"
+    -- >   -- lookupGroupInfo "core_types" → Just ("Core Data Types", Nothing)
+    -- >   ==> Just ["Core Data Types"]
+    -- >
+    -- > groupPath "inner_typ"
+    -- >   -- lookupGroupMembership → Just "inner_a"
+    -- >   -- lookupGroupInfo "inner_a" → Just ("Inner A", Just "outer")
+    -- >   -- lookupGroupInfo "outer"   → Just ("Outer Group", Nothing)
+    -- >   ==> Just ["Outer Group", "Inner A"]
+    groupPath :: Text -> Maybe [Text]
+    groupPath declName = do
+      groupName <- lookupGroupMembership declName doxy
+      (title, mParent) <- lookupGroupInfo groupName doxy
+      pure $ buildPath [title] mParent
+
+    -- | Accumulate group titles from leaf to root, prepending each parent.
+    buildPath :: [Text] -> Maybe Text -> [Text]
+    buildPath acc Nothing = acc
+    buildPath acc (Just parentName) =
+      case lookupGroupInfo parentName doxy of
+        Just (parentTitle, grandparent) ->
+          buildPath (parentTitle : acc) grandparent
+        Nothing -> acc
+
 {-------------------------------------------------------------------------------
   Public entry point
 -------------------------------------------------------------------------------}
 
--- | Resolve exports for a declaration list using Doxygen group information.
+-- | Resolve exports for a declaration list using precomputed export tags.
 --
--- When the 'GroupSections' map is empty, this is equivalent to
--- 'defaultResolveExports' (a flat list with no section headers).
+-- The export list is assembled in three stages:
 --
--- When non-empty, the export list is assembled in three stages:
---
---  1. __Tag__ each declaration item as 'Ungrouped', 'Derived', or
---     'Grouped' (see 'ExportGroupTag').
---  2. __Assign paths__ to derived items by inheriting the most-recent
+--  1. __Tag__ each export item by looking up the declaration's Haskell name
+--     in 'ExportTags'.  A missing key yields 'Derived'.
+--  2. __Assign paths__ to 'Derived' items by inheriting the most-recent
 --     'Grouped' path.  Items appearing before any 'Grouped' get no path
 --     and are hoisted alongside ungrouped items.
 --  3. __Build the tree__: items with paths are folded into a recursive
@@ -103,48 +200,29 @@ data ExportGroupTag =
 --     are nested under the same 'ExportSection'.  Depth is implicit in
 --     the tree structure.
 --
--- Example: for a header with an ungrouped @api_version_t@ and a
--- @\@defgroup core "Core"@ containing @config_t@ plus an @enum color@:
---
--- > resolveExports groups decls
--- > ==> [ ExportEntry (ExportTypeAll "Api_version_t")
--- >      , ExportSection [TextContent "Core"]
--- >          [ ExportEntry (ExportTypeAll "Config_t")
--- >          , ExportEntry (ExportTypeAll "Color")
--- >          , ExportEntry (ExportPattern "COLOR_RED")  -- derived, inherits
--- >          ]
--- >      ]
-resolveExports :: GroupSections -> [SDecl] -> [ExportEntry]
-resolveExports groups decls
-  | Map.null groups = defaultResolveExports decls
-  | otherwise =
-      let assigned             = assignPaths (concatMap (taggedExports groups) decls)
-          (pathless, withPath) = partition (isNothing . fst) assigned
-          pathlessEntries      = [ ExportEntry item | (_, item) <- pathless ]
-          treeEntries          = buildTree [ (p, item) | (Just p, item) <- withPath ]
-      in  pathlessEntries ++ treeEntries
+resolveExports :: ExportTags -> [SDecl] -> [ExportEntry]
+resolveExports tags decls =
+    let assigned             = assignPaths (concatMap (taggedExports tags) decls)
+        (pathless, withPath) = partition (isNothing . fst) assigned
+        pathlessEntries      = [ ExportEntry item | (_, item) <- pathless ]
+        treeEntries          = buildTree [ (p, item) | (Just p, item) <- withPath ]
+    in  pathlessEntries ++ treeEntries
 
 {-------------------------------------------------------------------------------
   Tag pipeline
 -------------------------------------------------------------------------------}
 
--- | Classify a declaration and pair each of its export items with a tag.
+-- | Pair each export item produced by a declaration with its tag.
 --
 -- A single 'SDecl' can produce multiple export items (e.g. a record type
--- exports both @TypeName(..)@ and its pattern synonyms).
-taggedExports :: GroupSections -> SDecl -> [(ExportGroupTag, ExportItem)]
-taggedExports groups decl = [ (tag, item) | item <- resolveDeclExports decl ]
-  where
-    lookupGroup n = Map.lookup n groups
-
-    tag :: ExportGroupTag
-    tag = case sdeclExportedName decl >>= lookupGroup of
-      Just path -> Grouped path
-      Nothing -> case sdeclOriginCName decl >>= lookupGroup of
-        Just path -> Grouped path
-        Nothing
-          | sdeclIsTopLevel decl -> Ungrouped
-          | otherwise            -> Derived
+-- exports both @TypeName(..)@ and its pattern synonyms).  All items derived
+-- from one declaration share the declaration's tag.
+taggedExports :: ExportTags -> SDecl -> [(ExportGroupTag, ExportItem)]
+taggedExports tags decl =
+    let tag = case sdeclExportedName decl of
+          Just n  -> Map.findWithDefault Derived n tags
+          Nothing -> Derived
+    in [ (tag, item) | item <- resolveDeclExports decl ]
 
 -- | Replace 'Derived' tags with the most-recent 'Grouped' path.
 --
@@ -188,53 +266,6 @@ buildTree items@((seg : _, _) : _) =
 {-------------------------------------------------------------------------------
   Declaration introspection
 -------------------------------------------------------------------------------}
-
--- | Is this a non-nested C declaration?
---
--- 'True' when the @enclosing@ chain is empty — i.e. the declaration is not
--- inside another struct\/union.  Only 'Origin.Decl'-carrying constructors
--- can be top-level; the rest ('DForeignImport', 'DBinding', etc.) return
--- 'False'.
-sdeclIsTopLevel :: SDecl -> Bool
-sdeclIsTopLevel = \case
-    DTypSyn typSyn      -> isTopLevel typSyn.origin
-    DRecord record      -> isTopLevel record.origin
-    DNewtype newtyp     -> isTopLevel newtyp.origin
-    DEmptyData empty    -> isTopLevel empty.origin
-    DForeignImport _    -> False
-    DBinding _          -> False
-    DPatternSynonym _   -> False
-    DCompletePragma _   -> False
-    DInst _             -> False
-    DDerivingInstance _ -> False
-  where
-    isTopLevel :: Origin.Decl a -> Bool
-    isTopLevel d = null d.info.enclosing
-
--- | Extract the C name from the declaration's 'Origin.Decl', if present.
---
--- Available for 'DTypSyn', 'DRecord', 'DNewtype', 'DEmptyData'.  Returns
--- 'Nothing' for the rest ('DForeignImport', 'DBinding', 'DPatternSynonym',
--- etc.) because they carry different origin types without a 'C.DeclInfo'.
---
--- Used as the fallback in 'taggedExports' when the Haskell export name
--- misses in 'GroupSections' — e.g. @Event_callback_t_Aux@ is not a key,
--- but its C origin name @event_callback_t@ is.
-sdeclOriginCName :: SDecl -> Maybe Text
-sdeclOriginCName = \case
-    DTypSyn typSyn      -> Just $ originCName typSyn.origin
-    DRecord record      -> Just $ originCName record.origin
-    DNewtype newtyp     -> Just $ originCName newtyp.origin
-    DEmptyData empty    -> Just $ originCName empty.origin
-    DForeignImport _    -> Nothing
-    DBinding _          -> Nothing
-    DPatternSynonym _   -> Nothing
-    DCompletePragma _   -> Nothing
-    DInst _             -> Nothing
-    DDerivingInstance _ -> Nothing
-  where
-    originCName :: Origin.Decl a -> Text
-    originCName d = d.info.id.cName.name.text
 
 -- | Extract the user-facing Haskell name from a declaration.
 --
