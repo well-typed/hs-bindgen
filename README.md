@@ -109,6 +109,7 @@ including:
 * [Edsko de Vries](https://github.com/edsko)
 * [Finley McIlwaine](https://github.com/FinleyMcIlwaine)
 * [George Thomas](https://github.com/georgefst)
+* [Jeremy Nuttall](https://github.com/jtnuttall)
 * [Jonathan Lorimer](https://github.com/JonathanLorimer)
 * [Joris Dral](https://github.com/jorisdral)
 * [Justin Le](https://github.com/mstksg)
