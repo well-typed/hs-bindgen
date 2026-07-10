@@ -31,9 +31,19 @@ main = do
 
     -- Pass real argc/argv plus headless flags. CEF re-executes the same binary
     -- for renderer/GPU subprocesses with --type=renderer etc.
+    --
+    -- --disable-gpu only disables hardware acceleration; Chromium still spawns a
+    -- separate GPU subprocess for software rendering, which occasionally fails to
+    -- launch on CI, making Chromium fatally abort. --in-process-gpu
+    -- runs the GPU on a thread here instead, so there is no subprocess to fail.
+    -- This example never renders anything, so that is sufficient.
     progName <- getProgName
     args <- getArgs
-    let allArgs = progName : "--ozone-platform=headless" : "--disable-gpu" : args
+    let allArgs = progName
+                : "--ozone-platform=headless"
+                : "--disable-gpu"
+                : "--in-process-gpu"
+                : args
     cArgs <- mapM newCString allArgs
     withArray0 nullPtr cArgs $ \argv ->
       alloca $ \mainArgsPtr -> do
