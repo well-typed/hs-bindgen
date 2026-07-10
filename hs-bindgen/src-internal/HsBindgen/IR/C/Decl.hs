@@ -420,7 +420,11 @@ instance HasField "offset" (Field p) Int where
 instance HasField "width" (Field p) (Maybe Int) where
   getField = elimField (.width) (.width)
 
-mapField :: (ExplicitField p -> ExplicitField p') -> (ImplicitField p -> ImplicitField p') -> Field p -> Field p'
+mapField ::
+     (ExplicitField p -> ExplicitField p')
+  -> (ImplicitField p -> ImplicitField p')
+  -> Field p
+  -> Field p'
 mapField f g = \case
     FieldExplicit field -> FieldExplicit $ f field
     FieldImplicit field -> FieldImplicit $ g field
