@@ -18,6 +18,7 @@ examples include bindings and toy programs for various C libraries.
 * `c-yaml`
 * `libgit2`
 * `libpcap`
+* `libsodium`
 
 ## Running examples
 
