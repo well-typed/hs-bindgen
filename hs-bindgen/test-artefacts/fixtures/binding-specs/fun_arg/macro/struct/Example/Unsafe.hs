@@ -11,12 +11,12 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/struct.h>"
   , "void hs_bindgen_9dbeca9fa307eee9 ("
   , "  struct MyStruct *arg1"
@@ -58,15 +58,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_9dbeca9fa307eee9" hs_bindgen_9dbeca9fa307eee9_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_foo@
 hs_bindgen_9dbeca9fa307eee9 ::
-     RIP.Ptr MyStruct
+     BG.Ptr MyStruct
   -> IO ()
 hs_bindgen_9dbeca9fa307eee9 =
-  RIP.fromFFIType hs_bindgen_9dbeca9fa307eee9_base
+  BG.fromFFIType hs_bindgen_9dbeca9fa307eee9_base
 
 {-| __C declaration:__ @foo@
 
@@ -80,19 +80,19 @@ foo ::
   -> IO ()
 foo =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_9dbeca9fa307eee9 x1)
+    BG.with x0 (\x1 -> hs_bindgen_9dbeca9fa307eee9 x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_fb94ee6f22de1d89" hs_bindgen_fb94ee6f22de1d89_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooA@
 hs_bindgen_fb94ee6f22de1d89 ::
-     RIP.Ptr A
+     BG.Ptr A
   -> IO ()
 hs_bindgen_fb94ee6f22de1d89 =
-  RIP.fromFFIType hs_bindgen_fb94ee6f22de1d89_base
+  BG.fromFFIType hs_bindgen_fb94ee6f22de1d89_base
 
 {-| __C declaration:__ @fooA@
 
@@ -106,19 +106,19 @@ fooA ::
   -> IO ()
 fooA =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_fb94ee6f22de1d89 x1)
+    BG.with x0 (\x1 -> hs_bindgen_fb94ee6f22de1d89 x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_f8f83a7090687b7e" hs_bindgen_f8f83a7090687b7e_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooB@
 hs_bindgen_f8f83a7090687b7e ::
-     RIP.Ptr B
+     BG.Ptr B
   -> IO ()
 hs_bindgen_f8f83a7090687b7e =
-  RIP.fromFFIType hs_bindgen_f8f83a7090687b7e_base
+  BG.fromFFIType hs_bindgen_f8f83a7090687b7e_base
 
 {-| __C declaration:__ @fooB@
 
@@ -132,19 +132,19 @@ fooB ::
   -> IO ()
 fooB =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_f8f83a7090687b7e x1)
+    BG.with x0 (\x1 -> hs_bindgen_f8f83a7090687b7e x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_f1d253a32d18ddb1" hs_bindgen_f1d253a32d18ddb1_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooC@
 hs_bindgen_f1d253a32d18ddb1 ::
-     RIP.Ptr M.C
+     BG.Ptr M.C
   -> IO ()
 hs_bindgen_f1d253a32d18ddb1 =
-  RIP.fromFFIType hs_bindgen_f1d253a32d18ddb1_base
+  BG.fromFFIType hs_bindgen_f1d253a32d18ddb1_base
 
 {-| __C declaration:__ @fooC@
 
@@ -158,19 +158,19 @@ fooC ::
   -> IO ()
 fooC =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_f1d253a32d18ddb1 x1)
+    BG.with x0 (\x1 -> hs_bindgen_f1d253a32d18ddb1 x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_2ee0831a468707cf" hs_bindgen_2ee0831a468707cf_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooD@
 hs_bindgen_2ee0831a468707cf ::
-     RIP.Ptr M.D
+     BG.Ptr M.D
   -> IO ()
 hs_bindgen_2ee0831a468707cf =
-  RIP.fromFFIType hs_bindgen_2ee0831a468707cf_base
+  BG.fromFFIType hs_bindgen_2ee0831a468707cf_base
 
 {-| __C declaration:__ @fooD@
 
@@ -184,19 +184,19 @@ fooD ::
   -> IO ()
 fooD =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_2ee0831a468707cf x1)
+    BG.with x0 (\x1 -> hs_bindgen_2ee0831a468707cf x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_21fc30db2a015ba1" hs_bindgen_21fc30db2a015ba1_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooE@
 hs_bindgen_21fc30db2a015ba1 ::
-     RIP.Ptr E
+     BG.Ptr E
   -> IO ()
 hs_bindgen_21fc30db2a015ba1 =
-  RIP.fromFFIType hs_bindgen_21fc30db2a015ba1_base
+  BG.fromFFIType hs_bindgen_21fc30db2a015ba1_base
 
 {-| __C declaration:__ @fooE@
 
@@ -210,4 +210,4 @@ fooE ::
   -> IO ()
 fooE =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_21fc30db2a015ba1 x1)
+    BG.with x0 (\x1 -> hs_bindgen_21fc30db2a015ba1 x1)

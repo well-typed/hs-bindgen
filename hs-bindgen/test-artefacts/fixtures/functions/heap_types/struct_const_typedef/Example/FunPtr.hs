@@ -6,11 +6,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/heap_types/struct_const_typedef.h>"
   , "/* test_functionsheap_typesstruct_co_Example_get_fun */"
   , "__attribute__ ((const))"
@@ -24,12 +24,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac709cad_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
-hs_bindgen_564814e9ac709cad :: IO (RIP.FunPtr (T -> IO T))
+hs_bindgen_564814e9ac709cad :: IO (BG.FunPtr (T -> IO T))
 hs_bindgen_564814e9ac709cad =
-  RIP.fromFFIType hs_bindgen_564814e9ac709cad_base
+  BG.fromFFIType hs_bindgen_564814e9ac709cad_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
@@ -38,5 +38,5 @@ hs_bindgen_564814e9ac709cad =
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
-fun :: RIP.FunPtr (T -> IO T)
-fun = RIP.unsafePerformIO hs_bindgen_564814e9ac709cad
+fun :: BG.FunPtr (T -> IO T)
+fun = BG.unsafePerformIO hs_bindgen_564814e9ac709cad

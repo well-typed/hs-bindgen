@@ -7,10 +7,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/field_name_reuse_omit.h>"
   , "void hs_bindgen_1a3fb33e9aadacd9 (void)"
   , "{"
@@ -25,7 +25,7 @@ foreign import ccall safe "hs_bindgen_1a3fb33e9aadacd9" hs_bindgen_1a3fb33e9aada
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
 hs_bindgen_1a3fb33e9aadacd9 :: IO ()
 hs_bindgen_1a3fb33e9aadacd9 =
-  RIP.fromFFIType hs_bindgen_1a3fb33e9aadacd9_base
+  BG.fromFFIType hs_bindgen_1a3fb33e9aadacd9_base
 
 {-| __C declaration:__ @bar@
 

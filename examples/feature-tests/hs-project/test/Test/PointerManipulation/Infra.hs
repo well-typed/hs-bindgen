@@ -24,8 +24,8 @@ import GHC.Records (HasField (..))
 import Test.Tasty.QuickCheck (Property, ioProperty, (===))
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
-import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as Compat
 import HsBindgen.Runtime.Prelude (BitfieldPtr)
+import HsBindgen.Runtime.Support.CompatHasField qualified as Compat
 
 import Test.Util.Orphans ()
 

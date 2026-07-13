@@ -23,9 +23,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro MyInt@
 
@@ -34,44 +34,44 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @macros\/reparse\/nesting.h@
 -}
 newtype MyInt = MyInt
-  { unwrapMyInt :: RIP.CInt
+  { unwrapMyInt :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapMyInt" MyInt ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+         MyInt {unwrapMyInt = y1}, BG.getField @"unwrapMyInt" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapMyInt" (BG.Ptr MyInt) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyInt")
 
 instance HasCField.HasCField MyInt "unwrapMyInt" where
 
-  type CFieldType MyInt "unwrapMyInt" = RIP.CInt
+  type CFieldType MyInt "unwrapMyInt" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -90,7 +90,7 @@ data T2 = T2
          __exported by:__ @macros\/reparse\/nesting.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize T2 where
 
@@ -103,7 +103,7 @@ instance Marshal.ReadRaw T2 where
   readRaw =
     \ptr0 ->
           pure T2
-      <*> HasCField.readRaw (RIP.Proxy @"t2_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"t2_x") ptr0
 
 instance Marshal.WriteRaw T2 where
 
@@ -112,19 +112,19 @@ instance Marshal.WriteRaw T2 where
       \s1 ->
         case s1 of
           T2 t2_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"t2_x") ptr0 t2_x2
+            HasCField.writeRaw (BG.Proxy @"t2_x") ptr0 t2_x2
 
-deriving via Marshal.EquivStorable T2 instance RIP.Storable T2
+deriving via Marshal.EquivStorable T2 instance BG.Storable T2
 
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t2_x" T2 ty where
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "t2_x" T2 ty where
 
   hasField =
     \x0 ->
-      (\y1 -> T2 {t2_x = y1}, RIP.getField @"t2_x" x0)
+      (\y1 -> T2 {t2_x = y1}, BG.getField @"t2_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "t2_x" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "t2_x" (BG.Ptr T2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"t2_x")
+  getField = HasCField.fromPtr (BG.Proxy @"t2_x")
 
 instance HasCField.HasCField T2 "t2_x" where
 
@@ -147,7 +147,7 @@ data T3 = T3
          __exported by:__ @macros\/reparse\/nesting.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize T3 where
 
@@ -160,7 +160,7 @@ instance Marshal.ReadRaw T3 where
   readRaw =
     \ptr0 ->
           pure T3
-      <*> HasCField.readRaw (RIP.Proxy @"t3_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"t3_x") ptr0
 
 instance Marshal.WriteRaw T3 where
 
@@ -169,19 +169,19 @@ instance Marshal.WriteRaw T3 where
       \s1 ->
         case s1 of
           T3 t3_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"t3_x") ptr0 t3_x2
+            HasCField.writeRaw (BG.Proxy @"t3_x") ptr0 t3_x2
 
-deriving via Marshal.EquivStorable T3 instance RIP.Storable T3
+deriving via Marshal.EquivStorable T3 instance BG.Storable T3
 
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t3_x" T3 ty where
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "t3_x" T3 ty where
 
   hasField =
     \x0 ->
-      (\y1 -> T3 {t3_x = y1}, RIP.getField @"t3_x" x0)
+      (\y1 -> T3 {t3_x = y1}, BG.getField @"t3_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "t3_x" (RIP.Ptr T3) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "t3_x" (BG.Ptr T3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"t3_x")
+  getField = HasCField.fromPtr (BG.Proxy @"t3_x")
 
 instance HasCField.HasCField T3 "t3_x" where
 
@@ -204,7 +204,7 @@ data T4 = T4
          __exported by:__ @macros\/reparse\/nesting.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize T4 where
 
@@ -217,7 +217,7 @@ instance Marshal.ReadRaw T4 where
   readRaw =
     \ptr0 ->
           pure T4
-      <*> HasCField.readRaw (RIP.Proxy @"t4_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"t4_x") ptr0
 
 instance Marshal.WriteRaw T4 where
 
@@ -226,19 +226,19 @@ instance Marshal.WriteRaw T4 where
       \s1 ->
         case s1 of
           T4 t4_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"t4_x") ptr0 t4_x2
+            HasCField.writeRaw (BG.Proxy @"t4_x") ptr0 t4_x2
 
-deriving via Marshal.EquivStorable T4 instance RIP.Storable T4
+deriving via Marshal.EquivStorable T4 instance BG.Storable T4
 
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "t4_x" T4 ty where
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "t4_x" T4 ty where
 
   hasField =
     \x0 ->
-      (\y1 -> T4 {t4_x = y1}, RIP.getField @"t4_x" x0)
+      (\y1 -> T4 {t4_x = y1}, BG.getField @"t4_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "t4_x" (RIP.Ptr T4) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "t4_x" (BG.Ptr T4) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"t4_x")
+  getField = HasCField.fromPtr (BG.Proxy @"t4_x")
 
 instance HasCField.HasCField T4 "t4_x" where
 

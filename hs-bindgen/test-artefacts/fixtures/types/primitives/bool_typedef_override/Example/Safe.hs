@@ -6,11 +6,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/primitives/bool_typedef_override.h>"
   , "void hs_bindgen_ea0e9b7fd1e9560c ("
   , "  A arg1,"
@@ -23,8 +23,8 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
 foreign import ccall safe "hs_bindgen_ea0e9b7fd1e9560c" hs_bindgen_ea0e9b7fd1e9560c_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
@@ -33,7 +33,7 @@ hs_bindgen_ea0e9b7fd1e9560c ::
   -> Bool'
   -> IO ()
 hs_bindgen_ea0e9b7fd1e9560c =
-  RIP.fromFFIType hs_bindgen_ea0e9b7fd1e9560c_base
+  BG.fromFFIType hs_bindgen_ea0e9b7fd1e9560c_base
 
 {-| __C declaration:__ @f@
 

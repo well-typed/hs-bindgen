@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @sym@
 
@@ -29,42 +29,41 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @binding-specs\/omit_type.h@
 -}
 newtype Sym = Sym
-  { unwrapSym :: RIP.CChar
+  { unwrapSym :: BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapSym" Sym ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "unwrapSym" Sym ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Sym {unwrapSym = y1}, RIP.getField @"unwrapSym" x0)
+         Sym {unwrapSym = y1}, BG.getField @"unwrapSym" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapSym" (RIP.Ptr Sym) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "unwrapSym" (BG.Ptr Sym) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapSym")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapSym")
 
 instance HasCField.HasCField Sym "unwrapSym" where
 
-  type CFieldType Sym "unwrapSym" = RIP.CChar
+  type CFieldType Sym "unwrapSym" = BG.CChar
 
   offset# = \_ -> \_ -> 0

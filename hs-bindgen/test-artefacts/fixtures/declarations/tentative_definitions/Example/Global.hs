@@ -8,10 +8,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/tentative_definitions.h>"
   , "/* test_declarationstentative_definit_Example_get_i1 */"
   , "__attribute__ ((const))"
@@ -35,12 +35,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i1@
 foreign import ccall unsafe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e15eb6_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i1@
-hs_bindgen_3a9fc2bb34e15eb6 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_3a9fc2bb34e15eb6 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_3a9fc2bb34e15eb6 =
-  RIP.fromFFIType hs_bindgen_3a9fc2bb34e15eb6_base
+  BG.fromFFIType hs_bindgen_3a9fc2bb34e15eb6_base
 
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
@@ -49,17 +49,17 @@ hs_bindgen_3a9fc2bb34e15eb6 =
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i1 :: RIP.Ptr RIP.CInt
-i1 = RIP.unsafePerformIO hs_bindgen_3a9fc2bb34e15eb6
+i1 :: BG.Ptr BG.CInt
+i1 = BG.unsafePerformIO hs_bindgen_3a9fc2bb34e15eb6
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i2@
 foreign import ccall unsafe "hs_bindgen_831c291120790ea6" hs_bindgen_831c291120790ea6_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i2@
-hs_bindgen_831c291120790ea6 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_831c291120790ea6 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_831c291120790ea6 =
-  RIP.fromFFIType hs_bindgen_831c291120790ea6_base
+  BG.fromFFIType hs_bindgen_831c291120790ea6_base
 
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
@@ -68,17 +68,17 @@ hs_bindgen_831c291120790ea6 =
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i2 :: RIP.Ptr RIP.CInt
-i2 = RIP.unsafePerformIO hs_bindgen_831c291120790ea6
+i2 :: BG.Ptr BG.CInt
+i2 = BG.unsafePerformIO hs_bindgen_831c291120790ea6
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i3@
 foreign import ccall unsafe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369a4d65_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationstentative_definit_Example_get_i3@
-hs_bindgen_6c7d3ba4369a4d65 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_6c7d3ba4369a4d65 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_6c7d3ba4369a4d65 =
-  RIP.fromFFIType hs_bindgen_6c7d3ba4369a4d65_base
+  BG.fromFFIType hs_bindgen_6c7d3ba4369a4d65_base
 
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
@@ -87,5 +87,5 @@ hs_bindgen_6c7d3ba4369a4d65 =
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i3 :: RIP.Ptr RIP.CInt
-i3 = RIP.unsafePerformIO hs_bindgen_6c7d3ba4369a4d65
+i3 :: BG.Ptr BG.CInt
+i3 = BG.unsafePerformIO hs_bindgen_6c7d3ba4369a4d65

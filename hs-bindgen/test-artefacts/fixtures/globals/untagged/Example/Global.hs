@@ -15,12 +15,12 @@ module Example.Global
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <globals/untagged.h>"
   , "/* test_globalsuntagged_Example_get_anonPoint */"
   , "__attribute__ ((const))"
@@ -68,12 +68,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
 foreign import ccall unsafe "hs_bindgen_6629eeb3c2ffd60b" hs_bindgen_6629eeb3c2ffd60b_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
-hs_bindgen_6629eeb3c2ffd60b :: IO (RIP.Ptr AnonPoint)
+hs_bindgen_6629eeb3c2ffd60b :: IO (BG.Ptr AnonPoint)
 hs_bindgen_6629eeb3c2ffd60b =
-  RIP.fromFFIType hs_bindgen_6629eeb3c2ffd60b_base
+  BG.fromFFIType hs_bindgen_6629eeb3c2ffd60b_base
 
 {-# NOINLINE anonPoint #-}
 {-| __C declaration:__ @anonPoint@
@@ -82,18 +82,18 @@ hs_bindgen_6629eeb3c2ffd60b =
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonPoint :: RIP.Ptr AnonPoint
+anonPoint :: BG.Ptr AnonPoint
 anonPoint =
-  RIP.unsafePerformIO hs_bindgen_6629eeb3c2ffd60b
+  BG.unsafePerformIO hs_bindgen_6629eeb3c2ffd60b
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonPair@
 foreign import ccall unsafe "hs_bindgen_c6a1653d90a26590" hs_bindgen_c6a1653d90a26590_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonPair@
-hs_bindgen_c6a1653d90a26590 :: IO (RIP.Ptr AnonPair)
+hs_bindgen_c6a1653d90a26590 :: IO (BG.Ptr AnonPair)
 hs_bindgen_c6a1653d90a26590 =
-  RIP.fromFFIType hs_bindgen_c6a1653d90a26590_base
+  BG.fromFFIType hs_bindgen_c6a1653d90a26590_base
 
 {-# NOINLINE anonPair #-}
 {-| __C declaration:__ @anonPair@
@@ -102,18 +102,18 @@ hs_bindgen_c6a1653d90a26590 =
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonPair :: RIP.Ptr AnonPair
+anonPair :: BG.Ptr AnonPair
 anonPair =
-  RIP.unsafePerformIO hs_bindgen_c6a1653d90a26590
+  BG.unsafePerformIO hs_bindgen_c6a1653d90a26590
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonEnum@
 foreign import ccall unsafe "hs_bindgen_ebe8734607d1730b" hs_bindgen_ebe8734607d1730b_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonEnum@
-hs_bindgen_ebe8734607d1730b :: IO (RIP.Ptr AnonEnum)
+hs_bindgen_ebe8734607d1730b :: IO (BG.Ptr AnonEnum)
 hs_bindgen_ebe8734607d1730b =
-  RIP.fromFFIType hs_bindgen_ebe8734607d1730b_base
+  BG.fromFFIType hs_bindgen_ebe8734607d1730b_base
 
 {-# NOINLINE anonEnum #-}
 {-| __C declaration:__ @anonEnum@
@@ -122,18 +122,18 @@ hs_bindgen_ebe8734607d1730b =
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonEnum :: RIP.Ptr AnonEnum
+anonEnum :: BG.Ptr AnonEnum
 anonEnum =
-  RIP.unsafePerformIO hs_bindgen_ebe8734607d1730b
+  BG.unsafePerformIO hs_bindgen_ebe8734607d1730b
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonEnumCoords@
 foreign import ccall unsafe "hs_bindgen_21250a483c9f203d" hs_bindgen_21250a483c9f203d_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_anonEnumCoords@
-hs_bindgen_21250a483c9f203d :: IO (RIP.Ptr AnonEnumCoords)
+hs_bindgen_21250a483c9f203d :: IO (BG.Ptr AnonEnumCoords)
 hs_bindgen_21250a483c9f203d =
-  RIP.fromFFIType hs_bindgen_21250a483c9f203d_base
+  BG.fromFFIType hs_bindgen_21250a483c9f203d_base
 
 {-# NOINLINE anonEnumCoords #-}
 {-| __C declaration:__ @anonEnumCoords@
@@ -142,18 +142,18 @@ hs_bindgen_21250a483c9f203d =
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonEnumCoords :: RIP.Ptr AnonEnumCoords
+anonEnumCoords :: BG.Ptr AnonEnumCoords
 anonEnumCoords =
-  RIP.unsafePerformIO hs_bindgen_21250a483c9f203d
+  BG.unsafePerformIO hs_bindgen_21250a483c9f203d
 
 -- __unique:__ @test_globalsuntagged_Example_get_A@
 foreign import ccall unsafe "hs_bindgen_9d7d1fc84d6966f1" hs_bindgen_9d7d1fc84d6966f1_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_A@
-hs_bindgen_9d7d1fc84d6966f1 :: IO (RIP.Ptr (CA.ConstantArray 17 A))
+hs_bindgen_9d7d1fc84d6966f1 :: IO (BG.Ptr (CA.ConstantArray 17 A))
 hs_bindgen_9d7d1fc84d6966f1 =
-  RIP.fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
+  BG.fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
 
 {-# NOINLINE a #-}
 {-| __C declaration:__ @A@
@@ -162,17 +162,17 @@ hs_bindgen_9d7d1fc84d6966f1 =
 
     __exported by:__ @globals\/untagged.h@
 -}
-a :: RIP.Ptr (CA.ConstantArray 17 A)
-a = RIP.unsafePerformIO hs_bindgen_9d7d1fc84d6966f1
+a :: BG.Ptr (CA.ConstantArray 17 A)
+a = BG.unsafePerformIO hs_bindgen_9d7d1fc84d6966f1
 
 -- __unique:__ @test_globalsuntagged_Example_get_B@
 foreign import ccall unsafe "hs_bindgen_38f1407628b3330b" hs_bindgen_38f1407628b3330b_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_B@
 hs_bindgen_38f1407628b3330b :: IO (PtrConst.PtrConst B)
 hs_bindgen_38f1407628b3330b =
-  RIP.fromFFIType hs_bindgen_38f1407628b3330b_base
+  BG.fromFFIType hs_bindgen_38f1407628b3330b_base
 
 {-# NOINLINE hs_bindgen_c84e7bea962cf7bc #-}
 {-| __C declaration:__ @B@
@@ -185,21 +185,21 @@ hs_bindgen_38f1407628b3330b =
 -}
 hs_bindgen_c84e7bea962cf7bc :: PtrConst.PtrConst B
 hs_bindgen_c84e7bea962cf7bc =
-  RIP.unsafePerformIO hs_bindgen_38f1407628b3330b
+  BG.unsafePerformIO hs_bindgen_38f1407628b3330b
 
 {-# NOINLINE b #-}
 b :: B
 b =
-  RIP.unsafePerformIO (PtrConst.peek hs_bindgen_c84e7bea962cf7bc)
+  BG.unsafePerformIO (PtrConst.peek hs_bindgen_c84e7bea962cf7bc)
 
 -- __unique:__ @test_globalsuntagged_Example_get_C@
 foreign import ccall unsafe "hs_bindgen_492f8d9f3437df29" hs_bindgen_492f8d9f3437df29_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsuntagged_Example_get_C@
-hs_bindgen_492f8d9f3437df29 :: IO (RIP.Ptr (PtrConst.PtrConst (IA.IncompleteArray (RIP.Ptr C))))
+hs_bindgen_492f8d9f3437df29 :: IO (BG.Ptr (PtrConst.PtrConst (IA.IncompleteArray (BG.Ptr C))))
 hs_bindgen_492f8d9f3437df29 =
-  RIP.fromFFIType hs_bindgen_492f8d9f3437df29_base
+  BG.fromFFIType hs_bindgen_492f8d9f3437df29_base
 
 {-# NOINLINE c #-}
 {-| __C declaration:__ @C@
@@ -208,5 +208,5 @@ hs_bindgen_492f8d9f3437df29 =
 
     __exported by:__ @globals\/untagged.h@
 -}
-c :: RIP.Ptr (PtrConst.PtrConst (IA.IncompleteArray (RIP.Ptr C)))
-c = RIP.unsafePerformIO hs_bindgen_492f8d9f3437df29
+c :: BG.Ptr (PtrConst.PtrConst (IA.IncompleteArray (BG.Ptr C)))
+c = BG.unsafePerformIO hs_bindgen_492f8d9f3437df29

@@ -9,11 +9,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/mangle_fun_param_names.h>"
   , "void hs_bindgen_32fb10fccaa5c64b ("
   , "  T *arg1"
@@ -43,15 +43,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_underscore@
 foreign import ccall safe "hs_bindgen_32fb10fccaa5c64b" hs_bindgen_32fb10fccaa5c64b_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_underscore@
 hs_bindgen_32fb10fccaa5c64b ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_32fb10fccaa5c64b =
-  RIP.fromFFIType hs_bindgen_32fb10fccaa5c64b_base
+  BG.fromFFIType hs_bindgen_32fb10fccaa5c64b_base
 
 {-| __C declaration:__ @param_underscore@
 
@@ -65,19 +65,19 @@ param_underscore ::
   -> IO ()
 param_underscore =
   \_0 ->
-    RIP.with _0 (\_1 -> hs_bindgen_32fb10fccaa5c64b _1)
+    BG.with _0 (\_1 -> hs_bindgen_32fb10fccaa5c64b _1)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_uppercase@
 foreign import ccall safe "hs_bindgen_5888c48ab8bc55c6" hs_bindgen_5888c48ab8bc55c6_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_uppercase@
 hs_bindgen_5888c48ab8bc55c6 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_5888c48ab8bc55c6 =
-  RIP.fromFFIType hs_bindgen_5888c48ab8bc55c6_base
+  BG.fromFFIType hs_bindgen_5888c48ab8bc55c6_base
 
 {-| __C declaration:__ @param_uppercase@
 
@@ -91,20 +91,20 @@ param_uppercase ::
   -> IO ()
 param_uppercase =
   \type'0 ->
-    RIP.with type'0 (\type'1 ->
-                       hs_bindgen_5888c48ab8bc55c6 type'1)
+    BG.with type'0 (\type'1 ->
+                      hs_bindgen_5888c48ab8bc55c6 type'1)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_undersore_capital@
 foreign import ccall safe "hs_bindgen_330a5861a2d663d1" hs_bindgen_330a5861a2d663d1_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_undersore_capital@
 hs_bindgen_330a5861a2d663d1 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_330a5861a2d663d1 =
-  RIP.fromFFIType hs_bindgen_330a5861a2d663d1_base
+  BG.fromFFIType hs_bindgen_330a5861a2d663d1_base
 
 {-| __C declaration:__ @param_undersore_capital@
 
@@ -118,20 +118,19 @@ param_undersore_capital ::
   -> IO ()
 param_undersore_capital =
   \_T0 ->
-    RIP.with _T0 (\_T1 ->
-                    hs_bindgen_330a5861a2d663d1 _T1)
+    BG.with _T0 (\_T1 -> hs_bindgen_330a5861a2d663d1 _T1)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_haskell_reserved_name@
 foreign import ccall safe "hs_bindgen_8db88cfd2f21fdb1" hs_bindgen_8db88cfd2f21fdb1_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_Safe_param_haskell_reserved_name@
 hs_bindgen_8db88cfd2f21fdb1 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_8db88cfd2f21fdb1 =
-  RIP.fromFFIType hs_bindgen_8db88cfd2f21fdb1_base
+  BG.fromFFIType hs_bindgen_8db88cfd2f21fdb1_base
 
 {-| __C declaration:__ @param_haskell_reserved_name@
 
@@ -145,5 +144,5 @@ param_haskell_reserved_name ::
   -> IO ()
 param_haskell_reserved_name =
   \type'0 ->
-    RIP.with type'0 (\type'1 ->
-                       hs_bindgen_8db88cfd2f21fdb1 type'1)
+    BG.with type'0 (\type'1 ->
+                      hs_bindgen_8db88cfd2f21fdb1 type'1)

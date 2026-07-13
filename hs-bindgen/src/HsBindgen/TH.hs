@@ -67,7 +67,7 @@ module HsBindgen.TH (
 import Data.Default qualified as Default
 import Language.Haskell.TH qualified as TH
 
-import HsBindgen.Runtime.Internal.Deriving qualified as Deriving
+import HsBindgen.Runtime.Support.Deriving qualified as Deriving
 
 import HsBindgen.Backend.Category qualified as Category
 import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock

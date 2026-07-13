@@ -16,7 +16,6 @@ module HsBindgen.Backend.Global (
   ) where
 
 import Data.ByteString qualified as BS
-import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
@@ -27,15 +26,16 @@ import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
-import HsBindgen.Runtime.Internal.Prelude qualified as RIP
-import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as RIP.CompatHasField
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Support qualified as BG
+import HsBindgen.Runtime.Support.CompatHasField qualified as BG.CompatHasField
 import HsBindgen.Runtime.Union qualified as Union
 
 import HsBindgen.Backend.Level
-import HsBindgen.Errors (panicPure)
+import HsBindgen.Backend.Runtime (RuntimeModule)
+import HsBindgen.Backend.Runtime qualified as Runtime
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -79,40 +79,21 @@ data Global (lvl :: Level) = CustomGlobal {
 data BindgenImport =
     -- | Implicit import from "Prelude".
     IHaskellPrelude
-    -- | Qualified import from "HsBindgen.Runtime.Internal.Prelude".
-  | IRuntimeInternalPrelude
-    -- | Qualified import from "HsBindgen.Runtime.Internal.Prelude.CompatHasField".
-  | IRuntimeInternalPreludeCompatHasField
-    -- | Qualified import from other modules in @hs-bindgen-runtime@ with a
-    --   corresponding abbreviation ("qualified as").
-  | IRuntimeModule String
+    -- | Qualified import from a module in @hs-bindgen-runtime@; the module path
+    --   and alias come from 'RN.RuntimeModule'.
+  | IRuntime RuntimeModule
   deriving stock (Eq, Ord, Show)
 
--- We avoid full Template Haskell name resolution, because we want to depend on
--- the intermediate runtime modules.
-bindgenToHsImport :: TH.Name -> BindgenImport -> Hs.Import
-bindgenToHsImport n = \case
-    IHaskellPrelude ->
-      Hs.ImplicitPrelude
-    IRuntimeInternalPrelude ->
-      Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude" (Just "RIP")
-    IRuntimeInternalPreludeCompatHasField ->
-      Hs.QualifiedImport "HsBindgen.Runtime.Internal.Prelude.CompatHasField" (Just "RIP.CompatHasField")
-    IRuntimeModule as ->
-      Hs.QualifiedImport unsafeModuleName (Just as)
-  where
-    unsafeModuleName :: Hs.ModuleName
-    unsafeModuleName = case TH.nameModule n of
-      Nothing ->
-        panicPure $ "Expected name with module: " ++ show n
-      Just m  ->
-        Hs.ModuleName $ Text.pack m
+bindgenToHsImport :: BindgenImport -> Hs.Import
+bindgenToHsImport = \case
+    IHaskellPrelude -> Hs.ImplicitPrelude
+    IRuntime rm     -> Runtime.qualifiedImport rm
 
 globalExpr :: (BindgenImport, GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
-globalExpr (i, c, n) = CustomGlobal n c (bindgenToHsImport n i)
+globalExpr (i, c, n) = CustomGlobal n c (bindgenToHsImport i)
 
 globalType :: (BindgenImport, TH.Name) -> Global LvlType
-globalType (i, n) = CustomGlobal n GTyp (bindgenToHsImport n i)
+globalType (i, n) = CustomGlobal n GTyp (bindgenToHsImport i)
 
 data BindgenGlobalType =
     -- Foreign function interface
@@ -313,118 +294,118 @@ data BindgenGlobalTerm =
 bindgenGlobalType :: BindgenGlobalType -> Global LvlType
 bindgenGlobalType = globalType . \case
     -- Foreign function interface
-    Foreign_Ptr_type       -> (IRuntimeInternalPrelude, ''RIP.Ptr)
-    Foreign_FunPtr_type    -> (IRuntimeInternalPrelude, ''RIP.FunPtr)
-    Foreign_StablePtr_type -> (IRuntimeInternalPrelude, ''RIP.StablePtr)
-    IO_type                -> (IHaskellPrelude,         ''IO)
+    Foreign_Ptr_type       -> (IRuntime Runtime.Support, ''BG.Ptr)
+    Foreign_FunPtr_type    -> (IRuntime Runtime.Support, ''BG.FunPtr)
+    Foreign_StablePtr_type -> (IRuntime Runtime.Support, ''BG.StablePtr)
+    IO_type                -> (IHaskellPrelude,          ''IO)
 
       -- Arrays
-    ConstantArray_type     -> (IRuntimeModule "CA",     ''CA.ConstantArray)
-    IncompleteArray_type   -> (IRuntimeModule "IA",     ''IA.IncompleteArray)
-    IsArray_Elem           -> (IRuntimeModule "IsA",    ''IsA.Elem)
+    ConstantArray_type     -> (IRuntime Runtime.ConstantArray,   ''CA.ConstantArray)
+    IncompleteArray_type   -> (IRuntime Runtime.IncompleteArray, ''IA.IncompleteArray)
+    IsArray_Elem           -> (IRuntime Runtime.IsArray,         ''IsA.Elem)
 
     -- EquivStorable
-    EquivStorable_type -> (IRuntimeModule "Marshal", ''Marshal.EquivStorable)
+    EquivStorable_type -> (IRuntime Runtime.Marshal, ''Marshal.EquivStorable)
 
     -- Flexible array members
-    Flam_WithFlam_type -> (IRuntimeModule "FLAM", ''FLAM.WithFlam)
+    Flam_WithFlam_type -> (IRuntime Runtime.Flam, ''FLAM.WithFlam)
 
     -- HasCField
-    HasCField_CFieldType -> (IRuntimeModule "HasCField", ''HasCField.CFieldType)
+    HasCField_CFieldType -> (IRuntime Runtime.HasCField, ''HasCField.CFieldType)
 
     -- BitfieldPtr
-    HasCBitfield_BitfieldPtr_type -> (IRuntimeModule "BitfieldPtr", ''BitfieldPtr.BitfieldPtr)
+    HasCBitfield_BitfieldPtr_type -> (IRuntime Runtime.BitfieldPtr, ''BitfieldPtr.BitfieldPtr)
 
     -- HasCBitfield
-    HasCBitfield_CBitfieldType -> (IRuntimeModule "HasCBitfield", ''HasCBitfield.CBitfieldType)
+    HasCBitfield_CBitfieldType -> (IRuntime Runtime.HasCBitfield, ''HasCBitfield.CBitfieldType)
 
     -- PtrConst
-    PtrConst_type -> (IRuntimeModule "PtrConst", ''PtrConst.PtrConst)
+    PtrConst_type -> (IRuntime Runtime.PtrConst, ''PtrConst.PtrConst)
 
     -- C enumerations
-    CEnumZ_type            -> (IRuntimeModule "CEnum", ''CEnum.CEnumZ)
+    CEnumZ_type            -> (IRuntime Runtime.CEnum, ''CEnum.CEnumZ)
 
     -- Arrays
-    ByteArray_type      -> (IRuntimeInternalPrelude,  ''RIP.ByteArray)
-    SizedByteArray_type -> (IRuntimeInternalPrelude,  ''RIP.SizedByteArray)
-    Block_type          -> (IRuntimeModule "Block",   ''Block.Block)
+    ByteArray_type      -> (IRuntime Runtime.Support, ''BG.ByteArray)
+    SizedByteArray_type -> (IRuntime Runtime.Support, ''BG.SizedByteArray)
+    Block_type          -> (IRuntime Runtime.Block,   ''Block.Block)
 
     -- Complex numbers
-    Complex_type -> (IRuntimeInternalPrelude, ''RIP.Complex)
+    Complex_type -> (IRuntime Runtime.Support, ''BG.Complex)
 
     -- C types
-    Void_type       -> (IRuntimeInternalPrelude, ''RIP.Void)
-    Char_type       -> (IHaskellPrelude,         ''Char)
-    Int_type        -> (IHaskellPrelude,         ''Int)
-    Double_type     -> (IHaskellPrelude,         ''Double)
-    Float_type      -> (IHaskellPrelude,         ''Float)
-    Bool_type       -> (IHaskellPrelude,         ''Bool)
-    Int8_type       -> (IRuntimeInternalPrelude, ''RIP.Int8)
-    Int16_type      -> (IRuntimeInternalPrelude, ''RIP.Int16)
-    Int32_type      -> (IRuntimeInternalPrelude, ''RIP.Int32)
-    Int64_type      -> (IRuntimeInternalPrelude, ''RIP.Int64)
-    Word_type       -> (IHaskellPrelude,         ''Word)
-    Word8_type      -> (IRuntimeInternalPrelude, ''RIP.Word8)
-    Word16_type     -> (IRuntimeInternalPrelude, ''RIP.Word16)
-    Word32_type     -> (IRuntimeInternalPrelude, ''RIP.Word32)
-    Word64_type     -> (IRuntimeInternalPrelude, ''RIP.Word64)
-    CChar_type      -> (IRuntimeInternalPrelude, ''RIP.CChar)
-    CSChar_type     -> (IRuntimeInternalPrelude, ''RIP.CSChar)
-    CUChar_type     -> (IRuntimeInternalPrelude, ''RIP.CUChar)
-    CShort_type     -> (IRuntimeInternalPrelude, ''RIP.CShort)
-    CUShort_type    -> (IRuntimeInternalPrelude, ''RIP.CUShort)
-    CInt_type       -> (IRuntimeInternalPrelude, ''RIP.CInt)
-    CUInt_type      -> (IRuntimeInternalPrelude, ''RIP.CUInt)
-    CLong_type      -> (IRuntimeInternalPrelude, ''RIP.CLong)
-    CULong_type     -> (IRuntimeInternalPrelude, ''RIP.CULong)
-    CLLong_type     -> (IRuntimeInternalPrelude, ''RIP.CLLong)
-    CULLong_type    -> (IRuntimeInternalPrelude, ''RIP.CULLong)
-    CBool_type      -> (IRuntimeInternalPrelude, ''RIP.CBool)
-    CFloat_type     -> (IRuntimeInternalPrelude, ''RIP.CFloat)
-    CDouble_type    -> (IRuntimeInternalPrelude, ''RIP.CDouble)
-    CPtrdiff_type   -> (IRuntimeInternalPrelude, ''RIP.CPtrdiff)
+    Void_type       -> (IRuntime Runtime.Support, ''BG.Void)
+    Char_type       -> (IHaskellPrelude,          ''Char)
+    Int_type        -> (IHaskellPrelude,          ''Int)
+    Double_type     -> (IHaskellPrelude,          ''Double)
+    Float_type      -> (IHaskellPrelude,          ''Float)
+    Bool_type       -> (IHaskellPrelude,          ''Bool)
+    Int8_type       -> (IRuntime Runtime.Support, ''BG.Int8)
+    Int16_type      -> (IRuntime Runtime.Support, ''BG.Int16)
+    Int32_type      -> (IRuntime Runtime.Support, ''BG.Int32)
+    Int64_type      -> (IRuntime Runtime.Support, ''BG.Int64)
+    Word_type       -> (IHaskellPrelude,          ''Word)
+    Word8_type      -> (IRuntime Runtime.Support, ''BG.Word8)
+    Word16_type     -> (IRuntime Runtime.Support, ''BG.Word16)
+    Word32_type     -> (IRuntime Runtime.Support, ''BG.Word32)
+    Word64_type     -> (IRuntime Runtime.Support, ''BG.Word64)
+    CChar_type      -> (IRuntime Runtime.Support, ''BG.CChar)
+    CSChar_type     -> (IRuntime Runtime.Support, ''BG.CSChar)
+    CUChar_type     -> (IRuntime Runtime.Support, ''BG.CUChar)
+    CShort_type     -> (IRuntime Runtime.Support, ''BG.CShort)
+    CUShort_type    -> (IRuntime Runtime.Support, ''BG.CUShort)
+    CInt_type       -> (IRuntime Runtime.Support, ''BG.CInt)
+    CUInt_type      -> (IRuntime Runtime.Support, ''BG.CUInt)
+    CLong_type      -> (IRuntime Runtime.Support, ''BG.CLong)
+    CULong_type     -> (IRuntime Runtime.Support, ''BG.CULong)
+    CLLong_type     -> (IRuntime Runtime.Support, ''BG.CLLong)
+    CULLong_type    -> (IRuntime Runtime.Support, ''BG.CULLong)
+    CBool_type      -> (IRuntime Runtime.Support, ''BG.CBool)
+    CFloat_type     -> (IRuntime Runtime.Support, ''BG.CFloat)
+    CDouble_type    -> (IRuntime Runtime.Support, ''BG.CDouble)
+    CPtrdiff_type   -> (IRuntime Runtime.Support, ''BG.CPtrdiff)
 
     -- ByteString
-    ByteString_type -> (IRuntimeInternalPrelude, ''RIP.ByteString)
+    ByteString_type -> (IRuntime Runtime.Support, ''BG.ByteString)
 
 typeClassGlobal :: Inst.TypeClass -> Global LvlType
 typeClassGlobal = globalType . \case
-    Inst.Bitfield        -> (IRuntimeInternalPrelude,       ''RIP.Bitfield)
-    Inst.Bits            -> (IRuntimeInternalPrelude,       ''RIP.Bits)
-    Inst.Bounded         -> (IHaskellPrelude,               ''Bounded)
-    Inst.CEnum           -> (IRuntimeModule "CEnum",        ''CEnum.CEnum)
-    Inst.Enum            -> (IHaskellPrelude,               ''Enum)
-    Inst.Eq              -> (IHaskellPrelude,               ''Eq)
-    Inst.FiniteBits      -> (IRuntimeInternalPrelude,       ''RIP.FiniteBits)
-    Inst.Floating        -> (IHaskellPrelude,               ''Floating)
-    Inst.Fractional      -> (IHaskellPrelude,               ''Fractional)
-    Inst.FromFunPtr      -> (IRuntimeInternalPrelude,       ''RIP.FromFunPtr)
-    Inst.Generic         -> (IRuntimeInternalPrelude,       ''RIP.Generic)
-    Inst.HasCBitfield    -> (IRuntimeModule "HasCBitfield", ''HasCBitfield.HasCBitfield)
-    Inst.HasCField       -> (IRuntimeModule "HasCField",    ''HasCField.HasCField)
-    Inst.HasFFIType      -> (IRuntimeInternalPrelude,       ''RIP.HasFFIType)
-    Inst.HasField        -> (IRuntimeInternalPrelude,       ''RIP.HasField)
-    Inst.HasFieldCompat  -> (IRuntimeInternalPreludeCompatHasField, ''RIP.CompatHasField.HasField)
-    Inst.HasFieldPtr     -> (IRuntimeInternalPrelude,       ''RIP.HasField)
-    Inst.Flam_Offset     -> (IRuntimeModule "FLAM",         ''FLAM.Offset)
-    Inst.Integral        -> (IHaskellPrelude,               ''Integral)
-    Inst.IsArray         -> (IRuntimeModule "IsA",          ''IsA.IsArray)
-    Inst.IsUnion         -> (IRuntimeModule "Union",        ''Union.IsUnion)
-    Inst.Ix              -> (IRuntimeInternalPrelude,       ''RIP.Ix)
-    Inst.Num             -> (IHaskellPrelude,               ''Num)
-    Inst.Ord             -> (IHaskellPrelude,               ''Ord)
-    Inst.Prim            -> (IRuntimeInternalPrelude,       ''RIP.Prim)
-    Inst.Read            -> (IHaskellPrelude,               ''Read)
-    Inst.ReadRaw         -> (IRuntimeModule "Marshal",      ''Marshal.ReadRaw)
-    Inst.Real            -> (IHaskellPrelude,               ''Real)
-    Inst.RealFloat       -> (IHaskellPrelude,               ''RealFloat)
-    Inst.RealFrac        -> (IHaskellPrelude,               ''RealFrac)
-    Inst.SequentialCEnum -> (IRuntimeModule "CEnum",        ''CEnum.SequentialCEnum)
-    Inst.Show            -> (IHaskellPrelude,               ''Show)
-    Inst.StaticSize      -> (IRuntimeModule "Marshal",      ''Marshal.StaticSize)
-    Inst.Storable        -> (IRuntimeInternalPrelude,       ''RIP.Storable)
-    Inst.ToFunPtr        -> (IRuntimeInternalPrelude,       ''RIP.ToFunPtr)
-    Inst.WriteRaw        -> (IRuntimeModule "Marshal",      ''Marshal.WriteRaw)
+    Inst.Bitfield        -> (IRuntime Runtime.Support,        ''BG.Bitfield)
+    Inst.Bits            -> (IRuntime Runtime.Support,        ''BG.Bits)
+    Inst.Bounded         -> (IHaskellPrelude,                 ''Bounded)
+    Inst.CEnum           -> (IRuntime Runtime.CEnum,          ''CEnum.CEnum)
+    Inst.Enum            -> (IHaskellPrelude,                 ''Enum)
+    Inst.Eq              -> (IHaskellPrelude,                 ''Eq)
+    Inst.FiniteBits      -> (IRuntime Runtime.Support,        ''BG.FiniteBits)
+    Inst.Floating        -> (IHaskellPrelude,                 ''Floating)
+    Inst.Fractional      -> (IHaskellPrelude,                 ''Fractional)
+    Inst.FromFunPtr      -> (IRuntime Runtime.Support,        ''BG.FromFunPtr)
+    Inst.Generic         -> (IRuntime Runtime.Support,        ''BG.Generic)
+    Inst.HasCBitfield    -> (IRuntime Runtime.HasCBitfield,   ''HasCBitfield.HasCBitfield)
+    Inst.HasCField       -> (IRuntime Runtime.HasCField,      ''HasCField.HasCField)
+    Inst.HasFFIType      -> (IRuntime Runtime.Support,        ''BG.HasFFIType)
+    Inst.HasField        -> (IRuntime Runtime.Support,        ''BG.HasField)
+    Inst.HasFieldCompat  -> (IRuntime Runtime.CompatHasField, ''BG.CompatHasField.HasField)
+    Inst.HasFieldPtr     -> (IRuntime Runtime.Support,        ''BG.HasField)
+    Inst.Flam_Offset     -> (IRuntime Runtime.Flam,           ''FLAM.Offset)
+    Inst.Integral        -> (IHaskellPrelude,                 ''Integral)
+    Inst.IsArray         -> (IRuntime Runtime.IsArray,        ''IsA.IsArray)
+    Inst.IsUnion         -> (IRuntime Runtime.Union,          ''Union.IsUnion)
+    Inst.Ix              -> (IRuntime Runtime.Support,        ''BG.Ix)
+    Inst.Num             -> (IHaskellPrelude,                 ''Num)
+    Inst.Ord             -> (IHaskellPrelude,                 ''Ord)
+    Inst.Prim            -> (IRuntime Runtime.Support,        ''BG.Prim)
+    Inst.Read            -> (IHaskellPrelude,                 ''Read)
+    Inst.ReadRaw         -> (IRuntime Runtime.Marshal,        ''Marshal.ReadRaw)
+    Inst.Real            -> (IHaskellPrelude,                 ''Real)
+    Inst.RealFloat       -> (IHaskellPrelude,                 ''RealFloat)
+    Inst.RealFrac        -> (IHaskellPrelude,                 ''RealFrac)
+    Inst.SequentialCEnum -> (IRuntime Runtime.CEnum,          ''CEnum.SequentialCEnum)
+    Inst.Show            -> (IHaskellPrelude,                 ''Show)
+    Inst.StaticSize      -> (IRuntime Runtime.Marshal,        ''Marshal.StaticSize)
+    Inst.Storable        -> (IRuntime Runtime.Support,        ''BG.Storable)
+    Inst.ToFunPtr        -> (IRuntime Runtime.Support,        ''BG.ToFunPtr)
+    Inst.WriteRaw        -> (IRuntime Runtime.Marshal,        ''Marshal.WriteRaw)
 
 bindgenGlobalTerm :: BindgenGlobalTerm -> Global LvlTerm
 bindgenGlobalTerm = globalExpr . \case
@@ -436,113 +417,113 @@ bindgenGlobalTerm = globalExpr . \case
     Monad_seq           -> (IHaskellPrelude, GVar, '(>>))
 
     -- Function pointers
-    ToFunPtr_toFunPtr     -> (IRuntimeInternalPrelude, GVar, 'RIP.toFunPtr)
-    FromFunPtr_fromFunPtr -> (IRuntimeInternalPrelude, GVar, 'RIP.fromFunPtr)
+    ToFunPtr_toFunPtr     -> (IRuntime Runtime.Support, GVar, 'BG.toFunPtr)
+    FromFunPtr_fromFunPtr -> (IRuntime Runtime.Support, GVar, 'BG.fromFunPtr)
 
     -- Foreign function interface
-    ByteArray_getUnionPayload -> (IRuntimeInternalPrelude, GVar, 'RIP.getUnionPayload)
-    ByteArray_setUnionPayload -> (IRuntimeInternalPrelude, GVar, 'RIP.setUnionPayload)
-    Capi_with                 -> (IRuntimeInternalPrelude, GVar, 'RIP.with)
-    Capi_allocaAndPeek        -> (IRuntimeInternalPrelude, GVar, 'RIP.allocaAndPeek)
+    ByteArray_getUnionPayload -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayload)
+    ByteArray_setUnionPayload -> (IRuntime Runtime.Support, GVar, 'BG.setUnionPayload)
+    Capi_with                 -> (IRuntime Runtime.Support, GVar, 'BG.with)
+    Capi_allocaAndPeek        -> (IRuntime Runtime.Support, GVar, 'BG.allocaAndPeek)
 
     -- StaticSize
-    StaticSize_staticSizeOf    -> (IRuntimeModule "Marshal", GVar, 'Marshal.staticSizeOf)
-    StaticSize_staticAlignment -> (IRuntimeModule "Marshal", GVar, 'Marshal.staticAlignment)
+    StaticSize_staticSizeOf    -> (IRuntime Runtime.Marshal, GVar, 'Marshal.staticSizeOf)
+    StaticSize_staticAlignment -> (IRuntime Runtime.Marshal, GVar, 'Marshal.staticAlignment)
 
     -- ReadRaw
-    ReadRaw_readRaw        -> (IRuntimeModule "Marshal", GVar, 'Marshal.readRaw)
-    ReadRaw_readRawByteOff -> (IRuntimeModule "Marshal", GVar, 'Marshal.readRawByteOff)
+    ReadRaw_readRaw        -> (IRuntime Runtime.Marshal, GVar, 'Marshal.readRaw)
+    ReadRaw_readRawByteOff -> (IRuntime Runtime.Marshal, GVar, 'Marshal.readRawByteOff)
 
     -- WriteRaw
-    WriteRaw_writeRaw        -> (IRuntimeModule "Marshal", GVar, 'Marshal.writeRaw)
-    WriteRaw_writeRawByteOff -> (IRuntimeModule "Marshal", GVar, 'Marshal.writeRawByteOff)
+    WriteRaw_writeRaw        -> (IRuntime Runtime.Marshal, GVar, 'Marshal.writeRaw)
+    WriteRaw_writeRawByteOff -> (IRuntime Runtime.Marshal, GVar, 'Marshal.writeRawByteOff)
 
     -- Storable
-    Storable_sizeOf      -> (IRuntimeInternalPrelude, GVar, 'RIP.sizeOf)
-    Storable_alignment   -> (IRuntimeInternalPrelude, GVar, 'RIP.alignment)
-    Storable_peekByteOff -> (IRuntimeInternalPrelude, GVar, 'RIP.peekByteOff)
-    Storable_pokeByteOff -> (IRuntimeInternalPrelude, GVar, 'RIP.pokeByteOff)
-    Storable_peek        -> (IRuntimeInternalPrelude, GVar, 'RIP.peek)
-    Storable_poke        -> (IRuntimeInternalPrelude, GVar, 'RIP.poke)
+    Storable_sizeOf      -> (IRuntime Runtime.Support, GVar, 'BG.sizeOf)
+    Storable_alignment   -> (IRuntime Runtime.Support, GVar, 'BG.alignment)
+    Storable_peekByteOff -> (IRuntime Runtime.Support, GVar, 'BG.peekByteOff)
+    Storable_pokeByteOff -> (IRuntime Runtime.Support, GVar, 'BG.pokeByteOff)
+    Storable_peek        -> (IRuntime Runtime.Support, GVar, 'BG.peek)
+    Storable_poke        -> (IRuntime Runtime.Support, GVar, 'BG.poke)
 
     -- Flexible array members
-    Flam_Offset_offset        -> (IRuntimeModule "FLAM", GVar, 'FLAM.offset)
+    Flam_Offset_offset        -> (IRuntime Runtime.Flam, GVar, 'FLAM.offset)
 
     -- HasCField
-    HasCField_offset#    -> (IRuntimeModule "HasCField", GVar, 'HasCField.offset#)
-    HasCField_fromPtr    -> (IRuntimeModule "HasCField", GVar, 'HasCField.fromPtr)
-    HasCField_peek       -> (IRuntimeModule "HasCField", GVar, 'HasCField.peek)
-    HasCField_poke       -> (IRuntimeModule "HasCField", GVar, 'HasCField.poke)
-    HasCField_readRaw    -> (IRuntimeModule "HasCField", GVar, 'HasCField.readRaw)
-    HasCField_writeRaw   -> (IRuntimeModule "HasCField", GVar, 'HasCField.writeRaw)
+    HasCField_offset#    -> (IRuntime Runtime.HasCField, GVar, 'HasCField.offset#)
+    HasCField_fromPtr    -> (IRuntime Runtime.HasCField, GVar, 'HasCField.fromPtr)
+    HasCField_peek       -> (IRuntime Runtime.HasCField, GVar, 'HasCField.peek)
+    HasCField_poke       -> (IRuntime Runtime.HasCField, GVar, 'HasCField.poke)
+    HasCField_readRaw    -> (IRuntime Runtime.HasCField, GVar, 'HasCField.readRaw)
+    HasCField_writeRaw   -> (IRuntime Runtime.HasCField, GVar, 'HasCField.writeRaw)
 
     -- HasCBitfield
-    HasCBitfield_bitfieldOffset# -> (IRuntimeModule "HasCBitfield", GVar, 'HasCBitfield.bitfieldOffset#)
-    HasCBitfield_bitfieldWidth#  -> (IRuntimeModule "HasCBitfield", GVar, 'HasCBitfield.bitfieldWidth#)
-    HasCBitfield_toPtr           -> (IRuntimeModule "HasCBitfield", GVar, 'HasCBitfield.toPtr)
-    HasCBitfield_peek            -> (IRuntimeModule "HasCBitfield", GVar, 'HasCBitfield.peek)
-    HasCBitfield_poke            -> (IRuntimeModule "HasCBitfield", GVar, 'HasCBitfield.poke)
+    HasCBitfield_bitfieldOffset# -> (IRuntime Runtime.HasCBitfield, GVar, 'HasCBitfield.bitfieldOffset#)
+    HasCBitfield_bitfieldWidth#  -> (IRuntime Runtime.HasCBitfield, GVar, 'HasCBitfield.bitfieldWidth#)
+    HasCBitfield_toPtr           -> (IRuntime Runtime.HasCBitfield, GVar, 'HasCBitfield.toPtr)
+    HasCBitfield_peek            -> (IRuntime Runtime.HasCBitfield, GVar, 'HasCBitfield.peek)
+    HasCBitfield_poke            -> (IRuntime Runtime.HasCBitfield, GVar, 'HasCBitfield.poke)
 
     -- HasField
-    HasField_getField -> (IRuntimeInternalPrelude, GVar, 'RIP.getField)
+    HasField_getField -> (IRuntime Runtime.Support, GVar, 'BG.getField)
 
     -- Compat.HasField
-    HasFieldCompat_hasField -> (IRuntimeInternalPreludeCompatHasField, GVar, 'RIP.CompatHasField.hasField)
+    HasFieldCompat_hasField -> (IRuntime Runtime.CompatHasField, GVar, 'BG.CompatHasField.hasField)
 
     -- Proxy
-    Proxy_constructor -> (IRuntimeInternalPrelude, GCon, 'RIP.Proxy)
+    Proxy_constructor -> (IRuntime Runtime.Support, GCon, 'BG.Proxy)
 
     -- HasFFIType
-    HasFFIType_fromFFIType           -> (IRuntimeInternalPrelude, GVar, 'RIP.fromFFIType)
-    HasFFIType_toFFIType             -> (IRuntimeInternalPrelude, GVar, 'RIP.toFFIType)
-    HasFFIType_castFunPtrFromFFIType -> (IRuntimeInternalPrelude, GVar, 'RIP.castFunPtrFromFFIType)
-    HasFFIType_castFunPtrToFFIType   -> (IRuntimeInternalPrelude, GVar, 'RIP.castFunPtrToFFIType)
+    HasFFIType_fromFFIType           -> (IRuntime Runtime.Support, GVar, 'BG.fromFFIType)
+    HasFFIType_toFFIType             -> (IRuntime Runtime.Support, GVar, 'BG.toFFIType)
+    HasFFIType_castFunPtrFromFFIType -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrFromFFIType)
+    HasFFIType_castFunPtrToFFIType   -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrToFFIType)
 
     -- Functor
     Functor_fmap -> (IHaskellPrelude, GVar, 'fmap)
 
     -- Unsafe
-    IO_unsafePerformIO -> (IRuntimeInternalPrelude, GVar, 'RIP.unsafePerformIO)
+    IO_unsafePerformIO -> (IRuntime Runtime.Support, GVar, 'BG.unsafePerformIO)
 
     -- PtrConst
-    PtrConst_unsafeFromPtr -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.unsafeFromPtr)
-    PtrConst_peek          -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.peek)
+    PtrConst_unsafeFromPtr -> (IRuntime Runtime.PtrConst, GVar, 'PtrConst.unsafeFromPtr)
+    PtrConst_peek          -> (IRuntime Runtime.PtrConst, GVar, 'PtrConst.peek)
 
     -- Other type classes
-    Read_readPrec            -> (IRuntimeInternalPrelude, GVar,  'RIP.readPrec)
-    Read_readList            -> (IHaskellPrelude,         GVar, 'readList)
-    Read_readListPrec        -> (IRuntimeInternalPrelude, GVar, 'RIP.readListPrec)
-    Read_readListDefault     -> (IRuntimeInternalPrelude, GVar, 'RIP.readListDefault)
-    Read_readListPrecDefault -> (IRuntimeInternalPrelude, GVar, 'RIP.readListPrecDefault)
-    Show_showsPrec           -> (IHaskellPrelude,         GVar, 'showsPrec)
+    Read_readPrec            -> (IRuntime Runtime.Support, GVar, 'BG.readPrec)
+    Read_readList            -> (IHaskellPrelude,                 GVar, 'readList)
+    Read_readListPrec        -> (IRuntime Runtime.Support, GVar, 'BG.readListPrec)
+    Read_readListDefault     -> (IRuntime Runtime.Support, GVar, 'BG.readListDefault)
+    Read_readListPrecDefault -> (IRuntime Runtime.Support, GVar, 'BG.readListPrecDefault)
+    Show_showsPrec           -> (IHaskellPrelude,                 GVar, 'showsPrec)
 
     -- Floating point numbers
-    CFloat_constructor           -> (IRuntimeInternalPrelude, GCon, ''RIP.CFloat)
-    CDouble_constructor          -> (IRuntimeInternalPrelude, GCon, ''RIP.CDouble)
-    GHC_Float_castWord32ToFloat  -> (IRuntimeInternalPrelude, GVar, 'RIP.castWord32ToFloat)
-    GHC_Float_castWord64ToDouble -> (IRuntimeInternalPrelude, GVar, 'RIP.castWord64ToDouble)
+    CFloat_constructor           -> (IRuntime Runtime.Support, GCon, ''BG.CFloat)
+    CDouble_constructor          -> (IRuntime Runtime.Support, GCon, ''BG.CDouble)
+    GHC_Float_castWord32ToFloat  -> (IRuntime Runtime.Support, GVar, 'BG.castWord32ToFloat)
+    GHC_Float_castWord64ToDouble -> (IRuntime Runtime.Support, GVar, 'BG.castWord64ToDouble)
 
     -- Non-empty lists
-    NonEmpty_constructor     -> (IRuntimeInternalPrelude, GCon, '(RIP.:|))
-    NonEmpty_singleton       -> (IRuntimeInternalPrelude, GVar, 'RIP.singleton)
+    NonEmpty_constructor     -> (IRuntime Runtime.Support, GCon, '(BG.:|))
+    NonEmpty_singleton       -> (IRuntime Runtime.Support, GVar, 'BG.singleton)
 
     -- C enumerations
-    CEnum_toCEnum                    -> (IRuntimeModule "CEnum", GVar, 'CEnum.toCEnum)
-    CEnum_fromCEnum                  -> (IRuntimeModule "CEnum", GVar, 'CEnum.fromCEnum)
-    CEnum_declaredValues             -> (IRuntimeModule "CEnum", GVar, 'CEnum.declaredValues)
-    CEnum_showsUndeclared            -> (IRuntimeModule "CEnum", GVar, 'CEnum.showsUndeclared)
-    CEnum_readPrecUndeclared         -> (IRuntimeModule "CEnum", GVar, 'CEnum.readPrecUndeclared)
-    CEnum_isDeclared                 -> (IRuntimeModule "CEnum", GVar, 'CEnum.isDeclared)
-    CEnum_mkDeclared                 -> (IRuntimeModule "CEnum", GVar, 'CEnum.mkDeclared)
-    SequentialCEnum_minDeclaredValue -> (IRuntimeModule "CEnum", GVar, 'CEnum.minDeclaredValue)
-    SequentialCEnum_maxDeclaredValue -> (IRuntimeModule "CEnum", GVar, 'CEnum.maxDeclaredValue)
-    CEnum_declaredValuesFromList     -> (IRuntimeModule "CEnum", GVar, 'CEnum.declaredValuesFromList)
-    CEnum_showsCEnum                 -> (IRuntimeModule "CEnum", GVar, 'CEnum.shows)
-    CEnum_showsWrappedUndeclared     -> (IRuntimeModule "CEnum", GVar, 'CEnum.showsWrappedUndeclared)
-    CEnum_readPrecCEnum              -> (IRuntimeModule "CEnum", GVar, 'CEnum.readPrec)
-    CEnum_readPrecWrappedUndeclared  -> (IRuntimeModule "CEnum", GVar, 'CEnum.readPrecWrappedUndeclared)
-    CEnum_seqIsDeclared              -> (IRuntimeModule "CEnum", GVar, 'CEnum.seqIsDeclared)
-    CEnum_seqMkDeclared              -> (IRuntimeModule "CEnum", GVar, 'CEnum.seqMkDeclared)
+    CEnum_toCEnum                    -> (IRuntime Runtime.CEnum, GVar, 'CEnum.toCEnum)
+    CEnum_fromCEnum                  -> (IRuntime Runtime.CEnum, GVar, 'CEnum.fromCEnum)
+    CEnum_declaredValues             -> (IRuntime Runtime.CEnum, GVar, 'CEnum.declaredValues)
+    CEnum_showsUndeclared            -> (IRuntime Runtime.CEnum, GVar, 'CEnum.showsUndeclared)
+    CEnum_readPrecUndeclared         -> (IRuntime Runtime.CEnum, GVar, 'CEnum.readPrecUndeclared)
+    CEnum_isDeclared                 -> (IRuntime Runtime.CEnum, GVar, 'CEnum.isDeclared)
+    CEnum_mkDeclared                 -> (IRuntime Runtime.CEnum, GVar, 'CEnum.mkDeclared)
+    SequentialCEnum_minDeclaredValue -> (IRuntime Runtime.CEnum, GVar, 'CEnum.minDeclaredValue)
+    SequentialCEnum_maxDeclaredValue -> (IRuntime Runtime.CEnum, GVar, 'CEnum.maxDeclaredValue)
+    CEnum_declaredValuesFromList     -> (IRuntime Runtime.CEnum, GVar, 'CEnum.declaredValuesFromList)
+    CEnum_showsCEnum                 -> (IRuntime Runtime.CEnum, GVar, 'CEnum.shows)
+    CEnum_showsWrappedUndeclared     -> (IRuntime Runtime.CEnum, GVar, 'CEnum.showsWrappedUndeclared)
+    CEnum_readPrecCEnum              -> (IRuntime Runtime.CEnum, GVar, 'CEnum.readPrec)
+    CEnum_readPrecWrappedUndeclared  -> (IRuntime Runtime.CEnum, GVar, 'CEnum.readPrecWrappedUndeclared)
+    CEnum_seqIsDeclared              -> (IRuntime Runtime.CEnum, GVar, 'CEnum.seqIsDeclared)
+    CEnum_seqMkDeclared              -> (IRuntime Runtime.CEnum, GVar, 'CEnum.seqMkDeclared)
 
     -- ByteString
-    ByteString_pack -> (IRuntimeInternalPrelude, GVar, 'BS.pack)
+    ByteString_pack -> (IRuntime Runtime.Support, GVar, 'BS.pack)

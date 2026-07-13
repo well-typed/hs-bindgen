@@ -1,6 +1,6 @@
 {-# OPTIONS_HADDOCK hide #-}
 
-module HsBindgen.Runtime.Internal.SizedByteArray (
+module HsBindgen.Runtime.Support.SizedByteArray (
     SizedByteArray(..)
   , zeroUnionValue
   ) where

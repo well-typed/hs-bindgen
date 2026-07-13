@@ -30,10 +30,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/names.h>"
   , "void hs_bindgen_601290db9e101424 (void)"
   , "{"
@@ -144,7 +144,7 @@ foreign import ccall safe "hs_bindgen_601290db9e101424" hs_bindgen_601290db9e101
 -- __unique:__ @test_edgecasesnames_Example_Safe_by@
 hs_bindgen_601290db9e101424 :: IO ()
 hs_bindgen_601290db9e101424 =
-  RIP.fromFFIType hs_bindgen_601290db9e101424_base
+  BG.fromFFIType hs_bindgen_601290db9e101424_base
 
 {-| __C declaration:__ @by@
 
@@ -162,7 +162,7 @@ foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" hs_bindgen_f03dbed5eebb7
 -- __unique:__ @test_edgecasesnames_Example_Safe_forall@
 hs_bindgen_f03dbed5eebb711a :: IO ()
 hs_bindgen_f03dbed5eebb711a =
-  RIP.fromFFIType hs_bindgen_f03dbed5eebb711a_base
+  BG.fromFFIType hs_bindgen_f03dbed5eebb711a_base
 
 {-| __C declaration:__ @forall@
 
@@ -180,7 +180,7 @@ foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" hs_bindgen_d1e3196c869f9
 -- __unique:__ @test_edgecasesnames_Example_Safe_mdo@
 hs_bindgen_d1e3196c869f9fa1 :: IO ()
 hs_bindgen_d1e3196c869f9fa1 =
-  RIP.fromFFIType hs_bindgen_d1e3196c869f9fa1_base
+  BG.fromFFIType hs_bindgen_d1e3196c869f9fa1_base
 
 {-| __C declaration:__ @mdo@
 
@@ -198,7 +198,7 @@ foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" hs_bindgen_d3dcd898c88fb
 -- __unique:__ @test_edgecasesnames_Example_Safe_pattern@
 hs_bindgen_d3dcd898c88fb2e0 :: IO ()
 hs_bindgen_d3dcd898c88fb2e0 =
-  RIP.fromFFIType hs_bindgen_d3dcd898c88fb2e0_base
+  BG.fromFFIType hs_bindgen_d3dcd898c88fb2e0_base
 
 {-| __C declaration:__ @pattern@
 
@@ -216,7 +216,7 @@ foreign import ccall safe "hs_bindgen_7f08456473f564e3" hs_bindgen_7f08456473f56
 -- __unique:__ @test_edgecasesnames_Example_Safe_proc@
 hs_bindgen_7f08456473f564e3 :: IO ()
 hs_bindgen_7f08456473f564e3 =
-  RIP.fromFFIType hs_bindgen_7f08456473f564e3_base
+  BG.fromFFIType hs_bindgen_7f08456473f564e3_base
 
 {-| __C declaration:__ @proc@
 
@@ -234,7 +234,7 @@ foreign import ccall safe "hs_bindgen_5df814c22f546599" hs_bindgen_5df814c22f546
 -- __unique:__ @test_edgecasesnames_Example_Safe_rec@
 hs_bindgen_5df814c22f546599 :: IO ()
 hs_bindgen_5df814c22f546599 =
-  RIP.fromFFIType hs_bindgen_5df814c22f546599_base
+  BG.fromFFIType hs_bindgen_5df814c22f546599_base
 
 {-| __C declaration:__ @rec@
 
@@ -252,7 +252,7 @@ foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" hs_bindgen_3877b6deb653b
 -- __unique:__ @test_edgecasesnames_Example_Safe_using@
 hs_bindgen_3877b6deb653b5a4 :: IO ()
 hs_bindgen_3877b6deb653b5a4 =
-  RIP.fromFFIType hs_bindgen_3877b6deb653b5a4_base
+  BG.fromFFIType hs_bindgen_3877b6deb653b5a4_base
 
 {-| __C declaration:__ @using@
 
@@ -270,7 +270,7 @@ foreign import ccall safe "hs_bindgen_7b8790d04357731b" hs_bindgen_7b8790d043577
 -- __unique:__ @test_edgecasesnames_Example_Safe_anyclass@
 hs_bindgen_7b8790d04357731b :: IO ()
 hs_bindgen_7b8790d04357731b =
-  RIP.fromFFIType hs_bindgen_7b8790d04357731b_base
+  BG.fromFFIType hs_bindgen_7b8790d04357731b_base
 
 {-| __C declaration:__ @anyclass@
 
@@ -288,7 +288,7 @@ foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" hs_bindgen_0bf4ab515f327
 -- __unique:__ @test_edgecasesnames_Example_Safe_capi@
 hs_bindgen_0bf4ab515f3279b9 :: IO ()
 hs_bindgen_0bf4ab515f3279b9 =
-  RIP.fromFFIType hs_bindgen_0bf4ab515f3279b9_base
+  BG.fromFFIType hs_bindgen_0bf4ab515f3279b9_base
 
 {-| __C declaration:__ @capi@
 
@@ -306,7 +306,7 @@ foreign import ccall safe "hs_bindgen_fa8166b2793e4236" hs_bindgen_fa8166b2793e4
 -- __unique:__ @test_edgecasesnames_Example_Safe_cases@
 hs_bindgen_fa8166b2793e4236 :: IO ()
 hs_bindgen_fa8166b2793e4236 =
-  RIP.fromFFIType hs_bindgen_fa8166b2793e4236_base
+  BG.fromFFIType hs_bindgen_fa8166b2793e4236_base
 
 {-| __C declaration:__ @cases@
 
@@ -324,7 +324,7 @@ foreign import ccall safe "hs_bindgen_decc2d43a62d063d" hs_bindgen_decc2d43a62d0
 -- __unique:__ @test_edgecasesnames_Example_Safe_ccall@
 hs_bindgen_decc2d43a62d063d :: IO ()
 hs_bindgen_decc2d43a62d063d =
-  RIP.fromFFIType hs_bindgen_decc2d43a62d063d_base
+  BG.fromFFIType hs_bindgen_decc2d43a62d063d_base
 
 {-| __C declaration:__ @ccall@
 
@@ -342,7 +342,7 @@ foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" hs_bindgen_b5a75e2b64341
 -- __unique:__ @test_edgecasesnames_Example_Safe_dynamic@
 hs_bindgen_b5a75e2b6434134b :: IO ()
 hs_bindgen_b5a75e2b6434134b =
-  RIP.fromFFIType hs_bindgen_b5a75e2b6434134b_base
+  BG.fromFFIType hs_bindgen_b5a75e2b6434134b_base
 
 {-| __C declaration:__ @dynamic@
 
@@ -360,7 +360,7 @@ foreign import ccall safe "hs_bindgen_406f7b014573b3d3" hs_bindgen_406f7b014573b
 -- __unique:__ @test_edgecasesnames_Example_Safe_export@
 hs_bindgen_406f7b014573b3d3 :: IO ()
 hs_bindgen_406f7b014573b3d3 =
-  RIP.fromFFIType hs_bindgen_406f7b014573b3d3_base
+  BG.fromFFIType hs_bindgen_406f7b014573b3d3_base
 
 {-| __C declaration:__ @export@
 
@@ -378,7 +378,7 @@ foreign import ccall safe "hs_bindgen_14aab2af04efc222" hs_bindgen_14aab2af04efc
 -- __unique:__ @test_edgecasesnames_Example_Safe_family@
 hs_bindgen_14aab2af04efc222 :: IO ()
 hs_bindgen_14aab2af04efc222 =
-  RIP.fromFFIType hs_bindgen_14aab2af04efc222_base
+  BG.fromFFIType hs_bindgen_14aab2af04efc222_base
 
 {-| __C declaration:__ @family@
 
@@ -396,7 +396,7 @@ foreign import ccall safe "hs_bindgen_ee9285b26b11b393" hs_bindgen_ee9285b26b11b
 -- __unique:__ @test_edgecasesnames_Example_Safe_group@
 hs_bindgen_ee9285b26b11b393 :: IO ()
 hs_bindgen_ee9285b26b11b393 =
-  RIP.fromFFIType hs_bindgen_ee9285b26b11b393_base
+  BG.fromFFIType hs_bindgen_ee9285b26b11b393_base
 
 {-| __C declaration:__ @group@
 
@@ -414,7 +414,7 @@ foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" hs_bindgen_b2463d5c1d518
 -- __unique:__ @test_edgecasesnames_Example_Safe_interruptible@
 hs_bindgen_b2463d5c1d51883e :: IO ()
 hs_bindgen_b2463d5c1d51883e =
-  RIP.fromFFIType hs_bindgen_b2463d5c1d51883e_base
+  BG.fromFFIType hs_bindgen_b2463d5c1d51883e_base
 
 {-| __C declaration:__ @interruptible@
 
@@ -432,7 +432,7 @@ foreign import ccall safe "hs_bindgen_55a55462d9cd296c" hs_bindgen_55a55462d9cd2
 -- __unique:__ @test_edgecasesnames_Example_Safe_javascript@
 hs_bindgen_55a55462d9cd296c :: IO ()
 hs_bindgen_55a55462d9cd296c =
-  RIP.fromFFIType hs_bindgen_55a55462d9cd296c_base
+  BG.fromFFIType hs_bindgen_55a55462d9cd296c_base
 
 {-| __C declaration:__ @javascript@
 
@@ -450,7 +450,7 @@ foreign import ccall safe "hs_bindgen_227f34efb176d1fb" hs_bindgen_227f34efb176d
 -- __unique:__ @test_edgecasesnames_Example_Safe_label@
 hs_bindgen_227f34efb176d1fb :: IO ()
 hs_bindgen_227f34efb176d1fb =
-  RIP.fromFFIType hs_bindgen_227f34efb176d1fb_base
+  BG.fromFFIType hs_bindgen_227f34efb176d1fb_base
 
 {-| __C declaration:__ @label@
 
@@ -468,7 +468,7 @@ foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" hs_bindgen_51c6e0d18dce4
 -- __unique:__ @test_edgecasesnames_Example_Safe_prim@
 hs_bindgen_51c6e0d18dce403a :: IO ()
 hs_bindgen_51c6e0d18dce403a =
-  RIP.fromFFIType hs_bindgen_51c6e0d18dce403a_base
+  BG.fromFFIType hs_bindgen_51c6e0d18dce403a_base
 
 {-| __C declaration:__ @prim@
 
@@ -486,7 +486,7 @@ foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" hs_bindgen_f85f2418d208e
 -- __unique:__ @test_edgecasesnames_Example_Safe_role@
 hs_bindgen_f85f2418d208e6a0 :: IO ()
 hs_bindgen_f85f2418d208e6a0 =
-  RIP.fromFFIType hs_bindgen_f85f2418d208e6a0_base
+  BG.fromFFIType hs_bindgen_f85f2418d208e6a0_base
 
 {-| __C declaration:__ @role@
 
@@ -504,7 +504,7 @@ foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" hs_bindgen_0855ecbc4b53e
 -- __unique:__ @test_edgecasesnames_Example_Safe_safe@
 hs_bindgen_0855ecbc4b53ebbb :: IO ()
 hs_bindgen_0855ecbc4b53ebbb =
-  RIP.fromFFIType hs_bindgen_0855ecbc4b53ebbb_base
+  BG.fromFFIType hs_bindgen_0855ecbc4b53ebbb_base
 
 {-| __C declaration:__ @safe@
 
@@ -522,7 +522,7 @@ foreign import ccall safe "hs_bindgen_e5238d13788a6df9" hs_bindgen_e5238d13788a6
 -- __unique:__ @test_edgecasesnames_Example_Safe_stdcall@
 hs_bindgen_e5238d13788a6df9 :: IO ()
 hs_bindgen_e5238d13788a6df9 =
-  RIP.fromFFIType hs_bindgen_e5238d13788a6df9_base
+  BG.fromFFIType hs_bindgen_e5238d13788a6df9_base
 
 {-| __C declaration:__ @stdcall@
 
@@ -540,7 +540,7 @@ foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" hs_bindgen_cf38d8bd096a7
 -- __unique:__ @test_edgecasesnames_Example_Safe_stock@
 hs_bindgen_cf38d8bd096a7a42 :: IO ()
 hs_bindgen_cf38d8bd096a7a42 =
-  RIP.fromFFIType hs_bindgen_cf38d8bd096a7a42_base
+  BG.fromFFIType hs_bindgen_cf38d8bd096a7a42_base
 
 {-| __C declaration:__ @stock@
 
@@ -558,7 +558,7 @@ foreign import ccall safe "hs_bindgen_fda9b083b24404f0" hs_bindgen_fda9b083b2440
 -- __unique:__ @test_edgecasesnames_Example_Safe_unsafe@
 hs_bindgen_fda9b083b24404f0 :: IO ()
 hs_bindgen_fda9b083b24404f0 =
-  RIP.fromFFIType hs_bindgen_fda9b083b24404f0_base
+  BG.fromFFIType hs_bindgen_fda9b083b24404f0_base
 
 {-| __C declaration:__ @unsafe@
 
@@ -576,7 +576,7 @@ foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" hs_bindgen_1d2a76a3a595b
 -- __unique:__ @test_edgecasesnames_Example_Safe_via@
 hs_bindgen_1d2a76a3a595be25 :: IO ()
 hs_bindgen_1d2a76a3a595be25 =
-  RIP.fromFFIType hs_bindgen_1d2a76a3a595be25_base
+  BG.fromFFIType hs_bindgen_1d2a76a3a595be25_base
 
 {-| __C declaration:__ @via@
 

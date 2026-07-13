@@ -6,10 +6,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/object_like_as_function_like.h>"
   , "/* test_macrosobject_like_as_function_Example_get_a */"
   , "__attribute__ ((const))"
@@ -21,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
 foreign import ccall unsafe "hs_bindgen_06ace787c069879f" hs_bindgen_06ace787c069879f_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
-hs_bindgen_06ace787c069879f :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_06ace787c069879f :: IO (BG.Ptr BG.CInt)
 hs_bindgen_06ace787c069879f =
-  RIP.fromFFIType hs_bindgen_06ace787c069879f_base
+  BG.fromFFIType hs_bindgen_06ace787c069879f_base
 
 {-# NOINLINE a #-}
 {-| __C declaration:__ @a@
@@ -35,5 +35,5 @@ hs_bindgen_06ace787c069879f =
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-a :: RIP.Ptr RIP.CInt
-a = RIP.unsafePerformIO hs_bindgen_06ace787c069879f
+a :: BG.Ptr BG.CInt
+a = BG.unsafePerformIO hs_bindgen_06ace787c069879f

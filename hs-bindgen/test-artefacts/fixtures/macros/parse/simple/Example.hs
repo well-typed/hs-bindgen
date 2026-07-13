@@ -6,7 +6,7 @@ module Example
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro OUTER_A@
 
@@ -14,8 +14,8 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
     __exported by:__ @macros\/parse\/simple.h@
 -}
-oUTER_A :: RIP.CInt
-oUTER_A = (1 :: RIP.CInt)
+oUTER_A :: BG.CInt
+oUTER_A = (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro INNER_A@
 
@@ -23,5 +23,5 @@ oUTER_A = (1 :: RIP.CInt)
 
     __exported by:__ @macros\/parse\/simple.h@
 -}
-iNNER_A :: RIP.CInt
+iNNER_A :: BG.CInt
 iNNER_A = oUTER_A

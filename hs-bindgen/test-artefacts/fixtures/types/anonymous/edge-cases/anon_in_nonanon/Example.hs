@@ -20,9 +20,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct \@S_y_anon\'x@
 
@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
 -}
 data S_y_anon'x = S_y_anon'x
-  { s_y_anon'x_x :: RIP.CInt
+  { s_y_anon'x_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 16:11@
@@ -39,7 +39,7 @@ data S_y_anon'x = S_y_anon'x
          __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S_y_anon'x where
 
@@ -52,7 +52,7 @@ instance Marshal.ReadRaw S_y_anon'x where
   readRaw =
     \ptr0 ->
           pure S_y_anon'x
-      <*> HasCField.readRaw (RIP.Proxy @"s_y_anon'x_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_y_anon'x_x") ptr0
 
 instance Marshal.WriteRaw S_y_anon'x where
 
@@ -61,27 +61,27 @@ instance Marshal.WriteRaw S_y_anon'x where
       \s1 ->
         case s1 of
           S_y_anon'x s_y_anon'x_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_y_anon'x_x") ptr0 s_y_anon'x_x2
+            HasCField.writeRaw (BG.Proxy @"s_y_anon'x_x") ptr0 s_y_anon'x_x2
 
-deriving via Marshal.EquivStorable S_y_anon'x instance RIP.Storable S_y_anon'x
+deriving via Marshal.EquivStorable S_y_anon'x instance BG.Storable S_y_anon'x
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         S_y_anon'x {s_y_anon'x_x = y1}, RIP.getField @"s_y_anon'x_x" x0)
+         S_y_anon'x {s_y_anon'x_x = y1}, BG.getField @"s_y_anon'x_x" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s_y_anon'x_x" (RIP.Ptr S_y_anon'x) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "s_y_anon'x_x" (BG.Ptr S_y_anon'x) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x_x")
+    HasCField.fromPtr (BG.Proxy @"s_y_anon'x_x")
 
 instance HasCField.HasCField S_y_anon'x "s_y_anon'x_x" where
 
-  type CFieldType S_y_anon'x "s_y_anon'x_x" = RIP.CInt
+  type CFieldType S_y_anon'x "s_y_anon'x_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -100,7 +100,7 @@ data S_y = S_y
          __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S_y where
 
@@ -113,7 +113,7 @@ instance Marshal.ReadRaw S_y where
   readRaw =
     \ptr0 ->
           pure S_y
-      <*> HasCField.readRaw (RIP.Proxy @"s_y_anon'x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_y_anon'x") ptr0
 
 instance Marshal.WriteRaw S_y where
 
@@ -122,23 +122,22 @@ instance Marshal.WriteRaw S_y where
       \s1 ->
         case s1 of
           S_y s_y_anon'x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_y_anon'x") ptr0 s_y_anon'x2
+            HasCField.writeRaw (BG.Proxy @"s_y_anon'x") ptr0 s_y_anon'x2
 
-deriving via Marshal.EquivStorable S_y instance RIP.Storable S_y
+deriving via Marshal.EquivStorable S_y instance BG.Storable S_y
 
 instance ( ty ~ S_y_anon'x
-         ) => RIP.CompatHasField.HasField "s_y_anon'x" S_y ty where
+         ) => BG.CompatHasField.HasField "s_y_anon'x" S_y ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         S_y {s_y_anon'x = y1}, RIP.getField @"s_y_anon'x" x0)
+         S_y {s_y_anon'x = y1}, BG.getField @"s_y_anon'x" x0)
 
 instance ( ty ~ S_y_anon'x
-         ) => RIP.HasField "s_y_anon'x" (RIP.Ptr S_y) (RIP.Ptr ty) where
+         ) => BG.HasField "s_y_anon'x" (BG.Ptr S_y) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"s_y_anon'x")
+  getField = HasCField.fromPtr (BG.Proxy @"s_y_anon'x")
 
 instance HasCField.HasCField S_y "s_y_anon'x" where
 
@@ -161,7 +160,7 @@ data S = S
          __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S where
 
@@ -174,7 +173,7 @@ instance Marshal.ReadRaw S where
   readRaw =
     \ptr0 ->
           pure S
-      <*> HasCField.readRaw (RIP.Proxy @"s_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_y") ptr0
 
 instance Marshal.WriteRaw S where
 
@@ -183,18 +182,18 @@ instance Marshal.WriteRaw S where
       \s1 ->
         case s1 of
           S s_y2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_y") ptr0 s_y2
+            HasCField.writeRaw (BG.Proxy @"s_y") ptr0 s_y2
 
-deriving via Marshal.EquivStorable S instance RIP.Storable S
+deriving via Marshal.EquivStorable S instance BG.Storable S
 
-instance (ty ~ S_y) => RIP.CompatHasField.HasField "s_y" S ty where
+instance (ty ~ S_y) => BG.CompatHasField.HasField "s_y" S ty where
 
   hasField =
-    \x0 -> (\y1 -> S {s_y = y1}, RIP.getField @"s_y" x0)
+    \x0 -> (\y1 -> S {s_y = y1}, BG.getField @"s_y" x0)
 
-instance (ty ~ S_y) => RIP.HasField "s_y" (RIP.Ptr S) (RIP.Ptr ty) where
+instance (ty ~ S_y) => BG.HasField "s_y" (BG.Ptr S) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s_y")
+  getField = HasCField.fromPtr (BG.Proxy @"s_y")
 
 instance HasCField.HasCField S "s_y" where
 

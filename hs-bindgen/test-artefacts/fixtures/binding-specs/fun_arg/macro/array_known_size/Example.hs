@@ -21,10 +21,10 @@ module Example
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified M
 
 {-| __C declaration:__ @MyArray@
@@ -34,35 +34,35 @@ import qualified M
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 newtype MyArray = MyArray
-  { unwrapMyArray :: CA.ConstantArray 3 RIP.CInt
+  { unwrapMyArray :: CA.ConstantArray 3 BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyArray" MyArray ty where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapMyArray" MyArray ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyArray {unwrapMyArray = y1}, RIP.getField @"unwrapMyArray" x0)
+         MyArray {unwrapMyArray = y1}, BG.getField @"unwrapMyArray" x0)
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapMyArray" (RIP.Ptr MyArray) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.HasField "unwrapMyArray" (BG.Ptr MyArray) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyArray")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyArray")
 
 instance HasCField.HasCField MyArray "unwrapMyArray" where
 
   type CFieldType MyArray "unwrapMyArray" =
-    CA.ConstantArray 3 RIP.CInt
+    CA.ConstantArray 3 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -75,24 +75,24 @@ instance HasCField.HasCField MyArray "unwrapMyArray" where
 newtype A = A
   { unwrapA :: MyArray
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ MyArray) => RIP.CompatHasField.HasField "unwrapA" A ty where
+instance (ty ~ MyArray) => BG.CompatHasField.HasField "unwrapA" A ty where
 
   hasField =
     \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+      (\y1 -> A {unwrapA = y1}, BG.getField @"unwrapA" x0)
 
-instance (ty ~ MyArray) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ MyArray) => BG.HasField "unwrapA" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapA")
 
 instance HasCField.HasCField A "unwrapA" where
 
@@ -109,24 +109,24 @@ instance HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+instance (ty ~ A) => BG.CompatHasField.HasField "unwrapB" B ty where
 
   hasField =
     \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+      (\y1 -> B {unwrapB = y1}, BG.getField @"unwrapB" x0)
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => BG.HasField "unwrapB" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapB")
 
 instance HasCField.HasCField B "unwrapB" where
 
@@ -143,17 +143,17 @@ instance HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+instance (ty ~ M.C) => BG.CompatHasField.HasField "unwrapE" E ty where
 
   hasField =
     \x0 ->
-      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)
+      (\y1 -> E {unwrapE = y1}, BG.getField @"unwrapE" x0)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => BG.HasField "unwrapE" (BG.Ptr E) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapE")
 
 instance HasCField.HasCField E "unwrapE" where
 

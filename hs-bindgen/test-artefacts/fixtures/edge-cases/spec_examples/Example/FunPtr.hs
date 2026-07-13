@@ -8,12 +8,12 @@ module Example.FunPtr
   where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/spec_examples.h>"
   , "/* test_edgecasesspec_examples_Example_get_resample */"
   , "__attribute__ ((const))"
@@ -31,12 +31,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
 foreign import ccall unsafe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad87ec8_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
-hs_bindgen_2b8fc800dad87ec8 :: IO (RIP.FunPtr (RIP.Ptr Int32_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ()))
+hs_bindgen_2b8fc800dad87ec8 :: IO (BG.FunPtr (BG.Ptr Int32_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ()))
 hs_bindgen_2b8fc800dad87ec8 =
-  RIP.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
+  BG.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
 
 {-# NOINLINE resample #-}
 {-| __C declaration:__ @resample@
@@ -45,6 +45,6 @@ hs_bindgen_2b8fc800dad87ec8 =
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-resample :: RIP.FunPtr (RIP.Ptr Int32_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> RIP.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ())
+resample :: BG.FunPtr (BG.Ptr Int32_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ())
 resample =
-  RIP.unsafePerformIO hs_bindgen_2b8fc800dad87ec8
+  BG.unsafePerformIO hs_bindgen_2b8fc800dad87ec8

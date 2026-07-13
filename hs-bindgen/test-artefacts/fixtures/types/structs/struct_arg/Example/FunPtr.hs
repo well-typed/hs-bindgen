@@ -9,11 +9,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/structs/struct_arg.h>"
   , "/* test_typesstructsstruct_arg_Example_get_thing_fun_1 */"
   , "__attribute__ ((const))"
@@ -55,12 +55,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
 foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e2e5_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
-hs_bindgen_17a14e7ffaa1e2e5 :: IO (RIP.FunPtr (Thing -> IO RIP.CInt))
+hs_bindgen_17a14e7ffaa1e2e5 :: IO (BG.FunPtr (Thing -> IO BG.CInt))
 hs_bindgen_17a14e7ffaa1e2e5 =
-  RIP.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
+  BG.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
 
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
@@ -69,18 +69,18 @@ hs_bindgen_17a14e7ffaa1e2e5 =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1 :: RIP.FunPtr (Thing -> IO RIP.CInt)
+thing_fun_1 :: BG.FunPtr (Thing -> IO BG.CInt)
 thing_fun_1 =
-  RIP.unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
+  BG.unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
 foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae163_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
-hs_bindgen_91748ffd57eae163 :: IO (RIP.FunPtr (RIP.CInt -> IO Thing))
+hs_bindgen_91748ffd57eae163 :: IO (BG.FunPtr (BG.CInt -> IO Thing))
 hs_bindgen_91748ffd57eae163 =
-  RIP.fromFFIType hs_bindgen_91748ffd57eae163_base
+  BG.fromFFIType hs_bindgen_91748ffd57eae163_base
 
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
@@ -89,18 +89,18 @@ hs_bindgen_91748ffd57eae163 =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2 :: RIP.FunPtr (RIP.CInt -> IO Thing)
+thing_fun_2 :: BG.FunPtr (BG.CInt -> IO Thing)
 thing_fun_2 =
-  RIP.unsafePerformIO hs_bindgen_91748ffd57eae163
+  BG.unsafePerformIO hs_bindgen_91748ffd57eae163
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
 foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff518_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
-hs_bindgen_84d98a03314ff518 :: IO (RIP.FunPtr (RIP.CInt -> Thing -> RIP.CDouble -> IO Thing))
+hs_bindgen_84d98a03314ff518 :: IO (BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO Thing))
 hs_bindgen_84d98a03314ff518 =
-  RIP.fromFFIType hs_bindgen_84d98a03314ff518_base
+  BG.fromFFIType hs_bindgen_84d98a03314ff518_base
 
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
@@ -109,18 +109,18 @@ hs_bindgen_84d98a03314ff518 =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a :: RIP.FunPtr (RIP.CInt -> Thing -> RIP.CDouble -> IO Thing)
+thing_fun_3a :: BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO Thing)
 thing_fun_3a =
-  RIP.unsafePerformIO hs_bindgen_84d98a03314ff518
+  BG.unsafePerformIO hs_bindgen_84d98a03314ff518
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
 foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b15005e_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
-hs_bindgen_855ae9088b15005e :: IO (RIP.FunPtr (RIP.CInt -> Thing -> RIP.CDouble -> IO RIP.CChar))
+hs_bindgen_855ae9088b15005e :: IO (BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO BG.CChar))
 hs_bindgen_855ae9088b15005e =
-  RIP.fromFFIType hs_bindgen_855ae9088b15005e_base
+  BG.fromFFIType hs_bindgen_855ae9088b15005e_base
 
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@
@@ -129,6 +129,6 @@ hs_bindgen_855ae9088b15005e =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b :: RIP.FunPtr (RIP.CInt -> Thing -> RIP.CDouble -> IO RIP.CChar)
+thing_fun_3b :: BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO BG.CChar)
 thing_fun_3b =
-  RIP.unsafePerformIO hs_bindgen_855ae9088b15005e
+  BG.unsafePerformIO hs_bindgen_855ae9088b15005e

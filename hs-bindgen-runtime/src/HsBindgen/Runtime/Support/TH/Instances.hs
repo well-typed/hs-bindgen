@@ -3,12 +3,12 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
 
 -- | Generate FFI wrappers and 'ToFunPtr' class instances for 287 types.
-module HsBindgen.Runtime.TH.Instances () where
+module HsBindgen.Runtime.Support.TH.Instances () where
 
 import Foreign.C.Types
 
-import HsBindgen.Runtime.Internal.FunPtr.Class
-import HsBindgen.Runtime.TH.Types
+import HsBindgen.Runtime.Support.FunPtr.Class
+import HsBindgen.Runtime.Support.TH.Types
 
 -- | Generate instances for all @IO a@ functions
 --

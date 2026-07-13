@@ -32,10 +32,10 @@ module HsBindgen.Backend.Hs.AST (
   , FunctionParameter(..)
     -- ** Function declarations
   , FunctionDecl(..)
-    -- ** 'HsBindgen.Runtime.Internal.FunPtr.Class.ToFunPtr'
+    -- ** 'HsBindgen.Runtime.Support.FunPtr.Class.ToFunPtr'
   , ToFunPtrInstance(..)
   , ForeignImportWrapper(..)
-    -- ** 'HsBindgen.Runtime.Internal.FunPtr.Class.FromFunPtr'
+    -- ** 'HsBindgen.Runtime.Support.FunPtr.Class.FromFunPtr'
   , FromFunPtrInstance(..)
   , ForeignImportDynamic(..)
     -- ** @StaticSize@, @ReadRaw@, @WriteRaw@
@@ -346,7 +346,7 @@ data PatSyn = PatSyn{
   'ToFunPtr'
 -------------------------------------------------------------------------------}
 
--- | 'HsBindgen.Runtime.Internal.FunPtr.Class.ToFunPtr' instance
+-- | 'HsBindgen.Runtime.Support.FunPtr.Class.ToFunPtr' instance
 data ToFunPtrInstance = ToFunPtrInstance{
       typ  :: Hs.Type
     , body :: UniqueSymbol
@@ -372,7 +372,7 @@ data ForeignImportWrapper = ForeignImportWrapper {
   'FromFunPtr'
 -------------------------------------------------------------------------------}
 
--- | 'HsBindgen.Runtime.Internal.FunPtr.Class.FromFunPtr' instance
+-- | 'HsBindgen.Runtime.Support.FunPtr.Class.FromFunPtr' instance
 data FromFunPtrInstance = FromFunPtrInstance{
       typ  :: Hs.Type
     , body :: UniqueSymbol

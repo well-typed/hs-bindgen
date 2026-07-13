@@ -22,9 +22,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| Auxiliary type used by 'RunDriver'
 
@@ -35,64 +35,64 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @functions\/typedef_funptr.h@
 -}
 newtype RunDriver_Aux = RunDriver_Aux
-  { unwrapRunDriver_Aux :: RIP.Ptr Driver -> IO RIP.CInt
+  { unwrapRunDriver_Aux :: BG.Ptr Driver -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toRunDriver_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
-     (RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32))
+     (BG.Ptr BG.Void -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO BG.Int32))
 
 -- __unique:__ @toRunDriver_Aux@
 hs_bindgen_d86ecf261d7044c6 ::
      RunDriver_Aux
-  -> IO (RIP.FunPtr RunDriver_Aux)
+  -> IO (BG.FunPtr RunDriver_Aux)
 hs_bindgen_d86ecf261d7044c6 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromRunDriver_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
-     RIP.FunPtr (RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> RIP.Ptr RIP.Void -> IO RIP.Int32
+     BG.FunPtr (BG.Ptr BG.Void -> IO BG.Int32)
+  -> BG.Ptr BG.Void -> IO BG.Int32
 
 -- __unique:__ @fromRunDriver_Aux@
 hs_bindgen_6520ae39b50ffb4e ::
-     RIP.FunPtr RunDriver_Aux
+     BG.FunPtr RunDriver_Aux
   -> RunDriver_Aux
 hs_bindgen_6520ae39b50ffb4e =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr RunDriver_Aux where
+instance BG.ToFunPtr RunDriver_Aux where
 
   toFunPtr = hs_bindgen_d86ecf261d7044c6
 
-instance RIP.FromFunPtr RunDriver_Aux where
+instance BG.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapRunDriver_Aux" RunDriver_Aux ty where
+instance ( ty ~ (BG.Ptr Driver -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapRunDriver_Aux" RunDriver_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 -> RunDriver_Aux {unwrapRunDriver_Aux = y1}
-      , RIP.getField @"unwrapRunDriver_Aux" x0
+      , BG.getField @"unwrapRunDriver_Aux" x0
       )
 
-instance ( ty ~ (RIP.Ptr Driver -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapRunDriver_Aux" (RIP.Ptr RunDriver_Aux) (RIP.Ptr ty) where
+instance ( ty ~ (BG.Ptr Driver -> IO BG.CInt)
+         ) => BG.HasField "unwrapRunDriver_Aux" (BG.Ptr RunDriver_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapRunDriver_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapRunDriver_Aux")
 
 instance HasCField.HasCField RunDriver_Aux "unwrapRunDriver_Aux" where
 
   type CFieldType RunDriver_Aux "unwrapRunDriver_Aux" =
-    RIP.Ptr Driver -> IO RIP.CInt
+    BG.Ptr Driver -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -103,35 +103,35 @@ instance HasCField.HasCField RunDriver_Aux "unwrapRunDriver_Aux" where
     __exported by:__ @functions\/typedef_funptr.h@
 -}
 newtype RunDriver = RunDriver
-  { unwrapRunDriver :: RIP.FunPtr RunDriver_Aux
+  { unwrapRunDriver :: BG.FunPtr RunDriver_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr RunDriver_Aux
-         ) => RIP.CompatHasField.HasField "unwrapRunDriver" RunDriver ty where
+instance ( ty ~ BG.FunPtr RunDriver_Aux
+         ) => BG.CompatHasField.HasField "unwrapRunDriver" RunDriver ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         RunDriver {unwrapRunDriver = y1}, RIP.getField @"unwrapRunDriver" x0)
+         RunDriver {unwrapRunDriver = y1}, BG.getField @"unwrapRunDriver" x0)
 
-instance ( ty ~ RIP.FunPtr RunDriver_Aux
-         ) => RIP.HasField "unwrapRunDriver" (RIP.Ptr RunDriver) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr RunDriver_Aux
+         ) => BG.HasField "unwrapRunDriver" (BG.Ptr RunDriver) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapRunDriver")
+    HasCField.fromPtr (BG.Proxy @"unwrapRunDriver")
 
 instance HasCField.HasCField RunDriver "unwrapRunDriver" where
 
   type CFieldType RunDriver "unwrapRunDriver" =
-    RIP.FunPtr RunDriver_Aux
+    BG.FunPtr RunDriver_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -150,7 +150,7 @@ data Driver = Driver
          __exported by:__ @functions\/typedef_funptr.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Driver where
 
@@ -163,7 +163,7 @@ instance Marshal.ReadRaw Driver where
   readRaw =
     \ptr0 ->
           pure Driver
-      <*> HasCField.readRaw (RIP.Proxy @"driver_run") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"driver_run") ptr0
 
 instance Marshal.WriteRaw Driver where
 
@@ -172,23 +172,22 @@ instance Marshal.WriteRaw Driver where
       \s1 ->
         case s1 of
           Driver driver_run2 ->
-            HasCField.writeRaw (RIP.Proxy @"driver_run") ptr0 driver_run2
+            HasCField.writeRaw (BG.Proxy @"driver_run") ptr0 driver_run2
 
-deriving via Marshal.EquivStorable Driver instance RIP.Storable Driver
+deriving via Marshal.EquivStorable Driver instance BG.Storable Driver
 
 instance ( ty ~ RunDriver
-         ) => RIP.CompatHasField.HasField "driver_run" Driver ty where
+         ) => BG.CompatHasField.HasField "driver_run" Driver ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Driver {driver_run = y1}, RIP.getField @"driver_run" x0)
+         Driver {driver_run = y1}, BG.getField @"driver_run" x0)
 
 instance ( ty ~ RunDriver
-         ) => RIP.HasField "driver_run" (RIP.Ptr Driver) (RIP.Ptr ty) where
+         ) => BG.HasField "driver_run" (BG.Ptr Driver) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"driver_run")
+  getField = HasCField.fromPtr (BG.Proxy @"driver_run")
 
 instance HasCField.HasCField Driver "driver_run" where
 
@@ -203,7 +202,7 @@ instance HasCField.HasCField Driver "driver_run" where
     __exported by:__ @functions\/typedef_funptr.h@
 -}
 data Bare = Bare
-  { bare_callback :: RIP.FunPtr (RIP.CInt -> IO ())
+  { bare_callback :: BG.FunPtr (BG.CInt -> IO ())
     {- ^ __C declaration:__ @callback@
 
          __defined at:__ @functions\/typedef_funptr.h 21:10@
@@ -211,7 +210,7 @@ data Bare = Bare
          __exported by:__ @functions\/typedef_funptr.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bare where
 
@@ -224,7 +223,7 @@ instance Marshal.ReadRaw Bare where
   readRaw =
     \ptr0 ->
           pure Bare
-      <*> HasCField.readRaw (RIP.Proxy @"bare_callback") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bare_callback") ptr0
 
 instance Marshal.WriteRaw Bare where
 
@@ -233,27 +232,27 @@ instance Marshal.WriteRaw Bare where
       \s1 ->
         case s1 of
           Bare bare_callback2 ->
-            HasCField.writeRaw (RIP.Proxy @"bare_callback") ptr0 bare_callback2
+            HasCField.writeRaw (BG.Proxy @"bare_callback") ptr0 bare_callback2
 
-deriving via Marshal.EquivStorable Bare instance RIP.Storable Bare
+deriving via Marshal.EquivStorable Bare instance BG.Storable Bare
 
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "bare_callback" Bare ty where
+instance ( ty ~ BG.FunPtr (BG.CInt -> IO ())
+         ) => BG.CompatHasField.HasField "bare_callback" Bare ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bare {bare_callback = y1}, RIP.getField @"bare_callback" x0)
+         Bare {bare_callback = y1}, BG.getField @"bare_callback" x0)
 
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO ())
-         ) => RIP.HasField "bare_callback" (RIP.Ptr Bare) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr (BG.CInt -> IO ())
+         ) => BG.HasField "bare_callback" (BG.Ptr Bare) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"bare_callback")
+    HasCField.fromPtr (BG.Proxy @"bare_callback")
 
 instance HasCField.HasCField Bare "bare_callback" where
 
   type CFieldType Bare "bare_callback" =
-    RIP.FunPtr (RIP.CInt -> IO ())
+    BG.FunPtr (BG.CInt -> IO ())
 
   offset# = \_ -> \_ -> 0

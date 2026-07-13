@@ -6,10 +6,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/primitives/bool_c23.h>"
   , "/* test_typesprimitivesbool_c23_Example_get_b */"
   , "__attribute__ ((const))"
@@ -21,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
 foreign import ccall unsafe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379b061b_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
-hs_bindgen_31e1e443379b061b :: IO (RIP.Ptr RIP.CBool)
+hs_bindgen_31e1e443379b061b :: IO (BG.Ptr BG.CBool)
 hs_bindgen_31e1e443379b061b =
-  RIP.fromFFIType hs_bindgen_31e1e443379b061b_base
+  BG.fromFFIType hs_bindgen_31e1e443379b061b_base
 
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
@@ -35,5 +35,5 @@ hs_bindgen_31e1e443379b061b =
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}
-b :: RIP.Ptr RIP.CBool
-b = RIP.unsafePerformIO hs_bindgen_31e1e443379b061b
+b :: BG.Ptr BG.CBool
+b = BG.unsafePerformIO hs_bindgen_31e1e443379b061b

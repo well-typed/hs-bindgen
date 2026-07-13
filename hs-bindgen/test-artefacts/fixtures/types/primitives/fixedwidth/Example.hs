@@ -18,10 +18,10 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct foo@
 
@@ -45,7 +45,7 @@ data Foo = Foo
          __exported by:__ @types\/primitives\/fixedwidth.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo where
 
@@ -58,8 +58,8 @@ instance Marshal.ReadRaw Foo where
   readRaw =
     \ptr0 ->
           pure Foo
-      <*> HasCField.readRaw (RIP.Proxy @"foo_sixty_four") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"foo_thirty_two") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_sixty_four") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_thirty_two") ptr0
 
 instance Marshal.WriteRaw Foo where
 
@@ -68,26 +68,26 @@ instance Marshal.WriteRaw Foo where
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               HasCField.writeRaw (RIP.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
-            >> HasCField.writeRaw (RIP.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+               HasCField.writeRaw (BG.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HasCField.writeRaw (BG.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
-deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
+deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
+         ) => BG.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_sixty_four = y1, foo_thirty_two = RIP.getField @"foo_thirty_two" x0}
-      , RIP.getField @"foo_sixty_four" x0
+          Foo {foo_sixty_four = y1, foo_thirty_two = BG.getField @"foo_thirty_two" x0}
+      , BG.getField @"foo_sixty_four" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
+         ) => BG.HasField "foo_sixty_four" (BG.Ptr Foo) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
+    HasCField.fromPtr (BG.Proxy @"foo_sixty_four")
 
 instance HasCField.HasCField Foo "foo_sixty_four" where
 
@@ -97,20 +97,20 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
+         ) => BG.CompatHasField.HasField "foo_thirty_two" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
-      , RIP.getField @"foo_thirty_two" x0
+          Foo {foo_thirty_two = y1, foo_sixty_four = BG.getField @"foo_sixty_four" x0}
+      , BG.getField @"foo_thirty_two" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+         ) => BG.HasField "foo_thirty_two" (BG.Ptr Foo) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (BG.Proxy @"foo_thirty_two")
 
 instance HasCField.HasCField Foo "foo_thirty_two" where
 

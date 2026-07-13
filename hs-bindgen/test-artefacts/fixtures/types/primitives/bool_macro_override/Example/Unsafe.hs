@@ -7,11 +7,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/primitives/bool_macro_override.h>"
   , "void hs_bindgen_c170f90cc5412c59 ("
   , "  A arg1,"
@@ -31,17 +31,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_c170f90cc5412c59" hs_bindgen_c170f90cc5412c59_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 hs_bindgen_c170f90cc5412c59 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_c170f90cc5412c59 =
-  RIP.fromFFIType hs_bindgen_c170f90cc5412c59_base
+  BG.fromFFIType hs_bindgen_c170f90cc5412c59_base
 
 {-| __C declaration:__ @f@
 
@@ -52,15 +52,15 @@ hs_bindgen_c170f90cc5412c59 =
 f ::
      A
      -- ^ __C declaration:__ @x@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @y@
   -> IO ()
 f = hs_bindgen_c170f90cc5412c59
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 foreign import ccall unsafe "hs_bindgen_18fbcf94c0b76854" hs_bindgen_18fbcf94c0b76854_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
@@ -69,7 +69,7 @@ hs_bindgen_18fbcf94c0b76854 ::
   -> Bool'
   -> IO ()
 hs_bindgen_18fbcf94c0b76854 =
-  RIP.fromFFIType hs_bindgen_18fbcf94c0b76854_base
+  BG.fromFFIType hs_bindgen_18fbcf94c0b76854_base
 
 {-| __C declaration:__ @g@
 

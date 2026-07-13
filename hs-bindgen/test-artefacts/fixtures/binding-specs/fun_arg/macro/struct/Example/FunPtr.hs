@@ -11,12 +11,12 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/struct.h>"
   , "/* test_bindingspecsfun_argmacrost_Example_get_foo */"
   , "__attribute__ ((const))"
@@ -70,12 +70,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_ccfc23165c7fd4a9" hs_bindgen_ccfc23165c7fd4a9_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_foo@
-hs_bindgen_ccfc23165c7fd4a9 :: IO (RIP.FunPtr (MyStruct -> IO ()))
+hs_bindgen_ccfc23165c7fd4a9 :: IO (BG.FunPtr (MyStruct -> IO ()))
 hs_bindgen_ccfc23165c7fd4a9 =
-  RIP.fromFFIType hs_bindgen_ccfc23165c7fd4a9_base
+  BG.fromFFIType hs_bindgen_ccfc23165c7fd4a9_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -84,17 +84,17 @@ hs_bindgen_ccfc23165c7fd4a9 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo :: RIP.FunPtr (MyStruct -> IO ())
-foo = RIP.unsafePerformIO hs_bindgen_ccfc23165c7fd4a9
+foo :: BG.FunPtr (MyStruct -> IO ())
+foo = BG.unsafePerformIO hs_bindgen_ccfc23165c7fd4a9
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooA@
 foreign import ccall unsafe "hs_bindgen_ab74a4a30349b6b2" hs_bindgen_ab74a4a30349b6b2_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooA@
-hs_bindgen_ab74a4a30349b6b2 :: IO (RIP.FunPtr (A -> IO ()))
+hs_bindgen_ab74a4a30349b6b2 :: IO (BG.FunPtr (A -> IO ()))
 hs_bindgen_ab74a4a30349b6b2 =
-  RIP.fromFFIType hs_bindgen_ab74a4a30349b6b2_base
+  BG.fromFFIType hs_bindgen_ab74a4a30349b6b2_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -103,18 +103,17 @@ hs_bindgen_ab74a4a30349b6b2 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA :: RIP.FunPtr (A -> IO ())
-fooA =
-  RIP.unsafePerformIO hs_bindgen_ab74a4a30349b6b2
+fooA :: BG.FunPtr (A -> IO ())
+fooA = BG.unsafePerformIO hs_bindgen_ab74a4a30349b6b2
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooB@
 foreign import ccall unsafe "hs_bindgen_19855bed49223360" hs_bindgen_19855bed49223360_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooB@
-hs_bindgen_19855bed49223360 :: IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_19855bed49223360 :: IO (BG.FunPtr (B -> IO ()))
 hs_bindgen_19855bed49223360 =
-  RIP.fromFFIType hs_bindgen_19855bed49223360_base
+  BG.fromFFIType hs_bindgen_19855bed49223360_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
@@ -123,18 +122,17 @@ hs_bindgen_19855bed49223360 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB :: RIP.FunPtr (B -> IO ())
-fooB =
-  RIP.unsafePerformIO hs_bindgen_19855bed49223360
+fooB :: BG.FunPtr (B -> IO ())
+fooB = BG.unsafePerformIO hs_bindgen_19855bed49223360
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooC@
 foreign import ccall unsafe "hs_bindgen_11912ef040cef859" hs_bindgen_11912ef040cef859_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooC@
-hs_bindgen_11912ef040cef859 :: IO (RIP.FunPtr (M.C -> IO ()))
+hs_bindgen_11912ef040cef859 :: IO (BG.FunPtr (M.C -> IO ()))
 hs_bindgen_11912ef040cef859 =
-  RIP.fromFFIType hs_bindgen_11912ef040cef859_base
+  BG.fromFFIType hs_bindgen_11912ef040cef859_base
 
 {-# NOINLINE fooC #-}
 {-| __C declaration:__ @fooC@
@@ -143,18 +141,17 @@ hs_bindgen_11912ef040cef859 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooC :: RIP.FunPtr (M.C -> IO ())
-fooC =
-  RIP.unsafePerformIO hs_bindgen_11912ef040cef859
+fooC :: BG.FunPtr (M.C -> IO ())
+fooC = BG.unsafePerformIO hs_bindgen_11912ef040cef859
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooD@
 foreign import ccall unsafe "hs_bindgen_45e77aca55d2f794" hs_bindgen_45e77aca55d2f794_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooD@
-hs_bindgen_45e77aca55d2f794 :: IO (RIP.FunPtr (M.D -> IO ()))
+hs_bindgen_45e77aca55d2f794 :: IO (BG.FunPtr (M.D -> IO ()))
 hs_bindgen_45e77aca55d2f794 =
-  RIP.fromFFIType hs_bindgen_45e77aca55d2f794_base
+  BG.fromFFIType hs_bindgen_45e77aca55d2f794_base
 
 {-# NOINLINE fooD #-}
 {-| __C declaration:__ @fooD@
@@ -163,18 +160,17 @@ hs_bindgen_45e77aca55d2f794 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooD :: RIP.FunPtr (M.D -> IO ())
-fooD =
-  RIP.unsafePerformIO hs_bindgen_45e77aca55d2f794
+fooD :: BG.FunPtr (M.D -> IO ())
+fooD = BG.unsafePerformIO hs_bindgen_45e77aca55d2f794
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooE@
 foreign import ccall unsafe "hs_bindgen_d8f4dbc2ffc05918" hs_bindgen_d8f4dbc2ffc05918_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooE@
-hs_bindgen_d8f4dbc2ffc05918 :: IO (RIP.FunPtr (E -> IO ()))
+hs_bindgen_d8f4dbc2ffc05918 :: IO (BG.FunPtr (E -> IO ()))
 hs_bindgen_d8f4dbc2ffc05918 =
-  RIP.fromFFIType hs_bindgen_d8f4dbc2ffc05918_base
+  BG.fromFFIType hs_bindgen_d8f4dbc2ffc05918_base
 
 {-# NOINLINE fooE #-}
 {-| __C declaration:__ @fooE@
@@ -183,6 +179,5 @@ hs_bindgen_d8f4dbc2ffc05918 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooE :: RIP.FunPtr (E -> IO ())
-fooE =
-  RIP.unsafePerformIO hs_bindgen_d8f4dbc2ffc05918
+fooE :: BG.FunPtr (E -> IO ())
+fooE = BG.unsafePerformIO hs_bindgen_d8f4dbc2ffc05918

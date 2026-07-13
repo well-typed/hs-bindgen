@@ -19,9 +19,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro A@
 
@@ -30,41 +30,40 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 newtype A = A
-  { unwrapA :: RIP.CInt
+  { unwrapA :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapA" A ty where
 
   hasField =
     \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+      (\y1 -> A {unwrapA = y1}, BG.getField @"unwrapA" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapA" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapA")
 
 instance HasCField.HasCField A "unwrapA" where
 
-  type CFieldType A "unwrapA" = RIP.CInt
+  type CFieldType A "unwrapA" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -75,43 +74,43 @@ instance HasCField.HasCField A "unwrapA" where
     __exported by:__ @types\/primitives\/bool_macro_override.h@
 -}
 newtype Bool' = Bool'
-  { unwrapBool' :: RIP.CInt
+  { unwrapBool' :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapBool'" Bool' ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapBool'" Bool' ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bool' {unwrapBool' = y1}, RIP.getField @"unwrapBool'" x0)
+         Bool' {unwrapBool' = y1}, BG.getField @"unwrapBool'" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapBool'" (RIP.Ptr Bool') (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapBool'" (BG.Ptr Bool') (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapBool'")
+    HasCField.fromPtr (BG.Proxy @"unwrapBool'")
 
 instance HasCField.HasCField Bool' "unwrapBool'" where
 
-  type CFieldType Bool' "unwrapBool'" = RIP.CInt
+  type CFieldType Bool' "unwrapBool'" = BG.CInt
 
   offset# = \_ -> \_ -> 0

@@ -128,6 +128,7 @@ library internal
     HsBindgen.Backend.HsModule.Translation
     HsBindgen.Backend.HsModule.Translation.Doxygen
     HsBindgen.Backend.Level
+    HsBindgen.Backend.Runtime
     HsBindgen.Backend.SHs.AST
     HsBindgen.Backend.SHs.AST.Expr
     HsBindgen.Backend.SHs.AST.Type
@@ -544,11 +545,13 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.Pretty
+    Test.HsBindgen.Unit.Runtime
     Test.HsBindgen.Unit.Tracer
 
   -- Internal dependencies
   build-depends:
     , hs-bindgen
+    , hs-bindgen-runtime
     , hs-bindgen:internal
     , test-common
 

@@ -7,10 +7,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/field_name_reuse_omit.h>"
   , "void hs_bindgen_b64ebb06c53fc1b3 (void)"
   , "{"
@@ -25,7 +25,7 @@ foreign import ccall unsafe "hs_bindgen_b64ebb06c53fc1b3" hs_bindgen_b64ebb06c53
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
 hs_bindgen_b64ebb06c53fc1b3 :: IO ()
 hs_bindgen_b64ebb06c53fc1b3 =
-  RIP.fromFFIType hs_bindgen_b64ebb06c53fc1b3_base
+  BG.fromFFIType hs_bindgen_b64ebb06c53fc1b3_base
 
 {-| __C declaration:__ @bar@
 

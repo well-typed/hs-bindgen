@@ -69,8 +69,9 @@ struct aula_setup {
 
 declares a structure with two member flags `tilt`, and `close_blinds`, covering
 1 bit of memory, as well as a member `power_mode` covering two bits. The
-generated Haskell bindings only expose the non-standard alignment of the C
-structure in their `Storable` instance:
+generated Haskell bindings expose the non-standard alignment of the C
+structure through their `ReadRaw`/`WriteRaw` instances (which their `Storable`
+instance is derived from):
 
 ```haskell
 data Aula_setup = Aula_setup
@@ -80,33 +81,38 @@ data Aula_setup = Aula_setup
   , aula_setup_projector_id :: CChar
   , aula_setup_power_mode   :: CInt
   }
+  deriving stock (Eq, Generic, Show)
 
-instance F.Storable Aula_setup where
-  sizeOf = \_ -> (4 :: Int)
-  alignment = \_ -> (4 :: Int)
-  peek =
+instance Marshal.StaticSize Aula_setup where
+  staticSizeOf = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw Aula_setup where
+  readRaw =
     \ptr0 ->
           pure Aula_setup
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (8 :: Int) (1 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (9 :: Int) (1 :: Int)
-      <*> F.peekByteOff ptr0 (2 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (24 :: Int) (2 :: Int)
-  poke = ...
-deriving stock instance Show Aula_setup
-deriving stock instance Eq Aula_setup
+      <*> HasCField.readRaw (Proxy @"aula_setup_window_id") ptr0
+      <*> HasCBitfield.peek (Proxy @"aula_setup_tilt") ptr0
+      <*> HasCBitfield.peek (Proxy @"aula_setup_close_blinds") ptr0
+      <*> HasCField.readRaw (Proxy @"aula_setup_projector_id") ptr0
+      <*> HasCBitfield.peek (Proxy @"aula_setup_power_mode") ptr0
+
+instance Marshal.WriteRaw Aula_setup where
+  writeRaw = ...
+
+deriving via Marshal.EquivStorable Aula_setup instance Storable Aula_setup
 ```
 
 As you can see, the `hs-bindgen` runtime, which is required when the bindings
 are used, provides some helper functions. For example,
 
 ```haskell
-peekBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> IO a
-peekBitOffWidth pointer offset width = ...
+peek :: (HasCBitfield a field, ...) => Proxy field -> Ptr a -> IO (CBitfieldType a field)
 ```
 
-obtains the bitfield member of type `a` at the destination of the provided
-`pointer` with `offset`, and `width`.
+from `HsBindgen.Runtime.HasCBitfield` obtains the bitfield member `field`
+directly from its bit offset and width within `a`, without touching
+neighbouring fields.
 
 ## Flexible array members
 

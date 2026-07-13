@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union U@
@@ -30,29 +30,19 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @functions\/heap_types\/union.h@
 -}
 newtype T = T
-  { unwrapT :: RIP.ByteArray
+  { unwrapT :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize T
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize T
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw T
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw T
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw T
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw T
 
-deriving via Marshal.EquivStorable T instance RIP.Storable T
+deriving via Marshal.EquivStorable T instance BG.Storable T
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion T
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @functions\/heap_types\/union.h 4:7@
-
-    __exported by:__ @functions\/heap_types\/union.h@
--}
-instance (ty ~ RIP.CInt) => RIP.HasField "t_x" T ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion T
 
 {-| __C declaration:__ @x@
 
@@ -60,17 +50,27 @@ instance (ty ~ RIP.CInt) => RIP.HasField "t_x" T ty where
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
+instance (ty ~ BG.CInt) => BG.HasField "t_x" T ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/union.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/union.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "t_x" T ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"t_x" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"t_x" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "t_x" (BG.Ptr T) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"t_x")
+  getField = HasCField.fromPtr (BG.Proxy @"t_x")
 
 instance HasCField.HasCField T "t_x" where
 
-  type CFieldType T "t_x" = RIP.CInt
+  type CFieldType T "t_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0

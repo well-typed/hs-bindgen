@@ -42,9 +42,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum foo@
 
@@ -53,10 +53,10 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @binding-specs\/enum\/closed.h@
 -}
 newtype Foo = Foo
-  { unwrapFoo :: RIP.CUInt
+  { unwrapFoo :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Foo where
 
@@ -80,21 +80,21 @@ instance Marshal.WriteRaw Foo where
           Foo unwrapFoo2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFoo2
 
-deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
+deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
-deriving via RIP.CUInt instance RIP.Prim Foo
+deriving via BG.CUInt instance BG.Prim Foo
 
 instance CEnum.CEnum Foo where
 
-  type CEnumZ Foo = RIP.CUInt
+  type CEnumZ Foo = BG.CUInt
 
   toCEnum = Foo
 
-  fromCEnum = RIP.getField @"unwrapFoo"
+  fromCEnum = BG.getField @"unwrapFoo"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "Bar"), (1, RIP.singleton "Baz")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "Bar"), (1, BG.singleton "Baz")]
 
   showsUndeclared = CEnum.showsWrappedUndeclared "Foo"
 
@@ -119,26 +119,25 @@ instance Read Foo where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+instance (ty ~ BG.CUInt) => BG.CompatHasField.HasField "unwrapFoo" Foo ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
+         Foo {unwrapFoo = y1}, BG.getField @"unwrapFoo" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapFoo" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapFoo")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapFoo")
 
 instance HasCField.HasCField Foo "unwrapFoo" where
 
-  type CFieldType Foo "unwrapFoo" = RIP.CUInt
+  type CFieldType Foo "unwrapFoo" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -169,10 +168,10 @@ pattern Baz = Foo 1
     __exported by:__ @binding-specs\/enum\/closed.h@
 -}
 newtype ElementaryParticleType = ElementaryParticleType
-  { unwrapElementaryParticleType :: RIP.CUInt
+  { unwrapElementaryParticleType :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize ElementaryParticleType where
 
@@ -196,38 +195,38 @@ instance Marshal.WriteRaw ElementaryParticleType where
           ElementaryParticleType unwrapElementaryParticleType2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapElementaryParticleType2
 
-deriving via Marshal.EquivStorable ElementaryParticleType instance RIP.Storable ElementaryParticleType
+deriving via Marshal.EquivStorable ElementaryParticleType instance BG.Storable ElementaryParticleType
 
-deriving via RIP.CUInt instance RIP.Prim ElementaryParticleType
+deriving via BG.CUInt instance BG.Prim ElementaryParticleType
 
 instance CEnum.CEnum ElementaryParticleType where
 
-  type CEnumZ ElementaryParticleType = RIP.CUInt
+  type CEnumZ ElementaryParticleType = BG.CUInt
 
   toCEnum = ElementaryParticleType
 
   fromCEnum =
-    RIP.getField @"unwrapElementaryParticleType"
+    BG.getField @"unwrapElementaryParticleType"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [ (0, RIP.singleton "Quark_up")
-                                   , (1, RIP.singleton "Quark_down")
-                                   , (2, RIP.singleton "Quark_charm")
-                                   , (3, RIP.singleton "Quark_strange")
-                                   , (4, RIP.singleton "Quark_top")
-                                   , (5, RIP.singleton "Quark_bottom")
-                                   , (6, RIP.singleton "Lepton_electron")
-                                   , (7, RIP.singleton "Lepton_electron_neutrino")
-                                   , (8, RIP.singleton "Lepton_muon")
-                                   , (9, RIP.singleton "Lepton_muon_neutrino")
-                                   , (10, RIP.singleton "Lepton_tau")
-                                   , (11, RIP.singleton "Lepton_tau_neutrino")
-                                   , (12, RIP.singleton "Boson_gluon")
-                                   , (13, RIP.singleton "Boson_photon")
-                                   , (14, RIP.singleton "Boson_z")
-                                   , (15, RIP.singleton "Boson_w")
-                                   , (16, RIP.singleton "Boson_higgs")
+      CEnum.declaredValuesFromList [ (0, BG.singleton "Quark_up")
+                                   , (1, BG.singleton "Quark_down")
+                                   , (2, BG.singleton "Quark_charm")
+                                   , (3, BG.singleton "Quark_strange")
+                                   , (4, BG.singleton "Quark_top")
+                                   , (5, BG.singleton "Quark_bottom")
+                                   , (6, BG.singleton "Lepton_electron")
+                                   , (7, BG.singleton "Lepton_electron_neutrino")
+                                   , (8, BG.singleton "Lepton_muon")
+                                   , (9, BG.singleton "Lepton_muon_neutrino")
+                                   , (10, BG.singleton "Lepton_tau")
+                                   , (11, BG.singleton "Lepton_tau_neutrino")
+                                   , (12, BG.singleton "Boson_gluon")
+                                   , (13, BG.singleton "Boson_photon")
+                                   , (14, BG.singleton "Boson_z")
+                                   , (15, BG.singleton "Boson_w")
+                                   , (16, BG.singleton "Boson_higgs")
                                    ]
 
   showsUndeclared =
@@ -254,30 +253,30 @@ instance Read ElementaryParticleType where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapElementaryParticleType" ElementaryParticleType ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapElementaryParticleType" ElementaryParticleType ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ElementaryParticleType {unwrapElementaryParticleType = y1}
-      , RIP.getField @"unwrapElementaryParticleType" x0
+      , BG.getField @"unwrapElementaryParticleType" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapElementaryParticleType" (RIP.Ptr ElementaryParticleType) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapElementaryParticleType" (BG.Ptr ElementaryParticleType) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapElementaryParticleType")
+    HasCField.fromPtr (BG.Proxy @"unwrapElementaryParticleType")
 
 instance HasCField.HasCField ElementaryParticleType "unwrapElementaryParticleType" where
 
   type CFieldType ElementaryParticleType "unwrapElementaryParticleType" =
-    RIP.CUInt
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 

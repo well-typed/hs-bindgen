@@ -20,8 +20,8 @@ import Data.Kind
 import Data.Proxy
 import Foreign.Ptr
 
-import HsBindgen.Runtime.Internal.Bitfield as Bitfield
 import HsBindgen.Runtime.Marshal qualified as Marshal
+import HsBindgen.Runtime.Support.Bitfield as Bitfield
 
 -- | Pointer to a bit-field of a C object
 --

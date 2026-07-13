@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct FILE@
 
@@ -33,7 +33,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 -}
 data FILE = FILE
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize FILE where
 
@@ -53,7 +53,7 @@ instance Marshal.WriteRaw FILE where
         case s1 of
           FILE -> return ()
 
-deriving via Marshal.EquivStorable FILE instance RIP.Storable FILE
+deriving via Marshal.EquivStorable FILE instance BG.Storable FILE
 
 {-| __C declaration:__ @size_t@
 
@@ -62,43 +62,43 @@ deriving via Marshal.EquivStorable FILE instance RIP.Storable FILE
     __exported by:__ @functions\/fun_attributes.h@
 -}
 newtype Size_t = Size_t
-  { unwrapSize_t :: RIP.CInt
+  { unwrapSize_t :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapSize_t" Size_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapSize_t" Size_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Size_t {unwrapSize_t = y1}, RIP.getField @"unwrapSize_t" x0)
+         Size_t {unwrapSize_t = y1}, BG.getField @"unwrapSize_t" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapSize_t" (RIP.Ptr Size_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapSize_t" (BG.Ptr Size_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapSize_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapSize_t")
 
 instance HasCField.HasCField Size_t "unwrapSize_t" where
 
-  type CFieldType Size_t "unwrapSize_t" = RIP.CInt
+  type CFieldType Size_t "unwrapSize_t" = BG.CInt
 
   offset# = \_ -> \_ -> 0

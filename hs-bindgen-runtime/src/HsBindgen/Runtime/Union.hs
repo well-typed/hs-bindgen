@@ -19,8 +19,8 @@ import Data.Word (Word8)
 import GHC.Records.Compat qualified as Compat
 import GHC.TypeNats (KnownNat)
 
-import HsBindgen.Runtime.Internal.SizedByteArray (SizedByteArray (..))
 import HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (..))
 
 class IsUnion u where
   zero :: u

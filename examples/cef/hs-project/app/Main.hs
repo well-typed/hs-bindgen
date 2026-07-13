@@ -11,8 +11,8 @@ import Foreign.Storable (peek, poke, sizeOf)
 import System.Environment (getArgs, getProgName)
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
 
-import HsBindgen.Runtime.Internal.FunPtr qualified as FunPtr
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Support.FunPtr qualified as FunPtr
 
 import CEF.ApiHash.Safe (cef_api_hash, cef_api_version)
 import CEF.App (C_Cef_settings_t, Cef_main_args_t (..))

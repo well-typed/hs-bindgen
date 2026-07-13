@@ -20,9 +20,9 @@ module Example
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct foo@
 
@@ -31,21 +31,21 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/structs\/padding.h@
 -}
 data Foo = Foo
-  { foo_a :: RIP.CSChar
+  { foo_a :: BG.CSChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/padding.h 2:15@
 
          __exported by:__ @types\/structs\/padding.h@
     -}
-  , foo_b :: RIP.CSChar
+  , foo_b :: BG.CSChar
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/padding.h 3:15@
 
          __exported by:__ @types\/structs\/padding.h@
     -}
-  , foo_c :: RIP.CSChar
+  , foo_c :: BG.CSChar
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @types\/structs\/padding.h 5:15@
@@ -53,7 +53,7 @@ data Foo = Foo
          __exported by:__ @types\/structs\/padding.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo where
 
@@ -66,9 +66,9 @@ instance Marshal.ReadRaw Foo where
   readRaw =
     \ptr0 ->
           pure Foo
-      <*> HasCBitfield.peek (RIP.Proxy @"foo_a") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"foo_b") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"foo_c") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"foo_a") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"foo_b") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"foo_c") ptr0
 
 instance Marshal.WriteRaw Foo where
 
@@ -77,73 +77,73 @@ instance Marshal.WriteRaw Foo where
       \s1 ->
         case s1 of
           Foo foo_a2 foo_b3 foo_c4 ->
-               HasCBitfield.poke (RIP.Proxy @"foo_a") ptr0 foo_a2
-            >> HasCBitfield.poke (RIP.Proxy @"foo_b") ptr0 foo_b3
-            >> HasCBitfield.poke (RIP.Proxy @"foo_c") ptr0 foo_c4
+               HasCBitfield.poke (BG.Proxy @"foo_a") ptr0 foo_a2
+            >> HasCBitfield.poke (BG.Proxy @"foo_b") ptr0 foo_b3
+            >> HasCBitfield.poke (BG.Proxy @"foo_c") ptr0 foo_c4
 
-deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
+deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
-instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_a" Foo ty where
+instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_a" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_a = y1, foo_b = RIP.getField @"foo_b" x0, foo_c = RIP.getField @"foo_c" x0}
-      , RIP.getField @"foo_a" x0
+          Foo {foo_a = y1, foo_b = BG.getField @"foo_b" x0, foo_c = BG.getField @"foo_c" x0}
+      , BG.getField @"foo_a" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_a" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "foo_a" (BG.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_a")
+  getField = HasCBitfield.toPtr (BG.Proxy @"foo_a")
 
 instance HasCBitfield.HasCBitfield Foo "foo_a" where
 
-  type CBitfieldType Foo "foo_a" = RIP.CSChar
+  type CBitfieldType Foo "foo_a" = BG.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_b" Foo ty where
+instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_b" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_b = y1, foo_a = RIP.getField @"foo_a" x0, foo_c = RIP.getField @"foo_c" x0}
-      , RIP.getField @"foo_b" x0
+          Foo {foo_b = y1, foo_a = BG.getField @"foo_a" x0, foo_c = BG.getField @"foo_c" x0}
+      , BG.getField @"foo_b" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_b" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "foo_b" (BG.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_b")
+  getField = HasCBitfield.toPtr (BG.Proxy @"foo_b")
 
 instance HasCBitfield.HasCBitfield Foo "foo_b" where
 
-  type CBitfieldType Foo "foo_b" = RIP.CSChar
+  type CBitfieldType Foo "foo_b" = BG.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 3
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "foo_c" Foo ty where
+instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_c" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_c = y1, foo_a = RIP.getField @"foo_a" x0, foo_b = RIP.getField @"foo_b" x0}
-      , RIP.getField @"foo_c" x0
+          Foo {foo_c = y1, foo_a = BG.getField @"foo_a" x0, foo_b = BG.getField @"foo_b" x0}
+      , BG.getField @"foo_c" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "foo_c" (RIP.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "foo_c" (BG.Ptr Foo) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_c")
+  getField = HasCBitfield.toPtr (BG.Proxy @"foo_c")
 
 instance HasCBitfield.HasCBitfield Foo "foo_c" where
 
-  type CBitfieldType Foo "foo_c" = RIP.CSChar
+  type CBitfieldType Foo "foo_c" = BG.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 8
 
@@ -156,14 +156,14 @@ instance HasCBitfield.HasCBitfield Foo "foo_c" where
     __exported by:__ @types\/structs\/padding.h@
 -}
 data Bar = Bar
-  { bar_x :: RIP.CSChar
+  { bar_x :: BG.CSChar
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/padding.h 9:15@
 
          __exported by:__ @types\/structs\/padding.h@
     -}
-  , bar_y :: RIP.CSChar
+  , bar_y :: BG.CSChar
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/padding.h 11:15@
@@ -171,7 +171,7 @@ data Bar = Bar
          __exported by:__ @types\/structs\/padding.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bar where
 
@@ -184,8 +184,8 @@ instance Marshal.ReadRaw Bar where
   readRaw =
     \ptr0 ->
           pure Bar
-      <*> HasCBitfield.peek (RIP.Proxy @"bar_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"bar_y") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bar_x") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bar_y") ptr0
 
 instance Marshal.WriteRaw Bar where
 
@@ -194,50 +194,50 @@ instance Marshal.WriteRaw Bar where
       \s1 ->
         case s1 of
           Bar bar_x2 bar_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"bar_x") ptr0 bar_x2
-            >> HasCBitfield.poke (RIP.Proxy @"bar_y") ptr0 bar_y3
+               HasCBitfield.poke (BG.Proxy @"bar_x") ptr0 bar_x2
+            >> HasCBitfield.poke (BG.Proxy @"bar_y") ptr0 bar_y3
 
-deriving via Marshal.EquivStorable Bar instance RIP.Storable Bar
+deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
-instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "bar_x" Bar ty where
+instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "bar_x" Bar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bar {bar_x = y1, bar_y = RIP.getField @"bar_y" x0}
-      , RIP.getField @"bar_x" x0
+          Bar {bar_x = y1, bar_y = BG.getField @"bar_y" x0}
+      , BG.getField @"bar_x" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "bar_x" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "bar_x" (BG.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"bar_x")
+  getField = HasCBitfield.toPtr (BG.Proxy @"bar_x")
 
 instance HasCBitfield.HasCBitfield Bar "bar_x" where
 
-  type CBitfieldType Bar "bar_x" = RIP.CSChar
+  type CBitfieldType Bar "bar_x" = BG.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance (ty ~ RIP.CSChar) => RIP.CompatHasField.HasField "bar_y" Bar ty where
+instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "bar_y" Bar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bar {bar_y = y1, bar_x = RIP.getField @"bar_x" x0}
-      , RIP.getField @"bar_y" x0
+          Bar {bar_y = y1, bar_x = BG.getField @"bar_x" x0}
+      , BG.getField @"bar_y" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "bar_y" (RIP.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "bar_y" (BG.Ptr Bar) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"bar_y")
+  getField = HasCBitfield.toPtr (BG.Proxy @"bar_y")
 
 instance HasCBitfield.HasCBitfield Bar "bar_y" where
 
-  type CBitfieldType Bar "bar_y" = RIP.CSChar
+  type CBitfieldType Bar "bar_y" = BG.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 6
 

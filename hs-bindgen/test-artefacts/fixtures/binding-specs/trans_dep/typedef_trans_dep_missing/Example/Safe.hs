@@ -6,11 +6,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <binding-specs/trans_dep/typedef_trans_dep_missing.h>"
   , "void hs_bindgen_6687afc6aaabd927 ("
   , "  B *arg1"
@@ -22,15 +22,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_6687afc6aaabd927" hs_bindgen_6687afc6aaabd927_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
 hs_bindgen_6687afc6aaabd927 ::
-     RIP.Ptr M.B
+     BG.Ptr M.B
   -> IO ()
 hs_bindgen_6687afc6aaabd927 =
-  RIP.fromFFIType hs_bindgen_6687afc6aaabd927_base
+  BG.fromFFIType hs_bindgen_6687afc6aaabd927_base
 
 {-| __C declaration:__ @foo@
 
@@ -39,7 +39,7 @@ hs_bindgen_6687afc6aaabd927 =
     __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
 -}
 foo ::
-     RIP.Ptr M.B
+     BG.Ptr M.B
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_6687afc6aaabd927

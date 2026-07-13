@@ -6,11 +6,11 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/scoping/nesting.h>"
   , "/* test_typesscopingnesting_Example_get_X */"
   , "__attribute__ ((const))"
@@ -22,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesscopingnesting_Example_get_X@
 foreign import ccall unsafe "hs_bindgen_7640032abd722ca9" hs_bindgen_7640032abd722ca9_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_typesscopingnesting_Example_get_X@
-hs_bindgen_7640032abd722ca9 :: IO (RIP.Ptr Bar)
+hs_bindgen_7640032abd722ca9 :: IO (BG.Ptr Bar)
 hs_bindgen_7640032abd722ca9 =
-  RIP.fromFFIType hs_bindgen_7640032abd722ca9_base
+  BG.fromFFIType hs_bindgen_7640032abd722ca9_base
 
 {-# NOINLINE x #-}
 {-| __C declaration:__ @X@
@@ -36,5 +36,5 @@ hs_bindgen_7640032abd722ca9 =
 
     __exported by:__ @types\/scoping\/nesting.h@
 -}
-x :: RIP.Ptr Bar
-x = RIP.unsafePerformIO hs_bindgen_7640032abd722ca9
+x :: BG.Ptr Bar
+x = BG.unsafePerformIO hs_bindgen_7640032abd722ca9

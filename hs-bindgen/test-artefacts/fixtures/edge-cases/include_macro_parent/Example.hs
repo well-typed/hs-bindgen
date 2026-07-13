@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct pt@
 
@@ -32,14 +32,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
 data Pt = Pt
-  { pt_x :: RIP.CDouble
+  { pt_x :: BG.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:25@
 
          __exported by:__ @edge-cases\/include_macro_parent.h@
     -}
-  , pt_y :: RIP.CDouble
+  , pt_y :: BG.CDouble
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:28@
@@ -47,7 +47,7 @@ data Pt = Pt
          __exported by:__ @edge-cases\/include_macro_parent.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Pt where
 
@@ -60,8 +60,8 @@ instance Marshal.ReadRaw Pt where
   readRaw =
     \ptr0 ->
           pure Pt
-      <*> HasCField.readRaw (RIP.Proxy @"pt_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"pt_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"pt_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"pt_y") ptr0
 
 instance Marshal.WriteRaw Pt where
 
@@ -70,48 +70,46 @@ instance Marshal.WriteRaw Pt where
       \s1 ->
         case s1 of
           Pt pt_x2 pt_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"pt_x") ptr0 pt_x2
-            >> HasCField.writeRaw (RIP.Proxy @"pt_y") ptr0 pt_y3
+               HasCField.writeRaw (BG.Proxy @"pt_x") ptr0 pt_x2
+            >> HasCField.writeRaw (BG.Proxy @"pt_y") ptr0 pt_y3
 
-deriving via Marshal.EquivStorable Pt instance RIP.Storable Pt
+deriving via Marshal.EquivStorable Pt instance BG.Storable Pt
 
-instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_x" Pt ty where
+instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_x" Pt ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Pt {pt_x = y1, pt_y = RIP.getField @"pt_y" x0}
-      , RIP.getField @"pt_x" x0
+          Pt {pt_x = y1, pt_y = BG.getField @"pt_y" x0}
+      , BG.getField @"pt_x" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "pt_x" (RIP.Ptr Pt) (RIP.Ptr ty) where
+instance (ty ~ BG.CDouble) => BG.HasField "pt_x" (BG.Ptr Pt) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"pt_x")
+  getField = HasCField.fromPtr (BG.Proxy @"pt_x")
 
 instance HasCField.HasCField Pt "pt_x" where
 
-  type CFieldType Pt "pt_x" = RIP.CDouble
+  type CFieldType Pt "pt_x" = BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CDouble) => RIP.CompatHasField.HasField "pt_y" Pt ty where
+instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_y" Pt ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Pt {pt_y = y1, pt_x = RIP.getField @"pt_x" x0}
-      , RIP.getField @"pt_y" x0
+          Pt {pt_y = y1, pt_x = BG.getField @"pt_x" x0}
+      , BG.getField @"pt_y" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "pt_y" (RIP.Ptr Pt) (RIP.Ptr ty) where
+instance (ty ~ BG.CDouble) => BG.HasField "pt_y" (BG.Ptr Pt) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"pt_y")
+  getField = HasCField.fromPtr (BG.Proxy @"pt_y")
 
 instance HasCField.HasCField Pt "pt_y" where
 
-  type CFieldType Pt "pt_y" = RIP.CDouble
+  type CFieldType Pt "pt_y" = BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
@@ -123,9 +121,9 @@ instance HasCField.HasCField Pt "pt_y" where
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
-cHILD_HEADER :: RIP.ByteString
+cHILD_HEADER :: BG.ByteString
 cHILD_HEADER =
-  RIP.pack [0x69, 0x6E, 0x63, 0x6C, 0x75, 0x64, 0x65, 0x5F, 0x6D, 0x61, 0x63, 0x72, 0x6F, 0x5F, 0x63, 0x68, 0x69, 0x6C, 0x64, 0x2E, 0x68]
+  BG.pack [0x69, 0x6E, 0x63, 0x6C, 0x75, 0x64, 0x65, 0x5F, 0x6D, 0x61, 0x63, 0x72, 0x6F, 0x5F, 0x63, 0x68, 0x69, 0x6C, 0x64, 0x2E, 0x68]
 
 {-| __C declaration:__ @struct rect@
 
@@ -149,7 +147,7 @@ data Rect = Rect
          __exported by:__ @edge-cases\/include_macro_parent.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Rect where
 
@@ -162,8 +160,8 @@ instance Marshal.ReadRaw Rect where
   readRaw =
     \ptr0 ->
           pure Rect
-      <*> HasCField.readRaw (RIP.Proxy @"rect_tl") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"rect_br") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"rect_tl") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"rect_br") ptr0
 
 instance Marshal.WriteRaw Rect where
 
@@ -172,23 +170,23 @@ instance Marshal.WriteRaw Rect where
       \s1 ->
         case s1 of
           Rect rect_tl2 rect_br3 ->
-               HasCField.writeRaw (RIP.Proxy @"rect_tl") ptr0 rect_tl2
-            >> HasCField.writeRaw (RIP.Proxy @"rect_br") ptr0 rect_br3
+               HasCField.writeRaw (BG.Proxy @"rect_tl") ptr0 rect_tl2
+            >> HasCField.writeRaw (BG.Proxy @"rect_br") ptr0 rect_br3
 
-deriving via Marshal.EquivStorable Rect instance RIP.Storable Rect
+deriving via Marshal.EquivStorable Rect instance BG.Storable Rect
 
-instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_tl" Rect ty where
+instance (ty ~ Pt) => BG.CompatHasField.HasField "rect_tl" Rect ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Rect {rect_tl = y1, rect_br = RIP.getField @"rect_br" x0}
-      , RIP.getField @"rect_tl" x0
+          Rect {rect_tl = y1, rect_br = BG.getField @"rect_br" x0}
+      , BG.getField @"rect_tl" x0
       )
 
-instance (ty ~ Pt) => RIP.HasField "rect_tl" (RIP.Ptr Rect) (RIP.Ptr ty) where
+instance (ty ~ Pt) => BG.HasField "rect_tl" (BG.Ptr Rect) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"rect_tl")
+  getField = HasCField.fromPtr (BG.Proxy @"rect_tl")
 
 instance HasCField.HasCField Rect "rect_tl" where
 
@@ -196,18 +194,18 @@ instance HasCField.HasCField Rect "rect_tl" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ Pt) => RIP.CompatHasField.HasField "rect_br" Rect ty where
+instance (ty ~ Pt) => BG.CompatHasField.HasField "rect_br" Rect ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Rect {rect_br = y1, rect_tl = RIP.getField @"rect_tl" x0}
-      , RIP.getField @"rect_br" x0
+          Rect {rect_br = y1, rect_tl = BG.getField @"rect_tl" x0}
+      , BG.getField @"rect_br" x0
       )
 
-instance (ty ~ Pt) => RIP.HasField "rect_br" (RIP.Ptr Rect) (RIP.Ptr ty) where
+instance (ty ~ Pt) => BG.HasField "rect_br" (BG.Ptr Rect) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"rect_br")
+  getField = HasCField.fromPtr (BG.Proxy @"rect_br")
 
 instance HasCField.HasCField Rect "rect_br" where
 

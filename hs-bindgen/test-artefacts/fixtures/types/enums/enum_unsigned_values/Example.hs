@@ -26,10 +26,10 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum uint8_enum@
 
@@ -40,8 +40,8 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 newtype Uint8_enum = Uint8_enum
   { unwrapUint8_enum :: HsBindgen.Runtime.LibC.Word8
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Uint8_enum where
 
@@ -65,9 +65,9 @@ instance Marshal.WriteRaw Uint8_enum where
           Uint8_enum unwrapUint8_enum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapUint8_enum2
 
-deriving via Marshal.EquivStorable Uint8_enum instance RIP.Storable Uint8_enum
+deriving via Marshal.EquivStorable Uint8_enum instance BG.Storable Uint8_enum
 
-deriving via HsBindgen.Runtime.LibC.Word8 instance RIP.Prim Uint8_enum
+deriving via HsBindgen.Runtime.LibC.Word8 instance BG.Prim Uint8_enum
 
 instance CEnum.CEnum Uint8_enum where
 
@@ -75,14 +75,14 @@ instance CEnum.CEnum Uint8_enum where
 
   toCEnum = Uint8_enum
 
-  fromCEnum = RIP.getField @"unwrapUint8_enum"
+  fromCEnum = BG.getField @"unwrapUint8_enum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [ (0, RIP.singleton "U8_ZERO")
-                                   , (127, RIP.singleton "U8_127")
-                                   , (128, RIP.singleton "U8_128")
-                                   , (255, RIP.singleton "U8_255")
+      CEnum.declaredValuesFromList [ (0, BG.singleton "U8_ZERO")
+                                   , (127, BG.singleton "U8_127")
+                                   , (128, BG.singleton "U8_128")
+                                   , (255, BG.singleton "U8_255")
                                    ]
 
   showsUndeclared =
@@ -99,24 +99,24 @@ instance Read Uint8_enum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "unwrapUint8_enum" Uint8_enum ty where
+         ) => BG.CompatHasField.HasField "unwrapUint8_enum" Uint8_enum ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Uint8_enum {unwrapUint8_enum = y1}
-      , RIP.getField @"unwrapUint8_enum" x0
+      , BG.getField @"unwrapUint8_enum" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "unwrapUint8_enum" (RIP.Ptr Uint8_enum) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapUint8_enum" (BG.Ptr Uint8_enum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapUint8_enum")
+    HasCField.fromPtr (BG.Proxy @"unwrapUint8_enum")
 
 instance HasCField.HasCField Uint8_enum "unwrapUint8_enum" where
 

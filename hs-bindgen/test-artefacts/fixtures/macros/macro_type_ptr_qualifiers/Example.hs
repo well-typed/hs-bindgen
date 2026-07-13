@@ -22,10 +22,10 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro PtrToVoid@
 
@@ -34,35 +34,35 @@ import qualified HsBindgen.Runtime.PtrConst as PtrConst
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype PtrToVoid = PtrToVoid
-  { unwrapPtrToVoid :: RIP.Ptr RIP.Void
+  { unwrapPtrToVoid :: BG.Ptr BG.Void
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.CompatHasField.HasField "unwrapPtrToVoid" PtrToVoid ty where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.CompatHasField.HasField "unwrapPtrToVoid" PtrToVoid ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         PtrToVoid {unwrapPtrToVoid = y1}, RIP.getField @"unwrapPtrToVoid" x0)
+         PtrToVoid {unwrapPtrToVoid = y1}, BG.getField @"unwrapPtrToVoid" x0)
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "unwrapPtrToVoid" (RIP.Ptr PtrToVoid) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.HasField "unwrapPtrToVoid" (BG.Ptr PtrToVoid) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapPtrToVoid")
+    HasCField.fromPtr (BG.Proxy @"unwrapPtrToVoid")
 
 instance HasCField.HasCField PtrToVoid "unwrapPtrToVoid" where
 
   type CFieldType PtrToVoid "unwrapPtrToVoid" =
-    RIP.Ptr RIP.Void
+    BG.Ptr BG.Void
 
   offset# = \_ -> \_ -> 0
 
@@ -73,36 +73,36 @@ instance HasCField.HasCField PtrToVoid "unwrapPtrToVoid" where
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype PtrToConstVoidL = PtrToConstVoidL
-  { unwrapPtrToConstVoidL :: PtrConst.PtrConst RIP.Void
+  { unwrapPtrToConstVoidL :: PtrConst.PtrConst BG.Void
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.CompatHasField.HasField "unwrapPtrToConstVoidL" PtrToConstVoidL ty where
+instance ( ty ~ PtrConst.PtrConst BG.Void
+         ) => BG.CompatHasField.HasField "unwrapPtrToConstVoidL" PtrToConstVoidL ty where
 
   hasField =
     \x0 ->
       ( \y1 -> PtrToConstVoidL {unwrapPtrToConstVoidL = y1}
-      , RIP.getField @"unwrapPtrToConstVoidL" x0
+      , BG.getField @"unwrapPtrToConstVoidL" x0
       )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.HasField "unwrapPtrToConstVoidL" (RIP.Ptr PtrToConstVoidL) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.Void
+         ) => BG.HasField "unwrapPtrToConstVoidL" (BG.Ptr PtrToConstVoidL) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstVoidL")
+    HasCField.fromPtr (BG.Proxy @"unwrapPtrToConstVoidL")
 
 instance HasCField.HasCField PtrToConstVoidL "unwrapPtrToConstVoidL" where
 
   type CFieldType PtrToConstVoidL "unwrapPtrToConstVoidL" =
-    PtrConst.PtrConst RIP.Void
+    PtrConst.PtrConst BG.Void
 
   offset# = \_ -> \_ -> 0
 
@@ -113,36 +113,36 @@ instance HasCField.HasCField PtrToConstVoidL "unwrapPtrToConstVoidL" where
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype PtrToConstVoidR = PtrToConstVoidR
-  { unwrapPtrToConstVoidR :: PtrConst.PtrConst RIP.Void
+  { unwrapPtrToConstVoidR :: PtrConst.PtrConst BG.Void
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.CompatHasField.HasField "unwrapPtrToConstVoidR" PtrToConstVoidR ty where
+instance ( ty ~ PtrConst.PtrConst BG.Void
+         ) => BG.CompatHasField.HasField "unwrapPtrToConstVoidR" PtrToConstVoidR ty where
 
   hasField =
     \x0 ->
       ( \y1 -> PtrToConstVoidR {unwrapPtrToConstVoidR = y1}
-      , RIP.getField @"unwrapPtrToConstVoidR" x0
+      , BG.getField @"unwrapPtrToConstVoidR" x0
       )
 
-instance ( ty ~ PtrConst.PtrConst RIP.Void
-         ) => RIP.HasField "unwrapPtrToConstVoidR" (RIP.Ptr PtrToConstVoidR) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.Void
+         ) => BG.HasField "unwrapPtrToConstVoidR" (BG.Ptr PtrToConstVoidR) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstVoidR")
+    HasCField.fromPtr (BG.Proxy @"unwrapPtrToConstVoidR")
 
 instance HasCField.HasCField PtrToConstVoidR "unwrapPtrToConstVoidR" where
 
   type CFieldType PtrToConstVoidR "unwrapPtrToConstVoidR" =
-    PtrConst.PtrConst RIP.Void
+    PtrConst.PtrConst BG.Void
 
   offset# = \_ -> \_ -> 0
 
@@ -153,36 +153,36 @@ instance HasCField.HasCField PtrToConstVoidR "unwrapPtrToConstVoidR" where
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype PtrToConstIntL = PtrToConstIntL
-  { unwrapPtrToConstIntL :: PtrConst.PtrConst RIP.CInt
+  { unwrapPtrToConstIntL :: PtrConst.PtrConst BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapPtrToConstIntL" PtrToConstIntL ty where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapPtrToConstIntL" PtrToConstIntL ty where
 
   hasField =
     \x0 ->
       ( \y1 -> PtrToConstIntL {unwrapPtrToConstIntL = y1}
-      , RIP.getField @"unwrapPtrToConstIntL" x0
+      , BG.getField @"unwrapPtrToConstIntL" x0
       )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.HasField "unwrapPtrToConstIntL" (RIP.Ptr PtrToConstIntL) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.HasField "unwrapPtrToConstIntL" (BG.Ptr PtrToConstIntL) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstIntL")
+    HasCField.fromPtr (BG.Proxy @"unwrapPtrToConstIntL")
 
 instance HasCField.HasCField PtrToConstIntL "unwrapPtrToConstIntL" where
 
   type CFieldType PtrToConstIntL "unwrapPtrToConstIntL" =
-    PtrConst.PtrConst RIP.CInt
+    PtrConst.PtrConst BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -193,36 +193,36 @@ instance HasCField.HasCField PtrToConstIntL "unwrapPtrToConstIntL" where
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype PtrToConstIntR = PtrToConstIntR
-  { unwrapPtrToConstIntR :: PtrConst.PtrConst RIP.CInt
+  { unwrapPtrToConstIntR :: PtrConst.PtrConst BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapPtrToConstIntR" PtrToConstIntR ty where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapPtrToConstIntR" PtrToConstIntR ty where
 
   hasField =
     \x0 ->
       ( \y1 -> PtrToConstIntR {unwrapPtrToConstIntR = y1}
-      , RIP.getField @"unwrapPtrToConstIntR" x0
+      , BG.getField @"unwrapPtrToConstIntR" x0
       )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.HasField "unwrapPtrToConstIntR" (RIP.Ptr PtrToConstIntR) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.HasField "unwrapPtrToConstIntR" (BG.Ptr PtrToConstIntR) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapPtrToConstIntR")
+    HasCField.fromPtr (BG.Proxy @"unwrapPtrToConstIntR")
 
 instance HasCField.HasCField PtrToConstIntR "unwrapPtrToConstIntR" where
 
   type CFieldType PtrToConstIntR "unwrapPtrToConstIntR" =
-    PtrConst.PtrConst RIP.CInt
+    PtrConst.PtrConst BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -233,35 +233,35 @@ instance HasCField.HasCField PtrToConstIntR "unwrapPtrToConstIntR" where
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
 newtype ConstPtrToInt = ConstPtrToInt
-  { unwrapConstPtrToInt :: RIP.Ptr RIP.CInt
+  { unwrapConstPtrToInt :: BG.Ptr BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapConstPtrToInt" ConstPtrToInt ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapConstPtrToInt" ConstPtrToInt ty where
 
   hasField =
     \x0 ->
       ( \y1 -> ConstPtrToInt {unwrapConstPtrToInt = y1}
-      , RIP.getField @"unwrapConstPtrToInt" x0
+      , BG.getField @"unwrapConstPtrToInt" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrapConstPtrToInt" (RIP.Ptr ConstPtrToInt) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "unwrapConstPtrToInt" (BG.Ptr ConstPtrToInt) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapConstPtrToInt")
+    HasCField.fromPtr (BG.Proxy @"unwrapConstPtrToInt")
 
 instance HasCField.HasCField ConstPtrToInt "unwrapConstPtrToInt" where
 
   type CFieldType ConstPtrToInt "unwrapConstPtrToInt" =
-    RIP.Ptr RIP.CInt
+    BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0

@@ -7,11 +7,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program-slicing/typedef_selected.h>"
   , "void hs_bindgen_72197c1a408e40ac ("
   , "  T arg1"
@@ -29,7 +29,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_72197c1a408e40ac" hs_bindgen_72197c1a408e40ac_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
@@ -37,7 +37,7 @@ hs_bindgen_72197c1a408e40ac ::
      T
   -> IO ()
 hs_bindgen_72197c1a408e40ac =
-  RIP.fromFFIType hs_bindgen_72197c1a408e40ac_base
+  BG.fromFFIType hs_bindgen_72197c1a408e40ac_base
 
 {-| __C declaration:__ @foo@
 
@@ -53,7 +53,7 @@ foo = hs_bindgen_72197c1a408e40ac
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
@@ -61,7 +61,7 @@ hs_bindgen_401f15168ffec8ae ::
      U
   -> IO ()
 hs_bindgen_401f15168ffec8ae =
-  RIP.fromFFIType hs_bindgen_401f15168ffec8ae_base
+  BG.fromFFIType hs_bindgen_401f15168ffec8ae_base
 
 {-| __C declaration:__ @bar@
 

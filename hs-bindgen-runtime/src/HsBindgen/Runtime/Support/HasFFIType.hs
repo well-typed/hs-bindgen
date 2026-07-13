@@ -2,11 +2,11 @@
 
 {-# LANGUAGE CPP #-}
 
--- NOTE: For now, this module is classified "Internal"; however, it may become
+-- NOTE: For now, this module is classified "Support"; however, it may become
 -- public in the future. See also
 -- https://github.com/well-typed/hs-bindgen/issues/1565.
 
-module HsBindgen.Runtime.Internal.HasFFIType (
+module HsBindgen.Runtime.Support.HasFFIType (
     -- * Class
     HasFFIType
   , FFIType
@@ -42,9 +42,9 @@ import Foreign.Ptr as Types (FunPtr, IntPtr (..), Ptr, WordPtr (..))
 import Foreign.StablePtr (castPtrToStablePtr, castStablePtrToPtr)
 import Foreign.StablePtr as Types (StablePtr)
 
-import HsBindgen.Runtime.Internal.FFIType qualified as FFI
 import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
                                             unsafeToPtr)
+import HsBindgen.Runtime.Support.FFIType qualified as FFI
 
 {-------------------------------------------------------------------------------
   Class

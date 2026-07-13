@@ -120,11 +120,11 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| Issues
@@ -136,34 +136,34 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype An_pchar = An_pchar
-  { unwrap :: PtrConst.PtrConst RIP.CChar
+  { unwrap :: PtrConst.PtrConst BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrap" An_pchar ty where
+instance ( ty ~ PtrConst.PtrConst BG.CChar
+         ) => BG.CompatHasField.HasField "unwrap" An_pchar ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         An_pchar {unwrap = y1}, RIP.getField @"unwrap" x0)
+         An_pchar {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ PtrConst.PtrConst RIP.CChar
-         ) => RIP.HasField "unwrap" (RIP.Ptr An_pchar) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.CChar
+         ) => BG.HasField "unwrap" (BG.Ptr An_pchar) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField An_pchar "unwrap" where
 
   type CFieldType An_pchar "unwrap" =
-    PtrConst.PtrConst RIP.CChar
+    PtrConst.PtrConst BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -174,7 +174,7 @@ instance HasCField.HasCField An_pchar "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data MyCoolStruct = MyCoolStruct
-  { listOfNames :: CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
+  { listOfNames :: CA.ConstantArray 8 (CA.ConstantArray 255 BG.CChar)
     {- ^ __C declaration:__ @listOfNames@
 
          __defined at:__ @comprehensive\/c2hsc.h 16:10@
@@ -182,7 +182,7 @@ data MyCoolStruct = MyCoolStruct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize MyCoolStruct where
 
@@ -195,7 +195,7 @@ instance Marshal.ReadRaw MyCoolStruct where
   readRaw =
     \ptr0 ->
           pure MyCoolStruct
-      <*> HasCField.readRaw (RIP.Proxy @"listOfNames") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"listOfNames") ptr0
 
 instance Marshal.WriteRaw MyCoolStruct where
 
@@ -204,28 +204,28 @@ instance Marshal.WriteRaw MyCoolStruct where
       \s1 ->
         case s1 of
           MyCoolStruct listOfNames2 ->
-            HasCField.writeRaw (RIP.Proxy @"listOfNames") ptr0 listOfNames2
+            HasCField.writeRaw (BG.Proxy @"listOfNames") ptr0 listOfNames2
 
-deriving via Marshal.EquivStorable MyCoolStruct instance RIP.Storable MyCoolStruct
+deriving via Marshal.EquivStorable MyCoolStruct instance BG.Storable MyCoolStruct
 
-instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
-         ) => RIP.CompatHasField.HasField "listOfNames" MyCoolStruct ty where
+instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 BG.CChar)
+         ) => BG.CompatHasField.HasField "listOfNames" MyCoolStruct ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyCoolStruct {listOfNames = y1}, RIP.getField @"listOfNames" x0)
+         MyCoolStruct {listOfNames = y1}, BG.getField @"listOfNames" x0)
 
-instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
-         ) => RIP.HasField "listOfNames" (RIP.Ptr MyCoolStruct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 BG.CChar)
+         ) => BG.HasField "listOfNames" (BG.Ptr MyCoolStruct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"listOfNames")
+    HasCField.fromPtr (BG.Proxy @"listOfNames")
 
 instance HasCField.HasCField MyCoolStruct "listOfNames" where
 
   type CFieldType MyCoolStruct "listOfNames" =
-    CA.ConstantArray 8 (CA.ConstantArray 255 RIP.CChar)
+    CA.ConstantArray 8 (CA.ConstantArray 255 BG.CChar)
 
   offset# = \_ -> \_ -> 0
 
@@ -238,62 +238,62 @@ instance HasCField.HasCField MyCoolStruct "listOfNames" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Foo_Aux = Foo_Aux
-  { unwrap :: RIP.CInt -> IO RIP.CInt
+  { unwrap :: BG.CInt -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFoo_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
-     (RIP.Int32 -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
+     (BG.Int32 -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
 
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 ::
      Foo_Aux
-  -> IO (RIP.FunPtr Foo_Aux)
+  -> IO (BG.FunPtr Foo_Aux)
 hs_bindgen_b5a7b5e83ffee6b4 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_b5a7b5e83ffee6b4_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_b5a7b5e83ffee6b4_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromFoo_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
-     RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
-  -> RIP.Int32 -> IO RIP.Int32
+     BG.FunPtr (BG.Int32 -> IO BG.Int32)
+  -> BG.Int32 -> IO BG.Int32
 
 -- __unique:__ @fromFoo_Aux@
 hs_bindgen_223d08172bb37c01 ::
-     RIP.FunPtr Foo_Aux
+     BG.FunPtr Foo_Aux
   -> Foo_Aux
 hs_bindgen_223d08172bb37c01 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_223d08172bb37c01_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_223d08172bb37c01_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr Foo_Aux where
+instance BG.ToFunPtr Foo_Aux where
 
   toFunPtr = hs_bindgen_b5a7b5e83ffee6b4
 
-instance RIP.FromFunPtr Foo_Aux where
+instance BG.FromFunPtr Foo_Aux where
 
   fromFunPtr = hs_bindgen_223d08172bb37c01
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrap" Foo_Aux ty where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrap" Foo_Aux ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo_Aux {unwrap = y1}, RIP.getField @"unwrap" x0)
+         Foo_Aux {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrap" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.HasField "unwrap" (BG.Ptr Foo_Aux) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField Foo_Aux "unwrap" where
 
   type CFieldType Foo_Aux "unwrap" =
-    RIP.CInt -> IO RIP.CInt
+    BG.CInt -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -304,32 +304,32 @@ instance HasCField.HasCField Foo_Aux "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Foo = Foo
-  { unwrap :: RIP.FunPtr Foo_Aux
+  { unwrap :: BG.FunPtr Foo_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Foo_Aux
-         ) => RIP.CompatHasField.HasField "unwrap" Foo ty where
+instance ( ty ~ BG.FunPtr Foo_Aux
+         ) => BG.CompatHasField.HasField "unwrap" Foo ty where
 
   hasField =
     \x0 ->
-      (\y1 -> Foo {unwrap = y1}, RIP.getField @"unwrap" x0)
+      (\y1 -> Foo {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.FunPtr Foo_Aux
-         ) => RIP.HasField "unwrap" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr Foo_Aux
+         ) => BG.HasField "unwrap" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField Foo "unwrap" where
 
-  type CFieldType Foo "unwrap" = RIP.FunPtr Foo_Aux
+  type CFieldType Foo "unwrap" = BG.FunPtr Foo_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -340,7 +340,7 @@ instance HasCField.HasCField Foo "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Foo_t = Foo_t
-  { foo_member :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+  { foo_member :: BG.FunPtr (BG.CInt -> IO BG.CInt)
     {- ^ __C declaration:__ @foo_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 32:11@
@@ -348,7 +348,7 @@ data Foo_t = Foo_t
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo_t where
 
@@ -361,7 +361,7 @@ instance Marshal.ReadRaw Foo_t where
   readRaw =
     \ptr0 ->
           pure Foo_t
-      <*> HasCField.readRaw (RIP.Proxy @"foo_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_member") ptr0
 
 instance Marshal.WriteRaw Foo_t where
 
@@ -370,28 +370,27 @@ instance Marshal.WriteRaw Foo_t where
       \s1 ->
         case s1 of
           Foo_t foo_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"foo_member") ptr0 foo_member2
+            HasCField.writeRaw (BG.Proxy @"foo_member") ptr0 foo_member2
 
-deriving via Marshal.EquivStorable Foo_t instance RIP.Storable Foo_t
+deriving via Marshal.EquivStorable Foo_t instance BG.Storable Foo_t
 
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "foo_member" Foo_t ty where
+instance ( ty ~ BG.FunPtr (BG.CInt -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "foo_member" Foo_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo_t {foo_member = y1}, RIP.getField @"foo_member" x0)
+         Foo_t {foo_member = y1}, BG.getField @"foo_member" x0)
 
-instance ( ty ~ RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "foo_member" (RIP.Ptr Foo_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr (BG.CInt -> IO BG.CInt)
+         ) => BG.HasField "foo_member" (BG.Ptr Foo_t) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_member")
+  getField = HasCField.fromPtr (BG.Proxy @"foo_member")
 
 instance HasCField.HasCField Foo_t "foo_member" where
 
   type CFieldType Foo_t "foo_member" =
-    RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+    BG.FunPtr (BG.CInt -> IO BG.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -410,10 +409,10 @@ data Foo_10
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Bar_10 = Bar_10
-  { unwrap :: RIP.CUInt
+  { unwrap :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Bar_10 where
 
@@ -437,21 +436,21 @@ instance Marshal.WriteRaw Bar_10 where
           Bar_10 unwrap2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrap2
 
-deriving via Marshal.EquivStorable Bar_10 instance RIP.Storable Bar_10
+deriving via Marshal.EquivStorable Bar_10 instance BG.Storable Bar_10
 
-deriving via RIP.CUInt instance RIP.Prim Bar_10
+deriving via BG.CUInt instance BG.Prim Bar_10
 
 instance CEnum.CEnum Bar_10 where
 
-  type CEnumZ Bar_10 = RIP.CUInt
+  type CEnumZ Bar_10 = BG.CUInt
 
   toCEnum = Bar_10
 
-  fromCEnum = RIP.getField @"unwrap"
+  fromCEnum = BG.getField @"unwrap"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "BAR")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "BAR")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "Bar_10"
@@ -477,26 +476,25 @@ instance Read Bar_10 where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bar_10 ty where
+instance (ty ~ BG.CUInt) => BG.CompatHasField.HasField "unwrap" Bar_10 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bar_10 {unwrap = y1}, RIP.getField @"unwrap" x0)
+         Bar_10 {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Bar_10) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrap" (BG.Ptr Bar_10) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField Bar_10 "unwrap" where
 
-  type CFieldType Bar_10 "unwrap" = RIP.CUInt
+  type CFieldType Bar_10 "unwrap" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -516,7 +514,7 @@ pattern BAR = Bar_10 0
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data St = St
-  { i :: RIP.CInt
+  { i :: BG.CInt
     {- ^ __C declaration:__ @i@
 
          __defined at:__ @comprehensive\/c2hsc.h 49:7@
@@ -524,7 +522,7 @@ data St = St
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize St where
 
@@ -537,7 +535,7 @@ instance Marshal.ReadRaw St where
   readRaw =
     \ptr0 ->
           pure St
-      <*> HasCField.readRaw (RIP.Proxy @"i") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"i") ptr0
 
 instance Marshal.WriteRaw St where
 
@@ -545,22 +543,22 @@ instance Marshal.WriteRaw St where
     \ptr0 ->
       \s1 ->
         case s1 of
-          St i2 -> HasCField.writeRaw (RIP.Proxy @"i") ptr0 i2
+          St i2 -> HasCField.writeRaw (BG.Proxy @"i") ptr0 i2
 
-deriving via Marshal.EquivStorable St instance RIP.Storable St
+deriving via Marshal.EquivStorable St instance BG.Storable St
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "i" St ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "i" St ty where
 
   hasField =
-    \x0 -> (\y1 -> St {i = y1}, RIP.getField @"i" x0)
+    \x0 -> (\y1 -> St {i = y1}, BG.getField @"i" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "i" (RIP.Ptr St) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "i" (BG.Ptr St) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"i")
+  getField = HasCField.fromPtr (BG.Proxy @"i")
 
 instance HasCField.HasCField St "i" where
 
-  type CFieldType St "i" = RIP.CInt
+  type CFieldType St "i" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -571,10 +569,10 @@ instance HasCField.HasCField St "i" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype E = E
-  { unwrap :: RIP.CUInt
+  { unwrap :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize E where
 
@@ -598,21 +596,21 @@ instance Marshal.WriteRaw E where
           E unwrap2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrap2
 
-deriving via Marshal.EquivStorable E instance RIP.Storable E
+deriving via Marshal.EquivStorable E instance BG.Storable E
 
-deriving via RIP.CUInt instance RIP.Prim E
+deriving via BG.CUInt instance BG.Prim E
 
 instance CEnum.CEnum E where
 
-  type CEnumZ E = RIP.CUInt
+  type CEnumZ E = BG.CUInt
 
   toCEnum = E
 
-  fromCEnum = RIP.getField @"unwrap"
+  fromCEnum = BG.getField @"unwrap"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "CONST")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "CONST")]
 
   showsUndeclared = CEnum.showsWrappedUndeclared "E"
 
@@ -637,24 +635,23 @@ instance Read E where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrap" E ty where
+instance (ty ~ BG.CUInt) => BG.CompatHasField.HasField "unwrap" E ty where
 
   hasField =
     \x0 ->
-      (\y1 -> E {unwrap = y1}, RIP.getField @"unwrap" x0)
+      (\y1 -> E {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ BG.CUInt) => BG.HasField "unwrap" (BG.Ptr E) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField E "unwrap" where
 
-  type CFieldType E "unwrap" = RIP.CUInt
+  type CFieldType E "unwrap" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -674,29 +671,19 @@ pattern CONST = E 0
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype U = U
-  { unwrap :: RIP.ByteArray
+  { unwrap :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 1 1 instance Marshal.StaticSize U
+deriving via BG.SizedByteArray 1 1 instance Marshal.StaticSize U
 
-deriving via RIP.SizedByteArray 1 1 instance Marshal.ReadRaw U
+deriving via BG.SizedByteArray 1 1 instance Marshal.ReadRaw U
 
-deriving via RIP.SizedByteArray 1 1 instance Marshal.WriteRaw U
+deriving via BG.SizedByteArray 1 1 instance Marshal.WriteRaw U
 
-deriving via Marshal.EquivStorable U instance RIP.Storable U
+deriving via Marshal.EquivStorable U instance BG.Storable U
 
-deriving via RIP.SizedByteArray 1 1 instance Union.IsUnion U
-
-{-| __C declaration:__ @c@
-
-    __defined at:__ @comprehensive\/c2hsc.h 57:8@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-instance (ty ~ RIP.CChar) => RIP.HasField "c" U ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 1 1 instance Union.IsUnion U
 
 {-| __C declaration:__ @c@
 
@@ -704,18 +691,28 @@ instance (ty ~ RIP.CChar) => RIP.HasField "c" U ty where
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "c" U ty where
+instance (ty ~ BG.CChar) => BG.HasField "c" U ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @c@
+
+    __defined at:__ @comprehensive\/c2hsc.h 57:8@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "c" U ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"c" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"c" x0)
 
-instance (ty ~ RIP.CChar) => RIP.HasField "c" (RIP.Ptr U) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "c" (BG.Ptr U) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"c")
+  getField = HasCField.fromPtr (BG.Proxy @"c")
 
 instance HasCField.HasCField U "c" where
 
-  type CFieldType U "c" = RIP.CChar
+  type CFieldType U "c" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -734,33 +731,33 @@ data MyTypeImpl
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype MyType = MyType
-  { unwrap :: RIP.Ptr MyTypeImpl
+  { unwrap :: BG.Ptr MyTypeImpl
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr MyTypeImpl
-         ) => RIP.CompatHasField.HasField "unwrap" MyType ty where
+instance ( ty ~ BG.Ptr MyTypeImpl
+         ) => BG.CompatHasField.HasField "unwrap" MyType ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyType {unwrap = y1}, RIP.getField @"unwrap" x0)
+         MyType {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.Ptr MyTypeImpl
-         ) => RIP.HasField "unwrap" (RIP.Ptr MyType) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr MyTypeImpl
+         ) => BG.HasField "unwrap" (BG.Ptr MyType) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField MyType "unwrap" where
 
-  type CFieldType MyType "unwrap" = RIP.Ptr MyTypeImpl
+  type CFieldType MyType "unwrap" = BG.Ptr MyTypeImpl
 
   offset# = \_ -> \_ -> 0
 
@@ -771,7 +768,7 @@ instance HasCField.HasCField MyType "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data MyStructType = MyStructType
-  { x :: RIP.CInt
+  { x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @comprehensive\/c2hsc.h 65:7@
@@ -779,7 +776,7 @@ data MyStructType = MyStructType
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize MyStructType where
 
@@ -792,7 +789,7 @@ instance Marshal.ReadRaw MyStructType where
   readRaw =
     \ptr0 ->
           pure MyStructType
-      <*> HasCField.readRaw (RIP.Proxy @"x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"x") ptr0
 
 instance Marshal.WriteRaw MyStructType where
 
@@ -801,25 +798,24 @@ instance Marshal.WriteRaw MyStructType where
       \s1 ->
         case s1 of
           MyStructType x2 ->
-            HasCField.writeRaw (RIP.Proxy @"x") ptr0 x2
+            HasCField.writeRaw (BG.Proxy @"x") ptr0 x2
 
-deriving via Marshal.EquivStorable MyStructType instance RIP.Storable MyStructType
+deriving via Marshal.EquivStorable MyStructType instance BG.Storable MyStructType
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "x" MyStructType ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" MyStructType ty where
 
   hasField =
     \x0 ->
-      (\y1 -> MyStructType {x = y1}, RIP.getField @"x" x0)
+      (\y1 -> MyStructType {x = y1}, BG.getField @"x" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "x" (RIP.Ptr MyStructType) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr MyStructType) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"x")
+  getField = HasCField.fromPtr (BG.Proxy @"x")
 
 instance HasCField.HasCField MyStructType "x" where
 
-  type CFieldType MyStructType "x" = RIP.CInt
+  type CFieldType MyStructType "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -840,7 +836,7 @@ data MyStructEmptyType
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_struct = Ordinary_float_struct
-  { ordinary_float_member :: RIP.CFloat
+  { ordinary_float_member :: BG.CFloat
     {- ^ __C declaration:__ @ordinary_float_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 204:62@
@@ -848,7 +844,7 @@ data Ordinary_float_struct = Ordinary_float_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_float_struct where
 
@@ -861,7 +857,7 @@ instance Marshal.ReadRaw Ordinary_float_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_float_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_float_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_float_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_float_struct where
 
@@ -870,30 +866,30 @@ instance Marshal.WriteRaw Ordinary_float_struct where
       \s1 ->
         case s1 of
           Ordinary_float_struct ordinary_float_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_float_member") ptr0 ordinary_float_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_float_member") ptr0 ordinary_float_member2
 
-deriving via Marshal.EquivStorable Ordinary_float_struct instance RIP.Storable Ordinary_float_struct
+deriving via Marshal.EquivStorable Ordinary_float_struct instance BG.Storable Ordinary_float_struct
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "ordinary_float_member" Ordinary_float_struct ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "ordinary_float_member" Ordinary_float_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_float_struct {ordinary_float_member = y1}
-      , RIP.getField @"ordinary_float_member" x0
+      , BG.getField @"ordinary_float_member" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "ordinary_float_member" (RIP.Ptr Ordinary_float_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "ordinary_float_member" (BG.Ptr Ordinary_float_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_float_member")
 
 instance HasCField.HasCField Ordinary_float_struct "ordinary_float_member" where
 
   type CFieldType Ordinary_float_struct "ordinary_float_member" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -904,7 +900,7 @@ instance HasCField.HasCField Ordinary_float_struct "ordinary_float_member" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_double_struct = Ordinary_double_struct
-  { ordinary_double_member :: RIP.CDouble
+  { ordinary_double_member :: BG.CDouble
     {- ^ __C declaration:__ @ordinary_double_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 205:62@
@@ -912,7 +908,7 @@ data Ordinary_double_struct = Ordinary_double_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_double_struct where
 
@@ -925,7 +921,7 @@ instance Marshal.ReadRaw Ordinary_double_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_double_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_double_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_double_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_double_struct where
 
@@ -934,30 +930,30 @@ instance Marshal.WriteRaw Ordinary_double_struct where
       \s1 ->
         case s1 of
           Ordinary_double_struct ordinary_double_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_double_member") ptr0 ordinary_double_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_double_member") ptr0 ordinary_double_member2
 
-deriving via Marshal.EquivStorable Ordinary_double_struct instance RIP.Storable Ordinary_double_struct
+deriving via Marshal.EquivStorable Ordinary_double_struct instance BG.Storable Ordinary_double_struct
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "ordinary_double_member" Ordinary_double_struct ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "ordinary_double_member" Ordinary_double_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_double_struct {ordinary_double_member = y1}
-      , RIP.getField @"ordinary_double_member" x0
+      , BG.getField @"ordinary_double_member" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "ordinary_double_member" (RIP.Ptr Ordinary_double_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "ordinary_double_member" (BG.Ptr Ordinary_double_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_double_member")
 
 instance HasCField.HasCField Ordinary_double_struct "ordinary_double_member" where
 
   type CFieldType Ordinary_double_struct "ordinary_double_member" =
-    RIP.CDouble
+    BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
@@ -968,7 +964,7 @@ instance HasCField.HasCField Ordinary_double_struct "ordinary_double_member" whe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_char_struct = Ordinary_signed_char_struct
-  { ordinary_signed_char_member :: RIP.CChar
+  { ordinary_signed_char_member :: BG.CChar
     {- ^ __C declaration:__ @ordinary_signed_char_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 208:62@
@@ -976,7 +972,7 @@ data Ordinary_signed_char_struct = Ordinary_signed_char_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_char_struct where
 
@@ -989,7 +985,7 @@ instance Marshal.ReadRaw Ordinary_signed_char_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_char_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_char_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_char_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_char_struct where
 
@@ -998,30 +994,30 @@ instance Marshal.WriteRaw Ordinary_signed_char_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_char_struct ordinary_signed_char_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_char_member") ptr0 ordinary_signed_char_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_char_member") ptr0 ordinary_signed_char_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_char_struct instance RIP.Storable Ordinary_signed_char_struct
+deriving via Marshal.EquivStorable Ordinary_signed_char_struct instance BG.Storable Ordinary_signed_char_struct
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "ordinary_signed_char_member" Ordinary_signed_char_struct ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "ordinary_signed_char_member" Ordinary_signed_char_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_char_struct {ordinary_signed_char_member = y1}
-      , RIP.getField @"ordinary_signed_char_member" x0
+      , BG.getField @"ordinary_signed_char_member" x0
       )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_member" (RIP.Ptr Ordinary_signed_char_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "ordinary_signed_char_member" (BG.Ptr Ordinary_signed_char_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_char_member")
 
 instance HasCField.HasCField Ordinary_signed_char_struct "ordinary_signed_char_member" where
 
   type CFieldType Ordinary_signed_char_struct "ordinary_signed_char_member" =
-    RIP.CChar
+    BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -1032,7 +1028,7 @@ instance HasCField.HasCField Ordinary_signed_char_struct "ordinary_signed_char_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_char_struct = Explicit_signed_char_struct
-  { explicit_signed_char_member :: RIP.CSChar
+  { explicit_signed_char_member :: BG.CSChar
     {- ^ __C declaration:__ @explicit_signed_char_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 209:62@
@@ -1040,7 +1036,7 @@ data Explicit_signed_char_struct = Explicit_signed_char_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_char_struct where
 
@@ -1053,7 +1049,7 @@ instance Marshal.ReadRaw Explicit_signed_char_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_char_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_char_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_char_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_char_struct where
 
@@ -1062,30 +1058,30 @@ instance Marshal.WriteRaw Explicit_signed_char_struct where
       \s1 ->
         case s1 of
           Explicit_signed_char_struct explicit_signed_char_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_char_member") ptr0 explicit_signed_char_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_char_member") ptr0 explicit_signed_char_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_char_struct instance RIP.Storable Explicit_signed_char_struct
+deriving via Marshal.EquivStorable Explicit_signed_char_struct instance BG.Storable Explicit_signed_char_struct
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.CompatHasField.HasField "explicit_signed_char_member" Explicit_signed_char_struct ty where
+instance ( ty ~ BG.CSChar
+         ) => BG.CompatHasField.HasField "explicit_signed_char_member" Explicit_signed_char_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_char_struct {explicit_signed_char_member = y1}
-      , RIP.getField @"explicit_signed_char_member" x0
+      , BG.getField @"explicit_signed_char_member" x0
       )
 
-instance ( ty ~ RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_member" (RIP.Ptr Explicit_signed_char_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CSChar
+         ) => BG.HasField "explicit_signed_char_member" (BG.Ptr Explicit_signed_char_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_char_member")
 
 instance HasCField.HasCField Explicit_signed_char_struct "explicit_signed_char_member" where
 
   type CFieldType Explicit_signed_char_struct "explicit_signed_char_member" =
-    RIP.CSChar
+    BG.CSChar
 
   offset# = \_ -> \_ -> 0
 
@@ -1096,7 +1092,7 @@ instance HasCField.HasCField Explicit_signed_char_struct "explicit_signed_char_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_char_struct = Unsigned_char_struct
-  { unsigned_char_member :: RIP.CUChar
+  { unsigned_char_member :: BG.CUChar
     {- ^ __C declaration:__ @unsigned_char_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 210:62@
@@ -1104,7 +1100,7 @@ data Unsigned_char_struct = Unsigned_char_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_char_struct where
 
@@ -1117,7 +1113,7 @@ instance Marshal.ReadRaw Unsigned_char_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_char_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_char_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_char_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_char_struct where
 
@@ -1126,30 +1122,30 @@ instance Marshal.WriteRaw Unsigned_char_struct where
       \s1 ->
         case s1 of
           Unsigned_char_struct unsigned_char_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_char_member") ptr0 unsigned_char_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_char_member") ptr0 unsigned_char_member2
 
-deriving via Marshal.EquivStorable Unsigned_char_struct instance RIP.Storable Unsigned_char_struct
+deriving via Marshal.EquivStorable Unsigned_char_struct instance BG.Storable Unsigned_char_struct
 
-instance ( ty ~ RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unsigned_char_member" Unsigned_char_struct ty where
+instance ( ty ~ BG.CUChar
+         ) => BG.CompatHasField.HasField "unsigned_char_member" Unsigned_char_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_char_struct {unsigned_char_member = y1}
-      , RIP.getField @"unsigned_char_member" x0
+      , BG.getField @"unsigned_char_member" x0
       )
 
-instance ( ty ~ RIP.CUChar
-         ) => RIP.HasField "unsigned_char_member" (RIP.Ptr Unsigned_char_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUChar
+         ) => BG.HasField "unsigned_char_member" (BG.Ptr Unsigned_char_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_char_member")
 
 instance HasCField.HasCField Unsigned_char_struct "unsigned_char_member" where
 
   type CFieldType Unsigned_char_struct "unsigned_char_member" =
-    RIP.CUChar
+    BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
@@ -1160,7 +1156,7 @@ instance HasCField.HasCField Unsigned_char_struct "unsigned_char_member" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_short_struct = Ordinary_signed_short_struct
-  { ordinary_signed_short_member :: RIP.CShort
+  { ordinary_signed_short_member :: BG.CShort
     {- ^ __C declaration:__ @ordinary_signed_short_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 212:62@
@@ -1168,7 +1164,7 @@ data Ordinary_signed_short_struct = Ordinary_signed_short_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_short_struct where
 
@@ -1181,7 +1177,7 @@ instance Marshal.ReadRaw Ordinary_signed_short_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_short_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_short_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_short_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_short_struct where
 
@@ -1190,30 +1186,30 @@ instance Marshal.WriteRaw Ordinary_signed_short_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_short_struct ordinary_signed_short_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_short_member") ptr0 ordinary_signed_short_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_member") ptr0 ordinary_signed_short_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_short_struct instance RIP.Storable Ordinary_signed_short_struct
+deriving via Marshal.EquivStorable Ordinary_signed_short_struct instance BG.Storable Ordinary_signed_short_struct
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "ordinary_signed_short_member" Ordinary_signed_short_struct ty where
+instance ( ty ~ BG.CShort
+         ) => BG.CompatHasField.HasField "ordinary_signed_short_member" Ordinary_signed_short_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_short_struct {ordinary_signed_short_member = y1}
-      , RIP.getField @"ordinary_signed_short_member" x0
+      , BG.getField @"ordinary_signed_short_member" x0
       )
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_member" (RIP.Ptr Ordinary_signed_short_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CShort
+         ) => BG.HasField "ordinary_signed_short_member" (BG.Ptr Ordinary_signed_short_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_short_member")
 
 instance HasCField.HasCField Ordinary_signed_short_struct "ordinary_signed_short_member" where
 
   type CFieldType Ordinary_signed_short_struct "ordinary_signed_short_member" =
-    RIP.CShort
+    BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -1224,7 +1220,7 @@ instance HasCField.HasCField Ordinary_signed_short_struct "ordinary_signed_short
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_short_struct = Explicit_signed_short_struct
-  { explicit_signed_short_member :: RIP.CShort
+  { explicit_signed_short_member :: BG.CShort
     {- ^ __C declaration:__ @explicit_signed_short_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 213:62@
@@ -1232,7 +1228,7 @@ data Explicit_signed_short_struct = Explicit_signed_short_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_short_struct where
 
@@ -1245,7 +1241,7 @@ instance Marshal.ReadRaw Explicit_signed_short_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_short_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_short_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_short_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_short_struct where
 
@@ -1254,30 +1250,30 @@ instance Marshal.WriteRaw Explicit_signed_short_struct where
       \s1 ->
         case s1 of
           Explicit_signed_short_struct explicit_signed_short_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_short_member") ptr0 explicit_signed_short_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_short_member") ptr0 explicit_signed_short_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_short_struct instance RIP.Storable Explicit_signed_short_struct
+deriving via Marshal.EquivStorable Explicit_signed_short_struct instance BG.Storable Explicit_signed_short_struct
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.CompatHasField.HasField "explicit_signed_short_member" Explicit_signed_short_struct ty where
+instance ( ty ~ BG.CShort
+         ) => BG.CompatHasField.HasField "explicit_signed_short_member" Explicit_signed_short_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_short_struct {explicit_signed_short_member = y1}
-      , RIP.getField @"explicit_signed_short_member" x0
+      , BG.getField @"explicit_signed_short_member" x0
       )
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_member" (RIP.Ptr Explicit_signed_short_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CShort
+         ) => BG.HasField "explicit_signed_short_member" (BG.Ptr Explicit_signed_short_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_short_member")
 
 instance HasCField.HasCField Explicit_signed_short_struct "explicit_signed_short_member" where
 
   type CFieldType Explicit_signed_short_struct "explicit_signed_short_member" =
-    RIP.CShort
+    BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -1288,7 +1284,7 @@ instance HasCField.HasCField Explicit_signed_short_struct "explicit_signed_short
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_short_struct = Unsigned_short_struct
-  { unsigned_short_member :: RIP.CUShort
+  { unsigned_short_member :: BG.CUShort
     {- ^ __C declaration:__ @unsigned_short_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 214:62@
@@ -1296,7 +1292,7 @@ data Unsigned_short_struct = Unsigned_short_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_short_struct where
 
@@ -1309,7 +1305,7 @@ instance Marshal.ReadRaw Unsigned_short_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_short_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_short_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_short_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_short_struct where
 
@@ -1318,30 +1314,30 @@ instance Marshal.WriteRaw Unsigned_short_struct where
       \s1 ->
         case s1 of
           Unsigned_short_struct unsigned_short_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_short_member") ptr0 unsigned_short_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_short_member") ptr0 unsigned_short_member2
 
-deriving via Marshal.EquivStorable Unsigned_short_struct instance RIP.Storable Unsigned_short_struct
+deriving via Marshal.EquivStorable Unsigned_short_struct instance BG.Storable Unsigned_short_struct
 
-instance ( ty ~ RIP.CUShort
-         ) => RIP.CompatHasField.HasField "unsigned_short_member" Unsigned_short_struct ty where
+instance ( ty ~ BG.CUShort
+         ) => BG.CompatHasField.HasField "unsigned_short_member" Unsigned_short_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_short_struct {unsigned_short_member = y1}
-      , RIP.getField @"unsigned_short_member" x0
+      , BG.getField @"unsigned_short_member" x0
       )
 
-instance ( ty ~ RIP.CUShort
-         ) => RIP.HasField "unsigned_short_member" (RIP.Ptr Unsigned_short_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUShort
+         ) => BG.HasField "unsigned_short_member" (BG.Ptr Unsigned_short_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_short_member")
 
 instance HasCField.HasCField Unsigned_short_struct "unsigned_short_member" where
 
   type CFieldType Unsigned_short_struct "unsigned_short_member" =
-    RIP.CUShort
+    BG.CUShort
 
   offset# = \_ -> \_ -> 0
 
@@ -1352,7 +1348,7 @@ instance HasCField.HasCField Unsigned_short_struct "unsigned_short_member" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_int_struct = Ordinary_signed_int_struct
-  { ordinary_signed_int_member :: RIP.CInt
+  { ordinary_signed_int_member :: BG.CInt
     {- ^ __C declaration:__ @ordinary_signed_int_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 216:62@
@@ -1360,7 +1356,7 @@ data Ordinary_signed_int_struct = Ordinary_signed_int_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_int_struct where
 
@@ -1373,7 +1369,7 @@ instance Marshal.ReadRaw Ordinary_signed_int_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_int_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_int_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_int_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_int_struct where
 
@@ -1382,30 +1378,30 @@ instance Marshal.WriteRaw Ordinary_signed_int_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_int_struct ordinary_signed_int_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_int_member") ptr0 ordinary_signed_int_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_int_member") ptr0 ordinary_signed_int_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_int_struct instance RIP.Storable Ordinary_signed_int_struct
+deriving via Marshal.EquivStorable Ordinary_signed_int_struct instance BG.Storable Ordinary_signed_int_struct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_int_struct {ordinary_signed_int_member = y1}
-      , RIP.getField @"ordinary_signed_int_member" x0
+      , BG.getField @"ordinary_signed_int_member" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_member" (RIP.Ptr Ordinary_signed_int_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "ordinary_signed_int_member" (BG.Ptr Ordinary_signed_int_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_int_member")
 
 instance HasCField.HasCField Ordinary_signed_int_struct "ordinary_signed_int_member" where
 
   type CFieldType Ordinary_signed_int_struct "ordinary_signed_int_member" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1416,7 +1412,7 @@ instance HasCField.HasCField Ordinary_signed_int_struct "ordinary_signed_int_mem
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_int_struct = Explicit_signed_int_struct
-  { explicit_signed_int_member :: RIP.CInt
+  { explicit_signed_int_member :: BG.CInt
     {- ^ __C declaration:__ @explicit_signed_int_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 217:62@
@@ -1424,7 +1420,7 @@ data Explicit_signed_int_struct = Explicit_signed_int_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_int_struct where
 
@@ -1437,7 +1433,7 @@ instance Marshal.ReadRaw Explicit_signed_int_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_int_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_int_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_int_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_int_struct where
 
@@ -1446,30 +1442,30 @@ instance Marshal.WriteRaw Explicit_signed_int_struct where
       \s1 ->
         case s1 of
           Explicit_signed_int_struct explicit_signed_int_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_int_member") ptr0 explicit_signed_int_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_int_member") ptr0 explicit_signed_int_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_int_struct instance RIP.Storable Explicit_signed_int_struct
+deriving via Marshal.EquivStorable Explicit_signed_int_struct instance BG.Storable Explicit_signed_int_struct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "explicit_signed_int_member" Explicit_signed_int_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "explicit_signed_int_member" Explicit_signed_int_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_int_struct {explicit_signed_int_member = y1}
-      , RIP.getField @"explicit_signed_int_member" x0
+      , BG.getField @"explicit_signed_int_member" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_member" (RIP.Ptr Explicit_signed_int_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "explicit_signed_int_member" (BG.Ptr Explicit_signed_int_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_int_member")
 
 instance HasCField.HasCField Explicit_signed_int_struct "explicit_signed_int_member" where
 
   type CFieldType Explicit_signed_int_struct "explicit_signed_int_member" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1480,7 +1476,7 @@ instance HasCField.HasCField Explicit_signed_int_struct "explicit_signed_int_mem
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_int_struct = Unsigned_int_struct
-  { unsigned_int_member :: RIP.CUInt
+  { unsigned_int_member :: BG.CUInt
     {- ^ __C declaration:__ @unsigned_int_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 218:62@
@@ -1488,7 +1484,7 @@ data Unsigned_int_struct = Unsigned_int_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_int_struct where
 
@@ -1501,7 +1497,7 @@ instance Marshal.ReadRaw Unsigned_int_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_int_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_int_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_int_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_int_struct where
 
@@ -1510,30 +1506,30 @@ instance Marshal.WriteRaw Unsigned_int_struct where
       \s1 ->
         case s1 of
           Unsigned_int_struct unsigned_int_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_int_member") ptr0 unsigned_int_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_int_member") ptr0 unsigned_int_member2
 
-deriving via Marshal.EquivStorable Unsigned_int_struct instance RIP.Storable Unsigned_int_struct
+deriving via Marshal.EquivStorable Unsigned_int_struct instance BG.Storable Unsigned_int_struct
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unsigned_int_member" Unsigned_int_struct ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unsigned_int_member" Unsigned_int_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_int_struct {unsigned_int_member = y1}
-      , RIP.getField @"unsigned_int_member" x0
+      , BG.getField @"unsigned_int_member" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unsigned_int_member" (RIP.Ptr Unsigned_int_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unsigned_int_member" (BG.Ptr Unsigned_int_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_int_member")
 
 instance HasCField.HasCField Unsigned_int_struct "unsigned_int_member" where
 
   type CFieldType Unsigned_int_struct "unsigned_int_member" =
-    RIP.CUInt
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1544,7 +1540,7 @@ instance HasCField.HasCField Unsigned_int_struct "unsigned_int_member" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_struct = Ordinary_signed_long_struct
-  { ordinary_signed_long_member :: RIP.CLong
+  { ordinary_signed_long_member :: BG.CLong
     {- ^ __C declaration:__ @ordinary_signed_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 220:62@
@@ -1552,7 +1548,7 @@ data Ordinary_signed_long_struct = Ordinary_signed_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_struct where
 
@@ -1565,7 +1561,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_struct where
 
@@ -1574,30 +1570,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_long_struct ordinary_signed_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_member") ptr0 ordinary_signed_long_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_member") ptr0 ordinary_signed_long_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_struct instance RIP.Storable Ordinary_signed_long_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_struct instance BG.Storable Ordinary_signed_long_struct
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_member" Ordinary_signed_long_struct ty where
+instance ( ty ~ BG.CLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_member" Ordinary_signed_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_struct {ordinary_signed_long_member = y1}
-      , RIP.getField @"ordinary_signed_long_member" x0
+      , BG.getField @"ordinary_signed_long_member" x0
       )
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_member" (RIP.Ptr Ordinary_signed_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CLong
+         ) => BG.HasField "ordinary_signed_long_member" (BG.Ptr Ordinary_signed_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_member")
 
 instance HasCField.HasCField Ordinary_signed_long_struct "ordinary_signed_long_member" where
 
   type CFieldType Ordinary_signed_long_struct "ordinary_signed_long_member" =
-    RIP.CLong
+    BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -1608,7 +1604,7 @@ instance HasCField.HasCField Ordinary_signed_long_struct "ordinary_signed_long_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_struct = Explicit_signed_long_struct
-  { explicit_signed_long_member :: RIP.CLong
+  { explicit_signed_long_member :: BG.CLong
     {- ^ __C declaration:__ @explicit_signed_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 221:62@
@@ -1616,7 +1612,7 @@ data Explicit_signed_long_struct = Explicit_signed_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_struct where
 
@@ -1629,7 +1625,7 @@ instance Marshal.ReadRaw Explicit_signed_long_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_struct where
 
@@ -1638,30 +1634,30 @@ instance Marshal.WriteRaw Explicit_signed_long_struct where
       \s1 ->
         case s1 of
           Explicit_signed_long_struct explicit_signed_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_member") ptr0 explicit_signed_long_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_long_member") ptr0 explicit_signed_long_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_struct instance RIP.Storable Explicit_signed_long_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_struct instance BG.Storable Explicit_signed_long_struct
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_member" Explicit_signed_long_struct ty where
+instance ( ty ~ BG.CLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_member" Explicit_signed_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_struct {explicit_signed_long_member = y1}
-      , RIP.getField @"explicit_signed_long_member" x0
+      , BG.getField @"explicit_signed_long_member" x0
       )
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_member" (RIP.Ptr Explicit_signed_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CLong
+         ) => BG.HasField "explicit_signed_long_member" (BG.Ptr Explicit_signed_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_member")
 
 instance HasCField.HasCField Explicit_signed_long_struct "explicit_signed_long_member" where
 
   type CFieldType Explicit_signed_long_struct "explicit_signed_long_member" =
-    RIP.CLong
+    BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -1672,7 +1668,7 @@ instance HasCField.HasCField Explicit_signed_long_struct "explicit_signed_long_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_struct = Unsigned_long_struct
-  { unsigned_long_member :: RIP.CULong
+  { unsigned_long_member :: BG.CULong
     {- ^ __C declaration:__ @unsigned_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 222:62@
@@ -1680,7 +1676,7 @@ data Unsigned_long_struct = Unsigned_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_struct where
 
@@ -1693,7 +1689,7 @@ instance Marshal.ReadRaw Unsigned_long_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_struct where
 
@@ -1702,30 +1698,30 @@ instance Marshal.WriteRaw Unsigned_long_struct where
       \s1 ->
         case s1 of
           Unsigned_long_struct unsigned_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_member") ptr0 unsigned_long_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_member") ptr0 unsigned_long_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_struct instance RIP.Storable Unsigned_long_struct
+deriving via Marshal.EquivStorable Unsigned_long_struct instance BG.Storable Unsigned_long_struct
 
-instance ( ty ~ RIP.CULong
-         ) => RIP.CompatHasField.HasField "unsigned_long_member" Unsigned_long_struct ty where
+instance ( ty ~ BG.CULong
+         ) => BG.CompatHasField.HasField "unsigned_long_member" Unsigned_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_struct {unsigned_long_member = y1}
-      , RIP.getField @"unsigned_long_member" x0
+      , BG.getField @"unsigned_long_member" x0
       )
 
-instance ( ty ~ RIP.CULong
-         ) => RIP.HasField "unsigned_long_member" (RIP.Ptr Unsigned_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CULong
+         ) => BG.HasField "unsigned_long_member" (BG.Ptr Unsigned_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_member")
 
 instance HasCField.HasCField Unsigned_long_struct "unsigned_long_member" where
 
   type CFieldType Unsigned_long_struct "unsigned_long_member" =
-    RIP.CULong
+    BG.CULong
 
   offset# = \_ -> \_ -> 0
 
@@ -1736,7 +1732,7 @@ instance HasCField.HasCField Unsigned_long_struct "unsigned_long_member" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_long_struct = Ordinary_signed_long_long_struct
-  { ordinary_signed_long_long_member :: RIP.CLLong
+  { ordinary_signed_long_long_member :: BG.CLLong
     {- ^ __C declaration:__ @ordinary_signed_long_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 224:62@
@@ -1744,7 +1740,7 @@ data Ordinary_signed_long_long_struct = Ordinary_signed_long_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_long_struct where
 
@@ -1757,7 +1753,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_long_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_long_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_long_struct where
 
@@ -1766,30 +1762,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_long_long_struct ordinary_signed_long_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_long_member") ptr0 ordinary_signed_long_long_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_long_member") ptr0 ordinary_signed_long_long_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_long_struct instance RIP.Storable Ordinary_signed_long_long_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_long_struct instance BG.Storable Ordinary_signed_long_long_struct
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_member" Ordinary_signed_long_long_struct ty where
+instance ( ty ~ BG.CLLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_long_member" Ordinary_signed_long_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_long_struct {ordinary_signed_long_long_member = y1}
-      , RIP.getField @"ordinary_signed_long_long_member" x0
+      , BG.getField @"ordinary_signed_long_long_member" x0
       )
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_member" (RIP.Ptr Ordinary_signed_long_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CLLong
+         ) => BG.HasField "ordinary_signed_long_long_member" (BG.Ptr Ordinary_signed_long_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_long_member")
 
 instance HasCField.HasCField Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" where
 
   type CFieldType Ordinary_signed_long_long_struct "ordinary_signed_long_long_member" =
-    RIP.CLLong
+    BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -1800,7 +1796,7 @@ instance HasCField.HasCField Ordinary_signed_long_long_struct "ordinary_signed_l
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_long_struct = Explicit_signed_long_long_struct
-  { explicit_signed_long_long_member :: RIP.CLLong
+  { explicit_signed_long_long_member :: BG.CLLong
     {- ^ __C declaration:__ @explicit_signed_long_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 225:62@
@@ -1808,7 +1804,7 @@ data Explicit_signed_long_long_struct = Explicit_signed_long_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_long_struct where
 
@@ -1821,7 +1817,7 @@ instance Marshal.ReadRaw Explicit_signed_long_long_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_long_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_long_struct where
 
@@ -1830,30 +1826,30 @@ instance Marshal.WriteRaw Explicit_signed_long_long_struct where
       \s1 ->
         case s1 of
           Explicit_signed_long_long_struct explicit_signed_long_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_long_member") ptr0 explicit_signed_long_long_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_long_long_member") ptr0 explicit_signed_long_long_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_long_struct instance RIP.Storable Explicit_signed_long_long_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_long_struct instance BG.Storable Explicit_signed_long_long_struct
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_member" Explicit_signed_long_long_struct ty where
+instance ( ty ~ BG.CLLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_long_member" Explicit_signed_long_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_long_struct {explicit_signed_long_long_member = y1}
-      , RIP.getField @"explicit_signed_long_long_member" x0
+      , BG.getField @"explicit_signed_long_long_member" x0
       )
 
-instance ( ty ~ RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_member" (RIP.Ptr Explicit_signed_long_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CLLong
+         ) => BG.HasField "explicit_signed_long_long_member" (BG.Ptr Explicit_signed_long_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_long_member")
 
 instance HasCField.HasCField Explicit_signed_long_long_struct "explicit_signed_long_long_member" where
 
   type CFieldType Explicit_signed_long_long_struct "explicit_signed_long_long_member" =
-    RIP.CLLong
+    BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -1864,7 +1860,7 @@ instance HasCField.HasCField Explicit_signed_long_long_struct "explicit_signed_l
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_long_struct = Unsigned_long_long_struct
-  { unsigned_long_long_member :: RIP.CULLong
+  { unsigned_long_long_member :: BG.CULLong
     {- ^ __C declaration:__ @unsigned_long_long_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 226:62@
@@ -1872,7 +1868,7 @@ data Unsigned_long_long_struct = Unsigned_long_long_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_long_struct where
 
@@ -1885,7 +1881,7 @@ instance Marshal.ReadRaw Unsigned_long_long_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_long_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_long_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_long_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_long_struct where
 
@@ -1894,30 +1890,30 @@ instance Marshal.WriteRaw Unsigned_long_long_struct where
       \s1 ->
         case s1 of
           Unsigned_long_long_struct unsigned_long_long_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_long_member") ptr0 unsigned_long_long_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_long_member") ptr0 unsigned_long_long_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_long_struct instance RIP.Storable Unsigned_long_long_struct
+deriving via Marshal.EquivStorable Unsigned_long_long_struct instance BG.Storable Unsigned_long_long_struct
 
-instance ( ty ~ RIP.CULLong
-         ) => RIP.CompatHasField.HasField "unsigned_long_long_member" Unsigned_long_long_struct ty where
+instance ( ty ~ BG.CULLong
+         ) => BG.CompatHasField.HasField "unsigned_long_long_member" Unsigned_long_long_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_long_struct {unsigned_long_long_member = y1}
-      , RIP.getField @"unsigned_long_long_member" x0
+      , BG.getField @"unsigned_long_long_member" x0
       )
 
-instance ( ty ~ RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_member" (RIP.Ptr Unsigned_long_long_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CULLong
+         ) => BG.HasField "unsigned_long_long_member" (BG.Ptr Unsigned_long_long_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_long_member")
 
 instance HasCField.HasCField Unsigned_long_long_struct "unsigned_long_long_member" where
 
   type CFieldType Unsigned_long_long_struct "unsigned_long_long_member" =
-    RIP.CULLong
+    BG.CULLong
 
   offset# = \_ -> \_ -> 0
 
@@ -1932,7 +1928,7 @@ instance HasCField.HasCField Unsigned_long_long_struct "unsigned_long_long_membe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_struct = Ordinary_void_pointer_struct
-  { ordinary_void_pointer_member :: RIP.Ptr RIP.Void
+  { ordinary_void_pointer_member :: BG.Ptr BG.Void
     {- ^ __C declaration:__ @ordinary_void_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 235:71@
@@ -1940,7 +1936,7 @@ data Ordinary_void_pointer_struct = Ordinary_void_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_void_pointer_struct where
 
@@ -1953,7 +1949,7 @@ instance Marshal.ReadRaw Ordinary_void_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_void_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_void_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_void_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_void_pointer_struct where
 
@@ -1962,30 +1958,30 @@ instance Marshal.WriteRaw Ordinary_void_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_void_pointer_struct ordinary_void_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_void_pointer_member") ptr0 ordinary_void_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_void_pointer_member") ptr0 ordinary_void_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_void_pointer_struct instance RIP.Storable Ordinary_void_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_void_pointer_struct instance BG.Storable Ordinary_void_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.CompatHasField.HasField "ordinary_void_pointer_member" Ordinary_void_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.CompatHasField.HasField "ordinary_void_pointer_member" Ordinary_void_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_void_pointer_struct {ordinary_void_pointer_member = y1}
-      , RIP.getField @"ordinary_void_pointer_member" x0
+      , BG.getField @"ordinary_void_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "ordinary_void_pointer_member" (RIP.Ptr Ordinary_void_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.HasField "ordinary_void_pointer_member" (BG.Ptr Ordinary_void_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_void_pointer_member")
 
 instance HasCField.HasCField Ordinary_void_pointer_struct "ordinary_void_pointer_member" where
 
   type CFieldType Ordinary_void_pointer_struct "ordinary_void_pointer_member" =
-    RIP.Ptr RIP.Void
+    BG.Ptr BG.Void
 
   offset# = \_ -> \_ -> 0
 
@@ -1996,7 +1992,7 @@ instance HasCField.HasCField Ordinary_void_pointer_struct "ordinary_void_pointer
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_pointer_struct = Ordinary_float_pointer_struct
-  { ordinary_float_pointer_member :: RIP.Ptr RIP.CFloat
+  { ordinary_float_pointer_member :: BG.Ptr BG.CFloat
     {- ^ __C declaration:__ @ordinary_float_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 237:71@
@@ -2004,7 +2000,7 @@ data Ordinary_float_pointer_struct = Ordinary_float_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_float_pointer_struct where
 
@@ -2017,7 +2013,7 @@ instance Marshal.ReadRaw Ordinary_float_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_float_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_float_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_float_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_float_pointer_struct where
 
@@ -2026,30 +2022,30 @@ instance Marshal.WriteRaw Ordinary_float_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_float_pointer_struct ordinary_float_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_float_pointer_member") ptr0 ordinary_float_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_float_pointer_member") ptr0 ordinary_float_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_float_pointer_struct instance RIP.Storable Ordinary_float_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_float_pointer_struct instance BG.Storable Ordinary_float_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CFloat
-         ) => RIP.CompatHasField.HasField "ordinary_float_pointer_member" Ordinary_float_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CFloat
+         ) => BG.CompatHasField.HasField "ordinary_float_pointer_member" Ordinary_float_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_float_pointer_struct {ordinary_float_pointer_member = y1}
-      , RIP.getField @"ordinary_float_pointer_member" x0
+      , BG.getField @"ordinary_float_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CFloat
-         ) => RIP.HasField "ordinary_float_pointer_member" (RIP.Ptr Ordinary_float_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CFloat
+         ) => BG.HasField "ordinary_float_pointer_member" (BG.Ptr Ordinary_float_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_float_pointer_member")
 
 instance HasCField.HasCField Ordinary_float_pointer_struct "ordinary_float_pointer_member" where
 
   type CFieldType Ordinary_float_pointer_struct "ordinary_float_pointer_member" =
-    RIP.Ptr RIP.CFloat
+    BG.Ptr BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -2060,7 +2056,7 @@ instance HasCField.HasCField Ordinary_float_pointer_struct "ordinary_float_point
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_double_pointer_struct = Ordinary_double_pointer_struct
-  { ordinary_double_pointer_member :: RIP.Ptr RIP.CDouble
+  { ordinary_double_pointer_member :: BG.Ptr BG.CDouble
     {- ^ __C declaration:__ @ordinary_double_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 238:71@
@@ -2068,7 +2064,7 @@ data Ordinary_double_pointer_struct = Ordinary_double_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_double_pointer_struct where
 
@@ -2081,7 +2077,7 @@ instance Marshal.ReadRaw Ordinary_double_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_double_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_double_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_double_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_double_pointer_struct where
 
@@ -2090,30 +2086,30 @@ instance Marshal.WriteRaw Ordinary_double_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_double_pointer_struct ordinary_double_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_double_pointer_member") ptr0 ordinary_double_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_double_pointer_member") ptr0 ordinary_double_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_double_pointer_struct instance RIP.Storable Ordinary_double_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_double_pointer_struct instance BG.Storable Ordinary_double_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CDouble
-         ) => RIP.CompatHasField.HasField "ordinary_double_pointer_member" Ordinary_double_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CDouble
+         ) => BG.CompatHasField.HasField "ordinary_double_pointer_member" Ordinary_double_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_double_pointer_struct {ordinary_double_pointer_member = y1}
-      , RIP.getField @"ordinary_double_pointer_member" x0
+      , BG.getField @"ordinary_double_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CDouble
-         ) => RIP.HasField "ordinary_double_pointer_member" (RIP.Ptr Ordinary_double_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CDouble
+         ) => BG.HasField "ordinary_double_pointer_member" (BG.Ptr Ordinary_double_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_double_pointer_member")
 
 instance HasCField.HasCField Ordinary_double_pointer_struct "ordinary_double_pointer_member" where
 
   type CFieldType Ordinary_double_pointer_struct "ordinary_double_pointer_member" =
-    RIP.Ptr RIP.CDouble
+    BG.Ptr BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
@@ -2124,7 +2120,7 @@ instance HasCField.HasCField Ordinary_double_pointer_struct "ordinary_double_poi
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_char_pointer_struct = Ordinary_signed_char_pointer_struct
-  { ordinary_signed_char_pointer_member :: RIP.Ptr RIP.CChar
+  { ordinary_signed_char_pointer_member :: BG.Ptr BG.CChar
     {- ^ __C declaration:__ @ordinary_signed_char_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 241:71@
@@ -2132,7 +2128,7 @@ data Ordinary_signed_char_pointer_struct = Ordinary_signed_char_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_char_pointer_struct where
 
@@ -2145,7 +2141,7 @@ instance Marshal.ReadRaw Ordinary_signed_char_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_char_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_char_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_char_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct where
 
@@ -2154,30 +2150,30 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_char_pointer_struct ordinary_signed_char_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_char_pointer_member") ptr0 ordinary_signed_char_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_char_pointer_member") ptr0 ordinary_signed_char_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_struct instance RIP.Storable Ordinary_signed_char_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_struct instance BG.Storable Ordinary_signed_char_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_member" Ordinary_signed_char_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CChar
+         ) => BG.CompatHasField.HasField "ordinary_signed_char_pointer_member" Ordinary_signed_char_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_char_pointer_struct {ordinary_signed_char_pointer_member = y1}
-      , RIP.getField @"ordinary_signed_char_pointer_member" x0
+      , BG.getField @"ordinary_signed_char_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_pointer_member" (RIP.Ptr Ordinary_signed_char_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CChar
+         ) => BG.HasField "ordinary_signed_char_pointer_member" (BG.Ptr Ordinary_signed_char_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_char_pointer_member")
 
 instance HasCField.HasCField Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" where
 
   type CFieldType Ordinary_signed_char_pointer_struct "ordinary_signed_char_pointer_member" =
-    RIP.Ptr RIP.CChar
+    BG.Ptr BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -2188,7 +2184,7 @@ instance HasCField.HasCField Ordinary_signed_char_pointer_struct "ordinary_signe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_char_pointer_struct = Explicit_signed_char_pointer_struct
-  { explicit_signed_char_pointer_member :: RIP.Ptr RIP.CSChar
+  { explicit_signed_char_pointer_member :: BG.Ptr BG.CSChar
     {- ^ __C declaration:__ @explicit_signed_char_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 242:71@
@@ -2196,7 +2192,7 @@ data Explicit_signed_char_pointer_struct = Explicit_signed_char_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_char_pointer_struct where
 
@@ -2209,7 +2205,7 @@ instance Marshal.ReadRaw Explicit_signed_char_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_char_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_char_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_char_pointer_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_char_pointer_struct where
 
@@ -2218,30 +2214,30 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_struct where
       \s1 ->
         case s1 of
           Explicit_signed_char_pointer_struct explicit_signed_char_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_char_pointer_member") ptr0 explicit_signed_char_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_char_pointer_member") ptr0 explicit_signed_char_pointer_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_char_pointer_struct instance RIP.Storable Explicit_signed_char_pointer_struct
+deriving via Marshal.EquivStorable Explicit_signed_char_pointer_struct instance BG.Storable Explicit_signed_char_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CSChar
-         ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_member" Explicit_signed_char_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CSChar
+         ) => BG.CompatHasField.HasField "explicit_signed_char_pointer_member" Explicit_signed_char_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_char_pointer_struct {explicit_signed_char_pointer_member = y1}
-      , RIP.getField @"explicit_signed_char_pointer_member" x0
+      , BG.getField @"explicit_signed_char_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_pointer_member" (RIP.Ptr Explicit_signed_char_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CSChar
+         ) => BG.HasField "explicit_signed_char_pointer_member" (BG.Ptr Explicit_signed_char_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_char_pointer_member")
 
 instance HasCField.HasCField Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" where
 
   type CFieldType Explicit_signed_char_pointer_struct "explicit_signed_char_pointer_member" =
-    RIP.Ptr RIP.CSChar
+    BG.Ptr BG.CSChar
 
   offset# = \_ -> \_ -> 0
 
@@ -2252,7 +2248,7 @@ instance HasCField.HasCField Explicit_signed_char_pointer_struct "explicit_signe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_char_pointer_struct = Unsigned_char_pointer_struct
-  { unsigned_char_pointer_member :: RIP.Ptr RIP.CUChar
+  { unsigned_char_pointer_member :: BG.Ptr BG.CUChar
     {- ^ __C declaration:__ @unsigned_char_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 243:71@
@@ -2260,7 +2256,7 @@ data Unsigned_char_pointer_struct = Unsigned_char_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_char_pointer_struct where
 
@@ -2273,7 +2269,7 @@ instance Marshal.ReadRaw Unsigned_char_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_char_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_char_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_char_pointer_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_char_pointer_struct where
 
@@ -2282,30 +2278,30 @@ instance Marshal.WriteRaw Unsigned_char_pointer_struct where
       \s1 ->
         case s1 of
           Unsigned_char_pointer_struct unsigned_char_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_char_pointer_member") ptr0 unsigned_char_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_char_pointer_member") ptr0 unsigned_char_pointer_member2
 
-deriving via Marshal.EquivStorable Unsigned_char_pointer_struct instance RIP.Storable Unsigned_char_pointer_struct
+deriving via Marshal.EquivStorable Unsigned_char_pointer_struct instance BG.Storable Unsigned_char_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unsigned_char_pointer_member" Unsigned_char_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CUChar
+         ) => BG.CompatHasField.HasField "unsigned_char_pointer_member" Unsigned_char_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_char_pointer_struct {unsigned_char_pointer_member = y1}
-      , RIP.getField @"unsigned_char_pointer_member" x0
+      , BG.getField @"unsigned_char_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CUChar
-         ) => RIP.HasField "unsigned_char_pointer_member" (RIP.Ptr Unsigned_char_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CUChar
+         ) => BG.HasField "unsigned_char_pointer_member" (BG.Ptr Unsigned_char_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_char_pointer_member")
 
 instance HasCField.HasCField Unsigned_char_pointer_struct "unsigned_char_pointer_member" where
 
   type CFieldType Unsigned_char_pointer_struct "unsigned_char_pointer_member" =
-    RIP.Ptr RIP.CUChar
+    BG.Ptr BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
@@ -2316,7 +2312,7 @@ instance HasCField.HasCField Unsigned_char_pointer_struct "unsigned_char_pointer
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_short_pointer_struct = Ordinary_signed_short_pointer_struct
-  { ordinary_signed_short_pointer_member :: RIP.Ptr RIP.CShort
+  { ordinary_signed_short_pointer_member :: BG.Ptr BG.CShort
     {- ^ __C declaration:__ @ordinary_signed_short_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 245:71@
@@ -2324,7 +2320,7 @@ data Ordinary_signed_short_pointer_struct = Ordinary_signed_short_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_short_pointer_struct where
 
@@ -2337,7 +2333,7 @@ instance Marshal.ReadRaw Ordinary_signed_short_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_short_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_short_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_short_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct where
 
@@ -2346,30 +2342,30 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_short_pointer_struct ordinary_signed_short_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_short_pointer_member") ptr0 ordinary_signed_short_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_pointer_member") ptr0 ordinary_signed_short_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_struct instance RIP.Storable Ordinary_signed_short_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_struct instance BG.Storable Ordinary_signed_short_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_member" Ordinary_signed_short_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CShort
+         ) => BG.CompatHasField.HasField "ordinary_signed_short_pointer_member" Ordinary_signed_short_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_short_pointer_struct {ordinary_signed_short_pointer_member = y1}
-      , RIP.getField @"ordinary_signed_short_pointer_member" x0
+      , BG.getField @"ordinary_signed_short_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_pointer_member" (RIP.Ptr Ordinary_signed_short_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CShort
+         ) => BG.HasField "ordinary_signed_short_pointer_member" (BG.Ptr Ordinary_signed_short_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_short_pointer_member")
 
 instance HasCField.HasCField Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" where
 
   type CFieldType Ordinary_signed_short_pointer_struct "ordinary_signed_short_pointer_member" =
-    RIP.Ptr RIP.CShort
+    BG.Ptr BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -2380,7 +2376,7 @@ instance HasCField.HasCField Ordinary_signed_short_pointer_struct "ordinary_sign
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_short_pointer_struct = Explicit_signed_short_pointer_struct
-  { explicit_signed_short_pointer_member :: RIP.Ptr RIP.CShort
+  { explicit_signed_short_pointer_member :: BG.Ptr BG.CShort
     {- ^ __C declaration:__ @explicit_signed_short_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 246:71@
@@ -2388,7 +2384,7 @@ data Explicit_signed_short_pointer_struct = Explicit_signed_short_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_short_pointer_struct where
 
@@ -2401,7 +2397,7 @@ instance Marshal.ReadRaw Explicit_signed_short_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_short_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_short_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_short_pointer_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_short_pointer_struct where
 
@@ -2410,30 +2406,30 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_struct where
       \s1 ->
         case s1 of
           Explicit_signed_short_pointer_struct explicit_signed_short_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_short_pointer_member") ptr0 explicit_signed_short_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_short_pointer_member") ptr0 explicit_signed_short_pointer_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_short_pointer_struct instance RIP.Storable Explicit_signed_short_pointer_struct
+deriving via Marshal.EquivStorable Explicit_signed_short_pointer_struct instance BG.Storable Explicit_signed_short_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_member" Explicit_signed_short_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CShort
+         ) => BG.CompatHasField.HasField "explicit_signed_short_pointer_member" Explicit_signed_short_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_short_pointer_struct {explicit_signed_short_pointer_member = y1}
-      , RIP.getField @"explicit_signed_short_pointer_member" x0
+      , BG.getField @"explicit_signed_short_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_pointer_member" (RIP.Ptr Explicit_signed_short_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CShort
+         ) => BG.HasField "explicit_signed_short_pointer_member" (BG.Ptr Explicit_signed_short_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_short_pointer_member")
 
 instance HasCField.HasCField Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" where
 
   type CFieldType Explicit_signed_short_pointer_struct "explicit_signed_short_pointer_member" =
-    RIP.Ptr RIP.CShort
+    BG.Ptr BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -2444,7 +2440,7 @@ instance HasCField.HasCField Explicit_signed_short_pointer_struct "explicit_sign
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_short_pointer_struct = Unsigned_short_pointer_struct
-  { unsigned_short_pointer_member :: RIP.Ptr RIP.CUShort
+  { unsigned_short_pointer_member :: BG.Ptr BG.CUShort
     {- ^ __C declaration:__ @unsigned_short_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 247:71@
@@ -2452,7 +2448,7 @@ data Unsigned_short_pointer_struct = Unsigned_short_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_short_pointer_struct where
 
@@ -2465,7 +2461,7 @@ instance Marshal.ReadRaw Unsigned_short_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_short_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_short_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_short_pointer_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_short_pointer_struct where
 
@@ -2474,30 +2470,30 @@ instance Marshal.WriteRaw Unsigned_short_pointer_struct where
       \s1 ->
         case s1 of
           Unsigned_short_pointer_struct unsigned_short_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_short_pointer_member") ptr0 unsigned_short_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_short_pointer_member") ptr0 unsigned_short_pointer_member2
 
-deriving via Marshal.EquivStorable Unsigned_short_pointer_struct instance RIP.Storable Unsigned_short_pointer_struct
+deriving via Marshal.EquivStorable Unsigned_short_pointer_struct instance BG.Storable Unsigned_short_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CUShort
-         ) => RIP.CompatHasField.HasField "unsigned_short_pointer_member" Unsigned_short_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CUShort
+         ) => BG.CompatHasField.HasField "unsigned_short_pointer_member" Unsigned_short_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_short_pointer_struct {unsigned_short_pointer_member = y1}
-      , RIP.getField @"unsigned_short_pointer_member" x0
+      , BG.getField @"unsigned_short_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CUShort
-         ) => RIP.HasField "unsigned_short_pointer_member" (RIP.Ptr Unsigned_short_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CUShort
+         ) => BG.HasField "unsigned_short_pointer_member" (BG.Ptr Unsigned_short_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_short_pointer_member")
 
 instance HasCField.HasCField Unsigned_short_pointer_struct "unsigned_short_pointer_member" where
 
   type CFieldType Unsigned_short_pointer_struct "unsigned_short_pointer_member" =
-    RIP.Ptr RIP.CUShort
+    BG.Ptr BG.CUShort
 
   offset# = \_ -> \_ -> 0
 
@@ -2508,7 +2504,7 @@ instance HasCField.HasCField Unsigned_short_pointer_struct "unsigned_short_point
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_int_pointer_struct = Ordinary_signed_int_pointer_struct
-  { ordinary_signed_int_pointer_member :: RIP.Ptr RIP.CInt
+  { ordinary_signed_int_pointer_member :: BG.Ptr BG.CInt
     {- ^ __C declaration:__ @ordinary_signed_int_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 249:71@
@@ -2516,7 +2512,7 @@ data Ordinary_signed_int_pointer_struct = Ordinary_signed_int_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_int_pointer_struct where
 
@@ -2529,7 +2525,7 @@ instance Marshal.ReadRaw Ordinary_signed_int_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_int_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_int_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_int_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct where
 
@@ -2538,30 +2534,30 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_int_pointer_struct ordinary_signed_int_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_int_pointer_member") ptr0 ordinary_signed_int_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_int_pointer_member") ptr0 ordinary_signed_int_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_struct instance RIP.Storable Ordinary_signed_int_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_struct instance BG.Storable Ordinary_signed_int_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_member" Ordinary_signed_int_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "ordinary_signed_int_pointer_member" Ordinary_signed_int_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_int_pointer_struct {ordinary_signed_int_pointer_member = y1}
-      , RIP.getField @"ordinary_signed_int_pointer_member" x0
+      , BG.getField @"ordinary_signed_int_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_pointer_member" (RIP.Ptr Ordinary_signed_int_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "ordinary_signed_int_pointer_member" (BG.Ptr Ordinary_signed_int_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_int_pointer_member")
 
 instance HasCField.HasCField Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" where
 
   type CFieldType Ordinary_signed_int_pointer_struct "ordinary_signed_int_pointer_member" =
-    RIP.Ptr RIP.CInt
+    BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -2572,7 +2568,7 @@ instance HasCField.HasCField Ordinary_signed_int_pointer_struct "ordinary_signed
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_int_pointer_struct = Explicit_signed_int_pointer_struct
-  { explicit_signed_int_pointer_member :: RIP.Ptr RIP.CInt
+  { explicit_signed_int_pointer_member :: BG.Ptr BG.CInt
     {- ^ __C declaration:__ @explicit_signed_int_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 250:71@
@@ -2580,7 +2576,7 @@ data Explicit_signed_int_pointer_struct = Explicit_signed_int_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_int_pointer_struct where
 
@@ -2593,7 +2589,7 @@ instance Marshal.ReadRaw Explicit_signed_int_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_int_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_int_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_int_pointer_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_int_pointer_struct where
 
@@ -2602,30 +2598,30 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_struct where
       \s1 ->
         case s1 of
           Explicit_signed_int_pointer_struct explicit_signed_int_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_int_pointer_member") ptr0 explicit_signed_int_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_int_pointer_member") ptr0 explicit_signed_int_pointer_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_int_pointer_struct instance RIP.Storable Explicit_signed_int_pointer_struct
+deriving via Marshal.EquivStorable Explicit_signed_int_pointer_struct instance BG.Storable Explicit_signed_int_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_member" Explicit_signed_int_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "explicit_signed_int_pointer_member" Explicit_signed_int_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_int_pointer_struct {explicit_signed_int_pointer_member = y1}
-      , RIP.getField @"explicit_signed_int_pointer_member" x0
+      , BG.getField @"explicit_signed_int_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_pointer_member" (RIP.Ptr Explicit_signed_int_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "explicit_signed_int_pointer_member" (BG.Ptr Explicit_signed_int_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_int_pointer_member")
 
 instance HasCField.HasCField Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" where
 
   type CFieldType Explicit_signed_int_pointer_struct "explicit_signed_int_pointer_member" =
-    RIP.Ptr RIP.CInt
+    BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -2636,7 +2632,7 @@ instance HasCField.HasCField Explicit_signed_int_pointer_struct "explicit_signed
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_int_pointer_struct = Unsigned_int_pointer_struct
-  { unsigned_int_pointer_member :: RIP.Ptr RIP.CUInt
+  { unsigned_int_pointer_member :: BG.Ptr BG.CUInt
     {- ^ __C declaration:__ @unsigned_int_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 251:71@
@@ -2644,7 +2640,7 @@ data Unsigned_int_pointer_struct = Unsigned_int_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_int_pointer_struct where
 
@@ -2657,7 +2653,7 @@ instance Marshal.ReadRaw Unsigned_int_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_int_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_int_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_int_pointer_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_int_pointer_struct where
 
@@ -2666,30 +2662,30 @@ instance Marshal.WriteRaw Unsigned_int_pointer_struct where
       \s1 ->
         case s1 of
           Unsigned_int_pointer_struct unsigned_int_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_int_pointer_member") ptr0 unsigned_int_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_int_pointer_member") ptr0 unsigned_int_pointer_member2
 
-deriving via Marshal.EquivStorable Unsigned_int_pointer_struct instance RIP.Storable Unsigned_int_pointer_struct
+deriving via Marshal.EquivStorable Unsigned_int_pointer_struct instance BG.Storable Unsigned_int_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unsigned_int_pointer_member" Unsigned_int_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CUInt
+         ) => BG.CompatHasField.HasField "unsigned_int_pointer_member" Unsigned_int_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_int_pointer_struct {unsigned_int_pointer_member = y1}
-      , RIP.getField @"unsigned_int_pointer_member" x0
+      , BG.getField @"unsigned_int_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CUInt
-         ) => RIP.HasField "unsigned_int_pointer_member" (RIP.Ptr Unsigned_int_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CUInt
+         ) => BG.HasField "unsigned_int_pointer_member" (BG.Ptr Unsigned_int_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_int_pointer_member")
 
 instance HasCField.HasCField Unsigned_int_pointer_struct "unsigned_int_pointer_member" where
 
   type CFieldType Unsigned_int_pointer_struct "unsigned_int_pointer_member" =
-    RIP.Ptr RIP.CUInt
+    BG.Ptr BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -2700,7 +2696,7 @@ instance HasCField.HasCField Unsigned_int_pointer_struct "unsigned_int_pointer_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_pointer_struct = Ordinary_signed_long_pointer_struct
-  { ordinary_signed_long_pointer_member :: RIP.Ptr RIP.CLong
+  { ordinary_signed_long_pointer_member :: BG.Ptr BG.CLong
     {- ^ __C declaration:__ @ordinary_signed_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 253:71@
@@ -2708,7 +2704,7 @@ data Ordinary_signed_long_pointer_struct = Ordinary_signed_long_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_pointer_struct where
 
@@ -2721,7 +2717,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct where
 
@@ -2730,30 +2726,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_long_pointer_struct ordinary_signed_long_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_pointer_member") ptr0 ordinary_signed_long_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_pointer_member") ptr0 ordinary_signed_long_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_struct instance RIP.Storable Ordinary_signed_long_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_struct instance BG.Storable Ordinary_signed_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_member" Ordinary_signed_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_pointer_member" Ordinary_signed_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_pointer_struct {ordinary_signed_long_pointer_member = y1}
-      , RIP.getField @"ordinary_signed_long_pointer_member" x0
+      , BG.getField @"ordinary_signed_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_pointer_member" (RIP.Ptr Ordinary_signed_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CLong
+         ) => BG.HasField "ordinary_signed_long_pointer_member" (BG.Ptr Ordinary_signed_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_pointer_member")
 
 instance HasCField.HasCField Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" where
 
   type CFieldType Ordinary_signed_long_pointer_struct "ordinary_signed_long_pointer_member" =
-    RIP.Ptr RIP.CLong
+    BG.Ptr BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -2764,7 +2760,7 @@ instance HasCField.HasCField Ordinary_signed_long_pointer_struct "ordinary_signe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_pointer_struct = Explicit_signed_long_pointer_struct
-  { explicit_signed_long_pointer_member :: RIP.Ptr RIP.CLong
+  { explicit_signed_long_pointer_member :: BG.Ptr BG.CLong
     {- ^ __C declaration:__ @explicit_signed_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 254:71@
@@ -2772,7 +2768,7 @@ data Explicit_signed_long_pointer_struct = Explicit_signed_long_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_pointer_struct where
 
@@ -2785,7 +2781,7 @@ instance Marshal.ReadRaw Explicit_signed_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_pointer_struct where
 
@@ -2794,30 +2790,30 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_struct where
       \s1 ->
         case s1 of
           Explicit_signed_long_pointer_struct explicit_signed_long_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_pointer_member") ptr0 explicit_signed_long_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_long_pointer_member") ptr0 explicit_signed_long_pointer_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_pointer_struct instance RIP.Storable Explicit_signed_long_pointer_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_pointer_struct instance BG.Storable Explicit_signed_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_member" Explicit_signed_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_pointer_member" Explicit_signed_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_pointer_struct {explicit_signed_long_pointer_member = y1}
-      , RIP.getField @"explicit_signed_long_pointer_member" x0
+      , BG.getField @"explicit_signed_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_pointer_member" (RIP.Ptr Explicit_signed_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CLong
+         ) => BG.HasField "explicit_signed_long_pointer_member" (BG.Ptr Explicit_signed_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_pointer_member")
 
 instance HasCField.HasCField Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" where
 
   type CFieldType Explicit_signed_long_pointer_struct "explicit_signed_long_pointer_member" =
-    RIP.Ptr RIP.CLong
+    BG.Ptr BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -2828,7 +2824,7 @@ instance HasCField.HasCField Explicit_signed_long_pointer_struct "explicit_signe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_pointer_struct = Unsigned_long_pointer_struct
-  { unsigned_long_pointer_member :: RIP.Ptr RIP.CULong
+  { unsigned_long_pointer_member :: BG.Ptr BG.CULong
     {- ^ __C declaration:__ @unsigned_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 255:71@
@@ -2836,7 +2832,7 @@ data Unsigned_long_pointer_struct = Unsigned_long_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_pointer_struct where
 
@@ -2849,7 +2845,7 @@ instance Marshal.ReadRaw Unsigned_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_pointer_struct where
 
@@ -2858,30 +2854,30 @@ instance Marshal.WriteRaw Unsigned_long_pointer_struct where
       \s1 ->
         case s1 of
           Unsigned_long_pointer_struct unsigned_long_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_pointer_member") ptr0 unsigned_long_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_pointer_member") ptr0 unsigned_long_pointer_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_pointer_struct instance RIP.Storable Unsigned_long_pointer_struct
+deriving via Marshal.EquivStorable Unsigned_long_pointer_struct instance BG.Storable Unsigned_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CULong
-         ) => RIP.CompatHasField.HasField "unsigned_long_pointer_member" Unsigned_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CULong
+         ) => BG.CompatHasField.HasField "unsigned_long_pointer_member" Unsigned_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_pointer_struct {unsigned_long_pointer_member = y1}
-      , RIP.getField @"unsigned_long_pointer_member" x0
+      , BG.getField @"unsigned_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CULong
-         ) => RIP.HasField "unsigned_long_pointer_member" (RIP.Ptr Unsigned_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CULong
+         ) => BG.HasField "unsigned_long_pointer_member" (BG.Ptr Unsigned_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_pointer_member")
 
 instance HasCField.HasCField Unsigned_long_pointer_struct "unsigned_long_pointer_member" where
 
   type CFieldType Unsigned_long_pointer_struct "unsigned_long_pointer_member" =
-    RIP.Ptr RIP.CULong
+    BG.Ptr BG.CULong
 
   offset# = \_ -> \_ -> 0
 
@@ -2892,7 +2888,7 @@ instance HasCField.HasCField Unsigned_long_pointer_struct "unsigned_long_pointer
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_long_pointer_struct = Ordinary_signed_long_long_pointer_struct
-  { ordinary_signed_long_long_pointer_member :: RIP.Ptr RIP.CLLong
+  { ordinary_signed_long_long_pointer_member :: BG.Ptr BG.CLLong
     {- ^ __C declaration:__ @ordinary_signed_long_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 257:71@
@@ -2900,7 +2896,7 @@ data Ordinary_signed_long_long_pointer_struct = Ordinary_signed_long_long_pointe
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_long_pointer_struct where
 
@@ -2913,7 +2909,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct where
 
@@ -2923,30 +2919,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct where
         case s1 of
           Ordinary_signed_long_long_pointer_struct
             ordinary_signed_long_long_pointer_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_long_pointer_member") ptr0 ordinary_signed_long_long_pointer_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_long_pointer_member") ptr0 ordinary_signed_long_long_pointer_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_struct instance RIP.Storable Ordinary_signed_long_long_pointer_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_struct instance BG.Storable Ordinary_signed_long_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_member" Ordinary_signed_long_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CLLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_long_pointer_member" Ordinary_signed_long_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_long_pointer_struct {ordinary_signed_long_long_pointer_member = y1}
-      , RIP.getField @"ordinary_signed_long_long_pointer_member" x0
+      , BG.getField @"ordinary_signed_long_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_pointer_member" (RIP.Ptr Ordinary_signed_long_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CLLong
+         ) => BG.HasField "ordinary_signed_long_long_pointer_member" (BG.Ptr Ordinary_signed_long_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_long_pointer_member")
 
 instance HasCField.HasCField Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" where
 
   type CFieldType Ordinary_signed_long_long_pointer_struct "ordinary_signed_long_long_pointer_member" =
-    RIP.Ptr RIP.CLLong
+    BG.Ptr BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -2957,7 +2953,7 @@ instance HasCField.HasCField Ordinary_signed_long_long_pointer_struct "ordinary_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_long_pointer_struct = Explicit_signed_long_long_pointer_struct
-  { explicit_signed_long_long_pointer_member :: RIP.Ptr RIP.CLLong
+  { explicit_signed_long_long_pointer_member :: BG.Ptr BG.CLLong
     {- ^ __C declaration:__ @explicit_signed_long_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 258:71@
@@ -2965,7 +2961,7 @@ data Explicit_signed_long_long_pointer_struct = Explicit_signed_long_long_pointe
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_long_pointer_struct where
 
@@ -2978,7 +2974,7 @@ instance Marshal.ReadRaw Explicit_signed_long_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct where
 
@@ -2988,30 +2984,30 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct where
         case s1 of
           Explicit_signed_long_long_pointer_struct
             explicit_signed_long_long_pointer_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_long_pointer_member") ptr0 explicit_signed_long_long_pointer_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_long_long_pointer_member") ptr0 explicit_signed_long_long_pointer_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_struct instance RIP.Storable Explicit_signed_long_long_pointer_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_struct instance BG.Storable Explicit_signed_long_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_member" Explicit_signed_long_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CLLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_long_pointer_member" Explicit_signed_long_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_long_pointer_struct {explicit_signed_long_long_pointer_member = y1}
-      , RIP.getField @"explicit_signed_long_long_pointer_member" x0
+      , BG.getField @"explicit_signed_long_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_pointer_member" (RIP.Ptr Explicit_signed_long_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CLLong
+         ) => BG.HasField "explicit_signed_long_long_pointer_member" (BG.Ptr Explicit_signed_long_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_long_pointer_member")
 
 instance HasCField.HasCField Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" where
 
   type CFieldType Explicit_signed_long_long_pointer_struct "explicit_signed_long_long_pointer_member" =
-    RIP.Ptr RIP.CLLong
+    BG.Ptr BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -3022,7 +3018,7 @@ instance HasCField.HasCField Explicit_signed_long_long_pointer_struct "explicit_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_long_pointer_struct = Unsigned_long_long_pointer_struct
-  { unsigned_long_long_pointer_member :: RIP.Ptr RIP.CULLong
+  { unsigned_long_long_pointer_member :: BG.Ptr BG.CULLong
     {- ^ __C declaration:__ @unsigned_long_long_pointer_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 259:71@
@@ -3030,7 +3026,7 @@ data Unsigned_long_long_pointer_struct = Unsigned_long_long_pointer_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_long_pointer_struct where
 
@@ -3043,7 +3039,7 @@ instance Marshal.ReadRaw Unsigned_long_long_pointer_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_long_pointer_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_long_pointer_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_long_pointer_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_long_pointer_struct where
 
@@ -3052,30 +3048,30 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_struct where
       \s1 ->
         case s1 of
           Unsigned_long_long_pointer_struct unsigned_long_long_pointer_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_long_pointer_member") ptr0 unsigned_long_long_pointer_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_long_pointer_member") ptr0 unsigned_long_long_pointer_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_long_pointer_struct instance RIP.Storable Unsigned_long_long_pointer_struct
+deriving via Marshal.EquivStorable Unsigned_long_long_pointer_struct instance BG.Storable Unsigned_long_long_pointer_struct
 
-instance ( ty ~ RIP.Ptr RIP.CULLong
-         ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_member" Unsigned_long_long_pointer_struct ty where
+instance ( ty ~ BG.Ptr BG.CULLong
+         ) => BG.CompatHasField.HasField "unsigned_long_long_pointer_member" Unsigned_long_long_pointer_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_long_pointer_struct {unsigned_long_long_pointer_member = y1}
-      , RIP.getField @"unsigned_long_long_pointer_member" x0
+      , BG.getField @"unsigned_long_long_pointer_member" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_pointer_member" (RIP.Ptr Unsigned_long_long_pointer_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CULLong
+         ) => BG.HasField "unsigned_long_long_pointer_member" (BG.Ptr Unsigned_long_long_pointer_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_long_pointer_member")
 
 instance HasCField.HasCField Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" where
 
   type CFieldType Unsigned_long_long_pointer_struct "unsigned_long_long_pointer_member" =
-    RIP.Ptr RIP.CULLong
+    BG.Ptr BG.CULLong
 
   offset# = \_ -> \_ -> 0
 
@@ -3088,7 +3084,7 @@ instance HasCField.HasCField Unsigned_long_long_pointer_struct "unsigned_long_lo
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_array_struct = Ordinary_float_array_struct
-  { ordinary_float_array_member :: CA.ConstantArray 10 RIP.CFloat
+  { ordinary_float_array_member :: CA.ConstantArray 10 BG.CFloat
     {- ^ __C declaration:__ @ordinary_float_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 265:68@
@@ -3096,7 +3092,7 @@ data Ordinary_float_array_struct = Ordinary_float_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_float_array_struct where
 
@@ -3109,7 +3105,7 @@ instance Marshal.ReadRaw Ordinary_float_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_float_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_float_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_float_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_float_array_struct where
 
@@ -3118,30 +3114,30 @@ instance Marshal.WriteRaw Ordinary_float_array_struct where
       \s1 ->
         case s1 of
           Ordinary_float_array_struct ordinary_float_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_float_array_member") ptr0 ordinary_float_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_float_array_member") ptr0 ordinary_float_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_float_array_struct instance RIP.Storable Ordinary_float_array_struct
+deriving via Marshal.EquivStorable Ordinary_float_array_struct instance BG.Storable Ordinary_float_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
-         ) => RIP.CompatHasField.HasField "ordinary_float_array_member" Ordinary_float_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CFloat
+         ) => BG.CompatHasField.HasField "ordinary_float_array_member" Ordinary_float_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_float_array_struct {ordinary_float_array_member = y1}
-      , RIP.getField @"ordinary_float_array_member" x0
+      , BG.getField @"ordinary_float_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CFloat
-         ) => RIP.HasField "ordinary_float_array_member" (RIP.Ptr Ordinary_float_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CFloat
+         ) => BG.HasField "ordinary_float_array_member" (BG.Ptr Ordinary_float_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_float_array_member")
 
 instance HasCField.HasCField Ordinary_float_array_struct "ordinary_float_array_member" where
 
   type CFieldType Ordinary_float_array_struct "ordinary_float_array_member" =
-    CA.ConstantArray 10 RIP.CFloat
+    CA.ConstantArray 10 BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -3152,7 +3148,7 @@ instance HasCField.HasCField Ordinary_float_array_struct "ordinary_float_array_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_double_array_struct = Ordinary_double_array_struct
-  { ordinary_double_array_member :: CA.ConstantArray 10 RIP.CDouble
+  { ordinary_double_array_member :: CA.ConstantArray 10 BG.CDouble
     {- ^ __C declaration:__ @ordinary_double_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 266:68@
@@ -3160,7 +3156,7 @@ data Ordinary_double_array_struct = Ordinary_double_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_double_array_struct where
 
@@ -3173,7 +3169,7 @@ instance Marshal.ReadRaw Ordinary_double_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_double_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_double_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_double_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_double_array_struct where
 
@@ -3182,30 +3178,30 @@ instance Marshal.WriteRaw Ordinary_double_array_struct where
       \s1 ->
         case s1 of
           Ordinary_double_array_struct ordinary_double_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_double_array_member") ptr0 ordinary_double_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_double_array_member") ptr0 ordinary_double_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_double_array_struct instance RIP.Storable Ordinary_double_array_struct
+deriving via Marshal.EquivStorable Ordinary_double_array_struct instance BG.Storable Ordinary_double_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
-         ) => RIP.CompatHasField.HasField "ordinary_double_array_member" Ordinary_double_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CDouble
+         ) => BG.CompatHasField.HasField "ordinary_double_array_member" Ordinary_double_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_double_array_struct {ordinary_double_array_member = y1}
-      , RIP.getField @"ordinary_double_array_member" x0
+      , BG.getField @"ordinary_double_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CDouble
-         ) => RIP.HasField "ordinary_double_array_member" (RIP.Ptr Ordinary_double_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CDouble
+         ) => BG.HasField "ordinary_double_array_member" (BG.Ptr Ordinary_double_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_double_array_member")
 
 instance HasCField.HasCField Ordinary_double_array_struct "ordinary_double_array_member" where
 
   type CFieldType Ordinary_double_array_struct "ordinary_double_array_member" =
-    CA.ConstantArray 10 RIP.CDouble
+    CA.ConstantArray 10 BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
@@ -3216,7 +3212,7 @@ instance HasCField.HasCField Ordinary_double_array_struct "ordinary_double_array
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_char_array_struct = Ordinary_signed_char_array_struct
-  { ordinary_signed_char_array_member :: CA.ConstantArray 10 RIP.CChar
+  { ordinary_signed_char_array_member :: CA.ConstantArray 10 BG.CChar
     {- ^ __C declaration:__ @ordinary_signed_char_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 269:68@
@@ -3224,7 +3220,7 @@ data Ordinary_signed_char_array_struct = Ordinary_signed_char_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_char_array_struct where
 
@@ -3237,7 +3233,7 @@ instance Marshal.ReadRaw Ordinary_signed_char_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_char_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_char_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_char_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_char_array_struct where
 
@@ -3246,30 +3242,30 @@ instance Marshal.WriteRaw Ordinary_signed_char_array_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_char_array_struct ordinary_signed_char_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_char_array_member") ptr0 ordinary_signed_char_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_char_array_member") ptr0 ordinary_signed_char_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_char_array_struct instance RIP.Storable Ordinary_signed_char_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_char_array_struct instance BG.Storable Ordinary_signed_char_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CChar
-         ) => RIP.CompatHasField.HasField "ordinary_signed_char_array_member" Ordinary_signed_char_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CChar
+         ) => BG.CompatHasField.HasField "ordinary_signed_char_array_member" Ordinary_signed_char_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_char_array_struct {ordinary_signed_char_array_member = y1}
-      , RIP.getField @"ordinary_signed_char_array_member" x0
+      , BG.getField @"ordinary_signed_char_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CChar
-         ) => RIP.HasField "ordinary_signed_char_array_member" (RIP.Ptr Ordinary_signed_char_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CChar
+         ) => BG.HasField "ordinary_signed_char_array_member" (BG.Ptr Ordinary_signed_char_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_char_array_member")
 
 instance HasCField.HasCField Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" where
 
   type CFieldType Ordinary_signed_char_array_struct "ordinary_signed_char_array_member" =
-    CA.ConstantArray 10 RIP.CChar
+    CA.ConstantArray 10 BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -3280,7 +3276,7 @@ instance HasCField.HasCField Ordinary_signed_char_array_struct "ordinary_signed_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_char_array_struct = Explicit_signed_char_array_struct
-  { explicit_signed_char_array_member :: CA.ConstantArray 10 RIP.CSChar
+  { explicit_signed_char_array_member :: CA.ConstantArray 10 BG.CSChar
     {- ^ __C declaration:__ @explicit_signed_char_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 270:68@
@@ -3288,7 +3284,7 @@ data Explicit_signed_char_array_struct = Explicit_signed_char_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_char_array_struct where
 
@@ -3301,7 +3297,7 @@ instance Marshal.ReadRaw Explicit_signed_char_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_char_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_char_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_char_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_char_array_struct where
 
@@ -3310,30 +3306,30 @@ instance Marshal.WriteRaw Explicit_signed_char_array_struct where
       \s1 ->
         case s1 of
           Explicit_signed_char_array_struct explicit_signed_char_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_char_array_member") ptr0 explicit_signed_char_array_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_char_array_member") ptr0 explicit_signed_char_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_char_array_struct instance RIP.Storable Explicit_signed_char_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_char_array_struct instance BG.Storable Explicit_signed_char_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
-         ) => RIP.CompatHasField.HasField "explicit_signed_char_array_member" Explicit_signed_char_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CSChar
+         ) => BG.CompatHasField.HasField "explicit_signed_char_array_member" Explicit_signed_char_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_char_array_struct {explicit_signed_char_array_member = y1}
-      , RIP.getField @"explicit_signed_char_array_member" x0
+      , BG.getField @"explicit_signed_char_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CSChar
-         ) => RIP.HasField "explicit_signed_char_array_member" (RIP.Ptr Explicit_signed_char_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CSChar
+         ) => BG.HasField "explicit_signed_char_array_member" (BG.Ptr Explicit_signed_char_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_char_array_member")
 
 instance HasCField.HasCField Explicit_signed_char_array_struct "explicit_signed_char_array_member" where
 
   type CFieldType Explicit_signed_char_array_struct "explicit_signed_char_array_member" =
-    CA.ConstantArray 10 RIP.CSChar
+    CA.ConstantArray 10 BG.CSChar
 
   offset# = \_ -> \_ -> 0
 
@@ -3344,7 +3340,7 @@ instance HasCField.HasCField Explicit_signed_char_array_struct "explicit_signed_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_char_array_struct = Unsigned_char_array_struct
-  { unsigned_char_array_member :: CA.ConstantArray 10 RIP.CUChar
+  { unsigned_char_array_member :: CA.ConstantArray 10 BG.CUChar
     {- ^ __C declaration:__ @unsigned_char_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 271:68@
@@ -3352,7 +3348,7 @@ data Unsigned_char_array_struct = Unsigned_char_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_char_array_struct where
 
@@ -3365,7 +3361,7 @@ instance Marshal.ReadRaw Unsigned_char_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_char_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_char_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_char_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_char_array_struct where
 
@@ -3374,30 +3370,30 @@ instance Marshal.WriteRaw Unsigned_char_array_struct where
       \s1 ->
         case s1 of
           Unsigned_char_array_struct unsigned_char_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_char_array_member") ptr0 unsigned_char_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_char_array_member") ptr0 unsigned_char_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_char_array_struct instance RIP.Storable Unsigned_char_array_struct
+deriving via Marshal.EquivStorable Unsigned_char_array_struct instance BG.Storable Unsigned_char_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
-         ) => RIP.CompatHasField.HasField "unsigned_char_array_member" Unsigned_char_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CUChar
+         ) => BG.CompatHasField.HasField "unsigned_char_array_member" Unsigned_char_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_char_array_struct {unsigned_char_array_member = y1}
-      , RIP.getField @"unsigned_char_array_member" x0
+      , BG.getField @"unsigned_char_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUChar
-         ) => RIP.HasField "unsigned_char_array_member" (RIP.Ptr Unsigned_char_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CUChar
+         ) => BG.HasField "unsigned_char_array_member" (BG.Ptr Unsigned_char_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_char_array_member")
 
 instance HasCField.HasCField Unsigned_char_array_struct "unsigned_char_array_member" where
 
   type CFieldType Unsigned_char_array_struct "unsigned_char_array_member" =
-    CA.ConstantArray 10 RIP.CUChar
+    CA.ConstantArray 10 BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
@@ -3408,7 +3404,7 @@ instance HasCField.HasCField Unsigned_char_array_struct "unsigned_char_array_mem
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_short_array_struct = Ordinary_signed_short_array_struct
-  { ordinary_signed_short_array_member :: CA.ConstantArray 10 RIP.CShort
+  { ordinary_signed_short_array_member :: CA.ConstantArray 10 BG.CShort
     {- ^ __C declaration:__ @ordinary_signed_short_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 273:68@
@@ -3416,7 +3412,7 @@ data Ordinary_signed_short_array_struct = Ordinary_signed_short_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_short_array_struct where
 
@@ -3429,7 +3425,7 @@ instance Marshal.ReadRaw Ordinary_signed_short_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_short_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_short_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_short_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_short_array_struct where
 
@@ -3438,30 +3434,30 @@ instance Marshal.WriteRaw Ordinary_signed_short_array_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_short_array_struct ordinary_signed_short_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_short_array_member") ptr0 ordinary_signed_short_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_array_member") ptr0 ordinary_signed_short_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_short_array_struct instance RIP.Storable Ordinary_signed_short_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_short_array_struct instance BG.Storable Ordinary_signed_short_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.CompatHasField.HasField "ordinary_signed_short_array_member" Ordinary_signed_short_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CShort
+         ) => BG.CompatHasField.HasField "ordinary_signed_short_array_member" Ordinary_signed_short_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_short_array_struct {ordinary_signed_short_array_member = y1}
-      , RIP.getField @"ordinary_signed_short_array_member" x0
+      , BG.getField @"ordinary_signed_short_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.HasField "ordinary_signed_short_array_member" (RIP.Ptr Ordinary_signed_short_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CShort
+         ) => BG.HasField "ordinary_signed_short_array_member" (BG.Ptr Ordinary_signed_short_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_short_array_member")
 
 instance HasCField.HasCField Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" where
 
   type CFieldType Ordinary_signed_short_array_struct "ordinary_signed_short_array_member" =
-    CA.ConstantArray 10 RIP.CShort
+    CA.ConstantArray 10 BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -3472,7 +3468,7 @@ instance HasCField.HasCField Ordinary_signed_short_array_struct "ordinary_signed
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_short_array_struct = Explicit_signed_short_array_struct
-  { explicit_signed_short_array_member :: CA.ConstantArray 10 RIP.CShort
+  { explicit_signed_short_array_member :: CA.ConstantArray 10 BG.CShort
     {- ^ __C declaration:__ @explicit_signed_short_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 274:68@
@@ -3480,7 +3476,7 @@ data Explicit_signed_short_array_struct = Explicit_signed_short_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_short_array_struct where
 
@@ -3493,7 +3489,7 @@ instance Marshal.ReadRaw Explicit_signed_short_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_short_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_short_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_short_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_short_array_struct where
 
@@ -3502,30 +3498,30 @@ instance Marshal.WriteRaw Explicit_signed_short_array_struct where
       \s1 ->
         case s1 of
           Explicit_signed_short_array_struct explicit_signed_short_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_short_array_member") ptr0 explicit_signed_short_array_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_short_array_member") ptr0 explicit_signed_short_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_short_array_struct instance RIP.Storable Explicit_signed_short_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_short_array_struct instance BG.Storable Explicit_signed_short_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.CompatHasField.HasField "explicit_signed_short_array_member" Explicit_signed_short_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CShort
+         ) => BG.CompatHasField.HasField "explicit_signed_short_array_member" Explicit_signed_short_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_short_array_struct {explicit_signed_short_array_member = y1}
-      , RIP.getField @"explicit_signed_short_array_member" x0
+      , BG.getField @"explicit_signed_short_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CShort
-         ) => RIP.HasField "explicit_signed_short_array_member" (RIP.Ptr Explicit_signed_short_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CShort
+         ) => BG.HasField "explicit_signed_short_array_member" (BG.Ptr Explicit_signed_short_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_short_array_member")
 
 instance HasCField.HasCField Explicit_signed_short_array_struct "explicit_signed_short_array_member" where
 
   type CFieldType Explicit_signed_short_array_struct "explicit_signed_short_array_member" =
-    CA.ConstantArray 10 RIP.CShort
+    CA.ConstantArray 10 BG.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -3536,7 +3532,7 @@ instance HasCField.HasCField Explicit_signed_short_array_struct "explicit_signed
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_short_array_struct = Unsigned_short_array_struct
-  { unsigned_short_array_member :: CA.ConstantArray 10 RIP.CUShort
+  { unsigned_short_array_member :: CA.ConstantArray 10 BG.CUShort
     {- ^ __C declaration:__ @unsigned_short_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 275:68@
@@ -3544,7 +3540,7 @@ data Unsigned_short_array_struct = Unsigned_short_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_short_array_struct where
 
@@ -3557,7 +3553,7 @@ instance Marshal.ReadRaw Unsigned_short_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_short_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_short_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_short_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_short_array_struct where
 
@@ -3566,30 +3562,30 @@ instance Marshal.WriteRaw Unsigned_short_array_struct where
       \s1 ->
         case s1 of
           Unsigned_short_array_struct unsigned_short_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_short_array_member") ptr0 unsigned_short_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_short_array_member") ptr0 unsigned_short_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_short_array_struct instance RIP.Storable Unsigned_short_array_struct
+deriving via Marshal.EquivStorable Unsigned_short_array_struct instance BG.Storable Unsigned_short_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
-         ) => RIP.CompatHasField.HasField "unsigned_short_array_member" Unsigned_short_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CUShort
+         ) => BG.CompatHasField.HasField "unsigned_short_array_member" Unsigned_short_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_short_array_struct {unsigned_short_array_member = y1}
-      , RIP.getField @"unsigned_short_array_member" x0
+      , BG.getField @"unsigned_short_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUShort
-         ) => RIP.HasField "unsigned_short_array_member" (RIP.Ptr Unsigned_short_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CUShort
+         ) => BG.HasField "unsigned_short_array_member" (BG.Ptr Unsigned_short_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_short_array_member")
 
 instance HasCField.HasCField Unsigned_short_array_struct "unsigned_short_array_member" where
 
   type CFieldType Unsigned_short_array_struct "unsigned_short_array_member" =
-    CA.ConstantArray 10 RIP.CUShort
+    CA.ConstantArray 10 BG.CUShort
 
   offset# = \_ -> \_ -> 0
 
@@ -3600,7 +3596,7 @@ instance HasCField.HasCField Unsigned_short_array_struct "unsigned_short_array_m
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_int_array_struct = Ordinary_signed_int_array_struct
-  { ordinary_signed_int_array_member :: CA.ConstantArray 10 RIP.CInt
+  { ordinary_signed_int_array_member :: CA.ConstantArray 10 BG.CInt
     {- ^ __C declaration:__ @ordinary_signed_int_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 277:68@
@@ -3608,7 +3604,7 @@ data Ordinary_signed_int_array_struct = Ordinary_signed_int_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_int_array_struct where
 
@@ -3621,7 +3617,7 @@ instance Marshal.ReadRaw Ordinary_signed_int_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_int_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_int_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_int_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_int_array_struct where
 
@@ -3630,30 +3626,30 @@ instance Marshal.WriteRaw Ordinary_signed_int_array_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_int_array_struct ordinary_signed_int_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_int_array_member") ptr0 ordinary_signed_int_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_int_array_member") ptr0 ordinary_signed_int_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_int_array_struct instance RIP.Storable Ordinary_signed_int_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_int_array_struct instance BG.Storable Ordinary_signed_int_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.CompatHasField.HasField "ordinary_signed_int_array_member" Ordinary_signed_int_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CInt
+         ) => BG.CompatHasField.HasField "ordinary_signed_int_array_member" Ordinary_signed_int_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_int_array_struct {ordinary_signed_int_array_member = y1}
-      , RIP.getField @"ordinary_signed_int_array_member" x0
+      , BG.getField @"ordinary_signed_int_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.HasField "ordinary_signed_int_array_member" (RIP.Ptr Ordinary_signed_int_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CInt
+         ) => BG.HasField "ordinary_signed_int_array_member" (BG.Ptr Ordinary_signed_int_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_int_array_member")
 
 instance HasCField.HasCField Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" where
 
   type CFieldType Ordinary_signed_int_array_struct "ordinary_signed_int_array_member" =
-    CA.ConstantArray 10 RIP.CInt
+    CA.ConstantArray 10 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -3664,7 +3660,7 @@ instance HasCField.HasCField Ordinary_signed_int_array_struct "ordinary_signed_i
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_int_array_struct = Explicit_signed_int_array_struct
-  { explicit_signed_int_array_member :: CA.ConstantArray 10 RIP.CInt
+  { explicit_signed_int_array_member :: CA.ConstantArray 10 BG.CInt
     {- ^ __C declaration:__ @explicit_signed_int_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 278:68@
@@ -3672,7 +3668,7 @@ data Explicit_signed_int_array_struct = Explicit_signed_int_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_int_array_struct where
 
@@ -3685,7 +3681,7 @@ instance Marshal.ReadRaw Explicit_signed_int_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_int_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_int_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_int_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_int_array_struct where
 
@@ -3694,30 +3690,30 @@ instance Marshal.WriteRaw Explicit_signed_int_array_struct where
       \s1 ->
         case s1 of
           Explicit_signed_int_array_struct explicit_signed_int_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_int_array_member") ptr0 explicit_signed_int_array_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_int_array_member") ptr0 explicit_signed_int_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_int_array_struct instance RIP.Storable Explicit_signed_int_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_int_array_struct instance BG.Storable Explicit_signed_int_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.CompatHasField.HasField "explicit_signed_int_array_member" Explicit_signed_int_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CInt
+         ) => BG.CompatHasField.HasField "explicit_signed_int_array_member" Explicit_signed_int_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_int_array_struct {explicit_signed_int_array_member = y1}
-      , RIP.getField @"explicit_signed_int_array_member" x0
+      , BG.getField @"explicit_signed_int_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CInt
-         ) => RIP.HasField "explicit_signed_int_array_member" (RIP.Ptr Explicit_signed_int_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CInt
+         ) => BG.HasField "explicit_signed_int_array_member" (BG.Ptr Explicit_signed_int_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_int_array_member")
 
 instance HasCField.HasCField Explicit_signed_int_array_struct "explicit_signed_int_array_member" where
 
   type CFieldType Explicit_signed_int_array_struct "explicit_signed_int_array_member" =
-    CA.ConstantArray 10 RIP.CInt
+    CA.ConstantArray 10 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -3728,7 +3724,7 @@ instance HasCField.HasCField Explicit_signed_int_array_struct "explicit_signed_i
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_int_array_struct = Unsigned_int_array_struct
-  { unsigned_int_array_member :: CA.ConstantArray 10 RIP.CUInt
+  { unsigned_int_array_member :: CA.ConstantArray 10 BG.CUInt
     {- ^ __C declaration:__ @unsigned_int_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 279:68@
@@ -3736,7 +3732,7 @@ data Unsigned_int_array_struct = Unsigned_int_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_int_array_struct where
 
@@ -3749,7 +3745,7 @@ instance Marshal.ReadRaw Unsigned_int_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_int_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_int_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_int_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_int_array_struct where
 
@@ -3758,30 +3754,30 @@ instance Marshal.WriteRaw Unsigned_int_array_struct where
       \s1 ->
         case s1 of
           Unsigned_int_array_struct unsigned_int_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_int_array_member") ptr0 unsigned_int_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_int_array_member") ptr0 unsigned_int_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_int_array_struct instance RIP.Storable Unsigned_int_array_struct
+deriving via Marshal.EquivStorable Unsigned_int_array_struct instance BG.Storable Unsigned_int_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unsigned_int_array_member" Unsigned_int_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CUInt
+         ) => BG.CompatHasField.HasField "unsigned_int_array_member" Unsigned_int_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_int_array_struct {unsigned_int_array_member = y1}
-      , RIP.getField @"unsigned_int_array_member" x0
+      , BG.getField @"unsigned_int_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CUInt
-         ) => RIP.HasField "unsigned_int_array_member" (RIP.Ptr Unsigned_int_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CUInt
+         ) => BG.HasField "unsigned_int_array_member" (BG.Ptr Unsigned_int_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_int_array_member")
 
 instance HasCField.HasCField Unsigned_int_array_struct "unsigned_int_array_member" where
 
   type CFieldType Unsigned_int_array_struct "unsigned_int_array_member" =
-    CA.ConstantArray 10 RIP.CUInt
+    CA.ConstantArray 10 BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -3792,7 +3788,7 @@ instance HasCField.HasCField Unsigned_int_array_struct "unsigned_int_array_membe
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_array_struct = Ordinary_signed_long_array_struct
-  { ordinary_signed_long_array_member :: CA.ConstantArray 10 RIP.CLong
+  { ordinary_signed_long_array_member :: CA.ConstantArray 10 BG.CLong
     {- ^ __C declaration:__ @ordinary_signed_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 281:68@
@@ -3800,7 +3796,7 @@ data Ordinary_signed_long_array_struct = Ordinary_signed_long_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_array_struct where
 
@@ -3813,7 +3809,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_array_struct where
 
@@ -3822,30 +3818,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_array_struct where
       \s1 ->
         case s1 of
           Ordinary_signed_long_array_struct ordinary_signed_long_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_array_member") ptr0 ordinary_signed_long_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_array_member") ptr0 ordinary_signed_long_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_array_struct instance RIP.Storable Ordinary_signed_long_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_array_struct instance BG.Storable Ordinary_signed_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_array_member" Ordinary_signed_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_array_member" Ordinary_signed_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_array_struct {ordinary_signed_long_array_member = y1}
-      , RIP.getField @"ordinary_signed_long_array_member" x0
+      , BG.getField @"ordinary_signed_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.HasField "ordinary_signed_long_array_member" (RIP.Ptr Ordinary_signed_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CLong
+         ) => BG.HasField "ordinary_signed_long_array_member" (BG.Ptr Ordinary_signed_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_array_member")
 
 instance HasCField.HasCField Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" where
 
   type CFieldType Ordinary_signed_long_array_struct "ordinary_signed_long_array_member" =
-    CA.ConstantArray 10 RIP.CLong
+    CA.ConstantArray 10 BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -3856,7 +3852,7 @@ instance HasCField.HasCField Ordinary_signed_long_array_struct "ordinary_signed_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_array_struct = Explicit_signed_long_array_struct
-  { explicit_signed_long_array_member :: CA.ConstantArray 10 RIP.CLong
+  { explicit_signed_long_array_member :: CA.ConstantArray 10 BG.CLong
     {- ^ __C declaration:__ @explicit_signed_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 282:68@
@@ -3864,7 +3860,7 @@ data Explicit_signed_long_array_struct = Explicit_signed_long_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_array_struct where
 
@@ -3877,7 +3873,7 @@ instance Marshal.ReadRaw Explicit_signed_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_array_struct where
 
@@ -3886,30 +3882,30 @@ instance Marshal.WriteRaw Explicit_signed_long_array_struct where
       \s1 ->
         case s1 of
           Explicit_signed_long_array_struct explicit_signed_long_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_array_member") ptr0 explicit_signed_long_array_member2
+            HasCField.writeRaw (BG.Proxy @"explicit_signed_long_array_member") ptr0 explicit_signed_long_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_array_struct instance RIP.Storable Explicit_signed_long_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_array_struct instance BG.Storable Explicit_signed_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_array_member" Explicit_signed_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_array_member" Explicit_signed_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_array_struct {explicit_signed_long_array_member = y1}
-      , RIP.getField @"explicit_signed_long_array_member" x0
+      , BG.getField @"explicit_signed_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLong
-         ) => RIP.HasField "explicit_signed_long_array_member" (RIP.Ptr Explicit_signed_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CLong
+         ) => BG.HasField "explicit_signed_long_array_member" (BG.Ptr Explicit_signed_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_array_member")
 
 instance HasCField.HasCField Explicit_signed_long_array_struct "explicit_signed_long_array_member" where
 
   type CFieldType Explicit_signed_long_array_struct "explicit_signed_long_array_member" =
-    CA.ConstantArray 10 RIP.CLong
+    CA.ConstantArray 10 BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -3920,7 +3916,7 @@ instance HasCField.HasCField Explicit_signed_long_array_struct "explicit_signed_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_array_struct = Unsigned_long_array_struct
-  { unsigned_long_array_member :: CA.ConstantArray 10 RIP.CULong
+  { unsigned_long_array_member :: CA.ConstantArray 10 BG.CULong
     {- ^ __C declaration:__ @unsigned_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 283:68@
@@ -3928,7 +3924,7 @@ data Unsigned_long_array_struct = Unsigned_long_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_array_struct where
 
@@ -3941,7 +3937,7 @@ instance Marshal.ReadRaw Unsigned_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_array_struct where
 
@@ -3950,30 +3946,30 @@ instance Marshal.WriteRaw Unsigned_long_array_struct where
       \s1 ->
         case s1 of
           Unsigned_long_array_struct unsigned_long_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_array_member") ptr0 unsigned_long_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_array_member") ptr0 unsigned_long_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_array_struct instance RIP.Storable Unsigned_long_array_struct
+deriving via Marshal.EquivStorable Unsigned_long_array_struct instance BG.Storable Unsigned_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CULong
-         ) => RIP.CompatHasField.HasField "unsigned_long_array_member" Unsigned_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CULong
+         ) => BG.CompatHasField.HasField "unsigned_long_array_member" Unsigned_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_array_struct {unsigned_long_array_member = y1}
-      , RIP.getField @"unsigned_long_array_member" x0
+      , BG.getField @"unsigned_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CULong
-         ) => RIP.HasField "unsigned_long_array_member" (RIP.Ptr Unsigned_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CULong
+         ) => BG.HasField "unsigned_long_array_member" (BG.Ptr Unsigned_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_array_member")
 
 instance HasCField.HasCField Unsigned_long_array_struct "unsigned_long_array_member" where
 
   type CFieldType Unsigned_long_array_struct "unsigned_long_array_member" =
-    CA.ConstantArray 10 RIP.CULong
+    CA.ConstantArray 10 BG.CULong
 
   offset# = \_ -> \_ -> 0
 
@@ -3984,7 +3980,7 @@ instance HasCField.HasCField Unsigned_long_array_struct "unsigned_long_array_mem
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_long_array_struct = Ordinary_signed_long_long_array_struct
-  { ordinary_signed_long_long_array_member :: CA.ConstantArray 10 RIP.CLLong
+  { ordinary_signed_long_long_array_member :: CA.ConstantArray 10 BG.CLLong
     {- ^ __C declaration:__ @ordinary_signed_long_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 285:68@
@@ -3992,7 +3988,7 @@ data Ordinary_signed_long_long_array_struct = Ordinary_signed_long_long_array_st
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_long_array_struct where
 
@@ -4005,7 +4001,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_long_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct where
 
@@ -4015,30 +4011,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct where
         case s1 of
           Ordinary_signed_long_long_array_struct
             ordinary_signed_long_long_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_long_array_member") ptr0 ordinary_signed_long_long_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_long_array_member") ptr0 ordinary_signed_long_long_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_long_array_struct instance RIP.Storable Ordinary_signed_long_long_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_long_array_struct instance BG.Storable Ordinary_signed_long_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_array_member" Ordinary_signed_long_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CLLong
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_long_array_member" Ordinary_signed_long_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_long_array_struct {ordinary_signed_long_long_array_member = y1}
-      , RIP.getField @"ordinary_signed_long_long_array_member" x0
+      , BG.getField @"ordinary_signed_long_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.HasField "ordinary_signed_long_long_array_member" (RIP.Ptr Ordinary_signed_long_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CLLong
+         ) => BG.HasField "ordinary_signed_long_long_array_member" (BG.Ptr Ordinary_signed_long_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_long_array_member")
 
 instance HasCField.HasCField Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" where
 
   type CFieldType Ordinary_signed_long_long_array_struct "ordinary_signed_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CLLong
+    CA.ConstantArray 10 BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -4049,7 +4045,7 @@ instance HasCField.HasCField Ordinary_signed_long_long_array_struct "ordinary_si
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_long_array_struct = Explicit_signed_long_long_array_struct
-  { explicit_signed_long_long_array_member :: CA.ConstantArray 10 RIP.CLLong
+  { explicit_signed_long_long_array_member :: CA.ConstantArray 10 BG.CLLong
     {- ^ __C declaration:__ @explicit_signed_long_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 286:68@
@@ -4057,7 +4053,7 @@ data Explicit_signed_long_long_array_struct = Explicit_signed_long_long_array_st
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_long_array_struct where
 
@@ -4070,7 +4066,7 @@ instance Marshal.ReadRaw Explicit_signed_long_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_long_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_long_array_struct where
 
@@ -4080,30 +4076,30 @@ instance Marshal.WriteRaw Explicit_signed_long_long_array_struct where
         case s1 of
           Explicit_signed_long_long_array_struct
             explicit_signed_long_long_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_long_array_member") ptr0 explicit_signed_long_long_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_long_long_array_member") ptr0 explicit_signed_long_long_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_long_array_struct instance RIP.Storable Explicit_signed_long_long_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_long_array_struct instance BG.Storable Explicit_signed_long_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_array_member" Explicit_signed_long_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CLLong
+         ) => BG.CompatHasField.HasField "explicit_signed_long_long_array_member" Explicit_signed_long_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_long_array_struct {explicit_signed_long_long_array_member = y1}
-      , RIP.getField @"explicit_signed_long_long_array_member" x0
+      , BG.getField @"explicit_signed_long_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CLLong
-         ) => RIP.HasField "explicit_signed_long_long_array_member" (RIP.Ptr Explicit_signed_long_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CLLong
+         ) => BG.HasField "explicit_signed_long_long_array_member" (BG.Ptr Explicit_signed_long_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_long_array_member")
 
 instance HasCField.HasCField Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" where
 
   type CFieldType Explicit_signed_long_long_array_struct "explicit_signed_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CLLong
+    CA.ConstantArray 10 BG.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -4114,7 +4110,7 @@ instance HasCField.HasCField Explicit_signed_long_long_array_struct "explicit_si
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_long_array_struct = Unsigned_long_long_array_struct
-  { unsigned_long_long_array_member :: CA.ConstantArray 10 RIP.CULLong
+  { unsigned_long_long_array_member :: CA.ConstantArray 10 BG.CULLong
     {- ^ __C declaration:__ @unsigned_long_long_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 287:68@
@@ -4122,7 +4118,7 @@ data Unsigned_long_long_array_struct = Unsigned_long_long_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_long_array_struct where
 
@@ -4135,7 +4131,7 @@ instance Marshal.ReadRaw Unsigned_long_long_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_long_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_long_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_long_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_long_array_struct where
 
@@ -4144,30 +4140,30 @@ instance Marshal.WriteRaw Unsigned_long_long_array_struct where
       \s1 ->
         case s1 of
           Unsigned_long_long_array_struct unsigned_long_long_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_long_array_member") ptr0 unsigned_long_long_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_long_array_member") ptr0 unsigned_long_long_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_long_array_struct instance RIP.Storable Unsigned_long_long_array_struct
+deriving via Marshal.EquivStorable Unsigned_long_long_array_struct instance BG.Storable Unsigned_long_long_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
-         ) => RIP.CompatHasField.HasField "unsigned_long_long_array_member" Unsigned_long_long_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 BG.CULLong
+         ) => BG.CompatHasField.HasField "unsigned_long_long_array_member" Unsigned_long_long_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_long_array_struct {unsigned_long_long_array_member = y1}
-      , RIP.getField @"unsigned_long_long_array_member" x0
+      , BG.getField @"unsigned_long_long_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 RIP.CULLong
-         ) => RIP.HasField "unsigned_long_long_array_member" (RIP.Ptr Unsigned_long_long_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 BG.CULLong
+         ) => BG.HasField "unsigned_long_long_array_member" (BG.Ptr Unsigned_long_long_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_long_array_member")
 
 instance HasCField.HasCField Unsigned_long_long_array_struct "unsigned_long_long_array_member" where
 
   type CFieldType Unsigned_long_long_array_struct "unsigned_long_long_array_member" =
-    CA.ConstantArray 10 RIP.CULLong
+    CA.ConstantArray 10 BG.CULLong
 
   offset# = \_ -> \_ -> 0
 
@@ -4182,7 +4178,7 @@ instance HasCField.HasCField Unsigned_long_long_array_struct "unsigned_long_long
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_void_pointer_array_struct = Ordinary_void_pointer_array_struct
-  { ordinary_void_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.Void)
+  { ordinary_void_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.Void)
     {- ^ __C declaration:__ @ordinary_void_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 296:77@
@@ -4190,7 +4186,7 @@ data Ordinary_void_pointer_array_struct = Ordinary_void_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_void_pointer_array_struct where
 
@@ -4203,7 +4199,7 @@ instance Marshal.ReadRaw Ordinary_void_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_void_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_void_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_void_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_void_pointer_array_struct where
 
@@ -4212,30 +4208,30 @@ instance Marshal.WriteRaw Ordinary_void_pointer_array_struct where
       \s1 ->
         case s1 of
           Ordinary_void_pointer_array_struct ordinary_void_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_void_pointer_array_member") ptr0 ordinary_void_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_void_pointer_array_member") ptr0 ordinary_void_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_void_pointer_array_struct instance RIP.Storable Ordinary_void_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_void_pointer_array_struct instance BG.Storable Ordinary_void_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
-         ) => RIP.CompatHasField.HasField "ordinary_void_pointer_array_member" Ordinary_void_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.Void)
+         ) => BG.CompatHasField.HasField "ordinary_void_pointer_array_member" Ordinary_void_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_void_pointer_array_struct {ordinary_void_pointer_array_member = y1}
-      , RIP.getField @"ordinary_void_pointer_array_member" x0
+      , BG.getField @"ordinary_void_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.Void)
-         ) => RIP.HasField "ordinary_void_pointer_array_member" (RIP.Ptr Ordinary_void_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.Void)
+         ) => BG.HasField "ordinary_void_pointer_array_member" (BG.Ptr Ordinary_void_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_void_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_void_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" where
 
   type CFieldType Ordinary_void_pointer_array_struct "ordinary_void_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.Void)
+    CA.ConstantArray 10 (BG.Ptr BG.Void)
 
   offset# = \_ -> \_ -> 0
 
@@ -4246,7 +4242,7 @@ instance HasCField.HasCField Ordinary_void_pointer_array_struct "ordinary_void_p
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_float_pointer_array_struct = Ordinary_float_pointer_array_struct
-  { ordinary_float_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
+  { ordinary_float_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CFloat)
     {- ^ __C declaration:__ @ordinary_float_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 298:77@
@@ -4254,7 +4250,7 @@ data Ordinary_float_pointer_array_struct = Ordinary_float_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_float_pointer_array_struct where
 
@@ -4267,7 +4263,7 @@ instance Marshal.ReadRaw Ordinary_float_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_float_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_float_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_float_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_float_pointer_array_struct where
 
@@ -4276,30 +4272,30 @@ instance Marshal.WriteRaw Ordinary_float_pointer_array_struct where
       \s1 ->
         case s1 of
           Ordinary_float_pointer_array_struct ordinary_float_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_float_pointer_array_member") ptr0 ordinary_float_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_float_pointer_array_member") ptr0 ordinary_float_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_float_pointer_array_struct instance RIP.Storable Ordinary_float_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_float_pointer_array_struct instance BG.Storable Ordinary_float_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
-         ) => RIP.CompatHasField.HasField "ordinary_float_pointer_array_member" Ordinary_float_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CFloat)
+         ) => BG.CompatHasField.HasField "ordinary_float_pointer_array_member" Ordinary_float_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_float_pointer_array_struct {ordinary_float_pointer_array_member = y1}
-      , RIP.getField @"ordinary_float_pointer_array_member" x0
+      , BG.getField @"ordinary_float_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
-         ) => RIP.HasField "ordinary_float_pointer_array_member" (RIP.Ptr Ordinary_float_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CFloat)
+         ) => BG.HasField "ordinary_float_pointer_array_member" (BG.Ptr Ordinary_float_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_float_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_float_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" where
 
   type CFieldType Ordinary_float_pointer_array_struct "ordinary_float_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CFloat)
+    CA.ConstantArray 10 (BG.Ptr BG.CFloat)
 
   offset# = \_ -> \_ -> 0
 
@@ -4310,7 +4306,7 @@ instance HasCField.HasCField Ordinary_float_pointer_array_struct "ordinary_float
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_double_pointer_array_struct = Ordinary_double_pointer_array_struct
-  { ordinary_double_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
+  { ordinary_double_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CDouble)
     {- ^ __C declaration:__ @ordinary_double_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 299:77@
@@ -4318,7 +4314,7 @@ data Ordinary_double_pointer_array_struct = Ordinary_double_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_double_pointer_array_struct where
 
@@ -4331,7 +4327,7 @@ instance Marshal.ReadRaw Ordinary_double_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_double_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_double_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_double_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_double_pointer_array_struct where
 
@@ -4340,30 +4336,30 @@ instance Marshal.WriteRaw Ordinary_double_pointer_array_struct where
       \s1 ->
         case s1 of
           Ordinary_double_pointer_array_struct ordinary_double_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"ordinary_double_pointer_array_member") ptr0 ordinary_double_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"ordinary_double_pointer_array_member") ptr0 ordinary_double_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_double_pointer_array_struct instance RIP.Storable Ordinary_double_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_double_pointer_array_struct instance BG.Storable Ordinary_double_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
-         ) => RIP.CompatHasField.HasField "ordinary_double_pointer_array_member" Ordinary_double_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CDouble)
+         ) => BG.CompatHasField.HasField "ordinary_double_pointer_array_member" Ordinary_double_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_double_pointer_array_struct {ordinary_double_pointer_array_member = y1}
-      , RIP.getField @"ordinary_double_pointer_array_member" x0
+      , BG.getField @"ordinary_double_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
-         ) => RIP.HasField "ordinary_double_pointer_array_member" (RIP.Ptr Ordinary_double_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CDouble)
+         ) => BG.HasField "ordinary_double_pointer_array_member" (BG.Ptr Ordinary_double_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_double_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_double_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" where
 
   type CFieldType Ordinary_double_pointer_array_struct "ordinary_double_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CDouble)
+    CA.ConstantArray 10 (BG.Ptr BG.CDouble)
 
   offset# = \_ -> \_ -> 0
 
@@ -4374,7 +4370,7 @@ instance HasCField.HasCField Ordinary_double_pointer_array_struct "ordinary_doub
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_char_pointer_array_struct = Ordinary_signed_char_pointer_array_struct
-  { ordinary_signed_char_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
+  { ordinary_signed_char_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CChar)
     {- ^ __C declaration:__ @ordinary_signed_char_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 302:77@
@@ -4382,7 +4378,7 @@ data Ordinary_signed_char_pointer_array_struct = Ordinary_signed_char_pointer_ar
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_char_pointer_array_struct where
 
@@ -4395,7 +4391,7 @@ instance Marshal.ReadRaw Ordinary_signed_char_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_char_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_char_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_char_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct where
 
@@ -4405,30 +4401,30 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct where
         case s1 of
           Ordinary_signed_char_pointer_array_struct
             ordinary_signed_char_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_char_pointer_array_member") ptr0 ordinary_signed_char_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_char_pointer_array_member") ptr0 ordinary_signed_char_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_array_struct instance RIP.Storable Ordinary_signed_char_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_array_struct instance BG.Storable Ordinary_signed_char_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
-         ) => RIP.CompatHasField.HasField "ordinary_signed_char_pointer_array_member" Ordinary_signed_char_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CChar)
+         ) => BG.CompatHasField.HasField "ordinary_signed_char_pointer_array_member" Ordinary_signed_char_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_char_pointer_array_struct {ordinary_signed_char_pointer_array_member = y1}
-      , RIP.getField @"ordinary_signed_char_pointer_array_member" x0
+      , BG.getField @"ordinary_signed_char_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
-         ) => RIP.HasField "ordinary_signed_char_pointer_array_member" (RIP.Ptr Ordinary_signed_char_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CChar)
+         ) => BG.HasField "ordinary_signed_char_pointer_array_member" (BG.Ptr Ordinary_signed_char_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_char_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_char_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" where
 
   type CFieldType Ordinary_signed_char_pointer_array_struct "ordinary_signed_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CChar)
+    CA.ConstantArray 10 (BG.Ptr BG.CChar)
 
   offset# = \_ -> \_ -> 0
 
@@ -4439,7 +4435,7 @@ instance HasCField.HasCField Ordinary_signed_char_pointer_array_struct "ordinary
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_char_pointer_array_struct = Explicit_signed_char_pointer_array_struct
-  { explicit_signed_char_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
+  { explicit_signed_char_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CSChar)
     {- ^ __C declaration:__ @explicit_signed_char_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 303:77@
@@ -4447,7 +4443,7 @@ data Explicit_signed_char_pointer_array_struct = Explicit_signed_char_pointer_ar
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_char_pointer_array_struct where
 
@@ -4460,7 +4456,7 @@ instance Marshal.ReadRaw Explicit_signed_char_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_char_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_char_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_char_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct where
 
@@ -4470,30 +4466,30 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct where
         case s1 of
           Explicit_signed_char_pointer_array_struct
             explicit_signed_char_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_char_pointer_array_member") ptr0 explicit_signed_char_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_char_pointer_array_member") ptr0 explicit_signed_char_pointer_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_char_pointer_array_struct instance RIP.Storable Explicit_signed_char_pointer_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_char_pointer_array_struct instance BG.Storable Explicit_signed_char_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
-         ) => RIP.CompatHasField.HasField "explicit_signed_char_pointer_array_member" Explicit_signed_char_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CSChar)
+         ) => BG.CompatHasField.HasField "explicit_signed_char_pointer_array_member" Explicit_signed_char_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_char_pointer_array_struct {explicit_signed_char_pointer_array_member = y1}
-      , RIP.getField @"explicit_signed_char_pointer_array_member" x0
+      , BG.getField @"explicit_signed_char_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
-         ) => RIP.HasField "explicit_signed_char_pointer_array_member" (RIP.Ptr Explicit_signed_char_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CSChar)
+         ) => BG.HasField "explicit_signed_char_pointer_array_member" (BG.Ptr Explicit_signed_char_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_char_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_char_pointer_array_member")
 
 instance HasCField.HasCField Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" where
 
   type CFieldType Explicit_signed_char_pointer_array_struct "explicit_signed_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CSChar)
+    CA.ConstantArray 10 (BG.Ptr BG.CSChar)
 
   offset# = \_ -> \_ -> 0
 
@@ -4504,7 +4500,7 @@ instance HasCField.HasCField Explicit_signed_char_pointer_array_struct "explicit
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_char_pointer_array_struct = Unsigned_char_pointer_array_struct
-  { unsigned_char_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
+  { unsigned_char_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CUChar)
     {- ^ __C declaration:__ @unsigned_char_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 304:77@
@@ -4512,7 +4508,7 @@ data Unsigned_char_pointer_array_struct = Unsigned_char_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_char_pointer_array_struct where
 
@@ -4525,7 +4521,7 @@ instance Marshal.ReadRaw Unsigned_char_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_char_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_char_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_char_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_char_pointer_array_struct where
 
@@ -4534,30 +4530,30 @@ instance Marshal.WriteRaw Unsigned_char_pointer_array_struct where
       \s1 ->
         case s1 of
           Unsigned_char_pointer_array_struct unsigned_char_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_char_pointer_array_member") ptr0 unsigned_char_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_char_pointer_array_member") ptr0 unsigned_char_pointer_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_char_pointer_array_struct instance RIP.Storable Unsigned_char_pointer_array_struct
+deriving via Marshal.EquivStorable Unsigned_char_pointer_array_struct instance BG.Storable Unsigned_char_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
-         ) => RIP.CompatHasField.HasField "unsigned_char_pointer_array_member" Unsigned_char_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUChar)
+         ) => BG.CompatHasField.HasField "unsigned_char_pointer_array_member" Unsigned_char_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_char_pointer_array_struct {unsigned_char_pointer_array_member = y1}
-      , RIP.getField @"unsigned_char_pointer_array_member" x0
+      , BG.getField @"unsigned_char_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
-         ) => RIP.HasField "unsigned_char_pointer_array_member" (RIP.Ptr Unsigned_char_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUChar)
+         ) => BG.HasField "unsigned_char_pointer_array_member" (BG.Ptr Unsigned_char_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_char_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_char_pointer_array_member")
 
 instance HasCField.HasCField Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" where
 
   type CFieldType Unsigned_char_pointer_array_struct "unsigned_char_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUChar)
+    CA.ConstantArray 10 (BG.Ptr BG.CUChar)
 
   offset# = \_ -> \_ -> 0
 
@@ -4568,7 +4564,7 @@ instance HasCField.HasCField Unsigned_char_pointer_array_struct "unsigned_char_p
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_short_pointer_array_struct = Ordinary_signed_short_pointer_array_struct
-  { ordinary_signed_short_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+  { ordinary_signed_short_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CShort)
     {- ^ __C declaration:__ @ordinary_signed_short_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 306:77@
@@ -4576,7 +4572,7 @@ data Ordinary_signed_short_pointer_array_struct = Ordinary_signed_short_pointer_
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_short_pointer_array_struct where
 
@@ -4589,7 +4585,7 @@ instance Marshal.ReadRaw Ordinary_signed_short_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_short_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_short_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_short_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct where
 
@@ -4599,30 +4595,30 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct where
         case s1 of
           Ordinary_signed_short_pointer_array_struct
             ordinary_signed_short_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_short_pointer_array_member") ptr0 ordinary_signed_short_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_pointer_array_member") ptr0 ordinary_signed_short_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_array_struct instance RIP.Storable Ordinary_signed_short_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_array_struct instance BG.Storable Ordinary_signed_short_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.CompatHasField.HasField "ordinary_signed_short_pointer_array_member" Ordinary_signed_short_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
+         ) => BG.CompatHasField.HasField "ordinary_signed_short_pointer_array_member" Ordinary_signed_short_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_short_pointer_array_struct {ordinary_signed_short_pointer_array_member = y1}
-      , RIP.getField @"ordinary_signed_short_pointer_array_member" x0
+      , BG.getField @"ordinary_signed_short_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.HasField "ordinary_signed_short_pointer_array_member" (RIP.Ptr Ordinary_signed_short_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
+         ) => BG.HasField "ordinary_signed_short_pointer_array_member" (BG.Ptr Ordinary_signed_short_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_short_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_short_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" where
 
   type CFieldType Ordinary_signed_short_pointer_array_struct "ordinary_signed_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+    CA.ConstantArray 10 (BG.Ptr BG.CShort)
 
   offset# = \_ -> \_ -> 0
 
@@ -4633,7 +4629,7 @@ instance HasCField.HasCField Ordinary_signed_short_pointer_array_struct "ordinar
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_short_pointer_array_struct = Explicit_signed_short_pointer_array_struct
-  { explicit_signed_short_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+  { explicit_signed_short_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CShort)
     {- ^ __C declaration:__ @explicit_signed_short_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 307:77@
@@ -4641,7 +4637,7 @@ data Explicit_signed_short_pointer_array_struct = Explicit_signed_short_pointer_
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_short_pointer_array_struct where
 
@@ -4654,7 +4650,7 @@ instance Marshal.ReadRaw Explicit_signed_short_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_short_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_short_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_short_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct where
 
@@ -4664,30 +4660,30 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct where
         case s1 of
           Explicit_signed_short_pointer_array_struct
             explicit_signed_short_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_short_pointer_array_member") ptr0 explicit_signed_short_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_short_pointer_array_member") ptr0 explicit_signed_short_pointer_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_short_pointer_array_struct instance RIP.Storable Explicit_signed_short_pointer_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_short_pointer_array_struct instance BG.Storable Explicit_signed_short_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.CompatHasField.HasField "explicit_signed_short_pointer_array_member" Explicit_signed_short_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
+         ) => BG.CompatHasField.HasField "explicit_signed_short_pointer_array_member" Explicit_signed_short_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_short_pointer_array_struct {explicit_signed_short_pointer_array_member = y1}
-      , RIP.getField @"explicit_signed_short_pointer_array_member" x0
+      , BG.getField @"explicit_signed_short_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
-         ) => RIP.HasField "explicit_signed_short_pointer_array_member" (RIP.Ptr Explicit_signed_short_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
+         ) => BG.HasField "explicit_signed_short_pointer_array_member" (BG.Ptr Explicit_signed_short_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_short_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_short_pointer_array_member")
 
 instance HasCField.HasCField Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" where
 
   type CFieldType Explicit_signed_short_pointer_array_struct "explicit_signed_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CShort)
+    CA.ConstantArray 10 (BG.Ptr BG.CShort)
 
   offset# = \_ -> \_ -> 0
 
@@ -4698,7 +4694,7 @@ instance HasCField.HasCField Explicit_signed_short_pointer_array_struct "explici
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_short_pointer_array_struct = Unsigned_short_pointer_array_struct
-  { unsigned_short_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
+  { unsigned_short_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CUShort)
     {- ^ __C declaration:__ @unsigned_short_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 308:77@
@@ -4706,7 +4702,7 @@ data Unsigned_short_pointer_array_struct = Unsigned_short_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_short_pointer_array_struct where
 
@@ -4719,7 +4715,7 @@ instance Marshal.ReadRaw Unsigned_short_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_short_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_short_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_short_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_short_pointer_array_struct where
 
@@ -4728,30 +4724,30 @@ instance Marshal.WriteRaw Unsigned_short_pointer_array_struct where
       \s1 ->
         case s1 of
           Unsigned_short_pointer_array_struct unsigned_short_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_short_pointer_array_member") ptr0 unsigned_short_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_short_pointer_array_member") ptr0 unsigned_short_pointer_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_short_pointer_array_struct instance RIP.Storable Unsigned_short_pointer_array_struct
+deriving via Marshal.EquivStorable Unsigned_short_pointer_array_struct instance BG.Storable Unsigned_short_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
-         ) => RIP.CompatHasField.HasField "unsigned_short_pointer_array_member" Unsigned_short_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUShort)
+         ) => BG.CompatHasField.HasField "unsigned_short_pointer_array_member" Unsigned_short_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_short_pointer_array_struct {unsigned_short_pointer_array_member = y1}
-      , RIP.getField @"unsigned_short_pointer_array_member" x0
+      , BG.getField @"unsigned_short_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
-         ) => RIP.HasField "unsigned_short_pointer_array_member" (RIP.Ptr Unsigned_short_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUShort)
+         ) => BG.HasField "unsigned_short_pointer_array_member" (BG.Ptr Unsigned_short_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_short_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_short_pointer_array_member")
 
 instance HasCField.HasCField Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" where
 
   type CFieldType Unsigned_short_pointer_array_struct "unsigned_short_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUShort)
+    CA.ConstantArray 10 (BG.Ptr BG.CUShort)
 
   offset# = \_ -> \_ -> 0
 
@@ -4762,7 +4758,7 @@ instance HasCField.HasCField Unsigned_short_pointer_array_struct "unsigned_short
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_int_pointer_array_struct = Ordinary_signed_int_pointer_array_struct
-  { ordinary_signed_int_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+  { ordinary_signed_int_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CInt)
     {- ^ __C declaration:__ @ordinary_signed_int_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 310:77@
@@ -4770,7 +4766,7 @@ data Ordinary_signed_int_pointer_array_struct = Ordinary_signed_int_pointer_arra
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_int_pointer_array_struct where
 
@@ -4783,7 +4779,7 @@ instance Marshal.ReadRaw Ordinary_signed_int_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_int_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_int_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_int_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct where
 
@@ -4793,30 +4789,30 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct where
         case s1 of
           Ordinary_signed_int_pointer_array_struct
             ordinary_signed_int_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_int_pointer_array_member") ptr0 ordinary_signed_int_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_int_pointer_array_member") ptr0 ordinary_signed_int_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_array_struct instance RIP.Storable Ordinary_signed_int_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_array_struct instance BG.Storable Ordinary_signed_int_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.CompatHasField.HasField "ordinary_signed_int_pointer_array_member" Ordinary_signed_int_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
+         ) => BG.CompatHasField.HasField "ordinary_signed_int_pointer_array_member" Ordinary_signed_int_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_int_pointer_array_struct {ordinary_signed_int_pointer_array_member = y1}
-      , RIP.getField @"ordinary_signed_int_pointer_array_member" x0
+      , BG.getField @"ordinary_signed_int_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.HasField "ordinary_signed_int_pointer_array_member" (RIP.Ptr Ordinary_signed_int_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
+         ) => BG.HasField "ordinary_signed_int_pointer_array_member" (BG.Ptr Ordinary_signed_int_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_int_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_int_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" where
 
   type CFieldType Ordinary_signed_int_pointer_array_struct "ordinary_signed_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+    CA.ConstantArray 10 (BG.Ptr BG.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -4827,7 +4823,7 @@ instance HasCField.HasCField Ordinary_signed_int_pointer_array_struct "ordinary_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_int_pointer_array_struct = Explicit_signed_int_pointer_array_struct
-  { explicit_signed_int_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+  { explicit_signed_int_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CInt)
     {- ^ __C declaration:__ @explicit_signed_int_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 311:77@
@@ -4835,7 +4831,7 @@ data Explicit_signed_int_pointer_array_struct = Explicit_signed_int_pointer_arra
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_int_pointer_array_struct where
 
@@ -4848,7 +4844,7 @@ instance Marshal.ReadRaw Explicit_signed_int_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_int_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_int_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_int_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct where
 
@@ -4858,30 +4854,30 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct where
         case s1 of
           Explicit_signed_int_pointer_array_struct
             explicit_signed_int_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_int_pointer_array_member") ptr0 explicit_signed_int_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_int_pointer_array_member") ptr0 explicit_signed_int_pointer_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_int_pointer_array_struct instance RIP.Storable Explicit_signed_int_pointer_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_int_pointer_array_struct instance BG.Storable Explicit_signed_int_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.CompatHasField.HasField "explicit_signed_int_pointer_array_member" Explicit_signed_int_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
+         ) => BG.CompatHasField.HasField "explicit_signed_int_pointer_array_member" Explicit_signed_int_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_int_pointer_array_struct {explicit_signed_int_pointer_array_member = y1}
-      , RIP.getField @"explicit_signed_int_pointer_array_member" x0
+      , BG.getField @"explicit_signed_int_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
-         ) => RIP.HasField "explicit_signed_int_pointer_array_member" (RIP.Ptr Explicit_signed_int_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
+         ) => BG.HasField "explicit_signed_int_pointer_array_member" (BG.Ptr Explicit_signed_int_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_int_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_int_pointer_array_member")
 
 instance HasCField.HasCField Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" where
 
   type CFieldType Explicit_signed_int_pointer_array_struct "explicit_signed_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CInt)
+    CA.ConstantArray 10 (BG.Ptr BG.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -4892,7 +4888,7 @@ instance HasCField.HasCField Explicit_signed_int_pointer_array_struct "explicit_
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_int_pointer_array_struct = Unsigned_int_pointer_array_struct
-  { unsigned_int_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
+  { unsigned_int_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CUInt)
     {- ^ __C declaration:__ @unsigned_int_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 312:77@
@@ -4900,7 +4896,7 @@ data Unsigned_int_pointer_array_struct = Unsigned_int_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_int_pointer_array_struct where
 
@@ -4913,7 +4909,7 @@ instance Marshal.ReadRaw Unsigned_int_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_int_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_int_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_int_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_int_pointer_array_struct where
 
@@ -4922,30 +4918,30 @@ instance Marshal.WriteRaw Unsigned_int_pointer_array_struct where
       \s1 ->
         case s1 of
           Unsigned_int_pointer_array_struct unsigned_int_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_int_pointer_array_member") ptr0 unsigned_int_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_int_pointer_array_member") ptr0 unsigned_int_pointer_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_int_pointer_array_struct instance RIP.Storable Unsigned_int_pointer_array_struct
+deriving via Marshal.EquivStorable Unsigned_int_pointer_array_struct instance BG.Storable Unsigned_int_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
-         ) => RIP.CompatHasField.HasField "unsigned_int_pointer_array_member" Unsigned_int_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUInt)
+         ) => BG.CompatHasField.HasField "unsigned_int_pointer_array_member" Unsigned_int_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_int_pointer_array_struct {unsigned_int_pointer_array_member = y1}
-      , RIP.getField @"unsigned_int_pointer_array_member" x0
+      , BG.getField @"unsigned_int_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
-         ) => RIP.HasField "unsigned_int_pointer_array_member" (RIP.Ptr Unsigned_int_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUInt)
+         ) => BG.HasField "unsigned_int_pointer_array_member" (BG.Ptr Unsigned_int_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_int_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_int_pointer_array_member")
 
 instance HasCField.HasCField Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" where
 
   type CFieldType Unsigned_int_pointer_array_struct "unsigned_int_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CUInt)
+    CA.ConstantArray 10 (BG.Ptr BG.CUInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -4956,7 +4952,7 @@ instance HasCField.HasCField Unsigned_int_pointer_array_struct "unsigned_int_poi
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_pointer_array_struct = Ordinary_signed_long_pointer_array_struct
-  { ordinary_signed_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+  { ordinary_signed_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CLong)
     {- ^ __C declaration:__ @ordinary_signed_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 314:77@
@@ -4964,7 +4960,7 @@ data Ordinary_signed_long_pointer_array_struct = Ordinary_signed_long_pointer_ar
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_pointer_array_struct where
 
@@ -4977,7 +4973,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct where
 
@@ -4987,30 +4983,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct where
         case s1 of
           Ordinary_signed_long_pointer_array_struct
             ordinary_signed_long_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_pointer_array_member") ptr0 ordinary_signed_long_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_pointer_array_member") ptr0 ordinary_signed_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_array_struct instance RIP.Storable Ordinary_signed_long_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_pointer_array_member" Ordinary_signed_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_pointer_array_member" Ordinary_signed_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_pointer_array_struct {ordinary_signed_long_pointer_array_member = y1}
-      , RIP.getField @"ordinary_signed_long_pointer_array_member" x0
+      , BG.getField @"ordinary_signed_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.HasField "ordinary_signed_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
+         ) => BG.HasField "ordinary_signed_long_pointer_array_member" (BG.Ptr Ordinary_signed_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" where
 
   type CFieldType Ordinary_signed_long_pointer_array_struct "ordinary_signed_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+    CA.ConstantArray 10 (BG.Ptr BG.CLong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5021,7 +5017,7 @@ instance HasCField.HasCField Ordinary_signed_long_pointer_array_struct "ordinary
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_pointer_array_struct = Explicit_signed_long_pointer_array_struct
-  { explicit_signed_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+  { explicit_signed_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CLong)
     {- ^ __C declaration:__ @explicit_signed_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 315:77@
@@ -5029,7 +5025,7 @@ data Explicit_signed_long_pointer_array_struct = Explicit_signed_long_pointer_ar
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_pointer_array_struct where
 
@@ -5042,7 +5038,7 @@ instance Marshal.ReadRaw Explicit_signed_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct where
 
@@ -5052,30 +5048,30 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct where
         case s1 of
           Explicit_signed_long_pointer_array_struct
             explicit_signed_long_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_pointer_array_member") ptr0 explicit_signed_long_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_long_pointer_array_member") ptr0 explicit_signed_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_pointer_array_struct instance RIP.Storable Explicit_signed_long_pointer_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_pointer_array_struct instance BG.Storable Explicit_signed_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_pointer_array_member" Explicit_signed_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
+         ) => BG.CompatHasField.HasField "explicit_signed_long_pointer_array_member" Explicit_signed_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_pointer_array_struct {explicit_signed_long_pointer_array_member = y1}
-      , RIP.getField @"explicit_signed_long_pointer_array_member" x0
+      , BG.getField @"explicit_signed_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
-         ) => RIP.HasField "explicit_signed_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
+         ) => BG.HasField "explicit_signed_long_pointer_array_member" (BG.Ptr Explicit_signed_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_pointer_array_member")
 
 instance HasCField.HasCField Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" where
 
   type CFieldType Explicit_signed_long_pointer_array_struct "explicit_signed_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLong)
+    CA.ConstantArray 10 (BG.Ptr BG.CLong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5086,7 +5082,7 @@ instance HasCField.HasCField Explicit_signed_long_pointer_array_struct "explicit
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_pointer_array_struct = Unsigned_long_pointer_array_struct
-  { unsigned_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
+  { unsigned_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CULong)
     {- ^ __C declaration:__ @unsigned_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 316:77@
@@ -5094,7 +5090,7 @@ data Unsigned_long_pointer_array_struct = Unsigned_long_pointer_array_struct
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_pointer_array_struct where
 
@@ -5107,7 +5103,7 @@ instance Marshal.ReadRaw Unsigned_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_pointer_array_struct where
 
@@ -5116,30 +5112,30 @@ instance Marshal.WriteRaw Unsigned_long_pointer_array_struct where
       \s1 ->
         case s1 of
           Unsigned_long_pointer_array_struct unsigned_long_pointer_array_member2 ->
-            HasCField.writeRaw (RIP.Proxy @"unsigned_long_pointer_array_member") ptr0 unsigned_long_pointer_array_member2
+            HasCField.writeRaw (BG.Proxy @"unsigned_long_pointer_array_member") ptr0 unsigned_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_pointer_array_struct instance RIP.Storable Unsigned_long_pointer_array_struct
+deriving via Marshal.EquivStorable Unsigned_long_pointer_array_struct instance BG.Storable Unsigned_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
-         ) => RIP.CompatHasField.HasField "unsigned_long_pointer_array_member" Unsigned_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULong)
+         ) => BG.CompatHasField.HasField "unsigned_long_pointer_array_member" Unsigned_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_pointer_array_struct {unsigned_long_pointer_array_member = y1}
-      , RIP.getField @"unsigned_long_pointer_array_member" x0
+      , BG.getField @"unsigned_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
-         ) => RIP.HasField "unsigned_long_pointer_array_member" (RIP.Ptr Unsigned_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULong)
+         ) => BG.HasField "unsigned_long_pointer_array_member" (BG.Ptr Unsigned_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_pointer_array_member")
 
 instance HasCField.HasCField Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" where
 
   type CFieldType Unsigned_long_pointer_array_struct "unsigned_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CULong)
+    CA.ConstantArray 10 (BG.Ptr BG.CULong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5150,7 +5146,7 @@ instance HasCField.HasCField Unsigned_long_pointer_array_struct "unsigned_long_p
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Ordinary_signed_long_long_pointer_array_struct = Ordinary_signed_long_long_pointer_array_struct
-  { ordinary_signed_long_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+  { ordinary_signed_long_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CLLong)
     {- ^ __C declaration:__ @ordinary_signed_long_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 318:77@
@@ -5158,7 +5154,7 @@ data Ordinary_signed_long_long_pointer_array_struct = Ordinary_signed_long_long_
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Ordinary_signed_long_long_pointer_array_struct where
 
@@ -5171,7 +5167,7 @@ instance Marshal.ReadRaw Ordinary_signed_long_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Ordinary_signed_long_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"ordinary_signed_long_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct where
 
@@ -5181,30 +5177,30 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct where
         case s1 of
           Ordinary_signed_long_long_pointer_array_struct
             ordinary_signed_long_long_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member") ptr0 ordinary_signed_long_long_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_long_pointer_array_member") ptr0 ordinary_signed_long_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_array_struct instance RIP.Storable Ordinary_signed_long_long_pointer_array_struct
+deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.CompatHasField.HasField "ordinary_signed_long_long_pointer_array_member" Ordinary_signed_long_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
+         ) => BG.CompatHasField.HasField "ordinary_signed_long_long_pointer_array_member" Ordinary_signed_long_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Ordinary_signed_long_long_pointer_array_struct {ordinary_signed_long_long_pointer_array_member = y1}
-      , RIP.getField @"ordinary_signed_long_long_pointer_array_member" x0
+      , BG.getField @"ordinary_signed_long_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.HasField "ordinary_signed_long_long_pointer_array_member" (RIP.Ptr Ordinary_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
+         ) => BG.HasField "ordinary_signed_long_long_pointer_array_member" (BG.Ptr Ordinary_signed_long_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"ordinary_signed_long_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"ordinary_signed_long_long_pointer_array_member")
 
 instance HasCField.HasCField Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" where
 
   type CFieldType Ordinary_signed_long_long_pointer_array_struct "ordinary_signed_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+    CA.ConstantArray 10 (BG.Ptr BG.CLLong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5215,7 +5211,7 @@ instance HasCField.HasCField Ordinary_signed_long_long_pointer_array_struct "ord
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Explicit_signed_long_long_pointer_array_struct = Explicit_signed_long_long_pointer_array_struct
-  { explicit_signed_long_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+  { explicit_signed_long_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CLLong)
     {- ^ __C declaration:__ @explicit_signed_long_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 319:77@
@@ -5223,7 +5219,7 @@ data Explicit_signed_long_long_pointer_array_struct = Explicit_signed_long_long_
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Explicit_signed_long_long_pointer_array_struct where
 
@@ -5236,7 +5232,7 @@ instance Marshal.ReadRaw Explicit_signed_long_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Explicit_signed_long_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"explicit_signed_long_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"explicit_signed_long_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct where
 
@@ -5246,30 +5242,30 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct where
         case s1 of
           Explicit_signed_long_long_pointer_array_struct
             explicit_signed_long_long_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"explicit_signed_long_long_pointer_array_member") ptr0 explicit_signed_long_long_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"explicit_signed_long_long_pointer_array_member") ptr0 explicit_signed_long_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_array_struct instance RIP.Storable Explicit_signed_long_long_pointer_array_struct
+deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_array_struct instance BG.Storable Explicit_signed_long_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.CompatHasField.HasField "explicit_signed_long_long_pointer_array_member" Explicit_signed_long_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
+         ) => BG.CompatHasField.HasField "explicit_signed_long_long_pointer_array_member" Explicit_signed_long_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Explicit_signed_long_long_pointer_array_struct {explicit_signed_long_long_pointer_array_member = y1}
-      , RIP.getField @"explicit_signed_long_long_pointer_array_member" x0
+      , BG.getField @"explicit_signed_long_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
-         ) => RIP.HasField "explicit_signed_long_long_pointer_array_member" (RIP.Ptr Explicit_signed_long_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
+         ) => BG.HasField "explicit_signed_long_long_pointer_array_member" (BG.Ptr Explicit_signed_long_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"explicit_signed_long_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"explicit_signed_long_long_pointer_array_member")
 
 instance HasCField.HasCField Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" where
 
   type CFieldType Explicit_signed_long_long_pointer_array_struct "explicit_signed_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CLLong)
+    CA.ConstantArray 10 (BG.Ptr BG.CLLong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5280,7 +5276,7 @@ instance HasCField.HasCField Explicit_signed_long_long_pointer_array_struct "exp
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Unsigned_long_long_pointer_array_struct = Unsigned_long_long_pointer_array_struct
-  { unsigned_long_long_pointer_array_member :: CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
+  { unsigned_long_long_pointer_array_member :: CA.ConstantArray 10 (BG.Ptr BG.CULLong)
     {- ^ __C declaration:__ @unsigned_long_long_pointer_array_member@
 
          __defined at:__ @comprehensive\/c2hsc.h 320:77@
@@ -5288,7 +5284,7 @@ data Unsigned_long_long_pointer_array_struct = Unsigned_long_long_pointer_array_
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unsigned_long_long_pointer_array_struct where
 
@@ -5301,7 +5297,7 @@ instance Marshal.ReadRaw Unsigned_long_long_pointer_array_struct where
   readRaw =
     \ptr0 ->
           pure Unsigned_long_long_pointer_array_struct
-      <*> HasCField.readRaw (RIP.Proxy @"unsigned_long_long_pointer_array_member") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unsigned_long_long_pointer_array_member") ptr0
 
 instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct where
 
@@ -5311,30 +5307,30 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct where
         case s1 of
           Unsigned_long_long_pointer_array_struct
             unsigned_long_long_pointer_array_member2 ->
-              HasCField.writeRaw (RIP.Proxy @"unsigned_long_long_pointer_array_member") ptr0 unsigned_long_long_pointer_array_member2
+              HasCField.writeRaw (BG.Proxy @"unsigned_long_long_pointer_array_member") ptr0 unsigned_long_long_pointer_array_member2
 
-deriving via Marshal.EquivStorable Unsigned_long_long_pointer_array_struct instance RIP.Storable Unsigned_long_long_pointer_array_struct
+deriving via Marshal.EquivStorable Unsigned_long_long_pointer_array_struct instance BG.Storable Unsigned_long_long_pointer_array_struct
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
-         ) => RIP.CompatHasField.HasField "unsigned_long_long_pointer_array_member" Unsigned_long_long_pointer_array_struct ty where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULLong)
+         ) => BG.CompatHasField.HasField "unsigned_long_long_pointer_array_member" Unsigned_long_long_pointer_array_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unsigned_long_long_pointer_array_struct {unsigned_long_long_pointer_array_member = y1}
-      , RIP.getField @"unsigned_long_long_pointer_array_member" x0
+      , BG.getField @"unsigned_long_long_pointer_array_member" x0
       )
 
-instance ( ty ~ CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
-         ) => RIP.HasField "unsigned_long_long_pointer_array_member" (RIP.Ptr Unsigned_long_long_pointer_array_struct) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULLong)
+         ) => BG.HasField "unsigned_long_long_pointer_array_member" (BG.Ptr Unsigned_long_long_pointer_array_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unsigned_long_long_pointer_array_member")
+    HasCField.fromPtr (BG.Proxy @"unsigned_long_long_pointer_array_member")
 
 instance HasCField.HasCField Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" where
 
   type CFieldType Unsigned_long_long_pointer_array_struct "unsigned_long_long_pointer_array_member" =
-    CA.ConstantArray 10 (RIP.Ptr RIP.CULLong)
+    CA.ConstantArray 10 (BG.Ptr BG.CULLong)
 
   offset# = \_ -> \_ -> 0
 
@@ -5349,42 +5345,42 @@ instance HasCField.HasCField Unsigned_long_long_pointer_array_struct "unsigned_l
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype An_int = An_int
-  { unwrap :: RIP.CInt
+  { unwrap :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrap" An_int ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrap" An_int ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         An_int {unwrap = y1}, RIP.getField @"unwrap" x0)
+         An_int {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr An_int) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrap" (BG.Ptr An_int) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField An_int "unwrap" where
 
-  type CFieldType An_int "unwrap" = RIP.CInt
+  type CFieldType An_int "unwrap" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -5395,14 +5391,14 @@ instance HasCField.HasCField An_int "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Cal_table_table = Cal_table_table
-  { raw :: RIP.CInt
+  { raw :: BG.CInt
     {- ^ __C declaration:__ @raw@
 
          __defined at:__ @comprehensive\/c2hsc.h 342:13@
 
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
-  , val :: RIP.CInt
+  , val :: BG.CInt
     {- ^ __C declaration:__ @val@
 
          __defined at:__ @comprehensive\/c2hsc.h 342:22@
@@ -5410,7 +5406,7 @@ data Cal_table_table = Cal_table_table
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Cal_table_table where
 
@@ -5423,8 +5419,8 @@ instance Marshal.ReadRaw Cal_table_table where
   readRaw =
     \ptr0 ->
           pure Cal_table_table
-      <*> HasCField.readRaw (RIP.Proxy @"raw") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"val") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"raw") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"val") ptr0
 
 instance Marshal.WriteRaw Cal_table_table where
 
@@ -5433,50 +5429,50 @@ instance Marshal.WriteRaw Cal_table_table where
       \s1 ->
         case s1 of
           Cal_table_table raw2 val3 ->
-               HasCField.writeRaw (RIP.Proxy @"raw") ptr0 raw2
-            >> HasCField.writeRaw (RIP.Proxy @"val") ptr0 val3
+               HasCField.writeRaw (BG.Proxy @"raw") ptr0 raw2
+            >> HasCField.writeRaw (BG.Proxy @"val") ptr0 val3
 
-deriving via Marshal.EquivStorable Cal_table_table instance RIP.Storable Cal_table_table
+deriving via Marshal.EquivStorable Cal_table_table instance BG.Storable Cal_table_table
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "raw" Cal_table_table ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "raw" Cal_table_table ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Cal_table_table {raw = y1, val = RIP.getField @"val" x0}
-      , RIP.getField @"raw" x0
+          Cal_table_table {raw = y1, val = BG.getField @"val" x0}
+      , BG.getField @"raw" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "raw" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "raw" (BG.Ptr Cal_table_table) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"raw")
+  getField = HasCField.fromPtr (BG.Proxy @"raw")
 
 instance HasCField.HasCField Cal_table_table "raw" where
 
-  type CFieldType Cal_table_table "raw" = RIP.CInt
+  type CFieldType Cal_table_table "raw" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "val" Cal_table_table ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "val" Cal_table_table ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Cal_table_table {val = y1, raw = RIP.getField @"raw" x0}
-      , RIP.getField @"val" x0
+          Cal_table_table {val = y1, raw = BG.getField @"raw" x0}
+      , BG.getField @"val" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "val" (RIP.Ptr Cal_table_table) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "val" (BG.Ptr Cal_table_table) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"val")
+  getField = HasCField.fromPtr (BG.Proxy @"val")
 
 instance HasCField.HasCField Cal_table_table "val" where
 
-  type CFieldType Cal_table_table "val" = RIP.CInt
+  type CFieldType Cal_table_table "val" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -5491,7 +5487,7 @@ instance HasCField.HasCField Cal_table_table "val" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Cal_table = Cal_table
-  { size :: RIP.CInt
+  { size :: BG.CInt
     {- ^ __C declaration:__ @size@
 
          __defined at:__ @comprehensive\/c2hsc.h 340:9@
@@ -5506,7 +5502,7 @@ data Cal_table = Cal_table
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Cal_table where
 
@@ -5519,8 +5515,8 @@ instance Marshal.ReadRaw Cal_table where
   readRaw =
     \ptr0 ->
           pure Cal_table
-      <*> HasCField.readRaw (RIP.Proxy @"size") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"table") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"size") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"table") ptr0
 
 instance Marshal.WriteRaw Cal_table where
 
@@ -5529,46 +5525,45 @@ instance Marshal.WriteRaw Cal_table where
       \s1 ->
         case s1 of
           Cal_table size2 table3 ->
-               HasCField.writeRaw (RIP.Proxy @"size") ptr0 size2
-            >> HasCField.writeRaw (RIP.Proxy @"table") ptr0 table3
+               HasCField.writeRaw (BG.Proxy @"size") ptr0 size2
+            >> HasCField.writeRaw (BG.Proxy @"table") ptr0 table3
 
-deriving via Marshal.EquivStorable Cal_table instance RIP.Storable Cal_table
+deriving via Marshal.EquivStorable Cal_table instance BG.Storable Cal_table
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "size" Cal_table ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "size" Cal_table ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Cal_table {size = y1, table = RIP.getField @"table" x0}
-      , RIP.getField @"size" x0
+          Cal_table {size = y1, table = BG.getField @"table" x0}
+      , BG.getField @"size" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "size" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "size" (BG.Ptr Cal_table) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"size")
+  getField = HasCField.fromPtr (BG.Proxy @"size")
 
 instance HasCField.HasCField Cal_table "size" where
 
-  type CFieldType Cal_table "size" = RIP.CInt
+  type CFieldType Cal_table "size" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ CA.ConstantArray 32 Cal_table_table
-         ) => RIP.CompatHasField.HasField "table" Cal_table ty where
+         ) => BG.CompatHasField.HasField "table" Cal_table ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Cal_table {table = y1, size = RIP.getField @"size" x0}
-      , RIP.getField @"table" x0
+          Cal_table {table = y1, size = BG.getField @"size" x0}
+      , BG.getField @"table" x0
       )
 
 instance ( ty ~ CA.ConstantArray 32 Cal_table_table
-         ) => RIP.HasField "table" (RIP.Ptr Cal_table) (RIP.Ptr ty) where
+         ) => BG.HasField "table" (BG.Ptr Cal_table) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"table")
+  getField = HasCField.fromPtr (BG.Proxy @"table")
 
 instance HasCField.HasCField Cal_table "table" where
 
@@ -5584,30 +5579,19 @@ instance HasCField.HasCField Cal_table "table" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Elf32_External_Dyn_d_un = Elf32_External_Dyn_d_un
-  { unwrap :: RIP.ByteArray
+  { unwrap :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 1 instance Marshal.StaticSize Elf32_External_Dyn_d_un
+deriving via BG.SizedByteArray 4 1 instance Marshal.StaticSize Elf32_External_Dyn_d_un
 
-deriving via RIP.SizedByteArray 4 1 instance Marshal.ReadRaw Elf32_External_Dyn_d_un
+deriving via BG.SizedByteArray 4 1 instance Marshal.ReadRaw Elf32_External_Dyn_d_un
 
-deriving via RIP.SizedByteArray 4 1 instance Marshal.WriteRaw Elf32_External_Dyn_d_un
+deriving via BG.SizedByteArray 4 1 instance Marshal.WriteRaw Elf32_External_Dyn_d_un
 
-deriving via Marshal.EquivStorable Elf32_External_Dyn_d_un instance RIP.Storable Elf32_External_Dyn_d_un
+deriving via Marshal.EquivStorable Elf32_External_Dyn_d_un instance BG.Storable Elf32_External_Dyn_d_un
 
-deriving via RIP.SizedByteArray 4 1 instance Union.IsUnion Elf32_External_Dyn_d_un
-
-{-| __C declaration:__ @d_val@
-
-    __defined at:__ @comprehensive\/c2hsc.h 350:19@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_val" Elf32_External_Dyn_d_un ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 1 instance Union.IsUnion Elf32_External_Dyn_d_un
 
 {-| __C declaration:__ @d_val@
 
@@ -5615,22 +5599,32 @@ instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.CompatHasField.HasField "d_val" Elf32_External_Dyn_d_un ty where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.HasField "d_val" Elf32_External_Dyn_d_un ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @d_val@
+
+    __defined at:__ @comprehensive\/c2hsc.h 350:19@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.CompatHasField.HasField "d_val" Elf32_External_Dyn_d_un ty where
 
   hasField =
-    \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"d_val" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"d_val" x0)
 
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_val" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.HasField "d_val" (BG.Ptr Elf32_External_Dyn_d_un) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_val")
+  getField = HasCField.fromPtr (BG.Proxy @"d_val")
 
 instance HasCField.HasCField Elf32_External_Dyn_d_un "d_val" where
 
   type CFieldType Elf32_External_Dyn_d_un "d_val" =
-    CA.ConstantArray 4 RIP.CUChar
+    CA.ConstantArray 4 BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
@@ -5640,10 +5634,10 @@ instance HasCField.HasCField Elf32_External_Dyn_d_un "d_val" where
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @d_ptr@
 
@@ -5651,22 +5645,21 @@ instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.CompatHasField.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.CompatHasField.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
 
   hasField =
-    \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"d_ptr" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"d_ptr" x0)
 
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_ptr" (RIP.Ptr Elf32_External_Dyn_d_un) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.HasField "d_ptr" (BG.Ptr Elf32_External_Dyn_d_un) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_ptr")
+  getField = HasCField.fromPtr (BG.Proxy @"d_ptr")
 
 instance HasCField.HasCField Elf32_External_Dyn_d_un "d_ptr" where
 
   type CFieldType Elf32_External_Dyn_d_un "d_ptr" =
-    CA.ConstantArray 4 RIP.CUChar
+    CA.ConstantArray 4 BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
@@ -5677,7 +5670,7 @@ instance HasCField.HasCField Elf32_External_Dyn_d_un "d_ptr" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 data Elf32_External_Dyn = Elf32_External_Dyn
-  { d_tag :: CA.ConstantArray 4 RIP.CUChar
+  { d_tag :: CA.ConstantArray 4 BG.CUChar
     {- ^ __C declaration:__ @d_tag@
 
          __defined at:__ @comprehensive\/c2hsc.h 348:17@
@@ -5692,7 +5685,7 @@ data Elf32_External_Dyn = Elf32_External_Dyn
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance Marshal.StaticSize Elf32_External_Dyn where
 
@@ -5705,8 +5698,8 @@ instance Marshal.ReadRaw Elf32_External_Dyn where
   readRaw =
     \ptr0 ->
           pure Elf32_External_Dyn
-      <*> HasCField.readRaw (RIP.Proxy @"d_tag") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"d_un") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"d_tag") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"d_un") ptr0
 
 instance Marshal.WriteRaw Elf32_External_Dyn where
 
@@ -5715,47 +5708,47 @@ instance Marshal.WriteRaw Elf32_External_Dyn where
       \s1 ->
         case s1 of
           Elf32_External_Dyn d_tag2 d_un3 ->
-               HasCField.writeRaw (RIP.Proxy @"d_tag") ptr0 d_tag2
-            >> HasCField.writeRaw (RIP.Proxy @"d_un") ptr0 d_un3
+               HasCField.writeRaw (BG.Proxy @"d_tag") ptr0 d_tag2
+            >> HasCField.writeRaw (BG.Proxy @"d_un") ptr0 d_un3
 
-deriving via Marshal.EquivStorable Elf32_External_Dyn instance RIP.Storable Elf32_External_Dyn
+deriving via Marshal.EquivStorable Elf32_External_Dyn instance BG.Storable Elf32_External_Dyn
 
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.CompatHasField.HasField "d_tag" Elf32_External_Dyn ty where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.CompatHasField.HasField "d_tag" Elf32_External_Dyn ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Elf32_External_Dyn {d_tag = y1, d_un = RIP.getField @"d_un" x0}
-      , RIP.getField @"d_tag" x0
+          Elf32_External_Dyn {d_tag = y1, d_un = BG.getField @"d_un" x0}
+      , BG.getField @"d_tag" x0
       )
 
-instance ( ty ~ CA.ConstantArray 4 RIP.CUChar
-         ) => RIP.HasField "d_tag" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 4 BG.CUChar
+         ) => BG.HasField "d_tag" (BG.Ptr Elf32_External_Dyn) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_tag")
+  getField = HasCField.fromPtr (BG.Proxy @"d_tag")
 
 instance HasCField.HasCField Elf32_External_Dyn "d_tag" where
 
   type CFieldType Elf32_External_Dyn "d_tag" =
-    CA.ConstantArray 4 RIP.CUChar
+    CA.ConstantArray 4 BG.CUChar
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Elf32_External_Dyn_d_un
-         ) => RIP.CompatHasField.HasField "d_un" Elf32_External_Dyn ty where
+         ) => BG.CompatHasField.HasField "d_un" Elf32_External_Dyn ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Elf32_External_Dyn {d_un = y1, d_tag = RIP.getField @"d_tag" x0}
-      , RIP.getField @"d_un" x0
+          Elf32_External_Dyn {d_un = y1, d_tag = BG.getField @"d_tag" x0}
+      , BG.getField @"d_un" x0
       )
 
 instance ( ty ~ Elf32_External_Dyn_d_un
-         ) => RIP.HasField "d_un" (RIP.Ptr Elf32_External_Dyn) (RIP.Ptr ty) where
+         ) => BG.HasField "d_un" (BG.Ptr Elf32_External_Dyn) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"d_un")
+  getField = HasCField.fromPtr (BG.Proxy @"d_un")
 
 instance HasCField.HasCField Elf32_External_Dyn "d_un" where
 
@@ -5771,33 +5764,33 @@ instance HasCField.HasCField Elf32_External_Dyn "d_un" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Bug_24 = Bug_24
-  { unwrap :: RIP.Ptr RIP.CInt
+  { unwrap :: BG.Ptr BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bug_24 ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "unwrap" Bug_24 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bug_24 {unwrap = y1}, RIP.getField @"unwrap" x0)
+         Bug_24 {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Bug_24) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "unwrap" (BG.Ptr Bug_24) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField Bug_24 "unwrap" where
 
-  type CFieldType Bug_24 "unwrap" = RIP.Ptr RIP.CInt
+  type CFieldType Bug_24 "unwrap" = BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -5808,34 +5801,34 @@ instance HasCField.HasCField Bug_24 "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Bug_24_2 = Bug_24_2
-  { unwrap :: PtrConst.PtrConst RIP.CInt
+  { unwrap :: PtrConst.PtrConst BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" Bug_24_2 ty where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.CompatHasField.HasField "unwrap" Bug_24_2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bug_24_2 {unwrap = y1}, RIP.getField @"unwrap" x0)
+         Bug_24_2 {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ PtrConst.PtrConst RIP.CInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr Bug_24_2) (RIP.Ptr ty) where
+instance ( ty ~ PtrConst.PtrConst BG.CInt
+         ) => BG.HasField "unwrap" (BG.Ptr Bug_24_2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField Bug_24_2 "unwrap" where
 
   type CFieldType Bug_24_2 "unwrap" =
-    PtrConst.PtrConst RIP.CInt
+    PtrConst.PtrConst BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -5846,34 +5839,34 @@ instance HasCField.HasCField Bug_24_2 "unwrap" where
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype MyArray_27 = MyArray_27
-  { unwrap :: CA.ConstantArray 20 RIP.CInt
+  { unwrap :: CA.ConstantArray 20 BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 20 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrap" MyArray_27 ty where
+instance ( ty ~ CA.ConstantArray 20 BG.CInt
+         ) => BG.CompatHasField.HasField "unwrap" MyArray_27 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyArray_27 {unwrap = y1}, RIP.getField @"unwrap" x0)
+         MyArray_27 {unwrap = y1}, BG.getField @"unwrap" x0)
 
-instance ( ty ~ CA.ConstantArray 20 RIP.CInt
-         ) => RIP.HasField "unwrap" (RIP.Ptr MyArray_27) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 20 BG.CInt
+         ) => BG.HasField "unwrap" (BG.Ptr MyArray_27) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrap")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrap")
 
 instance HasCField.HasCField MyArray_27 "unwrap" where
 
   type CFieldType MyArray_27 "unwrap" =
-    CA.ConstantArray 20 RIP.CInt
+    CA.ConstantArray 20 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -5892,7 +5885,7 @@ data MyStruct_27 = MyStruct_27
          __exported by:__ @comprehensive\/c2hsc.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize MyStruct_27 where
 
@@ -5905,7 +5898,7 @@ instance Marshal.ReadRaw MyStruct_27 where
   readRaw =
     \ptr0 ->
           pure MyStruct_27
-      <*> HasCField.readRaw (RIP.Proxy @"x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"x") ptr0
 
 instance Marshal.WriteRaw MyStruct_27 where
 
@@ -5914,21 +5907,21 @@ instance Marshal.WriteRaw MyStruct_27 where
       \s1 ->
         case s1 of
           MyStruct_27 x2 ->
-            HasCField.writeRaw (RIP.Proxy @"x") ptr0 x2
+            HasCField.writeRaw (BG.Proxy @"x") ptr0 x2
 
-deriving via Marshal.EquivStorable MyStruct_27 instance RIP.Storable MyStruct_27
+deriving via Marshal.EquivStorable MyStruct_27 instance BG.Storable MyStruct_27
 
 instance ( ty ~ MyArray_27
-         ) => RIP.CompatHasField.HasField "x" MyStruct_27 ty where
+         ) => BG.CompatHasField.HasField "x" MyStruct_27 ty where
 
   hasField =
     \x0 ->
-      (\y1 -> MyStruct_27 {x = y1}, RIP.getField @"x" x0)
+      (\y1 -> MyStruct_27 {x = y1}, BG.getField @"x" x0)
 
 instance ( ty ~ MyArray_27
-         ) => RIP.HasField "x" (RIP.Ptr MyStruct_27) (RIP.Ptr ty) where
+         ) => BG.HasField "x" (BG.Ptr MyStruct_27) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"x")
+  getField = HasCField.fromPtr (BG.Proxy @"x")
 
 instance HasCField.HasCField MyStruct_27 "x" where
 

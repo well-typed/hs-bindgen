@@ -1,6 +1,6 @@
 {-# OPTIONS_HADDOCK hide #-}
 
--- NOTE: For now, this module is classified "Internal"; however, it may become
+-- NOTE: For now, this module is classified "Support"; however, it may become
 -- public in the future. See also
 -- https://github.com/well-typed/hs-bindgen/issues/1565.
 
@@ -12,7 +12,7 @@
 -- exported for the @hs-bindgen@ package to use. You probably won't need to use
 -- these directly, but you might find the datatypes useful as documentation for
 -- the 'HsBindgen.Runtime.HasFFIType.HasFFIType' class.
-module HsBindgen.Runtime.Internal.FFIType (
+module HsBindgen.Runtime.Support.FFIType (
     FFIType (..)
   , BasicFFIType (..)
   ) where

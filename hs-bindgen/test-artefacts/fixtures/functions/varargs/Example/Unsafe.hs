@@ -6,10 +6,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/varargs.h>"
   , "void hs_bindgen_32ebae80cc3543e1 (void)"
   , "{"
@@ -24,7 +24,7 @@ foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 hs_bindgen_32ebae80cc3543e1 :: IO ()
 hs_bindgen_32ebae80cc3543e1 =
-  RIP.fromFFIType hs_bindgen_32ebae80cc3543e1_base
+  BG.fromFFIType hs_bindgen_32ebae80cc3543e1_base
 
 {-| __C declaration:__ @h@
 

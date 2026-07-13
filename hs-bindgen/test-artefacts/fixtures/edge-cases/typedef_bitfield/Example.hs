@@ -25,9 +25,9 @@ module Example
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @myInt@
 
@@ -36,44 +36,44 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyInt = MyInt
-  { unwrapMyInt :: RIP.CInt
+  { unwrapMyInt :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapMyInt" MyInt ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+         MyInt {unwrapMyInt = y1}, BG.getField @"unwrapMyInt" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapMyInt" (BG.Ptr MyInt) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyInt")
 
 instance HasCField.HasCField MyInt "unwrapMyInt" where
 
-  type CFieldType MyInt "unwrapMyInt" = RIP.CInt
+  type CFieldType MyInt "unwrapMyInt" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -84,44 +84,44 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyUInt = MyUInt
-  { unwrapMyUInt :: RIP.CUInt
+  { unwrapMyUInt :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapMyUInt" MyUInt ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapMyUInt" MyUInt ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyUInt {unwrapMyUInt = y1}, RIP.getField @"unwrapMyUInt" x0)
+         MyUInt {unwrapMyUInt = y1}, BG.getField @"unwrapMyUInt" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapMyUInt" (BG.Ptr MyUInt) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyUInt")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyUInt")
 
 instance HasCField.HasCField MyUInt "unwrapMyUInt" where
 
-  type CFieldType MyUInt "unwrapMyUInt" = RIP.CUInt
+  type CFieldType MyUInt "unwrapMyUInt" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -132,44 +132,44 @@ instance HasCField.HasCField MyUInt "unwrapMyUInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyLong = MyLong
-  { unwrapMyLong :: RIP.CLong
+  { unwrapMyLong :: BG.CLong
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.CompatHasField.HasField "unwrapMyLong" MyLong ty where
+instance ( ty ~ BG.CLong
+         ) => BG.CompatHasField.HasField "unwrapMyLong" MyLong ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyLong {unwrapMyLong = y1}, RIP.getField @"unwrapMyLong" x0)
+         MyLong {unwrapMyLong = y1}, BG.getField @"unwrapMyLong" x0)
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr ty) where
+instance ( ty ~ BG.CLong
+         ) => BG.HasField "unwrapMyLong" (BG.Ptr MyLong) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyLong")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyLong")
 
 instance HasCField.HasCField MyLong "unwrapMyLong" where
 
-  type CFieldType MyLong "unwrapMyLong" = RIP.CLong
+  type CFieldType MyLong "unwrapMyLong" = BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -202,7 +202,7 @@ data MyStruct = MyStruct
          __exported by:__ @edge-cases\/typedef_bitfield.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize MyStruct where
 
@@ -215,9 +215,9 @@ instance Marshal.ReadRaw MyStruct where
   readRaw =
     \ptr0 ->
           pure MyStruct
-      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_y") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_z") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"myStruct_x") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"myStruct_y") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"myStruct_z") ptr0
 
 instance Marshal.WriteRaw MyStruct where
 
@@ -226,30 +226,30 @@ instance Marshal.WriteRaw MyStruct where
       \s1 ->
         case s1 of
           MyStruct myStruct_x2 myStruct_y3 myStruct_z4 ->
-               HasCBitfield.poke (RIP.Proxy @"myStruct_x") ptr0 myStruct_x2
-            >> HasCBitfield.poke (RIP.Proxy @"myStruct_y") ptr0 myStruct_y3
-            >> HasCBitfield.poke (RIP.Proxy @"myStruct_z") ptr0 myStruct_z4
+               HasCBitfield.poke (BG.Proxy @"myStruct_x") ptr0 myStruct_x2
+            >> HasCBitfield.poke (BG.Proxy @"myStruct_y") ptr0 myStruct_y3
+            >> HasCBitfield.poke (BG.Proxy @"myStruct_z") ptr0 myStruct_z4
 
-deriving via Marshal.EquivStorable MyStruct instance RIP.Storable MyStruct
+deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
 
 instance ( ty ~ MyInt
-         ) => RIP.CompatHasField.HasField "myStruct_x" MyStruct ty where
+         ) => BG.CompatHasField.HasField "myStruct_x" MyStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           MyStruct { myStruct_x = y1
-                   , myStruct_y = RIP.getField @"myStruct_y" x0
-                   , myStruct_z = RIP.getField @"myStruct_z" x0
+                   , myStruct_y = BG.getField @"myStruct_y" x0
+                   , myStruct_z = BG.getField @"myStruct_z" x0
                    }
-      , RIP.getField @"myStruct_x" x0
+      , BG.getField @"myStruct_x" x0
       )
 
 instance ( ty ~ MyInt
-         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+         ) => BG.HasField "myStruct_x" (BG.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
+    HasCBitfield.toPtr (BG.Proxy @"myStruct_x")
 
 instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
@@ -260,23 +260,23 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
   bitfieldWidth# = \_ -> \_ -> 2
 
 instance ( ty ~ MyUInt
-         ) => RIP.CompatHasField.HasField "myStruct_y" MyStruct ty where
+         ) => BG.CompatHasField.HasField "myStruct_y" MyStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           MyStruct { myStruct_y = y1
-                   , myStruct_x = RIP.getField @"myStruct_x" x0
-                   , myStruct_z = RIP.getField @"myStruct_z" x0
+                   , myStruct_x = BG.getField @"myStruct_x" x0
+                   , myStruct_z = BG.getField @"myStruct_z" x0
                    }
-      , RIP.getField @"myStruct_y" x0
+      , BG.getField @"myStruct_y" x0
       )
 
 instance ( ty ~ MyUInt
-         ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+         ) => BG.HasField "myStruct_y" (BG.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
+    HasCBitfield.toPtr (BG.Proxy @"myStruct_y")
 
 instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
@@ -287,23 +287,23 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
   bitfieldWidth# = \_ -> \_ -> 4
 
 instance ( ty ~ MyLong
-         ) => RIP.CompatHasField.HasField "myStruct_z" MyStruct ty where
+         ) => BG.CompatHasField.HasField "myStruct_z" MyStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           MyStruct { myStruct_z = y1
-                   , myStruct_x = RIP.getField @"myStruct_x" x0
-                   , myStruct_y = RIP.getField @"myStruct_y" x0
+                   , myStruct_x = BG.getField @"myStruct_x" x0
+                   , myStruct_y = BG.getField @"myStruct_y" x0
                    }
-      , RIP.getField @"myStruct_z" x0
+      , BG.getField @"myStruct_z" x0
       )
 
 instance ( ty ~ MyLong
-         ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
+         ) => BG.HasField "myStruct_z" (BG.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")
+    HasCBitfield.toPtr (BG.Proxy @"myStruct_z")
 
 instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 

@@ -7,11 +7,11 @@ module Example.Safe
   where
 
 import qualified Foreign
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program_slicing_simple.h>"
   , "signed int hs_bindgen_48dbbf4b09b5b3c1 ("
   , "  uint64_t arg1,"
@@ -24,17 +24,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::
-     RIP.Word64
-  -> RIP.Word32
-  -> IO RIP.Int32
+     BG.Word64
+  -> BG.Word32
+  -> IO BG.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 hs_bindgen_48dbbf4b09b5b3c1 ::
      Foreign.Word64
   -> Uint32_t
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_48dbbf4b09b5b3c1 =
-  RIP.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
+  BG.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
 
 {-| __C declaration:__ @bar@
 
@@ -47,5 +47,5 @@ bar ::
      -- ^ __C declaration:__ @x@
   -> Uint32_t
      -- ^ __C declaration:__ @y@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 bar = hs_bindgen_48dbbf4b09b5b3c1

@@ -19,9 +19,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct linked_list_A_s@
 
@@ -30,14 +30,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/structs\/recursive_struct.h@
 -}
 data Linked_list_A_t = Linked_list_A_t
-  { linked_list_A_t_x :: RIP.CInt
+  { linked_list_A_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/recursive_struct.h 2:7@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
-  , linked_list_A_t_next :: RIP.Ptr Linked_list_A_t
+  , linked_list_A_t_next :: BG.Ptr Linked_list_A_t
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @types\/structs\/recursive_struct.h 3:27@
@@ -45,7 +45,7 @@ data Linked_list_A_t = Linked_list_A_t
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Linked_list_A_t where
 
@@ -58,8 +58,8 @@ instance Marshal.ReadRaw Linked_list_A_t where
   readRaw =
     \ptr0 ->
           pure Linked_list_A_t
-      <*> HasCField.readRaw (RIP.Proxy @"linked_list_A_t_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"linked_list_A_t_next") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"linked_list_A_t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"linked_list_A_t_next") ptr0
 
 instance Marshal.WriteRaw Linked_list_A_t where
 
@@ -68,58 +68,58 @@ instance Marshal.WriteRaw Linked_list_A_t where
       \s1 ->
         case s1 of
           Linked_list_A_t linked_list_A_t_x2 linked_list_A_t_next3 ->
-               HasCField.writeRaw (RIP.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
-            >> HasCField.writeRaw (RIP.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
+               HasCField.writeRaw (BG.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
+            >> HasCField.writeRaw (BG.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
 
-deriving via Marshal.EquivStorable Linked_list_A_t instance RIP.Storable Linked_list_A_t
+deriving via Marshal.EquivStorable Linked_list_A_t instance BG.Storable Linked_list_A_t
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "linked_list_A_t_x" Linked_list_A_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "linked_list_A_t_x" Linked_list_A_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Linked_list_A_t { linked_list_A_t_x = y1
-                          , linked_list_A_t_next = RIP.getField @"linked_list_A_t_next" x0
+                          , linked_list_A_t_next = BG.getField @"linked_list_A_t_next" x0
                           }
-      , RIP.getField @"linked_list_A_t_x" x0
+      , BG.getField @"linked_list_A_t_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_A_t_x" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "linked_list_A_t_x" (BG.Ptr Linked_list_A_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_x")
+    HasCField.fromPtr (BG.Proxy @"linked_list_A_t_x")
 
 instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
   type CFieldType Linked_list_A_t "linked_list_A_t_x" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Linked_list_A_t
-         ) => RIP.CompatHasField.HasField "linked_list_A_t_next" Linked_list_A_t ty where
+instance ( ty ~ BG.Ptr Linked_list_A_t
+         ) => BG.CompatHasField.HasField "linked_list_A_t_next" Linked_list_A_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Linked_list_A_t { linked_list_A_t_next = y1
-                          , linked_list_A_t_x = RIP.getField @"linked_list_A_t_x" x0
+                          , linked_list_A_t_x = BG.getField @"linked_list_A_t_x" x0
                           }
-      , RIP.getField @"linked_list_A_t_next" x0
+      , BG.getField @"linked_list_A_t_next" x0
       )
 
-instance ( ty ~ RIP.Ptr Linked_list_A_t
-         ) => RIP.HasField "linked_list_A_t_next" (RIP.Ptr Linked_list_A_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Linked_list_A_t
+         ) => BG.HasField "linked_list_A_t_next" (BG.Ptr Linked_list_A_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_A_t_next")
+    HasCField.fromPtr (BG.Proxy @"linked_list_A_t_next")
 
 instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
 
   type CFieldType Linked_list_A_t "linked_list_A_t_next" =
-    RIP.Ptr Linked_list_A_t
+    BG.Ptr Linked_list_A_t
 
   offset# = \_ -> \_ -> 8
 
@@ -130,14 +130,14 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
     __exported by:__ @types\/structs\/recursive_struct.h@
 -}
 data Linked_list_B_t = Linked_list_B_t
-  { linked_list_B_t_x :: RIP.CInt
+  { linked_list_B_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/recursive_struct.h 10:7@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
-  , linked_list_B_t_next :: RIP.Ptr Linked_list_B_t
+  , linked_list_B_t_next :: BG.Ptr Linked_list_B_t
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @types\/structs\/recursive_struct.h 11:20@
@@ -145,7 +145,7 @@ data Linked_list_B_t = Linked_list_B_t
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Linked_list_B_t where
 
@@ -158,8 +158,8 @@ instance Marshal.ReadRaw Linked_list_B_t where
   readRaw =
     \ptr0 ->
           pure Linked_list_B_t
-      <*> HasCField.readRaw (RIP.Proxy @"linked_list_B_t_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"linked_list_B_t_next") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"linked_list_B_t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"linked_list_B_t_next") ptr0
 
 instance Marshal.WriteRaw Linked_list_B_t where
 
@@ -168,57 +168,57 @@ instance Marshal.WriteRaw Linked_list_B_t where
       \s1 ->
         case s1 of
           Linked_list_B_t linked_list_B_t_x2 linked_list_B_t_next3 ->
-               HasCField.writeRaw (RIP.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
-            >> HasCField.writeRaw (RIP.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
+               HasCField.writeRaw (BG.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
+            >> HasCField.writeRaw (BG.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
 
-deriving via Marshal.EquivStorable Linked_list_B_t instance RIP.Storable Linked_list_B_t
+deriving via Marshal.EquivStorable Linked_list_B_t instance BG.Storable Linked_list_B_t
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "linked_list_B_t_x" Linked_list_B_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "linked_list_B_t_x" Linked_list_B_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Linked_list_B_t { linked_list_B_t_x = y1
-                          , linked_list_B_t_next = RIP.getField @"linked_list_B_t_next" x0
+                          , linked_list_B_t_next = BG.getField @"linked_list_B_t_next" x0
                           }
-      , RIP.getField @"linked_list_B_t_x" x0
+      , BG.getField @"linked_list_B_t_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "linked_list_B_t_x" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "linked_list_B_t_x" (BG.Ptr Linked_list_B_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_x")
+    HasCField.fromPtr (BG.Proxy @"linked_list_B_t_x")
 
 instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 
   type CFieldType Linked_list_B_t "linked_list_B_t_x" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Linked_list_B_t
-         ) => RIP.CompatHasField.HasField "linked_list_B_t_next" Linked_list_B_t ty where
+instance ( ty ~ BG.Ptr Linked_list_B_t
+         ) => BG.CompatHasField.HasField "linked_list_B_t_next" Linked_list_B_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Linked_list_B_t { linked_list_B_t_next = y1
-                          , linked_list_B_t_x = RIP.getField @"linked_list_B_t_x" x0
+                          , linked_list_B_t_x = BG.getField @"linked_list_B_t_x" x0
                           }
-      , RIP.getField @"linked_list_B_t_next" x0
+      , BG.getField @"linked_list_B_t_next" x0
       )
 
-instance ( ty ~ RIP.Ptr Linked_list_B_t
-         ) => RIP.HasField "linked_list_B_t_next" (RIP.Ptr Linked_list_B_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Linked_list_B_t
+         ) => BG.HasField "linked_list_B_t_next" (BG.Ptr Linked_list_B_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"linked_list_B_t_next")
+    HasCField.fromPtr (BG.Proxy @"linked_list_B_t_next")
 
 instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
 
   type CFieldType Linked_list_B_t "linked_list_B_t_next" =
-    RIP.Ptr Linked_list_B_t
+    BG.Ptr Linked_list_B_t
 
   offset# = \_ -> \_ -> 8

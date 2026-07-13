@@ -6,10 +6,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
   , "/* test_typesspecialparse_failure_lo_Example_get_fun2 */"
   , "__attribute__ ((const))"
@@ -23,12 +23,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
 foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
-hs_bindgen_d61a16f2d29260ed :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_d61a16f2d29260ed :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_d61a16f2d29260ed =
-  RIP.fromFFIType hs_bindgen_d61a16f2d29260ed_base
+  BG.fromFFIType hs_bindgen_d61a16f2d29260ed_base
 
 {-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@
@@ -37,6 +37,5 @@ hs_bindgen_d61a16f2d29260ed =
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2 :: RIP.FunPtr (RIP.CInt -> IO ())
-fun2 =
-  RIP.unsafePerformIO hs_bindgen_d61a16f2d29260ed
+fun2 :: BG.FunPtr (BG.CInt -> IO ())
+fun2 = BG.unsafePerformIO hs_bindgen_d61a16f2d29260ed

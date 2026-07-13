@@ -14,16 +14,16 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (testProperty)
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
-import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
-import HsBindgen.Runtime.Internal.Bitfield qualified as Bitfield
 import HsBindgen.Runtime.Marshal qualified as Marshal
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
+import HsBindgen.Runtime.Support.Bitfield qualified as Bitfield
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.Runtime.Internal.Bitfield" [
+tests = testGroup "HsBindgen.Runtime.Support.Bitfield" [
       testGroup "extend . narrow" [
           testProperty "Word8"  (unsigned_extend_narrow_prop @Word8)
         , testProperty "Word16" (unsigned_extend_narrow_prop @Word16)

@@ -6,10 +6,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
   , "void hs_bindgen_61793546aa44e36b ("
   , "  signed int arg1"
@@ -21,15 +21,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b ::
-     RIP.CInt
+     BG.CInt
   -> IO ()
 hs_bindgen_61793546aa44e36b =
-  RIP.fromFFIType hs_bindgen_61793546aa44e36b_base
+  BG.fromFFIType hs_bindgen_61793546aa44e36b_base
 
 {-| __C declaration:__ @fun2@
 
@@ -38,6 +38,6 @@ hs_bindgen_61793546aa44e36b =
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2 ::
-     RIP.CInt
+     BG.CInt
   -> IO ()
 fun2 = hs_bindgen_61793546aa44e36b

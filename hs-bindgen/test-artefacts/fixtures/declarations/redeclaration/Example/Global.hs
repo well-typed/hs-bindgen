@@ -7,10 +7,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/redeclaration.h>"
   , "/* test_declarationsredeclaration_Example_get_x */"
   , "__attribute__ ((const))"
@@ -28,12 +28,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
-hs_bindgen_6f47e5cbb92690b9 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_6f47e5cbb92690b9 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_6f47e5cbb92690b9 =
-  RIP.fromFFIType hs_bindgen_6f47e5cbb92690b9_base
+  BG.fromFFIType hs_bindgen_6f47e5cbb92690b9_base
 
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
@@ -42,17 +42,17 @@ hs_bindgen_6f47e5cbb92690b9 =
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x :: RIP.Ptr RIP.CInt
-x = RIP.unsafePerformIO hs_bindgen_6f47e5cbb92690b9
+x :: BG.Ptr BG.CInt
+x = BG.unsafePerformIO hs_bindgen_6f47e5cbb92690b9
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_n@
 foreign import ccall unsafe "hs_bindgen_8afd78f6e3766c89" hs_bindgen_8afd78f6e3766c89_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_n@
-hs_bindgen_8afd78f6e3766c89 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_8afd78f6e3766c89 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_8afd78f6e3766c89 =
-  RIP.fromFFIType hs_bindgen_8afd78f6e3766c89_base
+  BG.fromFFIType hs_bindgen_8afd78f6e3766c89_base
 
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
@@ -61,5 +61,5 @@ hs_bindgen_8afd78f6e3766c89 =
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-n :: RIP.Ptr RIP.CInt
-n = RIP.unsafePerformIO hs_bindgen_8afd78f6e3766c89
+n :: BG.Ptr BG.CInt
+n = BG.unsafePerformIO hs_bindgen_8afd78f6e3766c89

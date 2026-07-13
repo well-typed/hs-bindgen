@@ -24,9 +24,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum MyEnum@
 
@@ -35,10 +35,10 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 newtype MyEnum = MyEnum
-  { unwrapMyEnum :: RIP.CUInt
+  { unwrapMyEnum :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize MyEnum where
 
@@ -62,21 +62,21 @@ instance Marshal.WriteRaw MyEnum where
           MyEnum unwrapMyEnum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapMyEnum2
 
-deriving via Marshal.EquivStorable MyEnum instance RIP.Storable MyEnum
+deriving via Marshal.EquivStorable MyEnum instance BG.Storable MyEnum
 
-deriving via RIP.CUInt instance RIP.Prim MyEnum
+deriving via BG.CUInt instance BG.Prim MyEnum
 
 instance CEnum.CEnum MyEnum where
 
-  type CEnumZ MyEnum = RIP.CUInt
+  type CEnumZ MyEnum = BG.CUInt
 
   toCEnum = MyEnum
 
-  fromCEnum = RIP.getField @"unwrapMyEnum"
+  fromCEnum = BG.getField @"unwrapMyEnum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "Say\20320\22909"), (1, RIP.singleton "Say\25308\25308")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "Say\20320\22909"), (1, BG.singleton "Say\25308\25308")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "MyEnum"
@@ -102,27 +102,27 @@ instance Read MyEnum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyEnum {unwrapMyEnum = y1}, RIP.getField @"unwrapMyEnum" x0)
+         MyEnum {unwrapMyEnum = y1}, BG.getField @"unwrapMyEnum" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapMyEnum" (BG.Ptr MyEnum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyEnum")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyEnum")
 
 instance HasCField.HasCField MyEnum "unwrapMyEnum" where
 
-  type CFieldType MyEnum "unwrapMyEnum" = RIP.CUInt
+  type CFieldType MyEnum "unwrapMyEnum" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 

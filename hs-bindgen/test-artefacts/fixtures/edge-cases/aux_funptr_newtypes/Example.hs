@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| Auxiliary type used by 'FunPtr'
 
@@ -36,22 +36,22 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 newtype FunPtr_Aux = FunPtr_Aux
   { unwrapFunPtr_Aux :: Foo -> IO ()
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance ( ty ~ (Foo -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapFunPtr_Aux" FunPtr_Aux ty where
+         ) => BG.CompatHasField.HasField "unwrapFunPtr_Aux" FunPtr_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 -> FunPtr_Aux {unwrapFunPtr_Aux = y1}
-      , RIP.getField @"unwrapFunPtr_Aux" x0
+      , BG.getField @"unwrapFunPtr_Aux" x0
       )
 
 instance ( ty ~ (Foo -> IO ())
-         ) => RIP.HasField "unwrapFunPtr_Aux" (RIP.Ptr FunPtr_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapFunPtr_Aux" (BG.Ptr FunPtr_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFunPtr_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapFunPtr_Aux")
 
 instance HasCField.HasCField FunPtr_Aux "unwrapFunPtr_Aux" where
 
@@ -67,35 +67,35 @@ instance HasCField.HasCField FunPtr_Aux "unwrapFunPtr_Aux" where
     __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
 -}
 newtype FunPtr = FunPtr
-  { unwrapFunPtr :: RIP.FunPtr FunPtr_Aux
+  { unwrapFunPtr :: BG.FunPtr FunPtr_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr FunPtr_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunPtr" FunPtr ty where
+instance ( ty ~ BG.FunPtr FunPtr_Aux
+         ) => BG.CompatHasField.HasField "unwrapFunPtr" FunPtr ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         FunPtr {unwrapFunPtr = y1}, RIP.getField @"unwrapFunPtr" x0)
+         FunPtr {unwrapFunPtr = y1}, BG.getField @"unwrapFunPtr" x0)
 
-instance ( ty ~ RIP.FunPtr FunPtr_Aux
-         ) => RIP.HasField "unwrapFunPtr" (RIP.Ptr FunPtr) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr FunPtr_Aux
+         ) => BG.HasField "unwrapFunPtr" (BG.Ptr FunPtr) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFunPtr")
+    HasCField.fromPtr (BG.Proxy @"unwrapFunPtr")
 
 instance HasCField.HasCField FunPtr "unwrapFunPtr" where
 
   type CFieldType FunPtr "unwrapFunPtr" =
-    RIP.FunPtr FunPtr_Aux
+    BG.FunPtr FunPtr_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -106,14 +106,14 @@ instance HasCField.HasCField FunPtr "unwrapFunPtr" where
     __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
 -}
 data Foo = Foo
-  { foo_x :: RIP.CInt
+  { foo_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @edge-cases\/aux_funptr_newtypes.h 9:7@
 
          __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
     -}
-  , foo_y :: RIP.CInt
+  , foo_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @edge-cases\/aux_funptr_newtypes.h 10:7@
@@ -121,7 +121,7 @@ data Foo = Foo
          __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo where
 
@@ -134,8 +134,8 @@ instance Marshal.ReadRaw Foo where
   readRaw =
     \ptr0 ->
           pure Foo
-      <*> HasCField.readRaw (RIP.Proxy @"foo_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"foo_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_y") ptr0
 
 instance Marshal.WriteRaw Foo where
 
@@ -144,47 +144,45 @@ instance Marshal.WriteRaw Foo where
       \s1 ->
         case s1 of
           Foo foo_x2 foo_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"foo_x") ptr0 foo_x2
-            >> HasCField.writeRaw (RIP.Proxy @"foo_y") ptr0 foo_y3
+               HasCField.writeRaw (BG.Proxy @"foo_x") ptr0 foo_x2
+            >> HasCField.writeRaw (BG.Proxy @"foo_y") ptr0 foo_y3
 
-deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
+deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_x" Foo ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_x" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_x = y1, foo_y = RIP.getField @"foo_y" x0}
-      , RIP.getField @"foo_x" x0
+          Foo {foo_x = y1, foo_y = BG.getField @"foo_y" x0}
+      , BG.getField @"foo_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_x" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "foo_x" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_x")
+  getField = HasCField.fromPtr (BG.Proxy @"foo_x")
 
 instance HasCField.HasCField Foo "foo_x" where
 
-  type CFieldType Foo "foo_x" = RIP.CInt
+  type CFieldType Foo "foo_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo_y" Foo ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_y" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_y = y1, foo_x = RIP.getField @"foo_x" x0}
-      , RIP.getField @"foo_y" x0
+          Foo {foo_y = y1, foo_x = BG.getField @"foo_x" x0}
+      , BG.getField @"foo_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_y" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "foo_y" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_y")
+  getField = HasCField.fromPtr (BG.Proxy @"foo_y")
 
 instance HasCField.HasCField Foo "foo_y" where
 
-  type CFieldType Foo "foo_y" = RIP.CInt
+  type CFieldType Foo "foo_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4

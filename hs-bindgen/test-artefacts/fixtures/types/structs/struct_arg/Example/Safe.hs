@@ -9,11 +9,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/structs/struct_arg.h>"
   , "signed int hs_bindgen_4ad25504590fdd2b ("
   , "  struct thing *arg1"
@@ -49,15 +49,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 hs_bindgen_4ad25504590fdd2b ::
-     RIP.Ptr Thing
-  -> IO RIP.CInt
+     BG.Ptr Thing
+  -> IO BG.CInt
 hs_bindgen_4ad25504590fdd2b =
-  RIP.fromFFIType hs_bindgen_4ad25504590fdd2b_base
+  BG.fromFFIType hs_bindgen_4ad25504590fdd2b_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -68,24 +68,24 @@ hs_bindgen_4ad25504590fdd2b =
 thing_fun_1 ::
      Thing
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 thing_fun_1 =
   \x0 ->
-    RIP.with x0 (\x1 -> hs_bindgen_4ad25504590fdd2b x1)
+    BG.with x0 (\x1 -> hs_bindgen_4ad25504590fdd2b x1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 hs_bindgen_04a435522bf64978 ::
-     RIP.CInt
-  -> RIP.Ptr Thing
+     BG.CInt
+  -> BG.Ptr Thing
   -> IO ()
 hs_bindgen_04a435522bf64978 =
-  RIP.fromFFIType hs_bindgen_04a435522bf64978_base
+  BG.fromFFIType hs_bindgen_04a435522bf64978_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -94,31 +94,31 @@ hs_bindgen_04a435522bf64978 =
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> IO Thing
 thing_fun_2 =
   \x0 ->
-    RIP.allocaAndPeek (\res1 ->
-                         hs_bindgen_04a435522bf64978 x0 res1)
+    BG.allocaAndPeek (\res1 ->
+                        hs_bindgen_04a435522bf64978 x0 res1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> Double
-  -> RIP.Ptr RIP.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 hs_bindgen_5e3271324df7ced2 ::
-     RIP.CInt
-  -> RIP.Ptr Thing
-  -> RIP.CDouble
-  -> RIP.Ptr Thing
+     BG.CInt
+  -> BG.Ptr Thing
+  -> BG.CDouble
+  -> BG.Ptr Thing
   -> IO ()
 hs_bindgen_5e3271324df7ced2 =
-  RIP.fromFFIType hs_bindgen_5e3271324df7ced2_base
+  BG.fromFFIType hs_bindgen_5e3271324df7ced2_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -127,36 +127,36 @@ hs_bindgen_5e3271324df7ced2 =
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> Thing
      -- ^ __C declaration:__ @y@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @z@
   -> IO Thing
 thing_fun_3a =
   \x0 ->
     \y1 ->
       \z2 ->
-        RIP.with y1 (\y3 ->
-                       RIP.allocaAndPeek (\res4 ->
-                                            hs_bindgen_5e3271324df7ced2 x0 y3 z2 res4))
+        BG.with y1 (\y3 ->
+                      BG.allocaAndPeek (\res4 ->
+                                          hs_bindgen_5e3271324df7ced2 x0 y3 z2 res4))
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> Double
-  -> IO RIP.Int8
+  -> IO BG.Int8
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 hs_bindgen_3525c7d1c72f2fae ::
-     RIP.CInt
-  -> RIP.Ptr Thing
-  -> RIP.CDouble
-  -> IO RIP.CChar
+     BG.CInt
+  -> BG.Ptr Thing
+  -> BG.CDouble
+  -> IO BG.CChar
 hs_bindgen_3525c7d1c72f2fae =
-  RIP.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
+  BG.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
 
 {-| __C declaration:__ @thing_fun_3b@
 
@@ -165,16 +165,16 @@ hs_bindgen_3525c7d1c72f2fae =
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> Thing
      -- ^ __C declaration:__ @y@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @z@
-  -> IO RIP.CChar
+  -> IO BG.CChar
 thing_fun_3b =
   \x0 ->
     \y1 ->
       \z2 ->
-        RIP.with y1 (\y3 ->
-                       hs_bindgen_3525c7d1c72f2fae x0 y3 z2)
+        BG.with y1 (\y3 ->
+                      hs_bindgen_3525c7d1c72f2fae x0 y3 z2)

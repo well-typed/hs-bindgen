@@ -10,11 +10,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/heap_types/struct.h>"
   , "/* test_functionsheap_typesstruct_Example_get_fun */"
   , "__attribute__ ((const))"
@@ -60,12 +60,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
-hs_bindgen_071e2eda58051e4a :: IO (RIP.FunPtr (T -> IO T))
+hs_bindgen_071e2eda58051e4a :: IO (BG.FunPtr (T -> IO T))
 hs_bindgen_071e2eda58051e4a =
-  RIP.fromFFIType hs_bindgen_071e2eda58051e4a_base
+  BG.fromFFIType hs_bindgen_071e2eda58051e4a_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
@@ -74,17 +74,17 @@ hs_bindgen_071e2eda58051e4a =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun :: RIP.FunPtr (T -> IO T)
-fun = RIP.unsafePerformIO hs_bindgen_071e2eda58051e4a
+fun :: BG.FunPtr (T -> IO T)
+fun = BG.unsafePerformIO hs_bindgen_071e2eda58051e4a
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_underscore@
 foreign import ccall unsafe "hs_bindgen_ee52ac50697405f8" hs_bindgen_ee52ac50697405f8_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_underscore@
-hs_bindgen_ee52ac50697405f8 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_ee52ac50697405f8 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_ee52ac50697405f8 =
-  RIP.fromFFIType hs_bindgen_ee52ac50697405f8_base
+  BG.fromFFIType hs_bindgen_ee52ac50697405f8_base
 
 {-# NOINLINE param_underscore #-}
 {-| __C declaration:__ @param_underscore@
@@ -93,18 +93,18 @@ hs_bindgen_ee52ac50697405f8 =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-param_underscore :: RIP.FunPtr (T -> IO ())
+param_underscore :: BG.FunPtr (T -> IO ())
 param_underscore =
-  RIP.unsafePerformIO hs_bindgen_ee52ac50697405f8
+  BG.unsafePerformIO hs_bindgen_ee52ac50697405f8
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_uppercase@
 foreign import ccall unsafe "hs_bindgen_b51cac34e6c4eca3" hs_bindgen_b51cac34e6c4eca3_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_uppercase@
-hs_bindgen_b51cac34e6c4eca3 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_b51cac34e6c4eca3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_b51cac34e6c4eca3 =
-  RIP.fromFFIType hs_bindgen_b51cac34e6c4eca3_base
+  BG.fromFFIType hs_bindgen_b51cac34e6c4eca3_base
 
 {-# NOINLINE param_uppercase #-}
 {-| __C declaration:__ @param_uppercase@
@@ -113,18 +113,18 @@ hs_bindgen_b51cac34e6c4eca3 =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-param_uppercase :: RIP.FunPtr (T -> IO ())
+param_uppercase :: BG.FunPtr (T -> IO ())
 param_uppercase =
-  RIP.unsafePerformIO hs_bindgen_b51cac34e6c4eca3
+  BG.unsafePerformIO hs_bindgen_b51cac34e6c4eca3
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_undersore_capital@
 foreign import ccall unsafe "hs_bindgen_2302284a38d84764" hs_bindgen_2302284a38d84764_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_undersore_capital@
-hs_bindgen_2302284a38d84764 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_2302284a38d84764 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_2302284a38d84764 =
-  RIP.fromFFIType hs_bindgen_2302284a38d84764_base
+  BG.fromFFIType hs_bindgen_2302284a38d84764_base
 
 {-# NOINLINE param_undersore_capital #-}
 {-| __C declaration:__ @param_undersore_capital@
@@ -133,18 +133,18 @@ hs_bindgen_2302284a38d84764 =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-param_undersore_capital :: RIP.FunPtr (T -> IO ())
+param_undersore_capital :: BG.FunPtr (T -> IO ())
 param_undersore_capital =
-  RIP.unsafePerformIO hs_bindgen_2302284a38d84764
+  BG.unsafePerformIO hs_bindgen_2302284a38d84764
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_haskell_reserved_name@
 foreign import ccall unsafe "hs_bindgen_af57be8569d5f651" hs_bindgen_af57be8569d5f651_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_haskell_reserved_name@
-hs_bindgen_af57be8569d5f651 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_af57be8569d5f651 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_af57be8569d5f651 =
-  RIP.fromFFIType hs_bindgen_af57be8569d5f651_base
+  BG.fromFFIType hs_bindgen_af57be8569d5f651_base
 
 {-# NOINLINE param_haskell_reserved_name #-}
 {-| __C declaration:__ @param_haskell_reserved_name@
@@ -153,6 +153,6 @@ hs_bindgen_af57be8569d5f651 =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-param_haskell_reserved_name :: RIP.FunPtr (T -> IO ())
+param_haskell_reserved_name :: BG.FunPtr (T -> IO ())
 param_haskell_reserved_name =
-  RIP.unsafePerformIO hs_bindgen_af57be8569d5f651
+  BG.unsafePerformIO hs_bindgen_af57be8569d5f651

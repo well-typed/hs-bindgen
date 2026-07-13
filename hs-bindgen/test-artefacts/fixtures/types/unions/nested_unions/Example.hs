@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union unionA@
@@ -33,29 +33,19 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype UnionA = UnionA
-  { unwrapUnionA :: RIP.ByteArray
+  { unwrapUnionA :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize UnionA
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize UnionA
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw UnionA
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw UnionA
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw UnionA
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw UnionA
 
-deriving via Marshal.EquivStorable UnionA instance RIP.Storable UnionA
+deriving via Marshal.EquivStorable UnionA instance BG.Storable UnionA
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion UnionA
-
-{-| __C declaration:__ @a@
-
-    __defined at:__ @types\/unions\/nested_unions.h 3:21@
-
-    __exported by:__ @types\/unions\/nested_unions.h@
--}
-instance (ty ~ RIP.CInt) => RIP.HasField "unionA_a" UnionA ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion UnionA
 
 {-| __C declaration:__ @a@
 
@@ -63,21 +53,30 @@ instance (ty ~ RIP.CInt) => RIP.HasField "unionA_a" UnionA ty where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unionA_a" UnionA ty where
+instance (ty ~ BG.CInt) => BG.HasField "unionA_a" UnionA ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 3:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unionA_a" UnionA ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"unionA_a" x0)
+      (BG.setUnionPayload, BG.getField @"unionA_a" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unionA_a" (BG.Ptr UnionA) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
+  getField = HasCField.fromPtr (BG.Proxy @"unionA_a")
 
 instance HasCField.HasCField UnionA "unionA_a" where
 
-  type CFieldType UnionA "unionA_a" = RIP.CInt
+  type CFieldType UnionA "unionA_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -87,9 +86,9 @@ instance HasCField.HasCField UnionA "unionA_a" where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance (ty ~ RIP.CChar) => RIP.HasField "unionA_b" UnionA ty where
+instance (ty ~ BG.CChar) => BG.HasField "unionA_b" UnionA ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @b@
 
@@ -97,21 +96,21 @@ instance (ty ~ RIP.CChar) => RIP.HasField "unionA_b" UnionA ty where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unionA_b" UnionA ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "unionA_b" UnionA ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"unionA_b" x0)
+      (BG.setUnionPayload, BG.getField @"unionA_b" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "unionA_b" (BG.Ptr UnionA) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
+  getField = HasCField.fromPtr (BG.Proxy @"unionA_b")
 
 instance HasCField.HasCField UnionA "unionA_b" where
 
-  type CFieldType UnionA "unionA_b" = RIP.CChar
+  type CFieldType UnionA "unionA_b" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -130,7 +129,7 @@ data ExA = ExA
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance Marshal.StaticSize ExA where
 
@@ -143,7 +142,7 @@ instance Marshal.ReadRaw ExA where
   readRaw =
     \ptr0 ->
           pure ExA
-      <*> HasCField.readRaw (RIP.Proxy @"exA_fieldA1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exA_fieldA1") ptr0
 
 instance Marshal.WriteRaw ExA where
 
@@ -152,22 +151,22 @@ instance Marshal.WriteRaw ExA where
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HasCField.writeRaw (RIP.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HasCField.writeRaw (BG.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
-deriving via Marshal.EquivStorable ExA instance RIP.Storable ExA
+deriving via Marshal.EquivStorable ExA instance BG.Storable ExA
 
-instance (ty ~ UnionA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
+instance (ty ~ UnionA) => BG.CompatHasField.HasField "exA_fieldA1" ExA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
+         ExA {exA_fieldA1 = y1}, BG.getField @"exA_fieldA1" x0)
 
 instance ( ty ~ UnionA
-         ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
+         ) => BG.HasField "exA_fieldA1" (BG.Ptr ExA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
+    HasCField.fromPtr (BG.Proxy @"exA_fieldA1")
 
 instance HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -182,29 +181,19 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype ExB_fieldB1 = ExB_fieldB1
-  { unwrapExB_fieldB1 :: RIP.ByteArray
+  { unwrapExB_fieldB1 :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize ExB_fieldB1
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize ExB_fieldB1
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw ExB_fieldB1
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw ExB_fieldB1
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw ExB_fieldB1
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw ExB_fieldB1
 
-deriving via Marshal.EquivStorable ExB_fieldB1 instance RIP.Storable ExB_fieldB1
+deriving via Marshal.EquivStorable ExB_fieldB1 instance BG.Storable ExB_fieldB1
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion ExB_fieldB1
-
-{-| __C declaration:__ @a@
-
-    __defined at:__ @types\/unions\/nested_unions.h 10:21@
-
-    __exported by:__ @types\/unions\/nested_unions.h@
--}
-instance (ty ~ RIP.CInt) => RIP.HasField "exB_fieldB1_a" ExB_fieldB1 ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion ExB_fieldB1
 
 {-| __C declaration:__ @a@
 
@@ -212,23 +201,32 @@ instance (ty ~ RIP.CInt) => RIP.HasField "exB_fieldB1_a" ExB_fieldB1 ty where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "exB_fieldB1_a" ExB_fieldB1 ty where
+instance (ty ~ BG.CInt) => BG.HasField "exB_fieldB1_a" ExB_fieldB1 ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/unions\/nested_unions.h 10:21@
+
+    __exported by:__ @types\/unions\/nested_unions.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "exB_fieldB1_a" ExB_fieldB1 ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"exB_fieldB1_a" x0)
+      (BG.setUnionPayload, BG.getField @"exB_fieldB1_a" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "exB_fieldB1_a" (BG.Ptr ExB_fieldB1) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_a")
+    HasCField.fromPtr (BG.Proxy @"exB_fieldB1_a")
 
 instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
-  type CFieldType ExB_fieldB1 "exB_fieldB1_a" =
-    RIP.CInt
+  type CFieldType ExB_fieldB1 "exB_fieldB1_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -238,9 +236,9 @@ instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance (ty ~ RIP.CChar) => RIP.HasField "exB_fieldB1_b" ExB_fieldB1 ty where
+instance (ty ~ BG.CChar) => BG.HasField "exB_fieldB1_b" ExB_fieldB1 ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @b@
 
@@ -248,23 +246,23 @@ instance (ty ~ RIP.CChar) => RIP.HasField "exB_fieldB1_b" ExB_fieldB1 ty where
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "exB_fieldB1_b" ExB_fieldB1 ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "exB_fieldB1_b" ExB_fieldB1 ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"exB_fieldB1_b" x0)
+      (BG.setUnionPayload, BG.getField @"exB_fieldB1_b" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "exB_fieldB1_b" (BG.Ptr ExB_fieldB1) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_b")
+    HasCField.fromPtr (BG.Proxy @"exB_fieldB1_b")
 
 instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
 
   type CFieldType ExB_fieldB1 "exB_fieldB1_b" =
-    RIP.CChar
+    BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -283,7 +281,7 @@ data ExB = ExB
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance Marshal.StaticSize ExB where
 
@@ -296,7 +294,7 @@ instance Marshal.ReadRaw ExB where
   readRaw =
     \ptr0 ->
           pure ExB
-      <*> HasCField.readRaw (RIP.Proxy @"exB_fieldB1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exB_fieldB1") ptr0
 
 instance Marshal.WriteRaw ExB where
 
@@ -305,23 +303,23 @@ instance Marshal.WriteRaw ExB where
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HasCField.writeRaw (RIP.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HasCField.writeRaw (BG.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
 
-deriving via Marshal.EquivStorable ExB instance RIP.Storable ExB
+deriving via Marshal.EquivStorable ExB instance BG.Storable ExB
 
 instance ( ty ~ ExB_fieldB1
-         ) => RIP.CompatHasField.HasField "exB_fieldB1" ExB ty where
+         ) => BG.CompatHasField.HasField "exB_fieldB1" ExB ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         ExB {exB_fieldB1 = y1}, RIP.getField @"exB_fieldB1" x0)
+         ExB {exB_fieldB1 = y1}, BG.getField @"exB_fieldB1" x0)
 
 instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+         ) => BG.HasField "exB_fieldB1" (BG.Ptr ExB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
+    HasCField.fromPtr (BG.Proxy @"exB_fieldB1")
 
 instance HasCField.HasCField ExB "exB_fieldB1" where
 

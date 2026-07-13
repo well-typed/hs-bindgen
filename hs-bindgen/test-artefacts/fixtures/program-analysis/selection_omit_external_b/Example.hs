@@ -20,9 +20,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct Omitted@
 
@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
 data Omitted = Omitted
-  { omitted_n :: RIP.CInt
+  { omitted_n :: BG.CInt
     {- ^ __C declaration:__ @n@
 
          __defined at:__ @selection_omit_external_root.h 2:7@
@@ -39,7 +39,7 @@ data Omitted = Omitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Omitted where
 
@@ -52,7 +52,7 @@ instance Marshal.ReadRaw Omitted where
   readRaw =
     \ptr0 ->
           pure Omitted
-      <*> HasCField.readRaw (RIP.Proxy @"omitted_n") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"omitted_n") ptr0
 
 instance Marshal.WriteRaw Omitted where
 
@@ -61,26 +61,26 @@ instance Marshal.WriteRaw Omitted where
       \s1 ->
         case s1 of
           Omitted omitted_n2 ->
-            HasCField.writeRaw (RIP.Proxy @"omitted_n") ptr0 omitted_n2
+            HasCField.writeRaw (BG.Proxy @"omitted_n") ptr0 omitted_n2
 
-deriving via Marshal.EquivStorable Omitted instance RIP.Storable Omitted
+deriving via Marshal.EquivStorable Omitted instance BG.Storable Omitted
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "omitted_n" Omitted ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "omitted_n" Omitted ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Omitted {omitted_n = y1}, RIP.getField @"omitted_n" x0)
+         Omitted {omitted_n = y1}, BG.getField @"omitted_n" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "omitted_n" (BG.Ptr Omitted) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
+  getField = HasCField.fromPtr (BG.Proxy @"omitted_n")
 
 instance HasCField.HasCField Omitted "omitted_n" where
 
-  type CFieldType Omitted "omitted_n" = RIP.CInt
+  type CFieldType Omitted "omitted_n" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -99,7 +99,7 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize DirectlyDependsOnOmitted where
 
@@ -112,7 +112,7 @@ instance Marshal.ReadRaw DirectlyDependsOnOmitted where
   readRaw =
     \ptr0 ->
           pure DirectlyDependsOnOmitted
-      <*> HasCField.readRaw (RIP.Proxy @"directlyDependsOnOmitted_o") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"directlyDependsOnOmitted_o") ptr0
 
 instance Marshal.WriteRaw DirectlyDependsOnOmitted where
 
@@ -121,25 +121,25 @@ instance Marshal.WriteRaw DirectlyDependsOnOmitted where
       \s1 ->
         case s1 of
           DirectlyDependsOnOmitted directlyDependsOnOmitted_o2 ->
-            HasCField.writeRaw (RIP.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
+            HasCField.writeRaw (BG.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
 
-deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance RIP.Storable DirectlyDependsOnOmitted
+deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance BG.Storable DirectlyDependsOnOmitted
 
 instance ( ty ~ Omitted
-         ) => RIP.CompatHasField.HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty where
+         ) => BG.CompatHasField.HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           DirectlyDependsOnOmitted {directlyDependsOnOmitted_o = y1}
-      , RIP.getField @"directlyDependsOnOmitted_o" x0
+      , BG.getField @"directlyDependsOnOmitted_o" x0
       )
 
 instance ( ty ~ Omitted
-         ) => RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr ty) where
+         ) => BG.HasField "directlyDependsOnOmitted_o" (BG.Ptr DirectlyDependsOnOmitted) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
+    HasCField.fromPtr (BG.Proxy @"directlyDependsOnOmitted_o")
 
 instance HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" where
 
@@ -163,7 +163,7 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize IndirectlyDependsOnOmitted where
 
@@ -176,7 +176,7 @@ instance Marshal.ReadRaw IndirectlyDependsOnOmitted where
   readRaw =
     \ptr0 ->
           pure IndirectlyDependsOnOmitted
-      <*> HasCField.readRaw (RIP.Proxy @"indirectlyDependsOnOmitted_d") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"indirectlyDependsOnOmitted_d") ptr0
 
 instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
 
@@ -185,25 +185,25 @@ instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
       \s1 ->
         case s1 of
           IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d2 ->
-            HasCField.writeRaw (RIP.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
+            HasCField.writeRaw (BG.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
 
-deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance RIP.Storable IndirectlyDependsOnOmitted
+deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance BG.Storable IndirectlyDependsOnOmitted
 
 instance ( ty ~ DirectlyDependsOnOmitted
-         ) => RIP.CompatHasField.HasField "indirectlyDependsOnOmitted_d" IndirectlyDependsOnOmitted ty where
+         ) => BG.CompatHasField.HasField "indirectlyDependsOnOmitted_d" IndirectlyDependsOnOmitted ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           IndirectlyDependsOnOmitted {indirectlyDependsOnOmitted_d = y1}
-      , RIP.getField @"indirectlyDependsOnOmitted_d" x0
+      , BG.getField @"indirectlyDependsOnOmitted_d" x0
       )
 
 instance ( ty ~ DirectlyDependsOnOmitted
-         ) => RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr ty) where
+         ) => BG.HasField "indirectlyDependsOnOmitted_d" (BG.Ptr IndirectlyDependsOnOmitted) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")
+    HasCField.fromPtr (BG.Proxy @"indirectlyDependsOnOmitted_d")
 
 instance HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" where
 

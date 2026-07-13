@@ -29,9 +29,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum enumA@
 
@@ -40,10 +40,10 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
 newtype EnumA = EnumA
-  { unwrapEnumA :: RIP.CUInt
+  { unwrapEnumA :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize EnumA where
 
@@ -67,21 +67,21 @@ instance Marshal.WriteRaw EnumA where
           EnumA unwrapEnumA2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumA2
 
-deriving via Marshal.EquivStorable EnumA instance RIP.Storable EnumA
+deriving via Marshal.EquivStorable EnumA instance BG.Storable EnumA
 
-deriving via RIP.CUInt instance RIP.Prim EnumA
+deriving via BG.CUInt instance BG.Prim EnumA
 
 instance CEnum.CEnum EnumA where
 
-  type CEnumZ EnumA = RIP.CUInt
+  type CEnumZ EnumA = BG.CUInt
 
   toCEnum = EnumA
 
-  fromCEnum = RIP.getField @"unwrapEnumA"
+  fromCEnum = BG.getField @"unwrapEnumA"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "VALA_1"), (1, RIP.singleton "VALA_2")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "VALA_1"), (1, BG.singleton "VALA_2")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "EnumA"
@@ -107,27 +107,27 @@ instance Read EnumA where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapEnumA" EnumA ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapEnumA" EnumA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         EnumA {unwrapEnumA = y1}, RIP.getField @"unwrapEnumA" x0)
+         EnumA {unwrapEnumA = y1}, BG.getField @"unwrapEnumA" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapEnumA" (RIP.Ptr EnumA) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapEnumA" (BG.Ptr EnumA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapEnumA")
+    HasCField.fromPtr (BG.Proxy @"unwrapEnumA")
 
 instance HasCField.HasCField EnumA "unwrapEnumA" where
 
-  type CFieldType EnumA "unwrapEnumA" = RIP.CUInt
+  type CFieldType EnumA "unwrapEnumA" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -164,7 +164,7 @@ data ExA = ExA
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize ExA where
 
@@ -177,7 +177,7 @@ instance Marshal.ReadRaw ExA where
   readRaw =
     \ptr0 ->
           pure ExA
-      <*> HasCField.readRaw (RIP.Proxy @"exA_fieldA1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exA_fieldA1") ptr0
 
 instance Marshal.WriteRaw ExA where
 
@@ -186,22 +186,22 @@ instance Marshal.WriteRaw ExA where
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HasCField.writeRaw (RIP.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HasCField.writeRaw (BG.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
-deriving via Marshal.EquivStorable ExA instance RIP.Storable ExA
+deriving via Marshal.EquivStorable ExA instance BG.Storable ExA
 
-instance (ty ~ EnumA) => RIP.CompatHasField.HasField "exA_fieldA1" ExA ty where
+instance (ty ~ EnumA) => BG.CompatHasField.HasField "exA_fieldA1" ExA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         ExA {exA_fieldA1 = y1}, RIP.getField @"exA_fieldA1" x0)
+         ExA {exA_fieldA1 = y1}, BG.getField @"exA_fieldA1" x0)
 
 instance ( ty ~ EnumA
-         ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
+         ) => BG.HasField "exA_fieldA1" (BG.Ptr ExA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
+    HasCField.fromPtr (BG.Proxy @"exA_fieldA1")
 
 instance HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -216,10 +216,10 @@ instance HasCField.HasCField ExA "exA_fieldA1" where
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
 newtype ExB_fieldB1 = ExB_fieldB1
-  { unwrapExB_fieldB1 :: RIP.CUInt
+  { unwrapExB_fieldB1 :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize ExB_fieldB1 where
 
@@ -243,21 +243,21 @@ instance Marshal.WriteRaw ExB_fieldB1 where
           ExB_fieldB1 unwrapExB_fieldB12 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
 
-deriving via Marshal.EquivStorable ExB_fieldB1 instance RIP.Storable ExB_fieldB1
+deriving via Marshal.EquivStorable ExB_fieldB1 instance BG.Storable ExB_fieldB1
 
-deriving via RIP.CUInt instance RIP.Prim ExB_fieldB1
+deriving via BG.CUInt instance BG.Prim ExB_fieldB1
 
 instance CEnum.CEnum ExB_fieldB1 where
 
-  type CEnumZ ExB_fieldB1 = RIP.CUInt
+  type CEnumZ ExB_fieldB1 = BG.CUInt
 
   toCEnum = ExB_fieldB1
 
-  fromCEnum = RIP.getField @"unwrapExB_fieldB1"
+  fromCEnum = BG.getField @"unwrapExB_fieldB1"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "VALB_1"), (1, RIP.singleton "VALB_2")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "VALB_1"), (1, BG.singleton "VALB_2")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "ExB_fieldB1"
@@ -283,29 +283,29 @@ instance Read ExB_fieldB1 where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapExB_fieldB1" ExB_fieldB1 ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapExB_fieldB1" ExB_fieldB1 ty where
 
   hasField =
     \x0 ->
       ( \y1 -> ExB_fieldB1 {unwrapExB_fieldB1 = y1}
-      , RIP.getField @"unwrapExB_fieldB1" x0
+      , BG.getField @"unwrapExB_fieldB1" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapExB_fieldB1" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapExB_fieldB1" (BG.Ptr ExB_fieldB1) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapExB_fieldB1")
+    HasCField.fromPtr (BG.Proxy @"unwrapExB_fieldB1")
 
 instance HasCField.HasCField ExB_fieldB1 "unwrapExB_fieldB1" where
 
   type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" =
-    RIP.CUInt
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -342,7 +342,7 @@ data ExB = ExB
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize ExB where
 
@@ -355,7 +355,7 @@ instance Marshal.ReadRaw ExB where
   readRaw =
     \ptr0 ->
           pure ExB
-      <*> HasCField.readRaw (RIP.Proxy @"exB_fieldB1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exB_fieldB1") ptr0
 
 instance Marshal.WriteRaw ExB where
 
@@ -364,23 +364,23 @@ instance Marshal.WriteRaw ExB where
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HasCField.writeRaw (RIP.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HasCField.writeRaw (BG.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
 
-deriving via Marshal.EquivStorable ExB instance RIP.Storable ExB
+deriving via Marshal.EquivStorable ExB instance BG.Storable ExB
 
 instance ( ty ~ ExB_fieldB1
-         ) => RIP.CompatHasField.HasField "exB_fieldB1" ExB ty where
+         ) => BG.CompatHasField.HasField "exB_fieldB1" ExB ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         ExB {exB_fieldB1 = y1}, RIP.getField @"exB_fieldB1" x0)
+         ExB {exB_fieldB1 = y1}, BG.getField @"exB_fieldB1" x0)
 
 instance ( ty ~ ExB_fieldB1
-         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
+         ) => BG.HasField "exB_fieldB1" (BG.Ptr ExB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")
+    HasCField.fromPtr (BG.Proxy @"exB_fieldB1")
 
 instance HasCField.HasCField ExB "exB_fieldB1" where
 

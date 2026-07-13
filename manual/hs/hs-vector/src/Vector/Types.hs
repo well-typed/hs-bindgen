@@ -9,14 +9,14 @@ module Vector.Types (
 
 import GHC.Show
 
-import HsBindgen.Runtime.Internal.Prelude qualified as RIP
+import HsBindgen.Runtime.Support qualified as BG
 
 -- | Vector length
 --
 -- Invariant: must be non-negative.
 newtype Length = UnsafeWrap { unwrap :: Double }
   deriving stock (Eq, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving newtype (BG.HasFFIType)
 
 instance Show Length where
   showsPrec p (UnsafeWrap x) = showParen (p >= appPrec1) $

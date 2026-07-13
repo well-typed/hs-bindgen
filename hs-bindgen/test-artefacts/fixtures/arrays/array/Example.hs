@@ -26,10 +26,10 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @triplet@
 
@@ -38,35 +38,35 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @arrays\/array.h@
 -}
 newtype Triplet = Triplet
-  { unwrapTriplet :: CA.ConstantArray 3 RIP.CInt
+  { unwrapTriplet :: CA.ConstantArray 3 BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapTriplet" Triplet ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)
+         Triplet {unwrapTriplet = y1}, BG.getField @"unwrapTriplet" x0)
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.HasField "unwrapTriplet" (BG.Ptr Triplet) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")
+    HasCField.fromPtr (BG.Proxy @"unwrapTriplet")
 
 instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   type CFieldType Triplet "unwrapTriplet" =
-    CA.ConstantArray 3 RIP.CInt
+    CA.ConstantArray 3 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -77,29 +77,28 @@ instance HasCField.HasCField Triplet "unwrapTriplet" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype List = List
-  { unwrapList :: IA.IncompleteArray RIP.CInt
+  { unwrapList :: IA.IncompleteArray BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapList" List ty where
+instance ( ty ~ IA.IncompleteArray BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapList" List ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         List {unwrapList = y1}, RIP.getField @"unwrapList" x0)
+         List {unwrapList = y1}, BG.getField @"unwrapList" x0)
 
-instance ( ty ~ IA.IncompleteArray RIP.CInt
-         ) => RIP.HasField "unwrapList" (RIP.Ptr List) (RIP.Ptr ty) where
+instance ( ty ~ IA.IncompleteArray BG.CInt
+         ) => BG.HasField "unwrapList" (BG.Ptr List) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapList")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapList")
 
 instance HasCField.HasCField List "unwrapList" where
 
   type CFieldType List "unwrapList" =
-    IA.IncompleteArray RIP.CInt
+    IA.IncompleteArray BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -110,35 +109,35 @@ instance HasCField.HasCField List "unwrapList" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype Matrix = Matrix
-  { unwrapMatrix :: CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
+  { unwrapMatrix :: CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapMatrix" Matrix ty where
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapMatrix" Matrix ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Matrix {unwrapMatrix = y1}, RIP.getField @"unwrapMatrix" x0)
+         Matrix {unwrapMatrix = y1}, BG.getField @"unwrapMatrix" x0)
 
-instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapMatrix" (RIP.Ptr Matrix) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)
+         ) => BG.HasField "unwrapMatrix" (BG.Ptr Matrix) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMatrix")
+    HasCField.fromPtr (BG.Proxy @"unwrapMatrix")
 
 instance HasCField.HasCField Matrix "unwrapMatrix" where
 
   type CFieldType Matrix "unwrapMatrix" =
-    CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)
+    CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -149,30 +148,30 @@ instance HasCField.HasCField Matrix "unwrapMatrix" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype Tripletlist = Tripletlist
-  { unwrapTripletlist :: IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
+  { unwrapTripletlist :: IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype (IsA.IsArray)
 
-instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapTripletlist" Tripletlist ty where
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapTripletlist" Tripletlist ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Tripletlist {unwrapTripletlist = y1}
-      , RIP.getField @"unwrapTripletlist" x0
+      , BG.getField @"unwrapTripletlist" x0
       )
 
-instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "unwrapTripletlist" (RIP.Ptr Tripletlist) (RIP.Ptr ty) where
+instance ( ty ~ IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)
+         ) => BG.HasField "unwrapTripletlist" (BG.Ptr Tripletlist) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapTripletlist")
+    HasCField.fromPtr (BG.Proxy @"unwrapTripletlist")
 
 instance HasCField.HasCField Tripletlist "unwrapTripletlist" where
 
   type CFieldType Tripletlist "unwrapTripletlist" =
-    IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)
+    IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -183,14 +182,14 @@ instance HasCField.HasCField Tripletlist "unwrapTripletlist" where
     __exported by:__ @arrays\/array.h@
 -}
 data Example = Example
-  { example_triple :: CA.ConstantArray 3 RIP.CInt
+  { example_triple :: CA.ConstantArray 3 BG.CInt
     {- ^ __C declaration:__ @triple@
 
          __defined at:__ @arrays\/array.h 50:9@
 
          __exported by:__ @arrays\/array.h@
     -}
-  , example_sudoku :: CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
+  , example_sudoku :: CA.ConstantArray 3 (CA.ConstantArray 3 BG.CInt)
     {- ^ __C declaration:__ @sudoku@
 
          __defined at:__ @arrays\/array.h 51:9@
@@ -198,7 +197,7 @@ data Example = Example
          __exported by:__ @arrays\/array.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Example where
 
@@ -211,8 +210,8 @@ instance Marshal.ReadRaw Example where
   readRaw =
     \ptr0 ->
           pure Example
-      <*> HasCField.readRaw (RIP.Proxy @"example_triple") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"example_sudoku") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"example_triple") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"example_sudoku") ptr0
 
 instance Marshal.WriteRaw Example where
 
@@ -221,54 +220,54 @@ instance Marshal.WriteRaw Example where
       \s1 ->
         case s1 of
           Example example_triple2 example_sudoku3 ->
-               HasCField.writeRaw (RIP.Proxy @"example_triple") ptr0 example_triple2
-            >> HasCField.writeRaw (RIP.Proxy @"example_sudoku") ptr0 example_sudoku3
+               HasCField.writeRaw (BG.Proxy @"example_triple") ptr0 example_triple2
+            >> HasCField.writeRaw (BG.Proxy @"example_sudoku") ptr0 example_sudoku3
 
-deriving via Marshal.EquivStorable Example instance RIP.Storable Example
+deriving via Marshal.EquivStorable Example instance BG.Storable Example
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "example_triple" Example ty where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.CompatHasField.HasField "example_triple" Example ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Example {example_triple = y1, example_sudoku = RIP.getField @"example_sudoku" x0}
-      , RIP.getField @"example_triple" x0
+          Example {example_triple = y1, example_sudoku = BG.getField @"example_sudoku" x0}
+      , BG.getField @"example_triple" x0
       )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "example_triple" (RIP.Ptr Example) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.HasField "example_triple" (BG.Ptr Example) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_triple")
+    HasCField.fromPtr (BG.Proxy @"example_triple")
 
 instance HasCField.HasCField Example "example_triple" where
 
   type CFieldType Example "example_triple" =
-    CA.ConstantArray 3 RIP.CInt
+    CA.ConstantArray 3 BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.CompatHasField.HasField "example_sudoku" Example ty where
+instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 BG.CInt)
+         ) => BG.CompatHasField.HasField "example_sudoku" Example ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Example {example_sudoku = y1, example_triple = RIP.getField @"example_triple" x0}
-      , RIP.getField @"example_sudoku" x0
+          Example {example_sudoku = y1, example_triple = BG.getField @"example_triple" x0}
+      , BG.getField @"example_sudoku" x0
       )
 
-instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
-         ) => RIP.HasField "example_sudoku" (RIP.Ptr Example) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 BG.CInt)
+         ) => BG.HasField "example_sudoku" (BG.Ptr Example) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"example_sudoku")
+    HasCField.fromPtr (BG.Proxy @"example_sudoku")
 
 instance HasCField.HasCField Example "example_sudoku" where
 
   type CFieldType Example "example_sudoku" =
-    CA.ConstantArray 3 (CA.ConstantArray 3 RIP.CInt)
+    CA.ConstantArray 3 (CA.ConstantArray 3 BG.CInt)
 
   offset# = \_ -> \_ -> 12
 
@@ -283,28 +282,28 @@ instance HasCField.HasCField Example "example_sudoku" where
 newtype Sudoku = Sudoku
   { unwrapSudoku :: CA.ConstantArray 3 Triplet
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ CA.ConstantArray 3 Triplet
-         ) => RIP.CompatHasField.HasField "unwrapSudoku" Sudoku ty where
+         ) => BG.CompatHasField.HasField "unwrapSudoku" Sudoku ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Sudoku {unwrapSudoku = y1}, RIP.getField @"unwrapSudoku" x0)
+         Sudoku {unwrapSudoku = y1}, BG.getField @"unwrapSudoku" x0)
 
 instance ( ty ~ CA.ConstantArray 3 Triplet
-         ) => RIP.HasField "unwrapSudoku" (RIP.Ptr Sudoku) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapSudoku" (BG.Ptr Sudoku) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapSudoku")
+    HasCField.fromPtr (BG.Proxy @"unwrapSudoku")
 
 instance HasCField.HasCField Sudoku "unwrapSudoku" where
 

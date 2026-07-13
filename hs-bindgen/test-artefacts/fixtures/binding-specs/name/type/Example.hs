@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @sym@
 
@@ -29,43 +29,43 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @binding-specs\/name\/type.h@
 -}
 newtype MySym = MySym
-  { unwrapMySym :: RIP.CChar
+  { unwrapMySym :: BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapMySym" MySym ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "unwrapMySym" MySym ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MySym {unwrapMySym = y1}, RIP.getField @"unwrapMySym" x0)
+         MySym {unwrapMySym = y1}, BG.getField @"unwrapMySym" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapMySym" (RIP.Ptr MySym) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "unwrapMySym" (BG.Ptr MySym) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMySym")
+    HasCField.fromPtr (BG.Proxy @"unwrapMySym")
 
 instance HasCField.HasCField MySym "unwrapMySym" where
 
-  type CFieldType MySym "unwrapMySym" = RIP.CChar
+  type CFieldType MySym "unwrapMySym" = BG.CChar
 
   offset# = \_ -> \_ -> 0

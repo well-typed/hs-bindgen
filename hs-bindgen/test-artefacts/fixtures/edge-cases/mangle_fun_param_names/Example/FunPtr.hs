@@ -9,11 +9,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/mangle_fun_param_names.h>"
   , "/* test_edgecasesmangle_fun_param_na_Example_get_param_underscore */"
   , "__attribute__ ((const))"
@@ -51,12 +51,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_underscore@
 foreign import ccall unsafe "hs_bindgen_2e4a9e3fbd884275" hs_bindgen_2e4a9e3fbd884275_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_underscore@
-hs_bindgen_2e4a9e3fbd884275 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_2e4a9e3fbd884275 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_2e4a9e3fbd884275 =
-  RIP.fromFFIType hs_bindgen_2e4a9e3fbd884275_base
+  BG.fromFFIType hs_bindgen_2e4a9e3fbd884275_base
 
 {-# NOINLINE param_underscore #-}
 {-| __C declaration:__ @param_underscore@
@@ -65,18 +65,18 @@ hs_bindgen_2e4a9e3fbd884275 =
 
     __exported by:__ @edge-cases\/mangle_fun_param_names.h@
 -}
-param_underscore :: RIP.FunPtr (T -> IO ())
+param_underscore :: BG.FunPtr (T -> IO ())
 param_underscore =
-  RIP.unsafePerformIO hs_bindgen_2e4a9e3fbd884275
+  BG.unsafePerformIO hs_bindgen_2e4a9e3fbd884275
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_uppercase@
 foreign import ccall unsafe "hs_bindgen_3364ddfa127443d9" hs_bindgen_3364ddfa127443d9_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_uppercase@
-hs_bindgen_3364ddfa127443d9 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_3364ddfa127443d9 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_3364ddfa127443d9 =
-  RIP.fromFFIType hs_bindgen_3364ddfa127443d9_base
+  BG.fromFFIType hs_bindgen_3364ddfa127443d9_base
 
 {-# NOINLINE param_uppercase #-}
 {-| __C declaration:__ @param_uppercase@
@@ -85,18 +85,18 @@ hs_bindgen_3364ddfa127443d9 =
 
     __exported by:__ @edge-cases\/mangle_fun_param_names.h@
 -}
-param_uppercase :: RIP.FunPtr (T -> IO ())
+param_uppercase :: BG.FunPtr (T -> IO ())
 param_uppercase =
-  RIP.unsafePerformIO hs_bindgen_3364ddfa127443d9
+  BG.unsafePerformIO hs_bindgen_3364ddfa127443d9
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_undersore_capital@
 foreign import ccall unsafe "hs_bindgen_33f2dcd4eac093b3" hs_bindgen_33f2dcd4eac093b3_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_undersore_capital@
-hs_bindgen_33f2dcd4eac093b3 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_33f2dcd4eac093b3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_33f2dcd4eac093b3 =
-  RIP.fromFFIType hs_bindgen_33f2dcd4eac093b3_base
+  BG.fromFFIType hs_bindgen_33f2dcd4eac093b3_base
 
 {-# NOINLINE param_undersore_capital #-}
 {-| __C declaration:__ @param_undersore_capital@
@@ -105,18 +105,18 @@ hs_bindgen_33f2dcd4eac093b3 =
 
     __exported by:__ @edge-cases\/mangle_fun_param_names.h@
 -}
-param_undersore_capital :: RIP.FunPtr (T -> IO ())
+param_undersore_capital :: BG.FunPtr (T -> IO ())
 param_undersore_capital =
-  RIP.unsafePerformIO hs_bindgen_33f2dcd4eac093b3
+  BG.unsafePerformIO hs_bindgen_33f2dcd4eac093b3
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_haskell_reserved_name@
 foreign import ccall unsafe "hs_bindgen_89c62efefee0f3b3" hs_bindgen_89c62efefee0f3b3_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_haskell_reserved_name@
-hs_bindgen_89c62efefee0f3b3 :: IO (RIP.FunPtr (T -> IO ()))
+hs_bindgen_89c62efefee0f3b3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_89c62efefee0f3b3 =
-  RIP.fromFFIType hs_bindgen_89c62efefee0f3b3_base
+  BG.fromFFIType hs_bindgen_89c62efefee0f3b3_base
 
 {-# NOINLINE param_haskell_reserved_name #-}
 {-| __C declaration:__ @param_haskell_reserved_name@
@@ -125,6 +125,6 @@ hs_bindgen_89c62efefee0f3b3 =
 
     __exported by:__ @edge-cases\/mangle_fun_param_names.h@
 -}
-param_haskell_reserved_name :: RIP.FunPtr (T -> IO ())
+param_haskell_reserved_name :: BG.FunPtr (T -> IO ())
 param_haskell_reserved_name =
-  RIP.unsafePerformIO hs_bindgen_89c62efefee0f3b3
+  BG.unsafePerformIO hs_bindgen_89c62efefee0f3b3

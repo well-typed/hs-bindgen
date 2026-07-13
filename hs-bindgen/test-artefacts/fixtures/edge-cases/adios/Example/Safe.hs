@@ -9,10 +9,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/adios.h>"
   , "signed int hs_bindgen_2f6d4be143076044 (void)"
   , "{"
@@ -34,12 +34,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::
-     IO RIP.Int32
+     IO BG.Int32
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
-hs_bindgen_2f6d4be143076044 :: IO RIP.CInt
+hs_bindgen_2f6d4be143076044 :: IO BG.CInt
 hs_bindgen_2f6d4be143076044 =
-  RIP.fromFFIType hs_bindgen_2f6d4be143076044_base
+  BG.fromFFIType hs_bindgen_2f6d4be143076044_base
 
 {-| __C declaration:__ @adiós_fun@
 
@@ -47,7 +47,7 @@ hs_bindgen_2f6d4be143076044 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-adio'0301s_fun :: IO RIP.CInt
+adio'0301s_fun :: IO BG.CInt
 adio'0301s_fun = hs_bindgen_2f6d4be143076044
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
@@ -57,7 +57,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 hs_bindgen_2010521804ef9a6e :: IO ()
 hs_bindgen_2010521804ef9a6e =
-  RIP.fromFFIType hs_bindgen_2010521804ef9a6e_base
+  BG.fromFFIType hs_bindgen_2010521804ef9a6e_base
 
 {-| __C declaration:__ @ϒ@
 
@@ -75,7 +75,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 hs_bindgen_3bc3e53cc82c9580 :: IO ()
 hs_bindgen_3bc3e53cc82c9580 =
-  RIP.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
+  BG.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
 
 {-| __C declaration:__ @拜拜@
 
@@ -93,7 +93,7 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 hs_bindgen_ad8eb47027b2d49d :: IO ()
 hs_bindgen_ad8eb47027b2d49d =
-  RIP.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
+  BG.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
 
 {-| __C declaration:__ @Say拜拜@
 

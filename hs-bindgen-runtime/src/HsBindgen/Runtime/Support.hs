@@ -1,7 +1,7 @@
 {-# OPTIONS_HADDOCK hide #-}
 {-# LANGUAGE MagicHash #-}
 
--- | Prelude required by generated bindings.
+-- | Definitions required by generated bindings.
 --
 -- This module ensures compatibility across GHC versions and @base@ library
 -- versions. It re-exports most Haskell definitions that are used by the
@@ -12,9 +12,9 @@
 --
 -- We maintain minimal lists of explicit imports and exports.
 --
--- The internal prelude should only re-export definitions intended for
--- unqualified import defined in @hs-bindgen-runtime@ or from other libraries
--- such as @base@ or @containers@.
+-- The "HsBindgen.Runtime.Support" module should only re-export definitions
+-- intended for unqualified import defined in @hs-bindgen-runtime@ or from other
+-- libraries such as @base@ or @containers@.
 --
 -- For definitions in @hs-bindgen-runtime@ which are intended for qualified
 -- import, the generated code will directly import those modules in a qualified
@@ -22,7 +22,16 @@
 --
 -- So far, we have not come across definitions intended for unqualified import
 -- defined in other libraries.
-module HsBindgen.Runtime.Internal.Prelude (
+--
+-- For the full rule on what generated code may import, see the "Imports in
+-- generated code" section of @dev\/code-structure.md@.
+--
+-- Intended for qualified import.
+--
+-- @
+-- import HsBindgen.Runtime.Support qualified as BG
+-- @
+module HsBindgen.Runtime.Support (
     -- * Function pointers
     ToFunPtr(toFunPtr)
   , FromFunPtr(fromFunPtr)
@@ -131,12 +140,12 @@ import GHC.Stable (StablePtr)
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 
-import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
-import HsBindgen.Runtime.Internal.ByteArray (getUnionPayload, setUnionPayload)
-import HsBindgen.Runtime.Internal.CAPI (allocaAndPeek)
-import HsBindgen.Runtime.Internal.FunPtr (FromFunPtr (fromFunPtr),
-                                          ToFunPtr (toFunPtr))
-import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType (fromFFIType, toFFIType),
-                                              castFunPtrFromFFIType,
-                                              castFunPtrToFFIType)
-import HsBindgen.Runtime.Internal.SizedByteArray (SizedByteArray (SizedByteArray))
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
+import HsBindgen.Runtime.Support.ByteArray (getUnionPayload, setUnionPayload)
+import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
+import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
+                                         ToFunPtr (toFunPtr))
+import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (fromFFIType, toFFIType),
+                                             castFunPtrFromFFIType,
+                                             castFunPtrToFFIType)
+import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (SizedByteArray))

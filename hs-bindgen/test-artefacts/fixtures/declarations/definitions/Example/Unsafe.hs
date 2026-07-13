@@ -6,10 +6,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/definitions.h>"
   , "signed int hs_bindgen_07fd5b433f381094 ("
   , "  double arg1"
@@ -22,14 +22,14 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094_base ::
      Double
-  -> IO RIP.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 hs_bindgen_07fd5b433f381094 ::
-     RIP.CDouble
-  -> IO RIP.CInt
+     BG.CDouble
+  -> IO BG.CInt
 hs_bindgen_07fd5b433f381094 =
-  RIP.fromFFIType hs_bindgen_07fd5b433f381094_base
+  BG.fromFFIType hs_bindgen_07fd5b433f381094_base
 
 {-| __C declaration:__ @foo@
 
@@ -38,7 +38,7 @@ hs_bindgen_07fd5b433f381094 =
     __exported by:__ @declarations\/definitions.h@
 -}
 foo ::
-     RIP.CDouble
+     BG.CDouble
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 foo = hs_bindgen_07fd5b433f381094

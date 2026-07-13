@@ -6,12 +6,12 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
   , "enum FileOperationStatus hs_bindgen_b2a91b3b7edf2ad3 ("
   , "  FILE *arg1,"
@@ -25,19 +25,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> RIP.Word64
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> BG.Word64
+  -> IO BG.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 hs_bindgen_b2a91b3b7edf2ad3 ::
-     RIP.Ptr HsBindgen.Runtime.LibC.CFile
-  -> RIP.Ptr RIP.Void
+     BG.Ptr HsBindgen.Runtime.LibC.CFile
+  -> BG.Ptr BG.Void
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FileOperationStatus
 hs_bindgen_b2a91b3b7edf2ad3 =
-  RIP.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
+  BG.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
 
 {-| __C declaration:__ @read_file_chunk@
 
@@ -46,9 +46,9 @@ hs_bindgen_b2a91b3b7edf2ad3 =
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 read_file_chunk ::
-     RIP.Ptr HsBindgen.Runtime.LibC.CFile
+     BG.Ptr HsBindgen.Runtime.LibC.CFile
      -- ^ __C declaration:__ @file_ptr@
-  -> RIP.Ptr RIP.Void
+  -> BG.Ptr BG.Void
      -- ^ __C declaration:__ @buffer@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @bytes_to_read@

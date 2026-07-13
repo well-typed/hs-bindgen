@@ -6,10 +6,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/fun_attributes.h>"
   , "/* test_functionsfun_attributes_Example_get_i */"
   , "__attribute__ ((const))"
@@ -21,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
-hs_bindgen_cd32cb4982dd2d1a :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_cd32cb4982dd2d1a :: IO (BG.Ptr BG.CInt)
 hs_bindgen_cd32cb4982dd2d1a =
-  RIP.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
+  BG.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
 
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@
@@ -35,5 +35,5 @@ hs_bindgen_cd32cb4982dd2d1a =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-i :: RIP.Ptr RIP.CInt
-i = RIP.unsafePerformIO hs_bindgen_cd32cb4982dd2d1a
+i :: BG.Ptr BG.CInt
+i = BG.unsafePerformIO hs_bindgen_cd32cb4982dd2d1a

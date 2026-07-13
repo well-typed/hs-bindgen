@@ -6,11 +6,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/anon_multiple_typedefs.h>"
   , "void hs_bindgen_f90e97b8d269be4e ("
   , "  point2a *arg1,"
@@ -23,17 +23,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
 foreign import ccall unsafe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d269be4e_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
 hs_bindgen_f90e97b8d269be4e ::
-     RIP.Ptr Point2a
+     BG.Ptr Point2a
   -> Point2b
   -> IO ()
 hs_bindgen_f90e97b8d269be4e =
-  RIP.fromFFIType hs_bindgen_f90e97b8d269be4e_base
+  BG.fromFFIType hs_bindgen_f90e97b8d269be4e_base
 
 {-| __C declaration:__ @test@
 
@@ -50,5 +50,4 @@ test ::
 test =
   \x0 ->
     \y1 ->
-      RIP.with x0 (\x2 ->
-                     hs_bindgen_f90e97b8d269be4e x2 y1)
+      BG.with x0 (\x2 -> hs_bindgen_f90e97b8d269be4e x2 y1)

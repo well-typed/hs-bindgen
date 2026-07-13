@@ -23,9 +23,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct bools1@
 
@@ -34,14 +34,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools1 = Bools1
-  { bools1_x :: RIP.CBool
+  { bools1_x :: BG.CBool
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/primitives\/bool.h 2:11@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
-  , bools1_y :: RIP.CBool
+  , bools1_y :: BG.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/primitives\/bool.h 3:11@
@@ -49,7 +49,7 @@ data Bools1 = Bools1
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bools1 where
 
@@ -62,8 +62,8 @@ instance Marshal.ReadRaw Bools1 where
   readRaw =
     \ptr0 ->
           pure Bools1
-      <*> HasCField.readRaw (RIP.Proxy @"bools1_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"bools1_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools1_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools1_y") ptr0
 
 instance Marshal.WriteRaw Bools1 where
 
@@ -72,50 +72,50 @@ instance Marshal.WriteRaw Bools1 where
       \s1 ->
         case s1 of
           Bools1 bools1_x2 bools1_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"bools1_x") ptr0 bools1_x2
-            >> HasCField.writeRaw (RIP.Proxy @"bools1_y") ptr0 bools1_y3
+               HasCField.writeRaw (BG.Proxy @"bools1_x") ptr0 bools1_x2
+            >> HasCField.writeRaw (BG.Proxy @"bools1_y") ptr0 bools1_y3
 
-deriving via Marshal.EquivStorable Bools1 instance RIP.Storable Bools1
+deriving via Marshal.EquivStorable Bools1 instance BG.Storable Bools1
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "bools1_x" Bools1 ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "bools1_x" Bools1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools1 {bools1_x = y1, bools1_y = RIP.getField @"bools1_y" x0}
-      , RIP.getField @"bools1_x" x0
+          Bools1 {bools1_x = y1, bools1_y = BG.getField @"bools1_y" x0}
+      , BG.getField @"bools1_x" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools1_x" (RIP.Ptr Bools1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "bools1_x" (BG.Ptr Bools1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
+  getField = HasCField.fromPtr (BG.Proxy @"bools1_x")
 
 instance HasCField.HasCField Bools1 "bools1_x" where
 
-  type CFieldType Bools1 "bools1_x" = RIP.CBool
+  type CFieldType Bools1 "bools1_x" = BG.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "bools1_y" Bools1 ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "bools1_y" Bools1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools1 {bools1_y = y1, bools1_x = RIP.getField @"bools1_x" x0}
-      , RIP.getField @"bools1_y" x0
+          Bools1 {bools1_y = y1, bools1_x = BG.getField @"bools1_x" x0}
+      , BG.getField @"bools1_y" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "bools1_y" (BG.Ptr Bools1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
+  getField = HasCField.fromPtr (BG.Proxy @"bools1_y")
 
 instance HasCField.HasCField Bools1 "bools1_y" where
 
-  type CFieldType Bools1 "bools1_y" = RIP.CBool
+  type CFieldType Bools1 "bools1_y" = BG.CBool
 
   offset# = \_ -> \_ -> 1
 
@@ -126,14 +126,14 @@ instance HasCField.HasCField Bools1 "bools1_y" where
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools2 = Bools2
-  { bools2_x :: RIP.CBool
+  { bools2_x :: BG.CBool
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/primitives\/bool.h 9:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
-  , bools2_y :: RIP.CBool
+  , bools2_y :: BG.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/primitives\/bool.h 10:10@
@@ -141,7 +141,7 @@ data Bools2 = Bools2
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bools2 where
 
@@ -154,8 +154,8 @@ instance Marshal.ReadRaw Bools2 where
   readRaw =
     \ptr0 ->
           pure Bools2
-      <*> HasCField.readRaw (RIP.Proxy @"bools2_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"bools2_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools2_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools2_y") ptr0
 
 instance Marshal.WriteRaw Bools2 where
 
@@ -164,50 +164,50 @@ instance Marshal.WriteRaw Bools2 where
       \s1 ->
         case s1 of
           Bools2 bools2_x2 bools2_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"bools2_x") ptr0 bools2_x2
-            >> HasCField.writeRaw (RIP.Proxy @"bools2_y") ptr0 bools2_y3
+               HasCField.writeRaw (BG.Proxy @"bools2_x") ptr0 bools2_x2
+            >> HasCField.writeRaw (BG.Proxy @"bools2_y") ptr0 bools2_y3
 
-deriving via Marshal.EquivStorable Bools2 instance RIP.Storable Bools2
+deriving via Marshal.EquivStorable Bools2 instance BG.Storable Bools2
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "bools2_x" Bools2 ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "bools2_x" Bools2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools2 {bools2_x = y1, bools2_y = RIP.getField @"bools2_y" x0}
-      , RIP.getField @"bools2_x" x0
+          Bools2 {bools2_x = y1, bools2_y = BG.getField @"bools2_y" x0}
+      , BG.getField @"bools2_x" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "bools2_x" (BG.Ptr Bools2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
+  getField = HasCField.fromPtr (BG.Proxy @"bools2_x")
 
 instance HasCField.HasCField Bools2 "bools2_x" where
 
-  type CFieldType Bools2 "bools2_x" = RIP.CBool
+  type CFieldType Bools2 "bools2_x" = BG.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "bools2_y" Bools2 ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "bools2_y" Bools2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools2 {bools2_y = y1, bools2_x = RIP.getField @"bools2_x" x0}
-      , RIP.getField @"bools2_y" x0
+          Bools2 {bools2_y = y1, bools2_x = BG.getField @"bools2_x" x0}
+      , BG.getField @"bools2_y" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "bools2_y" (BG.Ptr Bools2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
+  getField = HasCField.fromPtr (BG.Proxy @"bools2_y")
 
 instance HasCField.HasCField Bools2 "bools2_y" where
 
-  type CFieldType Bools2 "bools2_y" = RIP.CBool
+  type CFieldType Bools2 "bools2_y" = BG.CBool
 
   offset# = \_ -> \_ -> 1
 
@@ -218,44 +218,43 @@ instance HasCField.HasCField Bools2 "bools2_y" where
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL = BOOL
-  { unwrapBOOL :: RIP.CBool
+  { unwrapBOOL :: BG.CBool
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapBOOL" BOOL ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "unwrapBOOL" BOOL ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         BOOL {unwrapBOOL = y1}, RIP.getField @"unwrapBOOL" x0)
+         BOOL {unwrapBOOL = y1}, BG.getField @"unwrapBOOL" x0)
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "unwrapBOOL" (BG.Ptr BOOL) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapBOOL")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapBOOL")
 
 instance HasCField.HasCField BOOL "unwrapBOOL" where
 
-  type CFieldType BOOL "unwrapBOOL" = RIP.CBool
+  type CFieldType BOOL "unwrapBOOL" = BG.CBool
 
   offset# = \_ -> \_ -> 0
 
@@ -281,7 +280,7 @@ data Bools3 = Bools3
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bools3 where
 
@@ -294,8 +293,8 @@ instance Marshal.ReadRaw Bools3 where
   readRaw =
     \ptr0 ->
           pure Bools3
-      <*> HasCField.readRaw (RIP.Proxy @"bools3_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"bools3_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools3_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bools3_y") ptr0
 
 instance Marshal.WriteRaw Bools3 where
 
@@ -304,24 +303,23 @@ instance Marshal.WriteRaw Bools3 where
       \s1 ->
         case s1 of
           Bools3 bools3_x2 bools3_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"bools3_x") ptr0 bools3_x2
-            >> HasCField.writeRaw (RIP.Proxy @"bools3_y") ptr0 bools3_y3
+               HasCField.writeRaw (BG.Proxy @"bools3_x") ptr0 bools3_x2
+            >> HasCField.writeRaw (BG.Proxy @"bools3_y") ptr0 bools3_y3
 
-deriving via Marshal.EquivStorable Bools3 instance RIP.Storable Bools3
+deriving via Marshal.EquivStorable Bools3 instance BG.Storable Bools3
 
-instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_x" Bools3 ty where
+instance (ty ~ BOOL) => BG.CompatHasField.HasField "bools3_x" Bools3 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools3 {bools3_x = y1, bools3_y = RIP.getField @"bools3_y" x0}
-      , RIP.getField @"bools3_x" x0
+          Bools3 {bools3_x = y1, bools3_y = BG.getField @"bools3_y" x0}
+      , BG.getField @"bools3_x" x0
       )
 
-instance ( ty ~ BOOL
-         ) => RIP.HasField "bools3_x" (RIP.Ptr Bools3) (RIP.Ptr ty) where
+instance (ty ~ BOOL) => BG.HasField "bools3_x" (BG.Ptr Bools3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
+  getField = HasCField.fromPtr (BG.Proxy @"bools3_x")
 
 instance HasCField.HasCField Bools3 "bools3_x" where
 
@@ -329,19 +327,18 @@ instance HasCField.HasCField Bools3 "bools3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ BOOL) => RIP.CompatHasField.HasField "bools3_y" Bools3 ty where
+instance (ty ~ BOOL) => BG.CompatHasField.HasField "bools3_y" Bools3 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bools3 {bools3_y = y1, bools3_x = RIP.getField @"bools3_x" x0}
-      , RIP.getField @"bools3_y" x0
+          Bools3 {bools3_y = y1, bools3_x = BG.getField @"bools3_x" x0}
+      , BG.getField @"bools3_y" x0
       )
 
-instance ( ty ~ BOOL
-         ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
+instance (ty ~ BOOL) => BG.HasField "bools3_y" (BG.Ptr Bools3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")
+  getField = HasCField.fromPtr (BG.Proxy @"bools3_y")
 
 instance HasCField.HasCField Bools3 "bools3_y" where
 

@@ -6,11 +6,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <binding-specs/trans_dep/macro_trans_dep_missing.h>"
   , "void hs_bindgen_83453c8683cd3ff7 ("
   , "  B arg1"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_83453c8683cd3ff7" hs_bindgen_83453c8683cd3ff7_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@
@@ -30,7 +30,7 @@ hs_bindgen_83453c8683cd3ff7 ::
      M.B
   -> IO ()
 hs_bindgen_83453c8683cd3ff7 =
-  RIP.fromFFIType hs_bindgen_83453c8683cd3ff7_base
+  BG.fromFFIType hs_bindgen_83453c8683cd3ff7_base
 
 {-| __C declaration:__ @foo@
 

@@ -34,9 +34,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct \@anonPoint@
@@ -46,14 +46,14 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @globals\/untagged.h@
 -}
 data AnonPoint = AnonPoint
-  { anonPoint_x :: RIP.CInt
+  { anonPoint_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/untagged.h 12:14@
 
          __exported by:__ @globals\/untagged.h@
     -}
-  , anonPoint_y :: RIP.CInt
+  , anonPoint_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/untagged.h 12:21@
@@ -61,7 +61,7 @@ data AnonPoint = AnonPoint
          __exported by:__ @globals\/untagged.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize AnonPoint where
 
@@ -74,8 +74,8 @@ instance Marshal.ReadRaw AnonPoint where
   readRaw =
     \ptr0 ->
           pure AnonPoint
-      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonPoint_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonPoint_y") ptr0
 
 instance Marshal.WriteRaw AnonPoint where
 
@@ -84,52 +84,52 @@ instance Marshal.WriteRaw AnonPoint where
       \s1 ->
         case s1 of
           AnonPoint anonPoint_x2 anonPoint_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"anonPoint_x") ptr0 anonPoint_x2
-            >> HasCField.writeRaw (RIP.Proxy @"anonPoint_y") ptr0 anonPoint_y3
+               HasCField.writeRaw (BG.Proxy @"anonPoint_x") ptr0 anonPoint_x2
+            >> HasCField.writeRaw (BG.Proxy @"anonPoint_y") ptr0 anonPoint_y3
 
-deriving via Marshal.EquivStorable AnonPoint instance RIP.Storable AnonPoint
+deriving via Marshal.EquivStorable AnonPoint instance BG.Storable AnonPoint
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "anonPoint_x" AnonPoint ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "anonPoint_x" AnonPoint ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPoint {anonPoint_x = y1, anonPoint_y = RIP.getField @"anonPoint_y" x0}
-      , RIP.getField @"anonPoint_x" x0
+          AnonPoint {anonPoint_x = y1, anonPoint_y = BG.getField @"anonPoint_y" x0}
+      , BG.getField @"anonPoint_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "anonPoint_x" (BG.Ptr AnonPoint) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"anonPoint_x")
+    HasCField.fromPtr (BG.Proxy @"anonPoint_x")
 
 instance HasCField.HasCField AnonPoint "anonPoint_x" where
 
-  type CFieldType AnonPoint "anonPoint_x" = RIP.CInt
+  type CFieldType AnonPoint "anonPoint_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "anonPoint_y" AnonPoint ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "anonPoint_y" AnonPoint ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPoint {anonPoint_y = y1, anonPoint_x = RIP.getField @"anonPoint_x" x0}
-      , RIP.getField @"anonPoint_y" x0
+          AnonPoint {anonPoint_y = y1, anonPoint_x = BG.getField @"anonPoint_x" x0}
+      , BG.getField @"anonPoint_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "anonPoint_y" (BG.Ptr AnonPoint) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"anonPoint_y")
+    HasCField.fromPtr (BG.Proxy @"anonPoint_y")
 
 instance HasCField.HasCField AnonPoint "anonPoint_y" where
 
-  type CFieldType AnonPoint "anonPoint_y" = RIP.CInt
+  type CFieldType AnonPoint "anonPoint_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -140,14 +140,14 @@ instance HasCField.HasCField AnonPoint "anonPoint_y" where
     __exported by:__ @globals\/untagged.h@
 -}
 data AnonPair = AnonPair
-  { anonPair_a :: RIP.CInt
+  { anonPair_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @globals\/untagged.h 14:14@
 
          __exported by:__ @globals\/untagged.h@
     -}
-  , anonPair_b :: RIP.CInt
+  , anonPair_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @globals\/untagged.h 14:21@
@@ -155,7 +155,7 @@ data AnonPair = AnonPair
          __exported by:__ @globals\/untagged.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize AnonPair where
 
@@ -168,8 +168,8 @@ instance Marshal.ReadRaw AnonPair where
   readRaw =
     \ptr0 ->
           pure AnonPair
-      <*> HasCField.readRaw (RIP.Proxy @"anonPair_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"anonPair_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonPair_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonPair_b") ptr0
 
 instance Marshal.WriteRaw AnonPair where
 
@@ -178,52 +178,50 @@ instance Marshal.WriteRaw AnonPair where
       \s1 ->
         case s1 of
           AnonPair anonPair_a2 anonPair_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"anonPair_a") ptr0 anonPair_a2
-            >> HasCField.writeRaw (RIP.Proxy @"anonPair_b") ptr0 anonPair_b3
+               HasCField.writeRaw (BG.Proxy @"anonPair_a") ptr0 anonPair_a2
+            >> HasCField.writeRaw (BG.Proxy @"anonPair_b") ptr0 anonPair_b3
 
-deriving via Marshal.EquivStorable AnonPair instance RIP.Storable AnonPair
+deriving via Marshal.EquivStorable AnonPair instance BG.Storable AnonPair
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "anonPair_a" AnonPair ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "anonPair_a" AnonPair ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPair {anonPair_a = y1, anonPair_b = RIP.getField @"anonPair_b" x0}
-      , RIP.getField @"anonPair_a" x0
+          AnonPair {anonPair_a = y1, anonPair_b = BG.getField @"anonPair_b" x0}
+      , BG.getField @"anonPair_a" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "anonPair_a" (BG.Ptr AnonPair) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"anonPair_a")
+  getField = HasCField.fromPtr (BG.Proxy @"anonPair_a")
 
 instance HasCField.HasCField AnonPair "anonPair_a" where
 
-  type CFieldType AnonPair "anonPair_a" = RIP.CInt
+  type CFieldType AnonPair "anonPair_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "anonPair_b" AnonPair ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "anonPair_b" AnonPair ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPair {anonPair_b = y1, anonPair_a = RIP.getField @"anonPair_a" x0}
-      , RIP.getField @"anonPair_b" x0
+          AnonPair {anonPair_b = y1, anonPair_a = BG.getField @"anonPair_a" x0}
+      , BG.getField @"anonPair_b" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "anonPair_b" (BG.Ptr AnonPair) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"anonPair_b")
+  getField = HasCField.fromPtr (BG.Proxy @"anonPair_b")
 
 instance HasCField.HasCField AnonPair "anonPair_b" where
 
-  type CFieldType AnonPair "anonPair_b" = RIP.CInt
+  type CFieldType AnonPair "anonPair_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -234,10 +232,10 @@ instance HasCField.HasCField AnonPair "anonPair_b" where
     __exported by:__ @globals\/untagged.h@
 -}
 newtype AnonEnum = AnonEnum
-  { unwrapAnonEnum :: RIP.CUInt
+  { unwrapAnonEnum :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize AnonEnum where
 
@@ -261,21 +259,21 @@ instance Marshal.WriteRaw AnonEnum where
           AnonEnum unwrapAnonEnum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnum2
 
-deriving via Marshal.EquivStorable AnonEnum instance RIP.Storable AnonEnum
+deriving via Marshal.EquivStorable AnonEnum instance BG.Storable AnonEnum
 
-deriving via RIP.CUInt instance RIP.Prim AnonEnum
+deriving via BG.CUInt instance BG.Prim AnonEnum
 
 instance CEnum.CEnum AnonEnum where
 
-  type CEnumZ AnonEnum = RIP.CUInt
+  type CEnumZ AnonEnum = BG.CUInt
 
   toCEnum = AnonEnum
 
-  fromCEnum = RIP.getField @"unwrapAnonEnum"
+  fromCEnum = BG.getField @"unwrapAnonEnum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "VAL_A"), (1, RIP.singleton "VAL_B")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "VAL_A"), (1, BG.singleton "VAL_B")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "AnonEnum"
@@ -301,27 +299,27 @@ instance Read AnonEnum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapAnonEnum" AnonEnum ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapAnonEnum" AnonEnum ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         AnonEnum {unwrapAnonEnum = y1}, RIP.getField @"unwrapAnonEnum" x0)
+         AnonEnum {unwrapAnonEnum = y1}, BG.getField @"unwrapAnonEnum" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapAnonEnum" (RIP.Ptr AnonEnum) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapAnonEnum" (BG.Ptr AnonEnum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnum")
+    HasCField.fromPtr (BG.Proxy @"unwrapAnonEnum")
 
 instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
 
-  type CFieldType AnonEnum "unwrapAnonEnum" = RIP.CUInt
+  type CFieldType AnonEnum "unwrapAnonEnum" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -350,10 +348,10 @@ pattern VAL_B = AnonEnum 1
     __exported by:__ @globals\/untagged.h@
 -}
 newtype AnonEnumCoords = AnonEnumCoords
-  { unwrapAnonEnumCoords :: RIP.CUInt
+  { unwrapAnonEnumCoords :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize AnonEnumCoords where
 
@@ -377,21 +375,21 @@ instance Marshal.WriteRaw AnonEnumCoords where
           AnonEnumCoords unwrapAnonEnumCoords2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnumCoords2
 
-deriving via Marshal.EquivStorable AnonEnumCoords instance RIP.Storable AnonEnumCoords
+deriving via Marshal.EquivStorable AnonEnumCoords instance BG.Storable AnonEnumCoords
 
-deriving via RIP.CUInt instance RIP.Prim AnonEnumCoords
+deriving via BG.CUInt instance BG.Prim AnonEnumCoords
 
 instance CEnum.CEnum AnonEnumCoords where
 
-  type CEnumZ AnonEnumCoords = RIP.CUInt
+  type CEnumZ AnonEnumCoords = BG.CUInt
 
   toCEnum = AnonEnumCoords
 
-  fromCEnum = RIP.getField @"unwrapAnonEnumCoords"
+  fromCEnum = BG.getField @"unwrapAnonEnumCoords"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(10, RIP.singleton "X"), (20, RIP.singleton "Y"), (30, RIP.singleton "Z")]
+      CEnum.declaredValuesFromList [(10, BG.singleton "X"), (20, BG.singleton "Y"), (30, BG.singleton "Z")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "AnonEnumCoords"
@@ -407,29 +405,29 @@ instance Read AnonEnumCoords where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapAnonEnumCoords" AnonEnumCoords ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapAnonEnumCoords" AnonEnumCoords ty where
 
   hasField =
     \x0 ->
       ( \y1 -> AnonEnumCoords {unwrapAnonEnumCoords = y1}
-      , RIP.getField @"unwrapAnonEnumCoords" x0
+      , BG.getField @"unwrapAnonEnumCoords" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapAnonEnumCoords" (RIP.Ptr AnonEnumCoords) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapAnonEnumCoords" (BG.Ptr AnonEnumCoords) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnumCoords")
+    HasCField.fromPtr (BG.Proxy @"unwrapAnonEnumCoords")
 
 instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
 
   type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" =
-    RIP.CUInt
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -467,10 +465,10 @@ pattern Z = AnonEnumCoords 30
     __exported by:__ @globals\/untagged.h@
 -}
 newtype A = A
-  { unwrapA :: RIP.CUInt
+  { unwrapA :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize A where
 
@@ -494,21 +492,21 @@ instance Marshal.WriteRaw A where
           A unwrapA2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapA2
 
-deriving via Marshal.EquivStorable A instance RIP.Storable A
+deriving via Marshal.EquivStorable A instance BG.Storable A
 
-deriving via RIP.CUInt instance RIP.Prim A
+deriving via BG.CUInt instance BG.Prim A
 
 instance CEnum.CEnum A where
 
-  type CEnumZ A = RIP.CUInt
+  type CEnumZ A = BG.CUInt
 
   toCEnum = A
 
-  fromCEnum = RIP.getField @"unwrapA"
+  fromCEnum = BG.getField @"unwrapA"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "A1")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "A1")]
 
   showsUndeclared = CEnum.showsWrappedUndeclared "A"
 
@@ -533,24 +531,23 @@ instance Read A where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance (ty ~ RIP.CUInt) => RIP.CompatHasField.HasField "unwrapA" A ty where
+instance (ty ~ BG.CUInt) => BG.CompatHasField.HasField "unwrapA" A ty where
 
   hasField =
     \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+      (\y1 -> A {unwrapA = y1}, BG.getField @"unwrapA" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ BG.CUInt) => BG.HasField "unwrapA" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapA")
 
 instance HasCField.HasCField A "unwrapA" where
 
-  type CFieldType A "unwrapA" = RIP.CUInt
+  type CFieldType A "unwrapA" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -570,29 +567,19 @@ pattern A1 = A 0
     __exported by:__ @globals\/untagged.h@
 -}
 newtype B = B
-  { unwrapB :: RIP.ByteArray
+  { unwrapB :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize B
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize B
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw B
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw B
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw B
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw B
 
-deriving via Marshal.EquivStorable B instance RIP.Storable B
+deriving via Marshal.EquivStorable B instance BG.Storable B
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion B
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @globals\/untagged.h 27:19@
-
-    __exported by:__ @globals\/untagged.h@
--}
-instance (ty ~ RIP.CInt) => RIP.HasField "b_x" B ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion B
 
 {-| __C declaration:__ @x@
 
@@ -600,18 +587,28 @@ instance (ty ~ RIP.CInt) => RIP.HasField "b_x" B ty where
 
     __exported by:__ @globals\/untagged.h@
 -}
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "b_x" B ty where
+instance (ty ~ BG.CInt) => BG.HasField "b_x" B ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/untagged.h 27:19@
+
+    __exported by:__ @globals\/untagged.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b_x" B ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"b_x" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"b_x" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "b_x" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "b_x" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"b_x")
+  getField = HasCField.fromPtr (BG.Proxy @"b_x")
 
 instance HasCField.HasCField B "b_x" where
 
-  type CFieldType B "b_x" = RIP.CInt
+  type CFieldType B "b_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -622,7 +619,7 @@ instance HasCField.HasCField B "b_x" where
     __exported by:__ @globals\/untagged.h@
 -}
 data C = C
-  { c_x :: RIP.CInt
+  { c_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/untagged.h 30:14@
@@ -630,7 +627,7 @@ data C = C
          __exported by:__ @globals\/untagged.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize C where
 
@@ -643,7 +640,7 @@ instance Marshal.ReadRaw C where
   readRaw =
     \ptr0 ->
           pure C
-      <*> HasCField.readRaw (RIP.Proxy @"c_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"c_x") ptr0
 
 instance Marshal.WriteRaw C where
 
@@ -652,21 +649,21 @@ instance Marshal.WriteRaw C where
       \s1 ->
         case s1 of
           C c_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"c_x") ptr0 c_x2
+            HasCField.writeRaw (BG.Proxy @"c_x") ptr0 c_x2
 
-deriving via Marshal.EquivStorable C instance RIP.Storable C
+deriving via Marshal.EquivStorable C instance BG.Storable C
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "c_x" C ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "c_x" C ty where
 
   hasField =
-    \x0 -> (\y1 -> C {c_x = y1}, RIP.getField @"c_x" x0)
+    \x0 -> (\y1 -> C {c_x = y1}, BG.getField @"c_x" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "c_x" (RIP.Ptr C) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "c_x" (BG.Ptr C) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"c_x")
+  getField = HasCField.fromPtr (BG.Proxy @"c_x")
 
 instance HasCField.HasCField C "c_x" where
 
-  type CFieldType C "c_x" = RIP.CInt
+  type CFieldType C "c_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0

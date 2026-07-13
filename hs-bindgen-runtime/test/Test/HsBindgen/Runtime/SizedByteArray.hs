@@ -14,8 +14,8 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.QuickCheck (Testable, testProperty)
 
-import HsBindgen.Runtime.Internal.SizedByteArray (SizedByteArray (..))
 import HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (..))
 
 import Test.Util.Orphans ()
 

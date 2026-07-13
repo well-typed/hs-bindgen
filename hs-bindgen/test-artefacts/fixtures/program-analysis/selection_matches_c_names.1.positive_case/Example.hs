@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs@
 
@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/selection_matches_c_names.h@
 -}
 data NewName = NewName
-  { newName_x :: RIP.CInt
+  { newName_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/selection_matches_c_names.h 8:7@
@@ -37,7 +37,7 @@ data NewName = NewName
          __exported by:__ @program-analysis\/selection_matches_c_names.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize NewName where
 
@@ -50,7 +50,7 @@ instance Marshal.ReadRaw NewName where
   readRaw =
     \ptr0 ->
           pure NewName
-      <*> HasCField.readRaw (RIP.Proxy @"newName_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"newName_x") ptr0
 
 instance Marshal.WriteRaw NewName where
 
@@ -59,25 +59,25 @@ instance Marshal.WriteRaw NewName where
       \s1 ->
         case s1 of
           NewName newName_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"newName_x") ptr0 newName_x2
+            HasCField.writeRaw (BG.Proxy @"newName_x") ptr0 newName_x2
 
-deriving via Marshal.EquivStorable NewName instance RIP.Storable NewName
+deriving via Marshal.EquivStorable NewName instance BG.Storable NewName
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "newName_x" NewName ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "newName_x" NewName ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         NewName {newName_x = y1}, RIP.getField @"newName_x" x0)
+         NewName {newName_x = y1}, BG.getField @"newName_x" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "newName_x" (RIP.Ptr NewName) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "newName_x" (BG.Ptr NewName) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"newName_x")
+  getField = HasCField.fromPtr (BG.Proxy @"newName_x")
 
 instance HasCField.HasCField NewName "newName_x" where
 
-  type CFieldType NewName "newName_x" = RIP.CInt
+  type CFieldType NewName "newName_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0

@@ -4,7 +4,7 @@
 -- 'ToFunPtr' instances that are called in different modules to paralellize
 -- compilation and compile time code generation.
 --
-module HsBindgen.Runtime.TH.Types (
+module HsBindgen.Runtime.Support.TH.Types (
     -- * Types
     allPrimTypes
   , allPtrTypes
@@ -23,7 +23,7 @@ import Foreign.C.Types
 import GHC.Ptr qualified as Ptr
 import Language.Haskell.TH
 
-import HsBindgen.Runtime.Internal.FunPtr.Class
+import HsBindgen.Runtime.Support.FunPtr.Class
 
 -- | Get primitive marshallable types
 --

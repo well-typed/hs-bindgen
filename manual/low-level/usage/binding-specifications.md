@@ -102,7 +102,7 @@ hs-bindgen-cli preprocess \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
-    --module Vector1 \
+    --module VectorSingleModule \
     --single-file \
     --unsafe '' \
     vector.h \

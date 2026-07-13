@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct S@
 
@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
 data T = T
-  { t_x :: RIP.CInt
+  { t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/heap_types\/struct_const_member.h 4:13@
@@ -37,7 +37,7 @@ data T = T
          __exported by:__ @functions\/heap_types\/struct_const_member.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize T where
 
@@ -50,7 +50,7 @@ instance Marshal.ReadRaw T where
   readRaw =
     \ptr0 ->
           pure T
-      <*> HasCField.readRaw (RIP.Proxy @"t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"t_x") ptr0
 
 instance Marshal.WriteRaw T where
 
@@ -59,21 +59,21 @@ instance Marshal.WriteRaw T where
       \s1 ->
         case s1 of
           T t_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"t_x") ptr0 t_x2
+            HasCField.writeRaw (BG.Proxy @"t_x") ptr0 t_x2
 
-deriving via Marshal.EquivStorable T instance RIP.Storable T
+deriving via Marshal.EquivStorable T instance BG.Storable T
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "t_x" T ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "t_x" T ty where
 
   hasField =
-    \x0 -> (\y1 -> T {t_x = y1}, RIP.getField @"t_x" x0)
+    \x0 -> (\y1 -> T {t_x = y1}, BG.getField @"t_x" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "t_x" (BG.Ptr T) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"t_x")
+  getField = HasCField.fromPtr (BG.Proxy @"t_x")
 
 instance HasCField.HasCField T "t_x" where
 
-  type CFieldType T "t_x" = RIP.CInt
+  type CFieldType T "t_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0

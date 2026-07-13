@@ -8,11 +8,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/flam_functions.h>"
   , "/* test_edgecasesflam_functions_Example_get_vector_alloc */"
   , "__attribute__ ((const))"
@@ -42,12 +42,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
 foreign import ccall unsafe "hs_bindgen_d243fc6d495ec901" hs_bindgen_d243fc6d495ec901_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
-hs_bindgen_d243fc6d495ec901 :: IO (RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr Vector)))
+hs_bindgen_d243fc6d495ec901 :: IO (BG.FunPtr (BG.CInt -> IO (BG.Ptr Vector)))
 hs_bindgen_d243fc6d495ec901 =
-  RIP.fromFFIType hs_bindgen_d243fc6d495ec901_base
+  BG.fromFFIType hs_bindgen_d243fc6d495ec901_base
 
 {-# NOINLINE vector_alloc #-}
 {-| __C declaration:__ @vector_alloc@
@@ -56,18 +56,18 @@ hs_bindgen_d243fc6d495ec901 =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_alloc :: RIP.FunPtr (RIP.CInt -> IO (RIP.Ptr Vector))
+vector_alloc :: BG.FunPtr (BG.CInt -> IO (BG.Ptr Vector))
 vector_alloc =
-  RIP.unsafePerformIO hs_bindgen_d243fc6d495ec901
+  BG.unsafePerformIO hs_bindgen_d243fc6d495ec901
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
 foreign import ccall unsafe "hs_bindgen_1d7c878fb2029890" hs_bindgen_1d7c878fb2029890_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
-hs_bindgen_1d7c878fb2029890 :: IO (RIP.FunPtr (RIP.Ptr Vector -> IO ()))
+hs_bindgen_1d7c878fb2029890 :: IO (BG.FunPtr (BG.Ptr Vector -> IO ()))
 hs_bindgen_1d7c878fb2029890 =
-  RIP.fromFFIType hs_bindgen_1d7c878fb2029890_base
+  BG.fromFFIType hs_bindgen_1d7c878fb2029890_base
 
 {-# NOINLINE vector_free #-}
 {-| __C declaration:__ @vector_free@
@@ -76,18 +76,18 @@ hs_bindgen_1d7c878fb2029890 =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_free :: RIP.FunPtr (RIP.Ptr Vector -> IO ())
+vector_free :: BG.FunPtr (BG.Ptr Vector -> IO ())
 vector_free =
-  RIP.unsafePerformIO hs_bindgen_1d7c878fb2029890
+  BG.unsafePerformIO hs_bindgen_1d7c878fb2029890
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
 foreign import ccall unsafe "hs_bindgen_630caac5f56516fe" hs_bindgen_630caac5f56516fe_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
-hs_bindgen_630caac5f56516fe :: IO (RIP.FunPtr (RIP.Ptr Vector -> IO ()))
+hs_bindgen_630caac5f56516fe :: IO (BG.FunPtr (BG.Ptr Vector -> IO ()))
 hs_bindgen_630caac5f56516fe =
-  RIP.fromFFIType hs_bindgen_630caac5f56516fe_base
+  BG.fromFFIType hs_bindgen_630caac5f56516fe_base
 
 {-# NOINLINE vector_reverse #-}
 {-| __C declaration:__ @vector_reverse@
@@ -96,6 +96,6 @@ hs_bindgen_630caac5f56516fe =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_reverse :: RIP.FunPtr (RIP.Ptr Vector -> IO ())
+vector_reverse :: BG.FunPtr (BG.Ptr Vector -> IO ())
 vector_reverse =
-  RIP.unsafePerformIO hs_bindgen_630caac5f56516fe
+  BG.unsafePerformIO hs_bindgen_630caac5f56516fe

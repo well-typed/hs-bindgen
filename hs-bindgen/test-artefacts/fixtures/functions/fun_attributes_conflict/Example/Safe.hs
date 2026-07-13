@@ -9,10 +9,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/fun_attributes_conflict.h>"
   , "signed int hs_bindgen_5d7162df3a16d8d5 ("
   , "  signed int arg1"
@@ -42,15 +42,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d8d5_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 hs_bindgen_5d7162df3a16d8d5 ::
-     RIP.CInt
-  -> RIP.CInt
+     BG.CInt
+  -> BG.CInt
 hs_bindgen_5d7162df3a16d8d5 =
-  RIP.fromFFIType hs_bindgen_5d7162df3a16d8d5_base
+  BG.fromFFIType hs_bindgen_5d7162df3a16d8d5_base
 
 {-|
 
@@ -63,22 +63,22 @@ hs_bindgen_5d7162df3a16d8d5 =
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.CInt
+  -> BG.CInt
 square_cp = hs_bindgen_5d7162df3a16d8d5
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 hs_bindgen_7f240b4e0c2eea24 ::
-     RIP.CInt
-  -> RIP.CInt
+     BG.CInt
+  -> BG.CInt
 hs_bindgen_7f240b4e0c2eea24 =
-  RIP.fromFFIType hs_bindgen_7f240b4e0c2eea24_base
+  BG.fromFFIType hs_bindgen_7f240b4e0c2eea24_base
 
 {-|
 
@@ -91,22 +91,22 @@ hs_bindgen_7f240b4e0c2eea24 =
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.CInt
+  -> BG.CInt
 square_pc = hs_bindgen_7f240b4e0c2eea24
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 hs_bindgen_d32b50f04af10764 ::
-     RIP.CInt
-  -> RIP.CInt
+     BG.CInt
+  -> BG.CInt
 hs_bindgen_d32b50f04af10764 =
-  RIP.fromFFIType hs_bindgen_d32b50f04af10764_base
+  BG.fromFFIType hs_bindgen_d32b50f04af10764_base
 
 {-|
 
@@ -119,22 +119,22 @@ hs_bindgen_d32b50f04af10764 =
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.CInt
+  -> BG.CInt
 square_cc = hs_bindgen_d32b50f04af10764
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 hs_bindgen_fab6c9860ff1400b ::
-     RIP.CInt
-  -> IO RIP.CInt
+     BG.CInt
+  -> IO BG.CInt
 hs_bindgen_fab6c9860ff1400b =
-  RIP.fromFFIType hs_bindgen_fab6c9860ff1400b_base
+  BG.fromFFIType hs_bindgen_fab6c9860ff1400b_base
 
 {-|
 
@@ -147,7 +147,7 @@ hs_bindgen_fab6c9860ff1400b =
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 square_pp = hs_bindgen_fab6c9860ff1400b

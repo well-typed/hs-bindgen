@@ -7,13 +7,13 @@ module Example.Unsafe
   where
 
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
   , "int32_t hs_bindgen_2a91c367a9380a63 ("
   , "  a_type_t *arg1,"
@@ -27,19 +27,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Word32
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Word32
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 ::
-     RIP.Ptr A_type_t
+     BG.Ptr A_type_t
   -> HsBindgen.Runtime.LibC.Word32
-  -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
+  -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_2a91c367a9380a63 =
-  RIP.fromFFIType hs_bindgen_2a91c367a9380a63_base
+  BG.fromFFIType hs_bindgen_2a91c367a9380a63_base
 
 {-| __C declaration:__ @some_fun@
 
@@ -48,11 +48,11 @@ hs_bindgen_2a91c367a9380a63 =
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun ::
-     RIP.Ptr A_type_t
+     BG.Ptr A_type_t
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.LibC.Word32
      -- ^ __C declaration:__ @j@
-  -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
+  -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.LibC.Int32
 some_fun = hs_bindgen_2a91c367a9380a63

@@ -30,9 +30,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @myint@
 
@@ -41,44 +41,44 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Myint = Myint
-  { unwrapMyint :: RIP.CInt
+  { unwrapMyint :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyint" Myint ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapMyint" Myint ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Myint {unwrapMyint = y1}, RIP.getField @"unwrapMyint" x0)
+         Myint {unwrapMyint = y1}, BG.getField @"unwrapMyint" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyint" (RIP.Ptr Myint) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapMyint" (BG.Ptr Myint) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyint")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyint")
 
 instance HasCField.HasCField Myint "unwrapMyint" where
 
-  type CFieldType Myint "unwrapMyint" = RIP.CInt
+  type CFieldType Myint "unwrapMyint" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -89,35 +89,35 @@ instance HasCField.HasCField Myint "unwrapMyint" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Intptr = Intptr
-  { unwrapIntptr :: RIP.Ptr RIP.CInt
+  { unwrapIntptr :: BG.Ptr BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapIntptr" Intptr ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapIntptr" Intptr ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Intptr {unwrapIntptr = y1}, RIP.getField @"unwrapIntptr" x0)
+         Intptr {unwrapIntptr = y1}, BG.getField @"unwrapIntptr" x0)
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrapIntptr" (RIP.Ptr Intptr) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "unwrapIntptr" (BG.Ptr Intptr) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapIntptr")
+    HasCField.fromPtr (BG.Proxy @"unwrapIntptr")
 
 instance HasCField.HasCField Intptr "unwrapIntptr" where
 
   type CFieldType Intptr "unwrapIntptr" =
-    RIP.Ptr RIP.CInt
+    BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -128,63 +128,63 @@ instance HasCField.HasCField Intptr "unwrapIntptr" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Int2int = Int2int
-  { unwrapInt2int :: RIP.CInt -> IO RIP.CInt
+  { unwrapInt2int :: BG.CInt -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
-     (RIP.Int32 -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
+     (BG.Int32 -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
 
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 ::
      Int2int
-  -> IO (RIP.FunPtr Int2int)
+  -> IO (BG.FunPtr Int2int)
 hs_bindgen_a6c7dd49f5b9d470 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_a6c7dd49f5b9d470_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_a6c7dd49f5b9d470_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromInt2int@
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
-     RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
-  -> RIP.Int32 -> IO RIP.Int32
+     BG.FunPtr (BG.Int32 -> IO BG.Int32)
+  -> BG.Int32 -> IO BG.Int32
 
 -- __unique:__ @fromInt2int@
 hs_bindgen_65378a8a3cf640ad ::
-     RIP.FunPtr Int2int
+     BG.FunPtr Int2int
   -> Int2int
 hs_bindgen_65378a8a3cf640ad =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr Int2int where
+instance BG.ToFunPtr Int2int where
 
   toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 
-instance RIP.FromFunPtr Int2int where
+instance BG.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapInt2int" Int2int ty where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapInt2int" Int2int ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Int2int {unwrapInt2int = y1}, RIP.getField @"unwrapInt2int" x0)
+         Int2int {unwrapInt2int = y1}, BG.getField @"unwrapInt2int" x0)
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapInt2int" (RIP.Ptr Int2int) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.HasField "unwrapInt2int" (BG.Ptr Int2int) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapInt2int")
+    HasCField.fromPtr (BG.Proxy @"unwrapInt2int")
 
 instance HasCField.HasCField Int2int "unwrapInt2int" where
 
   type CFieldType Int2int "unwrapInt2int" =
-    RIP.CInt -> IO RIP.CInt
+    BG.CInt -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -199,58 +199,58 @@ instance HasCField.HasCField Int2int "unwrapInt2int" where
 newtype FunctionPointer_Function_Aux = FunctionPointer_Function_Aux
   { unwrapFunctionPointer_Function_Aux :: IO ()
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunctionPointer_Function_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d_base ::
      IO ()
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 
 -- __unique:__ @toFunctionPointer_Function_Aux@
 hs_bindgen_b171c028cdc0781d ::
      FunctionPointer_Function_Aux
-  -> IO (RIP.FunPtr FunctionPointer_Function_Aux)
+  -> IO (BG.FunPtr FunctionPointer_Function_Aux)
 hs_bindgen_b171c028cdc0781d =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_b171c028cdc0781d_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_b171c028cdc0781d_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromFunctionPointer_Function_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_4c3da8240a31e036_base ::
-     RIP.FunPtr (IO ())
+     BG.FunPtr (IO ())
   -> IO ()
 
 -- __unique:__ @fromFunctionPointer_Function_Aux@
 hs_bindgen_4c3da8240a31e036 ::
-     RIP.FunPtr FunctionPointer_Function_Aux
+     BG.FunPtr FunctionPointer_Function_Aux
   -> FunctionPointer_Function_Aux
 hs_bindgen_4c3da8240a31e036 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_4c3da8240a31e036_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_4c3da8240a31e036_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr FunctionPointer_Function_Aux where
+instance BG.ToFunPtr FunctionPointer_Function_Aux where
 
   toFunPtr = hs_bindgen_b171c028cdc0781d
 
-instance RIP.FromFunPtr FunctionPointer_Function_Aux where
+instance BG.FromFunPtr FunctionPointer_Function_Aux where
 
   fromFunPtr = hs_bindgen_4c3da8240a31e036
 
 instance ( ty ~ IO ()
-         ) => RIP.CompatHasField.HasField "unwrapFunctionPointer_Function_Aux" FunctionPointer_Function_Aux ty where
+         ) => BG.CompatHasField.HasField "unwrapFunctionPointer_Function_Aux" FunctionPointer_Function_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           FunctionPointer_Function_Aux {unwrapFunctionPointer_Function_Aux = y1}
-      , RIP.getField @"unwrapFunctionPointer_Function_Aux" x0
+      , BG.getField @"unwrapFunctionPointer_Function_Aux" x0
       )
 
 instance ( ty ~ IO ()
-         ) => RIP.HasField "unwrapFunctionPointer_Function_Aux" (RIP.Ptr FunctionPointer_Function_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapFunctionPointer_Function_Aux" (BG.Ptr FunctionPointer_Function_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFunctionPointer_Function_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapFunctionPointer_Function_Aux")
 
 instance HasCField.HasCField FunctionPointer_Function_Aux "unwrapFunctionPointer_Function_Aux" where
 
@@ -266,37 +266,37 @@ instance HasCField.HasCField FunctionPointer_Function_Aux "unwrapFunctionPointer
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function = FunctionPointer_Function
-  { unwrapFunctionPointer_Function :: RIP.FunPtr FunctionPointer_Function_Aux
+  { unwrapFunctionPointer_Function :: BG.FunPtr FunctionPointer_Function_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr FunctionPointer_Function_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFunctionPointer_Function" FunctionPointer_Function ty where
+instance ( ty ~ BG.FunPtr FunctionPointer_Function_Aux
+         ) => BG.CompatHasField.HasField "unwrapFunctionPointer_Function" FunctionPointer_Function ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           FunctionPointer_Function {unwrapFunctionPointer_Function = y1}
-      , RIP.getField @"unwrapFunctionPointer_Function" x0
+      , BG.getField @"unwrapFunctionPointer_Function" x0
       )
 
-instance ( ty ~ RIP.FunPtr FunctionPointer_Function_Aux
-         ) => RIP.HasField "unwrapFunctionPointer_Function" (RIP.Ptr FunctionPointer_Function) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr FunctionPointer_Function_Aux
+         ) => BG.HasField "unwrapFunctionPointer_Function" (BG.Ptr FunctionPointer_Function) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFunctionPointer_Function")
+    HasCField.fromPtr (BG.Proxy @"unwrapFunctionPointer_Function")
 
 instance HasCField.HasCField FunctionPointer_Function "unwrapFunctionPointer_Function" where
 
   type CFieldType FunctionPointer_Function "unwrapFunctionPointer_Function" =
-    RIP.FunPtr FunctionPointer_Function_Aux
+    BG.FunPtr FunctionPointer_Function_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -307,65 +307,65 @@ instance HasCField.HasCField FunctionPointer_Function "unwrapFunctionPointer_Fun
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype NonFunctionPointer_Function = NonFunctionPointer_Function
-  { unwrapNonFunctionPointer_Function :: RIP.CInt -> IO RIP.CInt
+  { unwrapNonFunctionPointer_Function :: BG.CInt -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
-     (RIP.Int32 -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
+     (BG.Int32 -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
 
 -- __unique:__ @toNonFunctionPointer_Function@
 hs_bindgen_766ae751d60365e9 ::
      NonFunctionPointer_Function
-  -> IO (RIP.FunPtr NonFunctionPointer_Function)
+  -> IO (BG.FunPtr NonFunctionPointer_Function)
 hs_bindgen_766ae751d60365e9 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_766ae751d60365e9_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_766ae751d60365e9_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromNonFunctionPointer_Function@
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3_base ::
-     RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
-  -> RIP.Int32 -> IO RIP.Int32
+     BG.FunPtr (BG.Int32 -> IO BG.Int32)
+  -> BG.Int32 -> IO BG.Int32
 
 -- __unique:__ @fromNonFunctionPointer_Function@
 hs_bindgen_36c7108d046bcbc3 ::
-     RIP.FunPtr NonFunctionPointer_Function
+     BG.FunPtr NonFunctionPointer_Function
   -> NonFunctionPointer_Function
 hs_bindgen_36c7108d046bcbc3 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_36c7108d046bcbc3_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_36c7108d046bcbc3_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr NonFunctionPointer_Function where
+instance BG.ToFunPtr NonFunctionPointer_Function where
 
   toFunPtr = hs_bindgen_766ae751d60365e9
 
-instance RIP.FromFunPtr NonFunctionPointer_Function where
+instance BG.FromFunPtr NonFunctionPointer_Function where
 
   fromFunPtr = hs_bindgen_36c7108d046bcbc3
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapNonFunctionPointer_Function" NonFunctionPointer_Function ty where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapNonFunctionPointer_Function" NonFunctionPointer_Function ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           NonFunctionPointer_Function {unwrapNonFunctionPointer_Function = y1}
-      , RIP.getField @"unwrapNonFunctionPointer_Function" x0
+      , BG.getField @"unwrapNonFunctionPointer_Function" x0
       )
 
-instance ( ty ~ (RIP.CInt -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapNonFunctionPointer_Function" (RIP.Ptr NonFunctionPointer_Function) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> IO BG.CInt)
+         ) => BG.HasField "unwrapNonFunctionPointer_Function" (BG.Ptr NonFunctionPointer_Function) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapNonFunctionPointer_Function")
+    HasCField.fromPtr (BG.Proxy @"unwrapNonFunctionPointer_Function")
 
 instance HasCField.HasCField NonFunctionPointer_Function "unwrapNonFunctionPointer_Function" where
 
   type CFieldType NonFunctionPointer_Function "unwrapNonFunctionPointer_Function" =
-    RIP.CInt -> IO RIP.CInt
+    BG.CInt -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -380,56 +380,56 @@ instance HasCField.HasCField NonFunctionPointer_Function "unwrapNonFunctionPoint
 newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: IO ()
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
      IO ()
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c ::
      F1_Aux
-  -> IO (RIP.FunPtr F1_Aux)
+  -> IO (BG.FunPtr F1_Aux)
 hs_bindgen_00d16e666202ed6c =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_00d16e666202ed6c_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_00d16e666202ed6c_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromF1_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
-     RIP.FunPtr (IO ())
+     BG.FunPtr (IO ())
   -> IO ()
 
 -- __unique:__ @fromF1_Aux@
 hs_bindgen_ddeb5206e8192425 ::
-     RIP.FunPtr F1_Aux
+     BG.FunPtr F1_Aux
   -> F1_Aux
 hs_bindgen_ddeb5206e8192425 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_ddeb5206e8192425_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_ddeb5206e8192425_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr F1_Aux where
+instance BG.ToFunPtr F1_Aux where
 
   toFunPtr = hs_bindgen_00d16e666202ed6c
 
-instance RIP.FromFunPtr F1_Aux where
+instance BG.FromFunPtr F1_Aux where
 
   fromFunPtr = hs_bindgen_ddeb5206e8192425
 
 instance ( ty ~ IO ()
-         ) => RIP.CompatHasField.HasField "unwrapF1_Aux" F1_Aux ty where
+         ) => BG.CompatHasField.HasField "unwrapF1_Aux" F1_Aux ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         F1_Aux {unwrapF1_Aux = y1}, RIP.getField @"unwrapF1_Aux" x0)
+         F1_Aux {unwrapF1_Aux = y1}, BG.getField @"unwrapF1_Aux" x0)
 
 instance ( ty ~ IO ()
-         ) => RIP.HasField "unwrapF1_Aux" (RIP.Ptr F1_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapF1_Aux" (BG.Ptr F1_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapF1_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapF1_Aux")
 
 instance HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 
@@ -444,33 +444,33 @@ instance HasCField.HasCField F1_Aux "unwrapF1_Aux" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1 = F1
-  { unwrapF1 :: RIP.FunPtr F1_Aux
+  { unwrapF1 :: BG.FunPtr F1_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr F1_Aux
-         ) => RIP.CompatHasField.HasField "unwrapF1" F1 ty where
+instance ( ty ~ BG.FunPtr F1_Aux
+         ) => BG.CompatHasField.HasField "unwrapF1" F1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         F1 {unwrapF1 = y1}, RIP.getField @"unwrapF1" x0)
+         F1 {unwrapF1 = y1}, BG.getField @"unwrapF1" x0)
 
-instance ( ty ~ RIP.FunPtr F1_Aux
-         ) => RIP.HasField "unwrapF1" (RIP.Ptr F1) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr F1_Aux
+         ) => BG.HasField "unwrapF1" (BG.Ptr F1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapF1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapF1")
 
 instance HasCField.HasCField F1 "unwrapF1" where
 
-  type CFieldType F1 "unwrapF1" = RIP.FunPtr F1_Aux
+  type CFieldType F1 "unwrapF1" = BG.FunPtr F1_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -483,53 +483,53 @@ instance HasCField.HasCField F1 "unwrapF1" where
 newtype G1 = G1
   { unwrapG1 :: IO ()
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toG1@
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579_base ::
      IO ()
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 
 -- __unique:__ @toG1@
 hs_bindgen_fa5806570b682579 ::
      G1
-  -> IO (RIP.FunPtr G1)
+  -> IO (BG.FunPtr G1)
 hs_bindgen_fa5806570b682579 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_fa5806570b682579_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_fa5806570b682579_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromG1@
 foreign import ccall safe "dynamic" hs_bindgen_8405c8e75aa78be5_base ::
-     RIP.FunPtr (IO ())
+     BG.FunPtr (IO ())
   -> IO ()
 
 -- __unique:__ @fromG1@
 hs_bindgen_8405c8e75aa78be5 ::
-     RIP.FunPtr G1
+     BG.FunPtr G1
   -> G1
 hs_bindgen_8405c8e75aa78be5 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_8405c8e75aa78be5_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_8405c8e75aa78be5_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr G1 where
+instance BG.ToFunPtr G1 where
 
   toFunPtr = hs_bindgen_fa5806570b682579
 
-instance RIP.FromFunPtr G1 where
+instance BG.FromFunPtr G1 where
 
   fromFunPtr = hs_bindgen_8405c8e75aa78be5
 
-instance (ty ~ IO ()) => RIP.CompatHasField.HasField "unwrapG1" G1 ty where
+instance (ty ~ IO ()) => BG.CompatHasField.HasField "unwrapG1" G1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         G1 {unwrapG1 = y1}, RIP.getField @"unwrapG1" x0)
+         G1 {unwrapG1 = y1}, BG.getField @"unwrapG1" x0)
 
-instance (ty ~ IO ()) => RIP.HasField "unwrapG1" (RIP.Ptr G1) (RIP.Ptr ty) where
+instance (ty ~ IO ()) => BG.HasField "unwrapG1" (BG.Ptr G1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapG1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapG1")
 
 instance HasCField.HasCField G1 "unwrapG1" where
 
@@ -544,33 +544,33 @@ instance HasCField.HasCField G1 "unwrapG1" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype G2 = G2
-  { unwrapG2 :: RIP.FunPtr G1
+  { unwrapG2 :: BG.FunPtr G1
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr G1
-         ) => RIP.CompatHasField.HasField "unwrapG2" G2 ty where
+instance ( ty ~ BG.FunPtr G1
+         ) => BG.CompatHasField.HasField "unwrapG2" G2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         G2 {unwrapG2 = y1}, RIP.getField @"unwrapG2" x0)
+         G2 {unwrapG2 = y1}, BG.getField @"unwrapG2" x0)
 
-instance ( ty ~ RIP.FunPtr G1
-         ) => RIP.HasField "unwrapG2" (RIP.Ptr G2) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr G1
+         ) => BG.HasField "unwrapG2" (BG.Ptr G2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapG2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapG2")
 
 instance HasCField.HasCField G2 "unwrapG2" where
 
-  type CFieldType G2 "unwrapG2" = RIP.FunPtr G1
+  type CFieldType G2 "unwrapG2" = BG.FunPtr G1
 
   offset# = \_ -> \_ -> 0
 
@@ -583,53 +583,53 @@ instance HasCField.HasCField G2 "unwrapG2" where
 newtype H1 = H1
   { unwrapH1 :: IO ()
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toH1@
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f_base ::
      IO ()
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 
 -- __unique:__ @toH1@
 hs_bindgen_ffae0d1234ed018f ::
      H1
-  -> IO (RIP.FunPtr H1)
+  -> IO (BG.FunPtr H1)
 hs_bindgen_ffae0d1234ed018f =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_ffae0d1234ed018f_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_ffae0d1234ed018f_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromH1@
 foreign import ccall safe "dynamic" hs_bindgen_1a33688324e1924f_base ::
-     RIP.FunPtr (IO ())
+     BG.FunPtr (IO ())
   -> IO ()
 
 -- __unique:__ @fromH1@
 hs_bindgen_1a33688324e1924f ::
-     RIP.FunPtr H1
+     BG.FunPtr H1
   -> H1
 hs_bindgen_1a33688324e1924f =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_1a33688324e1924f_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_1a33688324e1924f_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr H1 where
+instance BG.ToFunPtr H1 where
 
   toFunPtr = hs_bindgen_ffae0d1234ed018f
 
-instance RIP.FromFunPtr H1 where
+instance BG.FromFunPtr H1 where
 
   fromFunPtr = hs_bindgen_1a33688324e1924f
 
-instance (ty ~ IO ()) => RIP.CompatHasField.HasField "unwrapH1" H1 ty where
+instance (ty ~ IO ()) => BG.CompatHasField.HasField "unwrapH1" H1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         H1 {unwrapH1 = y1}, RIP.getField @"unwrapH1" x0)
+         H1 {unwrapH1 = y1}, BG.getField @"unwrapH1" x0)
 
-instance (ty ~ IO ()) => RIP.HasField "unwrapH1" (RIP.Ptr H1) (RIP.Ptr ty) where
+instance (ty ~ IO ()) => BG.HasField "unwrapH1" (BG.Ptr H1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapH1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapH1")
 
 instance HasCField.HasCField H1 "unwrapH1" where
 
@@ -646,19 +646,19 @@ instance HasCField.HasCField H1 "unwrapH1" where
 newtype H2 = H2
   { unwrapH2 :: H1
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
-instance (ty ~ H1) => RIP.CompatHasField.HasField "unwrapH2" H2 ty where
+instance (ty ~ H1) => BG.CompatHasField.HasField "unwrapH2" H2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         H2 {unwrapH2 = y1}, RIP.getField @"unwrapH2" x0)
+         H2 {unwrapH2 = y1}, BG.getField @"unwrapH2" x0)
 
-instance (ty ~ H1) => RIP.HasField "unwrapH2" (RIP.Ptr H2) (RIP.Ptr ty) where
+instance (ty ~ H1) => BG.HasField "unwrapH2" (BG.Ptr H2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapH2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapH2")
 
 instance HasCField.HasCField H2 "unwrapH2" where
 
@@ -673,32 +673,32 @@ instance HasCField.HasCField H2 "unwrapH2" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H3 = H3
-  { unwrapH3 :: RIP.FunPtr H2
+  { unwrapH3 :: BG.FunPtr H2
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr H2
-         ) => RIP.CompatHasField.HasField "unwrapH3" H3 ty where
+instance ( ty ~ BG.FunPtr H2
+         ) => BG.CompatHasField.HasField "unwrapH3" H3 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         H3 {unwrapH3 = y1}, RIP.getField @"unwrapH3" x0)
+         H3 {unwrapH3 = y1}, BG.getField @"unwrapH3" x0)
 
-instance ( ty ~ RIP.FunPtr H2
-         ) => RIP.HasField "unwrapH3" (RIP.Ptr H3) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr H2
+         ) => BG.HasField "unwrapH3" (BG.Ptr H3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapH3")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapH3")
 
 instance HasCField.HasCField H3 "unwrapH3" where
 
-  type CFieldType H3 "unwrapH3" = RIP.FunPtr H2
+  type CFieldType H3 "unwrapH3" = BG.FunPtr H2
 
   offset# = \_ -> \_ -> 0

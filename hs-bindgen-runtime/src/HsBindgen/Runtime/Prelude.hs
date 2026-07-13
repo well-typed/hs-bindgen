@@ -1,4 +1,8 @@
 -- | Common definitions for interfacing with @hs-bindgen@ generated code.
+--
+-- This prelude re-exports every runtime definition that is safe to use
+-- unqualified, /including/ definitions from modules that are otherwise intended
+-- for qualified import (e.g. 'WithFlam' from "HsBindgen.Runtime.FLAM").
 module HsBindgen.Runtime.Prelude (
     -- * C enumerations
     CEnum(..)
@@ -26,6 +30,9 @@ module HsBindgen.Runtime.Prelude (
   , IncompleteArray -- opaque
   , IsArray (Elem)
 
+    -- * Flexible array members
+  , WithFlam -- opaque
+
     -- * Unions
   , IsUnion
 
@@ -46,12 +53,13 @@ import HsBindgen.Runtime.BitfieldPtr
 import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CEnum
 import HsBindgen.Runtime.ConstantArray
+import HsBindgen.Runtime.FLAM (WithFlam)
 import HsBindgen.Runtime.HasCBitfield
 import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.IncompleteArray
-import HsBindgen.Runtime.Internal.FunPtr
-import HsBindgen.Runtime.Internal.Ptr
 import HsBindgen.Runtime.IsArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst
+import HsBindgen.Runtime.Support.FunPtr
+import HsBindgen.Runtime.Support.Ptr
 import HsBindgen.Runtime.Union

@@ -19,8 +19,8 @@ module Example
 
 import qualified HsBindgen.Runtime.Block as Block
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| Auxiliary type used by 'T'
 
@@ -31,63 +31,63 @@ import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.Compat
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
 -}
 newtype T_Aux = T_Aux
-  { unwrapT_Aux :: RIP.CInt -> IO ()
+  { unwrapT_Aux :: BG.CInt -> IO ()
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toT_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
-     (RIP.Int32 -> IO ())
-  -> IO (RIP.FunPtr (RIP.Int32 -> IO ()))
+     (BG.Int32 -> IO ())
+  -> IO (BG.FunPtr (BG.Int32 -> IO ()))
 
 -- __unique:__ @toT_Aux@
 hs_bindgen_5927fedc3abfa99c ::
      T_Aux
-  -> IO (RIP.FunPtr T_Aux)
+  -> IO (BG.FunPtr T_Aux)
 hs_bindgen_5927fedc3abfa99c =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_5927fedc3abfa99c_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_5927fedc3abfa99c_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromT_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
-     RIP.FunPtr (RIP.Int32 -> IO ())
-  -> RIP.Int32 -> IO ()
+     BG.FunPtr (BG.Int32 -> IO ())
+  -> BG.Int32 -> IO ()
 
 -- __unique:__ @fromT_Aux@
 hs_bindgen_281617c90fa9307a ::
-     RIP.FunPtr T_Aux
+     BG.FunPtr T_Aux
   -> T_Aux
 hs_bindgen_281617c90fa9307a =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_281617c90fa9307a_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_281617c90fa9307a_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr T_Aux where
+instance BG.ToFunPtr T_Aux where
 
   toFunPtr = hs_bindgen_5927fedc3abfa99c
 
-instance RIP.FromFunPtr T_Aux where
+instance BG.FromFunPtr T_Aux where
 
   fromFunPtr = hs_bindgen_281617c90fa9307a
 
-instance ( ty ~ (RIP.CInt -> IO ())
-         ) => RIP.CompatHasField.HasField "unwrapT_Aux" T_Aux ty where
+instance ( ty ~ (BG.CInt -> IO ())
+         ) => BG.CompatHasField.HasField "unwrapT_Aux" T_Aux ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         T_Aux {unwrapT_Aux = y1}, RIP.getField @"unwrapT_Aux" x0)
+         T_Aux {unwrapT_Aux = y1}, BG.getField @"unwrapT_Aux" x0)
 
-instance ( ty ~ (RIP.CInt -> IO ())
-         ) => RIP.HasField "unwrapT_Aux" (RIP.Ptr T_Aux) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> IO ())
+         ) => BG.HasField "unwrapT_Aux" (BG.Ptr T_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapT_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapT_Aux")
 
 instance HasCField.HasCField T_Aux "unwrapT_Aux" where
 
   type CFieldType T_Aux "unwrapT_Aux" =
-    RIP.CInt -> IO ()
+    BG.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
 
@@ -100,20 +100,20 @@ instance HasCField.HasCField T_Aux "unwrapT_Aux" where
 newtype T = T
   { unwrapT :: Block.Block T_Aux
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 instance ( ty ~ Block.Block T_Aux
-         ) => RIP.CompatHasField.HasField "unwrapT" T ty where
+         ) => BG.CompatHasField.HasField "unwrapT" T ty where
 
   hasField =
     \x0 ->
-      (\y1 -> T {unwrapT = y1}, RIP.getField @"unwrapT" x0)
+      (\y1 -> T {unwrapT = y1}, BG.getField @"unwrapT" x0)
 
 instance ( ty ~ Block.Block T_Aux
-         ) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapT" (BG.Ptr T) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT")
 
 instance HasCField.HasCField T "unwrapT" where
 

@@ -25,9 +25,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @Ta@
 
@@ -36,42 +36,41 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
 newtype Ta = Ta
-  { unwrapTa :: RIP.CInt
+  { unwrapTa :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapTa" Ta ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapTa" Ta ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Ta {unwrapTa = y1}, RIP.getField @"unwrapTa" x0)
+         Ta {unwrapTa = y1}, BG.getField @"unwrapTa" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapTa" (RIP.Ptr Ta) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapTa" (BG.Ptr Ta) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapTa")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapTa")
 
 instance HasCField.HasCField Ta "unwrapTa" where
 
-  type CFieldType Ta "unwrapTa" = RIP.CInt
+  type CFieldType Ta "unwrapTa" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -84,35 +83,35 @@ instance HasCField.HasCField Ta "unwrapTa" where
 newtype Ma = Ma
   { unwrapMa :: Ta
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ Ta) => RIP.CompatHasField.HasField "unwrapMa" Ma ty where
+instance (ty ~ Ta) => BG.CompatHasField.HasField "unwrapMa" Ma ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Ma {unwrapMa = y1}, RIP.getField @"unwrapMa" x0)
+         Ma {unwrapMa = y1}, BG.getField @"unwrapMa" x0)
 
-instance (ty ~ Ta) => RIP.HasField "unwrapMa" (RIP.Ptr Ma) (RIP.Ptr ty) where
+instance (ty ~ Ta) => BG.HasField "unwrapMa" (BG.Ptr Ma) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapMa")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapMa")
 
 instance HasCField.HasCField Ma "unwrapMa" where
 
@@ -127,42 +126,41 @@ instance HasCField.HasCField Ma "unwrapMa" where
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
 newtype T1 = T1
-  { unwrapT1 :: RIP.CInt
+  { unwrapT1 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapT1" T1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+         T1 {unwrapT1 = y1}, BG.getField @"unwrapT1" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapT1" (BG.Ptr T1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT1")
 
 instance HasCField.HasCField T1 "unwrapT1" where
 
-  type CFieldType T1 "unwrapT1" = RIP.CInt
+  type CFieldType T1 "unwrapT1" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -175,35 +173,35 @@ instance HasCField.HasCField T1 "unwrapT1" where
 newtype M1 = M1
   { unwrapM1 :: T1
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ T1) => RIP.CompatHasField.HasField "unwrapM1" M1 ty where
+instance (ty ~ T1) => BG.CompatHasField.HasField "unwrapM1" M1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M1 {unwrapM1 = y1}, RIP.getField @"unwrapM1" x0)
+         M1 {unwrapM1 = y1}, BG.getField @"unwrapM1" x0)
 
-instance (ty ~ T1) => RIP.HasField "unwrapM1" (RIP.Ptr M1) (RIP.Ptr ty) where
+instance (ty ~ T1) => BG.HasField "unwrapM1" (BG.Ptr M1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM1")
 
 instance HasCField.HasCField M1 "unwrapM1" where
 
@@ -220,35 +218,35 @@ instance HasCField.HasCField M1 "unwrapM1" where
 newtype M2 = M2
   { unwrapM2 :: T1
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ T1) => RIP.CompatHasField.HasField "unwrapM2" M2 ty where
+instance (ty ~ T1) => BG.CompatHasField.HasField "unwrapM2" M2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M2 {unwrapM2 = y1}, RIP.getField @"unwrapM2" x0)
+         M2 {unwrapM2 = y1}, BG.getField @"unwrapM2" x0)
 
-instance (ty ~ T1) => RIP.HasField "unwrapM2" (RIP.Ptr M2) (RIP.Ptr ty) where
+instance (ty ~ T1) => BG.HasField "unwrapM2" (BG.Ptr M2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM2")
 
 instance HasCField.HasCField M2 "unwrapM2" where
 
@@ -263,42 +261,41 @@ instance HasCField.HasCField M2 "unwrapM2" where
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
 newtype T2 = T2
-  { unwrapT2 :: RIP.CInt
+  { unwrapT2 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapT2" T2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+         T2 {unwrapT2 = y1}, BG.getField @"unwrapT2" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapT2" (BG.Ptr T2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT2")
 
 instance HasCField.HasCField T2 "unwrapT2" where
 
-  type CFieldType T2 "unwrapT2" = RIP.CInt
+  type CFieldType T2 "unwrapT2" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -311,35 +308,35 @@ instance HasCField.HasCField T2 "unwrapT2" where
 newtype M3 = M3
   { unwrapM3 :: T2
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ T2) => RIP.CompatHasField.HasField "unwrapM3" M3 ty where
+instance (ty ~ T2) => BG.CompatHasField.HasField "unwrapM3" M3 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M3 {unwrapM3 = y1}, RIP.getField @"unwrapM3" x0)
+         M3 {unwrapM3 = y1}, BG.getField @"unwrapM3" x0)
 
-instance (ty ~ T2) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
+instance (ty ~ T2) => BG.HasField "unwrapM3" (BG.Ptr M3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM3")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM3")
 
 instance HasCField.HasCField M3 "unwrapM3" where
 
@@ -356,35 +353,35 @@ instance HasCField.HasCField M3 "unwrapM3" where
 newtype M4 = M4
   { unwrapM4 :: T2
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ T2) => RIP.CompatHasField.HasField "unwrapM4" M4 ty where
+instance (ty ~ T2) => BG.CompatHasField.HasField "unwrapM4" M4 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M4 {unwrapM4 = y1}, RIP.getField @"unwrapM4" x0)
+         M4 {unwrapM4 = y1}, BG.getField @"unwrapM4" x0)
 
-instance (ty ~ T2) => RIP.HasField "unwrapM4" (RIP.Ptr M4) (RIP.Ptr ty) where
+instance (ty ~ T2) => BG.HasField "unwrapM4" (BG.Ptr M4) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM4")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM4")
 
 instance HasCField.HasCField M4 "unwrapM4" where
 

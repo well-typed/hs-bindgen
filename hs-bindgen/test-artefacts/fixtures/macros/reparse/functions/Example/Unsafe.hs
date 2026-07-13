@@ -8,10 +8,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse/functions.h>"
   , "void hs_bindgen_39eae3eb6460ea6a ("
   , "  signed int arg1"
@@ -35,15 +35,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_39eae3eb6460ea6a" hs_bindgen_39eae3eb6460ea6a_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_foo@
 hs_bindgen_39eae3eb6460ea6a ::
-     RIP.CInt
+     BG.CInt
   -> IO ()
 hs_bindgen_39eae3eb6460ea6a =
-  RIP.fromFFIType hs_bindgen_39eae3eb6460ea6a_base
+  BG.fromFFIType hs_bindgen_39eae3eb6460ea6a_base
 
 {-| __C declaration:__ @foo@
 
@@ -52,22 +52,22 @@ hs_bindgen_39eae3eb6460ea6a =
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 foo ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_39eae3eb6460ea6a
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_eb2d164aacb2e06d" hs_bindgen_eb2d164aacb2e06d_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_bar@
 hs_bindgen_eb2d164aacb2e06d ::
-     RIP.CInt
-  -> IO RIP.CInt
+     BG.CInt
+  -> IO BG.CInt
 hs_bindgen_eb2d164aacb2e06d =
-  RIP.fromFFIType hs_bindgen_eb2d164aacb2e06d_base
+  BG.fromFFIType hs_bindgen_eb2d164aacb2e06d_base
 
 {-| __C declaration:__ @bar@
 
@@ -76,22 +76,22 @@ hs_bindgen_eb2d164aacb2e06d =
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 bar ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 bar = hs_bindgen_eb2d164aacb2e06d
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_69a979a1e6a18eb1" hs_bindgen_69a979a1e6a18eb1_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_macrosreparsefunctions_Example_Unsafe_baz@
 hs_bindgen_69a979a1e6a18eb1 ::
-     RIP.CInt
-  -> IO RIP.CInt
+     BG.CInt
+  -> IO BG.CInt
 hs_bindgen_69a979a1e6a18eb1 =
-  RIP.fromFFIType hs_bindgen_69a979a1e6a18eb1_base
+  BG.fromFFIType hs_bindgen_69a979a1e6a18eb1_base
 
 {-| __C declaration:__ @baz@
 
@@ -100,7 +100,7 @@ hs_bindgen_69a979a1e6a18eb1 =
     __exported by:__ @macros\/reparse\/functions.h@
 -}
 baz ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 baz = hs_bindgen_69a979a1e6a18eb1

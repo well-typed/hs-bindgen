@@ -52,10 +52,10 @@ module Example
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct struct1@
 
@@ -65,7 +65,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 -}
 data Struct1_t = Struct1_t
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct1_t where
 
@@ -85,7 +85,7 @@ instance Marshal.WriteRaw Struct1_t where
         case s1 of
           Struct1_t -> return ()
 
-deriving via Marshal.EquivStorable Struct1_t instance RIP.Storable Struct1_t
+deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
 {-| __C declaration:__ @struct struct2@
 
@@ -95,7 +95,7 @@ deriving via Marshal.EquivStorable Struct1_t instance RIP.Storable Struct1_t
 -}
 data Struct2_t = Struct2_t
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct2_t where
 
@@ -115,7 +115,7 @@ instance Marshal.WriteRaw Struct2_t where
         case s1 of
           Struct2_t -> return ()
 
-deriving via Marshal.EquivStorable Struct2_t instance RIP.Storable Struct2_t
+deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
 
 {-| __C declaration:__ @struct struct3@
 
@@ -141,7 +141,7 @@ data Struct4_t
 -}
 data Struct5 = Struct5
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct5 where
 
@@ -161,7 +161,7 @@ instance Marshal.WriteRaw Struct5 where
         case s1 of
           Struct5 -> return ()
 
-deriving via Marshal.EquivStorable Struct5 instance RIP.Storable Struct5
+deriving via Marshal.EquivStorable Struct5 instance BG.Storable Struct5
 
 {-| __C declaration:__ @struct5_t@
 
@@ -170,35 +170,35 @@ deriving via Marshal.EquivStorable Struct5 instance RIP.Storable Struct5
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct5_t = Struct5_t
-  { unwrapStruct5_t :: RIP.Ptr Struct5
+  { unwrapStruct5_t :: BG.Ptr Struct5
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr Struct5
-         ) => RIP.CompatHasField.HasField "unwrapStruct5_t" Struct5_t ty where
+instance ( ty ~ BG.Ptr Struct5
+         ) => BG.CompatHasField.HasField "unwrapStruct5_t" Struct5_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct5_t {unwrapStruct5_t = y1}, RIP.getField @"unwrapStruct5_t" x0)
+         Struct5_t {unwrapStruct5_t = y1}, BG.getField @"unwrapStruct5_t" x0)
 
-instance ( ty ~ RIP.Ptr Struct5
-         ) => RIP.HasField "unwrapStruct5_t" (RIP.Ptr Struct5_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct5
+         ) => BG.HasField "unwrapStruct5_t" (BG.Ptr Struct5_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct5_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct5_t")
 
 instance HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 
   type CFieldType Struct5_t "unwrapStruct5_t" =
-    RIP.Ptr Struct5
+    BG.Ptr Struct5
 
   offset# = \_ -> \_ -> 0
 
@@ -210,7 +210,7 @@ instance HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 -}
 data Struct6a_struct = Struct6a_struct
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct6a_struct where
 
@@ -230,7 +230,7 @@ instance Marshal.WriteRaw Struct6a_struct where
         case s1 of
           Struct6a_struct -> return ()
 
-deriving via Marshal.EquivStorable Struct6a_struct instance RIP.Storable Struct6a_struct
+deriving via Marshal.EquivStorable Struct6a_struct instance BG.Storable Struct6a_struct
 
 {-| __C declaration:__ @struct6a@
 
@@ -239,35 +239,35 @@ deriving via Marshal.EquivStorable Struct6a_struct instance RIP.Storable Struct6
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct6a = Struct6a
-  { unwrapStruct6a :: RIP.Ptr Struct6a_struct
+  { unwrapStruct6a :: BG.Ptr Struct6a_struct
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr Struct6a_struct
-         ) => RIP.CompatHasField.HasField "unwrapStruct6a" Struct6a ty where
+instance ( ty ~ BG.Ptr Struct6a_struct
+         ) => BG.CompatHasField.HasField "unwrapStruct6a" Struct6a ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct6a {unwrapStruct6a = y1}, RIP.getField @"unwrapStruct6a" x0)
+         Struct6a {unwrapStruct6a = y1}, BG.getField @"unwrapStruct6a" x0)
 
-instance ( ty ~ RIP.Ptr Struct6a_struct
-         ) => RIP.HasField "unwrapStruct6a" (RIP.Ptr Struct6a) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct6a_struct
+         ) => BG.HasField "unwrapStruct6a" (BG.Ptr Struct6a) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct6a")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct6a")
 
 instance HasCField.HasCField Struct6a "unwrapStruct6a" where
 
   type CFieldType Struct6a "unwrapStruct6a" =
-    RIP.Ptr Struct6a_struct
+    BG.Ptr Struct6a_struct
 
   offset# = \_ -> \_ -> 0
 
@@ -279,7 +279,7 @@ instance HasCField.HasCField Struct6a "unwrapStruct6a" where
 -}
 data Struct6b_struct = Struct6b_struct
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct6b_struct where
 
@@ -299,7 +299,7 @@ instance Marshal.WriteRaw Struct6b_struct where
         case s1 of
           Struct6b_struct -> return ()
 
-deriving via Marshal.EquivStorable Struct6b_struct instance RIP.Storable Struct6b_struct
+deriving via Marshal.EquivStorable Struct6b_struct instance BG.Storable Struct6b_struct
 
 {-| __C declaration:__ @struct6b@
 
@@ -310,28 +310,28 @@ deriving via Marshal.EquivStorable Struct6b_struct instance RIP.Storable Struct6
 newtype Struct6b = Struct6b
   { unwrapStruct6b :: CA.ConstantArray 50 Struct6b_struct
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ CA.ConstantArray 50 Struct6b_struct
-         ) => RIP.CompatHasField.HasField "unwrapStruct6b" Struct6b ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct6b" Struct6b ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct6b {unwrapStruct6b = y1}, RIP.getField @"unwrapStruct6b" x0)
+         Struct6b {unwrapStruct6b = y1}, BG.getField @"unwrapStruct6b" x0)
 
 instance ( ty ~ CA.ConstantArray 50 Struct6b_struct
-         ) => RIP.HasField "unwrapStruct6b" (RIP.Ptr Struct6b) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct6b" (BG.Ptr Struct6b) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct6b")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct6b")
 
 instance HasCField.HasCField Struct6b "unwrapStruct6b" where
 
@@ -348,7 +348,7 @@ instance HasCField.HasCField Struct6b "unwrapStruct6b" where
 -}
 data Struct7 = Struct7
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct7 where
 
@@ -368,7 +368,7 @@ instance Marshal.WriteRaw Struct7 where
         case s1 of
           Struct7 -> return ()
 
-deriving via Marshal.EquivStorable Struct7 instance RIP.Storable Struct7
+deriving via Marshal.EquivStorable Struct7 instance BG.Storable Struct7
 
 {-| __C declaration:__ @struct7a@
 
@@ -379,27 +379,27 @@ deriving via Marshal.EquivStorable Struct7 instance RIP.Storable Struct7
 newtype Struct7a = Struct7a
   { unwrapStruct7a :: Struct7
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Struct7
-         ) => RIP.CompatHasField.HasField "unwrapStruct7a" Struct7a ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct7a" Struct7a ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct7a {unwrapStruct7a = y1}, RIP.getField @"unwrapStruct7a" x0)
+         Struct7a {unwrapStruct7a = y1}, BG.getField @"unwrapStruct7a" x0)
 
 instance ( ty ~ Struct7
-         ) => RIP.HasField "unwrapStruct7a" (RIP.Ptr Struct7a) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct7a" (BG.Ptr Struct7a) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct7a")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct7a")
 
 instance HasCField.HasCField Struct7a "unwrapStruct7a" where
 
@@ -416,27 +416,27 @@ instance HasCField.HasCField Struct7a "unwrapStruct7a" where
 newtype Struct7b = Struct7b
   { unwrapStruct7b :: Struct7
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Struct7
-         ) => RIP.CompatHasField.HasField "unwrapStruct7b" Struct7b ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct7b" Struct7b ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct7b {unwrapStruct7b = y1}, RIP.getField @"unwrapStruct7b" x0)
+         Struct7b {unwrapStruct7b = y1}, BG.getField @"unwrapStruct7b" x0)
 
 instance ( ty ~ Struct7
-         ) => RIP.HasField "unwrapStruct7b" (RIP.Ptr Struct7b) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct7b" (BG.Ptr Struct7b) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct7b")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct7b")
 
 instance HasCField.HasCField Struct7b "unwrapStruct7b" where
 
@@ -452,7 +452,7 @@ instance HasCField.HasCField Struct7b "unwrapStruct7b" where
 -}
 data Struct8 = Struct8
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct8 where
 
@@ -472,7 +472,7 @@ instance Marshal.WriteRaw Struct8 where
         case s1 of
           Struct8 -> return ()
 
-deriving via Marshal.EquivStorable Struct8 instance RIP.Storable Struct8
+deriving via Marshal.EquivStorable Struct8 instance BG.Storable Struct8
 
 {-| __C declaration:__ @struct8b@
 
@@ -483,27 +483,27 @@ deriving via Marshal.EquivStorable Struct8 instance RIP.Storable Struct8
 newtype Struct8b = Struct8b
   { unwrapStruct8b :: Struct8
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Struct8
-         ) => RIP.CompatHasField.HasField "unwrapStruct8b" Struct8b ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct8b" Struct8b ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct8b {unwrapStruct8b = y1}, RIP.getField @"unwrapStruct8b" x0)
+         Struct8b {unwrapStruct8b = y1}, BG.getField @"unwrapStruct8b" x0)
 
 instance ( ty ~ Struct8
-         ) => RIP.HasField "unwrapStruct8b" (RIP.Ptr Struct8b) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct8b" (BG.Ptr Struct8b) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct8b")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct8b")
 
 instance HasCField.HasCField Struct8b "unwrapStruct8b" where
 
@@ -519,7 +519,7 @@ instance HasCField.HasCField Struct8b "unwrapStruct8b" where
 -}
 data Struct9 = Struct9
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct9 where
 
@@ -539,7 +539,7 @@ instance Marshal.WriteRaw Struct9 where
         case s1 of
           Struct9 -> return ()
 
-deriving via Marshal.EquivStorable Struct9 instance RIP.Storable Struct9
+deriving via Marshal.EquivStorable Struct9 instance BG.Storable Struct9
 
 {-| __C declaration:__ @struct9_t@
 
@@ -550,27 +550,27 @@ deriving via Marshal.EquivStorable Struct9 instance RIP.Storable Struct9
 newtype Struct9_t = Struct9_t
   { unwrapStruct9_t :: Struct9
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Struct9
-         ) => RIP.CompatHasField.HasField "unwrapStruct9_t" Struct9_t ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct9_t" Struct9_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct9_t {unwrapStruct9_t = y1}, RIP.getField @"unwrapStruct9_t" x0)
+         Struct9_t {unwrapStruct9_t = y1}, BG.getField @"unwrapStruct9_t" x0)
 
 instance ( ty ~ Struct9
-         ) => RIP.HasField "unwrapStruct9_t" (RIP.Ptr Struct9_t) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct9_t" (BG.Ptr Struct9_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct9_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct9_t")
 
 instance HasCField.HasCField Struct9_t "unwrapStruct9_t" where
 
@@ -586,7 +586,7 @@ instance HasCField.HasCField Struct9_t "unwrapStruct9_t" where
 -}
 data Struct10_t = Struct10_t
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct10_t where
 
@@ -606,7 +606,7 @@ instance Marshal.WriteRaw Struct10_t where
         case s1 of
           Struct10_t -> return ()
 
-deriving via Marshal.EquivStorable Struct10_t instance RIP.Storable Struct10_t
+deriving via Marshal.EquivStorable Struct10_t instance BG.Storable Struct10_t
 
 {-| __C declaration:__ @struct10_t_t@
 
@@ -617,28 +617,28 @@ deriving via Marshal.EquivStorable Struct10_t instance RIP.Storable Struct10_t
 newtype Struct10_t_t = Struct10_t_t
   { unwrapStruct10_t_t :: Struct10_t
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Struct10_t
-         ) => RIP.CompatHasField.HasField "unwrapStruct10_t_t" Struct10_t_t ty where
+         ) => BG.CompatHasField.HasField "unwrapStruct10_t_t" Struct10_t_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Struct10_t_t {unwrapStruct10_t_t = y1}
-      , RIP.getField @"unwrapStruct10_t_t" x0
+      , BG.getField @"unwrapStruct10_t_t" x0
       )
 
 instance ( ty ~ Struct10_t
-         ) => RIP.HasField "unwrapStruct10_t_t" (RIP.Ptr Struct10_t_t) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapStruct10_t_t" (BG.Ptr Struct10_t_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct10_t_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct10_t_t")
 
 instance HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
 
@@ -654,14 +654,14 @@ instance HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct11_t = Struct11_t
-  { struct11_t_x :: RIP.CInt
+  { struct11_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 96:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , struct11_t_self :: RIP.Ptr Struct11_t
+  , struct11_t_self :: BG.Ptr Struct11_t
     {- ^ __C declaration:__ @self@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 97:20@
@@ -669,7 +669,7 @@ data Struct11_t = Struct11_t
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct11_t where
 
@@ -682,8 +682,8 @@ instance Marshal.ReadRaw Struct11_t where
   readRaw =
     \ptr0 ->
           pure Struct11_t
-      <*> HasCField.readRaw (RIP.Proxy @"struct11_t_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"struct11_t_self") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct11_t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct11_t_self") ptr0
 
 instance Marshal.WriteRaw Struct11_t where
 
@@ -692,53 +692,53 @@ instance Marshal.WriteRaw Struct11_t where
       \s1 ->
         case s1 of
           Struct11_t struct11_t_x2 struct11_t_self3 ->
-               HasCField.writeRaw (RIP.Proxy @"struct11_t_x") ptr0 struct11_t_x2
-            >> HasCField.writeRaw (RIP.Proxy @"struct11_t_self") ptr0 struct11_t_self3
+               HasCField.writeRaw (BG.Proxy @"struct11_t_x") ptr0 struct11_t_x2
+            >> HasCField.writeRaw (BG.Proxy @"struct11_t_self") ptr0 struct11_t_self3
 
-deriving via Marshal.EquivStorable Struct11_t instance RIP.Storable Struct11_t
+deriving via Marshal.EquivStorable Struct11_t instance BG.Storable Struct11_t
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "struct11_t_x" Struct11_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "struct11_t_x" Struct11_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Struct11_t {struct11_t_x = y1, struct11_t_self = RIP.getField @"struct11_t_self" x0}
-      , RIP.getField @"struct11_t_x" x0
+          Struct11_t {struct11_t_x = y1, struct11_t_self = BG.getField @"struct11_t_self" x0}
+      , BG.getField @"struct11_t_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct11_t_x" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "struct11_t_x" (BG.Ptr Struct11_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct11_t_x")
+    HasCField.fromPtr (BG.Proxy @"struct11_t_x")
 
 instance HasCField.HasCField Struct11_t "struct11_t_x" where
 
-  type CFieldType Struct11_t "struct11_t_x" = RIP.CInt
+  type CFieldType Struct11_t "struct11_t_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Struct11_t
-         ) => RIP.CompatHasField.HasField "struct11_t_self" Struct11_t ty where
+instance ( ty ~ BG.Ptr Struct11_t
+         ) => BG.CompatHasField.HasField "struct11_t_self" Struct11_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Struct11_t {struct11_t_self = y1, struct11_t_x = RIP.getField @"struct11_t_x" x0}
-      , RIP.getField @"struct11_t_self" x0
+          Struct11_t {struct11_t_self = y1, struct11_t_x = BG.getField @"struct11_t_x" x0}
+      , BG.getField @"struct11_t_self" x0
       )
 
-instance ( ty ~ RIP.Ptr Struct11_t
-         ) => RIP.HasField "struct11_t_self" (RIP.Ptr Struct11_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct11_t
+         ) => BG.HasField "struct11_t_self" (BG.Ptr Struct11_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct11_t_self")
+    HasCField.fromPtr (BG.Proxy @"struct11_t_self")
 
 instance HasCField.HasCField Struct11_t "struct11_t_self" where
 
   type CFieldType Struct11_t "struct11_t_self" =
-    RIP.Ptr Struct11_t
+    BG.Ptr Struct11_t
 
   offset# = \_ -> \_ -> 8
 
@@ -749,14 +749,14 @@ instance HasCField.HasCField Struct11_t "struct11_t_self" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct12_t = Struct12_t
-  { struct12_t_x :: RIP.CInt
+  { struct12_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 105:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , struct12_t_self :: RIP.Ptr Struct12_t
+  , struct12_t_self :: BG.Ptr Struct12_t
     {- ^ __C declaration:__ @self@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 106:15@
@@ -764,7 +764,7 @@ data Struct12_t = Struct12_t
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct12_t where
 
@@ -777,8 +777,8 @@ instance Marshal.ReadRaw Struct12_t where
   readRaw =
     \ptr0 ->
           pure Struct12_t
-      <*> HasCField.readRaw (RIP.Proxy @"struct12_t_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"struct12_t_self") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct12_t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct12_t_self") ptr0
 
 instance Marshal.WriteRaw Struct12_t where
 
@@ -787,53 +787,53 @@ instance Marshal.WriteRaw Struct12_t where
       \s1 ->
         case s1 of
           Struct12_t struct12_t_x2 struct12_t_self3 ->
-               HasCField.writeRaw (RIP.Proxy @"struct12_t_x") ptr0 struct12_t_x2
-            >> HasCField.writeRaw (RIP.Proxy @"struct12_t_self") ptr0 struct12_t_self3
+               HasCField.writeRaw (BG.Proxy @"struct12_t_x") ptr0 struct12_t_x2
+            >> HasCField.writeRaw (BG.Proxy @"struct12_t_self") ptr0 struct12_t_self3
 
-deriving via Marshal.EquivStorable Struct12_t instance RIP.Storable Struct12_t
+deriving via Marshal.EquivStorable Struct12_t instance BG.Storable Struct12_t
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "struct12_t_x" Struct12_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "struct12_t_x" Struct12_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Struct12_t {struct12_t_x = y1, struct12_t_self = RIP.getField @"struct12_t_self" x0}
-      , RIP.getField @"struct12_t_x" x0
+          Struct12_t {struct12_t_x = y1, struct12_t_self = BG.getField @"struct12_t_self" x0}
+      , BG.getField @"struct12_t_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "struct12_t_x" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "struct12_t_x" (BG.Ptr Struct12_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct12_t_x")
+    HasCField.fromPtr (BG.Proxy @"struct12_t_x")
 
 instance HasCField.HasCField Struct12_t "struct12_t_x" where
 
-  type CFieldType Struct12_t "struct12_t_x" = RIP.CInt
+  type CFieldType Struct12_t "struct12_t_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Struct12_t
-         ) => RIP.CompatHasField.HasField "struct12_t_self" Struct12_t ty where
+instance ( ty ~ BG.Ptr Struct12_t
+         ) => BG.CompatHasField.HasField "struct12_t_self" Struct12_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Struct12_t {struct12_t_self = y1, struct12_t_x = RIP.getField @"struct12_t_x" x0}
-      , RIP.getField @"struct12_t_self" x0
+          Struct12_t {struct12_t_self = y1, struct12_t_x = BG.getField @"struct12_t_x" x0}
+      , BG.getField @"struct12_t_self" x0
       )
 
-instance ( ty ~ RIP.Ptr Struct12_t
-         ) => RIP.HasField "struct12_t_self" (RIP.Ptr Struct12_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct12_t
+         ) => BG.HasField "struct12_t_self" (BG.Ptr Struct12_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct12_t_self")
+    HasCField.fromPtr (BG.Proxy @"struct12_t_self")
 
 instance HasCField.HasCField Struct12_t "struct12_t_self" where
 
   type CFieldType Struct12_t "struct12_t_self" =
-    RIP.Ptr Struct12_t
+    BG.Ptr Struct12_t
 
   offset# = \_ -> \_ -> 8
 
@@ -858,14 +858,14 @@ data Use_sites = Use_sites
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , use_sites_useTypedef_struct3_t :: RIP.Ptr Struct3_t
+  , use_sites_useTypedef_struct3_t :: BG.Ptr Struct3_t
     {- ^ __C declaration:__ @useTypedef_struct3_t@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 118:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , use_sites_useTypedef_struct4_t :: RIP.Ptr Struct4_t
+  , use_sites_useTypedef_struct4_t :: BG.Ptr Struct4_t
     {- ^ __C declaration:__ @useTypedef_struct4_t@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
@@ -985,7 +985,7 @@ data Use_sites = Use_sites
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Use_sites where
 
@@ -998,26 +998,26 @@ instance Marshal.ReadRaw Use_sites where
   readRaw =
     \ptr0 ->
           pure Use_sites
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct1_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct2_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct3_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct4_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useStruct_struct5") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct5_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useStruct_struct6a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct6a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useStruct_struct6b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct6b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct7a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct7b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct8") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct8b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct9") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct9_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct10_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct11_t") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_useTypedef_struct12_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct1_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct2_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct3_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct4_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useStruct_struct5") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct5_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useStruct_struct6a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct6a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useStruct_struct6b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct6b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct7a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct7b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct8") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct8b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct9") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct9_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct10_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct11_t") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_useTypedef_struct12_t") ptr0
 
 instance Marshal.WriteRaw Use_sites where
 
@@ -1046,64 +1046,64 @@ instance Marshal.WriteRaw Use_sites where
             use_sites_useTypedef_struct10_t_t19
             use_sites_useTypedef_struct11_t20
             use_sites_useTypedef_struct12_t21 ->
-                 HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct1_t") ptr0 use_sites_useTypedef_struct1_t2
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct2_t") ptr0 use_sites_useTypedef_struct2_t3
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct3_t") ptr0 use_sites_useTypedef_struct3_t4
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct4_t") ptr0 use_sites_useTypedef_struct4_t5
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useStruct_struct5") ptr0 use_sites_useStruct_struct56
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct5_t") ptr0 use_sites_useTypedef_struct5_t7
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useStruct_struct6a") ptr0 use_sites_useStruct_struct6a8
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct6a") ptr0 use_sites_useTypedef_struct6a9
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useStruct_struct6b") ptr0 use_sites_useStruct_struct6b10
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct6b") ptr0 use_sites_useTypedef_struct6b11
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct7a") ptr0 use_sites_useTypedef_struct7a12
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct7b") ptr0 use_sites_useTypedef_struct7b13
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct8") ptr0 use_sites_useTypedef_struct814
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct8b") ptr0 use_sites_useTypedef_struct8b15
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct9") ptr0 use_sites_useTypedef_struct916
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct9_t") ptr0 use_sites_useTypedef_struct9_t17
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct10_t") ptr0 use_sites_useTypedef_struct10_t18
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0 use_sites_useTypedef_struct10_t_t19
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct11_t") ptr0 use_sites_useTypedef_struct11_t20
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_useTypedef_struct12_t") ptr0 use_sites_useTypedef_struct12_t21
+                 HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct1_t") ptr0 use_sites_useTypedef_struct1_t2
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct2_t") ptr0 use_sites_useTypedef_struct2_t3
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct3_t") ptr0 use_sites_useTypedef_struct3_t4
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct4_t") ptr0 use_sites_useTypedef_struct4_t5
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useStruct_struct5") ptr0 use_sites_useStruct_struct56
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct5_t") ptr0 use_sites_useTypedef_struct5_t7
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useStruct_struct6a") ptr0 use_sites_useStruct_struct6a8
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct6a") ptr0 use_sites_useTypedef_struct6a9
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useStruct_struct6b") ptr0 use_sites_useStruct_struct6b10
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct6b") ptr0 use_sites_useTypedef_struct6b11
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct7a") ptr0 use_sites_useTypedef_struct7a12
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct7b") ptr0 use_sites_useTypedef_struct7b13
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct8") ptr0 use_sites_useTypedef_struct814
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct8b") ptr0 use_sites_useTypedef_struct8b15
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct9") ptr0 use_sites_useTypedef_struct916
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct9_t") ptr0 use_sites_useTypedef_struct9_t17
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct10_t") ptr0 use_sites_useTypedef_struct10_t18
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0 use_sites_useTypedef_struct10_t_t19
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct11_t") ptr0 use_sites_useTypedef_struct11_t20
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct12_t") ptr0 use_sites_useTypedef_struct12_t21
 
-deriving via Marshal.EquivStorable Use_sites instance RIP.Storable Use_sites
+deriving via Marshal.EquivStorable Use_sites instance BG.Storable Use_sites
 
 instance ( ty ~ Struct1_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct1_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct1_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct1_t = y1
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct1_t" x0
+      , BG.getField @"use_sites_useTypedef_struct1_t" x0
       )
 
 instance ( ty ~ Struct1_t
-         ) => RIP.HasField "use_sites_useTypedef_struct1_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct1_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct1_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct1_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
 
@@ -1113,40 +1113,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Struct2_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct2_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct2_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct2_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct2_t" x0
+      , BG.getField @"use_sites_useTypedef_struct2_t" x0
       )
 
 instance ( ty ~ Struct2_t
-         ) => RIP.HasField "use_sites_useTypedef_struct2_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct2_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct2_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct2_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
@@ -1155,127 +1155,127 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Struct3_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct3_t" Use_sites ty where
+instance ( ty ~ BG.Ptr Struct3_t
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct3_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct3_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct3_t" x0
+      , BG.getField @"use_sites_useTypedef_struct3_t" x0
       )
 
-instance ( ty ~ RIP.Ptr Struct3_t
-         ) => RIP.HasField "use_sites_useTypedef_struct3_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct3_t
+         ) => BG.HasField "use_sites_useTypedef_struct3_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct3_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct3_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
 
   type CFieldType Use_sites "use_sites_useTypedef_struct3_t" =
-    RIP.Ptr Struct3_t
+    BG.Ptr Struct3_t
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Ptr Struct4_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct4_t" Use_sites ty where
+instance ( ty ~ BG.Ptr Struct4_t
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct4_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct4_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct4_t" x0
+      , BG.getField @"use_sites_useTypedef_struct4_t" x0
       )
 
-instance ( ty ~ RIP.Ptr Struct4_t
-         ) => RIP.HasField "use_sites_useTypedef_struct4_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct4_t
+         ) => BG.HasField "use_sites_useTypedef_struct4_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct4_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct4_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
 
   type CFieldType Use_sites "use_sites_useTypedef_struct4_t" =
-    RIP.Ptr Struct4_t
+    BG.Ptr Struct4_t
 
   offset# = \_ -> \_ -> 8
 
 instance ( ty ~ Struct5
-         ) => RIP.CompatHasField.HasField "use_sites_useStruct_struct5" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useStruct_struct5" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useStruct_struct5 = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useStruct_struct5" x0
+      , BG.getField @"use_sites_useStruct_struct5" x0
       )
 
 instance ( ty ~ Struct5
-         ) => RIP.HasField "use_sites_useStruct_struct5" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useStruct_struct5" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct5")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useStruct_struct5")
 
 instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
 
@@ -1285,40 +1285,40 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
   offset# = \_ -> \_ -> 16
 
 instance ( ty ~ Struct5_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct5_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct5_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct5_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct5_t" x0
+      , BG.getField @"use_sites_useTypedef_struct5_t" x0
       )
 
 instance ( ty ~ Struct5_t
-         ) => RIP.HasField "use_sites_useTypedef_struct5_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct5_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct5_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct5_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
 
@@ -1328,40 +1328,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
   offset# = \_ -> \_ -> 16
 
 instance ( ty ~ Struct6a_struct
-         ) => RIP.CompatHasField.HasField "use_sites_useStruct_struct6a" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useStruct_struct6a" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useStruct_struct6a = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useStruct_struct6a" x0
+      , BG.getField @"use_sites_useStruct_struct6a" x0
       )
 
 instance ( ty ~ Struct6a_struct
-         ) => RIP.HasField "use_sites_useStruct_struct6a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useStruct_struct6a" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct6a")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useStruct_struct6a")
 
 instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6a" where
 
@@ -1371,40 +1371,40 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6a" where
   offset# = \_ -> \_ -> 24
 
 instance ( ty ~ Struct6a
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct6a" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct6a" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct6a = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct6a" x0
+      , BG.getField @"use_sites_useTypedef_struct6a" x0
       )
 
 instance ( ty ~ Struct6a
-         ) => RIP.HasField "use_sites_useTypedef_struct6a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct6a" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct6a")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct6a")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6a" where
 
@@ -1414,40 +1414,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6a" where
   offset# = \_ -> \_ -> 24
 
 instance ( ty ~ Struct6b_struct
-         ) => RIP.CompatHasField.HasField "use_sites_useStruct_struct6b" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useStruct_struct6b" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useStruct_struct6b = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useStruct_struct6b" x0
+      , BG.getField @"use_sites_useStruct_struct6b" x0
       )
 
 instance ( ty ~ Struct6b_struct
-         ) => RIP.HasField "use_sites_useStruct_struct6b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useStruct_struct6b" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useStruct_struct6b")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useStruct_struct6b")
 
 instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6b" where
 
@@ -1457,40 +1457,40 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6b" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct6b
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct6b" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct6b" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct6b = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct6b" x0
+      , BG.getField @"use_sites_useTypedef_struct6b" x0
       )
 
 instance ( ty ~ Struct6b
-         ) => RIP.HasField "use_sites_useTypedef_struct6b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct6b" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct6b")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct6b")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6b" where
 
@@ -1500,40 +1500,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6b" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct7a
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct7a" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct7a" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct7a = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct7a" x0
+      , BG.getField @"use_sites_useTypedef_struct7a" x0
       )
 
 instance ( ty ~ Struct7a
-         ) => RIP.HasField "use_sites_useTypedef_struct7a" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct7a" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7a")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct7a")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
 
@@ -1543,40 +1543,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct7b
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct7b" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct7b" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct7b = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct7b" x0
+      , BG.getField @"use_sites_useTypedef_struct7b" x0
       )
 
 instance ( ty ~ Struct7b
-         ) => RIP.HasField "use_sites_useTypedef_struct7b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct7b" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct7b")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct7b")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
 
@@ -1586,40 +1586,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct8
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct8" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct8" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct8 = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct8" x0
+      , BG.getField @"use_sites_useTypedef_struct8" x0
       )
 
 instance ( ty ~ Struct8
-         ) => RIP.HasField "use_sites_useTypedef_struct8" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct8" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct8")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
 
@@ -1629,40 +1629,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct8b
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct8b" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct8b" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct8b = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct8b" x0
+      , BG.getField @"use_sites_useTypedef_struct8b" x0
       )
 
 instance ( ty ~ Struct8b
-         ) => RIP.HasField "use_sites_useTypedef_struct8b" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct8b" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct8b")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct8b")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
 
@@ -1672,40 +1672,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct9
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct9" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct9" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct9 = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct9" x0
+      , BG.getField @"use_sites_useTypedef_struct9" x0
       )
 
 instance ( ty ~ Struct9
-         ) => RIP.HasField "use_sites_useTypedef_struct9" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct9" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct9")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
 
@@ -1715,40 +1715,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct9_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct9_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct9_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct9_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct9_t" x0
+      , BG.getField @"use_sites_useTypedef_struct9_t" x0
       )
 
 instance ( ty ~ Struct9_t
-         ) => RIP.HasField "use_sites_useTypedef_struct9_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct9_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct9_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct9_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
 
@@ -1758,40 +1758,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct10_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct10_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct10_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct10_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct10_t" x0
+      , BG.getField @"use_sites_useTypedef_struct10_t" x0
       )
 
 instance ( ty ~ Struct10_t
-         ) => RIP.HasField "use_sites_useTypedef_struct10_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct10_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct10_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
 
@@ -1801,40 +1801,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct10_t_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct10_t_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct10_t_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct10_t_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
+      , BG.getField @"use_sites_useTypedef_struct10_t_t" x0
       )
 
 instance ( ty ~ Struct10_t_t
-         ) => RIP.HasField "use_sites_useTypedef_struct10_t_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct10_t_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct10_t_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct10_t_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
 
@@ -1844,40 +1844,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct11_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct11_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct11_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct11_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct12_t = RIP.getField @"use_sites_useTypedef_struct12_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct12_t = BG.getField @"use_sites_useTypedef_struct12_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct11_t" x0
+      , BG.getField @"use_sites_useTypedef_struct11_t" x0
       )
 
 instance ( ty ~ Struct11_t
-         ) => RIP.HasField "use_sites_useTypedef_struct11_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct11_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct11_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct11_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
 
@@ -1887,40 +1887,40 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
   offset# = \_ -> \_ -> 32
 
 instance ( ty ~ Struct12_t
-         ) => RIP.CompatHasField.HasField "use_sites_useTypedef_struct12_t" Use_sites ty where
+         ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct12_t" Use_sites ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites { use_sites_useTypedef_struct12_t = y1
-                    , use_sites_useTypedef_struct1_t = RIP.getField @"use_sites_useTypedef_struct1_t" x0
-                    , use_sites_useTypedef_struct2_t = RIP.getField @"use_sites_useTypedef_struct2_t" x0
-                    , use_sites_useTypedef_struct3_t = RIP.getField @"use_sites_useTypedef_struct3_t" x0
-                    , use_sites_useTypedef_struct4_t = RIP.getField @"use_sites_useTypedef_struct4_t" x0
-                    , use_sites_useStruct_struct5 = RIP.getField @"use_sites_useStruct_struct5" x0
-                    , use_sites_useTypedef_struct5_t = RIP.getField @"use_sites_useTypedef_struct5_t" x0
-                    , use_sites_useStruct_struct6a = RIP.getField @"use_sites_useStruct_struct6a" x0
-                    , use_sites_useTypedef_struct6a = RIP.getField @"use_sites_useTypedef_struct6a" x0
-                    , use_sites_useStruct_struct6b = RIP.getField @"use_sites_useStruct_struct6b" x0
-                    , use_sites_useTypedef_struct6b = RIP.getField @"use_sites_useTypedef_struct6b" x0
-                    , use_sites_useTypedef_struct7a = RIP.getField @"use_sites_useTypedef_struct7a" x0
-                    , use_sites_useTypedef_struct7b = RIP.getField @"use_sites_useTypedef_struct7b" x0
-                    , use_sites_useTypedef_struct8 = RIP.getField @"use_sites_useTypedef_struct8" x0
-                    , use_sites_useTypedef_struct8b = RIP.getField @"use_sites_useTypedef_struct8b" x0
-                    , use_sites_useTypedef_struct9 = RIP.getField @"use_sites_useTypedef_struct9" x0
-                    , use_sites_useTypedef_struct9_t = RIP.getField @"use_sites_useTypedef_struct9_t" x0
-                    , use_sites_useTypedef_struct10_t = RIP.getField @"use_sites_useTypedef_struct10_t" x0
-                    , use_sites_useTypedef_struct10_t_t = RIP.getField @"use_sites_useTypedef_struct10_t_t" x0
-                    , use_sites_useTypedef_struct11_t = RIP.getField @"use_sites_useTypedef_struct11_t" x0
+                    , use_sites_useTypedef_struct1_t = BG.getField @"use_sites_useTypedef_struct1_t" x0
+                    , use_sites_useTypedef_struct2_t = BG.getField @"use_sites_useTypedef_struct2_t" x0
+                    , use_sites_useTypedef_struct3_t = BG.getField @"use_sites_useTypedef_struct3_t" x0
+                    , use_sites_useTypedef_struct4_t = BG.getField @"use_sites_useTypedef_struct4_t" x0
+                    , use_sites_useStruct_struct5 = BG.getField @"use_sites_useStruct_struct5" x0
+                    , use_sites_useTypedef_struct5_t = BG.getField @"use_sites_useTypedef_struct5_t" x0
+                    , use_sites_useStruct_struct6a = BG.getField @"use_sites_useStruct_struct6a" x0
+                    , use_sites_useTypedef_struct6a = BG.getField @"use_sites_useTypedef_struct6a" x0
+                    , use_sites_useStruct_struct6b = BG.getField @"use_sites_useStruct_struct6b" x0
+                    , use_sites_useTypedef_struct6b = BG.getField @"use_sites_useTypedef_struct6b" x0
+                    , use_sites_useTypedef_struct7a = BG.getField @"use_sites_useTypedef_struct7a" x0
+                    , use_sites_useTypedef_struct7b = BG.getField @"use_sites_useTypedef_struct7b" x0
+                    , use_sites_useTypedef_struct8 = BG.getField @"use_sites_useTypedef_struct8" x0
+                    , use_sites_useTypedef_struct8b = BG.getField @"use_sites_useTypedef_struct8b" x0
+                    , use_sites_useTypedef_struct9 = BG.getField @"use_sites_useTypedef_struct9" x0
+                    , use_sites_useTypedef_struct9_t = BG.getField @"use_sites_useTypedef_struct9_t" x0
+                    , use_sites_useTypedef_struct10_t = BG.getField @"use_sites_useTypedef_struct10_t" x0
+                    , use_sites_useTypedef_struct10_t_t = BG.getField @"use_sites_useTypedef_struct10_t_t" x0
+                    , use_sites_useTypedef_struct11_t = BG.getField @"use_sites_useTypedef_struct11_t" x0
                     }
-      , RIP.getField @"use_sites_useTypedef_struct12_t" x0
+      , BG.getField @"use_sites_useTypedef_struct12_t" x0
       )
 
 instance ( ty ~ Struct12_t
-         ) => RIP.HasField "use_sites_useTypedef_struct12_t" (RIP.Ptr Use_sites) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_useTypedef_struct12_t" (BG.Ptr Use_sites) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_useTypedef_struct12_t")
+    HasCField.fromPtr (BG.Proxy @"use_sites_useTypedef_struct12_t")
 
 instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
 
@@ -1936,14 +1936,14 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Foo_struct = Foo_struct
-  { foo_struct_x :: RIP.CInt
+  { foo_struct_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , foo_struct_y :: RIP.CInt
+  , foo_struct_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
@@ -1951,7 +1951,7 @@ data Foo_struct = Foo_struct
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo_struct where
 
@@ -1964,8 +1964,8 @@ instance Marshal.ReadRaw Foo_struct where
   readRaw =
     \ptr0 ->
           pure Foo_struct
-      <*> HasCField.readRaw (RIP.Proxy @"foo_struct_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"foo_struct_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_struct_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_struct_y") ptr0
 
 instance Marshal.WriteRaw Foo_struct where
 
@@ -1974,52 +1974,52 @@ instance Marshal.WriteRaw Foo_struct where
       \s1 ->
         case s1 of
           Foo_struct foo_struct_x2 foo_struct_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"foo_struct_x") ptr0 foo_struct_x2
-            >> HasCField.writeRaw (RIP.Proxy @"foo_struct_y") ptr0 foo_struct_y3
+               HasCField.writeRaw (BG.Proxy @"foo_struct_x") ptr0 foo_struct_x2
+            >> HasCField.writeRaw (BG.Proxy @"foo_struct_y") ptr0 foo_struct_y3
 
-deriving via Marshal.EquivStorable Foo_struct instance RIP.Storable Foo_struct
+deriving via Marshal.EquivStorable Foo_struct instance BG.Storable Foo_struct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "foo_struct_x" Foo_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "foo_struct_x" Foo_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo_struct {foo_struct_x = y1, foo_struct_y = RIP.getField @"foo_struct_y" x0}
-      , RIP.getField @"foo_struct_x" x0
+          Foo_struct {foo_struct_x = y1, foo_struct_y = BG.getField @"foo_struct_y" x0}
+      , BG.getField @"foo_struct_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_struct_x" (RIP.Ptr Foo_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "foo_struct_x" (BG.Ptr Foo_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_struct_x")
+    HasCField.fromPtr (BG.Proxy @"foo_struct_x")
 
 instance HasCField.HasCField Foo_struct "foo_struct_x" where
 
-  type CFieldType Foo_struct "foo_struct_x" = RIP.CInt
+  type CFieldType Foo_struct "foo_struct_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "foo_struct_y" Foo_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "foo_struct_y" Foo_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo_struct {foo_struct_y = y1, foo_struct_x = RIP.getField @"foo_struct_x" x0}
-      , RIP.getField @"foo_struct_y" x0
+          Foo_struct {foo_struct_y = y1, foo_struct_x = BG.getField @"foo_struct_x" x0}
+      , BG.getField @"foo_struct_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "foo_struct_y" (RIP.Ptr Foo_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "foo_struct_y" (BG.Ptr Foo_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_struct_y")
+    HasCField.fromPtr (BG.Proxy @"foo_struct_y")
 
 instance HasCField.HasCField Foo_struct "foo_struct_y" where
 
-  type CFieldType Foo_struct "foo_struct_y" = RIP.CInt
+  type CFieldType Foo_struct "foo_struct_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -2034,21 +2034,21 @@ instance HasCField.HasCField Foo_struct "foo_struct_y" where
 newtype Foo_Aux = Foo_Aux
   { unwrapFoo_Aux :: IO Foo_struct
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance ( ty ~ IO Foo_struct
-         ) => RIP.CompatHasField.HasField "unwrapFoo_Aux" Foo_Aux ty where
+         ) => BG.CompatHasField.HasField "unwrapFoo_Aux" Foo_Aux ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo_Aux {unwrapFoo_Aux = y1}, RIP.getField @"unwrapFoo_Aux" x0)
+         Foo_Aux {unwrapFoo_Aux = y1}, BG.getField @"unwrapFoo_Aux" x0)
 
 instance ( ty ~ IO Foo_struct
-         ) => RIP.HasField "unwrapFoo_Aux" (RIP.Ptr Foo_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapFoo_Aux" (BG.Ptr Foo_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFoo_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapFoo_Aux")
 
 instance HasCField.HasCField Foo_Aux "unwrapFoo_Aux" where
 
@@ -2064,33 +2064,33 @@ instance HasCField.HasCField Foo_Aux "unwrapFoo_Aux" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Foo = Foo
-  { unwrapFoo :: RIP.FunPtr Foo_Aux
+  { unwrapFoo :: BG.FunPtr Foo_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Foo_Aux
-         ) => RIP.CompatHasField.HasField "unwrapFoo" Foo ty where
+instance ( ty ~ BG.FunPtr Foo_Aux
+         ) => BG.CompatHasField.HasField "unwrapFoo" Foo ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo {unwrapFoo = y1}, RIP.getField @"unwrapFoo" x0)
+         Foo {unwrapFoo = y1}, BG.getField @"unwrapFoo" x0)
 
-instance ( ty ~ RIP.FunPtr Foo_Aux
-         ) => RIP.HasField "unwrapFoo" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr Foo_Aux
+         ) => BG.HasField "unwrapFoo" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapFoo")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapFoo")
 
 instance HasCField.HasCField Foo "unwrapFoo" where
 
-  type CFieldType Foo "unwrapFoo" = RIP.FunPtr Foo_Aux
+  type CFieldType Foo "unwrapFoo" = BG.FunPtr Foo_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -2101,14 +2101,14 @@ instance HasCField.HasCField Foo "unwrapFoo" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Bar_struct = Bar_struct
-  { bar_struct_a :: RIP.CInt
+  { bar_struct_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
-  , bar_struct_b :: RIP.CInt
+  , bar_struct_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
@@ -2116,7 +2116,7 @@ data Bar_struct = Bar_struct
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bar_struct where
 
@@ -2129,8 +2129,8 @@ instance Marshal.ReadRaw Bar_struct where
   readRaw =
     \ptr0 ->
           pure Bar_struct
-      <*> HasCField.readRaw (RIP.Proxy @"bar_struct_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"bar_struct_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bar_struct_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bar_struct_b") ptr0
 
 instance Marshal.WriteRaw Bar_struct where
 
@@ -2139,52 +2139,52 @@ instance Marshal.WriteRaw Bar_struct where
       \s1 ->
         case s1 of
           Bar_struct bar_struct_a2 bar_struct_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"bar_struct_a") ptr0 bar_struct_a2
-            >> HasCField.writeRaw (RIP.Proxy @"bar_struct_b") ptr0 bar_struct_b3
+               HasCField.writeRaw (BG.Proxy @"bar_struct_a") ptr0 bar_struct_a2
+            >> HasCField.writeRaw (BG.Proxy @"bar_struct_b") ptr0 bar_struct_b3
 
-deriving via Marshal.EquivStorable Bar_struct instance RIP.Storable Bar_struct
+deriving via Marshal.EquivStorable Bar_struct instance BG.Storable Bar_struct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "bar_struct_a" Bar_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "bar_struct_a" Bar_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bar_struct {bar_struct_a = y1, bar_struct_b = RIP.getField @"bar_struct_b" x0}
-      , RIP.getField @"bar_struct_a" x0
+          Bar_struct {bar_struct_a = y1, bar_struct_b = BG.getField @"bar_struct_b" x0}
+      , BG.getField @"bar_struct_a" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_struct_a" (RIP.Ptr Bar_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "bar_struct_a" (BG.Ptr Bar_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"bar_struct_a")
+    HasCField.fromPtr (BG.Proxy @"bar_struct_a")
 
 instance HasCField.HasCField Bar_struct "bar_struct_a" where
 
-  type CFieldType Bar_struct "bar_struct_a" = RIP.CInt
+  type CFieldType Bar_struct "bar_struct_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "bar_struct_b" Bar_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "bar_struct_b" Bar_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Bar_struct {bar_struct_b = y1, bar_struct_a = RIP.getField @"bar_struct_a" x0}
-      , RIP.getField @"bar_struct_b" x0
+          Bar_struct {bar_struct_b = y1, bar_struct_a = BG.getField @"bar_struct_a" x0}
+      , BG.getField @"bar_struct_b" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "bar_struct_b" (RIP.Ptr Bar_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "bar_struct_b" (BG.Ptr Bar_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"bar_struct_b")
+    HasCField.fromPtr (BG.Proxy @"bar_struct_b")
 
 instance HasCField.HasCField Bar_struct "bar_struct_b" where
 
-  type CFieldType Bar_struct "bar_struct_b" = RIP.CInt
+  type CFieldType Bar_struct "bar_struct_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -2199,21 +2199,21 @@ instance HasCField.HasCField Bar_struct "bar_struct_b" where
 newtype Bar_Aux = Bar_Aux
   { unwrapBar_Aux :: Bar_struct -> IO Foo_struct
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance ( ty ~ (Bar_struct -> IO Foo_struct)
-         ) => RIP.CompatHasField.HasField "unwrapBar_Aux" Bar_Aux ty where
+         ) => BG.CompatHasField.HasField "unwrapBar_Aux" Bar_Aux ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bar_Aux {unwrapBar_Aux = y1}, RIP.getField @"unwrapBar_Aux" x0)
+         Bar_Aux {unwrapBar_Aux = y1}, BG.getField @"unwrapBar_Aux" x0)
 
 instance ( ty ~ (Bar_struct -> IO Foo_struct)
-         ) => RIP.HasField "unwrapBar_Aux" (RIP.Ptr Bar_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapBar_Aux" (BG.Ptr Bar_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapBar_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapBar_Aux")
 
 instance HasCField.HasCField Bar_Aux "unwrapBar_Aux" where
 
@@ -2229,33 +2229,33 @@ instance HasCField.HasCField Bar_Aux "unwrapBar_Aux" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Bar = Bar
-  { unwrapBar :: RIP.FunPtr Bar_Aux
+  { unwrapBar :: BG.FunPtr Bar_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Bar_Aux
-         ) => RIP.CompatHasField.HasField "unwrapBar" Bar ty where
+instance ( ty ~ BG.FunPtr Bar_Aux
+         ) => BG.CompatHasField.HasField "unwrapBar" Bar ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Bar {unwrapBar = y1}, RIP.getField @"unwrapBar" x0)
+         Bar {unwrapBar = y1}, BG.getField @"unwrapBar" x0)
 
-instance ( ty ~ RIP.FunPtr Bar_Aux
-         ) => RIP.HasField "unwrapBar" (RIP.Ptr Bar) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr Bar_Aux
+         ) => BG.HasField "unwrapBar" (BG.Ptr Bar) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapBar")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapBar")
 
 instance HasCField.HasCField Bar "unwrapBar" where
 
-  type CFieldType Bar "unwrapBar" = RIP.FunPtr Bar_Aux
+  type CFieldType Bar "unwrapBar" = BG.FunPtr Bar_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -2267,7 +2267,7 @@ instance HasCField.HasCField Bar "unwrapBar" where
 -}
 data Struct15 = Struct15
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct15 where
 
@@ -2287,7 +2287,7 @@ instance Marshal.WriteRaw Struct15 where
         case s1 of
           Struct15 -> return ()
 
-deriving via Marshal.EquivStorable Struct15 instance RIP.Storable Struct15
+deriving via Marshal.EquivStorable Struct15 instance BG.Storable Struct15
 
 {-| __C declaration:__ @struct struct16@
 
@@ -2297,7 +2297,7 @@ deriving via Marshal.EquivStorable Struct15 instance RIP.Storable Struct15
 -}
 data Struct16_struct = Struct16_struct
   {}
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct16_struct where
 
@@ -2317,7 +2317,7 @@ instance Marshal.WriteRaw Struct16_struct where
         case s1 of
           Struct16_struct -> return ()
 
-deriving via Marshal.EquivStorable Struct16_struct instance RIP.Storable Struct16_struct
+deriving via Marshal.EquivStorable Struct16_struct instance BG.Storable Struct16_struct
 
 {-| __C declaration:__ @struct16@
 
@@ -2326,35 +2326,35 @@ deriving via Marshal.EquivStorable Struct16_struct instance RIP.Storable Struct1
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct16 = Struct16
-  { unwrapStruct16 :: RIP.Ptr Struct16_struct
+  { unwrapStruct16 :: BG.Ptr Struct16_struct
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr Struct16_struct
-         ) => RIP.CompatHasField.HasField "unwrapStruct16" Struct16 ty where
+instance ( ty ~ BG.Ptr Struct16_struct
+         ) => BG.CompatHasField.HasField "unwrapStruct16" Struct16 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Struct16 {unwrapStruct16 = y1}, RIP.getField @"unwrapStruct16" x0)
+         Struct16 {unwrapStruct16 = y1}, BG.getField @"unwrapStruct16" x0)
 
-instance ( ty ~ RIP.Ptr Struct16_struct
-         ) => RIP.HasField "unwrapStruct16" (RIP.Ptr Struct16) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Struct16_struct
+         ) => BG.HasField "unwrapStruct16" (BG.Ptr Struct16) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStruct16")
+    HasCField.fromPtr (BG.Proxy @"unwrapStruct16")
 
 instance HasCField.HasCField Struct16 "unwrapStruct16" where
 
   type CFieldType Struct16 "unwrapStruct16" =
-    RIP.Ptr Struct16_struct
+    BG.Ptr Struct16_struct
 
   offset# = \_ -> \_ -> 0
 
@@ -2387,7 +2387,7 @@ data Use_sites_qual = Use_sites_qual
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Use_sites_qual where
 
@@ -2400,9 +2400,9 @@ instance Marshal.ReadRaw Use_sites_qual where
   readRaw =
     \ptr0 ->
           pure Use_sites_qual
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_qual_useTypedef_struct15") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_qual_useStruct_struct16") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"use_sites_qual_useTypedef_struct16") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_qual_useTypedef_struct15") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_qual_useStruct_struct16") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_qual_useTypedef_struct16") ptr0
 
 instance Marshal.WriteRaw Use_sites_qual where
 
@@ -2414,30 +2414,30 @@ instance Marshal.WriteRaw Use_sites_qual where
             use_sites_qual_useTypedef_struct152
             use_sites_qual_useStruct_struct163
             use_sites_qual_useTypedef_struct164 ->
-                 HasCField.writeRaw (RIP.Proxy @"use_sites_qual_useTypedef_struct15") ptr0 use_sites_qual_useTypedef_struct152
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_qual_useStruct_struct16") ptr0 use_sites_qual_useStruct_struct163
-              >> HasCField.writeRaw (RIP.Proxy @"use_sites_qual_useTypedef_struct16") ptr0 use_sites_qual_useTypedef_struct164
+                 HasCField.writeRaw (BG.Proxy @"use_sites_qual_useTypedef_struct15") ptr0 use_sites_qual_useTypedef_struct152
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_qual_useStruct_struct16") ptr0 use_sites_qual_useStruct_struct163
+              >> HasCField.writeRaw (BG.Proxy @"use_sites_qual_useTypedef_struct16") ptr0 use_sites_qual_useTypedef_struct164
 
-deriving via Marshal.EquivStorable Use_sites_qual instance RIP.Storable Use_sites_qual
+deriving via Marshal.EquivStorable Use_sites_qual instance BG.Storable Use_sites_qual
 
 instance ( ty ~ Struct15
-         ) => RIP.CompatHasField.HasField "use_sites_qual_useTypedef_struct15" Use_sites_qual ty where
+         ) => BG.CompatHasField.HasField "use_sites_qual_useTypedef_struct15" Use_sites_qual ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites_qual { use_sites_qual_useTypedef_struct15 = y1
-                         , use_sites_qual_useStruct_struct16 = RIP.getField @"use_sites_qual_useStruct_struct16" x0
-                         , use_sites_qual_useTypedef_struct16 = RIP.getField @"use_sites_qual_useTypedef_struct16" x0
+                         , use_sites_qual_useStruct_struct16 = BG.getField @"use_sites_qual_useStruct_struct16" x0
+                         , use_sites_qual_useTypedef_struct16 = BG.getField @"use_sites_qual_useTypedef_struct16" x0
                          }
-      , RIP.getField @"use_sites_qual_useTypedef_struct15" x0
+      , BG.getField @"use_sites_qual_useTypedef_struct15" x0
       )
 
 instance ( ty ~ Struct15
-         ) => RIP.HasField "use_sites_qual_useTypedef_struct15" (RIP.Ptr Use_sites_qual) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_qual_useTypedef_struct15" (BG.Ptr Use_sites_qual) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_qual_useTypedef_struct15")
+    HasCField.fromPtr (BG.Proxy @"use_sites_qual_useTypedef_struct15")
 
 instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct15" where
 
@@ -2447,23 +2447,23 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct15"
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Struct16_struct
-         ) => RIP.CompatHasField.HasField "use_sites_qual_useStruct_struct16" Use_sites_qual ty where
+         ) => BG.CompatHasField.HasField "use_sites_qual_useStruct_struct16" Use_sites_qual ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites_qual { use_sites_qual_useStruct_struct16 = y1
-                         , use_sites_qual_useTypedef_struct15 = RIP.getField @"use_sites_qual_useTypedef_struct15" x0
-                         , use_sites_qual_useTypedef_struct16 = RIP.getField @"use_sites_qual_useTypedef_struct16" x0
+                         , use_sites_qual_useTypedef_struct15 = BG.getField @"use_sites_qual_useTypedef_struct15" x0
+                         , use_sites_qual_useTypedef_struct16 = BG.getField @"use_sites_qual_useTypedef_struct16" x0
                          }
-      , RIP.getField @"use_sites_qual_useStruct_struct16" x0
+      , BG.getField @"use_sites_qual_useStruct_struct16" x0
       )
 
 instance ( ty ~ Struct16_struct
-         ) => RIP.HasField "use_sites_qual_useStruct_struct16" (RIP.Ptr Use_sites_qual) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_qual_useStruct_struct16" (BG.Ptr Use_sites_qual) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_qual_useStruct_struct16")
+    HasCField.fromPtr (BG.Proxy @"use_sites_qual_useStruct_struct16")
 
 instance HasCField.HasCField Use_sites_qual "use_sites_qual_useStruct_struct16" where
 
@@ -2473,23 +2473,23 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useStruct_struct16" 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Struct16
-         ) => RIP.CompatHasField.HasField "use_sites_qual_useTypedef_struct16" Use_sites_qual ty where
+         ) => BG.CompatHasField.HasField "use_sites_qual_useTypedef_struct16" Use_sites_qual ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Use_sites_qual { use_sites_qual_useTypedef_struct16 = y1
-                         , use_sites_qual_useTypedef_struct15 = RIP.getField @"use_sites_qual_useTypedef_struct15" x0
-                         , use_sites_qual_useStruct_struct16 = RIP.getField @"use_sites_qual_useStruct_struct16" x0
+                         , use_sites_qual_useTypedef_struct15 = BG.getField @"use_sites_qual_useTypedef_struct15" x0
+                         , use_sites_qual_useStruct_struct16 = BG.getField @"use_sites_qual_useStruct_struct16" x0
                          }
-      , RIP.getField @"use_sites_qual_useTypedef_struct16" x0
+      , BG.getField @"use_sites_qual_useTypedef_struct16" x0
       )
 
 instance ( ty ~ Struct16
-         ) => RIP.HasField "use_sites_qual_useTypedef_struct16" (RIP.Ptr Use_sites_qual) (RIP.Ptr ty) where
+         ) => BG.HasField "use_sites_qual_useTypedef_struct16" (BG.Ptr Use_sites_qual) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"use_sites_qual_useTypedef_struct16")
+    HasCField.fromPtr (BG.Proxy @"use_sites_qual_useTypedef_struct16")
 
 instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct16" where
 

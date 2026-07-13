@@ -67,11 +67,11 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| Maximum length for name strings.
@@ -82,8 +82,8 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-mAX_NAME_LENGTH :: RIP.CInt
-mAX_NAME_LENGTH = (64 :: RIP.CInt)
+mAX_NAME_LENGTH :: BG.CInt
+mAX_NAME_LENGTH = (64 :: BG.CInt)
 
 {-| Size type for this library.
 
@@ -98,38 +98,38 @@ mAX_NAME_LENGTH = (64 :: RIP.CInt)
 newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "unwrapSize_type" Size_type ty where
+         ) => BG.CompatHasField.HasField "unwrapSize_type" Size_type ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Size_type {unwrapSize_type = y1}, RIP.getField @"unwrapSize_type" x0)
+         Size_type {unwrapSize_type = y1}, BG.getField @"unwrapSize_type" x0)
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "unwrapSize_type" (RIP.Ptr Size_type) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapSize_type" (BG.Ptr Size_type) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapSize_type")
+    HasCField.fromPtr (BG.Proxy @"unwrapSize_type")
 
 instance HasCField.HasCField Size_type "unwrapSize_type" where
 
@@ -163,10 +163,10 @@ data Opaque_union
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum = Color_enum
-  { unwrapColor_enum :: RIP.CUInt
+  { unwrapColor_enum :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Color_enum where
 
@@ -190,23 +190,23 @@ instance Marshal.WriteRaw Color_enum where
           Color_enum unwrapColor_enum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapColor_enum2
 
-deriving via Marshal.EquivStorable Color_enum instance RIP.Storable Color_enum
+deriving via Marshal.EquivStorable Color_enum instance BG.Storable Color_enum
 
-deriving via RIP.CUInt instance RIP.Prim Color_enum
+deriving via BG.CUInt instance BG.Prim Color_enum
 
 instance CEnum.CEnum Color_enum where
 
-  type CEnumZ Color_enum = RIP.CUInt
+  type CEnumZ Color_enum = BG.CUInt
 
   toCEnum = Color_enum
 
-  fromCEnum = RIP.getField @"unwrapColor_enum"
+  fromCEnum = BG.getField @"unwrapColor_enum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [ (0, RIP.singleton "COLOR_RED")
-                                   , (1, RIP.singleton "COLOR_GREEN")
-                                   , (2, RIP.singleton "COLOR_BLUE")
+      CEnum.declaredValuesFromList [ (0, BG.singleton "COLOR_RED")
+                                   , (1, BG.singleton "COLOR_GREEN")
+                                   , (2, BG.singleton "COLOR_BLUE")
                                    ]
 
   showsUndeclared =
@@ -233,29 +233,29 @@ instance Read Color_enum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapColor_enum" Color_enum ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapColor_enum" Color_enum ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Color_enum {unwrapColor_enum = y1}
-      , RIP.getField @"unwrapColor_enum" x0
+      , BG.getField @"unwrapColor_enum" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapColor_enum" (RIP.Ptr Color_enum) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapColor_enum" (BG.Ptr Color_enum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapColor_enum")
+    HasCField.fromPtr (BG.Proxy @"unwrapColor_enum")
 
 instance HasCField.HasCField Color_enum "unwrapColor_enum" where
 
   type CFieldType Color_enum "unwrapColor_enum" =
-    RIP.CUInt
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -301,65 +301,65 @@ pattern COLOR_BLUE = Color_enum 2
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t_Aux = Event_callback_t_Aux
-  { unwrapEvent_callback_t_Aux :: RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
+  { unwrapEvent_callback_t_Aux :: BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toEvent_callback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
-     (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32))
+     (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32))
 
 -- __unique:__ @toEvent_callback_t_Aux@
 hs_bindgen_111918b0aee2a7fb ::
      Event_callback_t_Aux
-  -> IO (RIP.FunPtr Event_callback_t_Aux)
+  -> IO (BG.FunPtr Event_callback_t_Aux)
 hs_bindgen_111918b0aee2a7fb =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromEvent_callback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
-     RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32
+     BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
+  -> BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32
 
 -- __unique:__ @fromEvent_callback_t_Aux@
 hs_bindgen_9e9d478c2d75628c ::
-     RIP.FunPtr Event_callback_t_Aux
+     BG.FunPtr Event_callback_t_Aux
   -> Event_callback_t_Aux
 hs_bindgen_9e9d478c2d75628c =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr Event_callback_t_Aux where
+instance BG.ToFunPtr Event_callback_t_Aux where
 
   toFunPtr = hs_bindgen_111918b0aee2a7fb
 
-instance RIP.FromFunPtr Event_callback_t_Aux where
+instance BG.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty where
+instance ( ty ~ (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapEvent_callback_t_Aux" Event_callback_t_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Event_callback_t_Aux {unwrapEvent_callback_t_Aux = y1}
-      , RIP.getField @"unwrapEvent_callback_t_Aux" x0
+      , BG.getField @"unwrapEvent_callback_t_Aux" x0
       )
 
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapEvent_callback_t_Aux" (RIP.Ptr Event_callback_t_Aux) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+         ) => BG.HasField "unwrapEvent_callback_t_Aux" (BG.Ptr Event_callback_t_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapEvent_callback_t_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapEvent_callback_t_Aux")
 
 instance HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" where
 
   type CFieldType Event_callback_t_Aux "unwrapEvent_callback_t_Aux" =
-    RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
+    BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -378,37 +378,37 @@ instance HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" w
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
-  { unwrapEvent_callback_t :: RIP.FunPtr Event_callback_t_Aux
+  { unwrapEvent_callback_t :: BG.FunPtr Event_callback_t_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
-         ) => RIP.CompatHasField.HasField "unwrapEvent_callback_t" Event_callback_t ty where
+instance ( ty ~ BG.FunPtr Event_callback_t_Aux
+         ) => BG.CompatHasField.HasField "unwrapEvent_callback_t" Event_callback_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Event_callback_t {unwrapEvent_callback_t = y1}
-      , RIP.getField @"unwrapEvent_callback_t" x0
+      , BG.getField @"unwrapEvent_callback_t" x0
       )
 
-instance ( ty ~ RIP.FunPtr Event_callback_t_Aux
-         ) => RIP.HasField "unwrapEvent_callback_t" (RIP.Ptr Event_callback_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr Event_callback_t_Aux
+         ) => BG.HasField "unwrapEvent_callback_t" (BG.Ptr Event_callback_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapEvent_callback_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapEvent_callback_t")
 
 instance HasCField.HasCField Event_callback_t "unwrapEvent_callback_t" where
 
   type CFieldType Event_callback_t "unwrapEvent_callback_t" =
-    RIP.FunPtr Event_callback_t_Aux
+    BG.FunPtr Event_callback_t_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -432,7 +432,7 @@ data Config_t = Config_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , config_t_name :: CA.ConstantArray 64 RIP.CChar
+  , config_t_name :: CA.ConstantArray 64 BG.CChar
     {- ^ Human-readable name.
 
          __C declaration:__ @name@
@@ -461,7 +461,7 @@ data Config_t = Config_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , config_t_user_data :: RIP.Ptr RIP.Void
+  , config_t_user_data :: BG.Ptr BG.Void
     {- ^ User data for callback.
 
          __C declaration:__ @user_data@
@@ -471,7 +471,7 @@ data Config_t = Config_t
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Config_t where
 
@@ -484,11 +484,11 @@ instance Marshal.ReadRaw Config_t where
   readRaw =
     \ptr0 ->
           pure Config_t
-      <*> HasCField.readRaw (RIP.Proxy @"config_t_id") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"config_t_name") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"config_t_flags") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"config_t_callback") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"config_t_user_data") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_t_id") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_t_name") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_t_flags") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_t_callback") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_t_user_data") ptr0
 
 instance Marshal.WriteRaw Config_t where
 
@@ -502,34 +502,34 @@ instance Marshal.WriteRaw Config_t where
             config_t_flags4
             config_t_callback5
             config_t_user_data6 ->
-                 HasCField.writeRaw (RIP.Proxy @"config_t_id") ptr0 config_t_id2
-              >> HasCField.writeRaw (RIP.Proxy @"config_t_name") ptr0 config_t_name3
-              >> HasCField.writeRaw (RIP.Proxy @"config_t_flags") ptr0 config_t_flags4
-              >> HasCField.writeRaw (RIP.Proxy @"config_t_callback") ptr0 config_t_callback5
-              >> HasCField.writeRaw (RIP.Proxy @"config_t_user_data") ptr0 config_t_user_data6
+                 HasCField.writeRaw (BG.Proxy @"config_t_id") ptr0 config_t_id2
+              >> HasCField.writeRaw (BG.Proxy @"config_t_name") ptr0 config_t_name3
+              >> HasCField.writeRaw (BG.Proxy @"config_t_flags") ptr0 config_t_flags4
+              >> HasCField.writeRaw (BG.Proxy @"config_t_callback") ptr0 config_t_callback5
+              >> HasCField.writeRaw (BG.Proxy @"config_t_user_data") ptr0 config_t_user_data6
 
-deriving via Marshal.EquivStorable Config_t instance RIP.Storable Config_t
+deriving via Marshal.EquivStorable Config_t instance BG.Storable Config_t
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "config_t_id" Config_t ty where
+         ) => BG.CompatHasField.HasField "config_t_id" Config_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Config_t { config_t_id = y1
-                   , config_t_name = RIP.getField @"config_t_name" x0
-                   , config_t_flags = RIP.getField @"config_t_flags" x0
-                   , config_t_callback = RIP.getField @"config_t_callback" x0
-                   , config_t_user_data = RIP.getField @"config_t_user_data" x0
+                   , config_t_name = BG.getField @"config_t_name" x0
+                   , config_t_flags = BG.getField @"config_t_flags" x0
+                   , config_t_callback = BG.getField @"config_t_callback" x0
+                   , config_t_user_data = BG.getField @"config_t_user_data" x0
                    }
-      , RIP.getField @"config_t_id" x0
+      , BG.getField @"config_t_id" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "config_t_id" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+         ) => BG.HasField "config_t_id" (BG.Ptr Config_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_id")
+    HasCField.fromPtr (BG.Proxy @"config_t_id")
 
 instance HasCField.HasCField Config_t "config_t_id" where
 
@@ -538,54 +538,54 @@ instance HasCField.HasCField Config_t "config_t_id" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ CA.ConstantArray 64 RIP.CChar
-         ) => RIP.CompatHasField.HasField "config_t_name" Config_t ty where
+instance ( ty ~ CA.ConstantArray 64 BG.CChar
+         ) => BG.CompatHasField.HasField "config_t_name" Config_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Config_t { config_t_name = y1
-                   , config_t_id = RIP.getField @"config_t_id" x0
-                   , config_t_flags = RIP.getField @"config_t_flags" x0
-                   , config_t_callback = RIP.getField @"config_t_callback" x0
-                   , config_t_user_data = RIP.getField @"config_t_user_data" x0
+                   , config_t_id = BG.getField @"config_t_id" x0
+                   , config_t_flags = BG.getField @"config_t_flags" x0
+                   , config_t_callback = BG.getField @"config_t_callback" x0
+                   , config_t_user_data = BG.getField @"config_t_user_data" x0
                    }
-      , RIP.getField @"config_t_name" x0
+      , BG.getField @"config_t_name" x0
       )
 
-instance ( ty ~ CA.ConstantArray 64 RIP.CChar
-         ) => RIP.HasField "config_t_name" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 64 BG.CChar
+         ) => BG.HasField "config_t_name" (BG.Ptr Config_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_name")
+    HasCField.fromPtr (BG.Proxy @"config_t_name")
 
 instance HasCField.HasCField Config_t "config_t_name" where
 
   type CFieldType Config_t "config_t_name" =
-    CA.ConstantArray 64 RIP.CChar
+    CA.ConstantArray 64 BG.CChar
 
   offset# = \_ -> \_ -> 4
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "config_t_flags" Config_t ty where
+         ) => BG.CompatHasField.HasField "config_t_flags" Config_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Config_t { config_t_flags = y1
-                   , config_t_id = RIP.getField @"config_t_id" x0
-                   , config_t_name = RIP.getField @"config_t_name" x0
-                   , config_t_callback = RIP.getField @"config_t_callback" x0
-                   , config_t_user_data = RIP.getField @"config_t_user_data" x0
+                   , config_t_id = BG.getField @"config_t_id" x0
+                   , config_t_name = BG.getField @"config_t_name" x0
+                   , config_t_callback = BG.getField @"config_t_callback" x0
+                   , config_t_user_data = BG.getField @"config_t_user_data" x0
                    }
-      , RIP.getField @"config_t_flags" x0
+      , BG.getField @"config_t_flags" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "config_t_flags" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+         ) => BG.HasField "config_t_flags" (BG.Ptr Config_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_flags")
+    HasCField.fromPtr (BG.Proxy @"config_t_flags")
 
 instance HasCField.HasCField Config_t "config_t_flags" where
 
@@ -595,25 +595,25 @@ instance HasCField.HasCField Config_t "config_t_flags" where
   offset# = \_ -> \_ -> 68
 
 instance ( ty ~ Event_callback_t
-         ) => RIP.CompatHasField.HasField "config_t_callback" Config_t ty where
+         ) => BG.CompatHasField.HasField "config_t_callback" Config_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Config_t { config_t_callback = y1
-                   , config_t_id = RIP.getField @"config_t_id" x0
-                   , config_t_name = RIP.getField @"config_t_name" x0
-                   , config_t_flags = RIP.getField @"config_t_flags" x0
-                   , config_t_user_data = RIP.getField @"config_t_user_data" x0
+                   , config_t_id = BG.getField @"config_t_id" x0
+                   , config_t_name = BG.getField @"config_t_name" x0
+                   , config_t_flags = BG.getField @"config_t_flags" x0
+                   , config_t_user_data = BG.getField @"config_t_user_data" x0
                    }
-      , RIP.getField @"config_t_callback" x0
+      , BG.getField @"config_t_callback" x0
       )
 
 instance ( ty ~ Event_callback_t
-         ) => RIP.HasField "config_t_callback" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+         ) => BG.HasField "config_t_callback" (BG.Ptr Config_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_callback")
+    HasCField.fromPtr (BG.Proxy @"config_t_callback")
 
 instance HasCField.HasCField Config_t "config_t_callback" where
 
@@ -622,31 +622,31 @@ instance HasCField.HasCField Config_t "config_t_callback" where
 
   offset# = \_ -> \_ -> 72
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.CompatHasField.HasField "config_t_user_data" Config_t ty where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.CompatHasField.HasField "config_t_user_data" Config_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Config_t { config_t_user_data = y1
-                   , config_t_id = RIP.getField @"config_t_id" x0
-                   , config_t_name = RIP.getField @"config_t_name" x0
-                   , config_t_flags = RIP.getField @"config_t_flags" x0
-                   , config_t_callback = RIP.getField @"config_t_callback" x0
+                   , config_t_id = BG.getField @"config_t_id" x0
+                   , config_t_name = BG.getField @"config_t_name" x0
+                   , config_t_flags = BG.getField @"config_t_flags" x0
+                   , config_t_callback = BG.getField @"config_t_callback" x0
                    }
-      , RIP.getField @"config_t_user_data" x0
+      , BG.getField @"config_t_user_data" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.Void
-         ) => RIP.HasField "config_t_user_data" (RIP.Ptr Config_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.Void
+         ) => BG.HasField "config_t_user_data" (BG.Ptr Config_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"config_t_user_data")
+    HasCField.fromPtr (BG.Proxy @"config_t_user_data")
 
 instance HasCField.HasCField Config_t "config_t_user_data" where
 
   type CFieldType Config_t "config_t_user_data" =
-    RIP.Ptr RIP.Void
+    BG.Ptr BG.Void
 
   offset# = \_ -> \_ -> 80
 
@@ -661,10 +661,10 @@ instance HasCField.HasCField Config_t "config_t_user_data" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t = Status_code_t
-  { unwrapStatus_code_t :: RIP.CInt
+  { unwrapStatus_code_t :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Status_code_t where
 
@@ -688,25 +688,25 @@ instance Marshal.WriteRaw Status_code_t where
           Status_code_t unwrapStatus_code_t2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapStatus_code_t2
 
-deriving via Marshal.EquivStorable Status_code_t instance RIP.Storable Status_code_t
+deriving via Marshal.EquivStorable Status_code_t instance BG.Storable Status_code_t
 
-deriving via RIP.CInt instance RIP.Prim Status_code_t
+deriving via BG.CInt instance BG.Prim Status_code_t
 
 instance CEnum.CEnum Status_code_t where
 
-  type CEnumZ Status_code_t = RIP.CInt
+  type CEnumZ Status_code_t = BG.CInt
 
   toCEnum = Status_code_t
 
-  fromCEnum = RIP.getField @"unwrapStatus_code_t"
+  fromCEnum = BG.getField @"unwrapStatus_code_t"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [ (-99, RIP.singleton "STATUS_ERROR")
-                                   , (-3, RIP.singleton "STATUS_TIMEOUT")
-                                   , (-2, RIP.singleton "STATUS_NO_MEMORY")
-                                   , (-1, RIP.singleton "STATUS_INVALID_PARAM")
-                                   , (0, RIP.singleton "STATUS_OK")
+      CEnum.declaredValuesFromList [ (-99, BG.singleton "STATUS_ERROR")
+                                   , (-3, BG.singleton "STATUS_TIMEOUT")
+                                   , (-2, BG.singleton "STATUS_NO_MEMORY")
+                                   , (-1, BG.singleton "STATUS_INVALID_PARAM")
+                                   , (0, BG.singleton "STATUS_OK")
                                    ]
 
   showsUndeclared =
@@ -723,29 +723,29 @@ instance Read Status_code_t where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapStatus_code_t" Status_code_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapStatus_code_t" Status_code_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Status_code_t {unwrapStatus_code_t = y1}
-      , RIP.getField @"unwrapStatus_code_t" x0
+      , BG.getField @"unwrapStatus_code_t" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapStatus_code_t" (RIP.Ptr Status_code_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapStatus_code_t" (BG.Ptr Status_code_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStatus_code_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapStatus_code_t")
 
 instance HasCField.HasCField Status_code_t "unwrapStatus_code_t" where
 
   type CFieldType Status_code_t "unwrapStatus_code_t" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -830,7 +830,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Data_union_t_as_parts where
 
@@ -843,8 +843,8 @@ instance Marshal.ReadRaw Data_union_t_as_parts where
   readRaw =
     \ptr0 ->
           pure Data_union_t_as_parts
-      <*> HasCField.readRaw (RIP.Proxy @"data_union_t_as_parts_low") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"data_union_t_as_parts_high") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"data_union_t_as_parts_low") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"data_union_t_as_parts_high") ptr0
 
 instance Marshal.WriteRaw Data_union_t_as_parts where
 
@@ -853,28 +853,28 @@ instance Marshal.WriteRaw Data_union_t_as_parts where
       \s1 ->
         case s1 of
           Data_union_t_as_parts data_union_t_as_parts_low2 data_union_t_as_parts_high3 ->
-               HasCField.writeRaw (RIP.Proxy @"data_union_t_as_parts_low") ptr0 data_union_t_as_parts_low2
-            >> HasCField.writeRaw (RIP.Proxy @"data_union_t_as_parts_high") ptr0 data_union_t_as_parts_high3
+               HasCField.writeRaw (BG.Proxy @"data_union_t_as_parts_low") ptr0 data_union_t_as_parts_low2
+            >> HasCField.writeRaw (BG.Proxy @"data_union_t_as_parts_high") ptr0 data_union_t_as_parts_high3
 
-deriving via Marshal.EquivStorable Data_union_t_as_parts instance RIP.Storable Data_union_t_as_parts
+deriving via Marshal.EquivStorable Data_union_t_as_parts instance BG.Storable Data_union_t_as_parts
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.CompatHasField.HasField "data_union_t_as_parts_low" Data_union_t_as_parts ty where
+         ) => BG.CompatHasField.HasField "data_union_t_as_parts_low" Data_union_t_as_parts ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Data_union_t_as_parts { data_union_t_as_parts_low = y1
-                                , data_union_t_as_parts_high = RIP.getField @"data_union_t_as_parts_high" x0
+                                , data_union_t_as_parts_high = BG.getField @"data_union_t_as_parts_high" x0
                                 }
-      , RIP.getField @"data_union_t_as_parts_low" x0
+      , BG.getField @"data_union_t_as_parts_low" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "data_union_t_as_parts_low" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
+         ) => BG.HasField "data_union_t_as_parts_low" (BG.Ptr Data_union_t_as_parts) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_low")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_parts_low")
 
 instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
 
@@ -884,22 +884,22 @@ instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" w
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.CompatHasField.HasField "data_union_t_as_parts_high" Data_union_t_as_parts ty where
+         ) => BG.CompatHasField.HasField "data_union_t_as_parts_high" Data_union_t_as_parts ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Data_union_t_as_parts { data_union_t_as_parts_high = y1
-                                , data_union_t_as_parts_low = RIP.getField @"data_union_t_as_parts_low" x0
+                                , data_union_t_as_parts_low = BG.getField @"data_union_t_as_parts_low" x0
                                 }
-      , RIP.getField @"data_union_t_as_parts_high" x0
+      , BG.getField @"data_union_t_as_parts_high" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "data_union_t_as_parts_high" (RIP.Ptr Data_union_t_as_parts) (RIP.Ptr ty) where
+         ) => BG.HasField "data_union_t_as_parts_high" (BG.Ptr Data_union_t_as_parts) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts_high")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_parts_high")
 
 instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" where
 
@@ -919,32 +919,19 @@ instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t = Data_union_t
-  { unwrapData_union_t :: RIP.ByteArray
+  { unwrapData_union_t :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize Data_union_t
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize Data_union_t
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw Data_union_t
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw Data_union_t
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw Data_union_t
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw Data_union_t
 
-deriving via Marshal.EquivStorable Data_union_t instance RIP.Storable Data_union_t
+deriving via Marshal.EquivStorable Data_union_t instance BG.Storable Data_union_t
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion Data_union_t
-
-{-| Integer representation.
-
-    __C declaration:__ @as_int@
-
-    __defined at:__ @documentation\/doxygen_docs.h 288:13@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
--}
-instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "data_union_t_as_int" Data_union_t ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion Data_union_t
 
 {-| Integer representation.
 
@@ -955,17 +942,30 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Int32
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.CompatHasField.HasField "data_union_t_as_int" Data_union_t ty where
+         ) => BG.HasField "data_union_t_as_int" Data_union_t ty where
+
+  getField = BG.getUnionPayload
+
+{-| Integer representation.
+
+    __C declaration:__ @as_int@
+
+    __defined at:__ @documentation\/doxygen_docs.h 288:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ HsBindgen.Runtime.LibC.Int32
+         ) => BG.CompatHasField.HasField "data_union_t_as_int" Data_union_t ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_int" x0)
+      (BG.setUnionPayload, BG.getField @"data_union_t_as_int" x0)
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
-         ) => RIP.HasField "data_union_t_as_int" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
+         ) => BG.HasField "data_union_t_as_int" (BG.Ptr Data_union_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_int")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_int")
 
 instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
@@ -982,10 +982,10 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "data_union_t_as_float" Data_union_t ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "data_union_t_as_float" Data_union_t ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| Float representation.
 
@@ -995,23 +995,23 @@ instance ( ty ~ RIP.CFloat
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "data_union_t_as_float" Data_union_t ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "data_union_t_as_float" Data_union_t ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_float" x0)
+      (BG.setUnionPayload, BG.getField @"data_union_t_as_float" x0)
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "data_union_t_as_float" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "data_union_t_as_float" (BG.Ptr Data_union_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_float")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_float")
 
 instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
 
   type CFieldType Data_union_t "data_union_t_as_float" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -1024,9 +1024,9 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_float" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "data_union_t_as_bytes" Data_union_t ty where
+         ) => BG.HasField "data_union_t_as_bytes" Data_union_t ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| Byte array representation.
 
@@ -1037,17 +1037,17 @@ instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "data_union_t_as_bytes" Data_union_t ty where
+         ) => BG.CompatHasField.HasField "data_union_t_as_bytes" Data_union_t ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_bytes" x0)
+      (BG.setUnionPayload, BG.getField @"data_union_t_as_bytes" x0)
 
 instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "data_union_t_as_bytes" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
+         ) => BG.HasField "data_union_t_as_bytes" (BG.Ptr Data_union_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_bytes")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_bytes")
 
 instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
 
@@ -1067,9 +1067,9 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 instance ( ty ~ Data_union_t_as_parts
-         ) => RIP.HasField "data_union_t_as_parts" Data_union_t ty where
+         ) => BG.HasField "data_union_t_as_parts" Data_union_t ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| Structured representation.
 
@@ -1082,17 +1082,17 @@ instance ( ty ~ Data_union_t_as_parts
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 instance ( ty ~ Data_union_t_as_parts
-         ) => RIP.CompatHasField.HasField "data_union_t_as_parts" Data_union_t ty where
+         ) => BG.CompatHasField.HasField "data_union_t_as_parts" Data_union_t ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"data_union_t_as_parts" x0)
+      (BG.setUnionPayload, BG.getField @"data_union_t_as_parts" x0)
 
 instance ( ty ~ Data_union_t_as_parts
-         ) => RIP.HasField "data_union_t_as_parts" (RIP.Ptr Data_union_t) (RIP.Ptr ty) where
+         ) => BG.HasField "data_union_t_as_parts" (BG.Ptr Data_union_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"data_union_t_as_parts")
+    HasCField.fromPtr (BG.Proxy @"data_union_t_as_parts")
 
 instance HasCField.HasCField Data_union_t "data_union_t_as_parts" where
 
@@ -1112,7 +1112,7 @@ instance HasCField.HasCField Data_union_t "data_union_t_as_parts" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Bitfield_t = Bitfield_t
-  { bitfield_t_flag1 :: RIP.CUInt
+  { bitfield_t_flag1 :: BG.CUInt
     {- ^ First flag (1 bit).
 
          __C declaration:__ @flag1@
@@ -1121,7 +1121,7 @@ data Bitfield_t = Bitfield_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , bitfield_t_flag2 :: RIP.CUInt
+  , bitfield_t_flag2 :: BG.CUInt
     {- ^ Second flag (1 bit).
 
          __C declaration:__ @flag2@
@@ -1130,7 +1130,7 @@ data Bitfield_t = Bitfield_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , bitfield_t_counter :: RIP.CUInt
+  , bitfield_t_counter :: BG.CUInt
     {- ^ Counter value (6 bits).
 
          __C declaration:__ @counter@
@@ -1139,7 +1139,7 @@ data Bitfield_t = Bitfield_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , bitfield_t_reserved :: RIP.CUInt
+  , bitfield_t_reserved :: BG.CUInt
     {- ^ Reserved bits (24 bits).
 
          __C declaration:__ @reserved@
@@ -1149,7 +1149,7 @@ data Bitfield_t = Bitfield_t
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Bitfield_t where
 
@@ -1162,10 +1162,10 @@ instance Marshal.ReadRaw Bitfield_t where
   readRaw =
     \ptr0 ->
           pure Bitfield_t
-      <*> HasCBitfield.peek (RIP.Proxy @"bitfield_t_flag1") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"bitfield_t_flag2") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"bitfield_t_counter") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"bitfield_t_reserved") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bitfield_t_flag1") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bitfield_t_flag2") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bitfield_t_counter") ptr0
+      <*> HasCBitfield.peek (BG.Proxy @"bitfield_t_reserved") ptr0
 
 instance Marshal.WriteRaw Bitfield_t where
 
@@ -1178,124 +1178,124 @@ instance Marshal.WriteRaw Bitfield_t where
             bitfield_t_flag23
             bitfield_t_counter4
             bitfield_t_reserved5 ->
-                 HasCBitfield.poke (RIP.Proxy @"bitfield_t_flag1") ptr0 bitfield_t_flag12
-              >> HasCBitfield.poke (RIP.Proxy @"bitfield_t_flag2") ptr0 bitfield_t_flag23
-              >> HasCBitfield.poke (RIP.Proxy @"bitfield_t_counter") ptr0 bitfield_t_counter4
-              >> HasCBitfield.poke (RIP.Proxy @"bitfield_t_reserved") ptr0 bitfield_t_reserved5
+                 HasCBitfield.poke (BG.Proxy @"bitfield_t_flag1") ptr0 bitfield_t_flag12
+              >> HasCBitfield.poke (BG.Proxy @"bitfield_t_flag2") ptr0 bitfield_t_flag23
+              >> HasCBitfield.poke (BG.Proxy @"bitfield_t_counter") ptr0 bitfield_t_counter4
+              >> HasCBitfield.poke (BG.Proxy @"bitfield_t_reserved") ptr0 bitfield_t_reserved5
 
-deriving via Marshal.EquivStorable Bitfield_t instance RIP.Storable Bitfield_t
+deriving via Marshal.EquivStorable Bitfield_t instance BG.Storable Bitfield_t
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "bitfield_t_flag1" Bitfield_t ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "bitfield_t_flag1" Bitfield_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Bitfield_t { bitfield_t_flag1 = y1
-                     , bitfield_t_flag2 = RIP.getField @"bitfield_t_flag2" x0
-                     , bitfield_t_counter = RIP.getField @"bitfield_t_counter" x0
-                     , bitfield_t_reserved = RIP.getField @"bitfield_t_reserved" x0
+                     , bitfield_t_flag2 = BG.getField @"bitfield_t_flag2" x0
+                     , bitfield_t_counter = BG.getField @"bitfield_t_counter" x0
+                     , bitfield_t_reserved = BG.getField @"bitfield_t_reserved" x0
                      }
-      , RIP.getField @"bitfield_t_flag1" x0
+      , BG.getField @"bitfield_t_flag1" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_flag1" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "bitfield_t_flag1" (BG.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag1")
+    HasCBitfield.toPtr (BG.Proxy @"bitfield_t_flag1")
 
 instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag1" where
 
   type CBitfieldType Bitfield_t "bitfield_t_flag1" =
-    RIP.CUInt
+    BG.CUInt
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "bitfield_t_flag2" Bitfield_t ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "bitfield_t_flag2" Bitfield_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Bitfield_t { bitfield_t_flag2 = y1
-                     , bitfield_t_flag1 = RIP.getField @"bitfield_t_flag1" x0
-                     , bitfield_t_counter = RIP.getField @"bitfield_t_counter" x0
-                     , bitfield_t_reserved = RIP.getField @"bitfield_t_reserved" x0
+                     , bitfield_t_flag1 = BG.getField @"bitfield_t_flag1" x0
+                     , bitfield_t_counter = BG.getField @"bitfield_t_counter" x0
+                     , bitfield_t_reserved = BG.getField @"bitfield_t_reserved" x0
                      }
-      , RIP.getField @"bitfield_t_flag2" x0
+      , BG.getField @"bitfield_t_flag2" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_flag2" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "bitfield_t_flag2" (BG.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_flag2")
+    HasCBitfield.toPtr (BG.Proxy @"bitfield_t_flag2")
 
 instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag2" where
 
   type CBitfieldType Bitfield_t "bitfield_t_flag2" =
-    RIP.CUInt
+    BG.CUInt
 
   bitfieldOffset# = \_ -> \_ -> 1
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "bitfield_t_counter" Bitfield_t ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "bitfield_t_counter" Bitfield_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Bitfield_t { bitfield_t_counter = y1
-                     , bitfield_t_flag1 = RIP.getField @"bitfield_t_flag1" x0
-                     , bitfield_t_flag2 = RIP.getField @"bitfield_t_flag2" x0
-                     , bitfield_t_reserved = RIP.getField @"bitfield_t_reserved" x0
+                     , bitfield_t_flag1 = BG.getField @"bitfield_t_flag1" x0
+                     , bitfield_t_flag2 = BG.getField @"bitfield_t_flag2" x0
+                     , bitfield_t_reserved = BG.getField @"bitfield_t_reserved" x0
                      }
-      , RIP.getField @"bitfield_t_counter" x0
+      , BG.getField @"bitfield_t_counter" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_counter" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "bitfield_t_counter" (BG.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_counter")
+    HasCBitfield.toPtr (BG.Proxy @"bitfield_t_counter")
 
 instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_counter" where
 
   type CBitfieldType Bitfield_t "bitfield_t_counter" =
-    RIP.CUInt
+    BG.CUInt
 
   bitfieldOffset# = \_ -> \_ -> 2
 
   bitfieldWidth# = \_ -> \_ -> 6
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "bitfield_t_reserved" Bitfield_t ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "bitfield_t_reserved" Bitfield_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Bitfield_t { bitfield_t_reserved = y1
-                     , bitfield_t_flag1 = RIP.getField @"bitfield_t_flag1" x0
-                     , bitfield_t_flag2 = RIP.getField @"bitfield_t_flag2" x0
-                     , bitfield_t_counter = RIP.getField @"bitfield_t_counter" x0
+                     , bitfield_t_flag1 = BG.getField @"bitfield_t_flag1" x0
+                     , bitfield_t_flag2 = BG.getField @"bitfield_t_flag2" x0
+                     , bitfield_t_counter = BG.getField @"bitfield_t_counter" x0
                      }
-      , RIP.getField @"bitfield_t_reserved" x0
+      , BG.getField @"bitfield_t_reserved" x0
       )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "bitfield_t_reserved" (RIP.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "bitfield_t_reserved" (BG.Ptr Bitfield_t) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HasCBitfield.toPtr (RIP.Proxy @"bitfield_t_reserved")
+    HasCBitfield.toPtr (BG.Proxy @"bitfield_t_reserved")
 
 instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_reserved" where
 
   type CBitfieldType Bitfield_t "bitfield_t_reserved" =
-    RIP.CUInt
+    BG.CUInt
 
   bitfieldOffset# = \_ -> \_ -> 8
 
@@ -1310,65 +1310,65 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_reserved" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
-  { unwrapProcessor_fn_t_Aux :: RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
+  { unwrapProcessor_fn_t_Aux :: BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toProcessor_fn_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
-     (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32))
+     (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32))
 
 -- __unique:__ @toProcessor_fn_t_Aux@
 hs_bindgen_d4e16471c82d5df0 ::
      Processor_fn_t_Aux
-  -> IO (RIP.FunPtr Processor_fn_t_Aux)
+  -> IO (BG.FunPtr Processor_fn_t_Aux)
 hs_bindgen_d4e16471c82d5df0 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (BG.toFFIType fun0))
 
 -- __unique:__ @fromProcessor_fn_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
-     RIP.FunPtr (RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32)
-  -> RIP.Int32 -> RIP.Ptr RIP.Void -> IO RIP.Int32
+     BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
+  -> BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32
 
 -- __unique:__ @fromProcessor_fn_t_Aux@
 hs_bindgen_0d4b3d0461629423 ::
-     RIP.FunPtr Processor_fn_t_Aux
+     BG.FunPtr Processor_fn_t_Aux
   -> Processor_fn_t_Aux
 hs_bindgen_0d4b3d0461629423 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_0d4b3d0461629423_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_0d4b3d0461629423_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr Processor_fn_t_Aux where
+instance BG.ToFunPtr Processor_fn_t_Aux where
 
   toFunPtr = hs_bindgen_d4e16471c82d5df0
 
-instance RIP.FromFunPtr Processor_fn_t_Aux where
+instance BG.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty where
+instance ( ty ~ (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+         ) => BG.CompatHasField.HasField "unwrapProcessor_fn_t_Aux" Processor_fn_t_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux = y1}
-      , RIP.getField @"unwrapProcessor_fn_t_Aux" x0
+      , BG.getField @"unwrapProcessor_fn_t_Aux" x0
       )
 
-instance ( ty ~ (RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt)
-         ) => RIP.HasField "unwrapProcessor_fn_t_Aux" (RIP.Ptr Processor_fn_t_Aux) (RIP.Ptr ty) where
+instance ( ty ~ (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+         ) => BG.HasField "unwrapProcessor_fn_t_Aux" (BG.Ptr Processor_fn_t_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapProcessor_fn_t_Aux")
+    HasCField.fromPtr (BG.Proxy @"unwrapProcessor_fn_t_Aux")
 
 instance HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
 
   type CFieldType Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" =
-    RIP.CInt -> RIP.Ptr RIP.Void -> IO RIP.CInt
+    BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1387,36 +1387,36 @@ instance HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
-  { unwrapProcessor_fn_t :: RIP.FunPtr Processor_fn_t_Aux
+  { unwrapProcessor_fn_t :: BG.FunPtr Processor_fn_t_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
-         ) => RIP.CompatHasField.HasField "unwrapProcessor_fn_t" Processor_fn_t ty where
+instance ( ty ~ BG.FunPtr Processor_fn_t_Aux
+         ) => BG.CompatHasField.HasField "unwrapProcessor_fn_t" Processor_fn_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Processor_fn_t {unwrapProcessor_fn_t = y1}
-      , RIP.getField @"unwrapProcessor_fn_t" x0
+      , BG.getField @"unwrapProcessor_fn_t" x0
       )
 
-instance ( ty ~ RIP.FunPtr Processor_fn_t_Aux
-         ) => RIP.HasField "unwrapProcessor_fn_t" (RIP.Ptr Processor_fn_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.FunPtr Processor_fn_t_Aux
+         ) => BG.HasField "unwrapProcessor_fn_t" (BG.Ptr Processor_fn_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapProcessor_fn_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapProcessor_fn_t")
 
 instance HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
 
   type CFieldType Processor_fn_t "unwrapProcessor_fn_t" =
-    RIP.FunPtr Processor_fn_t_Aux
+    BG.FunPtr Processor_fn_t_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1429,36 +1429,36 @@ instance HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t = Filename_t
-  { unwrapFilename_t :: CA.ConstantArray 256 RIP.CChar
+  { unwrapFilename_t :: CA.ConstantArray 256 BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 256 RIP.CChar
-         ) => RIP.CompatHasField.HasField "unwrapFilename_t" Filename_t ty where
+instance ( ty ~ CA.ConstantArray 256 BG.CChar
+         ) => BG.CompatHasField.HasField "unwrapFilename_t" Filename_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Filename_t {unwrapFilename_t = y1}
-      , RIP.getField @"unwrapFilename_t" x0
+      , BG.getField @"unwrapFilename_t" x0
       )
 
-instance ( ty ~ CA.ConstantArray 256 RIP.CChar
-         ) => RIP.HasField "unwrapFilename_t" (RIP.Ptr Filename_t) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 256 BG.CChar
+         ) => BG.HasField "unwrapFilename_t" (BG.Ptr Filename_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFilename_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapFilename_t")
 
 instance HasCField.HasCField Filename_t "unwrapFilename_t" where
 
   type CFieldType Filename_t "unwrapFilename_t" =
-    CA.ConstantArray 256 RIP.CChar
+    CA.ConstantArray 256 BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -1483,7 +1483,7 @@ data Flexible_array_Aux = Flexible_array
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Flexible_array_Aux where
 
@@ -1496,7 +1496,7 @@ instance Marshal.ReadRaw Flexible_array_Aux where
   readRaw =
     \ptr0 ->
           pure Flexible_array
-      <*> HasCField.readRaw (RIP.Proxy @"flexible_array_count") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"flexible_array_count") ptr0
 
 instance Marshal.WriteRaw Flexible_array_Aux where
 
@@ -1505,24 +1505,24 @@ instance Marshal.WriteRaw Flexible_array_Aux where
       \s1 ->
         case s1 of
           Flexible_array flexible_array_count2 ->
-            HasCField.writeRaw (RIP.Proxy @"flexible_array_count") ptr0 flexible_array_count2
+            HasCField.writeRaw (BG.Proxy @"flexible_array_count") ptr0 flexible_array_count2
 
-deriving via Marshal.EquivStorable Flexible_array_Aux instance RIP.Storable Flexible_array_Aux
+deriving via Marshal.EquivStorable Flexible_array_Aux instance BG.Storable Flexible_array_Aux
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "flexible_array_count" Flexible_array_Aux ty where
+         ) => BG.CompatHasField.HasField "flexible_array_count" Flexible_array_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Flexible_array {flexible_array_count = y1}
-      , RIP.getField @"flexible_array_count" x0
+      , BG.getField @"flexible_array_count" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "flexible_array_count" (RIP.Ptr Flexible_array_Aux) (RIP.Ptr ty) where
+         ) => BG.HasField "flexible_array_count" (BG.Ptr Flexible_array_Aux) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"flexible_array_count")
+    HasCField.fromPtr (BG.Proxy @"flexible_array_count")
 
 instance HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 
@@ -1531,7 +1531,7 @@ instance HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 
   offset# = \_ -> \_ -> 0
 
-instance FLAM.Offset RIP.CInt Flexible_array_Aux where
+instance FLAM.Offset BG.CInt Flexible_array_Aux where
 
   offset = \_proxy0 -> 8
 
@@ -1546,7 +1546,7 @@ instance FLAM.Offset RIP.CInt Flexible_array_Aux where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 type Flexible_array =
-  FLAM.WithFlam RIP.CInt Flexible_array_Aux
+  FLAM.WithFlam BG.CInt Flexible_array_Aux
 
 {-| Struct with invariant.
 
@@ -1559,7 +1559,7 @@ type Flexible_array =
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Dyn_array_t = Dyn_array_t
-  { dyn_array_t_data :: RIP.Ptr RIP.CInt
+  { dyn_array_t_data :: BG.Ptr BG.CInt
     {- ^ Pointer to data.
 
          __C declaration:__ @data@
@@ -1587,7 +1587,7 @@ data Dyn_array_t = Dyn_array_t
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Dyn_array_t where
 
@@ -1600,9 +1600,9 @@ instance Marshal.ReadRaw Dyn_array_t where
   readRaw =
     \ptr0 ->
           pure Dyn_array_t
-      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_data") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_size") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dyn_array_t_capacity") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dyn_array_t_data") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dyn_array_t_size") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dyn_array_t_capacity") ptr0
 
 instance Marshal.WriteRaw Dyn_array_t where
 
@@ -1611,56 +1611,56 @@ instance Marshal.WriteRaw Dyn_array_t where
       \s1 ->
         case s1 of
           Dyn_array_t dyn_array_t_data2 dyn_array_t_size3 dyn_array_t_capacity4 ->
-               HasCField.writeRaw (RIP.Proxy @"dyn_array_t_data") ptr0 dyn_array_t_data2
-            >> HasCField.writeRaw (RIP.Proxy @"dyn_array_t_size") ptr0 dyn_array_t_size3
-            >> HasCField.writeRaw (RIP.Proxy @"dyn_array_t_capacity") ptr0 dyn_array_t_capacity4
+               HasCField.writeRaw (BG.Proxy @"dyn_array_t_data") ptr0 dyn_array_t_data2
+            >> HasCField.writeRaw (BG.Proxy @"dyn_array_t_size") ptr0 dyn_array_t_size3
+            >> HasCField.writeRaw (BG.Proxy @"dyn_array_t_capacity") ptr0 dyn_array_t_capacity4
 
-deriving via Marshal.EquivStorable Dyn_array_t instance RIP.Storable Dyn_array_t
+deriving via Marshal.EquivStorable Dyn_array_t instance BG.Storable Dyn_array_t
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "dyn_array_t_data" Dyn_array_t ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "dyn_array_t_data" Dyn_array_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dyn_array_t { dyn_array_t_data = y1
-                      , dyn_array_t_size = RIP.getField @"dyn_array_t_size" x0
-                      , dyn_array_t_capacity = RIP.getField @"dyn_array_t_capacity" x0
+                      , dyn_array_t_size = BG.getField @"dyn_array_t_size" x0
+                      , dyn_array_t_capacity = BG.getField @"dyn_array_t_capacity" x0
                       }
-      , RIP.getField @"dyn_array_t_data" x0
+      , BG.getField @"dyn_array_t_data" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "dyn_array_t_data" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "dyn_array_t_data" (BG.Ptr Dyn_array_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_data")
+    HasCField.fromPtr (BG.Proxy @"dyn_array_t_data")
 
 instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
 
   type CFieldType Dyn_array_t "dyn_array_t_data" =
-    RIP.Ptr RIP.CInt
+    BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "dyn_array_t_size" Dyn_array_t ty where
+         ) => BG.CompatHasField.HasField "dyn_array_t_size" Dyn_array_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dyn_array_t { dyn_array_t_size = y1
-                      , dyn_array_t_data = RIP.getField @"dyn_array_t_data" x0
-                      , dyn_array_t_capacity = RIP.getField @"dyn_array_t_capacity" x0
+                      , dyn_array_t_data = BG.getField @"dyn_array_t_data" x0
+                      , dyn_array_t_capacity = BG.getField @"dyn_array_t_capacity" x0
                       }
-      , RIP.getField @"dyn_array_t_size" x0
+      , BG.getField @"dyn_array_t_size" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "dyn_array_t_size" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+         ) => BG.HasField "dyn_array_t_size" (BG.Ptr Dyn_array_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_size")
+    HasCField.fromPtr (BG.Proxy @"dyn_array_t_size")
 
 instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
 
@@ -1670,23 +1670,23 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
   offset# = \_ -> \_ -> 8
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "dyn_array_t_capacity" Dyn_array_t ty where
+         ) => BG.CompatHasField.HasField "dyn_array_t_capacity" Dyn_array_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dyn_array_t { dyn_array_t_capacity = y1
-                      , dyn_array_t_data = RIP.getField @"dyn_array_t_data" x0
-                      , dyn_array_t_size = RIP.getField @"dyn_array_t_size" x0
+                      , dyn_array_t_data = BG.getField @"dyn_array_t_data" x0
+                      , dyn_array_t_size = BG.getField @"dyn_array_t_size" x0
                       }
-      , RIP.getField @"dyn_array_t_capacity" x0
+      , BG.getField @"dyn_array_t_capacity" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "dyn_array_t_capacity" (RIP.Ptr Dyn_array_t) (RIP.Ptr ty) where
+         ) => BG.HasField "dyn_array_t_capacity" (BG.Ptr Dyn_array_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dyn_array_t_capacity")
+    HasCField.fromPtr (BG.Proxy @"dyn_array_t_capacity")
 
 instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
 
@@ -1702,7 +1702,7 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_capacity" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Multi_anon_t_pos = Multi_anon_t_pos
-  { multi_anon_t_pos_x :: RIP.CFloat
+  { multi_anon_t_pos_x :: BG.CFloat
     {- ^ X coordinate.
 
          __C declaration:__ @x@
@@ -1711,7 +1711,7 @@ data Multi_anon_t_pos = Multi_anon_t_pos
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , multi_anon_t_pos_y :: RIP.CFloat
+  , multi_anon_t_pos_y :: BG.CFloat
     {- ^ Y coordinate.
 
          __C declaration:__ @y@
@@ -1721,7 +1721,7 @@ data Multi_anon_t_pos = Multi_anon_t_pos
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Multi_anon_t_pos where
 
@@ -1734,8 +1734,8 @@ instance Marshal.ReadRaw Multi_anon_t_pos where
   readRaw =
     \ptr0 ->
           pure Multi_anon_t_pos
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_pos_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_pos_y") ptr0
 
 instance Marshal.WriteRaw Multi_anon_t_pos where
 
@@ -1744,58 +1744,58 @@ instance Marshal.WriteRaw Multi_anon_t_pos where
       \s1 ->
         case s1 of
           Multi_anon_t_pos multi_anon_t_pos_x2 multi_anon_t_pos_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos_x") ptr0 multi_anon_t_pos_x2
-            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos_y") ptr0 multi_anon_t_pos_y3
+               HasCField.writeRaw (BG.Proxy @"multi_anon_t_pos_x") ptr0 multi_anon_t_pos_x2
+            >> HasCField.writeRaw (BG.Proxy @"multi_anon_t_pos_y") ptr0 multi_anon_t_pos_y3
 
-deriving via Marshal.EquivStorable Multi_anon_t_pos instance RIP.Storable Multi_anon_t_pos
+deriving via Marshal.EquivStorable Multi_anon_t_pos instance BG.Storable Multi_anon_t_pos
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Multi_anon_t_pos { multi_anon_t_pos_x = y1
-                           , multi_anon_t_pos_y = RIP.getField @"multi_anon_t_pos_y" x0
+                           , multi_anon_t_pos_y = BG.getField @"multi_anon_t_pos_y" x0
                            }
-      , RIP.getField @"multi_anon_t_pos_x" x0
+      , BG.getField @"multi_anon_t_pos_x" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_pos_x" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "multi_anon_t_pos_x" (BG.Ptr Multi_anon_t_pos) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_x")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_pos_x")
 
 instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
 
   type CFieldType Multi_anon_t_pos "multi_anon_t_pos_x" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Multi_anon_t_pos { multi_anon_t_pos_y = y1
-                           , multi_anon_t_pos_x = RIP.getField @"multi_anon_t_pos_x" x0
+                           , multi_anon_t_pos_x = BG.getField @"multi_anon_t_pos_x" x0
                            }
-      , RIP.getField @"multi_anon_t_pos_y" x0
+      , BG.getField @"multi_anon_t_pos_y" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_pos_y" (RIP.Ptr Multi_anon_t_pos) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "multi_anon_t_pos_y" (BG.Ptr Multi_anon_t_pos) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos_y")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_pos_y")
 
 instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
 
   type CFieldType Multi_anon_t_pos "multi_anon_t_pos_y" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 4
 
@@ -1806,7 +1806,7 @@ instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_y" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Multi_anon_t_dim = Multi_anon_t_dim
-  { multi_anon_t_dim_w :: RIP.CFloat
+  { multi_anon_t_dim_w :: BG.CFloat
     {- ^ Width.
 
          __C declaration:__ @w@
@@ -1815,7 +1815,7 @@ data Multi_anon_t_dim = Multi_anon_t_dim
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , multi_anon_t_dim_h :: RIP.CFloat
+  , multi_anon_t_dim_h :: BG.CFloat
     {- ^ Height.
 
          __C declaration:__ @h@
@@ -1825,7 +1825,7 @@ data Multi_anon_t_dim = Multi_anon_t_dim
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Multi_anon_t_dim where
 
@@ -1838,8 +1838,8 @@ instance Marshal.ReadRaw Multi_anon_t_dim where
   readRaw =
     \ptr0 ->
           pure Multi_anon_t_dim
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim_w") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim_h") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_dim_w") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_dim_h") ptr0
 
 instance Marshal.WriteRaw Multi_anon_t_dim where
 
@@ -1848,58 +1848,58 @@ instance Marshal.WriteRaw Multi_anon_t_dim where
       \s1 ->
         case s1 of
           Multi_anon_t_dim multi_anon_t_dim_w2 multi_anon_t_dim_h3 ->
-               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim_w") ptr0 multi_anon_t_dim_w2
-            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim_h") ptr0 multi_anon_t_dim_h3
+               HasCField.writeRaw (BG.Proxy @"multi_anon_t_dim_w") ptr0 multi_anon_t_dim_w2
+            >> HasCField.writeRaw (BG.Proxy @"multi_anon_t_dim_h") ptr0 multi_anon_t_dim_h3
 
-deriving via Marshal.EquivStorable Multi_anon_t_dim instance RIP.Storable Multi_anon_t_dim
+deriving via Marshal.EquivStorable Multi_anon_t_dim instance BG.Storable Multi_anon_t_dim
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Multi_anon_t_dim { multi_anon_t_dim_w = y1
-                           , multi_anon_t_dim_h = RIP.getField @"multi_anon_t_dim_h" x0
+                           , multi_anon_t_dim_h = BG.getField @"multi_anon_t_dim_h" x0
                            }
-      , RIP.getField @"multi_anon_t_dim_w" x0
+      , BG.getField @"multi_anon_t_dim_w" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_dim_w" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "multi_anon_t_dim_w" (BG.Ptr Multi_anon_t_dim) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_w")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_dim_w")
 
 instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
 
   type CFieldType Multi_anon_t_dim "multi_anon_t_dim_w" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.CompatHasField.HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty where
+instance ( ty ~ BG.CFloat
+         ) => BG.CompatHasField.HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Multi_anon_t_dim { multi_anon_t_dim_h = y1
-                           , multi_anon_t_dim_w = RIP.getField @"multi_anon_t_dim_w" x0
+                           , multi_anon_t_dim_w = BG.getField @"multi_anon_t_dim_w" x0
                            }
-      , RIP.getField @"multi_anon_t_dim_h" x0
+      , BG.getField @"multi_anon_t_dim_h" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "multi_anon_t_dim_h" (RIP.Ptr Multi_anon_t_dim) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "multi_anon_t_dim_h" (BG.Ptr Multi_anon_t_dim) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim_h")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_dim_h")
 
 instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_h" where
 
   type CFieldType Multi_anon_t_dim "multi_anon_t_dim_h" =
-    RIP.CFloat
+    BG.CFloat
 
   offset# = \_ -> \_ -> 4
 
@@ -1937,7 +1937,7 @@ data Multi_anon_t = Multi_anon_t
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Multi_anon_t where
 
@@ -1950,8 +1950,8 @@ instance Marshal.ReadRaw Multi_anon_t where
   readRaw =
     \ptr0 ->
           pure Multi_anon_t
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_pos") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"multi_anon_t_dim") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_pos") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"multi_anon_t_dim") ptr0
 
 instance Marshal.WriteRaw Multi_anon_t where
 
@@ -1960,26 +1960,26 @@ instance Marshal.WriteRaw Multi_anon_t where
       \s1 ->
         case s1 of
           Multi_anon_t multi_anon_t_pos2 multi_anon_t_dim3 ->
-               HasCField.writeRaw (RIP.Proxy @"multi_anon_t_pos") ptr0 multi_anon_t_pos2
-            >> HasCField.writeRaw (RIP.Proxy @"multi_anon_t_dim") ptr0 multi_anon_t_dim3
+               HasCField.writeRaw (BG.Proxy @"multi_anon_t_pos") ptr0 multi_anon_t_pos2
+            >> HasCField.writeRaw (BG.Proxy @"multi_anon_t_dim") ptr0 multi_anon_t_dim3
 
-deriving via Marshal.EquivStorable Multi_anon_t instance RIP.Storable Multi_anon_t
+deriving via Marshal.EquivStorable Multi_anon_t instance BG.Storable Multi_anon_t
 
 instance ( ty ~ Multi_anon_t_pos
-         ) => RIP.CompatHasField.HasField "multi_anon_t_pos" Multi_anon_t ty where
+         ) => BG.CompatHasField.HasField "multi_anon_t_pos" Multi_anon_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Multi_anon_t {multi_anon_t_pos = y1, multi_anon_t_dim = RIP.getField @"multi_anon_t_dim" x0}
-      , RIP.getField @"multi_anon_t_pos" x0
+          Multi_anon_t {multi_anon_t_pos = y1, multi_anon_t_dim = BG.getField @"multi_anon_t_dim" x0}
+      , BG.getField @"multi_anon_t_pos" x0
       )
 
 instance ( ty ~ Multi_anon_t_pos
-         ) => RIP.HasField "multi_anon_t_pos" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+         ) => BG.HasField "multi_anon_t_pos" (BG.Ptr Multi_anon_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_pos")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_pos")
 
 instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
 
@@ -1989,20 +1989,20 @@ instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Multi_anon_t_dim
-         ) => RIP.CompatHasField.HasField "multi_anon_t_dim" Multi_anon_t ty where
+         ) => BG.CompatHasField.HasField "multi_anon_t_dim" Multi_anon_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Multi_anon_t {multi_anon_t_dim = y1, multi_anon_t_pos = RIP.getField @"multi_anon_t_pos" x0}
-      , RIP.getField @"multi_anon_t_dim" x0
+          Multi_anon_t {multi_anon_t_dim = y1, multi_anon_t_pos = BG.getField @"multi_anon_t_pos" x0}
+      , BG.getField @"multi_anon_t_dim" x0
       )
 
 instance ( ty ~ Multi_anon_t_dim
-         ) => RIP.HasField "multi_anon_t_dim" (RIP.Ptr Multi_anon_t) (RIP.Ptr ty) where
+         ) => BG.HasField "multi_anon_t_dim" (BG.Ptr Multi_anon_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"multi_anon_t_dim")
+    HasCField.fromPtr (BG.Proxy @"multi_anon_t_dim")
 
 instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
 
@@ -2020,7 +2020,7 @@ instance HasCField.HasCField Multi_anon_t "multi_anon_t_dim" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Named_inner = Named_inner
-  { named_inner_nx :: RIP.CInt
+  { named_inner_nx :: BG.CInt
     {- ^ Inner field nx
 
          __C declaration:__ @nx@
@@ -2029,7 +2029,7 @@ data Named_inner = Named_inner
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , named_inner_ny :: RIP.CInt
+  , named_inner_ny :: BG.CInt
     {- ^ Inner field ny
 
          __C declaration:__ @ny@
@@ -2039,7 +2039,7 @@ data Named_inner = Named_inner
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Named_inner where
 
@@ -2052,8 +2052,8 @@ instance Marshal.ReadRaw Named_inner where
   readRaw =
     \ptr0 ->
           pure Named_inner
-      <*> HasCField.readRaw (RIP.Proxy @"named_inner_nx") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"named_inner_ny") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"named_inner_nx") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"named_inner_ny") ptr0
 
 instance Marshal.WriteRaw Named_inner where
 
@@ -2062,54 +2062,54 @@ instance Marshal.WriteRaw Named_inner where
       \s1 ->
         case s1 of
           Named_inner named_inner_nx2 named_inner_ny3 ->
-               HasCField.writeRaw (RIP.Proxy @"named_inner_nx") ptr0 named_inner_nx2
-            >> HasCField.writeRaw (RIP.Proxy @"named_inner_ny") ptr0 named_inner_ny3
+               HasCField.writeRaw (BG.Proxy @"named_inner_nx") ptr0 named_inner_nx2
+            >> HasCField.writeRaw (BG.Proxy @"named_inner_ny") ptr0 named_inner_ny3
 
-deriving via Marshal.EquivStorable Named_inner instance RIP.Storable Named_inner
+deriving via Marshal.EquivStorable Named_inner instance BG.Storable Named_inner
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "named_inner_nx" Named_inner ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "named_inner_nx" Named_inner ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Named_inner {named_inner_nx = y1, named_inner_ny = RIP.getField @"named_inner_ny" x0}
-      , RIP.getField @"named_inner_nx" x0
+          Named_inner {named_inner_nx = y1, named_inner_ny = BG.getField @"named_inner_ny" x0}
+      , BG.getField @"named_inner_nx" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_inner_nx" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "named_inner_nx" (BG.Ptr Named_inner) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_inner_nx")
+    HasCField.fromPtr (BG.Proxy @"named_inner_nx")
 
 instance HasCField.HasCField Named_inner "named_inner_nx" where
 
   type CFieldType Named_inner "named_inner_nx" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "named_inner_ny" Named_inner ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "named_inner_ny" Named_inner ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Named_inner {named_inner_ny = y1, named_inner_nx = RIP.getField @"named_inner_nx" x0}
-      , RIP.getField @"named_inner_ny" x0
+          Named_inner {named_inner_ny = y1, named_inner_nx = BG.getField @"named_inner_nx" x0}
+      , BG.getField @"named_inner_ny" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_inner_ny" (RIP.Ptr Named_inner) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "named_inner_ny" (BG.Ptr Named_inner) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_inner_ny")
+    HasCField.fromPtr (BG.Proxy @"named_inner_ny")
 
 instance HasCField.HasCField Named_inner "named_inner_ny" where
 
   type CFieldType Named_inner "named_inner_ny" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -2131,7 +2131,7 @@ data Named_outer = Named_outer
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , named_outer_nz :: RIP.CInt
+  , named_outer_nz :: BG.CInt
     {- ^ Outer field nz
 
          __C declaration:__ @nz@
@@ -2141,7 +2141,7 @@ data Named_outer = Named_outer
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Named_outer where
 
@@ -2154,8 +2154,8 @@ instance Marshal.ReadRaw Named_outer where
   readRaw =
     \ptr0 ->
           pure Named_outer
-      <*> HasCField.readRaw (RIP.Proxy @"named_outer_inner_field") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"named_outer_nz") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"named_outer_inner_field") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"named_outer_nz") ptr0
 
 instance Marshal.WriteRaw Named_outer where
 
@@ -2164,28 +2164,28 @@ instance Marshal.WriteRaw Named_outer where
       \s1 ->
         case s1 of
           Named_outer named_outer_inner_field2 named_outer_nz3 ->
-               HasCField.writeRaw (RIP.Proxy @"named_outer_inner_field") ptr0 named_outer_inner_field2
-            >> HasCField.writeRaw (RIP.Proxy @"named_outer_nz") ptr0 named_outer_nz3
+               HasCField.writeRaw (BG.Proxy @"named_outer_inner_field") ptr0 named_outer_inner_field2
+            >> HasCField.writeRaw (BG.Proxy @"named_outer_nz") ptr0 named_outer_nz3
 
-deriving via Marshal.EquivStorable Named_outer instance RIP.Storable Named_outer
+deriving via Marshal.EquivStorable Named_outer instance BG.Storable Named_outer
 
 instance ( ty ~ Named_inner
-         ) => RIP.CompatHasField.HasField "named_outer_inner_field" Named_outer ty where
+         ) => BG.CompatHasField.HasField "named_outer_inner_field" Named_outer ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Named_outer { named_outer_inner_field = y1
-                      , named_outer_nz = RIP.getField @"named_outer_nz" x0
+                      , named_outer_nz = BG.getField @"named_outer_nz" x0
                       }
-      , RIP.getField @"named_outer_inner_field" x0
+      , BG.getField @"named_outer_inner_field" x0
       )
 
 instance ( ty ~ Named_inner
-         ) => RIP.HasField "named_outer_inner_field" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+         ) => BG.HasField "named_outer_inner_field" (BG.Ptr Named_outer) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_outer_inner_field")
+    HasCField.fromPtr (BG.Proxy @"named_outer_inner_field")
 
 instance HasCField.HasCField Named_outer "named_outer_inner_field" where
 
@@ -2194,28 +2194,28 @@ instance HasCField.HasCField Named_outer "named_outer_inner_field" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "named_outer_nz" Named_outer ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "named_outer_nz" Named_outer ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Named_outer { named_outer_nz = y1
-                      , named_outer_inner_field = RIP.getField @"named_outer_inner_field" x0
+                      , named_outer_inner_field = BG.getField @"named_outer_inner_field" x0
                       }
-      , RIP.getField @"named_outer_nz" x0
+      , BG.getField @"named_outer_nz" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "named_outer_nz" (RIP.Ptr Named_outer) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "named_outer_nz" (BG.Ptr Named_outer) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"named_outer_nz")
+    HasCField.fromPtr (BG.Proxy @"named_outer_nz")
 
 instance HasCField.HasCField Named_outer "named_outer_nz" where
 
   type CFieldType Named_outer "named_outer_nz" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 8
 
@@ -2226,7 +2226,7 @@ instance HasCField.HasCField Named_outer "named_outer_nz" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Deep_mid_anon_field = Deep_mid_anon_field
-  { deep_mid_anon_field_deep_a :: RIP.CInt
+  { deep_mid_anon_field_deep_a :: BG.CInt
     {- ^ Deep anonymous field
 
          __C declaration:__ @deep_a@
@@ -2236,7 +2236,7 @@ data Deep_mid_anon_field = Deep_mid_anon_field
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Deep_mid_anon_field where
 
@@ -2249,7 +2249,7 @@ instance Marshal.ReadRaw Deep_mid_anon_field where
   readRaw =
     \ptr0 ->
           pure Deep_mid_anon_field
-      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_anon_field_deep_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"deep_mid_anon_field_deep_a") ptr0
 
 instance Marshal.WriteRaw Deep_mid_anon_field where
 
@@ -2258,30 +2258,30 @@ instance Marshal.WriteRaw Deep_mid_anon_field where
       \s1 ->
         case s1 of
           Deep_mid_anon_field deep_mid_anon_field_deep_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"deep_mid_anon_field_deep_a") ptr0 deep_mid_anon_field_deep_a2
+            HasCField.writeRaw (BG.Proxy @"deep_mid_anon_field_deep_a") ptr0 deep_mid_anon_field_deep_a2
 
-deriving via Marshal.EquivStorable Deep_mid_anon_field instance RIP.Storable Deep_mid_anon_field
+deriving via Marshal.EquivStorable Deep_mid_anon_field instance BG.Storable Deep_mid_anon_field
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Deep_mid_anon_field {deep_mid_anon_field_deep_a = y1}
-      , RIP.getField @"deep_mid_anon_field_deep_a" x0
+      , BG.getField @"deep_mid_anon_field_deep_a" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_mid_anon_field_deep_a" (RIP.Ptr Deep_mid_anon_field) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "deep_mid_anon_field_deep_a" (BG.Ptr Deep_mid_anon_field) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field_deep_a")
+    HasCField.fromPtr (BG.Proxy @"deep_mid_anon_field_deep_a")
 
 instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" where
 
   type CFieldType Deep_mid_anon_field "deep_mid_anon_field_deep_a" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -2294,7 +2294,7 @@ instance HasCField.HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a" wh
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Deep_mid = Deep_mid
-  { deep_mid_m :: RIP.CInt
+  { deep_mid_m :: BG.CInt
     {- ^ Mid-level field
 
          __C declaration:__ @m@
@@ -2313,7 +2313,7 @@ data Deep_mid = Deep_mid
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Deep_mid where
 
@@ -2326,8 +2326,8 @@ instance Marshal.ReadRaw Deep_mid where
   readRaw =
     \ptr0 ->
           pure Deep_mid
-      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_m") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"deep_mid_anon_field") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"deep_mid_m") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"deep_mid_anon_field") ptr0
 
 instance Marshal.WriteRaw Deep_mid where
 
@@ -2336,48 +2336,47 @@ instance Marshal.WriteRaw Deep_mid where
       \s1 ->
         case s1 of
           Deep_mid deep_mid_m2 deep_mid_anon_field3 ->
-               HasCField.writeRaw (RIP.Proxy @"deep_mid_m") ptr0 deep_mid_m2
-            >> HasCField.writeRaw (RIP.Proxy @"deep_mid_anon_field") ptr0 deep_mid_anon_field3
+               HasCField.writeRaw (BG.Proxy @"deep_mid_m") ptr0 deep_mid_m2
+            >> HasCField.writeRaw (BG.Proxy @"deep_mid_anon_field") ptr0 deep_mid_anon_field3
 
-deriving via Marshal.EquivStorable Deep_mid instance RIP.Storable Deep_mid
+deriving via Marshal.EquivStorable Deep_mid instance BG.Storable Deep_mid
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "deep_mid_m" Deep_mid ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "deep_mid_m" Deep_mid ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Deep_mid {deep_mid_m = y1, deep_mid_anon_field = RIP.getField @"deep_mid_anon_field" x0}
-      , RIP.getField @"deep_mid_m" x0
+          Deep_mid {deep_mid_m = y1, deep_mid_anon_field = BG.getField @"deep_mid_anon_field" x0}
+      , BG.getField @"deep_mid_m" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_mid_m" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "deep_mid_m" (BG.Ptr Deep_mid) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_m")
+  getField = HasCField.fromPtr (BG.Proxy @"deep_mid_m")
 
 instance HasCField.HasCField Deep_mid "deep_mid_m" where
 
-  type CFieldType Deep_mid "deep_mid_m" = RIP.CInt
+  type CFieldType Deep_mid "deep_mid_m" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Deep_mid_anon_field
-         ) => RIP.CompatHasField.HasField "deep_mid_anon_field" Deep_mid ty where
+         ) => BG.CompatHasField.HasField "deep_mid_anon_field" Deep_mid ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Deep_mid {deep_mid_anon_field = y1, deep_mid_m = RIP.getField @"deep_mid_m" x0}
-      , RIP.getField @"deep_mid_anon_field" x0
+          Deep_mid {deep_mid_anon_field = y1, deep_mid_m = BG.getField @"deep_mid_m" x0}
+      , BG.getField @"deep_mid_anon_field" x0
       )
 
 instance ( ty ~ Deep_mid_anon_field
-         ) => RIP.HasField "deep_mid_anon_field" (RIP.Ptr Deep_mid) (RIP.Ptr ty) where
+         ) => BG.HasField "deep_mid_anon_field" (BG.Ptr Deep_mid) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_mid_anon_field")
+    HasCField.fromPtr (BG.Proxy @"deep_mid_anon_field")
 
 instance HasCField.HasCField Deep_mid "deep_mid_anon_field" where
 
@@ -2404,7 +2403,7 @@ data Deep_outer = Deep_outer
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , deep_outer_o :: RIP.CInt
+  , deep_outer_o :: BG.CInt
     {- ^ Outer-only field
 
          __C declaration:__ @o@
@@ -2414,7 +2413,7 @@ data Deep_outer = Deep_outer
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Deep_outer where
 
@@ -2427,8 +2426,8 @@ instance Marshal.ReadRaw Deep_outer where
   readRaw =
     \ptr0 ->
           pure Deep_outer
-      <*> HasCField.readRaw (RIP.Proxy @"deep_outer_mid_field") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"deep_outer_o") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"deep_outer_mid_field") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"deep_outer_o") ptr0
 
 instance Marshal.WriteRaw Deep_outer where
 
@@ -2437,26 +2436,26 @@ instance Marshal.WriteRaw Deep_outer where
       \s1 ->
         case s1 of
           Deep_outer deep_outer_mid_field2 deep_outer_o3 ->
-               HasCField.writeRaw (RIP.Proxy @"deep_outer_mid_field") ptr0 deep_outer_mid_field2
-            >> HasCField.writeRaw (RIP.Proxy @"deep_outer_o") ptr0 deep_outer_o3
+               HasCField.writeRaw (BG.Proxy @"deep_outer_mid_field") ptr0 deep_outer_mid_field2
+            >> HasCField.writeRaw (BG.Proxy @"deep_outer_o") ptr0 deep_outer_o3
 
-deriving via Marshal.EquivStorable Deep_outer instance RIP.Storable Deep_outer
+deriving via Marshal.EquivStorable Deep_outer instance BG.Storable Deep_outer
 
 instance ( ty ~ Deep_mid
-         ) => RIP.CompatHasField.HasField "deep_outer_mid_field" Deep_outer ty where
+         ) => BG.CompatHasField.HasField "deep_outer_mid_field" Deep_outer ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Deep_outer {deep_outer_mid_field = y1, deep_outer_o = RIP.getField @"deep_outer_o" x0}
-      , RIP.getField @"deep_outer_mid_field" x0
+          Deep_outer {deep_outer_mid_field = y1, deep_outer_o = BG.getField @"deep_outer_o" x0}
+      , BG.getField @"deep_outer_mid_field" x0
       )
 
 instance ( ty ~ Deep_mid
-         ) => RIP.HasField "deep_outer_mid_field" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+         ) => BG.HasField "deep_outer_mid_field" (BG.Ptr Deep_outer) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_outer_mid_field")
+    HasCField.fromPtr (BG.Proxy @"deep_outer_mid_field")
 
 instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
 
@@ -2465,27 +2464,27 @@ instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "deep_outer_o" Deep_outer ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "deep_outer_o" Deep_outer ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Deep_outer { deep_outer_o = y1
-                     , deep_outer_mid_field = RIP.getField @"deep_outer_mid_field" x0
+                     , deep_outer_mid_field = BG.getField @"deep_outer_mid_field" x0
                      }
-      , RIP.getField @"deep_outer_o" x0
+      , BG.getField @"deep_outer_o" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "deep_outer_o" (RIP.Ptr Deep_outer) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "deep_outer_o" (BG.Ptr Deep_outer) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"deep_outer_o")
+    HasCField.fromPtr (BG.Proxy @"deep_outer_o")
 
 instance HasCField.HasCField Deep_outer "deep_outer_o" where
 
-  type CFieldType Deep_outer "deep_outer_o" = RIP.CInt
+  type CFieldType Deep_outer "deep_outer_o" = BG.CInt
 
   offset# = \_ -> \_ -> 8
 
@@ -2496,7 +2495,7 @@ instance HasCField.HasCField Deep_outer "deep_outer_o" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Unnamed_field_t_anon'ua = Unnamed_field_t_anon'ua
-  { unnamed_field_t_anon'ua_ua :: RIP.CInt
+  { unnamed_field_t_anon'ua_ua :: BG.CInt
     {- ^ Unnamed inner a
 
          __C declaration:__ @ua@
@@ -2505,7 +2504,7 @@ data Unnamed_field_t_anon'ua = Unnamed_field_t_anon'ua
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , unnamed_field_t_anon'ua_ub :: RIP.CInt
+  , unnamed_field_t_anon'ua_ub :: BG.CInt
     {- ^ Unnamed inner b
 
          __C declaration:__ @ub@
@@ -2515,7 +2514,7 @@ data Unnamed_field_t_anon'ua = Unnamed_field_t_anon'ua
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unnamed_field_t_anon'ua where
 
@@ -2528,8 +2527,8 @@ instance Marshal.ReadRaw Unnamed_field_t_anon'ua where
   readRaw =
     \ptr0 ->
           pure Unnamed_field_t_anon'ua
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ua") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ub") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unnamed_field_t_anon'ua_ua") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unnamed_field_t_anon'ua_ub") ptr0
 
 instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
 
@@ -2540,58 +2539,58 @@ instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
           Unnamed_field_t_anon'ua
             unnamed_field_t_anon'ua_ua2
             unnamed_field_t_anon'ua_ub3 ->
-                 HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ua") ptr0 unnamed_field_t_anon'ua_ua2
-              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua_ub") ptr0 unnamed_field_t_anon'ua_ub3
+                 HasCField.writeRaw (BG.Proxy @"unnamed_field_t_anon'ua_ua") ptr0 unnamed_field_t_anon'ua_ua2
+              >> HasCField.writeRaw (BG.Proxy @"unnamed_field_t_anon'ua_ub") ptr0 unnamed_field_t_anon'ua_ub3
 
-deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance RIP.Storable Unnamed_field_t_anon'ua
+deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance BG.Storable Unnamed_field_t_anon'ua
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua_ua" Unnamed_field_t_anon'ua ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua_ua" Unnamed_field_t_anon'ua ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unnamed_field_t_anon'ua { unnamed_field_t_anon'ua_ua = y1
-                                  , unnamed_field_t_anon'ua_ub = RIP.getField @"unnamed_field_t_anon'ua_ub" x0
+                                  , unnamed_field_t_anon'ua_ub = BG.getField @"unnamed_field_t_anon'ua_ub" x0
                                   }
-      , RIP.getField @"unnamed_field_t_anon'ua_ua" x0
+      , BG.getField @"unnamed_field_t_anon'ua_ua" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_anon'ua_ua" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_anon'ua_ua" (BG.Ptr Unnamed_field_t_anon'ua) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ua")
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_anon'ua_ua")
 
 instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" where
 
   type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua_ub" Unnamed_field_t_anon'ua ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua_ub" Unnamed_field_t_anon'ua ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unnamed_field_t_anon'ua { unnamed_field_t_anon'ua_ub = y1
-                                  , unnamed_field_t_anon'ua_ua = RIP.getField @"unnamed_field_t_anon'ua_ua" x0
+                                  , unnamed_field_t_anon'ua_ua = BG.getField @"unnamed_field_t_anon'ua_ua" x0
                                   }
-      , RIP.getField @"unnamed_field_t_anon'ua_ub" x0
+      , BG.getField @"unnamed_field_t_anon'ua_ub" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_anon'ua_ub" (RIP.Ptr Unnamed_field_t_anon'ua) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_anon'ua_ub" (BG.Ptr Unnamed_field_t_anon'ua) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua_ub")
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_anon'ua_ub")
 
 instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" where
 
   type CFieldType Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -2606,7 +2605,7 @@ instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ub
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Unnamed_field_t = Unnamed_field_t
-  { unnamed_field_t_before :: RIP.CInt
+  { unnamed_field_t_before :: BG.CInt
     {- ^ Before field
 
          __C declaration:__ @before@
@@ -2622,7 +2621,7 @@ data Unnamed_field_t = Unnamed_field_t
 
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , unnamed_field_t_after :: RIP.CInt
+  , unnamed_field_t_after :: BG.CInt
     {- ^ After field
 
          __C declaration:__ @after@
@@ -2632,7 +2631,7 @@ data Unnamed_field_t = Unnamed_field_t
          __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Unnamed_field_t where
 
@@ -2645,9 +2644,9 @@ instance Marshal.ReadRaw Unnamed_field_t where
   readRaw =
     \ptr0 ->
           pure Unnamed_field_t
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_before") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_anon'ua") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"unnamed_field_t_after") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unnamed_field_t_before") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unnamed_field_t_anon'ua") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unnamed_field_t_after") ptr0
 
 instance Marshal.WriteRaw Unnamed_field_t where
 
@@ -2659,56 +2658,56 @@ instance Marshal.WriteRaw Unnamed_field_t where
             unnamed_field_t_before2
             unnamed_field_t_anon'ua3
             unnamed_field_t_after4 ->
-                 HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_before") ptr0 unnamed_field_t_before2
-              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_anon'ua") ptr0 unnamed_field_t_anon'ua3
-              >> HasCField.writeRaw (RIP.Proxy @"unnamed_field_t_after") ptr0 unnamed_field_t_after4
+                 HasCField.writeRaw (BG.Proxy @"unnamed_field_t_before") ptr0 unnamed_field_t_before2
+              >> HasCField.writeRaw (BG.Proxy @"unnamed_field_t_anon'ua") ptr0 unnamed_field_t_anon'ua3
+              >> HasCField.writeRaw (BG.Proxy @"unnamed_field_t_after") ptr0 unnamed_field_t_after4
 
-deriving via Marshal.EquivStorable Unnamed_field_t instance RIP.Storable Unnamed_field_t
+deriving via Marshal.EquivStorable Unnamed_field_t instance BG.Storable Unnamed_field_t
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unnamed_field_t_before" Unnamed_field_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_before" Unnamed_field_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unnamed_field_t { unnamed_field_t_before = y1
-                          , unnamed_field_t_anon'ua = RIP.getField @"unnamed_field_t_anon'ua" x0
-                          , unnamed_field_t_after = RIP.getField @"unnamed_field_t_after" x0
+                          , unnamed_field_t_anon'ua = BG.getField @"unnamed_field_t_anon'ua" x0
+                          , unnamed_field_t_after = BG.getField @"unnamed_field_t_after" x0
                           }
-      , RIP.getField @"unnamed_field_t_before" x0
+      , BG.getField @"unnamed_field_t_before" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_before" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_before" (BG.Ptr Unnamed_field_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_before")
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_before")
 
 instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
 
   type CFieldType Unnamed_field_t "unnamed_field_t_before" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Unnamed_field_t_anon'ua
-         ) => RIP.CompatHasField.HasField "unnamed_field_t_anon'ua" Unnamed_field_t ty where
+         ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua" Unnamed_field_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unnamed_field_t { unnamed_field_t_anon'ua = y1
-                          , unnamed_field_t_before = RIP.getField @"unnamed_field_t_before" x0
-                          , unnamed_field_t_after = RIP.getField @"unnamed_field_t_after" x0
+                          , unnamed_field_t_before = BG.getField @"unnamed_field_t_before" x0
+                          , unnamed_field_t_after = BG.getField @"unnamed_field_t_after" x0
                           }
-      , RIP.getField @"unnamed_field_t_anon'ua" x0
+      , BG.getField @"unnamed_field_t_anon'ua" x0
       )
 
 instance ( ty ~ Unnamed_field_t_anon'ua
-         ) => RIP.HasField "unnamed_field_t_anon'ua" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+         ) => BG.HasField "unnamed_field_t_anon'ua" (BG.Ptr Unnamed_field_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_anon'ua")
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_anon'ua")
 
 instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
 
@@ -2717,29 +2716,29 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unnamed_field_t_after" Unnamed_field_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_after" Unnamed_field_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Unnamed_field_t { unnamed_field_t_after = y1
-                          , unnamed_field_t_before = RIP.getField @"unnamed_field_t_before" x0
-                          , unnamed_field_t_anon'ua = RIP.getField @"unnamed_field_t_anon'ua" x0
+                          , unnamed_field_t_before = BG.getField @"unnamed_field_t_before" x0
+                          , unnamed_field_t_anon'ua = BG.getField @"unnamed_field_t_anon'ua" x0
                           }
-      , RIP.getField @"unnamed_field_t_after" x0
+      , BG.getField @"unnamed_field_t_after" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unnamed_field_t_after" (RIP.Ptr Unnamed_field_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_after" (BG.Ptr Unnamed_field_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unnamed_field_t_after")
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_after")
 
 instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
 
   type CFieldType Unnamed_field_t "unnamed_field_t_after" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 12
 
@@ -2752,45 +2751,45 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_after" where
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Api_version_t = Api_version_t
-  { unwrapApi_version_t :: RIP.CInt
+  { unwrapApi_version_t :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapApi_version_t" Api_version_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapApi_version_t" Api_version_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Api_version_t {unwrapApi_version_t = y1}
-      , RIP.getField @"unwrapApi_version_t" x0
+      , BG.getField @"unwrapApi_version_t" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapApi_version_t" (RIP.Ptr Api_version_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapApi_version_t" (BG.Ptr Api_version_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapApi_version_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapApi_version_t")
 
 instance HasCField.HasCField Api_version_t "unwrapApi_version_t" where
 
   type CFieldType Api_version_t "unwrapApi_version_t" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0

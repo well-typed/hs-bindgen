@@ -41,7 +41,7 @@ module Example
   where
 
 import qualified C.Expr.HostPlatform
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro OBJECTLIKE1@
 
@@ -49,8 +49,8 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE1 :: RIP.CInt
-oBJECTLIKE1 = (1 :: RIP.CInt)
+oBJECTLIKE1 :: BG.CInt
+oBJECTLIKE1 = (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro OBJECTLIKE2@
 
@@ -58,8 +58,8 @@ oBJECTLIKE1 = (1 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE2 :: RIP.CInt
-oBJECTLIKE2 = (2 :: RIP.CInt)
+oBJECTLIKE2 :: BG.CInt
+oBJECTLIKE2 = (2 :: BG.CInt)
 
 {-| __C declaration:__ @macro OBJECTLIKE3@
 
@@ -67,9 +67,9 @@ oBJECTLIKE2 = (2 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE3 :: RIP.CInt
+oBJECTLIKE3 :: BG.CInt
 oBJECTLIKE3 =
-  (C.Expr.HostPlatform.+) (3 :: RIP.CInt) (3 :: RIP.CInt)
+  (C.Expr.HostPlatform.+) (3 :: BG.CInt) (3 :: BG.CInt)
 
 {-| __C declaration:__ @macro OBJECTLIKE4@
 
@@ -77,9 +77,9 @@ oBJECTLIKE3 =
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE4 :: RIP.CInt
+oBJECTLIKE4 :: BG.CInt
 oBJECTLIKE4 =
-  (C.Expr.HostPlatform.+) (4 :: RIP.CInt) (4 :: RIP.CInt)
+  (C.Expr.HostPlatform.+) (4 :: BG.CInt) (4 :: BG.CInt)
 
 {-| __C declaration:__ @macro MEANING_OF_LIFE1@
 
@@ -87,8 +87,8 @@ oBJECTLIKE4 =
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE1 :: RIP.CInt
-mEANING_OF_LIFE1 = (42 :: RIP.CInt)
+mEANING_OF_LIFE1 :: BG.CInt
+mEANING_OF_LIFE1 = (42 :: BG.CInt)
 
 {-| __C declaration:__ @macro MEANING_OF_LIFE2@
 
@@ -96,8 +96,8 @@ mEANING_OF_LIFE1 = (42 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE2 :: RIP.CInt
-mEANING_OF_LIFE2 = (42 :: RIP.CInt)
+mEANING_OF_LIFE2 :: BG.CInt
+mEANING_OF_LIFE2 = (42 :: BG.CInt)
 
 {-| __C declaration:__ @macro MEANING_OF_LIFE3@
 
@@ -105,8 +105,8 @@ mEANING_OF_LIFE2 = (42 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE3 :: RIP.CInt
-mEANING_OF_LIFE3 = (42 :: RIP.CInt)
+mEANING_OF_LIFE3 :: BG.CInt
+mEANING_OF_LIFE3 = (42 :: BG.CInt)
 
 {-| __C declaration:__ @macro MEANING_OF_LIFE4@
 
@@ -114,8 +114,8 @@ mEANING_OF_LIFE3 = (42 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE4 :: RIP.CInt
-mEANING_OF_LIFE4 = (42 :: RIP.CInt)
+mEANING_OF_LIFE4 :: BG.CInt
+mEANING_OF_LIFE4 = (42 :: BG.CInt)
 
 {-| __C declaration:__ @macro MEANING_OF_LIFE5@
 
@@ -123,8 +123,8 @@ mEANING_OF_LIFE4 = (42 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE5 :: RIP.CInt
-mEANING_OF_LIFE5 = (42 :: RIP.CInt)
+mEANING_OF_LIFE5 :: BG.CInt
+mEANING_OF_LIFE5 = (42 :: BG.CInt)
 
 {-| __C declaration:__ @macro LONG_INT_TOKEN1@
 
@@ -132,9 +132,9 @@ mEANING_OF_LIFE5 = (42 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN1 :: RIP.CULLong
+lONG_INT_TOKEN1 :: BG.CULLong
 lONG_INT_TOKEN1 =
-  (18446744073709550592 :: RIP.CULLong)
+  (18446744073709550592 :: BG.CULLong)
 
 {-| __C declaration:__ @macro LONG_INT_TOKEN2@
 
@@ -142,9 +142,9 @@ lONG_INT_TOKEN1 =
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN2 :: RIP.CULLong
+lONG_INT_TOKEN2 :: BG.CULLong
 lONG_INT_TOKEN2 =
-  (18446744073709550592 :: RIP.CULLong)
+  (18446744073709550592 :: BG.CULLong)
 
 {-| __C declaration:__ @macro LONG_INT_TOKEN3@
 
@@ -152,9 +152,9 @@ lONG_INT_TOKEN2 =
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN3 :: RIP.CULLong
+lONG_INT_TOKEN3 :: BG.CULLong
 lONG_INT_TOKEN3 =
-  (18446744073709550592 :: RIP.CULLong)
+  (18446744073709550592 :: BG.CULLong)
 
 {-| __C declaration:__ @macro LONG_INT_TOKEN4@
 
@@ -162,9 +162,9 @@ lONG_INT_TOKEN3 =
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN4 :: RIP.CULLong
+lONG_INT_TOKEN4 :: BG.CULLong
 lONG_INT_TOKEN4 =
-  (18446744073709550592 :: RIP.CULLong)
+  (18446744073709550592 :: BG.CULLong)
 
 {-| __C declaration:__ @macro TUPLE1@
 
@@ -172,8 +172,8 @@ lONG_INT_TOKEN4 =
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 :: (RIP.CInt, RIP.CInt)
-tUPLE1 = ((1 :: RIP.CInt), (2 :: RIP.CInt))
+tUPLE1 :: (BG.CInt, BG.CInt)
+tUPLE1 = ((1 :: BG.CInt), (2 :: BG.CInt))
 
 {-| __C declaration:__ @macro TUPLE2@
 
@@ -181,8 +181,8 @@ tUPLE1 = ((1 :: RIP.CInt), (2 :: RIP.CInt))
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 :: (RIP.CInt, RIP.CInt)
-tUPLE2 = ((3 :: RIP.CInt), (4 :: RIP.CInt))
+tUPLE2 :: (BG.CInt, BG.CInt)
+tUPLE2 = ((3 :: BG.CInt), (4 :: BG.CInt))
 
 {-| __C declaration:__ @macro TUPLE3@
 
@@ -190,8 +190,8 @@ tUPLE2 = ((3 :: RIP.CInt), (4 :: RIP.CInt))
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 :: (RIP.CInt, RIP.CInt)
-tUPLE3 = ((5 :: RIP.CInt), (6 :: RIP.CInt))
+tUPLE3 :: (BG.CInt, BG.CInt)
+tUPLE3 = ((5 :: BG.CInt), (6 :: BG.CInt))
 
 {-| __C declaration:__ @macro FLT1_1@
 
@@ -199,8 +199,8 @@ tUPLE3 = ((5 :: RIP.CInt), (6 :: RIP.CInt))
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_1 :: RIP.CDouble
-fLT1_1 = (110000.0 :: RIP.CDouble)
+fLT1_1 :: BG.CDouble
+fLT1_1 = (110000.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT1_2@
 
@@ -208,8 +208,8 @@ fLT1_1 = (110000.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_2 :: RIP.CDouble
-fLT1_2 = (1.2e-2 :: RIP.CDouble)
+fLT1_2 :: BG.CDouble
+fLT1_2 = (1.2e-2 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT1_3@
 
@@ -217,8 +217,8 @@ fLT1_2 = (1.2e-2 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_3 :: RIP.CFloat
-fLT1_3 = (1.3e-2 :: RIP.CFloat)
+fLT1_3 :: BG.CFloat
+fLT1_3 = (1.3e-2 :: BG.CFloat)
 
 {-| __C declaration:__ @macro FLT2_1@
 
@@ -226,8 +226,8 @@ fLT1_3 = (1.3e-2 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_1 :: RIP.CDouble
-fLT2_1 = (21.0 :: RIP.CDouble)
+fLT2_1 :: BG.CDouble
+fLT2_1 = (21.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT2_2@
 
@@ -235,8 +235,8 @@ fLT2_1 = (21.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_2 :: RIP.CDouble
-fLT2_2 = (2200.0 :: RIP.CDouble)
+fLT2_2 :: BG.CDouble
+fLT2_2 = (2200.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT2_3@
 
@@ -244,8 +244,8 @@ fLT2_2 = (2200.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_3 :: RIP.CFloat
-fLT2_3 = (23.0 :: RIP.CFloat)
+fLT2_3 :: BG.CFloat
+fLT2_3 = (23.0 :: BG.CFloat)
 
 {-| __C declaration:__ @macro FLT3_1@
 
@@ -253,8 +253,8 @@ fLT2_3 = (23.0 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_1 :: RIP.CDouble
-fLT3_1 = (31.0 :: RIP.CDouble)
+fLT3_1 :: BG.CDouble
+fLT3_1 = (31.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT3_2@
 
@@ -262,8 +262,8 @@ fLT3_1 = (31.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_2 :: RIP.CDouble
-fLT3_2 = (0.32 :: RIP.CDouble)
+fLT3_2 :: BG.CDouble
+fLT3_2 = (0.32 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT3_3@
 
@@ -271,8 +271,8 @@ fLT3_2 = (0.32 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_3 :: RIP.CDouble
-fLT3_3 = (33.0 :: RIP.CDouble)
+fLT3_3 :: BG.CDouble
+fLT3_3 = (33.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT3_4@
 
@@ -280,8 +280,8 @@ fLT3_3 = (33.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_4 :: RIP.CFloat
-fLT3_4 = (3.4e-3 :: RIP.CFloat)
+fLT3_4 :: BG.CFloat
+fLT3_4 = (3.4e-3 :: BG.CFloat)
 
 {-| __C declaration:__ @macro FLT4_1@
 
@@ -289,8 +289,8 @@ fLT3_4 = (3.4e-3 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_1 :: RIP.CDouble
-fLT4_1 = (650000.0 :: RIP.CDouble)
+fLT4_1 :: BG.CDouble
+fLT4_1 = (650000.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT4_2@
 
@@ -298,8 +298,8 @@ fLT4_1 = (650000.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_2 :: RIP.CDouble
-fLT4_2 = (6.6e-2 :: RIP.CDouble)
+fLT4_2 :: BG.CDouble
+fLT4_2 = (6.6e-2 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT4_3@
 
@@ -307,8 +307,8 @@ fLT4_2 = (6.6e-2 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_3 :: RIP.CFloat
-fLT4_3 = (6.7e-2 :: RIP.CFloat)
+fLT4_3 :: BG.CFloat
+fLT4_3 = (6.7e-2 :: BG.CFloat)
 
 {-| __C declaration:__ @macro FLT5_1@
 
@@ -316,8 +316,8 @@ fLT4_3 = (6.7e-2 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT5_1 :: RIP.CDouble
-fLT5_1 = (81.0 :: RIP.CDouble)
+fLT5_1 :: BG.CDouble
+fLT5_1 = (81.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT5_2@
 
@@ -325,8 +325,8 @@ fLT5_1 = (81.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT5_2 :: RIP.CFloat
-fLT5_2 = (82.0 :: RIP.CFloat)
+fLT5_2 :: BG.CFloat
+fLT5_2 = (82.0 :: BG.CFloat)
 
 {-| __C declaration:__ @macro FLT6_1@
 
@@ -334,8 +334,8 @@ fLT5_2 = (82.0 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_1 :: RIP.CDouble
-fLT6_1 = (15520.0 :: RIP.CDouble)
+fLT6_1 :: BG.CDouble
+fLT6_1 = (15520.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT6_2@
 
@@ -343,8 +343,8 @@ fLT6_1 = (15520.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_2 :: RIP.CDouble
-fLT6_2 = (98.0 :: RIP.CDouble)
+fLT6_2 :: BG.CDouble
+fLT6_2 = (98.0 :: BG.CDouble)
 
 {-| __C declaration:__ @macro FLT6_3@
 
@@ -352,8 +352,8 @@ fLT6_2 = (98.0 :: RIP.CDouble)
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_3 :: RIP.CFloat
-fLT6_3 = (9.9e-3 :: RIP.CFloat)
+fLT6_3 :: BG.CFloat
+fLT6_3 = (9.9e-3 :: BG.CFloat)
 
 {-| __C declaration:__ @macro BAD1@
 
@@ -361,9 +361,9 @@ fLT6_3 = (9.9e-3 :: RIP.CFloat)
 
     __exported by:__ @macros\/macros.h@
 -}
-bAD1 :: RIP.CDouble
+bAD1 :: BG.CDouble
 bAD1 =
-  (C.Expr.HostPlatform.+) (0.1 :: RIP.CDouble) (1 :: RIP.CInt)
+  (C.Expr.HostPlatform.+) (0.1 :: BG.CDouble) (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro BAD2@
 
@@ -371,6 +371,6 @@ bAD1 =
 
     __exported by:__ @macros\/macros.h@
 -}
-bAD2 :: RIP.CULong
+bAD2 :: BG.CULong
 bAD2 =
-  (C.Expr.HostPlatform.*) (2 :: RIP.CLong) (2 :: RIP.CULong)
+  (C.Expr.HostPlatform.*) (2 :: BG.CLong) (2 :: BG.CULong)

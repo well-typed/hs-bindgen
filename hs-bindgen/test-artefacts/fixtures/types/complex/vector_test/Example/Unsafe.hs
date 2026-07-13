@@ -6,11 +6,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/complex/vector_test.h>"
   , "vector *hs_bindgen_1af353788955c7a2 ("
   , "  double arg1,"
@@ -25,15 +25,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
      Double
   -> Double
-  -> IO (RIP.Ptr RIP.Void)
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 hs_bindgen_1af353788955c7a2 ::
-     RIP.CDouble
-  -> RIP.CDouble
-  -> IO (RIP.Ptr Vector)
+     BG.CDouble
+  -> BG.CDouble
+  -> IO (BG.Ptr Vector)
 hs_bindgen_1af353788955c7a2 =
-  RIP.fromFFIType hs_bindgen_1af353788955c7a2_base
+  BG.fromFFIType hs_bindgen_1af353788955c7a2_base
 
 {-| __C declaration:__ @new_vector@
 
@@ -42,9 +42,9 @@ hs_bindgen_1af353788955c7a2 =
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 new_vector ::
-     RIP.CDouble
+     BG.CDouble
      -- ^ __C declaration:__ @x@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @y@
-  -> IO (RIP.Ptr Vector)
+  -> IO (BG.Ptr Vector)
 new_vector = hs_bindgen_1af353788955c7a2

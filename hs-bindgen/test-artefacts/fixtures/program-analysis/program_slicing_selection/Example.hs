@@ -29,10 +29,10 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum FileOperationStatus@
 
@@ -41,10 +41,10 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 newtype FileOperationStatus = FileOperationStatus
-  { unwrapFileOperationStatus :: RIP.CInt
+  { unwrapFileOperationStatus :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize FileOperationStatus where
 
@@ -68,26 +68,26 @@ instance Marshal.WriteRaw FileOperationStatus where
           FileOperationStatus unwrapFileOperationStatus2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
 
-deriving via Marshal.EquivStorable FileOperationStatus instance RIP.Storable FileOperationStatus
+deriving via Marshal.EquivStorable FileOperationStatus instance BG.Storable FileOperationStatus
 
-deriving via RIP.CInt instance RIP.Prim FileOperationStatus
+deriving via BG.CInt instance BG.Prim FileOperationStatus
 
 instance CEnum.CEnum FileOperationStatus where
 
-  type CEnumZ FileOperationStatus = RIP.CInt
+  type CEnumZ FileOperationStatus = BG.CInt
 
   toCEnum = FileOperationStatus
 
-  fromCEnum = RIP.getField @"unwrapFileOperationStatus"
+  fromCEnum = BG.getField @"unwrapFileOperationStatus"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [ (-1, RIP.singleton "CUSTOM_ERROR_OTHER")
-                                   , (0, RIP.singleton "SUCCESS")
-                                   , (2, RIP.singleton "NOT_FOUND")
-                                   , (12, RIP.singleton "OUT_OF_MEMORY")
-                                   , (13, RIP.singleton "PERMISSION_DENIED")
-                                   , (22, RIP.singleton "INVALID_ARGUMENT")
+      CEnum.declaredValuesFromList [ (-1, BG.singleton "CUSTOM_ERROR_OTHER")
+                                   , (0, BG.singleton "SUCCESS")
+                                   , (2, BG.singleton "NOT_FOUND")
+                                   , (12, BG.singleton "OUT_OF_MEMORY")
+                                   , (13, BG.singleton "PERMISSION_DENIED")
+                                   , (22, BG.singleton "INVALID_ARGUMENT")
                                    ]
 
   showsUndeclared =
@@ -104,30 +104,30 @@ instance Read FileOperationStatus where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapFileOperationStatus" FileOperationStatus ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapFileOperationStatus" FileOperationStatus ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           FileOperationStatus {unwrapFileOperationStatus = y1}
-      , RIP.getField @"unwrapFileOperationStatus" x0
+      , BG.getField @"unwrapFileOperationStatus" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapFileOperationStatus" (BG.Ptr FileOperationStatus) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFileOperationStatus")
+    HasCField.fromPtr (BG.Proxy @"unwrapFileOperationStatus")
 
 instance HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" where
 
   type CFieldType FileOperationStatus "unwrapFileOperationStatus" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -207,7 +207,7 @@ data FileOperationRecord = FileOperationRecord
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize FileOperationRecord where
 
@@ -220,8 +220,8 @@ instance Marshal.ReadRaw FileOperationRecord where
   readRaw =
     \ptr0 ->
           pure FileOperationRecord
-      <*> HasCField.readRaw (RIP.Proxy @"fileOperationRecord_status") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"fileOperationRecord_bytes_processed") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"fileOperationRecord_status") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
 instance Marshal.WriteRaw FileOperationRecord where
 
@@ -232,28 +232,28 @@ instance Marshal.WriteRaw FileOperationRecord where
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 HasCField.writeRaw (RIP.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
-              >> HasCField.writeRaw (RIP.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+                 HasCField.writeRaw (BG.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HasCField.writeRaw (BG.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
 
-deriving via Marshal.EquivStorable FileOperationRecord instance RIP.Storable FileOperationRecord
+deriving via Marshal.EquivStorable FileOperationRecord instance BG.Storable FileOperationRecord
 
 instance ( ty ~ FileOperationStatus
-         ) => RIP.CompatHasField.HasField "fileOperationRecord_status" FileOperationRecord ty where
+         ) => BG.CompatHasField.HasField "fileOperationRecord_status" FileOperationRecord ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           FileOperationRecord { fileOperationRecord_status = y1
-                              , fileOperationRecord_bytes_processed = RIP.getField @"fileOperationRecord_bytes_processed" x0
+                              , fileOperationRecord_bytes_processed = BG.getField @"fileOperationRecord_bytes_processed" x0
                               }
-      , RIP.getField @"fileOperationRecord_status" x0
+      , BG.getField @"fileOperationRecord_status" x0
       )
 
 instance ( ty ~ FileOperationStatus
-         ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+         ) => BG.HasField "fileOperationRecord_status" (BG.Ptr FileOperationRecord) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
+    HasCField.fromPtr (BG.Proxy @"fileOperationRecord_status")
 
 instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 
@@ -263,22 +263,22 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" wh
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.CompatHasField.HasField "fileOperationRecord_bytes_processed" FileOperationRecord ty where
+         ) => BG.CompatHasField.HasField "fileOperationRecord_bytes_processed" FileOperationRecord ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           FileOperationRecord { fileOperationRecord_bytes_processed = y1
-                              , fileOperationRecord_status = RIP.getField @"fileOperationRecord_status" x0
+                              , fileOperationRecord_status = BG.getField @"fileOperationRecord_status" x0
                               }
-      , RIP.getField @"fileOperationRecord_bytes_processed" x0
+      , BG.getField @"fileOperationRecord_bytes_processed" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
-         ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
+         ) => BG.HasField "fileOperationRecord_bytes_processed" (BG.Ptr FileOperationRecord) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")
+    HasCField.fromPtr (BG.Proxy @"fileOperationRecord_bytes_processed")
 
 instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
 

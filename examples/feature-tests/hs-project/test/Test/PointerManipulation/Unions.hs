@@ -18,7 +18,7 @@ import GHC.Records (HasField (getField))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck
 
-import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as Compat
+import HsBindgen.Runtime.Support.CompatHasField qualified as Compat
 import HsBindgen.Runtime.Union qualified as Union
 
 import Generated.PointerManipulation qualified as Types

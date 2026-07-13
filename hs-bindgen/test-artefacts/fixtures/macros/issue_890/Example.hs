@@ -11,7 +11,7 @@ module Example
   where
 
 import qualified C.Expr.HostPlatform
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro A@
 
@@ -19,8 +19,8 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: RIP.CInt
-a = (0 :: RIP.CInt)
+a :: BG.CInt
+a = (0 :: BG.CInt)
 
 {-| __C declaration:__ @macro B@
 
@@ -28,8 +28,8 @@ a = (0 :: RIP.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: forall a0. C.Expr.HostPlatform.Add a0 RIP.CInt => a0 -> C.Expr.HostPlatform.AddRes a0 RIP.CInt
-b = \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
+b :: forall a0. C.Expr.HostPlatform.Add a0 BG.CInt => a0 -> C.Expr.HostPlatform.AddRes a0 BG.CInt
+b = \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro C@
 
@@ -37,8 +37,8 @@ b = \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: RIP.CInt
-c = b (0 :: RIP.CInt)
+c :: BG.CInt
+c = b (0 :: BG.CInt)
 
 {-| __C declaration:__ @macro D@
 
@@ -46,7 +46,7 @@ c = b (0 :: RIP.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: RIP.CInt
+d :: BG.CInt
 d = b a
 
 {-| __C declaration:__ @macro E@
@@ -55,5 +55,5 @@ d = b a
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: RIP.CInt
-e = b (1 :: RIP.CInt)
+e :: BG.CInt
+e = b (1 :: BG.CInt)
