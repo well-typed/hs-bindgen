@@ -228,11 +228,11 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- Constraints:
 --
 -- * The 'Select' pass must come last so that if a declaration is
---   'HsBindgen.Frontend.Analysis.DeclIndex.Unusable' for whatever reason (e.g.,
---   it contains unsupported types such as @long double@, or the name mangler
---   was unable to find a suitable name, etc.), the 'Select' pass can make sure
---   that the unusable declaration /and all of its dependencies/ will not be
---   selected.
+--   'HsBindgen.Frontend.Analysis.DeclIndex.UnusableEntry' for whatever reason
+--   (e.g., it contains unsupported types such as @long double@, or the name
+--   mangler was unable to find a suitable name, etc.), the 'Select' pass can
+--   make sure that the unusable declaration /and all of its dependencies/ will
+--   not be selected.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg

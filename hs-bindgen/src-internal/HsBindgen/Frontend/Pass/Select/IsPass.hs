@@ -129,7 +129,7 @@ data SelectStatus =
   deriving stock (Show)
 
 data TransitiveDependencyMissing =
-    -- | Transitive dependency is 'Unusable'.
+    -- | Transitive dependency is 'UnusableEntry'.
     TransitiveDependencyUnusable C.DeclId UnusableEntry
     -- | Transitive dependency is not selected.
   | TransitiveDependencyNotSelected C.DeclId [SingleLoc]

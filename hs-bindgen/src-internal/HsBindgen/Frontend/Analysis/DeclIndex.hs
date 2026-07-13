@@ -139,18 +139,19 @@ data DeclIndex l = DeclIndex {
 
 -- | Usable declaration
 --
--- At each stage in the `hs-bindgen` pipeline, a 'Usable' declaration is a
--- declaration we think we can generate bindings for. Passes may replace
--- 'Usable' declarations with
+-- At each stage in the `hs-bindgen` pipeline, a "usable" declaration (i.e.,
+-- 'UsableEntry') is a declaration we think we can generate bindings for. Passes
+-- may replace "usable" declarations with
 --
--- - other 'Usable' declarations such as external declarations
+-- - other "usable" declarations such as external declarations
 --   ("ResolveBindingSpecs") or squashed declarations (in "MangleNames"); or
 --
--- - 'Unusable' declarations, for example when macro typechecking fails
---   ("TypecheckMacros") or name mangling fails ("MangleNames").
+-- - "unusable" declarations (i.e, 'UnusableEntry'), for example when macro
+--   typechecking fails ("TypecheckMacros") or name mangling fails
+--   ("MangleNames").
 --
 -- At the end of the `hs-bindgen` pipeline, we can generate bindings for
--- 'Usable' declarations.
+-- "usable" declarations.
 --
 -- However, usability is not concerned with _transitivity_. Usable declarations
 -- may have unusable transitive dependencies. Even though we can generate
@@ -177,7 +178,7 @@ usableToLoc = \case
 --
 -- A declaration is unusable if we cannot generate bindings for it.
 --
--- See 'Usable'.
+-- See 'UsableEntry'.
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).

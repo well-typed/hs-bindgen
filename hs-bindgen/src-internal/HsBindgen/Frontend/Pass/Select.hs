@@ -51,9 +51,9 @@ type Decl l = C.Decl l Select
 -- not selectable _from the perspective of `hs-bindgen`_; and, in particular,
 -- not from the perspective of the user (they can change the select predicate).
 --
--- Also, (and in contrast to 'Usable'/'Unusable'), selectability _is concerned
--- with transitivity_. All transitive dependencies of a selectable declaration
--- must also be selectable.
+-- Also, (and in contrast to 'UsableEntry'/'UnusableEntry'), selectability _is
+-- concerned with transitivity_. All transitive dependencies of a selectable
+-- declaration must also be selectable.
 data Unselectable =
     -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
     --   it or one of its dependencies is unusable.
