@@ -537,7 +537,7 @@ themselves are still generated.
 ## Unsupported: variadic functions
 
 We do not generate bindings for variadic functions, i.e., functions using `...`
-or `va_list` parameters ([#53][issue-53]):
+or `va_list` parameters ([#53][issue:53]):
 
 ```c
 void f(const char* fmt, ...);
@@ -560,13 +560,12 @@ approach such as generating fixed-arity wrappers for each call site. If you need
 to call a specific variadic function from Haskell, you can write a manual
 `foreign import` declaration for a fixed-arity version of the call.
 
-[issue-53]:https://github.com/well-typed/hs-bindgen/issues/53
-
 
 
 <!-- sources and references -->
 
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
 [haskell2010:ffi]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html
+[issue:53]: https://github.com/well-typed/hs-bindgen/issues/53
 [manual:globals-guidelines]: globals.md#guidelines-for-binding-generation
 [unfolder:36]: https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37

@@ -59,11 +59,10 @@ data Triple = Triple {
 #### Duplicate record fields
 
 Instead of using a prefix to make field labels globally unique, we can take
-advantage of
-[`DuplicateRecordFields`](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/duplicate_record_fields.html)
-in the generated code. This behaviour can be enabled in the command line client
-using `--omit-field-prefixes`. When using Template Haskell,
-`fieldNamingStrategy` can be configured to be `OmitFieldPrefixes`.
+advantage of [`DuplicateRecordFields`][ghc:guide:duplicate-record-fields] in the
+generated code. This behaviour can be enabled in the command line client using
+`--omit-field-prefixes`. When using Template Haskell, `fieldNamingStrategy` can
+be configured to be `OmitFieldPrefixes`.
 
 For the `struct triple` above, this will result in very short field labels:
 
@@ -308,5 +307,6 @@ newtype Data = Data {
 
 <!-- sources and references -->
 
+[ghc:guide:duplicate-record-fields]: https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/duplicate_record_fields.html
 [hackage:base:isAlphaNum]: https://hackage.haskell.org/package/base/docs/Data-Char.html#v:isAlphaNum
 [unicode:nfc]: https://unicode.org/reports/tr15/
