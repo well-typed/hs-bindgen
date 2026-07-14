@@ -20,6 +20,8 @@ referenceName = borrowedText RfS.git_reference_name
 referenceShorthand :: Reference -> IO Text
 referenceShorthand = borrowedText RfS.git_reference_shorthand
 
--- | @git_reference_target@: the oid a direct reference points at.
+-- | @git_reference_target@: the oid a direct reference points at. The reference
+-- must be direct; @git_reference_target@ returns NULL for a symbolic reference,
+-- which 'borrowedOid' would then peek through.
 referenceTarget :: Reference -> IO Oid
 referenceTarget = borrowedOid RfS.git_reference_target

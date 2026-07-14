@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build libsodium from the vendored submodule into a local install prefix.
+# Build libsodium from the fetched source tree into a local install prefix.
 #
 # autoconf/automake/libtool/m4 and a C toolchain are pulled from nixpkgs (the
 # hs-bindgen dev shell does not ship them), so no system packages are required.
@@ -15,8 +15,7 @@ SRC="$SCRIPT_DIR/libsodium"
 PREFIX="$SRC/build-prefix"
 
 if [ ! -f "$SRC/autogen.sh" ]; then
-  echo "libsodium submodule missing; run:" >&2
-  echo "  git submodule update --init $SRC" >&2
+  echo "libsodium source missing; run ./generate-and-run.sh (it fetches the pinned source)" >&2
   exit 1
 fi
 

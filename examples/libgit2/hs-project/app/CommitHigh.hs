@@ -8,7 +8,6 @@
 --
 module Main (main) where
 
-import Control.Monad.IO.Class (liftIO)
 import Data.ByteString.Char8 qualified as BS8
 import Data.Text.IO qualified as T
 import System.Directory (removePathForcibly)
@@ -28,20 +27,18 @@ main = do
   args <- getArgs
   let path = case args of { (p : _) -> p; [] -> "/tmp/libgit2-commit-high" }
   removePathForcibly path
-  withNewRepository path $ do
-    blobOid <- inRepo (\r -> blobCreateFromBuffer r (BS8.pack "hello, libgit2\n"))
-    treeOid <- inRepo $ \r -> do
-      tb <- treebuilderNew r
-      treebuilderInsert tb "hello.txt" blobOid regularFileMode
-      treebuilderWrite tb
-    tree <- inRepo (\r -> treeLookup r treeOid)
-    cOid <- inRepo (\r -> commitCreate r "HEAD" demoSig demoSig "Initial commit\n" tree)
+  withNewRepository path $ \repo -> do
+    blobOid <- blobCreateFromBuffer repo (BS8.pack "hello, libgit2\n")
+    tb      <- treebuilderNew repo
+    treebuilderInsert tb "hello.txt" blobOid regularFileMode
+    treeOid <- treebuilderWrite tb
+    tree    <- treeLookup repo treeOid
+    cOid    <- commitCreate repo "HEAD" demoSig demoSig "Initial commit\n" tree
     -- read the commit back
-    commit <- inRepo (\r -> commitLookup r cOid)
-    msg    <- liftIO (commitMessage commit)
-    author <- liftIO (commitAuthor commit)
-    liftIO $ do
-      T.putStrLn ("commit  " <> oidToHex cOid)
-      T.putStrLn ("tree    " <> oidToHex treeOid)
-      T.putStrLn ("author  " <> sigName author <> " <" <> sigEmail author <> ">")
-      T.putStr   ("message " <> msg)
+    commit  <- commitLookup repo cOid
+    msg     <- commitMessage commit
+    author  <- commitAuthor commit
+    T.putStrLn ("commit  " <> oidToHex cOid)
+    T.putStrLn ("tree    " <> oidToHex treeOid)
+    T.putStrLn ("author  " <> sigName author <> " <" <> sigEmail author <> ">")
+    T.putStr   ("message " <> msg)

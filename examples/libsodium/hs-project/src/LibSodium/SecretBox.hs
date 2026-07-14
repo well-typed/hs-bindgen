@@ -1,16 +1,13 @@
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 
 -- | Secret-key authenticated encryption (@crypto_secretbox_easy@ /
 -- @crypto_secretbox_open_easy@): one shared key, a per-message nonce, and a MAC
 -- that authenticates the ciphertext.
 --
--- The wrappers show the shape of a libsodium call under the combinators: an
--- explicit 'output' for the ciphertext\/plaintext buffer (@auto@ cannot reach an
--- output buffer), 'HsBindgen.Runtime.HighLevel.input2' for the message and its
--- length, and @input defaultIn@ for the fixed-size key and nonce. 'encrypt' throws
--- on a setup failure; 'open' returns 'Nothing' when authentication fails, since a
--- forged ciphertext is expected input, not an exception.
+-- 'encrypt' throws 'LibSodium.Error.SodiumError' on a setup failure; 'open'
+-- returns 'Nothing' when authentication fails, since a forged ciphertext is
+-- expected input, not an exception.
 module LibSodium.SecretBox
   ( -- * Types
     Key (..)
@@ -36,6 +33,8 @@ import HsBindgen.Runtime.HighLevel (discardResult, input, input2, output,
                                     resultPure, throwOnNonZero, toHighLevel)
 import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
 import HsBindgen.Runtime.HighLevel.Marshaller (at)
+import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
+                                                     constByteStringLenIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 
 import Generated.CryptoSecretbox (crypto_secretbox_KEYBYTES,
@@ -45,7 +44,7 @@ import Generated.CryptoSecretbox.Safe (crypto_secretbox_easy,
                                        crypto_secretbox_keygen,
                                        crypto_secretbox_open_easy)
 import LibSodium.Error (sodiumError)
-import LibSodium.Marshal (byteStringOut, bytesConstIn, bytesLenConstIn)
+import LibSodium.Marshal (bytesConstIn)
 import LibSodium.Random (randomBytes)
 
 -- | Key size in bytes (32), from the generated compile-time constant.
@@ -60,11 +59,14 @@ nonceBytes = fromIntegral crypto_secretbox_NONCEBYTES
 macBytes :: Int
 macBytes = fromIntegral crypto_secretbox_MACBYTES
 
--- | A 32-byte secret key.
+-- | A 32-byte secret key. The 'Key' constructor does not check the length; use
+-- 'mkKey' (or 'newKey') for untrusted input, since C reads a wrong-length key out
+-- of bounds.
 newtype Key = Key { unKey :: ByteString }
   deriving stock (Eq, Show)
 
--- | A 24-byte nonce. Must be unique per message under a given key.
+-- | A 24-byte nonce, unique per message under a given key. Like 'Key', prefer
+-- 'mkNonce' for untrusted input.
 newtype Nonce = Nonce { unNonce :: ByteString }
   deriving stock (Eq, Show)
 
@@ -72,12 +74,10 @@ newtype Nonce = Nonce { unNonce :: ByteString }
 -- defaultIn@ fills the argument with no per-call marshaller. They are /not/
 -- orphans, because this module owns the newtype, unlike libgit2's generated
 -- enums whose instances had to sit in a separate @-Wno-orphans@ module.
-instance DefaultIn Key where
-  type DefInArrow Key lo = PtrConst CUChar -> lo
+instance DefaultIn Key (PtrConst CUChar -> lo) lo where
   defaultIn = at unKey bytesConstIn
 
-instance DefaultIn Nonce where
-  type DefInArrow Nonce lo = PtrConst CUChar -> lo
+instance DefaultIn Nonce (PtrConst CUChar -> lo) lo where
   defaultIn = at unNonce bytesConstIn
 
 -- | Validate a 'ByteString' as a 'Key' (length must be 'keyBytes').
@@ -92,11 +92,7 @@ mkNonce bs
   | BS.length bs == nonceBytes = Just (Nonce bs)
   | otherwise                  = Nothing
 
--- | A fresh random key (@crypto_secretbox_keygen@). A single-output
--- @void@-returning fill: 'output' takes the key buffer and 'discardResult' closes
--- the @void@ return. @crypto_secretbox_keygen@ types its argument as
--- @Ptr (Elem (ConstantArray 32 CUChar))@, which 'byteStringOut' fits because it is
--- polymorphic in the pointer element.
+-- | A fresh random secret key (@crypto_secretbox_keygen@).
 newKey :: IO Key
 newKey =
   Key . fst <$> toHighLevel
@@ -116,7 +112,7 @@ encrypt :: Key -> Nonce -> ByteString -> IO ByteString
 encrypt key nonce message =
   fst <$> toHighLevel
     ( output (byteStringOut (macBytes + BS.length message))  -- c   (out)
-    $ input2 bytesLenConstIn                                 -- m, mlen
+    $ input2 constByteStringLenIn                            -- m, mlen
     $ input  defaultIn                                       -- n   (Nonce)
     $ input  defaultIn                                       -- k   (Key)
     $ throwOnNonZero (sodiumError "crypto_secretbox_easy")
@@ -124,19 +120,13 @@ encrypt key nonce message =
 
 -- | Decrypt and verify @ciphertext@ (@crypto_secretbox_open_easy@). 'Nothing'
 -- when the MAC does not match (a forged or corrupted ciphertext).
---
--- The output buffer is peeked unconditionally and then discarded on failure: the
--- combinators are per-position, so \"only read the output when the status is 0\"
--- is expressed by hand ('resultPure' keeps the raw status, and 'classify' turns
--- it into 'Maybe'). This is the same shape libgit2's status-conditional iterator
--- needed.
 open :: Key -> Nonce -> ByteString -> IO (Maybe ByteString)
 open key nonce ciphertext
   | BS.length ciphertext < macBytes = pure Nothing
   | otherwise =
       classify <$> toHighLevel
         ( output (byteStringOut (BS.length ciphertext - macBytes))  -- m (out)
-        $ input2 bytesLenConstIn                                    -- c, clen
+        $ input2 constByteStringLenIn                               -- c, clen
         $ input  defaultIn                                          -- n
         $ input  defaultIn                                          -- k
         $ resultPure id                                             -- raw status

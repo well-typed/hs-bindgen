@@ -20,25 +20,20 @@ module LibGit2.Commit
 import Data.Int (Int64)
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input, output, resultIO, toHighLevel)
+import HsBindgen.Runtime.HighLevel (input, resultIO, toHighLevel)
 
 import Generated.Commit.FunPtr qualified as CF
 import Generated.Commit.Safe qualified as CS
-import LibGit2.Error (checkStatusResult)
 import LibGit2.Marshal (borrowedOid, borrowedScalar, borrowedText, handleIn,
-                        handleInC, oidInC, outHandle, peekTextConst)
+                        handleInC, newHandle, oidInC, peekTextConst)
 import LibGit2.Signature (peekSignatureConst)
 import LibGit2.Types (Commit, Oid, Repository, Signature)
 
 -- | @git_commit_lookup@: the commit object for @oid@.
 commitLookup :: Repository -> Oid -> IO Commit
 commitLookup repo oid =
-    fst <$> toHighLevel
-      ( output (outHandle CF.git_commit_free)  -- git_commit **out
-      $ input  handleIn                        -- git_repository *repo
-      $ input  oidInC                          -- const git_oid *id
-      $ checkStatusResult
-      ) CS.git_commit_lookup repo oid
+    fst <$> newHandle CF.git_commit_free (input handleIn . input oidInC)
+              CS.git_commit_lookup repo oid
 
 commitAuthor :: Commit -> IO Signature
 commitAuthor = toHighLevel (input handleInC $ resultIO peekSignatureConst) CS.git_commit_author
