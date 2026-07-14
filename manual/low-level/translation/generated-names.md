@@ -59,11 +59,10 @@ data Triple = Triple {
 #### Duplicate record fields
 
 Instead of using a prefix to make field labels globally unique, we can take
-advantage of
-[`DuplicateRecordFields`](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/duplicate_record_fields.html)
-in the generated code. This behaviour can be enabled in the command line client
-using `--omit-field-prefixes`. When using Template Haskell,
-`fieldNamingStrategy` can be configured to be `OmitFieldPrefixes`.
+advantage of [`DuplicateRecordFields`][ghc:guide:duplicate-record-fields] in the
+generated code. This behaviour can be enabled in the command line client using
+`--omit-field-prefixes`. When using Template Haskell, `fieldNamingStrategy` can
+be configured to be `OmitFieldPrefixes`.
 
 For the `struct triple` above, this will result in very short field labels:
 
@@ -202,20 +201,13 @@ which `isAlphaNum` returns `False`. After escaping, this name becomes
 
 > [!NOTE]
 > We could instead _drop_ such invalid characters, but since this could result
-> in name clashes we do not do this by default.
+> in name clashes we avoid dropping characters by default.
 
 > [!NOTE]
 > For this _particular_ example we could generate a better name if we
 > transformed it to [NFC][unicode:nfc] first. Indeed, `gcc` (but not `clang`)
 > will issue a warning that this name is not in NFC.
 > <https://github.com/well-typed/hs-bindgen/issues/560>
-
-> [!NOTE]
-> C _functions_ with names that contain characters that are invalid in Haskell
-> identifiers can currently not be imported, because `ghc` applies Haskell
-> naming rules to C identifiers. This is unlikely to be an issue, but if it is,
-> we'd need to either patch ghc or generate a C wrapper.
-> <https://github.com/well-typed/hs-bindgen/issues/569>
 
 ### Capitalization
 
@@ -308,5 +300,6 @@ newtype Data = Data {
 
 <!-- sources and references -->
 
+[ghc:guide:duplicate-record-fields]: https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/duplicate_record_fields.html
 [hackage:base:isAlphaNum]: https://hackage.haskell.org/package/base/docs/Data-Char.html#v:isAlphaNum
 [unicode:nfc]: https://unicode.org/reports/tr15/
