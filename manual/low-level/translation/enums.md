@@ -267,9 +267,9 @@ We also provide a helper function `showCEnum` for C enums without a specialized
 showCEnum :: forall a. CEnum a => a -> String
 ```
 
-> [!NOTE]
-> It is not yet possible to prevent `hs-bindgen` from generating instances.
-> <https://github.com/well-typed/hs-bindgen/issues/307>
+It is also possible to prevent `hs-bindgen` from generating instances, as
+described in the [Binding Specifications][manual:binding-specifications]
+manual section.
 
 ## Read instance
 
@@ -326,9 +326,9 @@ instance:
 readEitherCEnum :: forall a. CEnum a => String -> a
 ```
 
-> [!NOTE]
-> It is not yet possible to prevent `hs-bindgen` from generating instances.
-> <https://github.com/well-typed/hs-bindgen/issues/307>
+It is also possible to prevent `hs-bindgen` from generating instances, as
+described in the [Binding Specifications][manual:binding-specifications]
+manual section.
 
 ## Deriving-via support
 
@@ -451,4 +451,5 @@ confusion rather than less.
 [hackage:base:Text.Read]: https://hackage.haskell.org/package/base/docs/Text-Read.html#t:Read
 [libclang]: https://clang.llvm.org/doxygen/group__CINDEX.html
 [libclang:CXCursor]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+[manual:binding-specifications]: ../usage/binding-specifications.md
 [manual:introduction]: ../introduction.md

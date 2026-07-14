@@ -201,20 +201,13 @@ which `isAlphaNum` returns `False`. After escaping, this name becomes
 
 > [!NOTE]
 > We could instead _drop_ such invalid characters, but since this could result
-> in name clashes we do not do this by default.
+> in name clashes we avoid dropping characters by default.
 
 > [!NOTE]
 > For this _particular_ example we could generate a better name if we
 > transformed it to [NFC][unicode:nfc] first. Indeed, `gcc` (but not `clang`)
 > will issue a warning that this name is not in NFC.
 > <https://github.com/well-typed/hs-bindgen/issues/560>
-
-> [!NOTE]
-> C _functions_ with names that contain characters that are invalid in Haskell
-> identifiers can currently not be imported, because `ghc` applies Haskell
-> naming rules to C identifiers. This is unlikely to be an issue, but if it is,
-> we'd need to either patch ghc or generate a C wrapper.
-> <https://github.com/well-typed/hs-bindgen/issues/569>
 
 ### Capitalization
 
