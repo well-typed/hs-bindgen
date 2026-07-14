@@ -1,11 +1,6 @@
--- | The revision walker: a stateful libgit2 iterator.
---
--- @git_revwalk_next@ is the interesting case for the combinators: its @git_oid@
--- out-parameter is only valid when the status is @0@, and the terminating
--- @GIT_ITEROVER@ is NOT an error. So the output is peeked unconditionally and
--- the status kept raw ('resultPure' 'id'), then classified by hand into 'Maybe'.
--- The /looping/ ('revwalkToList') is plain Haskell: the per-call combinators
--- cannot express iteration.
+-- | The revision walker: a stateful libgit2 iterator. Create one with
+-- 'revwalkNew', seed it ('revwalkPushHead', 'revwalkSortTime'), then pull commits
+-- with 'revwalkNext' or drain the whole walk with 'revwalkToList'.
 --
 module LibGit2.Revwalk
   ( revwalkNew
@@ -24,17 +19,13 @@ import HsBindgen.Runtime.HighLevel.Marshaller (scalar)
 import Generated.Revwalk.FunPtr qualified as WF
 import Generated.Revwalk.Safe qualified as WS
 import LibGit2.Error (checkStatusResult, gitError)
-import LibGit2.Marshal (handleIn, oidOut, outHandle)
+import LibGit2.Marshal (handleIn, newHandle, oidOut)
 import LibGit2.Types (Oid, Repository, Revwalk)
 
 -- | @git_revwalk_new@: a fresh walker over @repo@.
 revwalkNew :: Repository -> IO Revwalk
 revwalkNew repo =
-    fst <$> toHighLevel
-      ( output (outHandle WF.git_revwalk_free)
-      $ input  handleIn
-      $ checkStatusResult
-      ) WS.git_revwalk_new repo
+    fst <$> newHandle WF.git_revwalk_free (input handleIn) WS.git_revwalk_new repo
 
 -- | @git_revwalk_push_head@: start the walk at @HEAD@.
 revwalkPushHead :: Revwalk -> IO ()

@@ -18,6 +18,13 @@ set -o pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/../.." && pwd )"
 
+# libsodium, pinned to a release tag so the example is reproducible. We fetch it
+# on demand rather than as a git submodule: a submodule is cloned by cabal for
+# every project that depends on hs-bindgen via source-repository-package, even
+# though only hs-bindgen-runtime is needed.
+LIBSODIUM_REPO="https://github.com/jedisct1/libsodium"
+LIBSODIUM_TAG="1.0.22-RELEASE"
+
 SRC="$SCRIPT_DIR/libsodium"
 PREFIX="$SRC/build-prefix"
 INCLUDE_DIR="$PREFIX/include"
@@ -36,12 +43,18 @@ SKIP=""
 camel() { echo "${1%.h}" | sed -E 's/(^|_)([a-z])/\U\2/g'; }
 
 # -----------------------------------------------------------------------------
-# 0. Prerequisites: submodule checked out, libsodium built and installed.
+# 0. Prerequisites: pinned source fetched, libsodium built and installed.
 # -----------------------------------------------------------------------------
-if [ ! -f "$SRC/autogen.sh" ]; then
-  echo "libsodium submodule missing; run: git submodule update --init $SRC" >&2
-  exit 1
+# -e (not -d): a prior submodule checkout leaves .git as a gitlink file, which is
+# still a usable clone, so only clone when nothing is there.
+if [ ! -e "$SRC/.git" ]; then
+  # --filter=blob:none keeps the download small (blobs are fetched on demand)
+  # while still allowing checkout of the pinned tag; a shallow clone could not
+  # check out an arbitrary older tag.
+  git clone --filter=blob:none "$LIBSODIUM_REPO" "$SRC" || exit 1
 fi
+git -C "$SRC" checkout --quiet "$LIBSODIUM_TAG" || exit 1
+
 if ! ls "$LIB_DIR"/libsodium.so* >/dev/null 2>&1; then
   echo "==> libsodium not built yet; building it"
   "$SCRIPT_DIR/build-libsodium.sh" || exit 1

@@ -104,7 +104,7 @@ oidToHex (Oid g) =
   where
     hexByte :: Word8 -> String
     hexByte w =
-      let s = showHex (fromIntegral w :: Word8) ""
+      let s = showHex w ""
        in if length s == 1 then '0' : s else s
 
 -- | Abbreviated hex, @n@ characters (like @git log --abbrev@).

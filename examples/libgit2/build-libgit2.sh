@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build a dependency-light libgit2 from the vendored submodule.
+# Build a dependency-light libgit2 from the fetched source tree.
 #
 # cmake and a C toolchain are pulled from nixpkgs (this repo is a Nix flake and
 # the hs-bindgen dev shell does not ship cmake), so no system packages are
@@ -15,8 +15,7 @@ SRC="$SCRIPT_DIR/libgit2"
 BUILD="$SRC/build"
 
 if [ ! -f "$SRC/CMakeLists.txt" ]; then
-  echo "libgit2 submodule missing; run:" >&2
-  echo "  git submodule update --init $SRC" >&2
+  echo "libgit2 source missing; run ./generate-and-run.sh (it fetches the pinned source)" >&2
   exit 1
 fi
 

@@ -14,14 +14,13 @@ script, so nothing else needs to be installed.
 ## Run the example
 
 ```bash
-git submodule update --init examples/libsodium/libsodium
 cd examples/libsodium
 ./generate-and-run.sh
 ```
 
 This script will:
 
-1. Build `libsodium` from source
+1. Fetch `libsodium` (pinned to `1.0.22-RELEASE`) and build it from source
 2. Generate Haskell bindings using `hs-bindgen` (in topological header order)
 3. Create `cabal.project.local`
 4. Build the high-level library and the demo programs
