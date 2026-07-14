@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 -- | Reusable marshallers that plug into the @ToHighLevel@ combinators for the
@@ -5,15 +6,16 @@
 -- @T *@ / @const T *@ arguments, by-value @git_oid@ in and out, borrowed C
 -- strings, byte buffers, and structs passed as @const@ pointers.
 --
--- The "Proposed combinators" section at the end (`asConstArg`, `asMutableArg`,
--- `fixed`) are candidates for the runtime itself; FINDINGS.md explains why. They
--- are written here so the example can use them today.
+-- 'newHandle' captures the one shape every constructor shares: a @git_X **out@
+-- slot freed by the handle's @git_X_free@, the caller's inputs, and the libgit2
+-- status check.
 --
 module LibGit2.Marshal
   ( -- * Handles
     handleIn
   , handleInC
   , outHandle
+  , newHandle
     -- * Object ids
   , oidIn
   , oidInC
@@ -32,10 +34,6 @@ module LibGit2.Marshal
     -- * Structs and constants
   , asArgumentC
   , nullConst
-    -- * Proposed combinators (candidates for hs-bindgen-runtime)
-  , asConstArg
-  , asMutableArg
-  , fixed
   ) where
 
 import Data.ByteString (ByteString)
@@ -43,26 +41,27 @@ import Data.ByteString.Unsafe qualified as BSU
 import Data.Text (Text)
 import Data.Text qualified as T
 import Foreign.C.String (peekCString, withCString)
-import Foreign.C.Types (CChar, CSize)
+import Foreign.C.Types (CChar, CInt, CSize)
 import Foreign.ForeignPtr (FinalizerPtr, newForeignPtr)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Marshal.Utils (with)
 import Foreign.Ptr (Ptr, castPtr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, input, resultIO, resultPure,
-                                    scratch, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Internal.Threading (ThreadIn)
+import HsBindgen.Runtime.HighLevel (ToHighLevel, asArgument, input, output,
+                                    resultIO, resultPure, toHighLevel)
+import HsBindgen.Runtime.HighLevel.Internal.Threading (ThreadOut)
 import HsBindgen.Runtime.HighLevel.Marshaller (Marshal (..), MarshalStruct,
-                                               Unmarshaller, at, bracket,
-                                               unmarshalOut, unmarshalOutWith,
-                                               withStruct)
+                                               Unmarshaller, asConstArg, at,
+                                               bracket, unmarshalOut,
+                                               unmarshalOutWith)
 import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringIn)
 import HsBindgen.Runtime.Marshal (StaticSize, WriteRaw)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Generated.Oid (Git_oid)
+import LibGit2.Error (checkStatusResult)
 import LibGit2.Types (Handle (..), Oid (..), withHandle)
 
 {-------------------------------------------------------------------------------
@@ -74,9 +73,9 @@ import LibGit2.Types (Handle (..), Oid (..), withHandle)
 handleIn :: Handle h => Marshal h (Ptr (CRep h) -> lo) lo
 handleIn = bracket withHandle
 
--- | Pass a handle as a @const T *@ argument. This is just 'handleIn' with its
--- pointer retagged @const@ by 'asConstArg' (see below): one marshaller, two C
--- argument shapes.
+-- | Pass a handle as a @const T *@ argument. This is 'handleIn' with its pointer
+-- retagged @const@ by the runtime's 'asConstArg': one marshaller, two C argument
+-- shapes.
 handleInC :: Handle h => Marshal h (PtrConst (CRep h) -> lo) lo
 handleInC = asConstArg handleIn
 
@@ -90,6 +89,22 @@ outHandle
 outHandle fin = unmarshalOutWith alloca $ \pp -> do
   p <- peek pp
   fromFP <$> newForeignPtr fin p
+
+-- | Build a managed-handle constructor. @newHandle fin inputs cfn@ fills the
+-- @git_X **out@ slot (freed by @fin@), applies the caller's @inputs@ chain, and
+-- checks the libgit2 status. The result carries a trailing @()@ from the status
+-- check, dropped at the call site with @fst@:
+--
+-- > repositoryOpen path =
+-- >   fst <$> newHandle git_repository_free (input textIn) git_repository_open path
+newHandle
+  :: (Handle h, ThreadOut (Ptr (Ptr (CRep h))) h hi hi')
+  => FinalizerPtr (CRep h)
+  -> (ToHighLevel (IO CInt) (IO ()) -> ToHighLevel lo hi)
+  -> (Ptr (Ptr (CRep h)) -> lo)
+  -> hi'
+newHandle fin inputs cfn =
+  toHighLevel (output (outHandle fin) (inputs checkStatusResult)) cfn
 
 {-------------------------------------------------------------------------------
   Object ids
@@ -124,10 +139,13 @@ textIn = at T.unpack withCStringIn
 textInPtr :: Marshal Text (Ptr CChar -> lo) lo
 textInPtr = bracket (\t k -> withCString (T.unpack t) k)
 
--- | Marshal a 'ByteString' as a @(const void *, size_t)@ pair. The pointee is
--- left polymorphic so it unifies with @void@ at the call site. Uses
--- 'BSU.unsafeUseAsCStringLen' (no copy): the C callee takes an explicit length
--- and does not retain the pointer.
+-- | Marshal a 'ByteString' as a @(const void *, size_t)@ pair (the pointee is
+-- left polymorphic so it unifies with @void@ at the call site). The zero-copy
+-- counterpart of the runtime's @constByteStringLenIn@: 'BSU.unsafeUseAsCStringLen'
+-- passes the buffer without copying, so it is not NUL-terminated and is valid
+-- only during the call and only alongside the length (an empty input may alias a
+-- shared buffer). Safe here because the callee honours the length and does not
+-- retain the pointer.
 bufferIn :: Marshal ByteString (PtrConst void -> CSize -> lo) lo
 bufferIn = Marshal $ \bs lo k ->
   BSU.unsafeUseAsCStringLen bs $ \(p, n) ->
@@ -146,9 +164,8 @@ peekText p
 {-------------------------------------------------------------------------------
   Borrowed-pointer accessors
 
-  Several wrappers share the exact same spec: take a handle as @const T *@, call
-  an accessor that returns a borrowed pointer, copy it out. These name that shape
-  once so each accessor is a single application.
+  Take a handle as @const T *@, call an accessor that returns a borrowed pointer,
+  and copy it out.
 -------------------------------------------------------------------------------}
 
 -- | A @const T *@ accessor returning a borrowed @const char *@, copied to 'Text'.
@@ -167,41 +184,14 @@ borrowedScalar = toHighLevel (input handleInC $ resultPure fromIntegral)
   Structs and constants
 -------------------------------------------------------------------------------}
 
--- | Drop a 'MarshalStruct' into a @const T *@ argument position (the @const@
--- counterpart of the runtime's @asArgument@, which only fills a non-@const@ @Ptr@).
+-- | Drop a 'MarshalStruct' into a @const T *@ argument position: the runtime's
+-- 'asArgument' fills a non-@const@ @Ptr@, then 'asConstArg' retags it @const@.
 asArgumentC
   :: (StaticSize s, WriteRaw s)
   => MarshalStruct hi s
   -> Marshal hi (PtrConst s -> lo) lo
-asArgumentC sm = Marshal $ \hi lo k -> withStruct sm hi (\p -> k (lo (PtrConst.unsafeFromPtr p)))
+asArgumentC = asConstArg . asArgument
 
 -- | A NULL @const@ pointer, for optional/absent C arguments.
 nullConst :: PtrConst a
 nullConst = PtrConst.unsafeFromPtr nullPtr
-
-{-------------------------------------------------------------------------------
-  Proposed combinators (candidates for hs-bindgen-runtime)
--------------------------------------------------------------------------------}
-
--- | Retag a marshaller that fills a @Ptr a@ argument so it fills a @PtrConst a@
--- argument instead. @PtrConst@ is a newtype over @Ptr@, so this is a coercion at
--- the boundary: one marshaller serves both C argument shapes, instead of two
--- near-identical definitions. (@handleInC = asConstArg handleIn@.)
---
--- The direction matters: @asConstArg@ (mutable -> const) is always safe, because a
--- @const T *@ promises /less/ access. The reverse, 'asMutableArg', is the unsafe
--- direction (it claims write access to something declared read-only); fine for a
--- handle whose object you own, used with care.
-asConstArg :: Marshal e (Ptr a -> lo) lo -> Marshal e (PtrConst a -> lo) lo
-asConstArg (Marshal m) = Marshal $ \e loC k -> m e (loC . PtrConst.unsafeFromPtr) k
-
--- | The reverse of 'asConstArg': fill a @Ptr a@ argument from a @PtrConst a@
--- marshaller (the unsafe direction; see 'asConstArg').
-asMutableArg :: Marshal e (PtrConst a -> lo) lo -> Marshal e (Ptr a -> lo) lo
-asMutableArg (Marshal m) = Marshal $ \e lo k -> m e (lo . PtrConst.unsafeToPtr) k
-
--- | Supply a fixed C argument the Haskell caller never sets (a NULL pointer, a
--- zero count, an @is_bare@ flag). This is 'scratch' specialised to a constant;
--- it adds no wrapper argument. See FINDINGS.md on the name.
-fixed :: ThreadIn lo hi => c -> ToHighLevel lo hi -> ToHighLevel (c -> lo) hi
-fixed c = scratch (\k -> k c)

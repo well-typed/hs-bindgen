@@ -13,7 +13,7 @@ module LibGit2.Signature
   , sigMarshal
   ) where
 
-import Foreign.C.Types (CChar)
+import Foreign.C.String (castCharToCChar)
 import Foreign.Storable (peek)
 
 import HsBindgen.Runtime.HighLevel.Marshaller (MarshalStruct, UnmarshalStruct,
@@ -62,10 +62,8 @@ timeMarshal =
         >>> scalar signChar                            -- sign
       )
   where
-    signChar gt = if gitTimeOffsetMin gt < 0 then minus else plus
-    plus, minus :: CChar
-    plus  = 43  -- '+'
-    minus = 45  -- '-'
+    signChar gt =
+      if gitTimeOffsetMin gt < 0 then castCharToCChar '-' else castCharToCChar '+'
 
 sigMarshal :: MarshalStruct Signature Git_signature
 sigMarshal =

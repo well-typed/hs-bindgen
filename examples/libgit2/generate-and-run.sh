@@ -18,6 +18,13 @@ set -o pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/../.." && pwd )"
 
+# libgit2, pinned to a release tag so the example is reproducible. We fetch it on
+# demand rather than as a git submodule: a submodule is cloned by cabal for every
+# project that depends on hs-bindgen via source-repository-package, even though
+# only hs-bindgen-runtime is needed.
+LIBGIT2_REPO="https://github.com/libgit2/libgit2"
+LIBGIT2_TAG="v1.9.0"
+
 LIBGIT2_DIR="$SCRIPT_DIR/libgit2"
 INCLUDE_DIR="$LIBGIT2_DIR/include"
 LIB_DIR="$LIBGIT2_DIR/build"
@@ -37,12 +44,18 @@ SKIP="deprecated.h experimental.h stdint.h cred_helpers.h"
 camel() { echo "${1%.h}" | sed -E 's/(^|_)([a-z])/\U\2/g'; }
 
 # -----------------------------------------------------------------------------
-# 0. Prerequisites: submodule checked out, libgit2 built.
+# 0. Prerequisites: pinned source fetched, libgit2 built.
 # -----------------------------------------------------------------------------
-if [ ! -f "$INCLUDE_DIR/git2.h" ]; then
-  echo "libgit2 submodule missing; run: git submodule update --init $LIBGIT2_DIR" >&2
-  exit 1
+# -e (not -d): a prior submodule checkout leaves .git as a gitlink file, which is
+# still a usable clone, so only clone when nothing is there.
+if [ ! -e "$LIBGIT2_DIR/.git" ]; then
+  # --filter=blob:none keeps the download small (blobs are fetched on demand)
+  # while still allowing checkout of the pinned tag; a shallow clone could not
+  # check out an arbitrary older tag.
+  git clone --filter=blob:none "$LIBGIT2_REPO" "$LIBGIT2_DIR" || exit 1
 fi
+git -C "$LIBGIT2_DIR" checkout --quiet "$LIBGIT2_TAG" || exit 1
+
 if ! ls "$LIB_DIR"/libgit2.so* >/dev/null 2>&1; then
   echo "==> libgit2 not built yet; building it"
   "$SCRIPT_DIR/build-libgit2.sh" || exit 1

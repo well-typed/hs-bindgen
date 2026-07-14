@@ -1,9 +1,8 @@
 -- | Ed25519 signatures, high-level.
 --
--- The same program as "SignLow" (identical output), written against
--- "LibSodium.Sign". Keypair generation, detached sign/verify, and the multipart
--- streaming path are each a single call; contrast the manual state threading in
--- the low-level version.
+-- The same program as "SignLow" (identical output). The deterministic core is the
+-- pure 'signDemo' (built on "LibSodium.Pure"); only the random 'keypair' stays in
+-- 'IO'. Contrast the manual state threading in the low-level version.
 module Main (main) where
 
 import Data.Bits (xor)
@@ -12,40 +11,63 @@ import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BSC
 
 import LibSodium
+import LibSodium.Pure qualified as Pure
 import Numeric (showHex)
 
 main :: IO ()
-main = withSodium $ do
+main = do
+  sodiumInit
   (maj, mn) <- libraryVersion
   putStrLn $ "libsodium " ++ show maj ++ "." ++ show mn
 
-  let seed    = Seed (BS.pack [0 .. 31])
-      chunks  = map BSC.pack ["The quick brown fox ", "jumps over ", "the lazy dog"]
-      message = BS.concat chunks
-
-  (pk, sk) <- seedKeypair seed
-  sig      <- signDetached sk message
+  let seed   = Seed (BS.pack [0 .. 31])
+      chunks = map BSC.pack ["The quick brown fox ", "jumps over ", "the lazy dog"]
+      demo   = signDemo seed chunks
   putStrLn $ "seed:        " ++ toHex (unSeed seed)
-  putStrLn $ "public key:  " ++ toHex (unPublicKey pk)
-  putStrLn $ "secret key:  " ++ toHex (unSecretKey sk)
-  putStrLn $ "signature:   " ++ toHex (unSignature sig)
-
-  good <- verifyDetached pk sig message
-  putStrLn $ "verify:      " ++ if good then "ok" else "FAILED"
-  bad <- verifyDetached pk sig (flipFirst message)
-  putStrLn $ "verify bad:  " ++ if bad then "ACCEPTED" else "rejected"
-
-  msig <- signMultipart sk chunks
-  putStrLn $ "multipart sig:    " ++ toHex (unSignature msig)
-  mGood <- verifyMultipart pk msig chunks
-  putStrLn $ "multipart verify: " ++ if mGood then "ok" else "FAILED"
-  mBad <- verifyMultipart pk msig (tamper chunks)
-  putStrLn $ "multipart bad:    " ++ if mBad then "ACCEPTED" else "rejected"
+  putStrLn $ "public key:  " ++ toHex (unPublicKey (publicKey demo))
+  putStrLn $ "secret key:  " ++ toHex (unSecretKey (secretKey demo))
+  putStrLn $ "signature:   " ++ toHex (unSignature (signature demo))
+  putStrLn $ "verify:      " ++ if verifyGood demo then "ok" else "FAILED"
+  putStrLn $ "verify bad:  " ++ if verifyBad demo then "ACCEPTED" else "rejected"
+  putStrLn $ "multipart sig:    " ++ toHex (unSignature (multipartSig demo))
+  putStrLn $ "multipart verify: " ++ if multipartGood demo then "ok" else "FAILED"
+  putStrLn $ "multipart bad:    " ++ if multipartBad demo then "ACCEPTED" else "rejected"
 
   (rpk, rsk) <- keypair
   putStrLn $ "random keypair:   "
              ++ show (BS.length (unPublicKey rpk)) ++ " + "
              ++ show (BS.length (unSecretKey rsk)) ++ " bytes"
+
+-- | The deterministic core: derive a keypair from @seed@, sign @chunks@ one-shot
+-- and multipart, and verify each against the genuine and a tampered message.
+-- Pure, so its type has no 'IO'.
+data SignDemo = SignDemo
+  { publicKey     :: PublicKey
+  , secretKey     :: SecretKey
+  , signature     :: Signature
+  , verifyGood    :: Bool
+  , verifyBad     :: Bool
+  , multipartSig  :: Signature
+  , multipartGood :: Bool
+  , multipartBad  :: Bool
+  }
+
+signDemo :: Seed -> [ByteString] -> SignDemo
+signDemo seed chunks = SignDemo
+    { publicKey     = pk
+    , secretKey     = sk
+    , signature     = sig
+    , verifyGood    = Pure.verifyDetached pk sig message
+    , verifyBad     = Pure.verifyDetached pk sig (flipFirst message)
+    , multipartSig  = msig
+    , multipartGood = Pure.verifyMultipart pk msig chunks
+    , multipartBad  = Pure.verifyMultipart pk msig (tamper chunks)
+    }
+  where
+    (pk, sk) = Pure.seedKeypair seed
+    sig      = Pure.signDetached sk message
+    msig     = Pure.signMultipart sk chunks
+    message  = BS.concat chunks
 
 toHex :: ByteString -> String
 toHex = concatMap byte . BS.unpack

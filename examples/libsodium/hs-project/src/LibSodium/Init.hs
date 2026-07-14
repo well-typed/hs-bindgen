@@ -1,7 +1,6 @@
--- | The libsodium lifecycle.
+-- | Initialising libsodium, and querying its version.
 module LibSodium.Init
   ( sodiumInit
-  , withSodium
   , libraryVersion
   ) where
 
@@ -24,10 +23,6 @@ sodiumInit :: IO ()
 sodiumInit = do
   r <- sodium_init
   when (r < 0) $ throwIO (SodiumError "sodium_init" (fromIntegral r))
-
--- | 'sodiumInit', then run the action.
-withSodium :: IO a -> IO a
-withSodium act = sodiumInit *> act
 
 -- | The runtime library version, @(major, minor)@. Both getters are pure @int@
 -- returns, so @auto@ lifts them end to end with no marshaller: this is the one

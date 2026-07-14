@@ -14,14 +14,13 @@ script, so nothing else needs to be installed.
 ## Run the example
 
 ```bash
-git submodule update --init examples/libgit2/libgit2
 cd examples/libgit2
 ./generate-and-run.sh
 ```
 
 This script will:
 
-1. Build `libgit2` from source
+1. Fetch `libgit2` (pinned to `v1.9.0`) and build it from source
 2. Generate Haskell bindings using `hs-bindgen` (in topological header order)
 3. Create `cabal.project.local`
 4. Build the high-level library and the demo programs

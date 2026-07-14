@@ -6,7 +6,9 @@
 -- authenticated encryption ("LibSodium.SecretBox") and Ed25519 signatures
 -- ("LibSodium.Sign"); the write-up is in @FINDINGS.md@.
 --
--- Start with 'LibSodium.Init.withSodium', which initialises the library.
+-- Start with 'LibSodium.Init.sodiumInit', which initialises the library. Pure
+-- views of the deterministic operations are in "LibSodium.Pure" (import
+-- qualified).
 module LibSodium
   ( module LibSodium.Init
   , module LibSodium.Error

@@ -38,6 +38,7 @@ library
     LibSodium.Error
     LibSodium.Init
     LibSodium.Marshal
+    LibSodium.Pure
     LibSodium.Random
     LibSodium.SecretBox
     LibSodium.Sign

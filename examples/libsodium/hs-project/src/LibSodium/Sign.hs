@@ -1,19 +1,9 @@
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 
--- | Ed25519 public-key signatures.
---
--- Three combinator shapes appear here that secretbox does not have:
---
---   * 'keypair' \/ 'seedKeypair' write /two/ output buffers (public and secret
---     key), so two 'output's stack before the closer.
---   * 'signDetached' has an out-length pointer (@siglen_p@): a scalar 'output'
---     that /does/ have a default marshaller ('unmarshalOutPure'), unlike the
---     byte-buffer output.
---   * the multipart path ('signMultipart' \/ 'verifyMultipart') threads an opaque
---     @crypto_sign_state@ through @init@\/@update@\/@final@. The combinators are
---     per-call, so the sequencing is plain hand-written Haskell (the analogue of
---     libgit2's stateful iterator).
+-- | Ed25519 public-key signatures: one-shot ('signDetached' \/ 'verifyDetached'),
+-- streaming over message chunks ('signMultipart' \/ 'verifyMultipart'), and key
+-- generation ('keypair' random, 'seedKeypair' deterministic from a seed).
 module LibSodium.Sign
   ( -- * Types
     PublicKey (..)
@@ -42,10 +32,12 @@ import Foreign.C.Types (CUChar)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Ptr (Ptr)
 
-import HsBindgen.Runtime.HighLevel (input, input2, output, resultPure,
+import HsBindgen.Runtime.HighLevel (fixed, input, input2, output, resultPure,
                                     throwOnNonZero, toHighLevel)
 import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
 import HsBindgen.Runtime.HighLevel.Marshaller (at, unmarshalOutPure)
+import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
+                                                     constByteStringLenIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 
 import Generated.CryptoSign (Crypto_sign_state, crypto_sign_BYTES,
@@ -58,7 +50,7 @@ import Generated.CryptoSign.Safe (crypto_sign_detached,
                                   crypto_sign_update,
                                   crypto_sign_verify_detached)
 import LibSodium.Error (sodiumError)
-import LibSodium.Marshal (byteStringOut, bytesConstIn, bytesLenConstIn, fixed)
+import LibSodium.Marshal (bytesConstIn)
 
 -- | Public-key size in bytes (32).
 publicKeyBytes :: Int
@@ -92,45 +84,45 @@ newtype Signature = Signature { unSignature :: ByteString }
 newtype Seed = Seed { unSeed :: ByteString }
   deriving stock (Eq, Show)
 
-instance DefaultIn PublicKey where
-  type DefInArrow PublicKey lo = PtrConst CUChar -> lo
+instance DefaultIn PublicKey (PtrConst CUChar -> lo) lo where
   defaultIn = at unPublicKey bytesConstIn
 
-instance DefaultIn SecretKey where
-  type DefInArrow SecretKey lo = PtrConst CUChar -> lo
+instance DefaultIn SecretKey (PtrConst CUChar -> lo) lo where
   defaultIn = at unSecretKey bytesConstIn
 
-instance DefaultIn Signature where
-  type DefInArrow Signature lo = PtrConst CUChar -> lo
+instance DefaultIn Signature (PtrConst CUChar -> lo) lo where
   defaultIn = at unSignature bytesConstIn
 
-instance DefaultIn Seed where
-  type DefInArrow Seed lo = PtrConst CUChar -> lo
+instance DefaultIn Seed (PtrConst CUChar -> lo) lo where
   defaultIn = at unSeed bytesConstIn
+
+-- | Wrap the @(public, secret)@ output pair, dropping the trailing status @()@.
+mkKeypair :: (ByteString, ByteString, ()) -> (PublicKey, SecretKey)
+mkKeypair (pk, sk, ()) = (PublicKey pk, SecretKey sk)
+
+-- | Trim the signature buffer to its out-length, dropping the trailing status @()@.
+mkSignature :: (ByteString, Int, ()) -> Signature
+mkSignature (sig, siglen, ()) = Signature (BS.take siglen sig)
 
 -- | A fresh random keypair (@crypto_sign_keypair@). Two output buffers, one
 -- status.
 keypair :: IO (PublicKey, SecretKey)
 keypair =
-  drop3 <$> toHighLevel
+  mkKeypair <$> toHighLevel
     ( output (byteStringOut publicKeyBytes)  -- pk
     $ output (byteStringOut secretKeyBytes)  -- sk
     $ throwOnNonZero (sodiumError "crypto_sign_keypair")
     ) crypto_sign_keypair
-  where
-    drop3 (pk, sk, ()) = (PublicKey pk, SecretKey sk)
 
 -- | A deterministic keypair from a 32-byte @seed@ (@crypto_sign_seed_keypair@).
 seedKeypair :: Seed -> IO (PublicKey, SecretKey)
 seedKeypair seed =
-  drop3 <$> toHighLevel
+  mkKeypair <$> toHighLevel
     ( output (byteStringOut publicKeyBytes)  -- pk
     $ output (byteStringOut secretKeyBytes)  -- sk
     $ input  defaultIn                       -- seed
     $ throwOnNonZero (sodiumError "crypto_sign_seed_keypair")
     ) crypto_sign_seed_keypair seed
-  where
-    drop3 (pk, sk, ()) = (PublicKey pk, SecretKey sk)
 
 -- | Sign @message@ with @secretKey@, producing a detached 'Signature'
 -- (@crypto_sign_detached@). The @siglen_p@ out-length is peeked with the scalar
@@ -138,15 +130,13 @@ seedKeypair seed =
 -- 'signatureBytes' for Ed25519).
 signDetached :: SecretKey -> ByteString -> IO Signature
 signDetached secretKey message =
-  mkSig <$> toHighLevel
+  mkSignature <$> toHighLevel
     ( output (byteStringOut signatureBytes)   -- sig
     $ output (unmarshalOutPure fromIntegral)  -- siglen_p -> Int
-    $ input2 bytesLenConstIn                  -- m, mlen
+    $ input2 constByteStringLenIn                  -- m, mlen
     $ input  defaultIn                        -- sk
     $ throwOnNonZero (sodiumError "crypto_sign_detached")
     ) crypto_sign_detached message secretKey
-  where
-    mkSig (sig, siglen, ()) = Signature (BS.take siglen sig)
 
 -- | Verify a detached signature (@crypto_sign_verify_detached@). 'False' when the
 -- signature does not match (expected control flow, so no exception). All inputs,
@@ -156,7 +146,7 @@ verifyDetached :: PublicKey -> Signature -> ByteString -> IO Bool
 verifyDetached publicKey signature message =
   classify <$> toHighLevel
     ( input  defaultIn        -- sig
-    $ input2 bytesLenConstIn  -- m, mlen
+    $ input2 constByteStringLenIn  -- m, mlen
     $ input  defaultIn        -- pk
     $ resultPure id           -- raw status
     ) crypto_sign_verify_detached signature message publicKey
@@ -176,15 +166,13 @@ signMultipart :: SecretKey -> [ByteString] -> IO Signature
 signMultipart secretKey chunks =
   alloca $ \st -> do
     initState st chunks
-    mkSig <$> toHighLevel
+    mkSignature <$> toHighLevel
       ( fixed  st                               -- crypto_sign_state *state
       $ output (byteStringOut signatureBytes)   -- sig
       $ output (unmarshalOutPure fromIntegral)  -- siglen_p -> Int
       $ input  defaultIn                        -- sk
       $ throwOnNonZero (sodiumError "crypto_sign_final_create")
       ) crypto_sign_final_create secretKey
-  where
-    mkSig (sig, siglen, ()) = Signature (BS.take siglen sig)
 
 -- | Verify a multipart signature (@crypto_sign_final_verify@). 'False' on a
 -- mismatch.
@@ -211,6 +199,6 @@ initState st chunks = do
   forM_ chunks $ \c ->
     toHighLevel
       ( fixed  st                -- state
-      $ input2 bytesLenConstIn   -- m, mlen
+      $ input2 constByteStringLenIn   -- m, mlen
       $ throwOnNonZero (sodiumError "crypto_sign_update")
       ) crypto_sign_update c
