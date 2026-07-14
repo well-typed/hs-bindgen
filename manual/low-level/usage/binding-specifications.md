@@ -920,7 +920,7 @@ Instances are specified as follows:
           - omit: Show
     ```
 
-* (*not implemented yet*)
+* (*not implemented yet, see [issue #1766][issue:1766]*)
   Instances are derived/generated using the following strategies:
 
     * `hs-bindgen` indicates that `hs-bindgen` determines how to derive or
@@ -944,7 +944,7 @@ Instances are specified as follows:
             strategy: newtype
     ```
 
-* (*not implemented yet*)
+* (*not implemented yet, see [issue #648][issue:648]*)
   In some cases, one needs to define an instance by hand.  That cannot be done
   if the instance is derived/generated.  One can omit the instance, but then
   other instances that depend on the instance are not derived/generated, leading
@@ -989,6 +989,8 @@ types that use the external bindings.
 
 <!-- sources and references -->
 
+[issue:1776]: https://github.com/well-typed/hs-bindgen/issues/1766
+[issue:648]: https://github.com/well-typed/hs-bindgen/issues/648
 [manual:c-names]: ../c-names.md
 [source:game_internal.h]: ../../c/game_internal.h
 [source:game_player.h]: ../../c/game_player.h
