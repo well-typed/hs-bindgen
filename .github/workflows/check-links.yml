@@ -23,15 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Initialise git submodules so that links into submodules can be checked.
-      # Because we are only interested in checking links defined in our own
-      # documentation, we use the exclude_path key in the lychee.toml file to
-      # make sure that we do not check links defined *inside* the submodules,
-      - name: Initialise git submodules
-        run: |
-          git submodule init
-          git submodule update
-
       # NOTE: if lychee-action runs too slowly in the future, then we can use
       # caching to improve performance. A tutorial for configuring the cache can
       # be found in the lychee-action README:
