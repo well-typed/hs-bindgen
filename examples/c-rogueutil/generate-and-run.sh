@@ -6,12 +6,12 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-# rogueutil library, pinned so the example is reproducible. We fetch it on
-# demand rather than as a git submodule: a submodule is cloned by cabal for
-# every project that depends on hs-bindgen via source-repository-package, even
-# though only hs-bindgen-runtime is needed.
+# rogueutil library, pinned to a release tag so the example is reproducible. We
+# fetch it on demand rather than as a git submodule: a submodule is cloned by
+# cabal for every project that depends on hs-bindgen via
+# source-repository-package, even though only hs-bindgen-runtime is needed.
 ROGUEUTIL_REPO="https://github.com/sakhmatd/rogueutil.git"
-ROGUEUTIL_COMMIT="bbbc1ef73e9df6d22a3459f92f7e16bd8be535f5"
+ROGUEUTIL_TAG="v1.0"
 
 echo "# "
 echo "# Building rogueutil C bindings"
@@ -19,11 +19,11 @@ echo "# "
 
 if [ ! -d "$SCRIPT_DIR/rogueutil/.git" ]; then
     # --filter=blob:none keeps the download small (blobs are fetched on demand)
-    # while still allowing checkout of the pinned commit; a shallow clone could
-    # not check out an arbitrary older commit.
+    # while still allowing checkout of the pinned tag; a shallow clone could
+    # not check out an arbitrary older tag.
     git clone --filter=blob:none "$ROGUEUTIL_REPO" "$SCRIPT_DIR/rogueutil"
 fi
-git -C "$SCRIPT_DIR/rogueutil" checkout --quiet "$ROGUEUTIL_COMMIT"
+git -C "$SCRIPT_DIR/rogueutil" checkout --quiet "$ROGUEUTIL_TAG"
 
 cd "$SCRIPT_DIR/rogueutil"
 make
