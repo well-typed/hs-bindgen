@@ -4,10 +4,6 @@ description: Build and run the c-rpm example
 runs:
   using: composite
   steps:
-    - name: Initialize git submodules
-      shell: bash
-      run: git submodule update --init --recursive examples/c-rpm/rpm
-
     - name: Install RPM build dependencies
       shell: bash
       run: |

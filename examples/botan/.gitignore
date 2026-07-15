@@ -25,3 +25,6 @@ cabal.project.local~
 
 # Custom
 hs-project/src/Generated/
+
+# Fetched on demand by generate-and-run.sh
+botan/

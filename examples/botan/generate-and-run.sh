@@ -7,13 +7,25 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 export PROJECT_ROOT
 
+# Botan C++ library, pinned so the example is reproducible. We fetch it on
+# demand rather than as a git submodule: a submodule is cloned by cabal for
+# every project that depends on hs-bindgen via source-repository-package, even
+# though only hs-bindgen-runtime is needed.
+BOTAN_REPO="https://github.com/randombit/botan"
+BOTAN_COMMIT="07e1cfe0a06b224bbb37ad534736924931184246"
+
 (
     echo "# "
     echo "# Building botan"
     echo "# "
 
-    git submodule init botan
-    git submodule update botan
+    if [ ! -d "$SCRIPT_DIR/botan/.git" ]; then
+        # --filter=blob:none keeps the download small (blobs are fetched on
+        # demand) while still allowing checkout of the pinned commit; a shallow
+        # clone could not check out an arbitrary older commit.
+        git clone --filter=blob:none "$BOTAN_REPO" "$SCRIPT_DIR/botan"
+    fi
+    git -C "$SCRIPT_DIR/botan" checkout --quiet "$BOTAN_COMMIT"
 
     cd "$SCRIPT_DIR/botan"
     ./configure.py --compiler-cache=ccache

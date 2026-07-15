@@ -6,13 +6,25 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# MiniSat C bindings, pinned so the example is reproducible. We fetch it on
+# demand rather than as a git submodule: a submodule is cloned by cabal for
+# every project that depends on hs-bindgen via source-repository-package, even
+# though only hs-bindgen-runtime is needed.
+MINISAT_REPO="https://github.com/niklasso/minisat-c-bindings.git"
+MINISAT_COMMIT="2f137cbedc7a1a0ecd4117baaf84a005c2045134"
+
 (
     echo "# "
     echo "# Building minisat C bindings"
     echo "# "
 
-    git submodule init minisat-c-bindings
-    git submodule update minisat-c-bindings
+    if [ ! -d "$SCRIPT_DIR/minisat-c-bindings/.git" ]; then
+        # --filter=blob:none keeps the download small (blobs are fetched on
+        # demand) while still allowing checkout of the pinned commit; a shallow
+        # clone could not check out an arbitrary older commit.
+        git clone --filter=blob:none "$MINISAT_REPO" "$SCRIPT_DIR/minisat-c-bindings"
+    fi
+    git -C "$SCRIPT_DIR/minisat-c-bindings" checkout --quiet "$MINISAT_COMMIT"
 
     cd "$SCRIPT_DIR/minisat-c-bindings"
     make

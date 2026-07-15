@@ -39,14 +39,14 @@ dependencies for building RPM from source. The shell environment includes:
 > If you are using Nix or NixOS, please also have a look at our [`hs-bindgen`
 > Nix tutorial](https://github.com/well-typed/hs-bindgen-tutorial-nix).
 
-If not using Nix at all, take a look at the [INSTALL](./rpm/INSTALL) file for more details
+If not using Nix at all, take a look at the [INSTALL](https://github.com/rpm-software-management/rpm/blob/2530a42e4618f41fcc6cd21f0e70ca851b24ddc2/INSTALL) file for more details
 on the instructions of how to build `rpm`.
 
 ## Running the Example
 
 ### Building RPM from Source
 
-According to the instructions in [INSTALL](./rpm/INSTALL):
+According to the instructions in [INSTALL](https://github.com/rpm-software-management/rpm/blob/2530a42e4618f41fcc6cd21f0e70ca851b24ddc2/INSTALL):
 
 ```sh
 # On the `rpm` folder
