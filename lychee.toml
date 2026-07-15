@@ -1,12 +1,10 @@
 exclude_path = [
-  # skip submodules, because we are only interested in checking links in our own
-  # documentation.
-  "alternatives/tools/c2hs",
-  "alternatives/tools/hsc2hs",
+  # skip third-party sources fetched on demand by the example scripts, because
+  # we are only interested in checking links in our own documentation.
   "examples/botan/botan",
   "examples/c-minisat/minisat-c-bindings",
   "examples/c-qrcode/QR-Code-generator",
-  "examples/c-rogueutil/rogueuti",
+  "examples/c-rogueutil/rogueutil",
   "examples/c-rpm/rpm",
   "examples/c-yaml/yaml",
   "examples/cef/cef_binary*",
