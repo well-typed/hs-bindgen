@@ -1,0 +1,220 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/edge-cases/reparse.h
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 3:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+-}
+newtype A
+    = A {unwrapA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" A ty
+    where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
+                              getField @"unwrapA" x_0)
+instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro B@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 4:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+-}
+newtype B
+    = B {unwrapB :: CChar}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CChar => HasField "unwrapB" B ty
+    where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
+                              getField @"unwrapB" x_0)
+instance (~) ty CChar => HasField "unwrapB" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapB")
+instance HasCField B "unwrapB"
+    where type CFieldType B "unwrapB" = CChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@S_anon\'anon\'x_anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 8:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+-}
+data S_anon'anon'x_anon'x
+    = S_anon'anon'x_anon'x {s_anon'anon'x_anon'x_x :: A
+                            {- ^ __C declaration:__ @x@
+
+                                 __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 9:9@
+
+                                 __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+                            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x_anon'x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x_anon'x
+    where readRaw = \ptr_0 -> pure S_anon'anon'x_anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x_x") ptr_0
+instance WriteRaw S_anon'anon'x_anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x_anon'x s_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"s_anon'anon'x_anon'x_x") ptr_0 s_anon'anon'x_anon'x_x_2
+deriving via (EquivStorable S_anon'anon'x_anon'x) instance Storable S_anon'anon'x_anon'x
+instance (~) ty A =>
+         HasField "s_anon'anon'x_anon'x_x" S_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x_anon'x{s_anon'anon'x_anon'x_x = y_1},
+                              getField @"s_anon'anon'x_anon'x_x" x_0)
+instance (~) ty A =>
+         HasField "s_anon'anon'x_anon'x_x"
+                  (Ptr S_anon'anon'x_anon'x)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x_x")
+instance HasCField S_anon'anon'x_anon'x "s_anon'anon'x_anon'x_x"
+    where type CFieldType S_anon'anon'x_anon'x
+                          "s_anon'anon'x_anon'x_x" = A
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@S_anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 7:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+-}
+data S_anon'anon'x
+    = S_anon'anon'x {s_anon'anon'x_anon'x :: S_anon'anon'x_anon'x
+                     {- ^ __C declaration:__ @anon\'x@
+
+                          __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 8:5@
+
+                          __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+                     -},
+                     s_anon'anon'x_y :: B
+                     {- ^ __C declaration:__ @y@
+
+                          __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 11:7@
+
+                          __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x
+    where readRaw = \ptr_0 -> (pure S_anon'anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0) <*> readRaw (Proxy @"s_anon'anon'x_y") ptr_0
+instance WriteRaw S_anon'anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x s_anon'anon'x_anon'x_2
+                                                     s_anon'anon'x_y_3 -> writeRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0 s_anon'anon'x_anon'x_2 >> writeRaw (Proxy @"s_anon'anon'x_y") ptr_0 s_anon'anon'x_y_3
+deriving via (EquivStorable S_anon'anon'x) instance Storable S_anon'anon'x
+instance (~) ty S_anon'anon'x_anon'x =>
+         HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_anon'x = y_1,
+                                                    s_anon'anon'x_y = getField @"s_anon'anon'x_y" x_0},
+                              getField @"s_anon'anon'x_anon'x" x_0)
+instance (~) ty S_anon'anon'x_anon'x =>
+         HasField "s_anon'anon'x_anon'x" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x")
+instance HasCField S_anon'anon'x "s_anon'anon'x_anon'x"
+    where type CFieldType S_anon'anon'x
+                          "s_anon'anon'x_anon'x" = S_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty A => HasField "s_anon'anon'x_x" S_anon'anon'x ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_anon'x_x" (getField @"s_anon'anon'x_anon'x" x_0)
+instance (~) ty A => HasField "s_anon'anon'x_x" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x_anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_anon'x_x" z_2 y_1),
+                              getField @"s_anon'anon'x_x" x_0)
+instance (~) ty A =>
+         HasField "s_anon'anon'x_x" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_x")
+instance HasCField S_anon'anon'x "s_anon'anon'x_x"
+    where type CFieldType S_anon'anon'x "s_anon'anon'x_x" = A
+          offset# = \_ -> \_ -> 0
+instance (~) ty B => HasField "s_anon'anon'x_y" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_y = y_1,
+                                                    s_anon'anon'x_anon'x = getField @"s_anon'anon'x_anon'x" x_0},
+                              getField @"s_anon'anon'x_y" x_0)
+instance (~) ty B =>
+         HasField "s_anon'anon'x_y" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_y")
+instance HasCField S_anon'anon'x "s_anon'anon'x_y"
+    where type CFieldType S_anon'anon'x "s_anon'anon'x_y" = B
+          offset# = \_ -> \_ -> 4
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 6:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+-}
+data S
+    = S {s_anon'anon'x :: S_anon'anon'x
+         {- ^ __C declaration:__ @anon\'anon\'x@
+
+              __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 7:3@
+
+              __exported by:__ @types\/anonymous\/edge-cases\/reparse.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_anon'anon'x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty S_anon'anon'x => HasField "s_anon'anon'x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},
+                              getField @"s_anon'anon'x" x_0)
+instance (~) ty S_anon'anon'x =>
+         HasField "s_anon'anon'x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x")
+instance HasCField S "s_anon'anon'x"
+    where type CFieldType S "s_anon'anon'x" = S_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty A => HasField "s_x" S ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_x" (getField @"s_anon'anon'x" x_0)
+instance (~) ty A => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_x" z_2 y_1),
+                              getField @"s_x" x_0)
+instance (~) ty A => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = A
+          offset# = \_ -> \_ -> 0
+instance (~) ty B => HasField "s_y" S ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_y" (getField @"s_anon'anon'x" x_0)
+instance (~) ty B => HasField "s_y" S ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_y" z_2 y_1),
+                              getField @"s_y" x_0)
+instance (~) ty B => HasField "s_y" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y")
+instance HasCField S "s_y"
+    where type CFieldType S "s_y" = B
+          offset# = \_ -> \_ -> 4

@@ -605,6 +605,12 @@ translateHasFieldInstance inst mbComment = Instance{
     exprGetter :: SExpr Z
     exprGetter = case inst.impl of
       Hs.HasFieldImplUnion -> eBindgenGlobal ByteArray_getUnionPayload
+      Hs.HasFieldImplIndirect {nameTopToAnon, nameAnonToTarget} ->
+        let strLitTopToAnon    = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
+            strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
+        ELam (NameHint "x") $
+          EApp (eBindgenGlobal HasField_getField `ETypeApp` strLitAnonToTarget)
+               (eBindgenGlobal HasField_getField `ETypeApp` strLitTopToAnon `EApp` EBound IZ)
 
 {-------------------------------------------------------------------------------
   'GHC.Records.Compat.HasField'
@@ -659,6 +665,24 @@ translateHasFieldCompatInstance inst mbComment = Instance{
                 ]
           Hs.HasFieldCompatImplUnion ->
               eBindgenGlobal ByteArray_setUnionPayload
+          Hs.HasFieldCompatImplIndirect {nameTopToAnon, nameAnonToTarget} ->
+            let strLitTopToAnon = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
+                strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
+            ELam (NameHint "y")
+              (
+                     (          eBindgenGlobal HasFieldCompat_modifyField
+                     `ETypeApp` strLitTopToAnon
+                     )
+              `EApp` (EBound (IS IZ))
+              `EApp` (ELam (NameHint "z")
+                        (
+                                   eBindgenGlobal HasFieldCompat_setField
+                        `ETypeApp` strLitAnonToTarget
+                        `EApp`     EBound IZ
+                        `EApp`     EBound (IS IZ)
+                        )
+                      )
+              )
       where
         -- An 'FBind' that leaves the original field unchanged
         mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))

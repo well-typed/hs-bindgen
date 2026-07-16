@@ -1,0 +1,35 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/edge-cases/drop_indirect_fields.h
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 3:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+-}
+data S
+    = S {s_anon'anon'x :: OtherExample.Point3D
+         {- ^ __C declaration:__ @anon\'anon\'x@
+
+              __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 4:3@
+
+              __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_anon'anon'x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty OtherExample.Point3D =>
+         HasField "s_anon'anon'x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},
+                              getField @"s_anon'anon'x" x_0)
+instance (~) ty OtherExample.Point3D =>
+         HasField "s_anon'anon'x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x")
+instance HasCField S "s_anon'anon'x"
+    where type CFieldType S "s_anon'anon'x" = OtherExample.Point3D
+          offset# = \_ -> \_ -> 0

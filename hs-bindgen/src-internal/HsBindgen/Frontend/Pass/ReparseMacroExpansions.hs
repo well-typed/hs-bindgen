@@ -214,7 +214,7 @@ processField ::
   -> M (C.Field ReparseMacroExpansions)
 processField declId = \case
     C.FieldExplicit field -> C.FieldExplicit <$> processExplicitField declId field
-    C.FieldImplicit field -> pure $ C.FieldImplicit $ coercePass field
+    C.FieldImplicit field -> C.FieldImplicit <$> processImplicitField declId field
 
 processExplicitField ::
      C.DeclId
@@ -232,6 +232,40 @@ processExplicitField declId field =
         , typ    = ty
         , offset = field.offset
         , width  = field.width
+        , ann    = NoAnn
+        }
+
+processImplicitField ::
+     C.DeclId
+  -> C.ImplicitField PrepareReparse
+  -> M (C.ImplicitField ReparseMacroExpansions)
+processImplicitField declId field = do
+    indirect' <- mapM (processIndirectField declId) field.indirect
+    pure C.ImplicitField {
+        info     = coercePass field.info
+      , typRef   = coercePass field.typRef
+      , offset   = field.offset
+      , indirect = indirect'
+      , ann      = field.ann
+      }
+
+processIndirectField ::
+     C.DeclId
+  -> C.IndirectField PrepareReparse
+  -> M (C.IndirectField ReparseMacroExpansions)
+processIndirectField declId field =
+    reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
+  where
+    withoutReparse :: C.IndirectField PrepareReparse
+    withoutReparse = field
+
+    withReparse :: (C.Type LanC, Text) -> M (C.IndirectField LanC)
+    withReparse (ty, name) = pure C.IndirectField{
+          info   = mkFieldInfo field.info (Just name)
+        , typ    = ty
+        , offset = field.offset
+        , width  = field.width
+        , path   = fmap coercePass field.path
         , ann    = NoAnn
         }
 

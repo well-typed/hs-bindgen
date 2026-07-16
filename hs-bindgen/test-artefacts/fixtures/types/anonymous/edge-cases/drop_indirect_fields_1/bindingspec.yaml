@@ -1,0 +1,49 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/drop_indirect_fields.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/edge-cases/drop_indirect_fields.h
+  cname: struct @S_anon'anon'x
+  hsname: S_anon'anon'x
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_anon'anon'x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'anon'x
+  representation:
+    record:
+      constructor: S_anon'anon'x
+      fields:
+      - s_anon'anon'x_anon'x
+      - s_anon'anon'x_z
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

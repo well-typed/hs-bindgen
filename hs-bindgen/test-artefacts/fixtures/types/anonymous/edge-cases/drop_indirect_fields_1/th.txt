@@ -1,0 +1,98 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/edge-cases/drop_indirect_fields.h
+{-| __C declaration:__ @struct \@S_anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 4:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+-}
+data S_anon'anon'x
+    = S_anon'anon'x {s_anon'anon'x_anon'x :: OtherExample.Point2D
+                     {- ^ __C declaration:__ @anon\'x@
+
+                          __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 5:5@
+
+                          __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+                     -},
+                     s_anon'anon'x_z :: CInt
+                     {- ^ __C declaration:__ @z@
+
+                          __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 9:9@
+
+                          __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x
+    where readRaw = \ptr_0 -> (pure S_anon'anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0) <*> readRaw (Proxy @"s_anon'anon'x_z") ptr_0
+instance WriteRaw S_anon'anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x s_anon'anon'x_anon'x_2
+                                                     s_anon'anon'x_z_3 -> writeRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0 s_anon'anon'x_anon'x_2 >> writeRaw (Proxy @"s_anon'anon'x_z") ptr_0 s_anon'anon'x_z_3
+deriving via (EquivStorable S_anon'anon'x) instance Storable S_anon'anon'x
+instance (~) ty OtherExample.Point2D =>
+         HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_anon'x = y_1,
+                                                    s_anon'anon'x_z = getField @"s_anon'anon'x_z" x_0},
+                              getField @"s_anon'anon'x_anon'x" x_0)
+instance (~) ty OtherExample.Point2D =>
+         HasField "s_anon'anon'x_anon'x" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x")
+instance HasCField S_anon'anon'x "s_anon'anon'x_anon'x"
+    where type CFieldType S_anon'anon'x
+                          "s_anon'anon'x_anon'x" = OtherExample.Point2D
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s_anon'anon'x_z" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_z = y_1,
+                                                    s_anon'anon'x_anon'x = getField @"s_anon'anon'x_anon'x" x_0},
+                              getField @"s_anon'anon'x_z" x_0)
+instance (~) ty CInt =>
+         HasField "s_anon'anon'x_z" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_z")
+instance HasCField S_anon'anon'x "s_anon'anon'x_z"
+    where type CFieldType S_anon'anon'x "s_anon'anon'x_z" = CInt
+          offset# = \_ -> \_ -> 8
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 3:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+-}
+data S
+    = S {s_anon'anon'x :: S_anon'anon'x
+         {- ^ __C declaration:__ @anon\'anon\'x@
+
+              __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 4:3@
+
+              __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_anon'anon'x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty S_anon'anon'x => HasField "s_anon'anon'x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},
+                              getField @"s_anon'anon'x" x_0)
+instance (~) ty S_anon'anon'x =>
+         HasField "s_anon'anon'x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x")
+instance HasCField S "s_anon'anon'x"
+    where type CFieldType S "s_anon'anon'x" = S_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s_z" S ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_z" (getField @"s_anon'anon'x" x_0)
+instance (~) ty CInt => HasField "s_z" S ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_z" z_2 y_1),
+                              getField @"s_z" x_0)
+instance (~) ty CInt => HasField "s_z" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_z")
+instance HasCField S "s_z"
+    where type CFieldType S "s_z" = CInt
+          offset# = \_ -> \_ -> 8

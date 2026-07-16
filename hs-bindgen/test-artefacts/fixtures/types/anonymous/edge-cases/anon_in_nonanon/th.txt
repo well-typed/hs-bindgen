@@ -65,6 +65,16 @@ instance (~) ty S_y_anon'x =>
 instance HasCField S_y "s_y_anon'x"
     where type CFieldType S_y "s_y_anon'x" = S_y_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s_y_x" S_y ty
+    where getField = \x_0 -> getField @"s_y_anon'x_x" (getField @"s_y_anon'x" x_0)
+instance (~) ty CInt => HasField "s_y_x" S_y ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_y_anon'x" x_0 (\z_2 -> setField @"s_y_anon'x_x" z_2 y_1),
+                              getField @"s_y_x" x_0)
+instance (~) ty CInt => HasField "s_y_x" (Ptr S_y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_x")
+instance HasCField S_y "s_y_x"
+    where type CFieldType S_y "s_y_x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 13:8@

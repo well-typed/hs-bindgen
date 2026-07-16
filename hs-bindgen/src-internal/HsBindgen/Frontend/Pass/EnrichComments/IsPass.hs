@@ -20,6 +20,7 @@ type family AnnEnrichComments ix where
   AnnEnrichComments "ExplicitField" = ReparseInfo Tokens
   AnnEnrichComments "Function"      = ReparseInfo Tokens
   AnnEnrichComments "Global"        = ReparseInfo Tokens
+  AnnEnrichComments "IndirectField" = ReparseInfo Tokens
   AnnEnrichComments "Typedef"       = ReparseInfo Tokens
   AnnEnrichComments _               = NoAnn
 
@@ -53,12 +54,13 @@ instance PassMsg EnrichComments
   @CommentDecl EnrichComments = Maybe (Comment EnrichComments)@).
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               AssignAnonIds EnrichComments
-instance CoercePassMacroBody        AssignAnonIds EnrichComments
-instance CoercePassMacroId          AssignAnonIds EnrichComments
-instance CoercePassMacroUnderlying  AssignAnonIds EnrichComments
-instance CoercePassAnn "Global"     AssignAnonIds EnrichComments
-instance CoercePassAnn "TypeFunArg" AssignAnonIds EnrichComments
+instance CoercePassId                  AssignAnonIds EnrichComments
+instance CoercePassMacroBody           AssignAnonIds EnrichComments
+instance CoercePassMacroId             AssignAnonIds EnrichComments
+instance CoercePassMacroUnderlying     AssignAnonIds EnrichComments
+instance CoercePassAnn "IndirectField" AssignAnonIds EnrichComments
+instance CoercePassAnn "Global"        AssignAnonIds EnrichComments
+instance CoercePassAnn "TypeFunArg"    AssignAnonIds EnrichComments
 
 instance CoercePassCommentDecl AssignAnonIds EnrichComments where
   coercePassCommentDecl _ () = Nothing

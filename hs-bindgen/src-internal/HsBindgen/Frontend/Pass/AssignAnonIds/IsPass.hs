@@ -24,6 +24,7 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds "ExplicitField" = ReparseInfo Tokens
   AnnAssignAnonIds "Function"      = ReparseInfo Tokens
   AnnAssignAnonIds "Global"        = ReparseInfo Tokens
+  AnnAssignAnonIds "IndirectField" = ReparseInfo Tokens
   AnnAssignAnonIds "Typedef"       = ReparseInfo Tokens
   AnnAssignAnonIds _               = NoAnn
 

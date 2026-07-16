@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , FlamNames(..)
   , NewtypeNames(..)
   , TypedefNames(..)
+  , IndirectFieldNames(..)
     -- * Trace messages
   , MangleNamesMsg(..)
   ) where
@@ -34,6 +35,7 @@ type family AnnMangleNames ix where
   AnnMangleNames "Decl"                 = PrescriptiveDeclSpec
   AnnMangleNames "Enum"                 = NewtypeNames
   AnnMangleNames "Flam"                 = FlamNames
+  AnnMangleNames "IndirectField"        = IndirectFieldNames MangleNames
   AnnMangleNames "Struct"               = StructNames
   AnnMangleNames "Typedef"              = TypedefNames
   AnnMangleNames "TypecheckedMacroType" = NewtypeNames
@@ -114,6 +116,23 @@ data TypedefNames = TypedefNames {
     , aux  :: Maybe (Hs.Name Hs.NsTypeConstr, NewtypeNames)
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+-- | Names for Haskell code generation for indirect fields
+--
+-- We generate @HasField@ instances for indirect fields. For the implementation
+-- of the instance we need to know the name of the indirect field with respect
+-- to the enclosing struct\/union, but also the name of that indirect field with
+-- respect to the anonymous struct\/union. The former is tracked as usual inside
+-- the 'IndirectField  datatype, the latter is tracked in the
+-- 'IndirectFieldNames' annotation.
+--
+data IndirectFieldNames p = IndirectFieldNames {
+      fieldNameInAnon :: ScopedName p
+    }
+
+deriving stock instance PassScopedName p => Show (IndirectFieldNames p)
+deriving stock instance PassScopedName p => Eq (IndirectFieldNames p)
+deriving stock instance PassScopedName p => Ord (IndirectFieldNames p)
 
 {-------------------------------------------------------------------------------
   Trace messages

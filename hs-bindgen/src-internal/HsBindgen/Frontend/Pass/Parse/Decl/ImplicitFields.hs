@@ -290,10 +290,12 @@ getImplicitField encObj decl = do
     -- first in source order. We need to know which field is first so that we
     -- can use that field's name as the implicit field's name as well.
     let minCandField = minimumBy (\x y -> compare x.rawOffset y.rawOffset) candFieldsNE
+    indFields <- getIndirectFields encObj decl minCandField.typRef
     pure C.ImplicitField {
         info = minCandField.info
       , typRef = minCandField.typRef
       , offset = minCandField.offset
+      , indirect = indFields
       , ann = minCandField.ann
       }
   where
@@ -376,6 +378,67 @@ data CandidateField p = CandidateField {
       -- | The offset of the original field with respect to the nested object
     , rawOffset :: Int
     }
+
+{-------------------------------------------------------------------------------
+  Indirect fields
+-------------------------------------------------------------------------------}
+
+getIndirectFields ::
+     forall m l. (
+       MonadIO m
+     )
+     -- | The enclosing object
+  => EnclosingObject
+     -- | An anonymous object nested in the enclosing object
+  -> C.Decl l Parse
+  -> C.AnonRef Parse
+  -> M m [C.IndirectField Parse]
+getIndirectFields encObj decl anonRef =
+    forM candidateFields $ getIndirectField encObj decl anonRef
+  where
+    -- | Non-implicit fields are candidates
+    --
+    -- We do not generate indirect fields for implicit fields because that would
+    -- violate the invariant that untagged structs and unions can only be
+    -- referenced by a single field (the implicit field).
+    candidateFields :: [Either (C.ExplicitField Parse) (C.IndirectField Parse)]
+    candidateFields = case decl.kind of
+        C.DeclStruct struct -> concatMap isCandidateField struct.fields
+        C.DeclUnion  union  -> concatMap isCandidateField union.fields
+        _ -> []
+
+    isCandidateField :: C.Field Parse -> [Either (C.ExplicitField Parse) (C.IndirectField Parse)]
+    isCandidateField = \case
+      C.FieldExplicit field -> [Left field]
+      C.FieldImplicit field -> fmap Right field.indirect
+
+getIndirectField ::
+     forall m l. (
+       MonadIO m
+     )
+     -- | The enclosing object
+  => EnclosingObject
+     -- | An anonymous object nested in the enclosing object
+  -> C.Decl l Parse
+  -> C.AnonRef Parse
+     -- | A /non-implicit/ field of the anonymous object
+  -> Either (C.ExplicitField Parse) (C.IndirectField Parse)
+  -> M m (C.IndirectField Parse)
+getIndirectField encObj _decl anonRef field = do
+    offsetOuter <- offsetOf encObj fieldName
+    pure $ mkIndirectField offsetOuter
+  where
+    fieldName = either (.info.name) (.info.name) field
+
+    mkIndirectField :: Int ->C.IndirectField Parse
+    mkIndirectField offset = C.IndirectField {
+          info = either (.info) (.info) field
+        , typ =  either (.typ) (.typ) field
+        , offset = offset
+        , width =  either (.width) (.width) field
+        , path = either (const [anonRef]) ((anonRef:) . (.path)) field
+        , ann = either (.ann) (.ann) field
+        }
 
 {-------------------------------------------------------------------------------
   Field offset

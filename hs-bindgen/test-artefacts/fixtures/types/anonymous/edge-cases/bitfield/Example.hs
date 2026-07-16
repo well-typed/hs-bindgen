@@ -173,6 +173,44 @@ instance HasCField.HasCField S1 "s1_anon'y" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:10@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CChar) => BG.HasField "s1_y" S1 ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"s1_anon'y_y" (BG.getField @"s1_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:10@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s1_y" S1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"s1_anon'y" x0 (\z2 ->
+                                                           BG.CompatHasField.setField @"s1_anon'y_y" z2 y1)
+      , BG.getField @"s1_y" x0
+      )
+
+instance (ty ~ BG.CChar) => BG.HasField "s1_y" (BG.Ptr S1) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"s1_y")
+
+instance HasCField.HasCField S1 "s1_y" where
+
+  type CFieldType S1 "s1_y" = BG.CChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 16:7@
@@ -351,6 +389,49 @@ instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "s2_anon'anon'y_y" S2_anon'anon'y ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"s2_anon'anon'y_anon'y_y" (BG.getField @"s2_anon'anon'y_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "s2_anon'anon'y_y" S2_anon'anon'y ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"s2_anon'anon'y_anon'y" x0 (\z2 ->
+                                                                       BG.CompatHasField.setField @"s2_anon'anon'y_anon'y_y" z2 y1)
+      , BG.getField @"s2_anon'anon'y_y" x0
+      )
+
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "s2_anon'anon'y_y" (BG.Ptr S2_anon'anon'y) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"s2_anon'anon'y_y")
+
+instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_y" where
+
+  type CFieldType S2_anon'anon'y "s2_anon'anon'y_y" =
+    BG.CChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
@@ -448,3 +529,79 @@ instance HasCField.HasCField S2 "s2_anon'anon'y" where
   type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
 
   offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CChar) => BG.HasField "s2_y" S2 ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"s2_anon'anon'y_y" (BG.getField @"s2_anon'anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s2_y" S2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"s2_anon'anon'y" x0 (\z2 ->
+                                                                BG.CompatHasField.setField @"s2_anon'anon'y_y" z2 y1)
+      , BG.getField @"s2_y" x0
+      )
+
+instance (ty ~ BG.CChar) => BG.HasField "s2_y" (BG.Ptr S2) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"s2_y")
+
+instance HasCField.HasCField S2 "s2_y" where
+
+  type CFieldType S2 "s2_y" = BG.CChar
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "s2_x" S2 ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"s2_anon'anon'y_x" (BG.getField @"s2_anon'anon'y" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s2_x" S2 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"s2_anon'anon'y" x0 (\z2 ->
+                                                                BG.CompatHasField.setField @"s2_anon'anon'y_x" z2 y1)
+      , BG.getField @"s2_x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "s2_x" (BG.Ptr S2) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"s2_x")
+
+instance HasCField.HasCField S2 "s2_x" where
+
+  type CFieldType S2 "s2_x" = BG.CInt
+
+  offset# = \_ -> \_ -> 4

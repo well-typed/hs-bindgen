@@ -216,6 +216,88 @@ instance HasCField.HasCField Outer1 "outer1_anon'fieldX" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/union_in_union.h 9:9@
+
+    __exported by:__ @types\/anonymous\/union_in_union.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "outer1_fieldX" Outer1 ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"outer1_anon'fieldX_fieldX" (BG.getField @"outer1_anon'fieldX" x0)
+
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/union_in_union.h 9:9@
+
+    __exported by:__ @types\/anonymous\/union_in_union.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "outer1_fieldX" Outer1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"outer1_anon'fieldX" x0 (\z2 ->
+                                                                    BG.CompatHasField.setField @"outer1_anon'fieldX_fieldX" z2 y1)
+      , BG.getField @"outer1_fieldX" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "outer1_fieldX" (BG.Ptr Outer1) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"outer1_fieldX")
+
+instance HasCField.HasCField Outer1 "outer1_fieldX" where
+
+  type CFieldType Outer1 "outer1_fieldX" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_union.h 10:9@
+
+    __exported by:__ @types\/anonymous\/union_in_union.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "outer1_fieldY" Outer1 ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"outer1_anon'fieldX_fieldY" (BG.getField @"outer1_anon'fieldX" x0)
+
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/union_in_union.h 10:9@
+
+    __exported by:__ @types\/anonymous\/union_in_union.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "outer1_fieldY" Outer1 ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"outer1_anon'fieldX" x0 (\z2 ->
+                                                                    BG.CompatHasField.setField @"outer1_anon'fieldX_fieldY" z2 y1)
+      , BG.getField @"outer1_fieldY" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "outer1_fieldY" (BG.Ptr Outer1) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"outer1_fieldY")
+
+instance HasCField.HasCField Outer1 "outer1_fieldY" where
+
+  type CFieldType Outer1 "outer1_fieldY" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @fieldC@
 
     __defined at:__ @types\/anonymous\/union_in_union.h 12:7@

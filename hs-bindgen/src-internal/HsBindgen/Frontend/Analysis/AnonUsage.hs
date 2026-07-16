@@ -205,7 +205,13 @@ analyseExplicitField :: Context -> C.ExplicitField Parse -> [(C.AnonId, Context)
 analyseExplicitField ctx field = analyseType ctx field.typ
 
 analyseImplicitField :: Context -> C.ImplicitField Parse -> [(C.AnonId, Context)]
-analyseImplicitField ctx field = analyseType ctx field.typ
+analyseImplicitField ctx field = concat [
+      analyseType ctx field.typ
+    , concatMap (analyseIndirectField ctx) field.indirect
+    ]
+
+analyseIndirectField :: Context -> C.IndirectField Parse -> [(C.AnonId, Context)]
+analyseIndirectField ctx field = analyseType ctx field.typ
 
 analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(C.AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ

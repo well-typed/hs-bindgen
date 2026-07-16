@@ -251,17 +251,42 @@ instance Resolve C.ImplicitField where
   resolve info field = do
     fieldInfo' <- resolveFieldInfo info field.info
     typRef'    <- resolve info field.typRef
+    indirect'  <- mapM (resolveIndirectField info field.typRef) field.indirect
     pure C.ImplicitField{
-        info   = fieldInfo'
-      , typRef    = typRef'
-      , offset = field.offset
-      , ann    = field.ann
+        info     = fieldInfo'
+      , typRef   = typRef'
+      , offset   = field.offset
+      , indirect = indirect'
+      , ann      = field.ann
       }
 
 instance Resolve C.AnonRef where
   resolve info = \case
       C.AnonRef ref -> C.AnonRef <$> lookupTypePairR ref
       C.AnonExtBinding ext -> C.AnonExtBinding <$> resolveExtBindingRef info ext
+
+resolveIndirectField ::
+     C.DeclInfo CreateNames
+  -> C.AnonRef CreateNames
+  -> C.IndirectField CreateNames
+  -> ResolveE (C.IndirectField MangleNames)
+resolveIndirectField info anonRef field = do
+    fieldInfo' <- resolveFieldInfo info field.info
+    typ' <- resolve info field.typ
+    path' <- mapM (resolve info) field.path
+    ann' <- IndirectFieldNames <$> lookupScopedNamePairR anonDeclId field.info.name
+    pure C.IndirectField{
+        info   = fieldInfo'
+      , typ    = typ'
+      , offset = field.offset
+      , width  = field.width
+      , path   = path'
+      , ann    = ann'
+      }
+  where
+    anonDeclId = case anonRef of
+        C.AnonRef declId -> declId
+        C.AnonExtBinding ext -> ext.name.cName
 
 instance Resolve C.Enum where
   resolve info enum = do

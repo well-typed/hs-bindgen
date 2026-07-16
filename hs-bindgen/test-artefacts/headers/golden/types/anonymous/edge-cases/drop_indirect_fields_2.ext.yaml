@@ -1,0 +1,22 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: OtherExample
+ctypes:
+- headers: types/anonymous/edge-cases/drop_indirect_fields.h
+  cname: struct @S_anon'anon'x
+  hsname: Point3D
+hstypes:
+- hsname: Point3D
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

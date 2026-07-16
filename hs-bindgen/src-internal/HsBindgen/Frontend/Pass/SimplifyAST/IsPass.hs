@@ -26,6 +26,7 @@ type family AnnSimplifyAST (ix :: Symbol) where
   AnnSimplifyAST "Function"      = ReparseInfo Tokens
   AnnSimplifyAST "Global"        = ReparseInfo Tokens
   AnnSimplifyAST "ImplicitField" = FieldOrigin
+  AnnSimplifyAST "IndirectField" = ReparseInfo Tokens
   AnnSimplifyAST "Struct"        = IsAnon
   AnnSimplifyAST "Typedef"       = ReparseInfo Tokens
   AnnSimplifyAST "Union"         = IsAnon
@@ -60,9 +61,10 @@ instance CoercePassMacroBody         Parse SimplifyAST
 instance CoercePassMacroId           Parse SimplifyAST
 instance CoercePassMacroUnderlying   Parse SimplifyAST
 
-instance CoercePassAnn "Global"     Parse SimplifyAST
-instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
-instance CoercePassCommentDecl      Parse SimplifyAST
+instance CoercePassAnn "Global"        Parse SimplifyAST
+instance CoercePassAnn "IndirectField" Parse SimplifyAST
+instance CoercePassAnn "TypeFunArg"    Parse SimplifyAST
+instance CoercePassCommentDecl         Parse SimplifyAST
 
 {-------------------------------------------------------------------------------
   Trace messages

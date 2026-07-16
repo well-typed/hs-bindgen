@@ -104,7 +104,13 @@ instance Simplify C.ExplicitField where
           Target (fieldTag info field.info) (defaultDecl tokens)
 
 instance Simplify C.ImplicitField where
-  simplifyIt _ _ = nothing
+  simplifyIt info field = concatMap (simplifyIt info) field.indirect
+
+instance Simplify C.IndirectField where
+  simplifyIt info field = case field.ann of
+        ReparseNotNeeded -> nothing
+        ReparseNeeded tokens _macroInvs -> singleTarget $
+          Target (fieldTag info field.info) (defaultDecl tokens)
 
 instance Simplify C.Typedef where
   simplifyIt info typedef = case typedef.ann of

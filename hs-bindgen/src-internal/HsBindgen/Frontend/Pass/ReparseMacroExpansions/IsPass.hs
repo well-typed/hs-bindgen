@@ -47,10 +47,11 @@ instance PassMsg ReparseMacroExpansions
   CoercePass: PrepareReparse → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               PrepareReparse ReparseMacroExpansions
-instance CoercePassMacroId          PrepareReparse ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" PrepareReparse ReparseMacroExpansions
-instance CoercePassCommentDecl      PrepareReparse ReparseMacroExpansions where
+instance CoercePassId                  PrepareReparse ReparseMacroExpansions
+instance CoercePassMacroId             PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg"    PrepareReparse ReparseMacroExpansions
+
+instance CoercePassCommentDecl PrepareReparse ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
 
 instance CoercePassMacroBody PrepareReparse ReparseMacroExpansions where

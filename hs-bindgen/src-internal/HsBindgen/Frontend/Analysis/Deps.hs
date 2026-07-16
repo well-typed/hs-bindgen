@@ -115,7 +115,13 @@ depsOfImplicitField ::
      forall p. IsPass p
   => C.ImplicitField p
   -> [(Id p, Dependency)]
-depsOfImplicitField field = C.depsOfType field.typ
+depsOfImplicitField field = C.depsOfType field.typ ++ concatMap depsOfIndirectField field.indirect
+
+depsOfIndirectField ::
+     forall p. IsPass p
+  => C.IndirectField p
+  -> [(Id p, Dependency)]
+depsOfIndirectField field = C.depsOfType field.typ
 
 {-------------------------------------------------------------------------------
   Typedefs

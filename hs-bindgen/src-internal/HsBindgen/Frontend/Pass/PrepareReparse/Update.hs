@@ -213,7 +213,27 @@ instance Update C.ExplicitField where
         }
 
 instance Update C.ImplicitField where
-  updateIt _info field = pure $ coercePass field
+  updateIt info field = do
+      indirect' <- mapM (updateIt info) field.indirect
+      pure C.ImplicitField {
+          info     = coercePass field.info
+        , typRef   = coercePass field.typRef
+        , offset   = field.offset
+        , indirect = indirect'
+        , ann      = field.ann
+        }
+
+instance Update C.IndirectField where
+  updateIt info field = do
+      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
+      pure C.IndirectField {
+          info   = coercePass field.info
+        , typ    = coercePass field.typ
+        , offset = field.offset
+        , width  = field.width
+        , path   = fmap coercePass field.path
+        , ann    = ann'
+        }
 
 instance Update C.Typedef where
   updateIt info typedef = do

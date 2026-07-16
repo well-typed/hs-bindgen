@@ -326,6 +326,7 @@ instance RenderLabel String where renderLabel = PP.string
 instance RenderLabel Text   where renderLabel = PP.string . Text.unpack
 
 instance RenderLabel C.DeclName
+instance RenderLabel C.ScopedName
 
 instance RenderLabel a => RenderLabel (Maybe a) where
   renderLabel Nothing  = ""

@@ -175,6 +175,12 @@ data ScopedName = ScopedName {
     }
   deriving stock (Eq, Generic, Ord, Show)
 
+instance IsString ScopedName where
+  fromString str =
+      case parseScopedName (Text.pack str) of
+        Just name -> name
+        Nothing   -> panicPure $ "invalid DeclName: " ++ show str
+
 instance PrettyForTrace ScopedName where
   prettyForTrace = PP.singleQuotes . PP.text . (.text)
 
