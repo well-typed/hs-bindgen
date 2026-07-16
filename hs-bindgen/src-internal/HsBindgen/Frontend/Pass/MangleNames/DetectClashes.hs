@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.MangleNames.DetectClashes (
     detectClashes
   ) where
 
+import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Maybe (maybeToList)
@@ -16,16 +17,16 @@ import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports ()
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Traversal 2: Detect clashes
 
-  Build a single 'NameRegistry' from the 'NameMap' (top-level names) and the
-  'CreateNames' AST (derived names), then report all collisions in one sweep.
-  Over-removal is explicitly accepted: a single declaration may participate in
-  several collisions, and every participating owner is dropped.
+  Build a single 'NameRegistry' from the 'NameMap' (top-level names and scoped
+  names) and the 'CreateNames' AST (local names in annotations), then report all
+  collisions in one sweep. Over-removal is explicitly accepted: a single
+  declaration may participate in several collisions, and every participating
+  owner is dropped.
 
   Ideally, we'd not purge all conflicts, but instead let selection resolve
   conflict groups. While this is possible, it is also a difficult problem: If we
@@ -42,17 +43,20 @@ detectClashes ::
   -> [C.Decl l CreateNames]
   -> (NameRegistry, [MangleNamesFailure])
 detectClashes strategy nameMap decls =
-    (registry, collisionFailures (collisions registry))
+    (registry, collisionFailures (collisions registry) ++ deriveFailures)
   where
     registry :: NameRegistry
-    registry = Foldable.foldl' registerDecl emptyNameRegistry decls
+    deriveFailures :: [MangleNamesFailure]
+    (registry, deriveFailures) = Foldable.foldl' aux (emptyNameRegistry, []) decls
+      where
+        aux (nameRegistry, failures) decl = fmap (++failures) (registerDecl nameRegistry decl)
 
-    registerDecl :: NameRegistry -> C.Decl l CreateNames -> NameRegistry
-    registerDecl reg decl =
+    registerDecl :: NameRegistry -> C.Decl l CreateNames -> (NameRegistry, [MangleNamesFailure])
+    registerDecl reg decl = (,failures) $
         Foldable.foldl'
           (\r (role, scope, loc', sname) -> registerSomeName role scope owner loc' sname r)
           reg0
-          (derivedNames strategy owner loc decl.kind)
+          successes
       where
         owner :: C.DeclId
         owner = decl.info.id
@@ -67,6 +71,11 @@ detectClashes strategy nameMap decls =
           Just sname -> registerSomeName Declaration GlobalScope owner loc sname reg
           Nothing    -> reg
 
+        (failures, successes) = partitionEithers $ derivedNames strategy nameMap owner loc decl.kind
+
+-- | Looking up created names for scoped names can fail
+type DerivedNamesResult = Either MangleNamesFailure (NameRole, Scope, SingleLoc, Hs.SomeName)
+
 -- | All derived (non-top-level) names of a declaration, with the role, scope,
 -- and location under which they must be unique.
 --
@@ -76,14 +85,15 @@ detectClashes strategy nameMap decls =
 -- offending fields.
 derivedNames :: forall l.
      FieldNamingStrategy
+  -> NameMap
   -> C.DeclId
   -> SingleLoc
   -> C.DeclKind l CreateNames
-  -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
-derivedNames strategy owner loc = \case
+  -> [DerivedNamesResult]
+derivedNames strategy nameMap owner loc = \case
     C.DeclStruct struct ->
-         (Constructor, GlobalScope, loc, Hs.demoteNs struct.ann.constr)
-       : [ (AuxType, GlobalScope, loc, Hs.demoteNs flamNames.aux)
+         success (Constructor, GlobalScope, loc, Hs.demoteNs struct.ann.constr)
+       : [ success (AuxType, GlobalScope, loc, Hs.demoteNs flamNames.aux)
          | C.Flam _ flamNames <- [struct.flam] ]
       ++ concatMap fieldNames struct.fields
       ++ foldMap explicitFieldNames (C.flamStructField struct.flam)
@@ -92,7 +102,7 @@ derivedNames strategy owner loc = \case
       ++ concatMap fieldNames union.fields
     C.DeclEnum enum ->
          newtypeNames enum.ann
-      ++ map enumConstantName enum.constants
+      ++ concatMap enumConstantName enum.constants
     -- An anonymous enum constant is a top-level declaration in its own right;
     -- its name is registered as a 'Declaration'. We must /not/ also register
     -- the inner enum-constant scoped name, or it would collide with itself.
@@ -104,39 +114,56 @@ derivedNames strategy owner loc = \case
     C.DeclGlobal{}           -> []
     C.DeclOpaque{}           -> []
   where
-    -- Field selectors minted under 'OmitFieldPrefixes' enable
+    success :: (NameRole, Scope, SingleLoc, Hs.SomeName) -> DerivedNamesResult
+    success = Right
+
+    failure :: C.DeclId -> C.ScopedName -> DerivedNamesResult
+    failure declId scopedName =
+        Left $ MangleNamesFailure owner loc $
+          MangleNamesCollisionError $ DetectClashesScopedNameNotMangled declId scopedName
+
+    -- Field selectors created under 'OmitFieldPrefixes' enable
     -- @DuplicateRecordFields@, so they need only be unique within a record.
     fieldScope :: Scope
     fieldScope = case strategy of
       AddFieldPrefixes  -> GlobalScope
       OmitFieldPrefixes -> DeclScope owner
 
-    fieldNames :: C.Field CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    fieldNames :: C.Field CreateNames -> [DerivedNamesResult]
     fieldNames = C.elimField explicitFieldNames implicitFieldNames
 
-    explicitFieldNames :: C.ExplicitField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
-    explicitFieldNames field = [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
+    explicitFieldNames :: C.ExplicitField CreateNames -> [DerivedNamesResult]
+    explicitFieldNames field =
+        case lookupScopedName owner field.info.name nameMap of
+          Nothing     -> [ failure owner field.info.name ]
+          Just hsName -> [ success (Field, fieldScope, field.info.loc, hsName) ]
 
-    implicitFieldNames :: C.ImplicitField CreateNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
-    implicitFieldNames field = [ (Field, fieldScope, field.info.loc, field.info.name.hsName) ]
+    implicitFieldNames :: C.ImplicitField CreateNames -> [DerivedNamesResult]
+    implicitFieldNames field =
+        case lookupScopedName owner field.info.name nameMap of
+          Nothing     -> [ failure owner field.info.name ]
+          Just hsName -> [ success (Field, fieldScope, field.info.loc, hsName) ]
 
-    enumConstantName :: C.EnumConstant CreateNames -> (NameRole, Scope, SingleLoc, Hs.SomeName)
-    enumConstantName constant = (Constructor, GlobalScope, loc, constant.info.name.hsName)
+    enumConstantName :: C.EnumConstant CreateNames -> [DerivedNamesResult]
+    enumConstantName constant =
+        case lookupScopedName owner constant.info.name nameMap of
+          Nothing     -> [ failure owner constant.info.name ]
+          Just hsName -> [ success (Constructor, GlobalScope, constant.info.loc, hsName) ]
 
     -- The newtype "unwrap" field is recorded only under 'AddFieldPrefixes',
     -- where it is the globally-unique @unwrap<TypeName>@. Under
     -- 'OmitFieldPrefixes' it is simply @unwrap@, lives alone in its own record,
     -- and so can never collide.
-    newtypeNames :: NewtypeNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    newtypeNames :: NewtypeNames -> [DerivedNamesResult]
     newtypeNames n =
-        (Constructor, GlobalScope, loc, Hs.demoteNs n.dataConstr)
-      : [ (Field, GlobalScope, loc, Hs.demoteNs n.field)
+        success (Constructor, GlobalScope, loc, Hs.demoteNs n.dataConstr)
+      : [ success (Field, GlobalScope, loc, Hs.demoteNs n.field)
         | AddFieldPrefixes <- [strategy] ]
 
-    typedefNames :: TypedefNames -> [(NameRole, Scope, SingleLoc, Hs.SomeName)]
+    typedefNames :: TypedefNames -> [DerivedNamesResult]
     typedefNames t =
          newtypeNames t.orig
-      ++ concat [ (AuxType, GlobalScope, loc, Hs.demoteNs auxName) : newtypeNames auxNames
+      ++ concat [ success (AuxType, GlobalScope, loc, Hs.demoteNs auxName) : newtypeNames auxNames
                 | (auxName, auxNames) <- maybeToList t.aux ]
 
 -- | Turn registry collisions into per-declaration failures

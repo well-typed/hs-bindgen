@@ -19,7 +19,6 @@ import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass ()
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type qualified as Macro
@@ -29,11 +28,14 @@ import Doxygen.Parser.Types qualified as Doxy
 {-------------------------------------------------------------------------------
   Traversal 3: Resolve names
 
-  Rewrite every 'C.DeclId' reference into a 'DeclIdPair' using the 'NameMap',
-  copying annotations and scoped names across unchanged. Declarations flagged by
-  'detectClashes' are dropped (their failure is already recorded); a reference
-  to an unmangleable declaration drops the referring declaration with a
-  'ResolveNamesUnderlyingDeclNotMangled' failure.
+  Rewrite every 'C.DeclId' reference into a 'DeclIdPair' and every
+  'C.ScopedName' reference into a 'ScopedNamePair' using the 'NameMap', copying
+  annotations across unchanged. Declarations flagged by 'detectClashes' are
+  dropped (their failure is already recorded); a reference to an unmangleable
+  declaration drops the referring declaration with a
+  'ResolveNamesUnderlyingDeclNotMangled' failure. A reference to an unmangleable
+  scoped name drops the referring declaration with a
+  'ResolveNamesScopedNameNotMangled' failure.
 -------------------------------------------------------------------------------}
 
 type ResolveM   = Reader NameMap
@@ -68,7 +70,7 @@ resolveDecl ::
 resolveDecl decl =
     withDeclNamespace decl.kind $ \nsProxy -> do
       info' <- resolveDeclInfo nsProxy decl.info
-      kind' <- resolveDeclKind decl.kind
+      kind' <- resolveDeclKind decl.info decl.kind
       pure C.Decl{
           info = info'
         , kind = kind'
@@ -82,7 +84,7 @@ resolveDeclInfo ::
   -> ResolveE (C.DeclInfo MangleNames)
 resolveDeclInfo nsProxy info = do
     hsName     <- resolveDeclName nsProxy info.id
-    comment'   <- traverse resolve info.comment
+    comment'   <- traverse (resolve info) info.comment
     enclosing' <- mapM resolveEnclosingRef info.enclosing
     pure C.DeclInfo{
         loc          = info.loc
@@ -95,6 +97,19 @@ resolveDeclInfo nsProxy info = do
       , availability = info.availability
       , comment      = comment'
       , enclosing    = enclosing'
+      }
+
+resolveFieldInfo ::
+     C.DeclInfo CreateNames
+  -> C.FieldInfo CreateNames
+  -> ResolveE (C.FieldInfo MangleNames)
+resolveFieldInfo info fieldInfo = do
+    name'    <- lookupScopedNamePairR info.id fieldInfo.name
+    comment' <- traverse (resolve info) fieldInfo.comment
+    pure C.FieldInfo{
+        loc   = fieldInfo.loc
+      , name  = name'
+      , comment = comment'
       }
 
 resolveDeclName ::
@@ -120,17 +135,18 @@ resolveEnclosingRef = \case
 
 resolveDeclKind ::
      Macro.HasTypes l
-  => C.DeclKind l CreateNames
+  => C.DeclInfo CreateNames
+  -> C.DeclKind l CreateNames
   -> ResolveE (C.DeclKind l MangleNames)
-resolveDeclKind = \case
-    C.DeclStruct           x -> C.DeclStruct           <$> resolve x
-    C.DeclUnion            x -> C.DeclUnion            <$> resolve x
-    C.DeclEnum             x -> C.DeclEnum             <$> resolve x
-    C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> resolve x
-    C.DeclTypedef          x -> C.DeclTypedef          <$> resolve x
-    C.DeclFunction         x -> C.DeclFunction         <$> resolve x
+resolveDeclKind info = \case
+    C.DeclStruct           x -> C.DeclStruct           <$> resolve info x
+    C.DeclUnion            x -> C.DeclUnion            <$> resolve info x
+    C.DeclEnum             x -> C.DeclEnum             <$> resolve info x
+    C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> resolve info x
+    C.DeclTypedef          x -> C.DeclTypedef          <$> resolve info x
+    C.DeclFunction         x -> C.DeclFunction         <$> resolve info x
     C.DeclMacro            x -> C.DeclMacro            <$> resolveMacro x
-    C.DeclGlobal           x -> C.DeclGlobal           <$> resolve x
+    C.DeclGlobal           x -> C.DeclGlobal           <$> resolve info x
     C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
 
 {-------------------------------------------------------------------------------
@@ -164,6 +180,15 @@ lookupVarR declId = do
           ResolveNamesUnderlyingDeclNotMangled declId (NonEmpty.singleton Hs.NsVar)
       Just hsNm -> pure hsNm
 
+lookupScopedNameR :: C.DeclId -> C.ScopedName -> ResolveE Hs.SomeName
+lookupScopedNameR declId scopedName = do
+    nameMap <- ask
+    case lookupScopedName declId scopedName nameMap of
+      Nothing ->
+        throwError $
+          ResolveNamesScopedNameNotMangled declId scopedName
+      Just hsNm -> pure hsNm
+
 lookupTypePairR :: C.DeclId -> ResolveE DeclIdPair
 lookupTypePairR declId =
     (\hsName -> DeclIdPair declId (Hs.demoteNs hsName)) <$> lookupTypeR declId
@@ -172,17 +197,21 @@ lookupVarPairR :: C.DeclId -> ResolveE DeclIdPair
 lookupVarPairR declId =
     (\hsName -> DeclIdPair declId (Hs.demoteNs hsName)) <$> lookupVarR declId
 
+lookupScopedNamePairR :: C.DeclId -> C.ScopedName -> ResolveE ScopedNamePair
+lookupScopedNamePairR declId scopedName =
+    ScopedNamePair scopedName <$> lookupScopedNameR declId scopedName
+
 {-------------------------------------------------------------------------------
   Traversal 3: Resolve instances
 -------------------------------------------------------------------------------}
 
 class Resolve a where
-  resolve :: a CreateNames -> ResolveE (a MangleNames)
+  resolve :: C.DeclInfo CreateNames -> a CreateNames -> ResolveE (a MangleNames)
 
 instance Resolve C.Struct where
-  resolve struct = do
-    fields <- mapM resolve struct.fields
-    flam   <- C.traverseFlamField resolve struct.flam
+  resolve info struct = do
+    fields <- mapM (resolve info) struct.fields
+    flam   <- C.traverseFlamField (resolve info) struct.flam
     pure C.Struct{
         fields    = fields
       , flam      = flam
@@ -192,8 +221,8 @@ instance Resolve C.Struct where
       }
 
 instance Resolve C.Union where
-  resolve union = do
-    fields <- mapM resolve union.fields
+  resolve info union = do
+    fields <- mapM (resolve info) union.fields
     pure C.Union{
         fields    = fields
       , ann       = union.ann
@@ -202,20 +231,16 @@ instance Resolve C.Union where
       }
 
 instance Resolve C.Field where
-  resolve = \case
-      C.FieldExplicit field -> C.FieldExplicit <$> resolve field
-      C.FieldImplicit field -> C.FieldImplicit <$> resolve field
+  resolve info = \case
+      C.FieldExplicit field -> C.FieldExplicit <$> (resolve info) field
+      C.FieldImplicit field -> C.FieldImplicit <$> (resolve info) field
 
 instance Resolve C.ExplicitField where
-  resolve field = do
-    typ'     <- resolve field.typ
-    comment' <- traverse resolve field.info.comment
+  resolve info field = do
+    fieldInfo' <- resolveFieldInfo info field.info
+    typ'       <- (resolve info) field.typ
     pure C.ExplicitField{
-        info   = C.FieldInfo{
-                     loc     = field.info.loc
-                   , name    = field.info.name
-                   , comment = comment'
-                   }
+        info   = fieldInfo'
       , typ    = typ'
       , offset = field.offset
       , width  = field.width
@@ -223,29 +248,25 @@ instance Resolve C.ExplicitField where
       }
 
 instance Resolve C.ImplicitField where
-  resolve field = do
-    typRef'     <- resolve field.typRef
-    comment' <- traverse resolve field.info.comment
+  resolve info field = do
+    fieldInfo' <- resolveFieldInfo info field.info
+    typRef'    <- resolve info field.typRef
     pure C.ImplicitField{
-        info   = C.FieldInfo{
-                     loc     = field.info.loc
-                   , name    = field.info.name
-                   , comment = comment'
-                   }
+        info   = fieldInfo'
       , typRef    = typRef'
       , offset = field.offset
       , ann    = field.ann
       }
 
 instance Resolve C.AnonRef where
-  resolve = \case
+  resolve info = \case
       C.AnonRef ref -> C.AnonRef <$> lookupTypePairR ref
-      C.AnonExtBinding ext -> C.AnonExtBinding <$> resolveExtBindingRef ext
+      C.AnonExtBinding ext -> C.AnonExtBinding <$> resolveExtBindingRef info ext
 
 instance Resolve C.Enum where
-  resolve enum = do
-    typ'       <- resolve enum.typ
-    constants' <- mapM resolve enum.constants
+  resolve info enum = do
+    typ'       <- (resolve info) enum.typ
+    constants' <- mapM (resolve info) enum.constants
     pure C.Enum{
         typ       = typ'
       , constants = constants'
@@ -255,37 +276,33 @@ instance Resolve C.Enum where
       }
 
 instance Resolve C.EnumConstant where
-  resolve constant = do
-    comment' <- traverse resolve constant.info.comment
+  resolve info constant = do
+    fieldInfo' <- resolveFieldInfo info constant.info
     pure C.EnumConstant{
-        info  = C.FieldInfo{
-                    loc     = constant.info.loc
-                  , name    = constant.info.name
-                  , comment = comment'
-                  }
+        info  = fieldInfo'
       , value = constant.value
       }
 
 instance Resolve C.AnonEnumConstant where
-  resolve (C.AnonEnumConstant primTyp constant) = do
-    constant' <- resolve constant
+  resolve info (C.AnonEnumConstant primTyp constant) = do
+    constant' <- (resolve info) constant
     pure C.AnonEnumConstant{
         typ      = primTyp
       , constant = constant'
       }
 
 instance Resolve C.Typedef where
-  resolve typedef = do
-    typ' <- resolve typedef.typ
+  resolve info typedef = do
+    typ' <- (resolve info) typedef.typ
     pure C.Typedef{
         typ = typ'
       , ann = typedef.ann
       }
 
 instance Resolve C.Function where
-  resolve function = do
+  resolve info function = do
     args <- mapM resolveArg function.args
-    res' <- resolve function.res
+    res' <- (resolve info) function.res
     pure C.Function{
         args  = args
       , res   = res'
@@ -296,15 +313,16 @@ instance Resolve C.Function where
       resolveArg ::
            C.FunctionArg CreateNames -> ResolveE (C.FunctionArg MangleNames)
       resolveArg arg = do
-        argTyp' <- resolve arg.argTyp
+        name' <- mapM (lookupScopedNamePairR info.id) arg.name
+        argTyp' <- (resolve info) arg.argTyp
         pure C.FunctionArg{
-            name   = arg.name
+            name   = name'
           , argTyp = argTyp'
           }
 
 instance Resolve C.Global where
-  resolve global = do
-    typ' <- resolve global.typ
+  resolve info global = do
+    typ' <- resolve info global.typ
     pure C.Global{
         typ = typ'
       , ann = global.ann
@@ -346,10 +364,10 @@ resolveMacroValue macroValue = do
     pure $ TypecheckedMacroValue body' macroValue.deps
 
 instance Resolve C.Comment where
-  resolve (C.Comment comment) = C.Comment <$> mapM resolve comment
+  resolve info (C.Comment comment) = C.Comment <$> mapM (resolve info) comment
 
 instance Resolve C.CommentRef where
-  resolve = \case
+  resolve _info = \case
     C.CommentRef name Nothing mKind -> do
       nameMap <- ask
       pure $ C.CommentRef name (searchNameMap nameMap name mKind) mKind
@@ -357,25 +375,25 @@ instance Resolve C.CommentRef where
       (\pair -> C.CommentRef name (Just pair) mKind) <$> lookupAnyPair declId
 
 instance Resolve C.Type where
-  resolve = \case
+  resolve info = \case
       -- Interesting cases
       C.TypeRef declId  -> fmap C.TypeRef $
         lookupTypePairR declId
       C.TypeEnum ref -> fmap C.TypeEnum $
-        C.Ref <$> lookupTypePairR ref.name <*> resolve ref.underlying
+        C.Ref <$> lookupTypePairR ref.name <*> resolve info ref.underlying
       C.TypeMacro ref -> fmap C.TypeMacro $
-        C.MacroRef <$> lookupTypePairR ref.name <*> resolve ref.underlying
+        C.MacroRef <$> lookupTypePairR ref.name <*> resolve info ref.underlying
       C.TypeTypedef ref -> fmap C.TypeTypedef $
-        C.Ref <$> lookupTypePairR ref.name <*> resolve ref.underlying
+        C.Ref <$> lookupTypePairR ref.name <*> resolve info ref.underlying
 
       -- Recursive cases
-      C.TypePointers n typ             -> C.TypePointers n <$> resolve typ
-      C.TypeFun args res               -> C.TypeFun <$> mapM resolve args <*> resolve res
-      C.TypeConstArray n typ           -> C.TypeConstArray n <$> resolve typ
-      C.TypeIncompleteArray typ        -> C.TypeIncompleteArray <$> resolve typ
-      C.TypeBlock typ                  -> C.TypeBlock <$> resolve typ
-      C.TypeQual qual typ              -> C.TypeQual qual <$> resolve typ
-      C.TypeExtBinding ref             -> C.TypeExtBinding <$> resolveExtBindingRef ref
+      C.TypePointers n typ             -> C.TypePointers n <$> resolve info typ
+      C.TypeFun args res               -> C.TypeFun <$> mapM (resolve info) args <*> resolve info res
+      C.TypeConstArray n typ           -> C.TypeConstArray n <$> resolve info typ
+      C.TypeIncompleteArray typ        -> C.TypeIncompleteArray <$> resolve info typ
+      C.TypeBlock typ                  -> C.TypeBlock <$> resolve info typ
+      C.TypeQual qual typ              -> C.TypeQual qual <$> resolve info typ
+      C.TypeExtBinding ref             -> C.TypeExtBinding <$> resolveExtBindingRef info ref
 
       -- The other entries do not need any name mangling
       C.TypePrim prim                  -> pure $ C.TypePrim prim
@@ -383,19 +401,20 @@ instance Resolve C.Type where
       C.TypeComplex prim               -> pure $ C.TypeComplex prim
 
 instance Resolve C.TypeFunArg where
-  resolve arg = C.TypeFunArgF <$> resolve arg.typ <*> pure arg.ann
+  resolve info arg = C.TypeFunArgF <$> resolve info arg.typ <*> pure arg.ann
 
 resolveExtBindingRef ::
-     C.ExtBindingRef CreateNames
+     C.DeclInfo CreateNames
+  -> C.ExtBindingRef CreateNames
   -> ResolveE (C.ExtBindingRef MangleNames)
-resolveExtBindingRef (C.Ref ext uTy) =
+resolveExtBindingRef info (C.Ref ext uTy) =
     -- The underlying type may reference the external binding itself (e.g.
     -- the typedef name that was replaced). We extend the 'NameMap' with the
     -- external binding so that such references can be resolved.
     C.Ref ext <$>
       local
         ( #typeConstrs %~ Map.insert ext.cName ext.hsName.name )
-        ( resolve uTy )
+        ( resolve info uTy )
 
 {-------------------------------------------------------------------------------
   Resolving comment references

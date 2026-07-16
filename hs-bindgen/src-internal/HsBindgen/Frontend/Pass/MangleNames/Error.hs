@@ -43,8 +43,13 @@ instance IsTrace Level MangleNamesError where
   getDefaultLogLevel = \case
     MangleNamesCreationError CreateNamesSquashMustBeTypeConstr{} -> Bug
     MangleNamesCreationError{}                                   -> Warning
-    MangleNamesCollisionError{}                                  -> Warning
-    MangleNamesResolutionError{}                                 -> Warning
+    MangleNamesCollisionError e -> case e of
+      DetectClashesCollision{}            -> Warning
+      DetectClashesDuplicateFieldName{}   -> Warning
+      DetectClashesScopedNameNotMangled{} -> Warning
+    MangleNamesResolutionError e -> case e of
+      ResolveNamesUnderlyingDeclNotMangled{} -> Warning
+      ResolveNamesScopedNameNotMangled{}     -> Warning
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"
 
@@ -85,6 +90,8 @@ data MangleNamesCollisionError =
     -- Only fires under 'OmitFieldPrefixes'; under 'AddFieldPrefixes' mangling
     -- is injective within a record.
   | DetectClashesDuplicateFieldName Hs.SomeName [SingleLoc]
+    -- | A name scoped within a declaration was not mangled
+  | DetectClashesScopedNameNotMangled C.DeclId C.ScopedName
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace MangleNamesCollisionError where
@@ -103,6 +110,12 @@ instance PrettyForTrace MangleNamesCollisionError where
               , ":"
               ]
         in  PP.hang intro 2 $ PP.vcat $ map PP.show locs
+      DetectClashesScopedNameNotMangled declId scopedName -> PP.hsep [
+          "Name scoped in"
+        , prettyForTrace declId
+        , "not mangled:"
+        , prettyForTrace scopedName
+        ]
 
 {-------------------------------------------------------------------------------
   Traversal 3: resolve names
@@ -114,6 +127,8 @@ data MangleNamesResolutionError =
     -- (because it failed to mangle, or was dropped due to a collision), leaving
     -- a dangling reference.
     ResolveNamesUnderlyingDeclNotMangled C.DeclId (NonEmpty Hs.Namespace)
+    -- | A name scoped within a declaration was not mangled
+  | ResolveNamesScopedNameNotMangled C.DeclId C.ScopedName
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace MangleNamesResolutionError where
@@ -124,4 +139,10 @@ instance PrettyForTrace MangleNamesResolutionError where
             map prettyForTrace $ NonEmpty.toList namespaces
         , "not mangled:"
         , prettyForTrace declId
+        ]
+      ResolveNamesScopedNameNotMangled declId scopedName -> PP.hsep [
+          "Name scoped in"
+        , prettyForTrace declId
+        , "not mangled:"
+        , prettyForTrace scopedName
         ]

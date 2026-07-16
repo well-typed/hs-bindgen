@@ -14,6 +14,7 @@ import Control.Applicative ((<|>))
 import Control.Monad.Except (ExceptT, MonadError (..), liftEither, runExcept,
                              runExceptT)
 import Control.Monad.Reader (Reader, asks, runReader)
+import Control.Monad.State (StateT (runStateT), modify)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Proxy
@@ -44,15 +45,23 @@ import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
   This pass is local to name mangling: it is /not/ exposed as a frontend
   artefact and not selectable via the CLI. It is the result of the first of the
-  three name-mangling traversals ("create names"): it has all within-declaration
-  names minted (as annotations and 'ScopedNamePair' slots), but all references
-  (the 'Id' slots) are still unresolved 'DeclId's. The final 'resolveNames'
-  traversal rewrites these into 'DeclIdPair's, producing 'MangleNames'.
+  three name-mangling traversals ("create names").
+
+  'CreateNames' creates top-level declaration names (the 'Id' slots), scoped
+  names ('ScopedName'), and all local auxiliary names such as auxiliary type or
+  data constructor names.
+
+  'CreateNames', however, does not resolve names within declarations; names that
+  can be referred to from other declarations are stored in the 'NameMap'
+  (top-level names and scoped names). Names that are used purely locally are
+  stored in annotations (local auxiliary type and data constructor names).
+
+  The final 'resolveNames' traversal rewrites 'C.DeclId's into 'DeclIdPair's and
+  'C.ScopedName's into 'ScopedNamePair's, producing 'MangleNames'.
 
   Note that @'Ann' ix 'CreateNames'@ and @'Ann' ix 'MangleNames'@ reduce to the
-  same bundle types, and 'ScopedName' is 'ScopedNamePair' in both. The
-  annotations and scoped names can therefore be carried across directly during
-  'resolveNames'.
+  same bundle types. The annotations can therefore be carried across directly
+  during 'resolveNames'.
 -------------------------------------------------------------------------------}
 
 -- | Create names pass (local to name mangling)
@@ -75,7 +84,7 @@ instance PassId CreateNames where
   type Id CreateNames = C.DeclId
 
 instance PassScopedName CreateNames where
-  type ScopedName CreateNames = ScopedNamePair
+  type ScopedName CreateNames = C.ScopedName
 
 instance PassMacro CreateNames where
   type MacroId         CreateNames = C.DeclId
@@ -102,9 +111,10 @@ instance PassMsg CreateNames where
   CoercePass: ResolveBindingSpecs → CreateNames
 
   Used by the "create names" traversal to reindex the parts of a declaration
-  that do not change representation (types, comments, enclosing references). The
-  'Id' (and hence 'MacroId') and 'ExtBinding' representations agree between the
-  two passes, so these coercions are pure reindexing.
+  that do not change representation (types, comments, scoped names, enclosing
+  references). The 'Id' (and hence 'MacroId'), 'ScopedName', and 'ExtBinding'
+  representations agree between the two passes, so these coercions are pure
+  reindexing.
 -------------------------------------------------------------------------------}
 
 instance CoercePassId               ResolveBindingSpecs CreateNames
@@ -177,11 +187,13 @@ mangleCandidate mc _ cName =
   Traversal 1: Create names
 
   For each declaration we first choose its top-level name (step 1a,
-  'nameForDecl') and, when that succeeds, immediately mint all its
-  within-declaration names (step 1b, 'createDecl').
+  'nameForDecl'). When that succeeds, we immediately create all its
+  within-declaration names (step 1b, 'createDecl'). This includes creating
+  scoped names and purely local names.
 
   The top-level name feeds the 'NameMap' regardless of what happens in 1b: a
   squashed or otherwise un-emitted declaration must still be resolvable by name.
+  Scoped names are also fed into the 'NameMap'.
 -------------------------------------------------------------------------------}
 
 createNames ::
@@ -193,13 +205,15 @@ createNames ::
   -> ( [C.Decl l CreateNames]
      , [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
      , NameMap
+     , Maybe (NonEmpty DupAssign)
      , [MangleNamesFailure]
      , [AnnMsg MangleNames]
      )
 createNames td mc strategy decls = (
-      map snd successes
+      map (snd . snd) successes
     , squashes
     , nameMap
+    , nameMapDups
     , failures
     , messages
     )
@@ -217,17 +231,17 @@ createNames td mc strategy decls = (
       , fieldNamingStrategy = strategy
       }
 
-    results :: [CreateNamesResult (C.Decl l CreateNames)]
+    results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
     messages :: [AnnMsg MangleNames]
     (results, messages) = second concat $ unzip $ map perDecl decls
 
     perDecl ::
          C.Decl l ResolveBindingSpecs
-      -> (CreateNamesResult (C.Decl l CreateNames), [AnnMsg MangleNames])
+      -> (CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames), [AnnMsg MangleNames])
     perDecl decl = (,msgs) $ case nameResult of
         CnFailure err      -> CnFailure err
         CnSquashed nC nH s -> CnSquashed nC nH s
-        CnMangled name _   -> createNamesWithin env name decl
+        CnMangled name ()  -> createNamesWithin env name decl
       where
         nameResult :: CreateNamesResult ()
         msgs       :: [AnnMsg MangleNames]
@@ -235,13 +249,20 @@ createNames td mc strategy decls = (
 
     failures  :: [MangleNamesFailure]
     squashes  :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
-    successes :: [(DeclIdPair, C.Decl l CreateNames)]
-    (failures, squashes, successes) = partitionCreateResults results
+    successes :: [(DeclIdPair, ([ScopedNamePair], C.Decl l CreateNames))]
+    (failures, squashes, successes) = partitionCreateNamesResults results
 
     nameMap :: NameMap
-    nameMap = fromDeclIdPairs $
-         map fst successes
-      ++ map (\(cN, hN, _) -> DeclIdPair cN (Hs.demoteNs hN)) squashes
+    nameMapDups :: Maybe (NonEmpty DupAssign)
+    (nameMap, nameMapDups) = fromNames $
+         map fromSuccess successes
+      ++ map fromSquash squashes
+      where
+        fromSuccess (declIdPair, (scopedNamePairs, _)) = (declIdPair, scopedNamePairs)
+        fromSquash (cN, hN, _)                         = (declIdPair, scopedNamePairs)
+          where
+            declIdPair = DeclIdPair cN (Hs.demoteNs hN)
+            scopedNamePairs = []
 
 nameForDecl ::
      HasCallStack
@@ -353,10 +374,21 @@ data CreateEnv = CreateEnv{
   deriving stock (Generic)
 
 type CreateM   = Reader CreateEnv
-type CreateE a = ExceptT MangleNamesCreationError CreateM a
 
-runCreate :: CreateEnv -> CreateE a -> Either MangleNamesCreationError a
-runCreate env action = runReader (runExceptT action) env
+data CreateSt = CreateSt{
+      scopedNames :: [ScopedNamePair]
+    }
+  deriving stock (Generic)
+
+emptyCreateSt :: CreateSt
+emptyCreateSt = CreateSt []
+
+type CreateS   = StateT CreateSt CreateM
+
+type CreateE a = ExceptT MangleNamesCreationError CreateS a
+
+runCreate :: CreateEnv -> CreateSt -> CreateE a -> (Either MangleNamesCreationError a, CreateSt)
+runCreate env st action = runReader (runStateT (runExceptT action) st) env
 
 -- | Apply Haskell naming rules to a candidate name
 mkName ::
@@ -371,12 +403,12 @@ data CreateNamesResult a =
     | CnSquashed  C.DeclId (Hs.Name Hs.NsTypeConstr) TypedefAnalysis.Squash
     | CnMangled   DeclIdPair a
 
-partitionCreateResults ::
+partitionCreateNamesResults ::
      [CreateNamesResult a]
   -> ( [MangleNamesFailure]
      , [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
      , [(DeclIdPair, a)] )
-partitionCreateResults = rev . Foldable.foldl' aux ([], [], [])
+partitionCreateNamesResults = rev . Foldable.foldl' aux ([], [], [])
   where
     aux (fs, ss, ds) = \case
       CnFailure  f       -> (f:fs, ss,           ds      )
@@ -385,22 +417,25 @@ partitionCreateResults = rev . Foldable.foldl' aux ([], [], [])
 
     rev (fs, ss, ds) = (reverse fs, reverse ss, reverse ds)
 
--- | Mint the within-declaration names of a declaration whose top-level name
+-- | Create the within-declaration names of a declaration whose top-level name
 -- ('hsName') has already been chosen in step 1a.
 createNamesWithin ::
      Macro.HasTypes l
   => CreateEnv
   -> DeclIdPair
   -> C.Decl l ResolveBindingSpecs
-  -> CreateNamesResult (C.Decl l CreateNames)
+  -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
 createNamesWithin env declIdPair decl =
-    case runCreate env (createDeclKind declIdPair.hsName.text decl.kind) of
-      Left err   -> CnFailure $ toFailure decl.info (MangleNamesCreationError err)
-      Right kind -> CnMangled declIdPair C.Decl{
-          info = coercePass decl.info
-        , kind = kind
-        , ann  = decl.ann
-        }
+    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.text decl.kind) of
+      (Left err, _)   -> CnFailure $ toFailure decl.info (MangleNamesCreationError err)
+      (Right kind, st) -> CnMangled declIdPair (
+          st.scopedNames
+        , C.Decl{
+              info = coercePass decl.info
+            , kind = kind
+            , ann  = decl.ann
+            }
+        )
 
 createDeclKind ::
      Macro.HasTypes l
@@ -429,9 +464,9 @@ createStructNames name = do
         constr = constr
       }
 
--- | Mint names for the flexible array member (FLAM), if present
+-- | Create names for the flexible array member (FLAM), if present
 --
--- The auxiliary type-constructor name is minted exactly when there is a FLAM
+-- The auxiliary type-constructor name is created exactly when there is a FLAM
 -- and carried inside the 'C.Flam' constructor alongside the field, so that name
 -- creation cannot diverge from code generation
 -- (<https://github.com/well-typed/hs-bindgen/issues/1925>).
@@ -486,24 +521,28 @@ createFieldName hsName fieldCName = do
           AddFieldPrefixes  -> hsName <> "_" <> fieldCName.text
           OmitFieldPrefixes -> fieldCName.text
     name <- mkName (Proxy @Hs.NsVar) candidate
-    pure ScopedNamePair{
+    let scopedNamePair = ScopedNamePair{
         cName  = fieldCName
       , hsName = Hs.demoteNs name
       }
+    modify $ #scopedNames %~ (scopedNamePair:)
+    pure scopedNamePair
 
--- | Mangle an enum constant name
+-- | Create an enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of the
 -- enclosing enum.
 createEnumConstantName :: C.ScopedName -> CreateE ScopedNamePair
 createEnumConstantName cName = do
     name <- mkName (Proxy @Hs.NsConstr) cName.text
-    pure ScopedNamePair{
+    let scopedNamePair = ScopedNamePair{
         cName  = cName
       , hsName = Hs.demoteNs name
       }
+    modify $ #scopedNames %~ (scopedNamePair:)
+    pure scopedNamePair
 
--- | Mangle function argument name
+-- | Create function argument name
 --
 -- Function argument names are not really used when generating Haskell code.
 -- They are more relevant for documentation purposes so we don't do any
@@ -511,10 +550,12 @@ createEnumConstantName cName = do
 createArgumentName :: C.ScopedName -> CreateE ScopedNamePair
 createArgumentName argName = do
     name <- mkName (Proxy @Hs.NsVar) argName.text
-    pure ScopedNamePair{
+    let scopedNamePair = ScopedNamePair{
         cName  = argName
       , hsName = Hs.demoteNs name
       }
+    modify $ #scopedNames %~ (scopedNamePair:)
+    pure scopedNamePair
 
 {-------------------------------------------------------------------------------
   Traversal 1b: per-construct creators
@@ -562,7 +603,7 @@ createExplicitField hsName field = do
     pure C.ExplicitField{
         info   = C.FieldInfo{
                      loc     = field.info.loc
-                   , name    = name'
+                   , name    = name'.cName
                    , comment = fmap coercePass field.info.comment
                    }
       , typ    = coercePass field.typ
@@ -581,7 +622,7 @@ createImplicitField hsName field = do
     pure C.ImplicitField{
         info = C.FieldInfo{
                    loc     = field.info.loc
-                 , name    = name'
+                 , name    = name'.cName
                  , comment = fmap coercePass field.info.comment
                  }
       , typRef = typRef'
@@ -617,7 +658,7 @@ createEnumConstant constant = do
     pure C.EnumConstant{
         info  = C.FieldInfo{
                     loc     = constant.info.loc
-                  , name    = name'
+                  , name    = name'.cName
                   , comment = fmap coercePass constant.info.comment
                   }
       , value = constant.value
@@ -667,7 +708,7 @@ createFunction function = do
     createFunctionArg arg = do
       name' <- traverse createArgumentName arg.name
       pure C.FunctionArg{
-          name   = name'
+          name   = fmap (.cName) name'
         , argTyp = coercePass arg.argTyp
         }
 
