@@ -66,6 +66,13 @@ declarations.
 
 <https://en.cppreference.com/w/c/language/scope.html#File_scope>
 
+### Function-like macro
+[t:function_like]: #function-like-macro
+
+A *function-like* macro replaces each occurrence of that macro's name with its
+definition, additionally taking a list of named arguments, which replace
+corresponding occurrences of the argument name in the definition.
+
 ### Indirect field
 
 [Fields][t:field] of an [anonymous struct/union][t:anon] can be accessed as if
@@ -80,6 +87,45 @@ Haskell bindings are generated for the field declaring the [anonymous
 struct/union][t:anon] rather than for the indirect fields.
 
 </details>
+
+### Macro
+[t:macro]: #macro
+
+A (text) macro is a name associated with a replacement text.
+
+### Macro definition
+[t:macro_def]: #macro-definition
+
+A macro *definition* declares a name in the macro namespace with a replacement
+text. A macro can be [object-like][t:object_like] or
+[function-like][t:function_like]. Macro definitions might be
+[parsable][t:parsable_macro].
+
+### Macro expansion
+[t:macro_expansion]: #macro-expansion
+
+A C preprocessor *expands* macro [invocations][t:macro_inv], replacing
+invocations by their definition, which may be processed additionally depending
+on the type of the macro [definition][t:macro_def].
+
+### Macro invocation
+[t:macro_inv]: #macro-invocation
+
+A macro *invocation* references a macro definition by name so that it can be
+replaced by its definition. Macro invocations are [expanded][t:macro_expansion]
+by a C preprocessor. An [object-like][t:object_like] macro is invoked by
+referencing the macro's name. A [function-like][t:function_like] macro is
+invoked as if it is a function call.
+
+### Macro type
+[t:macro_type]: #macro-type
+
+A [macro][t:macro] that is parsed by `hs-bindgen` as a Haskell type.
+
+### Macro value
+[t:macro_value]: #macro-value
+
+A [macro][t:macro] that is parsed by `hs-bindgen` as a Haskell value.
 
 ### Named field
 [t:named_field]: #named-field
@@ -96,6 +142,12 @@ called a *nested struct/union*. The nested struct/union can be
 scope][t:file_scope] as long as its [enclosing struct/union][t:enclosing] has
 file scope, which is usually if not always the case.
 
+### Object-like macro
+[t:object_like]: #object-like-macro
+
+An *object-like* macro replaces each occurrence of that macro's name with its
+definition.
+
 ### Padding
 [t:padding]: #padding
 
@@ -110,6 +162,20 @@ Unnamed bit-fields are not translated to fields in the corresponding Haskell
 record in the generated Haskell bindings.
 </details>
 
+### Parsable macro
+[t:parsable_macro]: #parsable-macro
+
+A *parsable* macro is a macro definition that can be parsed as a [macro
+type][t:macro_type] or as a [macro value][t:macro_value].
+
+### Reparsing
+[t:reparsing]: #reparsing
+
+`hs-bindgen` parses headers once, and a subset of the headers is parsed a second
+time (those declarations that contain macro expansions). The second *reparse*
+inspects the source C code to augment the Haskell bindings with [macro
+types][t:macro_type].
+
 ### Tag
 [t:tag]: #tag
 
@@ -119,6 +185,10 @@ to this name as a *tag*.
 ### Tagged struct/union/enum
 
 A struct or union or enum with a [tag][t:tag] is called *tagged*.
+
+### Type macro
+
+See [macro type][t:macro_type].
 
 ### Unnamed field
 [t:unnamed_field]: #unnamed-field
@@ -131,6 +201,12 @@ A [field][t:field] without a name is called an *unnamed field*.
 [t:untagged]: #untagged-structunionenum
 
 A struct or union or enum without a [tag][t:tag] is called *untagged*.
+
+### Value macro
+
+See [macro value][t:macro_value].
+
+
 
 ## Internal
 
