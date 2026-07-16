@@ -4,6 +4,10 @@ packages:
   experiment/hsc2hs
   experiment/c2hs
 
+-- hsc2hs and c2hs are pinned to a commit rather than a release tag: for both,
+-- the pinned revision is newer than every published tag. hsc2hs sits a few
+-- commits past v0.68.10, and c2hs's most recent tag (0.28.1) predates the pin by
+-- years, so no tag names the revision we want.
 source-repository-package
   type: git
   location: https://github.com/haskell/hsc2hs.git

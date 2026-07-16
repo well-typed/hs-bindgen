@@ -10,6 +10,9 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 # demand rather than as a git submodule: a submodule is cloned by cabal for
 # every project that depends on hs-bindgen via source-repository-package, even
 # though only hs-bindgen-runtime is needed.
+#
+# Pinned to a commit rather than a tag because the upstream repository publishes
+# no tags.
 MINISAT_REPO="https://github.com/niklasso/minisat-c-bindings.git"
 MINISAT_COMMIT="2f137cbedc7a1a0ecd4117baaf84a005c2045134"
 

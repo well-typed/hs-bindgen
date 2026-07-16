@@ -11,12 +11,12 @@ RPMBUILD_DIR="$SCRIPT_DIR/rpm/_build/build/"
 BINDING_SPEC_DIR="$SCRIPT_DIR/binding-specs"
 HS_OUTPUT_DIR="$SCRIPT_DIR/hs-project/src/"
 
-# RPM Package Manager, pinned so the example is reproducible. We fetch it on
-# demand rather than as a git submodule: a submodule is cloned by cabal for
-# every project that depends on hs-bindgen via source-repository-package, even
-# though only hs-bindgen-runtime is needed.
+# RPM Package Manager, pinned to a git tag so the example is reproducible. We
+# fetch it on demand rather than as a git submodule: a submodule is cloned by
+# cabal for every project that depends on hs-bindgen via
+# source-repository-package, even though only hs-bindgen-runtime is needed.
 RPM_REPO="https://github.com/rpm-software-management/rpm.git"
-RPM_COMMIT="2530a42e4618f41fcc6cd21f0e70ca851b24ddc2"
+RPM_TAG="rpm-6.1.0-rc1"
 
 echo $SCRIPT_DIR
 
@@ -30,11 +30,11 @@ echo "# "
 
 if [ ! -d "$SCRIPT_DIR/rpm/.git" ]; then
     # --filter=blob:none keeps the download small (blobs are fetched on demand)
-    # while still allowing checkout of the pinned commit; a shallow clone could
-    # not check out an arbitrary older commit.
+    # while still allowing checkout of the pinned tag; a shallow clone could not
+    # check out an arbitrary older tag.
     git clone --filter=blob:none "$RPM_REPO" "$SCRIPT_DIR/rpm"
 fi
-git -C "$SCRIPT_DIR/rpm" checkout --quiet "$RPM_COMMIT"
+git -C "$SCRIPT_DIR/rpm" checkout --quiet "$RPM_TAG"
 # rpm carries its own submodules that its build needs.
 git -C "$SCRIPT_DIR/rpm" submodule update --init --recursive
 
