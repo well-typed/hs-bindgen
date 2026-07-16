@@ -286,6 +286,10 @@
   `preprocess --help` output. See
   [#2010](https://github.com/well-typed/hs-bindgen/issues/2010).
 * `CXCursor_StaticAssert` is now ignored in the parse pass.
+* Attribute macro expansions to declarations by column, not just line, so a
+  macro in a struct tag is no longer mis-attributed to a field on the same
+  line (which caused spurious "expansion not unique" and "unknown type of
+  expanded macro" messages). See [issue #2049][is-2049].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
@@ -300,6 +304,7 @@
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
+[is-2049]: https://github.com/well-typed/hs-bindgen/issues/2049
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892

@@ -91,10 +91,20 @@ parseInvocation inv =
 -- A macro invocation has a /unique/ expansion if it can be moved to any
 -- location further down the source file without changing the expansion result.
 --
--- This true as long as a macro (transitively) referenced by an invocation is
--- not captured by a new macro definition. Such capturing would cause the
--- expansion of the macro invocation to change. A macro invocation has a unique
--- expansion if all these conditions are met:
+-- In particular, even /two macros with the same name and definition can be
+-- ambiguous/. For example,
+--
+-- @
+-- #define A Foo
+-- #define B A
+-- #define A Bar
+-- #define B A
+-- @
+--
+-- A macro expansion has a unique expansion iff a macro (transitively)
+-- referenced by an invocation is not captured by a new macro definition. Such
+-- capturing would cause the expansion of the macro invocation to change. A
+-- macro invocation has a unique expansion if all these conditions are met:
 --
 -- * The invoked macro only has a single definition in the translation unit
 -- * The body of the invoked macro only invokes macros that have a unique
@@ -106,7 +116,6 @@ parseInvocation inv =
 -- invocation has a unique expansion, we recursively check whether macro
 -- invocations in the body have unique expansions, and we check the same for
 -- parameters to the invocation.
---
 isExpansionUnique ::
      [ParseResult Definition]
   -> ParseResult Invocation

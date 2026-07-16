@@ -19,14 +19,32 @@ import Data.Map.Strict qualified as Map
 import Data.Semigroup (Semigroup (sconcat))
 
 import Clang.HighLevel.Types (Range (rangeEnd, rangeStart),
-                              SingleLoc (singleLocLine, singleLocPath))
+                              SingleLoc (singleLocColumn, singleLocLine, singleLocPath))
 import Clang.Paths (SourcePath)
+
+-- | Position storing @(line, column)@ so that lookups are precise to the
+-- column: two values recorded on the same line (e.g. a struct tag and a field
+-- type, both macro expansions) are attributed to the correct extent.
+--
+-- See https://github.com/well-typed/hs-bindgen/issues/2049.
+data Pos = Pos {
+    line :: Int
+  , column :: Int
+  }
+  deriving stock (Eq, Show)
+
+-- | We provide a custom 'Ord' instance because it is important to compare lines
+--   before columns!
+instance Ord Pos where
+  left `compare` right =
+       left.line   `compare` right.line
+    <> left.column `compare` right.column
 
 -- | Mapping of source location ranges in C code to @a@ values
 newtype SourceRangeMap a = SRM {
     -- | We use a stacked map so we can lookup values in source location ranges
     -- reasonably fast.
-    unwrap :: Map SourcePath (Map Int (NonEmpty a))
+    unwrap :: Map SourcePath (Map Pos (NonEmpty a))
   }
 
 -- | An empty 'SourceRangeMap'
@@ -37,22 +55,25 @@ initSourceRangeMap = SRM Map.empty
 recordAt :: forall a. SingleLoc -> a -> SourceRangeMap a -> SourceRangeMap a
 recordAt loc new srm = SRM (addMacro srm.unwrap)
   where
+    pos :: Pos
+    pos = Pos loc.singleLocLine loc.singleLocColumn
+
     addMacro ::
-         Map SourcePath (Map Int (NonEmpty a))
-      -> Map SourcePath (Map Int (NonEmpty a))
+         Map SourcePath (Map Pos (NonEmpty a))
+      -> Map SourcePath (Map Pos (NonEmpty a))
     addMacro = Map.alter addMacroAtFile loc.singleLocPath
 
     addMacroAtFile ::
-         Maybe (Map Int (NonEmpty a))
-      -> Maybe (Map Int (NonEmpty a))
+         Maybe (Map Pos (NonEmpty a))
+      -> Maybe (Map Pos (NonEmpty a))
     addMacroAtFile = Just . \case
       Nothing ->
-        Map.singleton loc.singleLocLine $ NonEmpty.singleton new
-      Just lineMap ->
-        Map.alter addMacroAtLine loc.singleLocLine lineMap
+        Map.singleton pos $ NonEmpty.singleton new
+      Just posMap ->
+        Map.alter addMacroAtPos pos posMap
 
-    addMacroAtLine :: Maybe (NonEmpty a) -> Maybe (NonEmpty a)
-    addMacroAtLine = Just . \case
+    addMacroAtPos :: Maybe (NonEmpty a) -> Maybe (NonEmpty a)
+    addMacroAtPos = Just . \case
       Nothing     -> NonEmpty.singleton new
       Just macros -> NonEmpty.cons      new macros
 
@@ -73,10 +94,20 @@ lookupRange range srm
     sourcePath :: SourcePath
     sourcePath = range.rangeStart.singleLocPath
 
+    topLeft, bottomRight :: Pos
+    topLeft = Pos{
+        line   = range.rangeStart.singleLocLine
+      , column = range.rangeStart.singleLocColumn
+      }
+    bottomRight = Pos{
+        line   = range.rangeEnd.singleLocLine
+      , column = range.rangeEnd.singleLocColumn
+      }
+
     aux :: Maybe (NonEmpty a)
     aux = do
         let fileMap = srm.unwrap
-        lineMap <- Map.lookup sourcePath fileMap
+        posMap <- Map.lookup sourcePath fileMap
         fmap sconcat $ NE.nonEmpty $ Map.elems $
-          Map.takeWhileAntitone (range.rangeEnd.singleLocLine >=) $
-            Map.dropWhileAntitone (range.rangeStart.singleLocLine >) lineMap
+          Map.takeWhileAntitone (bottomRight >=) $
+            Map.dropWhileAntitone (topLeft >) posMap

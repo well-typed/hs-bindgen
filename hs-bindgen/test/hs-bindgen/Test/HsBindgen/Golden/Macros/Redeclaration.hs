@@ -26,6 +26,7 @@ testCases = [
     , TestCaseLeaf test_different
     , TestCaseLeaf test_identical_semantics
     , TestCaseLeaf test_identical_syntax
+    , TestCaseLeaf test_same_line_tag_field
     ]
 
 {-------------------------------------------------------------------------------
@@ -154,6 +155,28 @@ test_identical_syntax =
       MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
         Just $ Expected name
       MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+
+-- | A tag macro expansion must not leak into a same-line field.
+--
+-- @A@ (redefined, hence conflicting) expands to the struct tag; @B@ expands to
+-- the field type. Only @B@ belongs to the field's reparse info, so no
+-- reparse-related messages should be emitted for the struct. The default
+-- predicate flags any such message as unexpected, so a regression of the
+-- same-line mis-attribution fails this test.
+test_same_line_tag_field :: TestCase
+test_same_line_tag_field =
+    defaultTest_custom "macros/redeclaration/same_line_tag_field"
+      & #tracePredicate .~ multiTracePredicate_custom expected trace
+  where
+    expected :: [C.DeclName]
+    expected = ["macro A"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
+    trace = \case
+      MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
