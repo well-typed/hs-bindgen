@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
+import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -123,7 +124,7 @@ execFrontend getTestResources cStdStr incDirs header k =
           config         = BindgenConfig bootConfig frontendConfig backendConfig
           bootTracer     = contramap TraceBoot tracer
           frontendTracer = contramap TraceFrontend tracer
-      bootArtefact     <- runBoot bootTracer (pure . cExpr) config [header]
+      bootArtefact     <- runBoot bootTracer (pure . Macro.cExpr) config [header]
       frontendArtefact <- runFrontend frontendTracer frontendConfig bootArtefact
       k frontendArtefact
   where

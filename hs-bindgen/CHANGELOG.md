@@ -7,11 +7,12 @@
 * The `SelectPredicate` type has been renamed to `SelectionPredicate`, and the
   `selectPredicate` field of `FrontendConfig` has been renamed to
   `selectionPredicate`. Update any code that references these names.
-* `hsBindgen` and `hsBindgenE` now take a `Macro.Lang l` as their first
-  argument; the `Artefact` type gained an `l` type parameter.  Callers should
-  use the convenience wrappers `HsBindgen.IO.hsBindgen` (IO mode) or
-  `HsBindgen.TH.withHsBindgen` (TH mode), which detect the C standard
-  automatically and supply `cExprLang`.
+* `hsBindgenMacroLang` and `hsBindgenEMacroLang` (in the internal library) now
+  take a `Macro.Lang l` as their first argument; the `Artefact` type gained an
+  `l` type parameter. TH-mode callers should use the convenience wrapper
+  `HsBindgen.TH.withHsBindgen`, which detects the C standard automatically and
+  supplies the default `CExpr` macro language; the public library has no
+  IO-mode wrapper.
 * The `LLVM_CONFIG` environment variable is no longer used to locate
   `llvm-config`.  Configure `PATH` so that the desired `llvm-config` is found
   instead.
@@ -83,16 +84,16 @@
 * Variable names in macro bodies are resolved against all known declarations.
 * The macro-language implementation is now pluggable. The `Macro.HasTypes` type
   class and the `Macro.Lang` record (in the internal library) define the
-  interface that a macro-language backend must implement. The default backend
-  (`CExpr`, backed by `c-expr-dsl`) is exposed from the new `HsBindgen.Macro`
-  module in the public library as `cExpr :: ClangCStandard -> Macro.Lang CExpr`,
-  which also contains all translation logic from typechecked macro expressions
-  to Haskell AST nodes.
-* New `HsBindgen.IO` module exposes `hsBindgen`, a convenience entry point that
-  auto-detects the effective C standard and delegates to the internal
-  `hsBindgen`, and `hsBindgenMacroLang` for supplying a custom macro-language
-  backend. Similarly, `HsBindgen.TH` exposes `withHsBindgenMacroLang` as the
-  custom-macro-lang counterpart to `withHsBindgen`.
+  interface that a macro-language backend must implement. The public
+  `HsBindgen.Macro` module re-exports the default backend's `CExpr` type tag
+  and its `cExpr :: ClangCStandard -> Macro.Lang CExpr` constructor, both
+  opaquely; the full interface (unpacked `Lang` fields and all translation
+  logic from typechecked macro expressions to Haskell AST nodes) lives in
+  `HsBindgen.Internal.Macro`, a module of the library that is not exposed and
+  so cannot be imported by downstream packages at all.
+* `HsBindgen.TH` exposes `withHsBindgenMacroLang` as the custom-macro-lang
+  counterpart to `withHsBindgen`, and re-exports `BindgenM` opaquely (it
+  appears in the wrappers' type signatures).
 * A new CLI option `--log-squashed-as-info` (and matching
   `CustomLogLevelSetting` constructor `MakeMangleNamesSquashedInfo`) demotes
   the `select-mangle-names-squashed` trace from `Notice` to `Info`, so the

@@ -44,7 +44,8 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro
+import HsBindgen.Macro (CExpr)
+import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -304,7 +305,7 @@ runTestHsBindgen report getTestResources test artefacts = do
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig report test $ \traceConfigUnsafe -> do
       hsBindgenEMacroLang
-        (pure . cExpr)
+        (pure . Macro.cExpr)
         traceConfigUnsafe
         quietTracerConfig
         bindgenConfig

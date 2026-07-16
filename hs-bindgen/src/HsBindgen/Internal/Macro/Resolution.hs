@@ -1,4 +1,4 @@
-module HsBindgen.Macro.Resolution (
+module HsBindgen.Internal.Macro.Resolution (
     resolveMacro
   ) where
 
@@ -8,9 +8,9 @@ import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
+import HsBindgen.Internal.Macro.CExpr (CExpr)
+import HsBindgen.Internal.Macro.CExpr qualified as Macro
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.CExpr (CExpr)
-import HsBindgen.Macro.CExpr qualified as Macro
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
 

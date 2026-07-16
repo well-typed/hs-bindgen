@@ -11,7 +11,8 @@ module HsBindgen.TH.Internal (
   , getThDecls
   ) where
 
-import Control.Monad.State (State, execState, modify)
+import Control.Monad.State (State, execState)
+import Control.Monad.State.Class (MonadState, modify)
 import Data.Foldable qualified as Foldable
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
@@ -76,7 +77,7 @@ withHsBindgenMacroLang ::
      --  ^ The callback returning the macro 'Macro.Lang' to use.
   -> Config
   -> ConfigTH
-  -> BindgenM
+  -> BindgenM ()
   -> TH.Q [TH.Dec]
 withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
     packageRoot <- getPackageRoot
@@ -96,7 +97,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
 
         -- Traverse #include directives.
         bindgenState :: BindgenState
-        bindgenState = execState hashIncludes (BindgenState [])
+        bindgenState = execBindgenM hashIncludes (BindgenState [])
 
         -- Restore original order of include directives.
         uncheckedHashIncludeArgs :: [C.UncheckedHashIncludeArg]
@@ -135,7 +136,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
 -- > #include <a.h>
 --
 -- See 'withHsBindgen'.
-hashInclude :: FilePath -> BindgenM
+hashInclude :: FilePath -> BindgenM ()
 hashInclude arg = do
     -- Prepend the C header to the list (the order will be reversed)
     modify $ #hashIncludeArgs %~ (arg:)
@@ -204,7 +205,11 @@ tracerConfigDefTH :: TracerConfig l a
 tracerConfigDefTH = def{outputConfig = outputConfigTH}
 
 -- | State monad used by 'HsBindgen.withBindgen'
-type BindgenM = State BindgenState ()
+newtype BindgenM a = BindgenM { unwrap :: State BindgenState a }
+  deriving newtype (Functor, Applicative, Monad, MonadState BindgenState)
+
+execBindgenM :: BindgenM a -> BindgenState -> BindgenState
+execBindgenM = execState . (.unwrap)
 
 -- | State manipulated by 'hashInclude'
 --

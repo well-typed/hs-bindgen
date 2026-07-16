@@ -1,4 +1,4 @@
-module HsBindgen.Macro.Translation.Value (
+module HsBindgen.Internal.Macro.Translation.Value (
     translateMacroValue
   ) where
 
@@ -22,10 +22,10 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Internal.Macro.CExpr (CExpr)
+import HsBindgen.Internal.Macro.CExpr qualified as Macro
+import HsBindgen.Internal.Macro.Global
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.CExpr (CExpr)
-import HsBindgen.Macro.CExpr qualified as Macro
-import HsBindgen.Macro.Global
 import HsBindgen.NameHint
 
 translateMacroValue ::

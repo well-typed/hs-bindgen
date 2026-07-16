@@ -8,6 +8,7 @@ module HsBindgen.TH (
     withHsBindgen
   , TH.withHsBindgenMacroLang
   , TH.hashInclude
+  , TH.BindgenM -- opaque, used in type signatures
 
     -- * Configuration
   , TH.Config
@@ -60,14 +61,15 @@ module HsBindgen.TH (
     -- * Deriving
     --
     -- Ensure constructors are in scope when using @deriving via@.
-  , Deriving.EquivStorable(..)
-  , Deriving.SizedByteArray(..)
+  , DerivingViaSupport.EquivStorable(..)
+  , DerivingViaSupport.SizedByteArray(..)
   ) where
 
 import Data.Default qualified as Default
 import Language.Haskell.TH qualified as TH
 
-import HsBindgen.Runtime.Support.Deriving qualified as Deriving
+import HsBindgen.Runtime.Marshal qualified as DerivingViaSupport
+import HsBindgen.Runtime.Support.SizedByteArray qualified as DerivingViaSupport
 
 import HsBindgen.Backend.Category qualified as Category
 import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock
@@ -76,7 +78,7 @@ import HsBindgen.Config qualified as Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
-import HsBindgen.Macro
+import HsBindgen.Macro qualified as Macro
 import HsBindgen.TH.Internal qualified as TH
 import HsBindgen.TraceMsg as TraceMsg
 import HsBindgen.Util.Tracer as Tracer
@@ -88,6 +90,6 @@ import HsBindgen.Util.Tracer as Tracer
 withHsBindgen ::
      TH.Config
   -> Config.ConfigTH
-  -> TH.BindgenM
+  -> TH.BindgenM ()
   -> TH.Q [TH.Dec]
-withHsBindgen = TH.withHsBindgenMacroLang (pure . cExpr)
+withHsBindgen = TH.withHsBindgenMacroLang (pure . Macro.cExpr)

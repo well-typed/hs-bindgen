@@ -1,4 +1,4 @@
-module HsBindgen.Macro.Parse (
+module HsBindgen.Internal.Macro.Parse (
     parseMacro
   ) where
 
@@ -7,8 +7,8 @@ import C.Expr.Parse qualified as CExpr
 import Clang.CStandard
 import Clang.HighLevel.Types
 
-import HsBindgen.Macro.CExpr (CExpr)
-import HsBindgen.Macro.CExpr qualified as Macro
+import HsBindgen.Internal.Macro.CExpr (CExpr)
+import HsBindgen.Internal.Macro.CExpr qualified as Macro
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
 
