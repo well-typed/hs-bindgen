@@ -1,0 +1,61 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/redeclaration/same_line_tag_field.h
+  cname: macro B
+  hsname: B
+- headers: macros/redeclaration/same_line_tag_field.h
+  cname: struct S
+  hsname: S
+hstypes:
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
