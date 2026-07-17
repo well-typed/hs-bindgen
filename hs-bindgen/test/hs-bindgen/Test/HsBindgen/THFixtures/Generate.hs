@@ -45,6 +45,7 @@ languagePragmas = [
     , "{-# LANGUAGE FlexibleContexts #-}"
     , "{-# LANGUAGE FlexibleInstances #-}"
     , "{-# LANGUAGE GeneralizedNewtypeDeriving #-}"
+    , "{-# LANGUAGE ImportQualifiedPost #-}"
     , "{-# LANGUAGE MagicHash #-}"
     , "{-# LANGUAGE MultiParamTypeClasses #-}"
     , "{-# LANGUAGE OverloadedLabels #-}"
@@ -69,8 +70,8 @@ moduleHeader bootConfig = List.singleton $ unwords [
 imports :: [String]
 imports = [
       "import Foreign.C.Types"
-    , "import qualified HsBindgen.Runtime.LibC"
-    , "import qualified HsBindgen.Runtime.Prelude"
+    , "import HsBindgen.Runtime.LibC qualified"
+    , "import HsBindgen.Runtime.Prelude qualified"
     , "import HsBindgen.TH"
     , "import Optics ((%), (&), (.~))"
     ]

@@ -19,7 +19,7 @@ import Options.Applicative hiding (info)
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
-import HsBindgen.Config.Internal (BindgenConfig)
+import HsBindgen.Config.Internal
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 

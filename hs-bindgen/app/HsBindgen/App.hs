@@ -3,6 +3,7 @@
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
     hsBindgen
+
     -- * Global options
   , GlobalOpts(..)
   , parseGlobalOpts
@@ -49,13 +50,12 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro
+import HsBindgen.Macro (CExpr)
+import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 -- | Convenience entry point using the default C macro language.
---
--- Use 'hsBindgenMacroLang' to supply a different macro-language backend.
 hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
@@ -63,7 +63,7 @@ hsBindgen ::
   -> [C.UncheckedHashIncludeArg]
   -> Artefact CExpr a
   -> IO a
-hsBindgen = hsBindgenMacroLang (pure . cExpr)
+hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
 
 {-------------------------------------------------------------------------------
   Global options

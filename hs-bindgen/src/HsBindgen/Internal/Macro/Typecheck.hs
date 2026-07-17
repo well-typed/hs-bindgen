@@ -1,4 +1,4 @@
-module HsBindgen.Macro.Typecheck (
+module HsBindgen.Internal.Macro.Typecheck (
     typecheckMacros
   ) where
 
@@ -10,9 +10,9 @@ import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Type qualified as CExpr
 
 import HsBindgen.Imports
+import HsBindgen.Internal.Macro.CExpr (CExpr)
+import HsBindgen.Internal.Macro.CExpr qualified as Macro
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Macro.CExpr (CExpr)
-import HsBindgen.Macro.CExpr qualified as Macro
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
 

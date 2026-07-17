@@ -1,4 +1,4 @@
-module HsBindgen.Macro.Translation.Type (
+module HsBindgen.Internal.Macro.Translation.Type (
     translateMacroType
   ) where
 
@@ -7,10 +7,10 @@ import C.Expr.Typecheck
 import C.Expr.Typecheck.Interface.Type qualified as T
 
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
+import HsBindgen.Internal.Macro.CExpr (CExpr)
+import HsBindgen.Internal.Macro.CExpr qualified as Macro
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Macro.CExpr (CExpr)
-import HsBindgen.Macro.CExpr qualified as Macro
 
 translateMacroType ::
      Macro.TypecheckedType CExpr Hs.Type

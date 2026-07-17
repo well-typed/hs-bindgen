@@ -352,16 +352,18 @@ library
   hs-source-dirs:     src
   exposed-modules:
     HsBindgen.Macro
-    HsBindgen.Macro.CExpr
-    HsBindgen.Macro.Global
-    HsBindgen.Macro.Parse
-    HsBindgen.Macro.Resolution
-    HsBindgen.Macro.Translation.Type
-    HsBindgen.Macro.Translation.Value
-    HsBindgen.Macro.Typecheck
     HsBindgen.TH
 
   other-modules:
+    HsBindgen.Internal.Macro
+    HsBindgen.Internal.Macro.CExpr
+    HsBindgen.Internal.Macro.Global
+    HsBindgen.Internal.Macro.Parse
+    HsBindgen.Internal.Macro.Resolution
+    HsBindgen.Internal.Macro.Translation.Type
+    HsBindgen.Internal.Macro.Translation.Value
+    HsBindgen.Internal.Macro.Typecheck
+
   reexported-modules:
   other-extensions:   TemplateHaskellQuotes
 

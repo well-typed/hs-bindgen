@@ -3,10 +3,10 @@
 -- Intended for qualified import
 --
 -- @
--- import HsBindgen.Macro.CExpr (CExpr)
--- import HsBindgen.Macro.CExpr qualified as Macro
+-- import HsBindgen.Internal.Macro.CExpr (CExpr)
+-- import HsBindgen.Internal.Macro.CExpr qualified as Macro
 -- @
-module HsBindgen.Macro.CExpr (
+module HsBindgen.Internal.Macro.CExpr (
     CExpr
   , Macro.Parsed(..)
   , Macro.TypecheckedType(..)
