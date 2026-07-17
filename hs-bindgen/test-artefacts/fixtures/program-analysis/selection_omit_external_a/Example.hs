@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct UnrelatedDeclaration@
 
@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/selection_omit_external_a.h@
 -}
 data UnrelatedDeclaration = UnrelatedDeclaration
-  { unrelatedDeclaration_m :: RIP.CInt
+  { unrelatedDeclaration_m :: BG.CInt
     {- ^ __C declaration:__ @m@
 
          __defined at:__ @program-analysis\/selection_omit_external_a.h 5:7@
@@ -37,7 +37,7 @@ data UnrelatedDeclaration = UnrelatedDeclaration
          __exported by:__ @program-analysis\/selection_omit_external_a.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize UnrelatedDeclaration where
 
@@ -50,7 +50,7 @@ instance Marshal.ReadRaw UnrelatedDeclaration where
   readRaw =
     \ptr0 ->
           pure UnrelatedDeclaration
-      <*> HasCField.readRaw (RIP.Proxy @"unrelatedDeclaration_m") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"unrelatedDeclaration_m") ptr0
 
 instance Marshal.WriteRaw UnrelatedDeclaration where
 
@@ -59,29 +59,29 @@ instance Marshal.WriteRaw UnrelatedDeclaration where
       \s1 ->
         case s1 of
           UnrelatedDeclaration unrelatedDeclaration_m2 ->
-            HasCField.writeRaw (RIP.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
+            HasCField.writeRaw (BG.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
 
-deriving via Marshal.EquivStorable UnrelatedDeclaration instance RIP.Storable UnrelatedDeclaration
+deriving via Marshal.EquivStorable UnrelatedDeclaration instance BG.Storable UnrelatedDeclaration
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unrelatedDeclaration_m" UnrelatedDeclaration ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unrelatedDeclaration_m" UnrelatedDeclaration ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           UnrelatedDeclaration {unrelatedDeclaration_m = y1}
-      , RIP.getField @"unrelatedDeclaration_m" x0
+      , BG.getField @"unrelatedDeclaration_m" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unrelatedDeclaration_m" (RIP.Ptr UnrelatedDeclaration) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unrelatedDeclaration_m" (BG.Ptr UnrelatedDeclaration) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unrelatedDeclaration_m")
+    HasCField.fromPtr (BG.Proxy @"unrelatedDeclaration_m")
 
 instance HasCField.HasCField UnrelatedDeclaration "unrelatedDeclaration_m" where
 
   type CFieldType UnrelatedDeclaration "unrelatedDeclaration_m" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0

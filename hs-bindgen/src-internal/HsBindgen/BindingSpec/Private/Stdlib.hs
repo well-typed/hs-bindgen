@@ -21,6 +21,7 @@ module HsBindgen.BindingSpec.Private.Stdlib (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Runtime qualified as Runtime
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
@@ -39,7 +40,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{
-      moduleName = "HsBindgen.Runtime.LibC"
+      moduleName = Runtime.moduleName Runtime.LibC
     , cTypes     = bindingSpecCTypes
     , hsTypes    = bindingSpecHsTypes
     }

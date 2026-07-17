@@ -8,11 +8,11 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse/nesting/union_in_struct.h>"
   , "/* test_macrosreparsenestingunion_i_Example_get_T1 */"
   , "__attribute__ ((const))"
@@ -36,12 +36,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T1@
 foreign import ccall unsafe "hs_bindgen_44a1ef54c1044601" hs_bindgen_44a1ef54c1044601_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T1@
-hs_bindgen_44a1ef54c1044601 :: IO (RIP.Ptr T1)
+hs_bindgen_44a1ef54c1044601 :: IO (BG.Ptr T1)
 hs_bindgen_44a1ef54c1044601 =
-  RIP.fromFFIType hs_bindgen_44a1ef54c1044601_base
+  BG.fromFFIType hs_bindgen_44a1ef54c1044601_base
 
 {-# NOINLINE t1 #-}
 {-| __C declaration:__ @T1@
@@ -50,17 +50,17 @@ hs_bindgen_44a1ef54c1044601 =
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-t1 :: RIP.Ptr T1
-t1 = RIP.unsafePerformIO hs_bindgen_44a1ef54c1044601
+t1 :: BG.Ptr T1
+t1 = BG.unsafePerformIO hs_bindgen_44a1ef54c1044601
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T2@
 foreign import ccall unsafe "hs_bindgen_915293812630a04d" hs_bindgen_915293812630a04d_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T2@
-hs_bindgen_915293812630a04d :: IO (RIP.Ptr T2)
+hs_bindgen_915293812630a04d :: IO (BG.Ptr T2)
 hs_bindgen_915293812630a04d =
-  RIP.fromFFIType hs_bindgen_915293812630a04d_base
+  BG.fromFFIType hs_bindgen_915293812630a04d_base
 
 {-# NOINLINE t2 #-}
 {-| __C declaration:__ @T2@
@@ -69,17 +69,17 @@ hs_bindgen_915293812630a04d =
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-t2 :: RIP.Ptr T2
-t2 = RIP.unsafePerformIO hs_bindgen_915293812630a04d
+t2 :: BG.Ptr T2
+t2 = BG.unsafePerformIO hs_bindgen_915293812630a04d
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T3@
 foreign import ccall unsafe "hs_bindgen_e20a6c1bc9b97a9e" hs_bindgen_e20a6c1bc9b97a9e_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparsenestingunion_i_Example_get_T3@
-hs_bindgen_e20a6c1bc9b97a9e :: IO (RIP.Ptr T3)
+hs_bindgen_e20a6c1bc9b97a9e :: IO (BG.Ptr T3)
 hs_bindgen_e20a6c1bc9b97a9e =
-  RIP.fromFFIType hs_bindgen_e20a6c1bc9b97a9e_base
+  BG.fromFFIType hs_bindgen_e20a6c1bc9b97a9e_base
 
 {-# NOINLINE t3 #-}
 {-| __C declaration:__ @T3@
@@ -88,5 +88,5 @@ hs_bindgen_e20a6c1bc9b97a9e =
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_struct.h@
 -}
-t3 :: RIP.Ptr T3
-t3 = RIP.unsafePerformIO hs_bindgen_e20a6c1bc9b97a9e
+t3 :: BG.Ptr T3
+t3 = BG.unsafePerformIO hs_bindgen_e20a6c1bc9b97a9e

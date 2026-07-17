@@ -6,10 +6,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/varargs.h>"
   , "void hs_bindgen_77a4bac5bbe80f62 (void)"
   , "{"
@@ -24,7 +24,7 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
 hs_bindgen_77a4bac5bbe80f62 :: IO ()
 hs_bindgen_77a4bac5bbe80f62 =
-  RIP.fromFFIType hs_bindgen_77a4bac5bbe80f62_base
+  BG.fromFFIType hs_bindgen_77a4bac5bbe80f62_base
 
 {-| __C declaration:__ @h@
 

@@ -20,9 +20,9 @@ module Example
 
 import qualified Foreign
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @uint32_t@
 
@@ -31,44 +31,44 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 newtype Uint32_t = Uint32_t
-  { unwrapUint32_t :: RIP.CUInt
+  { unwrapUint32_t :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapUint32_t" Uint32_t ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapUint32_t" Uint32_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Uint32_t {unwrapUint32_t = y1}, RIP.getField @"unwrapUint32_t" x0)
+         Uint32_t {unwrapUint32_t = y1}, BG.getField @"unwrapUint32_t" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapUint32_t" (RIP.Ptr Uint32_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapUint32_t" (BG.Ptr Uint32_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapUint32_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapUint32_t")
 
 instance HasCField.HasCField Uint32_t "unwrapUint32_t" where
 
-  type CFieldType Uint32_t "unwrapUint32_t" = RIP.CUInt
+  type CFieldType Uint32_t "unwrapUint32_t" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -94,9 +94,9 @@ data Foo = Foo
          __exported by:__ @program-analysis\/program_slicing_simple.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
-instance RIP.Storable Foo where
+instance BG.Storable Foo where
 
   sizeOf = \_ -> (16 :: Int)
 
@@ -105,32 +105,32 @@ instance RIP.Storable Foo where
   peek =
     \ptr0 ->
           pure Foo
-      <*> HasCField.peek (RIP.Proxy @"foo_sixty_four") ptr0
-      <*> HasCField.peek (RIP.Proxy @"foo_thirty_two") ptr0
+      <*> HasCField.peek (BG.Proxy @"foo_sixty_four") ptr0
+      <*> HasCField.peek (BG.Proxy @"foo_thirty_two") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               HasCField.poke (RIP.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
-            >> HasCField.poke (RIP.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+               HasCField.poke (BG.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HasCField.poke (BG.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
 instance ( ty ~ Foreign.Word64
-         ) => RIP.CompatHasField.HasField "foo_sixty_four" Foo ty where
+         ) => BG.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_sixty_four = y1, foo_thirty_two = RIP.getField @"foo_thirty_two" x0}
-      , RIP.getField @"foo_sixty_four" x0
+          Foo {foo_sixty_four = y1, foo_thirty_two = BG.getField @"foo_thirty_two" x0}
+      , BG.getField @"foo_sixty_four" x0
       )
 
 instance ( ty ~ Foreign.Word64
-         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
+         ) => BG.HasField "foo_sixty_four" (BG.Ptr Foo) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
+    HasCField.fromPtr (BG.Proxy @"foo_sixty_four")
 
 instance HasCField.HasCField Foo "foo_sixty_four" where
 
@@ -139,20 +139,20 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ Uint32_t
-         ) => RIP.CompatHasField.HasField "foo_thirty_two" Foo ty where
+         ) => BG.CompatHasField.HasField "foo_thirty_two" Foo ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Foo {foo_thirty_two = y1, foo_sixty_four = RIP.getField @"foo_sixty_four" x0}
-      , RIP.getField @"foo_thirty_two" x0
+          Foo {foo_thirty_two = y1, foo_sixty_four = BG.getField @"foo_sixty_four" x0}
+      , BG.getField @"foo_thirty_two" x0
       )
 
 instance ( ty ~ Uint32_t
-         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
+         ) => BG.HasField "foo_thirty_two" (BG.Ptr Foo) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (BG.Proxy @"foo_thirty_two")
 
 instance HasCField.HasCField Foo "foo_thirty_two" where
 

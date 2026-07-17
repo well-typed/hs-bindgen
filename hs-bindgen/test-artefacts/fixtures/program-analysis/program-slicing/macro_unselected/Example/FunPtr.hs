@@ -6,11 +6,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program-slicing/macro_unselected.h>"
   , "/* test_programanalysisprogramslici_Example_get_bar */"
   , "__attribute__ ((const))"
@@ -24,12 +24,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e09cca_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
-hs_bindgen_e57577b970e09cca :: IO (RIP.FunPtr (U -> IO ()))
+hs_bindgen_e57577b970e09cca :: IO (BG.FunPtr (U -> IO ()))
 hs_bindgen_e57577b970e09cca =
-  RIP.fromFFIType hs_bindgen_e57577b970e09cca_base
+  BG.fromFFIType hs_bindgen_e57577b970e09cca_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -38,5 +38,5 @@ hs_bindgen_e57577b970e09cca =
 
     __exported by:__ @program-analysis\/program-slicing\/macro_unselected.h@
 -}
-bar :: RIP.FunPtr (U -> IO ())
-bar = RIP.unsafePerformIO hs_bindgen_e57577b970e09cca
+bar :: BG.FunPtr (U -> IO ())
+bar = BG.unsafePerformIO hs_bindgen_e57577b970e09cca

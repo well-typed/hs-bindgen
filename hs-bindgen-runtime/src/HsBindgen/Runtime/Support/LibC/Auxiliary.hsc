@@ -7,7 +7,7 @@
 -- | C standard library types that are not in @base@
 --
 -- These are re-exported in the public-facing module "HsBindgen.Runtime.LibC".
-module HsBindgen.Runtime.Internal.LibC.Auxiliary (
+module HsBindgen.Runtime.Support.LibC.Auxiliary (
     -- * Floating Types
     CFenvT
   , CFexceptT
@@ -36,8 +36,8 @@ import GHC.Records (HasField (..))
 
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
-import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
-import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
+import HsBindgen.Runtime.Support.HasFFIType (HasFFIType)
 import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>
@@ -58,8 +58,12 @@ import HsBindgen.Runtime.Marshal
   Floating Types
 -------------------------------------------------------------------------------}
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2133>
+--
 -- TODO CFloatT @float_t@ (arch, uses long double, math.h)
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2133>
+--
 -- TODO CDoubleT @double_t@ (arch, uses long double, math.h)
 
 --------------------------------------------------------------------------------
@@ -87,6 +91,8 @@ data CFexceptT
   Standard Definitions
 -------------------------------------------------------------------------------}
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2133>
+--
 -- TODO CMaxAlignT @max_align_t@ (uses long double, C11, stddef.h)
 
 {-------------------------------------------------------------------------------
@@ -232,7 +238,9 @@ newtype CChar32T = CChar32T Word32
   Localization Types
 -------------------------------------------------------------------------------}
 
--- TODO CLconv @struct lconv@ (fields added in C99, locale.h)
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2133>
+--
+-- CLconv @struct lconv@ (fields added in C99, locale.h)
 
 {-------------------------------------------------------------------------------
   Time Types

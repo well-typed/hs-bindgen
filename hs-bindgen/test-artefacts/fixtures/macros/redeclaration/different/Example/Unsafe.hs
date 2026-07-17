@@ -7,10 +7,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/redeclaration/different.h>"
   , "void hs_bindgen_42c808e061719a11 ("
   , "  signed int arg1"
@@ -28,15 +28,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_42c808e061719a11" hs_bindgen_42c808e061719a11_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
 hs_bindgen_42c808e061719a11 ::
-     RIP.CInt
+     BG.CInt
   -> IO ()
 hs_bindgen_42c808e061719a11 =
-  RIP.fromFFIType hs_bindgen_42c808e061719a11_base
+  BG.fromFFIType hs_bindgen_42c808e061719a11_base
 
 {-| __C declaration:__ @foo@
 
@@ -45,22 +45,22 @@ hs_bindgen_42c808e061719a11 =
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 foo ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_42c808e061719a11
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_06a03878580406ca" hs_bindgen_06a03878580406ca_base ::
-     RIP.Int8
+     BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
 hs_bindgen_06a03878580406ca ::
-     RIP.CChar
+     BG.CChar
   -> IO ()
 hs_bindgen_06a03878580406ca =
-  RIP.fromFFIType hs_bindgen_06a03878580406ca_base
+  BG.fromFFIType hs_bindgen_06a03878580406ca_base
 
 {-| __C declaration:__ @bar@
 
@@ -69,7 +69,7 @@ hs_bindgen_06a03878580406ca =
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
 bar ::
-     RIP.CChar
+     BG.CChar
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_06a03878580406ca

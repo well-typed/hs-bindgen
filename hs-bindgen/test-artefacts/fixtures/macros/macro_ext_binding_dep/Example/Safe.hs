@@ -6,11 +6,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/macro_ext_binding_dep.h>"
   , "void hs_bindgen_f70130e6504e0e5e ("
   , "  B arg1"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Safe_use_b@
 foreign import ccall safe "hs_bindgen_f70130e6504e0e5e" hs_bindgen_f70130e6504e0e5e_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Safe_use_b@
@@ -30,7 +30,7 @@ hs_bindgen_f70130e6504e0e5e ::
      B
   -> IO ()
 hs_bindgen_f70130e6504e0e5e =
-  RIP.fromFFIType hs_bindgen_f70130e6504e0e5e_base
+  BG.fromFFIType hs_bindgen_f70130e6504e0e5e_base
 
 {-| __C declaration:__ @use_b@
 

@@ -6,10 +6,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <documentation/javadoc_banner.h>"
   , "signed int hs_bindgen_7d3fd818d0780e11 ("
   , "  signed int arg1"
@@ -21,15 +21,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 foreign import ccall safe "hs_bindgen_7d3fd818d0780e11" hs_bindgen_7d3fd818d0780e11_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 hs_bindgen_7d3fd818d0780e11 ::
-     RIP.CInt
-  -> IO RIP.CInt
+     BG.CInt
+  -> IO BG.CInt
 hs_bindgen_7d3fd818d0780e11 =
-  RIP.fromFFIType hs_bindgen_7d3fd818d0780e11_base
+  BG.fromFFIType hs_bindgen_7d3fd818d0780e11_base
 
 {-| A function documented with a Javadoc banner-style comment.
 
@@ -46,12 +46,12 @@ hs_bindgen_7d3fd818d0780e11 =
     __exported by:__ @documentation\/javadoc_banner.h@
 -}
 banner_double ::
-     RIP.CInt
+     BG.CInt
      {- ^
 
           [__@x@__]: The input value
 
           __C declaration:__ @x@
      -}
-  -> IO RIP.CInt
+  -> IO BG.CInt
 banner_double = hs_bindgen_7d3fd818d0780e11

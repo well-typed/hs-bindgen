@@ -27,12 +27,12 @@ module Example.Global
   where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <globals/globals.h>"
   , "/* test_globalsglobals_Example_get_simpleGlobal */"
   , "__attribute__ ((const))"
@@ -158,12 +158,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
 foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d91414aa8_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
-hs_bindgen_4f8e7b3d91414aa8 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_4f8e7b3d91414aa8 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_4f8e7b3d91414aa8 =
-  RIP.fromFFIType hs_bindgen_4f8e7b3d91414aa8_base
+  BG.fromFFIType hs_bindgen_4f8e7b3d91414aa8_base
 
 {-# NOINLINE simpleGlobal #-}
 {-| __C declaration:__ @simpleGlobal@
@@ -172,18 +172,18 @@ hs_bindgen_4f8e7b3d91414aa8 =
 
     __exported by:__ @globals\/globals.h@
 -}
-simpleGlobal :: RIP.Ptr RIP.CInt
+simpleGlobal :: BG.Ptr BG.CInt
 simpleGlobal =
-  RIP.unsafePerformIO hs_bindgen_4f8e7b3d91414aa8
+  BG.unsafePerformIO hs_bindgen_4f8e7b3d91414aa8
 
 -- __unique:__ @test_globalsglobals_Example_get_compoundGlobal1@
 foreign import ccall unsafe "hs_bindgen_7f4cd619c55119dd" hs_bindgen_7f4cd619c55119dd_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_compoundGlobal1@
-hs_bindgen_7f4cd619c55119dd :: IO (RIP.Ptr Config)
+hs_bindgen_7f4cd619c55119dd :: IO (BG.Ptr Config)
 hs_bindgen_7f4cd619c55119dd =
-  RIP.fromFFIType hs_bindgen_7f4cd619c55119dd_base
+  BG.fromFFIType hs_bindgen_7f4cd619c55119dd_base
 
 {-# NOINLINE compoundGlobal1 #-}
 {-| __C declaration:__ @compoundGlobal1@
@@ -192,18 +192,18 @@ hs_bindgen_7f4cd619c55119dd =
 
     __exported by:__ @globals\/globals.h@
 -}
-compoundGlobal1 :: RIP.Ptr Config
+compoundGlobal1 :: BG.Ptr Config
 compoundGlobal1 =
-  RIP.unsafePerformIO hs_bindgen_7f4cd619c55119dd
+  BG.unsafePerformIO hs_bindgen_7f4cd619c55119dd
 
 -- __unique:__ @test_globalsglobals_Example_get_compoundGlobal2@
 foreign import ccall unsafe "hs_bindgen_ed5c7196c3291592" hs_bindgen_ed5c7196c3291592_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_compoundGlobal2@
-hs_bindgen_ed5c7196c3291592 :: IO (RIP.Ptr Inline_struct)
+hs_bindgen_ed5c7196c3291592 :: IO (BG.Ptr Inline_struct)
 hs_bindgen_ed5c7196c3291592 =
-  RIP.fromFFIType hs_bindgen_ed5c7196c3291592_base
+  BG.fromFFIType hs_bindgen_ed5c7196c3291592_base
 
 {-# NOINLINE compoundGlobal2 #-}
 {-| __C declaration:__ @compoundGlobal2@
@@ -212,18 +212,18 @@ hs_bindgen_ed5c7196c3291592 =
 
     __exported by:__ @globals\/globals.h@
 -}
-compoundGlobal2 :: RIP.Ptr Inline_struct
+compoundGlobal2 :: BG.Ptr Inline_struct
 compoundGlobal2 =
-  RIP.unsafePerformIO hs_bindgen_ed5c7196c3291592
+  BG.unsafePerformIO hs_bindgen_ed5c7196c3291592
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInteger@
 foreign import ccall unsafe "hs_bindgen_0be07820afb78239" hs_bindgen_0be07820afb78239_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInteger@
-hs_bindgen_0be07820afb78239 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_0be07820afb78239 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_0be07820afb78239 =
-  RIP.fromFFIType hs_bindgen_0be07820afb78239_base
+  BG.fromFFIType hs_bindgen_0be07820afb78239_base
 
 {-# NOINLINE nesInteger #-}
 {-| Non-extern non-static global variables
@@ -238,18 +238,18 @@ hs_bindgen_0be07820afb78239 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInteger :: RIP.Ptr RIP.CInt
+nesInteger :: BG.Ptr BG.CInt
 nesInteger =
-  RIP.unsafePerformIO hs_bindgen_0be07820afb78239
+  BG.unsafePerformIO hs_bindgen_0be07820afb78239
 
 -- __unique:__ @test_globalsglobals_Example_get_nesFloating@
 foreign import ccall unsafe "hs_bindgen_e3497c0a80a77750" hs_bindgen_e3497c0a80a77750_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesFloating@
-hs_bindgen_e3497c0a80a77750 :: IO (RIP.Ptr RIP.CFloat)
+hs_bindgen_e3497c0a80a77750 :: IO (BG.Ptr BG.CFloat)
 hs_bindgen_e3497c0a80a77750 =
-  RIP.fromFFIType hs_bindgen_e3497c0a80a77750_base
+  BG.fromFFIType hs_bindgen_e3497c0a80a77750_base
 
 {-# NOINLINE nesFloating #-}
 {-| __C declaration:__ @nesFloating@
@@ -258,18 +258,18 @@ hs_bindgen_e3497c0a80a77750 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesFloating :: RIP.Ptr RIP.CFloat
+nesFloating :: BG.Ptr BG.CFloat
 nesFloating =
-  RIP.unsafePerformIO hs_bindgen_e3497c0a80a77750
+  BG.unsafePerformIO hs_bindgen_e3497c0a80a77750
 
 -- __unique:__ @test_globalsglobals_Example_get_nesImaginary@
 foreign import ccall unsafe "hs_bindgen_e958634c96270349" hs_bindgen_e958634c96270349_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesImaginary@
-hs_bindgen_e958634c96270349 :: IO (RIP.Ptr (RIP.Complex RIP.CDouble))
+hs_bindgen_e958634c96270349 :: IO (BG.Ptr (BG.Complex BG.CDouble))
 hs_bindgen_e958634c96270349 =
-  RIP.fromFFIType hs_bindgen_e958634c96270349_base
+  BG.fromFFIType hs_bindgen_e958634c96270349_base
 
 {-# NOINLINE nesImaginary #-}
 {-| __C declaration:__ @nesImaginary@
@@ -278,18 +278,18 @@ hs_bindgen_e958634c96270349 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesImaginary :: RIP.Ptr (RIP.Complex RIP.CDouble)
+nesImaginary :: BG.Ptr (BG.Complex BG.CDouble)
 nesImaginary =
-  RIP.unsafePerformIO hs_bindgen_e958634c96270349
+  BG.unsafePerformIO hs_bindgen_e958634c96270349
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString1@
 foreign import ccall unsafe "hs_bindgen_78918168bc760476" hs_bindgen_78918168bc760476_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString1@
-hs_bindgen_78918168bc760476 :: IO (RIP.Ptr (RIP.Ptr RIP.CChar))
+hs_bindgen_78918168bc760476 :: IO (BG.Ptr (BG.Ptr BG.CChar))
 hs_bindgen_78918168bc760476 =
-  RIP.fromFFIType hs_bindgen_78918168bc760476_base
+  BG.fromFFIType hs_bindgen_78918168bc760476_base
 
 {-# NOINLINE nesString1 #-}
 {-| __C declaration:__ @nesString1@
@@ -298,18 +298,18 @@ hs_bindgen_78918168bc760476 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesString1 :: RIP.Ptr (RIP.Ptr RIP.CChar)
+nesString1 :: BG.Ptr (BG.Ptr BG.CChar)
 nesString1 =
-  RIP.unsafePerformIO hs_bindgen_78918168bc760476
+  BG.unsafePerformIO hs_bindgen_78918168bc760476
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
 foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f890e752_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
-hs_bindgen_c6c52463f890e752 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CChar))
+hs_bindgen_c6c52463f890e752 :: IO (BG.Ptr (CA.ConstantArray 3 BG.CChar))
 hs_bindgen_c6c52463f890e752 =
-  RIP.fromFFIType hs_bindgen_c6c52463f890e752_base
+  BG.fromFFIType hs_bindgen_c6c52463f890e752_base
 
 {-# NOINLINE nesString2 #-}
 {-| __C declaration:__ @nesString2@
@@ -318,18 +318,18 @@ hs_bindgen_c6c52463f890e752 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesString2 :: RIP.Ptr (CA.ConstantArray 3 RIP.CChar)
+nesString2 :: BG.Ptr (CA.ConstantArray 3 BG.CChar)
 nesString2 =
-  RIP.unsafePerformIO hs_bindgen_c6c52463f890e752
+  BG.unsafePerformIO hs_bindgen_c6c52463f890e752
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCharacter@
 foreign import ccall unsafe "hs_bindgen_9b33d990c25069a0" hs_bindgen_9b33d990c25069a0_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCharacter@
-hs_bindgen_9b33d990c25069a0 :: IO (RIP.Ptr RIP.CChar)
+hs_bindgen_9b33d990c25069a0 :: IO (BG.Ptr BG.CChar)
 hs_bindgen_9b33d990c25069a0 =
-  RIP.fromFFIType hs_bindgen_9b33d990c25069a0_base
+  BG.fromFFIType hs_bindgen_9b33d990c25069a0_base
 
 {-# NOINLINE nesCharacter #-}
 {-| __C declaration:__ @nesCharacter@
@@ -338,18 +338,18 @@ hs_bindgen_9b33d990c25069a0 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesCharacter :: RIP.Ptr RIP.CChar
+nesCharacter :: BG.Ptr BG.CChar
 nesCharacter =
-  RIP.unsafePerformIO hs_bindgen_9b33d990c25069a0
+  BG.unsafePerformIO hs_bindgen_9b33d990c25069a0
 
 -- __unique:__ @test_globalsglobals_Example_get_nesParen@
 foreign import ccall unsafe "hs_bindgen_561a1d5a05307329" hs_bindgen_561a1d5a05307329_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesParen@
-hs_bindgen_561a1d5a05307329 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_561a1d5a05307329 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_561a1d5a05307329 =
-  RIP.fromFFIType hs_bindgen_561a1d5a05307329_base
+  BG.fromFFIType hs_bindgen_561a1d5a05307329_base
 
 {-# NOINLINE nesParen #-}
 {-| __C declaration:__ @nesParen@
@@ -358,18 +358,18 @@ hs_bindgen_561a1d5a05307329 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesParen :: RIP.Ptr RIP.CInt
+nesParen :: BG.Ptr BG.CInt
 nesParen =
-  RIP.unsafePerformIO hs_bindgen_561a1d5a05307329
+  BG.unsafePerformIO hs_bindgen_561a1d5a05307329
 
 -- __unique:__ @test_globalsglobals_Example_get_nesUnary@
 foreign import ccall unsafe "hs_bindgen_4d3d64def4cf943f" hs_bindgen_4d3d64def4cf943f_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesUnary@
-hs_bindgen_4d3d64def4cf943f :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_4d3d64def4cf943f :: IO (BG.Ptr BG.CInt)
 hs_bindgen_4d3d64def4cf943f =
-  RIP.fromFFIType hs_bindgen_4d3d64def4cf943f_base
+  BG.fromFFIType hs_bindgen_4d3d64def4cf943f_base
 
 {-# NOINLINE nesUnary #-}
 {-| __C declaration:__ @nesUnary@
@@ -378,18 +378,18 @@ hs_bindgen_4d3d64def4cf943f =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesUnary :: RIP.Ptr RIP.CInt
+nesUnary :: BG.Ptr BG.CInt
 nesUnary =
-  RIP.unsafePerformIO hs_bindgen_4d3d64def4cf943f
+  BG.unsafePerformIO hs_bindgen_4d3d64def4cf943f
 
 -- __unique:__ @test_globalsglobals_Example_get_nesBinary@
 foreign import ccall unsafe "hs_bindgen_dcb8301e1cb444b7" hs_bindgen_dcb8301e1cb444b7_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesBinary@
-hs_bindgen_dcb8301e1cb444b7 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_dcb8301e1cb444b7 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_dcb8301e1cb444b7 =
-  RIP.fromFFIType hs_bindgen_dcb8301e1cb444b7_base
+  BG.fromFFIType hs_bindgen_dcb8301e1cb444b7_base
 
 {-# NOINLINE nesBinary #-}
 {-| __C declaration:__ @nesBinary@
@@ -398,18 +398,18 @@ hs_bindgen_dcb8301e1cb444b7 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesBinary :: RIP.Ptr RIP.CInt
+nesBinary :: BG.Ptr BG.CInt
 nesBinary =
-  RIP.unsafePerformIO hs_bindgen_dcb8301e1cb444b7
+  BG.unsafePerformIO hs_bindgen_dcb8301e1cb444b7
 
 -- __unique:__ @test_globalsglobals_Example_get_nesConditional@
 foreign import ccall unsafe "hs_bindgen_798d6b9c7136a5d0" hs_bindgen_798d6b9c7136a5d0_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesConditional@
-hs_bindgen_798d6b9c7136a5d0 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_798d6b9c7136a5d0 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_798d6b9c7136a5d0 =
-  RIP.fromFFIType hs_bindgen_798d6b9c7136a5d0_base
+  BG.fromFFIType hs_bindgen_798d6b9c7136a5d0_base
 
 {-# NOINLINE nesConditional #-}
 {-| __C declaration:__ @nesConditional@
@@ -418,18 +418,18 @@ hs_bindgen_798d6b9c7136a5d0 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesConditional :: RIP.Ptr RIP.CInt
+nesConditional :: BG.Ptr BG.CInt
 nesConditional =
-  RIP.unsafePerformIO hs_bindgen_798d6b9c7136a5d0
+  BG.unsafePerformIO hs_bindgen_798d6b9c7136a5d0
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCast@
 foreign import ccall unsafe "hs_bindgen_9c15dc9805f8abb8" hs_bindgen_9c15dc9805f8abb8_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCast@
-hs_bindgen_9c15dc9805f8abb8 :: IO (RIP.Ptr RIP.CFloat)
+hs_bindgen_9c15dc9805f8abb8 :: IO (BG.Ptr BG.CFloat)
 hs_bindgen_9c15dc9805f8abb8 =
-  RIP.fromFFIType hs_bindgen_9c15dc9805f8abb8_base
+  BG.fromFFIType hs_bindgen_9c15dc9805f8abb8_base
 
 {-# NOINLINE nesCast #-}
 {-| __C declaration:__ @nesCast@
@@ -438,18 +438,18 @@ hs_bindgen_9c15dc9805f8abb8 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesCast :: RIP.Ptr RIP.CFloat
+nesCast :: BG.Ptr BG.CFloat
 nesCast =
-  RIP.unsafePerformIO hs_bindgen_9c15dc9805f8abb8
+  BG.unsafePerformIO hs_bindgen_9c15dc9805f8abb8
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCompound@
 foreign import ccall unsafe "hs_bindgen_089dfddcc6667ac2" hs_bindgen_089dfddcc6667ac2_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesCompound@
-hs_bindgen_089dfddcc6667ac2 :: IO (RIP.Ptr (RIP.Ptr RIP.CInt))
+hs_bindgen_089dfddcc6667ac2 :: IO (BG.Ptr (BG.Ptr BG.CInt))
 hs_bindgen_089dfddcc6667ac2 =
-  RIP.fromFFIType hs_bindgen_089dfddcc6667ac2_base
+  BG.fromFFIType hs_bindgen_089dfddcc6667ac2_base
 
 {-# NOINLINE nesCompound #-}
 {-| __C declaration:__ @nesCompound@
@@ -458,18 +458,18 @@ hs_bindgen_089dfddcc6667ac2 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesCompound :: RIP.Ptr (RIP.Ptr RIP.CInt)
+nesCompound :: BG.Ptr (BG.Ptr BG.CInt)
 nesCompound =
-  RIP.unsafePerformIO hs_bindgen_089dfddcc6667ac2
+  BG.unsafePerformIO hs_bindgen_089dfddcc6667ac2
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
 foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bfc3030_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
-hs_bindgen_798af9a98bfc3030 :: IO (RIP.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8))
+hs_bindgen_798af9a98bfc3030 :: IO (BG.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_798af9a98bfc3030 =
-  RIP.fromFFIType hs_bindgen_798af9a98bfc3030_base
+  BG.fromFFIType hs_bindgen_798af9a98bfc3030_base
 
 {-# NOINLINE nesInitList #-}
 {-| __C declaration:__ @nesInitList@
@@ -478,18 +478,18 @@ hs_bindgen_798af9a98bfc3030 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: RIP.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8)
+nesInitList :: BG.Ptr (CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8)
 nesInitList =
-  RIP.unsafePerformIO hs_bindgen_798af9a98bfc3030
+  BG.unsafePerformIO hs_bindgen_798af9a98bfc3030
 
 -- __unique:__ @test_globalsglobals_Example_get_nesBool@
 foreign import ccall unsafe "hs_bindgen_846b0fde4d102012" hs_bindgen_846b0fde4d102012_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesBool@
-hs_bindgen_846b0fde4d102012 :: IO (RIP.Ptr RIP.CBool)
+hs_bindgen_846b0fde4d102012 :: IO (BG.Ptr BG.CBool)
 hs_bindgen_846b0fde4d102012 =
-  RIP.fromFFIType hs_bindgen_846b0fde4d102012_base
+  BG.fromFFIType hs_bindgen_846b0fde4d102012_base
 
 {-# NOINLINE nesBool #-}
 {-| __C declaration:__ @nesBool@
@@ -498,18 +498,18 @@ hs_bindgen_846b0fde4d102012 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesBool :: RIP.Ptr RIP.CBool
+nesBool :: BG.Ptr BG.CBool
 nesBool =
-  RIP.unsafePerformIO hs_bindgen_846b0fde4d102012
+  BG.unsafePerformIO hs_bindgen_846b0fde4d102012
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
 foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f8b883_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
-hs_bindgen_b243f9b292f8b883 :: IO (RIP.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8))
+hs_bindgen_b243f9b292f8b883 :: IO (BG.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_b243f9b292f8b883 =
-  RIP.fromFFIType hs_bindgen_b243f9b292f8b883_base
+  BG.fromFFIType hs_bindgen_b243f9b292f8b883_base
 
 {-# NOINLINE streamBinary #-}
 {-| Additional examples of global variables, abstracted from real examples
@@ -522,18 +522,18 @@ hs_bindgen_b243f9b292f8b883 =
 
     __exported by:__ @globals\/globals.h@
 -}
-streamBinary :: RIP.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8)
+streamBinary :: BG.Ptr (CA.ConstantArray 4096 HsBindgen.Runtime.LibC.Word8)
 streamBinary =
-  RIP.unsafePerformIO hs_bindgen_b243f9b292f8b883
+  BG.unsafePerformIO hs_bindgen_b243f9b292f8b883
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary_len@
 foreign import ccall unsafe "hs_bindgen_60adad2a6178e6cc" hs_bindgen_60adad2a6178e6cc_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary_len@
-hs_bindgen_60adad2a6178e6cc :: IO (RIP.Ptr HsBindgen.Runtime.LibC.Word32)
+hs_bindgen_60adad2a6178e6cc :: IO (BG.Ptr HsBindgen.Runtime.LibC.Word32)
 hs_bindgen_60adad2a6178e6cc =
-  RIP.fromFFIType hs_bindgen_60adad2a6178e6cc_base
+  BG.fromFFIType hs_bindgen_60adad2a6178e6cc_base
 
 {-# NOINLINE streamBinary_len #-}
 {-| __C declaration:__ @streamBinary_len@
@@ -542,18 +542,18 @@ hs_bindgen_60adad2a6178e6cc =
 
     __exported by:__ @globals\/globals.h@
 -}
-streamBinary_len :: RIP.Ptr HsBindgen.Runtime.LibC.Word32
+streamBinary_len :: BG.Ptr HsBindgen.Runtime.LibC.Word32
 streamBinary_len =
-  RIP.unsafePerformIO hs_bindgen_60adad2a6178e6cc
+  BG.unsafePerformIO hs_bindgen_60adad2a6178e6cc
 
 -- __unique:__ @test_globalsglobals_Example_get_some_global_struct@
 foreign import ccall unsafe "hs_bindgen_fe50ca9a4fea641c" hs_bindgen_fe50ca9a4fea641c_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_some_global_struct@
-hs_bindgen_fe50ca9a4fea641c :: IO (RIP.Ptr Struct2_t)
+hs_bindgen_fe50ca9a4fea641c :: IO (BG.Ptr Struct2_t)
 hs_bindgen_fe50ca9a4fea641c =
-  RIP.fromFFIType hs_bindgen_fe50ca9a4fea641c_base
+  BG.fromFFIType hs_bindgen_fe50ca9a4fea641c_base
 
 {-# NOINLINE some_global_struct #-}
 {-| __C declaration:__ @some_global_struct@
@@ -562,6 +562,6 @@ hs_bindgen_fe50ca9a4fea641c =
 
     __exported by:__ @globals\/globals.h@
 -}
-some_global_struct :: RIP.Ptr Struct2_t
+some_global_struct :: BG.Ptr Struct2_t
 some_global_struct =
-  RIP.unsafePerformIO hs_bindgen_fe50ca9a4fea641c
+  BG.unsafePerformIO hs_bindgen_fe50ca9a4fea641c

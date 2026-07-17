@@ -26,9 +26,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified M
 
 {-| __C declaration:__ @enum MyEnum@
@@ -38,10 +38,10 @@ import qualified M
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
 newtype MyEnum = MyEnum
-  { unwrapMyEnum :: RIP.CUInt
+  { unwrapMyEnum :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize MyEnum where
 
@@ -65,21 +65,21 @@ instance Marshal.WriteRaw MyEnum where
           MyEnum unwrapMyEnum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapMyEnum2
 
-deriving via Marshal.EquivStorable MyEnum instance RIP.Storable MyEnum
+deriving via Marshal.EquivStorable MyEnum instance BG.Storable MyEnum
 
-deriving via RIP.CUInt instance RIP.Prim MyEnum
+deriving via BG.CUInt instance BG.Prim MyEnum
 
 instance CEnum.CEnum MyEnum where
 
-  type CEnumZ MyEnum = RIP.CUInt
+  type CEnumZ MyEnum = BG.CUInt
 
   toCEnum = MyEnum
 
-  fromCEnum = RIP.getField @"unwrapMyEnum"
+  fromCEnum = BG.getField @"unwrapMyEnum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "X")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "X")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "MyEnum"
@@ -105,27 +105,27 @@ instance Read MyEnum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapMyEnum" MyEnum ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyEnum {unwrapMyEnum = y1}, RIP.getField @"unwrapMyEnum" x0)
+         MyEnum {unwrapMyEnum = y1}, BG.getField @"unwrapMyEnum" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapMyEnum" (BG.Ptr MyEnum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyEnum")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyEnum")
 
 instance HasCField.HasCField MyEnum "unwrapMyEnum" where
 
-  type CFieldType MyEnum "unwrapMyEnum" = RIP.CUInt
+  type CFieldType MyEnum "unwrapMyEnum" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -147,25 +147,25 @@ pattern X = MyEnum 0
 newtype A = A
   { unwrapA :: MyEnum
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.HasFFIType
-    , RIP.Prim
+    ( BG.HasFFIType
+    , BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ MyEnum) => RIP.CompatHasField.HasField "unwrapA" A ty where
+instance (ty ~ MyEnum) => BG.CompatHasField.HasField "unwrapA" A ty where
 
   hasField =
     \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+      (\y1 -> A {unwrapA = y1}, BG.getField @"unwrapA" x0)
 
-instance (ty ~ MyEnum) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ MyEnum) => BG.HasField "unwrapA" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapA")
 
 instance HasCField.HasCField A "unwrapA" where
 
@@ -182,25 +182,25 @@ instance HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.HasFFIType
-    , RIP.Prim
+    ( BG.HasFFIType
+    , BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+instance (ty ~ A) => BG.CompatHasField.HasField "unwrapB" B ty where
 
   hasField =
     \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+      (\y1 -> B {unwrapB = y1}, BG.getField @"unwrapB" x0)
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => BG.HasField "unwrapB" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapB")
 
 instance HasCField.HasCField B "unwrapB" where
 
@@ -217,18 +217,18 @@ instance HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
-  deriving stock (RIP.Generic)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
-instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+instance (ty ~ M.C) => BG.CompatHasField.HasField "unwrapE" E ty where
 
   hasField =
     \x0 ->
-      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)
+      (\y1 -> E {unwrapE = y1}, BG.getField @"unwrapE" x0)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => BG.HasField "unwrapE" (BG.Ptr E) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapE")
 
 instance HasCField.HasCField E "unwrapE" where
 

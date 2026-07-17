@@ -6,10 +6,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <attributes/asm.h>"
   , "signed int hs_bindgen_3ad6c287a2386382 ("
   , "  signed int arg1,"
@@ -22,17 +22,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382_base ::
-     RIP.Int32
-  -> RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 hs_bindgen_3ad6c287a2386382 ::
-     RIP.CInt
-  -> RIP.CInt
-  -> IO RIP.CInt
+     BG.CInt
+  -> BG.CInt
+  -> IO BG.CInt
 hs_bindgen_3ad6c287a2386382 =
-  RIP.fromFFIType hs_bindgen_3ad6c287a2386382_base
+  BG.fromFFIType hs_bindgen_3ad6c287a2386382_base
 
 {-| __C declaration:__ @asm_labeled_function@
 
@@ -41,9 +41,9 @@ hs_bindgen_3ad6c287a2386382 =
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.CInt
+  -> BG.CInt
      -- ^ __C declaration:__ @y@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 asm_labeled_function = hs_bindgen_3ad6c287a2386382

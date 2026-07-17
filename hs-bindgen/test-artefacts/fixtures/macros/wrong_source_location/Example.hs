@@ -27,9 +27,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct \@UU1_fieldY@
 
@@ -38,7 +38,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data UU1_fieldY = UU1_fieldY
-  { uU1_fieldY_fieldX :: RIP.CInt
+  { uU1_fieldY_fieldX :: BG.CInt
     {- ^ __C declaration:__ @fieldX@
 
          __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -46,7 +46,7 @@ data UU1_fieldY = UU1_fieldY
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize UU1_fieldY where
 
@@ -59,7 +59,7 @@ instance Marshal.ReadRaw UU1_fieldY where
   readRaw =
     \ptr0 ->
           pure UU1_fieldY
-      <*> HasCField.readRaw (RIP.Proxy @"uU1_fieldY_fieldX") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"uU1_fieldY_fieldX") ptr0
 
 instance Marshal.WriteRaw UU1_fieldY where
 
@@ -68,29 +68,29 @@ instance Marshal.WriteRaw UU1_fieldY where
       \s1 ->
         case s1 of
           UU1_fieldY uU1_fieldY_fieldX2 ->
-            HasCField.writeRaw (RIP.Proxy @"uU1_fieldY_fieldX") ptr0 uU1_fieldY_fieldX2
+            HasCField.writeRaw (BG.Proxy @"uU1_fieldY_fieldX") ptr0 uU1_fieldY_fieldX2
 
-deriving via Marshal.EquivStorable UU1_fieldY instance RIP.Storable UU1_fieldY
+deriving via Marshal.EquivStorable UU1_fieldY instance BG.Storable UU1_fieldY
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "uU1_fieldY_fieldX" UU1_fieldY ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "uU1_fieldY_fieldX" UU1_fieldY ty where
 
   hasField =
     \x0 ->
       ( \y1 -> UU1_fieldY {uU1_fieldY_fieldX = y1}
-      , RIP.getField @"uU1_fieldY_fieldX" x0
+      , BG.getField @"uU1_fieldY_fieldX" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU1_fieldY_fieldX" (RIP.Ptr UU1_fieldY) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "uU1_fieldY_fieldX" (BG.Ptr UU1_fieldY) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY_fieldX")
+    HasCField.fromPtr (BG.Proxy @"uU1_fieldY_fieldX")
 
 instance HasCField.HasCField UU1_fieldY "uU1_fieldY_fieldX" where
 
   type CFieldType UU1_fieldY "uU1_fieldY_fieldX" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -109,7 +109,7 @@ data UU1 = UU1
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize UU1 where
 
@@ -122,7 +122,7 @@ instance Marshal.ReadRaw UU1 where
   readRaw =
     \ptr0 ->
           pure UU1
-      <*> HasCField.readRaw (RIP.Proxy @"uU1_fieldY") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"uU1_fieldY") ptr0
 
 instance Marshal.WriteRaw UU1 where
 
@@ -131,23 +131,22 @@ instance Marshal.WriteRaw UU1 where
       \s1 ->
         case s1 of
           UU1 uU1_fieldY2 ->
-            HasCField.writeRaw (RIP.Proxy @"uU1_fieldY") ptr0 uU1_fieldY2
+            HasCField.writeRaw (BG.Proxy @"uU1_fieldY") ptr0 uU1_fieldY2
 
-deriving via Marshal.EquivStorable UU1 instance RIP.Storable UU1
+deriving via Marshal.EquivStorable UU1 instance BG.Storable UU1
 
 instance ( ty ~ UU1_fieldY
-         ) => RIP.CompatHasField.HasField "uU1_fieldY" UU1 ty where
+         ) => BG.CompatHasField.HasField "uU1_fieldY" UU1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         UU1 {uU1_fieldY = y1}, RIP.getField @"uU1_fieldY" x0)
+         UU1 {uU1_fieldY = y1}, BG.getField @"uU1_fieldY" x0)
 
 instance ( ty ~ UU1_fieldY
-         ) => RIP.HasField "uU1_fieldY" (RIP.Ptr UU1) (RIP.Ptr ty) where
+         ) => BG.HasField "uU1_fieldY" (BG.Ptr UU1) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU1_fieldY")
+  getField = HasCField.fromPtr (BG.Proxy @"uU1_fieldY")
 
 instance HasCField.HasCField UU1 "uU1_fieldY" where
 
@@ -162,7 +161,7 @@ instance HasCField.HasCField UU1 "uU1_fieldY" where
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data UU2_fieldY = UU2_fieldY
-  { uU2_fieldY_fieldX :: RIP.CInt
+  { uU2_fieldY_fieldX :: BG.CInt
     {- ^ __C declaration:__ @fieldX@
 
          __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -170,7 +169,7 @@ data UU2_fieldY = UU2_fieldY
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize UU2_fieldY where
 
@@ -183,7 +182,7 @@ instance Marshal.ReadRaw UU2_fieldY where
   readRaw =
     \ptr0 ->
           pure UU2_fieldY
-      <*> HasCField.readRaw (RIP.Proxy @"uU2_fieldY_fieldX") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"uU2_fieldY_fieldX") ptr0
 
 instance Marshal.WriteRaw UU2_fieldY where
 
@@ -192,29 +191,29 @@ instance Marshal.WriteRaw UU2_fieldY where
       \s1 ->
         case s1 of
           UU2_fieldY uU2_fieldY_fieldX2 ->
-            HasCField.writeRaw (RIP.Proxy @"uU2_fieldY_fieldX") ptr0 uU2_fieldY_fieldX2
+            HasCField.writeRaw (BG.Proxy @"uU2_fieldY_fieldX") ptr0 uU2_fieldY_fieldX2
 
-deriving via Marshal.EquivStorable UU2_fieldY instance RIP.Storable UU2_fieldY
+deriving via Marshal.EquivStorable UU2_fieldY instance BG.Storable UU2_fieldY
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "uU2_fieldY_fieldX" UU2_fieldY ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "uU2_fieldY_fieldX" UU2_fieldY ty where
 
   hasField =
     \x0 ->
       ( \y1 -> UU2_fieldY {uU2_fieldY_fieldX = y1}
-      , RIP.getField @"uU2_fieldY_fieldX" x0
+      , BG.getField @"uU2_fieldY_fieldX" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "uU2_fieldY_fieldX" (RIP.Ptr UU2_fieldY) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "uU2_fieldY_fieldX" (BG.Ptr UU2_fieldY) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY_fieldX")
+    HasCField.fromPtr (BG.Proxy @"uU2_fieldY_fieldX")
 
 instance HasCField.HasCField UU2_fieldY "uU2_fieldY_fieldX" where
 
   type CFieldType UU2_fieldY "uU2_fieldY_fieldX" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -233,7 +232,7 @@ data UU2 = UU2
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize UU2 where
 
@@ -246,7 +245,7 @@ instance Marshal.ReadRaw UU2 where
   readRaw =
     \ptr0 ->
           pure UU2
-      <*> HasCField.readRaw (RIP.Proxy @"uU2_fieldY") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"uU2_fieldY") ptr0
 
 instance Marshal.WriteRaw UU2 where
 
@@ -255,23 +254,22 @@ instance Marshal.WriteRaw UU2 where
       \s1 ->
         case s1 of
           UU2 uU2_fieldY2 ->
-            HasCField.writeRaw (RIP.Proxy @"uU2_fieldY") ptr0 uU2_fieldY2
+            HasCField.writeRaw (BG.Proxy @"uU2_fieldY") ptr0 uU2_fieldY2
 
-deriving via Marshal.EquivStorable UU2 instance RIP.Storable UU2
+deriving via Marshal.EquivStorable UU2 instance BG.Storable UU2
 
 instance ( ty ~ UU2_fieldY
-         ) => RIP.CompatHasField.HasField "uU2_fieldY" UU2 ty where
+         ) => BG.CompatHasField.HasField "uU2_fieldY" UU2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         UU2 {uU2_fieldY = y1}, RIP.getField @"uU2_fieldY" x0)
+         UU2 {uU2_fieldY = y1}, BG.getField @"uU2_fieldY" x0)
 
 instance ( ty ~ UU2_fieldY
-         ) => RIP.HasField "uU2_fieldY" (RIP.Ptr UU2) (RIP.Ptr ty) where
+         ) => BG.HasField "uU2_fieldY" (BG.Ptr UU2) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"uU2_fieldY")
+  getField = HasCField.fromPtr (BG.Proxy @"uU2_fieldY")
 
 instance HasCField.HasCField UU2 "uU2_fieldY" where
 
@@ -286,7 +284,7 @@ instance HasCField.HasCField UU2 "uU2_fieldY" where
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data VV1_fieldA = VV1_fieldA
-  { vV1_fieldA_a :: RIP.CInt
+  { vV1_fieldA_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -294,7 +292,7 @@ data VV1_fieldA = VV1_fieldA
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV1_fieldA where
 
@@ -307,7 +305,7 @@ instance Marshal.ReadRaw VV1_fieldA where
   readRaw =
     \ptr0 ->
           pure VV1_fieldA
-      <*> HasCField.readRaw (RIP.Proxy @"vV1_fieldA_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV1_fieldA_a") ptr0
 
 instance Marshal.WriteRaw VV1_fieldA where
 
@@ -316,27 +314,27 @@ instance Marshal.WriteRaw VV1_fieldA where
       \s1 ->
         case s1 of
           VV1_fieldA vV1_fieldA_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"vV1_fieldA_a") ptr0 vV1_fieldA_a2
+            HasCField.writeRaw (BG.Proxy @"vV1_fieldA_a") ptr0 vV1_fieldA_a2
 
-deriving via Marshal.EquivStorable VV1_fieldA instance RIP.Storable VV1_fieldA
+deriving via Marshal.EquivStorable VV1_fieldA instance BG.Storable VV1_fieldA
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "vV1_fieldA_a" VV1_fieldA ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "vV1_fieldA_a" VV1_fieldA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         VV1_fieldA {vV1_fieldA_a = y1}, RIP.getField @"vV1_fieldA_a" x0)
+         VV1_fieldA {vV1_fieldA_a = y1}, BG.getField @"vV1_fieldA_a" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldA_a" (RIP.Ptr VV1_fieldA) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "vV1_fieldA_a" (BG.Ptr VV1_fieldA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA_a")
+    HasCField.fromPtr (BG.Proxy @"vV1_fieldA_a")
 
 instance HasCField.HasCField VV1_fieldA "vV1_fieldA_a" where
 
-  type CFieldType VV1_fieldA "vV1_fieldA_a" = RIP.CInt
+  type CFieldType VV1_fieldA "vV1_fieldA_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -347,7 +345,7 @@ instance HasCField.HasCField VV1_fieldA "vV1_fieldA_a" where
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data VV1_fieldB = VV1_fieldB
-  { vV1_fieldB_b :: RIP.CInt
+  { vV1_fieldB_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @macros\/wrong_source_location.h 29:1@
@@ -355,7 +353,7 @@ data VV1_fieldB = VV1_fieldB
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV1_fieldB where
 
@@ -368,7 +366,7 @@ instance Marshal.ReadRaw VV1_fieldB where
   readRaw =
     \ptr0 ->
           pure VV1_fieldB
-      <*> HasCField.readRaw (RIP.Proxy @"vV1_fieldB_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV1_fieldB_b") ptr0
 
 instance Marshal.WriteRaw VV1_fieldB where
 
@@ -377,27 +375,27 @@ instance Marshal.WriteRaw VV1_fieldB where
       \s1 ->
         case s1 of
           VV1_fieldB vV1_fieldB_b2 ->
-            HasCField.writeRaw (RIP.Proxy @"vV1_fieldB_b") ptr0 vV1_fieldB_b2
+            HasCField.writeRaw (BG.Proxy @"vV1_fieldB_b") ptr0 vV1_fieldB_b2
 
-deriving via Marshal.EquivStorable VV1_fieldB instance RIP.Storable VV1_fieldB
+deriving via Marshal.EquivStorable VV1_fieldB instance BG.Storable VV1_fieldB
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "vV1_fieldB_b" VV1_fieldB ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "vV1_fieldB_b" VV1_fieldB ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         VV1_fieldB {vV1_fieldB_b = y1}, RIP.getField @"vV1_fieldB_b" x0)
+         VV1_fieldB {vV1_fieldB_b = y1}, BG.getField @"vV1_fieldB_b" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV1_fieldB_b" (RIP.Ptr VV1_fieldB) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "vV1_fieldB_b" (BG.Ptr VV1_fieldB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB_b")
+    HasCField.fromPtr (BG.Proxy @"vV1_fieldB_b")
 
 instance HasCField.HasCField VV1_fieldB "vV1_fieldB_b" where
 
-  type CFieldType VV1_fieldB "vV1_fieldB_b" = RIP.CInt
+  type CFieldType VV1_fieldB "vV1_fieldB_b" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -423,7 +421,7 @@ data VV1 = VV1
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV1 where
 
@@ -436,8 +434,8 @@ instance Marshal.ReadRaw VV1 where
   readRaw =
     \ptr0 ->
           pure VV1
-      <*> HasCField.readRaw (RIP.Proxy @"vV1_fieldA") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"vV1_fieldB") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV1_fieldA") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV1_fieldB") ptr0
 
 instance Marshal.WriteRaw VV1 where
 
@@ -446,26 +444,25 @@ instance Marshal.WriteRaw VV1 where
       \s1 ->
         case s1 of
           VV1 vV1_fieldA2 vV1_fieldB3 ->
-               HasCField.writeRaw (RIP.Proxy @"vV1_fieldA") ptr0 vV1_fieldA2
-            >> HasCField.writeRaw (RIP.Proxy @"vV1_fieldB") ptr0 vV1_fieldB3
+               HasCField.writeRaw (BG.Proxy @"vV1_fieldA") ptr0 vV1_fieldA2
+            >> HasCField.writeRaw (BG.Proxy @"vV1_fieldB") ptr0 vV1_fieldB3
 
-deriving via Marshal.EquivStorable VV1 instance RIP.Storable VV1
+deriving via Marshal.EquivStorable VV1 instance BG.Storable VV1
 
 instance ( ty ~ VV1_fieldA
-         ) => RIP.CompatHasField.HasField "vV1_fieldA" VV1 ty where
+         ) => BG.CompatHasField.HasField "vV1_fieldA" VV1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          VV1 {vV1_fieldA = y1, vV1_fieldB = RIP.getField @"vV1_fieldB" x0}
-      , RIP.getField @"vV1_fieldA" x0
+          VV1 {vV1_fieldA = y1, vV1_fieldB = BG.getField @"vV1_fieldB" x0}
+      , BG.getField @"vV1_fieldA" x0
       )
 
 instance ( ty ~ VV1_fieldA
-         ) => RIP.HasField "vV1_fieldA" (RIP.Ptr VV1) (RIP.Ptr ty) where
+         ) => BG.HasField "vV1_fieldA" (BG.Ptr VV1) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldA")
+  getField = HasCField.fromPtr (BG.Proxy @"vV1_fieldA")
 
 instance HasCField.HasCField VV1 "vV1_fieldA" where
 
@@ -474,20 +471,19 @@ instance HasCField.HasCField VV1 "vV1_fieldA" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ VV1_fieldB
-         ) => RIP.CompatHasField.HasField "vV1_fieldB" VV1 ty where
+         ) => BG.CompatHasField.HasField "vV1_fieldB" VV1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          VV1 {vV1_fieldB = y1, vV1_fieldA = RIP.getField @"vV1_fieldA" x0}
-      , RIP.getField @"vV1_fieldB" x0
+          VV1 {vV1_fieldB = y1, vV1_fieldA = BG.getField @"vV1_fieldA" x0}
+      , BG.getField @"vV1_fieldB" x0
       )
 
 instance ( ty ~ VV1_fieldB
-         ) => RIP.HasField "vV1_fieldB" (RIP.Ptr VV1) (RIP.Ptr ty) where
+         ) => BG.HasField "vV1_fieldB" (BG.Ptr VV1) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV1_fieldB")
+  getField = HasCField.fromPtr (BG.Proxy @"vV1_fieldB")
 
 instance HasCField.HasCField VV1 "vV1_fieldB" where
 
@@ -502,7 +498,7 @@ instance HasCField.HasCField VV1 "vV1_fieldB" where
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data VV2_fieldA = VV2_fieldA
-  { vV2_fieldA_a :: RIP.CInt
+  { vV2_fieldA_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -510,7 +506,7 @@ data VV2_fieldA = VV2_fieldA
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV2_fieldA where
 
@@ -523,7 +519,7 @@ instance Marshal.ReadRaw VV2_fieldA where
   readRaw =
     \ptr0 ->
           pure VV2_fieldA
-      <*> HasCField.readRaw (RIP.Proxy @"vV2_fieldA_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV2_fieldA_a") ptr0
 
 instance Marshal.WriteRaw VV2_fieldA where
 
@@ -532,27 +528,27 @@ instance Marshal.WriteRaw VV2_fieldA where
       \s1 ->
         case s1 of
           VV2_fieldA vV2_fieldA_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"vV2_fieldA_a") ptr0 vV2_fieldA_a2
+            HasCField.writeRaw (BG.Proxy @"vV2_fieldA_a") ptr0 vV2_fieldA_a2
 
-deriving via Marshal.EquivStorable VV2_fieldA instance RIP.Storable VV2_fieldA
+deriving via Marshal.EquivStorable VV2_fieldA instance BG.Storable VV2_fieldA
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "vV2_fieldA_a" VV2_fieldA ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "vV2_fieldA_a" VV2_fieldA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         VV2_fieldA {vV2_fieldA_a = y1}, RIP.getField @"vV2_fieldA_a" x0)
+         VV2_fieldA {vV2_fieldA_a = y1}, BG.getField @"vV2_fieldA_a" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldA_a" (RIP.Ptr VV2_fieldA) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "vV2_fieldA_a" (BG.Ptr VV2_fieldA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA_a")
+    HasCField.fromPtr (BG.Proxy @"vV2_fieldA_a")
 
 instance HasCField.HasCField VV2_fieldA "vV2_fieldA_a" where
 
-  type CFieldType VV2_fieldA "vV2_fieldA_a" = RIP.CInt
+  type CFieldType VV2_fieldA "vV2_fieldA_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -563,7 +559,7 @@ instance HasCField.HasCField VV2_fieldA "vV2_fieldA_a" where
     __exported by:__ @macros\/wrong_source_location.h@
 -}
 data VV2_fieldB = VV2_fieldB
-  { vV2_fieldB_b :: RIP.CInt
+  { vV2_fieldB_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -571,7 +567,7 @@ data VV2_fieldB = VV2_fieldB
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV2_fieldB where
 
@@ -584,7 +580,7 @@ instance Marshal.ReadRaw VV2_fieldB where
   readRaw =
     \ptr0 ->
           pure VV2_fieldB
-      <*> HasCField.readRaw (RIP.Proxy @"vV2_fieldB_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV2_fieldB_b") ptr0
 
 instance Marshal.WriteRaw VV2_fieldB where
 
@@ -593,27 +589,27 @@ instance Marshal.WriteRaw VV2_fieldB where
       \s1 ->
         case s1 of
           VV2_fieldB vV2_fieldB_b2 ->
-            HasCField.writeRaw (RIP.Proxy @"vV2_fieldB_b") ptr0 vV2_fieldB_b2
+            HasCField.writeRaw (BG.Proxy @"vV2_fieldB_b") ptr0 vV2_fieldB_b2
 
-deriving via Marshal.EquivStorable VV2_fieldB instance RIP.Storable VV2_fieldB
+deriving via Marshal.EquivStorable VV2_fieldB instance BG.Storable VV2_fieldB
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "vV2_fieldB_b" VV2_fieldB ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "vV2_fieldB_b" VV2_fieldB ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         VV2_fieldB {vV2_fieldB_b = y1}, RIP.getField @"vV2_fieldB_b" x0)
+         VV2_fieldB {vV2_fieldB_b = y1}, BG.getField @"vV2_fieldB_b" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "vV2_fieldB_b" (RIP.Ptr VV2_fieldB) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "vV2_fieldB_b" (BG.Ptr VV2_fieldB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB_b")
+    HasCField.fromPtr (BG.Proxy @"vV2_fieldB_b")
 
 instance HasCField.HasCField VV2_fieldB "vV2_fieldB_b" where
 
-  type CFieldType VV2_fieldB "vV2_fieldB_b" = RIP.CInt
+  type CFieldType VV2_fieldB "vV2_fieldB_b" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -639,7 +635,7 @@ data VV2 = VV2
          __exported by:__ @macros\/wrong_source_location.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize VV2 where
 
@@ -652,8 +648,8 @@ instance Marshal.ReadRaw VV2 where
   readRaw =
     \ptr0 ->
           pure VV2
-      <*> HasCField.readRaw (RIP.Proxy @"vV2_fieldA") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"vV2_fieldB") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV2_fieldA") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vV2_fieldB") ptr0
 
 instance Marshal.WriteRaw VV2 where
 
@@ -662,26 +658,25 @@ instance Marshal.WriteRaw VV2 where
       \s1 ->
         case s1 of
           VV2 vV2_fieldA2 vV2_fieldB3 ->
-               HasCField.writeRaw (RIP.Proxy @"vV2_fieldA") ptr0 vV2_fieldA2
-            >> HasCField.writeRaw (RIP.Proxy @"vV2_fieldB") ptr0 vV2_fieldB3
+               HasCField.writeRaw (BG.Proxy @"vV2_fieldA") ptr0 vV2_fieldA2
+            >> HasCField.writeRaw (BG.Proxy @"vV2_fieldB") ptr0 vV2_fieldB3
 
-deriving via Marshal.EquivStorable VV2 instance RIP.Storable VV2
+deriving via Marshal.EquivStorable VV2 instance BG.Storable VV2
 
 instance ( ty ~ VV2_fieldA
-         ) => RIP.CompatHasField.HasField "vV2_fieldA" VV2 ty where
+         ) => BG.CompatHasField.HasField "vV2_fieldA" VV2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          VV2 {vV2_fieldA = y1, vV2_fieldB = RIP.getField @"vV2_fieldB" x0}
-      , RIP.getField @"vV2_fieldA" x0
+          VV2 {vV2_fieldA = y1, vV2_fieldB = BG.getField @"vV2_fieldB" x0}
+      , BG.getField @"vV2_fieldA" x0
       )
 
 instance ( ty ~ VV2_fieldA
-         ) => RIP.HasField "vV2_fieldA" (RIP.Ptr VV2) (RIP.Ptr ty) where
+         ) => BG.HasField "vV2_fieldA" (BG.Ptr VV2) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldA")
+  getField = HasCField.fromPtr (BG.Proxy @"vV2_fieldA")
 
 instance HasCField.HasCField VV2 "vV2_fieldA" where
 
@@ -690,20 +685,19 @@ instance HasCField.HasCField VV2 "vV2_fieldA" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ VV2_fieldB
-         ) => RIP.CompatHasField.HasField "vV2_fieldB" VV2 ty where
+         ) => BG.CompatHasField.HasField "vV2_fieldB" VV2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          VV2 {vV2_fieldB = y1, vV2_fieldA = RIP.getField @"vV2_fieldA" x0}
-      , RIP.getField @"vV2_fieldB" x0
+          VV2 {vV2_fieldB = y1, vV2_fieldA = BG.getField @"vV2_fieldA" x0}
+      , BG.getField @"vV2_fieldB" x0
       )
 
 instance ( ty ~ VV2_fieldB
-         ) => RIP.HasField "vV2_fieldB" (RIP.Ptr VV2) (RIP.Ptr ty) where
+         ) => BG.HasField "vV2_fieldB" (BG.Ptr VV2) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"vV2_fieldB")
+  getField = HasCField.fromPtr (BG.Proxy @"vV2_fieldB")
 
 instance HasCField.HasCField VV2 "vV2_fieldB" where
 

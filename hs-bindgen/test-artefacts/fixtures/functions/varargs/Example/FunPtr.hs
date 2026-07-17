@@ -6,10 +6,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/varargs.h>"
   , "/* test_functionsvarargs_Example_get_h */"
   , "__attribute__ ((const))"
@@ -21,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsvarargs_Example_get_h@
 foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_functionsvarargs_Example_get_h@
-hs_bindgen_d7b5ad93f4d7fa04 :: IO (RIP.FunPtr (IO ()))
+hs_bindgen_d7b5ad93f4d7fa04 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_d7b5ad93f4d7fa04 =
-  RIP.fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
+  BG.fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
 
 {-# NOINLINE h #-}
 {-| __C declaration:__ @h@
@@ -35,5 +35,5 @@ hs_bindgen_d7b5ad93f4d7fa04 =
 
     __exported by:__ @functions\/varargs.h@
 -}
-h :: RIP.FunPtr (IO ())
-h = RIP.unsafePerformIO hs_bindgen_d7b5ad93f4d7fa04
+h :: BG.FunPtr (IO ())
+h = BG.unsafePerformIO hs_bindgen_d7b5ad93f4d7fa04

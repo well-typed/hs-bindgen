@@ -8,10 +8,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse/functions.h>"
   , "/* test_macrosreparsefunctions_Example_get_foo */"
   , "__attribute__ ((const))"
@@ -41,12 +41,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_0ee6ccf5e9065e6c" hs_bindgen_0ee6ccf5e9065e6c_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
-hs_bindgen_0ee6ccf5e9065e6c :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_0ee6ccf5e9065e6c :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_0ee6ccf5e9065e6c =
-  RIP.fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
+  BG.fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -55,17 +55,17 @@ hs_bindgen_0ee6ccf5e9065e6c =
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-foo :: RIP.FunPtr (RIP.CInt -> IO ())
-foo = RIP.unsafePerformIO hs_bindgen_0ee6ccf5e9065e6c
+foo :: BG.FunPtr (BG.CInt -> IO ())
+foo = BG.unsafePerformIO hs_bindgen_0ee6ccf5e9065e6c
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_8ec5846013c7fa41" hs_bindgen_8ec5846013c7fa41_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
-hs_bindgen_8ec5846013c7fa41 :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_8ec5846013c7fa41 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_8ec5846013c7fa41 =
-  RIP.fromFFIType hs_bindgen_8ec5846013c7fa41_base
+  BG.fromFFIType hs_bindgen_8ec5846013c7fa41_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -74,17 +74,17 @@ hs_bindgen_8ec5846013c7fa41 =
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-bar :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-bar = RIP.unsafePerformIO hs_bindgen_8ec5846013c7fa41
+bar :: BG.FunPtr (BG.CInt -> IO BG.CInt)
+bar = BG.unsafePerformIO hs_bindgen_8ec5846013c7fa41
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
 foreign import ccall unsafe "hs_bindgen_740f410e15c8820e" hs_bindgen_740f410e15c8820e_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
-hs_bindgen_740f410e15c8820e :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_740f410e15c8820e :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_740f410e15c8820e =
-  RIP.fromFFIType hs_bindgen_740f410e15c8820e_base
+  BG.fromFFIType hs_bindgen_740f410e15c8820e_base
 
 {-# NOINLINE baz #-}
 {-| __C declaration:__ @baz@
@@ -93,5 +93,5 @@ hs_bindgen_740f410e15c8820e =
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-baz :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
-baz = RIP.unsafePerformIO hs_bindgen_740f410e15c8820e
+baz :: BG.FunPtr (BG.CInt -> IO BG.CInt)
+baz = BG.unsafePerformIO hs_bindgen_740f410e15c8820e

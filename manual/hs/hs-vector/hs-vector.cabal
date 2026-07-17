@@ -30,6 +30,6 @@ library
     Vector
     Vector.Length
     Vector.Rotate
-    Vector1
+    VectorSingleModule
 
   extra-libraries: vector

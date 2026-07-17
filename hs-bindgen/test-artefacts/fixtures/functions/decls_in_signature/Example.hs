@@ -20,9 +20,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct opaque@
 
@@ -39,14 +39,14 @@ data Opaque
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 data Outside = Outside
-  { outside_x :: RIP.CInt
+  { outside_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/decls_in_signature.h 4:7@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
-  , outside_y :: RIP.CInt
+  , outside_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @functions\/decls_in_signature.h 5:7@
@@ -54,7 +54,7 @@ data Outside = Outside
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Outside where
 
@@ -67,8 +67,8 @@ instance Marshal.ReadRaw Outside where
   readRaw =
     \ptr0 ->
           pure Outside
-      <*> HasCField.readRaw (RIP.Proxy @"outside_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"outside_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"outside_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"outside_y") ptr0
 
 instance Marshal.WriteRaw Outside where
 
@@ -77,49 +77,49 @@ instance Marshal.WriteRaw Outside where
       \s1 ->
         case s1 of
           Outside outside_x2 outside_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"outside_x") ptr0 outside_x2
-            >> HasCField.writeRaw (RIP.Proxy @"outside_y") ptr0 outside_y3
+               HasCField.writeRaw (BG.Proxy @"outside_x") ptr0 outside_x2
+            >> HasCField.writeRaw (BG.Proxy @"outside_y") ptr0 outside_y3
 
-deriving via Marshal.EquivStorable Outside instance RIP.Storable Outside
+deriving via Marshal.EquivStorable Outside instance BG.Storable Outside
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "outside_x" Outside ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "outside_x" Outside ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Outside {outside_x = y1, outside_y = RIP.getField @"outside_y" x0}
-      , RIP.getField @"outside_x" x0
+          Outside {outside_x = y1, outside_y = BG.getField @"outside_y" x0}
+      , BG.getField @"outside_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outside_x" (RIP.Ptr Outside) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "outside_x" (BG.Ptr Outside) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"outside_x")
+  getField = HasCField.fromPtr (BG.Proxy @"outside_x")
 
 instance HasCField.HasCField Outside "outside_x" where
 
-  type CFieldType Outside "outside_x" = RIP.CInt
+  type CFieldType Outside "outside_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "outside_y" Outside ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "outside_y" Outside ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Outside {outside_y = y1, outside_x = RIP.getField @"outside_x" x0}
-      , RIP.getField @"outside_y" x0
+          Outside {outside_y = y1, outside_x = BG.getField @"outside_x" x0}
+      , BG.getField @"outside_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "outside_y" (RIP.Ptr Outside) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "outside_y" (BG.Ptr Outside) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"outside_y")
+  getField = HasCField.fromPtr (BG.Proxy @"outside_y")
 
 instance HasCField.HasCField Outside "outside_y" where
 
-  type CFieldType Outside "outside_y" = RIP.CInt
+  type CFieldType Outside "outside_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4

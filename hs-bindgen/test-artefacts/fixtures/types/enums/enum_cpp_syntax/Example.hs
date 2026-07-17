@@ -25,10 +25,10 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum foo_enum@
 
@@ -39,8 +39,8 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 newtype Foo_enum = Foo_enum
   { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Foo_enum where
 
@@ -64,9 +64,9 @@ instance Marshal.WriteRaw Foo_enum where
           Foo_enum unwrapFoo_enum2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFoo_enum2
 
-deriving via Marshal.EquivStorable Foo_enum instance RIP.Storable Foo_enum
+deriving via Marshal.EquivStorable Foo_enum instance BG.Storable Foo_enum
 
-deriving via HsBindgen.Runtime.LibC.Word32 instance RIP.Prim Foo_enum
+deriving via HsBindgen.Runtime.LibC.Word32 instance BG.Prim Foo_enum
 
 instance CEnum.CEnum Foo_enum where
 
@@ -74,11 +74,11 @@ instance CEnum.CEnum Foo_enum where
 
   toCEnum = Foo_enum
 
-  fromCEnum = RIP.getField @"unwrapFoo_enum"
+  fromCEnum = BG.getField @"unwrapFoo_enum"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "A"), (1, RIP.singleton "B"), (2, RIP.singleton "C")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "A"), (1, BG.singleton "B"), (2, BG.singleton "C")]
 
   showsUndeclared =
     CEnum.showsWrappedUndeclared "Foo_enum"
@@ -104,23 +104,23 @@ instance Read Foo_enum where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.CompatHasField.HasField "unwrapFoo_enum" Foo_enum ty where
+         ) => BG.CompatHasField.HasField "unwrapFoo_enum" Foo_enum ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Foo_enum {unwrapFoo_enum = y1}, RIP.getField @"unwrapFoo_enum" x0)
+         Foo_enum {unwrapFoo_enum = y1}, BG.getField @"unwrapFoo_enum" x0)
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
-         ) => RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapFoo_enum" (BG.Ptr Foo_enum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapFoo_enum")
+    HasCField.fromPtr (BG.Proxy @"unwrapFoo_enum")
 
 instance HasCField.HasCField Foo_enum "unwrapFoo_enum" where
 

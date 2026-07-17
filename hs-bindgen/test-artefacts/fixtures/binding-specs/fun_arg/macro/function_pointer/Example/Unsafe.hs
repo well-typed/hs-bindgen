@@ -11,12 +11,12 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/function_pointer.h>"
   , "void hs_bindgen_fbc2ec26cd297034 ("
   , "  MyFunctionPointer arg1"
@@ -58,7 +58,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_fbc2ec26cd297034" hs_bindgen_fbc2ec26cd297034_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
@@ -66,7 +66,7 @@ hs_bindgen_fbc2ec26cd297034 ::
      MyFunctionPointer
   -> IO ()
 hs_bindgen_fbc2ec26cd297034 =
-  RIP.fromFFIType hs_bindgen_fbc2ec26cd297034_base
+  BG.fromFFIType hs_bindgen_fbc2ec26cd297034_base
 
 {-| __C declaration:__ @foo@
 
@@ -82,7 +82,7 @@ foo = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
@@ -90,7 +90,7 @@ hs_bindgen_cf67e2fc00fd28d8 ::
      A
   -> IO ()
 hs_bindgen_cf67e2fc00fd28d8 =
-  RIP.fromFFIType hs_bindgen_cf67e2fc00fd28d8_base
+  BG.fromFFIType hs_bindgen_cf67e2fc00fd28d8_base
 
 {-| __C declaration:__ @fooA@
 
@@ -106,7 +106,7 @@ fooA = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
@@ -114,7 +114,7 @@ hs_bindgen_269a46f9680e33ed ::
      B
   -> IO ()
 hs_bindgen_269a46f9680e33ed =
-  RIP.fromFFIType hs_bindgen_269a46f9680e33ed_base
+  BG.fromFFIType hs_bindgen_269a46f9680e33ed_base
 
 {-| __C declaration:__ @fooB@
 
@@ -130,7 +130,7 @@ fooB = hs_bindgen_269a46f9680e33ed
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_f9bc9d37a12171dd" hs_bindgen_f9bc9d37a12171dd_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
@@ -138,7 +138,7 @@ hs_bindgen_f9bc9d37a12171dd ::
      M.C
   -> IO ()
 hs_bindgen_f9bc9d37a12171dd =
-  RIP.fromFFIType hs_bindgen_f9bc9d37a12171dd_base
+  BG.fromFFIType hs_bindgen_f9bc9d37a12171dd_base
 
 {-| __C declaration:__ @fooC@
 
@@ -154,7 +154,7 @@ fooC = hs_bindgen_f9bc9d37a12171dd
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_ca21c7e4aaa33a81" hs_bindgen_ca21c7e4aaa33a81_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@
@@ -162,7 +162,7 @@ hs_bindgen_ca21c7e4aaa33a81 ::
      M.D
   -> IO ()
 hs_bindgen_ca21c7e4aaa33a81 =
-  RIP.fromFFIType hs_bindgen_ca21c7e4aaa33a81_base
+  BG.fromFFIType hs_bindgen_ca21c7e4aaa33a81_base
 
 {-| __C declaration:__ @fooD@
 
@@ -178,7 +178,7 @@ fooD = hs_bindgen_ca21c7e4aaa33a81
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_e71a09bea0aef335" hs_bindgen_e71a09bea0aef335_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooE@
@@ -186,7 +186,7 @@ hs_bindgen_e71a09bea0aef335 ::
      E
   -> IO ()
 hs_bindgen_e71a09bea0aef335 =
-  RIP.fromFFIType hs_bindgen_e71a09bea0aef335_base
+  BG.fromFFIType hs_bindgen_e71a09bea0aef335_base
 
 {-| __C declaration:__ @fooE@
 

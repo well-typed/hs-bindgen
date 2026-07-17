@@ -9,10 +9,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/adios.h>"
   , "/* test_edgecasesadios_Example_get_adio\769s_fun */"
   , "__attribute__ ((const))"
@@ -42,12 +42,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesadios_Example_get_adiós_fun@
 foreign import ccall unsafe "hs_bindgen_4ac23afef85d3af0" hs_bindgen_4ac23afef85d3af0_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_adiós_fun@
-hs_bindgen_4ac23afef85d3af0 :: IO (RIP.FunPtr (IO RIP.CInt))
+hs_bindgen_4ac23afef85d3af0 :: IO (BG.FunPtr (IO BG.CInt))
 hs_bindgen_4ac23afef85d3af0 =
-  RIP.fromFFIType hs_bindgen_4ac23afef85d3af0_base
+  BG.fromFFIType hs_bindgen_4ac23afef85d3af0_base
 
 {-# NOINLINE adio'0301s_fun #-}
 {-| __C declaration:__ @adiós_fun@
@@ -56,18 +56,18 @@ hs_bindgen_4ac23afef85d3af0 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-adio'0301s_fun :: RIP.FunPtr (IO RIP.CInt)
+adio'0301s_fun :: BG.FunPtr (IO BG.CInt)
 adio'0301s_fun =
-  RIP.unsafePerformIO hs_bindgen_4ac23afef85d3af0
+  BG.unsafePerformIO hs_bindgen_4ac23afef85d3af0
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
 foreign import ccall unsafe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aafe83_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
-hs_bindgen_0b1168f405aafe83 :: IO (RIP.FunPtr (IO ()))
+hs_bindgen_0b1168f405aafe83 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_0b1168f405aafe83 =
-  RIP.fromFFIType hs_bindgen_0b1168f405aafe83_base
+  BG.fromFFIType hs_bindgen_0b1168f405aafe83_base
 
 {-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
@@ -76,17 +76,17 @@ hs_bindgen_0b1168f405aafe83 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ :: RIP.FunPtr (IO ())
-cϒ = RIP.unsafePerformIO hs_bindgen_0b1168f405aafe83
+cϒ :: BG.FunPtr (IO ())
+cϒ = BG.unsafePerformIO hs_bindgen_0b1168f405aafe83
 
 -- __unique:__ @test_edgecasesadios_Example_get_拜拜@
 foreign import ccall unsafe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546f1b_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_拜拜@
-hs_bindgen_0a95358747546f1b :: IO (RIP.FunPtr (IO ()))
+hs_bindgen_0a95358747546f1b :: IO (BG.FunPtr (IO ()))
 hs_bindgen_0a95358747546f1b =
-  RIP.fromFFIType hs_bindgen_0a95358747546f1b_base
+  BG.fromFFIType hs_bindgen_0a95358747546f1b_base
 
 {-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
@@ -95,17 +95,17 @@ hs_bindgen_0a95358747546f1b =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜 :: RIP.FunPtr (IO ())
-拜拜 = RIP.unsafePerformIO hs_bindgen_0a95358747546f1b
+拜拜 :: BG.FunPtr (IO ())
+拜拜 = BG.unsafePerformIO hs_bindgen_0a95358747546f1b
 
 -- __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
 foreign import ccall unsafe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336bfa879_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
-hs_bindgen_a01e420336bfa879 :: IO (RIP.FunPtr (IO ()))
+hs_bindgen_a01e420336bfa879 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_a01e420336bfa879 =
-  RIP.fromFFIType hs_bindgen_a01e420336bfa879_base
+  BG.fromFFIType hs_bindgen_a01e420336bfa879_base
 
 {-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@
@@ -114,6 +114,6 @@ hs_bindgen_a01e420336bfa879 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜 :: RIP.FunPtr (IO ())
+say拜拜 :: BG.FunPtr (IO ())
 say拜拜 =
-  RIP.unsafePerformIO hs_bindgen_a01e420336bfa879
+  BG.unsafePerformIO hs_bindgen_a01e420336bfa879

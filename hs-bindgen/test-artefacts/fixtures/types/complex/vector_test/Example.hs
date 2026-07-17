@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct vector@
 
@@ -29,14 +29,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 data Vector = Vector
-  { vector_x :: RIP.CDouble
+  { vector_x :: BG.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/complex\/vector_test.h 2:12@
 
          __exported by:__ @types\/complex\/vector_test.h@
     -}
-  , vector_y :: RIP.CDouble
+  , vector_y :: BG.CDouble
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/complex\/vector_test.h 3:12@
@@ -44,7 +44,7 @@ data Vector = Vector
          __exported by:__ @types\/complex\/vector_test.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Vector where
 
@@ -57,8 +57,8 @@ instance Marshal.ReadRaw Vector where
   readRaw =
     \ptr0 ->
           pure Vector
-      <*> HasCField.readRaw (RIP.Proxy @"vector_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"vector_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vector_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"vector_y") ptr0
 
 instance Marshal.WriteRaw Vector where
 
@@ -67,49 +67,49 @@ instance Marshal.WriteRaw Vector where
       \s1 ->
         case s1 of
           Vector vector_x2 vector_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"vector_x") ptr0 vector_x2
-            >> HasCField.writeRaw (RIP.Proxy @"vector_y") ptr0 vector_y3
+               HasCField.writeRaw (BG.Proxy @"vector_x") ptr0 vector_x2
+            >> HasCField.writeRaw (BG.Proxy @"vector_y") ptr0 vector_y3
 
-deriving via Marshal.EquivStorable Vector instance RIP.Storable Vector
+deriving via Marshal.EquivStorable Vector instance BG.Storable Vector
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "vector_x" Vector ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "vector_x" Vector ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Vector {vector_x = y1, vector_y = RIP.getField @"vector_y" x0}
-      , RIP.getField @"vector_x" x0
+          Vector {vector_x = y1, vector_y = BG.getField @"vector_y" x0}
+      , BG.getField @"vector_x" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_x" (RIP.Ptr Vector) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "vector_x" (BG.Ptr Vector) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"vector_x")
+  getField = HasCField.fromPtr (BG.Proxy @"vector_x")
 
 instance HasCField.HasCField Vector "vector_x" where
 
-  type CFieldType Vector "vector_x" = RIP.CDouble
+  type CFieldType Vector "vector_x" = BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "vector_y" Vector ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "vector_y" Vector ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Vector {vector_y = y1, vector_x = RIP.getField @"vector_x" x0}
-      , RIP.getField @"vector_y" x0
+          Vector {vector_y = y1, vector_x = BG.getField @"vector_x" x0}
+      , BG.getField @"vector_y" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "vector_y" (RIP.Ptr Vector) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "vector_y" (BG.Ptr Vector) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"vector_y")
+  getField = HasCField.fromPtr (BG.Proxy @"vector_y")
 
 instance HasCField.HasCField Vector "vector_y" where
 
-  type CFieldType Vector "vector_y" = RIP.CDouble
+  type CFieldType Vector "vector_y" = BG.CDouble
 
   offset# = \_ -> \_ -> 8

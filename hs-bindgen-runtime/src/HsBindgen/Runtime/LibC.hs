@@ -86,7 +86,7 @@ import Data.Int qualified
 import Data.Word qualified
 import Foreign.C qualified
 
-import HsBindgen.Runtime.Internal.LibC.Auxiliary as LibC
+import HsBindgen.Runtime.Support.LibC.Auxiliary as LibC
 
 {-
   The binding specification for the types in this module is defined in

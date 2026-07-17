@@ -7,11 +7,11 @@ module Example.FunPtr
   where
 
 import qualified Foreign
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program_slicing_simple.h>"
   , "/* test_programanalysisprogram_slici_Example_get_bar */"
   , "__attribute__ ((const))"
@@ -26,12 +26,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-hs_bindgen_993162e0dadfa2c9 :: IO (RIP.FunPtr (Foreign.Word64 -> Uint32_t -> IO RIP.CInt))
+hs_bindgen_993162e0dadfa2c9 :: IO (BG.FunPtr (Foreign.Word64 -> Uint32_t -> IO BG.CInt))
 hs_bindgen_993162e0dadfa2c9 =
-  RIP.fromFFIType hs_bindgen_993162e0dadfa2c9_base
+  BG.fromFFIType hs_bindgen_993162e0dadfa2c9_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -40,5 +40,5 @@ hs_bindgen_993162e0dadfa2c9 =
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: RIP.FunPtr (Foreign.Word64 -> Uint32_t -> IO RIP.CInt)
-bar = RIP.unsafePerformIO hs_bindgen_993162e0dadfa2c9
+bar :: BG.FunPtr (Foreign.Word64 -> Uint32_t -> IO BG.CInt)
+bar = BG.unsafePerformIO hs_bindgen_993162e0dadfa2c9

@@ -4,7 +4,8 @@
 
 ### Breaking changes
 
-None
+* Rename `HsBindgen.Runtime.Internal.*` modules to `HsBindgen.Runtime.Support.*`;
+  `Internal.Prelude` is now `HsBindgen.Runtime.Support`.
 
 ### New features
 

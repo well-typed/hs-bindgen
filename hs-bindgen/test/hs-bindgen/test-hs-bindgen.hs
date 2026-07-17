@@ -17,6 +17,7 @@ import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
+import Test.HsBindgen.Unit.Runtime qualified as Unit.Runtime
 import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
 
 {-------------------------------------------------------------------------------
@@ -36,6 +37,7 @@ main = defaultMain $
           , Unit.Frontend.tests testResources
           , Unit.Tracer.tests
           , Unit.Pretty.tests
+          , Unit.Runtime.tests
           ]
       , testGroup "integration tests" [
             Integration.ExitCode.tests testResources

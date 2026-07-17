@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct S@
 
@@ -32,7 +32,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @declarations\/field_name_reuse_omit.h@
 -}
 data S = S
-  { foo :: RIP.CInt
+  { foo :: BG.CInt
     {- ^ __C declaration:__ @foo@
 
          __defined at:__ @declarations\/field_name_reuse_omit.h 22:16@
@@ -40,7 +40,7 @@ data S = S
          __exported by:__ @declarations\/field_name_reuse_omit.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S where
 
@@ -53,7 +53,7 @@ instance Marshal.ReadRaw S where
   readRaw =
     \ptr0 ->
           pure S
-      <*> HasCField.readRaw (RIP.Proxy @"foo") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo") ptr0
 
 instance Marshal.WriteRaw S where
 
@@ -62,22 +62,22 @@ instance Marshal.WriteRaw S where
       \s1 ->
         case s1 of
           S foo2 ->
-            HasCField.writeRaw (RIP.Proxy @"foo") ptr0 foo2
+            HasCField.writeRaw (BG.Proxy @"foo") ptr0 foo2
 
-deriving via Marshal.EquivStorable S instance RIP.Storable S
+deriving via Marshal.EquivStorable S instance BG.Storable S
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "foo" S ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo" S ty where
 
   hasField =
-    \x0 -> (\y1 -> S {foo = y1}, RIP.getField @"foo" x0)
+    \x0 -> (\y1 -> S {foo = y1}, BG.getField @"foo" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "foo" (RIP.Ptr S) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "foo" (BG.Ptr S) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo")
+  getField = HasCField.fromPtr (BG.Proxy @"foo")
 
 instance HasCField.HasCField S "foo" where
 
-  type CFieldType S "foo" = RIP.CInt
+  type CFieldType S "foo" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -88,7 +88,7 @@ instance HasCField.HasCField S "foo" where
     __exported by:__ @declarations\/field_name_reuse_omit.h@
 -}
 data T = T
-  { bar :: RIP.CInt
+  { bar :: BG.CInt
     {- ^ __C declaration:__ @bar@
 
          __defined at:__ @declarations\/field_name_reuse_omit.h 27:16@
@@ -96,7 +96,7 @@ data T = T
          __exported by:__ @declarations\/field_name_reuse_omit.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize T where
 
@@ -109,7 +109,7 @@ instance Marshal.ReadRaw T where
   readRaw =
     \ptr0 ->
           pure T
-      <*> HasCField.readRaw (RIP.Proxy @"bar") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"bar") ptr0
 
 instance Marshal.WriteRaw T where
 
@@ -118,21 +118,21 @@ instance Marshal.WriteRaw T where
       \s1 ->
         case s1 of
           T bar2 ->
-            HasCField.writeRaw (RIP.Proxy @"bar") ptr0 bar2
+            HasCField.writeRaw (BG.Proxy @"bar") ptr0 bar2
 
-deriving via Marshal.EquivStorable T instance RIP.Storable T
+deriving via Marshal.EquivStorable T instance BG.Storable T
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "bar" T ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "bar" T ty where
 
   hasField =
-    \x0 -> (\y1 -> T {bar = y1}, RIP.getField @"bar" x0)
+    \x0 -> (\y1 -> T {bar = y1}, BG.getField @"bar" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "bar" (RIP.Ptr T) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "bar" (BG.Ptr T) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"bar")
+  getField = HasCField.fromPtr (BG.Proxy @"bar")
 
 instance HasCField.HasCField T "bar" where
 
-  type CFieldType T "bar" = RIP.CInt
+  type CFieldType T "bar" = BG.CInt
 
   offset# = \_ -> \_ -> 0

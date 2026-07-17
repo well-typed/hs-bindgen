@@ -22,9 +22,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified M
 
 {-| __C declaration:__ @struct MyStruct@
@@ -34,7 +34,7 @@ import qualified M
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
 data MyStruct = MyStruct
-  { myStruct_x :: RIP.CInt
+  { myStruct_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:23@
@@ -42,7 +42,7 @@ data MyStruct = MyStruct
          __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize MyStruct where
 
@@ -55,7 +55,7 @@ instance Marshal.ReadRaw MyStruct where
   readRaw =
     \ptr0 ->
           pure MyStruct
-      <*> HasCField.readRaw (RIP.Proxy @"myStruct_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"myStruct_x") ptr0
 
 instance Marshal.WriteRaw MyStruct where
 
@@ -64,27 +64,26 @@ instance Marshal.WriteRaw MyStruct where
       \s1 ->
         case s1 of
           MyStruct myStruct_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"myStruct_x") ptr0 myStruct_x2
+            HasCField.writeRaw (BG.Proxy @"myStruct_x") ptr0 myStruct_x2
 
-deriving via Marshal.EquivStorable MyStruct instance RIP.Storable MyStruct
+deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "myStruct_x" MyStruct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "myStruct_x" MyStruct ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyStruct {myStruct_x = y1}, RIP.getField @"myStruct_x" x0)
+         MyStruct {myStruct_x = y1}, BG.getField @"myStruct_x" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "myStruct_x" (BG.Ptr MyStruct) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"myStruct_x")
+  getField = HasCField.fromPtr (BG.Proxy @"myStruct_x")
 
 instance HasCField.HasCField MyStruct "myStruct_x" where
 
-  type CFieldType MyStruct "myStruct_x" = RIP.CInt
+  type CFieldType MyStruct "myStruct_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -97,24 +96,23 @@ instance HasCField.HasCField MyStruct "myStruct_x" where
 newtype A = A
   { unwrapA :: MyStruct
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ MyStruct) => RIP.CompatHasField.HasField "unwrapA" A ty where
+instance (ty ~ MyStruct) => BG.CompatHasField.HasField "unwrapA" A ty where
 
   hasField =
     \x0 ->
-      (\y1 -> A {unwrapA = y1}, RIP.getField @"unwrapA" x0)
+      (\y1 -> A {unwrapA = y1}, BG.getField @"unwrapA" x0)
 
-instance ( ty ~ MyStruct
-         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ MyStruct) => BG.HasField "unwrapA" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapA")
 
 instance HasCField.HasCField A "unwrapA" where
 
@@ -131,23 +129,23 @@ instance HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ A) => RIP.CompatHasField.HasField "unwrapB" B ty where
+instance (ty ~ A) => BG.CompatHasField.HasField "unwrapB" B ty where
 
   hasField =
     \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+      (\y1 -> B {unwrapB = y1}, BG.getField @"unwrapB" x0)
 
-instance (ty ~ A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ A) => BG.HasField "unwrapB" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapB")
 
 instance HasCField.HasCField B "unwrapB" where
 
@@ -164,17 +162,17 @@ instance HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-instance (ty ~ M.C) => RIP.CompatHasField.HasField "unwrapE" E ty where
+instance (ty ~ M.C) => BG.CompatHasField.HasField "unwrapE" E ty where
 
   hasField =
     \x0 ->
-      (\y1 -> E {unwrapE = y1}, RIP.getField @"unwrapE" x0)
+      (\y1 -> E {unwrapE = y1}, BG.getField @"unwrapE" x0)
 
-instance (ty ~ M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
+instance (ty ~ M.C) => BG.HasField "unwrapE" (BG.Ptr E) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapE")
 
 instance HasCField.HasCField E "unwrapE" where
 

@@ -10,11 +10,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse/gnu_attributes.h>"
   , "void hs_bindgen_6716bcb05c1aff64 ("
   , "  BOOL arg1"
@@ -50,7 +50,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_6716bcb05c1aff64" hs_bindgen_6716bcb05c1aff64_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_foo@
@@ -58,7 +58,7 @@ hs_bindgen_6716bcb05c1aff64 ::
      BOOL
   -> IO ()
 hs_bindgen_6716bcb05c1aff64 =
-  RIP.fromFFIType hs_bindgen_6716bcb05c1aff64_base
+  BG.fromFFIType hs_bindgen_6716bcb05c1aff64_base
 
 {-| __C declaration:__ @foo@
 
@@ -73,7 +73,7 @@ foo = hs_bindgen_6716bcb05c1aff64
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_04dc8fc0c78d4f3a" hs_bindgen_04dc8fc0c78d4f3a_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_bar@
@@ -81,7 +81,7 @@ hs_bindgen_04dc8fc0c78d4f3a ::
      BOOL
   -> IO ()
 hs_bindgen_04dc8fc0c78d4f3a =
-  RIP.fromFFIType hs_bindgen_04dc8fc0c78d4f3a_base
+  BG.fromFFIType hs_bindgen_04dc8fc0c78d4f3a_base
 
 {-| __C declaration:__ @bar@
 
@@ -96,7 +96,7 @@ bar = hs_bindgen_04dc8fc0c78d4f3a
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_dash@
 foreign import ccall unsafe "hs_bindgen_8e06931d2ef7ccdb" hs_bindgen_8e06931d2ef7ccdb_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_dash@
@@ -104,7 +104,7 @@ hs_bindgen_8e06931d2ef7ccdb ::
      BOOL
   -> IO ()
 hs_bindgen_8e06931d2ef7ccdb =
-  RIP.fromFFIType hs_bindgen_8e06931d2ef7ccdb_base
+  BG.fromFFIType hs_bindgen_8e06931d2ef7ccdb_base
 
 {-| __C declaration:__ @dash@
 
@@ -119,7 +119,7 @@ dash = hs_bindgen_8e06931d2ef7ccdb
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_quux@
 foreign import ccall unsafe "hs_bindgen_ec7c3016706a46c2" hs_bindgen_ec7c3016706a46c2_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_quux@
@@ -127,7 +127,7 @@ hs_bindgen_ec7c3016706a46c2 ::
      BOOL
   -> IO ()
 hs_bindgen_ec7c3016706a46c2 =
-  RIP.fromFFIType hs_bindgen_ec7c3016706a46c2_base
+  BG.fromFFIType hs_bindgen_ec7c3016706a46c2_base
 
 {-| __C declaration:__ @quux@
 
@@ -142,7 +142,7 @@ quux = hs_bindgen_ec7c3016706a46c2
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_heq@
 foreign import ccall unsafe "hs_bindgen_f6865acd1e6f7475" hs_bindgen_f6865acd1e6f7475_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_heq@
@@ -150,7 +150,7 @@ hs_bindgen_f6865acd1e6f7475 ::
      BOOL
   -> IO ()
 hs_bindgen_f6865acd1e6f7475 =
-  RIP.fromFFIType hs_bindgen_f6865acd1e6f7475_base
+  BG.fromFFIType hs_bindgen_f6865acd1e6f7475_base
 
 {-| __C declaration:__ @heq@
 

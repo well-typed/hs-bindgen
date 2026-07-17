@@ -10,10 +10,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <comprehensive/c2hsc.h>"
   , "/* test_comprehensivec2hsc_Example_get_foo_function */"
   , "__attribute__ ((const))"
@@ -53,12 +53,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_function@
 foreign import ccall unsafe "hs_bindgen_37f32218c55b498b" hs_bindgen_37f32218c55b498b_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_function@
-hs_bindgen_37f32218c55b498b :: IO (RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ()))
+hs_bindgen_37f32218c55b498b :: IO (BG.FunPtr (BG.FunPtr (BG.CInt -> IO BG.CInt) -> IO ()))
 hs_bindgen_37f32218c55b498b =
-  RIP.fromFFIType hs_bindgen_37f32218c55b498b_base
+  BG.fromFFIType hs_bindgen_37f32218c55b498b_base
 
 {-# NOINLINE foo_function #-}
 {-| __C declaration:__ @foo_function@
@@ -67,18 +67,18 @@ hs_bindgen_37f32218c55b498b =
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-foo_function :: RIP.FunPtr (RIP.FunPtr (RIP.CInt -> IO RIP.CInt) -> IO ())
+foo_function :: BG.FunPtr (BG.FunPtr (BG.CInt -> IO BG.CInt) -> IO ())
 foo_function =
-  RIP.unsafePerformIO hs_bindgen_37f32218c55b498b
+  BG.unsafePerformIO hs_bindgen_37f32218c55b498b
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_1@
 foreign import ccall unsafe "hs_bindgen_482f80da2191c5d6" hs_bindgen_482f80da2191c5d6_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_1@
-hs_bindgen_482f80da2191c5d6 :: IO (RIP.FunPtr (RIP.CUInt -> IO RIP.CUInt))
+hs_bindgen_482f80da2191c5d6 :: IO (BG.FunPtr (BG.CUInt -> IO BG.CUInt))
 hs_bindgen_482f80da2191c5d6 =
-  RIP.fromFFIType hs_bindgen_482f80da2191c5d6_base
+  BG.fromFFIType hs_bindgen_482f80da2191c5d6_base
 
 {-# NOINLINE foo_33_1 #-}
 {-| __C declaration:__ @foo_33_1@
@@ -87,18 +87,18 @@ hs_bindgen_482f80da2191c5d6 =
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-foo_33_1 :: RIP.FunPtr (RIP.CUInt -> IO RIP.CUInt)
+foo_33_1 :: BG.FunPtr (BG.CUInt -> IO BG.CUInt)
 foo_33_1 =
-  RIP.unsafePerformIO hs_bindgen_482f80da2191c5d6
+  BG.unsafePerformIO hs_bindgen_482f80da2191c5d6
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_2@
 foreign import ccall unsafe "hs_bindgen_c50591bcbfea3260" hs_bindgen_c50591bcbfea3260_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_2@
-hs_bindgen_c50591bcbfea3260 :: IO (RIP.FunPtr (RIP.CUInt -> IO RIP.CUInt))
+hs_bindgen_c50591bcbfea3260 :: IO (BG.FunPtr (BG.CUInt -> IO BG.CUInt))
 hs_bindgen_c50591bcbfea3260 =
-  RIP.fromFFIType hs_bindgen_c50591bcbfea3260_base
+  BG.fromFFIType hs_bindgen_c50591bcbfea3260_base
 
 {-# NOINLINE foo_33_2 #-}
 {-| __C declaration:__ @foo_33_2@
@@ -107,18 +107,18 @@ hs_bindgen_c50591bcbfea3260 =
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-foo_33_2 :: RIP.FunPtr (RIP.CUInt -> IO RIP.CUInt)
+foo_33_2 :: BG.FunPtr (BG.CUInt -> IO BG.CUInt)
 foo_33_2 =
-  RIP.unsafePerformIO hs_bindgen_c50591bcbfea3260
+  BG.unsafePerformIO hs_bindgen_c50591bcbfea3260
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_3@
 foreign import ccall unsafe "hs_bindgen_26b60496f499680a" hs_bindgen_26b60496f499680a_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_3@
-hs_bindgen_26b60496f499680a :: IO (RIP.FunPtr (RIP.CLLong -> IO RIP.CLLong))
+hs_bindgen_26b60496f499680a :: IO (BG.FunPtr (BG.CLLong -> IO BG.CLLong))
 hs_bindgen_26b60496f499680a =
-  RIP.fromFFIType hs_bindgen_26b60496f499680a_base
+  BG.fromFFIType hs_bindgen_26b60496f499680a_base
 
 {-# NOINLINE foo_33_3 #-}
 {-| __C declaration:__ @foo_33_3@
@@ -127,6 +127,6 @@ hs_bindgen_26b60496f499680a =
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-foo_33_3 :: RIP.FunPtr (RIP.CLLong -> IO RIP.CLLong)
+foo_33_3 :: BG.FunPtr (BG.CLLong -> IO BG.CLLong)
 foo_33_3 =
-  RIP.unsafePerformIO hs_bindgen_26b60496f499680a
+  BG.unsafePerformIO hs_bindgen_26b60496f499680a

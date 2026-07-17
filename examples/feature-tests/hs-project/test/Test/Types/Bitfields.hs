@@ -27,9 +27,9 @@ import Test.QuickCheck qualified as QC
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (testProperty)
 
-import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
-import HsBindgen.Runtime.Internal.Bitfield qualified as Bitfield
 import HsBindgen.Runtime.Marshal qualified as Marshal
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
+import HsBindgen.Runtime.Support.Bitfield qualified as Bitfield
 
 import Generated.Types.Bitfields qualified as Bitfields
 import Generated.Types.Bitfields.Unsafe qualified as Bitfields

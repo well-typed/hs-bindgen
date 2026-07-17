@@ -18,10 +18,10 @@ module Example
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @triplet@
 
@@ -30,34 +30,34 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}
 newtype Triplet = Triplet
-  { unwrapTriplet :: CA.ConstantArray 3 RIP.CInt
+  { unwrapTriplet :: CA.ConstantArray 3 BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
   deriving newtype
     ( IsA.IsArray
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapTriplet" Triplet ty where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapTriplet" Triplet ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Triplet {unwrapTriplet = y1}, RIP.getField @"unwrapTriplet" x0)
+         Triplet {unwrapTriplet = y1}, BG.getField @"unwrapTriplet" x0)
 
-instance ( ty ~ CA.ConstantArray 3 RIP.CInt
-         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
+instance ( ty ~ CA.ConstantArray 3 BG.CInt
+         ) => BG.HasField "unwrapTriplet" (BG.Ptr Triplet) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")
+    HasCField.fromPtr (BG.Proxy @"unwrapTriplet")
 
 instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   type CFieldType Triplet "unwrapTriplet" =
-    CA.ConstantArray 3 RIP.CInt
+    CA.ConstantArray 3 BG.CInt
 
   offset# = \_ -> \_ -> 0

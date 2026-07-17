@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @stdlib_CBool@
 
@@ -29,45 +29,45 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @binding-specs\/stdlib\/bool.h@
 -}
 newtype Stdlib_CBool = Stdlib_CBool
-  { unwrapStdlib_CBool :: RIP.CBool
+  { unwrapStdlib_CBool :: BG.CBool
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "unwrapStdlib_CBool" Stdlib_CBool ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "unwrapStdlib_CBool" Stdlib_CBool ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Stdlib_CBool {unwrapStdlib_CBool = y1}
-      , RIP.getField @"unwrapStdlib_CBool" x0
+      , BG.getField @"unwrapStdlib_CBool" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "unwrapStdlib_CBool" (BG.Ptr Stdlib_CBool) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapStdlib_CBool")
+    HasCField.fromPtr (BG.Proxy @"unwrapStdlib_CBool")
 
 instance HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool" where
 
   type CFieldType Stdlib_CBool "unwrapStdlib_CBool" =
-    RIP.CBool
+    BG.CBool
 
   offset# = \_ -> \_ -> 0

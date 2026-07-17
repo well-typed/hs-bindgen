@@ -23,9 +23,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @macro MyInt@
@@ -35,44 +35,44 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
 newtype MyInt = MyInt
-  { unwrapMyInt :: RIP.CInt
+  { unwrapMyInt :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapMyInt" MyInt ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapMyInt" MyInt ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         MyInt {unwrapMyInt = y1}, RIP.getField @"unwrapMyInt" x0)
+         MyInt {unwrapMyInt = y1}, BG.getField @"unwrapMyInt" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapMyInt" (BG.Ptr MyInt) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
+    HasCField.fromPtr (BG.Proxy @"unwrapMyInt")
 
 instance HasCField.HasCField MyInt "unwrapMyInt" where
 
-  type CFieldType MyInt "unwrapMyInt" = RIP.CInt
+  type CFieldType MyInt "unwrapMyInt" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -83,29 +83,19 @@ instance HasCField.HasCField MyInt "unwrapMyInt" where
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
 newtype G1 = G1
-  { unwrapG1 :: RIP.ByteArray
+  { unwrapG1 :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize G1
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize G1
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw G1
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw G1
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw G1
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw G1
 
-deriving via Marshal.EquivStorable G1 instance RIP.Storable G1
+deriving via Marshal.EquivStorable G1 instance BG.Storable G1
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion G1
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:15@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
--}
-instance (ty ~ MyInt) => RIP.HasField "g1_x" G1 ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion G1
 
 {-| __C declaration:__ @x@
 
@@ -113,14 +103,24 @@ instance (ty ~ MyInt) => RIP.HasField "g1_x" G1 ty where
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g1_x" G1 ty where
+instance (ty ~ MyInt) => BG.HasField "g1_x" G1 ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 3:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "g1_x" G1 ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"g1_x" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"g1_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "g1_x" (RIP.Ptr G1) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "g1_x" (BG.Ptr G1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"g1_x")
+  getField = HasCField.fromPtr (BG.Proxy @"g1_x")
 
 instance HasCField.HasCField G1 "g1_x" where
 
@@ -135,29 +135,19 @@ instance HasCField.HasCField G1 "g1_x" where
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
 newtype G2 = G2
-  { unwrapG2 :: RIP.ByteArray
+  { unwrapG2 :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize G2
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize G2
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw G2
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw G2
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw G2
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw G2
 
-deriving via Marshal.EquivStorable G2 instance RIP.Storable G2
+deriving via Marshal.EquivStorable G2 instance BG.Storable G2
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion G2
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:15@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
--}
-instance (ty ~ MyInt) => RIP.HasField "g2_x" G2 ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion G2
 
 {-| __C declaration:__ @x@
 
@@ -165,14 +155,24 @@ instance (ty ~ MyInt) => RIP.HasField "g2_x" G2 ty where
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g2_x" G2 ty where
+instance (ty ~ MyInt) => BG.HasField "g2_x" G2 ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 4:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "g2_x" G2 ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"g2_x" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"g2_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "g2_x" (RIP.Ptr G2) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "g2_x" (BG.Ptr G2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"g2_x")
+  getField = HasCField.fromPtr (BG.Proxy @"g2_x")
 
 instance HasCField.HasCField G2 "g2_x" where
 
@@ -187,29 +187,19 @@ instance HasCField.HasCField G2 "g2_x" where
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
 newtype G3 = G3
-  { unwrapG3 :: RIP.ByteArray
+  { unwrapG3 :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.StaticSize G3
+deriving via BG.SizedByteArray 4 4 instance Marshal.StaticSize G3
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.ReadRaw G3
+deriving via BG.SizedByteArray 4 4 instance Marshal.ReadRaw G3
 
-deriving via RIP.SizedByteArray 4 4 instance Marshal.WriteRaw G3
+deriving via BG.SizedByteArray 4 4 instance Marshal.WriteRaw G3
 
-deriving via Marshal.EquivStorable G3 instance RIP.Storable G3
+deriving via Marshal.EquivStorable G3 instance BG.Storable G3
 
-deriving via RIP.SizedByteArray 4 4 instance Union.IsUnion G3
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:15@
-
-    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
--}
-instance (ty ~ MyInt) => RIP.HasField "g3_x" G3 ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 4 4 instance Union.IsUnion G3
 
 {-| __C declaration:__ @x@
 
@@ -217,14 +207,24 @@ instance (ty ~ MyInt) => RIP.HasField "g3_x" G3 ty where
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
 -}
-instance (ty ~ MyInt) => RIP.CompatHasField.HasField "g3_x" G3 ty where
+instance (ty ~ MyInt) => BG.HasField "g3_x" G3 ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/union_in_variable.h 5:15@
+
+    __exported by:__ @macros\/reparse\/nesting\/union_in_variable.h@
+-}
+instance (ty ~ MyInt) => BG.CompatHasField.HasField "g3_x" G3 ty where
 
   hasField =
-    \x0 -> (RIP.setUnionPayload, RIP.getField @"g3_x" x0)
+    \x0 -> (BG.setUnionPayload, BG.getField @"g3_x" x0)
 
-instance (ty ~ MyInt) => RIP.HasField "g3_x" (RIP.Ptr G3) (RIP.Ptr ty) where
+instance (ty ~ MyInt) => BG.HasField "g3_x" (BG.Ptr G3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"g3_x")
+  getField = HasCField.fromPtr (BG.Proxy @"g3_x")
 
 instance HasCField.HasCField G3 "g3_x" where
 

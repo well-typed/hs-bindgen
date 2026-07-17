@@ -184,6 +184,7 @@ echo "# "
 
 mkdir -p hs/hs-vector/generated
 
+# Organize the generated bindings all in a single Haskell module.
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
@@ -191,7 +192,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
-    --module Vector1 \
+    --module VectorSingleModule \
     --single-file \
     --unsafe '' \
     vector.h \

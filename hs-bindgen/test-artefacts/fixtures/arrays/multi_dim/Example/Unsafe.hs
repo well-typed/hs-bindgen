@@ -16,13 +16,13 @@ module Example.Unsafe
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <arrays/multi_dim.h>"
   , "signed int hs_bindgen_3389520bc7419af4 ("
   , "  signed int (*arg1)[4]"
@@ -76,15 +76,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_3389520bc7419af4" hs_bindgen_3389520bc7419af4_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
 hs_bindgen_3389520bc7419af4 ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_3389520bc7419af4 =
-  RIP.fromFFIType hs_bindgen_3389520bc7419af4_base
+  BG.fromFFIType hs_bindgen_3389520bc7419af4_base
 
 {-| __C declaration:__ @foo@
 
@@ -93,22 +93,22 @@ hs_bindgen_3389520bc7419af4 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 RIP.CInt)))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 foo = hs_bindgen_3389520bc7419af4
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d807f7_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 hs_bindgen_73e2db5ad5d807f7 ::
-     PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 RIP.CInt)))
-  -> IO RIP.CInt
+     PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_73e2db5ad5d807f7 =
-  RIP.fromFFIType hs_bindgen_73e2db5ad5d807f7_base
+  BG.fromFFIType hs_bindgen_73e2db5ad5d807f7_base
 
 {-| __C declaration:__ @foo_const@
 
@@ -117,22 +117,22 @@ hs_bindgen_73e2db5ad5d807f7 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo_const ::
-     PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 RIP.CInt)))
+     PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 foo_const = hs_bindgen_73e2db5ad5d807f7
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_a28b81f0afc23eed" hs_bindgen_a28b81f0afc23eed_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
 hs_bindgen_a28b81f0afc23eed ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_a28b81f0afc23eed =
-  RIP.fromFFIType hs_bindgen_a28b81f0afc23eed_base
+  BG.fromFFIType hs_bindgen_a28b81f0afc23eed_base
 
 {-| __C declaration:__ @bar@
 
@@ -141,22 +141,22 @@ hs_bindgen_a28b81f0afc23eed =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 RIP.CInt)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 bar = hs_bindgen_a28b81f0afc23eed
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b64ae2c_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 hs_bindgen_58337c492b64ae2c ::
-     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 RIP.CInt)))
-  -> IO RIP.CInt
+     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_58337c492b64ae2c =
-  RIP.fromFFIType hs_bindgen_58337c492b64ae2c_base
+  BG.fromFFIType hs_bindgen_58337c492b64ae2c_base
 
 {-| __C declaration:__ @bar_const@
 
@@ -165,22 +165,22 @@ hs_bindgen_58337c492b64ae2c =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar_const ::
-     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 RIP.CInt)))
+     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 bar_const = hs_bindgen_58337c492b64ae2c
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_48876e6767cb5923" hs_bindgen_48876e6767cb5923_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
 hs_bindgen_48876e6767cb5923 ::
-     RIP.Ptr (IsA.Elem Matrix)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Matrix)
+  -> IO BG.CInt
 hs_bindgen_48876e6767cb5923 =
-  RIP.fromFFIType hs_bindgen_48876e6767cb5923_base
+  BG.fromFFIType hs_bindgen_48876e6767cb5923_base
 
 {-| __C declaration:__ @baz@
 
@@ -189,22 +189,22 @@ hs_bindgen_48876e6767cb5923 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 baz ::
-     RIP.Ptr (IsA.Elem Matrix)
+     BG.Ptr (IsA.Elem Matrix)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 baz = hs_bindgen_48876e6767cb5923
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e8aa41_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 hs_bindgen_13ce150055e8aa41 ::
      PtrConst.PtrConst (IsA.Elem Matrix)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_13ce150055e8aa41 =
-  RIP.fromFFIType hs_bindgen_13ce150055e8aa41_base
+  BG.fromFFIType hs_bindgen_13ce150055e8aa41_base
 
 {-| __C declaration:__ @baz_const@
 
@@ -215,20 +215,20 @@ hs_bindgen_13ce150055e8aa41 =
 baz_const ::
      PtrConst.PtrConst (IsA.Elem Matrix)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 baz_const = hs_bindgen_13ce150055e8aa41
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
 foreign import ccall unsafe "hs_bindgen_da5c432144bd5546" hs_bindgen_da5c432144bd5546_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
 hs_bindgen_da5c432144bd5546 ::
-     RIP.Ptr (IsA.Elem Triplets)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Triplets)
+  -> IO BG.CInt
 hs_bindgen_da5c432144bd5546 =
-  RIP.fromFFIType hs_bindgen_da5c432144bd5546_base
+  BG.fromFFIType hs_bindgen_da5c432144bd5546_base
 
 {-| __C declaration:__ @quuz@
 
@@ -237,22 +237,22 @@ hs_bindgen_da5c432144bd5546 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 quuz ::
-     RIP.Ptr (IsA.Elem Triplets)
+     BG.Ptr (IsA.Elem Triplets)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 quuz = hs_bindgen_da5c432144bd5546
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb59f547_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 hs_bindgen_70be94a6fb59f547 ::
      PtrConst.PtrConst (IsA.Elem Triplets)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_70be94a6fb59f547 =
-  RIP.fromFFIType hs_bindgen_70be94a6fb59f547_base
+  BG.fromFFIType hs_bindgen_70be94a6fb59f547_base
 
 {-| __C declaration:__ @quuz_const@
 
@@ -263,5 +263,5 @@ hs_bindgen_70be94a6fb59f547 =
 quuz_const ::
      PtrConst.PtrConst (IsA.Elem Triplets)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 quuz_const = hs_bindgen_70be94a6fb59f547

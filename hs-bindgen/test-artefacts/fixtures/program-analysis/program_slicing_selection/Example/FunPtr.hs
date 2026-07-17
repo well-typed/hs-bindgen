@@ -6,12 +6,12 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
   , "/* test_programanalysisprogram_slici_Example_get_read_file_chunk */"
   , "__attribute__ ((const))"
@@ -27,12 +27,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
-hs_bindgen_6e12e70d71890a10 :: IO (RIP.FunPtr (RIP.Ptr HsBindgen.Runtime.LibC.CFile -> RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
+hs_bindgen_6e12e70d71890a10 :: IO (BG.FunPtr (BG.Ptr HsBindgen.Runtime.LibC.CFile -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
 hs_bindgen_6e12e70d71890a10 =
-  RIP.fromFFIType hs_bindgen_6e12e70d71890a10_base
+  BG.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@
@@ -41,6 +41,6 @@ hs_bindgen_6e12e70d71890a10 =
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk :: RIP.FunPtr (RIP.Ptr HsBindgen.Runtime.LibC.CFile -> RIP.Ptr RIP.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
+read_file_chunk :: BG.FunPtr (BG.Ptr HsBindgen.Runtime.LibC.CFile -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
 read_file_chunk =
-  RIP.unsafePerformIO hs_bindgen_6e12e70d71890a10
+  BG.unsafePerformIO hs_bindgen_6e12e70d71890a10

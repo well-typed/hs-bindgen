@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct complex_object_t@
 
@@ -29,21 +29,21 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
 data Complex_object_t = Complex_object_t
-  { complex_object_t_velocity :: RIP.Complex RIP.CFloat
+  { complex_object_t_velocity :: BG.Complex BG.CFloat
     {- ^ __C declaration:__ @velocity@
 
          __defined at:__ @types\/complex\/hsb_complex_test.h 25:20@
 
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}
-  , complex_object_t_position :: RIP.Complex RIP.CDouble
+  , complex_object_t_position :: BG.Complex BG.CDouble
     {- ^ __C declaration:__ @position@
 
          __defined at:__ @types\/complex\/hsb_complex_test.h 26:20@
 
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}
-  , complex_object_t_id :: RIP.CInt
+  , complex_object_t_id :: BG.CInt
     {- ^ __C declaration:__ @id@
 
          __defined at:__ @types\/complex\/hsb_complex_test.h 27:9@
@@ -51,7 +51,7 @@ data Complex_object_t = Complex_object_t
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Complex_object_t where
 
@@ -64,9 +64,9 @@ instance Marshal.ReadRaw Complex_object_t where
   readRaw =
     \ptr0 ->
           pure Complex_object_t
-      <*> HasCField.readRaw (RIP.Proxy @"complex_object_t_velocity") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"complex_object_t_position") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"complex_object_t_id") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"complex_object_t_velocity") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"complex_object_t_position") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"complex_object_t_id") ptr0
 
 instance Marshal.WriteRaw Complex_object_t where
 
@@ -78,86 +78,86 @@ instance Marshal.WriteRaw Complex_object_t where
             complex_object_t_velocity2
             complex_object_t_position3
             complex_object_t_id4 ->
-                 HasCField.writeRaw (RIP.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
-              >> HasCField.writeRaw (RIP.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
-              >> HasCField.writeRaw (RIP.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
+                 HasCField.writeRaw (BG.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
+              >> HasCField.writeRaw (BG.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
+              >> HasCField.writeRaw (BG.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
 
-deriving via Marshal.EquivStorable Complex_object_t instance RIP.Storable Complex_object_t
+deriving via Marshal.EquivStorable Complex_object_t instance BG.Storable Complex_object_t
 
-instance ( ty ~ RIP.Complex RIP.CFloat
-         ) => RIP.CompatHasField.HasField "complex_object_t_velocity" Complex_object_t ty where
+instance ( ty ~ BG.Complex BG.CFloat
+         ) => BG.CompatHasField.HasField "complex_object_t_velocity" Complex_object_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Complex_object_t { complex_object_t_velocity = y1
-                           , complex_object_t_position = RIP.getField @"complex_object_t_position" x0
-                           , complex_object_t_id = RIP.getField @"complex_object_t_id" x0
+                           , complex_object_t_position = BG.getField @"complex_object_t_position" x0
+                           , complex_object_t_id = BG.getField @"complex_object_t_id" x0
                            }
-      , RIP.getField @"complex_object_t_velocity" x0
+      , BG.getField @"complex_object_t_velocity" x0
       )
 
-instance ( ty ~ RIP.Complex RIP.CFloat
-         ) => RIP.HasField "complex_object_t_velocity" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Complex BG.CFloat
+         ) => BG.HasField "complex_object_t_velocity" (BG.Ptr Complex_object_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_velocity")
+    HasCField.fromPtr (BG.Proxy @"complex_object_t_velocity")
 
 instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
 
   type CFieldType Complex_object_t "complex_object_t_velocity" =
-    RIP.Complex RIP.CFloat
+    BG.Complex BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.Complex RIP.CDouble
-         ) => RIP.CompatHasField.HasField "complex_object_t_position" Complex_object_t ty where
+instance ( ty ~ BG.Complex BG.CDouble
+         ) => BG.CompatHasField.HasField "complex_object_t_position" Complex_object_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Complex_object_t { complex_object_t_position = y1
-                           , complex_object_t_velocity = RIP.getField @"complex_object_t_velocity" x0
-                           , complex_object_t_id = RIP.getField @"complex_object_t_id" x0
+                           , complex_object_t_velocity = BG.getField @"complex_object_t_velocity" x0
+                           , complex_object_t_id = BG.getField @"complex_object_t_id" x0
                            }
-      , RIP.getField @"complex_object_t_position" x0
+      , BG.getField @"complex_object_t_position" x0
       )
 
-instance ( ty ~ RIP.Complex RIP.CDouble
-         ) => RIP.HasField "complex_object_t_position" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.Complex BG.CDouble
+         ) => BG.HasField "complex_object_t_position" (BG.Ptr Complex_object_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_position")
+    HasCField.fromPtr (BG.Proxy @"complex_object_t_position")
 
 instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
   type CFieldType Complex_object_t "complex_object_t_position" =
-    RIP.Complex RIP.CDouble
+    BG.Complex BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "complex_object_t_id" Complex_object_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "complex_object_t_id" Complex_object_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Complex_object_t { complex_object_t_id = y1
-                           , complex_object_t_velocity = RIP.getField @"complex_object_t_velocity" x0
-                           , complex_object_t_position = RIP.getField @"complex_object_t_position" x0
+                           , complex_object_t_velocity = BG.getField @"complex_object_t_velocity" x0
+                           , complex_object_t_position = BG.getField @"complex_object_t_position" x0
                            }
-      , RIP.getField @"complex_object_t_id" x0
+      , BG.getField @"complex_object_t_id" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "complex_object_t_id" (RIP.Ptr Complex_object_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "complex_object_t_id" (BG.Ptr Complex_object_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"complex_object_t_id")
+    HasCField.fromPtr (BG.Proxy @"complex_object_t_id")
 
 instance HasCField.HasCField Complex_object_t "complex_object_t_id" where
 
   type CFieldType Complex_object_t "complex_object_t_id" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 24

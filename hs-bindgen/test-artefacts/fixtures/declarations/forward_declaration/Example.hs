@@ -19,9 +19,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct S1@
 
@@ -30,7 +30,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @declarations\/forward_declaration.h@
 -}
 data S1_t = S1_t
-  { s1_t_a :: RIP.CInt
+  { s1_t_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @declarations\/forward_declaration.h 4:7@
@@ -38,7 +38,7 @@ data S1_t = S1_t
          __exported by:__ @declarations\/forward_declaration.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S1_t where
 
@@ -51,7 +51,7 @@ instance Marshal.ReadRaw S1_t where
   readRaw =
     \ptr0 ->
           pure S1_t
-      <*> HasCField.readRaw (RIP.Proxy @"s1_t_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s1_t_a") ptr0
 
 instance Marshal.WriteRaw S1_t where
 
@@ -60,25 +60,23 @@ instance Marshal.WriteRaw S1_t where
       \s1 ->
         case s1 of
           S1_t s1_t_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"s1_t_a") ptr0 s1_t_a2
+            HasCField.writeRaw (BG.Proxy @"s1_t_a") ptr0 s1_t_a2
 
-deriving via Marshal.EquivStorable S1_t instance RIP.Storable S1_t
+deriving via Marshal.EquivStorable S1_t instance BG.Storable S1_t
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_t_a" S1_t ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_t_a" S1_t ty where
 
   hasField =
     \x0 ->
-      (\y1 ->
-         S1_t {s1_t_a = y1}, RIP.getField @"s1_t_a" x0)
+      (\y1 -> S1_t {s1_t_a = y1}, BG.getField @"s1_t_a" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s1_t_a" (RIP.Ptr S1_t) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s1_t_a" (BG.Ptr S1_t) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_t_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s1_t_a")
 
 instance HasCField.HasCField S1_t "s1_t_a" where
 
-  type CFieldType S1_t "s1_t_a" = RIP.CInt
+  type CFieldType S1_t "s1_t_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -89,7 +87,7 @@ instance HasCField.HasCField S1_t "s1_t_a" where
     __exported by:__ @declarations\/forward_declaration.h@
 -}
 data S2 = S2
-  { s2_a :: RIP.CInt
+  { s2_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @declarations\/forward_declaration.h 10:7@
@@ -97,7 +95,7 @@ data S2 = S2
          __exported by:__ @declarations\/forward_declaration.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S2 where
 
@@ -110,7 +108,7 @@ instance Marshal.ReadRaw S2 where
   readRaw =
     \ptr0 ->
           pure S2
-      <*> HasCField.readRaw (RIP.Proxy @"s2_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s2_a") ptr0
 
 instance Marshal.WriteRaw S2 where
 
@@ -119,22 +117,22 @@ instance Marshal.WriteRaw S2 where
       \s1 ->
         case s1 of
           S2 s2_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"s2_a") ptr0 s2_a2
+            HasCField.writeRaw (BG.Proxy @"s2_a") ptr0 s2_a2
 
-deriving via Marshal.EquivStorable S2 instance RIP.Storable S2
+deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_a" S2 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s2_a" S2 ty where
 
   hasField =
     \x0 ->
-      (\y1 -> S2 {s2_a = y1}, RIP.getField @"s2_a" x0)
+      (\y1 -> S2 {s2_a = y1}, BG.getField @"s2_a" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s2_a" (RIP.Ptr S2) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s2_a" (BG.Ptr S2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s2_a")
 
 instance HasCField.HasCField S2 "s2_a" where
 
-  type CFieldType S2 "s2_a" = RIP.CInt
+  type CFieldType S2 "s2_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0

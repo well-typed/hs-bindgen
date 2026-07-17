@@ -27,9 +27,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @T1@
 
@@ -38,42 +38,41 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T1 = T1
-  { unwrapT1 :: RIP.CInt
+  { unwrapT1 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapT1" T1 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapT1" T1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         T1 {unwrapT1 = y1}, RIP.getField @"unwrapT1" x0)
+         T1 {unwrapT1 = y1}, BG.getField @"unwrapT1" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapT1" (BG.Ptr T1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT1")
 
 instance HasCField.HasCField T1 "unwrapT1" where
 
-  type CFieldType T1 "unwrapT1" = RIP.CInt
+  type CFieldType T1 "unwrapT1" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -84,42 +83,41 @@ instance HasCField.HasCField T1 "unwrapT1" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T2 = T2
-  { unwrapT2 :: RIP.CChar
+  { unwrapT2 :: BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapT2" T2 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "unwrapT2" T2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         T2 {unwrapT2 = y1}, RIP.getField @"unwrapT2" x0)
+         T2 {unwrapT2 = y1}, BG.getField @"unwrapT2" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "unwrapT2" (BG.Ptr T2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT2")
 
 instance HasCField.HasCField T2 "unwrapT2" where
 
-  type CFieldType T2 "unwrapT2" = RIP.CChar
+  type CFieldType T2 "unwrapT2" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -130,42 +128,41 @@ instance HasCField.HasCField T2 "unwrapT2" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M1 = M1
-  { unwrapM1 :: RIP.CInt
+  { unwrapM1 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapM1" M1 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapM1" M1 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M1 {unwrapM1 = y1}, RIP.getField @"unwrapM1" x0)
+         M1 {unwrapM1 = y1}, BG.getField @"unwrapM1" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapM1" (RIP.Ptr M1) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapM1" (BG.Ptr M1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM1")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM1")
 
 instance HasCField.HasCField M1 "unwrapM1" where
 
-  type CFieldType M1 "unwrapM1" = RIP.CInt
+  type CFieldType M1 "unwrapM1" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -176,42 +173,41 @@ instance HasCField.HasCField M1 "unwrapM1" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M2 = M2
-  { unwrapM2 :: RIP.CChar
+  { unwrapM2 :: BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapM2" M2 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "unwrapM2" M2 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M2 {unwrapM2 = y1}, RIP.getField @"unwrapM2" x0)
+         M2 {unwrapM2 = y1}, BG.getField @"unwrapM2" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapM2" (RIP.Ptr M2) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "unwrapM2" (BG.Ptr M2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM2")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM2")
 
 instance HasCField.HasCField M2 "unwrapM2" where
 
-  type CFieldType M2 "unwrapM2" = RIP.CChar
+  type CFieldType M2 "unwrapM2" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -222,33 +218,33 @@ instance HasCField.HasCField M2 "unwrapM2" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M3 = M3
-  { unwrapM3 :: RIP.Ptr RIP.CInt
+  { unwrapM3 :: BG.Ptr BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapM3" M3 ty where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapM3" M3 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         M3 {unwrapM3 = y1}, RIP.getField @"unwrapM3" x0)
+         M3 {unwrapM3 = y1}, BG.getField @"unwrapM3" x0)
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "unwrapM3" (RIP.Ptr M3) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "unwrapM3" (BG.Ptr M3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapM3")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapM3")
 
 instance HasCField.HasCField M3 "unwrapM3" where
 
-  type CFieldType M3 "unwrapM3" = RIP.Ptr RIP.CInt
+  type CFieldType M3 "unwrapM3" = BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -288,7 +284,7 @@ data ExampleStruct = ExampleStruct
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize ExampleStruct where
 
@@ -301,10 +297,10 @@ instance Marshal.ReadRaw ExampleStruct where
   readRaw =
     \ptr0 ->
           pure ExampleStruct
-      <*> HasCField.readRaw (RIP.Proxy @"exampleStruct_t1") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"exampleStruct_t2") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"exampleStruct_m1") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"exampleStruct_m2") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exampleStruct_t1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exampleStruct_t2") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exampleStruct_m1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"exampleStruct_m2") ptr0
 
 instance Marshal.WriteRaw ExampleStruct where
 
@@ -317,32 +313,32 @@ instance Marshal.WriteRaw ExampleStruct where
             exampleStruct_t23
             exampleStruct_m14
             exampleStruct_m25 ->
-                 HasCField.writeRaw (RIP.Proxy @"exampleStruct_t1") ptr0 exampleStruct_t12
-              >> HasCField.writeRaw (RIP.Proxy @"exampleStruct_t2") ptr0 exampleStruct_t23
-              >> HasCField.writeRaw (RIP.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
-              >> HasCField.writeRaw (RIP.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
+                 HasCField.writeRaw (BG.Proxy @"exampleStruct_t1") ptr0 exampleStruct_t12
+              >> HasCField.writeRaw (BG.Proxy @"exampleStruct_t2") ptr0 exampleStruct_t23
+              >> HasCField.writeRaw (BG.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
+              >> HasCField.writeRaw (BG.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
 
-deriving via Marshal.EquivStorable ExampleStruct instance RIP.Storable ExampleStruct
+deriving via Marshal.EquivStorable ExampleStruct instance BG.Storable ExampleStruct
 
 instance ( ty ~ T1
-         ) => RIP.CompatHasField.HasField "exampleStruct_t1" ExampleStruct ty where
+         ) => BG.CompatHasField.HasField "exampleStruct_t1" ExampleStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ExampleStruct { exampleStruct_t1 = y1
-                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
-                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
-                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        , exampleStruct_t2 = BG.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m1 = BG.getField @"exampleStruct_m1" x0
+                        , exampleStruct_m2 = BG.getField @"exampleStruct_m2" x0
                         }
-      , RIP.getField @"exampleStruct_t1" x0
+      , BG.getField @"exampleStruct_t1" x0
       )
 
 instance ( ty ~ T1
-         ) => RIP.HasField "exampleStruct_t1" (RIP.Ptr ExampleStruct) (RIP.Ptr ty) where
+         ) => BG.HasField "exampleStruct_t1" (BG.Ptr ExampleStruct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exampleStruct_t1")
+    HasCField.fromPtr (BG.Proxy @"exampleStruct_t1")
 
 instance HasCField.HasCField ExampleStruct "exampleStruct_t1" where
 
@@ -351,24 +347,24 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_t1" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ T2
-         ) => RIP.CompatHasField.HasField "exampleStruct_t2" ExampleStruct ty where
+         ) => BG.CompatHasField.HasField "exampleStruct_t2" ExampleStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ExampleStruct { exampleStruct_t2 = y1
-                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
-                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
-                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        , exampleStruct_t1 = BG.getField @"exampleStruct_t1" x0
+                        , exampleStruct_m1 = BG.getField @"exampleStruct_m1" x0
+                        , exampleStruct_m2 = BG.getField @"exampleStruct_m2" x0
                         }
-      , RIP.getField @"exampleStruct_t2" x0
+      , BG.getField @"exampleStruct_t2" x0
       )
 
 instance ( ty ~ T2
-         ) => RIP.HasField "exampleStruct_t2" (RIP.Ptr ExampleStruct) (RIP.Ptr ty) where
+         ) => BG.HasField "exampleStruct_t2" (BG.Ptr ExampleStruct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exampleStruct_t2")
+    HasCField.fromPtr (BG.Proxy @"exampleStruct_t2")
 
 instance HasCField.HasCField ExampleStruct "exampleStruct_t2" where
 
@@ -377,24 +373,24 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_t2" where
   offset# = \_ -> \_ -> 4
 
 instance ( ty ~ M1
-         ) => RIP.CompatHasField.HasField "exampleStruct_m1" ExampleStruct ty where
+         ) => BG.CompatHasField.HasField "exampleStruct_m1" ExampleStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ExampleStruct { exampleStruct_m1 = y1
-                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
-                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
-                        , exampleStruct_m2 = RIP.getField @"exampleStruct_m2" x0
+                        , exampleStruct_t1 = BG.getField @"exampleStruct_t1" x0
+                        , exampleStruct_t2 = BG.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m2 = BG.getField @"exampleStruct_m2" x0
                         }
-      , RIP.getField @"exampleStruct_m1" x0
+      , BG.getField @"exampleStruct_m1" x0
       )
 
 instance ( ty ~ M1
-         ) => RIP.HasField "exampleStruct_m1" (RIP.Ptr ExampleStruct) (RIP.Ptr ty) where
+         ) => BG.HasField "exampleStruct_m1" (BG.Ptr ExampleStruct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exampleStruct_m1")
+    HasCField.fromPtr (BG.Proxy @"exampleStruct_m1")
 
 instance HasCField.HasCField ExampleStruct "exampleStruct_m1" where
 
@@ -403,24 +399,24 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_m1" where
   offset# = \_ -> \_ -> 8
 
 instance ( ty ~ M2
-         ) => RIP.CompatHasField.HasField "exampleStruct_m2" ExampleStruct ty where
+         ) => BG.CompatHasField.HasField "exampleStruct_m2" ExampleStruct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ExampleStruct { exampleStruct_m2 = y1
-                        , exampleStruct_t1 = RIP.getField @"exampleStruct_t1" x0
-                        , exampleStruct_t2 = RIP.getField @"exampleStruct_t2" x0
-                        , exampleStruct_m1 = RIP.getField @"exampleStruct_m1" x0
+                        , exampleStruct_t1 = BG.getField @"exampleStruct_t1" x0
+                        , exampleStruct_t2 = BG.getField @"exampleStruct_t2" x0
+                        , exampleStruct_m1 = BG.getField @"exampleStruct_m1" x0
                         }
-      , RIP.getField @"exampleStruct_m2" x0
+      , BG.getField @"exampleStruct_m2" x0
       )
 
 instance ( ty ~ M2
-         ) => RIP.HasField "exampleStruct_m2" (RIP.Ptr ExampleStruct) (RIP.Ptr ty) where
+         ) => BG.HasField "exampleStruct_m2" (BG.Ptr ExampleStruct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"exampleStruct_m2")
+    HasCField.fromPtr (BG.Proxy @"exampleStruct_m2")
 
 instance HasCField.HasCField ExampleStruct "exampleStruct_m2" where
 
@@ -435,44 +431,44 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_m2" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype Uint64_t = Uint64_t
-  { unwrapUint64_t :: RIP.CInt
+  { unwrapUint64_t :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapUint64_t" Uint64_t ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapUint64_t" Uint64_t ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Uint64_t {unwrapUint64_t = y1}, RIP.getField @"unwrapUint64_t" x0)
+         Uint64_t {unwrapUint64_t = y1}, BG.getField @"unwrapUint64_t" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapUint64_t" (RIP.Ptr Uint64_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapUint64_t" (BG.Ptr Uint64_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapUint64_t")
+    HasCField.fromPtr (BG.Proxy @"unwrapUint64_t")
 
 instance HasCField.HasCField Uint64_t "unwrapUint64_t" where
 
-  type CFieldType Uint64_t "unwrapUint64_t" = RIP.CInt
+  type CFieldType Uint64_t "unwrapUint64_t" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -483,7 +479,7 @@ instance HasCField.HasCField Uint64_t "unwrapUint64_t" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 data Foo = Foo
-  { foo_a :: RIP.Ptr Uint64_t
+  { foo_a :: BG.Ptr Uint64_t
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/typedefs\/typedef_vs_macro.h 18:13@
@@ -491,7 +487,7 @@ data Foo = Foo
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Foo where
 
@@ -504,7 +500,7 @@ instance Marshal.ReadRaw Foo where
   readRaw =
     \ptr0 ->
           pure Foo
-      <*> HasCField.readRaw (RIP.Proxy @"foo_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"foo_a") ptr0
 
 instance Marshal.WriteRaw Foo where
 
@@ -513,24 +509,24 @@ instance Marshal.WriteRaw Foo where
       \s1 ->
         case s1 of
           Foo foo_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"foo_a") ptr0 foo_a2
+            HasCField.writeRaw (BG.Proxy @"foo_a") ptr0 foo_a2
 
-deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
+deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
-instance ( ty ~ RIP.Ptr Uint64_t
-         ) => RIP.CompatHasField.HasField "foo_a" Foo ty where
+instance ( ty ~ BG.Ptr Uint64_t
+         ) => BG.CompatHasField.HasField "foo_a" Foo ty where
 
   hasField =
     \x0 ->
-      (\y1 -> Foo {foo_a = y1}, RIP.getField @"foo_a" x0)
+      (\y1 -> Foo {foo_a = y1}, BG.getField @"foo_a" x0)
 
-instance ( ty ~ RIP.Ptr Uint64_t
-         ) => RIP.HasField "foo_a" (RIP.Ptr Foo) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr Uint64_t
+         ) => BG.HasField "foo_a" (BG.Ptr Foo) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"foo_a")
+  getField = HasCField.fromPtr (BG.Proxy @"foo_a")
 
 instance HasCField.HasCField Foo "foo_a" where
 
-  type CFieldType Foo "foo_a" = RIP.Ptr Uint64_t
+  type CFieldType Foo "foo_a" = BG.Ptr Uint64_t
 
   offset# = \_ -> \_ -> 0

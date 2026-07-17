@@ -6,10 +6,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <documentation/javadoc_banner.h>"
   , "/* test_documentationjavadoc_banner_Example_get_banner_double */"
   , "__attribute__ ((const))"
@@ -23,12 +23,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
 foreign import ccall unsafe "hs_bindgen_57ce95431493ea3f" hs_bindgen_57ce95431493ea3f_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
-hs_bindgen_57ce95431493ea3f :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
+hs_bindgen_57ce95431493ea3f :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_57ce95431493ea3f =
-  RIP.fromFFIType hs_bindgen_57ce95431493ea3f_base
+  BG.fromFFIType hs_bindgen_57ce95431493ea3f_base
 
 {-# NOINLINE banner_double #-}
 {-| A function documented with a Javadoc banner-style comment.
@@ -45,6 +45,6 @@ hs_bindgen_57ce95431493ea3f =
 
     __exported by:__ @documentation\/javadoc_banner.h@
 -}
-banner_double :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+banner_double :: BG.FunPtr (BG.CInt -> IO BG.CInt)
 banner_double =
-  RIP.unsafePerformIO hs_bindgen_57ce95431493ea3f
+  BG.unsafePerformIO hs_bindgen_57ce95431493ea3f

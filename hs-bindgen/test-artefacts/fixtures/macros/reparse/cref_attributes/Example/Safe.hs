@@ -8,11 +8,11 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse/cref_attributes.h>"
   , "void hs_bindgen_9f4b1c3748016429 ("
   , "  BOOL arg1"
@@ -36,7 +36,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
@@ -44,7 +44,7 @@ hs_bindgen_9f4b1c3748016429 ::
      BOOL
   -> IO ()
 hs_bindgen_9f4b1c3748016429 =
-  RIP.fromFFIType hs_bindgen_9f4b1c3748016429_base
+  BG.fromFFIType hs_bindgen_9f4b1c3748016429_base
 
 {-| __C declaration:__ @foo@
 
@@ -59,7 +59,7 @@ foo = hs_bindgen_9f4b1c3748016429
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_183028e559c4eff2" hs_bindgen_183028e559c4eff2_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
@@ -67,7 +67,7 @@ hs_bindgen_183028e559c4eff2 ::
      BOOL
   -> IO ()
 hs_bindgen_183028e559c4eff2 =
-  RIP.fromFFIType hs_bindgen_183028e559c4eff2_base
+  BG.fromFFIType hs_bindgen_183028e559c4eff2_base
 
 {-| __C declaration:__ @bar@
 
@@ -82,7 +82,7 @@ bar = hs_bindgen_183028e559c4eff2
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_e02b651508844cbb" hs_bindgen_e02b651508844cbb_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
@@ -90,7 +90,7 @@ hs_bindgen_e02b651508844cbb ::
      BOOL
   -> IO ()
 hs_bindgen_e02b651508844cbb =
-  RIP.fromFFIType hs_bindgen_e02b651508844cbb_base
+  BG.fromFFIType hs_bindgen_e02b651508844cbb_base
 
 {-| __C declaration:__ @quux@
 

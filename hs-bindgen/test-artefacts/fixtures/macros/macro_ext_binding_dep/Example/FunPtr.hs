@@ -6,11 +6,11 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/macro_ext_binding_dep.h>"
   , "/* test_macrosmacro_ext_binding_dep_Example_get_use_b */"
   , "__attribute__ ((const))"
@@ -24,12 +24,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_get_use_b@
 foreign import ccall unsafe "hs_bindgen_b341ec07f48c8cc1" hs_bindgen_b341ec07f48c8cc1_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_get_use_b@
-hs_bindgen_b341ec07f48c8cc1 :: IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_b341ec07f48c8cc1 :: IO (BG.FunPtr (B -> IO ()))
 hs_bindgen_b341ec07f48c8cc1 =
-  RIP.fromFFIType hs_bindgen_b341ec07f48c8cc1_base
+  BG.fromFFIType hs_bindgen_b341ec07f48c8cc1_base
 
 {-# NOINLINE use_b #-}
 {-| __C declaration:__ @use_b@
@@ -38,6 +38,6 @@ hs_bindgen_b341ec07f48c8cc1 =
 
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
-use_b :: RIP.FunPtr (B -> IO ())
+use_b :: BG.FunPtr (B -> IO ())
 use_b =
-  RIP.unsafePerformIO hs_bindgen_b341ec07f48c8cc1
+  BG.unsafePerformIO hs_bindgen_b341ec07f48c8cc1

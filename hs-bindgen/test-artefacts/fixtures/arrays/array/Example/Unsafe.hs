@@ -35,13 +35,13 @@ module Example.Unsafe
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <arrays/array.h>"
   , "signed int hs_bindgen_6d07a0b03f884547 ("
   , "  signed int arg1,"
@@ -202,17 +202,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1@
 foreign import ccall unsafe "hs_bindgen_6d07a0b03f884547" hs_bindgen_6d07a0b03f884547_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Int32
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1@
 hs_bindgen_6d07a0b03f884547 ::
-     RIP.CInt
-  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
-  -> IO RIP.CInt
+     BG.CInt
+  -> BG.Ptr (IsA.Elem (CA.ConstantArray 3 BG.CInt))
+  -> IO BG.CInt
 hs_bindgen_6d07a0b03f884547 =
-  RIP.fromFFIType hs_bindgen_6d07a0b03f884547_base
+  BG.fromFFIType hs_bindgen_6d07a0b03f884547_base
 
 {-| Array of known size.
 
@@ -223,24 +223,24 @@ hs_bindgen_6d07a0b03f884547 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_1 ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
+  -> BG.Ptr (IsA.Elem (CA.ConstantArray 3 BG.CInt))
      -- ^ __C declaration:__ @xs@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_1 = hs_bindgen_6d07a0b03f884547
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2@
 foreign import ccall unsafe "hs_bindgen_04318f98a3ab8d08" hs_bindgen_04318f98a3ab8d08_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2@
 hs_bindgen_04318f98a3ab8d08 ::
-     RIP.Ptr (IsA.Elem Triplet)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Triplet)
+  -> IO BG.CInt
 hs_bindgen_04318f98a3ab8d08 =
-  RIP.fromFFIType hs_bindgen_04318f98a3ab8d08_base
+  BG.fromFFIType hs_bindgen_04318f98a3ab8d08_base
 
 {-| Array of known size, typedef.
 
@@ -251,22 +251,22 @@ hs_bindgen_04318f98a3ab8d08 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_2 ::
-     RIP.Ptr (IsA.Elem Triplet)
+     BG.Ptr (IsA.Elem Triplet)
      -- ^ __C declaration:__ @xs@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_2 = hs_bindgen_04318f98a3ab8d08
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3@
 foreign import ccall unsafe "hs_bindgen_2a7c5fa1040fa8db" hs_bindgen_2a7c5fa1040fa8db_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3@
 hs_bindgen_2a7c5fa1040fa8db ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (IA.IncompleteArray BG.CInt))
+  -> IO BG.CInt
 hs_bindgen_2a7c5fa1040fa8db =
-  RIP.fromFFIType hs_bindgen_2a7c5fa1040fa8db_base
+  BG.fromFFIType hs_bindgen_2a7c5fa1040fa8db_base
 
 {-| Array of unknown size.
 
@@ -277,22 +277,22 @@ hs_bindgen_2a7c5fa1040fa8db =
     __exported by:__ @arrays\/array.h@
 -}
 fun_3 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray BG.CInt))
      -- ^ __C declaration:__ @xs@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_3 = hs_bindgen_2a7c5fa1040fa8db
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4@
 foreign import ccall unsafe "hs_bindgen_810acc5cf8729d0e" hs_bindgen_810acc5cf8729d0e_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4@
 hs_bindgen_810acc5cf8729d0e ::
-     RIP.Ptr (IsA.Elem List)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem List)
+  -> IO BG.CInt
 hs_bindgen_810acc5cf8729d0e =
-  RIP.fromFFIType hs_bindgen_810acc5cf8729d0e_base
+  BG.fromFFIType hs_bindgen_810acc5cf8729d0e_base
 
 {-| Array of unknown size, typedef.
 
@@ -303,22 +303,22 @@ hs_bindgen_810acc5cf8729d0e =
     __exported by:__ @arrays\/array.h@
 -}
 fun_4 ::
-     RIP.Ptr (IsA.Elem List)
+     BG.Ptr (IsA.Elem List)
      -- ^ __C declaration:__ @xs@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_4 = hs_bindgen_810acc5cf8729d0e
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5@
 foreign import ccall unsafe "hs_bindgen_83b71f7defb3b27a" hs_bindgen_83b71f7defb3b27a_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5@
 hs_bindgen_83b71f7defb3b27a ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_83b71f7defb3b27a =
-  RIP.fromFFIType hs_bindgen_83b71f7defb3b27a_base
+  BG.fromFFIType hs_bindgen_83b71f7defb3b27a_base
 
 {-| Multi-dimensional array of known size.
 
@@ -329,22 +329,22 @@ hs_bindgen_83b71f7defb3b27a =
     __exported by:__ @arrays\/array.h@
 -}
 fun_5 ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_5 = hs_bindgen_83b71f7defb3b27a
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6@
 foreign import ccall unsafe "hs_bindgen_62b76af3dc65da3f" hs_bindgen_62b76af3dc65da3f_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6@
 hs_bindgen_62b76af3dc65da3f ::
-     RIP.Ptr (IsA.Elem Matrix)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Matrix)
+  -> IO BG.CInt
 hs_bindgen_62b76af3dc65da3f =
-  RIP.fromFFIType hs_bindgen_62b76af3dc65da3f_base
+  BG.fromFFIType hs_bindgen_62b76af3dc65da3f_base
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -355,22 +355,22 @@ hs_bindgen_62b76af3dc65da3f =
     __exported by:__ @arrays\/array.h@
 -}
 fun_6 ::
-     RIP.Ptr (IsA.Elem Matrix)
+     BG.Ptr (IsA.Elem Matrix)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_6 = hs_bindgen_62b76af3dc65da3f
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7@
 foreign import ccall unsafe "hs_bindgen_100aa7fb87a5ea74" hs_bindgen_100aa7fb87a5ea74_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7@
 hs_bindgen_100aa7fb87a5ea74 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_100aa7fb87a5ea74 =
-  RIP.fromFFIType hs_bindgen_100aa7fb87a5ea74_base
+  BG.fromFFIType hs_bindgen_100aa7fb87a5ea74_base
 
 {-| Multi-dimensional array of unknown size.
 
@@ -381,22 +381,22 @@ hs_bindgen_100aa7fb87a5ea74 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_7 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_7 = hs_bindgen_100aa7fb87a5ea74
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8@
 foreign import ccall unsafe "hs_bindgen_cd6646babeacd609" hs_bindgen_cd6646babeacd609_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8@
 hs_bindgen_cd6646babeacd609 ::
-     RIP.Ptr (IsA.Elem Tripletlist)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Tripletlist)
+  -> IO BG.CInt
 hs_bindgen_cd6646babeacd609 =
-  RIP.fromFFIType hs_bindgen_cd6646babeacd609_base
+  BG.fromFFIType hs_bindgen_cd6646babeacd609_base
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -407,22 +407,22 @@ hs_bindgen_cd6646babeacd609 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_8 ::
-     RIP.Ptr (IsA.Elem Tripletlist)
+     BG.Ptr (IsA.Elem Tripletlist)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_8 = hs_bindgen_cd6646babeacd609
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved@
 foreign import ccall unsafe "hs_bindgen_560f1de9a83c3a6a" hs_bindgen_560f1de9a83c3a6a_base ::
-     RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved@
 hs_bindgen_560f1de9a83c3a6a ::
-     RIP.Ptr (IsA.Elem Sudoku)
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem Sudoku)
+  -> IO BG.CInt
 hs_bindgen_560f1de9a83c3a6a =
-  RIP.fromFFIType hs_bindgen_560f1de9a83c3a6a_base
+  BG.fromFFIType hs_bindgen_560f1de9a83c3a6a_base
 
 {-| Typedef-in-typedef.
 
@@ -433,26 +433,26 @@ hs_bindgen_560f1de9a83c3a6a =
     __exported by:__ @arrays\/array.h@
 -}
 isSolved ::
-     RIP.Ptr (IsA.Elem Sudoku)
+     BG.Ptr (IsA.Elem Sudoku)
      -- ^ __C declaration:__ @xss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 isSolved = hs_bindgen_560f1de9a83c3a6a
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1_const@
 foreign import ccall unsafe "hs_bindgen_ef3b85ae74bc06cf" hs_bindgen_ef3b85ae74bc06cf_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Int32
+  -> BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1_const@
 hs_bindgen_ef3b85ae74bc06cf ::
-     RIP.CInt
-  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
-  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
-  -> IO RIP.CInt
+     BG.CInt
+  -> BG.Ptr (IsA.Elem (CA.ConstantArray 3 BG.CInt))
+  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 BG.CInt))
+  -> IO BG.CInt
 hs_bindgen_ef3b85ae74bc06cf =
-  RIP.fromFFIType hs_bindgen_ef3b85ae74bc06cf_base
+  BG.fromFFIType hs_bindgen_ef3b85ae74bc06cf_base
 
 {-| Array of known size.
 
@@ -463,28 +463,28 @@ hs_bindgen_ef3b85ae74bc06cf =
     __exported by:__ @arrays\/array.h@
 -}
 fun_1_const ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
-  -> RIP.Ptr (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
+  -> BG.Ptr (IsA.Elem (CA.ConstantArray 3 BG.CInt))
      -- ^ __C declaration:__ @xs@
-  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 RIP.CInt))
+  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 BG.CInt))
      -- ^ __C declaration:__ @ys@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_1_const = hs_bindgen_ef3b85ae74bc06cf
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2_const@
 foreign import ccall unsafe "hs_bindgen_1c913685e5e76952" hs_bindgen_1c913685e5e76952_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2_const@
 hs_bindgen_1c913685e5e76952 ::
-     RIP.Ptr (IsA.Elem Triplet)
+     BG.Ptr (IsA.Elem Triplet)
   -> PtrConst.PtrConst (IsA.Elem Triplet)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_1c913685e5e76952 =
-  RIP.fromFFIType hs_bindgen_1c913685e5e76952_base
+  BG.fromFFIType hs_bindgen_1c913685e5e76952_base
 
 {-| Array of known size, typedef.
 
@@ -495,26 +495,26 @@ hs_bindgen_1c913685e5e76952 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_2_const ::
-     RIP.Ptr (IsA.Elem Triplet)
+     BG.Ptr (IsA.Elem Triplet)
      -- ^ __C declaration:__ @xs@
   -> PtrConst.PtrConst (IsA.Elem Triplet)
      -- ^ __C declaration:__ @ys@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_2_const = hs_bindgen_1c913685e5e76952
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3_const@
 foreign import ccall unsafe "hs_bindgen_eb8daf22bd5c6f00" hs_bindgen_eb8daf22bd5c6f00_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3_const@
 hs_bindgen_eb8daf22bd5c6f00 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
-  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray RIP.CInt))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (IA.IncompleteArray BG.CInt))
+  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray BG.CInt))
+  -> IO BG.CInt
 hs_bindgen_eb8daf22bd5c6f00 =
-  RIP.fromFFIType hs_bindgen_eb8daf22bd5c6f00_base
+  BG.fromFFIType hs_bindgen_eb8daf22bd5c6f00_base
 
 {-| Array of unknown size.
 
@@ -525,26 +525,26 @@ hs_bindgen_eb8daf22bd5c6f00 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_3_const ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray BG.CInt))
      -- ^ __C declaration:__ @xs@
-  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray RIP.CInt))
+  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray BG.CInt))
      -- ^ __C declaration:__ @ys@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_3_const = hs_bindgen_eb8daf22bd5c6f00
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4_const@
 foreign import ccall unsafe "hs_bindgen_0b73e4c7695a3b2f" hs_bindgen_0b73e4c7695a3b2f_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4_const@
 hs_bindgen_0b73e4c7695a3b2f ::
-     RIP.Ptr (IsA.Elem List)
+     BG.Ptr (IsA.Elem List)
   -> PtrConst.PtrConst (IsA.Elem List)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_0b73e4c7695a3b2f =
-  RIP.fromFFIType hs_bindgen_0b73e4c7695a3b2f_base
+  BG.fromFFIType hs_bindgen_0b73e4c7695a3b2f_base
 
 {-| Array of unknown size, typedef.
 
@@ -555,26 +555,26 @@ hs_bindgen_0b73e4c7695a3b2f =
     __exported by:__ @arrays\/array.h@
 -}
 fun_4_const ::
-     RIP.Ptr (IsA.Elem List)
+     BG.Ptr (IsA.Elem List)
      -- ^ __C declaration:__ @xs@
   -> PtrConst.PtrConst (IsA.Elem List)
      -- ^ __C declaration:__ @ys@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_4_const = hs_bindgen_0b73e4c7695a3b2f
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5_const@
 foreign import ccall unsafe "hs_bindgen_374feb8086895fe3" hs_bindgen_374feb8086895fe3_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5_const@
 hs_bindgen_374feb8086895fe3 ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
-  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
+  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_374feb8086895fe3 =
-  RIP.fromFFIType hs_bindgen_374feb8086895fe3_base
+  BG.fromFFIType hs_bindgen_374feb8086895fe3_base
 
 {-| Multi-dimensional array of known size.
 
@@ -585,26 +585,26 @@ hs_bindgen_374feb8086895fe3 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_5_const ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
+  -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @yss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_5_const = hs_bindgen_374feb8086895fe3
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6_const@
 foreign import ccall unsafe "hs_bindgen_2d1320b468c36708" hs_bindgen_2d1320b468c36708_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6_const@
 hs_bindgen_2d1320b468c36708 ::
-     RIP.Ptr (IsA.Elem Matrix)
+     BG.Ptr (IsA.Elem Matrix)
   -> PtrConst.PtrConst (IsA.Elem Matrix)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_2d1320b468c36708 =
-  RIP.fromFFIType hs_bindgen_2d1320b468c36708_base
+  BG.fromFFIType hs_bindgen_2d1320b468c36708_base
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -615,26 +615,26 @@ hs_bindgen_2d1320b468c36708 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_6_const ::
-     RIP.Ptr (IsA.Elem Matrix)
+     BG.Ptr (IsA.Elem Matrix)
      -- ^ __C declaration:__ @xss@
   -> PtrConst.PtrConst (IsA.Elem Matrix)
      -- ^ __C declaration:__ @yss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_6_const = hs_bindgen_2d1320b468c36708
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7_const@
 foreign import ccall unsafe "hs_bindgen_f67f5fe5bfb57aa1" hs_bindgen_f67f5fe5bfb57aa1_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7_const@
 hs_bindgen_f67f5fe5bfb57aa1 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
-  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
-  -> IO RIP.CInt
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
+  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
+  -> IO BG.CInt
 hs_bindgen_f67f5fe5bfb57aa1 =
-  RIP.fromFFIType hs_bindgen_f67f5fe5bfb57aa1_base
+  BG.fromFFIType hs_bindgen_f67f5fe5bfb57aa1_base
 
 {-| Multi-dimensional array of unknown size.
 
@@ -645,26 +645,26 @@ hs_bindgen_f67f5fe5bfb57aa1 =
     __exported by:__ @arrays\/array.h@
 -}
 fun_7_const ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @xss@
-  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
+  -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
      -- ^ __C declaration:__ @yss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_7_const = hs_bindgen_f67f5fe5bfb57aa1
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8_const@
 foreign import ccall unsafe "hs_bindgen_2c9356851d76320e" hs_bindgen_2c9356851d76320e_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8_const@
 hs_bindgen_2c9356851d76320e ::
-     RIP.Ptr (IsA.Elem Tripletlist)
+     BG.Ptr (IsA.Elem Tripletlist)
   -> PtrConst.PtrConst (IsA.Elem Tripletlist)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_2c9356851d76320e =
-  RIP.fromFFIType hs_bindgen_2c9356851d76320e_base
+  BG.fromFFIType hs_bindgen_2c9356851d76320e_base
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -675,26 +675,26 @@ hs_bindgen_2c9356851d76320e =
     __exported by:__ @arrays\/array.h@
 -}
 fun_8_const ::
-     RIP.Ptr (IsA.Elem Tripletlist)
+     BG.Ptr (IsA.Elem Tripletlist)
      -- ^ __C declaration:__ @xss@
   -> PtrConst.PtrConst (IsA.Elem Tripletlist)
      -- ^ __C declaration:__ @yss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun_8_const = hs_bindgen_2c9356851d76320e
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved_const@
 foreign import ccall unsafe "hs_bindgen_39b08b64fed0c5b8" hs_bindgen_39b08b64fed0c5b8_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> IO RIP.Int32
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> IO BG.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved_const@
 hs_bindgen_39b08b64fed0c5b8 ::
-     RIP.Ptr (IsA.Elem Sudoku)
+     BG.Ptr (IsA.Elem Sudoku)
   -> PtrConst.PtrConst (IsA.Elem Sudoku)
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_39b08b64fed0c5b8 =
-  RIP.fromFFIType hs_bindgen_39b08b64fed0c5b8_base
+  BG.fromFFIType hs_bindgen_39b08b64fed0c5b8_base
 
 {-| Typedef-in-typedef.
 
@@ -705,21 +705,21 @@ hs_bindgen_39b08b64fed0c5b8 =
     __exported by:__ @arrays\/array.h@
 -}
 isSolved_const ::
-     RIP.Ptr (IsA.Elem Sudoku)
+     BG.Ptr (IsA.Elem Sudoku)
      -- ^ __C declaration:__ @xss@
   -> PtrConst.PtrConst (IsA.Elem Sudoku)
      -- ^ __C declaration:__ @yss@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 isSolved_const = hs_bindgen_39b08b64fed0c5b8
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_9@
 foreign import ccall unsafe "hs_bindgen_ab431ebc0519545a" hs_bindgen_ab431ebc0519545a_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_9@
-hs_bindgen_ab431ebc0519545a :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
+hs_bindgen_ab431ebc0519545a :: IO (BG.Ptr (CA.ConstantArray 3 BG.CInt))
 hs_bindgen_ab431ebc0519545a =
-  RIP.fromFFIType hs_bindgen_ab431ebc0519545a_base
+  BG.fromFFIType hs_bindgen_ab431ebc0519545a_base
 
 {-| Array of known size.
 
@@ -729,17 +729,17 @@ hs_bindgen_ab431ebc0519545a =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_9 :: IO (RIP.Ptr (CA.ConstantArray 3 RIP.CInt))
+fun_9 :: IO (BG.Ptr (CA.ConstantArray 3 BG.CInt))
 fun_9 = hs_bindgen_ab431ebc0519545a
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_10@
 foreign import ccall unsafe "hs_bindgen_c9ff623e6f48d3bc" hs_bindgen_c9ff623e6f48d3bc_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_10@
-hs_bindgen_c9ff623e6f48d3bc :: IO (RIP.Ptr Triplet)
+hs_bindgen_c9ff623e6f48d3bc :: IO (BG.Ptr Triplet)
 hs_bindgen_c9ff623e6f48d3bc =
-  RIP.fromFFIType hs_bindgen_c9ff623e6f48d3bc_base
+  BG.fromFFIType hs_bindgen_c9ff623e6f48d3bc_base
 
 {-| Array of known size, typedef.
 
@@ -749,17 +749,17 @@ hs_bindgen_c9ff623e6f48d3bc =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_10 :: IO (RIP.Ptr Triplet)
+fun_10 :: IO (BG.Ptr Triplet)
 fun_10 = hs_bindgen_c9ff623e6f48d3bc
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_11@
 foreign import ccall unsafe "hs_bindgen_e714f0b7c764ba17" hs_bindgen_e714f0b7c764ba17_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_11@
-hs_bindgen_e714f0b7c764ba17 :: IO (RIP.Ptr (IA.IncompleteArray RIP.CInt))
+hs_bindgen_e714f0b7c764ba17 :: IO (BG.Ptr (IA.IncompleteArray BG.CInt))
 hs_bindgen_e714f0b7c764ba17 =
-  RIP.fromFFIType hs_bindgen_e714f0b7c764ba17_base
+  BG.fromFFIType hs_bindgen_e714f0b7c764ba17_base
 
 {-| Array of unknown size.
 
@@ -769,17 +769,17 @@ hs_bindgen_e714f0b7c764ba17 =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_11 :: IO (RIP.Ptr (IA.IncompleteArray RIP.CInt))
+fun_11 :: IO (BG.Ptr (IA.IncompleteArray BG.CInt))
 fun_11 = hs_bindgen_e714f0b7c764ba17
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_12@
 foreign import ccall unsafe "hs_bindgen_cc23741700ba18f7" hs_bindgen_cc23741700ba18f7_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_12@
-hs_bindgen_cc23741700ba18f7 :: IO (RIP.Ptr List)
+hs_bindgen_cc23741700ba18f7 :: IO (BG.Ptr List)
 hs_bindgen_cc23741700ba18f7 =
-  RIP.fromFFIType hs_bindgen_cc23741700ba18f7_base
+  BG.fromFFIType hs_bindgen_cc23741700ba18f7_base
 
 {-| Array of unknown size, typedef.
 
@@ -789,17 +789,17 @@ hs_bindgen_cc23741700ba18f7 =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_12 :: IO (RIP.Ptr List)
+fun_12 :: IO (BG.Ptr List)
 fun_12 = hs_bindgen_cc23741700ba18f7
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_13@
 foreign import ccall unsafe "hs_bindgen_eb3a1364003829ac" hs_bindgen_eb3a1364003829ac_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_13@
-hs_bindgen_eb3a1364003829ac :: IO (RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
+hs_bindgen_eb3a1364003829ac :: IO (BG.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_eb3a1364003829ac =
-  RIP.fromFFIType hs_bindgen_eb3a1364003829ac_base
+  BG.fromFFIType hs_bindgen_eb3a1364003829ac_base
 
 {-| Multi-dimensional array of known size.
 
@@ -809,17 +809,17 @@ hs_bindgen_eb3a1364003829ac =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_13 :: IO (RIP.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 RIP.CInt)))
+fun_13 :: IO (BG.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
 fun_13 = hs_bindgen_eb3a1364003829ac
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_14@
 foreign import ccall unsafe "hs_bindgen_0f49ffbe2c13ab46" hs_bindgen_0f49ffbe2c13ab46_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_14@
-hs_bindgen_0f49ffbe2c13ab46 :: IO (RIP.Ptr Matrix)
+hs_bindgen_0f49ffbe2c13ab46 :: IO (BG.Ptr Matrix)
 hs_bindgen_0f49ffbe2c13ab46 =
-  RIP.fromFFIType hs_bindgen_0f49ffbe2c13ab46_base
+  BG.fromFFIType hs_bindgen_0f49ffbe2c13ab46_base
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -829,17 +829,17 @@ hs_bindgen_0f49ffbe2c13ab46 =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_14 :: IO (RIP.Ptr Matrix)
+fun_14 :: IO (BG.Ptr Matrix)
 fun_14 = hs_bindgen_0f49ffbe2c13ab46
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_15@
 foreign import ccall unsafe "hs_bindgen_59de769fbba4ed72" hs_bindgen_59de769fbba4ed72_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_15@
-hs_bindgen_59de769fbba4ed72 :: IO (RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
+hs_bindgen_59de769fbba4ed72 :: IO (BG.Ptr (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_59de769fbba4ed72 =
-  RIP.fromFFIType hs_bindgen_59de769fbba4ed72_base
+  BG.fromFFIType hs_bindgen_59de769fbba4ed72_base
 
 {-| Multi-dimensional array of unknown size.
 
@@ -849,17 +849,17 @@ hs_bindgen_59de769fbba4ed72 =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_15 :: IO (RIP.Ptr (IA.IncompleteArray (CA.ConstantArray 3 RIP.CInt)))
+fun_15 :: IO (BG.Ptr (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
 fun_15 = hs_bindgen_59de769fbba4ed72
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_16@
 foreign import ccall unsafe "hs_bindgen_1d6ecccfa4ee16ff" hs_bindgen_1d6ecccfa4ee16ff_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_16@
-hs_bindgen_1d6ecccfa4ee16ff :: IO (RIP.Ptr Tripletlist)
+hs_bindgen_1d6ecccfa4ee16ff :: IO (BG.Ptr Tripletlist)
 hs_bindgen_1d6ecccfa4ee16ff =
-  RIP.fromFFIType hs_bindgen_1d6ecccfa4ee16ff_base
+  BG.fromFFIType hs_bindgen_1d6ecccfa4ee16ff_base
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -869,17 +869,17 @@ hs_bindgen_1d6ecccfa4ee16ff =
 
     __exported by:__ @arrays\/array.h@
 -}
-fun_16 :: IO (RIP.Ptr Tripletlist)
+fun_16 :: IO (BG.Ptr Tripletlist)
 fun_16 = hs_bindgen_1d6ecccfa4ee16ff
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_solve@
 foreign import ccall unsafe "hs_bindgen_6165085eab7d2806" hs_bindgen_6165085eab7d2806_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_solve@
-hs_bindgen_6165085eab7d2806 :: IO (RIP.Ptr Sudoku)
+hs_bindgen_6165085eab7d2806 :: IO (BG.Ptr Sudoku)
 hs_bindgen_6165085eab7d2806 =
-  RIP.fromFFIType hs_bindgen_6165085eab7d2806_base
+  BG.fromFFIType hs_bindgen_6165085eab7d2806_base
 
 {-| Typedef-in-typedef.
 
@@ -889,5 +889,5 @@ hs_bindgen_6165085eab7d2806 =
 
     __exported by:__ @arrays\/array.h@
 -}
-solve :: IO (RIP.Ptr Sudoku)
+solve :: IO (BG.Ptr Sudoku)
 solve = hs_bindgen_6165085eab7d2806

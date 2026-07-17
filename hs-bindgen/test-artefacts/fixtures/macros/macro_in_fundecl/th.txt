@@ -469,52 +469,52 @@ instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort
           offset# = \_ -> \_ -> 0
--- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
-foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
+-- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
+foreign import ccall safe "wrapper" hs_bindgen_03e9923d8d301cca_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
--- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_25a28556cfbbf031 :: (CShort -> IO I) ->
+-- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
+hs_bindgen_03e9923d8d301cca :: (CShort -> IO I) ->
                                IO (FunPtr (CShort -> IO I))
--- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_25a28556cfbbf031 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (toFFIType fun_0))
--- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
-foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
+-- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
+hs_bindgen_03e9923d8d301cca = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_03e9923d8d301cca_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
+foreign import ccall safe "dynamic" hs_bindgen_ee10a61bcb1a5d39_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16
  -> IO Int32
--- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_255a05599df0464e :: FunPtr (CShort -> IO I) ->
+-- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
+hs_bindgen_ee10a61bcb1a5d39 :: FunPtr (CShort -> IO I) ->
                                CShort -> IO I
--- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_255a05599df0464e = \funPtr_0 -> fromFFIType (hs_bindgen_255a05599df0464e_base (castFunPtrToFFIType funPtr_0))
+-- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
+hs_bindgen_ee10a61bcb1a5d39 = \funPtr_0 -> fromFFIType (hs_bindgen_ee10a61bcb1a5d39_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr (CShort -> IO I)
-    where toFunPtr = hs_bindgen_25a28556cfbbf031
+    where toFunPtr = hs_bindgen_03e9923d8d301cca
 instance FromFunPtr (CShort -> IO I)
-    where fromFunPtr = hs_bindgen_255a05599df0464e
--- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
-foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
+    where fromFunPtr = hs_bindgen_ee10a61bcb1a5d39
+-- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
+foreign import ccall safe "wrapper" hs_bindgen_140ec1313a27c405_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
--- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_016f1407db09bd2f :: (S -> IO CInt) ->
+-- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
+hs_bindgen_140ec1313a27c405 :: (S -> IO CInt) ->
                                IO (FunPtr (S -> IO CInt))
--- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_016f1407db09bd2f = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (toFFIType fun_0))
--- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
-foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
+-- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
+hs_bindgen_140ec1313a27c405 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_140ec1313a27c405_base (toFFIType fun_0))
+-- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
+foreign import ccall safe "dynamic" hs_bindgen_e86a5fa3f995e6fb_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16
  -> IO Int32
--- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_1c14ce64db2e04d0 :: FunPtr (S -> IO CInt) ->
+-- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
+hs_bindgen_e86a5fa3f995e6fb :: FunPtr (S -> IO CInt) ->
                                S -> IO CInt
--- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_1c14ce64db2e04d0 = \funPtr_0 -> fromFFIType (hs_bindgen_1c14ce64db2e04d0_base (castFunPtrToFFIType funPtr_0))
+-- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
+hs_bindgen_e86a5fa3f995e6fb = \funPtr_0 -> fromFFIType (hs_bindgen_e86a5fa3f995e6fb_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr (S -> IO CInt)
-    where toFunPtr = hs_bindgen_016f1407db09bd2f
+    where toFunPtr = hs_bindgen_140ec1313a27c405
 instance FromFunPtr (S -> IO CInt)
-    where fromFunPtr = hs_bindgen_1c14ce64db2e04d0
+    where fromFunPtr = hs_bindgen_e86a5fa3f995e6fb
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_d345c332b6547629" hs_bindgen_d345c332b6547629_base ::
     Float

@@ -6,10 +6,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
   , "double hs_bindgen_06a412f170b5ff91 ("
   , "  double arg1"
@@ -26,10 +26,10 @@ foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5f
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
 hs_bindgen_06a412f170b5ff91 ::
-     RIP.CDouble
-  -> IO RIP.CDouble
+     BG.CDouble
+  -> IO BG.CDouble
 hs_bindgen_06a412f170b5ff91 =
-  RIP.fromFFIType hs_bindgen_06a412f170b5ff91_base
+  BG.fromFFIType hs_bindgen_06a412f170b5ff91_base
 
 {-| __C declaration:__ @_acos@
 
@@ -38,7 +38,7 @@ hs_bindgen_06a412f170b5ff91 =
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
 _acos ::
-     RIP.CDouble
+     BG.CDouble
      -- ^ __C declaration:__ @x@
-  -> IO RIP.CDouble
+  -> IO BG.CDouble
 _acos = hs_bindgen_06a412f170b5ff91

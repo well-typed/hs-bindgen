@@ -7,10 +7,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/field_name_reuse_omit.h>"
   , "/* test_declarationsfield_name_reuse__Example_get_foo */"
   , "__attribute__ ((const))"
@@ -22,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_8612ede7c1c9d541" hs_bindgen_8612ede7c1c9d541_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
-hs_bindgen_8612ede7c1c9d541 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_8612ede7c1c9d541 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_8612ede7c1c9d541 =
-  RIP.fromFFIType hs_bindgen_8612ede7c1c9d541_base
+  BG.fromFFIType hs_bindgen_8612ede7c1c9d541_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -36,5 +36,5 @@ hs_bindgen_8612ede7c1c9d541 =
 
     __exported by:__ @declarations\/field_name_reuse_omit.h@
 -}
-foo :: RIP.Ptr RIP.CInt
-foo = RIP.unsafePerformIO hs_bindgen_8612ede7c1c9d541
+foo :: BG.Ptr BG.CInt
+foo = BG.unsafePerformIO hs_bindgen_8612ede7c1c9d541

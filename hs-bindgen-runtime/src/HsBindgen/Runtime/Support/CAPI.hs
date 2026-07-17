@@ -4,7 +4,7 @@
 --
 -- - in types names:    CapiFoo, FooCapiBar
 -- - in variable names: capiFoo, fooCapiBar
-module HsBindgen.Runtime.Internal.CAPI (
+module HsBindgen.Runtime.Support.CAPI (
     addCSource
   , allocaAndPeek
     -- * Auxiliary

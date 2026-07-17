@@ -7,10 +7,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <comprehensive/smoke.h>"
   , "/* test_comprehensivesmoke_Example_get_global */"
   , "__attribute__ ((const))"
@@ -22,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_global@
 foreign import ccall unsafe "hs_bindgen_dbeef9adb3c4fba3" hs_bindgen_dbeef9adb3c4fba3_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_get_global@
-hs_bindgen_dbeef9adb3c4fba3 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_dbeef9adb3c4fba3 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_dbeef9adb3c4fba3 =
-  RIP.fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
+  BG.fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
 
 {-# NOINLINE global #-}
 {-| __C declaration:__ @global@
@@ -36,6 +36,6 @@ hs_bindgen_dbeef9adb3c4fba3 =
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-global :: RIP.Ptr RIP.CInt
+global :: BG.Ptr BG.CInt
 global =
-  RIP.unsafePerformIO hs_bindgen_dbeef9adb3c4fba3
+  BG.unsafePerformIO hs_bindgen_dbeef9adb3c4fba3

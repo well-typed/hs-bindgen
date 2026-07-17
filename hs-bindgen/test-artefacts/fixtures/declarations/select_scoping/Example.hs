@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @ParsedAndSelected1@
 
@@ -29,46 +29,46 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @declarations\/select_scoping.h@
 -}
 newtype ParsedAndSelected1 = ParsedAndSelected1
-  { unwrapParsedAndSelected1 :: RIP.CInt
+  { unwrapParsedAndSelected1 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapParsedAndSelected1" ParsedAndSelected1 ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapParsedAndSelected1" ParsedAndSelected1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           ParsedAndSelected1 {unwrapParsedAndSelected1 = y1}
-      , RIP.getField @"unwrapParsedAndSelected1" x0
+      , BG.getField @"unwrapParsedAndSelected1" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapParsedAndSelected1" (RIP.Ptr ParsedAndSelected1) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapParsedAndSelected1" (BG.Ptr ParsedAndSelected1) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapParsedAndSelected1")
+    HasCField.fromPtr (BG.Proxy @"unwrapParsedAndSelected1")
 
 instance HasCField.HasCField ParsedAndSelected1 "unwrapParsedAndSelected1" where
 
   type CFieldType ParsedAndSelected1 "unwrapParsedAndSelected1" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0

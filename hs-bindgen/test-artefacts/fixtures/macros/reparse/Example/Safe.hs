@@ -119,14 +119,14 @@ module Example.Safe
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/reparse.h>"
   , "void hs_bindgen_f15610128336b06a ("
   , "  A arg1,"
@@ -883,17 +883,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
 foreign import ccall safe "hs_bindgen_f15610128336b06a" hs_bindgen_f15610128336b06a_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
 hs_bindgen_f15610128336b06a ::
      A
-  -> RIP.CChar
+  -> BG.CChar
   -> IO ()
 hs_bindgen_f15610128336b06a =
-  RIP.fromFFIType hs_bindgen_f15610128336b06a_base
+  BG.fromFFIType hs_bindgen_f15610128336b06a_base
 
 {-| Function declarations
 
@@ -906,24 +906,24 @@ hs_bindgen_f15610128336b06a =
 args_char1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CChar
+  -> BG.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_char1 = hs_bindgen_f15610128336b06a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char2@
 foreign import ccall safe "hs_bindgen_087f45ca0a284a03" hs_bindgen_087f45ca0a284a03_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char2@
 hs_bindgen_087f45ca0a284a03 ::
      A
-  -> RIP.CSChar
+  -> BG.CSChar
   -> IO ()
 hs_bindgen_087f45ca0a284a03 =
-  RIP.fromFFIType hs_bindgen_087f45ca0a284a03_base
+  BG.fromFFIType hs_bindgen_087f45ca0a284a03_base
 
 {-| __C declaration:__ @args_char2@
 
@@ -934,24 +934,24 @@ hs_bindgen_087f45ca0a284a03 =
 args_char2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CSChar
+  -> BG.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_char2 = hs_bindgen_087f45ca0a284a03
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char3@
 foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" hs_bindgen_f6cb5c5a728c2404_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char3@
 hs_bindgen_f6cb5c5a728c2404 ::
      A
-  -> RIP.CUChar
+  -> BG.CUChar
   -> IO ()
 hs_bindgen_f6cb5c5a728c2404 =
-  RIP.fromFFIType hs_bindgen_f6cb5c5a728c2404_base
+  BG.fromFFIType hs_bindgen_f6cb5c5a728c2404_base
 
 {-| __C declaration:__ @args_char3@
 
@@ -962,24 +962,24 @@ hs_bindgen_f6cb5c5a728c2404 =
 args_char3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CUChar
+  -> BG.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_char3 = hs_bindgen_f6cb5c5a728c2404
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short1@
 foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" hs_bindgen_d485767e0caa1f7c_base ::
-     RIP.Int32
-  -> RIP.Int16
+     BG.Int32
+  -> BG.Int16
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short1@
 hs_bindgen_d485767e0caa1f7c ::
      A
-  -> RIP.CShort
+  -> BG.CShort
   -> IO ()
 hs_bindgen_d485767e0caa1f7c =
-  RIP.fromFFIType hs_bindgen_d485767e0caa1f7c_base
+  BG.fromFFIType hs_bindgen_d485767e0caa1f7c_base
 
 {-| __C declaration:__ @args_short1@
 
@@ -990,24 +990,24 @@ hs_bindgen_d485767e0caa1f7c =
 args_short1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CShort
+  -> BG.CShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_short1 = hs_bindgen_d485767e0caa1f7c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short2@
 foreign import ccall safe "hs_bindgen_833c96c437533e02" hs_bindgen_833c96c437533e02_base ::
-     RIP.Int32
-  -> RIP.Int16
+     BG.Int32
+  -> BG.Int16
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short2@
 hs_bindgen_833c96c437533e02 ::
      A
-  -> RIP.CShort
+  -> BG.CShort
   -> IO ()
 hs_bindgen_833c96c437533e02 =
-  RIP.fromFFIType hs_bindgen_833c96c437533e02_base
+  BG.fromFFIType hs_bindgen_833c96c437533e02_base
 
 {-| __C declaration:__ @args_short2@
 
@@ -1018,24 +1018,24 @@ hs_bindgen_833c96c437533e02 =
 args_short2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CShort
+  -> BG.CShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_short2 = hs_bindgen_833c96c437533e02
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short3@
 foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" hs_bindgen_0e1eedc3fcbcea7a_base ::
-     RIP.Int32
-  -> RIP.Word16
+     BG.Int32
+  -> BG.Word16
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short3@
 hs_bindgen_0e1eedc3fcbcea7a ::
      A
-  -> RIP.CUShort
+  -> BG.CUShort
   -> IO ()
 hs_bindgen_0e1eedc3fcbcea7a =
-  RIP.fromFFIType hs_bindgen_0e1eedc3fcbcea7a_base
+  BG.fromFFIType hs_bindgen_0e1eedc3fcbcea7a_base
 
 {-| __C declaration:__ @args_short3@
 
@@ -1046,24 +1046,24 @@ hs_bindgen_0e1eedc3fcbcea7a =
 args_short3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CUShort
+  -> BG.CUShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_short3 = hs_bindgen_0e1eedc3fcbcea7a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int1@
 foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" hs_bindgen_906f0ac7dfd36ab8_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int1@
 hs_bindgen_906f0ac7dfd36ab8 ::
      A
-  -> RIP.CInt
+  -> BG.CInt
   -> IO ()
 hs_bindgen_906f0ac7dfd36ab8 =
-  RIP.fromFFIType hs_bindgen_906f0ac7dfd36ab8_base
+  BG.fromFFIType hs_bindgen_906f0ac7dfd36ab8_base
 
 {-| __C declaration:__ @args_int1@
 
@@ -1074,24 +1074,24 @@ hs_bindgen_906f0ac7dfd36ab8 =
 args_int1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CInt
+  -> BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_int1 = hs_bindgen_906f0ac7dfd36ab8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int2@
 foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" hs_bindgen_0edbc9b995b2a589_base ::
-     RIP.Int32
-  -> RIP.Int32
+     BG.Int32
+  -> BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int2@
 hs_bindgen_0edbc9b995b2a589 ::
      A
-  -> RIP.CInt
+  -> BG.CInt
   -> IO ()
 hs_bindgen_0edbc9b995b2a589 =
-  RIP.fromFFIType hs_bindgen_0edbc9b995b2a589_base
+  BG.fromFFIType hs_bindgen_0edbc9b995b2a589_base
 
 {-| __C declaration:__ @args_int2@
 
@@ -1102,24 +1102,24 @@ hs_bindgen_0edbc9b995b2a589 =
 args_int2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CInt
+  -> BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_int2 = hs_bindgen_0edbc9b995b2a589
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int3@
 foreign import ccall safe "hs_bindgen_a5c223f58a255115" hs_bindgen_a5c223f58a255115_base ::
-     RIP.Int32
-  -> RIP.Word32
+     BG.Int32
+  -> BG.Word32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int3@
 hs_bindgen_a5c223f58a255115 ::
      A
-  -> RIP.CUInt
+  -> BG.CUInt
   -> IO ()
 hs_bindgen_a5c223f58a255115 =
-  RIP.fromFFIType hs_bindgen_a5c223f58a255115_base
+  BG.fromFFIType hs_bindgen_a5c223f58a255115_base
 
 {-| __C declaration:__ @args_int3@
 
@@ -1130,24 +1130,24 @@ hs_bindgen_a5c223f58a255115 =
 args_int3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CUInt
+  -> BG.CUInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_int3 = hs_bindgen_a5c223f58a255115
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long1@
 foreign import ccall safe "hs_bindgen_41d1229384b9a529" hs_bindgen_41d1229384b9a529_base ::
-     RIP.Int32
-  -> RIP.Int64
+     BG.Int32
+  -> BG.Int64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long1@
 hs_bindgen_41d1229384b9a529 ::
      A
-  -> RIP.CLong
+  -> BG.CLong
   -> IO ()
 hs_bindgen_41d1229384b9a529 =
-  RIP.fromFFIType hs_bindgen_41d1229384b9a529_base
+  BG.fromFFIType hs_bindgen_41d1229384b9a529_base
 
 {-| __C declaration:__ @args_long1@
 
@@ -1158,24 +1158,24 @@ hs_bindgen_41d1229384b9a529 =
 args_long1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CLong
+  -> BG.CLong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_long1 = hs_bindgen_41d1229384b9a529
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long2@
 foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" hs_bindgen_a9a4b09fd3bd83db_base ::
-     RIP.Int32
-  -> RIP.Int64
+     BG.Int32
+  -> BG.Int64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long2@
 hs_bindgen_a9a4b09fd3bd83db ::
      A
-  -> RIP.CLong
+  -> BG.CLong
   -> IO ()
 hs_bindgen_a9a4b09fd3bd83db =
-  RIP.fromFFIType hs_bindgen_a9a4b09fd3bd83db_base
+  BG.fromFFIType hs_bindgen_a9a4b09fd3bd83db_base
 
 {-| __C declaration:__ @args_long2@
 
@@ -1186,24 +1186,24 @@ hs_bindgen_a9a4b09fd3bd83db =
 args_long2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CLong
+  -> BG.CLong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_long2 = hs_bindgen_a9a4b09fd3bd83db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long3@
 foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" hs_bindgen_31dc2e680b3f3eff_base ::
-     RIP.Int32
-  -> RIP.Word64
+     BG.Int32
+  -> BG.Word64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long3@
 hs_bindgen_31dc2e680b3f3eff ::
      A
-  -> RIP.CULong
+  -> BG.CULong
   -> IO ()
 hs_bindgen_31dc2e680b3f3eff =
-  RIP.fromFFIType hs_bindgen_31dc2e680b3f3eff_base
+  BG.fromFFIType hs_bindgen_31dc2e680b3f3eff_base
 
 {-| __C declaration:__ @args_long3@
 
@@ -1214,24 +1214,24 @@ hs_bindgen_31dc2e680b3f3eff =
 args_long3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CULong
+  -> BG.CULong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_long3 = hs_bindgen_31dc2e680b3f3eff
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_float@
 foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" hs_bindgen_3d400757b5cbf4b7_base ::
-     RIP.Int32
+     BG.Int32
   -> Float
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_float@
 hs_bindgen_3d400757b5cbf4b7 ::
      A
-  -> RIP.CFloat
+  -> BG.CFloat
   -> IO ()
 hs_bindgen_3d400757b5cbf4b7 =
-  RIP.fromFFIType hs_bindgen_3d400757b5cbf4b7_base
+  BG.fromFFIType hs_bindgen_3d400757b5cbf4b7_base
 
 {-| __C declaration:__ @args_float@
 
@@ -1242,24 +1242,24 @@ hs_bindgen_3d400757b5cbf4b7 =
 args_float ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CFloat
+  -> BG.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_float = hs_bindgen_3d400757b5cbf4b7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_double@
 foreign import ccall safe "hs_bindgen_70df07e39900487e" hs_bindgen_70df07e39900487e_base ::
-     RIP.Int32
+     BG.Int32
   -> Double
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_double@
 hs_bindgen_70df07e39900487e ::
      A
-  -> RIP.CDouble
+  -> BG.CDouble
   -> IO ()
 hs_bindgen_70df07e39900487e =
-  RIP.fromFFIType hs_bindgen_70df07e39900487e_base
+  BG.fromFFIType hs_bindgen_70df07e39900487e_base
 
 {-| __C declaration:__ @args_double@
 
@@ -1270,24 +1270,24 @@ hs_bindgen_70df07e39900487e =
 args_double ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_double = hs_bindgen_70df07e39900487e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_bool1@
 foreign import ccall safe "hs_bindgen_0b7c534fe683f843" hs_bindgen_0b7c534fe683f843_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_bool1@
 hs_bindgen_0b7c534fe683f843 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_0b7c534fe683f843 =
-  RIP.fromFFIType hs_bindgen_0b7c534fe683f843_base
+  BG.fromFFIType hs_bindgen_0b7c534fe683f843_base
 
 {-| __C declaration:__ @args_bool1@
 
@@ -1298,24 +1298,24 @@ hs_bindgen_0b7c534fe683f843 =
 args_bool1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_bool1 = hs_bindgen_0b7c534fe683f843
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_struct@
 foreign import ccall safe "hs_bindgen_b20e084f7b7941b5" hs_bindgen_b20e084f7b7941b5_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_struct@
 hs_bindgen_b20e084f7b7941b5 ::
      A
-  -> RIP.Ptr Some_struct
+  -> BG.Ptr Some_struct
   -> IO ()
 hs_bindgen_b20e084f7b7941b5 =
-  RIP.fromFFIType hs_bindgen_b20e084f7b7941b5_base
+  BG.fromFFIType hs_bindgen_b20e084f7b7941b5_base
 
 {-| __C declaration:__ @args_struct@
 
@@ -1332,22 +1332,22 @@ args_struct ::
 args_struct =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_b20e084f7b7941b5 arg10 arg22)
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_b20e084f7b7941b5 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_union@
 foreign import ccall safe "hs_bindgen_23aff33f33b6bdd1" hs_bindgen_23aff33f33b6bdd1_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_union@
 hs_bindgen_23aff33f33b6bdd1 ::
      A
-  -> RIP.Ptr Some_union
+  -> BG.Ptr Some_union
   -> IO ()
 hs_bindgen_23aff33f33b6bdd1 =
-  RIP.fromFFIType hs_bindgen_23aff33f33b6bdd1_base
+  BG.fromFFIType hs_bindgen_23aff33f33b6bdd1_base
 
 {-| __C declaration:__ @args_union@
 
@@ -1364,13 +1364,13 @@ args_union ::
 args_union =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_23aff33f33b6bdd1 arg10 arg22)
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_23aff33f33b6bdd1 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_enum@
 foreign import ccall safe "hs_bindgen_fdd58ae14ce15ed5" hs_bindgen_fdd58ae14ce15ed5_base ::
-     RIP.Int32
-  -> RIP.Word32
+     BG.Int32
+  -> BG.Word32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_enum@
@@ -1379,7 +1379,7 @@ hs_bindgen_fdd58ae14ce15ed5 ::
   -> Some_enum
   -> IO ()
 hs_bindgen_fdd58ae14ce15ed5 =
-  RIP.fromFFIType hs_bindgen_fdd58ae14ce15ed5_base
+  BG.fromFFIType hs_bindgen_fdd58ae14ce15ed5_base
 
 {-| __C declaration:__ @args_enum@
 
@@ -1397,17 +1397,17 @@ args_enum = hs_bindgen_fdd58ae14ce15ed5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer1@
 foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" hs_bindgen_42ce2ec4fd2eda72_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer1@
 hs_bindgen_42ce2ec4fd2eda72 ::
      A
-  -> RIP.Ptr RIP.CInt
+  -> BG.Ptr BG.CInt
   -> IO ()
 hs_bindgen_42ce2ec4fd2eda72 =
-  RIP.fromFFIType hs_bindgen_42ce2ec4fd2eda72_base
+  BG.fromFFIType hs_bindgen_42ce2ec4fd2eda72_base
 
 {-| __C declaration:__ @args_pointer1@
 
@@ -1418,24 +1418,24 @@ hs_bindgen_42ce2ec4fd2eda72 =
 args_pointer1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Ptr RIP.CInt
+  -> BG.Ptr BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_pointer1 = hs_bindgen_42ce2ec4fd2eda72
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer2@
 foreign import ccall safe "hs_bindgen_01b2f6502d340abe" hs_bindgen_01b2f6502d340abe_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer2@
 hs_bindgen_01b2f6502d340abe ::
      A
-  -> RIP.Ptr (RIP.Ptr RIP.CInt)
+  -> BG.Ptr (BG.Ptr BG.CInt)
   -> IO ()
 hs_bindgen_01b2f6502d340abe =
-  RIP.fromFFIType hs_bindgen_01b2f6502d340abe_base
+  BG.fromFFIType hs_bindgen_01b2f6502d340abe_base
 
 {-| __C declaration:__ @args_pointer2@
 
@@ -1446,24 +1446,24 @@ hs_bindgen_01b2f6502d340abe =
 args_pointer2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Ptr (RIP.Ptr RIP.CInt)
+  -> BG.Ptr (BG.Ptr BG.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_pointer2 = hs_bindgen_01b2f6502d340abe
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer3@
 foreign import ccall safe "hs_bindgen_3e64133f9aaebbf1" hs_bindgen_3e64133f9aaebbf1_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer3@
 hs_bindgen_3e64133f9aaebbf1 ::
      A
-  -> RIP.Ptr RIP.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 hs_bindgen_3e64133f9aaebbf1 =
-  RIP.fromFFIType hs_bindgen_3e64133f9aaebbf1_base
+  BG.fromFFIType hs_bindgen_3e64133f9aaebbf1_base
 
 {-| __C declaration:__ @args_pointer3@
 
@@ -1474,19 +1474,19 @@ hs_bindgen_3e64133f9aaebbf1 =
 args_pointer3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Ptr RIP.Void
+  -> BG.Ptr BG.Void
      -- ^ __C declaration:__ @arg3@
   -> IO ()
 args_pointer3 = hs_bindgen_3e64133f9aaebbf1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_A@
 foreign import ccall safe "hs_bindgen_c830401b459192fb" hs_bindgen_c830401b459192fb_base ::
-     IO RIP.Int32
+     IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_A@
 hs_bindgen_c830401b459192fb :: IO A
 hs_bindgen_c830401b459192fb =
-  RIP.fromFFIType hs_bindgen_c830401b459192fb_base
+  BG.fromFFIType hs_bindgen_c830401b459192fb_base
 
 {-| __C declaration:__ @ret_A@
 
@@ -1499,15 +1499,15 @@ ret_A = hs_bindgen_c830401b459192fb
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char1@
 foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" hs_bindgen_18b24c6e67a5412e_base ::
-     RIP.Int32
-  -> IO RIP.Int8
+     BG.Int32
+  -> IO BG.Int8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char1@
 hs_bindgen_18b24c6e67a5412e ::
      A
-  -> IO RIP.CChar
+  -> IO BG.CChar
 hs_bindgen_18b24c6e67a5412e =
-  RIP.fromFFIType hs_bindgen_18b24c6e67a5412e_base
+  BG.fromFFIType hs_bindgen_18b24c6e67a5412e_base
 
 {-| __C declaration:__ @ret_char1@
 
@@ -1518,20 +1518,20 @@ hs_bindgen_18b24c6e67a5412e =
 ret_char1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CChar
+  -> IO BG.CChar
 ret_char1 = hs_bindgen_18b24c6e67a5412e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char2@
 foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" hs_bindgen_2da1160aeef9ff64_base ::
-     RIP.Int32
-  -> IO RIP.Int8
+     BG.Int32
+  -> IO BG.Int8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char2@
 hs_bindgen_2da1160aeef9ff64 ::
      A
-  -> IO RIP.CSChar
+  -> IO BG.CSChar
 hs_bindgen_2da1160aeef9ff64 =
-  RIP.fromFFIType hs_bindgen_2da1160aeef9ff64_base
+  BG.fromFFIType hs_bindgen_2da1160aeef9ff64_base
 
 {-| __C declaration:__ @ret_char2@
 
@@ -1542,20 +1542,20 @@ hs_bindgen_2da1160aeef9ff64 =
 ret_char2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CSChar
+  -> IO BG.CSChar
 ret_char2 = hs_bindgen_2da1160aeef9ff64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char3@
 foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" hs_bindgen_e3183f9de1b9f231_base ::
-     RIP.Int32
-  -> IO RIP.Word8
+     BG.Int32
+  -> IO BG.Word8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char3@
 hs_bindgen_e3183f9de1b9f231 ::
      A
-  -> IO RIP.CUChar
+  -> IO BG.CUChar
 hs_bindgen_e3183f9de1b9f231 =
-  RIP.fromFFIType hs_bindgen_e3183f9de1b9f231_base
+  BG.fromFFIType hs_bindgen_e3183f9de1b9f231_base
 
 {-| __C declaration:__ @ret_char3@
 
@@ -1566,20 +1566,20 @@ hs_bindgen_e3183f9de1b9f231 =
 ret_char3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CUChar
+  -> IO BG.CUChar
 ret_char3 = hs_bindgen_e3183f9de1b9f231
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short1@
 foreign import ccall safe "hs_bindgen_c313966d4478e3f4" hs_bindgen_c313966d4478e3f4_base ::
-     RIP.Int32
-  -> IO RIP.Int16
+     BG.Int32
+  -> IO BG.Int16
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short1@
 hs_bindgen_c313966d4478e3f4 ::
      A
-  -> IO RIP.CShort
+  -> IO BG.CShort
 hs_bindgen_c313966d4478e3f4 =
-  RIP.fromFFIType hs_bindgen_c313966d4478e3f4_base
+  BG.fromFFIType hs_bindgen_c313966d4478e3f4_base
 
 {-| __C declaration:__ @ret_short1@
 
@@ -1590,20 +1590,20 @@ hs_bindgen_c313966d4478e3f4 =
 ret_short1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CShort
+  -> IO BG.CShort
 ret_short1 = hs_bindgen_c313966d4478e3f4
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short2@
 foreign import ccall safe "hs_bindgen_737fbec310eb0719" hs_bindgen_737fbec310eb0719_base ::
-     RIP.Int32
-  -> IO RIP.Int16
+     BG.Int32
+  -> IO BG.Int16
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short2@
 hs_bindgen_737fbec310eb0719 ::
      A
-  -> IO RIP.CShort
+  -> IO BG.CShort
 hs_bindgen_737fbec310eb0719 =
-  RIP.fromFFIType hs_bindgen_737fbec310eb0719_base
+  BG.fromFFIType hs_bindgen_737fbec310eb0719_base
 
 {-| __C declaration:__ @ret_short2@
 
@@ -1614,20 +1614,20 @@ hs_bindgen_737fbec310eb0719 =
 ret_short2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CShort
+  -> IO BG.CShort
 ret_short2 = hs_bindgen_737fbec310eb0719
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short3@
 foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" hs_bindgen_b5bd9e111020db4e_base ::
-     RIP.Int32
-  -> IO RIP.Word16
+     BG.Int32
+  -> IO BG.Word16
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short3@
 hs_bindgen_b5bd9e111020db4e ::
      A
-  -> IO RIP.CUShort
+  -> IO BG.CUShort
 hs_bindgen_b5bd9e111020db4e =
-  RIP.fromFFIType hs_bindgen_b5bd9e111020db4e_base
+  BG.fromFFIType hs_bindgen_b5bd9e111020db4e_base
 
 {-| __C declaration:__ @ret_short3@
 
@@ -1638,20 +1638,20 @@ hs_bindgen_b5bd9e111020db4e =
 ret_short3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CUShort
+  -> IO BG.CUShort
 ret_short3 = hs_bindgen_b5bd9e111020db4e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int1@
 foreign import ccall safe "hs_bindgen_a30224259287f5f8" hs_bindgen_a30224259287f5f8_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int1@
 hs_bindgen_a30224259287f5f8 ::
      A
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_a30224259287f5f8 =
-  RIP.fromFFIType hs_bindgen_a30224259287f5f8_base
+  BG.fromFFIType hs_bindgen_a30224259287f5f8_base
 
 {-| __C declaration:__ @ret_int1@
 
@@ -1662,20 +1662,20 @@ hs_bindgen_a30224259287f5f8 =
 ret_int1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 ret_int1 = hs_bindgen_a30224259287f5f8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int2@
 foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" hs_bindgen_b5be09caf8cf5750_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int2@
 hs_bindgen_b5be09caf8cf5750 ::
      A
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_b5be09caf8cf5750 =
-  RIP.fromFFIType hs_bindgen_b5be09caf8cf5750_base
+  BG.fromFFIType hs_bindgen_b5be09caf8cf5750_base
 
 {-| __C declaration:__ @ret_int2@
 
@@ -1686,20 +1686,20 @@ hs_bindgen_b5be09caf8cf5750 =
 ret_int2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 ret_int2 = hs_bindgen_b5be09caf8cf5750
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int3@
 foreign import ccall safe "hs_bindgen_698e3f97470d83be" hs_bindgen_698e3f97470d83be_base ::
-     RIP.Int32
-  -> IO RIP.Word32
+     BG.Int32
+  -> IO BG.Word32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int3@
 hs_bindgen_698e3f97470d83be ::
      A
-  -> IO RIP.CUInt
+  -> IO BG.CUInt
 hs_bindgen_698e3f97470d83be =
-  RIP.fromFFIType hs_bindgen_698e3f97470d83be_base
+  BG.fromFFIType hs_bindgen_698e3f97470d83be_base
 
 {-| __C declaration:__ @ret_int3@
 
@@ -1710,20 +1710,20 @@ hs_bindgen_698e3f97470d83be =
 ret_int3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CUInt
+  -> IO BG.CUInt
 ret_int3 = hs_bindgen_698e3f97470d83be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long1@
 foreign import ccall safe "hs_bindgen_c7e0705dd09be530" hs_bindgen_c7e0705dd09be530_base ::
-     RIP.Int32
-  -> IO RIP.Int64
+     BG.Int32
+  -> IO BG.Int64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long1@
 hs_bindgen_c7e0705dd09be530 ::
      A
-  -> IO RIP.CLong
+  -> IO BG.CLong
 hs_bindgen_c7e0705dd09be530 =
-  RIP.fromFFIType hs_bindgen_c7e0705dd09be530_base
+  BG.fromFFIType hs_bindgen_c7e0705dd09be530_base
 
 {-| __C declaration:__ @ret_long1@
 
@@ -1734,20 +1734,20 @@ hs_bindgen_c7e0705dd09be530 =
 ret_long1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CLong
+  -> IO BG.CLong
 ret_long1 = hs_bindgen_c7e0705dd09be530
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long2@
 foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" hs_bindgen_74b1f5b8c56ff22c_base ::
-     RIP.Int32
-  -> IO RIP.Int64
+     BG.Int32
+  -> IO BG.Int64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long2@
 hs_bindgen_74b1f5b8c56ff22c ::
      A
-  -> IO RIP.CLong
+  -> IO BG.CLong
 hs_bindgen_74b1f5b8c56ff22c =
-  RIP.fromFFIType hs_bindgen_74b1f5b8c56ff22c_base
+  BG.fromFFIType hs_bindgen_74b1f5b8c56ff22c_base
 
 {-| __C declaration:__ @ret_long2@
 
@@ -1758,20 +1758,20 @@ hs_bindgen_74b1f5b8c56ff22c =
 ret_long2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CLong
+  -> IO BG.CLong
 ret_long2 = hs_bindgen_74b1f5b8c56ff22c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long3@
 foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" hs_bindgen_c2d07eaaab82d408_base ::
-     RIP.Int32
-  -> IO RIP.Word64
+     BG.Int32
+  -> IO BG.Word64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long3@
 hs_bindgen_c2d07eaaab82d408 ::
      A
-  -> IO RIP.CULong
+  -> IO BG.CULong
 hs_bindgen_c2d07eaaab82d408 =
-  RIP.fromFFIType hs_bindgen_c2d07eaaab82d408_base
+  BG.fromFFIType hs_bindgen_c2d07eaaab82d408_base
 
 {-| __C declaration:__ @ret_long3@
 
@@ -1782,20 +1782,20 @@ hs_bindgen_c2d07eaaab82d408 =
 ret_long3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CULong
+  -> IO BG.CULong
 ret_long3 = hs_bindgen_c2d07eaaab82d408
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_float@
 foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" hs_bindgen_0edfbc7067faa1f7_base ::
-     RIP.Int32
+     BG.Int32
   -> IO Float
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_float@
 hs_bindgen_0edfbc7067faa1f7 ::
      A
-  -> IO RIP.CFloat
+  -> IO BG.CFloat
 hs_bindgen_0edfbc7067faa1f7 =
-  RIP.fromFFIType hs_bindgen_0edfbc7067faa1f7_base
+  BG.fromFFIType hs_bindgen_0edfbc7067faa1f7_base
 
 {-| __C declaration:__ @ret_float@
 
@@ -1806,20 +1806,20 @@ hs_bindgen_0edfbc7067faa1f7 =
 ret_float ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CFloat
+  -> IO BG.CFloat
 ret_float = hs_bindgen_0edfbc7067faa1f7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_double@
 foreign import ccall safe "hs_bindgen_786ca672396b33be" hs_bindgen_786ca672396b33be_base ::
-     RIP.Int32
+     BG.Int32
   -> IO Double
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_double@
 hs_bindgen_786ca672396b33be ::
      A
-  -> IO RIP.CDouble
+  -> IO BG.CDouble
 hs_bindgen_786ca672396b33be =
-  RIP.fromFFIType hs_bindgen_786ca672396b33be_base
+  BG.fromFFIType hs_bindgen_786ca672396b33be_base
 
 {-| __C declaration:__ @ret_double@
 
@@ -1830,20 +1830,20 @@ hs_bindgen_786ca672396b33be =
 ret_double ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CDouble
+  -> IO BG.CDouble
 ret_double = hs_bindgen_786ca672396b33be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_bool1@
 foreign import ccall safe "hs_bindgen_2e99f19b59650996" hs_bindgen_2e99f19b59650996_base ::
-     RIP.Int32
-  -> IO RIP.Word8
+     BG.Int32
+  -> IO BG.Word8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_bool1@
 hs_bindgen_2e99f19b59650996 ::
      A
-  -> IO RIP.CBool
+  -> IO BG.CBool
 hs_bindgen_2e99f19b59650996 =
-  RIP.fromFFIType hs_bindgen_2e99f19b59650996_base
+  BG.fromFFIType hs_bindgen_2e99f19b59650996_base
 
 {-| __C declaration:__ @ret_bool1@
 
@@ -1854,22 +1854,22 @@ hs_bindgen_2e99f19b59650996 =
 ret_bool1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CBool
+  -> IO BG.CBool
 ret_bool1 = hs_bindgen_2e99f19b59650996
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_struct@
 foreign import ccall safe "hs_bindgen_6c999121eed8178f" hs_bindgen_6c999121eed8178f_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_struct@
 hs_bindgen_6c999121eed8178f ::
      A
-  -> RIP.Ptr Some_struct
+  -> BG.Ptr Some_struct
   -> IO ()
 hs_bindgen_6c999121eed8178f =
-  RIP.fromFFIType hs_bindgen_6c999121eed8178f_base
+  BG.fromFFIType hs_bindgen_6c999121eed8178f_base
 
 {-| __C declaration:__ @ret_struct@
 
@@ -1883,22 +1883,22 @@ ret_struct ::
   -> IO Some_struct
 ret_struct =
   \arg10 ->
-    RIP.allocaAndPeek (\res1 ->
-                         hs_bindgen_6c999121eed8178f arg10 res1)
+    BG.allocaAndPeek (\res1 ->
+                        hs_bindgen_6c999121eed8178f arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_union@
 foreign import ccall safe "hs_bindgen_481ee5d2d9bd34db" hs_bindgen_481ee5d2d9bd34db_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_union@
 hs_bindgen_481ee5d2d9bd34db ::
      A
-  -> RIP.Ptr Some_union
+  -> BG.Ptr Some_union
   -> IO ()
 hs_bindgen_481ee5d2d9bd34db =
-  RIP.fromFFIType hs_bindgen_481ee5d2d9bd34db_base
+  BG.fromFFIType hs_bindgen_481ee5d2d9bd34db_base
 
 {-| __C declaration:__ @ret_union@
 
@@ -1912,20 +1912,20 @@ ret_union ::
   -> IO Some_union
 ret_union =
   \arg10 ->
-    RIP.allocaAndPeek (\res1 ->
-                         hs_bindgen_481ee5d2d9bd34db arg10 res1)
+    BG.allocaAndPeek (\res1 ->
+                        hs_bindgen_481ee5d2d9bd34db arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_enum@
 foreign import ccall safe "hs_bindgen_8bb240ba453b700d" hs_bindgen_8bb240ba453b700d_base ::
-     RIP.Int32
-  -> IO RIP.Word32
+     BG.Int32
+  -> IO BG.Word32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_enum@
 hs_bindgen_8bb240ba453b700d ::
      A
   -> IO Some_enum
 hs_bindgen_8bb240ba453b700d =
-  RIP.fromFFIType hs_bindgen_8bb240ba453b700d_base
+  BG.fromFFIType hs_bindgen_8bb240ba453b700d_base
 
 {-| __C declaration:__ @ret_enum@
 
@@ -1941,15 +1941,15 @@ ret_enum = hs_bindgen_8bb240ba453b700d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer1@
 foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" hs_bindgen_c346ed2cd20b9af1_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer1@
 hs_bindgen_c346ed2cd20b9af1 ::
      A
-  -> IO (RIP.Ptr RIP.CInt)
+  -> IO (BG.Ptr BG.CInt)
 hs_bindgen_c346ed2cd20b9af1 =
-  RIP.fromFFIType hs_bindgen_c346ed2cd20b9af1_base
+  BG.fromFFIType hs_bindgen_c346ed2cd20b9af1_base
 
 {-| __C declaration:__ @ret_pointer1@
 
@@ -1960,20 +1960,20 @@ hs_bindgen_c346ed2cd20b9af1 =
 ret_pointer1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Ptr RIP.CInt)
+  -> IO (BG.Ptr BG.CInt)
 ret_pointer1 = hs_bindgen_c346ed2cd20b9af1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer2@
 foreign import ccall safe "hs_bindgen_a21f618658151728" hs_bindgen_a21f618658151728_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer2@
 hs_bindgen_a21f618658151728 ::
      A
-  -> IO (RIP.Ptr (RIP.Ptr RIP.CInt))
+  -> IO (BG.Ptr (BG.Ptr BG.CInt))
 hs_bindgen_a21f618658151728 =
-  RIP.fromFFIType hs_bindgen_a21f618658151728_base
+  BG.fromFFIType hs_bindgen_a21f618658151728_base
 
 {-| __C declaration:__ @ret_pointer2@
 
@@ -1984,20 +1984,20 @@ hs_bindgen_a21f618658151728 =
 ret_pointer2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Ptr (RIP.Ptr RIP.CInt))
+  -> IO (BG.Ptr (BG.Ptr BG.CInt))
 ret_pointer2 = hs_bindgen_a21f618658151728
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer3@
 foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" hs_bindgen_2d8c6e2d2f395342_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer3@
 hs_bindgen_2d8c6e2d2f395342 ::
      A
-  -> IO (RIP.Ptr RIP.Void)
+  -> IO (BG.Ptr BG.Void)
 hs_bindgen_2d8c6e2d2f395342 =
-  RIP.fromFFIType hs_bindgen_2d8c6e2d2f395342_base
+  BG.fromFFIType hs_bindgen_2d8c6e2d2f395342_base
 
 {-| __C declaration:__ @ret_pointer3@
 
@@ -2008,20 +2008,20 @@ hs_bindgen_2d8c6e2d2f395342 =
 ret_pointer3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Ptr RIP.Void)
+  -> IO (BG.Ptr BG.Void)
 ret_pointer3 = hs_bindgen_2d8c6e2d2f395342
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body1@
 foreign import ccall safe "hs_bindgen_b030d02030ed80bc" hs_bindgen_b030d02030ed80bc_base ::
-     RIP.Int32
-  -> IO RIP.Int32
+     BG.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body1@
 hs_bindgen_b030d02030ed80bc ::
      A
-  -> IO RIP.CInt
+  -> IO BG.CInt
 hs_bindgen_b030d02030ed80bc =
-  RIP.fromFFIType hs_bindgen_b030d02030ed80bc_base
+  BG.fromFFIType hs_bindgen_b030d02030ed80bc_base
 
 {-| __C declaration:__ @body1@
 
@@ -2032,17 +2032,17 @@ hs_bindgen_b030d02030ed80bc =
 body1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 body1 = hs_bindgen_b030d02030ed80bc
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body2@
 foreign import ccall safe "hs_bindgen_be50427e6a63df54" hs_bindgen_be50427e6a63df54_base ::
-     IO RIP.Int32
+     IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body2@
 hs_bindgen_be50427e6a63df54 :: IO A
 hs_bindgen_be50427e6a63df54 =
-  RIP.fromFFIType hs_bindgen_be50427e6a63df54_base
+  BG.fromFFIType hs_bindgen_be50427e6a63df54_base
 
 {-| __C declaration:__ @body2@
 
@@ -2055,17 +2055,17 @@ body2 = hs_bindgen_be50427e6a63df54
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_float@
 foreign import ccall safe "hs_bindgen_627a52a5c7617083" hs_bindgen_627a52a5c7617083_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_float@
 hs_bindgen_627a52a5c7617083 ::
      A
-  -> RIP.Ptr (RIP.Complex RIP.CFloat)
+  -> BG.Ptr (BG.Complex BG.CFloat)
   -> IO ()
 hs_bindgen_627a52a5c7617083 =
-  RIP.fromFFIType hs_bindgen_627a52a5c7617083_base
+  BG.fromFFIType hs_bindgen_627a52a5c7617083_base
 
 {-| __C declaration:__ @args_complex_float@
 
@@ -2076,28 +2076,28 @@ hs_bindgen_627a52a5c7617083 =
 args_complex_float ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Complex RIP.CFloat
+  -> BG.Complex BG.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_complex_float =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_627a52a5c7617083 arg10 arg22)
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_627a52a5c7617083 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_double@
 foreign import ccall safe "hs_bindgen_392babebc1d83503" hs_bindgen_392babebc1d83503_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_double@
 hs_bindgen_392babebc1d83503 ::
      A
-  -> RIP.Ptr (RIP.Complex RIP.CDouble)
+  -> BG.Ptr (BG.Complex BG.CDouble)
   -> IO ()
 hs_bindgen_392babebc1d83503 =
-  RIP.fromFFIType hs_bindgen_392babebc1d83503_base
+  BG.fromFFIType hs_bindgen_392babebc1d83503_base
 
 {-| __C declaration:__ @args_complex_double@
 
@@ -2108,28 +2108,28 @@ hs_bindgen_392babebc1d83503 =
 args_complex_double ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Complex RIP.CDouble
+  -> BG.Complex BG.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_complex_double =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_392babebc1d83503 arg10 arg22)
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_392babebc1d83503 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_float@
 foreign import ccall safe "hs_bindgen_8958183ede73dea8" hs_bindgen_8958183ede73dea8_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_float@
 hs_bindgen_8958183ede73dea8 ::
      A
-  -> RIP.Ptr (RIP.Complex RIP.CFloat)
+  -> BG.Ptr (BG.Complex BG.CFloat)
   -> IO ()
 hs_bindgen_8958183ede73dea8 =
-  RIP.fromFFIType hs_bindgen_8958183ede73dea8_base
+  BG.fromFFIType hs_bindgen_8958183ede73dea8_base
 
 {-| __C declaration:__ @ret_complex_float@
 
@@ -2140,25 +2140,25 @@ hs_bindgen_8958183ede73dea8 =
 ret_complex_float ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Complex RIP.CFloat)
+  -> IO (BG.Complex BG.CFloat)
 ret_complex_float =
   \arg10 ->
-    RIP.allocaAndPeek (\res1 ->
-                         hs_bindgen_8958183ede73dea8 arg10 res1)
+    BG.allocaAndPeek (\res1 ->
+                        hs_bindgen_8958183ede73dea8 arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_double@
 foreign import ccall safe "hs_bindgen_a95fabfd391a99aa" hs_bindgen_a95fabfd391a99aa_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_double@
 hs_bindgen_a95fabfd391a99aa ::
      A
-  -> RIP.Ptr (RIP.Complex RIP.CDouble)
+  -> BG.Ptr (BG.Complex BG.CDouble)
   -> IO ()
 hs_bindgen_a95fabfd391a99aa =
-  RIP.fromFFIType hs_bindgen_a95fabfd391a99aa_base
+  BG.fromFFIType hs_bindgen_a95fabfd391a99aa_base
 
 {-| __C declaration:__ @ret_complex_double@
 
@@ -2169,25 +2169,25 @@ hs_bindgen_a95fabfd391a99aa =
 ret_complex_double ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Complex RIP.CDouble)
+  -> IO (BG.Complex BG.CDouble)
 ret_complex_double =
   \arg10 ->
-    RIP.allocaAndPeek (\res1 ->
-                         hs_bindgen_a95fabfd391a99aa arg10 res1)
+    BG.allocaAndPeek (\res1 ->
+                        hs_bindgen_a95fabfd391a99aa arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args1@
 foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" hs_bindgen_ad9f8630dd04a203_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args1@
 hs_bindgen_ad9f8630dd04a203 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_ad9f8630dd04a203 =
-  RIP.fromFFIType hs_bindgen_ad9f8630dd04a203_base
+  BG.fromFFIType hs_bindgen_ad9f8630dd04a203_base
 
 {-| __C declaration:__ @bespoke_args1@
 
@@ -2198,15 +2198,15 @@ hs_bindgen_ad9f8630dd04a203 =
 bespoke_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 bespoke_args1 = hs_bindgen_ad9f8630dd04a203
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
 foreign import ccall safe "hs_bindgen_4b34178a505131e2" hs_bindgen_4b34178a505131e2_base ::
-     RIP.Int32
-  -> RIP.Word64
+     BG.Int32
+  -> BG.Word64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
@@ -2215,7 +2215,7 @@ hs_bindgen_4b34178a505131e2 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_4b34178a505131e2 =
-  RIP.fromFFIType hs_bindgen_4b34178a505131e2_base
+  BG.fromFFIType hs_bindgen_4b34178a505131e2_base
 
 {-| __C declaration:__ @bespoke_args2@
 
@@ -2233,15 +2233,15 @@ bespoke_args2 = hs_bindgen_4b34178a505131e2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret1@
 foreign import ccall safe "hs_bindgen_94b225a6394496c1" hs_bindgen_94b225a6394496c1_base ::
-     RIP.Int32
-  -> IO RIP.Word8
+     BG.Int32
+  -> IO BG.Word8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret1@
 hs_bindgen_94b225a6394496c1 ::
      A
-  -> IO RIP.CBool
+  -> IO BG.CBool
 hs_bindgen_94b225a6394496c1 =
-  RIP.fromFFIType hs_bindgen_94b225a6394496c1_base
+  BG.fromFFIType hs_bindgen_94b225a6394496c1_base
 
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -2252,20 +2252,20 @@ hs_bindgen_94b225a6394496c1 =
 bespoke_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO RIP.CBool
+  -> IO BG.CBool
 bespoke_ret1 = hs_bindgen_94b225a6394496c1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
 foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" hs_bindgen_7c9a1792426b84a1_base ::
-     RIP.Int32
-  -> IO RIP.Word64
+     BG.Int32
+  -> IO BG.Word64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
 hs_bindgen_7c9a1792426b84a1 ::
      A
   -> IO HsBindgen.Runtime.LibC.CSize
 hs_bindgen_7c9a1792426b84a1 =
-  RIP.fromFFIType hs_bindgen_7c9a1792426b84a1_base
+  BG.fromFFIType hs_bindgen_7c9a1792426b84a1_base
 
 {-| __C declaration:__ @bespoke_ret2@
 
@@ -2281,15 +2281,15 @@ bespoke_ret2 = hs_bindgen_7c9a1792426b84a1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004225_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 hs_bindgen_e20689fe39004225 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray A))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray A))
   -> IO ()
 hs_bindgen_e20689fe39004225 =
-  RIP.fromFFIType hs_bindgen_e20689fe39004225_base
+  BG.fromFFIType hs_bindgen_e20689fe39004225_base
 
 {-| Arrays
 
@@ -2300,22 +2300,22 @@ hs_bindgen_e20689fe39004225 =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args1 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray A))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args1 = hs_bindgen_e20689fe39004225
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
 foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f4cd_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
 hs_bindgen_084796e4bfd3f4cd ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (BG.Ptr A)))
   -> IO ()
 hs_bindgen_084796e4bfd3f4cd =
-  RIP.fromFFIType hs_bindgen_084796e4bfd3f4cd_base
+  BG.fromFFIType hs_bindgen_084796e4bfd3f4cd_base
 
 {-| __C declaration:__ @arr_args2@
 
@@ -2324,22 +2324,22 @@ hs_bindgen_084796e4bfd3f4cd =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args2 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (BG.Ptr A)))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args2 = hs_bindgen_084796e4bfd3f4cd
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa4352df_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 hs_bindgen_a3d1560aaa4352df ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 A))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 5 A))
   -> IO ()
 hs_bindgen_a3d1560aaa4352df =
-  RIP.fromFFIType hs_bindgen_a3d1560aaa4352df_base
+  BG.fromFFIType hs_bindgen_a3d1560aaa4352df_base
 
 {-| __C declaration:__ @arr_args3@
 
@@ -2348,22 +2348,22 @@ hs_bindgen_a3d1560aaa4352df =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args3 ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 A))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 5 A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args3 = hs_bindgen_a3d1560aaa4352df
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1f5f_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 hs_bindgen_88659ccccc6c1f5f ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 (RIP.Ptr A)))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 5 (BG.Ptr A)))
   -> IO ()
 hs_bindgen_88659ccccc6c1f5f =
-  RIP.fromFFIType hs_bindgen_88659ccccc6c1f5f_base
+  BG.fromFFIType hs_bindgen_88659ccccc6c1f5f_base
 
 {-| __C declaration:__ @arr_args4@
 
@@ -2372,24 +2372,24 @@ hs_bindgen_88659ccccc6c1f5f =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args4 ::
-     RIP.Ptr (IsA.Elem (CA.ConstantArray 5 (RIP.Ptr A)))
+     BG.Ptr (IsA.Elem (CA.ConstantArray 5 (BG.Ptr A)))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args4 = hs_bindgen_88659ccccc6c1f5f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
 foreign import ccall safe "hs_bindgen_3448d03cfd41161a" hs_bindgen_3448d03cfd41161a_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
 hs_bindgen_3448d03cfd41161a ::
      A
-  -> RIP.FunPtr (IO ())
+  -> BG.FunPtr (IO ())
   -> IO ()
 hs_bindgen_3448d03cfd41161a =
-  RIP.fromFFIType hs_bindgen_3448d03cfd41161a_base
+  BG.fromFFIType hs_bindgen_3448d03cfd41161a_base
 
 {-| Function pointers
 
@@ -2402,24 +2402,24 @@ hs_bindgen_3448d03cfd41161a =
 funptr_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (IO ())
+  -> BG.FunPtr (IO ())
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 funptr_args1 = hs_bindgen_3448d03cfd41161a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args2@
 foreign import ccall safe "hs_bindgen_92d7386f0a327d25" hs_bindgen_92d7386f0a327d25_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args2@
 hs_bindgen_92d7386f0a327d25 ::
      A
-  -> RIP.FunPtr (IO RIP.CInt)
+  -> BG.FunPtr (IO BG.CInt)
   -> IO ()
 hs_bindgen_92d7386f0a327d25 =
-  RIP.fromFFIType hs_bindgen_92d7386f0a327d25_base
+  BG.fromFFIType hs_bindgen_92d7386f0a327d25_base
 
 {-| __C declaration:__ @funptr_args2@
 
@@ -2430,24 +2430,24 @@ hs_bindgen_92d7386f0a327d25 =
 funptr_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (IO RIP.CInt)
+  -> BG.FunPtr (IO BG.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 funptr_args2 = hs_bindgen_92d7386f0a327d25
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args3@
 foreign import ccall safe "hs_bindgen_2881f594f98043e6" hs_bindgen_2881f594f98043e6_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args3@
 hs_bindgen_2881f594f98043e6 ::
      A
-  -> RIP.FunPtr (RIP.CInt -> IO ())
+  -> BG.FunPtr (BG.CInt -> IO ())
   -> IO ()
 hs_bindgen_2881f594f98043e6 =
-  RIP.fromFFIType hs_bindgen_2881f594f98043e6_base
+  BG.fromFFIType hs_bindgen_2881f594f98043e6_base
 
 {-| __C declaration:__ @funptr_args3@
 
@@ -2458,24 +2458,24 @@ hs_bindgen_2881f594f98043e6 =
 funptr_args3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (RIP.CInt -> IO ())
+  -> BG.FunPtr (BG.CInt -> IO ())
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 funptr_args3 = hs_bindgen_2881f594f98043e6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args4@
 foreign import ccall safe "hs_bindgen_1e85a05df4251f62" hs_bindgen_1e85a05df4251f62_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args4@
 hs_bindgen_1e85a05df4251f62 ::
      A
-  -> RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO RIP.CChar)
+  -> BG.FunPtr (BG.CInt -> BG.CDouble -> IO BG.CChar)
   -> IO ()
 hs_bindgen_1e85a05df4251f62 =
-  RIP.fromFFIType hs_bindgen_1e85a05df4251f62_base
+  BG.fromFFIType hs_bindgen_1e85a05df4251f62_base
 
 {-| __C declaration:__ @funptr_args4@
 
@@ -2486,24 +2486,24 @@ hs_bindgen_1e85a05df4251f62 =
 funptr_args4 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO RIP.CChar)
+  -> BG.FunPtr (BG.CInt -> BG.CDouble -> IO BG.CChar)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 funptr_args4 = hs_bindgen_1e85a05df4251f62
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args5@
 foreign import ccall safe "hs_bindgen_ccf4db7511f0d6d6" hs_bindgen_ccf4db7511f0d6d6_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args5@
 hs_bindgen_ccf4db7511f0d6d6 ::
      A
-  -> RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt))
+  -> BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt))
   -> IO ()
 hs_bindgen_ccf4db7511f0d6d6 =
-  RIP.fromFFIType hs_bindgen_ccf4db7511f0d6d6_base
+  BG.fromFFIType hs_bindgen_ccf4db7511f0d6d6_base
 
 {-| __C declaration:__ @funptr_args5@
 
@@ -2514,14 +2514,14 @@ hs_bindgen_ccf4db7511f0d6d6 =
 funptr_args5 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt))
+  -> BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt))
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 funptr_args5 = hs_bindgen_ccf4db7511f0d6d6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_comments1@
 foreign import ccall safe "hs_bindgen_4c756db60673d221" hs_bindgen_4c756db60673d221_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_comments1@
@@ -2529,7 +2529,7 @@ hs_bindgen_4c756db60673d221 ::
      A
   -> IO ()
 hs_bindgen_4c756db60673d221 =
-  RIP.fromFFIType hs_bindgen_4c756db60673d221_base
+  BG.fromFFIType hs_bindgen_4c756db60673d221_base
 
 {-| Comments in awkward places
 
@@ -2549,17 +2549,17 @@ comments1 = hs_bindgen_4c756db60673d221
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
 foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" hs_bindgen_278568d7a2a3a4b6_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
 hs_bindgen_278568d7a2a3a4b6 ::
      A
-  -> RIP.CChar
+  -> BG.CChar
   -> IO ()
 hs_bindgen_278568d7a2a3a4b6 =
-  RIP.fromFFIType hs_bindgen_278568d7a2a3a4b6_base
+  BG.fromFFIType hs_bindgen_278568d7a2a3a4b6_base
 
 {-| @const@ qualifier
 
@@ -2574,24 +2574,24 @@ hs_bindgen_278568d7a2a3a4b6 =
 const_prim_before1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CChar
+  -> BG.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_before1 = hs_bindgen_278568d7a2a3a4b6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before2@
 foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" hs_bindgen_87ee56525e5ea20c_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before2@
 hs_bindgen_87ee56525e5ea20c ::
      A
-  -> RIP.CSChar
+  -> BG.CSChar
   -> IO ()
 hs_bindgen_87ee56525e5ea20c =
-  RIP.fromFFIType hs_bindgen_87ee56525e5ea20c_base
+  BG.fromFFIType hs_bindgen_87ee56525e5ea20c_base
 
 {-| __C declaration:__ @const_prim_before2@
 
@@ -2602,24 +2602,24 @@ hs_bindgen_87ee56525e5ea20c =
 const_prim_before2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CSChar
+  -> BG.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_before2 = hs_bindgen_87ee56525e5ea20c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before3@
 foreign import ccall safe "hs_bindgen_c0b99594235bd99e" hs_bindgen_c0b99594235bd99e_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before3@
 hs_bindgen_c0b99594235bd99e ::
      A
-  -> RIP.CUChar
+  -> BG.CUChar
   -> IO ()
 hs_bindgen_c0b99594235bd99e =
-  RIP.fromFFIType hs_bindgen_c0b99594235bd99e_base
+  BG.fromFFIType hs_bindgen_c0b99594235bd99e_base
 
 {-| __C declaration:__ @const_prim_before3@
 
@@ -2630,24 +2630,24 @@ hs_bindgen_c0b99594235bd99e =
 const_prim_before3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CUChar
+  -> BG.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_before3 = hs_bindgen_c0b99594235bd99e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after1@
 foreign import ccall safe "hs_bindgen_d718b682f157fc18" hs_bindgen_d718b682f157fc18_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after1@
 hs_bindgen_d718b682f157fc18 ::
      A
-  -> RIP.CChar
+  -> BG.CChar
   -> IO ()
 hs_bindgen_d718b682f157fc18 =
-  RIP.fromFFIType hs_bindgen_d718b682f157fc18_base
+  BG.fromFFIType hs_bindgen_d718b682f157fc18_base
 
 {-| __C declaration:__ @const_prim_after1@
 
@@ -2658,24 +2658,24 @@ hs_bindgen_d718b682f157fc18 =
 const_prim_after1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CChar
+  -> BG.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_after1 = hs_bindgen_d718b682f157fc18
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after2@
 foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" hs_bindgen_f2c5b3d5eca68433_base ::
-     RIP.Int32
-  -> RIP.Int8
+     BG.Int32
+  -> BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after2@
 hs_bindgen_f2c5b3d5eca68433 ::
      A
-  -> RIP.CSChar
+  -> BG.CSChar
   -> IO ()
 hs_bindgen_f2c5b3d5eca68433 =
-  RIP.fromFFIType hs_bindgen_f2c5b3d5eca68433_base
+  BG.fromFFIType hs_bindgen_f2c5b3d5eca68433_base
 
 {-| __C declaration:__ @const_prim_after2@
 
@@ -2686,24 +2686,24 @@ hs_bindgen_f2c5b3d5eca68433 =
 const_prim_after2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CSChar
+  -> BG.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_after2 = hs_bindgen_f2c5b3d5eca68433
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after3@
 foreign import ccall safe "hs_bindgen_ae2d994e06667b23" hs_bindgen_ae2d994e06667b23_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after3@
 hs_bindgen_ae2d994e06667b23 ::
      A
-  -> RIP.CUChar
+  -> BG.CUChar
   -> IO ()
 hs_bindgen_ae2d994e06667b23 =
-  RIP.fromFFIType hs_bindgen_ae2d994e06667b23_base
+  BG.fromFFIType hs_bindgen_ae2d994e06667b23_base
 
 {-| __C declaration:__ @const_prim_after3@
 
@@ -2714,24 +2714,24 @@ hs_bindgen_ae2d994e06667b23 =
 const_prim_after3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CUChar
+  -> BG.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_prim_after3 = hs_bindgen_ae2d994e06667b23
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before1@
 foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" hs_bindgen_6940b58e7f4397a7_base ::
-     RIP.Int32
+     BG.Int32
   -> Float
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before1@
 hs_bindgen_6940b58e7f4397a7 ::
      A
-  -> RIP.CFloat
+  -> BG.CFloat
   -> IO ()
 hs_bindgen_6940b58e7f4397a7 =
-  RIP.fromFFIType hs_bindgen_6940b58e7f4397a7_base
+  BG.fromFFIType hs_bindgen_6940b58e7f4397a7_base
 
 {-| __C declaration:__ @const_withoutSign_before1@
 
@@ -2742,7 +2742,7 @@ hs_bindgen_6940b58e7f4397a7 =
 const_withoutSign_before1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CFloat
+  -> BG.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before1 =
@@ -2750,17 +2750,17 @@ const_withoutSign_before1 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before2@
 foreign import ccall safe "hs_bindgen_00b6fe2282e779b1" hs_bindgen_00b6fe2282e779b1_base ::
-     RIP.Int32
+     BG.Int32
   -> Double
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before2@
 hs_bindgen_00b6fe2282e779b1 ::
      A
-  -> RIP.CDouble
+  -> BG.CDouble
   -> IO ()
 hs_bindgen_00b6fe2282e779b1 =
-  RIP.fromFFIType hs_bindgen_00b6fe2282e779b1_base
+  BG.fromFFIType hs_bindgen_00b6fe2282e779b1_base
 
 {-| __C declaration:__ @const_withoutSign_before2@
 
@@ -2771,7 +2771,7 @@ hs_bindgen_00b6fe2282e779b1 =
 const_withoutSign_before2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before2 =
@@ -2779,17 +2779,17 @@ const_withoutSign_before2 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before3@
 foreign import ccall safe "hs_bindgen_6517cc8d39aead93" hs_bindgen_6517cc8d39aead93_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before3@
 hs_bindgen_6517cc8d39aead93 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_6517cc8d39aead93 =
-  RIP.fromFFIType hs_bindgen_6517cc8d39aead93_base
+  BG.fromFFIType hs_bindgen_6517cc8d39aead93_base
 
 {-| __C declaration:__ @const_withoutSign_before3@
 
@@ -2800,7 +2800,7 @@ hs_bindgen_6517cc8d39aead93 =
 const_withoutSign_before3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before3 =
@@ -2808,8 +2808,8 @@ const_withoutSign_before3 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before4@
 foreign import ccall safe "hs_bindgen_68c7661e95060488" hs_bindgen_68c7661e95060488_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before4@
@@ -2818,7 +2818,7 @@ hs_bindgen_68c7661e95060488 ::
   -> PtrConst.PtrConst Some_struct
   -> IO ()
 hs_bindgen_68c7661e95060488 =
-  RIP.fromFFIType hs_bindgen_68c7661e95060488_base
+  BG.fromFFIType hs_bindgen_68c7661e95060488_base
 
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -2835,13 +2835,13 @@ const_withoutSign_before4 ::
 const_withoutSign_before4 =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_68c7661e95060488 arg10 (PtrConst.unsafeFromPtr arg22))
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_68c7661e95060488 arg10 (PtrConst.unsafeFromPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before5@
 foreign import ccall safe "hs_bindgen_42b3b0bf73a7a51a" hs_bindgen_42b3b0bf73a7a51a_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before5@
@@ -2850,7 +2850,7 @@ hs_bindgen_42b3b0bf73a7a51a ::
   -> PtrConst.PtrConst Some_union
   -> IO ()
 hs_bindgen_42b3b0bf73a7a51a =
-  RIP.fromFFIType hs_bindgen_42b3b0bf73a7a51a_base
+  BG.fromFFIType hs_bindgen_42b3b0bf73a7a51a_base
 
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -2867,13 +2867,13 @@ const_withoutSign_before5 ::
 const_withoutSign_before5 =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_42b3b0bf73a7a51a arg10 (PtrConst.unsafeFromPtr arg22))
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_42b3b0bf73a7a51a arg10 (PtrConst.unsafeFromPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before6@
 foreign import ccall safe "hs_bindgen_c4aabe9834aac12f" hs_bindgen_c4aabe9834aac12f_base ::
-     RIP.Int32
-  -> RIP.Word32
+     BG.Int32
+  -> BG.Word32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before6@
@@ -2882,7 +2882,7 @@ hs_bindgen_c4aabe9834aac12f ::
   -> Some_enum
   -> IO ()
 hs_bindgen_c4aabe9834aac12f =
-  RIP.fromFFIType hs_bindgen_c4aabe9834aac12f_base
+  BG.fromFFIType hs_bindgen_c4aabe9834aac12f_base
 
 {-| __C declaration:__ @const_withoutSign_before6@
 
@@ -2901,17 +2901,17 @@ const_withoutSign_before6 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before7@
 foreign import ccall safe "hs_bindgen_486090a7fb4e34d4" hs_bindgen_486090a7fb4e34d4_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before7@
 hs_bindgen_486090a7fb4e34d4 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_486090a7fb4e34d4 =
-  RIP.fromFFIType hs_bindgen_486090a7fb4e34d4_base
+  BG.fromFFIType hs_bindgen_486090a7fb4e34d4_base
 
 {-| __C declaration:__ @const_withoutSign_before7@
 
@@ -2922,7 +2922,7 @@ hs_bindgen_486090a7fb4e34d4 =
 const_withoutSign_before7 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before7 =
@@ -2930,8 +2930,8 @@ const_withoutSign_before7 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
 foreign import ccall safe "hs_bindgen_23fa742b614176dd" hs_bindgen_23fa742b614176dd_base ::
-     RIP.Int32
-  -> RIP.Word64
+     BG.Int32
+  -> BG.Word64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
@@ -2940,7 +2940,7 @@ hs_bindgen_23fa742b614176dd ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_23fa742b614176dd =
-  RIP.fromFFIType hs_bindgen_23fa742b614176dd_base
+  BG.fromFFIType hs_bindgen_23fa742b614176dd_base
 
 {-| __C declaration:__ @const_withoutSign_before8@
 
@@ -2959,17 +2959,17 @@ const_withoutSign_before8 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after1@
 foreign import ccall safe "hs_bindgen_0aacd8a5d48f296d" hs_bindgen_0aacd8a5d48f296d_base ::
-     RIP.Int32
+     BG.Int32
   -> Float
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after1@
 hs_bindgen_0aacd8a5d48f296d ::
      A
-  -> RIP.CFloat
+  -> BG.CFloat
   -> IO ()
 hs_bindgen_0aacd8a5d48f296d =
-  RIP.fromFFIType hs_bindgen_0aacd8a5d48f296d_base
+  BG.fromFFIType hs_bindgen_0aacd8a5d48f296d_base
 
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -2980,7 +2980,7 @@ hs_bindgen_0aacd8a5d48f296d =
 const_withoutSign_after1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CFloat
+  -> BG.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after1 =
@@ -2988,17 +2988,17 @@ const_withoutSign_after1 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after2@
 foreign import ccall safe "hs_bindgen_16ec2102221485b7" hs_bindgen_16ec2102221485b7_base ::
-     RIP.Int32
+     BG.Int32
   -> Double
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after2@
 hs_bindgen_16ec2102221485b7 ::
      A
-  -> RIP.CDouble
+  -> BG.CDouble
   -> IO ()
 hs_bindgen_16ec2102221485b7 =
-  RIP.fromFFIType hs_bindgen_16ec2102221485b7_base
+  BG.fromFFIType hs_bindgen_16ec2102221485b7_base
 
 {-| __C declaration:__ @const_withoutSign_after2@
 
@@ -3009,7 +3009,7 @@ hs_bindgen_16ec2102221485b7 =
 const_withoutSign_after2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after2 =
@@ -3017,17 +3017,17 @@ const_withoutSign_after2 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after3@
 foreign import ccall safe "hs_bindgen_9aa934d44ec3790c" hs_bindgen_9aa934d44ec3790c_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after3@
 hs_bindgen_9aa934d44ec3790c ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_9aa934d44ec3790c =
-  RIP.fromFFIType hs_bindgen_9aa934d44ec3790c_base
+  BG.fromFFIType hs_bindgen_9aa934d44ec3790c_base
 
 {-| __C declaration:__ @const_withoutSign_after3@
 
@@ -3038,7 +3038,7 @@ hs_bindgen_9aa934d44ec3790c =
 const_withoutSign_after3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after3 =
@@ -3046,8 +3046,8 @@ const_withoutSign_after3 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after4@
 foreign import ccall safe "hs_bindgen_043d2869e29bedcf" hs_bindgen_043d2869e29bedcf_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after4@
@@ -3056,7 +3056,7 @@ hs_bindgen_043d2869e29bedcf ::
   -> PtrConst.PtrConst Some_struct
   -> IO ()
 hs_bindgen_043d2869e29bedcf =
-  RIP.fromFFIType hs_bindgen_043d2869e29bedcf_base
+  BG.fromFFIType hs_bindgen_043d2869e29bedcf_base
 
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -3073,13 +3073,13 @@ const_withoutSign_after4 ::
 const_withoutSign_after4 =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_043d2869e29bedcf arg10 (PtrConst.unsafeFromPtr arg22))
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_043d2869e29bedcf arg10 (PtrConst.unsafeFromPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after5@
 foreign import ccall safe "hs_bindgen_b5f9bca1de9d69de" hs_bindgen_b5f9bca1de9d69de_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after5@
@@ -3088,7 +3088,7 @@ hs_bindgen_b5f9bca1de9d69de ::
   -> PtrConst.PtrConst Some_union
   -> IO ()
 hs_bindgen_b5f9bca1de9d69de =
-  RIP.fromFFIType hs_bindgen_b5f9bca1de9d69de_base
+  BG.fromFFIType hs_bindgen_b5f9bca1de9d69de_base
 
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -3105,13 +3105,13 @@ const_withoutSign_after5 ::
 const_withoutSign_after5 =
   \arg10 ->
     \arg21 ->
-      RIP.with arg21 (\arg22 ->
-                        hs_bindgen_b5f9bca1de9d69de arg10 (PtrConst.unsafeFromPtr arg22))
+      BG.with arg21 (\arg22 ->
+                       hs_bindgen_b5f9bca1de9d69de arg10 (PtrConst.unsafeFromPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after6@
 foreign import ccall safe "hs_bindgen_77d641d518b2504f" hs_bindgen_77d641d518b2504f_base ::
-     RIP.Int32
-  -> RIP.Word32
+     BG.Int32
+  -> BG.Word32
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after6@
@@ -3120,7 +3120,7 @@ hs_bindgen_77d641d518b2504f ::
   -> Some_enum
   -> IO ()
 hs_bindgen_77d641d518b2504f =
-  RIP.fromFFIType hs_bindgen_77d641d518b2504f_base
+  BG.fromFFIType hs_bindgen_77d641d518b2504f_base
 
 {-| __C declaration:__ @const_withoutSign_after6@
 
@@ -3139,17 +3139,17 @@ const_withoutSign_after6 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after7@
 foreign import ccall safe "hs_bindgen_691b4f2909140b49" hs_bindgen_691b4f2909140b49_base ::
-     RIP.Int32
-  -> RIP.Word8
+     BG.Int32
+  -> BG.Word8
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after7@
 hs_bindgen_691b4f2909140b49 ::
      A
-  -> RIP.CBool
+  -> BG.CBool
   -> IO ()
 hs_bindgen_691b4f2909140b49 =
-  RIP.fromFFIType hs_bindgen_691b4f2909140b49_base
+  BG.fromFFIType hs_bindgen_691b4f2909140b49_base
 
 {-| __C declaration:__ @const_withoutSign_after7@
 
@@ -3160,7 +3160,7 @@ hs_bindgen_691b4f2909140b49 =
 const_withoutSign_after7 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.CBool
+  -> BG.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after7 =
@@ -3168,8 +3168,8 @@ const_withoutSign_after7 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
 foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" hs_bindgen_ae74c8dcdc2ec9eb_base ::
-     RIP.Int32
-  -> RIP.Word64
+     BG.Int32
+  -> BG.Word64
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
@@ -3178,7 +3178,7 @@ hs_bindgen_ae74c8dcdc2ec9eb ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_ae74c8dcdc2ec9eb =
-  RIP.fromFFIType hs_bindgen_ae74c8dcdc2ec9eb_base
+  BG.fromFFIType hs_bindgen_ae74c8dcdc2ec9eb_base
 
 {-| __C declaration:__ @const_withoutSign_after8@
 
@@ -3197,17 +3197,17 @@ const_withoutSign_after8 =
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args1@
 foreign import ccall safe "hs_bindgen_07606c41eadf9146" hs_bindgen_07606c41eadf9146_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args1@
 hs_bindgen_07606c41eadf9146 ::
      A
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
   -> IO ()
 hs_bindgen_07606c41eadf9146 =
-  RIP.fromFFIType hs_bindgen_07606c41eadf9146_base
+  BG.fromFFIType hs_bindgen_07606c41eadf9146_base
 
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -3218,24 +3218,24 @@ hs_bindgen_07606c41eadf9146 =
 const_pointers_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_pointers_args1 = hs_bindgen_07606c41eadf9146
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args2@
 foreign import ccall safe "hs_bindgen_3836769f3a3416ac" hs_bindgen_3836769f3a3416ac_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args2@
 hs_bindgen_3836769f3a3416ac ::
      A
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
   -> IO ()
 hs_bindgen_3836769f3a3416ac =
-  RIP.fromFFIType hs_bindgen_3836769f3a3416ac_base
+  BG.fromFFIType hs_bindgen_3836769f3a3416ac_base
 
 {-| __C declaration:__ @const_pointers_args2@
 
@@ -3246,24 +3246,24 @@ hs_bindgen_3836769f3a3416ac =
 const_pointers_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_pointers_args2 = hs_bindgen_3836769f3a3416ac
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args3@
 foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" hs_bindgen_12f19ea593aefd3f_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args3@
 hs_bindgen_12f19ea593aefd3f ::
      A
-  -> RIP.Ptr RIP.CInt
+  -> BG.Ptr BG.CInt
   -> IO ()
 hs_bindgen_12f19ea593aefd3f =
-  RIP.fromFFIType hs_bindgen_12f19ea593aefd3f_base
+  BG.fromFFIType hs_bindgen_12f19ea593aefd3f_base
 
 {-| __C declaration:__ @const_pointers_args3@
 
@@ -3274,24 +3274,24 @@ hs_bindgen_12f19ea593aefd3f =
 const_pointers_args3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.Ptr RIP.CInt
+  -> BG.Ptr BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_pointers_args3 = hs_bindgen_12f19ea593aefd3f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args4@
 foreign import ccall safe "hs_bindgen_5a50e98897696d57" hs_bindgen_5a50e98897696d57_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args4@
 hs_bindgen_5a50e98897696d57 ::
      A
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
   -> IO ()
 hs_bindgen_5a50e98897696d57 =
-  RIP.fromFFIType hs_bindgen_5a50e98897696d57_base
+  BG.fromFFIType hs_bindgen_5a50e98897696d57_base
 
 {-| __C declaration:__ @const_pointers_args4@
 
@@ -3302,24 +3302,24 @@ hs_bindgen_5a50e98897696d57 =
 const_pointers_args4 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_pointers_args4 = hs_bindgen_5a50e98897696d57
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args5@
 foreign import ccall safe "hs_bindgen_666701f7cb61bd15" hs_bindgen_666701f7cb61bd15_base ::
-     RIP.Int32
-  -> RIP.Ptr RIP.Void
+     BG.Int32
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args5@
 hs_bindgen_666701f7cb61bd15 ::
      A
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
   -> IO ()
 hs_bindgen_666701f7cb61bd15 =
-  RIP.fromFFIType hs_bindgen_666701f7cb61bd15_base
+  BG.fromFFIType hs_bindgen_666701f7cb61bd15_base
 
 {-| __C declaration:__ @const_pointers_args5@
 
@@ -3330,22 +3330,22 @@ hs_bindgen_666701f7cb61bd15 =
 const_pointers_args5 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> PtrConst.PtrConst RIP.CInt
+  -> PtrConst.PtrConst BG.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_pointers_args5 = hs_bindgen_666701f7cb61bd15
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret1@
 foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" hs_bindgen_b94fbc3dfd285563_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret1@
 hs_bindgen_b94fbc3dfd285563 ::
      A
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_b94fbc3dfd285563 =
-  RIP.fromFFIType hs_bindgen_b94fbc3dfd285563_base
+  BG.fromFFIType hs_bindgen_b94fbc3dfd285563_base
 
 {-| __C declaration:__ @const_pointers_ret1@
 
@@ -3356,20 +3356,20 @@ hs_bindgen_b94fbc3dfd285563 =
 const_pointers_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 const_pointers_ret1 = hs_bindgen_b94fbc3dfd285563
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret2@
 foreign import ccall safe "hs_bindgen_33e2960e26b79450" hs_bindgen_33e2960e26b79450_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret2@
 hs_bindgen_33e2960e26b79450 ::
      A
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_33e2960e26b79450 =
-  RIP.fromFFIType hs_bindgen_33e2960e26b79450_base
+  BG.fromFFIType hs_bindgen_33e2960e26b79450_base
 
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -3380,20 +3380,20 @@ hs_bindgen_33e2960e26b79450 =
 const_pointers_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 const_pointers_ret2 = hs_bindgen_33e2960e26b79450
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret3@
 foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" hs_bindgen_50c6e2fe4f3fb777_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret3@
 hs_bindgen_50c6e2fe4f3fb777 ::
      A
-  -> IO (RIP.Ptr RIP.CInt)
+  -> IO (BG.Ptr BG.CInt)
 hs_bindgen_50c6e2fe4f3fb777 =
-  RIP.fromFFIType hs_bindgen_50c6e2fe4f3fb777_base
+  BG.fromFFIType hs_bindgen_50c6e2fe4f3fb777_base
 
 {-| __C declaration:__ @const_pointers_ret3@
 
@@ -3404,20 +3404,20 @@ hs_bindgen_50c6e2fe4f3fb777 =
 const_pointers_ret3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.Ptr RIP.CInt)
+  -> IO (BG.Ptr BG.CInt)
 const_pointers_ret3 = hs_bindgen_50c6e2fe4f3fb777
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret4@
 foreign import ccall safe "hs_bindgen_edc014695d896c8d" hs_bindgen_edc014695d896c8d_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret4@
 hs_bindgen_edc014695d896c8d ::
      A
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_edc014695d896c8d =
-  RIP.fromFFIType hs_bindgen_edc014695d896c8d_base
+  BG.fromFFIType hs_bindgen_edc014695d896c8d_base
 
 {-| __C declaration:__ @const_pointers_ret4@
 
@@ -3428,20 +3428,20 @@ hs_bindgen_edc014695d896c8d =
 const_pointers_ret4 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 const_pointers_ret4 = hs_bindgen_edc014695d896c8d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret5@
 foreign import ccall safe "hs_bindgen_6d3308cc5847f033" hs_bindgen_6d3308cc5847f033_base ::
-     RIP.Int32
-  -> IO (RIP.Ptr RIP.Void)
+     BG.Int32
+  -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret5@
 hs_bindgen_6d3308cc5847f033 ::
      A
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_6d3308cc5847f033 =
-  RIP.fromFFIType hs_bindgen_6d3308cc5847f033_base
+  BG.fromFFIType hs_bindgen_6d3308cc5847f033_base
 
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -3452,12 +3452,12 @@ hs_bindgen_6d3308cc5847f033 =
 const_pointers_ret5 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (PtrConst.PtrConst RIP.CInt)
+  -> IO (PtrConst.PtrConst BG.CInt)
 const_pointers_ret5 = hs_bindgen_6d3308cc5847f033
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
 foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a4d1_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
@@ -3465,7 +3465,7 @@ hs_bindgen_678576320923a4d1 ::
      PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray A))
   -> IO ()
 hs_bindgen_678576320923a4d1 =
-  RIP.fromFFIType hs_bindgen_678576320923a4d1_base
+  BG.fromFFIType hs_bindgen_678576320923a4d1_base
 
 {-| __C declaration:__ @const_array_elem1@
 
@@ -3481,15 +3481,15 @@ const_array_elem1 = hs_bindgen_678576320923a4d1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
 foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4eeff2_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
 hs_bindgen_b317941dde4eeff2 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))
   -> IO ()
 hs_bindgen_b317941dde4eeff2 =
-  RIP.fromFFIType hs_bindgen_b317941dde4eeff2_base
+  BG.fromFFIType hs_bindgen_b317941dde4eeff2_base
 
 {-| __C declaration:__ @const_array_elem2@
 
@@ -3498,22 +3498,22 @@ hs_bindgen_b317941dde4eeff2 =
     __exported by:__ @macros\/reparse.h@
 -}
 const_array_elem2 ::
-     RIP.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))
+     BG.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem2 = hs_bindgen_b317941dde4eeff2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
 foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1bb6_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
 hs_bindgen_707e602e6beb1bb6 ::
-     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))
+     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (BG.Ptr A)))
   -> IO ()
 hs_bindgen_707e602e6beb1bb6 =
-  RIP.fromFFIType hs_bindgen_707e602e6beb1bb6_base
+  BG.fromFFIType hs_bindgen_707e602e6beb1bb6_base
 
 {-| __C declaration:__ @const_array_elem3@
 
@@ -3522,19 +3522,19 @@ hs_bindgen_707e602e6beb1bb6 =
     __exported by:__ @macros\/reparse.h@
 -}
 const_array_elem3 ::
-     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))
+     PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (BG.Ptr A)))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem3 = hs_bindgen_707e602e6beb1bb6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams1@
 foreign import ccall safe "hs_bindgen_93fecb4eb766c262" hs_bindgen_93fecb4eb766c262_base ::
-     IO RIP.Int32
+     IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams1@
 hs_bindgen_93fecb4eb766c262 :: IO A
 hs_bindgen_93fecb4eb766c262 =
-  RIP.fromFFIType hs_bindgen_93fecb4eb766c262_base
+  BG.fromFFIType hs_bindgen_93fecb4eb766c262_base
 
 {-| Other examples we reparsed /incorrectly/ before language-c
 
@@ -3549,12 +3549,12 @@ noParams1 = hs_bindgen_93fecb4eb766c262
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams2@
 foreign import ccall safe "hs_bindgen_4350965157c891f5" hs_bindgen_4350965157c891f5_base ::
-     IO RIP.Int32
+     IO BG.Int32
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams2@
 hs_bindgen_4350965157c891f5 :: IO A
 hs_bindgen_4350965157c891f5 =
-  RIP.fromFFIType hs_bindgen_4350965157c891f5_base
+  BG.fromFFIType hs_bindgen_4350965157c891f5_base
 
 {-| __C declaration:__ @noParams2@
 
@@ -3567,17 +3567,17 @@ noParams2 = hs_bindgen_4350965157c891f5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams3@
 foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" hs_bindgen_c4f59272a2b1c3b5_base ::
-     RIP.Int32
-  -> RIP.FunPtr RIP.Void
+     BG.Int32
+  -> BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams3@
 hs_bindgen_c4f59272a2b1c3b5 ::
      A
-  -> RIP.FunPtr (IO RIP.CInt)
+  -> BG.FunPtr (IO BG.CInt)
   -> IO ()
 hs_bindgen_c4f59272a2b1c3b5 =
-  RIP.fromFFIType hs_bindgen_c4f59272a2b1c3b5_base
+  BG.fromFFIType hs_bindgen_c4f59272a2b1c3b5_base
 
 {-| __C declaration:__ @noParams3@
 
@@ -3588,22 +3588,22 @@ hs_bindgen_c4f59272a2b1c3b5 =
 noParams3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> RIP.FunPtr (IO RIP.CInt)
+  -> BG.FunPtr (IO BG.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 noParams3 = hs_bindgen_c4f59272a2b1c3b5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret1@
 foreign import ccall safe "hs_bindgen_387a04c01e23c320" hs_bindgen_387a04c01e23c320_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret1@
 hs_bindgen_387a04c01e23c320 ::
      A
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 hs_bindgen_387a04c01e23c320 =
-  RIP.fromFFIType hs_bindgen_387a04c01e23c320_base
+  BG.fromFFIType hs_bindgen_387a04c01e23c320_base
 
 {-| __C declaration:__ @funptr_ret1@
 
@@ -3614,20 +3614,20 @@ hs_bindgen_387a04c01e23c320 =
 funptr_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (IO ()))
+  -> IO (BG.FunPtr (IO ()))
 funptr_ret1 = hs_bindgen_387a04c01e23c320
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret2@
 foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" hs_bindgen_6f0c14cd3478dc19_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret2@
 hs_bindgen_6f0c14cd3478dc19 ::
      A
-  -> IO (RIP.FunPtr (IO RIP.CInt))
+  -> IO (BG.FunPtr (IO BG.CInt))
 hs_bindgen_6f0c14cd3478dc19 =
-  RIP.fromFFIType hs_bindgen_6f0c14cd3478dc19_base
+  BG.fromFFIType hs_bindgen_6f0c14cd3478dc19_base
 
 {-| __C declaration:__ @funptr_ret2@
 
@@ -3638,20 +3638,20 @@ hs_bindgen_6f0c14cd3478dc19 =
 funptr_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (IO RIP.CInt))
+  -> IO (BG.FunPtr (IO BG.CInt))
 funptr_ret2 = hs_bindgen_6f0c14cd3478dc19
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret3@
 foreign import ccall safe "hs_bindgen_08e8661d277cf7be" hs_bindgen_08e8661d277cf7be_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret3@
 hs_bindgen_08e8661d277cf7be ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> IO ()))
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_08e8661d277cf7be =
-  RIP.fromFFIType hs_bindgen_08e8661d277cf7be_base
+  BG.fromFFIType hs_bindgen_08e8661d277cf7be_base
 
 {-| __C declaration:__ @funptr_ret3@
 
@@ -3662,20 +3662,20 @@ hs_bindgen_08e8661d277cf7be =
 funptr_ret3 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> IO ()))
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 funptr_ret3 = hs_bindgen_08e8661d277cf7be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret4@
 foreign import ccall safe "hs_bindgen_609b5d953b68da92" hs_bindgen_609b5d953b68da92_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret4@
 hs_bindgen_609b5d953b68da92 ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO RIP.CChar))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO BG.CChar))
 hs_bindgen_609b5d953b68da92 =
-  RIP.fromFFIType hs_bindgen_609b5d953b68da92_base
+  BG.fromFFIType hs_bindgen_609b5d953b68da92_base
 
 {-| __C declaration:__ @funptr_ret4@
 
@@ -3686,20 +3686,20 @@ hs_bindgen_609b5d953b68da92 =
 funptr_ret4 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO RIP.CChar))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO BG.CChar))
 funptr_ret4 = hs_bindgen_609b5d953b68da92
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret5@
 foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" hs_bindgen_13e6ae43abf40aee_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret5@
 hs_bindgen_13e6ae43abf40aee ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt)))
 hs_bindgen_13e6ae43abf40aee =
-  RIP.fromFFIType hs_bindgen_13e6ae43abf40aee_base
+  BG.fromFFIType hs_bindgen_13e6ae43abf40aee_base
 
 {-| __C declaration:__ @funptr_ret5@
 
@@ -3710,20 +3710,20 @@ hs_bindgen_13e6ae43abf40aee =
 funptr_ret5 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt)))
 funptr_ret5 = hs_bindgen_13e6ae43abf40aee
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret6@
 foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" hs_bindgen_a4a3a86f28ca6299_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret6@
 hs_bindgen_a4a3a86f28ca6299 ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 hs_bindgen_a4a3a86f28ca6299 =
-  RIP.fromFFIType hs_bindgen_a4a3a86f28ca6299_base
+  BG.fromFFIType hs_bindgen_a4a3a86f28ca6299_base
 
 {-| __C declaration:__ @funptr_ret6@
 
@@ -3734,20 +3734,20 @@ hs_bindgen_a4a3a86f28ca6299 =
 funptr_ret6 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 funptr_ret6 = hs_bindgen_a4a3a86f28ca6299
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret7@
 foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" hs_bindgen_eae9dff04c88d00b_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret7@
 hs_bindgen_eae9dff04c88d00b ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 hs_bindgen_eae9dff04c88d00b =
-  RIP.fromFFIType hs_bindgen_eae9dff04c88d00b_base
+  BG.fromFFIType hs_bindgen_eae9dff04c88d00b_base
 
 {-| __C declaration:__ @funptr_ret7@
 
@@ -3758,20 +3758,20 @@ hs_bindgen_eae9dff04c88d00b =
 funptr_ret7 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 funptr_ret7 = hs_bindgen_eae9dff04c88d00b
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret8@
 foreign import ccall safe "hs_bindgen_894457d90a2fc8db" hs_bindgen_894457d90a2fc8db_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret8@
 hs_bindgen_894457d90a2fc8db ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt)))
 hs_bindgen_894457d90a2fc8db =
-  RIP.fromFFIType hs_bindgen_894457d90a2fc8db_base
+  BG.fromFFIType hs_bindgen_894457d90a2fc8db_base
 
 {-| __C declaration:__ @funptr_ret8@
 
@@ -3782,20 +3782,20 @@ hs_bindgen_894457d90a2fc8db =
 funptr_ret8 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (RIP.Ptr RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (BG.Ptr BG.CInt)))
 funptr_ret8 = hs_bindgen_894457d90a2fc8db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret9@
 foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" hs_bindgen_c893eb15ad9bc68c_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret9@
 hs_bindgen_c893eb15ad9bc68c ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 hs_bindgen_c893eb15ad9bc68c =
-  RIP.fromFFIType hs_bindgen_c893eb15ad9bc68c_base
+  BG.fromFFIType hs_bindgen_c893eb15ad9bc68c_base
 
 {-| __C declaration:__ @funptr_ret9@
 
@@ -3806,20 +3806,20 @@ hs_bindgen_c893eb15ad9bc68c =
 funptr_ret9 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 funptr_ret9 = hs_bindgen_c893eb15ad9bc68c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret10@
 foreign import ccall safe "hs_bindgen_d96c258298a44b28" hs_bindgen_d96c258298a44b28_base ::
-     RIP.Int32
-  -> IO (RIP.FunPtr RIP.Void)
+     BG.Int32
+  -> IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret10@
 hs_bindgen_d96c258298a44b28 ::
      A
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 hs_bindgen_d96c258298a44b28 =
-  RIP.fromFFIType hs_bindgen_d96c258298a44b28_base
+  BG.fromFFIType hs_bindgen_d96c258298a44b28_base
 
 {-| __C declaration:__ @funptr_ret10@
 
@@ -3830,5 +3830,5 @@ hs_bindgen_d96c258298a44b28 =
 funptr_ret10 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO (RIP.FunPtr (RIP.CInt -> RIP.CDouble -> IO (PtrConst.PtrConst RIP.CInt)))
+  -> IO (BG.FunPtr (BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst BG.CInt)))
 funptr_ret10 = hs_bindgen_d96c258298a44b28

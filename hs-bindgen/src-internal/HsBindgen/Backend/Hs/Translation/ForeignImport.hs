@@ -1,4 +1,4 @@
--- | Generate Haskell foreign imports (using the 'HsBindgen.Runtime.Internal.HasFFIType.HasFFIType' class)
+-- | Generate Haskell foreign imports (using the 'HsBindgen.Runtime.Support.HasFFIType.HasFFIType' class)
 module HsBindgen.Backend.Hs.Translation.ForeignImport (
     FunName (..)
   , FunParam (..)
@@ -13,7 +13,7 @@ import DeBruijn (Idx (IZ))
 import Optics.Core
 import Text.Printf (printf)
 
-import HsBindgen.Runtime.Internal.FFIType qualified as FFI
+import HsBindgen.Runtime.Support.FFIType qualified as FFI
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs

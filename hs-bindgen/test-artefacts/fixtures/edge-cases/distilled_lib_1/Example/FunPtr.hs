@@ -7,13 +7,13 @@ module Example.FunPtr
   where
 
 import qualified HsBindgen.Runtime.IncompleteArray as IA
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
   , "/* test_edgecasesdistilled_lib_1_Example_get_some_fun */"
   , "__attribute__ ((const))"
@@ -29,12 +29,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-hs_bindgen_1ade3cfc18679577 :: IO (RIP.FunPtr (RIP.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32))
+hs_bindgen_1ade3cfc18679577 :: IO (BG.FunPtr (BG.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32))
 hs_bindgen_1ade3cfc18679577 =
-  RIP.fromFFIType hs_bindgen_1ade3cfc18679577_base
+  BG.fromFFIType hs_bindgen_1ade3cfc18679577_base
 
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@
@@ -43,6 +43,6 @@ hs_bindgen_1ade3cfc18679577 =
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun :: RIP.FunPtr (RIP.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32)
+some_fun :: BG.FunPtr (BG.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32)
 some_fun =
-  RIP.unsafePerformIO hs_bindgen_1ade3cfc18679577
+  BG.unsafePerformIO hs_bindgen_1ade3cfc18679577

@@ -6,11 +6,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/heap_types/struct_const_member.h>"
   , "void hs_bindgen_4351e21e32969011 ("
   , "  T *arg1,"
@@ -23,17 +23,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e32969011_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 hs_bindgen_4351e21e32969011 ::
-     RIP.Ptr T
-  -> RIP.Ptr T
+     BG.Ptr T
+  -> BG.Ptr T
   -> IO ()
 hs_bindgen_4351e21e32969011 =
-  RIP.fromFFIType hs_bindgen_4351e21e32969011_base
+  BG.fromFFIType hs_bindgen_4351e21e32969011_base
 
 {-| __C declaration:__ @fun@
 
@@ -47,6 +47,6 @@ fun ::
   -> IO T
 fun =
   \x0 ->
-    RIP.with x0 (\x1 ->
-                   RIP.allocaAndPeek (\res2 ->
-                                        hs_bindgen_4351e21e32969011 x1 res2))
+    BG.with x0 (\x1 ->
+                  BG.allocaAndPeek (\res2 ->
+                                      hs_bindgen_4351e21e32969011 x1 res2))

@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro U@
 
@@ -29,40 +29,39 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/program-slicing\/macro_unselected.h@
 -}
 newtype U = U
-  { unwrapU :: RIP.CInt
+  { unwrapU :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapU" U ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapU" U ty where
 
   hasField =
     \x0 ->
-      (\y1 -> U {unwrapU = y1}, RIP.getField @"unwrapU" x0)
+      (\y1 -> U {unwrapU = y1}, BG.getField @"unwrapU" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapU" (RIP.Ptr U) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapU" (BG.Ptr U) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapU")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapU")
 
 instance HasCField.HasCField U "unwrapU" where
 
-  type CFieldType U "unwrapU" = RIP.CInt
+  type CFieldType U "unwrapU" = BG.CInt
 
   offset# = \_ -> \_ -> 0

@@ -19,9 +19,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @adiós@
 
@@ -30,46 +30,46 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype Adio'0301s = Adio'0301s
-  { unwrapAdio'0301s :: RIP.CInt
+  { unwrapAdio'0301s :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapAdio'0301s" Adio'0301s ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapAdio'0301s" Adio'0301s ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Adio'0301s {unwrapAdio'0301s = y1}
-      , RIP.getField @"unwrapAdio'0301s" x0
+      , BG.getField @"unwrapAdio'0301s" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapAdio'0301s" (RIP.Ptr Adio'0301s) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapAdio'0301s" (BG.Ptr Adio'0301s) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapAdio'0301s")
+    HasCField.fromPtr (BG.Proxy @"unwrapAdio'0301s")
 
 instance HasCField.HasCField Adio'0301s "unwrapAdio'0301s" where
 
   type CFieldType Adio'0301s "unwrapAdio'0301s" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -80,43 +80,43 @@ instance HasCField.HasCField Adio'0301s "unwrapAdio'0301s" where
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype C数字 = C数字
-  { unwrapC数字 :: RIP.CInt
+  { unwrapC数字 :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapC\25968\23383" C数字 ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapC\25968\23383" C数字 ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         C数字 {unwrapC数字 = y1}, RIP.getField @"unwrapC\25968\23383" x0)
+         C数字 {unwrapC数字 = y1}, BG.getField @"unwrapC\25968\23383" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapC\25968\23383" (RIP.Ptr C数字) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapC\25968\23383" (BG.Ptr C数字) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapC\25968\23383")
+    HasCField.fromPtr (BG.Proxy @"unwrapC\25968\23383")
 
 instance HasCField.HasCField C数字 "unwrapC\25968\23383" where
 
-  type CFieldType C数字 "unwrapC\25968\23383" = RIP.CInt
+  type CFieldType C数字 "unwrapC\25968\23383" = BG.CInt
 
   offset# = \_ -> \_ -> 0

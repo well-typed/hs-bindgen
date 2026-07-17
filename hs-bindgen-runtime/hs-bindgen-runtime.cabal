@@ -78,29 +78,29 @@ library
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.IncompleteArray
-    HsBindgen.Runtime.Internal.Bitfield
-    HsBindgen.Runtime.Internal.ByteArray
-    HsBindgen.Runtime.Internal.CAPI
-    HsBindgen.Runtime.Internal.Deriving
-    HsBindgen.Runtime.Internal.FFIType
-    HsBindgen.Runtime.Internal.FunPtr
-    HsBindgen.Runtime.Internal.HasFFIType
-    HsBindgen.Runtime.Internal.LibC.Auxiliary
-    HsBindgen.Runtime.Internal.Prelude
-    HsBindgen.Runtime.Internal.Prelude.CompatHasField
-    HsBindgen.Runtime.Internal.Ptr
-    HsBindgen.Runtime.Internal.SizedByteArray
     HsBindgen.Runtime.IsArray
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.PtrConst
+    HsBindgen.Runtime.Support
+    HsBindgen.Runtime.Support.Bitfield
+    HsBindgen.Runtime.Support.ByteArray
+    HsBindgen.Runtime.Support.CAPI
+    HsBindgen.Runtime.Support.CompatHasField
+    HsBindgen.Runtime.Support.Deriving
+    HsBindgen.Runtime.Support.FFIType
+    HsBindgen.Runtime.Support.FunPtr
+    HsBindgen.Runtime.Support.HasFFIType
+    HsBindgen.Runtime.Support.LibC.Auxiliary
+    HsBindgen.Runtime.Support.Ptr
+    HsBindgen.Runtime.Support.SizedByteArray
     HsBindgen.Runtime.Union
 
   other-modules:
-    HsBindgen.Runtime.Internal.FunPtr.Class
-    HsBindgen.Runtime.TH.Instances
-    HsBindgen.Runtime.TH.Types
+    HsBindgen.Runtime.Support.FunPtr.Class
+    HsBindgen.Runtime.Support.TH.Instances
+    HsBindgen.Runtime.Support.TH.Types
 
   hs-source-dirs:     src
 

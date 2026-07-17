@@ -24,9 +24,9 @@ module Example
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum test@
 
@@ -35,10 +35,10 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 newtype Test = Test
-  { unwrapTest :: RIP.CUInt
+  { unwrapTest :: BG.CUInt
   }
-  deriving stock (Eq, RIP.Generic, Ord)
-  deriving newtype (RIP.HasFFIType)
+  deriving stock (Eq, BG.Generic, Ord)
+  deriving newtype (BG.HasFFIType)
 
 instance Marshal.StaticSize Test where
 
@@ -62,21 +62,21 @@ instance Marshal.WriteRaw Test where
           Test unwrapTest2 ->
             Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapTest2
 
-deriving via Marshal.EquivStorable Test instance RIP.Storable Test
+deriving via Marshal.EquivStorable Test instance BG.Storable Test
 
-deriving via RIP.CUInt instance RIP.Prim Test
+deriving via BG.CUInt instance BG.Prim Test
 
 instance CEnum.CEnum Test where
 
-  type CEnumZ Test = RIP.CUInt
+  type CEnumZ Test = BG.CUInt
 
   toCEnum = Test
 
-  fromCEnum = RIP.getField @"unwrapTest"
+  fromCEnum = BG.getField @"unwrapTest"
 
   declaredValues =
     \_ ->
-      CEnum.declaredValuesFromList [(0, RIP.singleton "Test_a"), (1, RIP.singleton "Test_count")]
+      CEnum.declaredValuesFromList [(0, BG.singleton "Test_a"), (1, BG.singleton "Test_count")]
 
   showsUndeclared = CEnum.showsWrappedUndeclared "Test"
 
@@ -101,27 +101,26 @@ instance Read Test where
 
   readPrec = CEnum.readPrec
 
-  readList = RIP.readListDefault
+  readList = BG.readListDefault
 
-  readListPrec = RIP.readListPrecDefault
+  readListPrec = BG.readListPrecDefault
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.CompatHasField.HasField "unwrapTest" Test ty where
+instance ( ty ~ BG.CUInt
+         ) => BG.CompatHasField.HasField "unwrapTest" Test ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Test {unwrapTest = y1}, RIP.getField @"unwrapTest" x0)
+         Test {unwrapTest = y1}, BG.getField @"unwrapTest" x0)
 
-instance ( ty ~ RIP.CUInt
-         ) => RIP.HasField "unwrapTest" (RIP.Ptr Test) (RIP.Ptr ty) where
+instance ( ty ~ BG.CUInt
+         ) => BG.HasField "unwrapTest" (BG.Ptr Test) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapTest")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapTest")
 
 instance HasCField.HasCField Test "unwrapTest" where
 
-  type CFieldType Test "unwrapTest" = RIP.CUInt
+  type CFieldType Test "unwrapTest" = BG.CUInt
 
   offset# = \_ -> \_ -> 0
 

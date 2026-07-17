@@ -6,11 +6,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
   , "void hs_bindgen_93ed1628a0edf6b0 ("
   , "  A arg1"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0_base ::
-     RIP.Word64
+     BG.Word64
   -> IO ()
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
@@ -30,7 +30,7 @@ hs_bindgen_93ed1628a0edf6b0 ::
      A
   -> IO ()
 hs_bindgen_93ed1628a0edf6b0 =
-  RIP.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
+  BG.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
 
 {-| __C declaration:__ @f@
 

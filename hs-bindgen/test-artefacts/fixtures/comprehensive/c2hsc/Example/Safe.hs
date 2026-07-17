@@ -10,10 +10,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <comprehensive/c2hsc.h>"
   , "void hs_bindgen_3fd2a5c6e681c44b ("
   , "  signed int (*arg1) ("
@@ -45,15 +45,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
 foreign import ccall safe "hs_bindgen_3fd2a5c6e681c44b" hs_bindgen_3fd2a5c6e681c44b_base ::
-     RIP.FunPtr RIP.Void
+     BG.FunPtr BG.Void
   -> IO ()
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
 hs_bindgen_3fd2a5c6e681c44b ::
-     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
   -> IO ()
 hs_bindgen_3fd2a5c6e681c44b =
-  RIP.fromFFIType hs_bindgen_3fd2a5c6e681c44b_base
+  BG.fromFFIType hs_bindgen_3fd2a5c6e681c44b_base
 
 {-| __C declaration:__ @foo_function@
 
@@ -62,22 +62,22 @@ hs_bindgen_3fd2a5c6e681c44b =
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 foo_function ::
-     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
      -- ^ __C declaration:__ @foo@
   -> IO ()
 foo_function = hs_bindgen_3fd2a5c6e681c44b
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 foreign import ccall safe "hs_bindgen_7978c370c45d3898" hs_bindgen_7978c370c45d3898_base ::
-     RIP.Word32
-  -> IO RIP.Word32
+     BG.Word32
+  -> IO BG.Word32
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 hs_bindgen_7978c370c45d3898 ::
-     RIP.CUInt
-  -> IO RIP.CUInt
+     BG.CUInt
+  -> IO BG.CUInt
 hs_bindgen_7978c370c45d3898 =
-  RIP.fromFFIType hs_bindgen_7978c370c45d3898_base
+  BG.fromFFIType hs_bindgen_7978c370c45d3898_base
 
 {-| __C declaration:__ @foo_33_1@
 
@@ -86,21 +86,21 @@ hs_bindgen_7978c370c45d3898 =
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 foo_33_1 ::
-     RIP.CUInt
-  -> IO RIP.CUInt
+     BG.CUInt
+  -> IO BG.CUInt
 foo_33_1 = hs_bindgen_7978c370c45d3898
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 foreign import ccall safe "hs_bindgen_44aef5175928343d" hs_bindgen_44aef5175928343d_base ::
-     RIP.Word32
-  -> IO RIP.Word32
+     BG.Word32
+  -> IO BG.Word32
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 hs_bindgen_44aef5175928343d ::
-     RIP.CUInt
-  -> IO RIP.CUInt
+     BG.CUInt
+  -> IO BG.CUInt
 hs_bindgen_44aef5175928343d =
-  RIP.fromFFIType hs_bindgen_44aef5175928343d_base
+  BG.fromFFIType hs_bindgen_44aef5175928343d_base
 
 {-| __C declaration:__ @foo_33_2@
 
@@ -109,21 +109,21 @@ hs_bindgen_44aef5175928343d =
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 foo_33_2 ::
-     RIP.CUInt
-  -> IO RIP.CUInt
+     BG.CUInt
+  -> IO BG.CUInt
 foo_33_2 = hs_bindgen_44aef5175928343d
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 foreign import ccall safe "hs_bindgen_9f0b65c4b469b3d8" hs_bindgen_9f0b65c4b469b3d8_base ::
-     RIP.Int64
-  -> IO RIP.Int64
+     BG.Int64
+  -> IO BG.Int64
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 hs_bindgen_9f0b65c4b469b3d8 ::
-     RIP.CLLong
-  -> IO RIP.CLLong
+     BG.CLLong
+  -> IO BG.CLLong
 hs_bindgen_9f0b65c4b469b3d8 =
-  RIP.fromFFIType hs_bindgen_9f0b65c4b469b3d8_base
+  BG.fromFFIType hs_bindgen_9f0b65c4b469b3d8_base
 
 {-| __C declaration:__ @foo_33_3@
 
@@ -132,6 +132,6 @@ hs_bindgen_9f0b65c4b469b3d8 =
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 foo_33_3 ::
-     RIP.CLLong
-  -> IO RIP.CLLong
+     BG.CLLong
+  -> IO BG.CLLong
 foo_33_3 = hs_bindgen_9f0b65c4b469b3d8

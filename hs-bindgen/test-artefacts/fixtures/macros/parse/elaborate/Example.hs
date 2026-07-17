@@ -25,9 +25,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro INNER_B@
 
@@ -35,8 +35,8 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_B :: RIP.CInt
-iNNER_B = (2 :: RIP.CInt)
+iNNER_B :: BG.CInt
+iNNER_B = (2 :: BG.CInt)
 
 {-| __C declaration:__ @macro OUTER_A@
 
@@ -44,8 +44,8 @@ iNNER_B = (2 :: RIP.CInt)
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_A :: RIP.CInt
-oUTER_A = (1 :: RIP.CInt)
+oUTER_A :: BG.CInt
+oUTER_A = (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro INNER_A@
 
@@ -53,7 +53,7 @@ oUTER_A = (1 :: RIP.CInt)
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_A :: RIP.CInt
+iNNER_A :: BG.CInt
 iNNER_A = oUTER_A
 
 {-| __C declaration:__ @outer_int@
@@ -63,45 +63,44 @@ iNNER_A = oUTER_A
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
 newtype Outer_int = Outer_int
-  { unwrapOuter_int :: RIP.CInt
+  { unwrapOuter_int :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "unwrapOuter_int" Outer_int ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unwrapOuter_int" Outer_int ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Outer_int {unwrapOuter_int = y1}, RIP.getField @"unwrapOuter_int" x0)
+         Outer_int {unwrapOuter_int = y1}, BG.getField @"unwrapOuter_int" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapOuter_int" (RIP.Ptr Outer_int) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unwrapOuter_int" (BG.Ptr Outer_int) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapOuter_int")
+    HasCField.fromPtr (BG.Proxy @"unwrapOuter_int")
 
 instance HasCField.HasCField Outer_int "unwrapOuter_int" where
 
-  type CFieldType Outer_int "unwrapOuter_int" =
-    RIP.CInt
+  type CFieldType Outer_int "unwrapOuter_int" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -114,38 +113,38 @@ instance HasCField.HasCField Outer_int "unwrapOuter_int" where
 newtype Inner_int = Inner_int
   { unwrapInner_int :: Outer_int
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
 instance ( ty ~ Outer_int
-         ) => RIP.CompatHasField.HasField "unwrapInner_int" Inner_int ty where
+         ) => BG.CompatHasField.HasField "unwrapInner_int" Inner_int ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         Inner_int {unwrapInner_int = y1}, RIP.getField @"unwrapInner_int" x0)
+         Inner_int {unwrapInner_int = y1}, BG.getField @"unwrapInner_int" x0)
 
 instance ( ty ~ Outer_int
-         ) => RIP.HasField "unwrapInner_int" (RIP.Ptr Inner_int) (RIP.Ptr ty) where
+         ) => BG.HasField "unwrapInner_int" (BG.Ptr Inner_int) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"unwrapInner_int")
+    HasCField.fromPtr (BG.Proxy @"unwrapInner_int")
 
 instance HasCField.HasCField Inner_int "unwrapInner_int" where
 
@@ -160,7 +159,7 @@ instance HasCField.HasCField Inner_int "unwrapInner_int" where
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_B :: RIP.CInt
+oUTER_B :: BG.CInt
 oUTER_B = iNNER_A
 
 {-| __C declaration:__ @macro OUTER_C@
@@ -169,5 +168,5 @@ oUTER_B = iNNER_A
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_C :: RIP.CInt
+oUTER_C :: BG.CInt
 oUTER_C = iNNER_B

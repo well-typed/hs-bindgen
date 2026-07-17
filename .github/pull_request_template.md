@@ -1,3 +1,5 @@
+---
+
 Some reminders, in case they are helpful:
 
 - [ ] Did you update the changelog? Please be sure to give a "migration hint" if this is a breaking change.

@@ -8,11 +8,11 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <documentation/doxygen_docs.h>"
   , "/* test_documentationdoxygen_docs_Example_get_global_counter */"
   , "__attribute__ ((const))"
@@ -30,12 +30,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
 foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496f59c9_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
-hs_bindgen_f9dede86496f59c9 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_f9dede86496f59c9 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_f9dede86496f59c9 =
-  RIP.fromFFIType hs_bindgen_f9dede86496f59c9_base
+  BG.fromFFIType hs_bindgen_f9dede86496f59c9_base
 
 {-# NOINLINE global_counter #-}
 {-| Global counter variable.
@@ -48,18 +48,18 @@ hs_bindgen_f9dede86496f59c9 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-global_counter :: RIP.Ptr RIP.CInt
+global_counter :: BG.Ptr BG.CInt
 global_counter =
-  RIP.unsafePerformIO hs_bindgen_f9dede86496f59c9
+  BG.unsafePerformIO hs_bindgen_f9dede86496f59c9
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
 foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386c9257_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
-hs_bindgen_a294be08386c9257 :: IO (RIP.Ptr (PtrConst.PtrConst RIP.CChar))
+hs_bindgen_a294be08386c9257 :: IO (BG.Ptr (PtrConst.PtrConst BG.CChar))
 hs_bindgen_a294be08386c9257 =
-  RIP.fromFFIType hs_bindgen_a294be08386c9257_base
+  BG.fromFFIType hs_bindgen_a294be08386c9257_base
 
 {-# NOINLINE version_string #-}
 {-| Version string constant.
@@ -70,6 +70,6 @@ hs_bindgen_a294be08386c9257 =
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-version_string :: RIP.Ptr (PtrConst.PtrConst RIP.CChar)
+version_string :: BG.Ptr (PtrConst.PtrConst BG.CChar)
 version_string =
-  RIP.unsafePerformIO hs_bindgen_a294be08386c9257
+  BG.unsafePerformIO hs_bindgen_a294be08386c9257

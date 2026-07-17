@@ -10,11 +10,11 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 import Example
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/heap_types/struct.h>"
   , "void hs_bindgen_c4af6bb824712c6a ("
   , "  T *arg1,"
@@ -51,17 +51,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 hs_bindgen_c4af6bb824712c6a ::
-     RIP.Ptr T
-  -> RIP.Ptr T
+     BG.Ptr T
+  -> BG.Ptr T
   -> IO ()
 hs_bindgen_c4af6bb824712c6a =
-  RIP.fromFFIType hs_bindgen_c4af6bb824712c6a_base
+  BG.fromFFIType hs_bindgen_c4af6bb824712c6a_base
 
 {-| __C declaration:__ @fun@
 
@@ -75,21 +75,21 @@ fun ::
   -> IO T
 fun =
   \x0 ->
-    RIP.with x0 (\x1 ->
-                   RIP.allocaAndPeek (\res2 ->
-                                        hs_bindgen_c4af6bb824712c6a x1 res2))
+    BG.with x0 (\x1 ->
+                  BG.allocaAndPeek (\res2 ->
+                                      hs_bindgen_c4af6bb824712c6a x1 res2))
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_underscore@
 foreign import ccall unsafe "hs_bindgen_80a83be02e40bf03" hs_bindgen_80a83be02e40bf03_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_underscore@
 hs_bindgen_80a83be02e40bf03 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_80a83be02e40bf03 =
-  RIP.fromFFIType hs_bindgen_80a83be02e40bf03_base
+  BG.fromFFIType hs_bindgen_80a83be02e40bf03_base
 
 {-| __C declaration:__ @param_underscore@
 
@@ -103,19 +103,19 @@ param_underscore ::
   -> IO ()
 param_underscore =
   \_0 ->
-    RIP.with _0 (\_1 -> hs_bindgen_80a83be02e40bf03 _1)
+    BG.with _0 (\_1 -> hs_bindgen_80a83be02e40bf03 _1)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_uppercase@
 foreign import ccall unsafe "hs_bindgen_bda30535ff7fd9f4" hs_bindgen_bda30535ff7fd9f4_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_uppercase@
 hs_bindgen_bda30535ff7fd9f4 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_bda30535ff7fd9f4 =
-  RIP.fromFFIType hs_bindgen_bda30535ff7fd9f4_base
+  BG.fromFFIType hs_bindgen_bda30535ff7fd9f4_base
 
 {-| __C declaration:__ @param_uppercase@
 
@@ -129,20 +129,20 @@ param_uppercase ::
   -> IO ()
 param_uppercase =
   \type'0 ->
-    RIP.with type'0 (\type'1 ->
-                       hs_bindgen_bda30535ff7fd9f4 type'1)
+    BG.with type'0 (\type'1 ->
+                      hs_bindgen_bda30535ff7fd9f4 type'1)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_undersore_capital@
 foreign import ccall unsafe "hs_bindgen_7b5f5cbdd8a5ff0e" hs_bindgen_7b5f5cbdd8a5ff0e_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_undersore_capital@
 hs_bindgen_7b5f5cbdd8a5ff0e ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_7b5f5cbdd8a5ff0e =
-  RIP.fromFFIType hs_bindgen_7b5f5cbdd8a5ff0e_base
+  BG.fromFFIType hs_bindgen_7b5f5cbdd8a5ff0e_base
 
 {-| __C declaration:__ @param_undersore_capital@
 
@@ -156,20 +156,19 @@ param_undersore_capital ::
   -> IO ()
 param_undersore_capital =
   \_T0 ->
-    RIP.with _T0 (\_T1 ->
-                    hs_bindgen_7b5f5cbdd8a5ff0e _T1)
+    BG.with _T0 (\_T1 -> hs_bindgen_7b5f5cbdd8a5ff0e _T1)
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_haskell_reserved_name@
 foreign import ccall unsafe "hs_bindgen_5b71629b3ccc3fa8" hs_bindgen_5b71629b3ccc3fa8_base ::
-     RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_haskell_reserved_name@
 hs_bindgen_5b71629b3ccc3fa8 ::
-     RIP.Ptr T
+     BG.Ptr T
   -> IO ()
 hs_bindgen_5b71629b3ccc3fa8 =
-  RIP.fromFFIType hs_bindgen_5b71629b3ccc3fa8_base
+  BG.fromFFIType hs_bindgen_5b71629b3ccc3fa8_base
 
 {-| __C declaration:__ @param_haskell_reserved_name@
 
@@ -183,5 +182,5 @@ param_haskell_reserved_name ::
   -> IO ()
 param_haskell_reserved_name =
   \type'0 ->
-    RIP.with type'0 (\type'1 ->
-                       hs_bindgen_5b71629b3ccc3fa8 type'1)
+    BG.with type'0 (\type'1 ->
+                      hs_bindgen_5b71629b3ccc3fa8 type'1)

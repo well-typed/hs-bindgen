@@ -7,10 +7,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/redeclaration/identical_syntax.h>"
   , "void hs_bindgen_1f6a4a088740d7bc ("
   , "  signed int arg1"
@@ -28,15 +28,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_1f6a4a088740d7bc" hs_bindgen_1f6a4a088740d7bc_base ::
-     RIP.Int32
+     BG.Int32
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 hs_bindgen_1f6a4a088740d7bc ::
-     RIP.CInt
+     BG.CInt
   -> IO ()
 hs_bindgen_1f6a4a088740d7bc =
-  RIP.fromFFIType hs_bindgen_1f6a4a088740d7bc_base
+  BG.fromFFIType hs_bindgen_1f6a4a088740d7bc_base
 
 {-| __C declaration:__ @foo@
 
@@ -45,22 +45,22 @@ hs_bindgen_1f6a4a088740d7bc =
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
 foo ::
-     RIP.CInt
+     BG.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_1f6a4a088740d7bc
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_69080a62615bc0d8" hs_bindgen_69080a62615bc0d8_base ::
-     RIP.Int8
+     BG.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
 hs_bindgen_69080a62615bc0d8 ::
-     RIP.CChar
+     BG.CChar
   -> IO ()
 hs_bindgen_69080a62615bc0d8 =
-  RIP.fromFFIType hs_bindgen_69080a62615bc0d8_base
+  BG.fromFFIType hs_bindgen_69080a62615bc0d8_base
 
 {-| __C declaration:__ @bar@
 
@@ -69,7 +69,7 @@ hs_bindgen_69080a62615bc0d8 =
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
 bar ::
-     RIP.CChar
+     BG.CChar
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_69080a62615bc0d8

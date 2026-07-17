@@ -7,10 +7,10 @@ module Example.FunPtr
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/redeclaration/different.h>"
   , "/* test_macrosredeclarationdifferent_Example_get_foo */"
   , "__attribute__ ((const))"
@@ -32,12 +32,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_d0db0eb938233932" hs_bindgen_d0db0eb938233932_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
-hs_bindgen_d0db0eb938233932 :: IO (RIP.FunPtr (RIP.CInt -> IO ()))
+hs_bindgen_d0db0eb938233932 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_d0db0eb938233932 =
-  RIP.fromFFIType hs_bindgen_d0db0eb938233932_base
+  BG.fromFFIType hs_bindgen_d0db0eb938233932_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -46,17 +46,17 @@ hs_bindgen_d0db0eb938233932 =
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
-foo :: RIP.FunPtr (RIP.CInt -> IO ())
-foo = RIP.unsafePerformIO hs_bindgen_d0db0eb938233932
+foo :: BG.FunPtr (BG.CInt -> IO ())
+foo = BG.unsafePerformIO hs_bindgen_d0db0eb938233932
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_46700de9dec9ddc2" hs_bindgen_46700de9dec9ddc2_base ::
-     IO (RIP.FunPtr RIP.Void)
+     IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
-hs_bindgen_46700de9dec9ddc2 :: IO (RIP.FunPtr (RIP.CChar -> IO ()))
+hs_bindgen_46700de9dec9ddc2 :: IO (BG.FunPtr (BG.CChar -> IO ()))
 hs_bindgen_46700de9dec9ddc2 =
-  RIP.fromFFIType hs_bindgen_46700de9dec9ddc2_base
+  BG.fromFFIType hs_bindgen_46700de9dec9ddc2_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -65,5 +65,5 @@ hs_bindgen_46700de9dec9ddc2 =
 
     __exported by:__ @macros\/redeclaration\/different.h@
 -}
-bar :: RIP.FunPtr (RIP.CChar -> IO ())
-bar = RIP.unsafePerformIO hs_bindgen_46700de9dec9ddc2
+bar :: BG.FunPtr (BG.CChar -> IO ())
+bar = BG.unsafePerformIO hs_bindgen_46700de9dec9ddc2

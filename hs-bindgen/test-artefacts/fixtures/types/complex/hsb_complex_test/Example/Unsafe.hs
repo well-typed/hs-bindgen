@@ -7,10 +7,10 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
   , "void hs_bindgen_e5e3172c2163672b ("
   , "  float _Complex *arg1,"
@@ -32,19 +32,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c2163672b_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 hs_bindgen_e5e3172c2163672b ::
-     RIP.Ptr (RIP.Complex RIP.CFloat)
-  -> RIP.Ptr (RIP.Complex RIP.CFloat)
-  -> RIP.Ptr (RIP.Complex RIP.CFloat)
+     BG.Ptr (BG.Complex BG.CFloat)
+  -> BG.Ptr (BG.Complex BG.CFloat)
+  -> BG.Ptr (BG.Complex BG.CFloat)
   -> IO ()
 hs_bindgen_e5e3172c2163672b =
-  RIP.fromFFIType hs_bindgen_e5e3172c2163672b_base
+  BG.fromFFIType hs_bindgen_e5e3172c2163672b_base
 
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -53,34 +53,34 @@ hs_bindgen_e5e3172c2163672b =
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
 multiply_complex_f ::
-     RIP.Complex RIP.CFloat
+     BG.Complex BG.CFloat
      -- ^ __C declaration:__ @a@
-  -> RIP.Complex RIP.CFloat
+  -> BG.Complex BG.CFloat
      -- ^ __C declaration:__ @b@
-  -> IO (RIP.Complex RIP.CFloat)
+  -> IO (BG.Complex BG.CFloat)
 multiply_complex_f =
   \a0 ->
     \b1 ->
-      RIP.with a0 (\a2 ->
-                     RIP.with b1 (\b3 ->
-                                    RIP.allocaAndPeek (\res4 ->
-                                                         hs_bindgen_e5e3172c2163672b a2 b3 res4)))
+      BG.with a0 (\a2 ->
+                    BG.with b1 (\b3 ->
+                                  BG.allocaAndPeek (\res4 ->
+                                                      hs_bindgen_e5e3172c2163672b a2 b3 res4)))
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab_base ::
-     RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
-  -> RIP.Ptr RIP.Void
+     BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
+  -> BG.Ptr BG.Void
   -> IO ()
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 hs_bindgen_28f2705e917973ab ::
-     RIP.Ptr (RIP.Complex RIP.CDouble)
-  -> RIP.Ptr (RIP.Complex RIP.CDouble)
-  -> RIP.Ptr (RIP.Complex RIP.CDouble)
+     BG.Ptr (BG.Complex BG.CDouble)
+  -> BG.Ptr (BG.Complex BG.CDouble)
+  -> BG.Ptr (BG.Complex BG.CDouble)
   -> IO ()
 hs_bindgen_28f2705e917973ab =
-  RIP.fromFFIType hs_bindgen_28f2705e917973ab_base
+  BG.fromFFIType hs_bindgen_28f2705e917973ab_base
 
 {-| __C declaration:__ @add_complex@
 
@@ -89,15 +89,15 @@ hs_bindgen_28f2705e917973ab =
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
 add_complex ::
-     RIP.Complex RIP.CDouble
+     BG.Complex BG.CDouble
      -- ^ __C declaration:__ @a@
-  -> RIP.Complex RIP.CDouble
+  -> BG.Complex BG.CDouble
      -- ^ __C declaration:__ @b@
-  -> IO (RIP.Complex RIP.CDouble)
+  -> IO (BG.Complex BG.CDouble)
 add_complex =
   \a0 ->
     \b1 ->
-      RIP.with a0 (\a2 ->
-                     RIP.with b1 (\b3 ->
-                                    RIP.allocaAndPeek (\res4 ->
-                                                         hs_bindgen_28f2705e917973ab a2 b3 res4)))
+      BG.with a0 (\a2 ->
+                    BG.with b1 (\b3 ->
+                                  BG.allocaAndPeek (\res4 ->
+                                                      hs_bindgen_28f2705e917973ab a2 b3 res4)))

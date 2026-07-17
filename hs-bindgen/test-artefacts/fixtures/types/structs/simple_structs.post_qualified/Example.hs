@@ -29,9 +29,9 @@ module Example
   where
 
 import HsBindgen.Runtime.HasCField qualified as HasCField
-import HsBindgen.Runtime.Internal.Prelude qualified as RIP
-import HsBindgen.Runtime.Internal.Prelude.CompatHasField qualified as RIP.CompatHasField
 import HsBindgen.Runtime.Marshal qualified as Marshal
+import HsBindgen.Runtime.Support qualified as BG
+import HsBindgen.Runtime.Support.CompatHasField qualified as BG.CompatHasField
 
 {-| __C declaration:__ @struct S1@
 
@@ -40,14 +40,14 @@ import HsBindgen.Runtime.Marshal qualified as Marshal
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S1 = S1
-  { s1_a :: RIP.CInt
+  { s1_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 3:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s1_b :: RIP.CChar
+  , s1_b :: BG.CChar
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 4:10@
@@ -55,7 +55,7 @@ data S1 = S1
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S1 where
 
@@ -68,8 +68,8 @@ instance Marshal.ReadRaw S1 where
   readRaw =
     \ptr0 ->
           pure S1
-      <*> HasCField.readRaw (RIP.Proxy @"s1_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s1_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s1_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s1_b") ptr0
 
 instance Marshal.WriteRaw S1 where
 
@@ -78,46 +78,46 @@ instance Marshal.WriteRaw S1 where
       \s1 ->
         case s1 of
           S1 s1_a2 s1_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"s1_a") ptr0 s1_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s1_b") ptr0 s1_b3
+               HasCField.writeRaw (BG.Proxy @"s1_a") ptr0 s1_a2
+            >> HasCField.writeRaw (BG.Proxy @"s1_b") ptr0 s1_b3
 
-deriving via Marshal.EquivStorable S1 instance RIP.Storable S1
+deriving via Marshal.EquivStorable S1 instance BG.Storable S1
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s1_a" S1 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_a" S1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S1 {s1_a = y1, s1_b = RIP.getField @"s1_b" x0}
-      , RIP.getField @"s1_a" x0
+          S1 {s1_a = y1, s1_b = BG.getField @"s1_b" x0}
+      , BG.getField @"s1_a" x0
       )
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s1_a" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s1_a" (BG.Ptr S1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s1_a")
 
 instance HasCField.HasCField S1 "s1_a" where
 
-  type CFieldType S1 "s1_a" = RIP.CInt
+  type CFieldType S1 "s1_a" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s1_b" S1 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s1_b" S1 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S1 {s1_b = y1, s1_a = RIP.getField @"s1_a" x0}
-      , RIP.getField @"s1_b" x0
+          S1 {s1_b = y1, s1_a = BG.getField @"s1_a" x0}
+      , BG.getField @"s1_b" x0
       )
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s1_b" (RIP.Ptr S1) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s1_b" (BG.Ptr S1) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s1_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s1_b")
 
 instance HasCField.HasCField S1 "s1_b" where
 
-  type CFieldType S1 "s1_b" = RIP.CChar
+  type CFieldType S1 "s1_b" = BG.CChar
 
   offset# = \_ -> \_ -> 4
 
@@ -128,21 +128,21 @@ instance HasCField.HasCField S1 "s1_b" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S2_t = S2_t
-  { s2_t_a :: RIP.CChar
+  { s2_t_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 9:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s2_t_b :: RIP.CInt
+  , s2_t_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 10:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s2_t_c :: RIP.CFloat
+  , s2_t_c :: BG.CFloat
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @types\/structs\/simple_structs.h 11:11@
@@ -150,7 +150,7 @@ data S2_t = S2_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S2_t where
 
@@ -163,9 +163,9 @@ instance Marshal.ReadRaw S2_t where
   readRaw =
     \ptr0 ->
           pure S2_t
-      <*> HasCField.readRaw (RIP.Proxy @"s2_t_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s2_t_b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s2_t_c") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s2_t_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s2_t_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s2_t_c") ptr0
 
 instance Marshal.WriteRaw S2_t where
 
@@ -174,78 +174,76 @@ instance Marshal.WriteRaw S2_t where
       \s1 ->
         case s1 of
           S2_t s2_t_a2 s2_t_b3 s2_t_c4 ->
-               HasCField.writeRaw (RIP.Proxy @"s2_t_a") ptr0 s2_t_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s2_t_b") ptr0 s2_t_b3
-            >> HasCField.writeRaw (RIP.Proxy @"s2_t_c") ptr0 s2_t_c4
+               HasCField.writeRaw (BG.Proxy @"s2_t_a") ptr0 s2_t_a2
+            >> HasCField.writeRaw (BG.Proxy @"s2_t_b") ptr0 s2_t_b3
+            >> HasCField.writeRaw (BG.Proxy @"s2_t_c") ptr0 s2_t_c4
 
-deriving via Marshal.EquivStorable S2_t instance RIP.Storable S2_t
+deriving via Marshal.EquivStorable S2_t instance BG.Storable S2_t
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s2_t_a" S2_t ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s2_t_a" S2_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           S2_t { s2_t_a = y1
-               , s2_t_b = RIP.getField @"s2_t_b" x0
-               , s2_t_c = RIP.getField @"s2_t_c" x0
+               , s2_t_b = BG.getField @"s2_t_b" x0
+               , s2_t_c = BG.getField @"s2_t_c" x0
                }
-      , RIP.getField @"s2_t_a" x0
+      , BG.getField @"s2_t_a" x0
       )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s2_t_a" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s2_t_a" (BG.Ptr S2_t) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s2_t_a")
 
 instance HasCField.HasCField S2_t "s2_t_a" where
 
-  type CFieldType S2_t "s2_t_a" = RIP.CChar
+  type CFieldType S2_t "s2_t_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s2_t_b" S2_t ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s2_t_b" S2_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           S2_t { s2_t_b = y1
-               , s2_t_a = RIP.getField @"s2_t_a" x0
-               , s2_t_c = RIP.getField @"s2_t_c" x0
+               , s2_t_a = BG.getField @"s2_t_a" x0
+               , s2_t_c = BG.getField @"s2_t_c" x0
                }
-      , RIP.getField @"s2_t_b" x0
+      , BG.getField @"s2_t_b" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s2_t_b" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s2_t_b" (BG.Ptr S2_t) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s2_t_b")
 
 instance HasCField.HasCField S2_t "s2_t_b" where
 
-  type CFieldType S2_t "s2_t_b" = RIP.CInt
+  type CFieldType S2_t "s2_t_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CFloat) => RIP.CompatHasField.HasField "s2_t_c" S2_t ty where
+instance (ty ~ BG.CFloat) => BG.CompatHasField.HasField "s2_t_c" S2_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           S2_t { s2_t_c = y1
-               , s2_t_a = RIP.getField @"s2_t_a" x0
-               , s2_t_b = RIP.getField @"s2_t_b" x0
+               , s2_t_a = BG.getField @"s2_t_a" x0
+               , s2_t_b = BG.getField @"s2_t_b" x0
                }
-      , RIP.getField @"s2_t_c" x0
+      , BG.getField @"s2_t_c" x0
       )
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "s2_t_c" (RIP.Ptr S2_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CFloat
+         ) => BG.HasField "s2_t_c" (BG.Ptr S2_t) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_c")
+  getField = HasCField.fromPtr (BG.Proxy @"s2_t_c")
 
 instance HasCField.HasCField S2_t "s2_t_c" where
 
-  type CFieldType S2_t "s2_t_c" = RIP.CFloat
+  type CFieldType S2_t "s2_t_c" = BG.CFloat
 
   offset# = \_ -> \_ -> 8
 
@@ -256,7 +254,7 @@ instance HasCField.HasCField S2_t "s2_t_c" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S3_t = S3_t
-  { s3_t_a :: RIP.CChar
+  { s3_t_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 16:10@
@@ -264,7 +262,7 @@ data S3_t = S3_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S3_t where
 
@@ -277,7 +275,7 @@ instance Marshal.ReadRaw S3_t where
   readRaw =
     \ptr0 ->
           pure S3_t
-      <*> HasCField.readRaw (RIP.Proxy @"s3_t_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s3_t_a") ptr0
 
 instance Marshal.WriteRaw S3_t where
 
@@ -286,25 +284,23 @@ instance Marshal.WriteRaw S3_t where
       \s1 ->
         case s1 of
           S3_t s3_t_a2 ->
-            HasCField.writeRaw (RIP.Proxy @"s3_t_a") ptr0 s3_t_a2
+            HasCField.writeRaw (BG.Proxy @"s3_t_a") ptr0 s3_t_a2
 
-deriving via Marshal.EquivStorable S3_t instance RIP.Storable S3_t
+deriving via Marshal.EquivStorable S3_t instance BG.Storable S3_t
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s3_t_a" S3_t ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s3_t_a" S3_t ty where
 
   hasField =
     \x0 ->
-      (\y1 ->
-         S3_t {s3_t_a = y1}, RIP.getField @"s3_t_a" x0)
+      (\y1 -> S3_t {s3_t_a = y1}, BG.getField @"s3_t_a" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s3_t_a" (RIP.Ptr S3_t) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s3_t_a" (BG.Ptr S3_t) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s3_t_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s3_t_a")
 
 instance HasCField.HasCField S3_t "s3_t_a" where
 
-  type CFieldType S3_t "s3_t_a" = RIP.CChar
+  type CFieldType S3_t "s3_t_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -315,21 +311,21 @@ instance HasCField.HasCField S3_t "s3_t_a" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S4 = S4
-  { s4_b :: RIP.CChar
+  { s4_b :: BG.CChar
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 20:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s4_a :: RIP.CInt
+  , s4_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 21:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s4_c :: RIP.Ptr RIP.CInt
+  , s4_c :: BG.Ptr BG.CInt
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @types\/structs\/simple_structs.h 22:10@
@@ -337,7 +333,7 @@ data S4 = S4
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S4 where
 
@@ -350,9 +346,9 @@ instance Marshal.ReadRaw S4 where
   readRaw =
     \ptr0 ->
           pure S4
-      <*> HasCField.readRaw (RIP.Proxy @"s4_b") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s4_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s4_c") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s4_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s4_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s4_c") ptr0
 
 instance Marshal.WriteRaw S4 where
 
@@ -361,68 +357,67 @@ instance Marshal.WriteRaw S4 where
       \s1 ->
         case s1 of
           S4 s4_b2 s4_a3 s4_c4 ->
-               HasCField.writeRaw (RIP.Proxy @"s4_b") ptr0 s4_b2
-            >> HasCField.writeRaw (RIP.Proxy @"s4_a") ptr0 s4_a3
-            >> HasCField.writeRaw (RIP.Proxy @"s4_c") ptr0 s4_c4
+               HasCField.writeRaw (BG.Proxy @"s4_b") ptr0 s4_b2
+            >> HasCField.writeRaw (BG.Proxy @"s4_a") ptr0 s4_a3
+            >> HasCField.writeRaw (BG.Proxy @"s4_c") ptr0 s4_c4
 
-deriving via Marshal.EquivStorable S4 instance RIP.Storable S4
+deriving via Marshal.EquivStorable S4 instance BG.Storable S4
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s4_b" S4 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s4_b" S4 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S4 {s4_b = y1, s4_a = RIP.getField @"s4_a" x0, s4_c = RIP.getField @"s4_c" x0}
-      , RIP.getField @"s4_b" x0
+          S4 {s4_b = y1, s4_a = BG.getField @"s4_a" x0, s4_c = BG.getField @"s4_c" x0}
+      , BG.getField @"s4_b" x0
       )
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s4_b" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s4_b" (BG.Ptr S4) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s4_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s4_b")
 
 instance HasCField.HasCField S4 "s4_b" where
 
-  type CFieldType S4 "s4_b" = RIP.CChar
+  type CFieldType S4 "s4_b" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s4_a" S4 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s4_a" S4 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S4 {s4_a = y1, s4_b = RIP.getField @"s4_b" x0, s4_c = RIP.getField @"s4_c" x0}
-      , RIP.getField @"s4_a" x0
+          S4 {s4_a = y1, s4_b = BG.getField @"s4_b" x0, s4_c = BG.getField @"s4_c" x0}
+      , BG.getField @"s4_a" x0
       )
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s4_a" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s4_a" (BG.Ptr S4) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s4_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s4_a")
 
 instance HasCField.HasCField S4 "s4_a" where
 
-  type CFieldType S4 "s4_a" = RIP.CInt
+  type CFieldType S4 "s4_a" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.CompatHasField.HasField "s4_c" S4 ty where
+instance (ty ~ BG.Ptr BG.CInt) => BG.CompatHasField.HasField "s4_c" S4 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S4 {s4_c = y1, s4_b = RIP.getField @"s4_b" x0, s4_a = RIP.getField @"s4_a" x0}
-      , RIP.getField @"s4_c" x0
+          S4 {s4_c = y1, s4_b = BG.getField @"s4_b" x0, s4_a = BG.getField @"s4_a" x0}
+      , BG.getField @"s4_c" x0
       )
 
-instance ( ty ~ RIP.Ptr RIP.CInt
-         ) => RIP.HasField "s4_c" (RIP.Ptr S4) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr BG.CInt
+         ) => BG.HasField "s4_c" (BG.Ptr S4) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s4_c")
+  getField = HasCField.fromPtr (BG.Proxy @"s4_c")
 
 instance HasCField.HasCField S4 "s4_c" where
 
-  type CFieldType S4 "s4_c" = RIP.Ptr RIP.CInt
+  type CFieldType S4 "s4_c" = BG.Ptr BG.CInt
 
   offset# = \_ -> \_ -> 8
 
@@ -433,14 +428,14 @@ instance HasCField.HasCField S4 "s4_c" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S5 = S5
-  { s5_a :: RIP.CChar
+  { s5_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 27:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s5_b :: RIP.CInt
+  , s5_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 28:9@
@@ -448,7 +443,7 @@ data S5 = S5
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S5 where
 
@@ -461,8 +456,8 @@ instance Marshal.ReadRaw S5 where
   readRaw =
     \ptr0 ->
           pure S5
-      <*> HasCField.readRaw (RIP.Proxy @"s5_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s5_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s5_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s5_b") ptr0
 
 instance Marshal.WriteRaw S5 where
 
@@ -471,46 +466,46 @@ instance Marshal.WriteRaw S5 where
       \s1 ->
         case s1 of
           S5 s5_a2 s5_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"s5_a") ptr0 s5_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s5_b") ptr0 s5_b3
+               HasCField.writeRaw (BG.Proxy @"s5_a") ptr0 s5_a2
+            >> HasCField.writeRaw (BG.Proxy @"s5_b") ptr0 s5_b3
 
-deriving via Marshal.EquivStorable S5 instance RIP.Storable S5
+deriving via Marshal.EquivStorable S5 instance BG.Storable S5
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s5_a" S5 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s5_a" S5 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S5 {s5_a = y1, s5_b = RIP.getField @"s5_b" x0}
-      , RIP.getField @"s5_a" x0
+          S5 {s5_a = y1, s5_b = BG.getField @"s5_b" x0}
+      , BG.getField @"s5_a" x0
       )
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s5_a" (RIP.Ptr S5) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s5_a" (BG.Ptr S5) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s5_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s5_a")
 
 instance HasCField.HasCField S5 "s5_a" where
 
-  type CFieldType S5 "s5_a" = RIP.CChar
+  type CFieldType S5 "s5_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s5_b" S5 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s5_b" S5 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S5 {s5_b = y1, s5_a = RIP.getField @"s5_a" x0}
-      , RIP.getField @"s5_b" x0
+          S5 {s5_b = y1, s5_a = BG.getField @"s5_a" x0}
+      , BG.getField @"s5_b" x0
       )
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s5_b" (RIP.Ptr S5) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s5_b" (BG.Ptr S5) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s5_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s5_b")
 
 instance HasCField.HasCField S5 "s5_b" where
 
-  type CFieldType S5 "s5_b" = RIP.CInt
+  type CFieldType S5 "s5_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -521,14 +516,14 @@ instance HasCField.HasCField S5 "s5_b" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S6 = S6
-  { s6_a :: RIP.CChar
+  { s6_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 31:18@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s6_b :: RIP.CInt
+  , s6_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 31:25@
@@ -536,7 +531,7 @@ data S6 = S6
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S6 where
 
@@ -549,8 +544,8 @@ instance Marshal.ReadRaw S6 where
   readRaw =
     \ptr0 ->
           pure S6
-      <*> HasCField.readRaw (RIP.Proxy @"s6_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s6_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s6_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s6_b") ptr0
 
 instance Marshal.WriteRaw S6 where
 
@@ -559,46 +554,46 @@ instance Marshal.WriteRaw S6 where
       \s1 ->
         case s1 of
           S6 s6_a2 s6_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"s6_a") ptr0 s6_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s6_b") ptr0 s6_b3
+               HasCField.writeRaw (BG.Proxy @"s6_a") ptr0 s6_a2
+            >> HasCField.writeRaw (BG.Proxy @"s6_b") ptr0 s6_b3
 
-deriving via Marshal.EquivStorable S6 instance RIP.Storable S6
+deriving via Marshal.EquivStorable S6 instance BG.Storable S6
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "s6_a" S6 ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "s6_a" S6 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S6 {s6_a = y1, s6_b = RIP.getField @"s6_b" x0}
-      , RIP.getField @"s6_a" x0
+          S6 {s6_a = y1, s6_b = BG.getField @"s6_b" x0}
+      , BG.getField @"s6_a" x0
       )
 
-instance (ty ~ RIP.CChar) => RIP.HasField "s6_a" (RIP.Ptr S6) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "s6_a" (BG.Ptr S6) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s6_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s6_a")
 
 instance HasCField.HasCField S6 "s6_a" where
 
-  type CFieldType S6 "s6_a" = RIP.CChar
+  type CFieldType S6 "s6_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "s6_b" S6 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s6_b" S6 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S6 {s6_b = y1, s6_a = RIP.getField @"s6_a" x0}
-      , RIP.getField @"s6_b" x0
+          S6 {s6_b = y1, s6_a = BG.getField @"s6_a" x0}
+      , BG.getField @"s6_b" x0
       )
 
-instance (ty ~ RIP.CInt) => RIP.HasField "s6_b" (RIP.Ptr S6) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "s6_b" (BG.Ptr S6) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s6_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s6_b")
 
 instance HasCField.HasCField S6 "s6_b" where
 
-  type CFieldType S6 "s6_b" = RIP.CInt
+  type CFieldType S6 "s6_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -609,14 +604,14 @@ instance HasCField.HasCField S6 "s6_b" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S7a_Aux = S7a_Aux
-  { s7a_Aux_a :: RIP.CChar
+  { s7a_Aux_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 34:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7a_Aux_b :: RIP.CInt
+  , s7a_Aux_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 34:30@
@@ -624,7 +619,7 @@ data S7a_Aux = S7a_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S7a_Aux where
 
@@ -637,8 +632,8 @@ instance Marshal.ReadRaw S7a_Aux where
   readRaw =
     \ptr0 ->
           pure S7a_Aux
-      <*> HasCField.readRaw (RIP.Proxy @"s7a_Aux_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s7a_Aux_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s7a_Aux_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s7a_Aux_b") ptr0
 
 instance Marshal.WriteRaw S7a_Aux where
 
@@ -647,50 +642,50 @@ instance Marshal.WriteRaw S7a_Aux where
       \s1 ->
         case s1 of
           S7a_Aux s7a_Aux_a2 s7a_Aux_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
+               HasCField.writeRaw (BG.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
+            >> HasCField.writeRaw (BG.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
 
-deriving via Marshal.EquivStorable S7a_Aux instance RIP.Storable S7a_Aux
+deriving via Marshal.EquivStorable S7a_Aux instance BG.Storable S7a_Aux
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "s7a_Aux_a" S7a_Aux ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "s7a_Aux_a" S7a_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S7a_Aux {s7a_Aux_a = y1, s7a_Aux_b = RIP.getField @"s7a_Aux_b" x0}
-      , RIP.getField @"s7a_Aux_a" x0
+          S7a_Aux {s7a_Aux_a = y1, s7a_Aux_b = BG.getField @"s7a_Aux_b" x0}
+      , BG.getField @"s7a_Aux_a" x0
       )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s7a_Aux_a" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "s7a_Aux_a" (BG.Ptr S7a_Aux) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s7a_Aux_a")
 
 instance HasCField.HasCField S7a_Aux "s7a_Aux_a" where
 
-  type CFieldType S7a_Aux "s7a_Aux_a" = RIP.CChar
+  type CFieldType S7a_Aux "s7a_Aux_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "s7a_Aux_b" S7a_Aux ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "s7a_Aux_b" S7a_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S7a_Aux {s7a_Aux_b = y1, s7a_Aux_a = RIP.getField @"s7a_Aux_a" x0}
-      , RIP.getField @"s7a_Aux_b" x0
+          S7a_Aux {s7a_Aux_b = y1, s7a_Aux_a = BG.getField @"s7a_Aux_a" x0}
+      , BG.getField @"s7a_Aux_b" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s7a_Aux_b" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "s7a_Aux_b" (BG.Ptr S7a_Aux) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s7a_Aux_b")
 
 instance HasCField.HasCField S7a_Aux "s7a_Aux_b" where
 
-  type CFieldType S7a_Aux "s7a_Aux_b" = RIP.CInt
+  type CFieldType S7a_Aux "s7a_Aux_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -701,33 +696,33 @@ instance HasCField.HasCField S7a_Aux "s7a_Aux_b" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a = S7a
-  { unwrapS7a :: RIP.Ptr S7a_Aux
+  { unwrapS7a :: BG.Ptr S7a_Aux
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr S7a_Aux
-         ) => RIP.CompatHasField.HasField "unwrapS7a" S7a ty where
+instance ( ty ~ BG.Ptr S7a_Aux
+         ) => BG.CompatHasField.HasField "unwrapS7a" S7a ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         S7a {unwrapS7a = y1}, RIP.getField @"unwrapS7a" x0)
+         S7a {unwrapS7a = y1}, BG.getField @"unwrapS7a" x0)
 
-instance ( ty ~ RIP.Ptr S7a_Aux
-         ) => RIP.HasField "unwrapS7a" (RIP.Ptr S7a) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr S7a_Aux
+         ) => BG.HasField "unwrapS7a" (BG.Ptr S7a) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7a")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapS7a")
 
 instance HasCField.HasCField S7a "unwrapS7a" where
 
-  type CFieldType S7a "unwrapS7a" = RIP.Ptr S7a_Aux
+  type CFieldType S7a "unwrapS7a" = BG.Ptr S7a_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -738,14 +733,14 @@ instance HasCField.HasCField S7a "unwrapS7a" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S7b_Aux = S7b_Aux
-  { s7b_Aux_a :: RIP.CChar
+  { s7b_Aux_a :: BG.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 35:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7b_Aux_b :: RIP.CInt
+  , s7b_Aux_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 35:30@
@@ -753,7 +748,7 @@ data S7b_Aux = S7b_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S7b_Aux where
 
@@ -766,8 +761,8 @@ instance Marshal.ReadRaw S7b_Aux where
   readRaw =
     \ptr0 ->
           pure S7b_Aux
-      <*> HasCField.readRaw (RIP.Proxy @"s7b_Aux_a") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"s7b_Aux_b") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s7b_Aux_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s7b_Aux_b") ptr0
 
 instance Marshal.WriteRaw S7b_Aux where
 
@@ -776,50 +771,50 @@ instance Marshal.WriteRaw S7b_Aux where
       \s1 ->
         case s1 of
           S7b_Aux s7b_Aux_a2 s7b_Aux_b3 ->
-               HasCField.writeRaw (RIP.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
-            >> HasCField.writeRaw (RIP.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
+               HasCField.writeRaw (BG.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
+            >> HasCField.writeRaw (BG.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
 
-deriving via Marshal.EquivStorable S7b_Aux instance RIP.Storable S7b_Aux
+deriving via Marshal.EquivStorable S7b_Aux instance BG.Storable S7b_Aux
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.CompatHasField.HasField "s7b_Aux_a" S7b_Aux ty where
+instance ( ty ~ BG.CChar
+         ) => BG.CompatHasField.HasField "s7b_Aux_a" S7b_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S7b_Aux {s7b_Aux_a = y1, s7b_Aux_b = RIP.getField @"s7b_Aux_b" x0}
-      , RIP.getField @"s7b_Aux_a" x0
+          S7b_Aux {s7b_Aux_a = y1, s7b_Aux_b = BG.getField @"s7b_Aux_b" x0}
+      , BG.getField @"s7b_Aux_a" x0
       )
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "s7b_Aux_a" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
+instance ( ty ~ BG.CChar
+         ) => BG.HasField "s7b_Aux_a" (BG.Ptr S7b_Aux) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_a")
+  getField = HasCField.fromPtr (BG.Proxy @"s7b_Aux_a")
 
 instance HasCField.HasCField S7b_Aux "s7b_Aux_a" where
 
-  type CFieldType S7b_Aux "s7b_Aux_a" = RIP.CChar
+  type CFieldType S7b_Aux "s7b_Aux_a" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "s7b_Aux_b" S7b_Aux ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "s7b_Aux_b" S7b_Aux ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S7b_Aux {s7b_Aux_b = y1, s7b_Aux_a = RIP.getField @"s7b_Aux_a" x0}
-      , RIP.getField @"s7b_Aux_b" x0
+          S7b_Aux {s7b_Aux_b = y1, s7b_Aux_a = BG.getField @"s7b_Aux_a" x0}
+      , BG.getField @"s7b_Aux_b" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "s7b_Aux_b" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "s7b_Aux_b" (BG.Ptr S7b_Aux) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_b")
+  getField = HasCField.fromPtr (BG.Proxy @"s7b_Aux_b")
 
 instance HasCField.HasCField S7b_Aux "s7b_Aux_b" where
 
-  type CFieldType S7b_Aux "s7b_Aux_b" = RIP.CInt
+  type CFieldType S7b_Aux "s7b_Aux_b" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -830,33 +825,33 @@ instance HasCField.HasCField S7b_Aux "s7b_Aux_b" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b = S7b
-  { unwrapS7b :: RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
+  { unwrapS7b :: BG.Ptr (BG.Ptr (BG.Ptr S7b_Aux))
   }
-  deriving stock (Eq, RIP.Generic, Ord, Show)
+  deriving stock (Eq, BG.Generic, Ord, Show)
   deriving newtype
-    ( RIP.HasFFIType
+    ( BG.HasFFIType
     , Marshal.ReadRaw
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
-         ) => RIP.CompatHasField.HasField "unwrapS7b" S7b ty where
+instance ( ty ~ BG.Ptr (BG.Ptr (BG.Ptr S7b_Aux))
+         ) => BG.CompatHasField.HasField "unwrapS7b" S7b ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         S7b {unwrapS7b = y1}, RIP.getField @"unwrapS7b" x0)
+         S7b {unwrapS7b = y1}, BG.getField @"unwrapS7b" x0)
 
-instance ( ty ~ RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
-         ) => RIP.HasField "unwrapS7b" (RIP.Ptr S7b) (RIP.Ptr ty) where
+instance ( ty ~ BG.Ptr (BG.Ptr (BG.Ptr S7b_Aux))
+         ) => BG.HasField "unwrapS7b" (BG.Ptr S7b) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7b")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapS7b")
 
 instance HasCField.HasCField S7b "unwrapS7b" where
 
   type CFieldType S7b "unwrapS7b" =
-    RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
+    BG.Ptr (BG.Ptr (BG.Ptr S7b_Aux))
 
   offset# = \_ -> \_ -> 0

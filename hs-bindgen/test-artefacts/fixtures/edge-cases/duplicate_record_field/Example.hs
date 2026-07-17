@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct A@
 
@@ -32,7 +32,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @edge-cases\/duplicate_record_field.h@
 -}
 data A = A
-  { dup :: RIP.CInt
+  { dup :: BG.CInt
     {- ^ __C declaration:__ @dup@
 
          __defined at:__ @edge-cases\/duplicate_record_field.h 2:7@
@@ -40,7 +40,7 @@ data A = A
          __exported by:__ @edge-cases\/duplicate_record_field.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize A where
 
@@ -53,7 +53,7 @@ instance Marshal.ReadRaw A where
   readRaw =
     \ptr0 ->
           pure A
-      <*> HasCField.readRaw (RIP.Proxy @"dup") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dup") ptr0
 
 instance Marshal.WriteRaw A where
 
@@ -62,22 +62,22 @@ instance Marshal.WriteRaw A where
       \s1 ->
         case s1 of
           A dup2 ->
-            HasCField.writeRaw (RIP.Proxy @"dup") ptr0 dup2
+            HasCField.writeRaw (BG.Proxy @"dup") ptr0 dup2
 
-deriving via Marshal.EquivStorable A instance RIP.Storable A
+deriving via Marshal.EquivStorable A instance BG.Storable A
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" A ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dup" A ty where
 
   hasField =
-    \x0 -> (\y1 -> A {dup = y1}, RIP.getField @"dup" x0)
+    \x0 -> (\y1 -> A {dup = y1}, BG.getField @"dup" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr A) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dup" (BG.Ptr A) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dup")
+  getField = HasCField.fromPtr (BG.Proxy @"dup")
 
 instance HasCField.HasCField A "dup" where
 
-  type CFieldType A "dup" = RIP.CInt
+  type CFieldType A "dup" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -88,7 +88,7 @@ instance HasCField.HasCField A "dup" where
     __exported by:__ @edge-cases\/duplicate_record_field.h@
 -}
 data B = B
-  { dup :: RIP.CInt
+  { dup :: BG.CInt
     {- ^ __C declaration:__ @dup@
 
          __defined at:__ @edge-cases\/duplicate_record_field.h 6:7@
@@ -96,7 +96,7 @@ data B = B
          __exported by:__ @edge-cases\/duplicate_record_field.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize B where
 
@@ -109,7 +109,7 @@ instance Marshal.ReadRaw B where
   readRaw =
     \ptr0 ->
           pure B
-      <*> HasCField.readRaw (RIP.Proxy @"dup") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dup") ptr0
 
 instance Marshal.WriteRaw B where
 
@@ -118,21 +118,21 @@ instance Marshal.WriteRaw B where
       \s1 ->
         case s1 of
           B dup2 ->
-            HasCField.writeRaw (RIP.Proxy @"dup") ptr0 dup2
+            HasCField.writeRaw (BG.Proxy @"dup") ptr0 dup2
 
-deriving via Marshal.EquivStorable B instance RIP.Storable B
+deriving via Marshal.EquivStorable B instance BG.Storable B
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dup" B ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dup" B ty where
 
   hasField =
-    \x0 -> (\y1 -> B {dup = y1}, RIP.getField @"dup" x0)
+    \x0 -> (\y1 -> B {dup = y1}, BG.getField @"dup" x0)
 
-instance (ty ~ RIP.CInt) => RIP.HasField "dup" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dup" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dup")
+  getField = HasCField.fromPtr (BG.Proxy @"dup")
 
 instance HasCField.HasCField B "dup" where
 
-  type CFieldType B "dup" = RIP.CInt
+  type CFieldType B "dup" = BG.CInt
 
   offset# = \_ -> \_ -> 0

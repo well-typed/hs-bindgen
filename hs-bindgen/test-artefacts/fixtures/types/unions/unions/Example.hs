@@ -26,9 +26,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @struct Dim2@
@@ -38,14 +38,14 @@ import qualified HsBindgen.Runtime.Union as Union
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim2 = Dim2
-  { dim2_x :: RIP.CInt
+  { dim2_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 2:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim2_y :: RIP.CInt
+  , dim2_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 3:9@
@@ -53,7 +53,7 @@ data Dim2 = Dim2
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Dim2 where
 
@@ -66,8 +66,8 @@ instance Marshal.ReadRaw Dim2 where
   readRaw =
     \ptr0 ->
           pure Dim2
-      <*> HasCField.readRaw (RIP.Proxy @"dim2_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dim2_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim2_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim2_y") ptr0
 
 instance Marshal.WriteRaw Dim2 where
 
@@ -76,48 +76,46 @@ instance Marshal.WriteRaw Dim2 where
       \s1 ->
         case s1 of
           Dim2 dim2_x2 dim2_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"dim2_x") ptr0 dim2_x2
-            >> HasCField.writeRaw (RIP.Proxy @"dim2_y") ptr0 dim2_y3
+               HasCField.writeRaw (BG.Proxy @"dim2_x") ptr0 dim2_x2
+            >> HasCField.writeRaw (BG.Proxy @"dim2_y") ptr0 dim2_y3
 
-deriving via Marshal.EquivStorable Dim2 instance RIP.Storable Dim2
+deriving via Marshal.EquivStorable Dim2 instance BG.Storable Dim2
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim2_x" Dim2 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim2_x" Dim2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Dim2 {dim2_x = y1, dim2_y = RIP.getField @"dim2_y" x0}
-      , RIP.getField @"dim2_x" x0
+          Dim2 {dim2_x = y1, dim2_y = BG.getField @"dim2_y" x0}
+      , BG.getField @"dim2_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim2_x" (RIP.Ptr Dim2) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim2_x" (BG.Ptr Dim2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim2_x")
+  getField = HasCField.fromPtr (BG.Proxy @"dim2_x")
 
 instance HasCField.HasCField Dim2 "dim2_x" where
 
-  type CFieldType Dim2 "dim2_x" = RIP.CInt
+  type CFieldType Dim2 "dim2_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim2_y" Dim2 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim2_y" Dim2 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Dim2 {dim2_y = y1, dim2_x = RIP.getField @"dim2_x" x0}
-      , RIP.getField @"dim2_y" x0
+          Dim2 {dim2_y = y1, dim2_x = BG.getField @"dim2_x" x0}
+      , BG.getField @"dim2_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim2_y" (RIP.Ptr Dim2) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim2_y" (BG.Ptr Dim2) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim2_y")
+  getField = HasCField.fromPtr (BG.Proxy @"dim2_y")
 
 instance HasCField.HasCField Dim2 "dim2_y" where
 
-  type CFieldType Dim2 "dim2_y" = RIP.CInt
+  type CFieldType Dim2 "dim2_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -128,21 +126,21 @@ instance HasCField.HasCField Dim2 "dim2_y" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim3 = Dim3
-  { dim3_x :: RIP.CInt
+  { dim3_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 7:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim3_y :: RIP.CInt
+  , dim3_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 8:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim3_z :: RIP.CInt
+  , dim3_z :: BG.CInt
     {- ^ __C declaration:__ @z@
 
          __defined at:__ @types\/unions\/unions.h 9:9@
@@ -150,7 +148,7 @@ data Dim3 = Dim3
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Dim3 where
 
@@ -163,9 +161,9 @@ instance Marshal.ReadRaw Dim3 where
   readRaw =
     \ptr0 ->
           pure Dim3
-      <*> HasCField.readRaw (RIP.Proxy @"dim3_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dim3_y") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dim3_z") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim3_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim3_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim3_z") ptr0
 
 instance Marshal.WriteRaw Dim3 where
 
@@ -174,78 +172,75 @@ instance Marshal.WriteRaw Dim3 where
       \s1 ->
         case s1 of
           Dim3 dim3_x2 dim3_y3 dim3_z4 ->
-               HasCField.writeRaw (RIP.Proxy @"dim3_x") ptr0 dim3_x2
-            >> HasCField.writeRaw (RIP.Proxy @"dim3_y") ptr0 dim3_y3
-            >> HasCField.writeRaw (RIP.Proxy @"dim3_z") ptr0 dim3_z4
+               HasCField.writeRaw (BG.Proxy @"dim3_x") ptr0 dim3_x2
+            >> HasCField.writeRaw (BG.Proxy @"dim3_y") ptr0 dim3_y3
+            >> HasCField.writeRaw (BG.Proxy @"dim3_z") ptr0 dim3_z4
 
-deriving via Marshal.EquivStorable Dim3 instance RIP.Storable Dim3
+deriving via Marshal.EquivStorable Dim3 instance BG.Storable Dim3
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_x" Dim3 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_x" Dim3 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dim3 { dim3_x = y1
-               , dim3_y = RIP.getField @"dim3_y" x0
-               , dim3_z = RIP.getField @"dim3_z" x0
+               , dim3_y = BG.getField @"dim3_y" x0
+               , dim3_z = BG.getField @"dim3_z" x0
                }
-      , RIP.getField @"dim3_x" x0
+      , BG.getField @"dim3_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_x" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim3_x" (BG.Ptr Dim3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim3_x")
+  getField = HasCField.fromPtr (BG.Proxy @"dim3_x")
 
 instance HasCField.HasCField Dim3 "dim3_x" where
 
-  type CFieldType Dim3 "dim3_x" = RIP.CInt
+  type CFieldType Dim3 "dim3_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_y" Dim3 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_y" Dim3 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dim3 { dim3_y = y1
-               , dim3_x = RIP.getField @"dim3_x" x0
-               , dim3_z = RIP.getField @"dim3_z" x0
+               , dim3_x = BG.getField @"dim3_x" x0
+               , dim3_z = BG.getField @"dim3_z" x0
                }
-      , RIP.getField @"dim3_y" x0
+      , BG.getField @"dim3_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_y" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim3_y" (BG.Ptr Dim3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim3_y")
+  getField = HasCField.fromPtr (BG.Proxy @"dim3_y")
 
 instance HasCField.HasCField Dim3 "dim3_y" where
 
-  type CFieldType Dim3 "dim3_y" = RIP.CInt
+  type CFieldType Dim3 "dim3_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim3_z" Dim3 ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_z" Dim3 ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Dim3 { dim3_z = y1
-               , dim3_x = RIP.getField @"dim3_x" x0
-               , dim3_y = RIP.getField @"dim3_y" x0
+               , dim3_x = BG.getField @"dim3_x" x0
+               , dim3_y = BG.getField @"dim3_y" x0
                }
-      , RIP.getField @"dim3_z" x0
+      , BG.getField @"dim3_z" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim3_z" (RIP.Ptr Dim3) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim3_z" (BG.Ptr Dim3) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim3_z")
+  getField = HasCField.fromPtr (BG.Proxy @"dim3_z")
 
 instance HasCField.HasCField Dim3 "dim3_z" where
 
-  type CFieldType Dim3 "dim3_z" = RIP.CInt
+  type CFieldType Dim3 "dim3_z" = BG.CInt
 
   offset# = \_ -> \_ -> 8
 
@@ -256,19 +251,19 @@ instance HasCField.HasCField Dim3 "dim3_z" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayload = DimPayload
-  { unwrapDimPayload :: RIP.ByteArray
+  { unwrapDimPayload :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.StaticSize DimPayload
+deriving via BG.SizedByteArray 8 4 instance Marshal.StaticSize DimPayload
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.ReadRaw DimPayload
+deriving via BG.SizedByteArray 8 4 instance Marshal.ReadRaw DimPayload
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayload
+deriving via BG.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayload
 
-deriving via Marshal.EquivStorable DimPayload instance RIP.Storable DimPayload
+deriving via Marshal.EquivStorable DimPayload instance BG.Storable DimPayload
 
-deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayload
+deriving via BG.SizedByteArray 8 4 instance Union.IsUnion DimPayload
 
 {-| __C declaration:__ @dim2@
 
@@ -276,9 +271,9 @@ deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayload
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim2" DimPayload ty where
+instance (ty ~ Dim2) => BG.HasField "dimPayload_dim2" DimPayload ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @dim2@
 
@@ -287,17 +282,17 @@ instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim2" DimPayload ty where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ Dim2
-         ) => RIP.CompatHasField.HasField "dimPayload_dim2" DimPayload ty where
+         ) => BG.CompatHasField.HasField "dimPayload_dim2" DimPayload ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"dimPayload_dim2" x0)
+      (BG.setUnionPayload, BG.getField @"dimPayload_dim2" x0)
 
 instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayload_dim2" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
+         ) => BG.HasField "dimPayload_dim2" (BG.Ptr DimPayload) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dimPayload_dim2")
+    HasCField.fromPtr (BG.Proxy @"dimPayload_dim2")
 
 instance HasCField.HasCField DimPayload "dimPayload_dim2" where
 
@@ -311,9 +306,9 @@ instance HasCField.HasCField DimPayload "dimPayload_dim2" where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim3" DimPayload ty where
+instance (ty ~ Dim2) => BG.HasField "dimPayload_dim3" DimPayload ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @dim3@
 
@@ -322,17 +317,17 @@ instance (ty ~ Dim2) => RIP.HasField "dimPayload_dim3" DimPayload ty where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ Dim2
-         ) => RIP.CompatHasField.HasField "dimPayload_dim3" DimPayload ty where
+         ) => BG.CompatHasField.HasField "dimPayload_dim3" DimPayload ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"dimPayload_dim3" x0)
+      (BG.setUnionPayload, BG.getField @"dimPayload_dim3" x0)
 
 instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayload_dim3" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
+         ) => BG.HasField "dimPayload_dim3" (BG.Ptr DimPayload) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dimPayload_dim3")
+    HasCField.fromPtr (BG.Proxy @"dimPayload_dim3")
 
 instance HasCField.HasCField DimPayload "dimPayload_dim3" where
 
@@ -347,7 +342,7 @@ instance HasCField.HasCField DimPayload "dimPayload_dim3" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim = Dim
-  { dim_tag :: RIP.CInt
+  { dim_tag :: BG.CInt
     {- ^ __C declaration:__ @tag@
 
          __defined at:__ @types\/unions\/unions.h 18:9@
@@ -362,7 +357,7 @@ data Dim = Dim
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance Marshal.StaticSize Dim where
 
@@ -375,8 +370,8 @@ instance Marshal.ReadRaw Dim where
   readRaw =
     \ptr0 ->
           pure Dim
-      <*> HasCField.readRaw (RIP.Proxy @"dim_tag") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dim_payload") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim_tag") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dim_payload") ptr0
 
 instance Marshal.WriteRaw Dim where
 
@@ -385,46 +380,45 @@ instance Marshal.WriteRaw Dim where
       \s1 ->
         case s1 of
           Dim dim_tag2 dim_payload3 ->
-               HasCField.writeRaw (RIP.Proxy @"dim_tag") ptr0 dim_tag2
-            >> HasCField.writeRaw (RIP.Proxy @"dim_payload") ptr0 dim_payload3
+               HasCField.writeRaw (BG.Proxy @"dim_tag") ptr0 dim_tag2
+            >> HasCField.writeRaw (BG.Proxy @"dim_payload") ptr0 dim_payload3
 
-deriving via Marshal.EquivStorable Dim instance RIP.Storable Dim
+deriving via Marshal.EquivStorable Dim instance BG.Storable Dim
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dim_tag" Dim ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim_tag" Dim ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Dim {dim_tag = y1, dim_payload = RIP.getField @"dim_payload" x0}
-      , RIP.getField @"dim_tag" x0
+          Dim {dim_tag = y1, dim_payload = BG.getField @"dim_payload" x0}
+      , BG.getField @"dim_tag" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dim_tag" (RIP.Ptr Dim) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "dim_tag" (BG.Ptr Dim) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dim_tag")
+  getField = HasCField.fromPtr (BG.Proxy @"dim_tag")
 
 instance HasCField.HasCField Dim "dim_tag" where
 
-  type CFieldType Dim "dim_tag" = RIP.CInt
+  type CFieldType Dim "dim_tag" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ DimPayload
-         ) => RIP.CompatHasField.HasField "dim_payload" Dim ty where
+         ) => BG.CompatHasField.HasField "dim_payload" Dim ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Dim {dim_payload = y1, dim_tag = RIP.getField @"dim_tag" x0}
-      , RIP.getField @"dim_payload" x0
+          Dim {dim_payload = y1, dim_tag = BG.getField @"dim_tag" x0}
+      , BG.getField @"dim_payload" x0
       )
 
 instance ( ty ~ DimPayload
-         ) => RIP.HasField "dim_payload" (RIP.Ptr Dim) (RIP.Ptr ty) where
+         ) => BG.HasField "dim_payload" (BG.Ptr Dim) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dim_payload")
+    HasCField.fromPtr (BG.Proxy @"dim_payload")
 
 instance HasCField.HasCField Dim "dim_payload" where
 
@@ -439,19 +433,19 @@ instance HasCField.HasCField Dim "dim_payload" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayloadB = DimPayloadB
-  { unwrapDimPayloadB :: RIP.ByteArray
+  { unwrapDimPayloadB :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.StaticSize DimPayloadB
+deriving via BG.SizedByteArray 8 4 instance Marshal.StaticSize DimPayloadB
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.ReadRaw DimPayloadB
+deriving via BG.SizedByteArray 8 4 instance Marshal.ReadRaw DimPayloadB
 
-deriving via RIP.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayloadB
+deriving via BG.SizedByteArray 8 4 instance Marshal.WriteRaw DimPayloadB
 
-deriving via Marshal.EquivStorable DimPayloadB instance RIP.Storable DimPayloadB
+deriving via Marshal.EquivStorable DimPayloadB instance BG.Storable DimPayloadB
 
-deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayloadB
+deriving via BG.SizedByteArray 8 4 instance Union.IsUnion DimPayloadB
 
 {-| __C declaration:__ @dim2@
 
@@ -459,9 +453,9 @@ deriving via RIP.SizedByteArray 8 4 instance Union.IsUnion DimPayloadB
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim2" DimPayloadB ty where
+instance (ty ~ Dim2) => BG.HasField "dimPayloadB_dim2" DimPayloadB ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @dim2@
 
@@ -470,17 +464,17 @@ instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim2" DimPayloadB ty where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ Dim2
-         ) => RIP.CompatHasField.HasField "dimPayloadB_dim2" DimPayloadB ty where
+         ) => BG.CompatHasField.HasField "dimPayloadB_dim2" DimPayloadB ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"dimPayloadB_dim2" x0)
+      (BG.setUnionPayload, BG.getField @"dimPayloadB_dim2" x0)
 
 instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayloadB_dim2" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
+         ) => BG.HasField "dimPayloadB_dim2" (BG.Ptr DimPayloadB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim2")
+    HasCField.fromPtr (BG.Proxy @"dimPayloadB_dim2")
 
 instance HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
 
@@ -494,9 +488,9 @@ instance HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim3" DimPayloadB ty where
+instance (ty ~ Dim2) => BG.HasField "dimPayloadB_dim3" DimPayloadB ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @dim3@
 
@@ -505,17 +499,17 @@ instance (ty ~ Dim2) => RIP.HasField "dimPayloadB_dim3" DimPayloadB ty where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ Dim2
-         ) => RIP.CompatHasField.HasField "dimPayloadB_dim3" DimPayloadB ty where
+         ) => BG.CompatHasField.HasField "dimPayloadB_dim3" DimPayloadB ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"dimPayloadB_dim3" x0)
+      (BG.setUnionPayload, BG.getField @"dimPayloadB_dim3" x0)
 
 instance ( ty ~ Dim2
-         ) => RIP.HasField "dimPayloadB_dim3" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
+         ) => BG.HasField "dimPayloadB_dim3" (BG.Ptr DimPayloadB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim3")
+    HasCField.fromPtr (BG.Proxy @"dimPayloadB_dim3")
 
 instance HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
 
@@ -530,7 +524,7 @@ instance HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 data DimB = DimB
-  { dimB_tag :: RIP.CInt
+  { dimB_tag :: BG.CInt
     {- ^ __C declaration:__ @tag@
 
          __defined at:__ @types\/unions\/unions.h 29:9@
@@ -545,7 +539,7 @@ data DimB = DimB
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
 instance Marshal.StaticSize DimB where
 
@@ -558,8 +552,8 @@ instance Marshal.ReadRaw DimB where
   readRaw =
     \ptr0 ->
           pure DimB
-      <*> HasCField.readRaw (RIP.Proxy @"dimB_tag") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"dimB_payload") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dimB_tag") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"dimB_payload") ptr0
 
 instance Marshal.WriteRaw DimB where
 
@@ -568,46 +562,46 @@ instance Marshal.WriteRaw DimB where
       \s1 ->
         case s1 of
           DimB dimB_tag2 dimB_payload3 ->
-               HasCField.writeRaw (RIP.Proxy @"dimB_tag") ptr0 dimB_tag2
-            >> HasCField.writeRaw (RIP.Proxy @"dimB_payload") ptr0 dimB_payload3
+               HasCField.writeRaw (BG.Proxy @"dimB_tag") ptr0 dimB_tag2
+            >> HasCField.writeRaw (BG.Proxy @"dimB_payload") ptr0 dimB_payload3
 
-deriving via Marshal.EquivStorable DimB instance RIP.Storable DimB
+deriving via Marshal.EquivStorable DimB instance BG.Storable DimB
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "dimB_tag" DimB ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dimB_tag" DimB ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          DimB {dimB_tag = y1, dimB_payload = RIP.getField @"dimB_payload" x0}
-      , RIP.getField @"dimB_tag" x0
+          DimB {dimB_tag = y1, dimB_payload = BG.getField @"dimB_payload" x0}
+      , BG.getField @"dimB_tag" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "dimB_tag" (RIP.Ptr DimB) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "dimB_tag" (BG.Ptr DimB) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"dimB_tag")
+  getField = HasCField.fromPtr (BG.Proxy @"dimB_tag")
 
 instance HasCField.HasCField DimB "dimB_tag" where
 
-  type CFieldType DimB "dimB_tag" = RIP.CInt
+  type CFieldType DimB "dimB_tag" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ DimPayloadB
-         ) => RIP.CompatHasField.HasField "dimB_payload" DimB ty where
+         ) => BG.CompatHasField.HasField "dimB_payload" DimB ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          DimB {dimB_payload = y1, dimB_tag = RIP.getField @"dimB_tag" x0}
-      , RIP.getField @"dimB_payload" x0
+          DimB {dimB_payload = y1, dimB_tag = BG.getField @"dimB_tag" x0}
+      , BG.getField @"dimB_payload" x0
       )
 
 instance ( ty ~ DimPayloadB
-         ) => RIP.HasField "dimB_payload" (RIP.Ptr DimB) (RIP.Ptr ty) where
+         ) => BG.HasField "dimB_payload" (BG.Ptr DimB) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"dimB_payload")
+    HasCField.fromPtr (BG.Proxy @"dimB_payload")
 
 instance HasCField.HasCField DimB "dimB_payload" where
 
@@ -622,14 +616,14 @@ instance HasCField.HasCField DimB "dimB_payload" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 data AnonA_xy = AnonA_xy
-  { anonA_xy_x :: RIP.CDouble
+  { anonA_xy_x :: BG.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 35:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_xy_y :: RIP.CDouble
+  , anonA_xy_y :: BG.CDouble
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 35:31@
@@ -637,7 +631,7 @@ data AnonA_xy = AnonA_xy
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize AnonA_xy where
 
@@ -650,8 +644,8 @@ instance Marshal.ReadRaw AnonA_xy where
   readRaw =
     \ptr0 ->
           pure AnonA_xy
-      <*> HasCField.readRaw (RIP.Proxy @"anonA_xy_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"anonA_xy_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonA_xy_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonA_xy_y") ptr0
 
 instance Marshal.WriteRaw AnonA_xy where
 
@@ -660,52 +654,50 @@ instance Marshal.WriteRaw AnonA_xy where
       \s1 ->
         case s1 of
           AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
-            >> HasCField.writeRaw (RIP.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
+               HasCField.writeRaw (BG.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
+            >> HasCField.writeRaw (BG.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
 
-deriving via Marshal.EquivStorable AnonA_xy instance RIP.Storable AnonA_xy
+deriving via Marshal.EquivStorable AnonA_xy instance BG.Storable AnonA_xy
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "anonA_xy_x" AnonA_xy ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "anonA_xy_x" AnonA_xy ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_xy {anonA_xy_x = y1, anonA_xy_y = RIP.getField @"anonA_xy_y" x0}
-      , RIP.getField @"anonA_xy_x" x0
+          AnonA_xy {anonA_xy_x = y1, anonA_xy_y = BG.getField @"anonA_xy_y" x0}
+      , BG.getField @"anonA_xy_x" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_xy_x" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "anonA_xy_x" (BG.Ptr AnonA_xy) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"anonA_xy_x")
+  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy_x")
 
 instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
-  type CFieldType AnonA_xy "anonA_xy_x" = RIP.CDouble
+  type CFieldType AnonA_xy "anonA_xy_x" = BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "anonA_xy_y" AnonA_xy ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "anonA_xy_y" AnonA_xy ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_xy {anonA_xy_y = y1, anonA_xy_x = RIP.getField @"anonA_xy_x" x0}
-      , RIP.getField @"anonA_xy_y" x0
+          AnonA_xy {anonA_xy_y = y1, anonA_xy_x = BG.getField @"anonA_xy_x" x0}
+      , BG.getField @"anonA_xy_y" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_xy_y" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "anonA_xy_y" (BG.Ptr AnonA_xy) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"anonA_xy_y")
+  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy_y")
 
 instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
 
-  type CFieldType AnonA_xy "anonA_xy_y" = RIP.CDouble
+  type CFieldType AnonA_xy "anonA_xy_y" = BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
@@ -716,14 +708,14 @@ instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 data AnonA_polar = AnonA_polar
-  { anonA_polar_r :: RIP.CDouble
+  { anonA_polar_r :: BG.CDouble
     {- ^ __C declaration:__ @r@
 
          __defined at:__ @types\/unions\/unions.h 36:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_polar_p :: RIP.CDouble
+  , anonA_polar_p :: BG.CDouble
     {- ^ __C declaration:__ @p@
 
          __defined at:__ @types\/unions\/unions.h 36:31@
@@ -731,7 +723,7 @@ data AnonA_polar = AnonA_polar
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize AnonA_polar where
 
@@ -744,8 +736,8 @@ instance Marshal.ReadRaw AnonA_polar where
   readRaw =
     \ptr0 ->
           pure AnonA_polar
-      <*> HasCField.readRaw (RIP.Proxy @"anonA_polar_r") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"anonA_polar_p") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonA_polar_r") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"anonA_polar_p") ptr0
 
 instance Marshal.WriteRaw AnonA_polar where
 
@@ -754,54 +746,54 @@ instance Marshal.WriteRaw AnonA_polar where
       \s1 ->
         case s1 of
           AnonA_polar anonA_polar_r2 anonA_polar_p3 ->
-               HasCField.writeRaw (RIP.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
-            >> HasCField.writeRaw (RIP.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
+               HasCField.writeRaw (BG.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
+            >> HasCField.writeRaw (BG.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
 
-deriving via Marshal.EquivStorable AnonA_polar instance RIP.Storable AnonA_polar
+deriving via Marshal.EquivStorable AnonA_polar instance BG.Storable AnonA_polar
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "anonA_polar_r" AnonA_polar ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "anonA_polar_r" AnonA_polar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_polar {anonA_polar_r = y1, anonA_polar_p = RIP.getField @"anonA_polar_p" x0}
-      , RIP.getField @"anonA_polar_r" x0
+          AnonA_polar {anonA_polar_r = y1, anonA_polar_p = BG.getField @"anonA_polar_p" x0}
+      , BG.getField @"anonA_polar_r" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_polar_r" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "anonA_polar_r" (BG.Ptr AnonA_polar) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"anonA_polar_r")
+    HasCField.fromPtr (BG.Proxy @"anonA_polar_r")
 
 instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   type CFieldType AnonA_polar "anonA_polar_r" =
-    RIP.CDouble
+    BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.CompatHasField.HasField "anonA_polar_p" AnonA_polar ty where
+instance ( ty ~ BG.CDouble
+         ) => BG.CompatHasField.HasField "anonA_polar_p" AnonA_polar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_polar {anonA_polar_p = y1, anonA_polar_r = RIP.getField @"anonA_polar_r" x0}
-      , RIP.getField @"anonA_polar_p" x0
+          AnonA_polar {anonA_polar_p = y1, anonA_polar_r = BG.getField @"anonA_polar_r" x0}
+      , BG.getField @"anonA_polar_p" x0
       )
 
-instance ( ty ~ RIP.CDouble
-         ) => RIP.HasField "anonA_polar_p" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
+instance ( ty ~ BG.CDouble
+         ) => BG.HasField "anonA_polar_p" (BG.Ptr AnonA_polar) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"anonA_polar_p")
+    HasCField.fromPtr (BG.Proxy @"anonA_polar_p")
 
 instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
 
   type CFieldType AnonA_polar "anonA_polar_p" =
-    RIP.CDouble
+    BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
@@ -812,29 +804,19 @@ instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype AnonA = AnonA
-  { unwrapAnonA :: RIP.ByteArray
+  { unwrapAnonA :: BG.ByteArray
   }
-  deriving stock (RIP.Generic)
+  deriving stock (BG.Generic)
 
-deriving via RIP.SizedByteArray 16 8 instance Marshal.StaticSize AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.StaticSize AnonA
 
-deriving via RIP.SizedByteArray 16 8 instance Marshal.ReadRaw AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.ReadRaw AnonA
 
-deriving via RIP.SizedByteArray 16 8 instance Marshal.WriteRaw AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.WriteRaw AnonA
 
-deriving via Marshal.EquivStorable AnonA instance RIP.Storable AnonA
+deriving via Marshal.EquivStorable AnonA instance BG.Storable AnonA
 
-deriving via RIP.SizedByteArray 16 8 instance Union.IsUnion AnonA
-
-{-| __C declaration:__ @xy@
-
-    __defined at:__ @types\/unions\/unions.h 35:36@
-
-    __exported by:__ @types\/unions\/unions.h@
--}
-instance (ty ~ AnonA_xy) => RIP.HasField "anonA_xy" AnonA ty where
-
-  getField = RIP.getUnionPayload
+deriving via BG.SizedByteArray 16 8 instance Union.IsUnion AnonA
 
 {-| __C declaration:__ @xy@
 
@@ -842,17 +824,26 @@ instance (ty ~ AnonA_xy) => RIP.HasField "anonA_xy" AnonA ty where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance ( ty ~ AnonA_xy
-         ) => RIP.CompatHasField.HasField "anonA_xy" AnonA ty where
+instance (ty ~ AnonA_xy) => BG.HasField "anonA_xy" AnonA ty where
+
+  getField = BG.getUnionPayload
+
+{-| __C declaration:__ @xy@
+
+    __defined at:__ @types\/unions\/unions.h 35:36@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
+instance (ty ~ AnonA_xy) => BG.CompatHasField.HasField "anonA_xy" AnonA ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"anonA_xy" x0)
+      (BG.setUnionPayload, BG.getField @"anonA_xy" x0)
 
 instance ( ty ~ AnonA_xy
-         ) => RIP.HasField "anonA_xy" (RIP.Ptr AnonA) (RIP.Ptr ty) where
+         ) => BG.HasField "anonA_xy" (BG.Ptr AnonA) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"anonA_xy")
+  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy")
 
 instance HasCField.HasCField AnonA "anonA_xy" where
 
@@ -866,9 +857,9 @@ instance HasCField.HasCField AnonA "anonA_xy" where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ AnonA_polar) => RIP.HasField "anonA_polar" AnonA ty where
+instance (ty ~ AnonA_polar) => BG.HasField "anonA_polar" AnonA ty where
 
-  getField = RIP.getUnionPayload
+  getField = BG.getUnionPayload
 
 {-| __C declaration:__ @polar@
 
@@ -877,17 +868,17 @@ instance (ty ~ AnonA_polar) => RIP.HasField "anonA_polar" AnonA ty where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ AnonA_polar
-         ) => RIP.CompatHasField.HasField "anonA_polar" AnonA ty where
+         ) => BG.CompatHasField.HasField "anonA_polar" AnonA ty where
 
   hasField =
     \x0 ->
-      (RIP.setUnionPayload, RIP.getField @"anonA_polar" x0)
+      (BG.setUnionPayload, BG.getField @"anonA_polar" x0)
 
 instance ( ty ~ AnonA_polar
-         ) => RIP.HasField "anonA_polar" (RIP.Ptr AnonA) (RIP.Ptr ty) where
+         ) => BG.HasField "anonA_polar" (BG.Ptr AnonA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"anonA_polar")
+    HasCField.fromPtr (BG.Proxy @"anonA_polar")
 
 instance HasCField.HasCField AnonA "anonA_polar" where
 

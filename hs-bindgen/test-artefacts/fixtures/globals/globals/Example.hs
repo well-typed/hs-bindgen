@@ -22,10 +22,10 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct config@
 
@@ -34,14 +34,14 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @globals\/globals.h@
 -}
 data Config = Config
-  { config_x :: RIP.CInt
+  { config_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/globals.h 14:7@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , config_y :: RIP.CInt
+  , config_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 15:7@
@@ -49,7 +49,7 @@ data Config = Config
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Config where
 
@@ -62,8 +62,8 @@ instance Marshal.ReadRaw Config where
   readRaw =
     \ptr0 ->
           pure Config
-      <*> HasCField.readRaw (RIP.Proxy @"config_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"config_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"config_y") ptr0
 
 instance Marshal.WriteRaw Config where
 
@@ -72,50 +72,48 @@ instance Marshal.WriteRaw Config where
       \s1 ->
         case s1 of
           Config config_x2 config_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"config_x") ptr0 config_x2
-            >> HasCField.writeRaw (RIP.Proxy @"config_y") ptr0 config_y3
+               HasCField.writeRaw (BG.Proxy @"config_x") ptr0 config_x2
+            >> HasCField.writeRaw (BG.Proxy @"config_y") ptr0 config_y3
 
-deriving via Marshal.EquivStorable Config instance RIP.Storable Config
+deriving via Marshal.EquivStorable Config instance BG.Storable Config
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "config_x" Config ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "config_x" Config ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Config {config_x = y1, config_y = RIP.getField @"config_y" x0}
-      , RIP.getField @"config_x" x0
+          Config {config_x = y1, config_y = BG.getField @"config_y" x0}
+      , BG.getField @"config_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "config_x" (BG.Ptr Config) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"config_x")
+  getField = HasCField.fromPtr (BG.Proxy @"config_x")
 
 instance HasCField.HasCField Config "config_x" where
 
-  type CFieldType Config "config_x" = RIP.CInt
+  type CFieldType Config "config_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "config_y" Config ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "config_y" Config ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Config {config_y = y1, config_x = RIP.getField @"config_x" x0}
-      , RIP.getField @"config_y" x0
+          Config {config_y = y1, config_x = BG.getField @"config_x" x0}
+      , BG.getField @"config_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "config_y" (BG.Ptr Config) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"config_y")
+  getField = HasCField.fromPtr (BG.Proxy @"config_y")
 
 instance HasCField.HasCField Config "config_y" where
 
-  type CFieldType Config "config_y" = RIP.CInt
+  type CFieldType Config "config_y" = BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -126,14 +124,14 @@ instance HasCField.HasCField Config "config_y" where
     __exported by:__ @globals\/globals.h@
 -}
 data Inline_struct = Inline_struct
-  { inline_struct_x :: RIP.CInt
+  { inline_struct_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/globals.h 20:35@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , inline_struct_y :: RIP.CInt
+  , inline_struct_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 20:42@
@@ -141,7 +139,7 @@ data Inline_struct = Inline_struct
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Inline_struct where
 
@@ -154,8 +152,8 @@ instance Marshal.ReadRaw Inline_struct where
   readRaw =
     \ptr0 ->
           pure Inline_struct
-      <*> HasCField.readRaw (RIP.Proxy @"inline_struct_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"inline_struct_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"inline_struct_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"inline_struct_y") ptr0
 
 instance Marshal.WriteRaw Inline_struct where
 
@@ -164,54 +162,54 @@ instance Marshal.WriteRaw Inline_struct where
       \s1 ->
         case s1 of
           Inline_struct inline_struct_x2 inline_struct_y3 ->
-               HasCField.writeRaw (RIP.Proxy @"inline_struct_x") ptr0 inline_struct_x2
-            >> HasCField.writeRaw (RIP.Proxy @"inline_struct_y") ptr0 inline_struct_y3
+               HasCField.writeRaw (BG.Proxy @"inline_struct_x") ptr0 inline_struct_x2
+            >> HasCField.writeRaw (BG.Proxy @"inline_struct_y") ptr0 inline_struct_y3
 
-deriving via Marshal.EquivStorable Inline_struct instance RIP.Storable Inline_struct
+deriving via Marshal.EquivStorable Inline_struct instance BG.Storable Inline_struct
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "inline_struct_x" Inline_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "inline_struct_x" Inline_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Inline_struct {inline_struct_x = y1, inline_struct_y = RIP.getField @"inline_struct_y" x0}
-      , RIP.getField @"inline_struct_x" x0
+          Inline_struct {inline_struct_x = y1, inline_struct_y = BG.getField @"inline_struct_y" x0}
+      , BG.getField @"inline_struct_x" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "inline_struct_x" (BG.Ptr Inline_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
+    HasCField.fromPtr (BG.Proxy @"inline_struct_x")
 
 instance HasCField.HasCField Inline_struct "inline_struct_x" where
 
   type CFieldType Inline_struct "inline_struct_x" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "inline_struct_y" Inline_struct ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "inline_struct_y" Inline_struct ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          Inline_struct {inline_struct_y = y1, inline_struct_x = RIP.getField @"inline_struct_x" x0}
-      , RIP.getField @"inline_struct_y" x0
+          Inline_struct {inline_struct_y = y1, inline_struct_x = BG.getField @"inline_struct_x" x0}
+      , BG.getField @"inline_struct_y" x0
       )
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "inline_struct_y" (BG.Ptr Inline_struct) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
+    HasCField.fromPtr (BG.Proxy @"inline_struct_y")
 
 instance HasCField.HasCField Inline_struct "inline_struct_y" where
 
   type CFieldType Inline_struct "inline_struct_y" =
-    RIP.CInt
+    BG.CInt
 
   offset# = \_ -> \_ -> 4
 
@@ -244,7 +242,7 @@ data Version_t = Version_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Version_t where
 
@@ -257,9 +255,9 @@ instance Marshal.ReadRaw Version_t where
   readRaw =
     \ptr0 ->
           pure Version_t
-      <*> HasCField.readRaw (RIP.Proxy @"version_t_major") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"version_t_minor") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"version_t_patch") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"version_t_major") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"version_t_minor") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"version_t_patch") ptr0
 
 instance Marshal.WriteRaw Version_t where
 
@@ -268,30 +266,30 @@ instance Marshal.WriteRaw Version_t where
       \s1 ->
         case s1 of
           Version_t version_t_major2 version_t_minor3 version_t_patch4 ->
-               HasCField.writeRaw (RIP.Proxy @"version_t_major") ptr0 version_t_major2
-            >> HasCField.writeRaw (RIP.Proxy @"version_t_minor") ptr0 version_t_minor3
-            >> HasCField.writeRaw (RIP.Proxy @"version_t_patch") ptr0 version_t_patch4
+               HasCField.writeRaw (BG.Proxy @"version_t_major") ptr0 version_t_major2
+            >> HasCField.writeRaw (BG.Proxy @"version_t_minor") ptr0 version_t_minor3
+            >> HasCField.writeRaw (BG.Proxy @"version_t_patch") ptr0 version_t_patch4
 
-deriving via Marshal.EquivStorable Version_t instance RIP.Storable Version_t
+deriving via Marshal.EquivStorable Version_t instance BG.Storable Version_t
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "version_t_major" Version_t ty where
+         ) => BG.CompatHasField.HasField "version_t_major" Version_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Version_t { version_t_major = y1
-                    , version_t_minor = RIP.getField @"version_t_minor" x0
-                    , version_t_patch = RIP.getField @"version_t_patch" x0
+                    , version_t_minor = BG.getField @"version_t_minor" x0
+                    , version_t_patch = BG.getField @"version_t_patch" x0
                     }
-      , RIP.getField @"version_t_major" x0
+      , BG.getField @"version_t_major" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+         ) => BG.HasField "version_t_major" (BG.Ptr Version_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_major")
+    HasCField.fromPtr (BG.Proxy @"version_t_major")
 
 instance HasCField.HasCField Version_t "version_t_major" where
 
@@ -301,23 +299,23 @@ instance HasCField.HasCField Version_t "version_t_major" where
   offset# = \_ -> \_ -> 0
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.CompatHasField.HasField "version_t_minor" Version_t ty where
+         ) => BG.CompatHasField.HasField "version_t_minor" Version_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Version_t { version_t_minor = y1
-                    , version_t_major = RIP.getField @"version_t_major" x0
-                    , version_t_patch = RIP.getField @"version_t_patch" x0
+                    , version_t_major = BG.getField @"version_t_major" x0
+                    , version_t_patch = BG.getField @"version_t_patch" x0
                     }
-      , RIP.getField @"version_t_minor" x0
+      , BG.getField @"version_t_minor" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+         ) => BG.HasField "version_t_minor" (BG.Ptr Version_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_minor")
+    HasCField.fromPtr (BG.Proxy @"version_t_minor")
 
 instance HasCField.HasCField Version_t "version_t_minor" where
 
@@ -327,23 +325,23 @@ instance HasCField.HasCField Version_t "version_t_minor" where
   offset# = \_ -> \_ -> 2
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.CompatHasField.HasField "version_t_patch" Version_t ty where
+         ) => BG.CompatHasField.HasField "version_t_patch" Version_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Version_t { version_t_patch = y1
-                    , version_t_major = RIP.getField @"version_t_major" x0
-                    , version_t_minor = RIP.getField @"version_t_minor" x0
+                    , version_t_major = BG.getField @"version_t_major" x0
+                    , version_t_minor = BG.getField @"version_t_minor" x0
                     }
-      , RIP.getField @"version_t_patch" x0
+      , BG.getField @"version_t_patch" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
-         ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
+         ) => BG.HasField "version_t_patch" (BG.Ptr Version_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"version_t_patch")
+    HasCField.fromPtr (BG.Proxy @"version_t_patch")
 
 instance HasCField.HasCField Version_t "version_t_patch" where
 
@@ -366,7 +364,7 @@ data Struct1_t = Struct1_t
 
          __exported by:__ @globals\/globals.h@
     -}
-  , struct1_t_y :: RIP.CBool
+  , struct1_t_y :: BG.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 417:13@
@@ -381,7 +379,7 @@ data Struct1_t = Struct1_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct1_t where
 
@@ -394,9 +392,9 @@ instance Marshal.ReadRaw Struct1_t where
   readRaw =
     \ptr0 ->
           pure Struct1_t
-      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_x") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_y") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_version") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct1_t_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct1_t_y") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct1_t_version") ptr0
 
 instance Marshal.WriteRaw Struct1_t where
 
@@ -405,30 +403,30 @@ instance Marshal.WriteRaw Struct1_t where
       \s1 ->
         case s1 of
           Struct1_t struct1_t_x2 struct1_t_y3 struct1_t_version4 ->
-               HasCField.writeRaw (RIP.Proxy @"struct1_t_x") ptr0 struct1_t_x2
-            >> HasCField.writeRaw (RIP.Proxy @"struct1_t_y") ptr0 struct1_t_y3
-            >> HasCField.writeRaw (RIP.Proxy @"struct1_t_version") ptr0 struct1_t_version4
+               HasCField.writeRaw (BG.Proxy @"struct1_t_x") ptr0 struct1_t_x2
+            >> HasCField.writeRaw (BG.Proxy @"struct1_t_y") ptr0 struct1_t_y3
+            >> HasCField.writeRaw (BG.Proxy @"struct1_t_version") ptr0 struct1_t_version4
 
-deriving via Marshal.EquivStorable Struct1_t instance RIP.Storable Struct1_t
+deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.CompatHasField.HasField "struct1_t_x" Struct1_t ty where
+         ) => BG.CompatHasField.HasField "struct1_t_x" Struct1_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Struct1_t { struct1_t_x = y1
-                    , struct1_t_y = RIP.getField @"struct1_t_y" x0
-                    , struct1_t_version = RIP.getField @"struct1_t_version" x0
+                    , struct1_t_y = BG.getField @"struct1_t_y" x0
+                    , struct1_t_version = BG.getField @"struct1_t_version" x0
                     }
-      , RIP.getField @"struct1_t_x" x0
+      , BG.getField @"struct1_t_x" x0
       )
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
-         ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+         ) => BG.HasField "struct1_t_x" (BG.Ptr Struct1_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
+    HasCField.fromPtr (BG.Proxy @"struct1_t_x")
 
 instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
@@ -437,49 +435,49 @@ instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.CompatHasField.HasField "struct1_t_y" Struct1_t ty where
+instance ( ty ~ BG.CBool
+         ) => BG.CompatHasField.HasField "struct1_t_y" Struct1_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Struct1_t { struct1_t_y = y1
-                    , struct1_t_x = RIP.getField @"struct1_t_x" x0
-                    , struct1_t_version = RIP.getField @"struct1_t_version" x0
+                    , struct1_t_x = BG.getField @"struct1_t_x" x0
+                    , struct1_t_version = BG.getField @"struct1_t_version" x0
                     }
-      , RIP.getField @"struct1_t_y" x0
+      , BG.getField @"struct1_t_y" x0
       )
 
-instance ( ty ~ RIP.CBool
-         ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+instance ( ty ~ BG.CBool
+         ) => BG.HasField "struct1_t_y" (BG.Ptr Struct1_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
+    HasCField.fromPtr (BG.Proxy @"struct1_t_y")
 
 instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
-  type CFieldType Struct1_t "struct1_t_y" = RIP.CBool
+  type CFieldType Struct1_t "struct1_t_y" = BG.CBool
 
   offset# = \_ -> \_ -> 2
 
 instance ( ty ~ Version_t
-         ) => RIP.CompatHasField.HasField "struct1_t_version" Struct1_t ty where
+         ) => BG.CompatHasField.HasField "struct1_t_version" Struct1_t ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
           Struct1_t { struct1_t_version = y1
-                    , struct1_t_x = RIP.getField @"struct1_t_x" x0
-                    , struct1_t_y = RIP.getField @"struct1_t_y" x0
+                    , struct1_t_x = BG.getField @"struct1_t_x" x0
+                    , struct1_t_y = BG.getField @"struct1_t_y" x0
                     }
-      , RIP.getField @"struct1_t_version" x0
+      , BG.getField @"struct1_t_version" x0
       )
 
 instance ( ty ~ Version_t
-         ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
+         ) => BG.HasField "struct1_t_version" (BG.Ptr Struct1_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
+    HasCField.fromPtr (BG.Proxy @"struct1_t_version")
 
 instance HasCField.HasCField Struct1_t "struct1_t_version" where
 
@@ -503,7 +501,7 @@ data Struct2_t = Struct2_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize Struct2_t where
 
@@ -516,7 +514,7 @@ instance Marshal.ReadRaw Struct2_t where
   readRaw =
     \ptr0 ->
           pure Struct2_t
-      <*> HasCField.readRaw (RIP.Proxy @"struct2_t_field1") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"struct2_t_field1") ptr0
 
 instance Marshal.WriteRaw Struct2_t where
 
@@ -525,24 +523,24 @@ instance Marshal.WriteRaw Struct2_t where
       \s1 ->
         case s1 of
           Struct2_t struct2_t_field12 ->
-            HasCField.writeRaw (RIP.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
+            HasCField.writeRaw (BG.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
 
-deriving via Marshal.EquivStorable Struct2_t instance RIP.Storable Struct2_t
+deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
 
 instance ( ty ~ Struct1_t
-         ) => RIP.CompatHasField.HasField "struct2_t_field1" Struct2_t ty where
+         ) => BG.CompatHasField.HasField "struct2_t_field1" Struct2_t ty where
 
   hasField =
     \x0 ->
       ( \y1 -> Struct2_t {struct2_t_field1 = y1}
-      , RIP.getField @"struct2_t_field1" x0
+      , BG.getField @"struct2_t_field1" x0
       )
 
 instance ( ty ~ Struct1_t
-         ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
+         ) => BG.HasField "struct2_t_field1" (BG.Ptr Struct2_t) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
+    HasCField.fromPtr (BG.Proxy @"struct2_t_field1")
 
 instance HasCField.HasCField Struct2_t "struct2_t_field1" where
 

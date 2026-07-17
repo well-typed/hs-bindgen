@@ -22,9 +22,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro I@
 
@@ -33,41 +33,40 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype I = I
-  { unwrapI :: RIP.CInt
+  { unwrapI :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapI" I ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapI" I ty where
 
   hasField =
     \x0 ->
-      (\y1 -> I {unwrapI = y1}, RIP.getField @"unwrapI" x0)
+      (\y1 -> I {unwrapI = y1}, BG.getField @"unwrapI" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapI" (RIP.Ptr I) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapI" (BG.Ptr I) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapI")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapI")
 
 instance HasCField.HasCField I "unwrapI" where
 
-  type CFieldType I "unwrapI" = RIP.CInt
+  type CFieldType I "unwrapI" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -78,41 +77,40 @@ instance HasCField.HasCField I "unwrapI" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype C = C
-  { unwrapC :: RIP.CChar
+  { unwrapC :: BG.CChar
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CChar) => RIP.CompatHasField.HasField "unwrapC" C ty where
+instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "unwrapC" C ty where
 
   hasField =
     \x0 ->
-      (\y1 -> C {unwrapC = y1}, RIP.getField @"unwrapC" x0)
+      (\y1 -> C {unwrapC = y1}, BG.getField @"unwrapC" x0)
 
-instance ( ty ~ RIP.CChar
-         ) => RIP.HasField "unwrapC" (RIP.Ptr C) (RIP.Ptr ty) where
+instance (ty ~ BG.CChar) => BG.HasField "unwrapC" (BG.Ptr C) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapC")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapC")
 
 instance HasCField.HasCField C "unwrapC" where
 
-  type CFieldType C "unwrapC" = RIP.CChar
+  type CFieldType C "unwrapC" = BG.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -123,39 +121,38 @@ instance HasCField.HasCField C "unwrapC" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype F = F
-  { unwrapF :: RIP.CFloat
+  { unwrapF :: BG.CFloat
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
     ( Enum
     , Floating
     , Fractional
-    , RIP.HasFFIType
+    , BG.HasFFIType
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , RealFloat
     , RealFrac
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CFloat) => RIP.CompatHasField.HasField "unwrapF" F ty where
+instance (ty ~ BG.CFloat) => BG.CompatHasField.HasField "unwrapF" F ty where
 
   hasField =
     \x0 ->
-      (\y1 -> F {unwrapF = y1}, RIP.getField @"unwrapF" x0)
+      (\y1 -> F {unwrapF = y1}, BG.getField @"unwrapF" x0)
 
-instance ( ty ~ RIP.CFloat
-         ) => RIP.HasField "unwrapF" (RIP.Ptr F) (RIP.Ptr ty) where
+instance (ty ~ BG.CFloat) => BG.HasField "unwrapF" (BG.Ptr F) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapF")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapF")
 
 instance HasCField.HasCField F "unwrapF" where
 
-  type CFieldType F "unwrapF" = RIP.CFloat
+  type CFieldType F "unwrapF" = BG.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -166,41 +163,40 @@ instance HasCField.HasCField F "unwrapF" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype L = L
-  { unwrapL :: RIP.CLong
+  { unwrapL :: BG.CLong
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CLong) => RIP.CompatHasField.HasField "unwrapL" L ty where
+instance (ty ~ BG.CLong) => BG.CompatHasField.HasField "unwrapL" L ty where
 
   hasField =
     \x0 ->
-      (\y1 -> L {unwrapL = y1}, RIP.getField @"unwrapL" x0)
+      (\y1 -> L {unwrapL = y1}, BG.getField @"unwrapL" x0)
 
-instance ( ty ~ RIP.CLong
-         ) => RIP.HasField "unwrapL" (RIP.Ptr L) (RIP.Ptr ty) where
+instance (ty ~ BG.CLong) => BG.HasField "unwrapL" (BG.Ptr L) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapL")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapL")
 
 instance HasCField.HasCField L "unwrapL" where
 
-  type CFieldType L "unwrapL" = RIP.CLong
+  type CFieldType L "unwrapL" = BG.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -211,108 +207,107 @@ instance HasCField.HasCField L "unwrapL" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype S = S
-  { unwrapS :: RIP.CShort
+  { unwrapS :: BG.CShort
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CShort) => RIP.CompatHasField.HasField "unwrapS" S ty where
+instance (ty ~ BG.CShort) => BG.CompatHasField.HasField "unwrapS" S ty where
 
   hasField =
     \x0 ->
-      (\y1 -> S {unwrapS = y1}, RIP.getField @"unwrapS" x0)
+      (\y1 -> S {unwrapS = y1}, BG.getField @"unwrapS" x0)
 
-instance ( ty ~ RIP.CShort
-         ) => RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr ty) where
+instance (ty ~ BG.CShort) => BG.HasField "unwrapS" (BG.Ptr S) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapS")
 
 instance HasCField.HasCField S "unwrapS" where
 
-  type CFieldType S "unwrapS" = RIP.CShort
+  type CFieldType S "unwrapS" = BG.CShort
 
   offset# = \_ -> \_ -> 0
 
--- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
-foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
-     (RIP.Int16 -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
+-- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
+foreign import ccall safe "wrapper" hs_bindgen_03e9923d8d301cca_base ::
+     (BG.Int16 -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int16 -> IO BG.Int32))
 
--- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_25a28556cfbbf031 ::
-     (RIP.CShort -> IO I)
-  -> IO (RIP.FunPtr (RIP.CShort -> IO I))
-hs_bindgen_25a28556cfbbf031 =
+-- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
+hs_bindgen_03e9923d8d301cca ::
+     (BG.CShort -> IO I)
+  -> IO (BG.FunPtr (BG.CShort -> IO I))
+hs_bindgen_03e9923d8d301cca =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_03e9923d8d301cca_base (BG.toFFIType fun0))
 
--- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
-foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
-     RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
-  -> RIP.Int16 -> IO RIP.Int32
+-- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
+foreign import ccall safe "dynamic" hs_bindgen_ee10a61bcb1a5d39_base ::
+     BG.FunPtr (BG.Int16 -> IO BG.Int32)
+  -> BG.Int16 -> IO BG.Int32
 
--- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
-hs_bindgen_255a05599df0464e ::
-     RIP.FunPtr (RIP.CShort -> IO I)
-  -> RIP.CShort -> IO I
-hs_bindgen_255a05599df0464e =
+-- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
+hs_bindgen_ee10a61bcb1a5d39 ::
+     BG.FunPtr (BG.CShort -> IO I)
+  -> BG.CShort -> IO I
+hs_bindgen_ee10a61bcb1a5d39 =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_255a05599df0464e_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_ee10a61bcb1a5d39_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr (RIP.CShort -> IO I) where
+instance BG.ToFunPtr (BG.CShort -> IO I) where
 
-  toFunPtr = hs_bindgen_25a28556cfbbf031
+  toFunPtr = hs_bindgen_03e9923d8d301cca
 
-instance RIP.FromFunPtr (RIP.CShort -> IO I) where
+instance BG.FromFunPtr (BG.CShort -> IO I) where
 
-  fromFunPtr = hs_bindgen_255a05599df0464e
+  fromFunPtr = hs_bindgen_ee10a61bcb1a5d39
 
--- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
-foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
-     (RIP.Int16 -> IO RIP.Int32)
-  -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
+-- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
+foreign import ccall safe "wrapper" hs_bindgen_140ec1313a27c405_base ::
+     (BG.Int16 -> IO BG.Int32)
+  -> IO (BG.FunPtr (BG.Int16 -> IO BG.Int32))
 
--- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_016f1407db09bd2f ::
-     (S -> IO RIP.CInt)
-  -> IO (RIP.FunPtr (S -> IO RIP.CInt))
-hs_bindgen_016f1407db09bd2f =
+-- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
+hs_bindgen_140ec1313a27c405 ::
+     (S -> IO BG.CInt)
+  -> IO (BG.FunPtr (S -> IO BG.CInt))
+hs_bindgen_140ec1313a27c405 =
   \fun0 ->
-    fmap RIP.castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (RIP.toFFIType fun0))
+    fmap BG.castFunPtrFromFFIType (hs_bindgen_140ec1313a27c405_base (BG.toFFIType fun0))
 
--- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
-foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
-     RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
-  -> RIP.Int16 -> IO RIP.Int32
+-- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
+foreign import ccall safe "dynamic" hs_bindgen_e86a5fa3f995e6fb_base ::
+     BG.FunPtr (BG.Int16 -> IO BG.Int32)
+  -> BG.Int16 -> IO BG.Int32
 
--- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
-hs_bindgen_1c14ce64db2e04d0 ::
-     RIP.FunPtr (S -> IO RIP.CInt)
-  -> S -> IO RIP.CInt
-hs_bindgen_1c14ce64db2e04d0 =
+-- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
+hs_bindgen_e86a5fa3f995e6fb ::
+     BG.FunPtr (S -> IO BG.CInt)
+  -> S -> IO BG.CInt
+hs_bindgen_e86a5fa3f995e6fb =
   \funPtr0 ->
-    RIP.fromFFIType (hs_bindgen_1c14ce64db2e04d0_base (RIP.castFunPtrToFFIType funPtr0))
+    BG.fromFFIType (hs_bindgen_e86a5fa3f995e6fb_base (BG.castFunPtrToFFIType funPtr0))
 
-instance RIP.ToFunPtr (S -> IO RIP.CInt) where
+instance BG.ToFunPtr (S -> IO BG.CInt) where
 
-  toFunPtr = hs_bindgen_016f1407db09bd2f
+  toFunPtr = hs_bindgen_140ec1313a27c405
 
-instance RIP.FromFunPtr (S -> IO RIP.CInt) where
+instance BG.FromFunPtr (S -> IO BG.CInt) where
 
-  fromFunPtr = hs_bindgen_1c14ce64db2e04d0
+  fromFunPtr = hs_bindgen_e86a5fa3f995e6fb

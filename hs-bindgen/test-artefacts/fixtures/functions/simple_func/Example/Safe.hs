@@ -10,10 +10,10 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <functions/simple_func.h>"
   , "double hs_bindgen_1c811bfb80de8f77 ("
   , "  double arg1"
@@ -53,10 +53,10 @@ foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 hs_bindgen_1c811bfb80de8f77 ::
-     RIP.CDouble
-  -> RIP.CDouble
+     BG.CDouble
+  -> BG.CDouble
 hs_bindgen_1c811bfb80de8f77 =
-  RIP.fromFFIType hs_bindgen_1c811bfb80de8f77_base
+  BG.fromFFIType hs_bindgen_1c811bfb80de8f77_base
 
 {-|
 
@@ -69,9 +69,9 @@ hs_bindgen_1c811bfb80de8f77 =
     __exported by:__ @functions\/simple_func.h@
 -}
 erf ::
-     RIP.CDouble
+     BG.CDouble
      -- ^ __C declaration:__ @arg@
-  -> RIP.CDouble
+  -> BG.CDouble
 erf = hs_bindgen_1c811bfb80de8f77
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
@@ -83,12 +83,12 @@ foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c5
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 hs_bindgen_180022d3518c53bd ::
-     RIP.CDouble
-  -> RIP.CDouble
-  -> RIP.CDouble
-  -> IO RIP.CDouble
+     BG.CDouble
+  -> BG.CDouble
+  -> BG.CDouble
+  -> IO BG.CDouble
 hs_bindgen_180022d3518c53bd =
-  RIP.fromFFIType hs_bindgen_180022d3518c53bd_base
+  BG.fromFFIType hs_bindgen_180022d3518c53bd_base
 
 {-| __C declaration:__ @bad_fma@
 
@@ -97,13 +97,13 @@ hs_bindgen_180022d3518c53bd =
     __exported by:__ @functions\/simple_func.h@
 -}
 bad_fma ::
-     RIP.CDouble
+     BG.CDouble
      -- ^ __C declaration:__ @x@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @y@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @z@
-  -> IO RIP.CDouble
+  -> IO BG.CDouble
 bad_fma = hs_bindgen_180022d3518c53bd
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
@@ -113,7 +113,7 @@ foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f9772
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 hs_bindgen_d72558f6f977200c :: IO ()
 hs_bindgen_d72558f6f977200c =
-  RIP.fromFFIType hs_bindgen_d72558f6f977200c_base
+  BG.fromFFIType hs_bindgen_d72558f6f977200c_base
 
 {-| __C declaration:__ @no_args@
 
@@ -131,7 +131,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 hs_bindgen_d8523e2ccea5c7ba :: IO ()
 hs_bindgen_d8523e2ccea5c7ba =
-  RIP.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
+  BG.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -144,17 +144,17 @@ no_args_no_void = hs_bindgen_d8523e2ccea5c7ba
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e874f_base ::
-     RIP.Int8
+     BG.Int8
   -> Double
-  -> IO RIP.Int32
+  -> IO BG.Int32
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 hs_bindgen_48cbd3cd1c6e874f ::
-     RIP.CChar
-  -> RIP.CDouble
-  -> IO RIP.CInt
+     BG.CChar
+  -> BG.CDouble
+  -> IO BG.CInt
 hs_bindgen_48cbd3cd1c6e874f =
-  RIP.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
+  BG.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
 
 {-| __C declaration:__ @fun@
 
@@ -163,9 +163,9 @@ hs_bindgen_48cbd3cd1c6e874f =
     __exported by:__ @functions\/simple_func.h@
 -}
 fun ::
-     RIP.CChar
+     BG.CChar
      -- ^ __C declaration:__ @x@
-  -> RIP.CDouble
+  -> BG.CDouble
      -- ^ __C declaration:__ @y@
-  -> IO RIP.CInt
+  -> IO BG.CInt
 fun = hs_bindgen_48cbd3cd1c6e874f

@@ -63,8 +63,8 @@ import GHC.TypeLits
 
 import HsBindgen.Runtime.BitfieldPtr (BitfieldPtr, mkBitfieldPtr)
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
-import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
 import HsBindgen.Runtime.Marshal qualified as Marshal
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
 
 -- | Evidence that a C object @a@ has a bit-field with the name @field@.
 --

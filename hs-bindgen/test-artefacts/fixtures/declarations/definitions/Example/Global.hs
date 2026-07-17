@@ -6,10 +6,10 @@ module Example.Global
     )
   where
 
-import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
 
-$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <declarations/definitions.h>"
   , "/* test_declarationsdefinitions_Example_get_n */"
   , "__attribute__ ((const))"
@@ -21,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
 foreign import ccall unsafe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97357_base ::
-     IO (RIP.Ptr RIP.Void)
+     IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
-hs_bindgen_417f0d4479c97357 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_417f0d4479c97357 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_417f0d4479c97357 =
-  RIP.fromFFIType hs_bindgen_417f0d4479c97357_base
+  BG.fromFFIType hs_bindgen_417f0d4479c97357_base
 
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
@@ -35,5 +35,5 @@ hs_bindgen_417f0d4479c97357 =
 
     __exported by:__ @declarations\/definitions.h@
 -}
-n :: RIP.Ptr RIP.CInt
-n = RIP.unsafePerformIO hs_bindgen_417f0d4479c97357
+n :: BG.Ptr BG.CInt
+n = BG.unsafePerformIO hs_bindgen_417f0d4479c97357

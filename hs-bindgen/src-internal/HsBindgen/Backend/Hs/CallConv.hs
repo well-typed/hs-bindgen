@@ -11,6 +11,7 @@ module HsBindgen.Backend.Hs.CallConv (
 
 import GHC.Generics (Generic)
 
+import HsBindgen.Backend.Runtime qualified as Runtime
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -74,6 +75,6 @@ data ImportStyle =
   | ImportAsPtr
   deriving stock (Generic, Show)
 
--- | Qualified import string for @hs-bindgen-runtime@ prelude.
+-- | Module providing the userland CAPI support code.
 capiModule :: Hs.ModuleName
-capiModule = "HsBindgen.Runtime.Internal.CAPI"
+capiModule = Runtime.moduleName Runtime.CAPI

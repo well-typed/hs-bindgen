@@ -18,9 +18,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct OkBefore@
 
@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @program-analysis\/selection_fail.h@
 -}
 data OkBefore = OkBefore
-  { okBefore_x :: RIP.CInt
+  { okBefore_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/selection_fail.h 2:7@
@@ -37,7 +37,7 @@ data OkBefore = OkBefore
          __exported by:__ @program-analysis\/selection_fail.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize OkBefore where
 
@@ -50,7 +50,7 @@ instance Marshal.ReadRaw OkBefore where
   readRaw =
     \ptr0 ->
           pure OkBefore
-      <*> HasCField.readRaw (RIP.Proxy @"okBefore_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"okBefore_x") ptr0
 
 instance Marshal.WriteRaw OkBefore where
 
@@ -59,26 +59,25 @@ instance Marshal.WriteRaw OkBefore where
       \s1 ->
         case s1 of
           OkBefore okBefore_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"okBefore_x") ptr0 okBefore_x2
+            HasCField.writeRaw (BG.Proxy @"okBefore_x") ptr0 okBefore_x2
 
-deriving via Marshal.EquivStorable OkBefore instance RIP.Storable OkBefore
+deriving via Marshal.EquivStorable OkBefore instance BG.Storable OkBefore
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.CompatHasField.HasField "okBefore_x" OkBefore ty where
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "okBefore_x" OkBefore ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         OkBefore {okBefore_x = y1}, RIP.getField @"okBefore_x" x0)
+         OkBefore {okBefore_x = y1}, BG.getField @"okBefore_x" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "okBefore_x" (BG.Ptr OkBefore) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"okBefore_x")
+  getField = HasCField.fromPtr (BG.Proxy @"okBefore_x")
 
 instance HasCField.HasCField OkBefore "okBefore_x" where
 
-  type CFieldType OkBefore "okBefore_x" = RIP.CInt
+  type CFieldType OkBefore "okBefore_x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
