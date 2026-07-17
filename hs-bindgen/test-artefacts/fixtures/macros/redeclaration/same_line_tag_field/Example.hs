@@ -21,9 +21,9 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.Internal.Prelude.CompatHasField as RIP.CompatHasField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro B@
 
@@ -32,41 +32,40 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
 newtype B = B
-  { unwrapB :: RIP.CInt
+  { unwrapB :: BG.CInt
   }
-  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( RIP.Bitfield
-    , RIP.Bits
+    ( BG.Bitfield
+    , BG.Bits
     , Bounded
     , Enum
-    , RIP.FiniteBits
-    , RIP.HasFFIType
+    , BG.FiniteBits
+    , BG.HasFFIType
     , Integral
-    , RIP.Ix
+    , BG.Ix
     , Num
-    , RIP.Prim
+    , BG.Prim
     , Marshal.ReadRaw
     , Real
     , Marshal.StaticSize
-    , RIP.Storable
+    , BG.Storable
     , Marshal.WriteRaw
     )
 
-instance (ty ~ RIP.CInt) => RIP.CompatHasField.HasField "unwrapB" B ty where
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapB" B ty where
 
   hasField =
     \x0 ->
-      (\y1 -> B {unwrapB = y1}, RIP.getField @"unwrapB" x0)
+      (\y1 -> B {unwrapB = y1}, BG.getField @"unwrapB" x0)
 
-instance ( ty ~ RIP.CInt
-         ) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
+instance (ty ~ BG.CInt) => BG.HasField "unwrapB" (BG.Ptr B) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapB")
 
 instance HasCField.HasCField B "unwrapB" where
 
-  type CFieldType B "unwrapB" = RIP.CInt
+  type CFieldType B "unwrapB" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -85,7 +84,7 @@ data S = S
          __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
     -}
   }
-  deriving stock (Eq, RIP.Generic, Show)
+  deriving stock (Eq, BG.Generic, Show)
 
 instance Marshal.StaticSize S where
 
@@ -98,7 +97,7 @@ instance Marshal.ReadRaw S where
   readRaw =
     \ptr0 ->
           pure S
-      <*> HasCField.readRaw (RIP.Proxy @"s_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_x") ptr0
 
 instance Marshal.WriteRaw S where
 
@@ -107,18 +106,18 @@ instance Marshal.WriteRaw S where
       \s1 ->
         case s1 of
           S s_x2 ->
-            HasCField.writeRaw (RIP.Proxy @"s_x") ptr0 s_x2
+            HasCField.writeRaw (BG.Proxy @"s_x") ptr0 s_x2
 
-deriving via Marshal.EquivStorable S instance RIP.Storable S
+deriving via Marshal.EquivStorable S instance BG.Storable S
 
-instance (ty ~ B) => RIP.CompatHasField.HasField "s_x" S ty where
+instance (ty ~ B) => BG.CompatHasField.HasField "s_x" S ty where
 
   hasField =
-    \x0 -> (\y1 -> S {s_x = y1}, RIP.getField @"s_x" x0)
+    \x0 -> (\y1 -> S {s_x = y1}, BG.getField @"s_x" x0)
 
-instance (ty ~ B) => RIP.HasField "s_x" (RIP.Ptr S) (RIP.Ptr ty) where
+instance (ty ~ B) => BG.HasField "s_x" (BG.Ptr S) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (RIP.Proxy @"s_x")
+  getField = HasCField.fromPtr (BG.Proxy @"s_x")
 
 instance HasCField.HasCField S "s_x" where
 
