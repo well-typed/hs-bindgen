@@ -1,0 +1,40 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: First
+ctypes:
+- headers: first.h
+  cname: FirstHandle
+  hsname: FirstHandle
+hstypes:
+- hsname: FirstHandle
+  representation:
+    newtype:
+      constructor: FirstHandle
+      fields:
+      - unwrapFirstHandle
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

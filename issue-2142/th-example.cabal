@@ -1,0 +1,37 @@
+cabal-version:      3.0
+name:               th-example
+version:            0.1.0.0
+build-type:         Simple
+
+common warnings
+  ghc-options: -Wall
+
+executable th-example
+  import:             warnings
+  hs-source-dirs:     app
+  other-modules:
+    First
+    Second
+
+  main-is:            Main.hs
+  include-dirs:       cbits
+  extra-libraries:    firstsecond
+  extra-lib-dirs:     cbits
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen
+    , hs-bindgen-runtime
+    , optics
+
+  default-language:   GHC2021
+  default-extensions:
+    CApiFFI
+    DataKinds
+    DerivingStrategies
+    DerivingVia
+    MagicHash
+    OverloadedLabels
+    TemplateHaskell
+    TypeFamilies
+    UnboxedTuples
+    UndecidableInstances
