@@ -259,6 +259,9 @@ jobs:
         # Prevent MSYS/Git Bash from converting the pattern to a Windows path
         MSYS_NO_PATHCONV: 1
 
+    - name: Build source distributions
+      run: cabal sdist all
+
     - name: 🧪 Run manual
       working-directory: ${{ env.manual-dir }}
       run: ./generate-and-run.sh
