@@ -21,8 +21,7 @@ extra-source-files:
   clib/*.c
   clib/*.h
 
-extra-doc-files:
-  README.md
+extra-doc-files:    README.md
 
 common lang
   ghc-options:
