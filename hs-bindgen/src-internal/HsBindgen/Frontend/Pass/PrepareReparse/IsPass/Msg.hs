@@ -15,6 +15,8 @@ import System.Exit (ExitCode)
 import Text.Parsec.Error qualified as Parsec
 import Text.SimplePrettyPrint qualified as PP
 
+import Clang.HighLevel.Types (MultiLoc (multiLocExpansion))
+
 import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Info, Warning),
                               PrettyForTrace (..), Source (HsBindgen))
 
@@ -167,7 +169,7 @@ instance IsTrace Level PrepareReparseMsg where
 data DelayedPrepareReparseMsg =
     -- | Can not expand macro invocations in the given declaration because we
     -- can not do so unambiguously. This may cause reparsing to fail.
-    PrepareReparseExpansionNotUnique
+    PrepareReparseExpansionNotUnique MultiLoc String
     -- | Failed to parse the structure of some macro invocations
   | PrepareReparseMacroInvocationParseFailures (NonEmpty Text)
     -- | There was no preprocessor output for this declaration
@@ -176,9 +178,12 @@ data DelayedPrepareReparseMsg =
 
 instance PrettyForTrace DelayedPrepareReparseMsg where
   prettyForTrace = \case
-    PrepareReparseExpansionNotUnique -> PP.hsep [
-        "Can not expand macro invocations in the given declaration because we"
-      , "can not do so unambiguously. This may cause reparsing to fail."
+    PrepareReparseExpansionNotUnique loc tokens -> PP.hsep [
+        "Can not expand macro invocations unambiguously,"
+      , "which may cause reparsing to fail. At"
+      , PP.show loc.multiLocExpansion
+      , ":"
+      , PP.show tokens
       ]
     PrepareReparseMacroInvocationParseFailures failures -> PP.hsep [
         "Failed to parse the structure of these macro invocations: "

@@ -62,10 +62,10 @@ instance PassMsg PrepareReparse where
 
 -- | @libclang@ tokens flattened into a single string
 data FlatTokens = FlatTokens {
-      -- | Tokens flattened into a single string
-      flatten  :: String
       -- | Location of the first token before flattening
-    , locStart :: MultiLoc
+      locStart :: MultiLoc
+      -- | Tokens flattened into a single string
+    , flatten  :: String
     }
   deriving stock (Show, Eq)
 
