@@ -1,0 +1,4 @@
+# The re-exposed libclang-bindings this example builds over is a regenerated
+# build dependency, not source: hs-project/generate-and-run.sh materialises it
+# from the pinned upstream (local cabal cache, else a git fetch). Do not commit it.
+/libclang-bindings/
