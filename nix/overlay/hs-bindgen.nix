@@ -12,7 +12,7 @@ let
     "hs-bindgen-runtime"
     "hs-bindgen-test-runtime"
   ];
-  mkPkg = hpkgs: name: hpkgs.callCabal2nix name (./../../${name}) { };
+  mkPkg = hpkgs: name: hpkgs.callPackage (./../generated + "/${name}.nix") { };
   mkHsBindgenPkgs = hpkgs: lib.genAttrs hsBindgenPkgNames (mkPkg hpkgs);
 in
 {
