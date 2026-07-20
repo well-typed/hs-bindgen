@@ -1,16 +1,9 @@
--- curent date: 3-month update
-index-state: 2026-06-21T11:18:12Z
-
-source-repository-package
-    type: git
-    location: https://github.com/well-typed/libclang-bindings
-    tag: ef67437045c45a32d7d1aa7166043937c1259d7f
-    subdir: libclang-bindings
+index-state: 2026-07-20T12:50:32Z
 
 source-repository-package
     type: git
     location: https://github.com/well-typed/c-expr
-    tag: e7dcc55a3799b4bac10a15fb764d6bbba546b787
+    tag: 19aeaeb8d58ea6c49ee8cbb7ac741bb981e6f27d
     subdir: c-expr-runtime c-expr-dsl
 
 --

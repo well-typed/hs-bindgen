@@ -318,6 +318,9 @@ jobs:
           # Windows path.
           MSYS_NO_PATHCONV: 1
 
+      - name: Build source distributions
+        run: cabal sdist all
+
       - name: "[test] Create tmate session"
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'test' }}
         uses: mxschmitt/action-tmate@v3
