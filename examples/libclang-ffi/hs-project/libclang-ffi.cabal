@@ -1,0 +1,69 @@
+cabal-version: 3.0
+name:          libclang-ffi
+version:       0.1.0.0
+synopsis:
+  High-level wrappers over libclang's raw Clang.LowLevel.FFI, a stress-test for
+  hs-bindgen's ToHighLevel combinator library.
+
+license:       BSD-3-Clause
+author:        Well-Typed LLP
+maintainer:    info@well-typed.com
+build-type:    Simple
+
+common lang
+  ghc-options:        -Wall
+  default-language:   GHC2021
+  default-extensions:
+    CApiFFI
+    DerivingStrategies
+    LambdaCase
+    OverloadedStrings
+    TypeApplications
+    UnliftedFFITypes
+
+-- The combinator layer over Clang.LowLevel.FFI, plus the C trampoline that gives
+-- clang_visitChildren a pointer-taking (rather than by-value) interface.
+library
+  import:          lang
+  hs-source-dirs:  src
+  include-dirs:    cbits
+  c-sources:       cbits/hs_visit.c
+  extra-libraries: clang
+  build-depends:
+    , base
+    , bytestring
+    , hs-bindgen-runtime
+    , libclang-bindings
+    , text
+
+  exposed-modules:
+    ClangFFI.Callback
+    ClangFFI.Lifted
+    ClangFFI.Wrappers
+
+-- The AST walk, high-level: parse fixture.h and print each cursor's kind,
+-- spelling, and line:column through ClangFFI.Wrappers.
+executable libclang-ffi-walk-high
+  import:         lang
+  main-is:        WalkHigh.hs
+  hs-source-dirs: app
+  build-depends:
+    , base
+    , libclang-bindings
+    , libclang-ffi
+    , text
+
+-- The same walk, low-level: raw alloca / preallocate / onHaskellHeap / dispose
+-- against Clang.LowLevel.FFI, with its own "wrapper" FunPtr import.
+executable libclang-ffi-walk-low
+  import:          lang
+  main-is:         WalkLow.hs
+  hs-source-dirs:  app
+  include-dirs:    cbits
+  c-sources:       cbits/hs_visit.c
+  extra-libraries: clang
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+    , libclang-bindings
+    , text
