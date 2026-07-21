@@ -224,8 +224,12 @@
 
 ### Bug fixes
 
-* Unresolved tagged types in macro expressions produce a `Warning`-level
-  diagnostic (`TypecheckMacrosErrorUnresolvedTaggedType`) instead of panicking.
+* Macro name-resolution failures (e.g. references to unresolved tagged types)
+  produce an `Info`-level diagnostic (`MacroResolutionError`) instead of
+  panicking. Such failures are common in real headers (e.g. preprocessor-only
+  builtin operators); use `HsBindgen.TraceMsg.EnableMacroWarnings` to raise
+  them to `Warning`. See [issue
+  #2147](https://github.com/well-typed/hs-bindgen/issues/2147).
 * Forward-declared (opaque) tagged types are included in `knownTaggedTypes`
   during macro typechecking.
 * Fixture tests now invoke the same GHC that cabal used to build the test

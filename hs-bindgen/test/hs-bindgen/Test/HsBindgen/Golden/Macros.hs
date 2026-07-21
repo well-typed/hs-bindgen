@@ -8,6 +8,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
@@ -34,6 +35,8 @@ testCases = [
     , defaultTest "macros/undef"
       -- Bespoke tests
     , test_macros_macro_ext_binding_dep
+    , test_macros_macro_resolution_log_level_default
+    , test_macros_macro_resolution_log_level_warnings
     , test_macros_macro_type_unresolved_tagged
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
@@ -57,6 +60,43 @@ test_macros_macro_ext_binding_dep =
       & #specExternal .~
           [ "test-artefacts/headers/golden/macros/macro_ext_binding_dep.yaml"
           ]
+
+-- | Macro name-resolution failures are reported at 'Info' by default.
+--
+-- Regression test for <https://github.com/well-typed/hs-bindgen/issues/2147>:
+-- such failures are common in real headers (e.g. preprocessor-only operators),
+-- so they must not be warnings by default.
+test_macros_macro_resolution_log_level_default :: TestCase
+test_macros_macro_resolution_log_level_default =
+    testVariant "macros/macro_resolution_log_level" "default"
+      & #tracePredicate .~ multiTracePredicate expected (\trace -> case trace of
+            MatchUnusable name (UnusableMacroResolutionFailure{})
+              | getDefaultLogLevel trace == Info -> Just $ Expected name
+            _otherwise -> Nothing
+          )
+  where
+    expected :: [C.DeclName]
+    expected = ["macro UNRESOLVED_MACRO"]
+
+-- | 'EnableMacroWarnings' raises macro name-resolution failures to 'Warning'.
+--
+-- Companion to 'test_macros_macro_resolution_log_level_default'; the predicate
+-- insists the (custom) log level is 'Warning'.
+test_macros_macro_resolution_log_level_warnings :: TestCase
+test_macros_macro_resolution_log_level_warnings =
+    testVariant "macros/macro_resolution_log_level" "enable_macro_warnings"
+      & #tracePredicate .~ multiTracePredicateCustomLogLevel customLogLevel
+          expected (\trace -> case trace of
+            MatchUnusable name (UnusableMacroResolutionFailure{})
+              | applyCustomLogLevel customLogLevel trace (getDefaultLogLevel trace)
+                  == Warning -> Just $ Expected name
+            _otherwise -> Nothing
+          )
+  where
+    customLogLevel = getCustomLogLevel [EnableMacroWarnings]
+
+    expected :: [C.DeclName]
+    expected = ["macro UNRESOLVED_MACRO"]
 
 test_macros_macro_type_unresolved_tagged :: TestCase
 test_macros_macro_type_unresolved_tagged =
