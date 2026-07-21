@@ -20,7 +20,7 @@ module LibGit2.Commit
 import Data.Int (Int64)
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input, resultIO, toHighLevel)
+import HsBindgen.HighLevel (input, resultIO, toHighLevel)
 
 import Generated.Commit.FunPtr qualified as CF
 import Generated.Commit.Safe qualified as CS
@@ -31,15 +31,22 @@ import LibGit2.Types (Commit, Oid, Repository, Signature)
 
 -- | @git_commit_lookup@: the commit object for @oid@.
 commitLookup :: Repository -> Oid -> IO Commit
-commitLookup repo oid =
-    fst <$> newHandle CF.git_commit_free (input handleIn . input oidInC)
-              CS.git_commit_lookup repo oid
+commitLookup =
+    newHandle CF.git_commit_free
+              ( input handleIn
+              . input oidInC
+              )
+              CS.git_commit_lookup
 
 commitAuthor :: Commit -> IO Signature
-commitAuthor = toHighLevel (input handleInC $ resultIO peekSignatureConst) CS.git_commit_author
+commitAuthor = toHighLevel CS.git_commit_author
+             $ input handleInC
+             $ resultIO peekSignatureConst
 
 commitCommitter :: Commit -> IO Signature
-commitCommitter = toHighLevel (input handleInC $ resultIO peekSignatureConst) CS.git_commit_committer
+commitCommitter = toHighLevel CS.git_commit_committer
+                $ input handleInC
+                $ resultIO peekSignatureConst
 
 commitMessage :: Commit -> IO Text
 commitMessage = borrowedText CS.git_commit_message
@@ -47,7 +54,9 @@ commitMessage = borrowedText CS.git_commit_message
 -- | NB: @git_commit_summary@ takes a non-const @git_commit *@, so 'handleIn'
 -- (not the 'borrowedText' helper, which uses the @const@ form).
 commitSummary :: Commit -> IO Text
-commitSummary = toHighLevel (input handleIn $ resultIO peekTextConst) CS.git_commit_summary
+commitSummary = toHighLevel CS.git_commit_summary
+              $ input handleIn
+              $ resultIO peekTextConst
 
 -- | The commit time (seconds since the epoch).
 commitTime :: Commit -> IO Int64

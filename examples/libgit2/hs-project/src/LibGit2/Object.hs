@@ -7,7 +7,7 @@ module LibGit2.Object
 
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input)
+import HsBindgen.HighLevel (input)
 
 import Generated.Object.FunPtr qualified as OF
 import Generated.Object.Safe qualified as OS
@@ -18,9 +18,12 @@ import LibGit2.Types (Object, Oid, Repository)
 -- | @git_revparse_single@: resolve a revision spec (e.g. @HEAD@, @main~3@, a
 -- sha) to an object.
 revparseSingle :: Repository -> Text -> IO Object
-revparseSingle repo spec =
-    fst <$> newHandle OF.git_object_free (input handleIn . input textIn)
-              RPS.git_revparse_single repo spec
+revparseSingle =
+    newHandle OF.git_object_free
+              ( input handleIn
+              . input textIn
+              )
+              RPS.git_revparse_single
 
 -- | @git_object_id@: the object's oid (borrowed; copied out).
 objectId :: Object -> IO Oid

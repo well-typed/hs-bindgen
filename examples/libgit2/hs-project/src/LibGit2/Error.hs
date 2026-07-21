@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 -- | libgit2's error model as Haskell exceptions.
 --
 -- libgit2 reports failure as a negative @int@ return code, with the human
@@ -8,7 +10,7 @@ module LibGit2.Error
   ( GitError (..)
   , gitError
   , checkStatus
-  , checkStatusResult
+  , checkedStatus
   ) where
 
 import Control.Exception (Exception, throwIO)
@@ -19,8 +21,10 @@ import Foreign.C.Types (CInt)
 import Foreign.Ptr (nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, resultIO)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
+import HsBindgen.HighLevel (ToHighLevel)
+import HsBindgen.HighLevel.Auto (AutoOutputs, checkedResult)
 
 import Generated.Errors (Git_error (..))
 import Generated.Errors.Safe (git_error_last)
@@ -59,11 +63,17 @@ checkStatus n
   | n < 0     = throwIO =<< gitError n
   | otherwise = pure ()
 
--- | A 'ToHighLevel' closer that consumes the C @int@ status: throws on failure,
--- yields @()@ on success. Closes most fallible libgit2 wrappers.
+-- | The closer for a fallible libgit2 call: throw on a negative status, otherwise
+-- return whatever the call wrote into its out-parameters.
 --
--- It is 'resultIO', not the runtime's 'HsBindgen.Runtime.HighLevel.throwOnNonZero':
--- the error /detail/ is thread-local state reached through an 'IO' call
--- (@git_error_last@), which a pure @c -> e@ classifier cannot read.
-checkStatusResult :: ToHighLevel (IO CInt) (IO ())
-checkStatusResult = resultIO checkStatus
+-- One definition serves every arity: no out-parameters closes to @IO ()@, one to
+-- @IO a@, two to @IO (a, b)@.
+--
+-- The check is 'IO' because libgit2 keeps the error /detail/ in thread-local state
+-- reached through @git_error_last@, which a pure classifier cannot read.
+--
+-- The status is checked before any out-parameter is read back, which matters here:
+-- 'LibGit2.Marshal.outHandle' wraps its slot in a 'Foreign.ForeignPtr.ForeignPtr'
+-- with a @git_X_free@ finaliser, and a failed call never wrote that slot.
+checkedStatus :: AutoOutputs os hs => ToHighLevel os (IO CInt) (IO hs)
+checkedStatus = checkedResult checkStatus

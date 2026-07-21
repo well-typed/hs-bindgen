@@ -16,14 +16,14 @@ module LibGit2.Signature
 import Foreign.C.String (castCharToCChar)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel.Marshaller (MarshalStruct, UnmarshalStruct,
-                                               at, marshalNested,
-                                               runUnmarshalStruct, scalar,
-                                               struct, unmarshalField,
-                                               unmarshalFieldPure,
-                                               unmarshalNested, (>>>))
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
+import HsBindgen.HighLevel.Marshaller (MarshalStruct, UnmarshalStruct, at,
+                                       marshalNested, runUnmarshalStruct,
+                                       scalar, struct, unmarshalField,
+                                       unmarshalFieldPure, unmarshalNested,
+                                       (>>>))
 
 import Generated.Types (Git_signature (..), Git_time (..))
 import LibGit2.Marshal (peekText, textInPtr)

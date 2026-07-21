@@ -7,8 +7,8 @@ module LibSodium.Init
 import Control.Exception (throwIO)
 import Control.Monad (when)
 
-import HsBindgen.Runtime.HighLevel (toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (auto)
+import HsBindgen.HighLevel (toHighLevel)
+import HsBindgen.HighLevel.Auto (auto)
 
 import Generated.Core.Safe (sodium_init)
 import Generated.Version.Safe (sodium_library_version_major,
@@ -24,13 +24,12 @@ sodiumInit = do
   r <- sodium_init
   when (r < 0) $ throwIO (SodiumError "sodium_init" (fromIntegral r))
 
--- | The runtime library version, @(major, minor)@. Both getters are pure @int@
--- returns, so @auto@ lifts them end to end with no marshaller: this is the one
--- shape on a buffer API where @auto@ reaches all the way (contrast the crypto
--- operations, whose output buffer @auto@ cannot fill).
+-- | The runtime library version, @(major, minor)@. Both getters take no arguments
+-- and return an @int@, so @auto@ lifts them end to end with no marshaller. The
+-- crypto operations below need more, because @auto@ cannot fill an output buffer.
 libraryVersion :: IO (Int, Int)
 libraryVersion = (,) <$> major <*> minor
   where
     major, minor :: IO Int
-    major = toHighLevel auto sodium_library_version_major
-    minor = toHighLevel auto sodium_library_version_minor
+    major = toHighLevel sodium_library_version_major auto
+    minor = toHighLevel sodium_library_version_minor auto

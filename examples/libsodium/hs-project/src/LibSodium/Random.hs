@@ -4,19 +4,17 @@ module LibSodium.Random
   ) where
 
 import Data.ByteString (ByteString)
-import Foreign.C.Types (CSize)
 
-import HsBindgen.Runtime.HighLevel (discardResult, fixed, output, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut)
+import HsBindgen.HighLevel (fixed, output, toHighLevel)
+import HsBindgen.HighLevel.Auto (autoResult)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut)
 
 import Generated.Randombytes.Safe (randombytes_buf)
 
 -- | @n@ cryptographically random bytes from libsodium's CSPRNG
 -- (@randombytes_buf@).
 randomBytes :: Int -> IO ByteString
-randomBytes n =
-  fst <$> toHighLevel
-    ( output (byteStringOut n)          -- void *buf   (out)
-    $ fixed  (fromIntegral n :: CSize)  -- size_t size
-    $ discardResult
-    ) randombytes_buf
+randomBytes n = toHighLevel randombytes_buf
+              $ output (byteStringOut n) -- void *buf
+              $ fixed  (fromIntegral n)  -- size_t size
+              $ autoResult

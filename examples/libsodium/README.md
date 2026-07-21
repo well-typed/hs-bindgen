@@ -1,9 +1,9 @@
 # Generate `libsodium` Haskell bindings with `hs-bindgen`
 
 This example demonstrates generating Haskell bindings for
-[libsodium](https://libsodium.org/), a modern, easy-to-use cryptography library.
-It also hand-writes a small high-level API over the generated bindings; see
-[FINDINGS.md](FINDINGS.md) for the write-up.
+[libsodium](https://libsodium.org/), a portable cryptography library.  It also
+hand-writes a small high-level API over the generated bindings, covering
+secret-key authenticated encryption and Ed25519 signatures.
 
 ## Prerequisites
 

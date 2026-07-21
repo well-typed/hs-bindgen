@@ -1,8 +1,8 @@
 -- | Ed25519 signatures, high-level.
 --
 -- The same program as "SignLow" (identical output). The deterministic core is the
--- pure 'signDemo' (built on "LibSodium.Pure"); only the random 'keypair' stays in
--- 'IO'. Contrast the manual state threading in the low-level version.
+-- pure 'signDemo'; only the random 'keypair' stays in 'IO'. Contrast the manual
+-- state threading in the low-level version.
 module Main (main) where
 
 import Data.Bits (xor)
@@ -11,7 +11,6 @@ import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BSC
 
 import LibSodium
-import LibSodium.Pure qualified as Pure
 import Numeric (showHex)
 
 main :: IO ()
@@ -57,16 +56,16 @@ signDemo seed chunks = SignDemo
     { publicKey     = pk
     , secretKey     = sk
     , signature     = sig
-    , verifyGood    = Pure.verifyDetached pk sig message
-    , verifyBad     = Pure.verifyDetached pk sig (flipFirst message)
+    , verifyGood    = verifyDetached pk sig message
+    , verifyBad     = verifyDetached pk sig (flipFirst message)
     , multipartSig  = msig
-    , multipartGood = Pure.verifyMultipart pk msig chunks
-    , multipartBad  = Pure.verifyMultipart pk msig (tamper chunks)
+    , multipartGood = verifyMultipart pk msig chunks
+    , multipartBad  = verifyMultipart pk msig (tamper chunks)
     }
   where
-    (pk, sk) = Pure.seedKeypair seed
-    sig      = Pure.signDetached sk message
-    msig     = Pure.signMultipart sk chunks
+    (pk, sk) = seedKeypair seed
+    sig      = signDetached sk message
+    msig     = signMultipart sk chunks
     message  = BS.concat chunks
 
 toHex :: ByteString -> String

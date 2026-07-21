@@ -8,6 +8,7 @@ exclude_path = [
   "examples/c-rpm/rpm",
   "examples/c-yaml/yaml",
   "examples/cef/cef_binary*",
+  "examples/libclang-ffi/libclang-bindings",
   "examples/libgit2/libgit2",
   "examples/libpcap/libpcap",
   "examples/libsodium/libsodium",
